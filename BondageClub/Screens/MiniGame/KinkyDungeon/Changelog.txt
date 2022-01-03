@@ -77,7 +77,7 @@ Features
 Features
 - Some balance changes to struggling, too many to count. Should be less random now.
 
-2.0 (January 2022)
+2.2 (January 2022)
 Gameplay Overhaul
 - Removed willpower. Stamina is the primary resource now for determining whether the player gets captured
 - New consequences when an enemy closes the gap and you have 0 stamina
