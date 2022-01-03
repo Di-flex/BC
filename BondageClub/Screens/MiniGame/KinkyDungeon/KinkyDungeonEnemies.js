@@ -68,6 +68,8 @@ var KinkyDungeonEnemies = [
 
 let KinkyDungeonSpawnJailers = 0;
 let KinkyDungeonSpawnJailersMax = 5;
+let KinkyDungeonLeashedPlayer = 0;
+let KinkyDungeonLeashingEnemy = null;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
@@ -231,6 +233,7 @@ function KinkyDungeonTrackSneak(enemy, delta) {
 }
 
 function KinkyDungeonUpdateEnemies(delta) {
+	if (KinkyDungeonLeashedPlayer > 0) KinkyDungeonLeashedPlayer -= 1;
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		let player = KinkyDungeonNearestPlayer(enemy);
@@ -259,7 +262,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let MovableTiles = KinkyDungeonMovableTilesEnemy;
 		if (enemy.Enemy.tags && enemy.Enemy.tags.includes("opendoors")) MovableTiles = KinkyDungeonMovableTilesSmartEnemy;
 
-		if (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && !KinkyDungeonHasStamina(1.1)) followRange = 1;
+
 
 		if (enemy.Enemy.specialCharges && enemy.specialCharges <= 0) enemy.specialCD = 999;
 		if (enemy.specialCD > 0)
@@ -271,12 +274,15 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (enemy.stun > 0) {
 			enemy.stun -= delta;
 		} else {
-
-
 			let attack = enemy.Enemy.attack;
 			let usingSpecial = false;
 			let range = enemy.Enemy.attackRange;
 			let width = enemy.Enemy.attackWidth;
+
+			if (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && !KinkyDungeonHasStamina(1.1)) {
+				followRange = 1;
+				if (!attack.includes("Bind")) attack = "Bind" + attack;
+			}
 
 			let playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
 			if (KinkyDungeonAlert && playerDist < KinkyDungeonAlert) enemy.aware = true;
@@ -467,16 +473,23 @@ function KinkyDungeonUpdateEnemies(delta) {
 								break;
 							}
 						}
-						if (caught && KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) {
-							let roll = Math.random();
-							for (let T = 0; T < KinkyDungeonSlowLevel/2; T++) {
-								roll = Math.max(roll, Math.random());
+						if (caught) {
+							let harnessChance = 0;
+							for (let restraint of KinkyDungeonRestraintList()) {
+								if (restraint.restraint && restraint.restraint.harness) harnessChance += 1;
 							}
-							if (roll > KinkyDungeonTorsoGrabChance) {
-								KinkyDungeonMovePoints = -1;
 
-								KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+							if (harnessChance > 0) {
+								let roll = Math.random();
+								for (let T = 0; T < harnessChance; T++) {
+									roll = Math.max(roll, Math.random());
+								}
+								if (roll > KinkyDungeonTorsoGrabChance) {
+									KinkyDungeonMovePoints = -1;
 
+									if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
+										KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+								}
 							}
 						}
 					}
@@ -538,8 +551,44 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (attack.includes("Suicide")) {
 							enemy.hp = 0;
 						}
-						if (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && !KinkyDungeonHasStamina(1.1)) {
-							KinkyDungeonDefeat();
+						if (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
+							let leashed = false;
+							for (let restraint of KinkyDungeonRestraintList()) {
+								if (restraint.restraint && restraint.restraint.leash) {
+									leashed = true;
+									break;
+								}
+							}
+							if (leashed) {
+								let startPos = KinkyDungeonStartPosition;
+								if (!KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - startPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - startPos.y) <= 1) {
+									KinkyDungeonDefeat();
+									KinkyDungeonLeashedPlayer = enemy.Enemy.attackPoints * 2;
+									KinkyDungeonLeashingEnemy = enemy;
+								}
+								else {
+									if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
+									// Leash pullback
+									let path = KinkyDungeonFindPath(enemy.x, enemy.y, startPos.x, startPos.y, false, false, KinkyDungeonMovableTiles);
+									if (path && path.length > 0) {
+										KinkyDungeonLeashedPlayer = enemy.Enemy.attackPoints * 2;
+										KinkyDungeonLeashingEnemy = enemy;
+										let leashPoint = path[0];
+										let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
+										if (enemySwap) {
+											enemySwap.x = KinkyDungeonPlayerEntity.x;
+											enemySwap.y = KinkyDungeonPlayerEntity.y;
+										}
+										KinkyDungeonPlayerEntity.x = enemy.x;
+										KinkyDungeonPlayerEntity.y = enemy.y;
+										enemy.x = leashPoint.x;
+										enemy.y = leashPoint.y;
+										if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D') KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
+										if (!KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
+											KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+									}
+								}
+							}
 						}
 						if (attack.includes("Will") || willpowerDamage > 0) {
 							if (willpowerDamage == 0)

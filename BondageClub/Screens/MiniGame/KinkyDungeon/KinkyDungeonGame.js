@@ -99,6 +99,7 @@ var KinkyDungeonLastMoveTimerCooldown = 175;
 var KinkyDungeonLastMoveTimerCooldownStart = 50;
 
 let KinkyDungeonPatrolPoints = [];
+let KinkyDungeonStartPosition = {x: 1, y: 1};
 
 function KinkyDungeonSetCheckPoint(Checkpoint) {
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
@@ -213,6 +214,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 
 	// Place the player!
 	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 1, y:startpos};
+	KinkyDungeonStartPosition = {x: 1, y: startpos};
 
 	KinkyDungeonReplaceDoodads(doodadchance, width, height); // Replace random internal walls with doodads
 	KinkyDungeonPlaceStairs(startpos, width, height); // Place the start and end locations
@@ -662,9 +664,9 @@ function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
 // @ts-ignore
 function KinkyDungeonPlacePatrols(Count, width, height) {
 	KinkyDungeonPatrolPoints = [];
-	for (let i = 0; i < Count; i++) {
+	for (let i = 1; i <= Count; i++) {
 		for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
-			let X = Math.floor(i * width / Count) + Math.floor(Math.random() * width/Count);
+			let X = Math.floor(i * width / (Count + 1)) + Math.floor(Math.random() * width/(Count + 1));
 			let Y = Math.floor(Math.random()*height);
 			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) {
 				KinkyDungeonPatrolPoints.push({x: X, y: Y});
