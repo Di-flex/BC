@@ -77,7 +77,7 @@ Features
 Features
 - Some balance changes to struggling, too many to count. Should be less random now.
 
-2.2 (January 2022)
+2.0 (January 2022)
 Gameplay Overhaul
 - Removed willpower. Stamina is the primary resource now for determining whether the player gets captured
 - New consequences when an enemy closes the gap and you have 0 stamina
@@ -97,10 +97,6 @@ Content
 - Reputation system that affects certain enemy spawn rates
 - New rope themed enemies that appear more often if you annoy the rope goddess
 - New spell: Ice Breath, creates icicles that deal damage
-- New spell: Incinerate, deals damage over time in a 3x3 area
-- New spell: Bomb, deals damage after a delay in a 3x3 area
-- New spell: Crackle, deals damage in a line and stuns briefly
-- New spell: Shadow Dagger, a dagger that passes through enemies and walls, but only deals 1 damage
 - Added a new spooky illusion Enemy
 - New enemies: samurai, ninjas, mummies
 - new bolt cutters weapon
@@ -111,8 +107,6 @@ Content
 - Some enemies now hunt along defined patrols rather than at random
 - Enemies now have a 2 turn delay before they start chasing you
 - Added grates you can squeeze through
-- The player can now be dragged by enemies while wearing a leash
-- New status effects: Freeze, slow, and bind. Chains, ice, slime, etc have been moved over
 
 TODO (expecting to get this done soon):
 -Dream hunter or something
@@ -148,7 +142,17 @@ Bugfix:
 - Blue locks can no longer be picked, as all things should be
 - The quick potion buttons no longer bypass being bound or gagged.
 - You can now pay shrines if the amount of gold you have is exactly the cost
+
+2.1
+- The player can now be dragged by enemies while wearing a leash
+- New status effects: Freeze, slow, and bind. Chains, ice, slime, etc have been moved over
+
+2.2
 - Fixed a bug where projectiles would pass through a target without harming it
+- New spell: Incinerate, deals damage over time in a 3x3 area
+- New spell: Bomb, deals damage after a delay in a 3x3 area
+- New spell: Crackle, deals damage in a line and stuns briefly
+- New spell: Shadow Dagger, a dagger that passes through enemies and walls, but only deals 1 damage
 
 TODO ValidationFindBlockCycles to prevent bugs
 
