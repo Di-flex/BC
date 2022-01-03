@@ -705,6 +705,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep) {
 			if (item.restraint.inventory && Keep) KinkyDungeonInventory.push({looserestraint: item.restraint});
 
 			InventoryRemove(KinkyDungeonPlayer, Group);
+			if (item.restraint.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KinkyDungeonGetRestraintItem("ItemNeckRestraints").restraint.inventory);
 
 			KinkyDungeonCalculateSlowLevel();
 
