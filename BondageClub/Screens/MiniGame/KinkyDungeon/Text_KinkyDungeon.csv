@@ -750,7 +750,7 @@ KinkyDungeonSpellCastFireball,You a hurl a fireball!
 KinkyDungeonSpellTargetFireball,Choose aim direction
 
 KinkyDungeonSpellIncinerate,Incinerate
-KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt damage per turn for DelayTime turns.
+KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt damage per turn for LifeTime turns.
 KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
