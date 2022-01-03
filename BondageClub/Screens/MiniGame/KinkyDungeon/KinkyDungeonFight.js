@@ -62,7 +62,15 @@ function KinkyDungeonGetImmunity(tags, type, resist) {
 	return false;
 }
 
-function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell) {
+function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
+	if (bullet) {
+		if (bullet.alreadyHit) {
+			// A bullet can only damage one grid cell at a time
+			if (bullet.alreadyHit.includes(Enemy.x + "," + Enemy.y)) return 0;
+		} else bullet.alreadyHit = [];
+		bullet.alreadyHit.push(Enemy.x + "," + Enemy.y);
+	}
+
 	let dmg = (Damage) ? Damage.damage : 0;
 	if (!dmg) dmg = 0;
 	//let type = (Damage) ? Damage.type : "";
@@ -135,7 +143,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell) {
 		KinkyDungeonKilledEnemy = Enemy;
 	}
 
-	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(3, (Damage && dmgDealt > 0) ?
+	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" : "PlayerAttack").replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + dmgDealt)
 		: TextGet("PlayerMiss" + ((Damage) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
 			(Damage && (dmg > 0 || effect)) ? "orange" : "red", 2);
@@ -178,14 +186,22 @@ function KinkyDungeonUpdateBullets(delta) {
 				d -= dt;
 			} else first = false;
 
-			if (!KinkyDungeonBulletsCheckCollision(b) || (b.bullet.lifetime > 0 && b.time <= 0)) {
-				d = 0;
-				KinkyDungeonBullets.splice(E, 1);
-				KinkyDungeonBulletsID[b.spriteID] = null;
-				E -= 1;
-				KinkyDungeonBulletHit(b, 1.1);
+			let outOfRange = b.bullet && b.bullet.origin && Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y)) > b.bullet.range;
+			let outOfTime = (b.bullet.lifetime > 0 && b.time < 0);
+			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
+				if (!(b.bullet.spell && b.bullet.spell.piercing) || outOfRange || outOfTime) {
+					d = 0;
+					KinkyDungeonBullets.splice(E, 1);
+					KinkyDungeonBulletsID[b.spriteID] = null;
+					E -= 1;
+				}
+				if (!((outOfTime || outOfRange) && b.bullet.spell && b.bullet.nonVolatile))
+					KinkyDungeonBulletHit(b, 1.1);
 			}
 		}
+		// A bullet can only damage an enemy in one location at a time
+		// Resets at the end of the bullet update!
+		b.alreadyHit = undefined;
 	}
 }
 
@@ -259,9 +275,11 @@ function KinkyDungeonUpdateBulletsCollisions(delta) {
 		var b = KinkyDungeonBullets[E];
 
 		if (!KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
-			KinkyDungeonBullets.splice(E, 1);
-			KinkyDungeonBulletsID[b.spriteID] = null;
-			E -= 1;
+			if (!(b.bullet.spell && b.bullet.spell.piercing)) {
+				KinkyDungeonBullets.splice(E, 1);
+				KinkyDungeonBulletsID[b.spriteID] = null;
+				E -= 1;
+			}
 			KinkyDungeonBulletHit(b, 1);
 		}
 	}
@@ -326,7 +344,7 @@ function KinkyDungeonBulletTrail(b) {
 	if (Math.random() < b.bullet.spell.trailChance) {
 		if (b.bullet.spell.trail == "lingering") {
 			KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Trail" + CommonTime(),
-				bullet:{spell:b.bullet.spell, damage: {damage:b.bullet.spell.power, type:b.bullet.spell.trailDamage, time:b.bullet.spell.time}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
+				bullet:{spell:b.bullet.spell, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
 		}
 	}
 }
@@ -339,14 +357,14 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 		if (bullet.bullet.aoe) {
 			if (AoE) {
 				if (bullet.bullet.spell && bullet.bullet.spell.playerEffect && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
-					KinkyDungeonPlayerEffect(bullet.bullet.spell.playerEffect, bullet.bullet.spell);
+					KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				}
 				if (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell)) {
 					var nomsg = false;
 					for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 						let enemy = KinkyDungeonEntities[L];
 						if (bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
-							KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, nomsg, bullet.bullet.spell);
+							KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, nomsg, bullet.bullet.spell, bullet);
 							nomsg = true;
 						}
 					}
@@ -354,14 +372,14 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 			}
 		} else {
 			if (bullet.bullet.spell && bullet.bullet.spell.playerEffect && KinkyDungeonPlayerEntity.x == bullet.x && KinkyDungeonPlayerEntity.y == bullet.y) {
-				KinkyDungeonPlayerEffect(bullet.bullet.spell.playerEffect, bullet.bullet.spell);
+				KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				return false;
 			}
 			if (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell)) {
 				for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 					let enemy = KinkyDungeonEntities[L];
 					if (enemy.x == bullet.x && enemy.y == bullet.y) {
-						KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, bullet.bullet.NoMsg, bullet.bullet.spell);
+						KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, bullet.bullet.NoMsg, bullet.bullet.spell, bullet);
 
 						return false;
 					}

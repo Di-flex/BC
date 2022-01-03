@@ -754,6 +754,11 @@ KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt 
 KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
+KinkyDungeonSpellCrackle,Crackle
+KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a line and briefly stuns.
+KinkyDungeonSpellCastCrackle,You cast a bolt of lightning!
+KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
+
 KinkyDungeonSpellBomb,Bomb
 KinkyDungeonSpellDescriptionBomb,A bomb that does DamageDealt damage in an area after DelayTime turns.
 KinkyDungeonSpellCastBomb,Fire in the hole!
