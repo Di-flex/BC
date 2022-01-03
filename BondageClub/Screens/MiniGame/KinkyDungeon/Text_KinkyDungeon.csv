@@ -718,7 +718,7 @@ KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 
 KinkyDungeonSpellIcebolt,Ice Shard
-KinkyDungeonSpellDescriptionIcebolt,A quick shard of ice that does DamageDealt damage and stuns for Duration turns.
+KinkyDungeonSpellDescriptionIcebolt,A quick shard of ice that does DamageDealt damage and freezes for Duration turns.
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 

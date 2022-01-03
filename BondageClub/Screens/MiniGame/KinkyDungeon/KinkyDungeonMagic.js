@@ -44,10 +44,10 @@ let KinkyDungeonSpellLevel = {
 };
 let KinkyDungeonLearnableSpells = [
 	//Page 1
-	["Firebolt", "Electrify", "ChainBolt", "SlimeBall", "Snare", "Flash", "Shield",],
+	["Firebolt", "Electrify", "Icebolt", "ChainBolt", "SlimeBall", "Snare", "Flash", "Shield",],
 
 	//Page 2
-	["Icebolt", "IceBreath", "Slime","GreaterFlash", "Shroud", "Blink", "GreaterShield", ],
+	["IceBreath", "Slime","GreaterFlash", "Shroud", "Blink", "GreaterShield", ],
 
 	//Page 3
 	["FocusedFlash", "Fireball", "Leap",],
@@ -61,7 +61,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 	"Elements": [
 		{name: "Firebolt", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", power: 4, delay: 0, range: 50, damage: "fire", speed: 2, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
 		{name: "Fireball", school: "Elements", manacost: 10, components: ["Arms"], level:3, type:"bolt", projectile:true, onhit:"aoe", power: 5, delay: 0, range: 50, aoe: 1.5, size: 3, lifetime:1, damage: "fire", speed: 1, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
-		{name: "Icebolt", school: "Elements", manacost: 10, components: ["Arms"], level:2, type:"bolt", projectile:true, onhit:"", time: 10,  power: 6, delay: 0, range: 50, damage: "ice", speed: 3, playerEffect: {name: "Damage"}}, // Throws a blast of ice which stuns the target for 4 turns
+		{name: "Icebolt", school: "Elements", manacost: 10, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 10,  power: 6, delay: 0, range: 50, damage: "ice", speed: 3, playerEffect: {name: "Damage"}}, // Throws a blast of ice which stuns the target for 4 turns
 		{name: "Electrify", school: "Elements", manacost: 8, components: ["Verbal"], level:1, type:"inert", projectile:false, onhit:"aoe", power: 8, time: 4, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
 		{name: "Shield", school: "Elements", manacost: 1, components: ["Legs"], level:1, type:"inert", projectile:false, block: 10, onhit:"", power: 0, delay: 2, range: 1.5, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 1 turn
 		{name: "GreaterShield", school: "Elements", manacost: 2, components: ["Legs"], level:2, type:"inert", projectile:false, block: 20, onhit:"", power: 0, delay: 8, range: 2, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 5 turns
@@ -71,7 +71,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Snare", school: "Conjure", manacost: 2, components: ["Legs"], level:1, type:"inert", projectile:false, onhit:"lingering", lifetime:-1, time: 12, delay: 3, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
 		{name: "Slime", school: "Conjure", manacost: 8, components: ["Legs"], level:2, type:"inert", projectile:false, onhit:"lingering", time: 5, delay: 1, range: 4, size: 3, aoe: 2, lifetime: 3, power: 4, lifetimeHitBonus: 20, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 		//{name: "PinkGas", manacost: 4, components: ["Verbal"], level:2, type:"inert", projectile:false, onhit:"lingering", time: 1, delay: 2, range: 4, size: 3, aoe: 2.5, lifetime: 9999, damage: "stun", playerEffect: {name: "PinkGas", time: 3}}, // Dizzying gas, increases arousal
-		{name: "ChainBolt", school: "Conjure", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 2, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
+		{name: "ChainBolt", school: "Conjure", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 6,  power: 2, delay: 0, range: 50, damage: "chain", speed: 2, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
 		{name: "SlimeBall", school: "Conjure", manacost: 6, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 3,  power: 8, delay: 0, range: 50, damage: "glue", speed: 1, trailLifetime: 10, trailDamage:"glue", trail:"lingering", trailChance: 1.0, playerEffect: {name: "SlimeTrap", time: 3}}, // Throws a ball of slime which oozes more slime
 		{name: "Leap", school: "Conjure", manacost: 8, components: ["Legs"], level:3, type:"inert", projectile:false, onhit:"teleport", delay: 1, lifetime:1, range: 5, damage: ""}, // A quick blink which takes effect instantly, but requires legs to be free
 		{name: "Blink", school: "Conjure", manacost: 4, components: ["Verbal"], level:2, type:"inert", projectile:false, onhit:"teleport", delay: 3, lifetime:1, range: 3, damage: ""}, // A slow blink with short range, but it uses verbal components

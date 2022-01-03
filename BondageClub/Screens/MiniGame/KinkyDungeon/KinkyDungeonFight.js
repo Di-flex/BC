@@ -96,17 +96,31 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell) {
 				dmgDealt = Math.max(dmg - armor, 0);
 			}
 
-
+			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) dmgDealt *= 2;
 			Enemy.hp -= dmgDealt;
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric" || Damage.type == "ice")) { // Being immune to the damage stops the stun as well
+		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.stun) Enemy.stun = 0;
 			if (resistStun == 1)
 				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.stun = Math.max(Enemy.stun, Damage.time);
 		}
-		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "chain" || Damage.type == "cold" || Damage.type == "glue")) { // Being immune to the damage stops the stun as well
+		if ((resistDamage < 2) && (Damage.type == "ice")) { // Being immune to the damage stops the stun as well
+			effect = true;
+			if (!Enemy.freeze) Enemy.freeze = 0;
+			if (resistDamage == 1)
+				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
+			else Enemy.freeze = Math.max(Enemy.freeze, Damage.time);
+		}
+		if ((resistDamage < 2) && (Damage.type == "chain" || Damage.type == "glue")) { // Being immune to the damage stops the bind
+			effect = true;
+			if (!Enemy.bind) Enemy.bind = 0;
+			if (resistDamage == 1)
+				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
+			else Enemy.bind = Math.max(Enemy.bind, Damage.time);
+		}
+		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1)
