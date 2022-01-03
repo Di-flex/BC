@@ -153,28 +153,30 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 
 function KinkyDungeonUpdateBullets(delta) {
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
-		var b = KinkyDungeonBullets[E];
-		var d = delta;
+		let b = KinkyDungeonBullets[E];
+		let d = delta;
+		let first = true;
 
 		while (d > 0.1) {
-			var dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
-			if (b.born >= 0) b.born -= 1;
+			if (!first) {
+				let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
+				if (b.born >= 0) b.born -= 1;
 
-			let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
-			if (b.born < mod) {
-				b.xx += b.vx * dt;
-				b.yy += b.vy * dt;
-				b.time -= delta;
-			}
+				let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
+				if (b.born < mod) {
+					b.xx += b.vx * dt;
+					b.yy += b.vy * dt;
+					b.time -= delta;
+				}
 
-			if (b.bullet.spell && b.trail && (b.x != Math.round(b.XX) || b.y != Math.round(b.yy)))
-				KinkyDungeonBulletTrail(b);
+				if (b.bullet.spell && b.trail && (b.x != Math.round(b.XX) || b.y != Math.round(b.yy)))
+					KinkyDungeonBulletTrail(b);
 
-			b.x = Math.round(b.xx);
-			b.y = Math.round(b.yy);
+				b.x = Math.round(b.xx);
+				b.y = Math.round(b.yy);
 
-			d -= dt;
-
+				d -= dt;
+			} else first = false;
 
 			if (!KinkyDungeonBulletsCheckCollision(b) || (b.bullet.lifetime > 0 && b.time <= 0)) {
 				d = 0;
