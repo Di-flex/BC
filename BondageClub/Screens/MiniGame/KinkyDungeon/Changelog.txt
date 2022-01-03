@@ -97,6 +97,7 @@ Content
 - Reputation system that affects certain enemy spawn rates
 - New rope themed enemies that appear more often if you annoy the rope goddess
 - New spell: Ice Breath, creates icicles that deal damage
+- New spell: Incinerate, deals damage over time in a 3x3 area
 - Added a new spooky illusion Enemy
 - New enemies: samurai, ninjas, mummies
 - new bolt cutters weapon

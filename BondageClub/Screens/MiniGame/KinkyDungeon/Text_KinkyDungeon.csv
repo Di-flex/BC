@@ -749,6 +749,11 @@ KinkyDungeonSpellDescriptionFireball,A slow moving ball of flame that explodes f
 KinkyDungeonSpellCastFireball,You a hurl a fireball!
 KinkyDungeonSpellTargetFireball,Choose aim direction
 
+KinkyDungeonSpellIncinerate,Incinerate
+KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt damage per turn for DelayTime turns.
+KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
+KinkyDungeonSpellTargetIncinerate,Choose target AoE location
+
 KinkyDungeonSpellSnare,Rope Snare
 KinkyDungeonSpellDescriptionSnare,An invisible circle on the grounds that binds anyone who walks on it for Duration turns
 KinkyDungeonSpellCastSnare,You set an invisible trap!
