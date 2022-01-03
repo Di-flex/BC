@@ -116,15 +116,14 @@ TODO (expecting to get this done soon):
 -Add max SP, MP, and AP upgrades as a rare drop in chests
 -Make it so rope snare can't target spaces with enemies
 -Panel gag, Legbinder and bolero jacket restraints
+-Latex goddess and restraints
 -Shock plug that stuns you at high arousal
-
 -View buffs/penalties as a 3rd option for the struggle display
 -Aura spells that reduce max mana and mana regen
 -Contract spells Attached to a restraint
 -Etheral enemies
--Enemy patrols that repeat
 -Return items to inventory if they get replaced
--ESP spell that boosts vision range (or allows vision through walls in a short radius?)
+-ESP spell that boosts vision range (or allows vision through walls in a short radius?) and reveals stealth
 
 Other Features
 - Knives now use the same random-number-of-uses mechanic as lockpicks which gives some guaranteed uses
