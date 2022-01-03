@@ -349,7 +349,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
-		escapeChance = Math.max(0, escapeChance - 0.5);
+		escapeChance = (StruggleType == "Remove") ? escapeChance /= 2 : Math.max(0, escapeChance - 0.5);
 
 	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock")) escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
 
