@@ -110,6 +110,8 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonNormalBlades = 1;
 	KinkyDungeonEnchantedBlades = 0;
 
+	KinkyDungeonOrbsPlaced = [];
+
 	KinkyDungeonPlayerWeapon = null;
 	KinkyDungeonSpellPoints = 3;
 

@@ -100,6 +100,7 @@ var KinkyDungeonLastMoveTimerCooldownStart = 50;
 
 let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
+let KinkyDungeonOrbsPlaced = [];
 
 function KinkyDungeonSetCheckPoint(Checkpoint) {
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
@@ -578,7 +579,10 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 				let tile = 'A';
 				if (shrineTypes.includes(type)) type = "";
 				if (type == "Orb") {
-					tile = 'O';
+					if (KinkyDungeonOrbsPlaced.includes(Floor) && Floor > 0) {
+						tile = 'O';
+						KinkyDungeonOrbsPlaced.push(Floor);
+					} else tile = 'o';
 					shrineTypes.push("Orb");
 				} else if (type) {
 					KinkyDungeonTiles["" + shrine.x + "," +shrine.y] =  {Type: "Shrine", Name: type};
