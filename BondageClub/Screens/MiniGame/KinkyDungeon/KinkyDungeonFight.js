@@ -201,7 +201,9 @@ function KinkyDungeonUpdateBullets(delta) {
 		}
 		// A bullet can only damage an enemy in one location at a time
 		// Resets at the end of the bullet update!
-		b.alreadyHit = undefined;
+		// But only for piercing bullets. Non-piercing bullets just expire
+		if (!b.bullet.piercing)
+			b.alreadyHit = undefined;
 	}
 }
 
