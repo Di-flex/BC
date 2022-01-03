@@ -108,6 +108,7 @@ Content
 - Enemies now have a 2 turn delay before they start chasing you
 - Added grates you can squeeze through
 - The player can now be dragged by enemies while wearing a leash
+- New status effects: Freeze, slow, and bind. Chains, ice, slime, etc have been moved over
 
 TODO (expecting to get this done soon):
 -Dream hunter or something

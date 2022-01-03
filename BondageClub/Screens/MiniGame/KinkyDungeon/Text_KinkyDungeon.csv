@@ -722,9 +722,9 @@ KinkyDungeonSpellDescriptionIcebolt,A quick shard of ice that does DamageDealt d
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
-KinkyDungeonSpellChainBolt,Chainbolt
+KinkyDungeonSpellChainBolt,Binding Chain
 KinkyDungeonSpellWitchChainBolt,Witch's Chain
-KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and stuns enemies for a turn.
+KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and binds an enemy for Duration turns.
 KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!
 KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
@@ -776,7 +776,7 @@ KinkyDungeonSpellCastShroud,You exhale a misty shroud
 
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
-KinkyDungeonSpellDescriptionSlime,A huge pool of slime will greatly slow enemies that step inside and deal DamageDealt damage on a hit.
+KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt damage on a hit.
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
 KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius)
 
