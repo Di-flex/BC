@@ -517,16 +517,16 @@ RestraintWeakMagicRopeArmsDesc2,"I wonder who was responsible?"
 RestraintWeakMagicRopeLegs,Magic Rope
 RestraintWeakMagicRopeLegsDesc,"Faintly glowing ropes from a magic trap."
 RestraintWeakMagicRopeLegsDesc2,"I wonder who was responsible?"
-RestraintStrongMagicRopeArms,Enchanted Rope
+RestraintStrongMagicRopeArms,Magic Rope
 RestraintStrongMagicRopeArmsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeArmsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeLegs,Enchanted Rope
+RestraintStrongMagicRopeLegs,Magic Rope
 RestraintStrongMagicRopeLegsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeLegsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeFeet,Enchanted Rope
+RestraintStrongMagicRopeFeet,Magic Rope
 RestraintStrongMagicRopeFeetDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeFeetDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeCrotch,Enchanted Rope
+RestraintStrongMagicRopeCrotch,Magic Rope
 RestraintStrongMagicRopeCrotchDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeCrotchDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStickySlime,Sticky Slime
@@ -562,58 +562,58 @@ RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
-RestraintRopeSnakeArms,Rope Tie
+RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsDesc2,"The remaining magic squeezes you gently."
-RestraintRopeSnakeTorso,Rope Tie
+RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintRopeSnakeTorsoDesc2,"The remaining magic squeezes you gently."
-RestraintRopeSnakeCrotch,Rope Tie
+RestraintRopeSnakeCrotch,Crotch Rope
 RestraintRopeSnakeCrotchDesc,"A tight rope impressing upon your most private areas..."
 RestraintRopeSnakeCrotchDesc2,"The remaining magic squeezes you gently."
-RestraintRopeSnakeArmsWrist,Rope Tie
+RestraintRopeSnakeArmsWrist,Wrist Rope
 RestraintRopeSnakeArmsWristDesc,"A wrist and elbow tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsWristDesc2,"The remaining magic squeezes you gently."
-RestraintRopeSnakeLegs,Rope Tie
+RestraintRopeSnakeLegs,Leg Rope
 RestraintRopeSnakeLegsDesc,"A tie that hobbles your legs together.."
 RestraintRopeSnakeLegsDesc2,"The remaining magic squeezes you gently."
-RestraintRopeSnakeFeet,Rope Tie
+RestraintRopeSnakeFeet,Ankle Rope
 RestraintRopeSnakeFeetDesc,"A tie keeping your feet secured together."
 RestraintRopeSnakeFeetDesc2,"The remaining magic squeezes you gently."
-RestraintChainArms,Chains
+RestraintChainArms,Arm Chains
 RestraintChainArmsDesc,"Heavy chains keeping your arms securely behind your back."
 RestraintChainArmsDesc2,"It doesn't look like a knife is up to the task..."
-RestraintChainLegs,Chains
+RestraintChainLegs,Leg Chains
 RestraintChainLegsDesc,"Heavy chains keeping your legs firmly hobbled."
 RestraintChainLegsDesc2,"It doesn't look like a knife is up to the task..."
-RestraintChainFeet,Chains
+RestraintChainFeet,Ankle Chains
 RestraintChainFeetDesc,"Heavy chains keeping your feet bound together."
 RestraintChainFeetDesc2,"It doesn't look like a knife is up to the task..."
-RestraintChainCrotch,Chains
+RestraintChainCrotch,Crotch Chain
 RestraintChainCrotchDesc,"Heavy chains that serve as an anchor point around your waist."
 RestraintChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
 
-RestraintClothBlindfold,Cloth Blindfold
+RestraintClothBlindfold,Blindfold
 RestraintClothBlindfoldDesc,"A piece of cloth secured onto your face and blocking vision."
 RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose."
 RestraintClothGag,Cloth Gag
 RestraintClothGagDesc,"A piece of cloth tightened over your mouth."
 RestraintClothGagDesc2,"On its own it's not very restrictive."
 
-RestraintSturdyLeatherBeltsArms,Belt Bindings
+RestraintSturdyLeatherBeltsArms,Arm Belts
 RestraintSturdyLeatherBeltsArmsDesc,"A ludicrous amount of belts secured with a buckle."
 RestraintSturdyLeatherBeltsArmsDesc2,"Lockable and fully adjustable to ensure snugness."
-RestraintSturdyLeatherBeltsLegs,Belt Bindings
+RestraintSturdyLeatherBeltsLegs,Leg Belts
 RestraintSturdyLeatherBeltsLegsDesc,"A ludicrous amount of belts secured with a buckle."
 RestraintSturdyLeatherBeltsLegsDesc2,"Lockable and fully adjustable to ensure snugness."
-RestraintSturdyLeatherBeltsFeet,Belt Bindings
+RestraintSturdyLeatherBeltsFeet,Ankle Belts
 RestraintSturdyLeatherBeltsFeetDesc,"A ludicrous amount of belts secured with a buckle."
 RestraintSturdyLeatherBeltsFeetDesc2,"Lockable and fully adjustable to ensure snugness."
 
-RestraintWristShackles,Wrist Shackles
+RestraintWristShackles,Wrist Cuffs
 RestraintWristShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintWristShacklesDesc2,"You could pick these with a hairpin."
-RestraintAnkleShackles,Ankle Shackles
+RestraintAnkleShackles,Ankle Cuffs
 RestraintAnkleShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintAnkleShacklesDesc2,"You could pick these with a hairpin."
 RestraintLegShackles,Leg Cuffs
