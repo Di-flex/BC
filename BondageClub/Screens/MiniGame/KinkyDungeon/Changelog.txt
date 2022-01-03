@@ -100,6 +100,7 @@ Content
 - New spell: Incinerate, deals damage over time in a 3x3 area
 - New spell: Bomb, deals damage after a delay in a 3x3 area
 - New spell: Crackle, deals damage in a line and stuns briefly
+- New spell: Shadow Dagger, a dagger that passes through enemies and walls, but only deals 1 damage
 - Added a new spooky illusion Enemy
 - New enemies: samurai, ninjas, mummies
 - new bolt cutters weapon

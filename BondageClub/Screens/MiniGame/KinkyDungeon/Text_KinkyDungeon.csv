@@ -707,6 +707,11 @@ KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does Damag
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
+KinkyDungeonSpellDagger,Shadow Dagger
+KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt damage and pierces enemies.
+KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
+KinkyDungeonSpellTargetDagger,Choose aim direction
+
 KinkyDungeonSpellBlink,Portal
 KinkyDungeonSpellDescriptionBlink,Teleport to a nearby location after DelayTime turns.
 KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!

@@ -44,7 +44,7 @@ let KinkyDungeonSpellLevel = {
 };
 let KinkyDungeonLearnableSpells = [
 	//Page 1
-	["Firebolt", "Electrify", "Icebolt", "ChainBolt", "SlimeBall", "Snare", "Flash", "Shield",],
+	["Firebolt", "Electrify", "Icebolt", "ChainBolt", "SlimeBall", "Dagger", "Snare", "Flash", "Shield",],
 
 	//Page 2
 	["Crackle", "Incinerate", "IceBreath", "Bomb", "Slime", "GreaterFlash", "Shroud", "Blink", "GreaterShield", ],
@@ -83,6 +83,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 
 	],
 	"Illusion": [
+		{name: "Dagger", school: "Illusion", manacost: 1, components: ["Arms"], level:1, type:"bolt", projectile:true, piercing: true, onhit:"", power: 1, time: 0, delay: 0, range: 10, damage: "cold", speed: 2, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
 		{name: "Flash", school: "Illusion", manacost: 4, components: ["Verbal"], level:1, type:"inert", projectile:false, onhit:"aoe", time: 5, delay: 1, power: 1, range: 2.5, size: 3, aoe: 1.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 4}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 		{name: "GreaterFlash", school: "Illusion", manacost: 6, components: ["Verbal"], level:2, type:"inert", projectile:false, onhit:"aoe", time: 8, delay: 1, power: 1, range: 2.5, size: 5, aoe: 2.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 5}}, // Much greater AoE. Careful not to get caught!
 		{name: "FocusedFlash", school: "Illusion", manacost: 12, components: ["Verbal"], level:3, type:"inert", projectile:false, onhit:"aoe", time: 20, delay: 2, power: 1, range: 2.5, size: 3, aoe: 1.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 12}}, // Longer delay, but the stun lasts much longer.
