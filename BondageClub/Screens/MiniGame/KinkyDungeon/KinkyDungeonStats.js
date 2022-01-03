@@ -77,7 +77,7 @@ let KinkyDungeonEnchantedBlades = 0;
 
 
 // Combat
-let KinkyDungeonTorsoGrabChance = 0.33;
+let KinkyDungeonTorsoGrabChance = 0.25;
 
 // Your inventory contains items that are on you
 let KinkyDungeonInventory = [];

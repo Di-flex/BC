@@ -565,10 +565,10 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 	let count = 0;
 	while (shrinelist.length > 0) {
 		let N = Math.floor(Math.random()*shrinelist.length);
-		if (count < shrinecount) {
+		if (count <= shrinecount) {
 
 			let shrine = shrinelist[N];
-			if (count == shrinecount && Math.random() < shrinechance)
+			if (count == shrinecount && Math.random() > shrinechance)
 				KinkyDungeonMapSet(shrine.x, shrine.y, 'a');
 			else {
 				let playerTypes = KinkyDungeonRestraintTypes(shrinefilter);
@@ -579,7 +579,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 				let tile = 'A';
 				if (shrineTypes.includes(type)) type = "";
 				if (type == "Orb") {
-					if (KinkyDungeonOrbsPlaced.includes(Floor) && Floor > 0) {
+					if (!KinkyDungeonOrbsPlaced.includes(Floor) && Floor > 0) {
 						tile = 'O';
 						KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
