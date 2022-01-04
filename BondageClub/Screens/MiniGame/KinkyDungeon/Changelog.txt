@@ -154,6 +154,9 @@ Bugfix:
 - New spell: Crackle, deals damage in a line and stuns briefly
 - New spell: Shadow Dagger, a dagger that passes through enemies and walls, but only deals 1 damage
 
+2.3
+-
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 Future content planned:

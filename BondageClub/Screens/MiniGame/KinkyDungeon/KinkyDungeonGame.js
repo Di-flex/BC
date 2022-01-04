@@ -195,6 +195,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	let doodadchance = MapParams.doodadchance;
 	let treasurechance = 1.0; // Chance for an extra locked chest
 	let treasurecount = MapParams.chestcount; // Max treasure chest count
+	if (KinkyDungeonSpawnJailers > 0) treasurecount = 0;
 	let shrinechance = MapParams.shrinechance; // Chance for an extra shrine
 	let ghostchance = MapParams.ghostchance; // Chance for a ghost
 	let shrinecount = MapParams.shrinecount; // Max treasure chest count
