@@ -1224,7 +1224,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonStatStamina += moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta;
 							KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
 							KinkyDungeonStatArousal += KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult;
-							if (KinkyDungeonVibeLevel == 0) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
+							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;
 							KinkyDungeonWaitMessage();
