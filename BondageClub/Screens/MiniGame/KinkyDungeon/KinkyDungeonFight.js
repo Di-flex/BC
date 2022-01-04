@@ -21,6 +21,7 @@ var KinkyDungeonWeapons = {
 	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3},
 };
 
+
 function KinkyDungeonWeaponCanCut(RequireInteract) {
 	if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon].cutBonus > 0 && (!RequireInteract || KinkyDungeonPlayer.CanInteract())) return true;
 	return false;
@@ -39,8 +40,8 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
 }
 
 function KinkyDungeonEvasion(Enemy) {
-	var hitChance = (Enemy && Enemy.buffs && Enemy.buffs.Evasion) ? Enemy.buffs.Evasion.power : 1.0;
-	if (Enemy.Enemy && Enemy.Enemy.evasion && (Enemy.stun < 1 || Enemy.Enemy.evasion > 0.99)) hitChance *= Math.max(0, 1 - Enemy.Enemy.evasion);
+	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
+	if (Enemy.Enemy && Enemy.Enemy.evasion && (Enemy.stun < 1 || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	hitChance *= KinkyDungeonPlayerDamage.chance;
 	if (Enemy.slow > 0) hitChance *= 2;
 
@@ -257,9 +258,19 @@ function KinkyDungeonUpdateBuffs(delta) {
 	}
 }
 
+function KinkyDungeonGetBuffedStat(list, Stat) {
+	let stat = 0;
+	for (let buff of Object.values(list)) {
+		if (buff.type == Stat) {
+			stat += buff.power;
+		}
+	}
+	return stat;
+}
+
 function KinkyDungeonApplyBuff(list, buff, player) {
-	if (!list[buff.type] || (list[buff.type].power && buff.power > list[buff.type].power)) list[buff.type] = buff;
-	if ((list[buff.type].power && buff.power == list[buff.type].power && buff.duration > list[buff.type].duration)) list[buff.type].duration = buff.duration;
+	if (!list[buff.id] || (list[buff.id].power && buff.power > list[buff.id].power)) list[buff.id] = buff;
+	if ((list[buff.id].power && buff.power == list[buff.id].power && buff.duration > list[buff.id].duration)) list[buff.id].duration = buff.duration;
 
 	if (buff.tags)
 		for (let T = 0; T < buff.tags.length; T++) {
