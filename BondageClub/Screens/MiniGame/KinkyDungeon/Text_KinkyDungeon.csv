@@ -708,7 +708,7 @@ KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
 KinkyDungeonSpellDagger,Shadow Dagger
-KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt damage and pierces enemies.
+KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt damage and pierces all in its path.
 KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
 KinkyDungeonSpellTargetDagger,Choose aim direction
 
