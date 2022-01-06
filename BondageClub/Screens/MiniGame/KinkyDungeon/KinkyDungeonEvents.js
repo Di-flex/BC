@@ -30,7 +30,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				KinkyDungeonSlimeLevel = Math.max(KinkyDungeonSlimeLevel, KinkyDungeonSlimeLevelStart + e.power);
 				if (KinkyDungeonSlimeLevel >= 0.99999) {
 					KinkyDungeonSlimeLevel = 0;
-					KinkyDungeonSlimeLevelStart = 0;
+					KinkyDungeonSlimeLevelStart = -100;
 					let slimedParts = [];
 					let potentialSlimeParts = [];
 					for (let inv of KinkyDungeonRestraintList()) {
