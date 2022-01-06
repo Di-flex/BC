@@ -10,9 +10,9 @@ function KinkyDungeonSendBuffEvent(Event, data) {
 			}
 		}
 	}
-	for (let e of KinkyDungeonEntities) {
-		if (e.buffs) {
-			for (let buff of Object.values(e.buffs)) {
+	for (let ent of KinkyDungeonEntities) {
+		if (ent.buffs) {
+			for (let buff of Object.values(ent.buffs)) {
 				if (buff && buff.events) {
 					for (let e of buff.events) {
 						if (e.trigger == Event) {
