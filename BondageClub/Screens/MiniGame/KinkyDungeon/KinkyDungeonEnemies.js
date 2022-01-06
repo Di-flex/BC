@@ -618,7 +618,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								let startPos = KinkyDungeonStartPosition;
 								if (!KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - startPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - startPos.y) <= 1) {
 									KinkyDungeonDefeat();
-									KinkyDungeonLeashedPlayer = enemy.Enemy.attackPoints * 2;
+									KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 									KinkyDungeonLeashingEnemy = enemy;
 								}
 								else {

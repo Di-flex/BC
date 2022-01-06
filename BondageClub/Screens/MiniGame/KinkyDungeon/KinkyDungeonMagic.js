@@ -364,6 +364,9 @@ function KinkyDungeonHandleMagic() {
 				if (!KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
 					if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 125 + I*200, 225, 60)) {
 						KinkyDungeonSpellChoices[I] = KinkyDungeonCurrentPage;
+						KinkyDungeonAdvanceTime(1);
+						if (KinkyDungeonTextMessageTime > 0)
+							KinkyDungeonDrawState = "Game";
 						return true;
 					}
 				}
@@ -378,6 +381,9 @@ function KinkyDungeonHandleMagic() {
 				KinkyDungeonSpells.push(KinkyDungeonPreviewSpell);
 				KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(KinkyDungeonPreviewSpell.name);
 				KinkyDungeonPreviewSpell = undefined;
+				KinkyDungeonAdvanceTime(1);
+				if (KinkyDungeonTextMessageTime > 0)
+					KinkyDungeonDrawState = "Game";
 			} else KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughPoints"), "orange", 1);
 		} else KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
 		return true;
