@@ -54,7 +54,10 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 							}
 						}
 					}
-					while (potentialSlimeParts.length > 0) {
+					if (potentialSlimeParts.length == 0) {
+						KinkyDungeonSlimeLevel = Math.min(KinkyDungeonSlimeLevel, 0.5);
+						KinkyDungeonSlimeLevelStart = Math.min(KinkyDungeonSlimeLevelStart, 0.5);
+					} else while (potentialSlimeParts.length > 0) {
 						let newSlime = potentialSlimeParts[Math.floor(Math.random() * potentialSlimeParts.length)];
 						if (newSlime) {
 							let added = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(newSlime.restraint), 0, true);
