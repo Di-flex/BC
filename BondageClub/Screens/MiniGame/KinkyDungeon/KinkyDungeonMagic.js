@@ -72,7 +72,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 	],
 	"Conjure": [
 		{name: "Bomb", school: "Conjure", manacost: 6, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 6, power: 8, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
-		{name: "Snare", school: "Conjure", manacost: 2, components: ["Legs"], level:1, type:"inert", onhit:"lingering", lifetime:-1, time: 12, delay: 3, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
+		{name: "Snare", school: "Conjure", manacost: 2, components: ["Legs"], level:1, type:"inert", onhit:"lingering", lifetime:-1, time: 12, delay: 5, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
 		{name: "Slime", school: "Conjure", manacost: 8, components: ["Legs"], level:2, type:"inert", onhit:"lingering", time: 4, delay: 1, range: 4, size: 3, aoe: 2, lifetime: 3, power: 4, lifetimeHitBonus: 20, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 		//{name: "PinkGas", manacost: 4, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 2, range: 4, size: 3, aoe: 2.5, lifetime: 9999, damage: "stun", playerEffect: {name: "PinkGas", time: 3}}, // Dizzying gas, increases arousal
 		{name: "ChainBolt", school: "Conjure", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 6,  power: 2, delay: 0, range: 50, damage: "chain", speed: 2, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
@@ -276,10 +276,12 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player) {
 				damage: spell.type == "inert" ? null : {damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
 	} else if (spell.type == "buff") {
 		let aoe = spell.aoe;
+		let cast = false;
 		if (!aoe) aoe = 0.1;
 		if (Math.sqrt((KinkyDungeonPlayerEntity.x - targetX) * (KinkyDungeonPlayerEntity.x - targetX) + (KinkyDungeonPlayerEntity.y - targetY) * (KinkyDungeonPlayerEntity.y - targetY)) <= aoe) {
 			for (let buff of spell.buffs) {
 				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff);
+				cast = true;
 			}
 		}
 		for (let e of KinkyDungeonEntities) {
@@ -287,9 +289,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player) {
 				for (let buff of spell.buffs) {
 					if (!e.buffs) e.buffs = [];
 					KinkyDungeonApplyBuff(e.buffs, buff);
+					cast = true;
 				}
 			}
 		}
+		if (!cast) return false;
 	}
 
 	if (!enemy) { // Costs for the player
@@ -303,6 +307,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player) {
 		KinkyDungeonChargeVibrators(spell.manacost);
 	}
 
+	return true;
 }
 
 function KinkyDungeonChargeVibrators(cost) {

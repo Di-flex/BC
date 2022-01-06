@@ -1,6 +1,6 @@
 "use strict";
 var KinkyDungeonEnemies = [
-	{name: "BlindZombie", tags: ["ignoreharmless", "zombie", "melee", "ribbonRestraints", "slashweakness"], evasion: -1, ignorechance: 0.33, armor: 0, followRange: 1, AI: "wander",
+	{name: "BlindZombie", tags: ["ignoreharmless", "zombie", "melee", "ribbonRestraints", "meleeweakness"], evasion: -1, ignorechance: 0.33, armor: 0, followRange: 1, AI: "wander",
 		visionRadius: 1, maxhp: 8, minLevel:0, weight:14, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {}, floors:[0], dropTable: [{name: "Gold", amountMin: 20, amountMax: 40, weight: 2}, {name: "Gold", amountMin: 13, amountMax: 23, weight: 5}]},
 	{name: "FastZombie", tags: ["ignoreharmless", "zombie", "melee", "ribbonRestraints", "slashweakness"], evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
@@ -101,35 +101,6 @@ function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
 		}
 	}
 	return p;
-}
-
-function KinkyDungeonHandleBuffEvent(buff, entity, data) {
-
-}
-
-function KinkyDungeonSendBuffEvent(Event, data) {
-	for (let buff of Object.values(KinkyDungeonPlayerBuffs)) {
-		if (buff.events) {
-			for (let e of buff.events) {
-				if (e.trigger == Event) {
-					KinkyDungeonHandleBuffEvent(buff, KinkyDungeonPlayerEntity, data);
-				}
-			}
-		}
-	}
-	for (let e of KinkyDungeonEntities) {
-		if (e.buffs) {
-			for (let buff of Object.values(e.buffs)) {
-				if (buff.events) {
-					for (let e of buff.events) {
-						if (e.trigger == Event) {
-							KinkyDungeonHandleBuffEvent(buff, e, data);
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 function KinkyDungeonNearestPlayer(enemy, requireVision) {
