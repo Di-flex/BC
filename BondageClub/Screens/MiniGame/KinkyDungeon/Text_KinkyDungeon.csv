@@ -229,6 +229,7 @@ AttackGreaterSkeleton,"The Skeleton lands a wide, crippling blow! (-DamageTaken 
 NameVinePlant,Vine Plant
 KillVinePlant,"The plant leaks purple juices everywhere as it wilts."
 AttackVinePlant,"The vine plant whips you with its tendrils! (-DamageTaken SP)"
+AttackVinePlantBind,"The vine plant wraps its tendrils around you! (+RestraintAdded)"
 AttackVinePlantStun,"The vine plant grips you tightly! (-DamageTaken SP)"
 
 NameLesserSkeleton,Skeleton
@@ -242,12 +243,12 @@ AttackRopeSnakeBind,"The magic rope wraps itself tightly around your body! (+Res
 AttackRopeSnake,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameLearnedRope,Learned Rope
-KillLearnedRope,"The learned rope returns to being a normal rope."
+KillLearnedRope,"The learned rope untangles into a mess of rope."
 AttackLearnedRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
 AttackLearnedRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameMonsterRope,Monster Rope
-KillMonsterRope,"The monster rope bundle returns to being a normal rope."
+KillMonsterRope,"The monster rope bundle collapses into a pile of ropes."
 AttackMonsterRopeBind,"The magic rope wraps itself overwhelmingly around your body! (+RestraintAdded)"
 AttackMonsterRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
@@ -570,22 +571,36 @@ RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
-RestraintRopeSnakeArmsDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
-RestraintRopeSnakeTorsoDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeTorsoDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeCrotch,Crotch Rope
 RestraintRopeSnakeCrotchDesc,"A tight rope impressing upon your most private areas..."
-RestraintRopeSnakeCrotchDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeCrotchDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeArmsWrist,Wrist Rope
 RestraintRopeSnakeArmsWristDesc,"A wrist and elbow tie keeping your arms secured behind your back."
-RestraintRopeSnakeArmsWristDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeArmsWristDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeLegs,Leg Rope
 RestraintRopeSnakeLegsDesc,"A tie that hobbles your legs together.."
-RestraintRopeSnakeLegsDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeLegsDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeFeet,Ankle Rope
 RestraintRopeSnakeFeetDesc,"A tie keeping your feet secured together."
-RestraintRopeSnakeFeetDesc2,"The remaining magic squeezes you gently."
+RestraintRopeSnakeFeetDesc2,"The ropes squeeze you gently."
+
+RestraintVinePlantArms,Wrist Vine
+RestraintVinePlantArmsDesc,"A box tie keeping your arms secured behind your back."
+RestraintVinePlantArmsDesc2,"The vines twitch as they try to wrap around tighter."
+RestraintVinePlantTorso,Vine Harness
+RestraintVinePlantTorsoDesc,"A harness acting as a handle to pull you around"
+RestraintVinePlantTorsoDesc2,"The vines twitch as they try to wrap around tighter."
+RestraintVinePlantLegs,Leg Vine
+RestraintVinePlantLegsDesc,"A tie that hobbles your legs together.."
+RestraintVinePlantLegsDesc2,"The vines twitch as they try to wrap around tighter."
+RestraintVinePlantFeet,Ankle Vine
+RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
+RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
+
 RestraintChainArms,Arm Chains
 RestraintChainArmsDesc,"Heavy chains keeping your arms securely behind your back."
 RestraintChainArmsDesc2,"It doesn't look like a knife is up to the task..."
