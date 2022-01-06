@@ -56,7 +56,7 @@ var KinkyDungeonEnemies = [
 		spellCooldownMult: 1, spellCooldownMod: 5, AI: "hunt", visionRadius: 7, maxhp: 8, minLevel:5, weight:11, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 2, dmgType: "crush",
 		terrainTags: {"secondhalf":2, "lastthird":2, "open": 2}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 30, amountMax: 60, weight: 11}, {name: "PotionStamina", weight: 1}, {name: "BlueKey", weight: 1}]},
 	{name: "Cleric", tags: ["leashing", "opendoors", "closedoors", "ranged"], followRange: 4,
-		AI: "guard", visionRadius: 7, maxhp: 8, minLevel:2, weight:12, movePoints: 1, attackPoints: 3, attack: "MeleeWillSlow", attackWidth: 1, attackRange: 6, power: 3, fullBoundBonus: 1, dmgType: "crush", noCancelAttack: true,
+		AI: "guard", visionRadius: 7, maxhp: 8, minLevel:2, weight:12, movePoints: 1, attackPoints: 3, attack: "MeleeWillStun", attackWidth: 1, attackRange: 6, power: 3, fullBoundBonus: 1, dmgType: "crush", noCancelAttack: true,
 		terrainTags: {"secondhalf":2, "lastthird":4, "passage": -99}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 30, weight: 11}, {name: "PotionMana", weight: 1}, {name: "RedKey", weight: 1}]},
 	{name: "MeleeCleric", tags: ["leashing", "opendoors", "closedoors", "melee", "kittyRestraints"], followRange: 1, blindSight: 4, specialCD: 3, specialAttack: "Bind",
 		AI: "hunt", visionRadius: 6, maxhp: 8, minLevel:3, weight:10, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 1, dmgType: "grope",

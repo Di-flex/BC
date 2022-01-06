@@ -210,6 +210,7 @@ AttackMeleeCleric,"The Bast Warrior tickles you with her claws! (-DamageTaken SP
 NameCleric,Bast Cleric
 KillCleric,"The Bast Cleric collapses and meows softly."
 AttackCleric,"A ray of light shoots out and paralyzes you! (-DamageTaken SP)"
+AttackClericStun,"A ray of light shoots out and paralyzes you! (-DamageTaken SP)"
 
 NameSummonedSkeleton,Skeleton
 KillSummonedSkeleton,"The skeleton falls to pieces."
