@@ -99,9 +99,9 @@ var KinkyDungeonMapParams = [
 	},
 
 	{//DungeonName2,-Underground Jungle-
-		"openness" : 2,
+		"openness" : 4,
 		"density" : 5,
-		"doodadchance" : 0.15,
+		"doodadchance" : 0.12,
 		"brightness" : 7,
 		"chestcount" : 2,
 		"shrinecount" : 5,
@@ -113,16 +113,36 @@ var KinkyDungeonMapParams = [
 		"trapchance" : 0.5,
 		"grateChance" : 0.7,
 		"rubblechance" : 0.5,
-		"brickchance" : 0.1,
+		"brickchance" : 0.4,
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
 		],
 
-		"min_width" : 25,
-		"max_width" : 31,
-		"min_height" : 11,
-		"max_height" : 19,
+		"min_width" : 29,
+		"max_width" : 39,
+		"min_height" : 13,
+		"max_height" : 17,
+
+		"enemytags": ["plant"],
+		"defeat_restraints": [
+			{Name: "HighsecBallGag", Level: 0},
+			{Name: "HighsecArmbinder", Level: 0},
+			{Name: "HighsecShackles", Level: 0},
+			{Name: "PrisonVibe", Level: 1},
+			{Name: "PrisonBelt", Level: 1},
+		],
+		"defeat_outfit": "Prisoner",
+		"shrines": [
+			//{Type: "Charms", Weight: 5},
+			{Type: "Commerce", Weight: 10},
+			{Type: "Elements", Weight: 5},
+			{Type: "Conjure", Weight: 5},
+			{Type: "Illusion", Weight: 5},
+			{Type: "Leather", Weight: 5},
+			{Type: "Metal", Weight: 3},
+			{Type: "Rope", Weight: 5},
+			{Type: "Will", Weight: 5},]
 	},
 	{//DungeonName3,-Lost Temple-
 		"openness" : 2,

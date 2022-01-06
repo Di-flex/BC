@@ -226,6 +226,11 @@ NameGreaterSkeleton,Skeleton Warrior
 KillGreaterSkeleton,"The Skeleton Warrior collapses and falls into pieces."
 AttackGreaterSkeleton,"The Skeleton lands a wide, crippling blow! (-DamageTaken SP)"
 
+NameVinePlant,Vine Plant
+KillVinePlant,"The plant leaks purple juices everywhere as it wilts."
+AttackVinePlant,"The vine plant whips you with its tendrils! (-DamageTaken SP)"
+AttackVinePlantStun,"The vine plant grips you tightly! (-DamageTaken SP)"
+
 NameLesserSkeleton,Skeleton
 KillLesserSkeleton,"The Skeleton falls into pieces."
 AttackLesserSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
