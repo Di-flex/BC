@@ -161,7 +161,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	KinkyDungeonDamageEnemy(Enemy, (KinkyDungeonEvasion(Enemy)) ? Damage : null);
-	KinkyDungeonAlert = 99;
+	KinkyDungeonAlert = 5;
 }
 
 function KinkyDungeonUpdateBullets(delta) {

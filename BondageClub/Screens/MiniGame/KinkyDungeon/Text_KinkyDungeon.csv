@@ -1,6 +1,7 @@
-Intro,"You are a wizard descending into an ancient underground city of magic."
+Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
+Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 
 KinkyDungeonRestart,"Quit"
 KinkyDungeonRestartConfirm,"Confirm restart? All progress will be lost (there is no going back)"
@@ -11,9 +12,9 @@ KinkyDungeonRestartNo,"No, I wish to press on"
 DeviousChallenge,"Devious Dungeon Challenge is enabled."
 KinkyDungeonLoading,"Waiting for game data..."
 
-End,"Today the dungeon claims yet another adventurer."
-End2,"Bound and exhausted, you cannot hope to continue."
-End3,"Perhaps another adventurer may rescue you some day."
+End,"You have surrendered to the dungeon and become its prisoner."
+End2,"Day and night, you wait that rescue may come some day."
+End3,"Better luck next time!"
 
 EndWin,"You have reached the end of the playable portion."
 EndWin2,"Come back later for new dungeons!"
