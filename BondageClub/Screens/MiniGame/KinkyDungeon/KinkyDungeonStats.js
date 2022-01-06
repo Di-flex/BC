@@ -102,6 +102,7 @@ let KinkyDungeonPlayers = [];
 let KinkyDungeonDifficulty = 0;
 
 function KinkyDungeonDefaultStats() {
+	KinkyDungeonResetEventVariables();
 	KinkyDungeonSetDress("Default");
 	KinkyDungeonSpawnJailers = 0;
 	KinkyDungeonSpawnJailersMax = 0;

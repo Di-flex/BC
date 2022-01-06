@@ -1290,6 +1290,9 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 }
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	KinkyDungeonResetEventVariablesTick();
+	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
+
 	if (delta >= 1) {
 		KinkyDungeonHandleTraps(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTrapMoved);
 	}

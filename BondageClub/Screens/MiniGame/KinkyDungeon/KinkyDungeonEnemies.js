@@ -18,7 +18,7 @@ var KinkyDungeonEnemies = [
 	{name: "SummonedSkeleton", tags: ["leashing", "skeleton", "melee", "ropeRestraints", "leatherRestraints", "clothRestraints", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "guard",
 		visionRadius: 6, maxhp: 5, minLevel:1, weight:8, movePoints: 2, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {}, shrines: [], floors:[]},
-	{name: "LesserSkeleton", tags: ["leashing", "ignorenoSP", "skeleton", "melee", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "wander",
+	{name: "LesserSkeleton", tags: ["leashing", "ignorenoSP", "skeleton", "melee", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "wander", evasion: -2,
 		visionRadius: 1, maxhp: 2.5, minLevel:0, weight:10, movePoints: 2, attackPoints: 3, attack: "MeleeWillSlow", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":-8, "lastthird":-8}, floors:[1, 11]},
 	{name: "Ghost", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
@@ -33,20 +33,23 @@ var KinkyDungeonEnemies = [
 		terrainTags: {"lastthird":8, "passage": 40, "adjChest": 8, "door": 40}, floors:[1], shrines: ["Metal"], dropTable: [{name: "RedKey", weight: 4}, {name: "Gold", amountMin: 75, amountMax: 125, weight: 10}, {name: "Sword", weight: 1, ignoreInInventory: true}]},
 	{name: "VinePlant", blockVisionWhileStationary: true, tags: ["removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"],
 		ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", specialCD: 99, specialAttack: "Stun", specialAttackPoints: 1, specialRemove: "Bind",
-		visionRadius: 3, ambushRadius: 1.9, blindSight: 5, maxhp: 10, minLevel:0, weight:10, movePoints: 1, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
+		visionRadius: 3, ambushRadius: 1.9, blindSight: 5, maxhp: 10, minLevel:0, weight:10, movePoints: 1, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
 		terrainTags: {"passage": -50, "adjChest": 8, "door": 8}, floors:[2], shrines: ["Rope"]},
 	{name: "Bramble", tags: ["removeDoorSpawn", "plant", "minor", "melee", "slashsevereweakness", "firesevereweakness", "unarmedresist", "crushresist"],
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "wander", specialCD: 2, specialAttack: "Slow", specialAttackPoints: 1,
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 16, minLevel:0, weight:-80, movePoints: 99999, attackPoints: 1, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -50, "adjChest": -50, "door": -50, "open": 110}, floors:[2], shrines: ["Rope"]},
+	{name: "SmallSlime", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist"], ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
+		visionRadius: 3, maxhp: 3, minLevel: 15, weight:10, movePoints: 1, attackPoints: 2, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
+		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"]},
 	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander",
-		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 9,
+		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 9,
 		terrainTags: {"secondhalf":4, "lastthird":2}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 	{name: "LearnedRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt",
-		visionRadius: 5, maxhp: 8, minLevel: 3, weight:1, movePoints: 2, attackPoints: 2, attack: "MeleeBindSuicide", attackWidth: 1.5, attackRange: 2, power: 3, multiBind: 2, dmgType: "grope", fullBoundBonus: 7,
+		visionRadius: 5, maxhp: 8, minLevel: 3, weight:1, movePoints: 2, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1.5, attackRange: 2, power: 3, multiBind: 2, dmgType: "grope", fullBoundBonus: 7,
 		terrainTags: {"secondhalf":4, "lastthird":2}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 	{name: "MonsterRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "guard",
-		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
+		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
 		terrainTags: {"secondhalf":1, "lastthird":4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard",
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
@@ -289,6 +292,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (enemy.Enemy.tags.includes("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
 		if (enemy.Enemy.tags.includes("ignoreharmless") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
+			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+		if (enemy.Enemy.tags.includes("ignoretiedup") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
+			&& !KinkyDungeonPlayer.CanInteract() && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
 			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 		if (enemy.Enemy.tags.includes("ignoreboundhands") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanInteract()
@@ -554,6 +560,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						let Locked = false;
 						let Stun = false;
 						let priorityBonus = 0;
+						let addedRestraint = false;
 
 						if (attack.includes("Lock") && KinkyDungeonPlayerGetLockableRestraints().length > 0) {
 							let Lockable = KinkyDungeonPlayerGetLockableRestraints();
@@ -570,7 +577,6 @@ function KinkyDungeonUpdateEnemies(delta) {
 							if (usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) enemy.specialCD = enemy.Enemy.specialCD;
 						} else if (attack.includes("Bind")) {
 							let numTimes = 1;
-							let added = false;
 							if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 							for (let times = 0; times < numTimes; times++) {
 								// Note that higher power enemies get a bonus to the floor restraints appear on
@@ -578,16 +584,16 @@ function KinkyDungeonUpdateEnemies(delta) {
 								if (rest) {
 									replace.push({keyword:"RestraintAdded", value: TextGet("Restraint" + rest.name)});
 									restraintAdd.push(rest);
-									added = true;
+									addedRestraint = true;
 								}
 							}
-							if (usingSpecial && added && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Bind")) enemy.specialCD = enemy.Enemy.specialCD;
-							if (!added && enemy.Enemy.fullBoundBonus) {
+							if (usingSpecial && addedRestraint && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Bind")) enemy.specialCD = enemy.Enemy.specialCD;
+							if (!addedRestraint && enemy.Enemy.fullBoundBonus) {
 								willpowerDamage += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
 						}
 
-						if (attack.includes("Suicide")) {
+						if (attack.includes("Suicide") && (!enemy.Enemy.suicideOnAdd || addedRestraint)) {
 							enemy.hp = 0;
 						}
 						if (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {

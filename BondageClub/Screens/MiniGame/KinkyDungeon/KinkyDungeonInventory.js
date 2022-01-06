@@ -212,7 +212,7 @@ function KinkyDungeonSendInventoryEvent(Event, data) {
 		if (item.events) {
 			for (let e of item.events) {
 				if (e.trigger == Event) {
-					KinkyDungeonHandleInventoryEvent(item, data);
+					KinkyDungeonHandleInventoryEvent(Event, item, data);
 				}
 			}
 		}

@@ -163,6 +163,8 @@ KinkyDungeonHearDoorOpenFar,You hear the faint sound of a door opening.
 KinkyDungeonHearDoorCloseNear,You hear a door slam shut nearby!
 KinkyDungeonHearDoorCloseFar,You hear a door being shut in the distance.
 
+KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
+
 
 NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
@@ -236,6 +238,11 @@ NameBramble,Bramble
 KillBramble,"The brambles are hacked away."
 AttackBramble,"The bramble snares you! (-DamageTaken SP)"
 
+NameSmallSlime,Ooze
+KillSmallSlime,"The Ooze melts into a puddle."
+AttackSmallSlime,"The sticky Ooze splashes against you! (-DamageTaken SP)"
+AttackSmallSlimeBind,"The Ooze attaches itself to your body! (-DamageTaken SP)"
+
 NameLesserSkeleton,Skeleton
 KillLesserSkeleton,"The Skeleton falls into pieces."
 AttackLesserSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
@@ -280,6 +287,7 @@ KinkyDungeonLeashed,"You are grabbed and led to a prison..."
 NameNecromancer,Necromancer
 KillNecromancer,"The necromancer perishes. Ironic that she couldn't save herself."
 AttackNecromancerLock,"The necromancer locks all of your restraints!"
+AttackNecromancerBind,"The necromancer prepares you for transport!"
 AttackNecromancer,"The necromancer tugs sensually at your restraints!"
 
 NameRat,Filthy Rat
@@ -604,6 +612,26 @@ RestraintVinePlantLegsDesc2,"The vines twitch as they try to wrap around tighter
 RestraintVinePlantFeet,Ankle Vine
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
+
+
+RestraintSlimeBoots,Slime
+RestraintSlimeBootsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeFeet,Slime
+RestraintSlimeFeetDesc,"Sticky slime that adheres to your body."
+RestraintSlimeFeetDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeLegs,Slime
+RestraintSlimeLegsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeLegsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeArms,Slime
+RestraintSlimeArmsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeArmsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeHands,Slime
+RestraintSlimeHandsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeHead,Slime
+RestraintSlimeHeadDesc,"Sticky slime that adheres to your body."
+RestraintSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
 
 RestraintChainArms,Arm Chains
 RestraintChainArmsDesc,"Heavy chains keeping your arms securely behind your back."

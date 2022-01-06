@@ -113,7 +113,7 @@ var KinkyDungeonMapParams = [
 		"trapchance" : 0.5,
 		"grateChance" : 0.7,
 		"rubblechance" : 0.5,
-		"brickchance" : 0.4,
+		"brickchance" : 0.25,
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},

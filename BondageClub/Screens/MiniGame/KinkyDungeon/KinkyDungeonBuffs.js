@@ -5,7 +5,7 @@ function KinkyDungeonSendBuffEvent(Event, data) {
 		if (buff && buff.events) {
 			for (let e of buff.events) {
 				if (e.trigger == Event) {
-					KinkyDungeonHandleBuffEvent(buff, KinkyDungeonPlayerEntity, data);
+					KinkyDungeonHandleBuffEvent(Event, buff, KinkyDungeonPlayerEntity, data);
 				}
 			}
 		}
@@ -16,7 +16,7 @@ function KinkyDungeonSendBuffEvent(Event, data) {
 				if (buff && buff.events) {
 					for (let e of buff.events) {
 						if (e.trigger == Event) {
-							KinkyDungeonHandleBuffEvent(buff, e, data);
+							KinkyDungeonHandleBuffEvent(Event, buff, e, data);
 						}
 					}
 				}
@@ -44,7 +44,7 @@ function KinkyDungeonTickBuffs(list, delta) {
 // Updates buffs for all creatures
 function KinkyDungeonUpdateBuffs(delta) {
 	// Tick down buffs the buffs
-	KinkyDungeonSendBuffEvent("Tick");
+	KinkyDungeonSendBuffEvent("tick", {delta: delta});
 	KinkyDungeonTickBuffs(KinkyDungeonPlayerBuffs, delta);
 	for (let EE = 0; EE < KinkyDungeonEntities.length; EE++) {
 		let enemy = KinkyDungeonEntities[EE];
