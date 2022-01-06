@@ -91,7 +91,7 @@ var KinkyDungeonDoorCloseTimer = 0;
 var KinkyDungeonLastMoveDirection = null;
 var KinkyDungeonTargetingSpell = null;
 
-var KinkyDungeonMaxLevel = 20; // Game stops when you reach this level
+var KinkyDungeonMaxLevel = 30; // Game stops when you reach this level
 
 var KinkyDungeonLastMoveTimer = 0;
 var KinkyDungeonLastMoveTimerStart = 0;
