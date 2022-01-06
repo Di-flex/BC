@@ -795,6 +795,11 @@ KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radiu
 KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking.
 KinkyDungeonSpellCastShroud,You exhale a misty shroud
 
+KinkyDungeonSpellInvisibility,Invisibility
+KinkyDungeonSpellTargetInvisibility,Select which creature to buff
+KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
+KinkyDungeonSpellCastInvisibility,You snap your fingers!
+
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
 KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt damage on a hit.

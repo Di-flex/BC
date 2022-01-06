@@ -668,7 +668,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock) {
 				if (placedOnPlayer)
 					CharacterAppearanceSetColorForGroup(Player, restraint.Color, restraint.Group);
 			}
-			let item = {restraint: restraint, tightness: tight, lock: ""};
+			let item = {restraint: restraint, tightness: tight, lock: "", events: restraint.events};
 			KinkyDungeonInventory.push(item);
 
 			if (Lock) KinkyDungeonLock(item, Lock);
@@ -702,7 +702,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep) {
 
 			KinkyDungeonInventory.splice(I, 1);
 
-			if (item.restraint.inventory && Keep) KinkyDungeonInventory.push({looserestraint: item.restraint});
+			if (item.restraint.inventory && Keep) KinkyDungeonInventory.push({looserestraint: item.restraint, events: item.restraint.looseevents});
 
 			InventoryRemove(KinkyDungeonPlayer, Group);
 			if (item.restraint.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KinkyDungeonGetRestraintItem("ItemNeckRestraints").restraint.inventory);
@@ -742,3 +742,4 @@ function KinkyDungeonRestraintTypes(ShrineFilter) {
 
 	return ret;
 }
+

@@ -22,7 +22,7 @@ var KinkyDungeonEnemies = [
 		visionRadius: 1, maxhp: 2.5, minLevel:0, weight:10, movePoints: 2, attackPoints: 3, attack: "MeleeWillSlow", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":-8, "lastthird":-8}, floors:[1, 11]},
 	{name: "Ghost", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
-		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWillSlow", attackWidth: 3, attackRange: 1, power: 6, dmgType: "grope", fullBoundBonus: 0,
+		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 6, dmgType: "grope", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], floors:[0, 1, 11]},
 	{name: "GreaterSkeleton", tags: ["leashing", "ignoreharmless", "skeleton", "melee", "elite", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1.5, AI: "hunt",
 		visionRadius: 4, maxhp: 10, minLevel:12, weight:3, movePoints: 3, attackPoints: 3, attack: "MeleeWillSlow", attackWidth: 3, attackRange: 1, power: 10, dmgType: "crush", fullBoundBonus: 0,
@@ -103,6 +103,35 @@ function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
 	return p;
 }
 
+function KinkyDungeonHandleBuffEvent(buff, entity, data) {
+
+}
+
+function KinkyDungeonSendBuffEvent(Event, data) {
+	for (let buff of Object.values(KinkyDungeonPlayerBuffs)) {
+		if (buff.events) {
+			for (let e of buff.events) {
+				if (e.trigger == Event) {
+					KinkyDungeonHandleBuffEvent(buff, KinkyDungeonPlayerEntity, data);
+				}
+			}
+		}
+	}
+	for (let e of KinkyDungeonEntities) {
+		if (e.buffs) {
+			for (let buff of Object.values(e.buffs)) {
+				if (buff.events) {
+					for (let e of buff.events) {
+						if (e.trigger == Event) {
+							KinkyDungeonHandleBuffEvent(buff, e, data);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 function KinkyDungeonNearestPlayer(enemy, requireVision) {
 	return KinkyDungeonPlayerEntity;
 }
@@ -162,32 +191,32 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		let ty = enemy.visual_y;
 		let playerDist = Math.max(Math.abs(KinkyDungeonEntities[E].x - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonEntities[E].y - KinkyDungeonPlayerEntity.y));
 		if (KinkyDungeonEntities[E].x >= CamX && KinkyDungeonEntities[E].y >= CamY && KinkyDungeonEntities[E].x < CamX + KinkyDungeonGridWidthDisplay && KinkyDungeonEntities[E].y < CamY + KinkyDungeonGridHeightDisplay) {
-			if (!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1)
+			if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0))
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Enemies/" + sprite + ".png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 
 			if (enemy.stun > 0) {
-				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Stun.png",
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
 			if (enemy.freeze > 0) {
-				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Freeze.png",
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Freeze.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
 			if (enemy.bind > 0) {
-				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Bind.png",
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Bind.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
 			if (enemy.slow > 0) {
-				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Slow.png",
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
