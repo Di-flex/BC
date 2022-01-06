@@ -99,7 +99,7 @@ var KinkyDungeonMapParams = [
 	},
 
 	{//DungeonName2,-Underground Jungle-
-		"openness" : 4,
+		"openness" : 6,
 		"density" : 5,
 		"doodadchance" : 0.12,
 		"brightness" : 7,

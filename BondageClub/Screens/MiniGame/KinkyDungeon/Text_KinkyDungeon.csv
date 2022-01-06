@@ -232,6 +232,10 @@ AttackVinePlant,"The vine plant whips you with its tendrils! (-DamageTaken SP)"
 AttackVinePlantBind,"The vine plant wraps its tendrils around you! (+RestraintAdded)"
 AttackVinePlantStun,"The vine plant grips you tightly! (-DamageTaken SP)"
 
+NameBramble,Bramble
+KillBramble,"The brambles are hacked away."
+AttackBramble,"The bramble snares you! (-DamageTaken SP)"
+
 NameLesserSkeleton,Skeleton
 KillLesserSkeleton,"The Skeleton falls into pieces."
 AttackLesserSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
