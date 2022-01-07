@@ -265,7 +265,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player) {
 		let size = (spell.size) ? spell.size : 1;
 		let b = KinkyDungeonLaunchBullet(entity.x + moveDirection.x, entity.y + moveDirection.y,
 			tX-entity.x,tY - entity.y,
-			spell.speed, {name:spell.name, block: spell.block, width:size, height:size, nonVolatile:spell.nonVolatile, lifetime:-1, origin: {x: entity.x, y: entity.y}, range: spell.range, passthrough:false, hit:spell.onhit, damage: {damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
+			spell.speed, {name:spell.name, block: spell.block, width:size, height:size, nonVolatile:spell.nonVolatile, lifetime:1000, origin: {x: entity.x, y: entity.y}, range: spell.range, passthrough:false, hit:spell.onhit, damage: {damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
 		b.visual_x = entity.x;
 		b.visual_y = entity.y;
 	} else if (spell.type == "inert" || spell.type == "dot") {
