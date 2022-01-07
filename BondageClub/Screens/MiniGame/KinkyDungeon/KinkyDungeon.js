@@ -475,9 +475,10 @@ function KinkyDungeonSaveGame() {
 	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
 	save.rep = KinkyDungeonGoddessRep;
 	save.costs = KinkyDungeonShrineCosts;
-	save.inventoy = KinkyDungeonInventory;
+	save.inventory = KinkyDungeonInventory;
 	save.orbs = KinkyDungeonOrbsPlaced;
 	save.chests = KinkyDungeonChestsOpened;
+	save.dress = KinkyDungeonCurrentDress;
 
 	Player.KinkyDungeonSave = saveData.KinkyDungeonSave;
 	ServerAccountUpdate.QueueData(saveData);
@@ -485,15 +486,36 @@ function KinkyDungeonSaveGame() {
 
 function KinkyDungeonLoadGame() {
 	let saveData = Player.KinkyDungeonSave;
-	if (saveData && saveData.spells) {
+	if (saveData
+		&& saveData.spells != undefined
+		&& saveData.level != undefined
+		&& saveData.checkpoint != undefined
+		&& saveData.inventory != undefined
+		&& saveData.costs != undefined
+		&& saveData.rep != undefined
+		&& saveData.orbs != undefined
+		&& saveData.chests != undefined
+		&& saveData.dress != undefined) {
 		KinkyDungeonSpells = saveData.spells;
 		MiniGameKinkyDungeonLevel = saveData.level;
 		MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
-		KinkyDungeonInventory = saveData.inventory;
 		KinkyDungeonShrineCosts = saveData.costs;
 		KinkyDungeonGoddessRep = saveData.rep;
 		KinkyDungeonOrbsPlaced = saveData.orbs;
 		KinkyDungeonChestsOpened = saveData.chests;
+		KinkyDungeonCurrentDress = saveData.dress;
+
+		for (let item of saveData.inventory) {
+			if (item.restraint) {
+				let i = 1;
+				let restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
+				KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
+				let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
+				if (createdrestraint)
+					createdrestraint.lock = item.lock; // Lock if applicable
+			}
+		}
+		KinkyDungeonInventory = saveData.inventory;
 		KinkyDungeonDefeat();
 	}
 }
