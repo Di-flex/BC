@@ -42,6 +42,7 @@ function KinkyDungeonLoad() {
 	if (!KinkyDungeonIsPlayer()) KinkyDungeonGameRunning = false;
 
 	if (!Player.KinkyDungeonExploredLore) Player.KinkyDungeonExploredLore = [];
+	if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer)
@@ -129,6 +130,15 @@ function KinkyDungeonRun() {
 
 		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+	} else if (KinkyDungeonState == "Save") {
+		// Draw temp start screen
+		DrawText(TextGet("KinkyDungeonSaveIntro"), 1250, 400, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro2"), 1250, 500, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro3"), 1250, 600, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro4"), 1250, 700, "white", "silver");
+
+		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonGameSave"), "White", "");
+		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonGameContinue"), "White", "");
 	} else if (KinkyDungeonState == "Lose") {
 		// Draw temp start screen
 		DrawText(TextGet("End"), 1250, 400, "white", "silver");
@@ -199,6 +209,7 @@ function KinkyDungeonClick() {
 	if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonInitialize(1);
+			KinkyDungeonLoadGame();
 			MiniGameKinkyDungeonCheckpoint = 0;
 			KinkyDungeonState = "Game";
 
@@ -237,6 +248,14 @@ function KinkyDungeonClick() {
 				UpRight: 101,
 				Wait: 120,
 			};
+		}
+	} else if (KinkyDungeonState == "Save") {
+		if (MouseIn(875, 750, 350, 64)) {
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSavedGame"), "white", 1);
+			KinkyDungeonSaveGame();
+			KinkyDungeonState = "Game";
+		} else if (MouseIn(1275, 750, 350, 64)) {
+			KinkyDungeonState = "Game";
 		}
 	} else if (KinkyDungeonState == "Game") {
 		if (KinkyDungeonIsPlayer()) KinkyDungeonClickGame();
@@ -447,3 +466,34 @@ let KinkyDungeonGameKey = {
 		}
 	},
 };
+
+function KinkyDungeonSaveGame() {
+	let saveData = {KinkyDungeonSave: {}};
+	let save = saveData.KinkyDungeonSave;
+	save.spells = KinkyDungeonSpells;
+	save.level = MiniGameKinkyDungeonLevel;
+	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
+	save.rep = KinkyDungeonGoddessRep;
+	save.costs = KinkyDungeonShrineCosts;
+	save.inventoy = KinkyDungeonInventory;
+	save.orbs = KinkyDungeonOrbsPlaced;
+	save.chests = KinkyDungeonChestsOpened;
+
+	Player.KinkyDungeonSave = saveData.KinkyDungeonSave;
+	ServerAccountUpdate.QueueData(saveData);
+}
+
+function KinkyDungeonLoadGame() {
+	let saveData = Player.KinkyDungeonSave;
+	if (saveData && saveData.spells) {
+		KinkyDungeonSpells = saveData.spells;
+		MiniGameKinkyDungeonLevel = saveData.level;
+		MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
+		KinkyDungeonInventory = saveData.inventory;
+		KinkyDungeonShrineCosts = saveData.costs;
+		KinkyDungeonGoddessRep = saveData.rep;
+		KinkyDungeonOrbsPlaced = saveData.orbs;
+		KinkyDungeonChestsOpened = saveData.chests;
+		KinkyDungeonDefeat();
+	}
+}

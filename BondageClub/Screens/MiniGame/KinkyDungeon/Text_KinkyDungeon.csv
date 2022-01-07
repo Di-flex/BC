@@ -3,6 +3,15 @@ Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 
+KinkyDungeonSaveIntro,"You come across a black monolith with its face inscribed in runes."
+KinkyDungeonSaveIntro2,"'The Goddess of Time watches you,' it says. 'She offers a pact.'"
+KinkyDungeonSaveIntro3,"'I will give you peace, if you give me your future.'"
+KinkyDungeonSaveIntro4,"(This will save your game, but you will be imprisoned if you reload)"
+KinkyDungeonSavedGame,"You have a bad feeling about this..."
+
+KinkyDungeonGameSave,"Yes, I will make the pact."
+KinkyDungeonGameContinue,"I have no use for superstitions!"
+
 KinkyDungeonRestart,"Quit"
 KinkyDungeonRestartConfirm,"Confirm restart? All progress will be lost (there is no going back)"
 KinkyDungeonRestartYes,"Give up and abandon her"

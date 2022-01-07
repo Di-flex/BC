@@ -352,6 +352,7 @@ function KinkyDungeonHandleHUD() {
 			return true;
 		} else if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonDrawState = "Game";
+			Player.KinkyDungeonSave = {};
 			return true;
 		}
 	}

@@ -161,6 +161,7 @@ Bugfix:
 - Buffs to the bast clerics so they stun
 - Buffs have been changed and evasion works differently (diminishing returns)
 - New area: Underground jungle
+- Save feature
 
 TODO Add brambles: stationary plants that slow you, maximum attack width
 
