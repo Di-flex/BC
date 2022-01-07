@@ -199,6 +199,16 @@ KillSkeleton,"The Skeleton falls to pieces."
 AttackSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
 AttackSkeleton,"The Skeleton tackles you! (-DamageTaken SP)"
 
+NameBandit,Bandit
+KillBandit,"The Bandit collapses."
+AttackBanditBind,"The Bandit restrains you! (+RestraintAdded)"
+AttackBandit,"The Bandit caresses your restrained body! (-DamageTaken SP)"
+
+NameBanditHunter,Bandit Hunter
+KillBanditHunter,"The Bandit Hunter retreats."
+AttackBanditHunterBind,"The Bandit Hunter restrains you! (+RestraintAdded)"
+AttackBanditHunter,"The Bandit Hunter caresses your restrained body! (-DamageTaken SP)"
+
 NameMummy,Mummy
 KillMummy,"The Mummy collapses and her body vanishes."
 AttackMummyBind,"The Mummy conjures a mystic wrapping! (+RestraintAdded)"
@@ -787,6 +797,8 @@ KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damag
 KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!
 KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
+KinkyDungeonSpellBanditBola,Bola
+
 KinkyDungeonSpellShield,Shield
 KinkyDungeonSpellDescriptionShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
 KinkyDungeonSpellCastShield,You create a temporary shield!
@@ -937,7 +949,7 @@ KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
-KinkyDungeonSingleRope,"A magic rope wraps itself around your body!"
+KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 
 KinkyDungeonInventory,"Inventory"
@@ -1033,6 +1045,7 @@ KinkyDungeonGhostUnhelpfulChaste3,"Ghost: Looks like someone's been naughty~"
 KinkyDungeonGhostUnhelpfulChaste4,"Ghost: How's it feel to be under lock and key?"
 
 KinkyDungeonTrapSkeletons,"You step on a pressure plate and a number of skeletons rise up!"
+KinkyDungeonTrapBandits,"You are ambushed by bandits!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb."
 KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."

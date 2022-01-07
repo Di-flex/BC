@@ -21,6 +21,7 @@ var KinkyDungeonMapParams = [
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
+			{Name: "Bandits", Level: 0, Power: 1, Weight: 30},
 		],
 
 		"min_width" : 25,
@@ -70,6 +71,7 @@ var KinkyDungeonMapParams = [
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
+			{Name: "Bandits", Level: 0, Power: 2, Weight: 40},
 		],
 
 		"min_width" : 21,
@@ -110,13 +112,13 @@ var KinkyDungeonMapParams = [
 		"doorchance" : 0.2,
 		"nodoorchance" : 0.7,
 		"doorlockchance" : -0.05,
-		"trapchance" : 0.5,
+		"trapchance" : 0.8,
 		"grateChance" : 0.7,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
 
 		"traps": [
-			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
+			{Name: "Bandits", Level: 0, Power: 3, Weight: 100},
 		],
 
 		"min_width" : 29,
@@ -129,6 +131,7 @@ var KinkyDungeonMapParams = [
 			{Name: "HighsecBallGag", Level: 0},
 			{Name: "HighsecArmbinder", Level: 0},
 			{Name: "HighsecShackles", Level: 0},
+			{Name: "HighsecLegbinder", Level: 0},
 			{Name: "PrisonVibe", Level: 1},
 			{Name: "PrisonBelt", Level: 1},
 		],
@@ -381,7 +384,8 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.4,
 
 		"traps": [
-			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
+			{Name: "Skeletons", Level: 0, Power: 8, Weight: 100},
+			{Name: "Bandits", Level: 0, Power: 3, Weight: 60},
 		],
 
 		"min_width" : 21,
