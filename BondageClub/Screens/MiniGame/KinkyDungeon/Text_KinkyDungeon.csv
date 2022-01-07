@@ -457,6 +457,9 @@ KinkyDungeonInventoryItemTrapVibe,Egg Vibe
 RestraintHighsecArmbinder,Highsec Armbinder
 RestraintHighsecArmbinderDesc,"An obisidian armbinder enclosing your hands and arms completely, making your hands useless."
 RestraintHighsecArmbinderDesc2,"Made of a flexible, yet durable material, it's going to be really tough to escape."
+RestraintHighsecLegbinder,Highsec Legbinder
+RestraintHighsecLegbinderDesc,"An obisidian legbinder enclosing your legs, making it difficult to move."
+RestraintHighsecLegbinderDesc2,"Made of a flexible, yet durable material, it's going to be really tough to escape."
 RestraintHighsecShackles,Highsec Shackles
 RestraintHighsecShacklesDesc,"A pair of obisidian shackles around your feet."
 RestraintHighsecShacklesDesc2,"Nearly indestructable, you are at the mercy of its lock."
@@ -512,6 +515,10 @@ RestraintDuctTapeFeetMummyDesc2,"It clings, almost of its own accord, but seems 
 RestraintDuctTapeLegsMummy,Charms
 RestraintDuctTapeLegsMummyDesc,"A layer of faintly magic ribbon wrapped tight around your thighs."
 RestraintDuctTapeLegsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
+
+RestraintPanelGag,Panel Gag
+RestraintPanelGagDesc,"A gag that seals your lips tightly and stuffs your mouth with a ball."
+RestraintPanelGagDesc2,"The harness is comprehensive and it's locked in place."
 
 RestraintKittyGag,Bast Gag
 RestraintKittyGagDesc,"A gag used to silence new initiates of the Bast cult."

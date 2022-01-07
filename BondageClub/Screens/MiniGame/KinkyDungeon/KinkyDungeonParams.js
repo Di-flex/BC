@@ -135,7 +135,7 @@ var KinkyDungeonMapParams = [
 			{Name: "PrisonVibe", Level: 1},
 			{Name: "PrisonBelt", Level: 1},
 		],
-		"defeat_outfit": "Prisoner",
+		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			//{Type: "Charms", Weight: 5},
 			{Type: "Commerce", Weight: 10},

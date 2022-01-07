@@ -25,6 +25,13 @@ function KinkyDungeonInitializeDresses() {
 			{Item: "Heels1", Group: "Shoes", Color: "#8A120C", Lost: false},
 			{Item: "Socks4", Group: "Socks", Color: "#222222", Lost: false},
 		],
+		"LatexPrisoner" : [
+			{Item: "LatexPanties2", Group: "Panties", Color: "Default", Lost: false},
+			{Item: "LatexCorset1", Group: "Corset", Color: "Default", Lost: false},
+			{Item: "FullLatexBra", Group: "Bra", Color: "Default", Lost: false},
+			{Item: "Heels1", Group: "Shoes", Color: "#222222", Lost: false},
+			{Item: "LatexSocks1", Group: "Socks", Color: "Default", Lost: false},
+		],
 		"Dungeon" : [
 			{Item: "Bandeau1", Group: "Bra", Color: "Default", Lost: false},
 			{Item: "Pantyhose1", Group: "SuitLower", Color: "Default", Lost: false},
