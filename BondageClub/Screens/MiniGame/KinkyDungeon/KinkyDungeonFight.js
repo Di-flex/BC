@@ -192,7 +192,7 @@ function KinkyDungeonUpdateBullets(delta) {
 			} else first = false;
 
 			let outOfRange = b.bullet && b.bullet.origin && Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y)) > b.bullet.range;
-			let outOfTime = (b.bullet.lifetime > 0 && b.time < 0);
+			let outOfTime = (b.bullet.lifetime > 0 && b.time <= 0);
 			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
 				if (!(b.bullet.spell && b.bullet.spell.piercing) || outOfRange || outOfTime) {
 					d = 0;
