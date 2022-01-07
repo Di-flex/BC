@@ -191,7 +191,13 @@ function KinkyDungeonUpdateBullets(delta) {
 				d -= dt;
 			} else first = false;
 
-			let outOfRange = b.bullet && b.bullet.origin && Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y)) > b.bullet.range;
+			let outOfRange = false;
+			let endTime = false;
+			if (b.bullet && b.bullet.origin) {
+				let dist = Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y));
+				if (dist > b.bullet.range) outOfRange = true;
+				if (dist >= b.bullet.range) endTime = true;
+			}
 			let outOfTime = (b.bullet.lifetime > 0 && b.time <= 0);
 			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
 				if (!(b.bullet.spell && b.bullet.spell.piercing) || outOfRange || outOfTime) {
@@ -200,9 +206,10 @@ function KinkyDungeonUpdateBullets(delta) {
 					KinkyDungeonBulletsID[b.spriteID] = null;
 					E -= 1;
 				}
-				if (!((outOfTime || outOfRange) && b.bullet.spell && b.bullet.nonVolatile))
+				if (!((outOfTime || outOfRange) && b.bullet.spell && b.bullet.spell.nonVolatile))
 					KinkyDungeonBulletHit(b, 1.1);
 			}
+			if (endTime) b.time = 0;
 		}
 		// A bullet can only damage an enemy in one location at a time
 		// Resets at the end of the bullet update!
@@ -295,7 +302,7 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 	var mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 
-	if (bullet.bullet.damage) {
+	if (bullet.bullet.damage && bullet.time > 0) {
 		if (bullet.bullet.aoe) {
 			if (AoE) {
 				if (bullet.bullet.spell && bullet.bullet.spell.playerEffect && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
