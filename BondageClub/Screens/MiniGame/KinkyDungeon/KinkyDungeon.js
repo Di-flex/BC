@@ -479,6 +479,9 @@ function KinkyDungeonSaveGame() {
 	save.orbs = KinkyDungeonOrbsPlaced;
 	save.chests = KinkyDungeonChestsOpened;
 	save.dress = KinkyDungeonCurrentDress;
+	save.gold = KinkyDungeonGold;
+	save.points = KinkyDungeonSpellPoints;
+	save.levels = KinkyDungeonSpellLevel;
 
 	Player.KinkyDungeonSave = saveData.KinkyDungeonSave;
 	ServerAccountUpdate.QueueData(saveData);
@@ -504,6 +507,9 @@ function KinkyDungeonLoadGame() {
 		KinkyDungeonOrbsPlaced = saveData.orbs;
 		KinkyDungeonChestsOpened = saveData.chests;
 		KinkyDungeonCurrentDress = saveData.dress;
+		if (saveData.gold) KinkyDungeonGold = saveData.gold;
+		if (saveData.points) KinkyDungeonSpellPoints = saveData.poinnts;
+		if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
 
 		for (let item of saveData.inventory) {
 			if (item.restraint) {
