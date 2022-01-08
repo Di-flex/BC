@@ -785,7 +785,6 @@ interface PlayerCharacter extends Character {
 	SubmissivesList?: Set<number>;
 	KinkyDungeonKeybindings?: any;
 	KinkyDungeonExploredLore: any[];
-	KinkyDungeonSave: any;
 	Infiltration?: any;
 	ChatSearchFilterTerms?: string;
 }

@@ -492,7 +492,6 @@ function LoginResponse(C) {
 			Player.ItemPermission = C.ItemPermission;
 			Player.KinkyDungeonKeybindings = C.KinkyDungeonKeybindings;
 			Player.KinkyDungeonExploredLore = C.KinkyDungeonExploredLore;
-			//Player.KinkyDungeonSave = C.KinkyDungeonSave;
 			Player.ArousalSettings = C.ArousalSettings;
 			Player.ChatSettings = C.ChatSettings;
 			Player.VisualSettings = C.VisualSettings;
