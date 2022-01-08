@@ -1003,7 +1003,8 @@ KinkyDungeonSpellsPageBack,"Previous Page"
 KinkyDungeonSpellsLevels,"Spell Points: SPELLPOINTS --- Elementalist lvELEMLEVEL --- Conjuration lvCONJLEVEL --- Illusionist lvILLULEVEL"
 KinkyDungeonSpellsNotEnoughLevels,"You need a higher level in SCHOOL magic to learn this spell."
 KinkyDungeonSpellsNotEnoughPoints,"You need more spell points."
-KinkyDungeonSpellsSchoolElements,Elemental
+KinkyDungeonSpellsSchool,"School: "
+KinkyDungeonSpellsSchoolElements,Elements
 KinkyDungeonSpellsSchoolConjure,Conjuration
 KinkyDungeonSpellsSchoolIllusion,Illusion
 KinkyDungeonSpellsBuy,"Learn Spell"
