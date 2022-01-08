@@ -1339,6 +1339,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 		if (MiniGameKinkyDungeonLevel > 0 && MiniGameKinkyDungeonLevel % KinkyDungeonSaveInterval == 0 && ServerURL != "foobar") {
 			KinkyDungeonState = "Save";
+			ElementCreateTextArea("saveDataField");
+			ElementValue("saveDataField", KinkyDungeonSaveGame(true));
 		}
 
 		MiniGameKinkyDungeonLevel += 1;
