@@ -349,8 +349,9 @@ function KinkyDungeonHandleHUD() {
 		}
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonState = "Lose";
-			Player.KinkyDungeonSave = {};
-			ServerAccountUpdate.QueueData({KinkyDungeonSave : Player.KinkyDungeonSave});
+			//Player.KinkyDungeonSave = {};
+			//ServerAccountUpdate.QueueData({KinkyDungeonSave : Player.KinkyDungeonSave});
+			localStorage.setItem('KinkyDungeonSave', "");
 			return true;
 		} else if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonDrawState = "Game";
