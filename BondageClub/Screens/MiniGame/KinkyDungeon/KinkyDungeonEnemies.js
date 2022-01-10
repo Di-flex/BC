@@ -95,6 +95,7 @@ let KinkyDungeonSpawnJailers = 0;
 let KinkyDungeonSpawnJailersMax = 5;
 let KinkyDungeonLeashedPlayer = 0;
 let KinkyDungeonLeashingEnemy = null;
+let KinkyDungeonDoorShutTimer = 6;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
@@ -314,6 +315,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 			&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanInteract()
 			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 
+		if (enemy.Enemy.tags.includes("jailer") && !KinkyDungeonJailTransgressed) ignore = true;
+
 		let MovableTiles = KinkyDungeonMovableTilesEnemy;
 		let AvoidTiles = "g";
 		if (enemy.Enemy.tags && enemy.Enemy.tags.includes("opendoors")) MovableTiles = KinkyDungeonMovableTilesSmartEnemy;
@@ -367,6 +370,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (!enemy.warningTiles) enemy.warningTiles = [];
 			let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, true);
 			let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false);
+
+			if (canSeePlayer && (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash)) {
+				KinkyDungeonJailTransgressed = true;
+				ignore = false;
+			}
 
 			if ((canSensePlayer || canSeePlayer) && KinkyDungeonTrackSneak(enemy, delta)) enemy.aware = true;
 
@@ -882,7 +890,9 @@ function KinkyDungeonDefeat() {
 	let firstTime = KinkyDungeonSpawnJailersMax == 0;
 	KinkyDungeonSpawnJailersMax = 2;
 	if (KinkyDungeonGoddessRep.Prisoner) KinkyDungeonSpawnJailersMax += Math.round(6 * (KinkyDungeonGoddessRep.Prisoner + 50)/100);
-	let securityBoost = (firstTime) ? 0 : Math.min(1, KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers - 1);
+	let securityBoost = (firstTime) ? 0 : Math.max(1, Math.ceil(3 * (KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers)/KinkyDungeonSpawnJailersMax));
+
+	KinkyDungeonStatBlind = 3;
 
 	MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/10)*10;
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);

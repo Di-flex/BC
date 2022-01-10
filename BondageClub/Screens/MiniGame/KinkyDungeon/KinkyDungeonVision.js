@@ -3,8 +3,8 @@
 // For this implementation I decided that ray calculations are too much so I just did a terraria style lighting system
 // -Ada
 
-var KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "") + "OoAaCcB"; // Light does not pass thru doors or grates
-var KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
+
+let KinkyDungeonSeeAll = false;
 
 function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars) {
 	let length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
@@ -37,7 +37,6 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '0'; // 0 = pitch dark
 		KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
 	}
-
 	let maxPass = 0;
 
 	for (let L = 0; L < Lights.length; L++) {
@@ -88,6 +87,14 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 			}
 		}
 	}
+
+	if (KinkyDungeonSeeAll) {
+		KinkyDungeonLightGrid = "";
+		// Generate the grid
+		for (let X = 0; X < KinkyDungeonGridHeight; X++) {
+			for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
+				KinkyDungeonLightGrid = KinkyDungeonLightGrid + '9'; // 0 = pitch dark
+			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
+		}
+	}
 }
-
-

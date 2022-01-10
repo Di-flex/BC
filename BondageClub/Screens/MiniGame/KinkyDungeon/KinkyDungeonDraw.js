@@ -4,6 +4,8 @@ function KinkyDungeonGetSprite(code) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
 	if (code == "2") sprite = "Brickwork";
+	else if (code == "B") sprite = "Bed";
+	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
 	else if (code == "C") sprite = "Chest";
 	else if (code == "c") sprite = "ChestOpen";

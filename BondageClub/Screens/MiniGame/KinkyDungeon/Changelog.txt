@@ -170,6 +170,8 @@ Bugfix:
 2.32
 - Fixed bug where the player is invisible inside a grate
 - Fixed bug where the game would crash if an enemy put a type of ankle cuffs on you
+- New barred prisoners
+- Fixed unreal number of jailers
 
 
 
