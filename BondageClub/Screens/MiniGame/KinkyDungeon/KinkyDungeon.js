@@ -55,7 +55,8 @@ function KinkyDungeonLoad() {
 		KinkyDungeonInitializeDresses();
 		KinkyDungeonDressPlayer();
 
-		KinkyDungeonKeybindings = Player.KinkyDungeonKeybindings;
+		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings")))
+			KinkyDungeonKeybindings = JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"));
 
 		if (KinkyDungeonIsPlayer()) {
 			KinkyDungeonState = "Menu";
@@ -65,7 +66,10 @@ function KinkyDungeonLoad() {
 			ServerSend("ChatRoomCharacterExpressionUpdate", { Name: "Gaming", Group: "Emoticon", Appearance: ServerAppearanceBundle(Player.Appearance) });
 		} else {
 			KinkyDungeonState = "Game";
-			if (!KinkyDungeonGameData) KinkyDungeonInitialize(1);
+			if (!KinkyDungeonGameData) {
+				MiniGameKinkyDungeonLevel = 1;
+				KinkyDungeonInitialize(1);
+			}
 		}
 
 		for (let G = 0; G < KinkyDungeonStruggleGroupsBase.length; G++) {
@@ -261,20 +265,25 @@ function KinkyDungeonClick() {
 		if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonState = "Keybindings";
 
-			KinkyDungeonKeybindingsTemp = {
-				Down: 115,
-				DownLeft: 122,
-				DownRight: 99,
-				Left: 97,
-				Right: 100,
-				Spell1: 49,
-				Spell2: 50,
-				Spell3: 51,
-				Up: 119,
-				UpLeft: 113,
-				UpRight: 101,
-				Wait: 120,
-			};
+			if (!KinkyDungeonKeybindings)
+				KinkyDungeonKeybindingsTemp = {
+					Down: 115,
+					DownLeft: 122,
+					DownRight: 99,
+					Left: 97,
+					Right: 100,
+					Spell1: 49,
+					Spell2: 50,
+					Spell3: 51,
+					Up: 119,
+					UpLeft: 113,
+					UpRight: 101,
+					Wait: 120,
+				};
+			else {
+				KinkyDungeonKeybindingsTemp = {};
+				Object.assign(KinkyDungeonKeybindingsTemp, KinkyDungeonKeybindings);
+			}
 		}
 	} else if (KinkyDungeonState == "Save") {
 		if (MouseIn(875, 750, 350, 64)) {
@@ -290,9 +299,12 @@ function KinkyDungeonClick() {
 		if (KinkyDungeonIsPlayer()) KinkyDungeonClickGame();
 	} else if (KinkyDungeonState == "Keybindings") {
 		if (MouseIn(1075, 750, 350, 64)) {
-			KinkyDungeonState = "Menu";
+			if (KinkyDungeonInventory.length > 0 || KinkyDungeonSpells.length > 0 || KinkyDungeonGold > 0 || MiniGameKinkyDungeonLevel >= 0)
+				KinkyDungeonState = "Game";
+			else KinkyDungeonState = "Menu";
 			KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
-			ServerAccountUpdate.QueueData({ KinkyDungeonKeybindings: KinkyDungeonKeybindings });
+			localStorage.setItem("KinkyDungeonKeybindings", JSON.stringify(KinkyDungeonKeybindings));
+			//ServerAccountUpdate.QueueData({ KinkyDungeonKeybindings: KinkyDungeonKeybindings });
 		}
 
 		if (KinkyDungeonKeybindingCurrentKey > 0) {

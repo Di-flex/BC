@@ -5,7 +5,7 @@ let KinkyDungeonGagMumbleChancePerRestraint = 0.0025;
 
 var MiniGameKinkyDungeonCheckpoint = 0;
 var MiniGameKinkyDungeonShortcut = 0;
-var MiniGameKinkyDungeonLevel = 1;
+var MiniGameKinkyDungeonLevel = -1;
 var KinkyDungeonMapIndex = [];
 
 var KinkyDungeonLightGrid = "";

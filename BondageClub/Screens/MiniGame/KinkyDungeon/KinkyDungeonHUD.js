@@ -342,9 +342,13 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Restart") {
-		if (MouseIn(975, 850, 550, 64)) {
+		if (MouseIn(975, 950, 550, 64)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonDrawState = "Game";
+			return true;
+		}
+		if (MouseIn(1075, 650, 350, 64)) {
+			KinkyDungeonState = "Keybindings";
 			return true;
 		}
 		if (MouseIn(875, 750, 350, 64)) {
@@ -352,6 +356,7 @@ function KinkyDungeonHandleHUD() {
 			//Player.KinkyDungeonSave = {};
 			//ServerAccountUpdate.QueueData({KinkyDungeonSave : Player.KinkyDungeonSave});
 			localStorage.setItem('KinkyDungeonSave', "");
+			MiniGameKinkyDungeonLevel = -1;
 			return true;
 		} else if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonDrawState = "Game";

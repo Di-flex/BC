@@ -173,6 +173,7 @@ Bugfix:
 - New barred prisoners
 - Fixed unreal number of jailers
 - Changed saving. No more punishment
+- Fixed so numpad is treated as buttons
 
 
 
