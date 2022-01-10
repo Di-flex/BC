@@ -199,7 +199,7 @@ AttackSamuraiZombie,"The Warrior zombie runs its fingers along your body! (-Dama
 NameNinja,Assassin
 KillNinja,"The assassin retreats into the shadows."
 AttackNinjaBind,"The assassin uses a traditional binding technique (+RestraintAdded)"
-AttackNinjaStun,"The assassin tosses a shuriken and hits you! (+STUN)"
+AttackNinjaStun,"The assassin tosses a shuriken and hits you! (Stunned!)"
 AttackNinja,"The assassin uses a subduing technique! (-DamageTaken SP)"
 
 NameAnimatedArmor,Animated Armor
