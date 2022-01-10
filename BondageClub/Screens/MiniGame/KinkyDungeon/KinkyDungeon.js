@@ -511,14 +511,16 @@ function KinkyDungeonSaveGame(ToString) {
 	save.levels = KinkyDungeonSpellLevel;
 
 	let spells = [];
-	let inv = [];
-	Object.assign(inv, KinkyDungeonInventory);
+	let newInv = [];
 
-	for (let item of inv) {
+	for (let inv of KinkyDungeonInventory) {
+		let item = {};
+		Object.assign(item, inv);
 		if (item.restraint) item.restraint = {name: item.restraint.name};
 		if (item.looserestraint) item.looserestraint = {name: item.looserestraint.name};
 		if (item.weapon) item.weapon = {name: item.weapon.name};
 		if (item.consumable) item.consumable = {name: item.consumable.name};
+		newInv.push(item);
 	}
 
 	for (let spell of KinkyDungeonSpells) {
@@ -526,7 +528,7 @@ function KinkyDungeonSaveGame(ToString) {
 	}
 
 	save.spells = spells;
-	save.inventory = inv;
+	save.inventory = newInv;
 
 	let data = LZString.compressToBase64(JSON.stringify(save));
 	if (!ToString) {

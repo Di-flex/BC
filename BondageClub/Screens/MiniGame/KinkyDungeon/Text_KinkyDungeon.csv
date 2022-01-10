@@ -334,7 +334,7 @@ KinkyDungeonStruggleCutFail,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutBreak,"You break your knife trying to cut the TargetRestraint."
 KinkyDungeonStruggleUnlockFail,"You fiddle with the key on the TargetRestraint..."
 
-KinkyDungeonStruggleUnlockNoRedKey,"The red padlock only accepts red keys."
+KinkyDungeonStruggleUnlockNoRedKey,"The lock requires a key."
 KinkyDungeonStruggleUnlockNoGreenKey,"The green padlock only accepts green keys."
 KinkyDungeonStruggleUnlockNoYellowKey,"The yellow padlock requires a red and a green key."
 KinkyDungeonStruggleUnlockNoBlueKey,"The magical lock only accepts blue keys and can't be picked."

@@ -180,6 +180,9 @@ TODO Character customizer, change outfit and/or the player character's appearanc
 
 TODO ValidationFindBlockCycles to prevent bugs
 
+Enemy ideas:
+-Silent sentinel, triggers ambush when the player casts a verbal spell, tries to gag the player
+
 Future content planned:
 - Wand item which reduces mana costs but is terrible for melee
 - Witches should drop their respective spells sometimes if you don't already have them
