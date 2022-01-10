@@ -167,7 +167,9 @@ Bugfix:
 2.31
 - You can struggle a few times before it tells you it's impossible
 
-TODO Add brambles: stationary plants that slow you, maximum attack width
+
+
+TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
 
