@@ -304,6 +304,15 @@ AttackJailerLock,"The jailer locks your restraints!"
 AttackJailerBind,"The jailer places some cuffs on you!"
 AttackJailer,"The jailer plays with you, groping and rubbing your body!"
 
+NameGuard,Guard
+KillGuard,"The guard passes out and drops her possessions!"
+AttackGuardLock,"The guard locks your restraints!"
+AttackGuardBind,"The guard places some cuffs on you!"
+AttackGuard,"The guard plays with you, groping and rubbing your body!"
+
+KinkyDungeonGuardAppear,A guard appears to check on you.
+KinkyDungeonGuardDisappear,The guard leaves and locks the cell behind her.
+
 
 KinkyDungeonLeashed,"You are grabbed and led to a prison..."
 

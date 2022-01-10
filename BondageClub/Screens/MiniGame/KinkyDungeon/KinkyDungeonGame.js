@@ -260,7 +260,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonUpdateStats(0);
 
 	// Place enemies after player
-	KinkyDungeonPlaceEnemies(MapParams.enemytags, Floor, width, height);
+	KinkyDungeonPlaceEnemies(InJail, MapParams.enemytags, Floor, width, height);
 
 	// Set map brightness
 	KinkyDungeonMapBrightness = MapParams.brightness;
@@ -344,7 +344,7 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 }
 
 // @ts-ignore
-function KinkyDungeonPlaceEnemies(Tags, Floor, width, height) {
+function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonEntities = [];
 
 	let enemyCount = 4 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
@@ -360,7 +360,7 @@ function KinkyDungeonPlaceEnemies(Tags, Floor, width, height) {
 		let playerDist = 6;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
-		if (Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
+		if (Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && (!InJail || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
 			&& KinkyDungeonNoEnemy(X, Y, true)) {
 			let tags = [];
 			if (KinkyDungeonSpawnJailers > 0 && jailerCount < KinkyDungeonSpawnJailersMax) tags.push("jailer");
@@ -421,6 +421,10 @@ function KinkyDungeonCreateCell(security, width, height) {
 	let barchance = 1.0 - 0.9 * Math.min(1, security / 100);
 	let grateChance = 1.0 - 1.0 * Math.min(1, security / 100);
 	let grateCount = 1/3;
+	let lock = "";
+	if (security > 25) {
+		lock = KinkyDungeonGenerateLock(security > 60, MiniGameKinkyDungeonLevel);
+	}
 
 	for (let X = 0; X <= cellWidth + 1; X++)
 		for (let Y = KinkyDungeonStartPosition.y - cellHeight - 1; Y <= KinkyDungeonStartPosition.y + cellHeight + 1; Y++) {
@@ -443,6 +447,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 			if (door) {
 				KinkyDungeonMapSet(X, Y, 'D');
 				KinkyDungeonTiles[X + "," + Y] = {Type: "Door"};
+				if (lock) KinkyDungeonTiles[X + "," + Y].Lock = lock;
 			} else if (wall) {
 				if (bar)
 					KinkyDungeonMapSet(X, Y, 'b');
