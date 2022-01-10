@@ -589,7 +589,6 @@ function KinkyDungeonLoadGame(String) {
 				if (sp) KinkyDungeonSpells.push(sp);
 			}
 
-			KinkyDungeonDefeat();
 			localStorage.setItem('KinkyDungeonSave', String);
 			return true;
 		}

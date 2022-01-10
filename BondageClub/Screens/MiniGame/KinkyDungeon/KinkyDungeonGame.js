@@ -109,7 +109,7 @@ let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
 let KinkyDungeonChestsOpened = [];
 
-let KinkyDungeonSaveInterval = 4;
+let KinkyDungeonSaveInterval = 10;
 
 function KinkyDungeonAddChest(Amount, Floor) {
 	if (KinkyDungeonChestsOpened.length < Floor - 1) {
@@ -119,9 +119,15 @@ function KinkyDungeonAddChest(Amount, Floor) {
 }
 
 function KinkyDungeonSetCheckPoint(Checkpoint) {
+	let prevCheckpoint = MiniGameKinkyDungeonCheckpoint;
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
 		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
+	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint) {
+		KinkyDungeonState = "Save";
+		ElementCreateTextArea("saveDataField");
+		ElementValue("saveDataField", KinkyDungeonSaveGame(true));
+	}
 }
 
 function KinkyDungeonInitialize(Level, Random) {
@@ -1399,13 +1405,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			DialogSetReputation("Gaming", KinkyDungeonRep);
 		}
 
-		if (MiniGameKinkyDungeonLevel > 0 && MiniGameKinkyDungeonLevel % KinkyDungeonSaveInterval == 0) {
-			KinkyDungeonState = "Save";
-			ElementCreateTextArea("saveDataField");
-			ElementValue("saveDataField", KinkyDungeonSaveGame(true));
-		}
-
 		MiniGameKinkyDungeonLevel += 1;
+
 		KinkyDungeonChangeRep("Ghost", -1);
 		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 		if (toTile == 's') {
