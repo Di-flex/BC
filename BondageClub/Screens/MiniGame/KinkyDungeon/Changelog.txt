@@ -172,6 +172,7 @@ Bugfix:
 - Fixed bug where the game would crash if an enemy put a type of ankle cuffs on you
 - New barred prisoners
 - Fixed unreal number of jailers
+- Changed saving. No more punishment
 
 
 

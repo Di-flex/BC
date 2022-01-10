@@ -560,7 +560,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			if (saveData.gold) KinkyDungeonGold = saveData.gold;
-			if (saveData.points) KinkyDungeonSpellPoints = saveData.poinnts;
+			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
 
 

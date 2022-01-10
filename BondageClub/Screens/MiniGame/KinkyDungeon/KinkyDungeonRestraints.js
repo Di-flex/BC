@@ -417,8 +417,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
 		if (restraint.attempts < KinkyDungeonMaxImpossibleAttempts || increasedAttempts) {
-			restraint.attempts += 0.5;
-			if (escapeChance <= -0.5) restraint.attempts += 0.5;
+			if (!increasedAttempts) {
+				restraint.attempts += 0.5;
+				if (escapeChance <= -0.5) restraint.attempts += 0.5;
+			}
 		} else {
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound"), "red", 2);
 			return false;

@@ -41,7 +41,7 @@ var KinkyDungeonMapParams = [
 		"defeat_outfit": "Prisoner",
 		"shrines": [
 			//{Type: "Charms", Weight: 5},
-			{Type: "Commerce", Weight: 10},
+			{Type: "Commerce", Weight: 14},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -91,7 +91,7 @@ var KinkyDungeonMapParams = [
 		],
 		"defeat_outfit": "Dungeon",
 		"shrines": [
-			{Type: "Commerce", Weight: 10},
+			{Type: "Commerce", Weight: 14},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -141,7 +141,7 @@ var KinkyDungeonMapParams = [
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			//{Type: "Charms", Weight: 5},
-			{Type: "Commerce", Weight: 10},
+			{Type: "Commerce", Weight: 14},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -416,7 +416,7 @@ var KinkyDungeonMapParams = [
 		],
 		"defeat_outfit": "Egyptian",
 		"shrines": [
-			{Type: "Commerce", Weight: 10},
+			{Type: "Commerce", Weight: 14},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
