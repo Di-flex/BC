@@ -594,14 +594,14 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.stats) {
-				if (saveData.stats.picks) KinkyDungeonLockpicks = saveData.stats.picks;
-				if (saveData.stats.keys) KinkyDungeonRedKeys = saveData.stats.keys;
-				if (saveData.stats.bkeys) KinkyDungeonBlueKeys = saveData.stats.bkeys;
-				if (saveData.stats.knife) KinkyDungeonNormalBlades = saveData.stats.knife;
-				if (saveData.stats.mana) KinkyDungeonStatMana = saveData.stats.mana;
-				if (saveData.stats.stamina) KinkyDungeonStatStamina = saveData.stats.stamina;
-				if (saveData.stats.arousal) KinkyDungeonStatArousal = saveData.stats.arousal;
-				if (saveData.stats.wep) KinkyDungeonPlayerWeapon = saveData.stats.wep;
+				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
+				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;
+				if (saveData.stats.bkeys != undefined) KinkyDungeonBlueKeys = saveData.stats.bkeys;
+				if (saveData.stats.knife != undefined) KinkyDungeonNormalBlades = saveData.stats.knife;
+				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
+				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
+				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;
+				if (saveData.stats.wep != undefined) KinkyDungeonPlayerWeapon = saveData.stats.wep;
 			}
 
 
