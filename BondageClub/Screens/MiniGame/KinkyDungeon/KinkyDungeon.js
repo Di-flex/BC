@@ -415,7 +415,8 @@ let KinkyDungeonGameKey = {
 	keyDownEvent : {
 		handleEvent : function (event) {
 			let code = event.code;
-			code = code.replace("Numpad", "Key").replace("Digit", "Key");
+			if (code)
+				code = code.replace("Numpad", "Key").replace("Digit", "Key");
 			switch(code){
 				case KinkyDungeonGameKey.KEY_UP:
 					if(!KinkyDungeonGameKey.keyPressed[0]){
@@ -468,7 +469,8 @@ let KinkyDungeonGameKey = {
 	keyUpEvent : {
 		handleEvent : function (event) {
 			let code = event.code;
-			code = code.replace("Numpad", "Key").replace("Digit", "Key");
+			if (code)
+				code = code.replace("Numpad", "Key").replace("Digit", "Key");
 			switch(code){
 				case KinkyDungeonGameKey.KEY_UP:
 					if (KinkyDungeonGameKey.keyPressed[0]) KinkyDungeonLastMoveTimerStart = 0;
