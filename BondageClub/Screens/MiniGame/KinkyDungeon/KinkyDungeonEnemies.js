@@ -65,12 +65,14 @@ var KinkyDungeonEnemies = [
 	{name: "MonsterRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "guard",
 		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
 		terrainTags: {"secondhalf":1, "lastthird":4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
-	/*{name: "RopeKraken", tags: ["ignoreharmless", "construct", "melee", "boss", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander", summon: [{enemy: "RopeMinion", range: 1.5, count: 8}],
-		visionRadius: 4, maxhp: 60, minLevel: 5, weight:-10, movePoints: 3, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
-		terrainTags: {"secondhalf":1, "lastthird":1, "boss": -1000, "open": 10}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
-	{name: "RopeMinion", tags: ["ignoreharmless", "construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4},
-		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope",
-		terrainTags: {}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},*/
+
+	{name: "RopeKraken", tags: ["construct", "melee", "boss", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", summon: [{enemy: "RopeMinion", range: 2.5, count: 8, strict: true}],
+		spells: ["RopeEngulf"], spellCooldownMult: 1, spellCooldownMod: 1, ignoreflag: ["kraken"],
+		visionRadius: 10, maxhp: 60, minLevel: 5, weight:-100, movePoints: 4, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
+		terrainTags: {"secondhalf":1, "lastthird":1, "boss": -1000, "open": 95, "ropeAnger": 20, "ropeRage": 70}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
+	{name: "RopeMinion", tags: ["construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"],
+		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush",
+		terrainTags: {}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 
 	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard",
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
@@ -124,6 +126,21 @@ function KinkyDungeonNearestPatrolPoint(x, y) {
 	}
 
 	return point;
+}
+
+let KinkyDungeonFlags = {};
+
+function KinkyDungeonSetFlag(Flag, Duration) {
+	if (!KinkyDungeonFlags[Flag] || KinkyDungeonFlags[Flag] > 0) {
+		KinkyDungeonFlags[Flag] = Duration;
+	}
+}
+
+function KinkyDungeonUpdateFlags(delta) {
+	for (let f of Object.keys(KinkyDungeonFlags)) {
+		if (KinkyDungeonFlags[f] > 0) KinkyDungeonFlags[f] -= delta;
+		else KinkyDungeonFlags[f] = undefined;
+	}
 }
 
 function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
@@ -310,6 +327,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			KinkyDungeonTiles[(xx-1) + "," + yy].Lock = undefined;
 		}
 	}
+	KinkyDungeonUpdateFlags(delta);
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		let player = KinkyDungeonNearestPlayer(enemy);
@@ -338,6 +356,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (enemy.Enemy.tags.includes("ignoreboundhands") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanInteract()
 			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+		if (enemy.Enemy.ignoreflag) {
+			for (let f of enemy.Enemy.ignoreflag) {
+				if (KinkyDungeonFlags[f]) ignore = true;
+			}
+		}
 
 		if (enemy.Enemy.tags.includes("jailer") && !KinkyDungeonJailTransgressed) ignore = true;
 
@@ -640,25 +663,37 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (attack.includes("Suicide") && (!enemy.Enemy.suicideOnAdd || addedRestraint)) {
 							enemy.hp = 0;
 						}
-						if (playerDist < 1.5 && enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
-							let leashed = false;
-							for (let restraint of KinkyDungeonRestraintList()) {
-								if (restraint.restraint && restraint.restraint.leash) {
-									leashed = true;
-									break;
+						if (playerDist < 1.5 && (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") || attack.includes("Pull")) && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
+							let leashed = attack.includes("Pull");
+							if (!leashed)
+								for (let restraint of KinkyDungeonRestraintList()) {
+									if (restraint.restraint && restraint.restraint.leash) {
+										leashed = true;
+										break;
+									}
 								}
-							}
 							if (leashed) {
-								let startPos = KinkyDungeonStartPosition;
-								if (!KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - startPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - startPos.y) <= 1) {
+								let leashPos = KinkyDungeonStartPosition;
+								if (attack.includes("Pull") && enemy.Enemy.master) {
+									let findMaster = undefined;
+									let masterDist = 1000;
+									for (let e of KinkyDungeonEntities) {
+										if (e.Enemy.name == enemy.Enemy.master.type && Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y)) < masterDist) {
+											masterDist = Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y));
+											findMaster = e;
+										}
+									}
+									if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
+								}
+								if (leashPos == KinkyDungeonStartPosition && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
 									KinkyDungeonDefeat();
 									KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 									KinkyDungeonLeashingEnemy = enemy;
 								}
-								else {
+								else if (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5) {
 									if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
 									// Leash pullback
-									let path = KinkyDungeonFindPath(enemy.x, enemy.y, startPos.x, startPos.y, false, false, ignoreLocks, KinkyDungeonMovableTiles);
+									let path = KinkyDungeonFindPath(enemy.x, enemy.y, leashPos.x, leashPos.y, false, false, ignoreLocks, KinkyDungeonMovableTiles);
 									if (path && path.length > 0) {
 										KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 										KinkyDungeonLeashingEnemy = enemy;
@@ -1014,7 +1049,8 @@ function KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLo
 			}
 		}
 		if (findMaster) {
-			if (Math.sqrt((xx - findMaster.x) * (xx - findMaster.x) + (yy - findMaster.y) * (yy - findMaster.y)) > master.range) return false;
+			if (Math.sqrt((xx - findMaster.x) * (xx - findMaster.x) + (yy - findMaster.y) * (yy - findMaster.y)) > master.range
+				&& Math.sqrt((xx - findMaster.x) * (xx - findMaster.x) + (yy - findMaster.y) * (yy - findMaster.y)) > masterDist) return false;
 		}
 	}
 	return MovableTiles.includes(KinkyDungeonMapGet(xx, yy)) && ((Tries && Tries > 5) || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)))

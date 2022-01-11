@@ -392,6 +392,21 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (miniboss) tags.push("miniboss");
 			if (boss) tags.push("boss");
 
+			if (KinkyDungeonGoddessRep.Rope < -10) tags.push("ropeAnger");
+			if (KinkyDungeonGoddessRep.Rope < -25) tags.push("ropeRage");
+			if (KinkyDungeonGoddessRep.Leather < -10) tags.push("leatherAnger");
+			if (KinkyDungeonGoddessRep.Leather < -25) tags.push("leatherRage");
+			if (KinkyDungeonGoddessRep.Metal < -10) tags.push("metalAnger");
+			if (KinkyDungeonGoddessRep.Metal < -25) tags.push("metalRage");
+			if (KinkyDungeonGoddessRep.Latex < -10) tags.push("latexAnger");
+			if (KinkyDungeonGoddessRep.Latex < -25) tags.push("latexRage");
+			if (KinkyDungeonGoddessRep.Elements < -10) tags.push("elementsAnger");
+			if (KinkyDungeonGoddessRep.Elements < -25) tags.push("elementsRage");
+			if (KinkyDungeonGoddessRep.Conjure < -10) tags.push("conjureAnger");
+			if (KinkyDungeonGoddessRep.Conjure < -25) tags.push("conjureRage");
+			if (KinkyDungeonGoddessRep.Illusion < -10) tags.push("illusionAnger");
+			if (KinkyDungeonGoddessRep.Illusion < -25) tags.push("illusionRage");
+
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
 			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
@@ -404,7 +419,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 				if (Enemy.summon) {
 					for (let sum of Enemy.summon) {
-						KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range);
+						KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
 				}
 				//console.log("Created a " + Enemy.name)
