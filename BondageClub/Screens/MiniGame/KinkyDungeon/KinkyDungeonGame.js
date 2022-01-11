@@ -889,9 +889,9 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 							// Place a trap or something at the other door if it's far enough from the player
 							trapLocations.push({x: room.door.x, y: room.door.y});
 							lock = true;
-						} else if ((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize)) ||
-							(Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist
-								&& room.door.y != KinkyDungeonStartPosition.y)) {
+						} else if (((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize))
+								|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)
+								&& room.door.y != KinkyDungeonStartPosition.y) {
 							// Place a grate instead
 							KinkyDungeonMapSet(room.door.x, room.door.y, 'g');
 							lock = true;
