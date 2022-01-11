@@ -404,7 +404,6 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 		tries += 1;
 	}
 
-	if (KinkyDungeonSpawnJailers > 3) KinkyDungeonSpawnJailers -= 1; // Reduce twice as fast when you are in deep...
 	if (KinkyDungeonSpawnJailers > 0) KinkyDungeonSpawnJailers -= 1;
 
 	KinkyDungeonCurrentMaxEnemies = KinkyDungeonEntities.length;
