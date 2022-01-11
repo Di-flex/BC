@@ -181,6 +181,8 @@ Bugfix:
 - Fixed the infinite tickle ghost
 - Fixed shop crash
 - Removed exit button for standalone version
+- Fixed long-distance leashing by assassins
+- Reduced assassin spawning weight
 
 
 
