@@ -795,7 +795,10 @@ function KinkyDungeonHandleJailSpawns() {
 		KinkyDungeonGuardTimer = KinkyDungeonGuardTimerMax;
 	} else if (KinkyDungeonGuardSpawnTimer > 0) KinkyDungeonGuardSpawnTimer -= 1;
 	if (KinkyDungeonJailGuard && KinkyDungeonGuardTimer > 0 && KinkyDungeonGuardTimerMax - KinkyDungeonGuardTimer > 6 && Math.random() < 0.2) {
-		KinkyDungeonJailGuard.gy = yy + Math.round(Math.random() * KinkyDungeonJailLeash * 2 - KinkyDungeonJailLeash);
+		if (Math.random() < 0.5)
+			KinkyDungeonJailGuard.gy = yy + Math.round(Math.random() * KinkyDungeonJailLeash * 2 - KinkyDungeonJailLeash);
+		else
+			KinkyDungeonJailGuard.gy = KinkyDungeonPlayerEntity.y;
 	}
 
 	if (KinkyDungeonGuardTimer > 0) {

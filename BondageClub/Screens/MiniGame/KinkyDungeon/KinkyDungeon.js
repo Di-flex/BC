@@ -548,6 +548,17 @@ function KinkyDungeonSaveGame(ToString) {
 	save.spells = spells;
 	save.inventory = newInv;
 
+	save.stats = {
+		picks: KinkyDungeonLockpicks,
+		keys: KinkyDungeonRedKeys,
+		bkeys: KinkyDungeonBlueKeys,
+		knife: KinkyDungeonNormalBlades,
+		mana: KinkyDungeonStatMana,
+		stamina: KinkyDungeonStatStamina,
+		arousal: KinkyDungeonStatArousal,
+		wep: KinkyDungeonPlayerWeapon
+	};
+
 	let data = LZString.compressToBase64(JSON.stringify(save));
 	if (!ToString) {
 		//Player.KinkyDungeonSave = saveData.KinkyDungeonSave;
@@ -582,6 +593,16 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.gold) KinkyDungeonGold = saveData.gold;
 			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
+			if (saveData.stats) {
+				if (saveData.stats.picks) KinkyDungeonLockpicks = saveData.stats.picks;
+				if (saveData.stats.keys) KinkyDungeonRedKeys = saveData.stats.keys;
+				if (saveData.stats.bkeys) KinkyDungeonBlueKeys = saveData.stats.bkeys;
+				if (saveData.stats.knife) KinkyDungeonNormalBlades = saveData.stats.knife;
+				if (saveData.stats.mana) KinkyDungeonStatMana = saveData.stats.mana;
+				if (saveData.stats.stamina) KinkyDungeonStatStamina = saveData.stats.stamina;
+				if (saveData.stats.arousal) KinkyDungeonStatArousal = saveData.stats.arousal;
+				if (saveData.stats.wep) KinkyDungeonPlayerWeapon = saveData.stats.wep;
+			}
 
 
 			for (let item of saveData.inventory) {

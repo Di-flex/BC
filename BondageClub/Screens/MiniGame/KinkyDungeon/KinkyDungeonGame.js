@@ -391,7 +391,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (miniboss) tags.push("miniboss");
 
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
-			if (Enemy) {
+			if (Enemy && (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail"))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (Enemy.tags.includes("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
 				if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
@@ -889,7 +889,9 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 							// Place a trap or something at the other door if it's far enough from the player
 							trapLocations.push({x: room.door.x, y: room.door.y});
 							lock = true;
-						} else if ((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize)) || Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist) {
+						} else if ((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize)) ||
+							(Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist
+								&& room.door.y != KinkyDungeonStartPosition.y)) {
 							// Place a grate instead
 							KinkyDungeonMapSet(room.door.x, room.door.y, 'g');
 							lock = true;
