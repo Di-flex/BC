@@ -84,10 +84,12 @@ function KinkyDungeonDressPlayer() {
 		let PreviouslyLost = clothes.Lost;
 
 		if (!clothes.Lost && KinkyDungeonCheckClothesLoss) {
-			if (clothes.Group == "Necklace" || clothes.Group == "Bra") {
+			if (clothes.Group == "Necklace") {
 				if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
-				if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemArms") && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemBreast")) clothes.Lost = true;
+			}
+			if (clothes.Group == "Bra") {
+				if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
 			}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;

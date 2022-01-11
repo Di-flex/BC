@@ -486,16 +486,18 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				if (StruggleType == "Cut") {
 					if (restraint.restraint.magic && KinkyDungeonEnchantedBlades == 0) Pass = "Fail";
 					let breakchance = 0;
-					if (KinkyDungeonNormalBlades > 0) breakchance = KinkyDungeonGetKnifeBreakChance();
+					if (KinkyDungeonNormalBlades > 0 && !restraint.restraint.magic) breakchance = KinkyDungeonGetKnifeBreakChance();
 					else if (KinkyDungeonEnchantedBlades > 0) breakchance = KinkyDungeonGetEnchKnifeBreakChance();
 					if (Math.random() < breakchance || restraint.lock == "Blue") { // Blue locks cannot be picked or cut!
 						Pass = "Break";
 						if (restraint.restraint.magic && KinkyDungeonEnchantedBlades > 0) KinkyDungeonEnchantedBlades -= 1;
 						else {
-							if (KinkyDungeonNormalBlades > 0)
+							if (KinkyDungeonNormalBlades > 0) {
 								KinkyDungeonNormalBlades -= 1;
-							else if (KinkyDungeonEnchantedBlades > 0) {
+								KinkyDungeonKnifeBreakProgress = 0;
+							} else if (KinkyDungeonEnchantedBlades > 0) {
 								KinkyDungeonEnchantedBlades -= 1;
+								KinkyDungeonEnchKnifeBreakProgress = 0;
 							}
 						}
 					} else if ((handsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound) || (armsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound)) {
