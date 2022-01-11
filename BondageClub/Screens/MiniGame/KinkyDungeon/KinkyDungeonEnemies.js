@@ -65,6 +65,12 @@ var KinkyDungeonEnemies = [
 	{name: "MonsterRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "guard",
 		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
 		terrainTags: {"secondhalf":1, "lastthird":4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
+	/*{name: "RopeKraken", tags: ["ignoreharmless", "construct", "melee", "boss", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander", summon: [{enemy: "RopeMinion", range: 1.5, count: 8}],
+		visionRadius: 4, maxhp: 60, minLevel: 5, weight:-10, movePoints: 3, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
+		terrainTags: {"secondhalf":1, "lastthird":1, "boss": -1000, "open": 10}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
+	{name: "RopeMinion", tags: ["ignoreharmless", "construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4},
+		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope",
+		terrainTags: {}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},*/
 
 	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard",
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
@@ -434,10 +440,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								//dir = KinkyDungeonGetDirectionRandom(0, 0); // Random...
 							}
 						}
-
-						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
-							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
+						if (KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, T)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
 							idle = false;
@@ -461,9 +464,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								enemy.path = undefined;
 							}
 						}
-						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
-							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
+						if (KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, T)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
 							idle = false;
@@ -507,9 +508,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								//dir = KinkyDungeonGetDirectionRandom(0, 0); // Random...
 							}
 						}
-						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
-							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
+						if (KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, T)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
 							idle = false;
@@ -521,9 +520,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					enemy.aware = false;
 					for (let T = 0; T < 8; T++) { // try 8 times
 						let dir = KinkyDungeonGetDirection(10*(Math.random()-0.5), 10*(Math.random()-0.5));
-						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)) && (T > 5 || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)))
-							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
-							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
+						if (KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, T)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							idle = false;
 							break;
@@ -1001,4 +998,26 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...
 
 	KinkyDungeonDressPlayer();
+}
+
+function KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, Tries) {
+	let master = enemy.Enemy.master;
+	let xx = enemy.x + dir.x;
+	let yy = enemy.y + dir.y;
+	if (master) {
+		let findMaster = undefined;
+		let masterDist = 1000;
+		for (let e of KinkyDungeonEntities) {
+			if (e.Enemy.name == master.type && Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y)) < masterDist) {
+				masterDist = Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y));
+				findMaster = e;
+			}
+		}
+		if (findMaster) {
+			if (Math.sqrt((xx - findMaster.x) * (xx - findMaster.x) + (yy - findMaster.y) * (yy - findMaster.y)) > master.range) return false;
+		}
+	}
+	return MovableTiles.includes(KinkyDungeonMapGet(xx, yy)) && ((Tries && Tries > 5) || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)))
+		&& (ignoreLocks || !KinkyDungeonTiles[(xx) + "," + (yy)] || !KinkyDungeonTiles[(xx) + "," + (yy)].Lock)
+		&& KinkyDungeonNoEnemy(xx, yy, true);
 }

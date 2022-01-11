@@ -115,7 +115,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 				dmgDealt = Math.max(dmg - armor, 0);
 			}
 
-			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) dmgDealt *= 2;
+			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+				dmgDealt *= 2;
+				Enemy.freeze = 0;
+			}
 			Enemy.hp -= dmgDealt;
 		}
 		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well
