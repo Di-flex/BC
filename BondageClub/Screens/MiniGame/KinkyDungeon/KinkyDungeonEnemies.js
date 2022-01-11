@@ -92,7 +92,7 @@ var KinkyDungeonEnemies = [
 
 	{name: "Jailer", tags: ["leashing", "opendoors", "closedoors", "jailer", "minor", "shackleRestraints"], keys: true, followRange: 1, AI: "patrol", visionRadius: 7, maxhp: 12, minLevel: -1, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeBindLockAllWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"jailer": 15}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], dropTable: [{name: "Pick", weight: 10}, {name: "RedKey", weight: 7}, {name: "BlueKey", weight: 1}]},
-	{name: "Guard", tags: ["leashing", "opendoors", "closedoors", "jailer", "minor", "shackleRestraints"], followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: -1, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeBindLockAllWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope", fullBoundBonus: 3,
+	{name: "Guard", tags: ["leashing", "opendoors", "closedoors", "jailer", "minor", "shackleRestraints"], keys: true, followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: -1, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeBindLockAllWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {}, floors:[], dropTable: [{name: "Pick", weight: 4}, {name: "RedKey", weight: 1}, {name: "Knife", weight: 2}]},
 	{name: "Necromancer", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "meleeweakness"], followRange: 1, spells: ["SummonSkeleton", "SummonSkeletons"], spellCooldownMult: 1, spellCooldownMod: 1,
 		AI: "hunt", visionRadius: 10, maxhp: 20, minLevel: 1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
@@ -295,8 +295,9 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 }
 
 function KinkyDungeonUpdateEnemies(delta) {
-	if (KinkyDungeonLeashedPlayer > 0) KinkyDungeonLeashedPlayer -= 1;
-	else {
+	if (KinkyDungeonLeashedPlayer > 0) {
+		KinkyDungeonLeashedPlayer -= 1;
+
 		let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 		let yy = KinkyDungeonStartPosition.y;
 		if (KinkyDungeonTiles[(xx-1) + "," + yy] && KinkyDungeonTiles[(xx-1) + "," + yy].Type == "Door") {
@@ -318,6 +319,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let ignore = false;
 		let followRange = enemy.Enemy.followRange;
 		let chaseRadius = Math.max(enemy.Enemy.visionRange * 2, enemy.Enemy.blindSight * 2);
+		let ignoreLocks = enemy.Enemy.keys;
 
 		// Check if the enemy ignores the player
 		if (enemy.Enemy.tags.includes("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
@@ -421,7 +423,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 						if (T >= 8 || enemy.path || !canSeePlayer) {
 							if (!enemy.path && (KinkyDungeonAlert || enemy.aware || canSeePlayer))
-								enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, player.x, player.y, true, false, MovableTiles); // Give up and pathfind
+								enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, player.x, player.y, true, false, ignoreLocks, MovableTiles); // Give up and pathfind
 							if (enemy.path && enemy.path.length > 0) {
 								dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 								if (!KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, false)) enemy.path = undefined;
@@ -434,7 +436,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						}
 
 						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (!KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
+							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
 							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
@@ -450,7 +452,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						let splice = false;
 						if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 						if (T >= 8 || enemy.path || !KinkyDungeonCheckPath(enemy.x, enemy.y, enemy.gx, enemy.gy)) {
-							if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, false, MovableTiles); // Give up and pathfind
+							if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, false, ignoreLocks, MovableTiles); // Give up and pathfind
 							if (enemy.path && enemy.path.length > 0) {
 								dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 								if (!KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, false)) enemy.path = undefined;
@@ -460,7 +462,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 						}
 						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (!KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
+							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
 							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
@@ -494,7 +496,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 						if (T >= 8 || enemy.path || !canSeePlayer) {
 							if (!enemy.path && (KinkyDungeonAlert || enemy.aware || canSeePlayer))
-								enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, player.x, player.y, true, false, MovableTiles); // Give up and pathfind
+								enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, player.x, player.y, true, false, ignoreLocks, MovableTiles); // Give up and pathfind
 							if (enemy.path && enemy.path.length > 0) {
 								dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 								if (!KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, false)) enemy.path = undefined;
@@ -506,7 +508,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 						}
 						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))
-							&& (!KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
+							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
 							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							if (moved && splice && enemy.path) enemy.path.splice(0, 1);
@@ -520,7 +522,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					for (let T = 0; T < 8; T++) { // try 8 times
 						let dir = KinkyDungeonGetDirection(10*(Math.random()-0.5), 10*(Math.random()-0.5));
 						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)) && (T > 5 || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)))
-							&& (!KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
+							&& (ignoreLocks || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)] || !KinkyDungeonTiles[(enemy.x + dir.x) + "," + (enemy.y + dir.y)].Lock)
 							&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
 							if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
 							idle = false;
@@ -659,7 +661,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								else {
 									if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
 									// Leash pullback
-									let path = KinkyDungeonFindPath(enemy.x, enemy.y, startPos.x, startPos.y, false, false, KinkyDungeonMovableTiles);
+									let path = KinkyDungeonFindPath(enemy.x, enemy.y, startPos.x, startPos.y, false, false, ignoreLocks, KinkyDungeonMovableTiles);
 									if (path && path.length > 0) {
 										KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 										KinkyDungeonLeashingEnemy = enemy;
