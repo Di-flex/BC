@@ -119,7 +119,7 @@ function KinkyDungeonRun() {
 	// Draw the characters
 	DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
-	if (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")
+	if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
 		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 	if (KinkyDungeonState == "Menu") {
