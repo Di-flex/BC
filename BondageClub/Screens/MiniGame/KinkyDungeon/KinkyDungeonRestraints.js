@@ -22,6 +22,8 @@ let KinkyDungeonKeyPickBreakAmount = 5; // Number of tries per pick on average
 let KinkyDungeonPickBreakProgress = 0;
 let KinkyDungeonKnifeBreakAmount = 8; // Number of tries per knife on average
 let KinkyDungeonKnifeBreakProgress = 0;
+let KinkyDungeonEnchKnifeBreakAmount = 24; // Number of tries per knife on average
+let KinkyDungeonEnchKnifeBreakProgress = 0;
 
 let KinkyDungeonMaxImpossibleAttempts = 3; // base, more if the item is close to being impossible
 
@@ -168,6 +170,16 @@ function KinkyDungeonGetKnifeBreakChance(modifier) {
 	KinkyDungeonKnifeBreakProgress += mult;
 
 	if (KinkyDungeonKnifeBreakProgress > KinkyDungeonKnifeBreakAmount/2) chance = (KinkyDungeonKnifeBreakProgress - KinkyDungeonKnifeBreakAmount/2) / (KinkyDungeonKnifeBreakAmount + 1); // Knifes last anywhere from 4-12 uses
+
+	return chance;
+}
+function KinkyDungeonGetEnchKnifeBreakChance(modifier) {
+	let mult = (modifier) ? modifier : 1.0;
+	let chance = 0;
+
+	KinkyDungeonEnchKnifeBreakProgress += mult;
+
+	if (KinkyDungeonEnchKnifeBreakProgress > KinkyDungeonEnchKnifeBreakAmount/2) chance = (KinkyDungeonEnchKnifeBreakProgress - KinkyDungeonEnchKnifeBreakAmount/2) / (KinkyDungeonEnchKnifeBreakAmount + 1);
 
 	return chance;
 }
@@ -473,7 +485,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				// Failure block for the different failure types
 				if (StruggleType == "Cut") {
 					if (restraint.restraint.magic && KinkyDungeonEnchantedBlades == 0) Pass = "Fail";
-					if (Math.random() < KinkyDungeonGetKnifeBreakChance() || restraint.lock == "Blue") { // Blue locks cannot be picked or cut!
+					let breakchance = 0;
+					if (KinkyDungeonNormalBlades > 0) breakchance = KinkyDungeonGetKnifeBreakChance();
+					else if (KinkyDungeonEnchantedBlades > 0) breakchance = KinkyDungeonGetEnchKnifeBreakChance();
+					if (Math.random() < breakchance || restraint.lock == "Blue") { // Blue locks cannot be picked or cut!
 						Pass = "Break";
 						if (restraint.restraint.magic && KinkyDungeonEnchantedBlades > 0) KinkyDungeonEnchantedBlades -= 1;
 						else {

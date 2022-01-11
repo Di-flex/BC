@@ -767,6 +767,7 @@ KinkyDungeonGroupItemDevices,Device
 
 ItemPickupGold,"You picked up XXX gold."
 ItemPickupKnife,"You picked up a knife."
+ItemPickupKnives,"You found a bundle of discarded knives!"
 ItemPickupEnchKnife,"You picked up an enchanted knife."
 ItemPickupPick,"You picked up a lockpick."
 ItemPickupRedKey,"You picked up a red key."
