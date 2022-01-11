@@ -296,6 +296,13 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 
 function KinkyDungeonUpdateEnemies(delta) {
 	if (KinkyDungeonLeashedPlayer > 0) KinkyDungeonLeashedPlayer -= 1;
+	else {
+		let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
+		let yy = KinkyDungeonStartPosition.y;
+		if (KinkyDungeonTiles[(xx-1) + "," + yy] && KinkyDungeonTiles[(xx-1) + "," + yy].Type == "Door") {
+			KinkyDungeonTiles[(xx-1) + "," + yy].Lock = undefined;
+		}
+	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		let player = KinkyDungeonNearestPlayer(enemy);
