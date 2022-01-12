@@ -146,6 +146,7 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonSpellPress = 0;
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
+	KinkyDungeonSpellPoints = 3;
 	KinkyDungeonSpellLevel = {
 		"Elements":1,
 		"Conjure":1,
