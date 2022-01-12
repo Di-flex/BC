@@ -362,6 +362,7 @@ function AsylumGGTSTaskCanBeDone(C, T) {
 	if ((T.substr(0, 5) == "Cloth") && !C.CanChange()) return false; // Cloth tasks cannot be done if cannot change
 	if ((T.substr(0, 4) == "Pose") && !C.CanKneel()) return false; // If cannot kneel, we skip pose change activities
 	if ((T.substr(0, 8) == "Activity") && (!C.CanInteract() || !PreferenceArousalAtLeast(C, "NoMeter"))) return false; // Must allow activities and be able to interact
+	if ((T == "ActivityNod") && !ActivityCanBeDone(C, "Nod", "ItemHead")) return false; // Must be able to nod to use that activity
 	if (((T == "ActivityKiss") || (T == "ActivityLick") || (T == "ActivityBite")) && !C.CanTalk()) return false; // Kiss, lick & bite require being able to talk
 	if (((T == "ActivityKiss") || (T == "ActivityLick") || (T == "ActivityBite")) && (Player.Effect != null) && (Player.Effect.indexOf("BlockMouth") >= 0)) return false; // Kiss, lick & bite require being able to use mouth
 	if ((T == "ActivityMasturbateHand") && C.IsVulvaChaste()) return false; // Cannot masturbate if chaste
@@ -408,7 +409,7 @@ function AsylumGGTSTaskCanBeDone(C, T) {
 	if ((T == "ItemMouthFuturisticBallGag") && ((InventoryGet(C, "ItemMouth") != null) || (InventoryGet(C, "ItemMouth2") != null) || (InventoryGet(C, "ItemMouth3") != null) || InventoryGroupIsBlocked(C, "ItemMouth"))) return false;
 	if ((T == "ItemMouthFuturisticPanelGag") && ((InventoryGet(C, "ItemMouth") != null) || (InventoryGet(C, "ItemMouth2") != null) || (InventoryGet(C, "ItemMouth3") != null) || InventoryGroupIsBlocked(C, "ItemMouth"))) return false;
 	if ((T == "ItemPelvisFuturisticChastityBelt") && ((InventoryGet(C, "ItemPelvis") != null) || InventoryGroupIsBlocked(C, "ItemPelvis"))) return false;
-	if ((T == "ItemPelvisFuturisticTrainingBelt") && ((InventoryGet(C, "ItemPelvis") != null) || InventoryGroupIsBlocked(C, "ItemPelvis"))) return false;
+	if ((T == "ItemPelvisFuturisticTrainingBelt") && ((InventoryGet(C, "ItemPelvis") != null) || (InventoryGet(C, "ItemVulva") != null) || (InventoryGet(C, "ItemVulvaPiercings") != null) || (InventoryGet(C, "ItemButt") != null) || InventoryGroupIsBlocked(C, "ItemPelvis"))) return false;
 	if ((T == "ItemBreastFuturisticBra") && ((InventoryGet(C, "ItemBreast") != null) || InventoryGroupIsBlocked(C, "ItemBreast"))) return false;
 	if ((T == "ItemBreastFuturisticBra2") && ((InventoryGet(C, "ItemBreast") != null) || InventoryGroupIsBlocked(C, "ItemBreast"))) return false;
 	if ((T == "ItemTorsoFuturisticHarness") && ((InventoryGet(C, "ItemTorso") != null) || InventoryGroupIsBlocked(C, "ItemTorso"))) return false;
@@ -646,7 +647,7 @@ function AsylumGGTSFindTaskTarget(T) {
 		let Target = null;
 		let TargetOdds = -1;
 		for (let C = 0; C < ChatRoomCharacter.length; C++)
-			if ((ChatRoomCharacter[C].MemberNumber == Player.MemberNumber) || (ServerChatRoomGetAllowItem(Player, ChatRoomCharacter[C]) && (ReputationCharacterGet(ChatRoomCharacter[C], "Asylum") <= ReputationGet("Asylum")) && AsylumGGTSTaskCanBeDone(ChatRoomCharacter[C], T))) {
+			if ((ChatRoomCharacter[C].MemberNumber == Player.MemberNumber) || (ServerChatRoomGetAllowItem(Player, ChatRoomCharacter[C]) && (ReputationCharacterGet(ChatRoomCharacter[C], "Asylum") <= ReputationGet("Asylum")) && AsylumGGTSTaskCanBeDone(ChatRoomCharacter[C], T) && (AsylumGGTSGetLevel(ChatRoomCharacter[C]) >= 1) && ((ChatRoomCharacter[C].Game.GGTS.Rule == null) || (ChatRoomCharacter[C].Game.GGTS.Rule.indexOf("KeepPose") < 0)))) {
 				let Odds = Math.random();
 				if (Odds > TargetOdds) {
 					Target = ChatRoomCharacter[C];
@@ -661,7 +662,7 @@ function AsylumGGTSFindTaskTarget(T) {
 		let Target = null;
 		let TargetOdds = -1;
 		for (let C = 0; C < ChatRoomCharacter.length; C++)
-			if ((ChatRoomCharacter[C].MemberNumber == Player.MemberNumber) || (ServerChatRoomGetAllowItem(Player, ChatRoomCharacter[C]) && (ReputationCharacterGet(ChatRoomCharacter[C], "Asylum") <= -1) && AsylumGGTSTaskCanBeDone(ChatRoomCharacter[C], T))) {
+			if ((ChatRoomCharacter[C].MemberNumber == Player.MemberNumber) || (ServerChatRoomGetAllowItem(Player, ChatRoomCharacter[C]) && (ReputationCharacterGet(ChatRoomCharacter[C], "Asylum") <= -1) && AsylumGGTSTaskCanBeDone(ChatRoomCharacter[C], T) && (AsylumGGTSGetLevel(ChatRoomCharacter[C]) >= 1))) {
 				let Odds = Math.random();
 				if (Odds > TargetOdds) {
 					Target = ChatRoomCharacter[C];

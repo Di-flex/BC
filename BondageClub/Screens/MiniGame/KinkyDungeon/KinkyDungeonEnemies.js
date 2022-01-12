@@ -365,6 +365,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 		if (enemy.Enemy.tags.includes("jailer") && !KinkyDungeonJailTransgressed) ignore = true;
 
+		if (enemy.Enemy.tags.includes("jailer") && !KinkyDungeonJailTransgressed) ignore = true;
+
 		let MovableTiles = KinkyDungeonMovableTilesEnemy;
 		let AvoidTiles = "g";
 		if (enemy.Enemy.tags && enemy.Enemy.tags.includes("opendoors")) MovableTiles = KinkyDungeonMovableTilesSmartEnemy;
