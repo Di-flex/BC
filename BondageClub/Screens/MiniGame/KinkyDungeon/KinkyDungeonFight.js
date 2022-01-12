@@ -88,6 +88,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 	let dmgDealt = 0;
 	let armor = (Enemy.Enemy.armor) ? Enemy.Enemy.armor : 0;
 
+	if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+		dmg *= 2;
+	}
+
 	if (Damage) {
 		if (Enemy.Enemy.tags) {
 			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "immune")) resistDamage = 2;
@@ -116,9 +120,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 			}
 
 			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
-				dmgDealt *= 2;
 				Enemy.freeze = 0;
 			}
+
 			Enemy.hp -= dmgDealt;
 		}
 		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well

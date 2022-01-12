@@ -708,7 +708,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 										KinkyDungeonPlayerEntity.y = enemy.y;
 										enemy.x = leashPoint.x;
 										enemy.y = leashPoint.y;
-										if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D') KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
+										if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
+											KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
+											if (KinkyDungeonTiles[enemy.x + ',' +enemy.y] && KinkyDungeonTiles[enemy.x + ',' +enemy.y].Type == "Door")
+												KinkyDungeonTiles[enemy.x + ',' +enemy.y].Lock = undefined;
+										}
 										if (!KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
 											KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 									}
@@ -912,6 +916,8 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 
 		if (KinkyDungeonMapGet(x, y) == 'D' && enemy.Enemy && enemy.Enemy.tags.includes("opendoors")) {
 			KinkyDungeonMapSet(x, y, 'd');
+			if (KinkyDungeonTiles[x + ',' +y] && KinkyDungeonTiles[x + ',' +y].Type == "Door")
+				KinkyDungeonTiles[x + ',' +y].Lock = undefined;
 			if (dist < 5) {
 				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonHearDoorOpenNear"), "#dddddd", 4);
 			} else if (dist < 15)
