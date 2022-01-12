@@ -187,7 +187,7 @@ Bugfix:
 - Released the kraken. Do not anger the rope goddess
 
 2.34
--
+-Fixed a bug where doors would stay locked after a jailer opened it
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

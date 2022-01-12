@@ -145,6 +145,12 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonMysticSeals = 1.3;
 	KinkyDungeonSpellPress = 0;
 	KinkyDungeonCurrentPage = 0;
+	KinkyDungeonCurrentSpellsPage = 0;
+	KinkyDungeonSpellLevel = {
+		"Elements":1,
+		"Conjure":1,
+		"Illusion":1,
+	};
 }
 
 
