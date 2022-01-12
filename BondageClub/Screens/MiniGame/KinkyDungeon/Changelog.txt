@@ -184,6 +184,10 @@ Bugfix:
 - Fixed long-distance leashing by assassins
 - Reduced assassin spawning weight
 - Sleep doesnt restore stamina until the 1st turn of sleep is over
+- Released the kraken. Do not anger the rope goddess
+
+2.34
+-
 
 
 TODO: Frozen should end when you melee attack

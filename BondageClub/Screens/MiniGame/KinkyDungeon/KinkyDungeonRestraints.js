@@ -27,6 +27,8 @@ let KinkyDungeonEnchKnifeBreakProgress = 0;
 
 let KinkyDungeonMaxImpossibleAttempts = 3; // base, more if the item is close to being impossible
 
+let KinkyDungeonEnchantedKnifeBonus = 0.1; // Bonus whenever you have an enchanted knife
+
 var KinkyDungeonRestraints = [
 	{name: "DuctTapeArms", Asset: "DuctTape", Color: "#AA2222", Group: "ItemArms", power: -2, weight: 0, escapeChance: {"Struggle": 0.3, "Cut": 0.9, "Remove": 0},
 		enemyTags: {"ribbonRestraints":5}, playerTags: {"ItemArmsFull":8}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
@@ -363,6 +365,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let Pass = "Fail";
 	let escapeChance = (restraint.restraint.escapeChance[StruggleType] != null) ? restraint.restraint.escapeChance[StruggleType] : 1.0;
 	if (StruggleType == "Cut" && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.cutBonus) escapeChance += KinkyDungeonPlayerWeapon.cutBonus;
+	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) escapeChance += KinkyDungeonEnchantedKnifeBonus;
 	if (!restraint.removeProgress) restraint.removeProgress = 0;
 	if (!restraint.pickProgress) restraint.pickProgress = 0;
 	if (!restraint.struggleProgress) restraint.struggleProgress = 0;

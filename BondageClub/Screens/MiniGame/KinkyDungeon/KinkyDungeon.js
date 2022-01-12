@@ -553,6 +553,7 @@ function KinkyDungeonSaveGame(ToString) {
 		keys: KinkyDungeonRedKeys,
 		bkeys: KinkyDungeonBlueKeys,
 		knife: KinkyDungeonNormalBlades,
+		eknife: KinkyDungeonEnchantedBlades,
 		mana: KinkyDungeonStatMana,
 		stamina: KinkyDungeonStatStamina,
 		arousal: KinkyDungeonStatArousal,
@@ -598,6 +599,7 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;
 				if (saveData.stats.bkeys != undefined) KinkyDungeonBlueKeys = saveData.stats.bkeys;
 				if (saveData.stats.knife != undefined) KinkyDungeonNormalBlades = saveData.stats.knife;
+				if (saveData.stats.eknife != undefined) KinkyDungeonEnchantedBlades = saveData.stats.eknife;
 				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
 				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
 				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;

@@ -68,9 +68,9 @@ var KinkyDungeonEnemies = [
 
 	{name: "RopeKraken", tags: ["construct", "melee", "boss", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", summon: [{enemy: "RopeMinion", range: 2.5, count: 8, strict: true}],
 		spells: ["RopeEngulf"], spellCooldownMult: 1, spellCooldownMod: 1, ignoreflag: ["kraken"],
-		visionRadius: 10, maxhp: 60, minLevel: 5, weight:-100, movePoints: 4, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
-		terrainTags: {"secondhalf":3, "lastthird":4, "boss": -1000, "open": 99, "ropeAnger": 20, "ropeRage": 70}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"],
-		dropTable: [{name: "Knives", weight: 4}, {name: "EnchKnife", weight: 1}]},
+		visionRadius: 10, maxhp: 60, minLevel: 5, weight:-30, movePoints: 4, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
+		terrainTags: {"secondhalf":31, "lastthird":2, "boss": -80, "open": 13, "passage": -60, "ropeAnger": 20, "ropeRage": 70}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"],
+		dropTable: [{name: "Knives", weight: 4}, {name: "EnchKnife", weight: 3}]},
 	{name: "RopeMinion", tags: ["construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"],
 		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush",
 		terrainTags: {}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
@@ -105,7 +105,7 @@ var KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[], dropTable: [{name: "Pick", weight: 4}, {name: "RedKey", weight: 1}, {name: "Knife", weight: 2}]},
 	{name: "Necromancer", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "meleeweakness"], followRange: 1, spells: ["SummonSkeleton", "SummonSkeletons"], spellCooldownMult: 1, spellCooldownMod: 1,
 		AI: "hunt", visionRadius: 10, maxhp: 20, minLevel: 1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
-		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -100}, shrines: ["Will"], floors:[1, 2, 3, 11], dropTable: [{name: "Gold", amountMin: 100, amountMax: 150, weight: 4}, {name: "GreenKey", weight: 3}, {name: "BlueKey", weight: 2}]},
+		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -100}, shrines: ["Will"], floors:[1, 2, 3, 11], dropTable: [{name: "Gold", amountMin: 100, amountMax: 150, weight: 4}, {name: "BlueKey", weight: 1}]},
 
 ];
 
