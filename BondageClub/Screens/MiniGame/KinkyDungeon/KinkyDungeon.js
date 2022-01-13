@@ -278,6 +278,12 @@ function KinkyDungeonClick() {
 		} else if (MouseIn(50, 930, 400, 64)) {
 			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
 			KinkyDungeonNewDress = true;
+			if (ServerURL == "foobar") {
+				// Give all of the items
+				for (let A = 0; A < Asset.length; A++)
+					if ((Asset[A] != null) && (Asset[A].Group != null) && (Asset[A].Value > 0) && !InventoryAvailable(Player, Asset[A].Name, Asset[A].Group.Name))
+						InventoryAdd(Player, Asset[A].Name, Asset[A].Group.Name);
+			}
 			CharacterReleaseTotal(KinkyDungeonPlayer);
 			KinkyDungeonDressPlayer();
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
