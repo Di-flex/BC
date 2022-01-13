@@ -180,6 +180,11 @@ KinkyDungeonHearDoorCloseFar,You hear a door being shut in the distance.
 KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
 
 
+NameDecoy,Illusion
+KillDecoy,"The illusion vanishes into thin air."
+NameWall,Wall
+KillWall,"The wall shatters into pieces, which fade away slowly."
+
 NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
 AttackBlindZombieBind,"The zombie's charms attach to your body (+RestraintAdded)"
@@ -930,6 +935,16 @@ KinkyDungeonSpellInvisibility,Invisibility
 KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
+
+KinkyDungeonSpellWall,Wall
+KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns
+KinkyDungeonSummonSingleWall,You create a line on the ground and a wall starts to form!
+
+KinkyDungeonSpellDecoy,Decoy
+KinkyDungeonSpellTargetDecoy,Select where to create an illusion (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionDecoy,Create a stationary decoy for Duration turns
+KinkyDungeonSummonSingleDecoy,You create a line on the ground and a ghost starts to form!
 
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime

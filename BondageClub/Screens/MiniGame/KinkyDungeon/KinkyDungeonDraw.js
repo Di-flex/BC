@@ -209,6 +209,8 @@ function KinkyDungeonDrawGame() {
 			KinkyDungeonContextPlayer.clearRect(0, 0, KinkyDungeonCanvasPlayer.width, KinkyDungeonCanvasPlayer.height);
 			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.IsKneeling() ? -78 : 0, KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
 
+			KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
+
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
 			}

@@ -69,7 +69,7 @@ function KinkyDungeonGetImmunity(tags, type, resist) {
 	return false;
 }
 
-function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
+function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, attacker) {
 	if (bullet) {
 		if (bullet.alreadyHit) {
 			// A bullet can only damage one grid cell at a time
@@ -123,6 +123,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 				Enemy.freeze = 0;
 			}
 
+			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker == KinkyDungeonPlayerEntity) dmgDealt = Enemy.hp;
+
 			Enemy.hp -= dmgDealt;
 		}
 		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well
@@ -175,7 +177,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet) {
 }
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
-	KinkyDungeonDamageEnemy(Enemy, (KinkyDungeonEvasion(Enemy)) ? Damage : null);
+	KinkyDungeonDamageEnemy(Enemy, (KinkyDungeonEvasion(Enemy)) ? Damage : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
 	KinkyDungeonAlert = 5;
 }
 
@@ -186,7 +188,7 @@ function KinkyDungeonUpdateBullets(delta) {
 		let first = true;
 
 		while (d > 0.1) {
-			if (!first) {
+			if (!first && delta > 0) {
 				let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
 				if (b.born >= 0) b.born -= 1;
 
@@ -213,7 +215,7 @@ function KinkyDungeonUpdateBullets(delta) {
 				if (dist > b.bullet.range) outOfRange = true;
 				if (dist >= b.bullet.range) endTime = true;
 			}
-			let outOfTime = (b.bullet.lifetime > 0 && b.time <= 0);
+			let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
 			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
 				if (!(b.bullet.spell && b.bullet.spell.piercing) || outOfRange || outOfTime) {
 					d = 0;
@@ -274,14 +276,14 @@ function KinkyDungeonBulletHit(b, born) {
 		let summonType = b.bullet.hit.split(":")[1]; // Second operand is the enemy type
 		let count = (b.bullet.spell && b.bullet.spell.count) ? b.bullet.spell.count : 1;
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
-		let created = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad);
+		let created = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, false, (b.bullet.spell) ? b.bullet.spell.time : undefined);
 		if (created == 1) KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSummonSingle"+summonType), "white", 2);
 		else if (created > 1) KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonSummonMulti"+summonType).replace("SummonCount", "" + created), "white", 3);
 	}
 }
 
 
-function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict) {
+function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime) {
 	let slots = [];
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
@@ -296,7 +298,7 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict) {
 		let slot = slots[Math.floor(Math.random() * slots.length)];
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) && (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))) {
 			let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
-			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime});
 			created += 1;
 		} else C -= 1;
 		maxcounter += 1;
@@ -364,6 +366,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 		}
 	} else if (bullet.bullet.block == -1) return false; // Shields expire
 
+	if (bullet.bullet.lifetime == -1) return false; // Instant spells
+
 	return true;
 }
 
@@ -376,7 +380,7 @@ function KinkyDungeonLaunchBullet(x, y, targetx, targety, speed, bullet, miscast
 	if (miscast) {
 		vx = 0;
 		vy = 0;
-		lifetime = 1;
+		//lifetime = 1;
 	}
 	let b = {born: 1, time:lifetime, x:x, y:y, vx:vx, vy:vy, xx:x, yy:y, spriteID:bullet.name + CommonTime(), bullet:bullet, trail:bullet.spell.trail};
 	KinkyDungeonBullets.push(b);

@@ -44,10 +44,10 @@ let KinkyDungeonSpellLevel = {
 };
 let KinkyDungeonLearnableSpells = [
 	//Page 1
-	["Firebolt", "Electrify", "Icebolt", "ChainBolt", "SlimeBall", "Dagger", "Snare", "Flash", "Shroud", "Shield"],
+	["Firebolt", "Electrify", "Icebolt", "Shield", "Wall", "ChainBolt", "SlimeBall", "Snare", "Dagger", "Flash", "Shroud"],
 
 	//Page 2
-	["Crackle", "Incinerate", "IceBreath", "Bomb", "Slime", "GreaterFlash", "Blink", "GreaterShield", ],
+	["Crackle", "Incinerate", "IceBreath", "GreaterShield", "Bomb", "Slime", "Decoy", "Blink", "GreaterFlash", ],
 
 	//Page 3
 	["FocusedFlash", "Invisibility", "Fireball", "Leap",],
@@ -89,6 +89,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "MPUp1", school: "Conjure", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "MPUp2", school: "Conjure", manacost: 0, components: [], level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "MPUp3", school: "Conjure", manacost: 0, components: [], level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
+		{name: "Wall", school: "Conjure", manacost: 6, components: ["Legs"], level:1, type:"inert", onhit:"summon:Wall", count: 1, power: 0, time: 10, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
+		{name: "Decoy", school: "Conjure", manacost: 10, components: ["Legs"], level:2, type:"inert", onhit:"summon:Decoy", count: 1, power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 	],
 	"Illusion": [
 		{name: "Dagger", school: "Illusion", manacost: 1, components: ["Arms"], level:1, type:"bolt", projectile:true, piercing: true, onhit:"", power: 1, time: 0, delay: 0, range: 10, damage: "cold", speed: 4, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
@@ -110,8 +112,8 @@ let KinkyDungeonSpellListEnemies = [
 	{enemySpell: true, name: "WitchSlime", manacost: 2, components: ["Legs"], level:2, type:"inert", onhit:"lingering", time: 2, delay: 1, range: 4, size: 3, aoe: 1, lifetime: 1, lifetimeHitBonus: 9, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 	{enemySpell: true, name: "WitchSlimeBall", manacost: 4, components: ["Arms"], level:2, type:"bolt", projectile:true, onhit:"", time: 2,  power: 2, delay: 0, range: 50, damage: "glue", speed: 1, trailLifetime: 10, trailDamage:"glue", trail:"lingering", trailChance: 1.0, playerEffect: {name: "SlimeTrap", time: 3}}, // Throws a ball of slime which oozes more slime
 	{enemySpell: true, name: "WitchElectrify", manacost: 3, components: ["Arms"], level:2, type:"inert", onhit:"aoe", power: 5, time: 1, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
-	{enemySpell: true, name: "SummonSkeleton", manacost: 4, components: ["Verbal"], level:3, type:"inert", onhit:"summon:LesserSkeleton", count: 1, power: 0, time: 1, delay: 1, range: 4, size: 3, aoe: 2.1, lifetime: 1, damage: "fire"},
-	{enemySpell: true, name: "SummonSkeletons", manacost: 12, components: ["Verbal"], level:4, type:"inert", onhit:"summon:LesserSkeleton", count: 4, power: 0, time: 1, delay: 1, range: 4, size: 3, aoe: 2.6, lifetime: 1, damage: "fire"},
+	{enemySpell: true, name: "SummonSkeleton", manacost: 4, components: ["Verbal"], level:3, type:"inert", onhit:"summon:LesserSkeleton", count: 1, power: 0, time: 12, delay: 1, range: 4, size: 3, aoe: 2.1, lifetime: 1, damage: "fire"},
+	{enemySpell: true, name: "SummonSkeletons", manacost: 12, components: ["Verbal"], level:4, type:"inert", onhit:"summon:LesserSkeleton", count: 4, power: 0, time: 12, delay: 1, range: 4, size: 3, aoe: 2.6, lifetime: 1, damage: "fire"},
 ];
 
 function KinkyDungeonSearchSpell(list, name) {
