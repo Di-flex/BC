@@ -192,6 +192,8 @@ Bugfix:
 - New decoy and wall spell
 - Reduced assassin spawn rate and made clerics appear in all levels in the egyptian suite
 - Make prison easier at low security levels
+- Some new latex content
+- Fix save game being wiped!
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
