@@ -194,6 +194,7 @@ Bugfix:
 - Make prison easier at low security levels
 - Some new latex content
 - Fix save game being wiped!
+- Can change appearance!
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

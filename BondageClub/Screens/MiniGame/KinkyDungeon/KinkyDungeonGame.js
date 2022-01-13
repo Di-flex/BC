@@ -132,6 +132,10 @@ function KinkyDungeonSetCheckPoint(Checkpoint) {
 
 function KinkyDungeonInitialize(Level, Random) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
+
+	KinkyDungeonDressSet();
+	localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
+
 	KinkyDungeonDressPlayer();
 	KinkyDungeonDrawState = "Game";
 

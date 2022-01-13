@@ -45,15 +45,22 @@ function KinkyDungeonLoad() {
 	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
-		if (!KinkyDungeonPlayer)
+		if (!KinkyDungeonPlayer) {
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 
-		var appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
-		CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
-		CharacterReleaseTotal(KinkyDungeonPlayer);
-		CharacterNaked(KinkyDungeonPlayer);
-		KinkyDungeonInitializeDresses();
-		KinkyDungeonDressPlayer();
+
+			var appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
+			if (!appearance) appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
+
+			CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
+
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonNewDress = true;
+			KinkyDungeonDressSet();
+			CharacterNaked(KinkyDungeonPlayer);
+			KinkyDungeonInitializeDresses();
+			KinkyDungeonDressPlayer();
+		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings")))
 			KinkyDungeonKeybindings = JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"));
@@ -135,6 +142,8 @@ function KinkyDungeonRun() {
 		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
 		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+
+		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
 		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
@@ -160,6 +169,7 @@ function KinkyDungeonRun() {
 		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
 		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
@@ -262,6 +272,12 @@ function KinkyDungeonClick() {
 		} else if (MouseIn(1075, 820, 350, 64)) {
 			KinkyDungeonState = "Load";
 			ElementCreateTextArea("saveInputField");
+		} else if (MouseIn(50, 930, 400, 64)) {
+			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
+			KinkyDungeonNewDress = true;
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonDressPlayer();
+			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
 		}
 		if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonState = "Keybindings";

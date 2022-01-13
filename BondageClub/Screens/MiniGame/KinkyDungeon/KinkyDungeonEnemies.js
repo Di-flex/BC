@@ -369,7 +369,7 @@ function KinkyDungeonTrackSneak(enemy, delta, player) {
 	if (!enemy.vp) enemy.vp = 0;
 	let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak")) sneakThreshold += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
-	if (player != KinkyDungeonPlayerEntity) return true;
+	if (!player.player) return true;
 	enemy.vp = Math.min(sneakThreshold * 2, enemy.vp + delta);
 	return (enemy.vp > sneakThreshold);
 }
@@ -1112,7 +1112,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSetDress(params.defeat_outfit);
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
-	KinkyDungeonLockpicks = Math.min(Math.max(0, 3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100)), KinkyDungeonLockpicks);
+	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);
 	KinkyDungeonNormalBlades = 0;
 
 	let newInv = KinkyDungeonRestraintList();
