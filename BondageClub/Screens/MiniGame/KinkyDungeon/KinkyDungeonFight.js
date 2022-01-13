@@ -15,10 +15,11 @@ var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.8, type: "unarmed", una
 var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 var KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.8, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true},
-	"Sword": {name: "Sword", dmg: 3, chance: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1},
+	"Sword": {name: "Sword", dmg: 3, chance: 1.1, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1},
+	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2},
 	"Axe": {name: "Axe", dmg: 4, chance: 0.75, type: "slash", unarmed: false, rarity: 2, shop: true},
 	"Hammer": {name: "Hammer", dmg: 5, chance: 0.6, type: "crush", unarmed: false, rarity: 2, shop: true},
-	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3},
+	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: true, cutBonus: 0.3},
 };
 
 function KinkyDungeonFindWeapon(Name) {
@@ -48,6 +49,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
 function KinkyDungeonEvasion(Enemy) {
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy.Enemy && Enemy.Enemy.evasion && (!Enemy.stun || Enemy.stun < 1 || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
+	if (Enemy.Enemy && Enemy.Enemy.tags.includes("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
 	hitChance *= KinkyDungeonPlayerDamage.chance;
 	if (Enemy.slow > 0) hitChance *= 2;
 
@@ -123,7 +125,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.freeze = 0;
 			}
 
-			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker == KinkyDungeonPlayerEntity) dmgDealt = Enemy.hp;
+			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker.player) dmgDealt = Enemy.hp;
 
 			Enemy.hp -= dmgDealt;
 		}
