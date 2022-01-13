@@ -325,14 +325,12 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 				if (bullet.bullet.spell && bullet.bullet.spell.playerEffect && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
 					KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				}
-				if (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell)) {
-					var nomsg = false;
-					for (let L = 0; L < KinkyDungeonEntities.length; L++) {
-						let enemy = KinkyDungeonEntities[L];
-						if (bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
-							KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, nomsg, bullet.bullet.spell, bullet);
-							nomsg = true;
-						}
+				var nomsg = false;
+				for (let L = 0; L < KinkyDungeonEntities.length; L++) {
+					let enemy = KinkyDungeonEntities[L];
+					if ((!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied) || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied)) && bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
+						KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, nomsg, bullet.bullet.spell, bullet);
+						nomsg = true;
 					}
 				}
 			}
@@ -341,14 +339,12 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 				KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				return false;
 			}
-			if (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell)) {
-				for (let L = 0; L < KinkyDungeonEntities.length; L++) {
-					let enemy = KinkyDungeonEntities[L];
-					if (enemy.x == bullet.x && enemy.y == bullet.y) {
-						KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, bullet.bullet.NoMsg, bullet.bullet.spell, bullet);
+			for (let L = 0; L < KinkyDungeonEntities.length; L++) {
+				let enemy = KinkyDungeonEntities[L];
+				if ((!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied) || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied)) && enemy.x == bullet.x && enemy.y == bullet.y) {
+					KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, bullet.bullet.NoMsg, bullet.bullet.spell, bullet);
 
-						return false;
-					}
+					return false;
 				}
 			}
 		}
