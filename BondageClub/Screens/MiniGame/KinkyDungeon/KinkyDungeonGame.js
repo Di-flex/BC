@@ -445,10 +445,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 	let barchance = 1.0 - 0.9 * Math.min(1, security / 100);
 	let grateChance = 1.0 - 1.0 * Math.min(1, security / 100);
 	let grateCount = 1/3;
-	let lock = "";
-	if (security > 25) {
-		lock = KinkyDungeonGenerateLock(security > 60, MiniGameKinkyDungeonLevel);
-	}
+	let lock = KinkyDungeonGenerateLock(true, MiniGameKinkyDungeonLevel);
 
 	for (let X = 0; X <= cellWidth + 1; X++)
 		for (let Y = KinkyDungeonStartPosition.y - cellHeight - 1; Y <= KinkyDungeonStartPosition.y + cellHeight + 1; Y++) {

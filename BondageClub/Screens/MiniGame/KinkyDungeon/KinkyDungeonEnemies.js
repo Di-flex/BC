@@ -1075,7 +1075,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonGuardSpawnTimer = KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 	KinkyDungeonSpawnJailersMax = 2;
 	if (KinkyDungeonGoddessRep.Prisoner) KinkyDungeonSpawnJailersMax += Math.round(6 * (KinkyDungeonGoddessRep.Prisoner + 50)/100);
-	let securityBoost = (firstTime) ? 0 : Math.max(1, Math.ceil(3 * (KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers + 1)/KinkyDungeonSpawnJailersMax));
+	let securityBoost = (firstTime) ? 0 : Math.max(2, Math.ceil(4 * (KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers + 1)/KinkyDungeonSpawnJailersMax));
 
 	KinkyDungeonStatBlind = 3;
 
@@ -1096,7 +1096,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSetDress(params.defeat_outfit);
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
-	KinkyDungeonLockpicks = 0;
+	KinkyDungeonLockpicks = Math.min(1, KinkyDungeonLockpicks);
 	KinkyDungeonNormalBlades = 0;
 
 	let newInv = KinkyDungeonRestraintList();
