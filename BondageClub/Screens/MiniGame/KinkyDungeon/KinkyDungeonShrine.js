@@ -4,7 +4,7 @@ var KinkyDungeonShrineBaseCosts = {
 	"Leather": 40,
 	"Metal": 60,
 	"Rope": 20,
-	//"Latex": 40,
+	"Latex": 40,
 	"Will": 20,
 	"Elements": 100,
 	"Conjure": 100,

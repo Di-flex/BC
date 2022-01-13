@@ -241,7 +241,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonBullets = []; // Clear all bullets
 
 	// Place the player!
-	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 1, y:startpos};
+	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 1, y:startpos, player:true};
 	KinkyDungeonStartPosition = {x: 1, y: startpos};
 
 

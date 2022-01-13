@@ -146,7 +146,7 @@ var KinkyDungeonMapParams = [
 		],
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
-			//{Type: "Charms", Weight: 5},
+			{Type: "Latex", Weight: 5},
 			{Type: "Commerce", Weight: 14},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},

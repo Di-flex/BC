@@ -190,6 +190,8 @@ Bugfix:
 - Fixed a bug where doors would stay locked after a jailer opened it
 - Fixed spell levels and points not resetting on a restart
 - New decoy and wall spell
+- Reduced assassin spawn rate and made clerics appear in all levels in the egyptian suite
+- Make prison easier at low security levels
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

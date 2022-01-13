@@ -268,10 +268,22 @@ NameBramble,Bramble
 KillBramble,"The brambles are hacked away."
 AttackBramble,"The bramble snares you! (-DamageTaken SP)"
 
-NameSmallSlime,Ooze
-KillSmallSlime,"The Ooze melts into a puddle."
-AttackSmallSlime,"The sticky Ooze splashes against you! (-DamageTaken SP)"
-AttackSmallSlimeBind,"The Ooze attaches itself to your body! (-DamageTaken SP)"
+NameSmallSlime,Slime
+KillSmallSlime,"The slime melts into a puddle."
+AttackSmallSlime,"The sticky slime splashes against you! (-DamageTaken SP)"
+AttackSmallSlimeBind,"The slime attaches itself to your body! (-DamageTaken SP)"
+
+NameFastSlime,Fast Slime
+KillFastSlime,"The slime melts into a puddle."
+AttackFastSlime,"The sticky slime leaps and splashes against you! (-DamageTaken SP)"
+AttackFastSlimeBind,"The slime leaps and attaches itself to your body! (-DamageTaken SP)"
+
+NameBigSlime,Large Slime
+KillBigSlime,"The large slime splits apart!"
+AttackBigSlime,"The sticky slime splashes against you! (-DamageTaken SP)"
+AttackBigSlimeBind,"The slime spreads to your body! (-DamageTaken SP)"
+
+KinkyDungeonSummonMultiSmallSlime,The slime splits into many smaller droplets!
 
 NameLesserSkeleton,Skeleton
 KillLesserSkeleton,"The Skeleton falls into pieces."

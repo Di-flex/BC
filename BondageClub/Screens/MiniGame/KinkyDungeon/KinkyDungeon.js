@@ -239,6 +239,7 @@ function KinkyDungeonClick() {
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 0;
 			KinkyDungeonLoadGame();
+			KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 			KinkyDungeonState = "Game";
 
 			if (KinkyDungeonKeybindings) {
