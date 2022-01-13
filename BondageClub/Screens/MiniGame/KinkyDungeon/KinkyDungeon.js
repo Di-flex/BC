@@ -49,13 +49,16 @@ function KinkyDungeonLoad() {
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 
 
+			KinkyDungeonNewDress = true;
 			var appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
-			if (!appearance) appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
+			if (!appearance) {
+				KinkyDungeonNewDress = false;
+				appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
+			}
 
 			CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
 
 			CharacterReleaseTotal(KinkyDungeonPlayer);
-			KinkyDungeonNewDress = true;
 			KinkyDungeonDressSet();
 			CharacterNaked(KinkyDungeonPlayer);
 			KinkyDungeonInitializeDresses();
