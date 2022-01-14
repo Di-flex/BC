@@ -1176,6 +1176,11 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width) {
 
 
 function KinkyDungeonDefeat() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.removePrison) {
+			KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
+		}
+	}
 	KinkyDungeonPrisonReduction = 0;
 	let firstTime = KinkyDungeonSpawnJailersMax == 0;
 	KinkyDungeonGuardSpawnTimer = 4 + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
