@@ -437,6 +437,7 @@ function KinkyDungeonHandleMagic() {
 			if (KinkyDungeonSpellPoints >= cost) {
 				KinkyDungeonSpellPoints -= cost;
 				KinkyDungeonSpells.push(KinkyDungeonPreviewSpell);
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(KinkyDungeonPreviewSpell.name);
 				KinkyDungeonPreviewSpell = undefined;
 				KinkyDungeonAdvanceTime(1);
@@ -615,9 +616,11 @@ function KinkyDungeonHandleMagicSpells() {
 		return true;
 	} else if (MouseIn(canvasOffsetX + 50, canvasOffsetY, 250, 50)) {
 		if (KinkyDungeonCurrentSpellsPage > 0) KinkyDungeonCurrentSpellsPage -= 1;
+		else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
 		return true;
 	} else if (MouseIn(canvasOffsetX + 850, canvasOffsetY, 250, 50)) {
 		if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 1) KinkyDungeonCurrentSpellsPage += 1;
+		else KinkyDungeonCurrentSpellsPage = 0;
 		return true;
 	}
 

@@ -156,8 +156,6 @@ function KinkyDungeonPayShrine(type) {
 	if (rep != 0) {
 		KinkyDungeonChangeRep(type, rep);
 	}
-
-	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 }
 
 function KinkyDungeonHandleShrine() {
@@ -170,7 +168,7 @@ function KinkyDungeonHandleShrine() {
 		if (cost > 0) {
 			if (MouseIn(825, 825, 112, 60) && cost <= KinkyDungeonGold) {
 				KinkyDungeonPayShrine(type);
-
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				return true;
 			}
 			else if (MouseIn(963, 825, 112, 60)) {
@@ -191,9 +189,10 @@ function KinkyDungeonHandleShrine() {
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
 				KinkyDungeonUpdateStats(0);
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else if (1 >= KinkyDungeonActionMessagePriority) {
 				KinkyDungeonActionMessageTime = 1;
-
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 				KinkyDungeonActionMessage = TextGet("KinkyDungeonPayShrineFail");
 				KinkyDungeonActionMessagePriority = 1;
 				KinkyDungeonActionMessageColor = "red";
@@ -210,6 +209,7 @@ function KinkyDungeonHandleShrine() {
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KinkyDungeonPoolUsesGrace -= 1;
 				KinkyDungeonChangeRep(type, -1);
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
 				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
@@ -217,6 +217,7 @@ function KinkyDungeonHandleShrine() {
 
 				KinkyDungeonShrineAngerGods(type);
 				KinkyDungeonPoolUses = 10000;
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 			}
 
 			KinkyDungeonPoolUses += 1;

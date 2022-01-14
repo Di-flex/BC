@@ -137,7 +137,7 @@ function KinkyDungeonRun() {
 		let i = 0;
 		MainCanvas.textAlign = "left";
 		for (let c of credits) {
-			DrawText(c, 1100, 100 + 30 * i, "white", "silver");
+			DrawText(c, 550, 100 + 40 * i, "white", "silver");
 			i++;
 		}
 		MainCanvas.textAlign = "center";
