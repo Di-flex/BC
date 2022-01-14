@@ -198,6 +198,12 @@ Bugfix:
 - New spells: Shadow Slash, Familiar, Golem, Fire Elemental, Storm Crystal, Shadow Warrior, and Lightning Bolt
 - Many spells have smmarter targeting, so you wont waste mana casting summons on an enemy space
 
+TODO: Frozen should end when you melee attack
+
+=======
+
+
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
