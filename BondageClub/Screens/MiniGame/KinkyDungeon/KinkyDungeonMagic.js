@@ -44,16 +44,41 @@ let KinkyDungeonSpellLevel = {
 };
 let KinkyDungeonLearnableSpells = [
 	//Page 1
-	["Firebolt", "Electrify", "Icebolt", "Shield", "Wall", "Ally", "ChainBolt", "SlimeBall", "Snare", "Dagger", "Flash", "Shroud"],
+	[
+		// Verbal
+		["Electrify", "Flash", "Shroud", "Ally",],
+		// Arms
+		["Firebolt", "Icebolt", "ChainBolt", "SlimeBall", "Dagger",],
+		// Legs
+		["Shield", "Snare", "Wall", ],
+	],
 
 	//Page 2
-	["Crackle", "Incinerate", "IceBreath", "GreaterShield", "Bomb", "Slime", "FireElemental", "StormCrystal", "Blink", "GreaterFlash", "ShadowSlash", "Decoy", "ShadowWarrior"],
+	[
+		// Verbal
+		["Incinerate", "IceBreath", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior"],
+		// Arms
+		["Crackle", "ShadowSlash", ],
+		// Legs
+		["GreaterShield", "Slime", "StormCrystal", "Decoy", ],
+	],
 
 	//Page 3
-	["Fireball", "LightningBolt", "Golem", "Leap", "FocusedFlash", "Invisibility",],
+	[
+		// Verbal
+		["FocusedFlash", "Invisibility",],
+		// Arms
+		["Fireball", "LightningBolt", ],
+		// Legs
+		["Golem", "Leap", ],
+	],
 
 	//Page 4
-	["SPUp1","SPUp2","SPUp3","MPUp1","MPUp2","MPUp3","APUp1","APUp2","APUp3",],
+	[
+		["SPUp1","SPUp2","SPUp3"],
+		["MPUp1","MPUp2","MPUp3"],
+		["APUp1","APUp2","APUp3"],
+	],
 ];
 
 let KinkyDungeonSpellPoints = 3;
@@ -106,7 +131,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "GreaterFlash", sfx: "FireSpell", school: "Illusion", manacost: 6, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", time: 8, delay: 1, power: 1, range: 2.5, size: 5, aoe: 2.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 5}}, // Much greater AoE. Careful not to get caught!
 		{name: "FocusedFlash", sfx: "FireSpell", school: "Illusion", manacost: 12, components: ["Verbal"], level:3, type:"inert", onhit:"aoe", time: 20, delay: 2, power: 1, range: 2.5, size: 3, aoe: 1.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 12}}, // Longer delay, but the stun lasts much longer.
 		{name: "Shroud", sfx: "FireSpell", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Shroud", type: "Evasion", power: 3.0, player: true, enemies: true, tags: ["darkness"], range: 1.5}, {type: "Sneak", power: 3.0, player: true, enemies: false, tags: ["darkness"], range: 1.5}], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
-		{name: "Invisibility", sfx: "FireSpell", school: "Illusion", manacost: 9, components: ["Arms"], mustTarget: true, level:3, type:"buff", buffs: [{id: "Invisibility", type: "Sneak", duration: 10, power: 10.0, player: true, enemies: true, tags: ["invisibility"]}], onhit:"", time:10, power: 0, range: 2, size: 1, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
+		{name: "Invisibility", sfx: "FireSpell", school: "Illusion", manacost: 9, components: ["Verbal"], mustTarget: true, level:3, type:"buff", buffs: [{id: "Invisibility", type: "Sneak", duration: 10, power: 10.0, player: true, enemies: true, tags: ["invisibility"]}], onhit:"", time:10, power: 0, range: 2, size: 1, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 		{name: "ShadowSlash", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Arms"], level:2, type:"bolt", projectile:true, piercing: true, noTerrainHit: true, noEnemyCollision: true, onhit:"aoe", power: 5, delay: 0, range: 1.5, aoe: 1.5, size: 3, lifetime:1, damage: "cold", speed: 1, time: 2,
 			trailspawnaoe: 1.5, trailPower: 0, trailLifetime: 1.1, trailHit: "", trailDamage:"inert", trail:"lingering", trailChance: 0.4},
 		{name: "Decoy", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Legs"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "Decoy", count: 1, time: 20}], power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
@@ -557,31 +582,35 @@ function KinkyDungeonListSpells(Mode) {
 	let yPad = 100;
 	let buttonwidth = 250;
 	let xpadding = 50;
+	let col = 0;
 
-	for (let sp of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
-		let spell = KinkyDungeonFindSpell(sp, false);
-		if (spell) {
+	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
+		let column = col;//Math.floor((spacing * i) / (maxY));
+		i = 0;
+		for (let sp of pg) {
+			let spell = KinkyDungeonFindSpell(sp, false);
+			if (spell) {
 
-			let column = Math.floor((spacing * i) / (maxY));
-			XX = column * (buttonwidth + xpadding);
-			ii = i - column * Math.ceil(maxY / spacing);
+				XX = column * (buttonwidth + xpadding);
+				ii = i;// - column * Math.ceil(maxY / spacing);
 
-			let cost = KinkyDungeonGetCost(spell);
+				let cost = KinkyDungeonGetCost(spell);
 
-			if (Mode == "Draw") {
-				let color = "white";
-				if (KinkyDungeonSpellIndex(spell.name) >= 0) {
-					color = "#555555";
-				} else if (KinkyDungeonSpellPoints < cost || KinkyDungeonSpellLevel[spell.school] < spell.level) {
-					color = "pink";
+				if (Mode == "Draw") {
+					let color = "white";
+					if (KinkyDungeonSpellIndex(spell.name) >= 0) {
+						color = "#555555";
+					} else if (KinkyDungeonSpellPoints < cost || KinkyDungeonSpellLevel[spell.school] < spell.level) {
+						color = "pink";
+					}
+					DrawButton(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding, TextGet("KinkyDungeonSpell" + spell.name), color);
+				} else if (Mode == "Click") {
+					if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding)) return spell;
 				}
-				DrawButton(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding, TextGet("KinkyDungeonSpell" + spell.name), color);
-			} else if (Mode == "Click") {
-				if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding)) return spell;
+				i++;
 			}
-			i++;
 		}
-
+		col++;
 	}
 	return undefined;
 }
