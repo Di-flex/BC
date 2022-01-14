@@ -203,6 +203,9 @@ Bugfix:
 - Organized the spell lists by component
 - New spell: Darkblade
 - UI now lists spell commponents
+- Nerfed shadow warrior
+- You can now wash slime off at mana pools
+- Slime now hardens after a while, changing from struggle to cut
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
