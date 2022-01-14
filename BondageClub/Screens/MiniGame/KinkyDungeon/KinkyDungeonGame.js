@@ -111,6 +111,15 @@ let KinkyDungeonChestsOpened = [];
 
 let KinkyDungeonSaveInterval = 10;
 
+let KinkyDungeonSFX = [];
+
+function KinkyDungeonPlaySound(src) {
+	if (!KinkyDungeonSFX.includes(src)) {
+		AudioPlayInstantSound(src);
+		KinkyDungeonSFX.push(src);
+	}
+}
+
 function KinkyDungeonAddChest(Amount, Floor) {
 	if (KinkyDungeonChestsOpened.length < Floor - 1) {
 		KinkyDungeonChestsOpened.push(0);
@@ -1146,7 +1155,7 @@ function KinkyDungeonClickGame(Level) {
 			if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
 				if (KinkyDungeonSpellValid) {
 					if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell) && KinkyDungeonTargetingSpell.sfx) {
-						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
+						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
 					}
 					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSleepTurns = 0;
@@ -1415,7 +1424,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonRestraintAdded = false;
-	KinkyDungeonDamageTaken = false;
+	KinkyDungeonSFX = [];
 	KinkyDungeonResetEventVariablesTick();
 	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
 

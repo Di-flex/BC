@@ -890,8 +890,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							else if (Locked) suffix = "Lock";
 							else if (bound > 0) suffix = "Bind";
 
-							if (!KinkyDungeonDamageTaken) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
-							KinkyDungeonDamageTaken = true;
+							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
 							if (replace)
 								for (let R = 0; R < replace.length; R++)
