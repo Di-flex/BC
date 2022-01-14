@@ -94,7 +94,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Wall", school: "Conjure", manacost: 6, components: ["Legs"], level:1, type:"inert", onhit:"summon:Wall", count: 1, power: 0, time: 10, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Decoy", school: "Conjure", manacost: 10, components: ["Legs"], level:2, type:"inert", onhit:"summon:Decoy", count: 1, power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Ally", school: "Conjure", manacost: 8, components: ["Verbal"], level:1, type:"inert", onhit:"summon:Ally", count: 1, power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
-		{name: "FireElemental", school: "Conjure", manacost: 16, components: ["Verbal"], level:2, type:"inert", onhit:"summon:FireElemental", count: 1, power: 0, time: 9999, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
+		{name: "FireElemental", school: "Conjure", manacost: 22, components: ["Verbal"], level:2, type:"inert", onhit:"summon:FireElemental", count: 1, power: 0, time: 9999, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Golem", school: "Conjure", manacost: 24, components: ["Legs"], level:3, type:"inert", onhit:"summon:Golem", count: 1, power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 	],
 	"Illusion": [
