@@ -40,7 +40,7 @@ StatStamina,"SP: CURRENT/MAX"
 StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"MP: CURRENT/MAX"
 StatUsePotion,"Use Potion"
-KinkyDungeonManaCost," Mana"
+KinkyDungeonManaCost," MP + COMPONENTS"
 KinkyDungeonSleep,"Sleep 20 turns"
 
 Wait,"You wait."

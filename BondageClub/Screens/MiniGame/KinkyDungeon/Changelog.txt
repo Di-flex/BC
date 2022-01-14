@@ -199,8 +199,9 @@ Bugfix:
 - Many spells have smmarter targeting, so you wont waste mana casting summons on an enemy space
 
 2.4
-- New sound effects (locked and coins)
+- New sound effects for dealing damage, locked doors, picking items, etc
 - Organized the spell lists by component
+- New spell: Darkblade
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

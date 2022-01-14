@@ -680,3 +680,19 @@ function KinkyDungeonSetPreviewSpell(spell) {
 	if (!KinkyDungeonPreviewSpell) KinkyDungeonCurrentPage = index;
 	KinkyDungeonDrawState = "Magic";
 }
+
+function KinkyDungeonGetCompList(spell) {
+	let ret = "";
+	if (spell.components)
+		for (let c of spell.components) {
+			if (ret) ret = ret + "/";
+			if (c == "Verbal") ret = ret + (ret ? "V" : "Verbal");
+			else if (c == "Arms") ret = ret + (ret ? "A" : "Arms");
+			else if (c == "Legs") ret = ret + (ret ? "L" : "Legs");
+		}
+
+	//if (ret)
+	//	return "(" + ret + ")";
+	//else
+	return ret;
+}
