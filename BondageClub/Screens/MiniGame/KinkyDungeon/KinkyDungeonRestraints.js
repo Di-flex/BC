@@ -231,11 +231,9 @@ function KinkyDungeonGetRestraintsWithShrine(shrine) {
 function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 	let count = 0;
 
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		var item = KinkyDungeonInventory[I];
+	for (let item of KinkyDungeonRestraintList()) {
 		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine)) {
 			KinkyDungeonRemoveRestraint(item.restraint.Group, false);
-			I = 0;
 			count++;
 		}
 	}
