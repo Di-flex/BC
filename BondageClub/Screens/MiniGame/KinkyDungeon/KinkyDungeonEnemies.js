@@ -289,6 +289,12 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 
+			if (enemy.aware && enemy.vp > 0) {
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Aware.png",
+					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
+					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+			}
 			if (enemy.stun > 0) {
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -954,6 +960,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 			enemy.attackPoints = 0;
 			enemy.warningTiles = [];
 		}
+
+		if (enemy.vp > 0 && !enemy.path) enemy.vp = Math.max(0, enemy.vp - 0.1);
 
 		// Delete the enemy
 		if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1;}

@@ -223,8 +223,8 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Reputation"; return true;}
 		else
 		if (MouseIn(1030, 925, 165, 60)) {
-			KinkyDungeonDrawState = "Magic";
-			if (KinkyDungeonSpells.length == 0) KinkyDungeonDrawState = "MagicSpells";
+			//KinkyDungeonDrawState = "Magic";
+			KinkyDungeonDrawState = "MagicSpells";
 			return true;}
 		else if (MouseIn(510, 925, 120, 60)) { KinkyDungeonDrawStruggle = !KinkyDungeonDrawStruggle; return true;}
 
