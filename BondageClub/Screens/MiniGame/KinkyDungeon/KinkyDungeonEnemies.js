@@ -289,7 +289,7 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 
-			if (enemy.aware && enemy.vp > 0) {
+			if (enemy.aware && enemy.vp > 0 && enemy.Enemy && enemy.Enemy.visionRadius > 1.6 && enemy.Enemy.movePoints < 90) {
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Aware.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,

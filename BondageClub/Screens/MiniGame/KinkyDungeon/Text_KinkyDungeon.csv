@@ -188,6 +188,7 @@ KinkyDungeonHearDoorCloseNear,You hear a door slam shut nearby!
 KinkyDungeonHearDoorCloseFar,You hear a door being shut in the distance.
 
 KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
+KinkyDungeonSlimeHarden,"The slime starts to harden over your skin..."
 
 
 NameDecoy,Illusion
@@ -487,6 +488,7 @@ KinkyDungeonPoolDrink0,"You drink from the pool and your mana is restored."
 KinkyDungeonPoolDrink1,"You drink again, but you feel as if you are trespassing."
 KinkyDungeonPoolDrink2,"You drink again, knowing the risk this may entail..."
 KinkyDungeonPoolDrinkAnger,"You have angered the goddess of TYPE!!!"
+KinkyDungeonPoolDrinkSlime,"The slime washes off in the fountain!!!"
 
 KinkyDungeonCommerceBuy,"The goddess offers a ItemTraded for ItemCost (NumCurrent/NumMax)"
 KinkyDungeonCommerceNext,"Next Offer"
@@ -706,23 +708,42 @@ RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter
 
 
 RestraintSlimeBoots,Slime
-RestraintSlimeBootsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeFeet,Slime
-RestraintSlimeFeetDesc,"Sticky slime that adheres to your body."
+RestraintSlimeFeetDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeFeetDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeLegs,Slime
-RestraintSlimeLegsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeLegsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeLegsDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeArms,Slime
-RestraintSlimeArmsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeArmsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeArmsDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeHands,Slime
-RestraintSlimeHandsDesc,"Sticky slime that adheres to your body."
+RestraintSlimeHandsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeHead,Slime
-RestraintSlimeHeadDesc,"Sticky slime that adheres to your body."
+RestraintSlimeHeadDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
+
+RestraintHardSlimeBoots,Rubber
+RestraintHardSlimeBootsDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeBootsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeFeet,Rubber
+RestraintHardSlimeFeetDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeFeetDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeLegs,Rubber
+RestraintHardSlimeLegsDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeLegsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeArms,Rubber
+RestraintHardSlimeArmsDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeArmsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeHands,Rubber
+RestraintHardSlimeHandsDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeHead,Rubber
+RestraintHardSlimeHeadDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
 
 RestraintDuctTapeHands,Tape Mitts
 RestraintDuctTapeHandsDesc,"Sticky tape that holds your hands into a fist!"
@@ -1162,6 +1183,8 @@ KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
 KinkyDungeonLore103,"I can't count how many skeletons I've bashed with my hammer today. They seem so fragile..."
+
+KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
 
 
 KinkyDungeonLore-1,"(The note is blank)"

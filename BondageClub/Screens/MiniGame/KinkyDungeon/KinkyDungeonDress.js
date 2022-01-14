@@ -134,6 +134,13 @@ function KinkyDungeonDressPlayer() {
 			if (clothes.Group == "Shoes") {
 				if (KinkyDungeonGetRestraintItem("ItemBoots")) clothes.Lost = true;
 			}
+			for (let inv of KinkyDungeonRestraintList()) {
+				if (inv.restraint && inv.restraint.remove) {
+					for (let remove of inv.restraint.remove) {
+						if (remove == clothes.Group) clothes.Lost = true;
+					}
+				}
+			}
 
 			if (clothes.Lost) KinkyDungeonUndress += 1/KinkyDungeonDresses[KinkyDungeonCurrentDress].length;
 		}
