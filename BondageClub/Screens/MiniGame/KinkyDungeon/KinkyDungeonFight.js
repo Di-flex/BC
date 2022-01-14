@@ -180,7 +180,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	let eva = KinkyDungeonEvasion(Enemy);
-	KinkyDungeonDamageEnemy(Enemy, (eva) ? Damage : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
+	let dmg = Damage;
+	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
+	if (buffdmg) dmg.damage = Math.max(0, dmg.damage + buffdmg);
+	KinkyDungeonDamageEnemy(Enemy, (eva) ? dmg : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
 	if (eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
 		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
 	} else if (!eva) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");

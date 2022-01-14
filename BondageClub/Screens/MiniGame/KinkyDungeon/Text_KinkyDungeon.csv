@@ -986,6 +986,11 @@ KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
+KinkyDungeonSpellShadowBlade,Darkblade
+KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
+KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature gain +2 damage for Duration turns
+KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
+
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns

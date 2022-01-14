@@ -442,11 +442,12 @@ function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
 	KinkyDungeonJailLeash = 5;
+	let modsecurity = security - (KinkyDungeonGoddessRep.Ghost + 50)
 	if (security > 25) KinkyDungeonJailLeash -= 1;
 	if (security > 50) KinkyDungeonJailLeash -= 1;
 	if (security > 75) KinkyDungeonJailLeash -= 1;
 	let cellHeight = KinkyDungeonJailLeash;
-	let barchance = 1.0 - 0.9 * Math.min(1, security / 100);
+	let barchance = 1.0 - 0.9 * Math.min(1, modsecurity / 100);
 	let grateChance = 1.0 - 1.0 * Math.min(1, security / 100);
 	let grateCount = 1/3;
 	let lock = KinkyDungeonGenerateLock(true, MiniGameKinkyDungeonLevel);

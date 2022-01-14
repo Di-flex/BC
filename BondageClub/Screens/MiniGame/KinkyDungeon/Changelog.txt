@@ -200,7 +200,7 @@ Bugfix:
 
 2.4
 - New sound effects (locked and coins)
-
+- Organized the spell lists by component
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

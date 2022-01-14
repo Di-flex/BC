@@ -313,6 +313,18 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
+			if (KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg") > 0) {
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Buff.png",
+					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+			}
+			if (KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg") < 0) {
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Debuff.png",
+					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+			}
 		}
 	}
 }
@@ -516,7 +528,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, true);
 			let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false);
 
-			if (canSeePlayer && enemy.Enemy.tags.includes("jailer") && (Math.abs(player.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(player.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash)) {
+			if (canSeePlayer && enemy.Enemy.tags.includes("jailer") && (KinkyDungeonPlayer.CanInteract() || (Math.abs(player.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(player.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash))) {
 				KinkyDungeonJailTransgressed = true;
 				ignore = false;
 			}
@@ -829,6 +841,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (attack.includes("Will") || willpowerDamage > 0) {
 							if (willpowerDamage == 0)
 								willpowerDamage += enemy.Enemy.power;
+							let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
+							if (buffdmg) willpowerDamage = Math.max(0, willpowerDamage + buffdmg);
 							replace.push({keyword:"DamageTaken", value: willpowerDamage});
 							msgColor = "#ff8888";
 							if (usingSpecial && willpowerDamage > 0 && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Will")) enemy.specialCD = enemy.Enemy.specialCD;
@@ -857,6 +871,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 							happened += bound;
 						} else {
 							let dmg = enemy.Enemy.power;
+							let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
+							if (buffdmg) dmg = Math.max(0, dmg + buffdmg);
 							if (enemy.Enemy.fullBoundBonus) {
 								dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
@@ -950,6 +966,8 @@ let KinkyDungeonGuardTimerMax = 22;
 let KinkyDungeonGuardSpawnTimer = 0;
 let KinkyDungeonGuardSpawnTimerMax = 74;
 let KinkyDungeonGuardSpawnTimerMin = 52;
+let KinkyDungeonMaxPrisonReduction = 10;
+let KinkyDungeonPrisonReduction = 0;
 
 function KinkyDungeonHandleJailSpawns() {
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
@@ -992,6 +1010,11 @@ function KinkyDungeonHandleJailSpawns() {
 				KinkyDungeonMapSet(xx-1, yy, 'D');
 				KinkyDungeonTiles[(xx-1) + "," + yy].Lock = KinkyDungeonGenerateLock(true, MiniGameKinkyDungeonLevel);
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonGuardDisappear"), "red", 6);
+				if (KinkyDungeonPrisonReduction < KinkyDungeonMaxPrisonReduction) {
+					KinkyDungeonPrisonReduction += 1;
+					KinkyDungeonChangeRep("Prisoner", -1);
+				}
+				KinkyDungeonChangeRep("Ghost", 1);
 			}
 		}
 	}
@@ -1129,8 +1152,9 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width) {
 
 
 function KinkyDungeonDefeat() {
+	KinkyDungeonPrisonReduction = 0;
 	let firstTime = KinkyDungeonSpawnJailersMax == 0;
-	KinkyDungeonGuardSpawnTimer = KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
+	KinkyDungeonGuardSpawnTimer = 4 + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 	KinkyDungeonSpawnJailersMax = 2;
 	if (KinkyDungeonGoddessRep.Prisoner) KinkyDungeonSpawnJailersMax += Math.round(6 * (KinkyDungeonGoddessRep.Prisoner + 50)/100);
 	let securityBoost = (firstTime) ? 0 : Math.max(2, Math.ceil(4 * (KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers + 1)/KinkyDungeonSpawnJailersMax));
@@ -1165,6 +1189,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...
 
 	KinkyDungeonDressPlayer();
+	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
 }
 
 function KinkyDungeonEnemyCanMove(enemy, dir, MovableTiles, AvoidTiles, ignoreLocks, Tries) {
