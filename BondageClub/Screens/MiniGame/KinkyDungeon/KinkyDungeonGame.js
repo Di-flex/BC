@@ -1262,7 +1262,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	if (Enemy) {
+	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
 		if (AllowInteract) {
 			if (KinkyDungeonHasStamina(Math.abs(KinkyDungeonStatStaminaCostAttack), true)) {
 				KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type});
@@ -1283,7 +1283,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 		}
 
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
-		if (KinkyDungeonMovableTiles.includes(moveObject) && KinkyDungeonNoEnemy(moveX, moveY)) { // If the player can move to an empy space or a door
+		if (KinkyDungeonMovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy.Enemy && Enemy.Enemy.noblockplayer))) { // If the player can move to an empy space or a door
 			if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 1;
 			if (KinkyDungeonTiles["" + moveX + "," + moveY] && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
 				|| (KinkyDungeonTiles["" + moveX + "," + moveY].Type != "Trap" && (KinkyDungeonTiles["" + moveX + "," + moveY].Type != "Door" || (KinkyDungeonTiles["" + moveX + "," + moveY].Lock && KinkyDungeonTiles["" + moveX + "," + moveY].Type == "Door"))))) {
@@ -1393,14 +1393,14 @@ function KinkyDungeonWaitMessage(NoTime) {
 
 // Returns th number of turns that must elapse
 function KinkyDungeonMoveTo(moveX, moveY) {
-	if (KinkyDungeonNoEnemy(moveX, moveY, true)) {
-		KinkyDungeonPlayerEntity.x = moveX;
-		KinkyDungeonPlayerEntity.y = moveY;
+	//if (KinkyDungeonNoEnemy(moveX, moveY, true)) {
+	KinkyDungeonPlayerEntity.x = moveX;
+	KinkyDungeonPlayerEntity.y = moveY;
 
-		KinkyDungeonMovePoints = 0;
-		return Math.max(1, KinkyDungeonSlowLevel);
-	}
-	return 0;
+	KinkyDungeonMovePoints = 0;
+	return Math.max(1, KinkyDungeonSlowLevel);
+	//}
+	//return 0;
 }
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {

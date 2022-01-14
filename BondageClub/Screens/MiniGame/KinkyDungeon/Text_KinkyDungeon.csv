@@ -190,6 +190,10 @@ NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
+NameAlly,Familiar
+KillAlly,"The familiar dissolves into spectral ash."
+NameGolem,Allied Golem
+KillGolem,"The words vanish from the golem's forehead as it crashes down."
 
 NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
@@ -845,6 +849,11 @@ KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt d
 KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
 KinkyDungeonSpellTargetDagger,Choose aim direction
 
+KinkyDungeonSpellShadowSlash,Shadow Slash
+KinkyDungeonSpellDescriptionShadowSlash,"Slice the area in front of you, dealing a delayed DamageDealt damage in an area and slowing briefly."
+KinkyDungeonSpellCastShadowSlash,You create a tear in space with your finger!
+KinkyDungeonSpellTargetShadowSlash,Choose aim direction
+
 KinkyDungeonSpellBlink,Portal
 KinkyDungeonSpellDescriptionBlink,Teleport to a nearby location after DelayTime turns.
 KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!
@@ -895,9 +904,14 @@ KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
 KinkyDungeonSpellCrackle,Crackle
-KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a line and briefly stuns.
-KinkyDungeonSpellCastCrackle,You cast a bolt of lightning!
+KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a 4-range line and briefly stuns.
+KinkyDungeonSpellCastCrackle,Lightning erupts from your fingertips!
 KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
+
+KinkyDungeonSpellLightningBolt,Lightning Bolt
+KinkyDungeonSpellDescriptionLightningBolt,A bolt of lightning that does DamageDealt damage to enemies in an infinite line and briefly stuns.
+KinkyDungeonSpellCastLightningBolt,You unleash a bolt of lightning!
+KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
@@ -960,9 +974,19 @@ KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupi
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns
 KinkyDungeonSummonSingleWall,You create a line on the ground and a wall starts to form!
 
+KinkyDungeonSpellAlly,Familiar
+KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionAlly,Create a familiar that fights by your side for the rest of the level
+KinkyDungeonSummonSingleAlly,You create a circle on the ground and a familiar appears!
+
+KinkyDungeonSpellGolem,Golem
+KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionGolem,Create a slow but powerful golem to fight by your side
+KinkyDungeonSummonSingleGolem,You stomp your foot and a golem arises from the floor!
+
 KinkyDungeonSpellDecoy,Decoy
 KinkyDungeonSpellTargetDecoy,Select where to create an illusion (cannot place on occupied squares)
-KinkyDungeonSpellDescriptionDecoy,Create a stationary decoy for Duration turns
+KinkyDungeonSpellDescriptionDecoy,Create a decoy for Duration turns
 KinkyDungeonSummonSingleDecoy,You create a line on the ground and a ghost starts to form!
 
 KinkyDungeonSpellSlime,Conjure Slime

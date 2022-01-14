@@ -296,10 +296,10 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 
 	let created = 0;
 	let maxcounter = 0;
+	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(Math.random() * slots.length)];
-		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) && (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))) {
-			let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
+		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer) && (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))) {
 			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime});
 			created += 1;
 		} else C -= 1;
@@ -309,17 +309,23 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 }
 
 function KinkyDungeonBulletTrail(b) {
-	if (Math.random() < b.bullet.spell.trailChance) {
-		if (b.bullet.spell.trail == "lingering") {
-			KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Trail" + CommonTime(),
-				bullet:{spell:b.bullet.spell, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
-		}
+	if (b.bullet.spell.trail == "lingering") {
+		let aoe = b.bullet.spell.trailspawnaoe ? b.bullet.spell.trailspawnaoe : 0.0;
+		let rad = Math.ceil(aoe/2);
+		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+				if (Math.sqrt(X*X+Y*Y) <= aoe && Math.random() < b.bullet.spell.trailChance) {
+					KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime, x:b.x + X, y:b.y + Y, vx:0, vy:0, xx:b.x + X, yy:b.y + Y, spriteID:b.bullet.name+"Trail" + CommonTime(),
+						bullet:{hit: b.bullet.spell.trailHit, spell:b.bullet.spell, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
+				}
+			}
 	}
 }
 
 function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 	var mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
+	if (bullet.bullet.noEnemyCollision) return true;
 
 	if (bullet.bullet.damage && bullet.time > 0) {
 		if (bullet.bullet.aoe) {
