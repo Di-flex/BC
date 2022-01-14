@@ -118,6 +118,7 @@ function KinkyDungeonItemEvent(Item) {
 		color = "grey";
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
 	}
+	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
 }
 

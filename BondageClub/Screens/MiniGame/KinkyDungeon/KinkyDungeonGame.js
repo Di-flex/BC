@@ -1355,6 +1355,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					}
 
 					if (moveObject == 'R') {
+						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 						KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
 
 						KinkyDungeonMapSet(moveX, moveY, 'r');
@@ -1513,6 +1514,7 @@ function KinkyDungeonTargetTileMsg() {
 	if (KinkyDungeonTargetTile.Type == "Ghost") {
 		KinkyDungeonGhostMessage();
 	} else if (KinkyDungeonTargetTile.Lock) {
+		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Locked.ogg");
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObjectLock").replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);
 	} else {
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObject" + KinkyDungeonTargetTile.Type).replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);
