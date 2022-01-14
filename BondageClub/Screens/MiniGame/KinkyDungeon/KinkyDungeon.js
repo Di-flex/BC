@@ -119,6 +119,9 @@ function KinkyDungeonIsPlayer() {
  * Runs the kinky dungeon game and draws its components on screen
  * @returns {void} - Nothing
  */
+
+let KinkyDungeonCreditsPos = 0;
+
 function KinkyDungeonRun() {
 	let BG = "BrickWall";
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
@@ -133,16 +136,17 @@ function KinkyDungeonRun() {
 		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 	if (KinkyDungeonState == "Credits") {
-		let credits = TextGet("KinkyDungeonCreditsList").split('|');
+		let credits = TextGet("KinkyDungeonCreditsList" + KinkyDungeonCreditsPos).split('|');
 		let i = 0;
 		MainCanvas.textAlign = "left";
 		for (let c of credits) {
-			DrawText(c, 550, 100 + 40 * i, "white", "silver");
+			DrawText(c, 550, 25 + 40 * i, "white", "silver");
 			i++;
 		}
 		MainCanvas.textAlign = "center";
 
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
+		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
 		// Draw temp start screen
 		DrawText(TextGet("Intro"), 1250, 400, "white", "silver");
@@ -247,6 +251,10 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(1870, 930, 110, 64)) {
 			KinkyDungeonState = "Menu";
 			return true;
+		}
+		if (MouseIn(1730, 930, 110, 64)) {
+			if (KinkyDungeonCreditsPos < 2) KinkyDungeonCreditsPos += 1;
+			else KinkyDungeonCreditsPos = 0;
 		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {

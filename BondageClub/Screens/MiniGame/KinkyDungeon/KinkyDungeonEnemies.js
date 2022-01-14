@@ -915,7 +915,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 				if (spell) {
 					enemy.castCooldown = spell.manacost*enemy.Enemy.spellCooldownMult + enemy.Enemy.spellCooldownMod + 1;
-					KinkyDungeonCastSpell(player.x, player.y, spell, enemy, player);
+					if (KinkyDungeonCastSpell(player.x, player.y, spell, enemy, player) && spell.sfx) {
+						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
+					}
 
 					//console.log("casted "+ spell.name);
 				}
