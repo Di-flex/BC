@@ -11,15 +11,15 @@ var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grop
 
 // Weapons
 var KinkyDungeonPlayerWeapon = null;
-var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.8, type: "unarmed", unarmed: true};
+var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.8, type: "unarmed", unarmed: true, sfx: "Unarmed"};
 var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 var KinkyDungeonWeapons = {
-	"Knife": {name: "Knife", dmg: 2.5, chance: 0.8, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true},
-	"Sword": {name: "Sword", dmg: 3, chance: 1.1, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1},
-	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2},
-	"Axe": {name: "Axe", dmg: 4, chance: 0.75, type: "slash", unarmed: false, rarity: 2, shop: true},
-	"Hammer": {name: "Hammer", dmg: 5, chance: 0.6, type: "crush", unarmed: false, rarity: 2, shop: true},
-	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: true, cutBonus: 0.3},
+	"Knife": {name: "Knife", dmg: 2.5, chance: 0.8, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
+	"Sword": {name: "Sword", dmg: 3, chance: 1.1, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
+	"Axe": {name: "Axe", dmg: 4, chance: 0.75, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
+	"Hammer": {name: "Hammer", dmg: 5, chance: 0.6, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
+	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: true, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
 function KinkyDungeonFindWeapon(Name) {
@@ -179,7 +179,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 }
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
-	KinkyDungeonDamageEnemy(Enemy, (KinkyDungeonEvasion(Enemy)) ? Damage : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
+	let eva = KinkyDungeonEvasion(Enemy);
+	KinkyDungeonDamageEnemy(Enemy, (eva) ? Damage : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
+	if (eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
+		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
+	} else if (!eva) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
 	KinkyDungeonAlert = 5;
 }
 

@@ -1132,6 +1132,7 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonHandleHUD()) {
+		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		return;
 	}
 	// beep
@@ -1143,7 +1144,9 @@ function KinkyDungeonClickGame(Level) {
 		if (KinkyDungeonTargetingSpell) {
 			if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
 				if (KinkyDungeonSpellValid) {
-					KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell);
+					if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell) && KinkyDungeonTargetingSpell.sfx) {
+						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
+					}
 					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSleepTurns = 0;
 					KinkyDungeonTargetingSpell = null;
@@ -1300,13 +1303,16 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonTargetTileLocation = "";
 				if (moveObject == 'D') { // Open the door
 					KinkyDungeonMapSet(moveX, moveY, 'd');
+					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 					KinkyDungeonDoorCloseTimer = 1;
 				} else if (moveObject == 'C') { // Open the chest
 					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "chest");
 					KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
+					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'c');
 				} else if (moveObject == 'O') { // Open the chest
 					KinkyDungeonTakeOrb(1); // 1 spell point
+					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'o');
 				} else {// Move
 					//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
@@ -1315,6 +1321,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						moved = true;
+						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
@@ -1366,6 +1373,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			}
 		} else { // If we are blind we can bump into walls!
 			if (KinkyDungeonGetVisionRadius() <= 1) {
+				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 				KinkyDungeonSleepTurns = 0;
 				KinkyDungeonAdvanceTime(1);
 			}
@@ -1404,6 +1412,8 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 }
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	KinkyDungeonRestraintAdded = false;
+	KinkyDungeonDamageTaken = false;
 	KinkyDungeonResetEventVariablesTick();
 	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
 

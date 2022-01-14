@@ -156,6 +156,8 @@ function KinkyDungeonPayShrine(type) {
 	if (rep != 0) {
 		KinkyDungeonChangeRep(type, rep);
 	}
+
+	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 }
 
 function KinkyDungeonHandleShrine() {

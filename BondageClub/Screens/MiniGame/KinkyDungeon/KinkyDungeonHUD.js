@@ -323,6 +323,7 @@ function KinkyDungeonHandleHUD() {
 		} else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 250, 50)) {
 			KinkyDungeonSleepTurns = KinkyDungeonSleepTurnsMax;
 			KinkyDungeonAlert = 4; // Alerts nearby enemies; intent is that the enemies are searching while you sleep;
+			return true;
 		}
 	} else if (KinkyDungeonDrawState == "Orb") {
 		return KinkyDungeonHandleOrb();

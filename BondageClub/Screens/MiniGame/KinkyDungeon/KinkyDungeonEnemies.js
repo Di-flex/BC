@@ -409,6 +409,8 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 	return 1;
 }
 
+let KinkyDungeonDamageTaken = false;
+
 function KinkyDungeonUpdateEnemies(delta) {
 	if (KinkyDungeonLeashedPlayer > 0) {
 		KinkyDungeonLeashedPlayer -= 1;
@@ -872,6 +874,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 							else if (Locked) suffix = "Lock";
 							else if (bound > 0) suffix = "Bind";
 
+							if (!KinkyDungeonDamageTaken) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+							KinkyDungeonDamageTaken = true;
 							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
 							if (replace)
 								for (let R = 0; R < replace.length; R++)
