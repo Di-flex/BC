@@ -3,11 +3,15 @@ var KinkyDungeonEnemies = [
 	{name: "Wall", tags: ["construct", "player", "playerinstakill"], allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -2.5,
 		visionRadius: 0, maxhp: 25, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:[]},
-	{name: "Decoy", tags: ["construct", "player", "playerinstakill"], allied: true, evasion: 3, armor: 0, followRange: 100, AI: "wander", regen: -1,
+	{name: "Decoy", tags: ["construct", "player", "playerinstakill"], allied: true, evasion: 4, armor: 0, followRange: 100, AI: "wander", regen: -1,
 		visionRadius: 0, maxhp: 15, minLevel:0, weight:0, movePoints: 2, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:[]},
 	{name: "Ally", tags: ["construct", "player"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt",
 		visionRadius: 20, playerBlindSight: 10, maxhp: 6, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1,
+		terrainTags: {}, floors:[]},
+	{name: "FireElemental", tags: ["construct", "player", "fireimmune", "electricimmune", "coldweakness", "iceweakness"], noblockplayer: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
+		spells: ["AllyFirebolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1,
+		visionRadius: 20, playerBlindSight: 10, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 1, attackWidth: 3, power: 1,
 		terrainTags: {}, floors:[]},
 	{name: "Golem", tags: ["construct", "player"], noblockplayer: true, allied: true, armor: 1, followRange: 1, AI: "hunt",
 		visionRadius: 20, playerBlindSight: 10, maxhp: 24, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 5, power: 6,
@@ -108,7 +112,7 @@ var KinkyDungeonEnemies = [
 	{name: "WitchChain", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "electricweakness", "meleeresist", "fireresist"], followRange: 1, spells: ["WitchChainBolt"],
 		spellCooldownMult: 2, spellCooldownMod: 2, AI: "hunt", visionRadius: 6, maxhp: 14, minLevel:5, weight:6, movePoints: 3, attackPoints: 4, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -10}, floors:[0, 1], shrines: ["Metal"], dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 1}]},
-	{name: "WitchSlime", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "glueimmune", "fireimmune", "meleeresist", "electricweakness", "iceweakness"], followRange: 5, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"],
+	{name: "WitchSlime", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "glueimmune", "fireimmune", "meleeresist", "electricweakness", "iceweakness"], kite: 1.5, followRange: 4, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"],
 		spellCooldownMult: 2, spellCooldownMod: 1, AI: "wander", visionRadius: 8, maxhp: 10, minLevel:4, weight:4, movePoints: 3, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope",
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -12, "open": 4}, floors:[0, 1, 2], shrines: ["Conjure"], dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}]},
 	{name: "Mummy", tags: ["leashing", "opendoors", "closedoors", "ranged", "witch", "elite", "mummyRestraints", "iceresist", "meleeweakness"], followRange: 1,
@@ -495,6 +499,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (!enemy.Enemy.attackWhileMoving && range > followRange) {
 				followRange = range;
 			}
+			if (player.player && enemy.Enemy && enemy.Enemy.playerFollowRange) followRange = enemy.Enemy.playerFollowRange;
 
 			var AI = enemy.Enemy.AI;
 			if (!enemy.warningTiles) enemy.warningTiles = [];
@@ -508,9 +513,14 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 			if ((canSensePlayer || canSeePlayer) && KinkyDungeonTrackSneak(enemy, delta, player)) enemy.aware = true;
 
+			let kite = false;
+			if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
+				kite = true;
+			}
+
 			if (AI == "wander") {
 				idle = true;
-				if (ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true))
+				if (ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true || kite))
 					for (let T = 0; T < 8; T++) { // try 8 times
 						let dir = KinkyDungeonGetDirection(10*(Math.random()-0.5), 10*(Math.random()-0.5));
 						if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)) && (T > 5 || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y))) && KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
@@ -519,7 +529,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							break;
 						}
 					}
-			} else if ((AI == "guard" || AI == "patrol" || (AI == "ambush" && !enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true))) {
+			} else if ((AI == "guard" || AI == "patrol" || (AI == "ambush" && !enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true) || kite)) {
 				if (!enemy.gx) enemy.gx = enemy.x;
 				if (!enemy.gy) enemy.gy = enemy.y;
 
@@ -530,7 +540,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					if (!enemy.aware) enemy.path = undefined;
 					enemy.aware = true;
 					for (let T = 0; T < 12; T++) {
-						let dir = KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
+						let dir = kite ? KinkyDungeonGetDirectionRandom(enemy.x - player.x, enemy.y - player.y) : KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
 						let splice = false;
 						if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 						if (T >= 8 || enemy.path || !canSeePlayer) {
@@ -590,7 +600,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 				}
 
-			} else if ((AI == "hunt" || (AI == "ambush" && enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true))) {
+			} else if ((AI == "hunt" || (AI == "ambush" && enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, true) || kite)) {
 
 				idle = true;
 				// try 12 times to find a moveable tile, with some random variance
@@ -598,7 +608,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					if (!enemy.aware) enemy.path = undefined;
 					enemy.aware = true;
 					for (let T = 0; T < 12; T++) {
-						let dir = KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
+						let dir = kite ? KinkyDungeonGetDirectionRandom(enemy.x - player.x, enemy.y - player.y) : KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
 						let splice = false;
 						if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 						if (T >= 8 || enemy.path || !canSeePlayer) {

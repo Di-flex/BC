@@ -192,6 +192,8 @@ NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
 NameAlly,Familiar
 KillAlly,"The familiar dissolves into spectral ash."
+NameFireElemental,Fire Elemental
+KillFireElemental,"The fire elemental dissolves into ash."
 NameGolem,Allied Golem
 KillGolem,"The words vanish from the golem's forehead as it crashes down."
 
@@ -324,14 +326,17 @@ AttackMonsterRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameWitchShock,Shock Witch
 KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind a keyring."
+AttackWitchShockBind,"The witch clips a restraint around your neck!"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
+AttackWitchChainBind,"The witch clips a restraint around your neck!"
 AttackWitchChain,"The chain witch tugs sensually at your restraints!"
 
 NameWitchSlime,Slime Witch
 KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behind a keyring."
+AttackWitchSlimeBind,"The witch clips a restraint around your neck!"
 
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
@@ -840,6 +845,7 @@ KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it erupts in your face!
 
 KinkyDungeonSpellFirebolt,Firebolt
+KinkyDungeonSpellAllyFirebolt,Elemental's Firebolt
 KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does DamageDealt damage.
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
@@ -978,6 +984,11 @@ KinkyDungeonSpellAlly,Familiar
 KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionAlly,Create a familiar that fights by your side for the rest of the level
 KinkyDungeonSummonSingleAlly,You create a circle on the ground and a familiar appears!
+
+KinkyDungeonSpellFireElemental,Fire Elemental
+KinkyDungeonSpellTargetFireElemental,Select where to put the fire elemental (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionFireElemental,Create a fire elemental that attacks using firebolt for the rest of the level
+KinkyDungeonSummonSingleFireElemental,You call forth a spirit of fire!
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)

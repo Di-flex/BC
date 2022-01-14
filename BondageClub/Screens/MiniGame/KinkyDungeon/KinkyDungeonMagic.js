@@ -47,7 +47,7 @@ let KinkyDungeonLearnableSpells = [
 	["Firebolt", "Electrify", "Icebolt", "Shield", "Wall", "Ally", "ChainBolt", "SlimeBall", "Snare", "Dagger", "Flash", "Shroud"],
 
 	//Page 2
-	["Crackle", "Incinerate", "IceBreath", "GreaterShield", "Bomb", "Slime", "Decoy", "Blink", "GreaterFlash", "ShadowSlash"],
+	["Crackle", "Incinerate", "IceBreath", "GreaterShield", "Bomb", "Slime", "Decoy", "FireElemental", "Blink", "GreaterFlash", "ShadowSlash"],
 
 	//Page 3
 	["Fireball", "LightningBolt", "Golem", "Leap", "FocusedFlash", "Invisibility",],
@@ -94,7 +94,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Wall", school: "Conjure", manacost: 6, components: ["Legs"], level:1, type:"inert", onhit:"summon:Wall", count: 1, power: 0, time: 10, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Decoy", school: "Conjure", manacost: 10, components: ["Legs"], level:2, type:"inert", onhit:"summon:Decoy", count: 1, power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Ally", school: "Conjure", manacost: 8, components: ["Verbal"], level:1, type:"inert", onhit:"summon:Ally", count: 1, power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
-		{name: "Golem", school: "Conjure", manacost: 24, components: ["Verbal"], level:3, type:"inert", onhit:"summon:Golem", count: 1, power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
+		{name: "FireElemental", school: "Conjure", manacost: 16, components: ["Verbal"], level:2, type:"inert", onhit:"summon:FireElemental", count: 1, power: 0, time: 9999, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
+		{name: "Golem", school: "Conjure", manacost: 24, components: ["Legs"], level:3, type:"inert", onhit:"summon:Golem", count: 1, power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 	],
 	"Illusion": [
 		{name: "APUp1", school: "Illusion", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -111,6 +112,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 	],
 };
 let KinkyDungeonSpellListEnemies = [
+	{name: "AllyFirebolt", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", power: 4, delay: 0, range: 50, damage: "fire", speed: 1}, // Throws a fireball in a direction that moves 1 square each turn
 	{enemySpell: true, name: "RopeEngulf", manacost: 4, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 0, range: 2, size: 3, aoe: 1, lifetime: 1, damage: "grope", playerEffect: {name: "RopeEngulf", power: 2}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 	{enemySpell: true, name: "WitchChainBolt", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
 	{enemySpell: true, name: "BanditBola", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectile:true, onhit:"", time: 1,  power: 3, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "BanditBola", time: 1}}, // Throws a chain which stuns the target for 1 turn
