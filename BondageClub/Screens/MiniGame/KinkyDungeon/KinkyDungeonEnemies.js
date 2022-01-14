@@ -692,7 +692,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					}
 
 					let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
-						: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
+						: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
 					if (attack.includes("Bind") && Math.random() <= playerEvasion) {
 						let caught = false;
 						for (let W = 0; W < enemy.warningTiles.length; W++) {
@@ -733,7 +733,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					}
 
 					let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
-						: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
+						: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
 					if (hit && Math.random() > playerEvasion) {
 						KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
 						hit = false;
@@ -871,7 +871,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								Stun = true;
 							}
 							happened += bound;
-						} else {
+						} else if (Math.random() <= playerEvasion) {
 							let dmg = enemy.Enemy.power;
 							let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 							if (buffdmg) dmg = Math.max(0, dmg + buffdmg);
@@ -880,9 +880,12 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true);
 							if (happened > 0) {
-								let sfx = (hitsfx) ? hitsfx : "DealDamage"
+								let sfx = (hitsfx) ? hitsfx : "DealDamage";
 								KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 							}
+						} else {
+							let sfx = (enemy.Enemy && enemy.Enemy.misssfx) ? enemy.Enemy.misssfx : "Miss";
+							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 						}
 
 						if (usingSpecial && enemy.specialCD > 0 && enemy.Enemy.specialCharges) {
@@ -896,7 +899,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							else if (Locked) suffix = "Lock";
 							else if (bound > 0) suffix = "Bind";
 
-							let sfx = (hitsfx) ? hitsfx : "Damage"
+							let sfx = (hitsfx) ? hitsfx : "Damage";
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
 							if (replace)

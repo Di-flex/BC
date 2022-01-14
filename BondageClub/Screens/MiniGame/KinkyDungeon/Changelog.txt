@@ -202,6 +202,7 @@ Bugfix:
 - New sound effects for dealing damage, locked doors, picking items, etc
 - Organized the spell lists by component
 - New spell: Darkblade
+- UI now lists spell commponents
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

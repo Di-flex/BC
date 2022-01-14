@@ -198,7 +198,7 @@ function KinkyDungeonResetMagic() {
 
 function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	let sfx = spell.hitsfx;
-	if (!sfx) sfx = "Damage"
+	if (!sfx) sfx = "Damage";
 	if (damage == "inert") return;
 	if (!playerEffect.chance || Math.random() < playerEffect.chance) {
 		if (playerEffect.name == "Damage") {
@@ -580,7 +580,7 @@ function KinkyDungeonDrawMagic() {
 function KinkyDungeonListSpells(Mode) {
 	let i = 0;
 	let ii = 0;
-	let maxY = 560;
+	//let maxY = 560;
 	let XX = 0;
 	let spacing = 60;
 	let ypadding = 5;
@@ -692,7 +692,7 @@ function KinkyDungeonGetCompList(spell) {
 		}
 
 	//if (ret)
-	//	return "(" + ret + ")";
+	//return "(" + ret + ")";
 	//else
 	return ret;
 }
