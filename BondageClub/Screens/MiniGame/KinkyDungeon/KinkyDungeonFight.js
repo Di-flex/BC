@@ -90,7 +90,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	let dmgDealt = 0;
 	let armor = (Enemy.Enemy.armor) ? Enemy.Enemy.armor : 0;
 
-	if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 		dmg *= 2;
 	}
 
