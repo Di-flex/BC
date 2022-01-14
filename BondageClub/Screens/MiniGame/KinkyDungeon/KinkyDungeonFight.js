@@ -263,6 +263,8 @@ function KinkyDungeonUpdateBulletsCollisions(delta) {
 }
 
 function KinkyDungeonBulletHit(b, born) {
+	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
+
 	if (b.bullet.hit == "") {
 		KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 	} else if (b.bullet.hit == "aoe") {

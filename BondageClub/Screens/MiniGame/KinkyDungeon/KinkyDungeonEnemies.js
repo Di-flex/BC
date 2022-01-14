@@ -503,12 +503,14 @@ function KinkyDungeonUpdateEnemies(delta) {
 				if (!attack.includes("Bind")) attack = "Bind" + attack;
 			}
 
-
+			let hitsfx = (enemy.Enemy && enemy.Enemy.hitsfx) ? enemy.Enemy.hitsfx : "";
 			let playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
 			if (KinkyDungeonAlert && playerDist < KinkyDungeonAlert) enemy.aware = true;
 			if (enemy.Enemy.specialAttack && (!enemy.specialCD || enemy.specialCD <= 0) && (!enemy.Enemy.specialMinrange || playerDist > enemy.Enemy.specialMinrange)) {
 				attack = attack + enemy.Enemy.specialAttack;
 				usingSpecial = true;
+				if (enemy.Enemy && enemy.Enemy.hitsfxSpecial) hitsfx = enemy.Enemy.hitsfxSpecial;
+
 				if (enemy.Enemy.specialRemove) attack = attack.replace(enemy.Enemy.specialRemove, "");
 				if (enemy.Enemy.specialRange && usingSpecial) {
 					range = enemy.Enemy.specialRange;
@@ -877,6 +879,10 @@ function KinkyDungeonUpdateEnemies(delta) {
 								dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
 							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true);
+							if (happened > 0) {
+								let sfx = (hitsfx) ? hitsfx : "DealDamage"
+								KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
+							}
 						}
 
 						if (usingSpecial && enemy.specialCD > 0 && enemy.Enemy.specialCharges) {
@@ -890,7 +896,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 							else if (Locked) suffix = "Lock";
 							else if (bound > 0) suffix = "Bind";
 
-							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+							let sfx = (hitsfx) ? hitsfx : "Damage"
+							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
 							if (replace)
 								for (let R = 0; R < replace.length; R++)
@@ -931,7 +938,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				if (spell) {
 					enemy.castCooldown = spell.manacost*enemy.Enemy.spellCooldownMult + enemy.Enemy.spellCooldownMod + 1;
 					if (KinkyDungeonCastSpell(player.x, player.y, spell, enemy, player) && spell.sfx) {
-						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
+						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
 					}
 
 					//console.log("casted "+ spell.name);
