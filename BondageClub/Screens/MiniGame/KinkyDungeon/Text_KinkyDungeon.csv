@@ -192,8 +192,12 @@ NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
 NameAlly,Familiar
 KillAlly,"The familiar dissolves into spectral ash."
+NameStormCrystal,Storm Crystal
+KillStormCrystal,"The storm crystal shatters into many crackling pieces."
 NameFireElemental,Fire Elemental
 KillFireElemental,"The fire elemental dissolves into ash."
+NameShadowWarrior,Shadow Warrior
+KillShadowWarrior,"The shadow warrior screeches as it vanishes into mist."
 NameGolem,Allied Golem
 KillGolem,"The words vanish from the golem's forehead as it crashes down."
 
@@ -883,6 +887,8 @@ KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
 KinkyDungeonSpellBanditBola,Bola
 
+KinkyDungeonSpellAllyShadowStrike,Shadow Strike
+
 KinkyDungeonSpellShield,Shield
 KinkyDungeonSpellDescriptionShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
 KinkyDungeonSpellCastShield,You create a temporary shield!
@@ -910,6 +916,7 @@ KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
 KinkyDungeonSpellCrackle,Crackle
+KinkyDungeonSpellAllyCrackle,Storm Bolt
 KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a 4-range line and briefly stuns.
 KinkyDungeonSpellCastCrackle,Lightning erupts from your fingertips!
 KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
@@ -967,7 +974,7 @@ KinkyDungeonSpellCastFocusedFlash,You slowly charge up a powerful flash!
 
 KinkyDungeonSpellShroud,Shroud
 KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radius)
-KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking.
+KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking
 KinkyDungeonSpellCastShroud,You exhale a misty shroud
 
 KinkyDungeonSpellInvisibility,Invisibility
@@ -985,10 +992,20 @@ KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on oc
 KinkyDungeonSpellDescriptionAlly,Create a familiar that fights by your side for the rest of the level
 KinkyDungeonSummonSingleAlly,You create a circle on the ground and a familiar appears!
 
+KinkyDungeonSpellStormCrystal,Storm Crystal
+KinkyDungeonSpellTargetStormCrystal,Select where to put the storm crystal (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionStormCrystal,Create a stationary crystal that casts Crackle on nearby targets for Duration turns
+KinkyDungeonSummonSingleStormCrystal,You stomp and a crystal emerges from the ground!
+
 KinkyDungeonSpellFireElemental,Fire Elemental
 KinkyDungeonSpellTargetFireElemental,Select where to put the fire elemental (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionFireElemental,Create a fire elemental that attacks using firebolt for the rest of the level
 KinkyDungeonSummonSingleFireElemental,You call forth a spirit of fire!
+
+KinkyDungeonSpellShadowWarrior,Shadow Warrior
+KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (cannot place on occupied squares)
+KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
+KinkyDungeonSummonSingleShadowWarrior,You call, and the abyss answers!
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)

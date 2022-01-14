@@ -195,7 +195,7 @@ Bugfix:
 - Some new latex content
 - Fix save game being wiped!
 - Can change appearance!
-- New spells: Shadow Slash, Familiar, Golem, Fire Elemental, and Lightning Bolt
+- New spells: Shadow Slash, Familiar, Golem, Fire Elemental, Storm Crystal, Shadow Warrior, and Lightning Bolt
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -274,13 +274,21 @@ function KinkyDungeonBulletHit(b, born) {
 		KinkyDungeonBullets.push({born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 			bullet:{spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 		KinkyDungeonMoveTo(b.x, b.y);
-	} else if (b.bullet.hit && b.bullet.hit.includes("summon")) {
-		let summonType = b.bullet.hit.split(":")[1]; // Second operand is the enemy type
-		let count = (b.bullet.spell && b.bullet.spell.count) ? b.bullet.spell.count : 1;
-		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
-		let created = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, false, (b.bullet.spell) ? b.bullet.spell.time : undefined);
-		if (created == 1) KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSummonSingle"+summonType), "white", 2);
-		else if (created > 1) KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonSummonMulti"+summonType).replace("SummonCount", "" + created), "white", 3);
+	}
+
+	if (b.bullet.summon && b.bullet.summon) {
+		let created = 0;
+		let type = "";
+		for (let sum of b.bullet.summon) {
+			let summonType = sum.name; // Second operand is the enemy type
+			if (!type) type = summonType;
+			let count = sum.count ? sum.count : 1;
+			let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
+			if (count > 0)
+				created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, false, sum.time ? sum.time : undefined);
+		}
+		if (created == 1) KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSummonSingle"+type), "white", 2);
+		else if (created > 1) KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonSummonMulti"+type).replace("SummonCount", "" + created), "white", 3);
 	}
 }
 
