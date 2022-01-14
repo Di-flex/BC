@@ -206,7 +206,7 @@ function KinkyDungeonHandleShrine() {
 
 			if (Math.random() > chance || KinkyDungeonPoolUsesGrace > 0) {
 				let slimed = 0;
-				for (let inv of KinkyDungeonInventory) {
+				for (let inv of KinkyDungeonRestraintList()) {
 					if (inv.restraint && inv.restraint.slimeLevel) {
 						slimed += 1;
 						KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
