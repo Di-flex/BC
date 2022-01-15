@@ -239,6 +239,11 @@ KillSkeleton,"The Skeleton falls to pieces."
 AttackSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
 AttackSkeleton,"The Skeleton tackles you! (-DamageTaken SP)"
 
+NameDragon,Dragonheart Initiate
+KillDragon,"The Dragonheart Initiate retreats hurriedly."
+AttackDragonBind,"The Dragonheart Initiate apprehends you! (+RestraintAdded)"
+AttackDragon,"The Dragonheart Initiate squeezes your body! (-DamageTaken SP)"
+
 NameBandit,Bandit
 KillBandit,"The Bandit collapses."
 AttackBanditBind,"The Bandit restrains you! (+RestraintAdded)"

@@ -115,6 +115,12 @@ var KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 1}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 2}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
 
+	{name: "Dragon", tags: ["leashing", "dragon", "melee", "dragonRestraints"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol",
+		visionRadius: 8, maxhp: 10, minLevel:0, weight:1, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"thirdhalf":-4, "leatherAnger":10}, shrines: ["Leather"], floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
+
+
 	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander",
 		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":4, "lastthird":2}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},

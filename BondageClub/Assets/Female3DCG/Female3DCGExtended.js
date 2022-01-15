@@ -3901,6 +3901,12 @@ var AssetFemale3DCGExtended = {
 							Difficulty: 6,
 						},
 					},
+					{
+						Name: "Chained",
+						Property: {
+							Type: "Chained", Effect: ["Slow"],
+						}
+					}
 				],
 				Dialog: {
 					Load: "SelectBondagePosition",
@@ -3935,6 +3941,12 @@ var AssetFemale3DCGExtended = {
 							Difficulty: 6,
 						},
 					},
+					{
+						Name: "Chained",
+						Property: {
+							Type: "Chained", Effect: ["Slow"],
+						}
+					}
 				],
 				Dialog: {
 					Load: "SelectBondagePosition",
@@ -4075,6 +4087,12 @@ var AssetFemale3DCGExtended = {
 						Property: {
 							Type: "Closed", Effect: ["Prone", "Freeze"], SetPose: ["LegsClosed"], Difficulty: 6, FreezeActivePose: ["BodyLower"],
 						}
+					},
+					{
+						Name: "Chained",
+						Property: {
+							Type: "Chained", Effect: ["Slow"],
+						}
 					}
 				],
 				Dialog: {
@@ -4106,6 +4124,12 @@ var AssetFemale3DCGExtended = {
 						Name: "Closed",
 						Property: {
 							Type: "Closed", Effect: ["Prone", "Freeze"], SetPose: ["LegsClosed"], Difficulty: 6, FreezeActivePose: ["BodyLower"],
+						}
+					},
+					{
+						Name: "Chained",
+						Property: {
+							Type: "Chained", Effect: ["Slow"],
 						}
 					}
 				],

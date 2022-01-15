@@ -54,6 +54,14 @@ let KinkyDungeonDresses = {
 		{Item: "FaceVeil", Group: "Mask", Color: "#ffffff", Lost: false},
 		{Item: "HaremPants", Group: "ClothLower", Color: "Default", OverridePriority: 28, Lost: false},
 	],
+	"Dragon" : [
+		{Item: "Sarashi1", Group: "Bra", Color: "#444444", Lost: false},
+		{Item: "SunstripePanties1", Group: "Panties", Color: "#EC1515", Lost: false},
+		{Item: "LatexAnkleShoes", Group: "Shoes", Color: "#AC1818", Lost: false},
+		{Item: "Corset4", Group: "Corset", Color: "#AC1818", Lost: false},
+		{Item: "LatexTop", Group: "Cloth", Color: "#AC1818", Lost: false},
+		{Item: "GarterBelt2", Group: "Garters", Color: "Default", Lost: false},
+	],
 };
 
 var KinkyDungeonCheckClothesLoss = false;

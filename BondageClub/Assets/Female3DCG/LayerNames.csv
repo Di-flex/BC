@@ -210,8 +210,11 @@ TailStrapsDragonTailStrap1Secondary,Secondary
 TailStrapsTentaclesInner,Inner
 TailStrapsTentaclesOuter,Outer
 TailStrapsTentaclesSucker,Suckers
+ItemFeetSteelAnkleCuffsCuffs,Cuffs
+ItemFeetSteelAnkleCuffsChain,Chain
 ItemFeetOrnateAnkleCuffsCuffs,Cuffs
 ItemFeetOrnateAnkleCuffsGems,Gems
+ItemFeetOrnateAnkleCuffsChain,Chain
 ItemFeetFloorShacklesChain,Chain
 ItemFeetFloorShacklesCuffs,Cuffs
 ItemFeetFuturisticAnkleCuffsCuffs,Cuffs
@@ -219,6 +222,7 @@ ItemFeetFuturisticAnkleCuffsDisplay,Display
 ItemFeetFuturisticAnkleCuffsLock,Lock
 ItemFeetLeatherAnkleCuffsCuffs,Cuffs
 ItemFeetLeatherAnkleCuffsRings,Rings
+ItemFeetLeatherAnkleCuffsChain,Chain
 ItemFeetMedicalBedRestraintsBase,Bed Straps
 ItemFeetMedicalBedRestraintsStraps,Cuffs
 ItemFeetTentaclesInner,Inner
@@ -229,8 +233,10 @@ ItemLegsFuturisticLegCuffsDisplay,Display
 ItemLegsFuturisticLegCuffsLock,Lock
 ItemLegsOrnateLegCuffsCuffs,Cuffs
 ItemLegsOrnateLegCuffsGems,Gems
+ItemLegsOrnateLegCuffsChain,Chain
 ItemLegsLeatherLegCuffsCuffs,Cuffs
 ItemLegsLeatherLegCuffsRings,Rings
+ItemLegsLeatherLegCuffsChain,Chain
 ItemLegsLegBinderLatex,Binder
 ItemLegsLegBinderBelts,Belts
 ItemLegsHobbleSkirtLatex,Skirt
