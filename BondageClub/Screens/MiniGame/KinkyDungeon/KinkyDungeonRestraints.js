@@ -77,28 +77,28 @@ var KinkyDungeonRestraints = [
 	{removePrison: true, name: "SlimeHead", Asset: "LeatherSlimMask", Color: "#9B49BD", Group: "ItemHead", power: 4, weight: -102,  escapeChance: {"Struggle": 0.15, "Cut": 0, "Remove": 0}, events: [{trigger: "tick", type: "slimeSpread", power: 0.05}], slimeLevel: 1,
 		enemyTags: {"slimeRestraints":100}, playerTags: {"ItemFeetFull":1, "ItemBootsFull":1, "ItemLegsFull":1, "ItemHandsFull":1, "ItemArmsFull":1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"], addTag: ["slime"]},
 
-	{removePrison: true, name: "HardSlimeBoots", Asset: "ToeTape", Type: "Full", Color: "#9B49BD", Group: "ItemBoots", power: 6, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
+	{removePrison: true, name: "HardSlimeBoots", Asset: "ToeTape", Type: "Full", Color: "#9B49BD", Group: "ItemBoots", power: 5, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 	{removePrison: true, name: "HardSlimeFeet", Asset: "DuctTape", Type: "CompleteFeet", OverridePriority: 24, Color: "#9B49BD", Group: "ItemFeet", power: 6, weight: -100,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 	{removePrison: true, name: "HardSlimeLegs", remove: ["ClothLower"], Asset: "SeamlessHobbleSkirt", Color: "#9B49BD", Group: "ItemLegs", power: 6, weight: -102,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{removePrison: true, name: "HardSlimeArms", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#9B49BD", Group: "ItemArms", power: 7, weight: -102,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
+	{removePrison: true, name: "HardSlimeArms", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#9B49BD", Group: "ItemArms", power: 8, weight: -102,  escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{removePrison: true, name: "HardSlimeHands", Asset: "DuctTape", Color: "#9B49BD", Group: "ItemHands", power: 3, weight: -102,  escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
+	{removePrison: true, name: "HardSlimeHands", Asset: "DuctTape", Color: "#9B49BD", Group: "ItemHands", power: 5, weight: -102,  escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{removePrison: true, name: "HardSlimeHead", Asset: "LeatherSlimMask", Color: "#9B49BD", Group: "ItemHead", power: 5, weight: -102,  escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
+	{removePrison: true, name: "HardSlimeHead", Asset: "LeatherSlimMask", Color: "#9B49BD", Group: "ItemHead", power: 6, weight: -102,  escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 
-	{name: "LatexStraitjacket", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#6A94CC", Group: "ItemArms", power: 6, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+	{name: "LatexStraitjacket", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#6A94CC", Group: "ItemArms", power: 8, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
 		enemyTags: {"latexRestraintsHeavy" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{name: "LatexArmbinder", Asset: "SeamlessLatexArmbinder", Color: "#6A94CC", Group: "ItemArms", power: 5, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+	{name: "LatexArmbinder", Asset: "SeamlessLatexArmbinder", Color: "#6A94CC", Group: "ItemArms", power: 7, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
 		enemyTags: {"latexRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{name: "LatexLegbinder", Asset: "SeamlessLegBinder", Color: "#6A94CC", Group: "ItemLegs", power: 5, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+	{name: "LatexLegbinder", Asset: "SeamlessLegBinder", Color: "#6A94CC", Group: "ItemLegs", power: 7, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
 		enemyTags: {"latexRestraintsHeavy" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{name: "LatexBoots", Asset: "HighThighBoots", Color: "#6A94CC", Group: "ItemBoots", slowboots: true, power: 5, weight: 0, escapeChance: {"Struggle": 0, "Cut": 0.12, "Remove": 0.07, "Pick": 0.25},
+	{name: "LatexBoots", Asset: "HighThighBoots", Color: "#6A94CC", Group: "ItemBoots", slowboots: true, power: 6, weight: 0, escapeChance: {"Struggle": 0, "Cut": 0.12, "Remove": 0.07, "Pick": 0.25},
 		enemyTags: {"latexRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
-	{name: "LatexCorset", remove: ["Cloth"], Asset: "HeavyLatexCorset", Color: "#5196EF", Group: "ItemTorso", harness: true, power: 5, weight: 0, escapeChance: {"Struggle": 0, "Cut": 0.04, "Remove": 0.07, "Pick": 0.25},
+	{name: "LatexCorset", remove: ["Cloth"], Asset: "HeavyLatexCorset", Color: "#5196EF", Group: "ItemTorso", harness: true, power: 7, weight: 0, escapeChance: {"Struggle": 0, "Cut": 0.04, "Remove": 0.07, "Pick": 0.25},
 		enemyTags: {"latexRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 
 
@@ -112,7 +112,7 @@ var KinkyDungeonRestraints = [
 	{name: "StrongMagicRopeCrotch", Asset: "HempRope", Type: "OverPanties", OverridePriority: 26, Color: "#ff00dd", Group: "ItemPelvis", power: 5, weight: 1, escapeChance: {"Struggle": 0.15, "Cut": 0.2, "Remove": -0.1}, enemyTags: {"ropeMagicStrong":2}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"]},
 	{name: "StrongMagicRopeToe", Asset: "ToeTie", OverridePriority: 26, Color: "#ff00dd", Group: "ItemBoots", power: 5, weight: 1, escapeChance: {"Struggle": 0.15, "Cut": 0.2, "Remove": -0.1}, enemyTags: {"ropeMagicStrong":2}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"]},
 
-	{name: "DuctTapeHands", Asset: "DuctTape", Color: "#Default", Group: "ItemHands", power: 1, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.4, "Remove": 0.1},
+	{name: "DuctTapeHands", Asset: "DuctTape", Color: "Default", Group: "ItemHands", power: 1, weight: 0,  escapeChance: {"Struggle": 0, "Cut": 0.4, "Remove": 0.1},
 		enemyTags: {"tapeRestraints":8}, playerTags: {"ItemHandsFull": -4}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 
