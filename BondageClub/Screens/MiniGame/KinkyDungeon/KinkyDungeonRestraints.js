@@ -822,7 +822,8 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock) {
 		KinkyDungeonUpdateStruggleGroups();
 		if (!KinkyDungeonRestraintAdded) {
 			KinkyDungeonRestraintAdded = true;
-			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+			let sfx = (restraint && restraint.sfx) ? restraint.sfx : "Struggle";
+			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 		}
 		return Math.max(1, restraint.power);
 	}
