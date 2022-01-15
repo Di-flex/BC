@@ -312,6 +312,14 @@ function KinkyDungeonShrineAngerGods(Type) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), 0, true);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));
 
+	} else if (Type == "Latex") {
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeBoots"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeHands"), 5, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeFeet"), 0, true);
+
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));
+
 	} else if (Type == "Conjure" || Type == "Rope") {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapGag"), 0, true, KinkyDungeonGenerateLock(true));
 

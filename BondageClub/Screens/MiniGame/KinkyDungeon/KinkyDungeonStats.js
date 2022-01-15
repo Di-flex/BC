@@ -190,20 +190,12 @@ function KinkyDungeonHasMana(Cost, AddRate) {
 	return s >= Cost;
 }
 
-
-
-function KinkyDungeonUpdateStats(delta) {
-	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
-	// Initialize
-	KinkyDungeonCalculateVibeLevel();
-	KinkyDungeonDifficulty = 0;
-
-	let arousalRate = (KinkyDungeonVibeLevel == 0) ? KinkyDungeonStatArousalRegen : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
-
+function KinkyDungeonSetMaxStats() {
 	// Upgradeable stats
 	KinkyDungeonStatStaminaMax = 36;
 	KinkyDungeonStatArousalMax = 36;
 	KinkyDungeonStatManaMax = 36;
+	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
 		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
@@ -213,6 +205,18 @@ function KinkyDungeonUpdateStats(delta) {
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;
 		}
 	}
+	return arousalRate;
+}
+
+function KinkyDungeonUpdateStats(delta) {
+	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
+	// Initialize
+	KinkyDungeonCalculateVibeLevel();
+	KinkyDungeonDifficulty = 0;
+
+	let arousalRate = (KinkyDungeonVibeLevel == 0) ? KinkyDungeonStatArousalRegen : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
+
+	arousalRate += KinkyDungeonSetMaxStats();
 
 	// Dont regen while exhausted
 	if (KinkyDungeonStatWillpowerExhaustion > 0) {

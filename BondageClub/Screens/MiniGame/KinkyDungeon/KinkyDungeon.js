@@ -727,6 +727,8 @@ function KinkyDungeonLoadGame(String) {
 				if (sp) KinkyDungeonSpells.push(sp);
 			}
 
+			KinkyDungeonSetMaxStats();
+
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
 			return true;

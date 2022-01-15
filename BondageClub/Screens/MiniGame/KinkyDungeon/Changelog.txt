@@ -212,6 +212,9 @@ Bugfix:
 2.41
 - New conjuration enemy, if you annoy the goddess too much
 - Armor no longer effects most forms of spell damage
+- Submissiveness now can double trap chance at max level, but also doubles spell point chance
+- Added punishment for latex shrine
+- Fixed max stats not being loaded properly
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
@@ -223,7 +226,7 @@ TODO Goddess minibosses: (+ means its added already)
 -Dragon-girl enemies who tie you in durable leather bindings
 -Either slime related stuff or maybe just a latex witch who is very powerful
 -Elementals of ice, forge (metal), water (latex), and earth (corsets, boots, mitts), perhaps bringing you to an elemental realm
-+ (No books yet) Powerful conjurers who summon chains, magic books, and tickling hands
++Powerful conjurers who summon chains, magic books, and tickling hands
 -A ninja clan who uses smokescreens, flash grenades, euphoric drugs, and potentially enchantment spells
 
 TODO
