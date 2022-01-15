@@ -150,23 +150,27 @@ function KinkyDungeonGetVisionRadius() {
 function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
-	let arousalTypes = ["grope"];
-	let staminaTypesWeak = ["electric", "grope"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire"];
+	let arousalTypesWeak = ["grope"];
+	let arousalTypesStrong = ["tickle"];
+	let staminaTypesWeak = ["electric", "tickle"];
+	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope"];
 	let manaTypesWeak = ["electric"];
 	let manaTypesString = [];
-	if (arousalTypes.includes(type)) {
+	if (arousalTypesWeak.includes(type)) {
+		KinkyDungeonStatArousal += Math.floor(dmg/2);
+	}
+	if (arousalTypesStrong.includes(type)) {
 		KinkyDungeonStatArousal += dmg;
 	}
 	if (staminaTypesStrong.includes(type)) {
 		KinkyDungeonStatStamina -= dmg;
 	} else if (staminaTypesWeak.includes(type)) {
-		KinkyDungeonStatStamina -= dmg/2;
+		KinkyDungeonStatStamina -= Math.floor(dmg/2);
 	}
 	if (manaTypesString.includes(type)) {
 		KinkyDungeonStatMana -= dmg;
 	} else if (manaTypesWeak.includes(type)) {
-		KinkyDungeonStatMana -= dmg/2;
+		KinkyDungeonStatMana -= Math.floor(dmg/2);
 	}
 	KinkyDungeonSleepTurns = 0;
 

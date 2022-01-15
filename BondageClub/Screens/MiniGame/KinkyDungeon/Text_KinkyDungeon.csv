@@ -179,7 +179,7 @@ KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 
 KinkyDungeonTorsoGrab,The EnemyName grabs you and keeps you in place!
-KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you back!!!
+KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
 KinkyDungeonAttackMiss,The EnemyName misses you!
 
 KinkyDungeonHearDoorOpenNear,You hear a door creak open nearby!
@@ -358,6 +358,24 @@ KillGuard,"The guard passes out and drops her possessions!"
 AttackGuardLock,"The guard locks your restraints!"
 AttackGuardBind,"The guard places some cuffs on you!"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
+
+
+
+NameConjurer,Master Conjurer
+KillConjurer,"The conjurer retreats into a portal!"
+AttackConjurerLock,"The master conjurer waves a hand, and locks appear on all your restraints!"
+AttackConjurerBind,"The master conjurer summons a restraint directly onto you!"
+AttackConjurer,"The master conjurer tickles you playfully!"
+
+NameFrog,Pet Frog
+KillFrog,"The frog jumps away!"
+AttackFrogPull,"The frog pulls you with its tongue!!!"
+AttackFrog,"The frog licks you!"
+
+NameTickleHand,Tickle Hand
+KillTickleHand,"The hand vanishes!"
+AttackTickleHand,"The hand tickles you!"
+
 
 KinkyDungeonGuardAppear,A guard appears to check on you.
 KinkyDungeonGuardDisappear,The guard leaves and locks the cell behind her.
@@ -705,6 +723,22 @@ RestraintVinePlantLegsDesc2,"The vines twitch as they try to wrap around tighter
 RestraintVinePlantFeet,Ankle Vine
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
+
+RestraintLatexStraitjacket,Latex Jacket
+RestraintLatexStraitjacketDesc,A tight jacket that holds your arms completely useless.
+RestraintLatexStraitjacketDesc2,It has too much grip to struggle out of, but is made of a fragile material.
+RestraintLatexArmbinder,Latex Binder
+RestraintLatexArmbinderDesc,A tight armbinder that pins your arms tightly behind your back, enclosed completely.
+RestraintLatexArmbinderDesc2,It has too much grip to struggle out of, but is made of a fragile material.
+RestraintLatexLegbinder,Latex Legbinder
+RestraintLatexLegbinderDesc,A tight legbinder that keeps your legs together!
+RestraintLatexLegbinderDesc2,It has too much grip to struggle out of, but is made of a fragile material.
+RestraintLatexBoots,Latex Boots
+RestraintLatexBootsDesc,A tight pair of boots that makes it difficult to walk!
+RestraintLatexBootsDesc2,It has too much grip to struggle out of, but is made of a fragile material.
+RestraintLatexCorset,Latex Corset
+RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with convenient straps to grab onto.
+RestraintLatexCorsetDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 
 
 RestraintSlimeBoots,Slime
@@ -1071,6 +1105,8 @@ KinkyDungeonSpellSummonSkeleton,Summon Skeleton
 KinkyDungeonSpellSummonSkeletons,Mass Summon Skeleton
 KinkyDungeonSummonSingleLesserSkeleton,A skeleton arises from bones on the floor!
 KinkyDungeonSummonMultiLesserSkeleton,A gang of SummonCount skeletons forms around you!
+
+KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonPlugged,You feel the plugs inside you while walking.

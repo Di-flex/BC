@@ -253,7 +253,7 @@ function KinkyDungeonHandleClick() {
 			return true;
 		}
 		if (MouseIn(1730, 930, 110, 64)) {
-			if (KinkyDungeonCreditsPos < 2) KinkyDungeonCreditsPos += 1;
+			if (KinkyDungeonCreditsPos < 1) KinkyDungeonCreditsPos += 1;
 			else KinkyDungeonCreditsPos = 0;
 		}
 	} else if (KinkyDungeonState == "Load"){

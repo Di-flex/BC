@@ -207,6 +207,7 @@ Bugfix:
 - You can now wash slime off at mana pools
 - Slime now hardens after a while, changing from struggle to cut
 - Patrolling enemies no longer congregate in one location and become stuck permanently
+- Many restraints are now removed when you are imprisoned
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

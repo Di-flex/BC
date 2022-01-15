@@ -7,7 +7,7 @@ var KinkyDungeonBullets = []; // Bullets on the game board
 var KinkyDungeonBulletsID = {}; // Bullets on the game board
 
 var KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
-var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain"];
+var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
 
 // Weapons
 var KinkyDungeonPlayerWeapon = null;

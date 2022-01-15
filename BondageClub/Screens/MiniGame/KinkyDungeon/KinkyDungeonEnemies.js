@@ -53,8 +53,19 @@ var KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":2, "lastthird":3, "increasingWeight":1}, floors:[1, 3, 7, 8], dropTable: [{name: "PotionHealth", weight: 3}, {name: "Gold", amountMin: 50, amountMax: 100, weight: 3}, {name: "Hammer", weight: 50, ignoreInInventory: true}]},
 
 	{name: "Ghost", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
-		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 6, dmgType: "grope", fullBoundBonus: 0,
+		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+	{name: "TickleHand", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1,
+		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
+		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+	{name: "Frog", tags: ["construct", "player"], armor: 1, followRange: 1, AI: "hunt", pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3},
+		visionRadius: 10, maxhp: 24, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleePullWillSlow", attackRange: 4, attackWidth: 1.5, power: 6,
+		terrainTags: {}, floors:[]},
+	{name: "Conjurer", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "boss", "latexRestraints"], followRange: 1, summon: [{enemy: "Frog", range: 2.5, count: 1, strict: true}],
+		spells: ["SummonTickleHand"], spellCooldownMult: 2, spellCooldownMod: 1, AI: "guard", visionRadius: 8, maxhp: 40, minLevel:1, weight:-30, movePoints: 3,
+		attackPoints: 2, attack: "MeleeLockAllWillSpellBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle",
+		terrainTags: {"secondhalf":16, "lastthird":5, "boss": -80, "open": 30, "passage": -60, "conjureAnger": 20, "conjureRage": 70}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Conjure"], dropTable: [{name: "MagicSword", weight: 1}, {name: "BlueKey", weight: 3}]},
+
 	{name: "AnimatedArmor", blockVisionWhileStationary: true, tags: ["removeDoorSpawn", "ignoreharmless", "leashing", "construct", "minor", "melee", "shackleRestraints", "shackleGag", "slashresist", "fireresist", "electricresist", "crushweakness"],
 		evasion: -0.5, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush",
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 10, minLevel:1, weight:0, movePoints: 4, attackPoints: 4, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
@@ -108,7 +119,7 @@ var KinkyDungeonEnemies = [
 		dropTable: [{name: "Knives", weight: 4}, {name: "EnchKnife", weight: 3}]},
 	{name: "RopeMinion", tags: ["construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"],
 		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 1,
-		terrainTags: {}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
+		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 
 	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard",
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
@@ -795,7 +806,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (attack.includes("Suicide") && (!enemy.Enemy.suicideOnAdd || addedRestraint)) {
 							enemy.hp = 0;
 						}
-						if (player.player && playerDist < 1.5 && (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") || attack.includes("Pull")) && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
+						if (player.player && playerDist < range + 0.5 && (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") || attack.includes("Pull")) && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
 							let leashed = attack.includes("Pull");
 							if (!leashed)
 								for (let restraint of KinkyDungeonRestraintList()) {
@@ -807,47 +818,68 @@ function KinkyDungeonUpdateEnemies(delta) {
 							if (leashed) {
 								let leashPos = KinkyDungeonStartPosition;
 								let findMaster = undefined;
-								if (attack.includes("Pull") && enemy.Enemy.master) {
-									let masterDist = 1000;
-									for (let e of KinkyDungeonEntities) {
-										if (e.Enemy.name == enemy.Enemy.master.type && Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y)) < masterDist) {
-											masterDist = Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y));
-											findMaster = e;
-										}
-									}
+								if (enemy.Enemy.pullTowardSelf) {
+									findMaster = enemy;
 									if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
+								} else {
+									if (attack.includes("Pull") && enemy.Enemy.master) {
+										let masterDist = 1000;
+										for (let e of KinkyDungeonEntities) {
+											if (e.Enemy.name == enemy.Enemy.master.type && Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y)) < masterDist) {
+												masterDist = Math.sqrt((e.x - enemy.x) * (e.x - enemy.x) + (e.y - enemy.y)*(e.y - enemy.y));
+												findMaster = e;
+											}
+										}
+										if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
+									}
 								}
 								if (leashPos == KinkyDungeonStartPosition && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
 									KinkyDungeonDefeat();
 									KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 									KinkyDungeonLeashingEnemy = enemy;
 								}
-								else if (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5
-									&& (!findMaster || !(findMaster.x == leashPos.x && findMaster.y == leashPos.y))) {
+								else if (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5) {
 									if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
 									// Leash pullback
-									let path = KinkyDungeonFindPath(enemy.x, enemy.y, leashPos.x, leashPos.y, false, false, ignoreLocks, KinkyDungeonMovableTiles);
-									if (path && path.length > 0) {
-										let leashPoint = path[0];
-										let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
-										if (!enemySwap || !enemySwap.Enemy.noDisplace) {
-											KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
-											KinkyDungeonLeashingEnemy = enemy;
-											if (enemySwap) {
-												enemySwap.x = KinkyDungeonPlayerEntity.x;
-												enemySwap.y = KinkyDungeonPlayerEntity.y;
+									if (playerDist < 1.5) {
+										let path = KinkyDungeonFindPath(enemy.x, enemy.y, leashPos.x, leashPos.y, false, false, ignoreLocks, KinkyDungeonMovableTiles);
+										if (path && path.length > 0) {
+											let leashPoint = path[0];
+											let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
+											if (!enemySwap || !enemySwap.Enemy.noDisplace) {
+												KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
+												KinkyDungeonLeashingEnemy = enemy;
+												if (enemySwap) {
+													enemySwap.x = KinkyDungeonPlayerEntity.x;
+													enemySwap.y = KinkyDungeonPlayerEntity.y;
+												}
+												KinkyDungeonPlayerEntity.x = enemy.x;
+												KinkyDungeonPlayerEntity.y = enemy.y;
+												enemy.x = leashPoint.x;
+												enemy.y = leashPoint.y;
+												if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
+													KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
+													if (KinkyDungeonTiles[enemy.x + ',' +enemy.y] && KinkyDungeonTiles[enemy.x + ',' +enemy.y].Type == "Door")
+														KinkyDungeonTiles[enemy.x + ',' +enemy.y].Lock = undefined;
+												}
+												if (!KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
+													KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 											}
-											KinkyDungeonPlayerEntity.x = enemy.x;
-											KinkyDungeonPlayerEntity.y = enemy.y;
-											enemy.x = leashPoint.x;
-											enemy.y = leashPoint.y;
-											if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
-												KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
-												if (KinkyDungeonTiles[enemy.x + ',' +enemy.y] && KinkyDungeonTiles[enemy.x + ',' +enemy.y].Type == "Door")
-													KinkyDungeonTiles[enemy.x + ',' +enemy.y].Lock = undefined;
+										}
+									} else {
+										// Simple pull
+										let path = KinkyDungeonFindPath(player.x, player.y, leashPos.x, leashPos.y, true, false, false, KinkyDungeonMovableTilesEnemy);
+										let pullDist = enemy.Enemy.pullDist ? enemy.Enemy.pullDist : 1;
+										if (path && path.length > 0) {
+											let leashPoint = path[Math.min(Math.max(0,path.length-2), pullDist)];
+											if (!KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y)) {
+												KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
+												KinkyDungeonLeashingEnemy = enemy;
+												KinkyDungeonPlayerEntity.x = leashPoint.x;
+												KinkyDungeonPlayerEntity.y = leashPoint.y;
+												if (!KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
+													KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 											}
-											if (!KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
-												KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 										}
 									}
 								}
@@ -947,7 +979,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				for (let tries = 0; tries < 5; tries++) {
 					spellchoice = enemy.Enemy.spells[Math.floor(Math.random()*enemy.Enemy.spells.length)];
 					spell = KinkyDungeonFindSpell(spellchoice, true);
-					if (playerDist > spell.range) spell = null;
+					if ((!spell.castRange && playerDist > spell.range) || (spell.castRange && playerDist > spell.castRange)) spell = null;
 					else break;
 				}
 

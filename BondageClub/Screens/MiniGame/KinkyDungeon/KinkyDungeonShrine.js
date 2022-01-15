@@ -29,7 +29,7 @@ var KinkyDungeonShrinePoolChancePerUse = 0.25;
 var KinkyDungeonPoolUsesGrace = 2;
 
 var KinkyDungeonShrineCosts = {};
-var KinkyDungeonShrineTypeRemove = ["Charms", "Leather", "Metal", "Rope", "Gags", "Blindfolds", "Boots"]; // These shrines will always remove restraints associated with their shrine
+var KinkyDungeonShrineTypeRemove = ["Charms", "Leather", "Metal", "Rope", "Latex", "Gags", "Blindfolds", "Boots"]; // These shrines will always remove restraints associated with their shrine
 
 function KinkyDungeonShrineInit() {
 	KinkyDungeonShrineCosts = {};
