@@ -117,7 +117,7 @@ var KinkyDungeonEnemies = [
 
 	{name: "Dragon", tags: ["leashing", "dragon", "melee", "dragonRestraints"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol",
 		visionRadius: 8, maxhp: 10, minLevel:0, weight:1, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"thirdhalf":-4, "leatherAnger":10}, shrines: ["Leather"], floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		terrainTags: {"thirdhalf":-4, "leatherAnger":100}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
 
 
@@ -1247,7 +1247,14 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSpawnJailers = KinkyDungeonSpawnJailersMax;
 	KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
 
-	KinkyDungeonSetDress(params.defeat_outfit);
+	let defeat_outfit = params.defeat_outfit;
+	// Handle special cases
+	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
+	if (collar && collar.restraint) {
+		if (collar.restraint.name == "DragonCollar") defeat_outfit = "Dragon";
+	}
+
+	KinkyDungeonSetDress(defeat_outfit);
 	KinkyDungeonDressPlayer();
 	for (let r of params.defeat_restraints) {
 		let level = 0;
@@ -1255,7 +1262,7 @@ function KinkyDungeonDefeat() {
 		if (!r.Level || level >= r.Level)
 			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(r.Name), 0, true);
 	}
-	KinkyDungeonSetDress(params.defeat_outfit);
+	KinkyDungeonSetDress(defeat_outfit);
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);

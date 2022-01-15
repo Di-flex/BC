@@ -760,6 +760,27 @@ RestraintLatexCorset,Latex Corset
 RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with convenient straps to grab onto.
 RestraintLatexCorsetDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 
+RestraintDragonStraps,Scale Straps
+RestraintDragonStrapsDesc,"A set of straps buckling tightly around your body and secured at the wrists."
+RestraintDragonStrapsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonLegCuffs,Scale Cuffs
+RestraintDragonLegCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
+RestraintDragonLegCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonAnkleCuffs,Scale Cuffs
+RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
+RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonBoots,Scale Boots
+RestraintDragonBootsDesc,"A pair of extremely high heels lined with dragonscale. They are hard to walk in."
+RestraintDragonBootsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonBallGag,Scale Gag
+RestraintDragonBallGagDesc,"A gag made of a squishy material and secured with dragonscale straps."
+RestraintDragonBallGagDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonMuzzleGag,Scale Muzzle
+RestraintDragonMuzzleGagDesc,"A muzzle to keep ball gags pressed firmly into the mouth."
+RestraintDragonMuzzleGagDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonCollar,Dragon Collar
+RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
+RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
 
 RestraintSlimeBoots,Slime
 RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."

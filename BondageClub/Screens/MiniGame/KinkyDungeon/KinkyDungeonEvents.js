@@ -84,6 +84,12 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 
 
 		}
+	} else if (Event == "remove") {
+		for (let e of item.events) {
+			if (e.type == "slimeStop" && data == item) {
+				KinkyDungeonSlimeLevel = 0;
+			}
+		}
 	}
 }
 
