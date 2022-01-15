@@ -451,7 +451,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
 	KinkyDungeonJailLeash = 5;
-	let modsecurity = security - (KinkyDungeonGoddessRep.Ghost + 50)
+	let modsecurity = security - (KinkyDungeonGoddessRep.Ghost + 50);
 	if (security > 25) KinkyDungeonJailLeash -= 1;
 	if (security > 50) KinkyDungeonJailLeash -= 1;
 	if (security > 75) KinkyDungeonJailLeash -= 1;

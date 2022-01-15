@@ -291,17 +291,17 @@ AttackBramble,"The bramble snares you! (-DamageTaken SP)"
 NameSmallSlime,Slime
 KillSmallSlime,"The slime melts into a puddle."
 AttackSmallSlime,"The sticky slime splashes against you! (-DamageTaken SP)"
-AttackSmallSlimeBind,"The slime attaches itself to your body! (-DamageTaken SP)"
+AttackSmallSlimeBind,"The slime attaches itself to your body! (+RestraintAdded)"
 
 NameFastSlime,Fast Slime
 KillFastSlime,"The slime melts into a puddle."
 AttackFastSlime,"The sticky slime leaps and splashes against you! (-DamageTaken SP)"
-AttackFastSlimeBind,"The slime leaps and attaches itself to your body! (-DamageTaken SP)"
+AttackFastSlimeBind,"The slime leaps and attaches itself to your body! (+RestraintAdded)"
 
 NameBigSlime,Large Slime
 KillBigSlime,"The large slime splits apart!"
 AttackBigSlime,"The sticky slime splashes against you! (-DamageTaken SP)"
-AttackBigSlimeBind,"The slime spreads to your body! (-DamageTaken SP)"
+AttackBigSlimeBind,"The slime spreads to your body! (+RestraintAdded)"
 
 KinkyDungeonSummonMultiSmallSlime,The slime splits into many smaller droplets!
 
@@ -367,6 +367,12 @@ AttackConjurerLock,"The master conjurer waves a hand, and locks appear on all yo
 AttackConjurerBind,"The master conjurer summons a restraint directly onto you!"
 AttackConjurer,"The master conjurer tickles you playfully!"
 
+NameConjurerTickler,Master Conjurer
+KillConjurerTickler,"The conjurer retreats into a portal!"
+AttackConjurerTicklerLock,"The master conjurer waves a hand, and locks appear on all your restraints!"
+AttackConjurerTicklerBind,"The master conjurer summons a restraint directly onto you!"
+AttackConjurerTickler,"The master conjurer tickles you playfully!"
+
 NameFrog,Pet Frog
 KillFrog,"The frog jumps away!"
 AttackFrogPull,"The frog pulls you with its tongue!!!"
@@ -375,6 +381,14 @@ AttackFrog,"The frog licks you!"
 NameTickleHand,Tickle Hand
 KillTickleHand,"The hand vanishes!"
 AttackTickleHand,"The hand tickles you!"
+
+NameTickleHandSlave,Tickle Hand
+KillTickleHandSlave,"The hand vanishes!"
+AttackTickleHandSlave,"The hand tickles you!"
+
+
+NameBookChain,Tome of Chains
+KillBookChain,The floating tome burns into ashes!
 
 
 KinkyDungeonGuardAppear,A guard appears to check on you.
@@ -796,6 +810,19 @@ RestraintChainCrotch,Crotch Chain
 RestraintChainCrotchDesc,"Heavy chains that serve as an anchor point around your waist."
 RestraintChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
 
+RestraintMagicChainArms,Arm Chains
+RestraintMagicChainArmsDesc,"Magic chains keeping your arms securely behind your back."
+RestraintMagicChainArmsDesc2,"It doesn't look like a knife is up to the task..."
+RestraintMagicChainLegs,Leg Chains
+RestraintMagicChainLegsDesc,"Magic chains keeping your legs firmly hobbled."
+RestraintMagicChainLegsDesc2,"It doesn't look like a knife is up to the task..."
+RestraintMagicChainFeet,Ankle Chains
+RestraintMagicChainFeetDesc,"Magic chains keeping your feet bound together."
+RestraintMagicChainFeetDesc2,"It doesn't look like a knife is up to the task..."
+RestraintMagicChainCrotch,Crotch Chain
+RestraintMagicChainCrotchDesc,"Magic chains that serve as an anchor point around your waist."
+RestraintMagicChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
+
 RestraintClothBlindfold,Blindfold
 RestraintClothBlindfoldDesc,"A piece of cloth secured onto your face and blocking vision."
 RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose."
@@ -1107,6 +1134,7 @@ KinkyDungeonSummonSingleLesserSkeleton,A skeleton arises from bones on the floor
 KinkyDungeonSummonMultiLesserSkeleton,A gang of SummonCount skeletons forms around you!
 
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
+KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonPlugged,You feel the plugs inside you while walking.
