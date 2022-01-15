@@ -1,9 +1,9 @@
 "use strict";
 
 var KinkyDungeonConsumables = {
-	"PotionMana" : {name: "PotionMana", rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 20},
-	"PotionStamina" : {name: "PotionStamina", rarity: 1, shop: true, type: "restore", sp_gradual: 36, duration: 24},
-	"PotionFrigid" : {name: "PotionFrigid", rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6},
+	"PotionMana" : {name: "PotionMana", rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 20, sfx: "PotionDrink"},
+	"PotionStamina" : {name: "PotionStamina", rarity: 1, shop: true, type: "restore", sp_gradual: 36, duration: 24, sfx: "PotionDrink"},
+	"PotionFrigid" : {name: "PotionFrigid", rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6, sfx: "PotionDrink"},
 };
 
 var KinkyDungneonBasic = {
@@ -12,6 +12,13 @@ var KinkyDungneonBasic = {
 	"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
 	"Knife" : {name: "Knife", rarity: 0, shop: true},
 };
+
+function KinkyDungeonFindConsumable(Name) {
+	for (let con of Object.values(KinkyDungeonConsumables)) {
+		if (con.name == Name) return con;
+	}
+	return undefined;
+}
 
 function KinkyDungeonGetInventoryItem(Name, Filter = "Consumables") {
 	let Filtered = KinkyDungeonFilterInventory(Filter);
@@ -87,7 +94,7 @@ function KinkyDungeonChangeConsumable(Consumable, Quantity) {
 	}
 
 	if (Quantity >= 0) {
-		KinkyDungeonInventory.push({consumable: Consumable, quantity: Quantity});
+		KinkyDungeonInventory.push({consumable: Consumable, quantity: Quantity, events: Consumable.events});
 	}
 
 	return false;
@@ -99,9 +106,9 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.sp_instant) KinkyDungeonStatStamina += Consumable.sp_instant;
 		if (Consumable.ap_instant) KinkyDungeonStatArousal += Consumable.ap_instant;
 
-		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration}, true);
-		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration, duration: Consumable.duration}, true);
-		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration}, true);
+		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
+		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration, duration: Consumable.duration});
+		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
 	}
 }
 
@@ -125,5 +132,8 @@ function KinkyDungeonUseConsumable(Name, Quantity) {
 	KinkyDungeonChangeConsumable(item.item.consumable, -Quantity);
 
 	KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonInventoryItem" + Name + "Use"), "#88FF88", 1);
+	if (item.item.consumable.sfx) {
+		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + item.item.consumable.sfx + ".ogg");
+	}
 	return true;
 }

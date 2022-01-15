@@ -466,9 +466,10 @@ function CommonColorIsValid(Color) {
 
 /**
  * Get a random item from a list while making sure not to pick the previous one.
- * @param {*} ItemPrevious - Previously selected item from the given list
- * @param {*} ItemList - List for which to pick a random item from
- * @returns {*} - The randomly selected item from the list
+ * @template T
+ * @param {T} ItemPrevious - Previously selected item from the given list
+ * @param {T[]} ItemList - List for which to pick a random item from
+ * @returns {T} - The randomly selected item from the list
  */
 function CommonRandomItemFromList(ItemPrevious, ItemList) {
 	var NewItem = ItemPrevious;
@@ -869,4 +870,14 @@ function CommonPadlockUnlock(C, Item) {
  */
 function CommonNoop() {
 	// Noop function
+}
+
+/**
+ * Redirects the address to HTTPS, except in a local environment
+ * @returns {void} - Nothing
+ */
+function CommonRedirectHTTPS() {
+	if (location.href.indexOf("http://localhost/") >= 0) return;
+	if (location.href.indexOf("http://127.0.0.1/") >= 0) return;
+	if (location.protocol !== 'https:') location.replace(`https:${location.href.substring(location.protocol.length)}`);
 }

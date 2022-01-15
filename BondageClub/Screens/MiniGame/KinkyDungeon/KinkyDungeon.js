@@ -42,19 +42,31 @@ function KinkyDungeonLoad() {
 	if (!KinkyDungeonIsPlayer()) KinkyDungeonGameRunning = false;
 
 	if (!Player.KinkyDungeonExploredLore) Player.KinkyDungeonExploredLore = [];
+	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
-		if (!KinkyDungeonPlayer)
+		if (!KinkyDungeonPlayer) {
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 
-		var appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
-		CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
-		CharacterReleaseTotal(KinkyDungeonPlayer);
-		CharacterNaked(KinkyDungeonPlayer);
-		KinkyDungeonInitializeDresses();
-		KinkyDungeonDressPlayer();
 
-		KinkyDungeonKeybindings = Player.KinkyDungeonKeybindings;
+			KinkyDungeonNewDress = true;
+			var appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
+			if (!appearance) {
+				KinkyDungeonNewDress = false;
+				appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
+			}
+
+			CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
+
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonDressSet();
+			CharacterNaked(KinkyDungeonPlayer);
+			KinkyDungeonInitializeDresses();
+			KinkyDungeonDressPlayer();
+		}
+
+		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings")))
+			KinkyDungeonKeybindings = JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"));
 
 		if (KinkyDungeonIsPlayer()) {
 			KinkyDungeonState = "Menu";
@@ -64,7 +76,10 @@ function KinkyDungeonLoad() {
 			ServerSend("ChatRoomCharacterExpressionUpdate", { Name: "Gaming", Group: "Emoticon", Appearance: ServerAppearanceBundle(Player.Appearance) });
 		} else {
 			KinkyDungeonState = "Game";
-			if (!KinkyDungeonGameData) KinkyDungeonInitialize(1);
+			if (!KinkyDungeonGameData) {
+				MiniGameKinkyDungeonLevel = 1;
+				KinkyDungeonInitialize(1);
+			}
 		}
 
 		for (let G = 0; G < KinkyDungeonStruggleGroupsBase.length; G++) {
@@ -104,36 +119,76 @@ function KinkyDungeonIsPlayer() {
  * Runs the kinky dungeon game and draws its components on screen
  * @returns {void} - Nothing
  */
+
+let KinkyDungeonCreditsPos = 0;
+
 function KinkyDungeonRun() {
 	let BG = "BrickWall";
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	if (params && params.background) BG = params.background;
+	if (KinkyDungeonState == "Lose") BG = "Pandora/Underground/Cell4";
 	DrawImage("Backgrounds/" + BG + ".jpg", 0, 0);
 
 	// Draw the characters
 	DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
-	if (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")
+	if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
 		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
-	if (KinkyDungeonState == "Menu") {
+	if (KinkyDungeonState == "Credits") {
+		let credits = TextGet("KinkyDungeonCreditsList" + KinkyDungeonCreditsPos).split('|');
+		let i = 0;
+		MainCanvas.textAlign = "left";
+		for (let c of credits) {
+			DrawText(c, 550, 25 + 40 * i, "white", "silver");
+			i++;
+		}
+		MainCanvas.textAlign = "center";
+
+		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
+		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
+	} else if (KinkyDungeonState == "Menu") {
 		// Draw temp start screen
 		DrawText(TextGet("Intro"), 1250, 400, "white", "silver");
 		DrawText(TextGet("Intro2"), 1250, 500, "white", "silver");
 		DrawText(TextGet("Intro3"), 1250, 600, "white", "silver");
+		DrawText(TextGet("Intro4"), 1250, 700, "white", "silver");
 
 		if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable())
 			DrawText(TextGet("DeviousChallenge"), 1250, 925, "white", "silver");
 
 		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
+		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+
+		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
+		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
+	} else if (KinkyDungeonState == "Load") {
+		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
+		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+
+		ElementPosition("saveInputField", 1250, 550, 1000, 230);
+	} else if (KinkyDungeonState == "Save") {
+		// Draw temp start screen
+		DrawText(TextGet("KinkyDungeonSaveIntro0"), 1250, 350, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro"), 1250, 475, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro2"), 1250, 550, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro3"), 1250, 625, "white", "silver");
+		DrawText(TextGet("KinkyDungeonSaveIntro4"), 1250, 700, "white", "silver");
+
+		ElementPosition("saveDataField", 1250, 150, 1000, 230);
+
+		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonGameSave"), "White", "");
+		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonGameContinue"), "White", "");
 	} else if (KinkyDungeonState == "Lose") {
 		// Draw temp start screen
 		DrawText(TextGet("End"), 1250, 400, "white", "silver");
 		DrawText(TextGet("End2"), 1250, 500, "white", "silver");
 		DrawText(TextGet("End3"), 1250, 600, "white", "silver");
 		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
+		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
@@ -185,19 +240,42 @@ function KinkyDungeonRun() {
 
 }
 
-/**
- * Handles clicks during the kinky dungeon game
- * @returns {void} - Nothing
- */
-function KinkyDungeonClick() {
+function KinkyDungeonHandleClick() {
 	if (MouseIn(1885, 25, 90, 90) && (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")) {
+		ElementRemove("saveDataField");
+		ElementRemove("saveInputField");
 		KinkyDungeonExit();
+		return true;
 	}
-
-	if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
+	if (KinkyDungeonState == "Credits") {
+		if (MouseIn(1870, 930, 110, 64)) {
+			KinkyDungeonState = "Menu";
+			return true;
+		}
+		if (MouseIn(1730, 930, 110, 64)) {
+			if (KinkyDungeonCreditsPos < 1) KinkyDungeonCreditsPos += 1;
+			else KinkyDungeonCreditsPos = 0;
+		}
+	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 0;
+			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
+				ElementRemove("saveInputField");
+				KinkyDungeonState = "Game";
+			}
+			return true;
+		} else if (MouseIn(1275, 750, 350, 64)) {
+			KinkyDungeonState = "Menu";
+			ElementRemove("saveInputField");
+			return true;
+		}
+	} else if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
+		if (MouseIn(875, 750, 350, 64)) {
+			KinkyDungeonInitialize(1);
+			MiniGameKinkyDungeonCheckpoint = 0;
+			KinkyDungeonLoadGame();
+			KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 			KinkyDungeonState = "Game";
 
 			if (KinkyDungeonKeybindings) {
@@ -217,61 +295,140 @@ function KinkyDungeonClick() {
 
 				KinkyDungeonGameKey.KEY_WAIT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Wait).toUpperCase();
 			}
+			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
+			return false;
+		} else if (MouseIn(1075, 820, 350, 64)) {
+			KinkyDungeonState = "Load";
+			ElementCreateTextArea("saveInputField");
+			return true;
+		} else if (MouseIn(50, 930, 400, 64)) {
+			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
+			KinkyDungeonNewDress = true;
+			if (ServerURL == "foobar") {
+				// Give all of the items
+				for (let A = 0; A < Asset.length; A++)
+					if ((Asset[A] != null) && (Asset[A].Group != null) && (Asset[A].Value > 0) && !InventoryAvailable(Player, Asset[A].Name, Asset[A].Group.Name))
+						InventoryAdd(Player, Asset[A].Name, Asset[A].Group.Name);
+			}
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonDressPlayer();
+			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
+			return true;
+		} else if (MouseIn(1870, 930, 110, 64)) {
+			KinkyDungeonState = "Credits";
+			return true;
 		}
 		if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonState = "Keybindings";
 
-			KinkyDungeonKeybindingsTemp = {
-				Down: 115,
-				DownLeft: 122,
-				DownRight: 99,
-				Left: 97,
-				Right: 100,
-				Spell1: 49,
-				Spell2: 50,
-				Spell3: 51,
-				Up: 119,
-				UpLeft: 113,
-				UpRight: 101,
-				Wait: 120,
-			};
+			if (!KinkyDungeonKeybindings)
+				KinkyDungeonKeybindingsTemp = {
+					Down: 115,
+					DownLeft: 122,
+					DownRight: 99,
+					Left: 97,
+					Right: 100,
+					Spell1: 49,
+					Spell2: 50,
+					Spell3: 51,
+					Up: 119,
+					UpLeft: 113,
+					UpRight: 101,
+					Wait: 120,
+				};
+			else {
+				KinkyDungeonKeybindingsTemp = {};
+				Object.assign(KinkyDungeonKeybindingsTemp, KinkyDungeonKeybindings);
+			}
+			return true;
+		}
+	} else if (KinkyDungeonState == "Save") {
+		if (MouseIn(875, 750, 350, 64)) {
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSavedGame"), "white", 1);
+			KinkyDungeonSaveGame();
+			KinkyDungeonState = "Game";
+			ElementRemove("saveDataField");
+			return true;
+		} else if (MouseIn(1275, 750, 350, 64)) {
+			KinkyDungeonState = "Game";
+			ElementRemove("saveDataField");
+			return true;
 		}
 	} else if (KinkyDungeonState == "Game") {
 		if (KinkyDungeonIsPlayer()) KinkyDungeonClickGame();
 	} else if (KinkyDungeonState == "Keybindings") {
 		if (MouseIn(1075, 750, 350, 64)) {
-			KinkyDungeonState = "Menu";
+			if (KinkyDungeonInventory.length > 0 || KinkyDungeonSpells.length > 0 || KinkyDungeonGold > 0 || MiniGameKinkyDungeonLevel >= 0)
+				KinkyDungeonState = "Game";
+			else KinkyDungeonState = "Menu";
 			KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
-			ServerAccountUpdate.QueueData({ KinkyDungeonKeybindings: KinkyDungeonKeybindings });
+			localStorage.setItem("KinkyDungeonKeybindings", JSON.stringify(KinkyDungeonKeybindings));
+			//ServerAccountUpdate.QueueData({ KinkyDungeonKeybindings: KinkyDungeonKeybindings });
+			return true;
 		}
 
 		if (KinkyDungeonKeybindingCurrentKey > 0) {
-			if (MouseIn(1075, 350, 350, 64))
+			if (MouseIn(1075, 350, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Up = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1075, 550, 350, 64))
+				return true;
+			}
+			if (MouseIn(1075, 550, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Down = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(675, 450, 350, 64))
+				return true;
+			}
+			if (MouseIn(675, 450, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Left = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1475, 450, 350, 64))
+				return true;
+			}
+			if (MouseIn(1475, 450, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Right = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(675, 350, 350, 64))
+				return true;
+			}
+			if (MouseIn(675, 350, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.UpLeft = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1475, 350, 350, 64))
+				return true;
+			}
+			if (MouseIn(1475, 350, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.UpRight = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(675, 550, 350, 64))
+				return true;
+			}
+			if (MouseIn(675, 550, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.DownLeft = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1475, 550, 350, 64))
+				return true;
+			}
+			if (MouseIn(1475, 550, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.DownRight = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1075, 450, 350, 64))
+				return true;
+			}
+			if (MouseIn(1075, 450, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Wait = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(675, 200, 350, 64))
+				return true;
+			}
+			if (MouseIn(675, 200, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Spell1 = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1075, 200, 350, 64))
+				return true;
+			}
+			if (MouseIn(1075, 200, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Spell2 = KinkyDungeonKeybindingCurrentKey;
-			if (MouseIn(1475, 200, 350, 64))
+				return true;
+			}
+			if (MouseIn(1475, 200, 350, 64)) {
 				KinkyDungeonKeybindingsTemp.Spell3 = KinkyDungeonKeybindingCurrentKey;
+				return true;
+			}
 		}
 	}
+
+
+	return false;
+}
+
+/**
+ * Handles clicks during the kinky dungeon game
+ * @returns {void} - Nothing
+ */
+function KinkyDungeonClick() {
+	if (KinkyDungeonHandleClick()) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 }
 
 /**
@@ -352,7 +509,10 @@ let KinkyDungeonGameKey = {
 	},
 	keyDownEvent : {
 		handleEvent : function (event) {
-			switch(event.code){
+			let code = event.code;
+			if (code)
+				code = code.replace("Numpad", "Key").replace("Digit", "Key");
+			switch(code){
 				case KinkyDungeonGameKey.KEY_UP:
 					if(!KinkyDungeonGameKey.keyPressed[0]){
 						KinkyDungeonGameKey.keyPressed[0] = true;
@@ -403,7 +563,10 @@ let KinkyDungeonGameKey = {
 	},
 	keyUpEvent : {
 		handleEvent : function (event) {
-			switch(event.code){
+			let code = event.code;
+			if (code)
+				code = code.replace("Numpad", "Key").replace("Digit", "Key");
+			switch(code){
 				case KinkyDungeonGameKey.KEY_UP:
 					if (KinkyDungeonGameKey.keyPressed[0]) KinkyDungeonLastMoveTimerStart = 0;
 					KinkyDungeonGameKey.keyPressed[0] = false;
@@ -445,3 +608,129 @@ let KinkyDungeonGameKey = {
 		}
 	},
 };
+
+function KinkyDungeonSaveGame(ToString) {
+	let saveData = {KinkyDungeonSave: {}};
+	let save = saveData.KinkyDungeonSave;
+	save.level = MiniGameKinkyDungeonLevel;
+	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
+	save.rep = KinkyDungeonGoddessRep;
+	save.costs = KinkyDungeonShrineCosts;
+	save.orbs = KinkyDungeonOrbsPlaced;
+	save.chests = KinkyDungeonChestsOpened;
+	save.dress = KinkyDungeonCurrentDress;
+	save.gold = KinkyDungeonGold;
+	save.points = KinkyDungeonSpellPoints;
+	save.levels = KinkyDungeonSpellLevel;
+
+	let spells = [];
+	let newInv = [];
+
+	for (let inv of KinkyDungeonInventory) {
+		let item = {};
+		Object.assign(item, inv);
+		if (item.restraint) item.restraint = {name: item.restraint.name};
+		if (item.looserestraint) item.looserestraint = {name: item.looserestraint.name};
+		if (item.weapon) item.weapon = {name: item.weapon.name};
+		if (item.consumable) item.consumable = {name: item.consumable.name};
+		newInv.push(item);
+	}
+
+	for (let spell of KinkyDungeonSpells) {
+		spells.push(spell.name);
+	}
+
+	save.spells = spells;
+	save.inventory = newInv;
+
+	save.stats = {
+		picks: KinkyDungeonLockpicks,
+		keys: KinkyDungeonRedKeys,
+		bkeys: KinkyDungeonBlueKeys,
+		knife: KinkyDungeonNormalBlades,
+		eknife: KinkyDungeonEnchantedBlades,
+		mana: KinkyDungeonStatMana,
+		stamina: KinkyDungeonStatStamina,
+		arousal: KinkyDungeonStatArousal,
+		wep: KinkyDungeonPlayerWeapon
+	};
+
+	let data = LZString.compressToBase64(JSON.stringify(save));
+	if (!ToString) {
+		//Player.KinkyDungeonSave = saveData.KinkyDungeonSave;
+		//ServerAccountUpdate.QueueData(saveData);
+		localStorage.setItem('KinkyDungeonSave', data);
+	}
+	return data;
+}
+
+// N4IgNgpgbhYgXARgDQgMYAsJoNYAcB7ASwDsAXBABlQCcI8FQBxDAgZwvgFoBWakAAo0ibAiQg0EvfgBkIAQzJZJ8fgFkIZeXFWoASgTwQqqAOpEwO/gFFIAWwjk2JkAGExAKwCudFwElLLzYiMSoAX1Q0djJneGAIkAIaACNYgG0AXUisDnSskAATOjZYkAARCAAzeS8wClQAcwIwApdCUhiEAGZUSBgwWNBbCAcnBBQ3Tx9jJFQAsCCQknGEtiNLPNRSGHIkgE8ENNAokjYvO3lkyEYQEnkHBEECMiW1eTuQBIBHL3eXsgOSAixzEZwuVxmoDuD3gTxeYgAylo7KR5J9UD8/kQAStkCDTudLtc4rd7jM4UsAGLCBpEVrfX7kbGAxDAkAAdwUhGWJOh5IA0iQiJVjGE2cUyDR5B0bnzHmUvGgyAAVeRGOQNZwJF4NDBkcQlca9Ai4R7o0ASqUy3lk+WKlVqiCUiCaNTnOwHbVEXX6iCG2bgE04M1hDJhIA=
+function KinkyDungeonLoadGame(String) {
+	let str = String ? LZString.decompressFromBase64(String) : (localStorage.getItem('KinkyDungeonSave') ? LZString.decompressFromBase64(localStorage.getItem('KinkyDungeonSave')) : "");
+	if (str) {
+		let saveData = JSON.parse(str);
+		if (saveData
+			&& saveData.spells != undefined
+			&& saveData.level != undefined
+			&& saveData.checkpoint != undefined
+			&& saveData.inventory != undefined
+			&& saveData.costs != undefined
+			&& saveData.rep != undefined
+			&& saveData.orbs != undefined
+			&& saveData.chests != undefined
+			&& saveData.dress != undefined) {
+			MiniGameKinkyDungeonLevel = saveData.level;
+			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
+			KinkyDungeonShrineCosts = saveData.costs;
+			KinkyDungeonGoddessRep = saveData.rep;
+			KinkyDungeonOrbsPlaced = saveData.orbs;
+			KinkyDungeonChestsOpened = saveData.chests;
+			KinkyDungeonCurrentDress = saveData.dress;
+			if (saveData.gold) KinkyDungeonGold = saveData.gold;
+			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;
+			if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
+			if (saveData.stats) {
+				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
+				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;
+				if (saveData.stats.bkeys != undefined) KinkyDungeonBlueKeys = saveData.stats.bkeys;
+				if (saveData.stats.knife != undefined) KinkyDungeonNormalBlades = saveData.stats.knife;
+				if (saveData.stats.eknife != undefined) KinkyDungeonEnchantedBlades = saveData.stats.eknife;
+				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
+				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
+				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;
+				if (saveData.stats.wep != undefined) KinkyDungeonPlayerWeapon = saveData.stats.wep;
+			}
+
+
+			for (let item of saveData.inventory) {
+				if (item.restraint) {
+					let restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
+					if (restraint) {
+						KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
+						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
+						if (createdrestraint)
+							createdrestraint.lock = item.lock; // Lock if applicable
+					}
+				}
+			}
+			Object.assign(KinkyDungeonInventory, saveData.inventory);
+			for (let item of KinkyDungeonInventory) {
+				if (item.restraint) item.restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
+				if (item.looserestraint) item.looserestraint = KinkyDungeonGetRestraintByName(item.looserestraint.name);
+				if (item.consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
+				if (item.weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
+			}
+
+			KinkyDungeonSpells = [];
+			for (let spell of saveData.spells) {
+				let sp = KinkyDungeonFindSpell(spell);
+				if (sp) KinkyDungeonSpells.push(sp);
+			}
+
+			if (String)
+				localStorage.setItem('KinkyDungeonSave', String);
+			return true;
+		}
+	}
+	return false;
+}

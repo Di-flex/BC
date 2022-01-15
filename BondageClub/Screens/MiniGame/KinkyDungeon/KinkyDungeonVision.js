@@ -3,10 +3,10 @@
 // For this implementation I decided that ray calculations are too much so I just did a terraria style lighting system
 // -Ada
 
-var KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "") + "OoAaCcB"; // Light does not pass thru doors or grates
-var KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
 
-function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars) {
+let KinkyDungeonSeeAll = false;
+
+function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 	let length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	let obj = allowBars ? KinkyDungeonTransparentObjects : KinkyDungeonTransparentMovableObjects;
 
@@ -14,7 +14,15 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars) {
 		let xx = x1 + (x2-x1)*F/length;
 		let yy = y1 + (y2-y1)*F/length;
 
-		if ((xx != x1 || yy != y1) && !obj.includes(KinkyDungeonMapGet(Math.floor(xx), Math.floor(yy))) && !obj.includes(KinkyDungeonMapGet(Math.ceil(xx), Math.ceil(yy)))) return false;
+		if ((Math.round(xx) != x1 || Math.round(yy) != y1) && (Math.round(xx) != x2 || Math.round(yy) != y2)) {
+			let hits = 0;
+			if (!obj.includes(KinkyDungeonMapGet(Math.floor(xx), Math.floor(yy))) || ((xx != x1 || yy != y1) && (allowEnemies && KinkyDungeonEnemyAt(Math.floor(xx), Math.floor(yy))))) hits += 1;
+			if (!obj.includes(KinkyDungeonMapGet(Math.round(xx), Math.round(yy))) || ((xx != x1 || yy != y1) && (allowEnemies && KinkyDungeonEnemyAt(Math.round(xx), Math.round(yy))))) hits += 1;
+			if (hits < 2 && !obj.includes(KinkyDungeonMapGet(Math.ceil(xx), Math.ceil(yy))) || ((xx != x1 || yy != y1) && (allowEnemies && KinkyDungeonEnemyAt(Math.ceil(xx), Math.ceil(yy))))) hits += 1;
+
+
+			if (hits >= 2) return false;
+		}
 	}
 
 	return true;
@@ -29,7 +37,6 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '0'; // 0 = pitch dark
 		KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
 	}
-
 	let maxPass = 0;
 
 	for (let L = 0; L < Lights.length; L++) {
@@ -52,7 +59,7 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
 			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
 				let tile = KinkyDungeonMapGet(X, Y);
-				if (KinkyDungeonTransparentObjects.includes(tile) && !visionBlockers[X + "," + Y]) {
+				if ((KinkyDungeonTransparentObjects.includes(tile) || (X == KinkyDungeonPlayerEntity.x && Y == KinkyDungeonPlayerEntity.y)) && !visionBlockers[X + "," + Y]) {
 					let brightness = KinkyDungeonLightGet(X, Y);
 					if (brightness > 0) {
 						let nearbywalls = 0;
@@ -80,6 +87,14 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 			}
 		}
 	}
+
+	if (KinkyDungeonSeeAll) {
+		KinkyDungeonLightGrid = "";
+		// Generate the grid
+		for (let X = 0; X < KinkyDungeonGridHeight; X++) {
+			for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
+				KinkyDungeonLightGrid = KinkyDungeonLightGrid + '9'; // 0 = pitch dark
+			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
+		}
+	}
 }
-
-

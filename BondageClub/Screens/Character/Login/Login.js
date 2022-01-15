@@ -6,10 +6,10 @@ var LoginCreditsPosition = 0;
 var LoginThankYou = "";
 /* eslint-disable */
 var LoginThankYouList = [
-	"Aceffect", "Anna", "Aylea", "Ben", "BlueWinter", "Brian", "bryce", "Chennifer", "Christian", "Clash", "Darkstart", 
-	"Dini", "Edwin", "Elcriminal", "Epona", "Escurse", "FanRunner", "Greendragon", "JoeyDubDee", "KamiKaze", "Kimuriel", 
-	"Longwave", "Michal", "Michel", "Mike", "Mindtie", "Misa", "MrUniver", "Nick", "Nightcore", "Ray", "Rika", 
-	"Robin", "Rutherford", "Ryner", "Sage", "Samuel", "SeraDenoir", "Shadow", "Tam", "TBoneShark", "TKSonix", 
+	"Aceffect", "Anna", "Aylea", "Ben", "BlueWinter", "Brian", "bryce", "Chennifer", "Christian", "Clash", "Darkstart",
+	"Dini", "Edwin", "Elcriminal", "Epona", "Escurse", "FanRunner", "Greendragon", "JoeyDubDee", "KamiKaze", "Kimuriel",
+	"Longwave", "Michal", "Michel", "Mike", "Mindtie", "Misa", "MrUniver", "Nick", "Nightcore", "Ray", "Rika",
+	"Robin", "Rutherford", "Ryner", "Sage", "Samuel", "SeraDenoir", "Shadow", "Tam", "TBoneShark", "TKSonix",
 	"TopHat", "Troubadix", "Xepherio", "Yuna", "Znarf"
 ];
 /* eslint-enable */
@@ -610,21 +610,31 @@ function LoginResponse(C) {
 				} else {
 
 					// If the player must log back in the asylum
-					if (LogQuery("Committed", "Asylum") || LogQuery("Isolated", "Asylum")) {
-						AsylumEntranceWearPatientClothes(Player, true);
+					if (LogQuery("Committed", "Asylum") || LogQuery("Isolated", "Asylum") || (AsylumGGTSGetLevel(Player) >= 6)) {
+						if (AsylumGGTSGetLevel(Player) <= 5)
+							AsylumEntranceWearPatientClothes(Player, true);
+						else
+							AsylumGGTSDroneDress(Player);
 						CommonSetScreen("Room", "AsylumBedroom");
 					} else {
 
-						// If the player must start in her room, in her cage
-						if (LogQuery("SleepCage", "Rule") && (Player.Owner != "") && PrivateOwnerInRoom()) {
-							InventoryRemove(Player, "ItemFeet");
-							InventoryRemove(Player, "ItemLegs");
-							Player.Cage = true;
-							CharacterSetActivePose(Player, "Kneel", true);
-							CommonSetScreen("Room", "Private");
+						// If the owner is forcing the player to do GGTS
+						if (LogValue("ForceGGTS", "Asylum") > 0) {
+							CommonSetScreen("Room", "AsylumEntrance");
 						} else {
-							CommonSetScreen("Room", "MainHall");
-							MainHallMaidIntroduction();
+
+							// If the player must start in her room, in her cage
+							if (LogQuery("SleepCage", "Rule") && (Player.Owner != "") && PrivateOwnerInRoom()) {
+								InventoryRemove(Player, "ItemFeet");
+								InventoryRemove(Player, "ItemLegs");
+								Player.Cage = true;
+								CharacterSetActivePose(Player, "Kneel", true);
+								CommonSetScreen("Room", "Private");
+							} else {
+								CommonSetScreen("Room", "MainHall");
+								MainHallMaidIntroduction();
+							}
+
 						}
 
 					}

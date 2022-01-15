@@ -113,15 +113,14 @@ TODO (expecting to get this done soon):
 -Add max SP, MP, and AP upgrades as a rare drop in chests
 -Make it so rope snare can't target spaces with enemies
 -Panel gag, Legbinder and bolero jacket restraints
+-Latex goddess and restraints
 -Shock plug that stuns you at high arousal
-
 -View buffs/penalties as a 3rd option for the struggle display
 -Aura spells that reduce max mana and mana regen
 -Contract spells Attached to a restraint
 -Etheral enemies
--Enemy patrols that repeat
 -Return items to inventory if they get replaced
--ESP spell that boosts vision range (or allows vision through walls in a short radius?)
+-ESP spell that boosts vision range (or allows vision through walls in a short radius?) and reveals stealth
 
 Other Features
 - Knives now use the same random-number-of-uses mechanic as lockpicks which gives some guaranteed uses
@@ -144,7 +143,98 @@ Bugfix:
 - The quick potion buttons no longer bypass being bound or gagged.
 - You can now pay shrines if the amount of gold you have is exactly the cost
 
+2.1
+- The player can now be dragged by enemies while wearing a leash
+- New status effects: Freeze, slow, and bind. Chains, ice, slime, etc have been moved over
+
+2.2
+- Fixed a bug where projectiles would pass through a target without harming it
+- New spell: Incinerate, deals damage over time in a 3x3 area
+- New spell: Bomb, deals damage after a delay in a 3x3 area
+- New spell: Crackle, deals damage in a line and stuns briefly
+- New spell: Shadow Dagger, a dagger that passes through enemies and walls, but only deals 1 damage
+
+2.3
+- Chests don't appear while there are jailers
+- New spell: Invisibility
+- Balance changes
+- Buffs to the bast clerics so they stun
+- Buffs have been changed and evasion works differently (diminishing returns)
+- New area: Underground jungle
+- Save feature
+- Upgrades for MP, SP, and AP in spell menu
+
+2.31
+- You can struggle a few times before it tells you it's impossible
+
+2.32
+- Fixed bug where the player is invisible inside a grate
+- Fixed bug where the game would crash if an enemy put a type of ankle cuffs on you
+- New barred prisons
+- Fixed unreal number of jailers
+- Changed saving. No more punishment
+- Fixed so numpad is treated as buttons
+- Keybindings are now saved to the browser
+- Periodic guard checkups in jail
+
+2.33
+- Fixed the infinite tickle ghost
+- Fixed shop crash
+- Removed exit button for standalone version
+- Fixed long-distance leashing by assassins
+- Reduced assassin spawning weight
+- Sleep doesnt restore stamina until the 1st turn of sleep is over
+- Released the kraken. Do not anger the rope goddess
+
+2.34
+- Fixed a bug where doors would stay locked after a jailer opened it
+- Fixed spell levels and points not resetting on a restart
+- New decoy and wall spell
+- Reduced assassin spawn rate and made clerics appear in all levels in the egyptian suite
+- Make prison easier at low security levels
+- Some new latex content
+- Fix save game being wiped!
+- Can change appearance!
+- New spells: Shadow Slash, Familiar, Golem, Fire Elemental, Storm Crystal, Shadow Warrior, and Lightning Bolt
+- Many spells have smmarter targeting, so you wont waste mana casting summons on an enemy space
+
+2.4
+- New sound effects for dealing damage, locked doors, picking items, etc
+- Organized the spell lists by component
+- New spell: Darkblade
+- UI now lists spell commponents
+- Nerfed shadow warrior
+- You can now wash slime off at mana pools
+- Slime now hardens after a while, changing from struggle to cut
+- Patrolling enemies no longer congregate in one location and become stuck permanently
+- Many restraints are now removed when you are imprisoned
+
+2.41
+- New conjuration enemy, if you annoy the goddess too much
+
+TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
+
 TODO ValidationFindBlockCycles to prevent bugs
+
+TODO Goddess minibosses: (+ means its added already)
++Rope kraken, many sub-ropes that drag you to center. Casts a spell that attaches ropes, if you have enough attached it replaces your outfit with a swimsuit, leotard, or some kind of lingerie with maybe magical tape gags.
+-Steel-clad maids who put you in a maid costume with metal bindings and chastity
+-Dragon-girl enemies who tie you in durable leather bindings
+-Either slime related stuff or maybe just a latex witch who is very powerful
+-Elementals of ice, forge (metal), water (latex), and earth (corsets, boots, mitts), perhaps bringing you to an elemental realm
++ (No books yet) Powerful conjurers who summon chains, magic books, and tickling hands
+-A ninja clan who uses smokescreens, flash grenades, euphoric drugs, and potentially enchantment spells
+
+TODO
+Deputy (slaps on handcuffs only)
+Warden (more comprehensive cuffs)
+Detective (Stealth, wanders around laying traps throughout the level)
+Nurse (applies straitjackets and stuff)
+Doctors (Applies sedatives and euphoric drugs)
+Troopers (Riot shield and tasers)
+
+Enemy ideas:
+-Silent sentinel, triggers ambush when the player casts a verbal spell, tries to gag the player
 
 Future content planned:
 - Wand item which reduces mana costs but is terrible for melee
