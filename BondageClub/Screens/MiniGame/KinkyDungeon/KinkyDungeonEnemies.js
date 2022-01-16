@@ -1290,7 +1290,8 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width) {
 			for (let X = Math.floor(xx-radius); X <= Math.ceil(xx+radius); X++)
 				for (let Y = Math.floor(yy-radius); Y <= Math.ceil(yy+radius); Y++) {
 					let dd = Math.sqrt((X - xx)*(X - xx) + (Y - yy)*(Y - yy));
-					if (dd < width*0.49) {
+					let dd2 = Math.sqrt(X*X+Y*Y);
+					if (dd < width*0.49 && dd2 < range + 0.5) {
 						let dupe = false;
 						for (let a of arr) {
 							if (a.x == X && a.y == Y) {dupe = true; break;}
