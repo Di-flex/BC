@@ -162,6 +162,7 @@ function KinkyDungeonRun() {
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
 
 		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
+		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
 		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
@@ -189,6 +190,7 @@ function KinkyDungeonRun() {
 		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
 		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
+		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
@@ -239,6 +241,8 @@ function KinkyDungeonRun() {
 	}
 
 }
+
+let KinkyDungeonReplaceConfirm = 0;
 
 function KinkyDungeonHandleClick() {
 	if (MouseIn(1885, 25, 90, 90) && (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")) {
@@ -314,6 +318,18 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonDressPlayer();
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
 			return true;
+		} else if (MouseIn(500, 930, 220, 64)) {
+			if (KinkyDungeonReplaceConfirm > 0) {
+				KinkyDungeonDresses.Default = KinkyDungeonDefaultDefaultDress;
+				CharacterAppearanceRestore(KinkyDungeonPlayer, CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player));
+				CharacterReleaseTotal(KinkyDungeonPlayer);
+				KinkyDungeonSetDress("Default");
+				KinkyDungeonDressPlayer();
+				return true;
+			} else {
+				KinkyDungeonReplaceConfirm = 2;
+				return true;
+			}
 		} else if (MouseIn(1870, 930, 110, 64)) {
 			KinkyDungeonState = "Credits";
 			return true;
@@ -428,7 +444,10 @@ function KinkyDungeonHandleClick() {
  * @returns {void} - Nothing
  */
 function KinkyDungeonClick() {
-	if (KinkyDungeonHandleClick()) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+	if (KinkyDungeonHandleClick()) {
+		if (KinkyDungeonReplaceConfirm > 0) KinkyDungeonReplaceConfirm -= 1;
+		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+	}
 }
 
 /**

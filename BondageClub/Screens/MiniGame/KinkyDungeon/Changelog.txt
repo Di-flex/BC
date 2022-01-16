@@ -215,6 +215,9 @@ Bugfix:
 - Submissiveness now can double trap chance at max level, but also doubles spell point chance
 - Added punishment for latex shrine
 - Fixed max stats not being loaded properly
+- New dragonslayer enemies associated with the leather goddess
+- 'Reset Appearance' button
+- Fixed a bug where everything was taking one turn longer than it should in order to hit the player.
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
