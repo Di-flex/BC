@@ -424,15 +424,16 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (Enemy.tags.includes("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
-				if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
+				if (Enemy.tags.includes("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
+				else if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
 				if (Enemy.tags.includes("miniboss")) miniboss = true; // Adds miniboss as a tag
-				if (Enemy.tags.includes("boss")) boss = true; // Adds boss as a tag
 				if (Enemy.tags.includes("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
 				if (Enemy.tags.includes("jailer")) jailerCount += 1;
 
 				if (Enemy.summon) {
 					for (let sum of Enemy.summon) {
-						KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
+						if (!sum.chance || Math.random() < sum.chance)
+							KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
 				}
 				//console.log("Created a " + Enemy.name)

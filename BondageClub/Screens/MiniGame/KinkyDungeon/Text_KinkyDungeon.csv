@@ -246,6 +246,12 @@ KillDragon,"The Dragonheart Initiate retreats hurriedly."
 AttackDragonBind,"The Dragonheart Initiate apprehends you! (+RestraintAdded)"
 AttackDragon,"The Dragonheart Initiate squeezes your body! (-DamageTaken SP)"
 
+NameDragonLeader,Dragonheart Leader
+KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
+AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
+AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
+AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
+
 NameBandit,Bandit
 KillBandit,"The Bandit collapses."
 AttackBanditBind,"The Bandit restrains you! (+RestraintAdded)"
