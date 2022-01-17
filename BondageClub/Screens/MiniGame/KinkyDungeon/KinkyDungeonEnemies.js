@@ -512,7 +512,7 @@ function KinkyDungeonTrackSneak(enemy, delta, player) {
 	let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak")) sneakThreshold += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 	if (!player.player) return true;
-	let deltaMult = 1/(1 + KinkyDungeonSubmissiveMult);
+	let deltaMult = 1/Math.max(1, (1 + KinkyDungeonSubmissiveMult));
 	enemy.vp = Math.min(sneakThreshold * 2, enemy.vp + delta*deltaMult);
 	return (enemy.vp > sneakThreshold);
 }

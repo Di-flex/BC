@@ -226,6 +226,7 @@ Bugfix:
 2.42
 - Rope tentacles now die if there is no more kraken on the map
 - Dragonslayer AI is now set to patrol
+- Enabled fast movement via pathfinding
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

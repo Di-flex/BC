@@ -197,7 +197,7 @@ function KinkyDungeonRun() {
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
-		if (KinkyDungeonFastMove && KinkyDungeonFastMovePath) {
+		if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				if (KinkyDungeonFastMovePath.length > 0) {
 					let next = KinkyDungeonFastMovePath[0];

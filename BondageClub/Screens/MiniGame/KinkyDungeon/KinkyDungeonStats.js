@@ -370,7 +370,7 @@ function KinkyDungeonCalculateSubmissiveMult() {
 	let base = 0;
 	for (let item of KinkyDungeonRestraintList()) {
 		if (item.restraint) {
-			let power = Math.sqrt(KinkyDungeonGetLockMult(item.lock) * item.restraint.power);
+			let power = Math.sqrt(Math.max(0, KinkyDungeonGetLockMult(item.lock) * item.restraint.power));
 			base = Math.max(power, base + power/4);
 		}
 	}
