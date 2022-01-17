@@ -150,7 +150,7 @@ var KinkyDungeonEnemies = [
 			{enemy: "DragonShadow", range: 3, count: 1, chance: 0.33, strict: true},],
 		specialCD: 5, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialsfx: "Miss",
 		visionRadius: 8, maxhp: 20, minLevel:0, weight:-10, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "crush", fullBoundBonus: 3,
-		terrainTags: {"secondhalf":2, "thirdhalf":4, "open": 10, "leatherAnger":12, "leatherRage":30, "boss": -55}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		terrainTags: {"secondhalf":2, "thirdhalf":4, "open": 10, "leatherAnger":6, "leatherRage":30, "boss": -55}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
 
 	{name: "ChaoticCrystal", color: "#ff00aa22", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1.5,
