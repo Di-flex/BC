@@ -247,6 +247,34 @@ KillDragon,"The Dragonheart Initiate retreats hurriedly."
 AttackDragonBind,"The Dragonheart Initiate apprehends you! (+RestraintAdded)"
 AttackDragon,"The Dragonheart Initiate squeezes your body! (-DamageTaken SP)"
 
+NameDragonIce,Ice Dragonheart
+KillDragonIce,"The Ice Dragonheart retreats in a blast of snow."
+AttackDragonIceBind,"The Ice Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonIce,"The Ice Dragonheart gives your body a cold touch! (-DamageTaken SP)"
+
+NameDragonPoison,Poison Dragonheart
+KillDragonPoison,"The Poison Dragonheart retreats in a green mist."
+AttackDragonPoisonBind,"The Poison Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonPoisonStun,"The Poison Dragonheart smacks you with her axe! (-DamageTaken SP)"
+AttackDragonPoison,"The Poison Dragonheart thrums her claws across your figure! (-DamageTaken SP)"
+
+NameDragonCrystal,Crystal Dragonheart
+KillDragonCrystal,"The Crystal Dragonheart screams and falls to the ground dramatically."
+AttackDragonCrystalBind,"The Crystal Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonCrystal,"The Crystal Dragonheart squeezes you in a big hug! (-DamageTaken SP)"
+
+KinkyDungeonSummonMultiChaoticCrystal,Many crystals rise up out of the ground!
+
+NameChaoticCrystal,Chaotic Crystal
+KillChaoticCrystal,"The crystal shatters!"
+AttackChaoticCrystal,"The chaotic crystal leeches willpower from you! (-DamageTaken SP)"
+
+NameDragonShadow,Shadow Dragonheart
+KillDragonShadow,"The Shadow Dragonheart frowns and runs away."
+AttackDragonShadowBind,"The Shadow Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonShadowPull,"The Shadow Dragonheart extends her scythe and pulls you closer!!!"
+AttackDragonShadow,"The Shadow Dragonheart catches you with her scythe! (-DamageTaken SP)"
+
 NameDragonLeader,Dragonheart Leader
 KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
 AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
@@ -1240,7 +1268,9 @@ KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
+KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
+KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
 
 KinkyDungeonInventory,"Inventory"
 KinkyDungeonReputation,"Reputation"
@@ -1346,3 +1376,6 @@ KinkyDungeonTrapBandits,"You are ambushed by bandits!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb, gaining +1 Spell Points."
 KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."
+
+KinkyDungeonFreeze,You are frozen!
+KinkyDungeonShadowBind,"Shadowy tendrils wrap around your feet, rooting you in place!!!"

@@ -116,17 +116,47 @@ var KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 1}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 2}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
 
-	{name: "Dragon", color: "#F92900", tags: ["leashing", "dragon", "melee", "dragonRestraints"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "Dragon", color: "#F92900", tags: ["leashing", "dragon", "melee", "dragonRestraints", "fireresist"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		visionRadius: 8, maxhp: 10, minLevel:0, weight:-1, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"secondhalf":2, "thirdhalf":-1, "leatherAnger":12}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
-	{name: "DragonLeader", color: "#F92900", tags: ["leashing", "dragon", "melee", "boss", "dragonRestraints"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
-		summon: [{enemy: "Dragon", range: 2, count: 2, chance: 0.67, strict: true}],
+		terrainTags: {"secondhalf":2, "thirdhalf":-1, "leatherAnger":1}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
+	{name: "DragonIce", color: "#aaaaff", tags: ["leashing", "dragon", "melee", "elite", "dragonRestraints", "iceimmune"], ignorechance: 0, armor: 1, followRange: 1, AI: "patrol", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+		spells: ["IceDragonBreathPrepare"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3,
+		visionRadius: 8, maxhp: 14, minLevel:0, weight:-2, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Pick", weight: 5}, {name: "PotionMana", weight: 1}]},
+	{name: "DragonPoison", color: "#44ff77", tags: ["leashing", "dragon", "melee", "elite", "dragonRestraints", "unflinching", "fireresist"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+		spells: ["PoisonDragonBlast"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -1, tilesMinRange: 2,
+		visionRadius: 9, maxhp: 11, minLevel:0, weight:-2, movePoints: 3, attackPoints: 4, attack: "SpellMeleeStunWill", stunTime: 1, attackWidth: 3, attackRange: 2, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Pick", weight: 5}, {name: "PotionStamina", weight: 1}]},
+	{name: "DragonCrystal", color: "#ff00aa", tags: ["leashing", "dragon", "melee", "elite", "dragonRestraints", "electricresist", "fireresist"], ignorechance: 0, armor: 1, followRange: 1, AI: "patrol", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+		spells: ["SummonCrystals"], minSpellRange: 0, spellCooldownMult: 1, spellCooldownMod: 2, castWhileMoving: true,
+		visionRadius: 8, maxhp: 10, minLevel:0, weight:-1, movePoints: 1, attackPoints: 2, attack: "SpellMeleeBindWill", stunTime: 1, attackWidth: 1, attackRange: 1, power: 6, dmgType: "crush", fullBoundBonus: 4,
+		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 12}, {name: "BlueKey", weight: 1}, {name: "PotionMana", weight: 1}]},
+	{name: "DragonShadow", color: "#4400ff", tags: ["leashing", "dragon", "melee", "elite", "dragonRestraints", "coldimmune", "fireresist"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+		spells: ["ShadowOrb"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0, pullTowardSelf: true, pullDist: 3,
+		specialCD: 7, specialAttack: "Pull", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "MagicSlash",
+		visionRadius: 8, maxhp: 16, minLevel:0, weight:-1, movePoints: 2, attackPoints: 2, attack: "SpellMeleeWill", stunTime: 3, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Knife", weight: 5}, {name: "PotionMana", weight: 1}]},
+	{name: "DragonLeader", color: "#F92900", tags: ["leashing", "dragon", "melee", "boss", "dragonRestraints", "fireimmune"], ignorechance: 0, armor: 0, followRange: 1, AI: "patrol",
+		summon: [
+			{enemy: "Dragon", range: 2, count: 2, chance: 0.5, strict: true},
+			{enemy: "DragonIce", range: 3, count: 1, chance: 0.33, strict: true},
+			{enemy: "DragonPoison", range: 3, count: 1, chance: 0.33, strict: true},
+			{enemy: "DragonCrystal", range: 3, count: 1, chance: 0.33, strict: true},
+			{enemy: "DragonShadow", range: 3, count: 1, chance: 0.33, strict: true},],
 		specialCD: 5, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialsfx: "Miss",
 		visionRadius: 8, maxhp: 20, minLevel:0, weight:-10, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "crush", fullBoundBonus: 3,
-		terrainTags: {"secondhalf":2, "thirdhalf":4, "open": 10, "leatherAnger":12, "leatherRage":30, "boss": -36}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
+		terrainTags: {"secondhalf":2, "thirdhalf":4, "open": 10, "leatherAnger":12, "leatherRage":30, "boss": -55}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
 
+	{name: "ChaoticCrystal", color: "#ff00aa22", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1.5,
+		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "wander",
+		visionRadius: 1.5, blindSight: 1.5, maxhp: 10, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 2, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
+		terrainTags: {"passage": -999, "door": -99, "open": 1}, floors:[], shrines: []},
 
 	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander",
 		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
@@ -143,7 +173,7 @@ var KinkyDungeonEnemies = [
 		visionRadius: 10, maxhp: 60, minLevel: 5, weight:-30, movePoints: 4, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 6, dmgType: "grope",
 		terrainTags: {"secondhalf":16, "lastthird":5, "boss": -80, "open": 30, "passage": -60, "ropeAnger": 20, "ropeRage": 70}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"],
 		dropTable: [{name: "Knives", weight: 4}, {name: "EnchKnife", weight: 3}]},
-	{name: "RopeMinion", tags: ["construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"],
+	{name: "RopeMinion", tags: ["construct", "melee", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"], dependent: true,
 		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 1, noAlert: true,
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 
@@ -493,6 +523,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let master = KinkyDungeonFindMaster(enemy).master;
 		if (master && enemy.aware) master.aware = true;
 		if (master && master.aware) enemy.aware = true;
+		if (enemy.dependent && !master) enemy.hp = 0;
 	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
@@ -551,6 +582,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (enemy.stun > 0 || enemy.freeze > 0) {
 			if (enemy.stun > 0) enemy.stun -= delta;
 			if (enemy.freeze > 0) enemy.freeze -= delta;
+		} else if (enemy.channel > 0) {
+			if (enemy.channel > 0) enemy.channel -= delta;
 		} else {
 			let attack = enemy.Enemy.attack;
 			let usingSpecial = false;
@@ -748,12 +781,19 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 				if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : enemy.Enemy.attackPoints)) {
 					if (enemy.warningTiles.length == 0) {
-						enemy.warningTiles = KinkyDungeonGetWarningTiles(player.x - enemy.x, player.y - enemy.y, range, width);
-						if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
-							enemy.specialCD = enemy.Enemy.specialCD;
+						enemy.warningTiles = KinkyDungeonGetWarningTiles(player.x - enemy.x, player.y - enemy.y, range, width, enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1);
+					} else {
+						let playerIn = false;
+						for (let tile of enemy.warningTiles) {
+							if (player.x == tile.x && player.y == tile.y) {playerIn = true; break;}
 						}
-						if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
-							enemy.specialCD = enemy.Enemy.specialCD;
+						if (!playerIn) {
+							if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
+								enemy.specialCD = enemy.Enemy.specialCD;
+							}
+							if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
+								enemy.specialCD = enemy.Enemy.specialCD;
+							}
 						}
 					}
 
@@ -1064,6 +1104,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				}
 
 				if (spell) {
+					if (spell.channel) enemy.channel = spell.channel;
 					enemy.castCooldown = spell.manacost*enemy.Enemy.spellCooldownMult + enemy.Enemy.spellCooldownMod + 1;
 					if (KinkyDungeonCastSpell(player.x, player.y, spell, enemy, player) && spell.sfx) {
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
@@ -1264,7 +1305,7 @@ function KinkyDungeonGetWarningTilesAdj() {
 }
 
 
-function KinkyDungeonGetWarningTiles(dx, dy, range, width) {
+function KinkyDungeonGetWarningTiles(dx, dy, range, width, forwardOffset = 1) {
 	if (range == 1 && width == 8) return KinkyDungeonGetWarningTilesAdj();
 
 	var arr = [];
@@ -1290,7 +1331,7 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width) {
 		let x_step = dx/dist;
 		let y_step = dy/dist;
 
-		for (let d = 1; d <= range; d++) {
+		for (let d = forwardOffset; d <= range; d++) {
 			let xx = x_step * d;
 			let yy = y_step * d;
 			for (let X = Math.floor(xx-radius); X <= Math.ceil(xx+radius); X++)

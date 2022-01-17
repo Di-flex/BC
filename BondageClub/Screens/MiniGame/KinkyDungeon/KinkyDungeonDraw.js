@@ -110,6 +110,7 @@ function KinkyDungeonDrawGame() {
 
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
+
 				if (KinkyDungeonMovePoints < 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -117,21 +118,21 @@ function KinkyDungeonDrawGame() {
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatBlind < 0) {
+				if (KinkyDungeonStatBlind > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatFreeze < 0) {
+				if (KinkyDungeonStatFreeze > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Freeze.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatBind < 0) {
+				if (KinkyDungeonStatBind > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Bind.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
@@ -217,6 +218,7 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.stroke();
 					}
 				}
+
 				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
 			}
 
@@ -265,6 +267,9 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonStatArousal > 0)
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatArousal * 100 / KinkyDungeonStatArousalMax);
+	if (KinkyDungeonStatFreeze > 0) {
+		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, 100, '190, 190, 255');
+	}
 
 
 }

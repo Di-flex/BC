@@ -180,6 +180,11 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 	KinkyDungeonSleepTurns = 0;
 
+	if (KinkyDungeonStatFreeze > 0) {
+		KinkyDungeonStatStamina -= dmg;
+		KinkyDungeonStatFreeze = 0;
+	}
+
 	return dmg;
 }
 
@@ -268,6 +273,8 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 	KinkyDungeonStatBlind = Math.max(0, KinkyDungeonStatBlind - delta);
+	KinkyDungeonStatFreeze = Math.max(0, KinkyDungeonStatFreeze - delta);
+	KinkyDungeonStatBind = Math.max(0, KinkyDungeonStatBind - delta);
 
 	KinkyDungeonCapStats();
 

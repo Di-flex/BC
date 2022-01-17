@@ -1165,7 +1165,7 @@ function KinkyDungeonClickGame(Level) {
 	// beep
 
 	// If no buttons are clicked then we handle move
-	else if (KinkyDungeonSlowMoveTurns < 1) {
+	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1) {
 		KinkyDungeonSetMoveDirection();
 
 		if (KinkyDungeonTargetingSpell) {
@@ -1345,6 +1345,8 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
 					KinkyDungeonMovePoints = Math.min(Math.ceil(KinkyDungeonSlowLevel + 1), KinkyDungeonMovePoints + delta); // Can't store extra move points
 
+					if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
+
 					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						moved = true;
@@ -1374,7 +1376,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonStatStamina += moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta;
 							KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
 							KinkyDungeonStatArousal += KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult;
-							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
+							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;
 							KinkyDungeonWaitMessage();

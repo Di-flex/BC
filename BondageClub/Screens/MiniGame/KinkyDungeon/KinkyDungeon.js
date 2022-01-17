@@ -27,6 +27,8 @@ var KinkyDungeonStreamingPlayers = []; // List of players to stream to
 var KinkyDungeonInitTime = 0;
 
 var KinkyDungeonSleepTime = 0;
+let KinkyDungeonFreezeTime = 1000;
+
 
 
 /**
@@ -201,6 +203,12 @@ function KinkyDungeonRun() {
 				KinkyDungeonAdvanceTime(1);
 				KinkyDungeonSleepTime = CommonTime() + 100;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax) KinkyDungeonSleepTurns = 0;
+			}
+		} else if (KinkyDungeonStatFreeze > 0) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				KinkyDungeonStatFreeze -= 1;
+				KinkyDungeonAdvanceTime(1, false, true);
+				KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
 			}
 		} else if (KinkyDungeonSlowMoveTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
