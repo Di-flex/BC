@@ -78,7 +78,7 @@ let KinkyDungeonBlueKeys = 0;
 let KinkyDungeonNormalBlades = 1;
 let KinkyDungeonEnchantedBlades = 0;
 
-
+let KinkyDungeonHasCrotchRope = false;
 
 // Combat
 let KinkyDungeonTorsoGrabChance = 0.2;
@@ -100,6 +100,8 @@ let KinkyDungeonPlayers = [];
 // For items like the cursed collar which make more enemies appear
 let KinkyDungeonDifficulty = 0;
 
+let KinkyDungeonSubmissiveMult = 0;
+
 function KinkyDungeonDefaultStats() {
 	KinkyDungeonResetEventVariables();
 	KinkyDungeonSetDress("Default");
@@ -111,6 +113,10 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonNormalBlades = 1;
 	KinkyDungeonEnchantedBlades = 0;
+
+	KinkyDungeonHasCrotchRope = false;
+
+	KinkyDungeonSubmissiveMult = 0;
 
 	KinkyDungeonOrbsPlaced = [];
 
@@ -270,8 +276,10 @@ function KinkyDungeonUpdateStats(delta) {
 			if (item.restraint.difficultyBonus) {
 				KinkyDungeonDifficulty += item.restraint.difficultyBonus;
 			}
+			if (item.restraint.crotchrope) KinkyDungeonHasCrotchRope = true;
 		}
 	}
+	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
 }
 
@@ -348,4 +356,21 @@ function KinkyDungeonCalculateSlowLevel() {
 			}
 		}
 	}
+}
+
+function KinkyDungeonCalculateSubmissiveMult() {
+	let base = 0;
+	for (let item of KinkyDungeonRestraintList()) {
+		if (item.restraint) {
+			let power = Math.sqrt(KinkyDungeonGetLockMult(item.lock) * item.restraint.power);
+			base = Math.max(power, base + power/4);
+		}
+	}
+
+	base *= 0.2;
+
+	let mult = Math.max(0, 0.1 + 0.9 * (KinkyDungeonGoddessRep.Ghost + 50)/100);
+	let amount = Math.max(0, base * mult);
+	//console.log(amount);
+	return amount;
 }

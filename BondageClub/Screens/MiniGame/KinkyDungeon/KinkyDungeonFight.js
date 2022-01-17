@@ -19,7 +19,7 @@ var KinkyDungeonWeapons = {
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
 	"Axe": {name: "Axe", dmg: 4, chance: 0.75, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
 	"Hammer": {name: "Hammer", dmg: 5, chance: 0.6, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
-	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: true, cutBonus: 0.3, sfx: "Unarmed"},
+	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
 function KinkyDungeonFindWeapon(Name) {
@@ -264,6 +264,10 @@ function KinkyDungeonUpdateBulletsCollisions(delta) {
 
 function KinkyDungeonBulletHit(b, born) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
+
+	if (b.bullet.cast) {
+		KinkyDungeonCastSpell(b.bullet.cast.tx, b.bullet.cast.ty, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+	}
 
 	if (b.bullet.hit == "") {
 		KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});

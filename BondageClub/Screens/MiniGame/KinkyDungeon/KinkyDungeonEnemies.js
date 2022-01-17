@@ -381,7 +381,8 @@ function KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX, CamY
 			for (let T=0; T<enemy.warningTiles.length; T++) {
 				var tx = enemy.x + enemy.warningTiles[T].x;
 				var ty = enemy.y + enemy.warningTiles[T].y;
-				if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay && !(tx == enemy.x && ty == enemy.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))) {
+				//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
+				if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay && !(tx == enemy.x && ty == enemy.y)) {
 					if (enemy.Enemy.color)
 						DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColor.png", KinkyDungeonContext,
 							(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
@@ -409,7 +410,8 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		var enemy = KinkyDungeonEntities[E];
 		let playerDist = Math.max(Math.abs(KinkyDungeonEntities[E].x - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonEntities[E].y - KinkyDungeonPlayerEntity.y));
-		if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
+		if (enemy.x >= CamX && enemy.y >= CamY && enemy.x < CamX + KinkyDungeonGridWidthDisplay && enemy.y < CamY + KinkyDungeonGridHeightDisplay
+			&& (!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
 			&& (enemy.Enemy.allied || (enemy.hp < enemy.Enemy.maxhp && KinkyDungeonLightGet(enemy.x, enemy.y) > 0))) {
 			let xx = enemy.visual_x ? enemy.visual_x : enemy.x;
 			let yy = enemy.visual_y ? enemy.visual_y : enemy.y;
@@ -458,7 +460,8 @@ function KinkyDungeonTrackSneak(enemy, delta, player) {
 	let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak")) sneakThreshold += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 	if (!player.player) return true;
-	enemy.vp = Math.min(sneakThreshold * 2, enemy.vp + delta);
+	let deltaMult = 1/(1 + KinkyDungeonSubmissiveMult);
+	enemy.vp = Math.min(sneakThreshold * 2, enemy.vp + delta*deltaMult);
 	return (enemy.vp > sneakThreshold);
 }
 
@@ -489,6 +492,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 	for (let enemy of KinkyDungeonEntities) {
 		let master = KinkyDungeonFindMaster(enemy).master;
 		if (master && enemy.aware) master.aware = true;
+		if (master && master.aware) enemy.aware = true;
 	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
@@ -617,9 +621,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 				let patrolChange = false;
 
 				// try 12 times to find a moveable tile, with some random variance
-				if (!ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= chaseRadius*2)) && AI != "ambush" && (enemy.aware || canSensePlayer)) {
+				if (!ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= 100+chaseRadius*2)) && AI != "ambush" && (enemy.aware || canSensePlayer)) {
 					if (!enemy.aware) enemy.path = undefined;
-					enemy.aware = true;
+					//enemy.aware = true;
 					for (let T = 0; T < 12; T++) {
 						let dir = kite ? KinkyDungeonGetDirectionRandom(enemy.x - player.x, enemy.y - player.y) : KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
 						let splice = false;
@@ -633,7 +637,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 								splice = true;
 							} else {
 								enemy.path = undefined;
-								enemy.aware = false;
+								if (!canSensePlayer)
+									enemy.aware = false;
 								//dir = KinkyDungeonGetDirectionRandom(0, 0); // Random...
 							}
 						}
@@ -690,7 +695,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				// try 12 times to find a moveable tile, with some random variance
 				if (!ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= chaseRadius*2)) && (enemy.aware || canSensePlayer)) {
 					if (!enemy.aware) enemy.path = undefined;
-					enemy.aware = true;
+					//enemy.aware = true;
 					for (let T = 0; T < 12; T++) {
 						let dir = kite ? KinkyDungeonGetDirectionRandom(enemy.x - player.x, enemy.y - player.y) : KinkyDungeonGetDirectionRandom(player.x - enemy.x, player.y - enemy.y);
 						let splice = false;
@@ -704,7 +709,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 								splice = true;
 							} else {
 								enemy.path = undefined;
-								enemy.aware = false;
+								if (!canSensePlayer)
+									enemy.aware = false;
 								//dir = KinkyDungeonGetDirectionRandom(0, 0); // Random...
 							}
 						}

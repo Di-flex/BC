@@ -59,6 +59,7 @@ KinkyDungeonStaminaWarningLow,"You feel exhausted..."
 KinkyDungeonStaminaWarningNone,"You feel like you are going to pass out..."
 
 GameStart,Start New Game
+GameContinue,Continue Last Save
 LoadGame,Load From Code
 GameReturnToMenu,Save Keybindings
 GameConfigKeys,Change Keybindings
@@ -1047,6 +1048,12 @@ KinkyDungeonSpellDescriptionLightningBolt,A bolt of lightning that does DamageDe
 KinkyDungeonSpellCastLightningBolt,You unleash a bolt of lightning!
 KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
+KinkyDungeonSpellCorona,Corona
+KinkyDungeonSpellCoronaBeam,Corona
+KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then deals DamageDealt damage in a line.
+KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
+KinkyDungeonSpellTargetCorona,Choose line direction
+
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
 KinkyDungeonSpellSPUp2,Stamina Up II
@@ -1278,12 +1285,16 @@ KinkyDungeonLore6,"(The note starts with a drawing of a witch whose body is part
 KinkyDungeonLore7,"(The note is from a famous escape artist) Many restraints are applied quite tightly by a skilled rigger. However, anything that isn't made of metal will loosen with enough effort. Just be sure that you give it a good effort and aren't tired, and eventually you will get out!"
 KinkyDungeonLore8,"(The note is from a famous escape artist) Anything can be unbuckled with enough patience. Having a finger extension such as a lockpick will help. Ultimately, though, what matters is that you have a calm state of mind, free from distraction and hopelessness. Stay resolute and you'll get there."
 KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed that the dungeon spirits are more active even after the regular inhabitants such as zombies or skeletons are cleared out. My hypothesis is that the spirits are too afraid to come out in the presence of a more powerful, embodied spirit."
+KinkyDungeonLore10,"(A letter between bandit leaders) One of my subordinates has been reporting a girl bound in heavy leather restraints running around. I told her that this is normal, people keep all kinds of servants around here. But definitely keep an eye out for intruders! Don't let them fool you!"
+KinkyDungeonLore11,"(The note is a letter from the school of conjuration) We really would like to know... why did you summon a frog in the laboratory? People are wondering, you know. One of the student's projects got eaten."
 
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
 KinkyDungeonLore103,"I can't count how many skeletons I've bashed with my hammer today. They seem so fragile..."
+KinkyDungeonLore104,"(The note is scrawled with wiggling lines) IT SEES ME. I SHOULDN'T HAVE DEFILED THE ROPE GODDESS' ALTAR!"
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
+KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."
 
 
 KinkyDungeonLore-1,"(The note is blank)"

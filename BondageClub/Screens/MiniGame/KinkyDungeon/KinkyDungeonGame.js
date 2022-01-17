@@ -231,7 +231,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	let openness = MapParams.openness;
 	let density = MapParams.density;
 	let doodadchance = MapParams.doodadchance;
-	let barchance = MapParams.bar;
+	let barchance = MapParams.barchance;
 	let treasurechance = 1.0; // Chance for an extra locked chest
 	let treasurecount = MapParams.chestcount; // Max treasure chest count
 	if (KinkyDungeonSpawnJailers > 0) treasurecount = 0;
@@ -947,12 +947,28 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 }
 
 function KinkyDungeonReplaceDoodads(Chance, barchance, width, height) {
-	for (let X = 1; X < width; X += 1)
-		for (let Y = 1; Y < height; Y += 1)
+	for (let X = 1; X < width-1; X += 1)
+		for (let Y = 1; Y < height-1; Y += 1) {
 			if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < Chance)
 				KinkyDungeonMapSet(X, Y, 'X');
-			else if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < barchance)
+			else if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < barchance
+				&& ((KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X-1, Y) == '0' && KinkyDungeonMapGet(X+1, Y) == '0')
+					|| (KinkyDungeonMapGet(X-1, Y) == '1' && KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X, Y+1) == '0')))
 				KinkyDungeonMapSet(X, Y, 'b');
+		}
+	for (let X = 1; X < width - 1; X += 1)
+		for (let Y = 1; Y < height - 1; Y += 1) {
+			let tl = KinkyDungeonMapGet(X, Y);
+			let tr = KinkyDungeonMapGet(X+1, Y);
+			let bl = KinkyDungeonMapGet(X, Y+1);
+			let br = KinkyDungeonMapGet(X+1, Y+1);
+			if (tl == '1' && br == '1' && KinkyDungeonMovableTilesEnemy.includes(tr) && KinkyDungeonMovableTilesEnemy.includes(bl))
+				if (Math.random() < 0.5) KinkyDungeonMapSet(X, Y, 'X');
+				else KinkyDungeonMapSet(X+1, Y+1, 'b');
+			else if (tr == '1' && bl == '1' && KinkyDungeonMovableTilesEnemy.includes(tl) && KinkyDungeonMovableTilesEnemy.includes(br))
+				if (Math.random() < 0.5) KinkyDungeonMapSet(X, Y+1, 'X');
+				else KinkyDungeonMapSet(X+1, Y, 'b');
+		}
 }
 
 function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density) {

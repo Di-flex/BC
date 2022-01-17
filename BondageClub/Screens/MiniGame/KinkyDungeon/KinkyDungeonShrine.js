@@ -97,6 +97,7 @@ function KinkyDungeonPayShrine(type) {
 	// TODO shrine effects
 	if (KinkyDungeonShrineTypeRemove.includes(type)) {
 		rep = KinkyDungeonRemoveRestraintsWithShrine(type);
+		KinkyDungeonChangeRep("Ghost", -rep);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
 	} else if (type == "Elements" || type == "Illusion" || type == "Conjure") {

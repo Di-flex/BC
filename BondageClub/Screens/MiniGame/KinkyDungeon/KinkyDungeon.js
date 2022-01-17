@@ -157,8 +157,9 @@ function KinkyDungeonRun() {
 		if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable())
 			DrawText(TextGet("DeviousChallenge"), 1250, 925, "white", "silver");
 
-		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
-		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
+		DrawButton(875, 750, 350, 64, TextGet("GameContinue"), localStorage.getItem('KinkyDungeonSave') ? "White" : "pink", "");
+		DrawButton(875, 820, 350, 64, TextGet("GameStart"), "White", "");
+		DrawButton(1275, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
 
 		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
@@ -275,10 +276,11 @@ function KinkyDungeonHandleClick() {
 			return true;
 		}
 	} else if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
-		if (MouseIn(875, 750, 350, 64)) {
+		if ((MouseIn(875, 750, 350, 64) && (localStorage.getItem('KinkyDungeonSave') || KinkyDungeonState == "Lose")) || MouseIn(875, 820, 350, 64)) {
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 0;
-			KinkyDungeonLoadGame();
+			if (!MouseIn(875, 820, 350, 64))
+				KinkyDungeonLoadGame();
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 			KinkyDungeonState = "Game";
 
@@ -301,7 +303,7 @@ function KinkyDungeonHandleClick() {
 			}
 			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
 			return false;
-		} else if (MouseIn(1075, 820, 350, 64)) {
+		} else if (MouseIn(1275, 820, 350, 64)) {
 			KinkyDungeonState = "Load";
 			ElementCreateTextArea("saveInputField");
 			return true;
