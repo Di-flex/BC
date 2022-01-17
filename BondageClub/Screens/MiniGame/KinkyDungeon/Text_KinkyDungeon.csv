@@ -371,6 +371,11 @@ KillLearnedRope,"The learned rope untangles into a mess of rope."
 AttackLearnedRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
 AttackLearnedRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
+NameUnforseenRope,Unforseen Rope
+KillUnforseenRope,"The unforseen rope is gone... or is it?"
+AttackUnforseenRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
+AttackUnforseenRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
+
 NameMonsterRope,Monster Rope
 KillMonsterRope,"The monster rope bundle collapses into a pile of ropes."
 AttackMonsterRopeBind,"The magic rope wraps itself overwhelmingly around your body! (+RestraintAdded)"
