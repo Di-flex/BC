@@ -1172,6 +1172,7 @@ KinkyDungeonSpellShadowWarrior,Shadow Warrior
 KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
 KinkyDungeonSummonSingleShadowWarrior,You call, and the abyss answers!
+KinkyDungeonSpellCastShadowWarrior,You call, and the abyss answers!
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)
@@ -1272,6 +1273,8 @@ KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
+KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
+KinkyDungeonSpellVineEngulf,"Animated Vines"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
