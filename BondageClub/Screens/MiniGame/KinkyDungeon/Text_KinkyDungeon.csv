@@ -1050,7 +1050,7 @@ KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
 KinkyDungeonSpellCorona,Corona
 KinkyDungeonSpellCoronaBeam,Corona
-KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then deals DamageDealt damage in a line.
+KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt damage to the first target hit.
 KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
 KinkyDungeonSpellTargetCorona,Choose line direction
 

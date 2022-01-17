@@ -219,6 +219,8 @@ Bugfix:
 - 'Reset Appearance' button
 - Fixed a bug where everything was taking one turn longer than it should in order to hit the player.
 - Enemies now notice you less when you are wearing many restraints
+- New spell: Corona
+- Fixed assassins throwing shurikens through walls
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
