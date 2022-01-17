@@ -210,6 +210,16 @@ function KinkyDungeonDrawGame() {
 									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 									(KinkyDungeonTargetX - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonTargetY - CamY)*KinkyDungeonGridSizeDisplay,
 									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+					} else if (KinkyDungeonFastMove && (KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
+						KinkyDungeonSetTargetLocation();
+
+						if (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0) {
+							KinkyDungeonContext.beginPath();
+							KinkyDungeonContext.rect((KinkyDungeonTargetX - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonTargetY - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
+							KinkyDungeonContext.lineWidth = 3;
+							KinkyDungeonContext.strokeStyle = "#ff4444";
+							KinkyDungeonContext.stroke();
+						}
 					} else if ((KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
 						KinkyDungeonContext.beginPath();
 						KinkyDungeonContext.rect((KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
@@ -219,6 +229,13 @@ function KinkyDungeonDrawGame() {
 					}
 				}
 
+				if (KinkyDungeonFastMoveSuppress) {
+					KinkyDungeonContext.beginPath();
+					KinkyDungeonContext.rect(0, 0, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height);
+					KinkyDungeonContext.lineWidth = 4;
+					KinkyDungeonContext.strokeStyle = "#ff4444";
+					KinkyDungeonContext.stroke();
+				}
 				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
 			}
 

@@ -197,7 +197,17 @@ function KinkyDungeonRun() {
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
-		if (KinkyDungeonSleepTurns > 0) {
+		if (KinkyDungeonFastMove && KinkyDungeonFastMovePath) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				if (KinkyDungeonFastMovePath.length > 0) {
+					let next = KinkyDungeonFastMovePath[0];
+					KinkyDungeonDoorCloseTimer = 1;
+					KinkyDungeonFastMovePath.splice(0, 1);
+					KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
+				}
+				KinkyDungeonSleepTime = CommonTime() + 100;
+			}
+		} else if (KinkyDungeonSleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSleepTurns -= 1;
 				KinkyDungeonAdvanceTime(1);

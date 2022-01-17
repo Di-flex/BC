@@ -10,7 +10,7 @@
  * @param {string} Tiles - Allowed move tiles!
  * @returns {any} - Returns an array of x, y points in order
  */
-function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlayer, ignoreLocks, Tiles) {
+function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlayer, ignoreLocks, Tiles, RequireLight) {
 	function heuristic(xx, yy, endxx, endyy) {
 		return Math.sqrt((xx - endxx) * (xx - endxx) + (yy - endyy) * (yy - endyy));
 	}
@@ -45,7 +45,7 @@ function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlaye
 							closed.set(lowest.x + "," + lowest.y, lowest);
 							return KinkyDungeonGetPath(closed, lowest.x, lowest.y, endx, endy);
 						}
-						else if (Tiles.includes(KinkyDungeonMapGet(xx, yy))
+						else if (Tiles.includes(KinkyDungeonMapGet(xx, yy)) && (!RequireLight || KinkyDungeonLightGet(xx, yy) > 0)
 							&& (ignoreLocks || !KinkyDungeonTiles[(xx) + "," + (yy)] || !KinkyDungeonTiles[xx + "," + yy].Lock)
 							&& (!blockEnemy || KinkyDungeonNoEnemy(xx, yy, blockPlayer))) {
 							succ.set(xx + "," + yy, {x: xx, y: yy,

@@ -343,8 +343,15 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile) {
 		}
 	}
 }
-
+let KinkyDungeonFastMoveSuppress = false;
 function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
+	let reenabled = false;
+	if (KinkyDungeonFastMoveSuppress && !CommonIsMobile) {
+		KinkyDungeonFastMove = true;
+		KinkyDungeonFastMovePath = [];
+		KinkyDungeonFastMoveSuppress = false;
+		reenabled = true;
+	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		let sprite = enemy.Enemy.name;
@@ -354,6 +361,15 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		let playerDist = Math.max(Math.abs(KinkyDungeonEntities[E].x - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonEntities[E].y - KinkyDungeonPlayerEntity.y));
 		if (KinkyDungeonEntities[E].x >= CamX && KinkyDungeonEntities[E].y >= CamY && KinkyDungeonEntities[E].x < CamX + KinkyDungeonGridWidthDisplay && KinkyDungeonEntities[E].y < CamY + KinkyDungeonGridHeightDisplay) {
 			if ((!enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
+				if (KinkyDungeonLightGet(KinkyDungeonEntities[E].x, KinkyDungeonEntities[E].y) > 0 && KinkyDungeonFastMove) {
+					if (KinkyDungeonFastMove && !KinkyDungeonFastMoveSuppress && !reenabled)
+						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+					KinkyDungeonFastMove = false;
+					KinkyDungeonFastMovePath = [];
+					reenabled = false;
+					if (!CommonIsMobile)
+						KinkyDungeonFastMoveSuppress = true;
+				}
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Enemies/" + sprite + ".png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
@@ -403,6 +419,9 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
 		}
+	}
+	if (reenabled && KinkyDungeonFastMove) {
+		KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 	}
 }
 
