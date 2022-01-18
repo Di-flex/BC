@@ -126,6 +126,7 @@ function KinkyDungeonSetDress(Dress) {
 
 function KinkyDungeonDressPlayer() {
 	if (KinkyDungeonCheckClothesLoss) {
+		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
 		CharacterNaked(KinkyDungeonPlayer);
 		KinkyDungeonUndress = 0;
 	}

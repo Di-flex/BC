@@ -51,6 +51,9 @@ function KinkyDungeonLoad() {
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer) {
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
+			KinkyDungeonPlayer.Type = "game";
+			// @ts-ignore
+			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true, };
 
 
 			KinkyDungeonNewDress = true;
@@ -341,6 +344,7 @@ function KinkyDungeonHandleClick() {
 			}
 			CharacterReleaseTotal(KinkyDungeonPlayer);
 			KinkyDungeonDressPlayer();
+			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: false, AllowFullWardrobeAccess: true};
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
 			return true;
 		} else if (MouseIn(500, 930, 220, 64)) {
