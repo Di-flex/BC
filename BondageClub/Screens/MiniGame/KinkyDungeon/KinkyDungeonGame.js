@@ -231,7 +231,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	let openness = MapParams.openness;
 	let density = MapParams.density;
 	let doodadchance = MapParams.doodadchance;
-	let barchance = MapParams.bar;
+	let barchance = MapParams.barchance;
 	let treasurechance = 1.0; // Chance for an extra locked chest
 	let treasurecount = MapParams.chestcount; // Max treasure chest count
 	if (KinkyDungeonSpawnJailers > 0) treasurecount = 0;
@@ -357,6 +357,7 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 }
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonEntities = [];
 
@@ -424,15 +425,16 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (Enemy.tags.includes("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
-				if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
+				if (Enemy.tags.includes("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
+				else if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
 				if (Enemy.tags.includes("miniboss")) miniboss = true; // Adds miniboss as a tag
-				if (Enemy.tags.includes("boss")) boss = true; // Adds boss as a tag
 				if (Enemy.tags.includes("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
 				if (Enemy.tags.includes("jailer")) jailerCount += 1;
 
 				if (Enemy.summon) {
 					for (let sum of Enemy.summon) {
-						KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
+						if (!sum.chance || Math.random() < sum.chance)
+							KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
 				}
 				//console.log("Created a " + Enemy.name)
@@ -447,6 +449,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonCurrentMaxEnemies = KinkyDungeonEntities.length;
 }
 
+// @ts-ignore
 function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
@@ -655,6 +658,7 @@ function KinkyDungeonPlaceLore(width, height) {
 
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	let shrinelist = [];
 	KinkyDungeonCommercePlaced = 0;
@@ -727,6 +731,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 let KinkyDungeonCommercePlaced = 0;
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonGenerateShrine(Floor) {
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
@@ -755,6 +760,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
@@ -777,6 +783,7 @@ function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 			}
 }
 
+// @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
 	for (let trap of traps) {
@@ -946,12 +953,28 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 }
 
 function KinkyDungeonReplaceDoodads(Chance, barchance, width, height) {
-	for (let X = 1; X < width; X += 1)
-		for (let Y = 1; Y < height; Y += 1)
+	for (let X = 1; X < width-1; X += 1)
+		for (let Y = 1; Y < height-1; Y += 1) {
 			if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < Chance)
 				KinkyDungeonMapSet(X, Y, 'X');
-			else if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < barchance)
+			else if (KinkyDungeonMapGet(X, Y) == '1' && Math.random() < barchance
+				&& ((KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X-1, Y) == '0' && KinkyDungeonMapGet(X+1, Y) == '0')
+					|| (KinkyDungeonMapGet(X-1, Y) == '1' && KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X, Y+1) == '0')))
 				KinkyDungeonMapSet(X, Y, 'b');
+		}
+	for (let X = 1; X < width - 1; X += 1)
+		for (let Y = 1; Y < height - 1; Y += 1) {
+			let tl = KinkyDungeonMapGet(X, Y);
+			let tr = KinkyDungeonMapGet(X+1, Y);
+			let bl = KinkyDungeonMapGet(X, Y+1);
+			let br = KinkyDungeonMapGet(X+1, Y+1);
+			if (tl == '1' && br == '1' && KinkyDungeonMovableTilesEnemy.includes(tr) && KinkyDungeonMovableTilesEnemy.includes(bl))
+				if (Math.random() < 0.5) KinkyDungeonMapSet(X, Y, 'X');
+				else KinkyDungeonMapSet(X+1, Y+1, 'b');
+			else if (tr == '1' && bl == '1' && KinkyDungeonMovableTilesEnemy.includes(tl) && KinkyDungeonMovableTilesEnemy.includes(br))
+				if (Math.random() < 0.5) KinkyDungeonMapSet(X, Y+1, 'X');
+				else KinkyDungeonMapSet(X+1, Y, 'b');
+		}
 }
 
 function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density) {
@@ -1139,6 +1162,7 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 
 // Click function for the game portion
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonHandleHUD()) {
@@ -1148,7 +1172,7 @@ function KinkyDungeonClickGame(Level) {
 	// beep
 
 	// If no buttons are clicked then we handle move
-	else if (KinkyDungeonSlowMoveTurns < 1) {
+	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1) {
 		KinkyDungeonSetMoveDirection();
 
 		if (KinkyDungeonTargetingSpell) {
@@ -1163,7 +1187,14 @@ function KinkyDungeonClickGame(Level) {
 				}
 			} else KinkyDungeonTargetingSpell = null;
 		} else if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
-			KinkyDungeonMove(KinkyDungeonMoveDirection, 1, true);
+			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1 && KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0) {
+				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, true);
+				if (path) {
+					KinkyDungeonFastMovePath = path;
+					KinkyDungeonSleepTime = 100;
+				}
+			} else if (!KinkyDungeonFastMove || Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) <= 1)
+				KinkyDungeonMove(KinkyDungeonMoveDirection, 1, true);
 		}
 	}
 }
@@ -1328,6 +1359,8 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
 					KinkyDungeonMovePoints = Math.min(Math.ceil(KinkyDungeonSlowLevel + 1), KinkyDungeonMovePoints + delta); // Can't store extra move points
 
+					if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
+
 					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						moved = true;
@@ -1357,7 +1390,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonStatStamina += moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta;
 							KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
 							KinkyDungeonStatArousal += KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult;
-							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
+							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;
 							KinkyDungeonWaitMessage();
@@ -1460,7 +1493,6 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 		MiniGameKinkyDungeonLevel += 1;
 
-		KinkyDungeonChangeRep("Ghost", -1);
 		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 		if (toTile == 's') {
 			KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
@@ -1496,9 +1528,9 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1);
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
-	// @ts-ignore
 	for (let inv of KinkyDungeonRestraintList()) {
-		gagchance += KinkyDungeonGagMumbleChancePerRestraint;
+		if (inv.restraint)
+			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}
 	if (!KinkyDungeonPlayer.CanTalk() && Math.random() < gagchance) {
 		let msg = "KinkyDungeonGagMumble";

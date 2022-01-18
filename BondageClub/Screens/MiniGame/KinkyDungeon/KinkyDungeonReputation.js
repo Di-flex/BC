@@ -11,7 +11,7 @@ function KinkyDungeonInitReputation() {
 }
 
 function KinkyDungeonHandleReputation() {
-
+	return true;
 }
 
 function KinkyDungeonChangeRep(Rep, Amount) {

@@ -1,5 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonBack,Back
+KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"The following are licensed under the CC Attribution license:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"The following are licensed under the CC Attribution license:|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified"
 Intro,"You are a mage descending into an ancient underground city of magic."
@@ -8,6 +9,8 @@ Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 
 KinkyDungeonDressPlayer,"Change Appearance"
+KinkyDungeonDressPlayerReset,"Reset Appearance"
+KinkyDungeonConfirm,Confirm Reset?
 
 KinkyDungeonSaveIntro0,"(Copy the code above and save it on your computer to load later)"
 KinkyDungeonSaveIntro,"You come across a black monolith with its face inscribed in runes."
@@ -56,6 +59,7 @@ KinkyDungeonStaminaWarningLow,"You feel exhausted..."
 KinkyDungeonStaminaWarningNone,"You feel like you are going to pass out..."
 
 GameStart,Start New Game
+GameContinue,Continue Last Save
 LoadGame,Load From Code
 GameReturnToMenu,Save Keybindings
 GameConfigKeys,Change Keybindings
@@ -238,6 +242,45 @@ KillSkeleton,"The Skeleton falls to pieces."
 AttackSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"
 AttackSkeleton,"The Skeleton tackles you! (-DamageTaken SP)"
 
+NameDragon,Dragonheart Initiate
+KillDragon,"The Dragonheart Initiate retreats hurriedly."
+AttackDragonBind,"The Dragonheart Initiate apprehends you! (+RestraintAdded)"
+AttackDragon,"The Dragonheart Initiate squeezes your body! (-DamageTaken SP)"
+
+NameDragonIce,Ice Dragonheart
+KillDragonIce,"The Ice Dragonheart retreats in a blast of snow."
+AttackDragonIceBind,"The Ice Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonIce,"The Ice Dragonheart gives your body a cold touch! (-DamageTaken SP)"
+
+NameDragonPoison,Poison Dragonheart
+KillDragonPoison,"The Poison Dragonheart retreats in a green mist."
+AttackDragonPoisonBind,"The Poison Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonPoisonStun,"The Poison Dragonheart smacks you with her axe! (-DamageTaken SP)"
+AttackDragonPoison,"The Poison Dragonheart thrums her claws across your figure! (-DamageTaken SP)"
+
+NameDragonCrystal,Crystal Dragonheart
+KillDragonCrystal,"The Crystal Dragonheart screams and falls to the ground dramatically."
+AttackDragonCrystalBind,"The Crystal Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonCrystal,"The Crystal Dragonheart squeezes you in a big hug! (-DamageTaken SP)"
+
+KinkyDungeonSummonMultiChaoticCrystal,Many crystals rise up out of the ground!
+
+NameChaoticCrystal,Chaotic Crystal
+KillChaoticCrystal,"The crystal shatters!"
+AttackChaoticCrystal,"The chaotic crystal leeches willpower from you! (-DamageTaken SP)"
+
+NameDragonShadow,Shadow Dragonheart
+KillDragonShadow,"The Shadow Dragonheart frowns and runs away."
+AttackDragonShadowBind,"The Shadow Dragonheart apprehends you! (+RestraintAdded)"
+AttackDragonShadowPull,"The Shadow Dragonheart extends her scythe and pulls you closer!!!"
+AttackDragonShadow,"The Shadow Dragonheart catches you with her scythe! (-DamageTaken SP)"
+
+NameDragonLeader,Dragonheart Leader
+KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
+AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
+AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
+AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
+
 NameBandit,Bandit
 KillBandit,"The Bandit collapses."
 AttackBanditBind,"The Bandit restrains you! (+RestraintAdded)"
@@ -327,6 +370,11 @@ NameLearnedRope,Learned Rope
 KillLearnedRope,"The learned rope untangles into a mess of rope."
 AttackLearnedRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
 AttackLearnedRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
+
+NameUnforseenRope,Unforseen Rope
+KillUnforseenRope,"The unforseen rope is gone... or is it?"
+AttackUnforseenRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
+AttackUnforseenRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameMonsterRope,Monster Rope
 KillMonsterRope,"The monster rope bundle collapses into a pile of ropes."
@@ -754,6 +802,27 @@ RestraintLatexCorset,Latex Corset
 RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with convenient straps to grab onto.
 RestraintLatexCorsetDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 
+RestraintDragonStraps,Scale Straps
+RestraintDragonStrapsDesc,"A set of straps buckling tightly around your body and secured at the wrists."
+RestraintDragonStrapsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonLegCuffs,Scale Cuffs
+RestraintDragonLegCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
+RestraintDragonLegCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonAnkleCuffs,Scale Cuffs
+RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
+RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonBoots,Scale Boots
+RestraintDragonBootsDesc,"A pair of extremely high heels lined with dragonscale. They are hard to walk in."
+RestraintDragonBootsDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonBallGag,Scale Gag
+RestraintDragonBallGagDesc,"A gag made of a squishy material and secured with dragonscale straps."
+RestraintDragonBallGagDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonMuzzleGag,Scale Muzzle
+RestraintDragonMuzzleGagDesc,"A muzzle to keep ball gags pressed firmly into the mouth."
+RestraintDragonMuzzleGagDesc2,"It's made from hard-to-cut dragonscale!!!"
+RestraintDragonCollar,Dragon Collar
+RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
+RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
 
 RestraintSlimeBoots,Slime
 RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
@@ -1012,6 +1081,12 @@ KinkyDungeonSpellDescriptionLightningBolt,A bolt of lightning that does DamageDe
 KinkyDungeonSpellCastLightningBolt,You unleash a bolt of lightning!
 KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
+KinkyDungeonSpellCorona,Corona
+KinkyDungeonSpellCoronaBeam,Corona
+KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt damage to the first target hit.
+KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
+KinkyDungeonSpellTargetCorona,Choose line direction
+
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
 KinkyDungeonSpellSPUp2,Stamina Up II
@@ -1097,6 +1172,7 @@ KinkyDungeonSpellShadowWarrior,Shadow Warrior
 KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
 KinkyDungeonSummonSingleShadowWarrior,You call, and the abyss answers!
+KinkyDungeonSpellCastShadowWarrior,You call, and the abyss answers!
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)
@@ -1124,7 +1200,7 @@ KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
 
 KinkyDungeonSpellSlimeBall,Slime Ball
 KinkyDungeonSpellWitchSlimeBall,Witch's Slime Ball
-KinkyDungeonSpellDescriptionSlimeBall,A ball of slime leaves a trail of sticky slime. It deals DamageDealt damage on a hit.
+KinkyDungeonSpellDescriptionSlimeBall,A ball of slime leaves a trail of sticky slime (4 damage when stepped on). It deals DamageDealt damage on a hit.
 KinkyDungeonSpellCastSlimeBall,You hurl a ball of slime!
 KinkyDungeonSpellTargetSlimeBall,Choose aim direction
 
@@ -1197,8 +1273,12 @@ KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
+KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
+KinkyDungeonSpellVineEngulf,"Animated Vines"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
+KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
+KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
 
 KinkyDungeonInventory,"Inventory"
 KinkyDungeonReputation,"Reputation"
@@ -1218,6 +1298,7 @@ KinkyDungeonSpellsSchool,"School: "
 KinkyDungeonSpellsSchoolElements,Elements
 KinkyDungeonSpellsSchoolConjure,Conjuration
 KinkyDungeonSpellsSchoolIllusion,Illusion
+KinkyDungeonSpellsSchoolAny,Any School
 KinkyDungeonSpellsBuy,"Learn Spell"
 KinkyDungeonSpellsPoints,"Spell Points: "
 
@@ -1243,12 +1324,16 @@ KinkyDungeonLore6,"(The note starts with a drawing of a witch whose body is part
 KinkyDungeonLore7,"(The note is from a famous escape artist) Many restraints are applied quite tightly by a skilled rigger. However, anything that isn't made of metal will loosen with enough effort. Just be sure that you give it a good effort and aren't tired, and eventually you will get out!"
 KinkyDungeonLore8,"(The note is from a famous escape artist) Anything can be unbuckled with enough patience. Having a finger extension such as a lockpick will help. Ultimately, though, what matters is that you have a calm state of mind, free from distraction and hopelessness. Stay resolute and you'll get there."
 KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed that the dungeon spirits are more active even after the regular inhabitants such as zombies or skeletons are cleared out. My hypothesis is that the spirits are too afraid to come out in the presence of a more powerful, embodied spirit."
+KinkyDungeonLore10,"(A letter between bandit leaders) One of my subordinates has been reporting a girl bound in heavy leather restraints running around. I told her that this is normal, people keep all kinds of servants around here. But definitely keep an eye out for intruders! Don't let them fool you!"
+KinkyDungeonLore11,"(The note is a letter from the school of conjuration) We really would like to know... why did you summon a frog in the laboratory? People are wondering, you know. One of the student's projects got eaten."
 
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
 KinkyDungeonLore103,"I can't count how many skeletons I've bashed with my hammer today. They seem so fragile..."
+KinkyDungeonLore104,"(The note is scrawled with wiggling lines) IT SEES ME. I SHOULDN'T HAVE DEFILED THE ROPE GODDESS' ALTAR!"
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
+KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."
 
 
 KinkyDungeonLore-1,"(The note is blank)"
@@ -1300,3 +1385,6 @@ KinkyDungeonTrapBandits,"You are ambushed by bandits!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb, gaining +1 Spell Points."
 KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."
+
+KinkyDungeonFreeze,You are frozen!
+KinkyDungeonShadowBind,"Shadowy tendrils wrap around your feet, rooting you in place!!!"

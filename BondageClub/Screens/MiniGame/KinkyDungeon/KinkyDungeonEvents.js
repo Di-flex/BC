@@ -75,6 +75,11 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 						let slime = slimedParts[Math.floor(Math.random() * slimedParts.length)];
 						if (KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("Hard" + slime.name), 0, true)) {
 							KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlimeHarden"), "#ff44ff", 3);
+							if (KinkyDungeonCurrentDress != "SlimeSuit") {
+								KinkyDungeonSetDress("SlimeSuit");
+								KinkyDungeonDressPlayer();
+								KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSlimeSpread"), "#ff44ff", 3);
+							}
 						}
 						KinkyDungeonSlimeLevel = -100;
 					}
@@ -83,6 +88,12 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 
 
 
+		}
+	} else if (Event == "remove") {
+		for (let e of item.events) {
+			if (e.type == "slimeStop" && data == item) {
+				KinkyDungeonSlimeLevel = 0;
+			}
 		}
 	}
 }

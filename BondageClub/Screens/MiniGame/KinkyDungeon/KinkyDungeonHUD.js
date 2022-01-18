@@ -35,9 +35,13 @@ const KinkyDungeonLastChatTimeout = 10000;
 let KinkyDungeonStatBarHeight = 100;
 let KinkyDungeonToggleAutoDoor = true;
 
+let KinkyDungeonFastMove = true;
+let KinkyDungeonFastMovePath = [];
+
 function KinkyDungeonDrawInputs() {
 
 	DrawButton(1880, 120, 100, 40, TextGet("KinkyDungeonRestart"), "White");
+	DrawButton(1885, 900, 90, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonFastMove ? "FastMove" : "FastMoveOff") + ".png");
 
 	// Draw the struggle buttons if applicable
 	if (KinkyDungeonDrawStruggle && KinkyDungeonStruggleGroups)
@@ -214,6 +218,14 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 function KinkyDungeonHandleHUD() {
 	let buttonWidth = 48;
 	if (KinkyDungeonDrawState == "Game") {
+		if (MouseIn(1885, 900, 90, 90)) {
+			if (!KinkyDungeonFastMoveSuppress)
+				KinkyDungeonFastMove = !KinkyDungeonFastMove;
+			KinkyDungeonFastMoveSuppress = false;
+			KinkyDungeonFastMovePath = [];
+			return true;
+		}
+
 
 		if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height))
 			KinkyDungeonSetTargetLocation();

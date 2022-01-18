@@ -6,7 +6,7 @@ var KinkyDungeonMapParams = [
 		"openness" : 3, // Openness of rooms
 		"density" : 3, // Density of tunnels (inverse of room spawn chance)
 		"doodadchance" : 0.16,
-		"barchance" : 0.03,
+		"barchance" : 0.1,
 		"brightness" : 8,
 		"chestcount" : 1,
 		"shrinecount" : 4,
@@ -59,7 +59,7 @@ var KinkyDungeonMapParams = [
 		"openness" : 0,
 		"density" : 2,
 		"doodadchance" : 0.11,
-		"barchance" : 0.03,
+		"barchance" : 0.1,
 		"brightness" : 6,
 		"chestcount" : 2,
 		"shrinecount" : 5,
@@ -110,7 +110,7 @@ var KinkyDungeonMapParams = [
 		"openness" : 6,
 		"density" : 5,
 		"doodadchance" : 0.12,
-		"barchance" : 0.03,
+		"barchance" : 0.02,
 		"brightness" : 7,
 		"chestcount" : 2,
 		"shrinecount" : 5,

@@ -110,6 +110,7 @@ function KinkyDungeonDrawGame() {
 
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
+
 				if (KinkyDungeonMovePoints < 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -117,21 +118,21 @@ function KinkyDungeonDrawGame() {
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatBlind < 0) {
+				if (KinkyDungeonStatBlind > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatFreeze < 0) {
+				if (KinkyDungeonStatFreeze > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Freeze.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
 						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
-				if (KinkyDungeonStatBind < 0) {
+				if (KinkyDungeonStatBind > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Bind.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
@@ -191,15 +192,15 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.strokeStyle = "#88AAFF";
 						KinkyDungeonContext.stroke();
 
-						KinkyDungeonSpellValid = (KinkyDungeonTargetingSpell.projectile || KinkyDungeonTargetingSpell.range >= Math.sqrt((KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) *(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) + (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y) * (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y))) &&
-							(KinkyDungeonTargetingSpell.projectile || KinkyDungeonTargetingSpell.CastInWalls || KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY))) &&
+						KinkyDungeonSpellValid = (KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.range >= Math.sqrt((KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) *(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) + (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y) * (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y))) &&
+							(KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.CastInWalls || KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY))) &&
 							(!KinkyDungeonTargetingSpell.WallsOnly || !KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY)));
 						if (KinkyDungeonTargetingSpell.noTargetEnemies && KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.noTargetPlayer && KinkyDungeonPlayerEntity.x == KinkyDungeonTargetX && KinkyDungeonPlayerEntity.y == KinkyDungeonTargetY) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.mustTarget && KinkyDungeonNoEnemy(KinkyDungeonTargetX, KinkyDungeonTargetY, true)) KinkyDungeonSpellValid = false;
 
 						if (KinkyDungeonSpellValid)
-							if (KinkyDungeonTargetingSpell.projectile)
+							if (KinkyDungeonTargetingSpell.projectileTargeting)
 								DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Target.png",
 									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 									(KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay,
@@ -209,6 +210,16 @@ function KinkyDungeonDrawGame() {
 									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 									(KinkyDungeonTargetX - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonTargetY - CamY)*KinkyDungeonGridSizeDisplay,
 									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+					} else if (KinkyDungeonFastMove && (KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
+						KinkyDungeonSetTargetLocation();
+
+						if (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0) {
+							KinkyDungeonContext.beginPath();
+							KinkyDungeonContext.rect((KinkyDungeonTargetX - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonTargetY - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
+							KinkyDungeonContext.lineWidth = 3;
+							KinkyDungeonContext.strokeStyle = "#ff4444";
+							KinkyDungeonContext.stroke();
+						}
 					} else if ((KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
 						KinkyDungeonContext.beginPath();
 						KinkyDungeonContext.rect((KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
@@ -216,6 +227,14 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.strokeStyle = "#ff4444";
 						KinkyDungeonContext.stroke();
 					}
+				}
+
+				if (KinkyDungeonFastMoveSuppress) {
+					KinkyDungeonContext.beginPath();
+					KinkyDungeonContext.rect(0, 0, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height);
+					KinkyDungeonContext.lineWidth = 4;
+					KinkyDungeonContext.strokeStyle = "#ff4444";
+					KinkyDungeonContext.stroke();
 				}
 				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
 			}
@@ -265,6 +284,9 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonStatArousal > 0)
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatArousal * 100 / KinkyDungeonStatArousalMax);
+	if (KinkyDungeonStatFreeze > 0) {
+		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, 100, '190, 190, 255');
+	}
 
 
 }

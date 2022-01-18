@@ -59,9 +59,9 @@ function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonShopItems = [];
 	let items_mid = 0;
 	let items_high = 0;
-	for (let I = 3 + Math.floor(Math.random() * (1 + Level / 34)); I > 0; I--) {
-		let Rarity = Math.floor(MiniGameKinkyDungeonCheckpoint/2.5);
-		if (items_high == 0 && Math.random() > 0.4) {Rarity = MiniGameKinkyDungeonCheckpoint; items_high += 1;}
+	for (let I = 3 + Math.floor(Math.random() * 3); I > 0; I--) {
+		let Rarity = 0;
+		if (items_high == 0 && Math.random() > 0.4) {Rarity = Math.floor(Level/10); items_high += 1;}
 		else if (items_mid < 2 && Math.random() > 0.6) {Rarity += Math.ceil(Math.random() * 3); items_mid += 1;}
 
 		let item = KinkyDungeonGetShopItem(Level, Rarity, true);
@@ -97,6 +97,7 @@ function KinkyDungeonPayShrine(type) {
 	// TODO shrine effects
 	if (KinkyDungeonShrineTypeRemove.includes(type)) {
 		rep = KinkyDungeonRemoveRestraintsWithShrine(type);
+		KinkyDungeonChangeRep("Ghost", -rep);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
 	} else if (type == "Elements" || type == "Illusion" || type == "Conjure") {
@@ -312,6 +313,15 @@ function KinkyDungeonShrineAngerGods(Type) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), 0, true);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));
 
+	} else if (Type == "Latex") {
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexStraitjacket"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexLegbinder"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexBoots"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexCorset"), 0, true);
+
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));
+
 	} else if (Type == "Conjure" || Type == "Rope") {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapGag"), 0, true, KinkyDungeonGenerateLock(true));
 
@@ -419,7 +429,7 @@ function KinkyDungeonHandleOrb() {
 				if (XX == 0) i = 0;
 				XX = 600;
 			}
-			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i, 250, 55)) {
+			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i - 27, 250, 55)) {
 				KinkyDungeonChangeRep(shrine, Amount * -10);
 				KinkyDungeonSpellPoints += Amount;
 				KinkyDungeonDrawState = "Game";

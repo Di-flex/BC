@@ -78,7 +78,7 @@ let KinkyDungeonBlueKeys = 0;
 let KinkyDungeonNormalBlades = 1;
 let KinkyDungeonEnchantedBlades = 0;
 
-
+let KinkyDungeonHasCrotchRope = false;
 
 // Combat
 let KinkyDungeonTorsoGrabChance = 0.2;
@@ -100,7 +100,10 @@ let KinkyDungeonPlayers = [];
 // For items like the cursed collar which make more enemies appear
 let KinkyDungeonDifficulty = 0;
 
+let KinkyDungeonSubmissiveMult = 0;
+
 function KinkyDungeonDefaultStats() {
+	KinkyDungeonFastMove = true;
 	KinkyDungeonResetEventVariables();
 	KinkyDungeonSetDress("Default");
 	KinkyDungeonSpawnJailers = 0;
@@ -111,6 +114,10 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonNormalBlades = 1;
 	KinkyDungeonEnchantedBlades = 0;
+
+	KinkyDungeonHasCrotchRope = false;
+
+	KinkyDungeonSubmissiveMult = 0;
 
 	KinkyDungeonOrbsPlaced = [];
 
@@ -174,6 +181,11 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 	KinkyDungeonSleepTurns = 0;
 
+	if (KinkyDungeonStatFreeze > 0) {
+		KinkyDungeonStatStamina -= dmg;
+		KinkyDungeonStatFreeze = 0;
+	}
+
 	return dmg;
 }
 
@@ -190,20 +202,12 @@ function KinkyDungeonHasMana(Cost, AddRate) {
 	return s >= Cost;
 }
 
-
-
-function KinkyDungeonUpdateStats(delta) {
-	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
-	// Initialize
-	KinkyDungeonCalculateVibeLevel();
-	KinkyDungeonDifficulty = 0;
-
-	let arousalRate = (KinkyDungeonVibeLevel == 0) ? KinkyDungeonStatArousalRegen : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
-
+function KinkyDungeonSetMaxStats() {
 	// Upgradeable stats
 	KinkyDungeonStatStaminaMax = 36;
 	KinkyDungeonStatArousalMax = 36;
 	KinkyDungeonStatManaMax = 36;
+	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
 		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
@@ -213,6 +217,18 @@ function KinkyDungeonUpdateStats(delta) {
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;
 		}
 	}
+	return arousalRate;
+}
+
+function KinkyDungeonUpdateStats(delta) {
+	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
+	// Initialize
+	KinkyDungeonCalculateVibeLevel();
+	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
+
+	let arousalRate = (KinkyDungeonVibeLevel == 0) ? KinkyDungeonStatArousalRegen : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
+
+	arousalRate += KinkyDungeonSetMaxStats();
 
 	// Dont regen while exhausted
 	if (KinkyDungeonStatWillpowerExhaustion > 0) {
@@ -258,6 +274,8 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 	KinkyDungeonStatBlind = Math.max(0, KinkyDungeonStatBlind - delta);
+	KinkyDungeonStatFreeze = Math.max(0, KinkyDungeonStatFreeze - delta);
+	KinkyDungeonStatBind = Math.max(0, KinkyDungeonStatBind - delta);
 
 	KinkyDungeonCapStats();
 
@@ -266,8 +284,10 @@ function KinkyDungeonUpdateStats(delta) {
 			if (item.restraint.difficultyBonus) {
 				KinkyDungeonDifficulty += item.restraint.difficultyBonus;
 			}
+			if (item.restraint.crotchrope) KinkyDungeonHasCrotchRope = true;
 		}
 	}
+	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
 }
 
@@ -330,7 +350,10 @@ function KinkyDungeonCalculateSlowLevel() {
 		if (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemFeet"), "Block", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemFeet"), "Freeze", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemFeet"), "Slow", true)) KinkyDungeonSlowLevel += 1;
-		if (boots && boots.restraint && boots.restraint.slowboots) KinkyDungeonSlowLevel += 1.0;
+		if (boots && boots.restraint && (boots.restraint.slowboots
+			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Block", true)
+			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Freeze", true)
+			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);
 
@@ -341,4 +364,21 @@ function KinkyDungeonCalculateSlowLevel() {
 			}
 		}
 	}
+}
+
+function KinkyDungeonCalculateSubmissiveMult() {
+	let base = 0;
+	for (let item of KinkyDungeonRestraintList()) {
+		if (item.restraint) {
+			let power = Math.sqrt(Math.max(0, KinkyDungeonGetLockMult(item.lock) * item.restraint.power));
+			base = Math.max(power, base + power/4);
+		}
+	}
+
+	base *= 0.2;
+
+	let mult = Math.max(0, 0.1 + 0.9 * (KinkyDungeonGoddessRep.Ghost + 50)/100);
+	let amount = Math.max(0, base * mult);
+	//console.log(amount);
+	return amount;
 }

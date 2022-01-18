@@ -2,18 +2,20 @@
 
 var KinkyDungeonDressesList = {};
 
+let KinkyDungeonDefaultDefaultDress = [
+	{Item: "WitchHat1", Group: "Hat", Color: "Default", Lost: false},
+	{Item: "LeatherCorsetTop1", Group: "Cloth", Color: "Default", Lost: false},
+	{Item: "LatexSkirt1", Group: "ClothLower", Color: "Default", OverridePriority: 17, Lost: false, Skirt: true},
+	{Item: "Socks4", Group: "Socks", Color: "#444444", Lost: false},
+	{Item: "Heels3", Group: "Shoes", Color: "#222222", Lost: false},
+	{Item: "KittyPanties1", Group: "Panties", Color: "#222222", Lost: false},
+	{Item: "FrameBra2", Group: "Bra", Color: "Default", Lost: false},
+	{Item: "LatexElbowGloves", Group: "Gloves", Color: "Default", Lost: false},
+	{Item: "Necklace4", Group: "Necklace", Color: "#222222", Lost: false},
+];
+
 let KinkyDungeonDresses = {
-	"Default" : [
-		{Item: "WitchHat1", Group: "Hat", Color: "Default", Lost: false},
-		{Item: "LeatherCorsetTop1", Group: "Cloth", Color: "Default", Lost: false},
-		{Item: "LatexSkirt1", Group: "ClothLower", Color: "Default", OverridePriority: 17, Lost: false, Skirt: true},
-		{Item: "Socks4", Group: "Socks", Color: "#444444", Lost: false},
-		{Item: "Heels3", Group: "Shoes", Color: "#222222", Lost: false},
-		{Item: "KittyPanties1", Group: "Panties", Color: "#222222", Lost: false},
-		{Item: "FrameBra2", Group: "Bra", Color: "Default", Lost: false},
-		{Item: "LatexElbowGloves", Group: "Gloves", Color: "Default", Lost: false},
-		{Item: "Necklace4", Group: "Necklace", Color: "#222222", Lost: false},
-	],
+	"Default" : KinkyDungeonDefaultDefaultDress,
 	"Prisoner" : [
 		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#8A120C", Lost: false},
 		{Item: "CatsuitPanties", Group: "SuitLower", Color: "#8A120C", Lost: false},
@@ -53,6 +55,19 @@ let KinkyDungeonDresses = {
 		{Item: "Sandals", Group: "Shoes", Color: "Default", Lost: false},
 		{Item: "FaceVeil", Group: "Mask", Color: "#ffffff", Lost: false},
 		{Item: "HaremPants", Group: "ClothLower", Color: "Default", OverridePriority: 28, Lost: false},
+	],
+	"Dragon" : [
+		{Item: "Sarashi1", Group: "Bra", Color: "#444444", Lost: false},
+		{Item: "SunstripePanties1", Group: "Panties", Color: "#EC1515", Lost: false},
+		{Item: "LatexAnkleShoes", Group: "Shoes", Color: "#AC1818", Lost: false},
+		{Item: "Corset4", Group: "Corset", Color: "#AC1818", Lost: false},
+		{Item: "LatexTop", Group: "Cloth", Color: "#AC1818", Lost: false},
+		{Item: "GarterBelt2", Group: "Garters", Color: "Default", Lost: false},
+	],
+	"SlimeSuit" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#7F3C9B", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#7F3C9B", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#7F3C9B", Lost: false},
 	],
 };
 
@@ -98,17 +113,20 @@ function KinkyDungeonDressSet() {
 
 function KinkyDungeonSetDress(Dress) {
 	KinkyDungeonCurrentDress = Dress;
-	for (let C = 0; C < KinkyDungeonDresses[KinkyDungeonCurrentDress].length; C++) {
-		let clothes = KinkyDungeonDresses[KinkyDungeonCurrentDress][C];
-		clothes.Lost = false;
+	if (KinkyDungeonDresses) {
+		for (let C = 0; C < KinkyDungeonDresses[KinkyDungeonCurrentDress].length; C++) {
+			let clothes = KinkyDungeonDresses[KinkyDungeonCurrentDress][C];
+			clothes.Lost = false;
+		}
+		KinkyDungeonCheckClothesLoss = true;
+		KinkyDungeonDressPlayer();
+		CharacterRefresh(KinkyDungeonPlayer);
 	}
-	KinkyDungeonCheckClothesLoss = true;
-	KinkyDungeonDressPlayer();
-	CharacterRefresh(KinkyDungeonPlayer);
 }
 
 function KinkyDungeonDressPlayer() {
 	if (KinkyDungeonCheckClothesLoss) {
+		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
 		CharacterNaked(KinkyDungeonPlayer);
 		KinkyDungeonUndress = 0;
 	}
