@@ -59,8 +59,8 @@ function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonShopItems = [];
 	let items_mid = 0;
 	let items_high = 0;
-	for (let I = 3 + Math.floor(Math.random() * (1 + Level / 34)); I > 0; I--) {
-		let Rarity = Math.floor(MiniGameKinkyDungeonCheckpoint/2.5);
+	for (let I = 3 + Math.floor(Math.random() * 3); I > 0; I--) {
+		let Rarity = 0;
 		if (items_high == 0 && Math.random() > 0.4) {Rarity = MiniGameKinkyDungeonCheckpoint; items_high += 1;}
 		else if (items_mid < 2 && Math.random() > 0.6) {Rarity += Math.ceil(Math.random() * 3); items_mid += 1;}
 
@@ -314,9 +314,10 @@ function KinkyDungeonShrineAngerGods(Type) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));
 
 	} else if (Type == "Latex") {
-		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeBoots"), 0, true);
-		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeHands"), 5, true);
-		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("SlimeFeet"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexStraitjacket"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexLegbinder"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexBoots"), 0, true);
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("LatexCorset"), 0, true);
 
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), 0, true);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ChainCrotch"), 0, true, KinkyDungeonGenerateLock(true));

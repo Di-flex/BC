@@ -64,6 +64,11 @@ let KinkyDungeonDresses = {
 		{Item: "LatexTop", Group: "Cloth", Color: "#AC1818", Lost: false},
 		{Item: "GarterBelt2", Group: "Garters", Color: "Default", Lost: false},
 	],
+	"SlimeSuit" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#7F3C9B", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#7F3C9B", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#7F3C9B", Lost: false},
+	],
 };
 
 var KinkyDungeonCheckClothesLoss = false;
