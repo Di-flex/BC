@@ -488,7 +488,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			KinkyDungeonKilledEnemy = null;
 		}
 		if (enemy.Enemy && enemy.Enemy.maxhp)
-			KinkyDungeonChangeRep("Ghost", -Math.max(5, 0.05 * enemy.Enemy.maxhp));
+			KinkyDungeonChangeRep("Ghost", -Math.max(5, 0.02 * enemy.Enemy.maxhp));
 
 		if (enemy.Enemy && enemy.Enemy.ondeath) {
 			for (let o of enemy.Enemy.ondeath) {

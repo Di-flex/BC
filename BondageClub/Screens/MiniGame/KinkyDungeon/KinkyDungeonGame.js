@@ -1486,7 +1486,6 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 		MiniGameKinkyDungeonLevel += 1;
 
-		KinkyDungeonChangeRep("Ghost", -1);
 		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 		if (toTile == 's') {
 			KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
