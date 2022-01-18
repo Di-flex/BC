@@ -226,11 +226,16 @@ AttackSamuraiZombieBind,"The Warrior zombie uses a traditional binding technique
 AttackSamuraiZombieStun,"The Warrior zombie strikes you with her wooden sword! (+STUN)"
 AttackSamuraiZombie,"The Warrior zombie runs its fingers along your body! (-DamageTaken SP)"
 
-NameNinja,Assassin
-KillNinja,"The assassin retreats into the shadows."
-AttackNinjaBind,"The assassin uses a traditional binding technique (+RestraintAdded)"
-AttackNinjaStun,"The assassin tosses a shuriken and hits you! (Stunned!)"
-AttackNinja,"The assassin uses a subduing technique! (-DamageTaken SP)"
+NameNinja,Ninja Warrior
+KillNinja,"The warrior retreats into the shadows."
+AttackNinjaBind,"The warrior uses a traditional binding technique (+RestraintAdded)"
+AttackNinjaStun,"The warrior tosses a shuriken and hits you! (Stunned!)"
+AttackNinja,"The warrior uses a subduing technique! (-DamageTaken SP)"
+
+NameNinjaStalker,Ninja Assassin
+KillNinjaStalker,"The assassin retreats into the shadows."
+AttackNinjaStalkerBind,"The assassin uses a traditional binding technique (+RestraintAdded)"
+AttackNinjaStalker,"The assassin uses a subduing technique! (-DamageTaken SP)"
 
 NameAnimatedArmor,Animated Armor
 KillAnimatedArmor,"The Animated Armor falls into pieces."

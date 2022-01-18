@@ -1743,7 +1743,7 @@ var AssetFemale3DCGExtended = {
 				DrawImages: false,
 			},
 		}, // GwenHood
-			OpenFaceHood: {
+		OpenFaceHood: {
 			Archetype: ExtendedArchetype.TYPED,
 			Config: {
 				Options: [
@@ -1760,7 +1760,7 @@ var AssetFemale3DCGExtended = {
 					Load: "SelectOpenFaceHoodStyle",
 					TypePrefix: "OpenFaceHoodStyle",
 				},
-					DrawImages: false,
+				DrawImages: false,
 			}
 		}, // OpenFaceHood
 		TechnoHelmet1: {
@@ -3725,7 +3725,7 @@ var AssetFemale3DCGExtended = {
 					Load: "SelectOpenFaceHoodStyle",
 					TypePrefix: "OpenFaceHoodStyle",
 				},
-					DrawImages: false,
+				DrawImages: false,
 			}
 		}, // OpenFaceHood
 		PetNose: {
