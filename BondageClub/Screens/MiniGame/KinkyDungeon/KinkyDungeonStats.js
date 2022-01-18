@@ -224,7 +224,7 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
 	// Initialize
 	KinkyDungeonCalculateVibeLevel();
-	KinkyDungeonDifficulty = 0;
+	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
 
 	let arousalRate = (KinkyDungeonVibeLevel == 0) ? KinkyDungeonStatArousalRegen : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
 
