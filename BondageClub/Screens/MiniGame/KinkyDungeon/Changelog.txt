@@ -232,6 +232,16 @@ Bugfix:
 - Dragonhearts can now open doors T_T
 - Added ninja assassin with stealth (but no shuriken or stun)
 
+2.43
+- Auto struggle has been added
+- Message log has been added
+- Shrunk the Close Doors toggle
+- Moved Cut to be after Struggle rather than after everything else
+- Most enemies will not cast spells at the leashed player
+
+2.44
+
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
