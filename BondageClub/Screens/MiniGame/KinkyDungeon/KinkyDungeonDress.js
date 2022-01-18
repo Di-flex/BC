@@ -117,10 +117,10 @@ function KinkyDungeonSetDress(Dress) {
 		for (let C = 0; C < KinkyDungeonDresses[KinkyDungeonCurrentDress].length; C++) {
 			let clothes = KinkyDungeonDresses[KinkyDungeonCurrentDress][C];
 			clothes.Lost = false;
+		}
 		KinkyDungeonCheckClothesLoss = true;
 		KinkyDungeonDressPlayer();
 		CharacterRefresh(KinkyDungeonPlayer);
-
 	}
 }
 
