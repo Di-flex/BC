@@ -140,7 +140,7 @@ var KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 12}, {name: "BlueKey", weight: 1}, {name: "PotionMana", weight: 1}]},
 	{name: "DragonShadow", color: "#4400ff", tags: ["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "coldimmune", "fireresist"], followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["ShadowOrb"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0, pullTowardSelf: true, pullDist: 3,
-		specialCD: 7, specialAttack: "Pull", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "MagicSlash",
+		specialCD: 7, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "MagicSlash",
 		visionRadius: 8, maxhp: 16, minLevel:0, weight:-1, movePoints: 2, attackPoints: 2, attack: "SpellMeleeWill", stunTime: 3, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Knife", weight: 5}, {name: "PotionMana", weight: 1}]},
@@ -948,18 +948,20 @@ function KinkyDungeonUpdateEnemies(delta) {
 							enemy.hp = 0;
 						}
 						if (player.player && playerDist < range + 0.5 && (enemy.Enemy.tags && enemy.Enemy.tags.includes("leashing") || attack.includes("Pull")) && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
-							let leashed = attack.includes("Pull");
-							if (!leashed)
+							let wearingLeash = false;
+							if (!wearingLeash && !attack.includes("Pull"))
 								for (let restraint of KinkyDungeonRestraintList()) {
 									if (restraint.restraint && restraint.restraint.leash) {
-										leashed = true;
+										wearingLeash = true;
 										break;
 									}
 								}
+							let leashToExit = enemy.Enemy.tags.includes("leashing") && !KinkyDungeonHasStamina(1.1);
+							let leashed = wearingLeash || attack.includes("Pull");
 							if (leashed) {
 								let leashPos = KinkyDungeonStartPosition;
 								let findMaster = undefined;
-								if (enemy.Enemy.pullTowardSelf && (Math.abs(player.x - enemy.x) > 1.5 || Math.abs(player.y - enemy.y) > 1.5)) {
+								if (!leashToExit && enemy.Enemy.pullTowardSelf && (Math.abs(player.x - enemy.x) > 1.5 || Math.abs(player.y - enemy.y) > 1.5)) {
 									findMaster = enemy;
 									if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
 								} else {
@@ -1004,6 +1006,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 												enemy.x = leashPoint.x;
 												enemy.y = leashPoint.y;
 												hitsfx = "Struggle";
+												if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
 												if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
 													KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
 													if (KinkyDungeonTiles[enemy.x + ',' +enemy.y] && KinkyDungeonTiles[enemy.x + ',' +enemy.y].Type == "Door")
@@ -1020,6 +1023,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 										if (path && path.length > 0) {
 											let leashPoint = path[Math.min(Math.max(0,path.length-2), pullDist)];
 											if (!KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y)) {
+												if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
 												KinkyDungeonLeashedPlayer = 1;
 												KinkyDungeonLeashingEnemy = enemy;
 												KinkyDungeonPlayerEntity.x = leashPoint.x;
