@@ -191,12 +191,9 @@ function KinkyDungeonHandleShrine() {
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
 				KinkyDungeonUpdateStats(0);
 				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
-			} else if (1 >= KinkyDungeonActionMessagePriority) {
-				KinkyDungeonActionMessageTime = 1;
+			} else {
+				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonPayShrineFail"), "red", 1);
 				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
-				KinkyDungeonActionMessage = TextGet("KinkyDungeonPayShrineFail");
-				KinkyDungeonActionMessagePriority = 1;
-				KinkyDungeonActionMessageColor = "red";
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			return true;

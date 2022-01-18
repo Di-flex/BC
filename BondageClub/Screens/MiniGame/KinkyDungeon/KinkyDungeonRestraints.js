@@ -429,7 +429,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (restraint.restraint.escapeChance[StruggleType] < 0) typesuff = "2";
 			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 2);
-			return false;
+			return "Impossible";
 		}
 	}
 
@@ -489,7 +489,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		} else {
 			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound"), "red", 2);
-			return false;
+			return "Impossible";
 		}
 	}
 
@@ -650,9 +650,9 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		}
 
 		KinkyDungeonAdvanceTime(1);
-		return true;
+		return Pass;
 	}
-	return false;
+	return "Impossible";
 }
 
 function KinkyDungeonGetRestraintItem(group) {

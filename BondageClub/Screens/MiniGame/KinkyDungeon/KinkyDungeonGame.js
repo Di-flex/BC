@@ -1277,7 +1277,10 @@ function KinkyDungeonGameKeyDown() {
 	}
 }
 
-function KinkyDungeonSendTextMessage(priority, text, color, time) {
+function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe) {
+	if (!noPush)
+		if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+			KinkyDungeonMessageLog.push({text: text, color: color});
 	if ( priority >= KinkyDungeonTextMessagePriority) {
 		KinkyDungeonTextMessageTime = time;
 		KinkyDungeonTextMessage = text;
@@ -1289,7 +1292,10 @@ function KinkyDungeonSendTextMessage(priority, text, color, time) {
 }
 
 
-function KinkyDungeonSendActionMessage(priority, text, color, time) {
+function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDupe) {
+	if (!noPush)
+		if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+			KinkyDungeonMessageLog.push({text: text, color: color});
 	if ( priority >= KinkyDungeonActionMessagePriority) {
 		KinkyDungeonActionMessageTime = time;
 		KinkyDungeonActionMessage = text;
@@ -1377,12 +1383,12 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						let plugLevel = Math.round(Math.min(3, KinkyDungeonStatPlugLevel));
 						let dict = KinkyDungeonPlugCount > 1 ? "plugs" : "plug";
 						let dicts = KinkyDungeonPlugCount > 1 ? "" : "s";
-						if (KinkyDungeonSlowLevel == 0 && KinkyDungeonPlugCount > 0) KinkyDungeonSendTextMessage(0, TextGet("KinkyDungeonPlugWalk" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2);
-						if (KinkyDungeonSlowLevel == 1) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonSlowed" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2);
-						else if (KinkyDungeonSlowLevel == 2) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonHopping" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "orange", 2);
-						else if (KinkyDungeonSlowLevel == 3) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonInching" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2);
-						else if (KinkyDungeonSlowLevel < 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrawling" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2);
-						else KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2);
+						if (KinkyDungeonSlowLevel == 0 && KinkyDungeonPlugCount > 0) KinkyDungeonSendTextMessage(0, TextGet("KinkyDungeonPlugWalk" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
+						if (KinkyDungeonSlowLevel == 1) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonSlowed" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
+						else if (KinkyDungeonSlowLevel == 2) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonHopping" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "orange", 2, true);
+						else if (KinkyDungeonSlowLevel == 3) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonInching" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
+						else if (KinkyDungeonSlowLevel < 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrawling" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
+						else KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
 
 						let moveMult = Math.max(1, KinkyDungeonSlowLevel);
 						if (KinkyDungeonSlowLevel > 9) moveMult = 1;
@@ -1557,7 +1563,7 @@ function KinkyDungeonTargetTileMsg() {
 		KinkyDungeonGhostMessage();
 	} else if (KinkyDungeonTargetTile.Lock) {
 		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Locked.ogg");
-		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObjectLock").replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);
+		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObjectLock").replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1, false, true);
 	} else {
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObject" + KinkyDungeonTargetTile.Type).replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);
 	}

@@ -51,8 +51,7 @@ function KinkyDungeonLoad() {
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer) {
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
-			// @ts-ignore
-			KinkyDungeonPlayer.Type = "game";
+			KinkyDungeonPlayer.Type = "simple";
 			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true, };
 
@@ -212,6 +211,15 @@ function KinkyDungeonRun() {
 					KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
 				}
 				KinkyDungeonSleepTime = CommonTime() + 100;
+			}
+		} else if (KinkyDungeonFastStruggle && KinkyDungeonFastStruggleType && KinkyDungeonFastStruggleGroup) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				let result = KinkyDungeonStruggle(KinkyDungeonFastStruggleGroup, KinkyDungeonFastStruggleType);
+				if (result != "Fail" || !KinkyDungeonHasStamina(1.1)) {
+					KinkyDungeonFastStruggleType = "";
+					KinkyDungeonFastStruggleGroup = "";
+				}
+				KinkyDungeonSleepTime = CommonTime() + 250;
 			}
 		} else if (KinkyDungeonSleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {

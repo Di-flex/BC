@@ -59,11 +59,6 @@ function KinkyDungeonDrawGame() {
 	DrawText(TextGet("CurrentLevel") + MiniGameKinkyDungeonLevel, 750, 42, "white", "black");
 	DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "black");
 
-	if (KinkyDungeonTextMessageTime > 0)
-		DrawText(KinkyDungeonTextMessage, 1150, 82, KinkyDungeonTextMessageColor, "black");
-	if (KinkyDungeonActionMessageTime > 0)
-		DrawText(KinkyDungeonActionMessage, 1150, 132, KinkyDungeonActionMessageColor, "black");
-
 	// Draw the stats
 	KinkyDungeonDrawStats(canvasOffsetX + KinkyDungeonCanvas.width+10, canvasOffsetY, 1975 - (canvasOffsetX + KinkyDungeonCanvas.width+5), KinkyDungeonStatBarHeight);
 
@@ -250,6 +245,8 @@ function KinkyDungeonDrawGame() {
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
 			}
+
+			KinkyDungeonDrawMessages();
 		} else {
 			DrawText(TextGet("KinkyDungeonLoading"), 1100, 500, "white", "black");
 			if (CommonTime() > KinkyDungeonGameDataNullTimerTime + KinkyDungeonGameDataNullTimer) {
@@ -289,6 +286,29 @@ function KinkyDungeonDrawGame() {
 	}
 
 
+}
+
+let KinkyDungeonMessageToggle = false;
+let KinkyDungeonMessageLog = [];
+
+function KinkyDungeonDrawMessages() {
+	DrawButton(1700, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
+	if (!KinkyDungeonMessageToggle) {
+		if (KinkyDungeonTextMessageTime > 0)
+			DrawText(KinkyDungeonTextMessage, 1150, 82, KinkyDungeonTextMessageColor, "black");
+		if (KinkyDungeonActionMessageTime > 0)
+			DrawText(KinkyDungeonActionMessage, 1150, 132, KinkyDungeonActionMessageColor, "black");
+	} else {
+		let extra = 200;
+		DrawRect(canvasOffsetX, 82, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height/2 + extra, "#000000");
+		let Dist = 50;
+		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
+			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];
+			DrawText(log.text, 1150, 82 + i * Dist + Dist/2, log.color, "white");
+		}
+		if (KinkyDungeonMessageLog.length > Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist))
+			KinkyDungeonMessageLog.splice(0, Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist) - KinkyDungeonMessageLog.length);
+	}
 }
 
 function KinkyDungeonUpdateVisualPosition(Entity, amount) {
