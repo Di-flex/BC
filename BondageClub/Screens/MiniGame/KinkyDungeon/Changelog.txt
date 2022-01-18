@@ -227,6 +227,8 @@ Bugfix:
 - Rope tentacles now die if there is no more kraken on the map
 - Dragonslayer AI is now set to patrol
 - Enabled fast movement via pathfinding
+- Stat upgrades now work with any school of magic
+- Assassins no longer have stealth
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

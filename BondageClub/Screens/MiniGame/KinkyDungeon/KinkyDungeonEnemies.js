@@ -646,6 +646,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (!enemy.warningTiles) enemy.warningTiles = [];
 			let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, true, true);
 			let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, false);
+			let canShootPlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true);
+
+			if (enemy.Enemy.projectileAttack && !canShootPlayer) followRange = 1;
 
 			if (canSeePlayer && enemy.Enemy.tags.includes("jailer") && (KinkyDungeonPlayer.CanInteract() || (Math.abs(player.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(player.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash))) {
 				KinkyDungeonJailTransgressed = true;
@@ -810,7 +813,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					} else {
 						let playerIn = false;
 						for (let tile of enemy.warningTiles) {
-							if (player.x == tile.x && player.y == tile.y) {playerIn = true; break;}
+							if (player.x == enemy.x + tile.x && player.y == enemy.x + tile.y) {playerIn = true; break;}
 						}
 						if (!playerIn) {
 							if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
