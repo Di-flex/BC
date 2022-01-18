@@ -9,6 +9,8 @@ var KinkyDungeonKeybindings = null;
 var KinkyDungeonKeybindingsTemp = null;
 var KinkyDungeonKeybindingCurrentKey = 0;
 
+let KinkyDungeonNewGame = 0;
+
 var KinkyDungeonGameRunning = false;
 
 //var KinkyDungeonKeyLower = [87+32, 65+32, 83+32, 68+32, 81+32, 45+32, 90+32, 43+32]; // WASD
@@ -232,6 +234,9 @@ function KinkyDungeonRun() {
 		// Draw temp start screen
 		DrawText(TextGet("EndWin"), 1250, 400, "white", "silver");
 		DrawText(TextGet("EndWin2"), 1250, 500, "white", "silver");
+
+		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonNewGamePlus"), "White", "");
+		DrawButton(1275, 750, 350, 64, TextGet("GameReturnToMenu"), "White", "");
 	} else if (KinkyDungeonState == "Keybindings") {
 		// Draw temp start screen
 		DrawButton(1075, 750, 350, 64, TextGet("GameReturnToMenu"), "White", "");
@@ -453,6 +458,18 @@ function KinkyDungeonHandleClick() {
 				return true;
 			}
 		}
+	} else if (KinkyDungeonState == "End") {
+		if (MouseIn(875, 750, 350, 64)) {
+			KinkyDungeonState = "Game";
+			KinkyDungeonSetCheckPoint(0);
+			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
+			MiniGameKinkyDungeonLevel = 1;
+			KinkyDungeonNewGame += 1;
+			return true;
+		} if (MouseIn(1275, 750, 350, 64)) {
+			KinkyDungeonState = "Menu";
+			return true;
+		}
 	}
 
 
@@ -648,6 +665,7 @@ let KinkyDungeonGameKey = {
 	},
 };
 
+
 function KinkyDungeonSaveGame(ToString) {
 	let saveData = {KinkyDungeonSave: {}};
 	let save = saveData.KinkyDungeonSave;
@@ -691,7 +709,8 @@ function KinkyDungeonSaveGame(ToString) {
 		mana: KinkyDungeonStatMana,
 		stamina: KinkyDungeonStatStamina,
 		arousal: KinkyDungeonStatArousal,
-		wep: KinkyDungeonPlayerWeapon
+		wep: KinkyDungeonPlayerWeapon,
+		npp: KinkyDungeonNewGame,
 	};
 
 	let data = LZString.compressToBase64(JSON.stringify(save));
@@ -738,6 +757,7 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
 				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;
 				if (saveData.stats.wep != undefined) KinkyDungeonPlayerWeapon = saveData.stats.wep;
+				if (saveData.stats.npp != undefined) KinkyDungeonNewGame = saveData.stats.npp;
 			}
 
 
