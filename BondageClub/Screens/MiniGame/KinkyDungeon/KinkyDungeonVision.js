@@ -6,6 +6,18 @@
 
 let KinkyDungeonSeeAll = false;
 
+function KinkyDungeonCheckProjectileClearance(x1, y1, x2, y2) {
+	let tiles = KinkyDungeonTransparentObjects;
+	let dist = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+	for (let d = 0; d < dist; d += 0.5) {
+		let mult = d / dist;
+		let xx = x1 + mult * (x2-x1);
+		let yy = y1 + mult * (y2-y1);
+		if (!tiles.includes(KinkyDungeonMapGet(Math.round(xx), Math.round(yy)))) return false;
+	}
+	return true;
+}
+
 function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 	let length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	let obj = allowBars ? KinkyDungeonTransparentObjects : KinkyDungeonTransparentMovableObjects;
