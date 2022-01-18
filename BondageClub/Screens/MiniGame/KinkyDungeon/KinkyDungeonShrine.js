@@ -429,7 +429,7 @@ function KinkyDungeonHandleOrb() {
 				if (XX == 0) i = 0;
 				XX = 600;
 			}
-			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i, 250, 55)) {
+			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i - 27, 250, 55)) {
 				KinkyDungeonChangeRep(shrine, Amount * -10);
 				KinkyDungeonSpellPoints += Amount;
 				KinkyDungeonDrawState = "Game";

@@ -162,7 +162,7 @@ function KinkyDungeonRun() {
 		DrawText(TextGet("Intro3"), 1250, 600, "white", "silver");
 		DrawText(TextGet("Intro4"), 1250, 700, "white", "silver");
 
-		if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable())
+		if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && ServerURL != "foobar")
 			DrawText(TextGet("DeviousChallenge"), 1250, 925, "white", "silver");
 
 		DrawButton(875, 750, 350, 64, TextGet("GameContinue"), localStorage.getItem('KinkyDungeonSave') ? "White" : "pink", "");

@@ -357,6 +357,7 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 }
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonEntities = [];
 
@@ -448,6 +449,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonCurrentMaxEnemies = KinkyDungeonEntities.length;
 }
 
+// @ts-ignore
 function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
@@ -656,6 +658,7 @@ function KinkyDungeonPlaceLore(width, height) {
 
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	let shrinelist = [];
 	KinkyDungeonCommercePlaced = 0;
@@ -728,6 +731,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 let KinkyDungeonCommercePlaced = 0;
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonGenerateShrine(Floor) {
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
@@ -756,6 +760,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
@@ -778,6 +783,7 @@ function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 			}
 }
 
+// @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
 	for (let trap of traps) {
@@ -1156,6 +1162,7 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 
 // Click function for the game portion
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonHandleHUD()) {
@@ -1521,9 +1528,9 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1);
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
-	// @ts-ignore
 	for (let inv of KinkyDungeonRestraintList()) {
-		gagchance += KinkyDungeonGagMumbleChancePerRestraint;
+		if (inv.restraint)
+			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}
 	if (!KinkyDungeonPlayer.CanTalk() && Math.random() < gagchance) {
 		let msg = "KinkyDungeonGagMumble";
