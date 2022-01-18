@@ -296,7 +296,7 @@ function KinkyDungeonHandleHUD() {
 				KinkyDungeonHandleShrine();
 
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
-				if (MouseIn(675, 825, 250, 60)) {
+				if (MouseIn(675, 825, 350, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					KinkyDungeonTargetTile = null;
 					let x = KinkyDungeonTargetTileLocation.split(',')[0];
@@ -309,7 +309,7 @@ function KinkyDungeonHandleHUD() {
 				}
 			}
 		} else {
-			if (MouseIn(675, 825, 350, 60)) {
+			if (MouseIn(675, 825, 250, 60)) {
 				KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor;
 				if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 0;
 				return true;
