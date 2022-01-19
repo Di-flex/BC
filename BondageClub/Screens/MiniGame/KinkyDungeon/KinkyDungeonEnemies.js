@@ -156,9 +156,9 @@ var KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
 
 
-	{name: "ElementalFire", tags: ["construct", "fireimmune", "electricresist", "coldweakness", "iceweakness", "shackleRestraints", "shackleGag", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
+	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "electricresist", "coldweakness", "iceweakness", "obsidianRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
 		spells: ["HeatBolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true,
-		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
+		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, }, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 
 	{name: "ChaoticCrystal", color: "#ff00aa22", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1.5,
@@ -1143,6 +1143,14 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 							let sfx = (hitsfx) ? hitsfx : "Damage";
 							if (usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
+							KinkyDungeonSendInventoryEvent("hit", {
+								happened: happened,
+								attack: attack,
+								enemy: enemy,
+								bound: bound,
+								damage: willpowerDamage,
+								damagetype: enemy.Enemy.dmgType,
+							});
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
 							if (replace)
@@ -1178,7 +1186,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					spellchoice = enemy.Enemy.spells[Math.floor(Math.random()*enemy.Enemy.spells.length)];
 					spell = KinkyDungeonFindSpell(spellchoice, true);
 					if ((!spell.castRange && playerDist > spell.range) || (spell.castRange && playerDist > spell.castRange)) spell = null;
-					if (spell.projectileTargeting && !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y)) spell = null;
+					if (spell && spell.projectileTargeting && !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y)) spell = null;
 					else break;
 				}
 

@@ -202,26 +202,7 @@ function KinkyDungeonRun() {
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
-		if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				if (KinkyDungeonFastMovePath.length > 0) {
-					let next = KinkyDungeonFastMovePath[0];
-					KinkyDungeonDoorCloseTimer = 1;
-					KinkyDungeonFastMovePath.splice(0, 1);
-					KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
-				}
-				KinkyDungeonSleepTime = CommonTime() + 100;
-			}
-		} else if (KinkyDungeonFastStruggle && KinkyDungeonFastStruggleType && KinkyDungeonFastStruggleGroup) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				let result = KinkyDungeonStruggle(KinkyDungeonFastStruggleGroup, KinkyDungeonFastStruggleType);
-				if (result != "Fail" || !KinkyDungeonHasStamina(1.1)) {
-					KinkyDungeonFastStruggleType = "";
-					KinkyDungeonFastStruggleGroup = "";
-				}
-				KinkyDungeonSleepTime = CommonTime() + 250;
-			}
-		} else if (KinkyDungeonSleepTurns > 0) {
+		if (KinkyDungeonSleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSleepTurns -= 1;
 				KinkyDungeonAdvanceTime(1);
@@ -239,6 +220,25 @@ function KinkyDungeonRun() {
 				KinkyDungeonSlowMoveTurns -= 1;
 				KinkyDungeonAdvanceTime(1, false, true);
 				KinkyDungeonSleepTime = CommonTime() + Math.max(100, 200 - 50 * KinkyDungeonSlowMoveTurns);
+			}
+		} else if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				if (KinkyDungeonFastMovePath.length > 0) {
+					let next = KinkyDungeonFastMovePath[0];
+					KinkyDungeonDoorCloseTimer = 1;
+					KinkyDungeonFastMovePath.splice(0, 1);
+					KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
+				}
+				KinkyDungeonSleepTime = CommonTime() + 100;
+			}
+		} else if (KinkyDungeonFastStruggle && KinkyDungeonFastStruggleType && KinkyDungeonFastStruggleGroup) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				let result = KinkyDungeonStruggle(KinkyDungeonFastStruggleGroup, KinkyDungeonFastStruggleType);
+				if (result != "Fail" || !KinkyDungeonHasStamina(1.1)) {
+					KinkyDungeonFastStruggleType = "";
+					KinkyDungeonFastStruggleGroup = "";
+				}
+				KinkyDungeonSleepTime = CommonTime() + 250;
 			}
 		} else KinkyDungeonSleepTime = CommonTime() + 100;
 	} else if (KinkyDungeonState == "End") {

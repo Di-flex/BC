@@ -839,6 +839,38 @@ RestraintDragonCollar,Dragon Collar
 RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
 RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
 
+RestraintObsidianGag,Obsidian Muzzle
+RestraintObsidianGagDesc,"A muzzle made from segmented metal pieces, fitting securely over your face."
+RestraintObsidianGagDesc2,"It's made of a dark, glistening volcanic metal."
+
+RestraintObsidianCollar,Obsidian Collar
+RestraintObsidianCollarDesc,"A collar made from a warm, shining alloy."
+RestraintObsidianCollarDesc2,"It's made of a dark, glistening volcanic metal."
+
+RestraintObsidianArmCuffs,Obsidian Cuffs
+RestraintObsidianArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
+RestraintObsidianArmCuffsDesc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonLinkObsidianArmCuffs,"The enemy attaches your wrist cuffs together!"
+
+RestraintObsidianArmCuffs2,Obsidian Cuffs
+RestraintObsidianArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintObsidianArmCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonUnlinkObsidianArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkObsidianArmCuffs,"The enemy attaches your elbow cuffs together!"
+
+RestraintObsidianArmCuffs3,Obsidian Cuffs
+RestraintObsidianArmCuffs3Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintObsidianArmCuffs3Desc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonUnlinkObsidianArmCuffs3,"Your elbow cuffs detach!"
+
+
+RestraintObsidianLegCuffs,Obsidian Cuffs
+RestraintObsidianLegCuffsDesc,"A pair of cuffs chaining your legs together."
+RestraintObsidianLegCuffsDesc2,"It's made of a dark, glistening volcanic metal."
+RestraintObsidianAnkleCuffs,Obsidian Cuffs
+RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
+RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
+
 RestraintSlimeBoots,Slime
 RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
@@ -1227,8 +1259,8 @@ KinkyDungeonSpellTargetSlimeBall,Choose aim direction
 
 KinkyDungeonSpellSummonSkeleton,Summon Skeleton
 KinkyDungeonSpellSummonSkeletons,Mass Summon Skeleton
-KinkyDungeonSummonSingleSkeleton,A skeleton arises from bones on the floor!
-KinkyDungeonSummonMultiSkeleton,A gang of SummonCount skeletons forms around you!
+KinkyDungeonSummonSingleSummonedSkeleton,A skeleton arises from bones on the floor!
+KinkyDungeonSummonMultiSummonedSkeleton,A gang of SummonCount skeletons forms around you!
 
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
