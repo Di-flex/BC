@@ -207,7 +207,12 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	KinkyDungeonDrawProgress(x, y + heightPerBar*1.5, KinkyDungeonStatStamina/maxVisual, Math.floor(KinkyDungeonStatStaminaMax/12), width, "Stamina");
 	KinkyDungeonDrawProgress(x, y + heightPerBar*2.5, KinkyDungeonStatMana/maxVisual, Math.floor(KinkyDungeonStatManaMax/12), width, "Mana");
 
-	DrawButton(x, y+3*heightPerBar, 250, 50, TextGet("KinkyDungeonSleep"), "White");
+	let sleepColor = "#444444";
+	if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.25) sleepColor = "#ffffff";
+	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.5) sleepColor = "#bbbbbb";
+	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.75) sleepColor = "#999999";
+	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) sleepColor = "#777777";
+	DrawButton(x, y+3*heightPerBar, 250, 50, TextGet("KinkyDungeonSleep"), sleepColor);
 
 	let i = 3.5;
 	DrawText(TextGet("CurrentGold") + KinkyDungeonGold, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;

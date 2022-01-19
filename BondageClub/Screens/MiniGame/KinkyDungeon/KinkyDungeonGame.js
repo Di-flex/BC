@@ -1530,8 +1530,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 		let msg = "KinkyDungeonStaminaWarningMed";
 		if (KinkyDungeonStatStamina < 12) msg = "KinkyDungeonStaminaWarningLow";
 		if (KinkyDungeonStatStamina < 4) msg = "KinkyDungeonStaminaWarningNone";
-		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ff8800", 1))
-			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1);
+		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ff8800", 1, true))
+			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1, true);
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
 	for (let inv of KinkyDungeonRestraintList()) {
