@@ -199,6 +199,8 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonTiles = {};
 	KinkyDungeonTargetTile = "";
 
+	KinkyDungeonFastMovePath = [];
+
 	KinkyDungeonGenerateShop(MiniGameKinkyDungeonLevel);
 
 	let height = MapParams.min_height + 2*Math.floor(0.5*Math.random() * (MapParams.max_height - MapParams.min_height));
