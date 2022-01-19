@@ -219,7 +219,7 @@ function KinkyDungeonRun() {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSlowMoveTurns -= 1;
 				KinkyDungeonAdvanceTime(1, false, true);
-				KinkyDungeonSleepTime = CommonTime() + Math.max(100, 200 - 50 * KinkyDungeonSlowMoveTurns);
+				KinkyDungeonSleepTime = CommonTime() + 200;
 			}
 		} else if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {

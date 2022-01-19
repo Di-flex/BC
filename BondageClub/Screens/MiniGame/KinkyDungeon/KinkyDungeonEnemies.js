@@ -1073,7 +1073,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 										}
 									}
 								}
-								if (tile) {
+								if (tile && tile.x != player.x && tile.y != player.y) {
 									Dash = true;
 									enemy.x = tile.x;
 									enemy.y = tile.y;
