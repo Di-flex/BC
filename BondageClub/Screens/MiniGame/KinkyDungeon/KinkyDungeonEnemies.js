@@ -172,13 +172,13 @@ var KinkyDungeonEnemies = [
 	{name: "ElementalEarth", tags: ["opendoors", "construct", "fireresist", "electricimmune", "iceweakness", "obsidianRestraints", "leashing"], armor: 1, followRange: 1, AI: "hunt",
 		specialCD: 15, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 4, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true,
 		spells: ["ArmorUp", "Earthfield"], spellCooldownMult: 1, spellCooldownMod: 14, followLeashedOnly: true, buffallies: true,
-		visionRadius: 9, maxhp: 12, minLevel:0, weight:-1, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+		visionRadius: 9, maxhp: 12, minLevel:0, weight:-2, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 	{name: "ElementalAir", color: "#88aaff", tags: ["opendoors", "construct", "fireweakness", "electricimmune", "coldweakness", "latexRestraints", "leashing"], armor: -1, followRange: 1, AI: "hunt", evasion: 0.5,
 		specialCD: 5, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true, dashThrough: true,
 		spells: ["WitchElectrify"], spellCooldownMult: 1, spellCooldownMod: 3, followLeashedOnly: true,
-		visionRadius: 8, maxhp: 10, minLevel:0, weight:-1, movePoints: 1, attackPoints: 2, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6, "latexAnger": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+		visionRadius: 8, maxhp: 10, minLevel:0, weight:-2, movePoints: 1, attackPoints: 2, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {"secondhalf":1, "thirdhalf":1, "elementsAnger": 12, "elementsRage": 6, "latexAnger": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 
 
 	{name: "ChaoticCrystal", color: "#ff00aa55", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1,
