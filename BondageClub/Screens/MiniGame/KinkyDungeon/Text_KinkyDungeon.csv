@@ -241,7 +241,16 @@ AttackElementalIce,"The ice elemental gives a chilling touch to your body! (-Dam
 NameElementalEarth,Earth Elemental
 KillElementalEarth,"The earth elemental sinks into the ground."
 AttackElementalEarthBind,"The earth elemental pins you and slaps on some restraints! (+RestraintAdded)"
+AttackElementalEarthLock,"The earth elemental locks a restraint!"
+AttackElementalEarthDash,"The earth elemental dashes through the earth!"
 AttackElementalEarth,"The earth elemental gives you a heavy massage! (-DamageTaken SP)"
+
+NameElementalAir,Air Elemental
+KillElementalAir,"There is no more elemental. Must have been just the wind."
+AttackElementalAirBind,"The air elemental sneakily slips a restraint on! (+RestraintAdded)"
+AttackElementalAirDash,"The air elemental blinks to your position!"
+AttackElementalAirLock,"The earth elemental slips a lock on!"
+AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 
 NameFastZombie,Ravenous Zombie
@@ -1231,6 +1240,7 @@ KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +2 armor f
 KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked earth!
 
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
+KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defense!
 
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)

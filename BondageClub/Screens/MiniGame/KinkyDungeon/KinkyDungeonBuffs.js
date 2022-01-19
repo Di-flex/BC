@@ -65,7 +65,7 @@ function KinkyDungeonUpdateBuffs(delta) {
 				if (buff.enemies) {
 					for (let EE = 0; EE < KinkyDungeonEntities.length; EE++) {
 						let enemy = KinkyDungeonEntities[EE];
-						if (buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
+						if ((!enemy.Enemy.allied || !buff.noAlly) && (enemy.Enemy.allied || !buff.onlyAlly) && buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
 							KinkyDungeonApplyBuff(enemy.buffs, buff);
 						}
 					}

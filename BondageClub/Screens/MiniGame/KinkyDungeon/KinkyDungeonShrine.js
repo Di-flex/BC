@@ -115,12 +115,11 @@ function KinkyDungeonPayShrine(type) {
 		rep = 2 * KinkyDungeonSpellLevel[type] * KinkyDungeonSpellLevel[type];
 
 	} else if (type == "Will") {
+		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
-		KinkyDungeonStatMana = Math.min(KinkyDungeonStatManaMax, KinkyDungeonStatMana+KinkyDungeonStatManaMax/3);
+		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 		KinkyDungeonStatArousal = 0;
 		KinkyDungeonNextDataSendStatsTime = 0;
-
-		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineHeal");
 	} else if (type == "Commerce") {

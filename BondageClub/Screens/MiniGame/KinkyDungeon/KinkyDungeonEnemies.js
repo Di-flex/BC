@@ -156,24 +156,29 @@ var KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
 
 
-	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "electricresist", "coldweakness", "iceweakness", "obsidianRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
+	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "coldweakness", "iceweakness", "obsidianRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
 		spells: ["HeatBolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true,
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
-	{name: "ElementalIce", tags: ["opendoors", "construct", "fireweakness", "coldresist", "iceimmune", "iceRestraints", "leashing"], armor: 1, kite: 1.5, followRange: 3, AI: "hunt",
+	{name: "ElementalIce", tags: ["opendoors", "construct", "fireweakness", "coldresist", "iceimmune", "iceRestraints", "leashing"], armor: 1, kite: 1.5, followRange: 3, AI: "hunt", summon: [{enemy: "ElementalWater", range: 2.5, count: 1, chance: 0.5, strict: true}],
 		spells: ["IceSlowPrepare"], spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true, noSpellLeashing: true,
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLockAll", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2, multiBind: 2,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
-	{name: "ElementalWater", color: "#67ffaa", tags: ["opendoors", "construct", "electricweakness", "latexRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25,
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 8, "elementsRage": 3,}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+	{name: "ElementalWater", color: "#67ffaa", tags: ["opendoors", "construct", "electricweakness", "latexRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25, summon: [{enemy: "ElementalIce", range: 2.5, count: 1, chance: 0.5, strict: true}],
 		specialCD: 3, specialAttack: "Pull", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 3, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2,
-		visionRadius: 8, maxhp: 13, minLevel:0, weight:-1, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
+		visionRadius: 8, maxhp: 12, minLevel:0, weight:-2, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
 		attackPoints: 3,attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 2, pullTowardSelf: true, pullDist: 2, pullMsg: true,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6, "latexAnger": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 8, "elementsRage": 3, "latexAnger": 3}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 	{name: "ElementalEarth", tags: ["opendoors", "construct", "fireresist", "electricimmune", "iceweakness", "obsidianRestraints", "leashing"], armor: 1, followRange: 1, AI: "hunt",
-		specialCD: 4, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 4, specialMinrange: 1.5, specialsfx: "Miss",
-		spells: ["ArmorUp"], spellCooldownMult: 1, spellCooldownMod: 7, followLeashedOnly: true,
-		visionRadius: 9, maxhp: 16, minLevel:0, weight:-100, movePoints: 2, attackPoints: 3, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		specialCD: 15, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 4, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true,
+		spells: ["ArmorUp", "Earthfield"], spellCooldownMult: 1, spellCooldownMod: 14, followLeashedOnly: true, buffallies: true,
+		visionRadius: 9, maxhp: 12, minLevel:0, weight:-1, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+	{name: "ElementalAir", color: "#88aaff", tags: ["opendoors", "construct", "fireweakness", "electricimmune", "coldweakness", "latexRestraints", "leashing"], armor: -1, followRange: 1, AI: "hunt", evasion: 0.5,
+		specialCD: 5, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true, dashThrough: true,
+		spells: ["WitchElectrify"], spellCooldownMult: 1, spellCooldownMod: 3, followLeashedOnly: true,
+		visionRadius: 8, maxhp: 10, minLevel:0, weight:-1, movePoints: 1, attackPoints: 2, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6, "latexAnger": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 
 
 	{name: "ChaoticCrystal", color: "#ff00aa55", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1,
@@ -455,6 +460,17 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 				}
 				if (KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg") < 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Debuff.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
+				if (KinkyDungeonGetBuffedStat(enemy.buffs, "Armor") < 0) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/ArmorDebuff.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				} else if (KinkyDungeonGetBuffedStat(enemy.buffs, "Armor") > 0) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/ArmorBuff.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
@@ -923,7 +939,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 									KinkyDungeonMovePoints = -1;
 
 									if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
-										KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+										KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 								}
 							}
 						}
@@ -1092,7 +1108,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 						}
 						let Dash = false;
-						if (attack.includes("Dash")) {
+						if (attack.includes("Dash") && (enemy.Enemy.dashThruWalls || canSeePlayer)) {
 							// Check player neighbor tiles
 							let tiles = [];
 							for (let X = player.x-1; X <= player.x+1; X++)
@@ -1123,7 +1139,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 										}
 									}
 								}
-								if (tile && tile.x != player.x && tile.y != player.y) {
+								if (tile && (tile.x != player.x || tile.y != player.y)) {
 									Dash = true;
 									enemy.x = tile.x;
 									enemy.y = tile.y;
@@ -1254,7 +1270,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					if (spell.selfcast) {
 						xx = enemy.x;
 						yy = enemy.y;
-						KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name), "white", 2);
+						KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 					}
 					if (KinkyDungeonCastSpell(xx, yy, spell, enemy, player) && spell.sfx) {
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
