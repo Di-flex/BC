@@ -62,7 +62,7 @@ var KinkyDungeonEnemies = [
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 	{name: "TickleHandSlave", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "ConjurerTickler", range: 3}, noAlert: true,
-		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
+		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 	{name: "Frog", color: "#00FF44", tags: ["summoned", "beast", "ranged"], followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt", pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3},
 		visionRadius: 10, maxhp: 24, minLevel:0, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackRange: 4, attackWidth: 1, power: 6,
@@ -160,10 +160,14 @@ var KinkyDungeonEnemies = [
 		spells: ["HeatBolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true,
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+	{name: "ElementalIce", tags: ["opendoors", "construct", "fireimmune", "electricresist", "coldweakness", "iceweakness", "iceRestraints", "leashing"], armor: 1, kite: 1.5, followRange: 3, AI: "hunt",
+		spells: ["IceSlowPrepare"], spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true, noSpellLeashing: true,
+		visionRadius: 8, maxhp: 8, minLevel:0, weight:100, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLockAll", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2, multiBind: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 	{name: "ElementalWater", color: "#67ffaa", tags: ["opendoors", "construct", "electricweakness", "latexRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25,
 		specialCD: 3, specialAttack: "Pull", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 3, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2,
-		visionRadius: 8, maxhp: 13, minLevel:0, weight:-1, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
-		attackPoints: 3,attack: "EffectMeleeWillBind", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 2, pullTowardSelf: true, pullDist: 2, pullMsg: true,
+		visionRadius: 8, maxhp: 13, minLevel:0, weight:40, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
+		attackPoints: 3,attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 2, pullTowardSelf: true, pullDist: 2, pullMsg: true,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6, "latexAnger": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 
 	{name: "ChaoticCrystal", color: "#ff00aa55", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1,
@@ -1221,7 +1225,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			} else if (AI == "ambush" && ignore) enemy.ambushtrigger = false;
 
 
-			if ((!enemy.Enemy.followLeashedOnly || KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
+			if ((!enemy.Enemy.noSpellLeashing || KinkyDungeonLeashingEnemy != enemy || KinkyDungeonLeashedPlayer < 1) && (!enemy.Enemy.followLeashedOnly || KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
 				&& !ignore && (!moved || enemy.Enemy.castWhileMoving) && enemy.Enemy.attack.includes("Spell") && KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true) && enemy.castCooldown <= 0
 				&& (!enemy.Enemy.minSpellRange || (playerDist > enemy.Enemy.minSpellRange))) {
 				idle = false;

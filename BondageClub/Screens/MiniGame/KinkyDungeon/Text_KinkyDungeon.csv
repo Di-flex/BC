@@ -228,9 +228,20 @@ AttackElementalFire,"The fire elemental touches you with her burning finger! (-D
 
 NameElementalWater,Water Elemental
 KillElementalWater,"The water elemental melts into a pool of water."
-AttackElementalWaterBind,"The water elemental conjures forged restraints around your limbs! (+RestraintAdded)"
+AttackElementalWaterBind,"The water elemental touches you, and a rubber-like material forms! (+RestraintAdded)"
 AttackElementalWaterPull,"The water elemental's song compels you to step forward!"
 AttackElementalWater,"The water elemental sings an arousing song! (-DamageTaken SP)"
+
+NameElementalIce,Ice Elemental
+KillElementalIce,"The ice elemental melts into a pool of water."
+AttackElementalIceBind,"The ice elemental touches you, forming tendrils of ice! (+RestraintAdded)"
+AttackElementalIceLock,"The ice elemental creates icy locks on your restraints!"
+AttackElementalIce,"The ice elemental gives a chilling touch to your body! (-DamageTaken SP)"
+
+NameElementalEarth,Earth Elemental
+KillElementalEarth,"The earth elemental sinks into the ground."
+AttackElementalEarthBind,"The earth elemental pins you and slaps on some restraints! (+RestraintAdded)"
+AttackElementalEarth,"The earth elemental gives you a heavy massage! (-DamageTaken SP)"
 
 
 NameFastZombie,Ravenous Zombie
@@ -1267,6 +1278,10 @@ KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
 KinkyDungeonSpellHeatBlast,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
+KinkyDungeonSpellIceDragonBreath,Ice Storm
+
+KinkyDungeonSpellIceSlowBreath,Icy Aura
+
 KinkyDungeonSpellSlimeBall,Slime Ball
 KinkyDungeonSpellWitchSlimeBall,Witch's Slime Ball
 KinkyDungeonSpellDescriptionSlimeBall,A ball of slime leaves a trail of sticky slime (4 damage when stepped on). It deals DamageDealt damage on a hit.
@@ -1471,4 +1486,5 @@ KinkyDungeonOrbIntro,"You have broken a magic orb, gaining +1 Spell Points."
 KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."
 
 KinkyDungeonFreeze,You are frozen!
+KinkyDungeonChill,You are chilled!
 KinkyDungeonShadowBind,"Shadowy tendrils wrap around your feet, rooting you in place!!!"

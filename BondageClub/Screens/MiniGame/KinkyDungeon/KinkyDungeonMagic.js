@@ -151,10 +151,17 @@ let KinkyDungeonSpellListEnemies = [
 		trailPower: 0, trailLifetime: 1.1, trailTime: 4, trailDamage:"inert", trail:"lingering", trailChance: 1.0},
 	{name: "AllyFirebolt", sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 4, delay: 0, range: 50, damage: "fire", speed: 1}, // Throws a fireball in a direction that moves 1 square each turn
 	{name: "AllyShadowStrike", sfx: "MagicSlash", school: "Illusion", manacost: 3, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 6, time: 2, delay: 1, range: 1.5, size: 1, aoe: 0.75, lifetime: 1, damage: "cold"}, // A series of light shocks incapacitate you
+
 	{enemySpell: true, name: "IceDragonBreath", sfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 4, delay: 0, time: 1, range: 4, speed: 50, size: 1, damage: "inert",
 		trailPower: 4, trailLifetime: 1, trailLifetimeBonus: 4, trailTime: 3, trailspawnaoe: 1.5, trailDamage:"ice", trail:"lingering", trailChance: 0.3, trailPlayerEffect: {name: "Freeze", time: 3}},
 	{enemySpell: true, name: "IceDragonBreathPrepare", sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 5, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
 		spellcast: {spell: "IceDragonBreath", target: "target", directional:true, offset: false}, channel: 2},
+
+	{enemySpell: true, name: "IceSlow", sfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 4, delay: 0, time: 2, range: 4, speed: 50, size: 1, damage: "inert",
+		trailPower: 4, trailLifetime: 2, trailLifetimeBonus: 8, trailTime: 3, trailspawnaoe: 1.5, trailDamage:"ice", trail:"lingering", trailChance: 0.5, trailPlayerEffect: {name: "Chill", time: 3, damage: "ice", power: 4}},
+	{enemySpell: true, name: "IceSlowPrepare", sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 12, range: 5, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
+		spellcast: {spell: "IceSlow", target: "target", directional:true, offset: false}, channel: 1},
+
 	{enemySpell: true, name: "RopeEngulf", sfx: "Struggle", manacost: 4, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 6, range: 2, size: 3, aoe: 1, lifetime: 1, damage: "chain", playerEffect: {name: "RopeEngulf", power: 2}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 	{enemySpell: true, name: "WitchChainBolt", sfx: "FireSpell", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
 	{enemySpell: true, name: "MagicChain", sfx: "FireSpell", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "SingleMagicChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
@@ -359,6 +366,26 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			KinkyDungeonStatFreeze = Math.max(0, playerEffect.time);
 			KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonFreeze"), "red", playerEffect.time);
+			if (playerEffect.power > 0) {
+				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			}
+			effect = true;
+		} else if (playerEffect.name == "Chill") {
+			let standingTile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			if (standingTile == 'w') {
+				sfx = "Freeze";
+				KinkyDungeonStatFreeze = Math.max(0, playerEffect.time);
+				KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
+				KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonFreeze"), "red", playerEffect.time);
+			} else {
+				sfx = "Bones";
+				KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1);
+				KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonChill"), "red", playerEffect.time);
+			}
+			if (playerEffect.power > 0 && !KinkyDungeonFlags.chill) {
+				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			}
+			KinkyDungeonSetFlag("chill", 1);
 			effect = true;
 		} else if (playerEffect.name == "ShadowBind") {
 			KinkyDungeonStatBind = Math.max(0, playerEffect.time);
