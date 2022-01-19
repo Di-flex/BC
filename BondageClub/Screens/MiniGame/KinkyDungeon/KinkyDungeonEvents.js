@@ -95,7 +95,6 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				KinkyDungeonSlimeLevel = 0;
 			}
 			if (e.type == "unlinkItem" && data.item == item && !data.add && !data.shrine) {
-				console.log("Removing item")
 				let newRestraint = KinkyDungeonGetRestraintByName(data.item.restraint.UnLink);
 				let oldLock = data.item.oldLock;
 				if (newRestraint) {

@@ -241,7 +241,7 @@ function KinkyDungeonDrawGame() {
 			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.IsKneeling() ? -78 : 0, KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
 
 			KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
-			KinkyDungeonDrawFloaters(CamX, CamY);
+			KinkyDungeonDrawFloaters(CamX+CamX_offset, CamY+CamY_offset);
 
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
@@ -291,11 +291,11 @@ function KinkyDungeonDrawGame() {
 
 let KinkyDungeonFloaters = [];
 
-function KinkyDungeonSendFloater(Amount, Color) {
-	if (KinkyDungeonPlayerEntity.visual_x && KinkyDungeonPlayerEntity.visual_y) {
+function KinkyDungeonSendFloater(Entity, Amount, Color) {
+	if (Entity.x && Entity.y) {
 		let floater = {
-			x: KinkyDungeonPlayerEntity.visual_x + Math.random(),
-			y: KinkyDungeonPlayerEntity.visual_y + Math.random(),
+			x: Entity.x + Math.random(),
+			y: Entity.y + Math.random(),
 			speed: 25,
 			t: 0,
 			color: Color,

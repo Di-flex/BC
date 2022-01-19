@@ -25,7 +25,7 @@ var KinkyDungeonShopItems = [];
 var KinkyDungeonShopIndex = 0;
 
 var KinkyDungeonPoolUses = 0;
-var KinkyDungeonShrinePoolChancePerUse = 0.25;
+var KinkyDungeonShrinePoolChancePerUse = 0.33;
 var KinkyDungeonPoolUsesGrace = 2;
 
 var KinkyDungeonShrineCosts = {};

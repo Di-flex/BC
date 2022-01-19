@@ -231,6 +231,8 @@ let KinkyDungeonLeashedPlayer = 0;
 let KinkyDungeonLeashingEnemy = null;
 let KinkyDungeonDoorShutTimer = 6;
 
+let KinkyDungeonSummonCount = 2;
+
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
 	let point = -1;
@@ -565,6 +567,18 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 let KinkyDungeonDamageTaken = false;
 
 function KinkyDungeonUpdateEnemies(delta) {
+	let KinkyDungeonSummons = 0;
+
+	for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
+		let enemy = KinkyDungeonEntities[i];
+		if (enemy.Enemy.allied && enemy.summoned) {
+			KinkyDungeonSummons += 1;
+			if (KinkyDungeonSummons > KinkyDungeonSummonCount) {
+				enemy.hp -= Math.max(0.1 * enemy.hp) + 1;
+			}
+		}
+	}
+
 	if (KinkyDungeonLeashedPlayer > 0) {
 		KinkyDungeonLeashedPlayer -= 1;
 

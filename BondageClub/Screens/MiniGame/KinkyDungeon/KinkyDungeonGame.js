@@ -145,7 +145,7 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonDressSet();
 	if (KinkyDungeonConfigAppearance) {
 		localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
-		KinkyDungeonConfigAppearance = false
+		KinkyDungeonConfigAppearance = false;
 	}
 
 	KinkyDungeonDressPlayer();

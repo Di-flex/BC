@@ -191,15 +191,15 @@ function KinkyDungeonDealDamage(Damage) {
 
 function KinkyDungeonChangeArousal(Amount) {
 	KinkyDungeonStatArousal += Amount;
-	if (Amount) KinkyDungeonSendFloater(Amount, "#ff00ff");
+	if (Amount) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#ff00ff");
 }
 function KinkyDungeonChangeStamina(Amount) {
 	KinkyDungeonStatStamina += Amount;
-	if (Amount) KinkyDungeonSendFloater(Amount, "#44ff66");
+	if (Amount) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#44ff66");
 }
 function KinkyDungeonChangeMana(Amount) {
 	KinkyDungeonStatMana += Amount;
-	if (Amount) KinkyDungeonSendFloater(Amount, "#4499ff");
+	if (Amount) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#4499ff");
 }
 
 function KinkyDungeonHasStamina(Cost, AddRate) {
