@@ -150,7 +150,7 @@ var KinkyDungeonEnemies = [
 			{enemy: "DragonPoison", range: 3, count: 1, chance: 0.25, strict: true},
 			{enemy: "DragonCrystal", range: 3, count: 1, chance: 0.25, strict: true},
 			{enemy: "DragonShadow", range: 3, count: 1, chance: 0.25, strict: true},],
-		specialCD: 5, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialsfx: "Miss",
+		specialCD: 5, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, specialsfx: "Miss",
 		visionRadius: 8, maxhp: 20, minLevel:0, weight:-11, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "crush", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":2, "thirdhalf":4, "open": 10, "leatherAnger":6, "leatherRage":30, "boss": -55, "increasingWeight":0.5}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
@@ -999,7 +999,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 										if (path && path.length > 0) {
 											let leashPoint = path[0];
 											let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
-											if (!enemySwap || !enemySwap.Enemy.noDisplace) {
+											if ((!enemySwap || !enemySwap.Enemy.noDisplace) && Math.max(Math.abs(leashPoint.x - enemy.x), Math.abs(leashPoint.y - enemy.y)) <= 1.5) {
 												KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
 												KinkyDungeonLeashingEnemy = enemy;
 												if (enemySwap) {
@@ -1027,12 +1027,14 @@ function KinkyDungeonUpdateEnemies(delta) {
 										let pullDist = enemy.Enemy.pullDist ? enemy.Enemy.pullDist : 1;
 										if (path && path.length > 0) {
 											let leashPoint = path[Math.min(Math.max(0,path.length-2), pullDist)];
-											if (!KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y)) {
+											if (!KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y)
+												&& Math.sqrt((leashPoint.x - enemy.x) * (leashPoint.x - enemy.x) + (leashPoint.y - enemy.y) * (leashPoint.y - enemy.y)) < playerDist
+												&& Math.sqrt((leashPoint.x - player.x) * (leashPoint.x - player.x) + (leashPoint.y - player.y) * (leashPoint.y - player.y)) <= pullDist) {
 												if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
 												KinkyDungeonLeashedPlayer = 1;
 												KinkyDungeonLeashingEnemy = enemy;
-												KinkyDungeonPlayerEntity.x = leashPoint.x;
-												KinkyDungeonPlayerEntity.y = leashPoint.y;
+												player.x = leashPoint.x;
+												player.y = leashPoint.y;
 												if (!KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
 													KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 											}
