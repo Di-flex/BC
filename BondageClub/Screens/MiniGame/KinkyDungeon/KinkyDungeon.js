@@ -31,7 +31,7 @@ var KinkyDungeonInitTime = 0;
 var KinkyDungeonSleepTime = 0;
 let KinkyDungeonFreezeTime = 1000;
 
-
+let KinkyDungeonConfigAppearance = false;
 
 /**
  * Loads the kinky dungeon game
@@ -357,6 +357,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonDressPlayer();
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: false, AllowFullWardrobeAccess: true};
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
+			KinkyDungeonConfigAppearance = true;
 			return true;
 		} else if (MouseIn(500, 930, 220, 64)) {
 			if (KinkyDungeonReplaceConfirm > 0) {
@@ -365,6 +366,7 @@ function KinkyDungeonHandleClick() {
 				CharacterReleaseTotal(KinkyDungeonPlayer);
 				KinkyDungeonSetDress("Default");
 				KinkyDungeonDressPlayer();
+				KinkyDungeonConfigAppearance = true;
 				return true;
 			} else {
 				KinkyDungeonReplaceConfirm = 2;

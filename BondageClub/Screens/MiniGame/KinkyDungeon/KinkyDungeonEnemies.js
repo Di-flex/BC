@@ -1152,10 +1152,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 								damagetype: enemy.Enemy.dmgType,
 							});
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
-							KinkyDungeonSendTextMessage(happened+priorityBonus, TextGet("Attack"+enemy.Enemy.name + suffix), msgColor, 1);
+							let text = TextGet("Attack"+enemy.Enemy.name + suffix);
 							if (replace)
 								for (let R = 0; R < replace.length; R++)
-									KinkyDungeonTextMessage = KinkyDungeonTextMessage.replace(replace[R].keyword, "" + replace[R].value);
+									text = text.replace(replace[R].keyword, "" + replace[R].value);
+							KinkyDungeonSendTextMessage(happened+priorityBonus, text, msgColor, 1);
 						}
 					}
 
