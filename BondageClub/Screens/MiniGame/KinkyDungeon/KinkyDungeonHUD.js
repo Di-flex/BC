@@ -145,27 +145,29 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonReputation"), "White", "", "");
 	DrawButton(1030, 925, 165, 60, TextGet("KinkyDungeonMagic"), "White", "", "");
 
-	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[0]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[0]].passive) {
-		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[0]];
-		let components = KinkyDungeonGetCompList(spell);
-		DrawText(TextGet("KinkyDungeonSpell"+ spell.name), 1275, 835, "white", "silver");
-		DrawText(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275, 870, "#55AAFF", "silver");
-		DrawButton(1230, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell1.png", "");
+	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
+			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
+			let components = KinkyDungeonGetCompList(spell);
+			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + i*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
+			DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + i*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+			DrawButton(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
+		}
 	}
-	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive) {
+	/*if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive) {
 		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[1]];
 		let components = KinkyDungeonGetCompList(spell);
-		DrawText(TextGet("KinkyDungeonSpell"+ spell.name), 1525, 835, "white", "silver");
-		DrawText(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1525, 870, "#55AAFF", "silver");
-		DrawButton(1480, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell2.png", "");
+		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 1*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
+		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 1*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+		DrawButton(1230 + 1*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell2.png", "");
 	}
 	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[2]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[2]].passive) {
 		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[2]];
 		let components = KinkyDungeonGetCompList(spell);
-		DrawText(TextGet("KinkyDungeonSpell"+ spell.name), 1775, 835, "white", "silver");
-		DrawText(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1775, 870, "#55AAFF", "silver");
-		DrawButton(1730, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell3.png", "");
-	}
+		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 2*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
+		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 2*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+		DrawButton(1230 + 2*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell3.png", "");
+	}*/
 
 	KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelayPing);
 

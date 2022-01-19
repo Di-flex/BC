@@ -46,7 +46,7 @@ StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"MP: CURRENT/MAX"
 StatUsePotion,"Use Potion"
 KinkyDungeonManaCost," MP + COMPONENTS"
-KinkyDungeonSleep,"Sleep 20 turns"
+KinkyDungeonSleep,"Sleep 40 turns"
 
 Wait,"You wait."
 WaitAroused,"Your legs tremble as you wait."
@@ -80,6 +80,8 @@ KinkyDungeonKeyDownRight,Down Right
 KinkyDungeonKeySpell1,Spell 1
 KinkyDungeonKeySpell2,Spell 2
 KinkyDungeonKeySpell3,Spell 3
+KinkyDungeonKeySpell4,Spell 4
+KinkyDungeonKeySpell5,Spell 5
 KinkyDungeonKeyWait,Wait
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
@@ -216,6 +218,12 @@ NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
 AttackBlindZombieBind,"The zombie's charms attach to your body (+RestraintAdded)"
 AttackBlindZombie,"The zombie caresses your body! (-DamageTaken SP)"
+
+
+NameElementalFire,Fire Elemental
+KillElementalFire,"The fire elemental dissolves into ash."
+AttackElementalFireBind,"The fire elemental conjures forged restraints around your limbs! (+RestraintAdded)"
+AttackElementalFire,"The fire elemental touches you with her burning finger! (-DamageTaken SP)"
 
 NameFastZombie,Ravenous Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
@@ -1115,6 +1123,11 @@ KinkyDungeonSpellDescriptionAPUp2,Increases maximum Arousal by 12 and Arousal re
 KinkyDungeonSpellAPUp3,Strong Mind III
 KinkyDungeonSpellDescriptionAPUp3,Increases maximum Arousal by 12 and Arousal regen by -0.1 per turn
 
+KinkyDungeonSpellSpellChoiceUp1,Expert Wizard
+KinkyDungeonSpellDescriptionSpellChoiceUp1,Gives you an additional spell choice slot
+KinkyDungeonSpellSpellChoiceUp2,Master Wizard
+KinkyDungeonSpellDescriptionSpellChoiceUp2,Gives you an additional spell choice slot
+
 KinkyDungeonSpellBomb,Bomb
 KinkyDungeonSpellDescriptionBomb,A bomb that does DamageDealt damage in an area after DelayTime turns.
 KinkyDungeonSpellCastBomb,Fire in the hole!
@@ -1204,6 +1217,7 @@ KinkyDungeonSpellTargetIceBreath,Select where to put the icicles (SpellArea radi
 
 KinkyDungeonSpellMummyBolt,Mystic Bolt
 KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
+KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
 KinkyDungeonSpellSlimeBall,Slime Ball
 KinkyDungeonSpellWitchSlimeBall,Witch's Slime Ball
@@ -1213,8 +1227,8 @@ KinkyDungeonSpellTargetSlimeBall,Choose aim direction
 
 KinkyDungeonSpellSummonSkeleton,Summon Skeleton
 KinkyDungeonSpellSummonSkeletons,Mass Summon Skeleton
-KinkyDungeonSummonSingleLesserSkeleton,A skeleton arises from bones on the floor!
-KinkyDungeonSummonMultiLesserSkeleton,A gang of SummonCount skeletons forms around you!
+KinkyDungeonSummonSingleSkeleton,A skeleton arises from bones on the floor!
+KinkyDungeonSummonMultiSkeleton,A gang of SummonCount skeletons forms around you!
 
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
@@ -1314,12 +1328,16 @@ KinkyDungeonMagicLevel,"Level: "
 KinkyDungeonMagicCost,"Spell Point Cost: "
 KinkyDungeonMagicManaCost, "Mana Cost: "
 
-KinkyDungeonSpell0,"Choose as Spell 1"
-KinkyDungeonSpell1,"Choose as Spell 2"
-KinkyDungeonSpell2,"Choose as Spell 3"
+KinkyDungeonSpell0,"Replace Spell 1"
+KinkyDungeonSpell1,"Replace Spell 2"
+KinkyDungeonSpell2,"Replace Spell 3"
+KinkyDungeonSpell3,"Replace Spell 4"
+KinkyDungeonSpell4,"Replace Spell 5"
 KinkyDungeonSpellChoice0, "Current Spell 1: "
 KinkyDungeonSpellChoice1, "Current Spell 2: "
 KinkyDungeonSpellChoice2, "Current Spell 3: "
+KinkyDungeonSpellChoice3, "Current Spell 4: "
+KinkyDungeonSpellChoice4, "Current Spell 5: "
 
 KinkyDungeonLore0,"(Preface from the journal of Catherine Willows, well-known explorer who vanished in the dungeon 30 years ago): I am writing this journal in the off chance that I do not come back in my search for the Mistress' staff. If you find this, please make an effort to deliver it back to the surface for the good of all the young women lured by its secrets."
 KinkyDungeonLore1,"(Pg. 24 from Catherine Willows' journal): Many who trowel the upper levels of the Mistress' tomb often ask rhetorically: 'Why are there weird kinky traps guarding treasure chests? Why not have real, deadly traps if the purpose is to dissuade intruders?'"

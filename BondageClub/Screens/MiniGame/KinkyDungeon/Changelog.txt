@@ -240,6 +240,7 @@ Bugfix:
 - Most enemies will not cast spells at the leashed player
 
 2.44
+- Necromancer now summons normal skeletons
 
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load

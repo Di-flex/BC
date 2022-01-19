@@ -19,7 +19,7 @@ let KinkyDungeonVibeCostPerIntensity = 0.15;
 
 let KinkyDungeonStatWillpowerExhaustion = 0;
 let KinkyDungeonSleepTurns = 0;
-let KinkyDungeonSleepTurnsMax = 21;
+let KinkyDungeonSleepTurnsMax = 41;
 let KinkyDungeonSlowMoveTurns = 0;
 // Note that things which increase max arousal (aphrodiasic) also increase the max stamina drain. This can end up being very dangerous as being edged at extremely high arousal will drain all your energy completely, forcing you to wait until the torment is over or the drugs wear off
 
@@ -27,7 +27,7 @@ let KinkyDungeonSlowMoveTurns = 0;
 let KinkyDungeonStatStaminaMax = 36;
 let KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 let KinkyDungeonStatStaminaRegen = 0;
-let KinkyDungeonStatStaminaRegenSleep = 36/20;
+let KinkyDungeonStatStaminaRegenSleep = 36/40;
 let KinkyDungeonStatStaminaRegenWait = 0;
 let KinkyDungeoNStatStaminaLow = 4;
 let KinkyDungeonStatManaMax = 36;
@@ -207,11 +207,13 @@ function KinkyDungeonSetMaxStats() {
 	KinkyDungeonStatStaminaMax = 36;
 	KinkyDungeonStatArousalMax = 36;
 	KinkyDungeonStatManaMax = 36;
+	KinkyDungeonSpellChoiceCount = 3;
 	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
 		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
+		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2") KinkyDungeonSpellChoiceCount += 1;
 		if (s.name == "APUp1" || s.name == "APUp2" || s.name == "APUp3") {
 			KinkyDungeonStatArousalMax += 12;
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;
