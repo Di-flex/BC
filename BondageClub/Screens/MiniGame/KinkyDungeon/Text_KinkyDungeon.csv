@@ -158,7 +158,7 @@ KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 20 t
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
-KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores stamina by 36 over 24 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 12 stamina and 24 more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid concoction and feel less distracted.
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
@@ -337,6 +337,7 @@ AttackGhost,"The Ghost tickles you! (-DamageTaken SP)"
 NameGreaterSkeleton,Skeleton Warrior
 KillGreaterSkeleton,"The Skeleton Warrior collapses and falls into pieces."
 AttackGreaterSkeleton,"The Skeleton lands a wide, crippling blow! (-DamageTaken SP)"
+AttackGreaterSkeletonBind,"The Skeleton leashes you!"
 
 NameVinePlant,Vine Plant
 KillVinePlant,"The plant leaks purple juices everywhere as it wilts."
@@ -467,7 +468,7 @@ NameNecromancer,Necromancer
 KillNecromancer,"The necromancer perishes. Ironic that she couldn't save herself."
 AttackNecromancerLock,"The necromancer locks all of your restraints!"
 AttackNecromancerBind,"The necromancer prepares you for transport!"
-AttackNecromancer,"The necromancer tugs sensually at your restraints!"
+AttackNecromancer,"The necromancer rubs your body sensually!"
 
 NameRat,Filthy Rat
 KillRat,"The rat skitters back into a hole in the wall."

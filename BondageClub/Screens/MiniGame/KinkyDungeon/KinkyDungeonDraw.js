@@ -299,7 +299,7 @@ function KinkyDungeonSendFloater(Entity, Amount, Color) {
 			speed: 25,
 			t: 0,
 			color: Color,
-			text: "" + Amount,
+			text: "" + Math.round(Amount * 10)/10,
 			lifetime: (Amount < 3) ? 1 : (Amount > 5 ? 3 : 2),
 		};
 		KinkyDungeonFloaters.push(floater);

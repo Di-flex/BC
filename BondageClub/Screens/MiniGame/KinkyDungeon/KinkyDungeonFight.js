@@ -55,7 +55,7 @@ function KinkyDungeonEvasion(Enemy) {
 	if (Enemy.stun > 0 || Enemy.freeze > 0) hitChance *= 5;
 	if (Enemy.bind > 0) hitChance *= 3;
 
-	hitChance -= Math.min(3, KinkyDungeonPlayer.GetBlindLevel()) * KinkyDungeonMissChancePerBlind;
+	hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonPlayer.GetBlindLevel()) * KinkyDungeonMissChancePerBlind));
 	if (KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.67;
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
