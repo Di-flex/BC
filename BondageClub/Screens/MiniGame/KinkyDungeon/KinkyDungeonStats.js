@@ -157,12 +157,14 @@ function KinkyDungeonGetVisionRadius() {
 function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
+	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
 	let arousalTypesWeak = ["grope"];
 	let arousalTypesStrong = ["tickle", "charm"];
 	let staminaTypesWeak = ["electric", "tickle"];
 	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope"];
 	let manaTypesWeak = ["electric"];
 	let manaTypesString = [];
+	if (armor) dmg = Math.max(0, dmg - armor);
 	if (arousalTypesWeak.includes(type)) {
 		KinkyDungeonChangeArousal(Math.floor(dmg/2));
 	}

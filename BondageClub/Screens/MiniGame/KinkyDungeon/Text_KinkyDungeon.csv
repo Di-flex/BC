@@ -1225,6 +1225,13 @@ KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
 KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature gain +2 damage for Duration turns
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
+KinkyDungeonSpellStoneSkin,Stone Skin
+KinkyDungeonSpellTargetStoneSkin,Select which creature to buff
+KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +2 armor for Duration turns
+KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked earth!
+
+KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
+
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns
