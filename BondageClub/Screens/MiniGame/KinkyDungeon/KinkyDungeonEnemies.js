@@ -11,7 +11,7 @@ var KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[]},
 	{name: "ShadowWarrior", tags: ["construct", "player", "ghost"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["AllyShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
-		visionRadius: 20, playerBlindSight: 10, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
+		visionRadius: 20, playerBlindSight: 10, maxhp: 11, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
 	{name: "FireElemental", tags: ["construct", "player", "fireimmune", "electricresist", "coldweakness", "iceweakness"], noblockplayer: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
 		spells: ["AllyFirebolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1,

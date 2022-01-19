@@ -247,6 +247,7 @@ Bugfix:
 - Fixed enemies with spells crashing the game
 - Cosmetic changes to healthbars
 - Page headers and fast buttons for the new spell selection menu
+- Fixed bug with spells dealing damage 1 turn too late to the player (and enemies!)
 
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
