@@ -127,7 +127,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.freeze = 0;
 			}
 
-			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker.player) dmgDealt = Enemy.hp;
+			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
 
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");

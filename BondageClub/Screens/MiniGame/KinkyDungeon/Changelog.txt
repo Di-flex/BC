@@ -251,7 +251,10 @@ Bugfix:
 - Shadow warrior HP buffed from 8 to 11
 - Fixed a bug with text replacement when getting attacked and viewing the log
 - Fixed a bug that would cause the saved outfit to get overridden by the prisoner outfits
-
+- Stamina potion now heals 12 instantly and then 24 over 12 turns
+- Buff familiar Hp from 6 to 8
+- Reduce allied fire elemental spell CD by -1
+- Decoy hp to 12 from 15
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
