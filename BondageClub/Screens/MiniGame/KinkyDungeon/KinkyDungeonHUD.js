@@ -87,10 +87,8 @@ function KinkyDungeonDrawInputs() {
 			}
 		}
 
-	if (KinkyDungeonStruggleGroups.length > 0) {
-		if (KinkyDungeonDrawStruggle) DrawButton(510, 925, 120, 60, "", "White", KinkyDungeonRootDirectory + "HideTrue.png", "");
-		else DrawButton(510, 925, 120, 60, "", "White", KinkyDungeonRootDirectory + "HideFalse.png", "");
-	}
+	if (KinkyDungeonDrawStruggle) DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideTrue.png", "");
+	else DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideFalse.png", "");
 
 	if (KinkyDungeonTargetTile) {
 		if (KinkyDungeonTargetTile.Type == "Lock") {
@@ -105,12 +103,12 @@ function KinkyDungeonDrawInputs() {
 				action = true;
 			}
 
-			if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "silver");
+			if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "black");
 
 			if (KinkyDungeonTargetTile.Lock.includes("Red"))
-				DrawText(TextGet("KinkyRedLock"), 675, 850, "white", "silver");
+				DrawText(TextGet("KinkyRedLock"), 675, 850, "white", "black");
 			else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
-				DrawText(TextGet("KinkyBlueLock"), 675, 850, "white", "silver");
+				DrawText(TextGet("KinkyBlueLock"), 675, 850, "white", "black");
 		} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 			KinkyDungeonDrawShrine();
 		} else if (KinkyDungeonTargetTile.Type == "Ghost") {
@@ -128,12 +126,12 @@ function KinkyDungeonDrawInputs() {
 					action = true;
 				}
 
-				if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "silver");
+				if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "black");
 
 				if (KinkyDungeonTargetTile.Lock.includes("Red"))
-					DrawText(TextGet("KinkyRedLock"), 675, 850, "white", "silver");
+					DrawText(TextGet("KinkyRedLock"), 675, 850, "white", "black");
 				else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
-					DrawText(TextGet("KinkyBlueLock"), 675, 850, "white", "silver");
+					DrawText(TextGet("KinkyBlueLock"), 675, 850, "white", "black");
 			} else
 				DrawButton(675, 825, 350, 60, TextGet("KinkyDungeonCloseDoor"), "White");
 		}
@@ -149,23 +147,23 @@ function KinkyDungeonDrawInputs() {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);
-			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + i*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
-			DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + i*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + i*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "black");
+			DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + i*KinkyDungeonSpellChoiceOffset, 880, KinkyDungeonSpellChoiceOffset * 0.95, "#ccddFF", "black");
 			DrawButton(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
 		}
 	}
 	/*if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive) {
 		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[1]];
 		let components = KinkyDungeonGetCompList(spell);
-		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 1*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
-		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 1*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 1*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "black");
+		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 1*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "black");
 		DrawButton(1230 + 1*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell2.png", "");
 	}
 	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[2]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[2]].passive) {
 		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[2]];
 		let components = KinkyDungeonGetCompList(spell);
-		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 2*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "silver");
-		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 2*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "silver");
+		DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + 2*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "black");
+		DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + 2*KinkyDungeonSpellChoiceOffset, 870, KinkyDungeonSpellChoiceOffset * 0.9, "#55AAFF", "black");
 		DrawButton(1230 + 2*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell3.png", "");
 	}*/
 
@@ -173,13 +171,17 @@ function KinkyDungeonDrawInputs() {
 
 }
 
-function KinkyDungeonDrawProgress(x, y, amount, maxWidth, sprite) {
+function KinkyDungeonDrawProgress(x, y, amount, totalIcons, maxWidth, sprite) {
 	let iconCount = 6;
 	let scale = maxWidth / (72 * iconCount);
 	let interval = 1/iconCount;
 	let numIcons = amount / interval;
+	let xOffset = (6 - totalIcons) * maxWidth / 6 / 2;
+	for (let icon = 0; icon < totalIcons; icon += 1) {
+		DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Icons/" + sprite +"Empty.png", MainCanvas, 0, 0, 72, 72, xOffset + x + 72 * scale * icon, y, 72*scale, 72*scale, false);
+	}
 	for (let icon = 0; icon < numIcons && numIcons > 0; icon += 1) {
-		DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Icons/" + sprite + ((icon + 0.5 <= numIcons) ? "Full.png" : "Half.png"), MainCanvas, 0, 0, 72, 72, x + 72 * scale * icon, y, 72*scale, 72*scale, false);
+		DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Icons/" + sprite + ((icon + 0.5 <= numIcons) ? "Full.png" : "Half.png"), MainCanvas, 0, 0, 72, 72, xOffset + x + 72 * scale * icon, y, 72*scale, 72*scale, false);
 	}
 }
 
@@ -188,43 +190,39 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	let buttonWidth = 48;
 	let suff = (!KinkyDungeonPlayer.CanTalk()) ? "Unavailable" : "";
 	if (KinkyDungeonStatArousal > 0) {
-		DrawText(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "silver");
-		if (KinkyDungeonItemCount("PotionFrigid")) {
-			DrawButton(x, y, buttonWidth, buttonWidth, "", "Pink", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
-		}
+		DrawText(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "black");
+		DrawButton(x, y, buttonWidth, buttonWidth, "", KinkyDungeonItemCount("PotionFrigid") ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	}
-	DrawText(TextGet("StatStamina").replace("MAX", KinkyDungeonStatStaminaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatStamina) + ""), x+width/2 + buttonWidth, y + 25 + heightPerBar, (KinkyDungeonStatStamina > 0.5) ? "white" : "pink", "silver");
-	if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax && KinkyDungeonItemCount("PotionStamina"))
-		DrawButton(x, y+heightPerBar, buttonWidth, buttonWidth, "", "#AAFFAA", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
-	DrawText(TextGet("StatMana").replace("MAX", KinkyDungeonStatManaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatMana) + ""), x+width/2 + buttonWidth, y + 25 + heightPerBar * 2, (KinkyDungeonStatMana > 0.5) ? "white" : "pink", "silver");
-	if (KinkyDungeonStatMana < KinkyDungeonStatManaMax && KinkyDungeonItemCount("PotionMana"))
-		DrawButton(x, y+2*heightPerBar, buttonWidth, buttonWidth, "", "#AAAAFF", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
+	DrawText(TextGet("StatStamina").replace("MAX", KinkyDungeonStatStaminaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatStamina) + ""), x+width/2 + buttonWidth, y + 25 + heightPerBar, (KinkyDungeonStatStamina > 0.5) ? "white" : "pink", "black");
+	DrawButton(x, y+heightPerBar, buttonWidth, buttonWidth, "", (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax && KinkyDungeonItemCount("PotionStamina")) ? "#AAFFAA" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
+	DrawText(TextGet("StatMana").replace("MAX", KinkyDungeonStatManaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatMana) + ""), x+width/2 + buttonWidth, y + 25 + heightPerBar * 2, (KinkyDungeonStatMana > 0.5) ? "white" : "pink", "black");
+	DrawButton(x, y+2*heightPerBar, buttonWidth, buttonWidth, "", (KinkyDungeonStatMana < KinkyDungeonStatManaMax && KinkyDungeonItemCount("PotionMana")) ? "#AAAAFF" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 
 	let maxVisual = KinkyDungeonStatMaxMax;
 	// Draw arousal
 	if (KinkyDungeonStatArousal > 0)
-		KinkyDungeonDrawProgress(x, y + heightPerBar*0.5, KinkyDungeonStatArousal/maxVisual, width, "Heart");
+		KinkyDungeonDrawProgress(x, y + heightPerBar*0.5, KinkyDungeonStatArousal/maxVisual, Math.floor(KinkyDungeonStatArousalMax/12), width, "Heart");
 
 	// Draw Stamina/Mana
-	KinkyDungeonDrawProgress(x, y + heightPerBar*1.5, KinkyDungeonStatStamina/maxVisual, width, "Stamina");
-	KinkyDungeonDrawProgress(x, y + heightPerBar*2.5, KinkyDungeonStatMana/maxVisual, width, "Mana");
+	KinkyDungeonDrawProgress(x, y + heightPerBar*1.5, KinkyDungeonStatStamina/maxVisual, Math.floor(KinkyDungeonStatStaminaMax/12), width, "Stamina");
+	KinkyDungeonDrawProgress(x, y + heightPerBar*2.5, KinkyDungeonStatMana/maxVisual, Math.floor(KinkyDungeonStatManaMax/12), width, "Mana");
 
 	DrawButton(x, y+3*heightPerBar, 250, 50, TextGet("KinkyDungeonSleep"), "White");
 
 	let i = 3.5;
-	DrawText(TextGet("CurrentGold") + KinkyDungeonGold, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;
-	DrawText(TextGet("CurrentLockpicks") + KinkyDungeonLockpicks, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;
-	DrawText(TextGet("CurrentKnife") + KinkyDungeonNormalBlades, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;
+	DrawText(TextGet("CurrentGold") + KinkyDungeonGold, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;
+	DrawText(TextGet("CurrentLockpicks") + KinkyDungeonLockpicks, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;
+	DrawText(TextGet("CurrentKnife") + KinkyDungeonNormalBlades, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;
 
-	if (KinkyDungeonEnchantedBlades > 0) {DrawText(TextGet("CurrentKnifeMagic") + KinkyDungeonEnchantedBlades, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;}
-	if (KinkyDungeonRedKeys > 0) {DrawText(TextGet("CurrentKeyRed") + KinkyDungeonRedKeys, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;}
-	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "silver"); i+= 0.5;}
+	if (KinkyDungeonEnchantedBlades > 0) {DrawText(TextGet("CurrentKnifeMagic") + KinkyDungeonEnchantedBlades, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}
+	if (KinkyDungeonRedKeys > 0) {DrawText(TextGet("CurrentKeyRed") + KinkyDungeonRedKeys, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}
+	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}
 }
 
 function KinkyDungeonHandleHUD() {
 	let buttonWidth = 48;
 	if (KinkyDungeonDrawState == "Game") {
-		if (MouseIn(1700, 82, 100, 50)) {
+		if (MouseIn(1750, 82, 100, 50)) {
 			KinkyDungeonMessageToggle = !KinkyDungeonMessageToggle;
 			return true;
 		} else if (MouseIn(1885, 900, 90, 90)) {
@@ -295,8 +293,8 @@ function KinkyDungeonHandleHUD() {
 					return true;
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
-				KinkyDungeonHandleShrine();
-
+				if (KinkyDungeonHandleShrine())
+					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(675, 825, 350, 60)) {
 					KinkyDungeonAdvanceTime(1, true);

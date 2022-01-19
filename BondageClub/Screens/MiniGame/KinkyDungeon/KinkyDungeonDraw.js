@@ -292,7 +292,7 @@ let KinkyDungeonMessageToggle = false;
 let KinkyDungeonMessageLog = [];
 
 function KinkyDungeonDrawMessages() {
-	DrawButton(1700, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
+	DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
 	if (!KinkyDungeonMessageToggle) {
 		if (KinkyDungeonTextMessageTime > 0)
 			DrawText(KinkyDungeonTextMessage, 1150, 82, KinkyDungeonTextMessageColor, "black");

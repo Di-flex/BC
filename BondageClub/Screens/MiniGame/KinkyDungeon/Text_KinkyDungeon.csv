@@ -223,7 +223,9 @@ AttackBlindZombie,"The zombie caresses your body! (-DamageTaken SP)"
 NameElementalFire,Fire Elemental
 KillElementalFire,"The fire elemental dissolves into ash."
 AttackElementalFireBind,"The fire elemental conjures forged restraints around your limbs! (+RestraintAdded)"
+AttackElementalFireLock,"The fire elemental places a heavy lock on your restraint! (-DamageTaken SP)"
 AttackElementalFire,"The fire elemental touches you with her burning finger! (-DamageTaken SP)"
+
 
 NameFastZombie,Ravenous Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
@@ -500,7 +502,7 @@ KinkyDungeonStruggleUnlockSuccess,"You unlock the TargetRestraint."
 KinkyDungeonStruggleStruggleSuccess,"You manage to squeeze out of the TargetRestraint!"
 KinkyDungeonStrugglePickSuccess,"You pick the lock on the TargetRestraint!"
 KinkyDungeonAttemptPickSuccess,"You pick the lock on the TargetRestraint!"
-KinkyDungeonStruggleRemoveSuccess,"You unfasten the TargetRestraint and get it off your body!"
+KinkyDungeonStruggleRemoveSuccess,"You unfasten the TargetRestraint!"
 KinkyDungeonStruggleCutSuccess,"You cut the TargetRestraint off!"
 
 KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
@@ -1249,6 +1251,8 @@ KinkyDungeonSpellTargetIceBreath,Select where to put the icicles (SpellArea radi
 
 KinkyDungeonSpellMummyBolt,Mystic Bolt
 KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
+
+KinkyDungeonSpellHeatBlast,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
 KinkyDungeonSpellSlimeBall,Slime Ball

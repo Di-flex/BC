@@ -107,7 +107,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 		}
 	} else if (Event == "hit") {
 		for (let e of item.events) {
-			if (e.type == "linkItem" && (!data.attack || (data.attack.includes("Bind") && !data.attack.includes("Suicide")))) {
+			if (e.type == "linkItem" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
 				for (let inv of KinkyDungeonRestraintList()) {
 					if (inv.restraint && inv.restraint.Link && (!e.chance || Math.random() < e.chance)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(inv.restraint.Link);
