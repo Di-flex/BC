@@ -23,6 +23,7 @@ function KinkyDungeonGetSprite(code) {
 	else if (code == "O") sprite = "Orb";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
+	else if (code == "w") sprite = "Water";
 	return sprite;
 }
 

@@ -255,6 +255,7 @@ Bugfix:
 - Buff familiar Hp from 6 to 8
 - Reduce allied fire elemental spell CD by -1
 - Decoy hp to 12 from 15
+- Added a limit to the number of permanent summons you can have
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

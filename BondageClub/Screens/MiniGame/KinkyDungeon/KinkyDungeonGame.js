@@ -46,7 +46,7 @@ var KinkyDungeonTerrain = [];
 
 var KinkyDungeonMapBrightness = 5;
 
-var KinkyDungeonGroundTiles = "02";
+var KinkyDungeonGroundTiles = "02w";
 var KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 var KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
 var KinkyDungeonMovableTiles = "OCAG" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests
@@ -1375,7 +1375,10 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						moved = true;
-						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+						if (moveObject == 'w')
+							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
+						else
+							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
