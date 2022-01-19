@@ -102,9 +102,9 @@ function KinkyDungeonChangeConsumable(Consumable, Quantity) {
 
 function KinkyDungeonConsumableEffect(Consumable) {
 	if (Consumable.type == "restore") {
-		if (Consumable.mp_instant) KinkyDungeonStatMana += Consumable.mp_instant;
-		if (Consumable.sp_instant) KinkyDungeonStatStamina += Consumable.sp_instant;
-		if (Consumable.ap_instant) KinkyDungeonStatArousal += Consumable.ap_instant;
+		if (Consumable.mp_instant) KinkyDungeonChangeMana(Consumable.mp_instant);
+		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant);
+		if (Consumable.ap_instant) KinkyDungeonChangeArousal(Consumable.ap_instant);
 
 		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
 		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration, duration: Consumable.duration});

@@ -500,7 +500,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//let cost = spell.staminacost ? spell.staminacost : KinkyDungeonGetCost(spell.level);
 
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
-		KinkyDungeonStatMana -= spell.manacost;
+		KinkyDungeonChangeMana(-spell.manacost);
 
 		KinkyDungeonChargeVibrators(spell.manacost);
 		if (spell.channel) KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
@@ -764,8 +764,8 @@ function KinkyDungeonDrawMagicSpells() {
 
 	DrawButton(canvasOffsetX + 0, canvasOffsetY, 50, 50, TextGet("KinkyDungeonSpellsPageBackFast"), "White", "", "");
 	DrawButton(canvasOffsetX + 1100, canvasOffsetY, 50, 50, TextGet("KinkyDungeonSpellsPageNextFast"), "White", "", "");
-	DrawButton(canvasOffsetX + 50, canvasOffsetY, 250, 50, TextGet("KinkyDungeonSpellsPageBack"), "White", "", "");
-	DrawButton(canvasOffsetX + 850, canvasOffsetY, 250, 50, TextGet("KinkyDungeonSpellsPageNext"), "White", "", "");
+	DrawButton(canvasOffsetX + 55, canvasOffsetY, 245, 50, TextGet("KinkyDungeonSpellsPageBack"), "White", "", "");
+	DrawButton(canvasOffsetX + 850, canvasOffsetY, 245, 50, TextGet("KinkyDungeonSpellsPageNext"), "White", "", "");
 
 	DrawButton(650, 925, 355, 60, TextGet("KinkyDungeonMagicSpellsBack"), "White", "", "");
 }

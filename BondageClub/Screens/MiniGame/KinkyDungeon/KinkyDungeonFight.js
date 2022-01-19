@@ -250,17 +250,20 @@ function KinkyDungeonUpdateBullets(delta) {
 	}
 }
 
-function KinkyDungeonUpdateBulletsCollisions(delta) {
+let KinkyDungeonCurrentTick = 0;
+
+function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		var b = KinkyDungeonBullets[E];
-
-		if (!KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
-			if (!(b.bullet.spell && b.bullet.spell.piercing)) {
-				KinkyDungeonBullets.splice(E, 1);
-				KinkyDungeonBulletsID[b.spriteID] = null;
-				E -= 1;
+		if ((!Catchup && !b.secondary) || (Catchup && b.secondary)) {
+			if (!KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
+				if (!(b.bullet.spell && b.bullet.spell.piercing)) {
+					KinkyDungeonBullets.splice(E, 1);
+					KinkyDungeonBulletsID[b.spriteID] = null;
+					E -= 1;
+				}
+				KinkyDungeonBulletHit(b, 1);
 			}
-			KinkyDungeonBulletHit(b, 1);
 		}
 	}
 }
@@ -279,7 +282,7 @@ function KinkyDungeonBulletHit(b, born) {
 	if (b.bullet.hit == "") {
 		KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 	} else if (b.bullet.hit == "aoe") {
-		KinkyDungeonBullets.push({born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
+		KinkyDungeonBullets.push({secondary: true, born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 			bullet:{spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 	} else if (b.bullet.hit == "lingering") {
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;

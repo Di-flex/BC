@@ -241,6 +241,7 @@ function KinkyDungeonDrawGame() {
 			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.IsKneeling() ? -78 : 0, KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
 
 			KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
+			KinkyDungeonDrawFloaters(CamX, CamY);
 
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
@@ -286,6 +287,44 @@ function KinkyDungeonDrawGame() {
 	}
 
 
+}
+
+let KinkyDungeonFloaters = [];
+
+function KinkyDungeonSendFloater(Amount, Color) {
+	if (KinkyDungeonPlayerEntity.visual_x && KinkyDungeonPlayerEntity.visual_y) {
+		let floater = {
+			x: KinkyDungeonPlayerEntity.visual_x + Math.random(),
+			y: KinkyDungeonPlayerEntity.visual_y + Math.random(),
+			speed: 25,
+			t: 0,
+			color: Color,
+			text: "" + Amount,
+			lifetime: (Amount < 3) ? 1 : (Amount > 5 ? 3 : 2),
+		};
+		KinkyDungeonFloaters.push(floater);
+	}
+}
+
+let KinkyDungeonLastFloaterTime = 0;
+
+function KinkyDungeonDrawFloaters(CamX, CamY) {
+	let delta = CommonTime() - KinkyDungeonLastFloaterTime;
+	if (delta > 0) {
+		for (let floater of KinkyDungeonFloaters) {
+			floater.t += delta/1000;
+		}
+	}
+	let newFloaters = [];
+	for (let floater of KinkyDungeonFloaters) {
+		DrawText(floater.text,
+			canvasOffsetX + (floater.x - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (floater.y - CamY)*KinkyDungeonGridSizeDisplay - floater.speed*floater.t,
+			floater.color, "black");
+		if (floater.t < floater.lifetime) newFloaters.push(floater);
+	}
+	KinkyDungeonFloaters = newFloaters;
+
+	KinkyDungeonLastFloaterTime = CommonTime();
 }
 
 let KinkyDungeonMessageToggle = false;

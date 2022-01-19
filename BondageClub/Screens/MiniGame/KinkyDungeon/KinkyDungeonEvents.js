@@ -122,6 +122,13 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				}
 			}
 		}
+	} else if (Event == "struggle") {
+		for (let e of item.events) {
+			if (e.type == "crotchrope" && data.restraint && data.restraint.crotchrope && data.struggletype == "Struggle") {
+				KinkyDungeonChangeArousal(1);
+				KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
+			}
+		}
 	}
 }
 

@@ -164,29 +164,42 @@ function KinkyDungeonDealDamage(Damage) {
 	let manaTypesWeak = ["electric"];
 	let manaTypesString = [];
 	if (arousalTypesWeak.includes(type)) {
-		KinkyDungeonStatArousal += Math.floor(dmg/2);
+		KinkyDungeonChangeArousal(Math.floor(dmg/2));
 	}
 	if (arousalTypesStrong.includes(type)) {
-		KinkyDungeonStatArousal += dmg;
+		KinkyDungeonChangeArousal(dmg);
 	}
 	if (staminaTypesStrong.includes(type)) {
-		KinkyDungeonStatStamina -= dmg;
+		KinkyDungeonChangeStamina(-dmg);
 	} else if (staminaTypesWeak.includes(type)) {
-		KinkyDungeonStatStamina -= Math.floor(dmg/2);
+		KinkyDungeonChangeStamina(-Math.floor(dmg/2));
 	}
 	if (manaTypesString.includes(type)) {
-		KinkyDungeonStatMana -= dmg;
+		KinkyDungeonChangeMana(-dmg);
 	} else if (manaTypesWeak.includes(type)) {
-		KinkyDungeonStatMana -= Math.floor(dmg/2);
+		KinkyDungeonChangeMana(-Math.floor(dmg/2));
 	}
 	KinkyDungeonSleepTurns = 0;
 
 	if (KinkyDungeonStatFreeze > 0) {
-		KinkyDungeonStatStamina -= dmg;
+		KinkyDungeonChangeStamina(-dmg);
 		KinkyDungeonStatFreeze = 0;
 	}
 
 	return dmg;
+}
+
+function KinkyDungeonChangeArousal(Amount) {
+	KinkyDungeonStatArousal += Amount;
+	if (Amount) KinkyDungeonSendFloater(Amount, "#ff00ff");
+}
+function KinkyDungeonChangeStamina(Amount) {
+	KinkyDungeonStatStamina += Amount;
+	if (Amount) KinkyDungeonSendFloater(Amount, "#44ff66");
+}
+function KinkyDungeonChangeMana(Amount) {
+	KinkyDungeonStatMana += Amount;
+	if (Amount) KinkyDungeonSendFloater(Amount, "#4499ff");
 }
 
 function KinkyDungeonHasStamina(Cost, AddRate) {
