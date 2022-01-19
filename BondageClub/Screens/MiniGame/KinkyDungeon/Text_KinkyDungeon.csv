@@ -482,12 +482,15 @@ PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
 KinkyDungeonStruggleStruggleFail,"You tug on the TargetRestraint..."
 KinkyDungeonStrugglePickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickBreak,"You try to pick open the TargetRestraint but break your lockpick."
+KinkyDungeonStrugglePickDrop,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickBreak,"You break your lockpick trying to open the TargetRestraint."
 KinkyDungeonStruggleRemoveFail,"You try to remove the TargetRestraint..."
 KinkyDungeonStruggleCutFail,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutBreak,"You break your knife trying to cut the TargetRestraint."
+KinkyDungeonStruggleCutDrop,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleUnlockFail,"You fiddle with the key on the TargetRestraint..."
+KinkyDungeonStruggleUnlockDrop,"You fiddle with the key on the TargetRestraint..."
 
 KinkyDungeonStruggleUnlockNoRedKey,"The lock requires a key."
 KinkyDungeonStruggleUnlockNoGreenKey,"The green padlock only accepts green keys."
@@ -1048,6 +1051,8 @@ KinkyDungeonComponentsFailLegs,"Your feet are too clumsy to perform the magic ge
 
 KinkyDungeonBookNextPage,Next Page
 KinkyDungeonBookLastPage,Last Page
+KinkyDungeonBookNextPageFast,>>>
+KinkyDungeonBookLastPageFast,<<<
 KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it erupts in your face!
@@ -1345,9 +1350,18 @@ KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
 
-KinkyDungeonSpellsPage,"Viewing Page "
+KinkyDungeonSpellsPage0,"Level I Spells"
+KinkyDungeonSpellsPage1,"Level II Spells"
+KinkyDungeonSpellsPage2,"Level III Spells"
+KinkyDungeonSpellsPage3,"Upgrades"
+KinkyDungeonSpellsPage4,"Passive Spells"
+KinkyDungeonSpellsPage5,"Skills"
+
+KinkyDungeonSpellsPage,"pg. "
 KinkyDungeonSpellsPageNext,"Next Page"
 KinkyDungeonSpellsPageBack,"Previous Page"
+KinkyDungeonSpellsPageNextFast,">>>"
+KinkyDungeonSpellsPageBackFast,"<<<"
 KinkyDungeonSpellsLevels,"Spell Points: SPELLPOINTS --- Elementalist lvELEMLEVEL --- Conjuration lvCONJLEVEL --- Illusionist lvILLULEVEL"
 KinkyDungeonSpellsNotEnoughLevels,"You need a higher level in SCHOOL magic to learn this spell."
 KinkyDungeonSpellsNotEnoughPoints,"You need more spell points."

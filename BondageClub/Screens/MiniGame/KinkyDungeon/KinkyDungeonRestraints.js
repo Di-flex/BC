@@ -567,6 +567,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						}
 					} else if ((handsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound) || (armsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound)) {
 						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+						Pass = "Drop";
 						if (restraint.restraint.magic && KinkyDungeonEnchantedBlades > 0) {
 							KinkyDungeonDropItem({name: "EnchKnife"});
 							KinkyDungeonEnchantedBlades -= 1;
@@ -591,6 +592,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						KinkyDungeonPickBreakProgress = 0;
 					} else if (handsBound || (armsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound)) {
 						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+						Pass = "Drop";
 						KinkyDungeonDropItem({name: "Pick"});
 						KinkyDungeonLockpicks -= 1;
 					} else {
@@ -601,6 +603,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				} else if (StruggleType == "Unlock") {
 					if (handsBound || (armsBound && Math.random() < KinkyDungeonItemDropChanceArmsBound)) {
 						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+						Pass = "Drop";
 						let keytype = KinkyDungeonGetKey(restraint.lock);
 						KinkyDungeonDropItem({name: keytype+"Key"});
 						if (keytype == "Blue") KinkyDungeonBlueKeys -= 1;

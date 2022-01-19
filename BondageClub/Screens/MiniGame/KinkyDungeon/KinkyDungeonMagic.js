@@ -749,9 +749,9 @@ function KinkyDungeonListSpells(Mode) {
 function KinkyDungeonDrawMagicSpells() {
 
 	KinkyDungeonListSpells("Draw");
-	MainCanvas.textAlign = "left";
+	MainCanvas.textAlign = "center";
 
-	DrawText(TextGet("KinkyDungeonSpellsPage") + (KinkyDungeonCurrentSpellsPage + 1), canvasOffsetX + 425, canvasOffsetY + 25, "white", "black");
+	DrawText(TextGet("KinkyDungeonSpellsPage") + (KinkyDungeonCurrentSpellsPage + 1) + ": " + TextGet("KinkyDungeonSpellsPage" + KinkyDungeonCurrentSpellsPage), canvasOffsetX + 575, canvasOffsetY + 25, "white", "black");
 	//DrawText(TextGet("KinkyDungeonSpellsPoints") + KinkyDungeonSpellPoints, 650, 900, "white", "black");
 
 	MainCanvas.textAlign = "center";
@@ -762,6 +762,8 @@ function KinkyDungeonDrawMagicSpells() {
 		.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
 		.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX + 600, 900, "white", "black");
 
+	DrawButton(canvasOffsetX + 0, canvasOffsetY, 50, 50, TextGet("KinkyDungeonSpellsPageBackFast"), "White", "", "");
+	DrawButton(canvasOffsetX + 1100, canvasOffsetY, 50, 50, TextGet("KinkyDungeonSpellsPageNextFast"), "White", "", "");
 	DrawButton(canvasOffsetX + 50, canvasOffsetY, 250, 50, TextGet("KinkyDungeonSpellsPageBack"), "White", "", "");
 	DrawButton(canvasOffsetX + 850, canvasOffsetY, 250, 50, TextGet("KinkyDungeonSpellsPageNext"), "White", "", "");
 
@@ -780,6 +782,19 @@ function KinkyDungeonHandleMagicSpells() {
 		return true;
 	} else if (MouseIn(canvasOffsetX + 850, canvasOffsetY, 250, 50)) {
 		if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 1) KinkyDungeonCurrentSpellsPage += 1;
+		else KinkyDungeonCurrentSpellsPage = 0;
+		return true;
+	} else if (MouseIn(canvasOffsetX + 0, canvasOffsetY, 50, 50)) {
+		if (KinkyDungeonCurrentSpellsPage > 0) {
+			if (KinkyDungeonCurrentSpellsPage > 2) KinkyDungeonCurrentSpellsPage -= 3;
+			else KinkyDungeonCurrentSpellsPage = 0;
+		} else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
+		return true;
+	} else if (MouseIn(canvasOffsetX + 1100, canvasOffsetY, 50, 50)) {
+		if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 1)  {
+			if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 3) KinkyDungeonCurrentSpellsPage += 3;
+			else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
+		}
 		else KinkyDungeonCurrentSpellsPage = 0;
 		return true;
 	}
