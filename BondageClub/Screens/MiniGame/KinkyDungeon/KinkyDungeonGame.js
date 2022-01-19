@@ -1415,7 +1415,10 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonSleepTurns = 0;
 				//for (let d = 0; d < newDelta; d++)
 				// KinkyDungeonAdvanceTime(1, false, d != 0); // was moveDirection.delta, but became too confusing
-				if (newDelta > 1 && newDelta < 10) KinkyDungeonSlowMoveTurns = newDelta -1;
+				if (newDelta > 1 && newDelta < 10) {
+					KinkyDungeonSlowMoveTurns = newDelta -1;
+					KinkyDungeonSleepTime = CommonTime() + 200;
+				}
 				KinkyDungeonAdvanceTime(1);
 			} else {
 				KinkyDungeonWaitMessage();

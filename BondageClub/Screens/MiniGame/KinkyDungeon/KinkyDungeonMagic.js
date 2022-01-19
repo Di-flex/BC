@@ -503,7 +503,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		KinkyDungeonChangeMana(-spell.manacost);
 
 		KinkyDungeonChargeVibrators(spell.manacost);
-		if (spell.channel) KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
+		if (spell.channel) {
+			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
+			KinkyDungeonSleepTime = CommonTime() + 200;
+		}
 	}
 
 	return true;
