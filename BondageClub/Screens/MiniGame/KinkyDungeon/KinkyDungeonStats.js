@@ -158,7 +158,7 @@ function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
 	let arousalTypesWeak = ["grope"];
-	let arousalTypesStrong = ["tickle"];
+	let arousalTypesStrong = ["tickle", "charm"];
 	let staminaTypesWeak = ["electric", "tickle"];
 	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope"];
 	let manaTypesWeak = ["electric"];

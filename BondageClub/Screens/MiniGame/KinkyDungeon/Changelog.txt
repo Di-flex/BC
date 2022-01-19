@@ -242,6 +242,9 @@ Bugfix:
 2.44
 - Necromancer now summons normal skeletons
 - Added a fourth and fifth spell slot, purchaseable in the spells menu
+- New elemental enemies if you annoy the elemental goddess
+- New obsidian restraints with a unique set of arm cuffs
+- Fixed enemies with spells crashing the game
 
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load

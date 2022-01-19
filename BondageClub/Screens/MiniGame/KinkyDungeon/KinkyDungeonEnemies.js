@@ -159,7 +159,7 @@ var KinkyDungeonEnemies = [
 	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "electricresist", "coldweakness", "iceweakness", "obsidianRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
 		spells: ["HeatBolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true,
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, }, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 
 	{name: "ChaoticCrystal", color: "#ff00aa22", hitsfx: "DealDamage", tags: ["crystal", "minor", "melee", "crushweakness"], regen: -1.5,
 		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "wander",
