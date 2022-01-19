@@ -241,6 +241,7 @@ Bugfix:
 
 2.44
 - Necromancer now summons normal skeletons
+- Added a fourth and fifth spell slot, purchaseable in the spells menu
 
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
