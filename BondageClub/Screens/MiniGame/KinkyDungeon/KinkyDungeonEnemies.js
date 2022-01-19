@@ -1048,7 +1048,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							for (let X = player.x-1; X <= player.x+1; X++)
 								for (let Y = player.y-1; Y <= player.y+1; Y++) {
 									let tile = KinkyDungeonMapGet(X, Y);
-									if ((X != 0 || Y != 0) && !(KinkyDungeonEnemyAt(X, Y) || !MovableTiles.includes(tile) || (tile == 'D' && !enemy.Enemy.ethereal))) {
+									if ((X != 0 || Y != 0) && !(!KinkyDungeonNoEnemy(X, Y, true) || !MovableTiles.includes(tile) || (tile == 'D' && !enemy.Enemy.ethereal))) {
 										tiles.push({x:X, y:Y});
 									}
 								}
