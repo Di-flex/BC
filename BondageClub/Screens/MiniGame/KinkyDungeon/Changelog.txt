@@ -262,6 +262,12 @@ Bugfix:
 - Water elemental now binds with her song
 - Added two new maid enemies if you annoy the illusion goddess.
 
+2.45
+- Fix crash when your minion tries to hit a ninja stalker
+- Fix infinite spells in place when you misfire a piercing spell (such as Crackle or Shadow Blade)
+- Fix wrong menu button positions on the loss screen
+- Added mitigation for key held down issue, clicking anywhere in the UI should reset the key array
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

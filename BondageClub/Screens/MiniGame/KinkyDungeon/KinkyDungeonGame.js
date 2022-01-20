@@ -1180,7 +1180,7 @@ function KinkyDungeonClickGame(Level) {
 			false,
 			false,
 			false,
-		]
+		];
 		return;
 	}
 	// beep
