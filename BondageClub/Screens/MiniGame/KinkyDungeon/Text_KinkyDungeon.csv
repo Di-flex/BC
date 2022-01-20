@@ -544,7 +544,7 @@ KinkyDungeonStruggleUnlockImpossibleBound,"You can't hold the key to unlock this
 KinkyDungeonStrugglePickImpossible,"Your picks won't work on this type of lock!"
 KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
-KinkyDungeonStruggleRemoveImpossible,"There are no knots or fasteners!"
+KinkyDungeonStruggleRemoveImpossible,"You can't reach anything that could help you!"
 KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try to undo them!"
 KinkyDungeonStruggleRemoveImpossibleBound,"You are too tightly bound to manipulate that item."
 KinkyDungeonStruggleCutImpossible,"The item is too durable to cut."
@@ -888,13 +888,18 @@ RestraintObsidianArmCuffs2,Obsidian Cuffs
 RestraintObsidianArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintObsidianArmCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnlinkObsidianArmCuffs2,"Your cuffs detatch!"
-KinkyDungeonLinkObsidianArmCuffs,"The enemy attaches your elbow cuffs together!"
+KinkyDungeonLinkObsidianArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
 RestraintObsidianArmCuffs3,Obsidian Cuffs
-RestraintObsidianArmCuffs3Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintObsidianArmCuffs3Desc,"A pair of cuffs keeping your arms in a strict elbow tie!"
 RestraintObsidianArmCuffs3Desc2,"It's made of a dark, glistening volcanic metal."
-KinkyDungeonUnlinkObsidianArmCuffs3,"Your elbow cuffs detach!"
+KinkyDungeonUnlinkObsidianArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
+RestraintObsidianArmCuffs4,Obsidian Elbow Cuffs
+RestraintObsidianArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
+RestraintObsidianArmCuffs4Desc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonUnlinkObsidianArmCuffs4,"Your elbows detatch!"
+KinkyDungeonLinkObsidianArmCuffs4,"The enemy attaches your wrist cuffs back together!"
 
 RestraintObsidianLegCuffs,Obsidian Cuffs
 RestraintObsidianLegCuffsDesc,"A pair of cuffs chaining your legs together."

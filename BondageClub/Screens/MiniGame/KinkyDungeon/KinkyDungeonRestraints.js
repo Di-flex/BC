@@ -42,13 +42,13 @@ var KinkyDungeonRestraints = [
 		enemyTags: {"ribbonRestraints":5}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
 	{removePrison: true, name: "DuctTapeMouth", Asset: "DuctTape", Color: "#AA2222", Group: "ItemMouth2", power: -2, weight: 0, escapeChance: {"Struggle": 0.3, "Cut": 0.9, "Remove": 0},
 		enemyTags: {"ribbonRestraints":5}, playerTags: {"ItemMouth1Full":8}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
-	{removePrison: true, name: "DuctTapeHeadMummy", Type: "Mummy", Asset: "DuctTape", Color: "#AA2222", Group: "ItemHead", power: 2, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.8, "Remove": 0},
+	{removePrison: true, name: "DuctTapeHeadMummy", Type: "Mummy", Asset: "DuctTape", Color: "#AA2222", Group: "ItemHead", power: 2, weight: 0,  escapeChance: {"Struggle": 0.15, "Cut": 0.8, "Remove": 0},
 		enemyTags: {"ribbonRestraints":1}, playerTags: {"ItemMouth1Full":2, "ItemMouth2Full":1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
 	{removePrison: true, name: "DuctTapeArmsMummy", Type: "Complete", remove: ["Cloth", "ClothLower"], Asset: "DuctTape", Color: "#AA2222", Group: "ItemArms", power: 2, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.8, "Remove": 0},
 		enemyTags: {"ribbonRestraints":1}, playerTags: {"ItemArmsFull":3}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
-	{removePrison: true, name: "DuctTapeLegsMummy", Type: "CompleteLegs", remove: ["ClothLower"], Asset: "DuctTape", Color: "#AA2222", Group: "ItemLegs", power: 2, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.8, "Remove": 0},
+	{removePrison: true, name: "DuctTapeLegsMummy", Type: "CompleteLegs", remove: ["ClothLower"], Asset: "DuctTape", Color: "#AA2222", Group: "ItemLegs", power: 2, weight: 0,  escapeChance: {"Struggle": 0.15, "Cut": 0.8, "Remove": 0},
 		enemyTags: {"ribbonRestraints":1}, playerTags: {"ItemLegsFull":3}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
-	{removePrison: true, name: "DuctTapeFeetMummy", Type: "CompleteFeet", Asset: "DuctTape", Color: "#AA2222", Group: "ItemFeet", power: 2, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.8, "Remove": 0},
+	{removePrison: true, name: "DuctTapeFeetMummy", Type: "CompleteFeet", Asset: "DuctTape", Color: "#AA2222", Group: "ItemFeet", power: 2, weight: 0,  escapeChance: {"Struggle": 0.15, "Cut": 0.8, "Remove": 0},
 		enemyTags: {"ribbonRestraints":1}, playerTags: {"ItemFeetFull":3}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
 
 	{removePrison: true, name: "MysticDuctTapeHead", Type: "Wrap", Asset: "DuctTape", Color: "#55AA22", Group: "ItemHead", power: 1, weight: 0, escapeChance: {"Struggle": 0.2, "Cut": 0.6, "Remove": 0},
@@ -169,9 +169,13 @@ var KinkyDungeonRestraints = [
 	{inventory: true, name: "ObsidianLegCuffs", Asset: "OrnateLegCuffs", Type: "Chained", Color: ["#675F50", "#171222", "#9B63C5"], Group: "ItemLegs", power: 9, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {"obsidianRestraints":6}, playerTags: {"ItemLegsFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Cuffs"]},
 	{inventory: true, name: "ObsidianAnkleCuffs", Asset: "OrnateAnkleCuffs", Type: "Chained", Color: ["#675F50", "#171222", "#9B63C5"], Group: "ItemFeet", power: 9, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {"obsidianRestraints":6}, playerTags: {"ItemFeetFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Cuffs"]},
 	{inventory: true, name: "ObsidianArmCuffs", Asset: "OrnateCuffs", Link: "ObsidianArmCuffs2", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"obsidianRestraints":24}, playerTags: {"ItemArmsFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Cuffs"],
-		events: [{trigger: "hit", type: "linkItem", chance: 0.4}]},
-	{name: "ObsidianArmCuffs2", Asset: "OrnateCuffs", Type: "Wrist", UnLink: "ObsidianArmCuffs", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
+		events: [{trigger: "hit", type: "linkItem", chance: 0.33}]},
+	{name: "ObsidianArmCuffs2", Asset: "OrnateCuffs", Type: "Wrist", Link: "ObsidianArmCuffs3", UnLink: "ObsidianArmCuffs", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
+		events: [{trigger: "remove", type: "unlinkItem"}, {trigger: "hit", type: "linkItem", chance: 0.33}]},
+	{name: "ObsidianArmCuffs3", Asset: "OrnateCuffs", Type: "Both", UnLink: "ObsidianArmCuffs4", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, strictness: 0.1, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0, "Pick": 0.25}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
 		events: [{trigger: "remove", type: "unlinkItem"}]},
+	{name: "ObsidianArmCuffs4", Asset: "OrnateCuffs", Type: "Elbow", Link: "ObsidianArmCuffs3", UnLink: "ObsidianArmCuffs", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0, "Pick": 0.25}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
+		events: [{trigger: "remove", type: "unlinkItem"}, {trigger: "hit", type: "linkItem", chance: 0.5}]},
 	{inventory: true, name: "ObsidianGag", Asset: "MuzzleGag", Color: ["#1C1847", "#1C1847"], Group: "ItemMouth3", power: 9, weight: -7, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {"obsidianRestraints":8}, playerTags: {"ItemMouth3Full":-2, "ItemMouth2Full":2, "ItemMouth1Full":2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Gags"]},
 	{inventory: true, name: "ObsidianCollar", Asset: "OrnateCollar", Color: ["#171222", "#9B63C5"], Group: "ItemNeck", power: 9, weight: -7, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {"obsidianRestraints":4}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Gags"]},
 
@@ -193,7 +197,7 @@ var KinkyDungeonRestraints = [
 	{removePrison: true, name: "VinePlantTorso", Asset: "HempRopeHarness", Type: "Diamond", OverridePriority: 26, Color: "#00FF44", Group: "ItemTorso", power: 0.1, weight: 0, harness: true, escapeChance: {"Struggle": 0.3, "Cut": 0.8, "Remove": 0.4}, enemyTags: {"vineRestraints":4}, playerTags: {"ItemTorsoFull":-3}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"]},
 
 	{name: "ChainArms", Asset: "Chains", Type: "WristElbowHarnessTie", Color: "Default", Group: "ItemArms", power: 5, weight: 0, escapeChance: {"Struggle": 0.1, "Cut": -0.1, "Remove": 0.5, "Pick": 1.5}, enemyTags: {"chainRestraints":2}, playerTags: {"ItemArmsFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
-	{name: "ChainLegs", Asset: "Chains", Type: "Strict", Color: "Default", Group: "ItemLegs", power: 5, weight: 0, escapeChance: {"Struggle": 0.1, "Cut": -0.1, "Remove": 0.5, "Pick": 1.5}, enemyTags: {"chainRestraints":2}, playerTags: {"ItemLegsFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
+	{name: "ChainLegs", Asset: "Chains", Type: "Strict", Color: "Default", Group: "ItemLegs", power: 5, weight: 0, escapeChance: {"Struggle": 0.15, "Cut": -0.1, "Remove": 0.5, "Pick": 1.5}, enemyTags: {"chainRestraints":2}, playerTags: {"ItemLegsFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 	{name: "ChainFeet", Asset: "Chains", Color: "Default", Group: "ItemFeet", power: 5, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.1, "Remove": 0.5, "Pick": 1.5}, enemyTags: {"chainRestraints":2}, playerTags: {"ItemFeetFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 	{name: "ChainCrotch", Asset: "CrotchChain", crotchrope: true, OverridePriority: 26, Color: "Default", Group: "ItemTorso", power: 5, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": 0.0, "Cut": -0.1, "Remove": 0.5, "Pick": 1.5}, enemyTags: {"chainRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 
@@ -333,6 +337,15 @@ function KinkyDungeonIsArmsBound(ApplyGhost) {
 		(InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemArms"));
 }
 
+function KinkyDungeonStrictness(ApplyGhost) {
+	if (!ApplyGhost || !KinkyDungeonHasGhostHelp()) return 0;
+	let strictness = 0;
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.strict && inv.restraint.strict > strictness) strictness = inv.restraint.strict;
+	}
+	return strictness;
+}
+
 function KinkyDungeonGetPickBaseChance() {
 	return 0.33 / (1.0 + 0.02 * MiniGameKinkyDungeonLevel);
 }
@@ -345,6 +358,8 @@ function KinkyDungeonPickAttempt() {
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
+	KinkyDungeonSleepTurns = 0;
+
 	if (lock.includes("Blue")) {
 		if ((KinkyDungeonPlayer.IsBlind() < 1) || !lock.includes("Blue"))
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonPlayer.IsBlind() > 0) ? "Unknown" : lock) + "Key"), "orange", 2);
@@ -355,9 +370,11 @@ function KinkyDungeonPickAttempt() {
 
 	let handsBound = KinkyDungeonIsHandsBound();
 	let armsBound = KinkyDungeonIsArmsBound();
+	let strict = KinkyDungeonStrictness();
 	if (!KinkyDungeonPlayer.CanInteract()) escapeChance /= 2;
 	if (armsBound) escapeChance = Math.max(0.0, escapeChance - 0.25);
 	if (handsBound) escapeChance = Math.max(0, escapeChance - 0.5);
+	else if (strict) escapeChance = Math.max(0, escapeChance - strict);
 
 	escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
 
@@ -388,11 +405,15 @@ function KinkyDungeonUnlockAttempt(lock) {
 	let Pass = "Fail";
 	let escapeChance = 1.0;
 
+	KinkyDungeonSleepTurns = 0;
+
 	let handsBound = KinkyDungeonIsHandsBound();
 	let armsBound = KinkyDungeonIsArmsBound();
+	let strict = KinkyDungeonStrictness();
 	if (!KinkyDungeonPlayer.CanInteract()) escapeChance /= 2;
 	if (armsBound) escapeChance = Math.max(0.1, escapeChance - 0.25);
 	if (handsBound) escapeChance = Math.max(0, escapeChance - 0.5);
+	else if (strict) escapeChance = Math.max(0, escapeChance - strict);
 
 	if (Math.random() < escapeChance)
 		Pass = "Success";
@@ -419,6 +440,7 @@ function KinkyDungeonUnlockAttempt(lock) {
 function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	var restraint = KinkyDungeonGetRestraintItem(struggleGroup.group);
 	var cost = (StruggleType == "Pick" || StruggleType == "Cut") ? KinkyDungeonStatStaminaCostTool : KinkyDungeonStatStaminaCostStruggle;
+	KinkyDungeonSleepTurns = 0;
 	if (StruggleType == "Unlock") cost = 0;
 	let Pass = "Fail";
 	let escapeChance = (restraint.restraint.escapeChance[StruggleType] != null) ? restraint.restraint.escapeChance[StruggleType] : 1.0;
@@ -455,6 +477,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	let handsBound = KinkyDungeonIsHandsBound(true);
 	let armsBound = KinkyDungeonIsArmsBound(true);
+	let strict = KinkyDungeonStrictness();
 
 	// Struggling is unaffected by having arms bound
 	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup.group != "ItemArms" && struggleGroup.group != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) escapeChance /= 1.5;
@@ -464,9 +487,12 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (StruggleType == "Remove" && !handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0))
 		escapeChance = Math.min(1, escapeChance + 0.15);
 
+	// Strict bindings make it harder to escape
+	if (strict) escapeChance = Math.max(0, escapeChance - strict);
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
 		escapeChance = (StruggleType == "Remove") ? escapeChance / 2 : Math.max(0, escapeChance - 0.5);
+
 
 	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock")) escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
 
