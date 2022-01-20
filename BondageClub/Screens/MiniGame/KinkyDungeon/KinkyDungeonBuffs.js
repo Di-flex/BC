@@ -103,3 +103,8 @@ function KinkyDungeonApplyBuff(list, origbuff) {
 			}
 		}
 }
+
+function KinkyDungeonHasBuff(list, Buff) {
+	if (list && list[Buff]) return true;
+	else return false;
+}

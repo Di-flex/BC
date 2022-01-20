@@ -260,6 +260,7 @@ Bugfix:
 - Added smoke bomb and invisibility potion
 - Added earth and ice runes and gave loot to elemental enemies (whoops...)
 - Water elemental now binds with her song
+- Added a new maid enemy if you annoy the illusion goddess. She doesn't do much yet. WIP
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

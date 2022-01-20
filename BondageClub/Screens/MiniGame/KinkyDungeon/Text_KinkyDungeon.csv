@@ -241,6 +241,30 @@ AttackMaidforceBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
 AttackMaidforceLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
 AttackMaidforce,"The maid tickles you with her feather duster! (-DamageTaken SP)"
 
+NameMaidforceStalker,M.F. 'Unseen Blade'
+KillMaidforceStalker,"The maid does a fumbled retreat."
+AttackMaidforceStalkerBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+AttackMaidforceStalkerLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
+AttackMaidforceStalker,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+
+NameMaidforceMafia,M.F. 'Going Loud'
+KillMaidforceMafia,"The maid does a fumbled retreat."
+AttackMaidforceMafiaBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+AttackMaidforceMafiaLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
+AttackMaidforceMafia,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+
+NameMaidforceParasol,M.F. 'Parasol'
+KillMaidforceParasol,"The maid does a fumbled retreat."
+AttackMaidforceParasolBind,"The maid binds you in tight restraints! (+RestraintAdded)"
+AttackMaidforceParasolLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
+AttackMaidforceParasol,"The maid caresses your breasts with a smile! (-DamageTaken SP)"
+
+NameMaidforceHead,M.F. 'Master Plan'
+KillMaidforceHead,"The maid does a fumbled retreat."
+AttackMaidforceHeadBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+AttackMaidforceHeadLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
+AttackMaidforceHead,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+
 
 NameElementalFire,Fire Elemental
 KillElementalFire,"The fire elemental dissolves into ash."
@@ -1311,6 +1335,7 @@ KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked eart
 
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
 KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defense!
+KinkyDungeonSpellCastParasolBuff,"EnemyName uses a charm to buff an enemy's spell resist, and evasion!"
 KinkyDungeonSpellCastEarthrune,You create a zone of increased defense!
 KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 
@@ -1366,6 +1391,9 @@ KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
 
 KinkyDungeonSpellHeatBlast,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
+
+KinkyDungeonSpellHairpin,Magic Hairpin
+KinkyDungeonHairpin,"The magic hairpin goes for your eyes and forces you to blink!"
 
 KinkyDungeonSpellIceDragonBreath,Ice Storm
 

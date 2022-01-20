@@ -90,6 +90,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	let resistSlow = 0;
 	let resistDamage = 0;
 	let dmgDealt = 0;
+	let spellResist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "SpellResist"));
 	let armor = (Damage && Enemy.Enemy.armor && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) ? Enemy.Enemy.armor : 0;
 	if (KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor")) armor += KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor");
 
@@ -98,6 +99,13 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	}
 
 	if (Damage) {
+		let time = Damage.time ? Damage.time : 0;
+		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+			if (time)
+				time = Math.max(0, Math.ceil(time * spellResist));
+			dmg = Math.max(0, Math.ceil(dmg * spellResist));
+		}
+
 		if (Enemy.Enemy.tags) {
 			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "immune")) resistDamage = 2;
 			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "resist")) resistDamage = 1;
@@ -112,8 +120,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		if (Damage.type != "inert" && resistDamage < 2) {
 			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
-				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor goes before resistance
-				dmgDealt = Math.max(1, dmg-1); // Enemies that resist the damage type can only take 1 damage, and if they would take 1 damage it deals 0 damage instead
+				dmgDealt = Math.max(dmg - armor, 0); // Armor goes before resistance
+				dmgDealt = Math.max(1, dmgDealt-1); // Enemies that resist the damage type can only take 1 damage, and if they would take 1 damage it deals 0 damage instead
 			} else if (resistDamage == -1) {
 				dmgDealt = Math.max(dmg+1, Math.floor(dmg*1.5)); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
@@ -140,29 +148,29 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			effect = true;
 			if (!Enemy.stun) Enemy.stun = 0;
 			if (resistStun == 1)
-				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
-			else Enemy.stun = Math.max(Enemy.stun, Damage.time);
+				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
+			else Enemy.stun = Math.max(Enemy.stun, time);
 		}
 		if ((resistDamage < 2) && (Damage.type == "ice")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.freeze) Enemy.freeze = 0;
 			if (resistDamage == 1)
-				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
-			else Enemy.freeze = Math.max(Enemy.freeze, Damage.time);
+				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(time/2), time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
+			else Enemy.freeze = Math.max(Enemy.freeze, time);
 		}
 		if ((resistDamage < 2) && (Damage.type == "chain" || Damage.type == "glue")) { // Being immune to the damage stops the bind
 			effect = true;
 			if (!Enemy.bind) Enemy.bind = 0;
 			if (resistDamage == 1)
-				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
-			else Enemy.bind = Math.max(Enemy.bind, Damage.time);
+				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
+			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
 		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1)
-				Enemy.slow = Math.max(Enemy.slow, Math.min(Math.floor(Damage.time/2), Damage.time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
-			else Enemy.slow = Math.max(Enemy.slow, Damage.time);
+				Enemy.slow = Math.max(Enemy.slow, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
+			else Enemy.slow = Math.max(Enemy.slow, time);
 		}
 	}
 

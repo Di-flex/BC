@@ -1169,14 +1169,14 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 // @ts-ignore
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
-	if (KinkyDungeonHandleHUD()) {
+	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1 && KinkyDungeonHandleHUD()) {
 		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		return;
 	}
 	// beep
 
 	// If no buttons are clicked then we handle move
-	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1) {
+	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1) {
 		KinkyDungeonSetMoveDirection();
 
 		if (KinkyDungeonTargetingSpell) {
@@ -1204,7 +1204,7 @@ function KinkyDungeonClickGame(Level) {
 }
 
 function KinkyDungeonListenKeyMove() {
-	if (KinkyDungeonLastMoveTimer < performance.now()) {
+	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1) {
 		let moveDirection = null;
 		let moveDirectionDiag = null;
 

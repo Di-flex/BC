@@ -98,11 +98,9 @@ function KinkyDungeonLoot(Level, Index, Type) {
 
 	for (let L = lootWeights.length - 1; L >= 0; L--) {
 		if (selection > lootWeights[L].weight) {
-			let replace = false;
+			let replace = KinkyDungeonLootEvent(lootWeights[L].loot, Level, TextGet(lootWeights[L].loot.message));
 
-			replace = KinkyDungeonSendActionMessage(8, TextGet(lootWeights[L].loot.message), lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);
-
-			KinkyDungeonLootEvent(lootWeights[L].loot, Level, replace);
+			KinkyDungeonSendActionMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);
 
 			break;
 		}
@@ -149,14 +147,14 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		let amount = 1;
 		KinkyDungeonSpellPoints += amount;
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("AMOUNT", "" + amount);
+			Replacemsg = Replacemsg.replace("AMOUNT", "" + amount);
 	} else if (Loot.name == "spell_illusion_low") {
 		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Illusion);
 		let spellIndex = Math.floor(Math.random()*SpellsUnlearned.length);
 
 		let spell = SpellsUnlearned[spellIndex];
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
+			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 	} else if (Loot.name == "spell_conjuration_low") {
 		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Conjure);
@@ -164,7 +162,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 
 		let spell = SpellsUnlearned[spellIndex];
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
+			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 	} else if (Loot.name == "spell_elemental_low") {
 		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Elements);
@@ -172,7 +170,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 
 		let spell = SpellsUnlearned[spellIndex];
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
+			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 	} else if (Loot.name == "gold") {
 		value = Math.ceil((25 + 25 * Math.random()) * (1 + Floor/40));
@@ -191,7 +189,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemBoltCutters"));
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemBoltCutters"));
 	} else if (Loot.name == "potions_mana") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 2+Math.floor(Math.random()*3));
 	} else if (Loot.name == "potions_many") {
@@ -208,50 +206,51 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinder"), MiniGameKinkyDungeonCheckpoint, true, false);
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
 	} else if (Loot.name == "trap_cuffs") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapCuffs"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapCuffs"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapCuffs"));
 	} else if (Loot.name == "trap_harness") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapHarness"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapHarness"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapHarness"));
 	} else if (Loot.name == "trap_gag") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapGag"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapGag"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapGag"));
 	} else if (Loot.name == "trap_blindfold") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBlindfold"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapBlindfold"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBlindfold"));
 	} else if (Loot.name == "trap_boots") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBoots"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapBoots"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBoots"));
 	} else if (Loot.name == "trap_legirons") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapLegirons"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapLegirons"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapLegirons"));
 	} else if (Loot.name == "trap_belt") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), MiniGameKinkyDungeonCheckpoint, true, false);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("RestraintType", TextGet("RestraintTrapBelt"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBelt"));
 	}
 
 	if (value > 0) {
 		if (Replacemsg)
-			KinkyDungeonActionMessage = KinkyDungeonActionMessage.replace("XXX", "" + value);
+			Replacemsg = Replacemsg.replace("XXX", "" + value);
 		KinkyDungeonAddGold(value);
 	}
+	return Replacemsg;
 }
 
 
