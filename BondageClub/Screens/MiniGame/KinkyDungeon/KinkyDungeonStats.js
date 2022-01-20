@@ -115,6 +115,10 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonNormalBlades = 1;
 	KinkyDungeonEnchantedBlades = 0;
 
+	KDOrigStamina = 36;
+	KDOrigMana = 36;
+	KDOrigArousal = 0;
+
 	KinkyDungeonHasCrotchRope = false;
 
 	KinkyDungeonSubmissiveMult = 0;
@@ -191,20 +195,30 @@ function KinkyDungeonDealDamage(Damage) {
 	return dmg;
 }
 
+let KDOrigStamina = 36;
+let KDOrigMana = 36;
+let KDOrigArousal = 36;
+
 function KinkyDungeonChangeArousal(Amount) {
-	let orig = KinkyDungeonStatArousal;
 	KinkyDungeonStatArousal += Amount;
-	if (Amount && orig != KinkyDungeonStatArousal) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#ff00ff");
+	if (Amount && Math.abs(KDOrigArousal - Math.floor(KinkyDungeonStatArousal)) >= 0.99) {
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatArousal) - KDOrigArousal, "#ff00ff");
+		KDOrigArousal = Math.floor(KinkyDungeonStatArousal);
+	}
 }
 function KinkyDungeonChangeStamina(Amount) {
-	let orig = KinkyDungeonStatStamina;
 	KinkyDungeonStatStamina += Amount;
-	if (Amount && orig != KinkyDungeonStatStamina) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#44ff66");
+	if (Amount && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66");
+		KDOrigStamina = Math.floor(KinkyDungeonStatStamina);
+	}
 }
 function KinkyDungeonChangeMana(Amount) {
-	let orig = KinkyDungeonStatMana;
 	KinkyDungeonStatMana += Amount;
-	if (Amount && orig != KinkyDungeonStatMana) KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Amount, "#4499ff");
+	if (Amount && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigStamina, "#4499ff");
+		KDOrigMana = Math.floor(KinkyDungeonStatMana);
+	}
 }
 
 function KinkyDungeonHasStamina(Cost, AddRate) {

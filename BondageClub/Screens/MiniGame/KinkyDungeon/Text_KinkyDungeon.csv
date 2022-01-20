@@ -178,7 +178,7 @@ KinkyDungeonInventoryItemEarthRuneDesc2,"Creates a 3x3 area of +2 armor centered
 KinkyDungeonInventoryItemIceRune,Ice Rune
 KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and icicles pierce through the floor!"
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
-KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 4 damage and freeze for 3 turns."
+KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
@@ -188,7 +188,7 @@ KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon."
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemKnifeDesc,"A go-to for travelers and adventurers."
-KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attacks deal 2 damage instead, halved if feet are bound."
+KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attacks deal 20 damage instead, halved if feet are bound."
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
 KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon, a superior choice to a knife."
@@ -1325,12 +1325,12 @@ KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
 KinkyDungeonSpellShadowBlade,Darkblade
 KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
-KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature gain +2 damage for Duration turns
+KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature gain +20 damage for Duration turns
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
 KinkyDungeonSpellTargetStoneSkin,Select which creature to buff
-KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +2 armor for Duration turns
+KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +20 armor for Duration turns
 KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked earth!
 
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
@@ -1401,7 +1401,7 @@ KinkyDungeonSpellIceSlowBreath,Icy Aura
 
 KinkyDungeonSpellSlimeBall,Slime Ball
 KinkyDungeonSpellWitchSlimeBall,Witch's Slime Ball
-KinkyDungeonSpellDescriptionSlimeBall,A ball of slime leaves a trail of sticky slime (4 damage when stepped on). It deals DamageDealt damage on a hit.
+KinkyDungeonSpellDescriptionSlimeBall,A ball of slime leaves a trail of sticky slime (40 damage when stepped on). It deals DamageDealt damage on a hit.
 KinkyDungeonSpellCastSlimeBall,You hurl a ball of slime!
 KinkyDungeonSpellTargetSlimeBall,Choose aim direction
 

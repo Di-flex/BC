@@ -790,6 +790,11 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;
 				if (saveData.stats.wep != undefined) KinkyDungeonPlayerWeapon = saveData.stats.wep;
 				if (saveData.stats.npp != undefined) KinkyDungeonNewGame = saveData.stats.npp;
+
+
+				KDOrigStamina = KinkyDungeonStatStamina;
+				KDOrigMana = KinkyDungeonStatMana;
+				KDOrigArousal = KinkyDungeonStatArousal;
 			}
 
 
