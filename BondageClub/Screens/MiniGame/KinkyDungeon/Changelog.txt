@@ -267,6 +267,8 @@ Bugfix:
 - Fix infinite spells in place when you misfire a piercing spell (such as Crackle or Shadow Blade)
 - Fix wrong menu button positions on the loss screen
 - Added mitigation for key held down issue, clicking anywhere in the UI should reset the key array
+- Multiplied enemy hp by 10 (visually, internally there are no changes)
+- Tuned the floating numbers to make them always present integers
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

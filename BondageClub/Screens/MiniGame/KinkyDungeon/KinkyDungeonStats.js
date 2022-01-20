@@ -240,12 +240,14 @@ function KinkyDungeonSetMaxStats() {
 	KinkyDungeonStatArousalMax = 36;
 	KinkyDungeonStatManaMax = 36;
 	KinkyDungeonSpellChoiceCount = 3;
+	KinkyDungeonSummonCount = 2;
 	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
 		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
 		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2") KinkyDungeonSpellChoiceCount += 1;
+		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 1;
 		if (s.name == "APUp1" || s.name == "APUp2" || s.name == "APUp3") {
 			KinkyDungeonStatArousalMax += 12;
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;

@@ -39,25 +39,7 @@ function KinkyDungeonHandleInventory() {
 			let item = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter)[KinkyDungeonCurrentPageInventory];
 			if (!item || !item.name) return true;
 
-			if (!KinkyDungeonPlayer.CanInteract() && (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"))) {
-				KinkyDungeonAdvanceTime(1);
-				KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
-
-				if (KinkyDungeonTextMessageTime > 0)
-					KinkyDungeonDrawState = "Game";
-
-				return true;
-			}
-			if (!KinkyDungeonPlayer.CanTalk()) {
-				KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
-
-				if (KinkyDungeonTextMessageTime > 0)
-					KinkyDungeonDrawState = "Game";
-
-				return true;
-			}
-
-			KinkyDungeonUseConsumable(item.name, 1);
+			KinkyDungeonAttemptConsumable(item.name, 1);
 		} else if (KinkyDungeonCurrentFilter == "Weapons") {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			if (weapon && weapon != "Knife") {
@@ -117,6 +99,8 @@ function KinkyDungeonFilterInventory(Filter) {
 }
 
 function KinkyDungeonDrawInventorySelected(List) {
+	KinkyDungeonDrawMessages(true);
+
 	let item = List[KinkyDungeonCurrentPageInventory];
 	if (!item) return false;
 	let name = item.name;

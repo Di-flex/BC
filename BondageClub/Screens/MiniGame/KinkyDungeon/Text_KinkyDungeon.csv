@@ -165,7 +165,7 @@ KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter 
 KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal by 12 per turn over 3 turns. Effect does not stack."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
 KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
-KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs."
+KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs. Can be used without hands."
 KinkyDungeonInventoryItemSmokeBombDesc2,"Creates a smoke screen lasting 8 turns. You are harder to see while inside the smoke."
 KinkyDungeonInventoryItemPotionInvisibility,Invisibility Potion
 KinkyDungeonInventoryItemPotionInvisibilityUse,You chug the concoction and see your body fading away.
@@ -621,7 +621,8 @@ KinkyBlueLockAbr,"(B)"
 KinkyYellowLockAbr,"(Y)"
 
 KinkyDungeonPotionGagged,"You can't drink that while gagged!"
-KinkyDungeonCantUsePotions,"You can't drink potions with your hands bound."
+KinkyDungeonCantUsePotions,"You can't use that without your fingers!"
+KinkyDungeonCantUsePotionsStrict,"You struggle against your bindings but it's too strict!."
 KinkyDungeonDropPick,"You drop the pick due to your bound hands!"
 KinkyDungeonDropKnife,"You drop your knife due to your bound hands!"
 KinkyDungeonDropEnchKnife,"You drop the precious knife due to your bound hands!"
@@ -806,6 +807,9 @@ RestraintWeakMagicRopeArmsDesc2,"I wonder who was responsible?"
 RestraintWeakMagicRopeLegs,Leg Rope
 RestraintWeakMagicRopeLegsDesc,"Faintly glowing ropes from a magic trap."
 RestraintWeakMagicRopeLegsDesc2,"I wonder who was responsible?"
+RestraintStrongMagicRopeHogtie,Hogtie
+RestraintStrongMagicRopeHogtieDesc,"It pulls your wrists up to your ankles! So tight!"
+RestraintStrongMagicRopeHogtieDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStrongMagicRopeArms,Arm Rope
 RestraintStrongMagicRopeArmsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeArmsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
@@ -1288,6 +1292,11 @@ KinkyDungeonSpellDescriptionSpellChoiceUp1,Gives you an additional spell choice 
 KinkyDungeonSpellSpellChoiceUp2,Master Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp2,Gives you an additional spell choice slot
 
+KinkyDungeonSpellSummonUp1,Expert Summoner
+KinkyDungeonSpellDescriptionSummonUp1,Increases the permanent summon cap by +1 (from 2 to 3)
+KinkyDungeonSpellSummonUp2,Master Summoner
+KinkyDungeonSpellDescriptionSummonUp2,Increases the permanent summon cap by +1 (from 3 to 4)
+
 KinkyDungeonSpellBomb,Bomb
 KinkyDungeonSpellDescriptionBomb,A bomb that does DamageDealt damage in an area after DelayTime turns.
 KinkyDungeonSpellCastBomb,Fire in the hole!
@@ -1397,6 +1406,7 @@ KinkyDungeonHairpin,"The magic hairpin goes for your eyes and forces you to blin
 
 KinkyDungeonSpellIceDragonBreath,Ice Storm
 
+KinkyDungeonSpellIceSlow,Icy Aura
 KinkyDungeonSpellIceSlowBreath,Icy Aura
 
 KinkyDungeonSpellSlimeBall,Slime Ball

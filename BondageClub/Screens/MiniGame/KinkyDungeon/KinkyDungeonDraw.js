@@ -259,7 +259,7 @@ function KinkyDungeonDrawGame() {
 
 			// Draw the player no matter what
 			KinkyDungeonContextPlayer.clearRect(0, 0, KinkyDungeonCanvasPlayer.width, KinkyDungeonCanvasPlayer.height);
-			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.IsKneeling() ? -78 : 0, KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
+			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.Pose.includes("Hogtied") ? -165 : (KinkyDungeonPlayer.IsKneeling() ? -78 : 0), KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
 
 			KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 			KinkyDungeonDrawFloaters(CamX+CamX_offset, CamY+CamY_offset);
@@ -351,9 +351,10 @@ function KinkyDungeonDrawFloaters(CamX, CamY) {
 let KinkyDungeonMessageToggle = false;
 let KinkyDungeonMessageLog = [];
 
-function KinkyDungeonDrawMessages() {
-	DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
-	if (!KinkyDungeonMessageToggle) {
+function KinkyDungeonDrawMessages(NoLog) {
+	if (!NoLog)
+		DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
+	if (!KinkyDungeonMessageToggle || NoLog) {
 		if (KinkyDungeonTextMessageTime > 0)
 			DrawText(KinkyDungeonTextMessage, 1150, 82, KinkyDungeonTextMessageColor, "black");
 		if (KinkyDungeonActionMessageTime > 0)
