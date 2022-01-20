@@ -257,6 +257,7 @@ Bugfix:
 - Decoy hp to 12 from 15
 - Added a limit to the number of permanent summons you can have
 - Added a floating ball gag with the rope goddess
+- Added smoke bomb and invisibility potion
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

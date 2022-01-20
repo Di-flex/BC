@@ -163,6 +163,22 @@ KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid concoction and feel less distracted.
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
 KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal by 12 per turn over 3 turns. Effect does not stack."
+KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
+KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
+KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs."
+KinkyDungeonInventoryItemSmokeBombDesc2,"Creates a smoke screen lasting 8 turns. You are harder to see while inside the smoke."
+KinkyDungeonInventoryItemPotionInvisibility,Invisibility Potion
+KinkyDungeonInventoryItemPotionInvisibilityUse,You chug the concoction and see your body fading away.
+KinkyDungeonInventoryItemPotionInvisibilityDesc,"You feel liquid inside, but you can't see it!"
+KinkyDungeonInventoryItemPotionInvisibilityDesc2,"Casts Invisibility on yourself."
+KinkyDungeonInventoryItemEarthRune,Earth Rune
+KinkyDungeonInventoryItemEarthRuneUse,"You smash the rune in front of you, and glowing rocks rise from the earth."
+KinkyDungeonInventoryItemEarthRuneDesc,"It feels unsettling to look at."
+KinkyDungeonInventoryItemEarthRuneDesc2,"Creates a 3x3 area of +2 armor centered on yourself for 9 turns."
+KinkyDungeonInventoryItemIceRune,Ice Rune
+KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and icicles pierce through the floor!"
+KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
+KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 4 damage and freeze for 3 turns."
 
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
@@ -218,6 +234,12 @@ NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
 AttackBlindZombieBind,"The zombie's charms attach to your body (+RestraintAdded)"
 AttackBlindZombie,"The zombie caresses your body! (-DamageTaken SP)"
+
+NameMaidforce,Maidforce Recruit
+KillMaidforce,"The maid does a fumbled retreat."
+AttackMaidforceBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+AttackMaidforceLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
+AttackMaidforce,"The maid tickles you with her feather duster! (-DamageTaken SP)"
 
 
 NameElementalFire,Fire Elemental
@@ -1073,6 +1095,7 @@ ItemPickupGreenKey,"You picked up a green key."
 ItemPickupBlueKey,"You picked up a blue key."
 ItemPickupPotionHealth,"You picked up a willpower potion."
 ItemPickupPotionMana,"You picked up a glowing blue mana potion."
+ItemPickupPotionInvisibility,"You picked up an invisibility potion."
 ItemPickupPotionStamina,"You picked up a green stamina potion."
 ItemPickupPotionFrigid,"You picked up a frigid white potion."
 ItemPickupLore,"You found a peculiar note on the ground."
@@ -1081,6 +1104,9 @@ ItemPickupBoltCutters,"You pick up a set of bolt cutters."
 ItemPickupSword,"You pick up a sharp sword."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupAxe,"You pick up a powerful axe."
+ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
+ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
+ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 KinkyDungeonUnEquipWeapon,"You put away the WEAPONNAME"
 KinkyDungeonEquipWeapon,"You equip the WEAPONNAME"
@@ -1269,6 +1295,8 @@ KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked eart
 
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
 KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defense!
+KinkyDungeonSpellCastEarthrune,You create a zone of increased defense!
+KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)

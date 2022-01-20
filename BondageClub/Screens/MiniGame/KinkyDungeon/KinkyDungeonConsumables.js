@@ -4,6 +4,10 @@ var KinkyDungeonConsumables = {
 	"PotionMana" : {name: "PotionMana", rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 20, sfx: "PotionDrink"},
 	"PotionStamina" : {name: "PotionStamina", rarity: 1, shop: true, type: "restore", sp_instant: 12, sp_gradual: 24, duration: 12, sfx: "PotionDrink"},
 	"PotionFrigid" : {name: "PotionFrigid", rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6, sfx: "PotionDrink"},
+	"SmokeBomb" : {name: "SmokeBomb", rarity: 2, shop: true, type: "spell", spell: "Shroud", sfx: "FireSpell"},
+	"PotionInvisibility" : {name: "PotionInvisibility", rarity: 3, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
+	"EarthRune" : {name: "EarthRune", rarity: 2, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
+	"IceRune" : {name: "IceRune", rarity: 2, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
 };
 
 var KinkyDungneonBasic = {
@@ -109,6 +113,8 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
 		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration, duration: Consumable.duration});
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
+	} else if (Consumable.type == "spell") {
+		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, KinkyDungeonPlayerEntity, undefined);
 	}
 }
 

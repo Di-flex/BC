@@ -115,8 +115,13 @@ function KinkyDungeonItemEvent(Item) {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	} else if (Item.name == "PotionFrigid") {
 		priority = 3;
-		color = "grey";
+		color = "white";
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
+	} else if (KinkyDungeonFindConsumable(Item.name)) {
+		let item = KinkyDungeonFindConsumable(Item.name);
+		priority = item.rarity;
+		color = "white";
+		KinkyDungeonChangeConsumable(item, 1);
 	}
 	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
