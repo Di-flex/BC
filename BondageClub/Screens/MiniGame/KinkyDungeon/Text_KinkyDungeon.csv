@@ -908,6 +908,19 @@ RestraintObsidianAnkleCuffs,Obsidian Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 
+RestraintIceArms,Ice
+RestraintIceArmsDesc,"Frigid restraints made out of ice."
+RestraintIceArmsDesc2,"There's no way to remove it without breaking it off."
+RestraintIceGag,Ice
+RestraintIceGagDesc,"Frigid restraints made out of ice."
+RestraintIceGagDesc2,"There's no way to remove it without breaking it off."
+RestraintIceHarness,Ice
+RestraintIceHarnessDesc,"Frigid restraints made out of ice."
+RestraintIceHarnessDesc2,"There's no way to remove it without breaking it off."
+RestraintIceLegs,Ice
+RestraintIceLegsDesc,"Frigid restraints made out of ice."
+RestraintIceLegsDesc2,"There's no way to remove it without breaking it off."
+
 RestraintSlimeBoots,Slime
 RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"

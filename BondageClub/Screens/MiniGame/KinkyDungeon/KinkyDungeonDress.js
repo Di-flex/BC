@@ -69,6 +69,18 @@ let KinkyDungeonDresses = {
 		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#7F3C9B", Lost: false},
 		{Item: "Catsuit", Group: "Gloves", Color: "#7F3C9B", Lost: false},
 	],
+	"Maid" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#49403A", Lost: false},
+		{Item: "MaidApron2", Group: "Cloth", Color: "Default", Lost: false},
+		{Item: "FullLatexBra", Group: "Bra", Color: "#939393", Lost: false},
+		{Item: "Pantyhose2", Group: "SuitLower", Color: "#939393", Lost: false},
+		{Item: "LaceBands", Group: "Bracelet", Color: ['Default', '#151515'], Lost: false},
+		{Item: "ShortPlaidSkirt", Group: "ClothLower", Color: "#2E2E2E", Lost: false},
+		{Item: "Corset4", Group: "Corset", Color: "#4B4B4B", Lost: false},
+		{Item: "Band1", Group: "Hat", Color: "#767676", Lost: false},
+		{Item: "Shoes5", Group: "Shoes", Color: "#575757", Lost: false},
+		{Item: "Socks6", Group: "Socks", Color: ['#080808', 'Default'], Lost: false},
+	],
 };
 
 var KinkyDungeonCheckClothesLoss = false;

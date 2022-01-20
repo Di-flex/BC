@@ -122,7 +122,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 						let oldLock = [];
 						if (inv.oldLock) oldLock = inv.oldLock;
 						let lock = inv.lock ? inv.lock : "";
-						oldLock.push(inv.lock);
+						oldLock.push(lock);
 						if (newRestraint) {
 							KinkyDungeonAddRestraint(newRestraint, inv.tightness ? inv.tightness : 0, true, "", false);
 							let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
