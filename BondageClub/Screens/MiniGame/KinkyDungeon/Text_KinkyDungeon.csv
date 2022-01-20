@@ -2,7 +2,7 @@ KinkyDungeonCredits,Credits
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"The following are licensed under the CC Attribution license:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"The following are licensed under the CC Attribution license:|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified"
+KinkyDungeonCreditsList1,"The following are licensed under the CC Attribution license:|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -202,7 +202,7 @@ KinkyDungeonInventoryItemAxeDesc2,"A respectable weapon with a mix of damage and
 KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 
-KinkyDungeonTorsoGrab,The EnemyName grabs you and keeps you in place!
+KinkyDungeonTorsoGrab,The EnemyName grabs you by the harness and keeps you in place!
 KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
 KinkyDungeonAttackMiss,The EnemyName misses you!
 
@@ -257,19 +257,20 @@ NameMaidforceMafia,M.F. 'Going Loud'
 KillMaidforceMafia,"The maid does a fumbled retreat."
 AttackMaidforceMafiaBind,"The maid uses secure restraints on you! (+RestraintAdded)"
 AttackMaidforceMafiaLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
-AttackMaidforceMafia,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+AttackMaidforceMafiaStun,"The maid lands a kick and stuns you! (-DamageTaken SP)"
+AttackMaidforceMafia,"The maid slaps you with a scornful expression! (-DamageTaken SP)"
 
 NameMaidforceParasol,M.F. 'Parasol'
-KillMaidforceParasol,"The maid does a fumbled retreat."
-AttackMaidforceParasolBind,"The maid uses secure restraints on you (+RestraintAdded)"
+KillMaidforceParasol,"The maid leaps out of sight."
+AttackMaidforceParasolBind,"The maid uses secure restraints on you! (+RestraintAdded)"
 AttackMaidforceParasolLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
 AttackMaidforceParasol,"The maid caresses your breasts with a smile! (-DamageTaken SP)"
 
 NameMaidforceHead,M.F. 'Master Plan'
-KillMaidforceHead,"The maid does a fumbled retreat."
-AttackMaidforceHeadBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
-AttackMaidforceHeadLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
-AttackMaidforceHead,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+KillMaidforceHead,"The head maid surrenders gracefully."
+AttackMaidforceHeadBind,"The head maid trusses you up securely! (+RestraintAdded)"
+AttackMaidforceHeadLock,"The head maid snaps her fingers and locks your restraints! (-DamageTaken SP)"
+AttackMaidforceHead,"The head maid strikes one of your pressure points! (-DamageTaken SP)"
 
 
 NameElementalFire,Fire Elemental
@@ -1406,6 +1407,10 @@ KinkyDungeonSpellTargetIceBreath,Select where to put the icicles (SpellArea radi
 
 KinkyDungeonSpellMummyBolt,Mystic Bolt
 KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
+
+KinkyDungeonSpellRubberBullets,Rubber Bullets
+KinkyDungeonRubberBullets,You are hit by a fusilade of rubber bullets!
+KinkyDungeonRubberBulletsAttach,The rubber bullets congeal into a slimy material on your body!
 
 KinkyDungeonSpellHeatBlast,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!

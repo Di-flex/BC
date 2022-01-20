@@ -66,6 +66,18 @@ let KinkyDungeonEnemies = [
 		stealth: 1, useLock: "Red",
 		visionRadius: 10, maxhp: 1, minLevel:0, weight:-10, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 1, dmgType: "grope",
 		terrainTags: {}, shrines: ["Illusion"], floors:[],},
+	{name: "MaidforceStalker", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "maidRestraints", "meleeweakness"], followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true, evasion: 0.33,
+		spells: ["FlashBomb", "MirrorImage"], spellCooldownMult: 1, spellCooldownMod: 0, kite: 2, kiteOnlyWhenDisabled: true, castWhileMoving: true,
+		stealth: 1, useLock: "Red",
+		visionRadius: 10, maxhp: 11, minLevel:0, weight:-2, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 3, dmgType: "grope",
+		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 19, "illusionRage": 12}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "SmokeBomb", weight: 5}, {name: "PotionInvisibility", weight: 3}]},
+	{name: "MaidforceMafia", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "maidRestraints", "meleeweakness"], followLeashedOnly: true, followRange: 4, AI: "hunt", projectileAttack: true, evasion: -0.25,
+		spells: ["RubberBullets"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0, kite: 3, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
+		useLock: "Red",
+		visionRadius: 10, maxhp: 14, minLevel:0, weight:2000, movePoints: 3, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 5, dmgType: "pain",
+		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 19, "illusionRage": 12}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 50, amountMax: 40, weight: 3}, {name: "RedKey", weight: 5}, {name: "Pick", weight: 3}]},
 
 	{name: "Skeleton", tags: ["leashing", "skeleton", "melee", "ropeRestraints", "leatherRestraints", "clothRestraints", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		visionRadius: 4, maxhp: 5, minLevel:1, weight:8, movePoints: 2, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 1,
@@ -630,6 +642,7 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 }
 
 let KinkyDungeonDamageTaken = false;
+let KinkyDungeonTorsoGrabCD = 0;
 
 function KinkyDungeonUpdateEnemies(delta) {
 	let KinkyDungeonSummons = 0;
@@ -643,6 +656,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 			}
 		}
 	}
+
+	if (KinkyDungeonTorsoGrabCD > 0) KinkyDungeonTorsoGrabCD -= 1;
 
 	if (KinkyDungeonLeashedPlayer > 0) {
 		KinkyDungeonLeashedPlayer -= 1;
@@ -687,13 +702,13 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let followRange = enemy.Enemy.followRange;
 		let chaseRadius = Math.max(enemy.Enemy.visionRange * 2, enemy.Enemy.blindSight * 2);
 		let ignoreLocks = enemy.Enemy.keys;
+		let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
 
 		// Check if the enemy ignores the player
 		if (player.player) {
 			if (enemy.Enemy.tags.includes("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
 			if (enemy.Enemy.tags.includes("ignoreharmless") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
-				&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
-				&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+				&& harmless && (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 			if (enemy.Enemy.tags.includes("ignoretiedup") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 				&& !KinkyDungeonPlayer.CanInteract() && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
 				&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
@@ -782,7 +797,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 			let kite = false;
 			if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
 				if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KinkyDungeonSleepTurns > 0))
-					kite = true;
+					if (!enemy.Enemy.noKiteWhenHarmless || !harmless)
+						kite = true;
 			}
 
 			if (AI == "wander" || (AI == "ambush" && enemy.Enemy.wanderTillSees && !enemy.aware && !enemy.ambushtrigger)) {
@@ -952,7 +968,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 					let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 						: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
-					if (attack.includes("Bind") && Math.random() <= playerEvasion) {
+					if (player.player && attack.includes("Bind") && Math.random() <= playerEvasion && KinkyDungeonMovePoints > -1 && KinkyDungeonTorsoGrabCD < 1) {
 						let caught = false;
 						for (let W = 0; W < enemy.warningTiles.length; W++) {
 							let tile = enemy.warningTiles[W];
@@ -976,7 +992,10 @@ function KinkyDungeonUpdateEnemies(delta) {
 									KinkyDungeonMovePoints = -1;
 
 									if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
-										KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+										KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
+
+									KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Grab.ogg");
+									KinkyDungeonTorsoGrabCD = 2;
 								}
 							}
 						}
@@ -1285,7 +1304,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			} else if (AI == "ambush" && ignore) enemy.ambushtrigger = false;
 
 
-			if ((!enemy.Enemy.noSpellLeashing || KinkyDungeonLeashingEnemy != enemy || KinkyDungeonLeashedPlayer < 1) && (!enemy.Enemy.followLeashedOnly || KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
+			if ((!enemy.Enemy.noSpellsWhenHarmless || !harmless) && (!enemy.Enemy.noSpellLeashing || KinkyDungeonLeashingEnemy != enemy || KinkyDungeonLeashedPlayer < 1) && (!enemy.Enemy.followLeashedOnly || KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
 				&& !ignore && (!moved || enemy.Enemy.castWhileMoving) && enemy.Enemy.attack.includes("Spell") && KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true) && enemy.castCooldown <= 0
 				&& (!enemy.Enemy.minSpellRange || (playerDist > enemy.Enemy.minSpellRange))) {
 				idle = false;

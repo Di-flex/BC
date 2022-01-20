@@ -271,7 +271,10 @@ Bugfix:
 - Tuned the floating numbers to make them always present integers
 - Added spell to increase summon cap
 - Gag mumbling no longer tracked in the log
-- Added maid stalker enemy
+- Added maid stalker enemy and a maid who means business
+- Boosted priority of torso grab message and added a sound
+- Torso grab will only occur if you are not already slowed
+- Torso grab will no longer occur if your summons are fighting an enemy
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
