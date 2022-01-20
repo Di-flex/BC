@@ -300,8 +300,11 @@ function KinkyDungeonHandleClick() {
 		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
+			KinkyDungeonChestsOpened = [];
+			KinkyDungeonOrbsPlaced = [];
 			KinkyDungeonInitialize(1);
-			MiniGameKinkyDungeonCheckpoint = 0;
+			MiniGameKinkyDungeonCheckpoint = 1;
+			KinkyDungeonSetCheckPoint(0);
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";

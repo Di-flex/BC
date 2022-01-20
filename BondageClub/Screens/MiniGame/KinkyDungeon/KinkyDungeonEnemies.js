@@ -168,7 +168,7 @@ var KinkyDungeonEnemies = [
 		specialCD: 3, specialAttack: "Pull", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 3, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2,
 		visionRadius: 8, maxhp: 12, minLevel:0, weight:-2, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
 		attackPoints: 3,attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 2, pullTowardSelf: true, pullDist: 2, pullMsg: true,
-		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 8, "elementsRage": 3, "latexAnger": 3}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "open": 1, "elementsAnger": 8, "elementsRage": 3, "latexAnger": 3, "illusionAnger": 50}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"]},
 	{name: "ElementalEarth", tags: ["opendoors", "construct", "fireresist", "electricimmune", "iceweakness", "obsidianRestraints", "leashing"], armor: 1, followRange: 1, AI: "hunt",
 		specialCD: 15, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 4, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true,
 		spells: ["ArmorUp", "Earthfield"], spellCooldownMult: 1, spellCooldownMod: 14, followLeashedOnly: true, buffallies: true,
@@ -186,6 +186,9 @@ var KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 10, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 2, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -999, "door": -99, "open": 1}, floors:[], shrines: []},
 
+	{name: "Gag", tags: ["ignoreharmless", "construct", "melee", "ballGagRestraints", "minor"], ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
+		visionRadius: 3, maxhp: 4, minLevel: 3, weight:2, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {"secondhalf":3, "lastthird":2, "increasingWeight":-1}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":4, "lastthird":2, "increasingWeight":-3}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},

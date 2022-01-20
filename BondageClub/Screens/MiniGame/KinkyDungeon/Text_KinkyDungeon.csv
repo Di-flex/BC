@@ -229,7 +229,7 @@ AttackElementalFire,"The fire elemental touches you with her burning finger! (-D
 NameElementalWater,Water Elemental
 KillElementalWater,"The water elemental melts into a pool of water."
 AttackElementalWaterBind,"The water elemental touches you, and a rubber-like material forms! (+RestraintAdded)"
-AttackElementalWaterPull,"The water elemental's song compels you to step forward!"
+AttackElementalWaterPull,"The water elemental's song compels you to step forward and receive a binding!"
 AttackElementalWater,"The water elemental sings an arousing song! (-DamageTaken SP)"
 
 NameElementalIce,Ice Elemental
@@ -409,6 +409,11 @@ NameRopeSnake,Magic Rope
 KillRopeSnake,"The magic rope returns to being a normal rope."
 AttackRopeSnakeBind,"The magic rope wraps itself tightly around your body! (+RestraintAdded)"
 AttackRopeSnake,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
+
+NameGag,Gravitating Gag
+KillGag,"The gag buckles itself in place and falls."
+AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
+AttackGag,"The gravitating gag rubs itself against you! (-DamageTaken SP)"
 
 NameLearnedRope,Learned Rope
 KillLearnedRope,"The learned rope untangles into a mess of rope."
@@ -642,6 +647,8 @@ KinkyDungeonInventoryItemTrapHarness,Harness
 
 KinkyDungeonInventoryItemTrapGag,Ball Gag
 
+KinkyDungeonInventoryItemMagicGag,Ball Gag
+
 KinkyDungeonInventoryItemTrapBoots,Slave Heels
 
 KinkyDungeonInventoryItemTrapLegirons,Leg Irons
@@ -786,6 +793,9 @@ RestraintTrapHarnessDesc2,"It provides an anchor point for enemies to grab onto!
 RestraintTrapGag,Ball Gag
 RestraintTrapGagDesc,"A gag made of a red squishy material."
 RestraintTrapGagDesc2,"You can't seem to enunciate your spells properly with this in."
+RestraintMagicGag,Tight Gag
+RestraintMagicGagDesc,"A gag made of a red squishy material, buckled as tight as it will go."
+RestraintMagicGagDesc2,"You can't seem to enunciate your spells properly with this in."
 RestraintTrapBoots,Ballet Heels
 RestraintTrapBootsDesc,"A pair of shoes with heels so tall it forces you on your toes."
 RestraintTrapBootsDesc2,"These will take some getting used to."
