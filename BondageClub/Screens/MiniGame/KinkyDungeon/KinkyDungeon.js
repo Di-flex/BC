@@ -194,8 +194,9 @@ function KinkyDungeonRun() {
 		DrawText(TextGet("End"), 1250, 400, "white", "silver");
 		DrawText(TextGet("End2"), 1250, 500, "white", "silver");
 		DrawText(TextGet("End3"), 1250, 600, "white", "silver");
-		DrawButton(875, 750, 350, 64, TextGet("GameStart"), "White", "");
-		DrawButton(1075, 820, 350, 64, TextGet("LoadGame"), "White", "");
+		DrawButton(875, 750, 350, 64, TextGet("GameContinue"), localStorage.getItem('KinkyDungeonSave') ? "White" : "pink", "");
+		DrawButton(875, 820, 350, 64, TextGet("GameStart"), "White", "");
+		DrawButton(1275, 820, 350, 64, TextGet("LoadGame"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
 		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");

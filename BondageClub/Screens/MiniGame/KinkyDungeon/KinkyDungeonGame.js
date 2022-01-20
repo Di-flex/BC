@@ -1171,6 +1171,16 @@ function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1 && KinkyDungeonHandleHUD()) {
 		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+		KinkyDungeonGameKey.keyPressed = [
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+			false,
+		]
 		return;
 	}
 	// beep
