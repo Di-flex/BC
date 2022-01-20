@@ -1,7 +1,7 @@
 "use strict";
 
 var KinkyDungeonConsumables = {
-	"PotionMana" : {name: "PotionMana", rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 20, sfx: "PotionDrink"},
+	"PotionMana" : {name: "PotionMana", rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 24, sfx: "PotionDrink"},
 	"PotionStamina" : {name: "PotionStamina", rarity: 1, shop: true, type: "restore", sp_instant: 12, sp_gradual: 24, duration: 12, sfx: "PotionDrink"},
 	"PotionFrigid" : {name: "PotionFrigid", rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6, sfx: "PotionDrink"},
 	"SmokeBomb" : {name: "SmokeBomb", rarity: 2, shop: true, type: "spell", spell: "Shroud", sfx: "FireSpell"},

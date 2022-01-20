@@ -154,7 +154,7 @@ KinkyDungeonInventoryItem4Lockpick,lockpicks x4
 KinkyDungeonInventoryItemPotionMana,Mana Potion
 KinkyDungeonInventoryItemPotionManaUse,You sip the mana potion and feel empowered.
 KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used to reverse magical paralysis."
-KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 20 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 24 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
@@ -250,7 +250,7 @@ AttackElementalFire,"The fire elemental touches you with her burning finger! (-D
 
 NameElementalWater,Water Elemental
 KillElementalWater,"The water elemental melts into a pool of water."
-AttackElementalWaterBind,"The water elemental touches you, and a rubber-like material forms! (+RestraintAdded)"
+AttackElementalWaterBind,"The water elemental's song compels you to be bound! (+RestraintAdded)"
 AttackElementalWaterPull,"The water elemental's song compels you to step forward and receive a binding!"
 AttackElementalWater,"The water elemental sings an arousing song! (-DamageTaken SP)"
 
@@ -444,8 +444,8 @@ AttackLearnedRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameUnforseenRope,Unforseen Rope
 KillUnforseenRope,"The unforseen rope is gone... or is it?"
-AttackUnforseenRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
-AttackUnforseenRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
+AttackUnforseenRopeBind,"The unforseen rope wraps itself intricately around your body! (+RestraintAdded)"
+AttackUnforseenRope,"The unforseen rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameMonsterRope,Monster Rope
 KillMonsterRope,"The monster rope bundle collapses into a pile of ropes."
@@ -566,9 +566,9 @@ KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
 KinkyDungeonStruggleStruggleImpossible2,"The item tightens itself as you try to squeeze out."
 KinkyDungeonStruggleStruggleImpossibleBound,"You are too tightly bound to have a chance."
 KinkyDungeonStruggleUnlockImpossible,"You struggle with the key, but the locks are impossible to reach by yourself!"
-KinkyDungeonStruggleUnlockImpossible2,"You struggle with the key, but the locks are impossible to reach by yourself!"
+KinkyDungeonStruggleUnlockImpossible2,"You struggle with the key, but some kind of shield blocks the keyhole!"
 KinkyDungeonStruggleUnlockImpossibleBound,"You can't hold the key to unlock this with."
-KinkyDungeonStrugglePickImpossible,"Your picks won't work on this type of lock!"
+KinkyDungeonStrugglePickImpossible,"This lock is beyond your skill level!"
 KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
 KinkyDungeonStruggleRemoveImpossible,"You can't reach anything that could help you!"
@@ -902,6 +902,22 @@ RestraintDragonMuzzleGagDesc2,"It's made from hard-to-cut dragonscale!!!"
 RestraintDragonCollar,Dragon Collar
 RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
 RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
+
+RestraintMaidJacket,Latex Jacket
+RestraintMaidJacketDesc,"A bolero jacket keeping your arms pinned snugly. You can't even move them."
+RestraintMaidJacketDesc2,"There is no hope of struggling out. Better hope you can cut it..."
+RestraintMaidBelt,Reinforced Belt
+RestraintMaidBeltDesc,"A leather belt used to keep your legs hobbled."
+RestraintMaidBeltDesc2,"It's made of a very tough reinforced leather. It will take some time to cut."
+RestraintMaidAnkleCuffs,Steel Cuffs
+RestraintMaidAnkleCuffsDesc,"A pair of steel cuffs used by the Maidforce."
+RestraintMaidAnkleCuffsDesc2,"They are made of solid steel."
+RestraintMaidCollar,Maid Collar
+RestraintMaidCollarDesc,"A collar for operatives of the Maidforce, a group of covert saboteurs."
+RestraintMaidCollarDesc2,"It's reinforced with metal and guarded with an expert-level lock."
+RestraintMaidGag,Plug Gag
+RestraintMaidGagDesc,"A gag with a long, mouth-filling plug that muffles speech completely."
+RestraintMaidGagDesc2,"It's made of a very tough reinforced leather. It will take some time to cut."
 
 RestraintObsidianGag,Obsidian Muzzle
 RestraintObsidianGagDesc,"A muzzle made from segmented metal pieces, fitting securely over your face."

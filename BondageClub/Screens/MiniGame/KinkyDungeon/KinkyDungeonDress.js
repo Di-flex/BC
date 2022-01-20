@@ -9,7 +9,7 @@ let KinkyDungeonDefaultDefaultDress = [
 	{Item: "Socks4", Group: "Socks", Color: "#444444", Lost: false},
 	{Item: "Heels3", Group: "Shoes", Color: "#222222", Lost: false},
 	{Item: "KittyPanties1", Group: "Panties", Color: "#222222", Lost: false},
-	{Item: "FrameBra2", Group: "Bra", Color: "Default", Lost: false},
+	{Item: "FullLatexBra", Group: "Bra", Color: "Default", Lost: false},
 	{Item: "LatexElbowGloves", Group: "Gloves", Color: "Default", Lost: false},
 	{Item: "Necklace4", Group: "Necklace", Color: "#222222", Lost: false},
 ];

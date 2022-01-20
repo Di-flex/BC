@@ -405,9 +405,8 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 					}
 
-			if (Floor % 10 >= 5 || KinkyDungeonDifficulty > 20) tags.push("secondhalf");
-			if (Floor % 10 >= 8 || KinkyDungeonDifficulty > 40) tags.push("lastthird");
-			if (Floor % 10 >= 8 || KinkyDungeonDifficulty > 60) tags.push("lastthird");
+			if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
+			if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 			if (miniboss) tags.push("miniboss");
 			if (boss) tags.push("boss");
 
