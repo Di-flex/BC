@@ -66,7 +66,7 @@ function KinkyDungeonEvasion(Enemy) {
 }
 
 function KinkyDungeonGetImmunity(tags, type, resist) {
-	if (tags.includes(type + resist)
+	if (tags && tags.includes(type + resist)
 		|| (KinkyDungeonMeleeDamageTypes.includes(type) && tags.includes("melee" + resist))
 		|| (!KinkyDungeonMeleeDamageTypes.includes(type) && tags.includes("magic"+resist)))
 		return true;
@@ -189,7 +189,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (dmg > 0 && Enemy.Enemy.tags.includes("jailer")) KinkyDungeonJailTransgressed = true;
+	if (dmg > 0 && Enemy.Enemy.tags && Enemy.Enemy.tags.includes("jailer")) KinkyDungeonJailTransgressed = true;
 	return dmg;
 }
 
