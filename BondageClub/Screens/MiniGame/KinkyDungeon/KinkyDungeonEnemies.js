@@ -1215,7 +1215,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
 							if (enemy.Enemy.damage == "tickle") dmg = Math.ceil(dmg/2); // Tickling isn't that powerful...
-							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true, enemy);
+							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true, undefined, undefined, enemy);
 							if (happened > 0) {
 								let sfx = (hitsfx) ? hitsfx : "DealDamage";
 								KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
