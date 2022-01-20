@@ -242,20 +242,26 @@ AttackMaidforceLock,"The maid snaps a lock on one of your restraints! (-DamageTa
 AttackMaidforce,"The maid tickles you with her feather duster! (-DamageTaken SP)"
 
 NameMaidforceStalker,M.F. 'Unseen Blade'
-KillMaidforceStalker,"The maid does a fumbled retreat."
-AttackMaidforceStalkerBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+KillMaidforceStalker,"The maid runs back to the shadows."
+AttackMaidforceStalkerBind,"The maid uses secure restraints on you! (+RestraintAdded)"
 AttackMaidforceStalkerLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
-AttackMaidforceStalker,"The maid tickles you with her feather duster! (-DamageTaken SP)"
+AttackMaidforceStalker,"The maid stealthily rubs your sensitive areas! (-DamageTaken SP)"
+
+KinkyDungeonSummonSingleMaidforceStalkerImage,The maid throws a smoke bomb at the ground!
+
+NameMaidforceStalkerImage,Mirror Image
+KillMaidforceStalkerImage,"The maid does a fumbled retreat."
+AttackMaidforceStalkerImage,"The maid rubs you from many angles! (-DamageTaken SP)"
 
 NameMaidforceMafia,M.F. 'Going Loud'
 KillMaidforceMafia,"The maid does a fumbled retreat."
-AttackMaidforceMafiaBind,"The maid uses a fast-binding technique! (+RestraintAdded)"
+AttackMaidforceMafiaBind,"The maid uses secure restraints on you! (+RestraintAdded)"
 AttackMaidforceMafiaLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
 AttackMaidforceMafia,"The maid tickles you with her feather duster! (-DamageTaken SP)"
 
 NameMaidforceParasol,M.F. 'Parasol'
 KillMaidforceParasol,"The maid does a fumbled retreat."
-AttackMaidforceParasolBind,"The maid binds you in tight restraints! (+RestraintAdded)"
+AttackMaidforceParasolBind,"The maid uses secure restraints on you (+RestraintAdded)"
 AttackMaidforceParasolLock,"The maid snaps a lock on one of your restraints! (-DamageTaken SP)"
 AttackMaidforceParasol,"The maid caresses your breasts with a smile! (-DamageTaken SP)"
 
@@ -295,7 +301,7 @@ NameElementalAir,Air Elemental
 KillElementalAir,"There is no more elemental. Must have been just the wind."
 AttackElementalAirBind,"The air elemental sneakily slips a restraint on! (+RestraintAdded)"
 AttackElementalAirDash,"The air elemental blinks to your position!"
-AttackElementalAirLock,"The earth elemental slips a lock on!"
+AttackElementalAirLock,"The air elemental slips a lock on!"
 AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 
@@ -1308,6 +1314,9 @@ KinkyDungeonSpellCastSnare,You set an invisible trap!
 KinkyDungeonSpellTargetSnare,Select where to put the trap (it will be invisible)
 
 KinkyDungeonSpellFlash,Lesser Flash
+KinkyDungeonSpellFlashBomb,Flash Bomb
+KinkyDungeonSpellMirrorImage,Mirror Image
+KinkyDungeonSpellCastMirrorImage,""
 KinkyDungeonSpellDescriptionFlash,A flash of light which renders anyone caught within blind for Duration turns
 KinkyDungeonSpellCastFlash,You charge up a bright flash!
 KinkyDungeonSpellTargetFlash,Select where to center the flash (SpellArea radius)

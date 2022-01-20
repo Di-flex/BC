@@ -42,20 +42,30 @@ let KinkyDungeonEnemies = [
 	{name: "NinjaStalker", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "meleeweakness"], blindSight: 5, followRange: 1, AI: "ambush", stealth: 1, noReveal: true,
 		ambushRadius: 1.9, wanderTillSees: true, visionRadius: 10, maxhp: 12, minLevel:4, weight:4, movePoints: 1, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2, specialWidth: 1, specialAttackPoints: 3, specialRange: 4, specialMinrange: 1.5, //specialFollow: 3,
 		terrainTags: {"secondhalf":3, "lastthird":7, "ropeAnger": 2}, shrines: ["Illusion"], floors:[1, 11],
-		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Pick", amountMin: 15, amountMax: 29, weight: 5}, {name: "SmokeBomb", weight: 1}]},
+		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Pick", weight: 5}, {name: "SmokeBomb", weight: 1}]},
 
 	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "maidRestraintsLight"], blindSight: 5, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
 		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 22, "illusionRage": 12, "increasingWeight":-2}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", amountMin: 15, amountMax: 29, weight: 2}, {name: "SmokeBomb", weight: 3}]},
+		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", weight: 2}, {name: "SmokeBomb", weight: 3}]},
 	{name: "MaidforceParasol", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "maidRestraints"], followLeashedOnly: true, blindSight: 5, followRange: 4, AI: "hunt", projectileAttack: true,
 		spells: ["ParasolBuff", "Hairpin"], spellCooldownMult: 1, spellCooldownMod: 0, buffallies: true, kite: 2.5,
 		stealth: 2, useLock: "Red",
 		visionRadius: 10, maxhp: 13, minLevel:0, weight:-2, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 3, dmgType: "grope",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 16, "illusionRage": 8}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", amountMin: 15, amountMax: 29, weight: 2}, {name: "PotionInvisibility", weight: 5}]},
-
+		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", weight: 4}, {name: "PotionInvisibility", weight: 3}]},
+	{name: "MaidforceStalker", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "maidRestraints", "meleeweakness"], followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true, evasion: 0.33,
+		spells: ["FlashBomb", "MirrorImage"], spellCooldownMult: 1, spellCooldownMod: 0, kite: 2, kiteOnlyWhenDisabled: true, castWhileMoving: true,
+		stealth: 1, useLock: "Red",
+		visionRadius: 10, maxhp: 11, minLevel:0, weight:-2, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 3, dmgType: "grope",
+		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 19, "illusionRage": 12}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "SmokeBomb", weight: 5}, {name: "PotionInvisibility", weight: 3}]},
+	{name: "MaidforceStalkerImage", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "maidRestraints", "meleeweakness"], followLeashedOnly: true, blindSight: 12, followRange: 2, AI: "hunt", projectileAttack: true, evasion: -10,
+		kite: 2, kiteOnlyWhenDisabled: true,
+		stealth: 1, useLock: "Red",
+		visionRadius: 10, maxhp: 1, minLevel:0, weight:-10, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 1, dmgType: "grope",
+		terrainTags: {}, shrines: ["Illusion"], floors:[],},
 
 	{name: "Skeleton", tags: ["leashing", "skeleton", "melee", "ropeRestraints", "leatherRestraints", "clothRestraints", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		visionRadius: 4, maxhp: 5, minLevel:1, weight:8, movePoints: 2, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 1,
@@ -668,6 +678,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 		if (!enemy.castCooldown) enemy.castCooldown = 0;
 		if (enemy.castCooldown > 0) enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);
+		if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
+		if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
 
 		let idle = true;
 		let moved = false;
@@ -769,7 +781,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 			let kite = false;
 			if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
-				kite = true;
+				if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KinkyDungeonSleepTurns > 0))
+					kite = true;
 			}
 
 			if (AI == "wander" || (AI == "ambush" && enemy.Enemy.wanderTillSees && !enemy.aware && !enemy.ambushtrigger)) {
@@ -1285,6 +1298,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					spellchoice = enemy.Enemy.spells[Math.floor(Math.random()*enemy.Enemy.spells.length)];
 					spell = KinkyDungeonFindSpell(spellchoice, true);
 					if ((!spell.castRange && playerDist > spell.range) || (spell.castRange && playerDist > spell.castRange)) spell = null;
+					if (spell && spell.specialCD && enemy.castCooldownSpecial > 0) spell = null;
 					if (spell && spell.noFirstChoice && tries <= 2) spell = null;
 					if (spell && spell.projectileTargeting && !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y)) spell = null;
 					if (spell && spell.buff) {
@@ -1315,6 +1329,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 				if (spell) {
 					if (spell.channel) enemy.channel = spell.channel;
 					enemy.castCooldown = spell.manacost*enemy.Enemy.spellCooldownMult + enemy.Enemy.spellCooldownMod + 1;
+					if (spell.specialCD)
+						enemy.castCooldownSpecial = spell.specialCD;
 					let xx = player.x;
 					let yy = player.y;
 					if (spelltarget) {
@@ -1618,6 +1634,7 @@ function KinkyDungeonDefeat() {
 	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
 	if (collar && collar.restraint) {
 		if (collar.restraint.name == "DragonCollar") defeat_outfit = "Dragon";
+		if (collar.restraint.name == "MaidCollar") defeat_outfit = "Maid";
 	}
 
 	KinkyDungeonSetDress(defeat_outfit);

@@ -1292,30 +1292,34 @@ function KinkyDungeonGameKeyDown() {
 }
 
 function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe) {
-	if (!noPush)
-		if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
-			KinkyDungeonMessageLog.push({text: text, color: color});
-	if ( priority >= KinkyDungeonTextMessagePriority) {
-		KinkyDungeonTextMessageTime = time;
-		KinkyDungeonTextMessage = text;
-		KinkyDungeonTextMessageColor = color;
-		KinkyDungeonTextMessagePriority = priority;
-		return true;
+	if (text) {
+		if (!noPush)
+			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+				KinkyDungeonMessageLog.push({text: text, color: color});
+		if ( priority >= KinkyDungeonTextMessagePriority) {
+			KinkyDungeonTextMessageTime = time;
+			KinkyDungeonTextMessage = text;
+			KinkyDungeonTextMessageColor = color;
+			KinkyDungeonTextMessagePriority = priority;
+			return true;
+		}
 	}
 	return false;
 }
 
 
 function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDupe) {
-	if (!noPush)
-		if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
-			KinkyDungeonMessageLog.push({text: text, color: color});
-	if ( priority >= KinkyDungeonActionMessagePriority) {
-		KinkyDungeonActionMessageTime = time;
-		KinkyDungeonActionMessage = text;
-		KinkyDungeonActionMessageColor = color;
-		KinkyDungeonActionMessagePriority = priority;
-		return true;
+	if (text) {
+		if (!noPush)
+			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+				KinkyDungeonMessageLog.push({text: text, color: color});
+		if ( priority >= KinkyDungeonActionMessagePriority) {
+			KinkyDungeonActionMessageTime = time;
+			KinkyDungeonActionMessage = text;
+			KinkyDungeonActionMessageColor = color;
+			KinkyDungeonActionMessagePriority = priority;
+			return true;
+		}
 	}
 	return false;
 }
@@ -1575,8 +1579,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 		msg = msg + gagMsg;
 
-		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ffffff", 1))
-			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ffffff", 1);
+		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ffffff", 1, true))
+			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ffffff", 1, true);
 	}
 }
 
