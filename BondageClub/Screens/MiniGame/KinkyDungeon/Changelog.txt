@@ -258,6 +258,8 @@ Bugfix:
 - Added a limit to the number of permanent summons you can have
 - Added a floating ball gag with the rope goddess
 - Added smoke bomb and invisibility potion
+- Added earth and ice runes and gave loot to elemental enemies (whoops...)
+- Water elemental now binds with her song
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
