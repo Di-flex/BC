@@ -800,10 +800,10 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 }
 
 function KinkyDungeonUpdateRestraints(delta) {
-	var playerTags = [];
+	let playerTags = [];
 	for (let G = 0; G < KinkyDungeonPlayer.Appearance.length; G++) {
 		if (KinkyDungeonPlayer.Appearance[G].Asset) {
-			var group = KinkyDungeonPlayer.Appearance[G].Asset.Group;
+			let group = KinkyDungeonPlayer.Appearance[G].Asset.Group;
 			if (group) {
 				if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, group.Name)) playerTags.push(group.Name + "Blocked");
 				if (InventoryGet(KinkyDungeonPlayer, group.Name)) playerTags.push(group.Name + "Full");
