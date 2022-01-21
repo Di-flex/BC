@@ -197,6 +197,7 @@ function KinkyDungeonInitialize(Level, Random) {
 }
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor) {
+	KDRestraintsCache = new Map();
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = {};
 	KinkyDungeonTargetTile = "";

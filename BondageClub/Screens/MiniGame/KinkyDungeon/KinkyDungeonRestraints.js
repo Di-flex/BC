@@ -227,6 +227,8 @@ var KinkyDungeonRestraints = [
 
 ];
 
+let KDRestraintsCache = new Map();
+
 function KinkyDungeonKeyGetPickBreakChance(modifier) {
 	let mult = (modifier) ? modifier : 1.0;
 	let chance = 0;
@@ -782,37 +784,56 @@ function KinkyDungeonGetLockMult(Lock) {
 function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 	let restraintWeightTotal = 0;
 	let restraintWeights = [];
+	let cache = KDRestraintsCache.get(enemy.name);
 
-	for (let L = 0; L < KinkyDungeonRestraints.length; L++) {
-		let restraint = KinkyDungeonRestraints[L];
-		if (Level >= restraint.minLevel && restraint.floors.includes(Index)) {
-			let currentRestraint = KinkyDungeonGetRestraintItem(restraint.Group);
-			let lockMult = currentRestraint ? KinkyDungeonGetLockMult(currentRestraint.lock) : 1;
-			let newLock = Lock ? Lock : restraint.DefaultLock;
-			if ((!currentRestraint || !currentRestraint.restraint ||
-				(currentRestraint.lock ? currentRestraint.restraint.power * lockMult : currentRestraint.restraint.power) <
-				((Lock || restraint.DefaultLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
-				&& (Bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
-
-				restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
-				let weight = 0;
+	if (!cache) {
+		cache = [];
+		let start = performance.now()
+		for (let L = 0; L < KinkyDungeonRestraints.length; L++) {
+			let restraint = KinkyDungeonRestraints[L];
+			if (Level >= restraint.minLevel && restraint.floors.includes(Index)) {
 				let enabled = false;
+				let weight = 0;
 				for (let T = 0; T < enemy.tags.length; T++)
 					if (restraint.enemyTags[enemy.tags[T]] != undefined) {
 						weight += restraint.enemyTags[enemy.tags[T]];
 						enabled = true;
 					}
 				if (enabled) {
-					weight += restraint.weight;
-					if (restraint.playerTags)
-						for (let tag in restraint.playerTags)
-							if (KinkyDungeonPlayerTags.get(tag)) weight += restraint.playerTags[tag];
+					cache.push({r: restraint, w:weight});
 				}
-				restraintWeightTotal += Math.max(0, weight);
-
 			}
 		}
+		let end = performance.now();
+		if (KDDebug)
+			console.log(`Saved ${end - start} milliseconds by caching`);
+		KDRestraintsCache.set(enemy.name, cache);
 	}
+
+	let start = performance.now();
+	for (let r of cache) {
+		let restraint = r.r;
+		let currentRestraint = KinkyDungeonGetRestraintItem(restraint.Group);
+		let lockMult = currentRestraint ? KinkyDungeonGetLockMult(currentRestraint.lock) : 1;
+		let newLock = Lock ? Lock : restraint.DefaultLock;
+		if ((!currentRestraint || !currentRestraint.restraint ||
+			(currentRestraint.lock ? currentRestraint.restraint.power * lockMult : currentRestraint.restraint.power) <
+			((Lock || restraint.DefaultLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
+			&& (Bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
+
+			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
+			let weight = r.w;
+			weight += restraint.weight;
+			if (restraint.playerTags)
+				for (let tag in restraint.playerTags)
+					if (KinkyDungeonPlayerTags.get(tag)) weight += restraint.playerTags[tag];
+			restraintWeightTotal += Math.max(0, weight);
+		}
+	}
+	let end = performance.now();
+	if (KDDebug)
+		console.log(`Took ${end - start} milliseconds to generate restraints for ${enemy.name}`);
+
 
 	var selection = Math.random() * restraintWeightTotal;
 
@@ -857,7 +878,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep) {
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let lockMult = r ? KinkyDungeonGetLockMult(r.lock) : 1;
-	let newLock = Lock ? Lock : restraint.DefaultLock;
+	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (!r || (r.restraint && (r.lock ? r.restraint.power * lockMult : r.restraint.power) < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))) {
 		return KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep);
 	}
@@ -868,6 +889,7 @@ let KinkyDungeonRestraintAdded = false;
 let KinkyDungeonCancelFlag = false;
 
 function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep) {
+	let start = performance.now();
 	var tight = (Tightness) ? Tightness : 0;
 	if (restraint) {
 		if (!InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group) || Bypass) {
@@ -939,6 +961,9 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep) {
 			let sfx = (restraint && restraint.sfx) ? restraint.sfx : "Struggle";
 			AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 		}
+		let end = performance.now();
+		if (KDDebug)
+			console.log(`Took ${end - start} milliseconds to add restraint ${restraint.name}`);
 		return Math.max(1, restraint.power);
 	}
 	return 0;

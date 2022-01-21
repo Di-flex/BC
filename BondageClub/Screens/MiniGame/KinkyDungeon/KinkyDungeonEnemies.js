@@ -47,7 +47,7 @@ let KinkyDungeonEnemies = [
 	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail"], blindSight: 5, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneelSpecial: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
 		specialCD: 3, specialAttack: "Bind", specialCDonAttack: true,
-		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "tickle",
+		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 22, "illusionRage": 12, "increasingWeight":-1}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", weight: 2}, {name: "SmokeBomb", weight: 3}]},
 	{name: "MaidforcePara", color: "#814BB7", tags: ["leashing", "opendoors", "human", "maid", "ranged", "maidRestraints", "maidVibeRestraintsLimited"], followLeashedOnly: true, blindSight: 5, followRange: 4, AI: "hunt", projectileAttack: true,
@@ -716,6 +716,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
 		if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
 
+		let start = performance.now();
 		let idle = true;
 		let moved = false;
 		let ignore = false;
@@ -1312,6 +1313,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 								for (let R = 0; R < replace.length; R++)
 									text = text.replace(replace[R].keyword, "" + replace[R].value);
 							KinkyDungeonSendTextMessage(happened+priorityBonus, text, msgColor, 1);
+							let end = performance.now();
+							if (KDDebug)
+								console.log(`Took ${end - start} milliseconds to attack player with enemy ${enemy.Enemy.name}`);
 						}
 					}
 
