@@ -792,7 +792,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 				weight += restraint.weight;
 				if (restraint.playerTags)
 					for (let tag in restraint.playerTags)
-						if (KinkyDungeonPlayerTags.includes(tag)) weight += restraint.playerTags[tag];
+						if (KinkyDungeonPlayerTags.get(tag)) weight += restraint.playerTags[tag];
 			}
 			restraintWeightTotal += Math.max(0, weight);
 
@@ -810,28 +810,28 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 }
 
 function KinkyDungeonUpdateRestraints(delta) {
-	let playerTags = [];
+	let playerTags = new Map();
 	for (let G = 0; G < KinkyDungeonPlayer.Appearance.length; G++) {
 		if (KinkyDungeonPlayer.Appearance[G].Asset) {
 			let group = KinkyDungeonPlayer.Appearance[G].Asset.Group;
 			if (group) {
-				if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, group.Name)) playerTags.push(group.Name + "Blocked");
-				if (InventoryGet(KinkyDungeonPlayer, group.Name)) playerTags.push(group.Name + "Full");
+				if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, group.Name)) playerTags.set(group.Name + "Blocked", true);
+				if (InventoryGet(KinkyDungeonPlayer, group.Name)) playerTags.set(group.Name + "Full", true);
 			}
 		}
 	}
 	for (let sg of KinkyDungeonStruggleGroupsBase) {
 		let group = sg;
 		if (group == "ItemM") {
-			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth")) playerTags.push("ItemMouth" + "Empty");
-			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth2")) playerTags.push("ItemMouth2" + "Empty");
-			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth3")) playerTags.push("ItemMouth3" + "Empty");
-		} else if (!InventoryGet(KinkyDungeonPlayer, group)) playerTags.push(group + "Empty");
+			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth")) playerTags.set("ItemMouth" + "Empty", true);
+			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth2")) playerTags.set("ItemMouth2" + "Empty", true);
+			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth3")) playerTags.set("ItemMouth3" + "Empty", true);
+		} else if (!InventoryGet(KinkyDungeonPlayer, group)) playerTags.set(group + "Empty", true);
 	}
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.addTag) {
 			for (let tag of inv.restraint.addTag) {
-				if (!playerTags.includes(tag)) playerTags.push(tag);
+				if (!playerTags.get(tag)) playerTags.set(tag, true);
 			}
 		}
 	}

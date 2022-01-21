@@ -46,7 +46,8 @@ let KinkyDungeonEnemies = [
 
 	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail"], blindSight: 5, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
-		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
+		specialCD: 3, specialAttack: "Bind", specialCDonAttack: true,
+		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 22, "illusionRage": 12, "increasingWeight":-2}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 3}, {name: "Knife", weight: 2}, {name: "SmokeBomb", weight: 3}]},
 	{name: "MaidforcePara", color: "#814BB7", tags: ["leashing", "opendoors", "human", "maid", "melee", "maidRestraints", "maidVibeRestraintsLimited"], followLeashedOnly: true, blindSight: 5, followRange: 4, AI: "hunt", projectileAttack: true,

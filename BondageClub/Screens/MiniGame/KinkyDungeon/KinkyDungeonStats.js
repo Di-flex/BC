@@ -86,7 +86,7 @@ let KinkyDungeonTorsoGrabChance = 0.2;
 
 // Your inventory contains items that are on you
 let KinkyDungeonInventory = [];
-let KinkyDungeonPlayerTags = [];
+let KinkyDungeonPlayerTags = new Map();
 
 let KinkyDungeonCurrentDress = "Default";
 let KinkyDungeonUndress = 0; // Level of undressedness
@@ -145,7 +145,7 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
 	KinkyDungeonInventoryAddWeapon("Knife");
-	KinkyDungeonPlayerTags = [];
+	KinkyDungeonPlayerTags = new Map();
 
 	KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 

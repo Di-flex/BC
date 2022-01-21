@@ -196,7 +196,7 @@ function KinkyDungeonHandleShrine() {
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			return true;
-		} else if (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.includes("slime")) && ((cost == 0 && MouseIn(675, 825, 350, 60)) || MouseIn(1000, 825, 100, 60))) {
+		} else if (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(675, 825, 350, 60)) || MouseIn(1000, 825, 100, 60))) {
 			let chance = 0 + KinkyDungeonShrinePoolChancePerUse * KinkyDungeonPoolUses;
 
 			KinkyDungeonAdvanceTime(1, true);
@@ -252,10 +252,10 @@ function KinkyDungeonDrawShrine() {
 		}
 	} else {
 		if (cost == 0) {
-			DrawButton(675, 825, 350, 60, TextGet("KinkyDungeonDrinkShrine"), (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.includes("slime"))) ? "#AAFFFF" : "#444444", "", "");
+			DrawButton(675, 825, 350, 60, TextGet("KinkyDungeonDrinkShrine"), (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime"))) ? "#AAFFFF" : "#444444", "", "");
 		} else {
 			DrawButton(675, 825, 300, 60, TextGet("KinkyDungeonPayShrine").replace("XXX", "" + cost), "White", "", "");
-			DrawButton(1000, 825, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.includes("slime")) ? "#AAFFFF" : "#444444", "", "");
+			DrawButton(1000, 825, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KinkyDungeonPoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) ? "#AAFFFF" : "#444444", "", "");
 		}
 	}
 }
