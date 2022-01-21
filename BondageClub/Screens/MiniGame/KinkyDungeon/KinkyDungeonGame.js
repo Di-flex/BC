@@ -151,6 +151,8 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonDressPlayer();
 	KinkyDungeonDrawState = "Game";
 
+
+
 	KinkyDungeonTextMessage = "";
 	KinkyDungeonActionMessage = "";
 	MiniGameKinkyDungeonLevel = Level;

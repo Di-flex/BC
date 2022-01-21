@@ -2,7 +2,8 @@
 var KinkyDungeonKilledEnemy = null;
 let KinkyDungeonAlert = 0;
 
-var KinkyDungeonMissChancePerBlind = 0.2; // Max 3
+var KinkyDungeonMissChancePerBlind = 0.15; // Max 3
+var KinkyDungeonMissChancePerSlow = 0.25; // Max 3
 var KinkyDungeonBullets = []; // Bullets on the game board
 var KinkyDungeonBulletsID = {}; // Bullets on the game board
 
@@ -46,17 +47,24 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
 	return KinkyDungeonPlayerDamage;
 }
 
-function KinkyDungeonEvasion(Enemy) {
+function KinkyDungeonGetEvasion(Enemy) {
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
-	if (Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
-	if (Enemy.Enemy && Enemy.Enemy.tags.includes("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.includes("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
 	hitChance *= KinkyDungeonPlayerDamage.chance;
-	if (Enemy.slow > 0) hitChance *= 2;
-	if (Enemy.stun > 0 || Enemy.freeze > 0) hitChance *= 5;
-	if (Enemy.bind > 0) hitChance *= 3;
+	if (Enemy && Enemy.slow > 0) hitChance *= 2;
+	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
+	if (Enemy && Enemy.bind > 0) hitChance *= 3;
 
 	hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonPlayer.GetBlindLevel()) * KinkyDungeonMissChancePerBlind));
 	if (KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.67;
+	if (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
+
+	return hitChance;
+}
+
+function KinkyDungeonEvasion(Enemy) {
+	let hitChance = KinkyDungeonGetEvasion(Enemy);
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 

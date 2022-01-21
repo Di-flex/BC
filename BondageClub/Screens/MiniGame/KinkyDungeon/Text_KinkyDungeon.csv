@@ -198,6 +198,9 @@ KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its 
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"A respectable weapon with a mix of damage and agility."
+KinkyDungeonNoWeaponKnife,Knife
+KinkyDungeonNoWeapon,Unarmed
+KinkyDungeonAccuracy,"Hit Chance: "
 
 KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "

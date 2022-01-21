@@ -142,15 +142,15 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":7, "thirdhalf":5}, shrines: ["Leather"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
 
-	{name: "SmallSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "SmallSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 3, minLevel: 15, weight:14, movePoints: 1, attackPoints: 2, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
 		terrainTags: {"increasingWeight":-2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"],
 		dropTable: [{name: "Nothing", weight: 49}, {name: "Pick", weight: 8}, {name: "Knife", weight: 6}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
-	{name: "FastSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "FastSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 3, minLevel: 22, weight:3, movePoints: 1, attackPoints: 3, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 3, power: 4, dmgType: "grope", fullBoundBonus: 6,
 		terrainTags: {"increasingWeight":1}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"],
 		dropTable: [{name: "Nothing", weight: 29}, {name: "Pick", weight: 8}, {name: "RedKey", weight: 5}, {name: "BlueKey", weight: 3}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
-	{name: "BigSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "BigSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 12, minLevel: 23, weight:2, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 8, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 8}, {name: "RedKey", weight: 5}, {name: "BlueKey", weight: 3}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
@@ -228,16 +228,19 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 10, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 2, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -999, "door": -99, "open": 1}, floors:[], shrines: []},
 
-	{name: "Gag", tags: ["ignoreharmless", "construct", "melee", "ballGagRestraints", "minor"], ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
+	{name: "Gag", tags: ["ignoreharmless", "construct", "melee", "ballGagRestraints", "minor"], ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
 		visionRadius: 3, maxhp: 4, minLevel: 3, weight:2, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":3, "lastthird":2, "increasingWeight":-1}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
-	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
+	{name: "RopeSnake", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "wander", squeeze: true,
+		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":4, "lastthird":2, "increasingWeight":-3}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
-	{name: "UnforseenRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", stealth: 2.5, ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
+	{name: "UnforseenRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "minor", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", stealth: 2.5, squeeze: true,
+		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 10, blindSight: 8, maxhp: 4, minLevel: 1, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":1, "lastthird":3}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
-	{name: "LearnedRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
+	{name: "LearnedRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "hunt", squeeze: true,
+		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 5, maxhp: 8, minLevel: 3, weight:1, movePoints: 2, attackPoints: 3, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 2, power: 3, multiBind: 2, dmgType: "grope", fullBoundBonus: 5,
 		terrainTags: {"secondhalf":4, "lastthird":2}, floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 	{name: "MonsterRope", tags: ["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness"], ignorechance: 0.75, followRange: 1, AI: "guard", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
@@ -253,7 +256,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 1, noAlert: true,
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Rope"]},
 
-	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard",
+	{name: "Rat", tags: ["ignorenoSP", "beast", "melee", "minor"], followRange: 1, AI: "guard", squeeze: true,
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
 		terrainTags: {"rubble":20, "increasingWeight":-5}, floors:[0]},
 
@@ -263,7 +266,7 @@ let KinkyDungeonEnemies = [
 	{name: "WitchChain", color: "#AAAAAA", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "electricweakness", "meleeresist", "fireresist"], followRange: 1, spells: ["WitchChainBolt"],
 		spellCooldownMult: 2, spellCooldownMod: 2, AI: "hunt", visionRadius: 6, maxhp: 14, minLevel:5, weight:6, movePoints: 3, attackPoints: 4, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -10}, floors:[0, 1], shrines: ["Metal"], dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 1}]},
-	{name: "WitchSlime", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "glueimmune", "fireimmune", "meleeresist", "electricweakness", "iceweakness"],
+	{name: "WitchSlime", tags: ["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "glueimmune", "fireimmune", "meleeresist", "electricweakness", "iceweakness"], squeeze: true,
 		followLeashedOnly: true, kite: 1.5, followRange: 4, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"],
 		spellCooldownMult: 2, spellCooldownMod: 1, AI: "wander", visionRadius: 8, maxhp: 10, minLevel:4, weight:4, movePoints: 3, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope",
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -12, "open": 4}, floors:[0, 1, 2], shrines: [], dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}]},
@@ -733,6 +736,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 		if (enemy.Enemy.ethereal) {
 			AvoidTiles = "";
 			MovableTiles = MovableTiles + "1X";
+		} else if (enemy.Enemy.squeeze && KinkyDungeonLeashingEnemy != enemy) {
+			MovableTiles = MovableTiles + 'b';
+			AvoidTiles = "";
 		}
 
 

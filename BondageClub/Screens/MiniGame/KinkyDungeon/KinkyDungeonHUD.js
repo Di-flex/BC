@@ -46,6 +46,16 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(1880, 120, 100, 40, TextGet("KinkyDungeonRestart"), "White");
 	DrawButton(1885, 900, 90, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonFastMove ? "FastMove" : "FastMoveOff") + ".png");
 	DrawButton(1785, 900, 90, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonFastStruggle ? "AutoStruggle" : "AutoStruggleOff") + ".png");
+	if (KinkyDungeonPlayerWeapon) {
+		DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonPlayerWeapon), 1875, 830, 190, "white", "black");
+	} else if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.name == "Knife") {
+		DrawTextFit(TextGet("KinkyDungeonNoWeaponKnife"), 1875, 830, 190, "white", "black");
+	} else DrawTextFit(TextGet("KinkyDungeonNoWeapon"), 1875, 830, 190, "white", "black");
+	if (KinkyDungeonPlayerDamage) {
+		DrawTextFit(TextGet("KinkyDungeonAccuracy") + Math.round(KinkyDungeonGetEvasion() * 100) + "%", 1875, 875, 190,
+			(KinkyDungeonGetEvasion() < KinkyDungeonPlayerDamage.chance * 0.99) ? "pink" :
+			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "black");
+	}
 
 	// Draw the struggle buttons if applicable
 	if (KinkyDungeonDrawStruggle && KinkyDungeonStruggleGroups)

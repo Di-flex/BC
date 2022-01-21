@@ -228,7 +228,9 @@ function KinkyDungeonRun() {
 					let next = KinkyDungeonFastMovePath[0];
 					KinkyDungeonDoorCloseTimer = 1;
 					KinkyDungeonFastMovePath.splice(0, 1);
-					KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
+					if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
+						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
+					else KinkyDungeonFastMovePath = [];
 				}
 				KinkyDungeonSleepTime = CommonTime() + 100;
 			}
