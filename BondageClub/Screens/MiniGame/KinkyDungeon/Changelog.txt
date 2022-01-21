@@ -279,6 +279,9 @@ Bugfix:
 - Killing the guard now increases security
 - Added a maid miniboss who is a remote holder
 - Added squeezing, slimes, mice, and ropes can now move through bars and don't avoid grates
+- Fixed bug with swords being impossible to pick up
+- Optimized restraint finding loop to improve performance
+- Stopped ropes and other items from being locked by the maids
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
