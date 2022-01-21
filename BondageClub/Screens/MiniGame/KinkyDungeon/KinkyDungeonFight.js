@@ -423,15 +423,16 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 
 	if (bullet.bullet.lifetime == -1) return false; // Instant spells
 
+	if (!bullet.bullet.passthrough && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	return true;
 }
 
 
 function KinkyDungeonLaunchBullet(x, y, targetx, targety, speed, bullet, miscast) {
-	var direction = Math.atan2(targety, targetx);
-	var vx = Math.cos(direction) * speed;
-	var vy = Math.sin(direction) * speed;
-	var lifetime = bullet.lifetime;
+	let direction = Math.atan2(targety, targetx);
+	let vx = (targetx != 0 && targetx != undefined) ? Math.cos(direction) * speed : 0;
+	let vy = (targety != 0 && targetx != undefined) ? Math.sin(direction) * speed : 0;
+	let lifetime = bullet.lifetime;
 	if (miscast) {
 		vx = 0;
 		vy = 0;
