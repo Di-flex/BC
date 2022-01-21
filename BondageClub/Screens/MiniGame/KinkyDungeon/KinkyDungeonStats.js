@@ -274,7 +274,9 @@ function KinkyDungeonUpdateStats(delta) {
 		KinkyDungeonStaminaRate = 0;
 		KinkyDungeonStatManaRate = 0;
 	} else {
-		KinkyDungeonStaminaRate = KinkyDungeonSleepTurns > 0  && KinkyDungeonSleepTurns < KinkyDungeonSleepTurnsMax - 1? KinkyDungeonStatStaminaRegenSleep : KinkyDungeonStatStaminaRegen;
+		let sleepRegen = KinkyDungeonStatStaminaRegenSleep;
+		if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
+		KinkyDungeonStaminaRate = KinkyDungeonSleepTurns > 0  && KinkyDungeonSleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
 		KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
 	}
 

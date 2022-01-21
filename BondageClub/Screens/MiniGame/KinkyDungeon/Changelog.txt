@@ -296,7 +296,11 @@ Bugfix:
 - Slime ball nerfed to 5 damage onhit (still does 4 on trail hit)
 - Picking up potions now gives a potion sfx
 - Increased priority of sword messages
-- Text messages now correctly replace the current message if the current one would expire next turn
+- Synchronous text messages now correctly replace the current message if the current one would expire on the same turn
+- Maid collar is now locked properly
+- Made Invisibility spell more effective... it still won't make you undetectable for more than a few casts, but enemy awareness will wear off faster if they are unaware
+- Parasol now has a minimum spellcast range for her hairpins (she will still buff allies even if you are close to her)
+- Piercing spells now damage ghosts and tickle hands in walls
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

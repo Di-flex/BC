@@ -259,7 +259,7 @@ function KinkyDungeonGetEnchKnifeBreakChance(modifier) {
 }
 
 function KinkyDungeonIsLockable(restraint) {
-	if (restraint && restraint.escapeChance && (restraint.escapeChance.Pick || restraint.escapeChance.Unlock)) return true;
+	if (restraint && restraint.escapeChance && (restraint.escapeChance.Pick != undefined || restraint.escapeChance.Unlock != undefined)) return true;
 	return false;
 }
 

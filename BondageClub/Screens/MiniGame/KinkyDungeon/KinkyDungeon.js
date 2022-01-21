@@ -1,4 +1,6 @@
 "use strict";
+let KDDebug = false;
+
 var KinkyDungeonBackground = "BrickWall";
 var KinkyDungeonPlayer = null;
 var KinkyDungeonState = "Menu";

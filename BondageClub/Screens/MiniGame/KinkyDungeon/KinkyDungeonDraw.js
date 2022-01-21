@@ -313,16 +313,17 @@ function KinkyDungeonDrawGame() {
 
 let KinkyDungeonFloaters = [];
 
-function KinkyDungeonSendFloater(Entity, Amount, Color) {
+function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride) {
 	if (Entity.x && Entity.y) {
 		let floater = {
 			x: Entity.x + Math.random(),
 			y: Entity.y + Math.random(),
+			override: LocationOverride,
 			speed: 25,
 			t: 0,
 			color: Color,
-			text: "" + Math.round(Amount * 10)/10,
-			lifetime: (Amount < 3) ? 1 : (Amount > 5 ? 3 : 2),
+			text: "" + (typeof Amount === "string") ? Amount : Math.round(Amount * 10)/10,
+			lifetime: Time ? Time : ((typeof Amount === "string") ? 5 : ((Amount < 3) ? 1 : (Amount > 5 ? 3 : 2))),
 		};
 		KinkyDungeonFloaters.push(floater);
 	}
@@ -339,8 +340,10 @@ function KinkyDungeonDrawFloaters(CamX, CamY) {
 	}
 	let newFloaters = [];
 	for (let floater of KinkyDungeonFloaters) {
+		let x = floater.override ? floater.x : canvasOffsetX + (floater.x - CamX)*KinkyDungeonGridSizeDisplay;
+		let y = floater.override ? floater.y : canvasOffsetY + (floater.y - CamY)*KinkyDungeonGridSizeDisplay;
 		DrawText(floater.text,
-			canvasOffsetX + (floater.x - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (floater.y - CamY)*KinkyDungeonGridSizeDisplay - floater.speed*floater.t,
+			x, y - floater.speed*floater.t,
 			floater.color, "black");
 		if (floater.t < floater.lifetime) newFloaters.push(floater);
 	}

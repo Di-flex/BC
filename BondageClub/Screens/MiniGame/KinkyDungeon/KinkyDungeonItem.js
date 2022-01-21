@@ -68,7 +68,7 @@ function KinkyDungeonDropItem(Item) {
 function KinkyDungeonItemEvent(Item) {
 	let color = "white";
 	let priority = 1;
-	let sfx = "Coin";
+	let sfx = "Coins";
 	if (Item.name == "Gold") {
 		color = "yellow";
 		KinkyDungeonAddGold(Item.amount);

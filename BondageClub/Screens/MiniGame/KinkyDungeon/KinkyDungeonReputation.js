@@ -14,6 +14,8 @@ function KinkyDungeonHandleReputation() {
 	return true;
 }
 
+let KDRecentRepIndex = 0;
+
 function KinkyDungeonChangeRep(Rep, Amount) {
 	if (KinkyDungeonGoddessRep[Rep] != undefined) {
 		let last = KinkyDungeonGoddessRep[Rep];
@@ -27,7 +29,8 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		KinkyDungeonGoddessRep[Rep] = Math.min(50, Math.max(-50, KinkyDungeonGoddessRep[Rep]));
 		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
 			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
-			KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, `+${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} reputation`, "white");
+			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
+			KDRecentRepIndex += 1;
 		}
 		if (KinkyDungeonGoddessRep[Rep] != last) return true;
 		return false;

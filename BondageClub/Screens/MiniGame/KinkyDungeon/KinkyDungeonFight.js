@@ -375,7 +375,7 @@ function KinkyDungeonBulletTrail(b) {
 
 function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 	var mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
-	if (!bullet.bullet.passthrough && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
+	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	if (bullet.bullet.noEnemyCollision) return true;
 
 	if (bullet.bullet.damage && bullet.time > 0) {
