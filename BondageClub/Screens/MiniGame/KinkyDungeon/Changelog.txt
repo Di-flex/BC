@@ -302,6 +302,9 @@ Bugfix:
 - Parasol now has a minimum spellcast range for her hairpins (she will still buff allies even if you are close to her)
 - Piercing spells now damage ghosts and tickle hands in walls
 
+2.46
+
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

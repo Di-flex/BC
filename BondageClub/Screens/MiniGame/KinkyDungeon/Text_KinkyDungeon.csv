@@ -1224,7 +1224,11 @@ KinkyDungeonBookNextPageFast,>>>
 KinkyDungeonBookLastPageFast,<<<
 KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
+
+
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it erupts in your face!
+
+KinkyDungeonSpellAmpule,The ampule shatters on impact!
 
 KinkyDungeonSpellFirebolt,Firebolt
 KinkyDungeonSpellAllyFirebolt,Elemental's Firebolt

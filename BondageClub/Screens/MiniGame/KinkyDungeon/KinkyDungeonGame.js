@@ -375,6 +375,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let miniboss = false;
 	let boss = false;
 	let jailerCount = 0;
+	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
 
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
@@ -427,6 +428,8 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (KinkyDungeonGoddessRep.Conjure < -25) tags.push("conjureRage");
 			if (KinkyDungeonGoddessRep.Illusion < -10) tags.push("illusionAnger");
 			if (KinkyDungeonGoddessRep.Illusion < -25) tags.push("illusionRage");
+			if (security > 0) tags.push("jailbreak");
+			if (security > 40) tags.push("highsecurity");
 
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
 			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
@@ -1588,7 +1591,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ffffff", 1, true);
 	}
 	let end = performance.now();
-	console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);
+	if (KDDebug) console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);
 }
 
 

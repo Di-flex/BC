@@ -169,6 +169,8 @@ let KinkyDungeonSpellListEnemies = [
 
 	{enemySpell: true, name: "SleepGas", sfx: "Miss", school: "Illusion", manacost: 4, specialCD: 24, components: ["Verbal"], level:1, type:"inert", buffs: [
 		{id: "SleepGas", type: "Sleepiness", power: 1, player: true, enemies: false, tags: ["sleep"], range: 1.5}], onhit:"", time:6, aoe: 1.5, power: 1, delay: 8, range: 4, size: 3, damage: "poison"}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
+	{enemySpell: true, name: "AmpuleGreen", sfx: "Miss", manacost: 4, specialCD: 24, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 1,  power: 1, delay: 0, range: 50, damage: "crush", speed: 1, playerEffect: {name: "Ampule", damage: "inert"},
+		spellcast: {spell: "SleepGas", target: "target", directional:false, offset: false}},
 
 	{enemySpell: true, name: "RopeEngulf", sfx: "Struggle", manacost: 4, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 6, range: 2, size: 3, aoe: 1, lifetime: 1, damage: "chain", playerEffect: {name: "RopeEngulf", power: 2}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 	{enemySpell: true, name: "WitchChainBolt", sfx: "FireSpell", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
@@ -254,7 +256,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	if (!sfx) sfx = "Damage";
 	if (damage == "inert") return;
 	if (!playerEffect.chance || Math.random() < playerEffect.chance) {
-		if (playerEffect.name == "Damage") {
+		if (playerEffect.name == "Ampule") {
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellAmpule"), "red", 1);
+			effect = true;
+		} if (playerEffect.name == "Damage") {
 			let dmg = KinkyDungeonDealDamage({damage: Math.max((spell.aoepower) ? spell.aoepower : 0, spell.power), type: spell.damage});
 			KinkyDungeonSendTextMessage(Math.min(spell.power, 5), TextGet("KinkyDungeonDamageSelf").replace("DamageDealt", dmg), "red", 1);
 			effect = true;
