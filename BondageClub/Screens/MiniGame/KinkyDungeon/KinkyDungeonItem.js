@@ -68,6 +68,7 @@ function KinkyDungeonDropItem(Item) {
 function KinkyDungeonItemEvent(Item) {
 	let color = "white";
 	let priority = 1;
+	let sfx = "Coin";
 	if (Item.name == "Gold") {
 		color = "yellow";
 		KinkyDungeonAddGold(Item.amount);
@@ -78,7 +79,7 @@ function KinkyDungeonItemEvent(Item) {
 		color = "lightgreen";
 		KinkyDungeonLockpicks += 1;
 	} else if (Item.name == "MagicSword") {
-		priority = 6;
+		priority = 8;
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon("MagicSword");
 	} else if (Item.name == "Knife") {
@@ -104,27 +105,31 @@ function KinkyDungeonItemEvent(Item) {
 	} else if (Item.name == "PotionMana") {
 		priority = 3;
 		color = "lightblue";
+		sfx = "PotionDrink";
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1);
 	} else if (Item.name == "PotionStamina") {
 		priority = 3;
+		sfx = "PotionDrink";
 		color = "lightgreen";
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	} else if (Item.name == "PotionFrigid") {
 		priority = 3;
+		sfx = "PotionDrink";
 		color = "white";
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
 	} else if (KinkyDungeonFindConsumable(Item.name)) {
 		let item = KinkyDungeonFindConsumable(Item.name);
 		priority = item.rarity;
+		if (item.potion) sfx = "PotionDrink";
 		color = "white";
 		KinkyDungeonChangeConsumable(item, 1);
 	} else if (KinkyDungeonFindWeapon(Item.name)) {
 		let item = KinkyDungeonFindWeapon(Item.name);
-		priority = item.rarity;
+		priority = Math.min(8, item.rarity + 4);
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon(Item.name);
 	}
-	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
+	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
 }
 

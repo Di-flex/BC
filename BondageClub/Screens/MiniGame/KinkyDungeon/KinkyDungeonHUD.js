@@ -58,7 +58,7 @@ function KinkyDungeonDrawInputs() {
 	}
 
 	// Draw the struggle buttons if applicable
-	if (KinkyDungeonDrawStruggle && KinkyDungeonStruggleGroups)
+	if ((KinkyDungeonDrawStruggle || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups)
 		for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
 			let sg = KinkyDungeonStruggleGroups[S];
 			let ButtonWidth = 60;
@@ -425,6 +425,7 @@ function KinkyDungeonHandleHUD() {
 	} else if (KinkyDungeonDrawState == "Restart") {
 		if (MouseIn(975, 850, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
+			KinkyDungeonChangeRep("Ghost", 4);
 			KinkyDungeonDrawState = "Game";
 			return true;
 		}

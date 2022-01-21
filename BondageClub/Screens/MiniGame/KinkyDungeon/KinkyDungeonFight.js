@@ -83,11 +83,10 @@ function KinkyDungeonGetImmunity(tags, type, resist) {
 
 function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, attacker) {
 	if (bullet) {
-		if (bullet.alreadyHit) {
-			// A bullet can only damage one grid cell at a time
-			if (bullet.alreadyHit.includes(Enemy.x + "," + Enemy.y)) return 0;
-		} else bullet.alreadyHit = [];
-		bullet.alreadyHit.push(Enemy.x + "," + Enemy.y);
+		if (!bullet.alreadyHit) bullet.alreadyHit = [];
+		// A bullet can only damage an enemy once per turn
+		if (bullet.alreadyHit.includes(Enemy.id)) return 0;
+		bullet.alreadyHit.push(Enemy.id);
 	}
 
 	let dmg = (Damage) ? Damage.damage : 0;
@@ -263,7 +262,7 @@ function KinkyDungeonUpdateBullets(delta) {
 		// A bullet can only damage an enemy in one location at a time
 		// Resets at the end of the bullet update!
 		// But only for piercing bullets. Non-piercing bullets just expire
-		if (!b.bullet.piercing)
+		if (!b.bullet.piercing && !b.bullet.noDoubleHit)
 			b.alreadyHit = undefined;
 	}
 }
@@ -351,7 +350,8 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(Math.random() * slots.length)];
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer) && (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))) {
-			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
+			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
 			created += 1;
 		} else C -= 1;
 		maxcounter += 1;

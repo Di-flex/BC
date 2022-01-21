@@ -93,13 +93,13 @@ let KinkyDungeonEnemies = [
 		visionRadius: 4, maxhp: 10, minLevel:12, weight:3, movePoints: 3, attackPoints: 3, attack: "MeleeWillSlow", attackWidth: 3, attackRange: 1, power: 10, dmgType: "crush", fullBoundBonus: 0,
 		terrainTags: {"secondhalf":2, "lastthird":3, "increasingWeight":1}, floors:[1, 3, 7, 8], dropTable: [{name: "PotionStamina", weight: 3}, {name: "Gold", amountMin: 50, amountMax: 100, weight: 3}, {name: "Hammer", weight: 50, ignoreInInventory: true}]},
 
-	{name: "Ghost", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", hitsfx: "Tickle",
+	{name: "Ghost", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
-	{name: "TickleHand", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1, noAlert: true, hitsfx: "Tickle",
+	{name: "TickleHand", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1, noAlert: true, hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
-	{name: "TickleHandSlave", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "ConjurerTickler", range: 3}, noAlert: true, hitsfx: "Tickle",
+	{name: "TickleHandSlave", color: "#FFFFFF", tags: ["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"], ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "ConjurerTickler", range: 3}, noAlert: true, hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 	{name: "Frog", color: "#00FF44", tags: ["summoned", "beast", "ranged"], followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt", pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3},
@@ -199,12 +199,12 @@ let KinkyDungeonEnemies = [
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"],
 		dropTable: [{name: "Gold", amountMin: 25, amountMax: 40, weight: 8}, {name: "Knife", weight: 1}, {name: "EarthRune", weight: 1}]},
-	{name: "ElementalIce", tags: ["opendoors", "construct", "fireweakness", "coldresist", "iceimmune", "iceRestraints", "leashing"], armor: 1, kite: 1.5, followRange: 3, AI: "hunt",
+	{name: "ElementalIce", color: "#aaaaff", tags: ["opendoors", "construct", "fireweakness", "coldresist", "iceimmune", "iceRestraints", "leashing"], armor: 1, kite: 1.5, followRange: 3, AI: "hunt",
 		spells: ["IceSlowPrepare"], spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true, noSpellLeashing: true,
 		visionRadius: 8, maxhp: 8, minLevel:4, weight:-2, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLockAll", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2, multiBind: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "open": 1, "elementsAnger": 8, "elementsRage": 3,}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"],
 		dropTable: [{name: "Gold", amountMin: 25, amountMax: 40, weight: 8}, {name: "Pick", weight: 1}, {name: "IceRune", weight: 1}]},
-	{name: "ElementalWater", color: "#67ffaa", tags: ["opendoors", "construct", "electricweakness", "latexRestraints", "elite", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25, summon: [{enemy: "ElementalIce", range: 2.5, count: 1, chance: 0.6, strict: true}],
+	{name: "ElementalWater", color: "#57ff88", tags: ["opendoors", "construct", "electricweakness", "latexRestraints", "elite", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25, summon: [{enemy: "ElementalIce", range: 2.5, count: 1, chance: 0.6, strict: true}],
 		specialCD: 5, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 4, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2,
 		visionRadius: 8, maxhp: 12, minLevel:4, weight:-2, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
 		attackPoints: 3,attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 6, dmgType: "tickle", fullBoundBonus: 2, pullTowardSelf: true, pullDist: 2, pullMsg: true,
@@ -800,7 +800,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 			if (enemy.Enemy.projectileAttack && !canShootPlayer) followRange = 1;
 
-			if (canSeePlayer && enemy.Enemy.tags.includes("jailer") && (KinkyDungeonPlayer.CanInteract() || (Math.abs(player.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(player.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash))) {
+			if (canSeePlayer && (enemy.Enemy.tags.includes("jailer") || enemy.Enemy.tags.includes("jail")) && (KinkyDungeonPlayer.CanInteract() || (Math.abs(player.x - KinkyDungeonStartPosition.x) >= KinkyDungeonJailLeashX - 1 || Math.abs(player.y - KinkyDungeonStartPosition.y) > KinkyDungeonJailLeash))) {
 				KinkyDungeonJailTransgressed = true;
 				ignore = false;
 			}
@@ -1412,6 +1412,13 @@ function KinkyDungeonUpdateEnemies(delta) {
 	KinkyDungeonHandleJailSpawns();
 }
 
+// Unique ID for enemies, to prevent bullets from hitting them
+// Dont want to pass object handles around in case we ever allow saving a room
+function KinkyDungeonGetEnemyID() {
+	if (KinkyDungeonEnemyID > 100000000) KinkyDungeonEnemyID = 0;
+	return KinkyDungeonEnemyID++;
+}
+
 let KinkyDungeonJailGuard = undefined;
 let KinkyDungeonGuardTimer = 0;
 let KinkyDungeonGuardTimerMax = 22;
@@ -1421,12 +1428,14 @@ let KinkyDungeonGuardSpawnTimerMin = 52;
 let KinkyDungeonMaxPrisonReduction = 10;
 let KinkyDungeonPrisonReduction = 0;
 
+let KinkyDungeonEnemyID = 0;
+
 function KinkyDungeonCallGuard(x, y, noTransgress) {
 	if (!noTransgress)
 		KinkyDungeonJailTransgressed = true;
 	if (!KinkyDungeonJailGuard) {
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == "Guard");
-		let guard = {summoned: true, Enemy: Enemy,
+		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
 			x:KinkyDungeonStartPosition.x, y:KinkyDungeonStartPosition.y, gx: x, gy: y,
 			hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 		KinkyDungeonJailGuard = guard;
@@ -1444,7 +1453,7 @@ function KinkyDungeonHandleJailSpawns() {
 	if (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && (KinkyDungeonGuardSpawnTimer == 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard && playerInCell) {
 		KinkyDungeonGuardSpawnTimer = KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
-		let guard = {summoned: true, Enemy: Enemy,
+		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
 			x:xx, y:yy, gx: xx - 2, gy: yy,
 			hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 
@@ -1695,6 +1704,7 @@ function KinkyDungeonDefeat() {
 	let boundWeapons = [];
 	KinkyDungeonInventory = newInv;
 	KinkyDungeonInventoryAddWeapon("Knife");
+	KinkyDungeonPlayerWeapon = "";
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}

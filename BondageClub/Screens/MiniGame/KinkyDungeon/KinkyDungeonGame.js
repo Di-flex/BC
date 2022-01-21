@@ -430,7 +430,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
 			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
-				KinkyDungeonEntities.push({Enemy: Enemy, x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (Enemy.tags.includes("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
 				if (Enemy.tags.includes("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
 				else if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
@@ -1299,7 +1299,7 @@ function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe
 		if (!noPush)
 			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
 				KinkyDungeonMessageLog.push({text: text, color: color});
-		if ( priority >= KinkyDungeonTextMessagePriority) {
+		if ( priority >= KinkyDungeonTextMessagePriority || KinkyDungeonActionMessageTime == 0) {
 			KinkyDungeonTextMessageTime = time;
 			KinkyDungeonTextMessage = text;
 			KinkyDungeonTextMessageColor = color;
@@ -1316,7 +1316,7 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 		if (!noPush)
 			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
 				KinkyDungeonMessageLog.push({text: text, color: color});
-		if ( priority >= KinkyDungeonActionMessagePriority) {
+		if ( priority >= KinkyDungeonActionMessagePriority || KinkyDungeonActionMessageTime == 0) {
 			KinkyDungeonActionMessageTime = time;
 			KinkyDungeonActionMessage = text;
 			KinkyDungeonActionMessageColor = color;
@@ -1489,7 +1489,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 }
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
-	let start = performance.now()
+	let start = performance.now();
 	KinkyDungeonRestraintAdded = false;
 	KinkyDungeonSFX = [];
 	KinkyDungeonResetEventVariablesTick();

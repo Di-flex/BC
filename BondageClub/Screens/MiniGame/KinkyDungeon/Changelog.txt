@@ -282,6 +282,21 @@ Bugfix:
 - Fixed bug with swords being impossible to pick up
 - Optimized restraint finding loop to improve performance
 - Stopped ropes and other items from being locked by the maids
+- Enemies with linear attacks (like shurikens) need projectile-level clearance to launch their attack
+- Shadow dagger now does 2 damage and costs 2 mana
+- Shadow dagger will no longer doublehit enemies sometimes
+- Enemies that are not jailers will still sound the jail alarm and make all enemies go for you in the cell
+- Obsidian cuffs can now be escaped with the help of a ghost
+- More helpful messages when you are struggling, explaining if you are using a ghost's help or using a tool
+- Weapon is now unequiped on defeat
+- You can now hover over the player graphic to show struggle groups even with struggle groups hidden
+- Surrendering now increases submissive rep
+- Floating text shows reputation gain/loss
+- Ghosts now have immunity to chain and glue attacks
+- Slime ball nerfed to 5 damage onhit (still does 4 on trail hit)
+- Picking up potions now gives a potion sfx
+- Increased priority of sword messages
+- Text messages now correctly replace the current message if the current one would expire next turn
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

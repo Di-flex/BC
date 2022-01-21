@@ -714,6 +714,7 @@ function KinkyDungeonSaveGame(ToString) {
 	save.gold = KinkyDungeonGold;
 	save.points = KinkyDungeonSpellPoints;
 	save.levels = KinkyDungeonSpellLevel;
+	save.id = KinkyDungeonEnemyID;
 
 	let spells = [];
 	let newInv = [];
@@ -780,6 +781,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			if (saveData.gold) KinkyDungeonGold = saveData.gold;
+			if (saveData.id) KinkyDungeonEnemyID = saveData.id;
 			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.stats) {
