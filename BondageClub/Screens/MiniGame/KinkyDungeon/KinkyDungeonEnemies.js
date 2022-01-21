@@ -45,7 +45,7 @@ let KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Pick", weight: 5}, {name: "SmokeBomb", weight: 1}]},
 
 	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail"], blindSight: 5, followRange: 1, AI: "hunt",
-		stealth: 2, noReveal: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
+		stealth: 2, noReveal: true, bindOnKneelSpecial: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
 		specialCD: 3, specialAttack: "Bind", specialCDonAttack: true,
 		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 22, "illusionRage": 12, "increasingWeight":-1}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -1056,7 +1056,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 							Locked = true;
 							if (usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) enemy.specialCD = enemy.Enemy.specialCD;
-						} else if (attack.includes("Bind") && (!enemy.Enemy.bindOnKneel || usingSpecial || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
+						} else if (attack.includes("Bind") && ((!usingSpecial && !enemy.Enemy.bindOnKneel) || (usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
 							let numTimes = 1;
 							if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 							for (let times = 0; times < numTimes; times++) {
