@@ -258,15 +258,22 @@ function KinkyDungeonGetEnchKnifeBreakChance(modifier) {
 	return chance;
 }
 
+function KinkyDungeonIsLockable(restraint) {
+	if (restraint && restraint.escapeChance && (restraint.escapeChance.Pick || restraint.escapeChance.Unlock)) return true;
+	return false;
+}
 
 function KinkyDungeonLock(item, lock) {
-	item.lock = lock;
 	if (item.restraint && InventoryGet(KinkyDungeonPlayer, item.restraint.Group) && lock != "") {
-		InventoryLock(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, item.restraint.Group), "IntricatePadlock", Player.MemberNumber, true);
-		item.pickProgress = 0;
-		if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
-			InventoryLock(Player, InventoryGet(Player, item.restraint.Group), "IntricatePadlock", null, true);
+		if (KinkyDungeonIsLockable(item.restraint)) {
+			item.lock = lock;
+			InventoryLock(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, item.restraint.Group), "IntricatePadlock", Player.MemberNumber, true);
+			item.pickProgress = 0;
+			if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
+				InventoryLock(Player, InventoryGet(Player, item.restraint.Group), "IntricatePadlock", null, true);
+		}
 	} else {
+		item.lock = lock;
 		InventoryUnlock(KinkyDungeonPlayer, item.restraint.Group);
 		if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
 			InventoryUnlock(Player, item.restraint.Group);
