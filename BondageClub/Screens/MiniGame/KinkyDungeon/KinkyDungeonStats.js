@@ -217,7 +217,7 @@ function KinkyDungeonChangeStamina(Amount) {
 function KinkyDungeonChangeMana(Amount) {
 	KinkyDungeonStatMana += Amount;
 	if (Amount && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigStamina, "#4499ff");
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff");
 		KDOrigMana = Math.floor(KinkyDungeonStatMana);
 	}
 }
