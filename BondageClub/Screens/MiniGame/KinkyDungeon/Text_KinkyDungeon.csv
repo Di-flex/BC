@@ -382,15 +382,20 @@ AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)
 AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
 AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
 
+NameAlchemist,Alchemist
+KillAlchemist,"The alchemist screams and runs."
+AttackAlchemistBind,"The Alchemist restrains you! (+RestraintAdded)"
+AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
+
 NameBandit,Bandit
-KillBandit,"The Bandit collapses."
-AttackBanditBind,"The Bandit restrains you! (+RestraintAdded)"
-AttackBandit,"The Bandit caresses your restrained body! (-DamageTaken SP)"
+KillBandit,"The bandit collapses."
+AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
+AttackBandit,"The bandit caresses your restrained body! (-DamageTaken SP)"
 
 NameBanditHunter,Bandit Hunter
-KillBanditHunter,"The Bandit Hunter retreats."
-AttackBanditHunterBind,"The Bandit Hunter restrains you! (+RestraintAdded)"
-AttackBanditHunter,"The Bandit Hunter caresses your restrained body! (-DamageTaken SP)"
+KillBanditHunter,"The bandit hunter retreats."
+AttackBanditHunterBind,"The bandit hunter restrains you! (+RestraintAdded)"
+AttackBanditHunter,"The bandit hunter caresses your restrained body! (-DamageTaken SP)"
 
 NameMummy,Mummy
 KillMummy,"The Mummy collapses and her body vanishes."
