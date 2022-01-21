@@ -772,30 +772,32 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 
 	for (let L = 0; L < KinkyDungeonRestraints.length; L++) {
 		let restraint = KinkyDungeonRestraints[L];
-		let currentRestraint = KinkyDungeonGetRestraintItem(restraint.Group);
-		let lockMult = currentRestraint ? KinkyDungeonGetLockMult(currentRestraint.lock) : 1;
-		let newLock = Lock ? Lock : restraint.DefaultLock;
-		if (Level >= restraint.minLevel && restraint.floors.includes(Index) && (!currentRestraint || !currentRestraint.restraint ||
-			(currentRestraint.lock ? currentRestraint.restraint.power * lockMult : currentRestraint.restraint.power) <
-			((Lock || restraint.DefaultLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
-			&& (!InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group) || Bypass)) {
+		if (Level >= restraint.minLevel && restraint.floors.includes(Index)) {
+			let currentRestraint = KinkyDungeonGetRestraintItem(restraint.Group);
+			let lockMult = currentRestraint ? KinkyDungeonGetLockMult(currentRestraint.lock) : 1;
+			let newLock = Lock ? Lock : restraint.DefaultLock;
+			if ((!currentRestraint || !currentRestraint.restraint ||
+				(currentRestraint.lock ? currentRestraint.restraint.power * lockMult : currentRestraint.restraint.power) <
+				((Lock || restraint.DefaultLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
+				&& (Bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
 
-			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
-			let weight = 0;
-			let enabled = false;
-			for (let T = 0; T < enemy.tags.length; T++)
-				if (restraint.enemyTags[enemy.tags[T]] != undefined) {
-					weight += restraint.enemyTags[enemy.tags[T]];
-					enabled = true;
+				restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
+				let weight = 0;
+				let enabled = false;
+				for (let T = 0; T < enemy.tags.length; T++)
+					if (restraint.enemyTags[enemy.tags[T]] != undefined) {
+						weight += restraint.enemyTags[enemy.tags[T]];
+						enabled = true;
+					}
+				if (enabled) {
+					weight += restraint.weight;
+					if (restraint.playerTags)
+						for (let tag in restraint.playerTags)
+							if (KinkyDungeonPlayerTags.get(tag)) weight += restraint.playerTags[tag];
 				}
-			if (enabled) {
-				weight += restraint.weight;
-				if (restraint.playerTags)
-					for (let tag in restraint.playerTags)
-						if (KinkyDungeonPlayerTags.get(tag)) weight += restraint.playerTags[tag];
-			}
-			restraintWeightTotal += Math.max(0, weight);
+				restraintWeightTotal += Math.max(0, weight);
 
+			}
 		}
 	}
 
