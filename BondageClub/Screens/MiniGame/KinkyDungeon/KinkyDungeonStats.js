@@ -125,6 +125,7 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonSubmissiveMult = 0;
 
 	KinkyDungeonOrbsPlaced = [];
+	KinkyDungeonChestsOpened = [];
 
 	KinkyDungeonPlayerWeapon = null;
 	KinkyDungeonSpellPoints = 3;

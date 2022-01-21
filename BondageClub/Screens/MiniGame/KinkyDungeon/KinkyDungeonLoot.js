@@ -100,7 +100,8 @@ function KinkyDungeonLoot(Level, Index, Type) {
 		if (selection > lootWeights[L].weight) {
 			let replace = KinkyDungeonLootEvent(lootWeights[L].loot, Level, TextGet(lootWeights[L].loot.message));
 
-			KinkyDungeonSendActionMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);
+			if (!KinkyDungeonSendActionMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime))
+				KinkyDungeonSendTextMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);
 
 			break;
 		}
