@@ -268,9 +268,9 @@ AttackMaidforceParasol,"The maid caresses your breasts with a smile! (-DamageTak
 
 NameMaidforceHead,M.F. 'Master Plan'
 KillMaidforceHead,"The head maid surrenders gracefully."
-AttackMaidforceHeadBind,"The head maid trusses you up securely! (+RestraintAdded)"
+AttackMaidforceHeadBind,"The head maid suddenly whips out a belt and locks it onto you! (+RestraintAdded)"
 AttackMaidforceHeadLock,"The head maid snaps her fingers and locks your restraints! (-DamageTaken SP)"
-AttackMaidforceHead,"The head maid strikes one of your pressure points! (-DamageTaken SP)"
+AttackMaidforceHead,"The head maid uses her remote to drive your toys to max! (-DamageTaken SP)"
 
 
 NameElementalFire,Fire Elemental
@@ -509,6 +509,13 @@ AttackGuardLock,"The guard locks your restraints!"
 AttackGuardBind,"The guard places some cuffs on you!"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
 
+NameGuardHeavy,Armed Guard
+KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
+AttackGuardHeavyLock,"The guard locks your restraints!"
+AttackGuardHeavyBind,"The guard places some cuffs on you!"
+AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
+AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
+
 
 
 NameConjurer,Master Conjurer
@@ -710,8 +717,10 @@ KinkyDungeonInventoryItemTrapLegirons,Leg Irons
 KinkyDungeonInventoryItemTrapBlindfold,Blindfold
 
 KinkyDungeonInventoryItemTrapBelt,Steel Belt
+KinkyDungeonInventoryItemMaidBelt,Maid Belt
 
 KinkyDungeonInventoryItemTrapVibe,Egg Vibe
+KinkyDungeonInventoryItemMaidVibe,Maid Vibe
 
 
 RestraintHighsecArmbinder,Highsec Armbinder
@@ -865,9 +874,15 @@ RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose.
 RestraintTrapBelt,Steel Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintMaidBelt,Maid Belt
+RestraintMaidBeltDesc,"A chastity belt used to maintain control over initiate maids."
+RestraintMaidBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
+RestraintMaidVibe,Maid Egg
+RestraintMaidVibeDesc,"An energetic little friend that likes to tease you and takes orders from the head maid."
+RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
@@ -1440,6 +1455,7 @@ KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she 
 KinkyDungeonCrotchRope,Your struggling leaves you aroused because of the RestraintName...
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
+KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
 KinkyDungeonPlugged,You feel the plugs inside you while walking.
 KinkyDungeonVibing0,You feel a gentle buzz...
 KinkyDungeonVibing1,Your toys tease you gently...

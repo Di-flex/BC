@@ -275,6 +275,9 @@ Bugfix:
 - Boosted priority of torso grab message and added a sound
 - Torso grab will only occur if you are not already slowed
 - Torso grab will no longer occur if your summons are fighting an enemy
+- Added a taser guard if your security is high
+- Killing the guard now increases security
+- Added a maid miniboss who is a remote holder
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

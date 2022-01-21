@@ -631,6 +631,20 @@ function KinkyDungeonChargeVibrators(cost) {
 	}
 }
 
+function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge) {
+	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
+		let vibe = KinkyDungeonInventory[I].restraint;
+		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
+			if (vibe.battery == 0 || Overcharge) {
+				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+				let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
+				if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
+				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + Amount);
+			}
+		}
+	}
+}
+
 function KinkyDungeonHandleVibrators() {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let vibe = KinkyDungeonInventory[I].restraint;
