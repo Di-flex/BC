@@ -44,7 +44,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":7, "ropeAnger": 2}, shrines: ["Illusion"], floors:[1, 11],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Pick", weight: 5}, {name: "SmokeBomb", weight: 1}]},
 
-	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "maidVibeRestraints", "maidRestraintsLight"], blindSight: 5, followRange: 1, AI: "hunt",
+	{name: "Maidforce", color: "#814BB7", tags: ["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "maidVibeRestraints", "maidRestraintsLight", "jail"], blindSight: 5, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
 		visionRadius: 10, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":1, "lastthird":1, "illusionAnger": 22, "illusionRage": 12, "increasingWeight":-2}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -72,12 +72,12 @@ let KinkyDungeonEnemies = [
 		visionRadius: 10, maxhp: 14, minLevel:0, weight:-12, movePoints: 3, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, tilesMinRange: 1, power: 5, dmgType: "pain",
 		terrainTags: {"secondhalf":1, "lastthird":1, "open": 8, "illusionAnger": 12, "illusionRage": 5}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 40, weight: 3}, {name: "RedKey", weight: 5}, {name: "Pick", weight: 3}]},
-	{name: "MaidforceHead", color: "#814BB7", tags: ["leashing", "opendoors", "human", "elite", "miniboss", "melee", "maidVibeRestraints", "maidCollar", "meleeweakness"], followLeashedOnly: true, followRange: 3, AI: "hunt", projectileAttack: true,
-		//spells: ["RubberBullets"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0,
+	{name: "MaidforceHead", color: "#814BB7", tags: ["leashing", "opendoors", "human", "elite", "miniboss", "melee", "maidVibeRestraints", "maidCollar", "meleeweakness", "jail"], followLeashedOnly: true, followRange: 3.5, AI: "hunt", projectileAttack: true,
+		spells: ["SleepGas", "Hairpin"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 0, hitsfx: "Vibe",
 		useLock: "Red", kite: 2.5, remote: 5, remoteAmount: 4, bypass: true, multiBind: 7, noLeashUnlessExhausted: true, attackWhileMoving: true, evasion: 0.25, //-15 weight
-		visionRadius: 10, maxhp: 28, minLevel:0, weight:150, movePoints: 2, attackPoints: 1, attack: "MeleeWillBindLockAllVibe", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 1, dmgType: "grope",
+		visionRadius: 10, maxhp: 28, minLevel:0, weight:-12, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWillBindLockAllVibe", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 1, dmgType: "grope",
 		terrainTags: {"secondhalf":1, "lastthird":1, "open": 4, "illusionAnger": 10, "illusionRage": 4}, shrines: ["Illusion"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: [{name: "Gold", amountMin: 80, amountMax: 60, weight: 8}, {name: "RedKey", weight: 10}, {name: "Pick", weight: 6}, {name: "MagicKnife", weight: 1}]},
+		dropTable: [{name: "Gold", amountMin: 80, amountMax: 90, weight: 8}, {name: "RedKey", weight: 10}, {name: "Pick", weight: 6}, {name: "MagicKnife", weight: 1}]},
 
 	{name: "Skeleton", tags: ["leashing", "skeleton", "melee", "ropeRestraints", "leatherRestraints", "clothRestraints", "iceresist", "crushweakness"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		visionRadius: 4, maxhp: 5, minLevel:1, weight:8, movePoints: 2, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 1,
@@ -155,7 +155,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 8}, {name: "RedKey", weight: 5}, {name: "BlueKey", weight: 3}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
 
-	{name: "Dragon", color: "#F92900", tags: ["opendoors", "leashing", "dragon", "melee", "dragonRestraints", "fireresist"], followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "Dragon", color: "#F92900", tags: ["opendoors", "leashing", "dragon", "melee", "dragonRestraints", "fireresist", "jail"], followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		visionRadius: 8, maxhp: 10, minLevel:0, weight:-1, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "thirdhalf":-1, "leatherAnger":1}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 10}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
@@ -174,7 +174,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 8, maxhp: 10, minLevel:25, weight:-1, movePoints: 1, attackPoints: 2, attack: "SpellMeleeBindWill", stunTime: 1, attackWidth: 1, attackRange: 1, power: 6, dmgType: "crush", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 1}, {name: "Gold", amountMin: 15, amountMax: 30, weight: 12}, {name: "BlueKey", weight: 1}, {name: "PotionMana", weight: 1}, {name: "EarthRune", weight: 1}]},
-	{name: "DragonShadow", color: "#4400ff", tags: ["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "coldimmune", "fireresist"], followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "DragonShadow", color: "#4400ff", tags: ["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "coldimmune", "fireresist", "jail"], followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["ShadowOrb"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0, pullTowardSelf: true, pullDist: 3,
 		specialCD: 7, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "MagicSlash",
 		visionRadius: 8, maxhp: 16, minLevel:0, weight:-1, movePoints: 2, attackPoints: 2, attack: "SpellMeleeWill", stunTime: 3, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
@@ -193,7 +193,7 @@ let KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 50, amountMax: 80, weight: 8}, {name: "Knife", weight: 6}, {name: "Knives", weight: 2}, {name: "EnchKnife", weight: 1}]},
 
 
-	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "coldweakness", "iceweakness", "obsidianRestraints", "leashing"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
+	{name: "ElementalFire", tags: ["opendoors", "construct", "fireimmune", "coldweakness", "iceweakness", "obsidianRestraints", "leashing", "jail"], armor: 0, kite: 1.5, followRange: 3, AI: "hunt",
 		spells: ["HeatBolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, followLeashedOnly: true,
 		visionRadius: 8, maxhp: 8, minLevel:0, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "open": 1, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"],
@@ -1378,7 +1378,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				}
 			}
 			if (vibe || (enemy.Enemy.remote && playerDist < enemy.Enemy.remote)) {
-				KinkyDungeonChargeRemoteVibrators(enemy.Enemy.name, enemy.Enemy.remoteAmount ? enemy.Enemy.remoteAmount : 5, vibe);
+				KinkyDungeonChargeRemoteVibrators(enemy.Enemy.name, enemy.Enemy.remoteAmount ? enemy.Enemy.remoteAmount : 5, vibe, vibe);
 			}
 		}
 

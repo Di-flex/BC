@@ -165,7 +165,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
-		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold")) { // Being immune to the damage stops the stun as well
+		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1)

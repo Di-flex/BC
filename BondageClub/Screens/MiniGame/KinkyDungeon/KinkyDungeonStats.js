@@ -62,6 +62,7 @@ let KinkyDungeonStatBlind = 0; // Used for temporary blindness
 let KinkyDungeonStatFreeze = 0; // Used for temporary freeze
 let KinkyDungeonStatBind = 0; // Used for temporary bind
 let KinkyDungeonDeaf = false; // Deafness reduces your vision radius to 0 if you are fully blind (blind level 3)
+let KinkyDungeonSleepiness = 0; // Sleepiness
 
 // Other stats
 let KinkyDungeonGold = 0;
@@ -163,9 +164,9 @@ function KinkyDungeonDealDamage(Damage) {
 	let type = Damage.type;
 	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
 	let arousalTypesWeak = ["grope"];
-	let arousalTypesStrong = ["tickle", "charm"];
+	let arousalTypesStrong = ["tickle", "charm", "happygas"];
 	let staminaTypesWeak = ["electric", "tickle"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope"];
+	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope", "poison"];
 	let manaTypesWeak = ["electric"];
 	let manaTypesString = [];
 	if (armor) dmg = Math.max(0, dmg - armor);
@@ -304,6 +305,18 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonDressPlayer();
 	// Slowness calculation
 	KinkyDungeonCalculateSlowLevel();
+	let sleepRate = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sleepiness");
+	if (sleepRate && sleepRate > 0) {
+		KinkyDungeonSleepiness = Math.min(3, KinkyDungeonSleepiness + sleepRate * delta);
+		if (KinkyDungeonSleepiness > 2.99) {
+			KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
+			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel + 1, 3);
+		} else if (KinkyDungeonSleepiness > 2) {
+			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 2);
+		} else if (KinkyDungeonSleepiness > 1) {
+			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 1);
+		}
+	} else if (KinkyDungeonSleepiness > 0) KinkyDungeonSleepiness = Math.max(0, KinkyDungeonSleepiness - delta);
 
 	// Cap off the values between 0 and maximum
 	KinkyDungeonStatArousal += arousalRate*delta;

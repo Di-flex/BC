@@ -111,7 +111,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "MPUp3", school: "Any", manacost: 0, components: [], level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "SummonUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "SummonUp2", school: "Any", manacost: 0, components: [], level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
-		{name: "Bomb", sfx: "FireSpell", school: "Conjure", manacost: 6, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 6, power: 8, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
+		{name: "Bomb", sfx: "FireSpell", school: "Conjure", manacost: 5, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 6, power: 8, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 		{name: "Snare", sfx: "FireSpell", school: "Conjure", manacost: 2, components: ["Legs"], noTargetEnemies: true, level:1, type:"inert", onhit:"lingering", lifetime:9999, time: 12, delay: 5, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
 		{name: "Slime", landsfx: "MagicSlash", school: "Conjure", manacost: 9, components: ["Legs"], level:1, type:"inert", onhit:"lingering", time: 4, delay: 1, range: 4, size: 3, aoe: 2, lifetime: 3, power: 4, lifetimeHitBonus: 20, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 		//{name: "PinkGas", manacost: 4, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 2, range: 4, size: 3, aoe: 2.5, lifetime: 9999, damage: "stun", playerEffect: {name: "PinkGas", time: 3}}, // Dizzying gas, increases arousal
@@ -166,6 +166,9 @@ let KinkyDungeonSpellListEnemies = [
 		spellcast: {spell: "IceSlow", target: "target", directional:true, offset: false}, channel: 1},
 
 	{enemySpell: true, name: "FlashBomb", sfx: "Miss", school: "Illusion", manacost: 3, specialCD: 12, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 1, range: 4, size: 3, aoe: 1.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 3}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
+
+	{enemySpell: true, name: "SleepGas", sfx: "Miss", school: "Illusion", manacost: 4, specialCD: 24, components: ["Verbal"], level:1, type:"inert", buffs: [
+		{id: "SleepGas", type: "Sleepiness", power: 1, player: true, enemies: false, tags: ["sleep"], range: 1.5}], onhit:"", time:6, aoe: 1.5, power: 1, delay: 8, range: 4, size: 3, damage: "poison"}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 
 	{enemySpell: true, name: "RopeEngulf", sfx: "Struggle", manacost: 4, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 6, range: 2, size: 3, aoe: 1, lifetime: 1, damage: "chain", playerEffect: {name: "RopeEngulf", power: 2}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
 	{enemySpell: true, name: "WitchChainBolt", sfx: "FireSpell", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 6,  power: 6, delay: 0, range: 50, damage: "chain", speed: 1, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
@@ -631,12 +634,14 @@ function KinkyDungeonChargeVibrators(cost) {
 	}
 }
 
-function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge) {
+function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let vibe = KinkyDungeonInventory[I].restraint;
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 			if (vibe.battery == 0 || Overcharge) {
-				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+				if (!noSound) {
+					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+				}
 				let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
 				if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
 				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + Amount);

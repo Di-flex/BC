@@ -301,11 +301,12 @@ function KinkyDungeonDrawGame() {
 		DrawButton(1075, 650, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	}
 
-	if (KinkyDungeonStatArousal > 0)
-		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatArousal * 100 / KinkyDungeonStatArousalMax);
 	if (KinkyDungeonStatFreeze > 0) {
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, 100, '190, 190, 255');
+	} else if (KinkyDungeonStatArousal > 0) {
+		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatArousal * 100 / KinkyDungeonStatArousalMax);
 	}
+
 
 
 }

@@ -268,7 +268,7 @@ AttackMaidforceParasol,"The maid caresses your breasts with a smile! (-DamageTak
 
 NameMaidforceHead,M.F. 'Master Plan'
 KillMaidforceHead,"The head maid surrenders gracefully."
-AttackMaidforceHeadBind,"The head maid suddenly whips out a belt and locks it onto you! (+RestraintAdded)"
+AttackMaidforceHeadBind,"The head maid suddenly whips out a restraint and locks it on! (+RestraintAdded)"
 AttackMaidforceHeadLock,"The head maid snaps her fingers and locks your restraints! (-DamageTaken SP)"
 AttackMaidforceHead,"The head maid uses her remote to drive your toys to max! (-DamageTaken SP)"
 
@@ -717,7 +717,7 @@ KinkyDungeonInventoryItemTrapLegirons,Leg Irons
 KinkyDungeonInventoryItemTrapBlindfold,Blindfold
 
 KinkyDungeonInventoryItemTrapBelt,Steel Belt
-KinkyDungeonInventoryItemMaidBelt,Maid Belt
+KinkyDungeonInventoryItemMaidCBelt,Maid Belt
 
 KinkyDungeonInventoryItemTrapVibe,Egg Vibe
 KinkyDungeonInventoryItemMaidVibe,Maid Vibe
@@ -874,9 +874,9 @@ RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose.
 RestraintTrapBelt,Steel Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
-RestraintMaidBelt,Maid Belt
-RestraintMaidBeltDesc,"A chastity belt used to maintain control over initiate maids."
-RestraintMaidBeltDesc2,"Made of hardened steel. The lock is high-security."
+RestraintMaidCBelt,Maid Belt
+RestraintMaidCBeltDesc,"A chastity belt used to maintain control over initiate maids."
+RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
@@ -1348,6 +1348,7 @@ KinkyDungeonSpellDescriptionFocusedFlash,A focused flash of light which renders 
 KinkyDungeonSpellCastFocusedFlash,You slowly charge up a powerful flash!
 
 KinkyDungeonSpellShroud,Shroud
+KinkyDungeonSpellSleepGas,Sleep Gas
 KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radius)
 KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking
 KinkyDungeonSpellCastShroud,You exhale a misty shroud
