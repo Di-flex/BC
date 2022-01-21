@@ -121,8 +121,8 @@ var KinkyDungeonMapParams = [
 		"doorchance" : 0.2,
 		"nodoorchance" : 0.7,
 		"doorlockchance" : -0.05,
-		"trapchance" : 0.8,
-		"grateChance" : 0.7,
+		"trapchance" : 0.2,
+		"grateChance" : 0.25,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
 

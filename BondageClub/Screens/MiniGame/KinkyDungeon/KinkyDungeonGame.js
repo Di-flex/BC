@@ -1489,6 +1489,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 }
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	let start = performance.now()
 	KinkyDungeonRestraintAdded = false;
 	KinkyDungeonSFX = [];
 	KinkyDungeonResetEventVariablesTick();
@@ -1585,6 +1586,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ffffff", 1, true))
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ffffff", 1, true);
 	}
+	let end = performance.now();
+	console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);
 }
 
 

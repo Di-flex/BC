@@ -230,7 +230,7 @@ function KinkyDungeonRun() {
 					KinkyDungeonDoorCloseTimer = 1;
 					KinkyDungeonFastMovePath.splice(0, 1);
 					if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
-						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, false);
+						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, true);
 					else KinkyDungeonFastMovePath = [];
 				}
 				KinkyDungeonSleepTime = CommonTime() + 100;

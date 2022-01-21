@@ -77,12 +77,8 @@ function KinkyDungeonItemEvent(Item) {
 		priority = 2;
 		color = "lightgreen";
 		KinkyDungeonLockpicks += 1;
-	} else if (Item.name == "Hammer") {
-		priority = 4;
-		color = "orange";
-		KinkyDungeonInventoryAddWeapon("Hammer");
 	} else if (Item.name == "MagicSword") {
-		priority = 4;
+		priority = 6;
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon("MagicSword");
 	} else if (Item.name == "Knife") {
@@ -122,6 +118,11 @@ function KinkyDungeonItemEvent(Item) {
 		priority = item.rarity;
 		color = "white";
 		KinkyDungeonChangeConsumable(item, 1);
+	} else if (KinkyDungeonFindWeapon(Item.name)) {
+		let item = KinkyDungeonFindWeapon(Item.name);
+		priority = item.rarity;
+		color = "orange";
+		KinkyDungeonInventoryAddWeapon(Item.name);
 	}
 	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
