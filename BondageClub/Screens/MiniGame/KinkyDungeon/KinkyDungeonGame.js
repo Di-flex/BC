@@ -264,6 +264,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 1, y:startpos, player:true};
 	KinkyDungeonStartPosition = {x: 1, y: startpos};
 
+	KinkyDungeonJailTransgressed = true;
 
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, width, height); // Replace random internal walls with doodads
 	KinkyDungeonPlaceStairs(startpos, width, height); // Place the start and end locations
