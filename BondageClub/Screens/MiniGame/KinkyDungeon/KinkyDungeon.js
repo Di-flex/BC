@@ -156,6 +156,7 @@ function KinkyDungeonRun() {
 		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
 		// Draw temp start screen
+		DrawText(TextGet("KinkyDungeon"), 1250, 300, "white", "silver");
 		DrawText(TextGet("Intro"), 1250, 400, "white", "silver");
 		DrawText(TextGet("Intro2"), 1250, 500, "white", "silver");
 		DrawText(TextGet("Intro3"), 1250, 600, "white", "silver");
