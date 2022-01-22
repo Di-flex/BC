@@ -183,9 +183,9 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
 
+				KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
-				KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 
 				// Draw fog of war
 				rows = KinkyDungeonLightGrid.split('\n');
@@ -390,8 +390,9 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		Entity.visual_x = Entity.x;
 		Entity.visual_y = Entity.y;
 	} else {
-
-		let value = amount/100;// How many ms to complete a move
+		let speed = 100;
+		if (Entity.player && KinkyDungeonSlowLevel > 0 && !KinkyDungeonLeashingEnemy && KinkyDungeonFastMovePath.length < 1) speed = 190 * KinkyDungeonSlowLevel;
+		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;
 		let ty = (Entity.yy) ? Entity.yy : Entity.y;

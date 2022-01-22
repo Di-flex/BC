@@ -20,6 +20,7 @@ var KinkyDungeonLootTable = {
 		{name: "spell_points", magic: true, minLevel: 0, weight:3, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}, // lowlevel is spell levels 1-7
 		{name: "weapon_boltcutters", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["NoBoltCutters"]},
 		{name: "trap_armbinder", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
+		{name: "trap_armbinderHeavy", minLevel: 1, weight:4, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], submissive: 15, power: 8},
 		{name: "trap_cuffs", trap: true, minLevel: 1, weight:1, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
 		{name: "trap_harness", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemTorso"], power: 8},
 		{name: "trap_gag", trap: true, minLevel: 1, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth"], power: 8},
@@ -60,6 +61,8 @@ function KinkyDungeonLoot(Level, Index, Type) {
 				if (loot.prerequisites.includes("UnlearnedConjure")) SpellList = KinkyDungeonSpellList.Conjure;
 				if (loot.prerequisites.includes("UnlearnedIllusion")) SpellList = KinkyDungeonSpellList.Illusion;
 				if (loot.prerequisites.includes("NoBoltCutters") && KinkyDungeonInventoryGet("BoltCutters")) prereqs = false;
+
+				if (KinkyDungeonGoddessRep.Ghost && loot.submissive && (KinkyDungeonGoddessRep.Ghost + 50 < loot.submissive)) prereqs = false;
 
 				if (prereqs)
 					for (let P = 0; P < loot.prerequisites.length; P++) {
@@ -208,6 +211,13 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinder"), MiniGameKinkyDungeonCheckpoint, true, false);
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
+	} else if (Loot.name == "trap_armbinderHeavy") {
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinder"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
+		let harness = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinderHarness"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
+		if (Replacemsg)
+			if (!harness)
+				Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
+			else Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinderHarness"));
 	} else if (Loot.name == "trap_cuffs") {
 		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapCuffs"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));

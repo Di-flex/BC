@@ -314,6 +314,24 @@ function KinkyDungeonHandleClick() {
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";
+
+				if (KinkyDungeonKeybindings) {
+					KinkyDungeonKey = [KinkyDungeonKeybindings.Up, KinkyDungeonKeybindings.Left, KinkyDungeonKeybindings.Down, KinkyDungeonKeybindings.Right, KinkyDungeonKeybindings.UpLeft, KinkyDungeonKeybindings.UpRight, KinkyDungeonKeybindings.DownLeft, KinkyDungeonKeybindings.DownRight]; // WASD
+					KinkyDungeonGameKey.KEY_UP = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Up).toUpperCase();
+					KinkyDungeonGameKey.KEY_DOWN = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Down).toUpperCase();
+					KinkyDungeonGameKey.KEY_LEFT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Left).toUpperCase();
+					KinkyDungeonGameKey.KEY_RIGHT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Right).toUpperCase();
+					KinkyDungeonGameKey.KEY_UPLEFT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.UpLeft).toUpperCase();
+					KinkyDungeonGameKey.KEY_DOWNLEFT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.DownLeft).toUpperCase();
+					KinkyDungeonGameKey.KEY_UPRIGHT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.UpRight).toUpperCase();
+					KinkyDungeonGameKey.KEY_DOWNRIGHT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.DownRight).toUpperCase();
+
+					//var KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
+					KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
+					KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
+
+					KinkyDungeonGameKey.KEY_WAIT = "Key"+String.fromCharCode(KinkyDungeonKeybindings.Wait).toUpperCase();
+				}
 			}
 			return true;
 		} else if (MouseIn(1275, 750, 350, 64)) {
@@ -498,6 +516,11 @@ function KinkyDungeonHandleClick() {
 	} else if (KinkyDungeonState == "End") {
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonState = "Game";
+			let temp = [];
+			for (let o of KinkyDungeonOrbsPlaced) {
+				if (Math.random() < 0.5) temp.push(o);
+			}
+			KinkyDungeonOrbsPlaced = [];
 			KinkyDungeonSetCheckPoint(0);
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 			MiniGameKinkyDungeonLevel = 1;

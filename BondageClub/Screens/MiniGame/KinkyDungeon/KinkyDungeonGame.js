@@ -1396,6 +1396,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 
 					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
+						KinkyDungeonLastAction = "Move";
 						moved = true;
 						if (moveObject == 'w')
 							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
@@ -1404,7 +1405,8 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
-							KinkyDungeonMovePoints = -1;
+							KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 1);
+							KinkyDungeonSleepTurns = CommonTime() + 250;
 						}
 					}
 
@@ -1494,13 +1496,15 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	//return 0;
 }
 
+let KinkyDungeonLastAction = "";
+
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KDRecentRepIndex = 0;
 	let start = performance.now();
 	KinkyDungeonRestraintAdded = false;
 	KinkyDungeonSFX = [];
 
-	if (KinkyDungeonMovePoints < 0 && KinkyDungeonStatBind < 1) KinkyDungeonMovePoints = 0;
+	//if (KinkyDungeonMovePoints < 0 && KinkyDungeonStatBind < 1) KinkyDungeonMovePoints = 0;
 
 	KinkyDungeonResetEventVariablesTick();
 	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
@@ -1598,6 +1602,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	}
 	let end = performance.now();
 	if (KDDebug) console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);
+
+	KinkyDungeonLastAction = "";
 }
 
 

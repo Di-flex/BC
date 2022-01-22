@@ -69,6 +69,8 @@ function KinkyDungeonEvasion(Enemy) {
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
+
 	if (Math.random() < hitChance) return true;
 
 	return false;
@@ -199,7 +201,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (dmg > 0 && Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
+	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
 	return dmg;
 }
 
@@ -216,6 +218,13 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 }
 
 function KinkyDungeonUpdateBullets(delta) {
+	if (delta > 0)
+		for (let b of KinkyDungeonBullets) {
+			if (b.bullet && b.bullet.dot) {
+				KinkyDungeonBulletDoT(b);
+			}
+		}
+
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
 		let d = delta;
@@ -291,7 +300,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 function KinkyDungeonBulletHit(b, born) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
 
-	if (b.bullet.cast) {
+	if (b.bullet.cast && (!b.bullet.cast.chance || Math.random() < b.bullet.cast.chance)) {
 		let xx = b.bullet.cast.tx;
 		let yy = b.bullet.cast.ty;
 		if (!xx) xx = b.x;
@@ -315,6 +324,18 @@ function KinkyDungeonBulletHit(b, born) {
 				}
 			}
 
+	} else if (b.bullet.hit == "cast" && b.bullet.spell && b.bullet.spell.spellcasthit) {
+		let cast = b.bullet.spell.spellcasthit;
+		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
+		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+				if (Math.sqrt(X*X+Y*Y) <= rad && (!cast.chance || Math.random() < cast.chance)) {
+					let spell = KinkyDungeonFindSpell(cast.spell, true);
+					let xx = b.x + X;
+					let yy = b.y + Y;
+					KinkyDungeonCastSpell(xx, yy, spell, undefined, undefined, b);
+				}
+			}
 	} else if (b.bullet.hit == "teleport") {
 		KinkyDungeonBullets.push({born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 			bullet:{spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
@@ -360,6 +381,10 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 		maxcounter += 1;
 	}
 	return created;
+}
+
+function KinkyDungeonBulletDoT(b) {
+	KinkyDungeonBulletHit(b, 1.1);
 }
 
 function KinkyDungeonBulletTrail(b) {

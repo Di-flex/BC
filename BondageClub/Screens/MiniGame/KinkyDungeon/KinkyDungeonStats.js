@@ -82,7 +82,7 @@ let KinkyDungeonEnchantedBlades = 0;
 let KinkyDungeonHasCrotchRope = false;
 
 // Combat
-let KinkyDungeonTorsoGrabChance = 0.2;
+let KinkyDungeonTorsoGrabChance = 0.33;
 
 // Your inventory contains items that are on you
 let KinkyDungeonInventory = [];
@@ -402,11 +402,19 @@ function KinkyDungeonCanOrgasm() {
 	return false;
 }
 
+function KinkyDungeonLegsBlocked() {
+	if (KinkyDungeonPlayer.Pose.includes("Hogtie")) return true;
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.blockfeet) return true;
+	}
+	return false;
+}
+
 function KinkyDungeonCalculateSlowLevel() {
 	KinkyDungeonSlowLevel = 0;
 	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel = 100; KinkyDungeonMovePoints = -1;}
 	else {
-		let boots = KinkyDungeonGetRestraintItem("ItemBoots");
+		/*let boots = KinkyDungeonGetRestraintItem("ItemBoots");
 		if (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemLegs"), "Block", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemLegs"), "KneelFreeze", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemLegs"), "Freeze", true)
@@ -417,15 +425,14 @@ function KinkyDungeonCalculateSlowLevel() {
 		if (boots && boots.restraint && (boots.restraint.slowboots
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Block", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Freeze", true)
-			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;
+			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;*/
+		for (let inv of KinkyDungeonRestraintList()) {
+			if (inv.restraint && (inv.restraint.blockfeet || inv.restraint.hobble)) KinkyDungeonSlowLevel += 1;
+		}
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);
-
-
-		for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-			if (KinkyDungeonInventory[I] && KinkyDungeonInventory[I].restraint && KinkyDungeonInventory[I].restraint.freeze) {
-				KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
-			}
+		for (let inv of KinkyDungeonRestraintList()) {
+			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
 }

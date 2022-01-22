@@ -134,10 +134,14 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"passage": -50, "adjChest": -50, "door": -50, "open": 110}, floors:[2], shrines: ["Rope", "Will"]},
 
 	{name: "Alchemist", tags: ["leashing", "alchemist", "ranged", "leatherRestraints", "leatherRestraintsHeavy"], ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
-		spells: ["AmpuleGreen"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, kite: 1.5,
+		spells: ["AmpuleGreen", "AmpuleYellow", "AmpuleRed"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, kite: 1.5,
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:0, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "latexAnger": 12, "latexRage": 10}, shrines: ["Latex"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
+	{name: "RedSlime", color: "#FF0000", tags: ["ignoretiedup", "construct", "melee", "minor", "ballGagRestraints", "crushresist", "glueimmune"], squeeze: true, followRange: 1, AI: "hunt", sneakThreshold: 1, hitsfx: "",
+		spells: ["RedSlime"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 1, evasion: 1,
+		visionRadius: 8, maxhp: 4, minLevel: 11, weight:10, movePoints: 2, attackPoints: 3, attack: "SpellMeleeSlowWillBind", suicideOnSpell: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "crush",
+		terrainTags: {}, floors:[], shrines: ["Latex"]},
 
 	{name: "Bandit", tags: ["leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints"], ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8,
@@ -149,6 +153,9 @@ let KinkyDungeonEnemies = [
 		visionRadius: 7, maxhp: 9, minLevel:4, weight:0, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":7, "thirdhalf":5}, shrines: ["Leather"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 50, weight: 4}, {name: "Gold", amountMin: 25, amountMax: 35, weight: 8}, {name: "Pick", weight: 8}, {name: "PotionStamina", weight: 1}]},
+
+
+
 
 	{name: "SmallSlime", color: "#FF00FF", tags: ["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "glueimmune"], squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 3, minLevel: 15, weight:14, movePoints: 1, attackPoints: 2, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
@@ -225,7 +232,7 @@ let KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 25, amountMax: 40, weight: 7}, {name: "EarthRune", weight: 3}]},
 	{name: "ElementalAir", color: "#88aaff", tags: ["opendoors", "elemental", "melee", "fireweakness", "electricimmune", "coldweakness", "latexRestraints", "leashing"], armor: -1, followRange: 1, AI: "hunt", evasion: 0.5,
 		specialCD: 5, specialAttack: "Dash", specialRemove: "WillBind", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, specialsfx: "Miss", castWhileMoving: true, dashThruWalls: true, dashThrough: true,
-		spells: ["WitchElectrify"], spellCooldownMult: 1, spellCooldownMod: 3, followLeashedOnly: true,
+		spells: ["AreaElectrify"], spellCooldownMult: 1, spellCooldownMod: 3, followLeashedOnly: true,
 		visionRadius: 8, maxhp: 10, minLevel:12, weight:-2, movePoints: 1, attackPoints: 2, attack: "SpellMeleeWillBindLock", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements", "Latex"],
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 45, weight: 8}]},
@@ -394,7 +401,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile) {
 
 	for (let L = 0; L < KinkyDungeonEnemies.length; L++) {
 		var enemy = KinkyDungeonEnemies[L];
-		let effLevel = Level;
+		let effLevel = Level + 25 * KinkyDungeonNewGame;
 		let weightMulti = 1.0;
 		let weightBonus = 0;
 
@@ -1038,9 +1045,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 							if (harnessChance > 0) {
 								let roll = Math.random();
 								for (let T = 0; T < harnessChance; T++) {
-									roll = Math.max(roll, Math.random());
+									roll = Math.min(roll, Math.random());
 								}
-								if (roll > KinkyDungeonTorsoGrabChance) {
+								if (roll < KinkyDungeonTorsoGrabChance) {
 									KinkyDungeonMovePoints = -1;
 
 									if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonTorsoGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
@@ -1323,7 +1330,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							else if (bound > 0) suffix = "Bind";
 							if (Dash) suffix = "Dash";
 
-							let sfx = (hitsfx) ? hitsfx : "Damage";
+							let sfx = (hitsfx) ? hitsfx : (willpowerDamage > 1 ? "Damage" : "DamageWeak");
 							if (usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
 							KinkyDungeonSendInventoryEvent("hit", {
 								happened: happened,
@@ -1418,9 +1425,12 @@ function KinkyDungeonUpdateEnemies(delta) {
 						xx = enemy.x;
 						yy = enemy.y;
 						KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
+					} else if (spell && spell.msg) {
+						KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 					}
 
 					if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) && spell.sfx) {
+						if (enemy.Enemy.suicideOnSpell) enemy.hp = 0;
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
 					}
 
