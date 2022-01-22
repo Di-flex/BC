@@ -317,6 +317,9 @@ Bugfix:
 - Decoy evasion now +200% from +400%
 - Drinking from a shrine now drains 2 rep instead of 1
 - Changed around some damage types
+- New armbinder harness trap that makes the armbinder harder to escape
+- New alchemist potion that she throws at you
+- New Air Elemental spell (instead of just casting electrify)
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

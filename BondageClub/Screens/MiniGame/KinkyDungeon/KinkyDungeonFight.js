@@ -57,7 +57,7 @@ function KinkyDungeonGetEvasion(Enemy) {
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
 
-	hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonPlayer.GetBlindLevel()) * KinkyDungeonMissChancePerBlind));
+	hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
 	if (KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.67;
 	if (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
 
