@@ -322,7 +322,7 @@ function KinkyDungeonDrawGame() {
 
 let KinkyDungeonFloaters = [];
 
-function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff) {
+function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff = "") {
 	if (Entity.x && Entity.y) {
 		let floater = {
 			x: Entity.x + Math.random(),
