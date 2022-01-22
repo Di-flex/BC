@@ -95,7 +95,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 		}
 	} else if (Event == "remove") {
 		for (let e of item.events) {
-			if (e.type == "armbinderHarness" && data.item != item && data.item.restraint && data.item.restraint.group) {
+			if (e.type == "armbinderHarness" && data.item != item && item.restraint && item.restraint.Group) {
 				let armbinder = false;
 				for (let inv of KinkyDungeonRestraintList()) {
 					if (inv.restraint && inv.restraint.shrines && inv.restraint.shrines.includes("Armbinders")) {
@@ -104,7 +104,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					}
 				}
 				if (!armbinder) {
-					KinkyDungeonRemoveRestraint(data.item.restraint.group, false, false, true);
+					KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, true);
 					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveArmbinderHarness"), "lightgreen", 2);
 				}
 			}
