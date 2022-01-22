@@ -303,7 +303,9 @@ Bugfix:
 - Piercing spells now damage ghosts and tickle hands in walls
 
 2.46
-
+- If there are bullets on the screen then fast move will get suppressed.
+- Being jailed doesn't send you back as far
+- Attempted to fix inventory being incomplete (catsuits, etc)
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -210,7 +210,7 @@ function KinkyDungeonRun() {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSleepTurns -= 1;
 				KinkyDungeonAdvanceTime(1);
-				KinkyDungeonSleepTime = CommonTime() + 100;
+				KinkyDungeonSleepTime = CommonTime() + 10;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax) KinkyDungeonSleepTurns = 0;
 			}
 		} else if (KinkyDungeonStatFreeze > 0) {
@@ -359,7 +359,7 @@ function KinkyDungeonHandleClick() {
 			if (ServerURL == "foobar") {
 				// Give all of the items
 				for (let A = 0; A < Asset.length; A++)
-					if ((Asset[A] != null) && (Asset[A].Group != null) && (Asset[A].Value > 0) && !InventoryAvailable(Player, Asset[A].Name, Asset[A].Group.Name))
+					if ((Asset[A] != null) && (Asset[A].Group != null) && !InventoryAvailable(Player, Asset[A].Name, Asset[A].Group.Name))
 						InventoryAdd(Player, Asset[A].Name, Asset[A].Group.Name);
 			}
 			CharacterReleaseTotal(KinkyDungeonPlayer);
@@ -782,6 +782,8 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonOrbsPlaced = saveData.orbs;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
+			KinkyDungeonSpawnJailers = 0;
+			KinkyDungeonSpawnJailersMax = 0;
 			if (saveData.gold) KinkyDungeonGold = saveData.gold;
 			if (saveData.id) KinkyDungeonEnemyID = saveData.id;
 			if (saveData.points) KinkyDungeonSpellPoints = saveData.points;

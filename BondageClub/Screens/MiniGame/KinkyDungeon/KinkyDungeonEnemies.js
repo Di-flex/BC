@@ -454,6 +454,30 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		KinkyDungeonFastStruggleSuppress = false;
 		reenabled2 = true;
 	}
+	for (let b of KinkyDungeonBullets) {
+		if (KinkyDungeonLightGet(Math.round(b.x), Math.round(b.y)) > 0) {
+			if (KinkyDungeonFastStruggle) {
+				if (KinkyDungeonFastStruggle && !KinkyDungeonFastStruggleSuppress && !reenabled2)
+					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+				KinkyDungeonFastStruggle = false;
+				KinkyDungeonFastStruggleGroup = "";
+				KinkyDungeonFastStruggleType = "";
+				reenabled2 = false;
+				if (!CommonIsMobile)
+					KinkyDungeonFastStruggleSuppress = true;
+			}
+			if (KinkyDungeonFastMove) {
+				if (KinkyDungeonFastMove && !KinkyDungeonFastMoveSuppress && !reenabled)
+					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+				KinkyDungeonFastMove = false;
+				KinkyDungeonFastMovePath = [];
+				reenabled = false;
+				if (!CommonIsMobile)
+					KinkyDungeonFastMoveSuppress = true;
+			}
+		}
+	}
+
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		let sprite = enemy.Enemy.name;
@@ -614,8 +638,10 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 
 			KinkyDungeonKilledEnemy = null;
 		}
-		if (enemy.Enemy && enemy.Enemy.maxhp)
-			KinkyDungeonChangeRep("Ghost", -Math.max(5, 0.02 * enemy.Enemy.maxhp));
+		if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.includes("miniboss"))
+			KinkyDungeonChangeRep("Ghost", -1);
+		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.includes("boss"))
+			KinkyDungeonChangeRep("Ghost", -5);
 
 		if (enemy.Enemy && enemy.Enemy.rep)
 			for (let rep of Object.keys(enemy.Enemy.rep))
@@ -1680,6 +1706,8 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width, forwardOffset = 1) {
 
 
 function KinkyDungeonDefeat() {
+	MiniGameKinkyDungeonLevel = Math.min(MiniGameKinkyDungeonLevel, Math.max(Math.floor(MiniGameKinkyDungeonLevel/10)*10, MiniGameKinkyDungeonLevel - KinkyDungeonSpawnJailers + KinkyDungeonSpawnJailersMax - 1));
+
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.removePrison) {
 			KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
@@ -1694,7 +1722,7 @@ function KinkyDungeonDefeat() {
 
 	KinkyDungeonStatBlind = 3;
 
-	MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/10)*10;
+	//MiniGameKinkyDungeonLevel = Math.floor((MiniGameKinkyDungeonLevel + Math.max(0, KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers))/5)*5;
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	KinkyDungeonSpawnJailers = KinkyDungeonSpawnJailersMax;

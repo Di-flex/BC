@@ -610,15 +610,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Unlock.ogg");
 						KinkyDungeonLock(restraint, "");
 					}
-					if (KinkyDungeonHasGhostHelp())
-						KinkyDungeonChangeRep("Ghost", 1);
 				} else {
 					if (StruggleType == "Cut") AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Cut.ogg");
 					else if (StruggleType == "Remove") AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Unbuckle.ogg");
 					else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					KinkyDungeonRemoveRestraint(restraint.restraint.Group, StruggleType != "Cut");
-					if (KinkyDungeonHasGhostHelp())
-						KinkyDungeonChangeRep("Ghost", 1);
 				}
 			} else {
 				// Failure block for the different failure types
@@ -738,7 +734,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 					restraint.tightness = Math.max(0, restraint.tightness - tightness_reduction);
 				}
-			}
+			} else if (KinkyDungeonHasGhostHelp())
+				KinkyDungeonChangeRep("Ghost", 1);
 		}
 
 		KinkyDungeonSendInventoryEvent("struggle", {
@@ -788,7 +785,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 
 	if (!cache) {
 		cache = [];
-		let start = performance.now()
+		let start2 = performance.now();
 		for (let L = 0; L < KinkyDungeonRestraints.length; L++) {
 			let restraint = KinkyDungeonRestraints[L];
 			if (Level >= restraint.minLevel && restraint.floors.includes(Index)) {
@@ -804,9 +801,9 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 				}
 			}
 		}
-		let end = performance.now();
+		let end2 = performance.now();
 		if (KDDebug)
-			console.log(`Saved ${end - start} milliseconds by caching`);
+			console.log(`Saved ${end2 - start2} milliseconds by caching`);
 		KDRestraintsCache.set(enemy.name, cache);
 	}
 

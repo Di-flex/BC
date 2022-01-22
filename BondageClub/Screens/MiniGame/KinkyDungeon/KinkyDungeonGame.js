@@ -133,6 +133,8 @@ function KinkyDungeonSetCheckPoint(Checkpoint) {
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
 		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
 	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint) {
+		KinkyDungeonSpawnJailers = 0;
+		KinkyDungeonSpawnJailersMax = 0;
 		KinkyDungeonState = "Save";
 		ElementCreateTextArea("saveDataField");
 		ElementValue("saveDataField", KinkyDungeonSaveGame(true));
