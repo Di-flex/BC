@@ -307,6 +307,8 @@ Bugfix:
 - Being jailed doesn't send you back as far
 - Attempted to fix inventory being incomplete (catsuits, etc)
 - Added potion counts to the sidebar
+- Gave Maidforce Master Plan a restraining device spell
+- New 'quick inventory' for using consumables
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
