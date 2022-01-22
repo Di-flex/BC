@@ -211,11 +211,10 @@ function KinkyDungeonDressPlayer() {
 	let Eyes = "";
 	let Eyes2 = "";
 	let Eyebrows = "";
-	let Emote = "";
+	let Mouth = "";
 
 	if (KinkyDungeonSleepiness) {
 		Eyes = "Dazed";
-		Emote = "Sleep";
 	}
 
 	if (KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.45) Eyes = "Sad";
@@ -261,10 +260,10 @@ function KinkyDungeonDressPlayer() {
 				CharacterRefresh(KinkyDungeonPlayer);
 			}
 		}
-		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Emoticon") {
+		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Mouth") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
-			if (!property || property.Expression != Emote) {
-				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Emote };
+			if (!property || property.Expression != Mouth) {
+				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
 				CharacterRefresh(KinkyDungeonPlayer);
 			}
 		}

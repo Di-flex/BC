@@ -112,7 +112,7 @@ function KinkyDungeonPayShrine(type) {
 		rep = spell.level;*/
 		KinkyDungeonSpellLevel[type] += 1;
 		ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
-		rep = 2 * KinkyDungeonSpellLevel[type] * KinkyDungeonSpellLevel[type];
+		rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.5));
 
 	} else if (type == "Will") {
 		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);
@@ -166,7 +166,7 @@ function KinkyDungeonHandleShrine() {
 
 	if (type == "Commerce") {
 		if (cost > 0) {
-			if (MouseIn(825, 825, 112, 60) && cost <= KinkyDungeonGold) {
+			if (MouseIn(840, 825, 112-15, 60) && cost <= KinkyDungeonGold) {
 				KinkyDungeonPayShrine(type);
 				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				return true;
@@ -242,7 +242,7 @@ function KinkyDungeonDrawShrine() {
 		if (cost == 0) {
 			DrawText(TextGet("KinkyDungeonLockedShrine"), 850, 850, "white", "silver");
 		} else {
-			DrawButton(825, 825, 112, 60, TextGet("KinkyDungeonCommercePurchase").replace("ItemCost", "" + cost), (cost <= KinkyDungeonGold) ? "White" : "Pink", "", "");
+			DrawButton(840, 825, 112-15, 60, TextGet("KinkyDungeonCommercePurchase").replace("ItemCost", "" + cost), (cost <= KinkyDungeonGold) ? "White" : "Pink", "", "");
 			DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonCommerceNext"), "White", "", "");
 			if (KinkyDungeonShopIndex > KinkyDungeonShopItems.length) {
 				KinkyDungeonShopIndex = 0;

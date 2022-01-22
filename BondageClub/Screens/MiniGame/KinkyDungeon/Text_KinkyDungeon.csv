@@ -712,7 +712,7 @@ KinkyDungeonPoolDrinkSlime,"The slime washes off in the fountain!!!"
 
 KinkyDungeonCommerceBuy,"The goddess offers a ItemTraded for ItemCost (NumCurrent/NumMax)"
 KinkyDungeonCommerceNext,"Next Offer"
-KinkyDungeonCommercePurchase,"Pay ItemCost"
+KinkyDungeonCommercePurchase,"Buy"
 KinkyDungeonCommerceCost,"Cost: ItemCostgp"
 
 ClimbDown,"You climb down to the next level"
@@ -1258,6 +1258,7 @@ KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
 KinkyDungeonSpellTargetDagger,Choose aim direction
 
 KinkyDungeonSpellShadowSlash,Shadow Slash
+KinkyDungeonSpellShadowScythe,Shadow Scythe
 KinkyDungeonSpellDescriptionShadowSlash,"Slice the area in front of you, dealing a delayed DamageDealt damage in an area and slowing briefly."
 KinkyDungeonSpellCastShadowSlash,You create a tear in space with your finger!
 KinkyDungeonSpellTargetShadowSlash,Choose aim direction

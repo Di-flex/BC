@@ -260,8 +260,9 @@ function KinkyDungeonDrawGame() {
 				}
 				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
 			}
-
-			CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", null);
+			if (KinkyDungeonSleepiness) {
+				CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", "Sleep");
+			} else CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", null);
 
 			// Draw the player no matter what
 			KinkyDungeonContextPlayer.clearRect(0, 0, KinkyDungeonCanvasPlayer.width, KinkyDungeonCanvasPlayer.height);
