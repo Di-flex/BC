@@ -167,10 +167,10 @@ function KinkyDungeonDealDamage(Damage) {
 	let arousalTypesWeakNeg = ["pain"];
 	let arousalTypesWeak = ["grope"];
 	let arousalTypesStrong = ["tickle", "charm", "happygas"];
-	let staminaTypesWeak = ["electric", "tickle", "stun"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison"];
+	let staminaTypesWeak = ["electric", "tickle", "drain"];
+	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun"];
 	let manaTypesWeak = ["electric", "poison"];
-	let manaTypesString = [];
+	let manaTypesString = ["drain"];
 	if (armor) dmg = Math.max(0, dmg - armor);
 	if (arousalTypesWeak.includes(type)) {
 		KinkyDungeonChangeArousal(Math.ceil(dmg/2));

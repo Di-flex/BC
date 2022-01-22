@@ -1286,8 +1286,8 @@ KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
 KinkyDungeonSpellBanditBola,Bola
 KinkyDungeonSpellRestrainingDevice,Restraining Device
-KinkyDungeonRestrainingDeviceStun,The restraining device latches onto you as you struggle to get it off!!!
-KinkyDungeonRestrainingDevice,The restraining device wraps many tough cables around you!!!
+KinkyDungeonRestrainingDeviceStun,The maid's restraining device latches onto you as you struggle to get it off!!!
+KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables around you!!!
 
 KinkyDungeonSleepy,You are feeling doozy...
 
@@ -1425,38 +1425,44 @@ KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns
-KinkyDungeonSummonSingleWall,You create a line on the ground and a wall starts to form!
+KinkyDungeonSummonSingleWall,A wall starts to form!
+KinkyDungeonSpellCastWall,You create a line on the ground.
 
 KinkyDungeonSpellAlly,Familiar
 KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionAlly,Create a familiar that fights by your side for the rest of the level
-KinkyDungeonSummonSingleAlly,You create a circle on the ground and a familiar appears!
+KinkyDungeonSummonSingleAlly,A familiar appears!
+KinkyDungeonSpellCastAlly,You create a circle on the ground with your foot!
 
 KinkyDungeonSpellStormCrystal,Storm Crystal
 KinkyDungeonSpellTargetStormCrystal,Select where to put the storm crystal (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionStormCrystal,Create a stationary crystal that casts Crackle on nearby targets for Duration turns
-KinkyDungeonSummonSingleStormCrystal,You stomp and a crystal emerges from the ground!
+KinkyDungeonSummonSingleStormCrystal,A crackling crystal emerges from the ground!
+KinkyDungeonCastSpellStormCrystal,You stomp and the ground shakes!
 
 KinkyDungeonSpellFireElemental,Fire Elemental
 KinkyDungeonSpellTargetFireElemental,Select where to put the fire elemental (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionFireElemental,Create a fire elemental that attacks using firebolt for the rest of the level
-KinkyDungeonSummonSingleFireElemental,You call forth a spirit of fire!
+KinkyDungeonSummonSingleFireElemental,A flaming spirit answers your call!
+KinkyDungeonSpellCastFireElemental,You call upon the planes of fire!
 
 KinkyDungeonSpellShadowWarrior,Shadow Warrior
 KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
-KinkyDungeonSummonSingleShadowWarrior,You call, and the abyss answers!
-KinkyDungeonSpellCastShadowWarrior,You call, and the abyss answers!
+KinkyDungeonSummonSingleShadowWarrior,...and the abyss answers!
+KinkyDungeonSpellCastShadowWarrior,You call...
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionGolem,Create a slow but powerful golem to fight by your side
-KinkyDungeonSummonSingleGolem,You stomp your foot and a golem arises from the floor!
+KinkyDungeonSummonSingleGolem,A golem arises!
+KinkyDungeonSpellCastGolem,You stomp your foot and draw the words of life on the floor!
 
 KinkyDungeonSpellDecoy,Decoy
 KinkyDungeonSpellTargetDecoy,Select where to create an illusion (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionDecoy,Create a decoy for Duration turns
-KinkyDungeonSummonSingleDecoy,You create a line on the ground and a ghost starts to form!
+KinkyDungeonSpellCastDecoy,A shadow of yourself materializes!
+KinkyDungeonSummonSingleDecoy,You create a line on the ground and toss in a lock of your hair!
 
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime

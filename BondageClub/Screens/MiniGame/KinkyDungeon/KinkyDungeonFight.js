@@ -9,7 +9,7 @@ var KinkyDungeonBulletsID = {}; // Bullets on the game board
 
 var KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
-let KinkyDungeonHalfDamageTypes = ["tickle", "charm"];
+let KinkyDungeonHalfDamageTypes = ["tickle", "charm", "drain"];
 
 // Weapons
 var KinkyDungeonPlayerWeapon = null;
@@ -199,7 +199,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (dmg > 0 && Enemy.Enemy.tags && Enemy.Enemy.tags.includes("jailer")) KinkyDungeonJailTransgressed = true;
+	if (dmg > 0 && Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
 	return dmg;
 }
 
