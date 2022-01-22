@@ -213,7 +213,7 @@ function KinkyDungeonHandleShrine() {
 				else KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonPoolDrink" + Math.min(2, KinkyDungeonPoolUses)), "#AAFFFF", 2);
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KinkyDungeonPoolUsesGrace -= 1;
-				KinkyDungeonChangeRep(type, -1 - slimed * 2);
+				KinkyDungeonChangeRep(type, -2 - slimed * 2);
 				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!

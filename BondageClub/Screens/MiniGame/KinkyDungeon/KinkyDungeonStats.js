@@ -164,15 +164,19 @@ function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
 	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
+	let arousalTypesWeakNeg = ["pain"];
 	let arousalTypesWeak = ["grope"];
 	let arousalTypesStrong = ["tickle", "charm", "happygas"];
-	let staminaTypesWeak = ["electric", "tickle"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "fire", "grope", "poison"];
-	let manaTypesWeak = ["electric"];
+	let staminaTypesWeak = ["electric", "tickle", "stun"];
+	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison"];
+	let manaTypesWeak = ["electric", "poison"];
 	let manaTypesString = [];
 	if (armor) dmg = Math.max(0, dmg - armor);
 	if (arousalTypesWeak.includes(type)) {
 		KinkyDungeonChangeArousal(Math.ceil(dmg/2));
+	}
+	if (arousalTypesWeakNeg.includes(type)) {
+		KinkyDungeonChangeArousal(Math.ceil(-dmg/2));
 	}
 	if (arousalTypesStrong.includes(type)) {
 		KinkyDungeonChangeArousal(dmg);
@@ -204,21 +208,21 @@ let KDOrigArousal = 36;
 function KinkyDungeonChangeArousal(Amount) {
 	KinkyDungeonStatArousal += Amount;
 	if (Amount && Math.abs(KDOrigArousal - Math.floor(KinkyDungeonStatArousal)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatArousal) - KDOrigArousal, "#ff00ff");
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatArousal) - KDOrigArousal, "#ff00ff", undefined, undefined, " ap");
 		KDOrigArousal = Math.floor(KinkyDungeonStatArousal);
 	}
 }
 function KinkyDungeonChangeStamina(Amount) {
 	KinkyDungeonStatStamina += Amount;
 	if (Amount && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66");
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66", undefined, undefined, " sp");
 		KDOrigStamina = Math.floor(KinkyDungeonStatStamina);
 	}
 }
 function KinkyDungeonChangeMana(Amount) {
 	KinkyDungeonStatMana += Amount;
 	if (Amount && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff");
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff", undefined, undefined, " mp");
 		KDOrigMana = Math.floor(KinkyDungeonStatMana);
 	}
 }
@@ -400,7 +404,7 @@ function KinkyDungeonCanOrgasm() {
 
 function KinkyDungeonCalculateSlowLevel() {
 	KinkyDungeonSlowLevel = 0;
-	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel = 100; KinkyDungeonMovePoints = 0;}
+	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel = 100; KinkyDungeonMovePoints = -1;}
 	else {
 		let boots = KinkyDungeonGetRestraintItem("ItemBoots");
 		if (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemLegs"), "Block", true)

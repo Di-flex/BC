@@ -264,6 +264,8 @@ function KinkyDungeonDrawGame() {
 				CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", "Sleep");
 			} else CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", null);
 
+			if (KinkyDungeonPlayer.CanTalk() && KinkyDungeonSleepTurns > 0) CharacterSetFacialExpression(KinkyDungeonPlayer, "Drool", null);
+
 			// Draw the player no matter what
 			KinkyDungeonContextPlayer.clearRect(0, 0, KinkyDungeonCanvasPlayer.width, KinkyDungeonCanvasPlayer.height);
 			DrawCharacter(KinkyDungeonPlayer, -KinkyDungeonGridSizeDisplay/2, KinkyDungeonPlayer.Pose.includes("Hogtied") ? -165 : (KinkyDungeonPlayer.IsKneeling() ? -78 : 0), KinkyDungeonGridSizeDisplay/250, false, KinkyDungeonContextPlayer);
@@ -320,7 +322,7 @@ function KinkyDungeonDrawGame() {
 
 let KinkyDungeonFloaters = [];
 
-function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride) {
+function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff) {
 	if (Entity.x && Entity.y) {
 		let floater = {
 			x: Entity.x + Math.random(),
@@ -329,7 +331,7 @@ function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride) 
 			speed: 25,
 			t: 0,
 			color: Color,
-			text: "" + (typeof Amount === "string") ? Amount : Math.round(Amount * 10)/10,
+			text: "" + ((typeof Amount === "string") ? Amount : Math.round(Amount * 10)/10) + suff,
 			lifetime: Time ? Time : ((typeof Amount === "string") ? 5 : ((Amount < 3) ? 1 : (Amount > 5 ? 3 : 2))),
 		};
 		KinkyDungeonFloaters.push(floater);

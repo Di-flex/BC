@@ -309,6 +309,13 @@ Bugfix:
 - Added potion counts to the sidebar
 - Gave Maidforce Master Plan a restraining device spell
 - New 'quick inventory' for using consumables
+- Some expressions no longer stick forever
+- Storm crystal now has melee resist
+- Reduced ice elemental AoE damage vs player minions
+- Player summons now have resistances
+- Shadow warrior and familiar now have +100% evasion.
+- Decoy evasion now +200% from +400%
+- Drinking from a shrine now drains 2 rep instead of 1
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

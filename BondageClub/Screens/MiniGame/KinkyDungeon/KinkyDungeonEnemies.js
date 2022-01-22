@@ -3,13 +3,13 @@ let KinkyDungeonEnemies = [
 	{name: "Wall", tags: ["construct", "player", "playerinstakill", "melee"], allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -2.5,
 		visionRadius: 0, maxhp: 25, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:[]},
-	{name: "Decoy", tags: ["construct", "player"], noblockplayer: true, allied: true, evasion: 4, armor: 0, followRange: 100, AI: "wander",
+	{name: "Decoy", tags: ["construct", "player"], noblockplayer: true, allied: true, evasion: 2, armor: 0, followRange: 100, AI: "wander",
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 2, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:[]},
-	{name: "Ally", tags: ["construct", "player", "melee"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt",
+	{name: "Ally", tags: ["ghost", "player", "melee"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 1, accuracy: 1.5,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1,
 		terrainTags: {}, floors:[]},
-	{name: "ShadowWarrior", tags: ["construct", "player", "ghost", "melee"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt",
+	{name: "ShadowWarrior", tags: ["ghost", "player", "melee", "tickleimmune"], noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 1,
 		spells: ["AllyShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 11, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
@@ -17,10 +17,10 @@ let KinkyDungeonEnemies = [
 		spells: ["AllyFirebolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
-	{name: "Golem", tags: ["construct", "player", "melee"], noblockplayer: true, allied: true, armor: 1, followRange: 1, AI: "hunt",
+	{name: "Golem", tags: ["construct", "player", "melee", "fireresist", "tickleresist", "electricresist"], noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "hunt",
 		visionRadius: 20, playerBlindSight: 100, maxhp: 24, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 5, power: 6,
 		terrainTags: {}, floors:[]},
-	{name: "StormCrystal", tags: ["construct", "player", "ranged"], noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "wander",
+	{name: "StormCrystal", tags: ["construct", "player", "ranged", "meleeresist", "tickleimmune", "electricresist"], noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "wander", evasion: -10,
 		spells: ["AllyCrackle"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 6, maxhp: 24, minLevel:0, weight:0, movePoints: 1000, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
@@ -800,6 +800,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			let usingSpecial = false;
 			let range = enemy.Enemy.attackRange;
 			let width = enemy.Enemy.attackWidth;
+			let accuracy = enemy.Enemy.accuracy ? enemy.Enemy.accuracy : 1.0;
 			let vibe = false;
 
 
@@ -1019,7 +1020,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 					let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 						: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
-					if (player.player && attack.includes("Bind") && Math.random() <= playerEvasion && KinkyDungeonMovePoints > -1 && KinkyDungeonTorsoGrabCD < 1) {
+					if (player.player && attack.includes("Bind") && Math.random() * accuracy <= playerEvasion && KinkyDungeonMovePoints > -1 && KinkyDungeonTorsoGrabCD < 1) {
 						let caught = false;
 						for (let W = 0; W < enemy.warningTiles.length; W++) {
 							let tile = enemy.warningTiles[W];
@@ -1300,7 +1301,6 @@ function KinkyDungeonUpdateEnemies(delta) {
 							if (enemy.Enemy.fullBoundBonus) {
 								dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
-							if (enemy.Enemy.damage == "tickle") dmg = Math.ceil(dmg/2); // Tickling isn't that powerful...
 							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true, undefined, undefined, enemy);
 							if (happened > 0) {
 								let sfx = (hitsfx) ? hitsfx : "DealDamage";
