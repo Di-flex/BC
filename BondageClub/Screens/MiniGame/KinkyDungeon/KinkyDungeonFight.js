@@ -432,7 +432,7 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 
 
 function KinkyDungeonLaunchBullet(x, y, targetx, targety, speed, bullet, miscast) {
-	let direction = Math.atan2(targety, targetx);
+	let direction = (!targetx && !targety) ? 0 : Math.atan2(targety, targetx);
 	let vx = (targetx != 0 && targetx != undefined) ? Math.cos(direction) * speed : 0;
 	let vy = (targety != 0 && targetx != undefined) ? Math.sin(direction) * speed : 0;
 	let lifetime = bullet.lifetime;
@@ -462,7 +462,7 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		var Img = DrawGetImage(KinkyDungeonRootDirectory + "Bullets/" + sprite + ".png");
 
 		var spriteContext = spriteCanvas.getContext("2d");
-		var direction = Math.atan2(KinkyDungeonBullets[E].vy, KinkyDungeonBullets[E].vx);
+		var direction = (!KinkyDungeonBullets[E].vy && !KinkyDungeonBullets[E].vx) ? 0 : Math.atan2(KinkyDungeonBullets[E].vy, KinkyDungeonBullets[E].vx);
 
 		// Rotate the canvas m,
 		spriteContext.translate(spriteCanvas.width/2, spriteCanvas.height/2);

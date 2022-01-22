@@ -316,6 +316,7 @@ Bugfix:
 - Shadow warrior and familiar now have +100% evasion.
 - Decoy evasion now +200% from +400%
 - Drinking from a shrine now drains 2 rep instead of 1
+- Changed around some damage types
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
