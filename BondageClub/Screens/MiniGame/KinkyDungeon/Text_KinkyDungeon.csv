@@ -713,6 +713,7 @@ KinkyDungeonPoolDrinkSlime,"The slime washes off in the fountain!!!"
 KinkyDungeonCommerceBuy,"The goddess offers a ItemTraded for ItemCost (NumCurrent/NumMax)"
 KinkyDungeonCommerceNext,"Next Offer"
 KinkyDungeonCommercePurchase,"Pay ItemCost"
+KinkyDungeonCommerceCost,"Cost: ItemCostgp"
 
 ClimbDown,"You climb down to the next level"
 
@@ -1033,6 +1034,16 @@ RestraintObsidianAnkleCuffs,Obsidian Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 
+RestraintCableArms,Hitech Cables
+RestraintCableArmsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableArmsDesc2,"They are wrapped methodically around your body!"
+RestraintCableLegs,Hitech Cables
+RestraintCableLegsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableLegsDesc2,"They are wrapped methodically around your body!"
+RestraintCableHarness,Hitech Cables
+RestraintCableHarnessDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableHarnessDesc2,"They are wrapped methodically around your body!"
+
 RestraintIceArms,Ice
 RestraintIceArmsDesc,"Frigid restraints made out of ice."
 RestraintIceArmsDesc2,"There's no way to remove it without breaking it off."
@@ -1273,6 +1284,11 @@ KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!
 KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
 KinkyDungeonSpellBanditBola,Bola
+KinkyDungeonSpellRestrainingDevice,Restraining Device
+KinkyDungeonRestrainingDeviceStun,The restraining device latches onto you as you struggle to get it off!!!
+KinkyDungeonRestrainingDevice,The restraining device wraps many tough cables around you!!!
+
+KinkyDungeonSleepy,You are feeling doozy...
 
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 

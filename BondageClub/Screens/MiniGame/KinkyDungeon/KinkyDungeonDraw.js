@@ -30,7 +30,8 @@ function KinkyDungeonGetSprite(code) {
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
 
-	KinkyDungeonListenKeyMove();
+	if (KinkyDungeonDrawState == "Game")
+		KinkyDungeonListenKeyMove();
 
 	KinkyDungeonCapStats();
 
@@ -62,6 +63,11 @@ function KinkyDungeonDrawGame() {
 
 	// Draw the stats
 	KinkyDungeonDrawStats(canvasOffsetX + KinkyDungeonCanvas.width+10, canvasOffsetY, 1975 - (canvasOffsetX + KinkyDungeonCanvas.width+5), KinkyDungeonStatBarHeight);
+
+	// Draw the quick inventory
+	if (KinkyDungeonShowInventory) {
+		KinkyDungeonDrawQuickInv();
+	}
 
 	if (KinkyDungeonDrawState == "Game") {
 		if ((KinkyDungeonIsPlayer() || (KinkyDungeonGameData && CommonTime() < KinkyDungeonNextDataLastTimeReceived + KinkyDungeonNextDataLastTimeReceivedTimeout))) {
@@ -198,7 +204,7 @@ function KinkyDungeonDrawGame() {
 				}
 
 				// Draw targeting reticule
-				if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
+				if (!KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
 					if (KinkyDungeonTargetingSpell) {
 						KinkyDungeonSetTargetLocation();
 

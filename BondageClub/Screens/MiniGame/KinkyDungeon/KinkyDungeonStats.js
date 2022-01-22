@@ -258,6 +258,10 @@ function KinkyDungeonSetMaxStats() {
 	return arousalRate;
 }
 
+function KinkyDungeonCanUseWeapon() {
+	return !InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands");
+}
+
 function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
 	// Initialize
@@ -291,7 +295,7 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
 	// Unarmed damage calc
-	KinkyDungeonPlayerDamage = KinkyDungeonGetPlayerWeaponDamage(!InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"));
+	KinkyDungeonPlayerDamage = KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 
 	if (!KinkyDungeonPlayer.CanInteract()) {
 		KinkyDungeonPlayerDamage.chance /= 2;
@@ -309,7 +313,7 @@ function KinkyDungeonUpdateStats(delta) {
 	// Slowness calculation
 	KinkyDungeonCalculateSlowLevel();
 	let sleepRate = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sleepiness");
-	if (sleepRate && sleepRate > 0) {
+	if ((sleepRate && sleepRate > 0) || KinkyDungeonSleepiness > 0) {
 		KinkyDungeonSleepiness = Math.min(5, KinkyDungeonSleepiness + sleepRate * delta);
 		if (KinkyDungeonSleepiness > 2.99) {
 			KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
@@ -319,7 +323,11 @@ function KinkyDungeonUpdateStats(delta) {
 		} else if (KinkyDungeonSleepiness > 1) {
 			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 1);
 		}
-	} else if (KinkyDungeonSleepiness > 0) KinkyDungeonSleepiness = Math.max(0, KinkyDungeonSleepiness - delta);
+		if (KinkyDungeonSleepiness > 0) {
+			KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonSleepy"), "red", 1);
+		}
+	}
+	if ((!sleepRate || sleepRate <= 0) && KinkyDungeonSleepiness > 0) KinkyDungeonSleepiness = Math.max(0, KinkyDungeonSleepiness - delta);
 
 	// Cap off the values between 0 and maximum
 	KinkyDungeonStatArousal += arousalRate*delta;

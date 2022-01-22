@@ -13,6 +13,8 @@ var KinkyDungeonFilters = [
 var KinkyDungeonCurrentFilter = KinkyDungeonFilters[0];
 var KinkyDungeonCurrentPageInventory = 0;
 
+let KinkyDungeonShowInventory = false;
+
 
 function KinkyDungeonHandleInventory() {
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
@@ -201,4 +203,88 @@ function KinkyDungeonSendInventoryEvent(Event, data) {
 			}
 		}
 	}
+}
+
+let KinkyDungeonInvDraw = [];
+
+function KinkyDungeonQuickGrid(I, Width, Height, Xcount) {
+	let i = 0;
+	let h = 0;
+	let v = 0;
+	while (i < I) {
+		if (h < Xcount) h++; else {
+			h = 0;
+			v++;
+		}
+		i++;
+	}
+	return {x: Width*h, y: Height*v};
+}
+
+function KinkyDungeonDrawQuickInv() {
+	let H = 80;
+	let V = 80;
+	let consumables = KinkyDungeonFilterInventory("Consumables");
+	let weapons = KinkyDungeonFilterInventory("Weapons");
+	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
+
+
+	for (let c = 0; c < consumables.length; c++) {
+		let item = consumables[c];
+		if (item.preview) {
+			let point = KinkyDungeonQuickGrid(c, H, V, 6);
+			if (MouseIn(point.x, point.y + 30, H, V))
+				DrawRect(point.x, point.y + 30, H, V, "white");
+			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
+		}
+	}
+
+	for (let w = 0; w < weapons.length; w++) {
+		let item = weapons[w];
+		if (item.preview) {
+			let point = KinkyDungeonQuickGrid(w, H, V, 6);
+			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V))
+				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
+			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
+		}
+	}
+}
+
+function KinkyDungeonhandleQuickInv() {
+	KinkyDungeonShowInventory = false;
+
+	let H = 80;
+	let V = 80;
+	let consumables = KinkyDungeonFilterInventory("Consumables");
+	let weapons = KinkyDungeonFilterInventory("Weapons");
+	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
+
+
+	for (let c = 0; c < consumables.length; c++) {
+		let item = consumables[c];
+		if (item.preview) {
+			let point = KinkyDungeonQuickGrid(c, H, V, 6);
+			if (MouseIn(point.x, point.y + 30, H, V))
+				KinkyDungeonAttemptConsumable(item.name, 1);
+				//DrawRect(point.x, point.y + 30, H, V, "white");
+			//DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
+		}
+	}
+
+	for (let w = 0; w < weapons.length; w++) {
+		let item = weapons[w];
+		if (item.preview) {
+			let point = KinkyDungeonQuickGrid(w, H, V, 6);
+			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
+				let weapon = item.name != "knife" ? item.name : null;
+				KinkyDungeonPlayerWeapon = weapon;
+				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+			}
+			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
+			//DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
+		}
+	}
+
+
+	return false;
 }

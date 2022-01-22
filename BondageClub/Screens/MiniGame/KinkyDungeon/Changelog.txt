@@ -306,6 +306,7 @@ Bugfix:
 - If there are bullets on the screen then fast move will get suppressed.
 - Being jailed doesn't send you back as far
 - Attempted to fix inventory being incomplete (catsuits, etc)
+- Added potion counts to the sidebar
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
