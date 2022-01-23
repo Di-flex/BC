@@ -312,6 +312,7 @@ function KinkyDungeonHandleClick() {
 			MiniGameKinkyDungeonCheckpoint = 1;
 			KinkyDungeonSetCheckPoint(0);
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";
 

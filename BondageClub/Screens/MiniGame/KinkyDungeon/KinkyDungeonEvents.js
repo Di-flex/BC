@@ -114,16 +114,25 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "unlinkItem" && data.item == item && !data.add && !data.shrine) {
 				let newRestraint = KinkyDungeonGetRestraintByName(data.item.restraint.UnLink);
 				let oldLock = "";
+				let oldTightness = 0;
 				if (data.item.oldLock && data.item.oldLock.length > 0) {
 					oldLock = data.item.oldLock[data.item.oldLock.length - 1];
+				}
+				if (data.item.oldTightness && data.item.oldTightness.length > 0) {
+					oldTightness = data.item.oldTightness[data.item.oldTightness.length - 1];
 				}
 				if (newRestraint) {
 					if (data.item.oldLock)
 						data.item.oldLock.splice(data.item.oldLock.length-1, 1);
-					KinkyDungeonAddRestraint(newRestraint, data.item.tightness ? data.item.tightness : 0, true, oldLock ? oldLock : "", false);
+					if (data.item.oldTightness)
+						data.item.oldTightness.splice(data.item.oldTightness.length-1, 1);
+					KinkyDungeonAddRestraint(newRestraint, oldTightness, true, oldLock ? oldLock : "", false);
 					let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
 					if (res && res.restraint && data.item.oldLock && data.item.oldLock.length > 0) {
 						res.oldLock = data.item.oldLock;
+					}
+					if (res && res.restraint && data.item.oldTightness && data.item.oldTightness.length > 0) {
+						res.oldTightness = data.item.oldTightness;
 					}
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnlink" + data.item.restraint.name), "lightgreen", 2);
 					KinkyDungeonCancelFlag = true;
@@ -137,13 +146,18 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					if (inv.restraint && inv.restraint.Link && (!e.chance || Math.random() < e.chance)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(inv.restraint.Link);
 						let oldLock = [];
+						let oldTightness = [];
 						if (inv.oldLock) oldLock = inv.oldLock;
+						if (inv.oldTightness) oldTightness = inv.oldTightness;
 						let lock = inv.lock ? inv.lock : "";
+						let tightness = inv.tightness ? inv.tightness : 0;
 						oldLock.push(lock);
+						oldTightness.push(tightness);
 						if (newRestraint) {
 							KinkyDungeonAddRestraint(newRestraint, inv.tightness ? inv.tightness : 0, true, "", false);
 							let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
 							if (newItem) newItem.oldLock = oldLock;
+							if (newItem) newItem.oldTightness = oldTightness;
 							KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + inv.restraint.name), "red", 2);
 						}
 					}
