@@ -48,6 +48,7 @@ function KinkyDungeonHandleInventory() {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
 					KinkyDungeonPlayerWeapon = weapon;
+					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				} else if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
 					KinkyDungeonPlayerWeapon = null;
@@ -279,6 +280,7 @@ function KinkyDungeonhandleQuickInv() {
 				let weapon = item.name != "knife" ? item.name : null;
 				KinkyDungeonPlayerWeapon = weapon;
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+				KinkyDungeonAdvanceTime(1);
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 			//DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});

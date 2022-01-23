@@ -205,8 +205,65 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	return dmg;
 }
 
+function KinkyDungeonDisarm(Enemy) {
+	if (Math.random() < KinkyDungeonWeaponGrabChance) {
+		let slots = [];
+		for (let X = -Math.ceil(1); X <= Math.ceil(1); X++)
+			for (let Y = -Math.ceil(1); Y <= Math.ceil(1); Y++) {
+				if ((X != 0 || Y != 0) && KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(Enemy.x + X, Enemy.y + Y))) {
+					// We add the slot and those around it
+					slots.push({x:Enemy.x + X, y:Enemy.y + Y});
+					for (let XX = -Math.ceil(1); XX <= Math.ceil(1); XX++)
+						for (let YY = -Math.ceil(1); YY <= Math.ceil(1); YY++) {
+							if ((Math.abs(X + XX) > 1 || Math.abs(Y + YY) > 1) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Enemy.x + XX + X, Enemy.y + YY + Y))) {
+								slots.push({x:Enemy.x + XX + X, y:Enemy.y + YY + Y});
+							}
+						}
+				}
+			}
+
+		let foundslot = null;
+		for (let C = 0; C < 100; C++) {
+			let slot = slots[Math.floor(Math.random() * slots.length)];
+			if (KinkyDungeonNoEnemy(slot.x, slot.y, true)
+				&& Math.max(Math.abs(KinkyDungeonPlayerEntity.x - slot.x), Math.abs(KinkyDungeonPlayerEntity.y - slot.y)) > 1.5
+				&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(slot.x, slot.y))) {
+				foundslot = {x: slot.x, y: slot.y};
+
+				C = 100;
+			} else slots.splice(C, 1);
+		}
+
+		if (foundslot) {
+			let weapon = KinkyDungeonPlayerDamage.name;
+
+			let dropped = {x:foundslot.x, y:foundslot.y, name: weapon};
+
+			KinkyDungeonPlayerWeapon = "";
+			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+			for (let I = 0; I < KinkyDungeonInventory.length; I++) {
+				let item = KinkyDungeonInventory[I];
+				if (item && item.weapon && item.weapon.name == weapon) {
+					KinkyDungeonInventory.splice(I, 1);
+					break;
+				}
+			}
+
+			KinkyDungeonGroundItems.push(dropped);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm"), "red", 2);
+
+			return true;
+		}
+	}
+}
+
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
-	let eva = KinkyDungeonEvasion(Enemy);
+	let disarm = false;
+	if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag >= 0.97 && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.type != "unarmed") {
+		Enemy.disarmflag = 0;
+		disarm = true;
+	}
+	let eva = !disarm && KinkyDungeonEvasion(Enemy);
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	if (buffdmg) dmg.damage = Math.max(0, dmg.damage + buffdmg);
@@ -214,7 +271,23 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	if (eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
 		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
 	} else if (!eva) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
-	KinkyDungeonAlert = 5;
+	if (disarm) {
+		KinkyDungeonDisarm(Enemy);
+	}
+	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
+		KinkyDungeonAlert = 5;
+	} else {
+		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2)
+			KinkyDungeonAlert = 1;
+		else if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 3) {
+			Enemy.aware = true;
+		}
+	}
+
+	if (Enemy.Enemy && Enemy.Enemy.disarm && !disarm && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.unarmed) {
+		if (!Enemy.disarmflag) Enemy.disarmflag = 0;
+		Enemy.disarmflag += Enemy.Enemy.disarm;
+	}
 }
 
 function KinkyDungeonUpdateBullets(delta) {

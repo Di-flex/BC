@@ -594,26 +594,32 @@ KinkyDungeonBasicAttack,attack
 PlayerMiss,"You miss the TargetEnemy!"
 PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
 KinkyDungeonStruggleStruggleFail,"You try to pull the TargetRestraint off..."
+KinkyDungeonStruggleStruggleFailAroused,"You try to squirm and moan out of the TargetRestraint..."
 KinkyDungeonStruggleStruggleFail2,"You tug on the TargetRestraint with increased power..."
 KinkyDungeonStruggleStruggleFail3,"The ghost helps you try to pull the TargetRestraint off..."
 KinkyDungeonStrugglePickFail,"You work on picking the TargetRestraint..."
+KinkyDungeonStrugglePickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickFail2,"You work on picking the TargetRestraint with your powers..."
 KinkyDungeonStrugglePickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
 KinkyDungeonStrugglePickBreak,"You try to pick open the TargetRestraint but break your lockpick."
 KinkyDungeonStrugglePickDrop,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail,"You work on picking the TargetRestraint..."
+KinkyDungeonAttemptPickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail2,"You work on picking the TargetRestraint with your powers..."
 KinkyDungeonAttemptPickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
 KinkyDungeonAttemptPickBreak,"You break your lockpick trying to open the TargetRestraint."
 KinkyDungeonStruggleRemoveFail,"You try to remove the TargetRestraint..."
+KinkyDungeonStruggleRemoveFailAroused,"You shakily try to remove the TargetRestraint..."
 KinkyDungeonStruggleRemoveFail2,"You try to remove the TargetRestraint with a tool..."
 KinkyDungeonStruggleRemoveFail3,"The ghost helps you remove the TargetRestraint..."
 KinkyDungeonStruggleCutFail,"You try to cut the TargetRestraint..."
+KinkyDungeonStruggleCutFailAroused,"You tremble as you try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutFail2,"You try to cut the TargetRestraint using your tools..."
 KinkyDungeonStruggleCutFail3,"You try to cut the TargetRestraint with help..."
 KinkyDungeonStruggleCutBreak,"You break your knife trying to cut the TargetRestraint."
 KinkyDungeonStruggleCutDrop,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleUnlockFail,"You fiddle with the key on the TargetRestraint..."
+KinkyDungeonStruggleUnlockFailAroused,"Your jittering hands fumble with the key on the TargetRestraint..."
 KinkyDungeonStruggleUnlockFail2,"You concentrate on unlocking the TargetRestraint..."
 KinkyDungeonStruggleUnlockFail3,"You work on unlocking the TargetRestraint with help..."
 KinkyDungeonStruggleUnlockDrop,"You fiddle with the key on the TargetRestraint..."
@@ -1238,6 +1244,8 @@ ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
 ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
+KinkyDungeonDisarm,"As you strike again, your weapon is pulled out of your grasp!"
+
 KinkyDungeonUnEquipWeapon,"You put away the WEAPONNAME"
 KinkyDungeonEquipWeapon,"You equip the WEAPONNAME"
 KinkyDungeonUnEquip,"Unequip"
@@ -1304,12 +1312,12 @@ KinkyDungeonSpellCastShadowSlash,You create a tear in space with your finger!
 KinkyDungeonSpellTargetShadowSlash,Choose aim direction
 
 KinkyDungeonSpellBlink,Portal
-KinkyDungeonSpellDescriptionBlink,Teleport to a nearby location after DelayTime turns.
+KinkyDungeonSpellDescriptionBlink,Teleport to a nearby location (including into darkness) after DelayTime turns.
 KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!
 KinkyDungeonSpellTargetBlink,Choose target location
 
 KinkyDungeonSpellLeap,Blink
-KinkyDungeonSpellDescriptionLeap,Teleport to a location next turn.
+KinkyDungeonSpellDescriptionLeap,Teleport to a location you can see next turn.
 KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 

@@ -1343,6 +1343,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 		if (AllowInteract) {
 			if (KinkyDungeonHasStamina(Math.abs(KinkyDungeonStatStaminaCostAttack), true)) {
 				KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type});
+				KinkyDungeonLastAction = "Attack";
 
 				KinkyDungeonStatStamina += KinkyDungeonStatStaminaCostAttack;
 

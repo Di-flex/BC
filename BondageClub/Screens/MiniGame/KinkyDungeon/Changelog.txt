@@ -320,6 +320,12 @@ Bugfix:
 - New armbinder harness trap that makes the armbinder harder to escape
 - New alchemist potion that she throws at you
 - New Air Elemental spell (instead of just casting electrify)
+- Blind level now correctly lowers accuracy
+- Can no longer blink into dark squares
+- Melee costs 1SP now
+- Automove is only paused if a bullet enters a tile next to you
+- Fast move suppression is no longer blocked on mobile
+- Increased submissive reduction for killing minibosses, added a little for elites
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

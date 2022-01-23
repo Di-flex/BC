@@ -18,7 +18,7 @@ let KinkyDungeonItemDropChanceArmsBound = 0.2; // Chance to drop item with just 
 
 //let KinkyDungeonKnifeBreakChance = 0.15;
 let KinkyDungeonKeyJamChance = 0.33;
-let KinkyDungeonKeyPickBreakAmount = 5; // Number of tries per pick on average
+let KinkyDungeonKeyPickBreakAmount = 6; // Number of tries per pick on average
 let KinkyDungeonPickBreakProgress = 0;
 let KinkyDungeonKnifeBreakAmount = 8; // Number of tries per knife on average
 let KinkyDungeonKnifeBreakProgress = 0;
@@ -252,7 +252,7 @@ function KinkyDungeonKeyGetPickBreakChance(modifier) {
 
 	KinkyDungeonPickBreakProgress += mult;
 
-	if (KinkyDungeonPickBreakProgress > KinkyDungeonKeyPickBreakAmount/2) chance = (KinkyDungeonPickBreakProgress - KinkyDungeonKeyPickBreakAmount/2) / (KinkyDungeonKeyPickBreakAmount + 1); // Picks last anywhere from 2-7 uses
+	if (KinkyDungeonPickBreakProgress > KinkyDungeonKeyPickBreakAmount/2) chance = (KinkyDungeonPickBreakProgress - KinkyDungeonKeyPickBreakAmount/2) / (KinkyDungeonKeyPickBreakAmount + 1); // Picks last anywhere from 3-7 uses
 
 	return chance;
 }
@@ -396,7 +396,7 @@ function KinkyDungeonGetPickBaseChance() {
 function KinkyDungeonPickAttempt() {
 	let Pass = "Fail";
 	let escapeChance = KinkyDungeonGetPickBaseChance();
-	var cost = KinkyDungeonStatStaminaCostTool;
+	var cost = KinkyDungeonStatStaminaCostPick;
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
@@ -483,7 +483,9 @@ function KinkyDungeonUnlockAttempt(lock) {
 // Otherwise, just a normal struggle
 function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	var restraint = KinkyDungeonGetRestraintItem(struggleGroup.group);
-	var cost = (StruggleType == "Pick" || StruggleType == "Cut") ? KinkyDungeonStatStaminaCostTool : KinkyDungeonStatStaminaCostStruggle;
+	var cost = KinkyDungeonStatStaminaCostStruggle;
+	if (StruggleType == "Cut") cost = KinkyDungeonStatStaminaCostTool;
+	else if (StruggleType == "Pick") cost = KinkyDungeonStatStaminaCostTool;
 	KinkyDungeonSleepTurns = 0;
 	if (StruggleType == "Unlock") cost = 0;
 	let Pass = "Fail";
@@ -717,6 +719,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				if (KinkyDungeonHasGhostHelp() && restraint.restraint.helpChance && restraint.restraint.helpChance[StruggleType] > 0) suff = "3";
 				else suff = "2";
 			}
+			if (suff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = "Aroused";
 			KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonStruggle" + StruggleType + Pass + suff).replace("TargetRestraint", TextGet("Restraint" + restraint.restraint.name)), (Pass == "Success") ? "lightgreen" : "red", 2);
 
 			KinkyDungeonChangeStamina(cost);

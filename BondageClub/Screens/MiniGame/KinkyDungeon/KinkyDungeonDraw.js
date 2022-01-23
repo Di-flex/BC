@@ -113,6 +113,11 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
 
+				if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax*0.9) {
+					KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, 12, KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, "#44ff44", "#000000");
+				}
+
 				if (KinkyDungeonMovePoints < 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -218,6 +223,7 @@ function KinkyDungeonDrawGame() {
 							(KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.CastInWalls || KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY))) &&
 							(!KinkyDungeonTargetingSpell.WallsOnly || !KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY)));
 						if (KinkyDungeonTargetingSpell.noTargetEnemies && KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
+						if (KinkyDungeonTargetingSpell.noTargetDark && KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) < 1) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.noTargetPlayer && KinkyDungeonPlayerEntity.x == KinkyDungeonTargetX && KinkyDungeonPlayerEntity.y == KinkyDungeonTargetY) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.mustTarget && KinkyDungeonNoEnemy(KinkyDungeonTargetX, KinkyDungeonTargetY, true)) KinkyDungeonSpellValid = false;
 
@@ -391,7 +397,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		Entity.visual_y = Entity.y;
 	} else {
 		let speed = 100;
-		if (Entity.player && KinkyDungeonSlowLevel > 0 && !KinkyDungeonLeashingEnemy && KinkyDungeonFastMovePath.length < 1) speed = 190 * KinkyDungeonSlowLevel;
+		if (Entity.player && KinkyDungeonSlowLevel > 0 && KinkyDungeonLeashedPlayer < 2) speed = 190 * KinkyDungeonSlowLevel;
 		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;

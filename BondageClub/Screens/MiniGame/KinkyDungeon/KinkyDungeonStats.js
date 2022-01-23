@@ -38,8 +38,9 @@ let KinkyDungeonStatManaLowRegen = 0; // How fast stamina that is converted to m
 let KinkyDungeonStatManaRegenLowThreshold = 1; // Threshold for fast mana regen
 let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.1; // It costs stamina to move while bound
 let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
-let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to pick or cut, but much less
-let KinkyDungeonStatStaminaCostAttack = -0.1; // Cost to attack
+let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
+let KinkyDungeonStatStaminaCostPick = -0.1; // It costs stamina to pick, but much less
+let KinkyDungeonStatStaminaCostAttack = -1; // Cost to attack
 let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
 // Current Status
@@ -82,7 +83,8 @@ let KinkyDungeonEnchantedBlades = 0;
 let KinkyDungeonHasCrotchRope = false;
 
 // Combat
-let KinkyDungeonTorsoGrabChance = 0.33;
+let KinkyDungeonTorsoGrabChance = 0.4;
+let KinkyDungeonWeaponGrabChance = 1.0;
 
 // Your inventory contains items that are on you
 let KinkyDungeonInventory = [];
@@ -442,11 +444,11 @@ function KinkyDungeonCalculateSubmissiveMult() {
 	for (let item of KinkyDungeonRestraintList()) {
 		if (item.restraint) {
 			let power = Math.sqrt(Math.max(0, KinkyDungeonGetLockMult(item.lock) * item.restraint.power));
-			base = Math.max(power, base + power/4);
+			base = Math.max(power, base + power/5);
 		}
 	}
 
-	base *= 0.2;
+	base *= 0.28;
 
 	let mult = Math.max(0, 0.1 + 0.9 * (KinkyDungeonGoddessRep.Ghost + 50)/100);
 	let amount = Math.max(0, base * mult);
