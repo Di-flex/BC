@@ -326,6 +326,7 @@ Bugfix:
 - Automove is only paused if a bullet enters a tile next to you
 - Fast move suppression is no longer blocked on mobile
 - Increased submissive reduction for killing minibosses, added a little for elites
+- Many enemies now have the ability to toss your weapon away!
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

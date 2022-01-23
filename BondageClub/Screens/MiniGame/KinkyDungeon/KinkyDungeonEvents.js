@@ -98,7 +98,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "armbinderHarness" && data.item != item && item.restraint && item.restraint.Group) {
 				let armbinder = false;
 				for (let inv of KinkyDungeonRestraintList()) {
-					if (inv.restraint && inv.restraint.shrines && inv.restraint.shrines.includes("Armbinders")) {
+					if (inv.restraint && inv.restraint.shrine && inv.restraint.shrine.includes("Armbinders")) {
 						armbinder = true;
 						break;
 					}
