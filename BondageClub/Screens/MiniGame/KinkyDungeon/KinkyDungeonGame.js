@@ -404,6 +404,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 	KinkyDungeonHuntDownPlayer = false;
 	KinkyDungeonFirstSpawn = true;
+	KinkyDungeonSearchTimer = 0;
 
 	let enemyCount = 4 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	let count = 0;
