@@ -129,7 +129,7 @@ function KinkyDungeonItemEvent(Item) {
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon(Item.name);
 	}
-	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
+	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
 }
 

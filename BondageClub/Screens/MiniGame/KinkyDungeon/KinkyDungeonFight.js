@@ -269,8 +269,8 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	if (buffdmg) dmg.damage = Math.max(0, dmg.damage + buffdmg);
 	KinkyDungeonDamageEnemy(Enemy, (eva) ? dmg : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
 	if (eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
-		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
-	} else if (!eva) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
+	} else if (!eva) if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
 	if (disarm) {
 		KinkyDungeonDisarm(Enemy);
 	}

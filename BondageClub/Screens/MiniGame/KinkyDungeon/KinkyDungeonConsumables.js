@@ -175,7 +175,7 @@ function KinkyDungeonUseConsumable(Name, Quantity) {
 
 	KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonInventoryItem" + Name + "Use"), "#88FF88", 1);
 	if (item.item.consumable.sfx) {
-		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + item.item.consumable.sfx + ".ogg");
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + item.item.consumable.sfx + ".ogg");
 	}
 	return true;
 }

@@ -777,7 +777,7 @@ function KinkyDungeonHandleMagic() {
 				KinkyDungeonSpellPoints -= cost;
 				KinkyDungeonSpells.push(KinkyDungeonPreviewSpell);
 				KinkyDungeonSetMaxStats();
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(KinkyDungeonPreviewSpell.name);
 				KinkyDungeonPreviewSpell = undefined;
 				KinkyDungeonAdvanceTime(1);

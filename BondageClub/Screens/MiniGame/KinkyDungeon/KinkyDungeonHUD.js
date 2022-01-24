@@ -325,7 +325,7 @@ function KinkyDungeonHandleHUD() {
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 				if (KinkyDungeonHandleShrine())
-					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(675, 825, 350, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
@@ -333,7 +333,7 @@ function KinkyDungeonHandleHUD() {
 					let x = KinkyDungeonTargetTileLocation.split(',')[0];
 					let y = KinkyDungeonTargetTileLocation.split(',')[1];
 					KinkyDungeonMapSet(parseInt(x), parseInt(y), "D");
-					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorClose.ogg");
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorClose.ogg");
 					KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCloseDoorDone"), "white", 1);
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 					return true;
@@ -439,6 +439,11 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Restart") {
+		if (MouseIn(600, 100, 64, 64)) {
+			KinkyDungeonSound = !KinkyDungeonSound;
+			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
+			return true;
+		}
 		if (MouseIn(975, 850, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);
@@ -479,6 +484,7 @@ function KinkyDungeonHandleHUD() {
 			KinkyDungeonDrawState = "Game";
 			return true;
 		}
+		return true;
 	}
 
 	return false;

@@ -1621,13 +1621,13 @@ function KinkyDungeonCallGuard(x, y, noTransgress) {
 
 let KinkyDungeonTotalSleepTurns = 0;
 let KinkyDungeonSearchTimer = 0;
-let KinkyDungeonSearchTimerMin = 25;
+let KinkyDungeonSearchTimerMin = 60;
 let KinkyDungeonFirstSpawn = false;
 
 function KinkyDungeonHandleWanderingSpawns(delta) {
 	let effLevel = MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty;
 	let sleepTurnsSpeedMult = 100;
-	let baseChance = 0.02 * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+	let baseChance = (KinkyDungeonSleepTurns > 0 ? 0.02 : 0.001) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
@@ -2001,7 +2001,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...
 
 	KinkyDungeonDressPlayer();
-	AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
+	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
 }
 
 function KinkyDungeonFindMaster(enemy) {

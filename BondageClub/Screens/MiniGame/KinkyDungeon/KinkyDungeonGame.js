@@ -115,7 +115,7 @@ let KinkyDungeonSaveInterval = 10;
 let KinkyDungeonSFX = [];
 
 function KinkyDungeonPlaySound(src) {
-	if (!KinkyDungeonSFX.includes(src)) {
+	if (KinkyDungeonSound && !KinkyDungeonSFX.includes(src)) {
 		AudioPlayInstantSound(src);
 		KinkyDungeonSFX.push(src);
 	}
@@ -1196,7 +1196,7 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1 && KinkyDungeonHandleHUD()) {
-		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		KinkyDungeonGameKey.keyPressed = [
 			false,
 			false,
@@ -1395,16 +1395,16 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonTargetTileLocation = "";
 				if (moveObject == 'D') { // Open the door
 					KinkyDungeonMapSet(moveX, moveY, 'd');
-					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 					KinkyDungeonDoorCloseTimer = 1;
 				} else if (moveObject == 'C') { // Open the chest
 					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "chest");
 					KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
-					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'c');
 				} else if (moveObject == 'O') { // Open the chest
 					KinkyDungeonTakeOrb(1); // 1 spell point
-					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'o');
 				} else {// Move
 					//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
@@ -1416,10 +1416,9 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						KinkyDungeonLastAction = "Move";
 						moved = true;
-						if (moveObject == 'w')
+						if (moveObject == 'w' && KinkyDungeonSound)
 							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
-						else
-							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
@@ -1454,7 +1453,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					}
 
 					if (moveObject == 'R') {
-						AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
+						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 						KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
 
 						KinkyDungeonMapSet(moveX, moveY, 'r');
@@ -1476,7 +1475,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			}
 		} else { // If we are blind we can bump into walls!
 			if (KinkyDungeonGetVisionRadius() <= 1) {
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 				KinkyDungeonSleepTurns = 0;
 				KinkyDungeonAdvanceTime(1);
 			}
@@ -1629,7 +1628,7 @@ function KinkyDungeonTargetTileMsg() {
 	if (KinkyDungeonTargetTile.Type == "Ghost") {
 		KinkyDungeonGhostMessage();
 	} else if (KinkyDungeonTargetTile.Lock) {
-		AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Locked.ogg");
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Locked.ogg");
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObjectLock").replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1, false, true);
 	} else {
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObject" + KinkyDungeonTargetTile.Type).replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);

@@ -168,7 +168,7 @@ function KinkyDungeonHandleShrine() {
 		if (cost > 0) {
 			if (MouseIn(840, 825, 112-15, 60) && cost <= KinkyDungeonGold) {
 				KinkyDungeonPayShrine(type);
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				return true;
 			}
 			else if (MouseIn(963, 825, 112, 60)) {
@@ -189,10 +189,10 @@ function KinkyDungeonHandleShrine() {
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
 				KinkyDungeonUpdateStats(0);
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonPayShrineFail"), "red", 1);
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			return true;
@@ -214,7 +214,7 @@ function KinkyDungeonHandleShrine() {
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KinkyDungeonPoolUsesGrace -= 1;
 				KinkyDungeonChangeRep(type, -2 - slimed * 2);
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
 				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
@@ -222,7 +222,7 @@ function KinkyDungeonHandleShrine() {
 
 				KinkyDungeonShrineAngerGods(type);
 				KinkyDungeonPoolUses = 10000;
-				AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 			}
 
 			KinkyDungeonPoolUses += 1;
