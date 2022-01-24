@@ -226,7 +226,8 @@ function KinkyDungeonRun() {
 		if (KinkyDungeonSleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSleepTurns -= 1;
-				KinkyDungeonTotalSleepTurns += 1;
+				if (KinkyDungeonJailTransgressed)
+					KinkyDungeonTotalSleepTurns += 1;
 				KinkyDungeonAdvanceTime(1);
 				KinkyDungeonSleepTime = CommonTime() + 10;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax) KinkyDungeonSleepTurns = 0;

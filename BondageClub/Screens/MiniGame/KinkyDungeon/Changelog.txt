@@ -337,6 +337,14 @@ Bugfix:
 - Traps are now 50% less likely with no enemies killed, rather than 100%
 - Heavy guard now binds normally instead of waiting
 - New spell: Iron Blood
+- Implemented layered items. You can now put an armbinder over ropes and this will make the binding extra secure and snug!!!
+- Familiar now has +33% evasion, from +100%
+- Resistance/weakness calculations no longer round down
+- Reputation gain is now linear. Relish in the gloriousness of round numbers
+- New enemy: alkahestor and latex elemental
+- Power of enemies nerfed across the board
+- Rebalanced tool/struggle costs. 1 for struggle, 0.25 for remove, 0.1 for picking and cutting
+- Chase waves now only happen after ~90 turns of sleeping and hunters spawn after 150 turns of sleeping
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -280,7 +280,6 @@ AttackMaidforceHeadBind,"The head maid suddenly whips out a restraint and locks 
 AttackMaidforceHeadLock,"The head maid snaps her fingers and locks your restraints! (-DamageTaken SP)"
 AttackMaidforceHead,"The head maid uses her remote to drive your toys to max! (-DamageTaken SP)"
 
-
 NameElementalFire,Fire Elemental
 KillElementalFire,"The fire elemental dissolves into ash."
 AttackElementalFireBind,"The fire elemental conjures forged restraints around your limbs! (+RestraintAdded)"
@@ -467,7 +466,8 @@ KinkyDungeonSummonSingleRedSlime,The red liquid bubbles and a round slime pops o
 KinkyDungeonSummonSingleLatexElemental,A pool of latex bubbles and a twisted elemental appears!
 
 KinkyDungeonSpellRedSlime,The red liquid bubbles and a round slime pops out!
-KinkyDungeonSpellSummonLatexElemental,Latex Elemental
+KinkyDungeonSummonSingleElementalLatex,Latex Elemental
+KinkyDungeonSpellCastSummonLatexElemental,Latex Elemental
 
 KinkyDungeonSpellRedSlime,Red Slime
 NameRedSlime,Red Slime
@@ -1043,8 +1043,8 @@ RestraintLatexLegbinderDesc2,It has too much grip to struggle out of, but is mad
 RestraintLatexBoots,Latex Boots
 RestraintLatexBootsDesc,A tight pair of boots that makes it difficult to walk!
 RestraintLatexBootsDesc2,It has too much grip to struggle out of, but is made of a fragile material.
-RestraintLatexCorset,Latex Corset
-RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with convenient straps to grab onto.
+RestraintLatexCorset,Heavy Latex Corset
+RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with straps securing your other restraints.
 RestraintLatexCorsetDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 
 RestraintDragonStraps,Dragonscale Straps
@@ -1553,7 +1553,7 @@ KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and ar
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce your slow level by 1 and reduce melee stamina cost by +100% (half with no other buffs) for Duration turns
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce your slow level by 1 and reduce melee stamina cost by +400% (0.1/atk) for Duration turns
 KinkyDungeonSpellCastIronBlood,You say the transformation chant and your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
@@ -1849,3 +1849,5 @@ KinkyDungeonShadowBind,"Shadowy tendrils wrap around your feet, rooting you in p
 
 KinkyDungeonFirstSpawn,You get the feeling that someone is searching for you...
 KinkyDungeonHuntDownPlayer,You hear movements all around as you realize you are surrounded!!!
+
+KinkyDungeonUnLink,"There is another restraint underneath!"

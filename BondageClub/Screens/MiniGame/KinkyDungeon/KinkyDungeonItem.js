@@ -1,7 +1,7 @@
 "use strict";
 var KinkyDungeonGroundItems = []; // Tracking all items on the ground
 
-function KinkyDungeonItemDrop(x, y, dropTable) {
+function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 	if (dropTable) {
 		let dropWeightTotal = 0;
 		let dropWeights = [];
@@ -18,7 +18,7 @@ function KinkyDungeonItemDrop(x, y, dropTable) {
 
 		for (let L = dropWeights.length - 1; L >= 0; L--) {
 			if (selection > dropWeights[L].weight) {
-				if (dropWeights[L].drop.name != "Nothing") {
+				if (dropWeights[L].drop.name != "Nothing" && (!summoned || !dropWeights[L].drop.noSummon)) {
 					let dropped = {x:x, y:y, name: dropWeights[L].drop.name, amount: dropWeights[L].drop.amountMin + Math.floor(Math.random()*dropWeights[L].drop.amountMax)};
 					KinkyDungeonGroundItems.push(dropped);
 					return dropped;

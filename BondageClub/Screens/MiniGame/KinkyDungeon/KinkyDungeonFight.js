@@ -113,7 +113,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 			if (time)
 				time = Math.max(0, Math.ceil(time * spellResist));
-			dmg = Math.max(0, Math.ceil(dmg * spellResist));
+			dmg = Math.max(0, dmg * spellResist);
 		}
 
 		if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) dmg *= 0.5;
@@ -135,10 +135,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				dmgDealt = Math.max(dmg - armor, 0); // Armor goes before resistance
 				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 			} else if (resistDamage == -1) {
-				dmgDealt = Math.max(dmg+1, Math.floor(dmg*1.5)); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+				dmgDealt = Math.max(dmg+1, dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else if (resistDamage == -2) {
-				dmgDealt = Math.max(dmg+1, Math.floor(dmg*2)); // Enemies that are severely vulnerable take either dmg+1 or 2x damage, whichever is greater
+				dmgDealt = Math.max(dmg+1, dmg*2); // Enemies that are severely vulnerable take either dmg+1 or 2x damage, whichever is greater
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else {
 				dmgDealt = Math.max(dmg - armor, 0);

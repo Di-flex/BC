@@ -19,13 +19,14 @@ let KDRecentRepIndex = 0;
 function KinkyDungeonChangeRep(Rep, Amount) {
 	if (KinkyDungeonGoddessRep[Rep] != undefined) {
 		let last = KinkyDungeonGoddessRep[Rep];
-		let target = -50;
-		let interval = 0.02;
+		//let target = -50;
+		//let interval = 0.02;
 		let start = KinkyDungeonGoddessRep[Rep];
-		if (Amount >= 0) target = 50;
-		for (let i = 0; i < Math.abs(Amount); i++) {
+		//if (Amount >= 0) target = 50;
+		/*for (let i = 0; i < Math.abs(Amount); i++) {
 			KinkyDungeonGoddessRep[Rep] += (target - KinkyDungeonGoddessRep[Rep]) * interval;
-		}
+		}*/
+		KinkyDungeonGoddessRep[Rep] += Amount;
 		KinkyDungeonGoddessRep[Rep] = Math.min(50, Math.max(-50, KinkyDungeonGoddessRep[Rep]));
 		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
 			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
