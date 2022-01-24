@@ -147,12 +147,12 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[], shrines: ["Latex"]},
 
 	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "search"]), ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
-		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8,
+		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, noSpellLeashing: true,
 		visionRadius: 6, maxhp: 9, minLevel:0, weight:17, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"thirdhalf":-4, "increasingWeight":-1}, shrines: ["Leather"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 24}, {name: "Pick", weight: 2}, {name: "PotionStamina", weight: 1}]},
 	{name: "BanditHunter", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "elite", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "hunter"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt", stealth: 1,
-		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3,
+		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 7, maxhp: 9, minLevel:4, weight:0, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":7, "thirdhalf":5}, shrines: ["Leather"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Pick", weight: 3}, {name: "PotionStamina", weight: 2}]},
@@ -974,7 +974,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (T >= 8 || enemy.path || !canSeePlayer) {
 							if (!enemy.path && (KinkyDungeonAlert || enemy.aware || canSeePlayer))
 								enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, player.x, player.y, true, false, ignoreLocks, MovableTiles); // Give up and pathfind
-							if (enemy.path && enemy.path.length > 0) {
+							if (enemy.path && enemy.path.length > 0 && Math.max(Math.abs(enemy.path[0].x - enemy.x),Math.abs(enemy.path[0].y - enemy.y)) < 1.5) {
 								dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 								if (!KinkyDungeonNoEnemyExceptSub(enemy.x + dir.x, enemy.y + dir.y, false, enemy)) enemy.path = undefined;
 								splice = true;
@@ -1116,8 +1116,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 				let dir = KinkyDungeonGetDirection(player.x - enemy.x, player.y - enemy.y);
 
 				let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
-
-				if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : enemy.Enemy.attackPoints)) {
+				let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KinkyDungeonLeashingEnemy == enemy) ? enemy.Enemy.movePoints+1 : enemy.Enemy.attackPoints;
+				if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap)) {
 					if (enemy.warningTiles.length == 0) {
 						let minrange = enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1;
 						if (usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
@@ -1173,7 +1173,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					}
 				} else { // Attack lands!
 					enemy.revealed = true;
-					let hit = ((usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : enemy.Enemy.attackPoints) <= 1;
+					let hit = ((usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap) <= 1;
 					for (let W = 0; W < enemy.warningTiles.length; W++) {
 						let tile = enemy.warningTiles[W];
 						if (enemy.x + tile.x == player.x && enemy.y + tile.y == player.y) {
@@ -1280,7 +1280,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								}
 								if (leashPos == KinkyDungeonStartPosition && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
 									KinkyDungeonDefeat();
-									KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
+									KinkyDungeonLeashedPlayer = 3 + ap * 2;
 									KinkyDungeonLeashingEnemy = enemy;
 								}
 								else if (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5) {
@@ -1292,7 +1292,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 											let leashPoint = path[0];
 											let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
 											if ((!enemySwap || !enemySwap.Enemy.noDisplace) && Math.max(Math.abs(leashPoint.x - enemy.x), Math.abs(leashPoint.y - enemy.y)) <= 1.5) {
-												KinkyDungeonLeashedPlayer = 3 + enemy.Enemy.attackPoints * 2;
+												KinkyDungeonLeashedPlayer = 3 + ap * 2;
 												KinkyDungeonLeashingEnemy = enemy;
 												if (enemySwap) {
 													enemySwap.x = KinkyDungeonPlayerEntity.x;
@@ -1303,6 +1303,10 @@ function KinkyDungeonUpdateEnemies(delta) {
 												enemy.x = leashPoint.x;
 												enemy.y = leashPoint.y;
 												hitsfx = "Struggle";
+												if (!KinkyDungeonHasStamina(1.1)) {
+													KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints+1;
+													KinkyDungeonSleepTime = CommonTime() + 200;
+												}
 												if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
 												if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
 													KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
@@ -1369,7 +1373,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 										}
 									}
 								}
-								if (tile && (tile.x != player.x || tile.y != player.y)) {
+								if (tile && (tile.x != player.x || tile.y != player.y) && MovableTiles.includes(KinkyDungeonMapGet(tile.x, tile.y))) {
 									Dash = true;
 									enemy.x = tile.x;
 									enemy.y = tile.y;
