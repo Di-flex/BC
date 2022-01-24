@@ -203,7 +203,7 @@ function KinkyDungeonHandleShrine() {
 
 			KinkyDungeonAdvanceTime(1, true);
 
-			if (Math.random() > chance || KinkyDungeonPoolUsesGrace > 0 && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9)) {
+			if ((Math.random() > chance || KinkyDungeonPoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9)) {
 				let slimed = 0;
 				for (let inv of KinkyDungeonRestraintList()) {
 					if (inv.restraint && inv.restraint.slimeLevel) {

@@ -76,7 +76,12 @@ function KinkyDungeonDrawInputs() {
 			if (KinkyDungeonPlayer.IsBlind() < 1) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
-			} else color = "#cccccc";
+			} else {
+				color = "#cccccc";
+				if (sg.lock) {
+					locktext = TextGet("KinkyBlindLockAbr");
+				}
+			}
 
 			let GroupText = sg.name ? ("Restraint" + sg.name) : ("KinkyDungeonGroup"+ sg.group); // The name of the group to draw.
 

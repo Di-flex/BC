@@ -347,6 +347,11 @@ Bugfix:
 - Chase waves now only happen after ~90 turns of sleeping and hunters spawn after 150 turns of sleeping
 - Iron blood now multiplies stamina cost by 0.2x
 
+2.51
+- Added targeting line for bolt spells
+- Made goddesses anger if you try to drink with 0 rep
+- Decreased enemy count in the jail
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
