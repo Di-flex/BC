@@ -389,6 +389,11 @@ KillAlchemist,"The alchemist screams and runs."
 AttackAlchemistBind,"The Alchemist restrains you! (+RestraintAdded)"
 AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 
+NameSlimeEnthusiast,Slime Enthusiast
+KillSlimeEnthusiast,"The slime enthusiast screams and runs."
+AttackSlimeEnthusiastBind,"The slime enthusiast restrains you! (+RestraintAdded)"
+AttackSlimeEnthusiast,"The Slime Enthusiast hugs you in a rubbery embrace! (-DamageTaken SP)"
+
 NameBandit,Bandit
 KillBandit,"The bandit collapses."
 AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
@@ -1718,6 +1723,7 @@ KinkyDungeonLore104,"(The note is scrawled with wiggling lines) IT SEES ME. I SH
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
 KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."
+KinkyDungeonLore203,"Yes! I've done it! I have created another red slime! I shall call him Fred, yes, Fred... after the slime I lost in a Shield-related accident a while back... poor Fred... I miss him."
 
 
 KinkyDungeonLore-1,"(The note is blank)"

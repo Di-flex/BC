@@ -66,9 +66,9 @@ var KinkyDungeonGreenLockChanceScalingMax = 0.8;
 var KinkyDungeonYellowLockChance = 0.15;
 var KinkyDungeonYellowLockChanceScaling = 0.008;
 var KinkyDungeonYellowLockChanceScalingMax = 0.7;
-var KinkyDungeonBlueLockChance = -0.05;
-var KinkyDungeonBlueLockChanceScaling = 0.005;
-var KinkyDungeonBlueLockChanceScalingMax = 0.35;
+var KinkyDungeonBlueLockChance = -0.1;
+var KinkyDungeonBlueLockChanceScaling = 0.01;
+var KinkyDungeonBlueLockChanceScalingMax = 0.4;
 
 
 var KinkyDungeonEasyLockChance = 0.8;
