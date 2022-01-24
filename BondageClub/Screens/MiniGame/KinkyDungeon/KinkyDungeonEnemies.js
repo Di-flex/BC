@@ -1627,7 +1627,7 @@ let KinkyDungeonFirstSpawn = false;
 function KinkyDungeonHandleWanderingSpawns(delta) {
 	let effLevel = MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty;
 	let sleepTurnsSpeedMult = 100;
-	let baseChance = (KinkyDungeonSleepTurns > 0 ? 0.02 : 0.001) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+	let baseChance = (KinkyDungeonSleepTurns > 0 ? 0.01 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;

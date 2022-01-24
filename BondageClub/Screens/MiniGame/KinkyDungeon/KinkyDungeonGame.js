@@ -1416,9 +1416,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 						KinkyDungeonLastAction = "Move";
 						moved = true;
-						if (moveObject == 'w' && KinkyDungeonSound)
-							AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
-						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+						if (KinkyDungeonSound) {
+							if (moveObject == 'w')
+								AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
+							else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+						}
 
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
