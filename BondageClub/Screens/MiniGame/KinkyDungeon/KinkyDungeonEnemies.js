@@ -314,7 +314,7 @@ let KinkyDungeonEnemies = [
 		maxhp: 12, minLevel: -1, weight:0, movePoints: 1, attackPoints: 3, attack: "MeleeBindLockAllWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {}, floors:[], dropTable: [{name: "RedKey", weight: 1}], rep: {"Prisoner": 10}},
 	{name: "GuardHeavy", tags: KDMapInit(["leashing", "opendoors", "closedoors", "jailer", "melee", "elite", "hunter", "miniboss", "shackleRestraints"]), disarm: 0.5,
-		keys: true, followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: 9, weight:-20, movePoints: 1, attackPoints: 2, bindOnKneel: true,
+		keys: true, followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: 9, weight:-20, movePoints: 1, attackPoints: 2,
 		attack: "MeleeBindLockAllWillStun", attackWidth: 3, attackRange: 1, power: 12, dmgType: "electric", stunTime: 1,
 		terrainTags: {"jailer": 22, "increasingWeight": 1, "jailbreak": 28}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], dropTable: [{name: "RedKey", weight: 1}], rep: {"Prisoner": 1}},
 

@@ -534,7 +534,7 @@ AttackGuard,"The guard plays with you, groping and rubbing your body!"
 NameGuardHeavy,Armed Guard
 KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
 AttackGuardHeavyLock,"The guard locks your restraints!"
-AttackGuardHeavyBind,"The guard places some cuffs on you!"
+AttackGuardHeavyBind,"The guard shocks you and slaps on some cuffs!"
 AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
 AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
 

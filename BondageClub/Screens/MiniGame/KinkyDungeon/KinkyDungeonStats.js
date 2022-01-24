@@ -39,7 +39,7 @@ let KinkyDungeonStatManaRegenLowThreshold = 1; // Threshold for fast mana regen
 let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.1; // It costs stamina to move while bound
 let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
-let KinkyDungeonStatStaminaCostPick = -0.1; // It costs stamina to pick, but much less
+let KinkyDungeonStatStaminaCostPick = -1.0; // It costs stamina to pick, but much less
 let KinkyDungeonStatStaminaCostAttack = -1; // Cost to attack
 let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
