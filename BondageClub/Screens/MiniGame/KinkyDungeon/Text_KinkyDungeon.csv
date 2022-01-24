@@ -1,8 +1,8 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
-KinkyDungeonCreditsList0,"The following are licensed under the CC Attribution license:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"The following are licensed under the CC Attribution license:|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified"
+KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
+KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
 KinkyDungeon,"Kinky Dungeon v2.45"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
@@ -153,6 +153,7 @@ KinkyDungeonConsume,Use Item (Consumes 1)
 
 KinkyDungeonInventoryItemRedKey,Red Key
 KinkyDungeonInventoryItemKnife,Knife
+KinkyDungeonInventoryItemLockpick,Lockpick
 KinkyDungeonInventoryItem2Lockpick,lockpick x2
 KinkyDungeonInventoryItem4Lockpick,lockpicks x4
 KinkyDungeonInventoryItemPotionMana,Mana Potion
@@ -389,6 +390,21 @@ KillAlchemist,"The alchemist screams and runs."
 AttackAlchemistBind,"The Alchemist restrains you! (+RestraintAdded)"
 AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 
+NameAlchemistPet,Alchemist's Pet
+KillAlchemistPet,"The pet wolfgirl escapes!"
+AttackAlchemistPetStun,"The wolfgirl lunges at you with a powerful kick! (-DamageTaken SP)"
+AttackAlchemistPet,"The alchemists' wolfgirl cuddles with you! (-DamageTaken SP)"
+
+NameAlkahestor,Alkahestor
+KillAlkahestor,"The alkahestor resigns to her fate."
+AttackAlkahestorBind,"The Alkahestor releases a vial of liquid that wraps around you! (+RestraintAdded)"
+AttackAlkahestor,"The alkahestor shoves you! (-DamageTaken SP)"
+
+NameElementalLatex,Latex Elemental
+KillElementalLatex,"The lates elemental dissolves into ash."
+AttackElementalLatexBind,"The latex elemental molds itself into restraints! (+RestraintAdded)"
+AttackElementalLatex,"The latex elemental slaps you with its appendages! (-DamageTaken SP)"
+
 NameSlimeEnthusiast,Slime Enthusiast
 KillSlimeEnthusiast,"The slime enthusiast screams and runs."
 AttackSlimeEnthusiastBind,"The slime enthusiast restrains you! (+RestraintAdded)"
@@ -448,7 +464,10 @@ AttackBramble,"The bramble snares you! (-DamageTaken SP)"
 KinkyDungeonSummonMultiRedSlime,The red liquid bubbles and several round slimes pop out!
 KinkyDungeonSummonSingleRedSlime,The red liquid bubbles and a round slime pops out!
 
+KinkyDungeonSummonSingleLatexElemental,A pool of latex bubbles and a twisted elemental appears!
+
 KinkyDungeonSpellRedSlime,The red liquid bubbles and a round slime pops out!
+KinkyDungeonSpellSummonLatexElemental,Latex Elemental
 
 KinkyDungeonSpellRedSlime,Red Slime
 NameRedSlime,Red Slime
@@ -791,19 +810,43 @@ KinkyDungeonInventoryItemMaidCBelt,Maid Belt
 KinkyDungeonInventoryItemTrapVibe,Egg Vibe
 KinkyDungeonInventoryItemMaidVibe,Maid Vibe
 
+RestraintLatexBallGag,Latex Ball Gag
+RestraintLatexBallGagDesc,"A devious device that looks like a ball gag, but has a mouth-filling rod on the inside."
+RestraintLatexBallGagDesc2,"The strap is made of a durable but flexible material"
 
-RestraintHighsecArmbinder,Highsec Armbinder
-RestraintHighsecArmbinderDesc,"An obisidian armbinder enclosing your hands and arms completely, making your hands useless."
+RestraintExpArmbinder,Latex Boxtie Binder
+RestraintExpArmbinderDesc,"A secure but comfortable binder meant for long-term wear by the alchemists' pets."
+RestraintExpArmbinderDesc2,"Made from imbued latex, it will be hard to cut but not impossible."
+RestraintExpArmbinderHarness,Binder Straps Cincher
+RestraintExpArmbinderHarnessDesc,"A tight cincher used to ensure a binder will not come off."
+RestraintExpArmbinderHarnessDesc2,"It's tied in the back and reinforced with steel boning."
+RestraintExpAnkleCuffs,Blacksteel Ankle Cuffs
+RestraintExpAnkleCuffsDesc,"Highly durable cuffs that can withstand even powerful acid."
+RestraintExpAnkleCuffsDesc2,"They are not coming off without the key."
+KinkyDungeonLinkExpAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintExpAnkleCuffs2,Blacksteel Ankle Cuffs
+RestraintExpAnkleCuffs2Desc,"Highly durable cuffs that can withstand even powerful acid."
+RestraintExpAnkleCuffs2Desc2,"They are not coming off without the key."
+KinkyDungeonUnLinkExpAnkleCuffs2,"The ankle cuff chain detaches!"
+RestraintExpCollar,Latex Posture Collar
+RestraintExpCollarDesc,"A strict collar that makes it tougher to escape from other items."
+RestraintExpCollarDesc2,"It has steel boning but could be cut with enough care."
+RestraintExpBoots,Metal Ballet Heels
+RestraintExpBootsDesc,"A pair of strict boots for making pets more manageable. A skilled person can still walk in these."
+RestraintExpBootsDesc2,"They are reinforced with metal and impossible to remove with a knife."
+
+RestraintHighsecArmbinder,High-Security Armbinder
+RestraintHighsecArmbinderDesc,"An mythril armbinder enclosing your hands and arms completely, making your hands useless."
 RestraintHighsecArmbinderDesc2,"Made of a flexible, yet durable material, it's going to be really tough to escape."
-RestraintHighsecLegbinder,Highsec Legbinder
-RestraintHighsecLegbinderDesc,"An obisidian legbinder enclosing your legs, making it difficult to move."
+RestraintHighsecLegbinder,High-Security Legbinder
+RestraintHighsecLegbinderDesc,"An mythril legbinder enclosing your legs, making it difficult to move."
 RestraintHighsecLegbinderDesc2,"Made of a flexible, yet durable material, it's going to be really tough to escape."
-RestraintHighsecShackles,Highsec Shackles
-RestraintHighsecShacklesDesc,"A pair of obisidian shackles around your feet."
+RestraintHighsecShackles,High-Security Shackles
+RestraintHighsecShacklesDesc,"A pair of mythril shackles around your feet."
 RestraintHighsecShacklesDesc2,"Nearly indestructable, you are at the mercy of its lock."
-RestraintHighsecBallGag,Highsec BallGag
-RestraintHighsecBallGagDesc,"An obisidian gag shoved tightly between your lips."
-RestraintHighsecBallGagDesc2,"The straps are nigh-unbreakable, keeping you securely silenced."
+RestraintHighsecBallGag,High-Security BallGag
+RestraintHighsecBallGagDesc,"A rubber gag shoved tightly between your lips."
+RestraintHighsecBallGagDesc2,"The mythril straps are nigh-unbreakable, keeping you securely silenced."
 
 
 RestraintBasicCollar,Collar
@@ -813,48 +856,48 @@ RestraintBasicLeash,Leash
 RestraintBasicLeashDesc,"A leash made from a strong material."
 RestraintBasicLeashDesc2,"Functions as a handle for moving unruly prisoners."
 
-RestraintPrisonVibe,Prison Vibe
+RestraintPrisonVibe,Teaser Plug
 RestraintPrisonVibeDesc,"A teaser to keep you occupied."
 RestraintPrisonVibeDesc2,"Buzzes on spellcast, and periodically as well."
-RestraintPrisonBelt,Prison Belt
+RestraintPrisonBelt,High-Security Chastity Belt
 RestraintPrisonBeltDesc,"A chastity belt to protect prisoners from themselves."
 RestraintPrisonBeltDesc2,"Made of a highly durable material."
-RestraintPrisonBelt2,Prison Belt
+RestraintPrisonBelt2,Blacksteel Chastity Belt
 RestraintPrisonBelt2Desc,"A chastity belt to protect prisoners from themselves."
 RestraintPrisonBelt2Desc2,"Made of a highly durable material."
 
-RestraintDuctTapeArms,Charms
+RestraintDuctTapeArms,Charms (Arms)
 RestraintDuctTapeArmsDesc,"A band of faintly magic ribbon wrapped tight around your arms."
 RestraintDuctTapeArmsDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeLegs,Charms
+RestraintDuctTapeLegs,Charms (Legs)
 RestraintDuctTapeLegsDesc,"A band of faintly magic ribbon wrapped tight around your thighs."
 RestraintDuctTapeLegsDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeFeet,Charms
+RestraintDuctTapeFeet,Charms (Feet)
 RestraintDuctTapeFeetDesc,"A band of faintly magic ribbon wrapped tight around your ankles."
 RestraintDuctTapeFeetDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeHead,Charms
+RestraintDuctTapeHead,Charms (Head)
 RestraintDuctTapeHeadDesc,"A band of faintly magic ribbon wrapped tight around your eyes."
 RestraintDuctTapeHeadDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeMouth,Charms
+RestraintDuctTapeMouth,Charm Gag
 RestraintDuctTapeMouthDesc,"A band of faintly magic ribbon wrapped tight around your mouth."
 RestraintDuctTapeMouthDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeBoots,Charms
+RestraintDuctTapeBoots,Charm Wrapping (Toes)
 RestraintDuctTapeBootsDesc,"A layer of faintly magic ribbon wrapped tight around your feet."
 RestraintDuctTapeBootsDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeHeadMummy,Charms
+RestraintDuctTapeHeadMummy,Charm Wrapping (Head)
 RestraintDuctTapeHeadMummyDesc,"A layer of faintly magic ribbon wrapped tight around your face."
 RestraintDuctTapeHeadMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeArmsMummy,Charms
+RestraintDuctTapeArmsMummy,Charm Wrapping (Arms)
 RestraintDuctTapeArmsMummyDesc,"A layer of faintly magic ribbon wrapped tight around your body."
 RestraintDuctTapeArmsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeFeetMummy,Charms
+RestraintDuctTapeFeetMummy,Charm Wrapping (Feet)
 RestraintDuctTapeFeetMummyDesc,"A layer of faintly magic ribbon wrapped tight around your shins."
 RestraintDuctTapeFeetMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintDuctTapeLegsMummy,Charms
+RestraintDuctTapeLegsMummy,Charm Wrapping (Legs)
 RestraintDuctTapeLegsMummyDesc,"A layer of faintly magic ribbon wrapped tight around your thighs."
 RestraintDuctTapeLegsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
 
-RestraintPanelGag,Panel Gag
+RestraintPanelGag,Leather Panel Gag
 RestraintPanelGagDesc,"A gag that seals your lips tightly and stuffs your mouth with a ball."
 RestraintPanelGagDesc2,"The harness is comprehensive and it's locked in place."
 
@@ -865,74 +908,74 @@ RestraintKittyPaws,Bast Paws
 RestraintKittyPawsDesc,"Leather mittens used to pacify new initiates of the Bast cult."
 RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but aren't the toughest material."
 
-RestraintMysticDuctTapeHead,Wrappings
-RestraintMysticDuctTapeHeadDesc,"A band of magic ribbon wrapped tight around your eyes."
+RestraintMysticDuctTapeHead,Youth Wrappings (Head)
+RestraintMysticDuctTapeHeadDesc,"A band of magic embalming ribbon wrapped tight around your eyes."
 RestraintMysticDuctTapeHeadDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeMouth,Wrappings
-RestraintMysticDuctTapeMouthDesc,"A band of magic ribbon wrapped tight around your mouth."
+RestraintMysticDuctTapeMouth,Youth Wrappings (Gag)
+RestraintMysticDuctTapeMouthDesc,"A band of magic embalming ribbon wrapped tight around your mouth."
 RestraintMysticDuctTapeMouthDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeArmsMummy,Wrappings
-RestraintMysticDuctTapeArmsMummyDesc,"A layer of magic ribbon wrapped tight around your body."
+RestraintMysticDuctTapeArmsMummy,Youth Wrappings (Arms)
+RestraintMysticDuctTapeArmsMummyDesc,"A layer of magic embalming ribbon wrapped tight around your body."
 RestraintMysticDuctTapeArmsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeFeetMummy,Wrappings
-RestraintMysticDuctTapeFeetMummyDesc,"A layer of magic ribbon wrapped tight around your shins."
+RestraintMysticDuctTapeFeetMummy,Youth Wrappings (Feet)
+RestraintMysticDuctTapeFeetMummyDesc,"A layer of magic embalming ribbon wrapped tight around your shins."
 RestraintMysticDuctTapeFeetMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeBoots,Wrappings
-RestraintMysticDuctTapeBootsDesc,"A layer of magic ribbon wrapped tight around your feet."
+RestraintMysticDuctTapeBoots,Youth Wrappings (Toes)
+RestraintMysticDuctTapeBootsDesc,"A layer of magic embalming ribbon wrapped tight around your feet."
 RestraintMysticDuctTapeBootsDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeLegsMummy,Wrappings
-RestraintMysticDuctTapeLegsMummyDesc,"A layer of magic ribbon wrapped tight around your thighs."
+RestraintMysticDuctTapeLegsMummy,Youth Wrappings (Legs)
+RestraintMysticDuctTapeLegsMummyDesc,"A layer of magic embalming ribbon wrapped tight around your thighs."
 RestraintMysticDuctTapeLegsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
 RestraintStuffing,Stuffing
 RestraintStuffingDesc,"A stuffing of cloth."
 RestraintStuffingDesc2,"You could spit it out easily, provided nothing's covering it."
-RestraintWeakMagicRopeArms,Arm Rope
+RestraintWeakMagicRopeArms,Arm Ropes
 RestraintWeakMagicRopeArmsDesc,"Faintly glowing ropes from a magic trap."
 RestraintWeakMagicRopeArmsDesc2,"I wonder who was responsible?"
-RestraintWeakMagicRopeLegs,Leg Rope
+RestraintWeakMagicRopeLegs,Leg Ropes
 RestraintWeakMagicRopeLegsDesc,"Faintly glowing ropes from a magic trap."
 RestraintWeakMagicRopeLegsDesc2,"I wonder who was responsible?"
-RestraintStrongMagicRopeHogtie,Hogtie
+RestraintStrongMagicRopeHogtie,Magic Hogtie
 RestraintStrongMagicRopeHogtieDesc,"It pulls your wrists up to your ankles! So tight!"
 RestraintStrongMagicRopeHogtieDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeArms,Arm Rope
+RestraintStrongMagicRopeArms,Magic Arm Rope
 RestraintStrongMagicRopeArmsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeArmsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeLegs,Leg Rope
+RestraintStrongMagicRopeLegs,Magic Leg Rope
 RestraintStrongMagicRopeLegsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeLegsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeFeet,Ankle Rope
+RestraintStrongMagicRopeFeet,Magic Ankle Rope
 RestraintStrongMagicRopeFeetDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeFeetDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeCrotch,Crotch Rope
+RestraintStrongMagicRopeCrotch,Match Crotch Rope
 RestraintStrongMagicRopeCrotchDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeCrotchDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeToe,Toe Rope
+RestraintStrongMagicRopeToe,Magic Toe Rope
 RestraintStrongMagicRopeToeDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeToeDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStickySlime,Sticky Slime
 RestraintStickySlimeDesc,"A sticky layer of slime keeping you anchored to the ground."
 RestraintStickySlimeDesc2,"It will slow you for a single turn."
-RestraintTrapMittens,Leather Mitts
+RestraintTrapMittens,Leather Mittens
 RestraintTrapMittensDesc,"A pair of tight leather mittens enclosing your hands."
 RestraintTrapMittensDesc2,"They make it almost impossible to manipulate keys and tools. Keep your hands to yourself!"
-RestraintTrapArmbinder,Armbinder
+RestraintTrapArmbinder,Leather Armbinder
 RestraintTrapArmbinderDesc,"A tight leather armbinder enclosing your hands and arms completely."
 RestraintTrapArmbinderDesc2,"It's quite snug and secured by lockable buckles in the back. Picking the locks yourself is impossible."
-RestraintTrapArmbinderHarness,Armbinder Harness
+RestraintTrapArmbinderHarness,Leather Armbinder Harness
 RestraintTrapArmbinderHarnessDesc,"Leather belts securing your armbinder tightly."
 RestraintTrapArmbinderHarnessDesc2,"It's quite tight and secured by lockable buckles on your sides."
 KinkyDungeonRemoveArmbinderHarness,The armbinder harness comes off with the armbinder.
 RestraintTrapCuffs,Handcuffs
 RestraintTrapCuffsDesc,"A pair of steel cuffs locked securely around your wrists."
 RestraintTrapCuffsDesc2,"The lock doesn't seem very complicated."
-RestraintTrapHarness,Harness
+RestraintTrapHarness,Leather Harness
 RestraintTrapHarnessDesc,"A leather harness of tight straps buckled around your torso."
 RestraintTrapHarnessDesc2,"It provides an anchor point for enemies to grab onto!"
 RestraintTrapGag,Ball Gag
 RestraintTrapGagDesc,"A gag made of a red squishy material."
 RestraintTrapGagDesc2,"You can't seem to enunciate your spells properly with this in."
-RestraintMagicGag,Tight Gag
+RestraintMagicGag,Tight Ball Gag
 RestraintMagicGagDesc,"A gag made of a red squishy material, buckled as tight as it will go."
 RestraintMagicGagDesc2,"You can't seem to enunciate your spells properly with this in."
 RestraintTrapBoots,Ballet Heels
@@ -944,10 +987,10 @@ RestraintTrapLegironsDesc2,"The lock doesn't seem very complicated."
 RestraintTrapBlindfold,Blindfold
 RestraintTrapBlindfoldDesc,"A leather strap secured onto your face and blocking vision."
 RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose."
-RestraintTrapBelt,Steel Belt
+RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
-RestraintMaidCBelt,Maid Belt
+RestraintMaidCBelt,Maid Chastity Belt
 RestraintMaidCBeltDesc,"A chastity belt used to maintain control over initiate maids."
 RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
@@ -968,30 +1011,30 @@ RestraintRopeSnakeCrotchDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeArmsWrist,Wrist Rope
 RestraintRopeSnakeArmsWristDesc,"A wrist and elbow tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsWristDesc2,"The ropes squeeze you gently."
-RestraintRopeSnakeLegs,Leg Rope
+RestraintRopeSnakeLegs,Leg Ropes
 RestraintRopeSnakeLegsDesc,"A tie that hobbles your legs together.."
 RestraintRopeSnakeLegsDesc2,"The ropes squeeze you gently."
-RestraintRopeSnakeFeet,Ankle Rope
+RestraintRopeSnakeFeet,Ankle Ropes
 RestraintRopeSnakeFeetDesc,"A tie keeping your feet secured together."
 RestraintRopeSnakeFeetDesc2,"The ropes squeeze you gently."
 
-RestraintVinePlantArms,Wrist Vine
+RestraintVinePlantArms,Wrist Vines
 RestraintVinePlantArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintVinePlantArmsDesc2,"The vines twitch as they try to wrap around tighter."
 RestraintVinePlantTorso,Vine Harness
 RestraintVinePlantTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintVinePlantTorsoDesc2,"The vines twitch as they try to wrap around tighter."
-RestraintVinePlantLegs,Leg Vine
+RestraintVinePlantLegs,Leg Vines
 RestraintVinePlantLegsDesc,"A tie that hobbles your legs together.."
 RestraintVinePlantLegsDesc2,"The vines twitch as they try to wrap around tighter."
-RestraintVinePlantFeet,Ankle Vine
+RestraintVinePlantFeet,Ankle Vines
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
 
 RestraintLatexStraitjacket,Latex Jacket
 RestraintLatexStraitjacketDesc,A tight jacket that holds your arms completely useless.
 RestraintLatexStraitjacketDesc2,It has too much grip to struggle out of, but is made of a fragile material.
-RestraintLatexArmbinder,Latex Binder
+RestraintLatexArmbinder,Latex Armbinder
 RestraintLatexArmbinderDesc,A tight armbinder that pins your arms tightly behind your back, enclosed completely.
 RestraintLatexArmbinderDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 RestraintLatexLegbinder,Latex Legbinder
@@ -1004,22 +1047,27 @@ RestraintLatexCorset,Latex Corset
 RestraintLatexCorsetDesc,An excruciatingly tight corset that hugs your body, with convenient straps to grab onto.
 RestraintLatexCorsetDesc2,It has too much grip to struggle out of, but is made of a fragile material.
 
-RestraintDragonStraps,Scale Straps
+RestraintDragonStraps,Dragonscale Straps
 RestraintDragonStrapsDesc,"A set of straps buckling tightly around your body and secured at the wrists."
 RestraintDragonStrapsDesc2,"It's made from hard-to-cut dragonscale!!!"
-RestraintDragonLegCuffs,Scale Cuffs
+RestraintDragonLegCuffs,Dragonscale Cuffs
 RestraintDragonLegCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonLegCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
-RestraintDragonAnkleCuffs,Scale Cuffs
+RestraintDragonAnkleCuffs,Dragonscale Cuffs
 RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
-RestraintDragonBoots,Scale Boots
+KinkyDungeonLinkDragonAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintDragonAnkleCuffs2,Dragonscale Cuffs
+RestraintDragonAnkleCuffs2Desc,"A pair of chained cuffs made of dragonscale. They slow your stride."
+RestraintDragonAnkleCuffs2Desc2,"It's made from hard-to-cut dragonscale!!!"
+KinkyDungeonUnLinkDragonAnkleCuffs2,"The ankle cuff chain detaches!"
+RestraintDragonBoots,Dragonscale Boots
 RestraintDragonBootsDesc,"A pair of extremely high heels lined with dragonscale. They are hard to walk in."
 RestraintDragonBootsDesc2,"It's made from hard-to-cut dragonscale!!!"
-RestraintDragonBallGag,Scale Gag
+RestraintDragonBallGag,Dragonscale Gag
 RestraintDragonBallGagDesc,"A gag made of a squishy material and secured with dragonscale straps."
 RestraintDragonBallGagDesc2,"It's made from hard-to-cut dragonscale!!!"
-RestraintDragonMuzzleGag,Scale Muzzle
+RestraintDragonMuzzleGag,Dragonscale Muzzle
 RestraintDragonMuzzleGagDesc,"A muzzle to keep ball gags pressed firmly into the mouth."
 RestraintDragonMuzzleGagDesc2,"It's made from hard-to-cut dragonscale!!!"
 RestraintDragonCollar,Dragon Collar
@@ -1029,12 +1077,18 @@ RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
 RestraintMaidJacket,Latex Jacket
 RestraintMaidJacketDesc,"A bolero jacket keeping your arms pinned snugly. You can't even move them."
 RestraintMaidJacketDesc2,"There is no hope of struggling out. Better hope you can cut it..."
-RestraintMaidBelt,Reinforced Belt
+RestraintMaidBelt,Reinforced Leather Belt
 RestraintMaidBeltDesc,"A leather belt used to keep your legs hobbled."
 RestraintMaidBeltDesc2,"It's made of a very tough reinforced leather. It will take some time to cut."
 RestraintMaidAnkleCuffs,Steel Cuffs
 RestraintMaidAnkleCuffsDesc,"A pair of steel cuffs used by the Maidforce."
 RestraintMaidAnkleCuffsDesc2,"They are made of solid steel."
+KinkyDungeonLinkMaidAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintMaidAnkleCuffs2,Steel Cuffs
+RestraintMaidAnkleCuffs2Desc,"A pair of steel cuffs used by the Maidforce."
+RestraintMaidAnkleCuffs2Desc2,"They are made of solid steel."
+KinkyDungeonUnLinkMaidAnkleCuffs2,"The ankle cuff chain detaches!"
+
 RestraintMaidCollar,Maid Collar
 RestraintMaidCollarDesc,"A collar for operatives of the Maidforce, a group of covert saboteurs."
 RestraintMaidCollarDesc2,"It's reinforced with metal and guarded with an expert-level lock."
@@ -1072,85 +1126,90 @@ RestraintObsidianArmCuffs4Desc2,"It's made of a dark, glistening volcanic metal.
 KinkyDungeonUnlinkObsidianArmCuffs4,"Your elbows detatch!"
 KinkyDungeonLinkObsidianArmCuffs4,"The enemy attaches your wrist cuffs back together!"
 
-RestraintObsidianLegCuffs,Obsidian Cuffs
+RestraintObsidianLegCuffs,Obsidian Leg Cuffs
 RestraintObsidianLegCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianLegCuffsDesc2,"It's made of a dark, glistening volcanic metal."
-RestraintObsidianAnkleCuffs,Obsidian Cuffs
+RestraintObsidianAnkleCuffs,Obsidian Ankle Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonLinkObsidianAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintObsidianAnkleCuffs2,Obsidian Ankle Cuffs
+RestraintObsidianAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
+RestraintObsidianAnkleCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
+KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
 
-RestraintCableArms,Hitech Cables
+RestraintCableArms,High-Tech Cables (Arms)
 RestraintCableArmsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
 RestraintCableArmsDesc2,"They are wrapped methodically around your body!"
-RestraintCableLegs,Hitech Cables
+RestraintCableLegs,High-Tech Cables (Legs)
 RestraintCableLegsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
 RestraintCableLegsDesc2,"They are wrapped methodically around your body!"
-RestraintCableHarness,Hitech Cables
+RestraintCableHarness,High-Tech Cables (Harness)
 RestraintCableHarnessDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
 RestraintCableHarnessDesc2,"They are wrapped methodically around your body!"
 
-RestraintIceArms,Ice
+RestraintIceArms,Ice (Arms)
 RestraintIceArmsDesc,"Frigid restraints made out of ice."
 RestraintIceArmsDesc2,"There's no way to remove it without breaking it off."
-RestraintIceGag,Ice
+RestraintIceGag,Ice (Mouth)
 RestraintIceGagDesc,"Frigid restraints made out of ice."
 RestraintIceGagDesc2,"There's no way to remove it without breaking it off."
-RestraintIceHarness,Ice
+RestraintIceHarness,Ice (Body)
 RestraintIceHarnessDesc,"Frigid restraints made out of ice."
 RestraintIceHarnessDesc2,"There's no way to remove it without breaking it off."
-RestraintIceLegs,Ice
+RestraintIceLegs,Ice (Legs)
 RestraintIceLegsDesc,"Frigid restraints made out of ice."
 RestraintIceLegsDesc2,"There's no way to remove it without breaking it off."
 
-RestraintGlueBoots,Glue
+RestraintGlueBoots,Glue (Feet)
 RestraintGlueBootsDesc,"A latex-derived glue that attaches you to the floor! It's very stretchy."
 RestraintGlueBootsDesc2,"Just touching it makes it stick all over..."
-RestraintGlueFeet,Glue
+RestraintGlueFeet,Glue (Ankles)
 RestraintGlueFeetDesc,"A latex-derived glue that attaches you to the floor! It's very stretchy."
 RestraintGlueFeetDesc2,"Just touching it makes it stick all over..."
-RestraintGlueLegs,Glue
+RestraintGlueLegs,Glue (Legs)
 RestraintGlueLegsDesc,"A latex-derived glue that attaches you to the floor! It's very stretchy."
 RestraintGlueLegsDesc2,"Just touching it makes it stick all over..."
 
-RestraintSlimeBoots,Slime
+RestraintSlimeBoots,Slime (Feet)
 RestraintSlimeBootsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
-RestraintSlimeFeet,Slime
+RestraintSlimeFeet,Slime (Ankles)
 RestraintSlimeFeetDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeFeetDesc2,"It is an organic material that reforms around every cut you make!"
-RestraintSlimeLegs,Slime
+RestraintSlimeLegs,Slime (Legs)
 RestraintSlimeLegsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeLegsDesc2,"It is an organic material that reforms around every cut you make!"
-RestraintSlimeArms,Slime
+RestraintSlimeArms,Slime (Arms)
 RestraintSlimeArmsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeArmsDesc2,"It is an organic material that reforms around every cut you make!"
-RestraintSlimeHands,Slime
+RestraintSlimeHands,Slime (Hands)
 RestraintSlimeHandsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
-RestraintSlimeHead,Slime
+RestraintSlimeHead,Slime (Head)
 RestraintSlimeHeadDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
 
-RestraintHardSlimeBoots,Rubber
+RestraintHardSlimeBoots,Rubber (Feet)
 RestraintHardSlimeBootsDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeBootsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
-RestraintHardSlimeFeet,Rubber
+RestraintHardSlimeFeet,Rubber (Ankles)
 RestraintHardSlimeFeetDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeFeetDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
-RestraintHardSlimeLegs,Rubber
+RestraintHardSlimeLegs,Rubber (Legs)
 RestraintHardSlimeLegsDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeLegsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
-RestraintHardSlimeArms,Rubber
+RestraintHardSlimeArms,Rubber (Arms)
 RestraintHardSlimeArmsDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeArmsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
-RestraintHardSlimeHands,Rubber
+RestraintHardSlimeHands,Rubber (Hands)
 RestraintHardSlimeHandsDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
-RestraintHardSlimeHead,Rubber
+RestraintHardSlimeHead,Rubber (Head)
 RestraintHardSlimeHeadDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
 
-RestraintDuctTapeHands,Tape Mitts
+RestraintDuctTapeHands,Tape Mittens
 RestraintDuctTapeHandsDesc,"Sticky tape that holds your hands into a fist!"
 RestraintDuctTapeHandsDesc2,"It's tough to get out of without some kind of grip!"
 
@@ -1200,15 +1259,21 @@ RestraintSturdyLeatherBeltsFeetDesc2,"Lockable and fully adjustable to ensure sn
 RestraintWristShackles,Wrist Cuffs
 RestraintWristShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintWristShacklesDesc2,"You could pick these with a hairpin."
-RestraintAnkleShackles,Ankle Cuffs
+RestraintAnkleShackles,Shackles
 RestraintAnkleShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintAnkleShacklesDesc2,"You could pick these with a hairpin."
-RestraintLegShackles,Leg Cuffs
+
+RestraintLegShackles,Leg Shackles
 RestraintLegShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintLegShacklesDesc2,"You could pick these with a hairpin."
-RestraintFeetShackles,Ankle Cuffs
+RestraintFeetShackles,Ankle Shackles
 RestraintFeetShacklesDesc,"Heavy shackles with a rudimentary lock."
 RestraintFeetShacklesDesc2,"You could pick these with a hairpin."
+RestraintFeetShackles2,Ankle Shackles
+KinkyDungeonLinkFeetShackles,"The enemy attaches your ankle cuffs together!"
+RestraintFeetShackles2Desc,"Heavy shackles with a rudimentary lock."
+RestraintFeetShackles2Desc2,"You could pick these with a hairpin."
+KinkyDungeonUnLinkFeetShackles2,"The ankle cuff chain detaches!"
 RestraintSteelMuzzleGag,Steel Muzzle
 RestraintSteelMuzzleGagDesc,"A heavy muzzle with a rudimentary lock."
 RestraintSteelMuzzleGagDesc2,"You could pick this with a hairpin."
@@ -1306,11 +1371,13 @@ KinkyDungeonSpellShatterAmpule,The ampule shatters on impact!
 KinkyDungeonSpellShatterAmpuleGreen,The gas ampule shatters on impact!
 KinkyDungeonSpellShatterAmpuleYellow,The glue ampule shatters on impact!
 KinkyDungeonSpellShatterAmpuleRed,The rubber ampule shatters on impact!
-KinkyDungeonSpellShatterAmpuleBlue,The gel ampule shatters on impact!
+KinkyDungeonSpellShatterBindAmpuleBlue,The latex ampule shatters on impact and forms a restraint!
+KinkyDungeonSpellShatterDressAmpuleBlue,The latex ampule shatters on impact and coats your body!
+KinkyDungeonSpellShatterAmpuleBlue,The latex ampule shatters on impact and sticks to you!
 KinkyDungeonSpellAmpuleGreen,Gas Ampule
 KinkyDungeonSpellAmpuleYellow,Glue Ampule
 KinkyDungeonSpellAmpuleRed,Rubber Ampule
-KinkyDungeonSpellAmpuleBlue,Gel Ampule
+KinkyDungeonSpellAmpuleBlue,Latex Ampule
 
 KinkyDungeonSpellGlue,Glue
 KinkyDungeonGlue,The glue attaches to your legs as you try to move through!

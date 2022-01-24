@@ -134,6 +134,8 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonRedKeys += 1;
 				} else if (item.name == "Knife") {
 					KinkyDungeonNormalBlades += 1;
+				} else if (item.name == "Lockpick") {
+					KinkyDungeonLockpicks += 1;
 				} else if (item.name == "2Lockpick") {
 					KinkyDungeonLockpicks += 2;
 				} else if (item.name == "4Lockpick") {

@@ -76,11 +76,12 @@ function KinkyDungeonDrawInputs() {
 			if (KinkyDungeonPlayer.IsBlind() < 1) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
-			} else color = "#888888";
+			} else color = "#cccccc";
 
 			let GroupText = sg.name ? ("Restraint" + sg.name) : ("KinkyDungeonGroup"+ sg.group); // The name of the group to draw.
 
-			DrawText(TextGet(GroupText) + locktext, x + ((!sg.left) ? ButtonWidth : 0), y-24, color, "black");
+			DrawTextFit(TextGet(GroupText) + locktext, x + ((!sg.left) ? ButtonWidth : 0) + 2, y-24+2, 230, "black", "black");
+			DrawTextFit(TextGet(GroupText) + locktext, x + ((!sg.left) ? ButtonWidth : 0), y-24, 230, color, "black");
 			MainCanvas.textAlign = "center";
 
 			let i = 1;

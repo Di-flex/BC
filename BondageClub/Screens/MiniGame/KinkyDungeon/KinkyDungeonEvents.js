@@ -98,7 +98,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "armbinderHarness" && data.item != item && item.restraint && item.restraint.Group) {
 				let armbinder = false;
 				for (let inv of KinkyDungeonRestraintList()) {
-					if (inv.restraint && inv.restraint.shrine && inv.restraint.shrine.includes("Armbinders")) {
+					if (inv.restraint && inv.restraint.shrine && (inv.restraint.shrine.includes("Armbinders") || inv.restraint.shrine.includes("Boxbinders"))) {
 						armbinder = true;
 						break;
 					}
@@ -112,31 +112,8 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				KinkyDungeonSlimeLevel = 0;
 			}
 			if (e.type == "unlinkItem" && data.item == item && !data.add && !data.shrine) {
-				let newRestraint = KinkyDungeonGetRestraintByName(data.item.restraint.UnLink);
-				let oldLock = "";
-				let oldTightness = 0;
-				if (data.item.oldLock && data.item.oldLock.length > 0) {
-					oldLock = data.item.oldLock[data.item.oldLock.length - 1];
-				}
-				if (data.item.oldTightness && data.item.oldTightness.length > 0) {
-					oldTightness = data.item.oldTightness[data.item.oldTightness.length - 1];
-				}
-				if (newRestraint) {
-					if (data.item.oldLock)
-						data.item.oldLock.splice(data.item.oldLock.length-1, 1);
-					if (data.item.oldTightness)
-						data.item.oldTightness.splice(data.item.oldTightness.length-1, 1);
-					KinkyDungeonAddRestraint(newRestraint, oldTightness, true, oldLock ? oldLock : "", false);
-					let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
-					if (res && res.restraint && data.item.oldLock && data.item.oldLock.length > 0) {
-						res.oldLock = data.item.oldLock;
-					}
-					if (res && res.restraint && data.item.oldTightness && data.item.oldTightness.length > 0) {
-						res.oldTightness = data.item.oldTightness;
-					}
-					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnlink" + data.item.restraint.name), "lightgreen", 2);
-					KinkyDungeonCancelFlag = true;
-				}
+				//KinkyDungeonUnLinkItem(item);
+				//Obsolete
 			}
 		}
 	} else if (Event == "hit") {
@@ -145,7 +122,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				for (let inv of KinkyDungeonRestraintList()) {
 					if (inv.restraint && inv.restraint.Link && (!e.chance || Math.random() < e.chance)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(inv.restraint.Link);
-						let oldLock = [];
+						/*let oldLock = [];
 						let oldTightness = [];
 						if (inv.oldLock) oldLock = inv.oldLock;
 						if (inv.oldTightness) oldTightness = inv.oldTightness;
@@ -159,7 +136,10 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 							if (newItem) newItem.oldLock = oldLock;
 							if (newItem) newItem.oldTightness = oldTightness;
 							KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + inv.restraint.name), "red", 2);
-						}
+						}*/
+
+						// New restraint, item being linked to, tightness, lock
+						KinkyDungeonLinkItem(newRestraint, inv, inv.tightness, "");
 					}
 				}
 			}

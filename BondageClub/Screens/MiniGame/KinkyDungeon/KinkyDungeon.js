@@ -329,6 +329,7 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonChestsOpened = [];
 			KinkyDungeonOrbsPlaced = [];
+			KinkyDungeonNewGame = 0;
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 1;
 			KinkyDungeonSetCheckPoint(0);
@@ -367,6 +368,7 @@ function KinkyDungeonHandleClick() {
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
 		}
 		if ((MouseIn(875, 750, 350, 64) && (localStorage.getItem('KinkyDungeonSave') || KinkyDungeonState == "Lose")) || MouseIn(875, 820, 350, 64)) {
+			KinkyDungeonNewGame = 0;
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 0;
 			if (!MouseIn(875, 820, 350, 64))

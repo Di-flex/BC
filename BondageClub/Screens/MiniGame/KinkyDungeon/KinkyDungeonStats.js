@@ -137,6 +137,12 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonStatManaMax = 36;
 	KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
+	KinkyDungeonStatBlind = 0;
+	KinkyDungeonSlowMoveTurns = 0;
+	KinkyDungeonSleepTurns = 0;
+	KinkyDungeonStatBind = 0;
+	KinkyDungeonStatFreeze = 0;
+
 	KinkyDungeonStatArousal = 0;
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	KinkyDungeonStatMana = KinkyDungeonStatManaMax;

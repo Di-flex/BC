@@ -69,6 +69,17 @@ let KinkyDungeonDresses = {
 		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#7F3C9B", Lost: false},
 		{Item: "Catsuit", Group: "Gloves", Color: "#7F3C9B", Lost: false},
 	],
+	"BlueSuit" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#3873C3", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#3873C3", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#3873C3", Lost: false},
+	],
+	"BlueSuitPrison" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#3873C3", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#3873C3", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#3873C3", Lost: false},
+		{Item: "FaceVeil", Group: "Mask", Color: "#ffffff", Lost: false},
+	],
 	"Maid" : [
 		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#49403A", Lost: false},
 		{Item: "MaidApron2", Group: "Cloth", Color: "Default", Lost: false},
