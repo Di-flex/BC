@@ -1074,7 +1074,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								ey = master.y;
 							}
 							let newPoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
-							if (newPoint) {
+							if (newPoint && (KinkyDungeonJailTransgressed || newPoint.x > KinkyDungeonJailLeashX + 3)) {
 								enemy.gx = newPoint.x;
 								enemy.gy = newPoint.y;
 							}
