@@ -237,11 +237,21 @@ function KinkyDungeonDrawGame() {
 						if (KinkyDungeonTargetingSpell.mustTarget && KinkyDungeonNoEnemy(KinkyDungeonTargetX, KinkyDungeonTargetY, true)) KinkyDungeonSpellValid = false;
 
 						if (KinkyDungeonSpellValid)
-							if (KinkyDungeonTargetingSpell.projectileTargeting)
-								DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Target.png",
-									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
-									(KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay,
-									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+							if (KinkyDungeonTargetingSpell.projectileTargeting) {
+								let range = KinkyDungeonTargetingSpell.castRange;
+								if (!range || KinkyDungeonTargetingSpell.range > range) range = KinkyDungeonTargetingSpell.range;
+								let dist = Math.sqrt((KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x)*(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x)
+									+ (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)*(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y));
+								for (let R = 0; R <= Math.max(1, range - 1); R+= 0.5) {
+									let xx = KinkyDungeonMoveDirection.x + Math.round((KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) * R / dist);
+									let yy = KinkyDungeonMoveDirection.y + Math.round((KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y) * R / dist);
+									if (KinkyDungeonLightGet(xx + KinkyDungeonPlayerEntity.x, yy + KinkyDungeonPlayerEntity.y) > 0)
+										DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Target.png",
+											KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+											(xx + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (yy + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay,
+											KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+								}
+							}
 							else
 								DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Target.png",
 									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
