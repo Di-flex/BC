@@ -554,12 +554,18 @@ NameGuard,Guard
 KillGuard,"The guard passes out and drops her possessions!"
 AttackGuardLock,"The guard locks your restraints!"
 AttackGuardBind,"The guard places some cuffs on you!"
+AttackGuardAddRestraints,"The guard places a NewRestraintName on you"
+AttackGuardChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
+AttackGuardRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
 
 NameGuardHeavy,Armed Guard
 KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
 AttackGuardHeavyLock,"The guard locks your restraints!"
 AttackGuardHeavyBind,"The guard shocks you and slaps on some cuffs!"
+AttackGuardHeavyAddRestraints,"The guard places a NewRestraintName on you"
+AttackGuardHeavyChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
+AttackGuardHeavyRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
 AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
 
