@@ -209,21 +209,21 @@ let KDOrigArousal = 36;
 
 function KinkyDungeonChangeArousal(Amount) {
 	KinkyDungeonStatArousal += Amount;
-	if (Amount && Math.abs(KDOrigArousal - Math.floor(KinkyDungeonStatArousal)) >= 0.99) {
+	if (Math.abs(KDOrigArousal - Math.floor(KinkyDungeonStatArousal)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatArousal) - KDOrigArousal, "#ff00ff", undefined, undefined, " ap");
 		KDOrigArousal = Math.floor(KinkyDungeonStatArousal);
 	}
 }
 function KinkyDungeonChangeStamina(Amount) {
 	KinkyDungeonStatStamina += Amount;
-	if (Amount && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
+	if (Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66", undefined, undefined, " sp");
 		KDOrigStamina = Math.floor(KinkyDungeonStatStamina);
 	}
 }
 function KinkyDungeonChangeMana(Amount) {
 	KinkyDungeonStatMana += Amount;
-	if (Amount && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
+	if (Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff", undefined, undefined, " mp");
 		KDOrigMana = Math.floor(KinkyDungeonStatMana);
 	}

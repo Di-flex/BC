@@ -35,6 +35,14 @@ let KinkyDungeonFreezeTime = 1000;
 
 let KinkyDungeonConfigAppearance = false;
 
+function KDMapInit(list) {
+	let map = new Map();
+	for (let l of list) {
+		map.set(l, true);
+	}
+	return map;
+}
+
 /**
  * Loads the kinky dungeon game
  * @returns {void} - Nothing
@@ -209,9 +217,13 @@ function KinkyDungeonRun() {
 		if (KinkyDungeonSleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonSleepTurns -= 1;
+				KinkyDungeonTotalSleepTurns += 1;
 				KinkyDungeonAdvanceTime(1);
 				KinkyDungeonSleepTime = CommonTime() + 10;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax) KinkyDungeonSleepTurns = 0;
+			}
+			if (KinkyDungeonSleepTurns == 0) {
+				KinkyDungeonChangeStamina(0);
 			}
 		} else if (KinkyDungeonStatFreeze > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {

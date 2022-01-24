@@ -103,6 +103,7 @@ var KinkyDungeonLastMoveTimerCooldownStart = 50;
 
 let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
+let KinkyDungeonEndPosition = {x: 1, y: 1};
 let KinkyDungeonJailLeash = 3;
 let KinkyDungeonJailLeashX = 4;
 let KinkyDungeonJailTransgressed = false;
@@ -143,6 +144,9 @@ function KinkyDungeonSetCheckPoint(Checkpoint) {
 
 function KinkyDungeonInitialize(Level, Random) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
+
+	KinkyDungeonRefreshRestraintsCache();
+	//KinkyDungeonRefreshEnemyCache();
 
 	KinkyDungeonDressSet();
 	if (KinkyDungeonConfigAppearance) {
@@ -203,6 +207,8 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = {};
 	KinkyDungeonTargetTile = "";
+
+	KinkyDungeonTotalSleepTurns = 0;
 
 	KinkyDungeonFastMovePath = [];
 
@@ -367,10 +373,37 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 	return false;
 }
 
+function KinkyDungeonAddTags(tags, Floor) {
+	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
+
+	if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
+	if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
+
+	if (KinkyDungeonGoddessRep.Rope < -10) tags.push("ropeAnger");
+	if (KinkyDungeonGoddessRep.Rope < -25) tags.push("ropeRage");
+	if (KinkyDungeonGoddessRep.Leather < -10) tags.push("leatherAnger");
+	if (KinkyDungeonGoddessRep.Leather < -25) tags.push("leatherRage");
+	if (KinkyDungeonGoddessRep.Metal < -10) tags.push("metalAnger");
+	if (KinkyDungeonGoddessRep.Metal < -25) tags.push("metalRage");
+	if (KinkyDungeonGoddessRep.Latex < -10) tags.push("latexAnger");
+	if (KinkyDungeonGoddessRep.Latex < -25) tags.push("latexRage");
+	if (KinkyDungeonGoddessRep.Elements < -10) tags.push("elementsAnger");
+	if (KinkyDungeonGoddessRep.Elements < -25) tags.push("elementsRage");
+	if (KinkyDungeonGoddessRep.Conjure < -10) tags.push("conjureAnger");
+	if (KinkyDungeonGoddessRep.Conjure < -25) tags.push("conjureRage");
+	if (KinkyDungeonGoddessRep.Illusion < -10) tags.push("illusionAnger");
+	if (KinkyDungeonGoddessRep.Illusion < -25) tags.push("illusionRage");
+	if (security > 0) tags.push("jailbreak");
+	if (security > 40) tags.push("highsecurity");
+}
+
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonEntities = [];
+
+	KinkyDungeonHuntDownPlayer = false;
+	KinkyDungeonFirstSpawn = true;
 
 	let enemyCount = 4 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	let count = 0;
@@ -378,7 +411,6 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let miniboss = false;
 	let boss = false;
 	let jailerCount = 0;
-	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
 
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
@@ -412,37 +444,20 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 					}
 
-			if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
-			if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 			if (miniboss) tags.push("miniboss");
 			if (boss) tags.push("boss");
 
-			if (KinkyDungeonGoddessRep.Rope < -10) tags.push("ropeAnger");
-			if (KinkyDungeonGoddessRep.Rope < -25) tags.push("ropeRage");
-			if (KinkyDungeonGoddessRep.Leather < -10) tags.push("leatherAnger");
-			if (KinkyDungeonGoddessRep.Leather < -25) tags.push("leatherRage");
-			if (KinkyDungeonGoddessRep.Metal < -10) tags.push("metalAnger");
-			if (KinkyDungeonGoddessRep.Metal < -25) tags.push("metalRage");
-			if (KinkyDungeonGoddessRep.Latex < -10) tags.push("latexAnger");
-			if (KinkyDungeonGoddessRep.Latex < -25) tags.push("latexRage");
-			if (KinkyDungeonGoddessRep.Elements < -10) tags.push("elementsAnger");
-			if (KinkyDungeonGoddessRep.Elements < -25) tags.push("elementsRage");
-			if (KinkyDungeonGoddessRep.Conjure < -10) tags.push("conjureAnger");
-			if (KinkyDungeonGoddessRep.Conjure < -25) tags.push("conjureRage");
-			if (KinkyDungeonGoddessRep.Illusion < -10) tags.push("illusionAnger");
-			if (KinkyDungeonGoddessRep.Illusion < -25) tags.push("illusionRage");
-			if (security > 0) tags.push("jailbreak");
-			if (security > 40) tags.push("highsecurity");
+			KinkyDungeonAddTags(tags, Floor);
 
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
-			if (Enemy && (!InJail || (Enemy.tags.includes("jailer") || Enemy.tags.includes("jail")))) {
+			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
-				if (Enemy.tags.includes("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
-				if (Enemy.tags.includes("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
-				else if (Enemy.tags.includes("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
-				if (Enemy.tags.includes("miniboss")) miniboss = true; // Adds miniboss as a tag
-				if (Enemy.tags.includes("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
-				if (Enemy.tags.includes("jailer")) jailerCount += 1;
+				if (Enemy.tags.has("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
+				if (Enemy.tags.has("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
+				else if (Enemy.tags.has("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
+				if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
+				if (Enemy.tags.has("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
+				if (Enemy.tags.has("jailer")) jailerCount += 1;
 
 				if (Enemy.summon) {
 					for (let sum of Enemy.summon) {
@@ -533,6 +548,7 @@ function KinkyDungeonPlaceStairs(startpos, width, height) {
 				if (wallcount == 7) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 's');
+					KinkyDungeonEndPosition = {x: X, y: Y};
 					L = 0;
 					break;
 				}
@@ -545,6 +561,7 @@ function KinkyDungeonPlaceStairs(startpos, width, height) {
 			let Y = 1 + Math.floor(Math.random() * (height - 2));
 			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) {
 				KinkyDungeonMapSet(X, Y, 's');
+				KinkyDungeonEndPosition = {x: X, y: Y};
 				L = 0;
 			}
 		}

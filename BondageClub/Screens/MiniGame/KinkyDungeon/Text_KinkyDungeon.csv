@@ -640,26 +640,43 @@ KinkyDungeonAttemptPickSuccess,"You pick the lock on the TargetRestraint!"
 KinkyDungeonStruggleRemoveSuccess,"You free yourself from the TargetRestraint!"
 KinkyDungeonStruggleCutSuccess,"You cut the TargetRestraint off!"
 
+KinkyDungeonStruggleUnlockSuccessAroused,"You unlock the TargetRestraint and sigh with relief."
+KinkyDungeonStruggleStruggleSuccessAroused,"You give out a huge moan as you squeeze out of the TargetRestraint!"
+KinkyDungeonStrugglePickSuccessAroused,"You pick the lock on the TargetRestraint with a sigh of relief!"
+KinkyDungeonAttemptPickSuccessAroused,"You pick the lock on the TargetRestraint with a sigh of relief!"
+KinkyDungeonStruggleRemoveSuccessAroused,"Trembling, you free yourself from the TargetRestraint!"
+KinkyDungeonStruggleCutSuccessAroused,"You cut the TargetRestraint off in a frenzy!"
+
 KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
+KinkyDungeonStruggleStruggleImpossibleAroused,"You groan in frustration as you realize the item is too tight to escape."
 KinkyDungeonStruggleStruggleImpossible2,"The item tightens itself as you try to squeeze out!"
 KinkyDungeonStruggleStruggleImpossible3,"You will need someone's help to squeeze out."
 KinkyDungeonStruggleStruggleImpossibleBound,"You are too tightly bound to have a chance."
+KinkyDungeonStruggleStruggleImpossibleBoundAroused,"You shake and moan as you realize your struggles are futile."
 KinkyDungeonStruggleUnlockImpossible,"You can't find a keyhole!"
+KinkyDungeonStruggleUnlockImpossibleAroused,"You sigh as you give up trying to find any kind of keyhole."
 KinkyDungeonStruggleUnlockImpossible2,"The item can't be unlocked without a special command!"
 KinkyDungeonStruggleUnlockImpossible3,"You can't reach the keyhole by yourself!"
 KinkyDungeonStruggleUnlockImpossibleBound,"You can't hold the key to unlock this with."
+KinkyDungeonStruggleUnlockImpossibleBoundAroused,"Your bound and shaking hands can't even hold the key."
 KinkyDungeonStrugglePickImpossible,"This lock is beyond your skill level!"
+KinkyDungeonStrugglePickImpossibleAroused,"You whimper as you realize the lock is far too secure."
 KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossible3,"You can't pick this by yourself, you'll need help."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
+KinkyDungeonStrugglePickImpossibleBoundAroused,"You let out a frustrated sigh as you struggle to even grasp the pick."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
+KinkyDungeonStruggleRemoveImpossibleAroused,"You roll around tryng to loosen the item to no avail."
 KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try to undo them!"
 KinkyDungeonStruggleRemoveImpossible3,"You can't reach it by yourself!"
 KinkyDungeonStruggleRemoveImpossibleBound,"You are too tightly bound to manipulate that item."
+KinkyDungeonStruggleRemoveImpossibleBoundAroused,"Your futile struggles do nothing to loosen the fasteners."
 KinkyDungeonStruggleCutImpossible,"The item is too durable to cut."
+KinkyDungeonStruggleCutImpossibleAroused,"Your hopeless attempts fail to even leave a scratch."
 KinkyDungeonStruggleCutImpossible2,"You fail to leave even a scratch!"
 KinkyDungeonStruggleCutImpossible3,"You can't get any leverage to cut it with..."
 KinkyDungeonStruggleCutImpossibleBound,"You can't hold a knife, let alone cut the thing."
+KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as the knife bounces around uselessly."
 
 KinkyLockable,Lockable
 KinkyNonLockable,Non-Lockable
@@ -1750,3 +1767,6 @@ KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."
 KinkyDungeonFreeze,You are frozen!
 KinkyDungeonChill,You are chilled!
 KinkyDungeonShadowBind,"Shadowy tendrils wrap around your feet, rooting you in place!!!"
+
+KinkyDungeonFirstSpawn,You get the feeling that someone is searching for you...
+KinkyDungeonHuntDownPlayer,You hear movements all around as you realize you are surrounded!!!

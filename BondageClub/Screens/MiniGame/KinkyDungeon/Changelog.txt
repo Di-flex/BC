@@ -328,6 +328,14 @@ Bugfix:
 - Increased submissive reduction for killing minibosses, added a little for elites
 - Many enemies now have the ability to toss your weapon away!
 
+2.5
+- Knives and lockpicks are now rarer, but last longer
+- Improved enemy AI. Higher-ranked enemies will swap places with lower ranks
+- Enemies will come to track you down if you sleep a lot
+- Increased blink mana to 8 from 4
+- Changes to loot tables
+- Traps are now 50% less likely with no enemies killed, rather than 100%
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

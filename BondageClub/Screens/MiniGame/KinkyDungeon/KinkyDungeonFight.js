@@ -51,7 +51,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
 function KinkyDungeonGetEvasion(Enemy) {
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.includes("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
 	hitChance *= KinkyDungeonPlayerDamage.chance;
 	if (Enemy && Enemy.slow > 0) hitChance *= 2;
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
@@ -69,7 +69,7 @@ function KinkyDungeonEvasion(Enemy) {
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
 
 	if (Math.random() < hitChance) return true;
 
@@ -77,9 +77,9 @@ function KinkyDungeonEvasion(Enemy) {
 }
 
 function KinkyDungeonGetImmunity(tags, type, resist) {
-	if (tags && tags.includes(type + resist)
-		|| (KinkyDungeonMeleeDamageTypes.includes(type) && tags.includes("melee" + resist))
-		|| (!KinkyDungeonMeleeDamageTypes.includes(type) && tags.includes("magic"+resist)))
+	if (tags && tags.has(type + resist)
+		|| (KinkyDungeonMeleeDamageTypes.includes(type) && tags.has("melee" + resist))
+		|| (!KinkyDungeonMeleeDamageTypes.includes(type) && tags.has("magic"+resist)))
 		return true;
 	return false;
 }
@@ -123,10 +123,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "resist")) resistDamage = 1;
 			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "weakness")) resistDamage = -1;
 			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
-			if (Enemy.Enemy.tags.includes("unstoppable")) resistStun = 2;
-			else if (Enemy.Enemy.tags.includes("unflinching")) resistStun = 1;
-			if (Enemy.Enemy.tags.includes("unslowable")) resistSlow = 2;
-			else if (Enemy.Enemy.tags.includes("slowresist")) resistSlow = 1;
+			if (Enemy.Enemy.tags.has("unstoppable")) resistStun = 2;
+			else if (Enemy.Enemy.tags.has("unflinching")) resistStun = 1;
+			if (Enemy.Enemy.tags.has("unslowable")) resistSlow = 2;
+			else if (Enemy.Enemy.tags.has("slowresist")) resistSlow = 1;
 
 		}
 
@@ -148,7 +148,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.freeze = 0;
 			}
 
-			if (Enemy.Enemy.tags && Enemy.Enemy.tags.includes("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
+			if (Enemy.Enemy.tags && Enemy.Enemy.tags.has("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
 
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
@@ -201,7 +201,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.includes("jailer") || Enemy.Enemy.tags.includes("jail"))) KinkyDungeonJailTransgressed = true;
+	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
 	return dmg;
 }
 
