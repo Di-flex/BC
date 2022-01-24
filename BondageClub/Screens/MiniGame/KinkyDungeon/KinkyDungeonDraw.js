@@ -29,6 +29,8 @@ function KinkyDungeonGetSprite(code) {
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
+	if (ServerURL == "foobar")
+		DrawTextFit(TextGet("KinkyDungeon"), 1800, 20, 200, "white", "black");
 
 	if (KinkyDungeonDrawState == "Game")
 		KinkyDungeonListenKeyMove();
