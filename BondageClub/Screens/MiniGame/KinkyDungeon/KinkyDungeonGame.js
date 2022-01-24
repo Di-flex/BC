@@ -1323,7 +1323,7 @@ function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe
 		if (!noPush)
 			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
 				KinkyDungeonMessageLog.push({text: text, color: color});
-		if ( priority >= KinkyDungeonTextMessagePriority || KinkyDungeonActionMessageTime == 0) {
+		if ( priority >= KinkyDungeonTextMessagePriority || KinkyDungeonActionMessageTime < 0.5) {
 			KinkyDungeonTextMessageTime = time;
 			KinkyDungeonTextMessage = text;
 			KinkyDungeonTextMessageColor = color;
@@ -1340,7 +1340,7 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 		if (!noPush)
 			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
 				KinkyDungeonMessageLog.push({text: text, color: color});
-		if ( priority >= KinkyDungeonActionMessagePriority || KinkyDungeonActionMessageTime == 0) {
+		if ( priority >= KinkyDungeonActionMessagePriority || KinkyDungeonActionMessageTime < 0.5) {
 			KinkyDungeonActionMessageTime = time;
 			KinkyDungeonActionMessage = text;
 			KinkyDungeonActionMessageColor = color;
@@ -1359,11 +1359,15 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
 	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
 		if (AllowInteract) {
-			if (KinkyDungeonHasStamina(Math.abs(KinkyDungeonStatStaminaCostAttack), true)) {
+			let attackCost = KinkyDungeonStatStaminaCostAttack;
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
+				attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
+			}
+			if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 				KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type});
 				KinkyDungeonLastAction = "Attack";
 
-				KinkyDungeonStatStamina += KinkyDungeonStatStaminaCostAttack;
+				KinkyDungeonChangeStamina(attackCost);
 
 			} else {
 				KinkyDungeonWaitMessage();

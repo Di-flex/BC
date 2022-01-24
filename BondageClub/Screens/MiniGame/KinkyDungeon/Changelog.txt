@@ -336,6 +336,7 @@ Bugfix:
 - Changes to loot tables
 - Traps are now 50% less likely with no enemies killed, rather than 100%
 - Heavy guard now binds normally instead of waiting
+- New spell: Iron Blood
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

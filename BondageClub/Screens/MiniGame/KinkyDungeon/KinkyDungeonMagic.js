@@ -46,7 +46,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1
 	[
 		// Verbal
-		["Electrify", "Flash", "Shroud", "Ally",],
+		["Electrify", "Flash", "Shroud", "Ally"],
 		// Arms
 		["Firebolt", "Icebolt", "ChainBolt", "Dagger"],
 		// Legs
@@ -56,7 +56,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 2
 	[
 		// Verbal
-		["Incinerate", "IceBreath", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior"],
+		["Incinerate", "IceBreath", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior", "IronBlood"],
 		// Arms
 		["Crackle", "SlimeBall", "ShadowSlash", "ShadowBlade", "Corona"],
 		// Legs
@@ -104,6 +104,11 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "LightningBolt", sfx: "FireSpell", school: "Elements", manacost: 10, components: ["Arms"], level:3, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 8, delay: 0, time: 1, range: 50, speed: 50, size: 1, damage: "electric",
 			trailHit: "", trailPower: 0, trailLifetime: 1.1, trailTime: 4, trailDamage:"inert", trail:"lingering", trailChance: 1, playerEffect: {name: "Shock", time: 3}},
 		{name: "StoneSkin", sfx: "Bones", school: "Elements", manacost: 8, components: ["Arms"], mustTarget: true, level:1, type:"buff", buffs: [{id: "StoneSkin", type: "Armor", duration: 30, power: 2.0, player: true, enemies: true, tags: ["defense", "armor"]}], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
+		{name: "IronBlood", sfx: "FireSpell", school: "Elements", manacost: 12, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:2, type:"buff", channel: 4,
+			buffs: [
+				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 34, power: 1.0, player: true, enemies: false, tags: ["attack", "stamina"]},
+				{id: "IronBlood2", type: "SlowLevel", duration: 34, power: -1.0, player: true, enemies: false, tags: ["move"]},
+			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 	],
 	"Conjure": [
 		{name: "MPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -555,7 +560,7 @@ function KinkyDungeonHandleSpell() {
 	if (spell) {
 		// Handle spell activation
 		KinkyDungeonTargetingSpell = spell;
-		KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellTarget" + spell.name).replace("SpellArea", "" + Math.floor(spell.aoe)), "white", 1, true);
+		KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellTarget" + spell.name).replace("SpellArea", "" + Math.floor(spell.aoe)), "white", 0.1, true);
 		return true;
 	}
 	return false;
@@ -671,7 +676,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player
-		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2);
+		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 
 		//let cost = spell.staminacost ? spell.staminacost : KinkyDungeonGetCost(spell.level);
 

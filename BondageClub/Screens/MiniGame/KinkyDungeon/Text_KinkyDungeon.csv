@@ -1479,6 +1479,11 @@ KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
 KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature gain +20 damage for Duration turns
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
+KinkyDungeonSpellIronBlood,Iron Blood
+KinkyDungeonSpellTargetIronBlood,Select yourself
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce your slow level by 1 and reduce melee stamina cost by +100% (half with no other buffs) for Duration turns
+KinkyDungeonSpellCastIronBlood,You say the transformation chant and your skin glows a pale red!
+
 KinkyDungeonSpellStoneSkin,Stone Skin
 KinkyDungeonSpellTargetStoneSkin,Select which creature to buff
 KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +20 armor for Duration turns

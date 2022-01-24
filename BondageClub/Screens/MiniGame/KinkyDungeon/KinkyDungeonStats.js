@@ -413,8 +413,8 @@ function KinkyDungeonLegsBlocked() {
 }
 
 function KinkyDungeonCalculateSlowLevel() {
-	KinkyDungeonSlowLevel = 0;
-	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel = 100; KinkyDungeonMovePoints = -1;}
+	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") : 0);
+	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
 	else {
 		/*let boots = KinkyDungeonGetRestraintItem("ItemBoots");
 		if (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemLegs"), "Block", true)
