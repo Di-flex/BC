@@ -27,6 +27,8 @@ function KinkyDungeonGetSprite(code) {
 	return sprite;
 }
 
+let KinkyDungeonStruggleTime = 0;
+
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
 	if (ServerURL == "foobar") {
@@ -228,8 +230,9 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.strokeStyle = "#88AAFF";
 						KinkyDungeonContext.stroke();
 
+						let free = KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY)) || KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) < 0.1;
 						KinkyDungeonSpellValid = (KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.range >= Math.sqrt((KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) *(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x) + (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y) * (KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y))) &&
-							(KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.CastInWalls || KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY))) &&
+							(KinkyDungeonTargetingSpell.projectileTargeting || KinkyDungeonTargetingSpell.CastInWalls || free) &&
 							(!KinkyDungeonTargetingSpell.WallsOnly || !KinkyDungeonOpenObjects.includes(KinkyDungeonMapGet(KinkyDungeonTargetX, KinkyDungeonTargetY)));
 						if (KinkyDungeonTargetingSpell.noTargetEnemies && KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.noTargetAllies) {
@@ -289,18 +292,21 @@ function KinkyDungeonDrawGame() {
 					KinkyDungeonContext.strokeStyle = "#ff4444";
 					KinkyDungeonContext.stroke();
 				}
-				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
-				if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax*0.9) {
-					KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12,
-						KinkyDungeonGridSizeDisplay, 12, 100 * KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, "#44ff44", "#000000");
+
+				if (KinkyDungeonLastTurnAction == "Struggle" && KinkyDungeonCurrentEscapingItem && KinkyDungeonCurrentEscapingItem.lock) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Lock.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
+						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 30,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
+
+				MainCanvas.drawImage(KinkyDungeonCanvas, canvasOffsetX, canvasOffsetY);
 
 			}
 			if (KinkyDungeonSleepiness) {
 				CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", "Sleep");
 			} else CharacterSetFacialExpression(KinkyDungeonPlayer, "Emoticon", null);
-
-			if (KinkyDungeonPlayer.CanTalk() && KinkyDungeonSleepTurns > 0) CharacterSetFacialExpression(KinkyDungeonPlayer, "Drool", null);
 
 			// Draw the player no matter what
 			KinkyDungeonContextPlayer.clearRect(0, 0, KinkyDungeonCanvasPlayer.width, KinkyDungeonCanvasPlayer.height);
@@ -308,6 +314,37 @@ function KinkyDungeonDrawGame() {
 
 			KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 			KinkyDungeonDrawFloaters(CamX+CamX_offset, CamY+CamY_offset);
+
+			if (KinkyDungeonCanvas) {
+				if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax*0.9) {
+					KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12,
+						KinkyDungeonGridSizeDisplay, 12, 100 * KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, "#44ff44", "#000000");
+				}
+				if (KinkyDungeonCurrentEscapingItem && KinkyDungeonLastTurnAction == "Struggle") {
+					let item = KinkyDungeonCurrentEscapingItem;
+					let value = 0;
+					if (KinkyDungeonCurrentEscapingMethod == "Struggle" && item.struggleProgress) {
+						value = item.struggleProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Pick" && item.pickProgress) {
+						value = item.pickProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Remove" && item.removeProgress) {
+						value = item.removeProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Cut" && item.cutProgress) {
+						value = item.cutProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Unlock" && item.unlockProgress) {
+						value = item.unlockProgress;
+					}
+					let xAdd = 0;
+					let yAdd = 0;
+					if (KinkyDungeonStruggleTime > CommonTime()) {
+						xAdd = Math.round(-1 + 2*Math.random());
+						yAdd = Math.round(-1 + 2*Math.random());
+					}
+					if (value <= 1)
+						KinkyDungeonBar(canvasOffsetX + xAdd + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + yAdd + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 24,
+							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value), "#aaaaaa", "#000000");
+				}
+}
 
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
@@ -430,7 +467,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		Entity.visual_y = Entity.y;
 	} else {
 		let speed = 100;
-		if (Entity.player && KinkyDungeonSlowLevel > 0 && KinkyDungeonLeashedPlayer < 2) speed = 100 + 80 * KinkyDungeonSlowLevel;
+		if (Entity.player && KinkyDungeonSlowLevel > 0 && KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
 		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;

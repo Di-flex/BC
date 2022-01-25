@@ -17,11 +17,11 @@ var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 1.0, type: "unarmed", una
 var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 var KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 1.0, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
-	"Sword": {name: "Sword", dmg: 3, chance: 1.1, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
-	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
-	"Axe": {name: "Axe", dmg: 4, chance: 0.85, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
-	"Hammer": {name: "Hammer", dmg: 5, chance: 0.72, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
-	"BoltCutters": {name: "BoltCutters", dmg: 3, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
+	"Sword": {name: "Sword", dmg: 3, chance: 1.3, staminacost: 0.6, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 0.6, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
+	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 0.8, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
+	"Hammer": {name: "Hammer", dmg: 6, chance: 0.8, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
+	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 0.7, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
 function KinkyDungeonFindWeapon(Name) {
@@ -100,7 +100,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	let resistSlow = 0;
 	let resistDamage = 0;
 	let dmgDealt = 0;
-	let spellResist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "SpellResist"));
+	let sr = Enemy.Enemy.spellResist ? Enemy.Enemy.spellResist : 0;
+	let spellResist = KinkyDungeonMultiplicativeStat(sr) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "SpellResist"));
 	let armor = (Damage && Enemy.Enemy.armor && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) ? Enemy.Enemy.armor : 0;
 	if (KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor")) armor += KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor");
 
