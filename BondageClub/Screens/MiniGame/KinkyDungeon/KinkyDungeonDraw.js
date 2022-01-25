@@ -220,7 +220,7 @@ function KinkyDungeonDrawGame() {
 				}
 
 				// Draw targeting reticule
-				if (!KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
+				if (!KinkyDungeonAutoWait && !KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
 					if (KinkyDungeonTargetingSpell) {
 						KinkyDungeonSetTargetLocation();
 
@@ -297,7 +297,7 @@ function KinkyDungeonDrawGame() {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Lock.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
-						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 30,
+						(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 60,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
 
@@ -344,7 +344,7 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonBar(canvasOffsetX + xAdd + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + yAdd + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 24,
 							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value), "#aaaaaa", "#000000");
 				}
-}
+			}
 
 			if (KinkyDungeonIsPlayer()) {
 				KinkyDungeonDrawInputs();
@@ -380,10 +380,11 @@ function KinkyDungeonDrawGame() {
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
 		MainCanvas.textAlign = "center";
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");
-		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
-		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
-		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
-		DrawButton(1075, 650, 350, 64, TextGet("GameConfigKeys"), "White", "");
+		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
+		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
+		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
+		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
+		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	}
 
 	if (KinkyDungeonStatFreeze > 0) {

@@ -106,8 +106,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "StoneSkin", sfx: "Bones", school: "Elements", manacost: 8, components: ["Arms"], mustTarget: true, level:1, type:"buff", buffs: [{id: "StoneSkin", type: "Armor", duration: 40, power: 2.0, player: true, enemies: true, tags: ["defense", "armor"]}], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "IronBlood", sfx: "FireSpell", school: "Elements", manacost: 12, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:2, type:"buff", channel: 4,
 			buffs: [
-				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 44, power: 4, player: true, enemies: false, tags: ["attack", "stamina"]},
-				{id: "IronBlood2", type: "SlowLevel", duration: 44, power: -1.0, player: true, enemies: false, tags: ["move"]},
+				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 99999, endSleep: true, power: 4, player: true, enemies: false, tags: ["attack", "stamina"]},
+				{id: "IronBlood2", type: "SlowLevel", duration: 99999, endSleep: true, power: -1.0, player: true, enemies: false, tags: ["move"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 	],
 	"Conjure": [

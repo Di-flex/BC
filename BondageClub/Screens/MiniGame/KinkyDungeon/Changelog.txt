@@ -357,6 +357,10 @@ Bugfix:
 - Fixed a bug where an ally missing an attack displayed text that it misses you.
 - Fixed drool lasting forever, added tears when being leashed
 - Struggle progress bar
+- Zombie warrior does 5 damage instead of 1
+
+2.52
+- Iron blood lasts till the end of the floor
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

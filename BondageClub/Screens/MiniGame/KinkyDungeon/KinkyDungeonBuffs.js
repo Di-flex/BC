@@ -26,10 +26,12 @@ function KinkyDungeonSendBuffEvent(Event, data) {
 }
 
 // Decreases time left in buffs and also applies effects
-function KinkyDungeonTickBuffs(list, delta) {
+function KinkyDungeonTickBuffs(list, delta, endFloor) {
 	for (const [key, value] of Object.entries(list)) {
 		if (value) {
-			if (!value.duration || value.duration < 0) list[key] = undefined;
+			if (value.endFloor && endFloor) list[key] = undefined;
+			else if (value.endSleep && KinkyDungeonSleepTurns > 10 && KinkyDungeonSleepTurns < KinkyDungeonSleepTurnsMax / 2) list[key] = undefined;
+			else if (!value.duration || value.duration < 0) list[key] = undefined;
 			else {
 				if (value.type == "restore_mp") KinkyDungeonChangeMana(value.power);
 				if (value.type == "restore_sp") KinkyDungeonChangeStamina(value.power);
@@ -42,10 +44,10 @@ function KinkyDungeonTickBuffs(list, delta) {
 }
 
 // Updates buffs for all creatures
-function KinkyDungeonUpdateBuffs(delta) {
+function KinkyDungeonUpdateBuffs(delta, endFloor) {
 	// Tick down buffs the buffs
 	KinkyDungeonSendBuffEvent("tick", {delta: delta});
-	KinkyDungeonTickBuffs(KinkyDungeonPlayerBuffs, delta);
+	KinkyDungeonTickBuffs(KinkyDungeonPlayerBuffs, delta, endFloor);
 	for (let EE = 0; EE < KinkyDungeonEntities.length; EE++) {
 		let enemy = KinkyDungeonEntities[EE];
 		if (!enemy.buffs) enemy.buffs = {};

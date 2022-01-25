@@ -30,8 +30,9 @@ var KinkyDungeonStreamingPlayers = []; // List of players to stream to
 
 var KinkyDungeonInitTime = 0;
 
-var KinkyDungeonSleepTime = 0;
+let KinkyDungeonSleepTime = 0;
 let KinkyDungeonFreezeTime = 1000;
+let KinkyDungeonAutoWait = false;
 
 let KinkyDungeonConfigAppearance = false;
 
@@ -267,6 +268,11 @@ function KinkyDungeonRun() {
 					KinkyDungeonFastStruggleGroup = "";
 				}
 				KinkyDungeonSleepTime = CommonTime() + 250;
+			}
+		} else if (KinkyDungeonAutoWait) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				KinkyDungeonMove({x:0, y: 0, delta: 0}, 1, false);
+				KinkyDungeonSleepTime = CommonTime() + 500;
 			}
 		} else KinkyDungeonSleepTime = CommonTime() + 100;
 	} else if (KinkyDungeonState == "End") {
@@ -889,6 +895,8 @@ function KinkyDungeonLoadGame(String) {
 			}
 
 			KinkyDungeonSetMaxStats();
+			KinkyDungeonCheckClothesLoss = true;
+			KinkyDungeonDressPlayer();
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
