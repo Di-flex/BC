@@ -354,6 +354,8 @@ function KinkyDungeonUpdateStats(delta) {
 
 	KinkyDungeonCapStats();
 
+	KinkyDungeonHasCrotchRope = false;
+
 	for (let item of KinkyDungeonInventory) {
 		if (item.restraint) {
 			if (item.restraint.difficultyBonus) {
