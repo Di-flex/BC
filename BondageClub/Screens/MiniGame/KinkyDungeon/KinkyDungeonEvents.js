@@ -120,7 +120,13 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 		for (let e of item.events) {
 			if (e.type == "linkItem" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
 				for (let inv of KinkyDungeonRestraintList()) {
-					if (inv.restraint && inv.restraint.Link && (!e.chance || Math.random() < e.chance)) {
+					let subMult = 1;
+					let chance = e.chance ? e.chance : 1.0;
+					if (e.noSub != undefined) {
+						let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
+						subMult = e.noSub + (1 - e.noSub * rep);
+					}
+					if (inv.restraint && inv.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(inv.restraint.Link);
 						/*let oldLock = [];
 						let oldTightness = [];

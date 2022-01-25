@@ -363,6 +363,9 @@ function KinkyDungeonShrineAngerGods(Type) {
 		KinkyDungeonStatStamina = 0;
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("GhostCollar"), 0, true);
 	}
+	if (KinkyDungeonGoddessRep[Type] < -45) {
+		KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
+	}
 	KinkyDungeonChangeRep(Type, -10);
 }
 
@@ -433,6 +436,9 @@ function KinkyDungeonHandleOrb() {
 				XX = 600;
 			}
 			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i - 27, 250, 55)) {
+				if (KinkyDungeonGoddessRep[shrine] < -45) {
+					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
+				}
 				KinkyDungeonChangeRep(shrine, Amount * -10);
 				KinkyDungeonSpellPoints += Amount;
 				KinkyDungeonDrawState = "Game";

@@ -241,6 +241,12 @@ KillShadowWarrior,"The shadow warrior screeches as it vanishes into mist."
 NameGolem,Allied Golem
 KillGolem,"The words vanish from the golem's forehead as it crashes down."
 
+
+NameOrbGuardian,Orb Guardian
+KillOrbGuardian,"The Orb Guardian dissolves into sand and bone dust."
+
+KinkyDungeonSummonMultiOrbGuardian,You feel like you have made a grave mistake.
+
 NameBlindZombie,Zombie
 KillBlindZombie,"The zombie moans and collapses to the ground."
 AttackBlindZombieBind,"The zombie's charms attach to your body (+RestraintAdded)"
@@ -1249,6 +1255,20 @@ RestraintMagicChainCrotch,Crotch Chain
 RestraintMagicChainCrotchDesc,"Magic chains that serve as an anchor point around your waist."
 RestraintMagicChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
 
+
+RestraintShadowChainArms,Shadow Chains (Arms)
+RestraintShadowChainArmsDesc,"Black chains for those who cross the divines"
+RestraintShadowChainArmsDesc2,"It doesn't look like a knife is up to the task..."
+RestraintShadowChainLegs,Shadow Chains (Legs)
+RestraintShadowChainLegsDesc,"Black chains for those who cross the divines"
+RestraintShadowChainLegsDesc2,"It doesn't look like a knife is up to the task..."
+RestraintShadowChainFeet,Shadow Chains (Ankles)
+RestraintShadowChainFeetDesc,"Black chains for those who cross the divines"
+RestraintShadowChainFeetDesc2,"It doesn't look like a knife is up to the task..."
+RestraintShadowChainCrotch,Shadow Chain
+RestraintShadowChainCrotchDesc,"Black chains for those who cross the divines"
+RestraintShadowChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
+
 RestraintClothBlindfold,Blindfold
 RestraintClothBlindfoldDesc,"A piece of cloth secured onto your face and blocking vision."
 RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose."
@@ -1388,6 +1408,8 @@ KinkyDungeonSpellAmpuleGreen,Gas Ampule
 KinkyDungeonSpellAmpuleYellow,Glue Ampule
 KinkyDungeonSpellAmpuleRed,Rubber Ampule
 KinkyDungeonSpellAmpuleBlue,Latex Ampule
+
+KinkyDungeonSpellShadowStrike,Shadowy chains appear from a rift in space!
 
 KinkyDungeonSpellGlue,Glue
 KinkyDungeonGlue,The glue attaches to your legs as you try to move through!
@@ -1606,6 +1628,8 @@ KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (can
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
 KinkyDungeonSummonSingleShadowWarrior,...and the abyss answers!
 KinkyDungeonSpellCastShadowWarrior,You call...
+
+
 
 KinkyDungeonSpellGolem,Golem
 KinkyDungeonSpellTargetGolem,Select where to put the golem (cannot place on occupied squares)
@@ -1861,3 +1885,5 @@ KinkyDungeonFirstSpawn,You get the feeling that someone is searching for you...
 KinkyDungeonHuntDownPlayer,You hear movements all around as you realize you are surrounded!!!
 
 KinkyDungeonUnLink,"There is another restraint underneath!"
+
+KinkyDungeonCrotchRope,"The restraint rubs against your crotch as you walk..."

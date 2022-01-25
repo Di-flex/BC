@@ -110,7 +110,7 @@ function KinkyDungeonDrawInventorySelected(List) {
 	let prefix = "KinkyDungeonInventoryItem";
 	if (item.item.restraint || item.item.looserestraint) prefix = "Restraint";
 
-	DrawText(TextGet(prefix + name), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5, "black", "silver");
+	DrawTextFit(TextGet(prefix + name), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5, 300, "black", "silver");
 	let textSplit = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc"), 17).split('\n');
 	let textSplit2 = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc2"), 17).split('\n');
 

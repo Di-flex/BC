@@ -97,6 +97,13 @@ let KinkyDungeonEnemies = [
 	{name: "Ghost", color: "#FFFFFF", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], floors:[0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+	{name: "OrbGuardian", tags: KDMapInit(["divine", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+		spells: ["ShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
+		visionRadius: 100, blindSight: 100, evasion: 0.5, alwaysEvade: true, maxhp: 12, minLevel:0, weight:-10, movePoints: 2, attackPoints: 1, attack: "Spell", attackWidth: 3,
+		attackRange: 1, power: 4, dmgType: "cold", fullBoundBonus: 0,
+		terrainTags: {}, shrines: [], floors:[]},
+
+
 	{name: "TickleHand", color: "#FFFFFF", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1, noAlert: true, hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
@@ -158,7 +165,7 @@ let KinkyDungeonEnemies = [
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}, {name: "SmokeBomb", weight: 2}, {name: "PotionStamina", weight: 1}]},
 	{name: "RedSlime", color: "#FF0000", tags: KDMapInit(["ignoretiedup", "construct", "melee", "minor", "ballGagRestraints", "crushresist", "glueimmune"]), squeeze: true, followRange: 1, AI: "hunt", sneakThreshold: 1, hitsfx: "",
 		spells: ["RedSlime"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 1, evasion: 1,
-		visionRadius: 8, maxhp: 4, minLevel: 11, weight:10, movePoints: 2, attackPoints: 3, attack: "SpellMeleeSlowWillBind", suicideOnSpell: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "crush",
+		visionRadius: 8, maxhp: 4, minLevel: 11, weight:10, movePoints: 2, attackPoints: 3, attack: "SpellMeleeSlowWillBindSuicide", suicideOnSpell: true, suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "crush",
 		terrainTags: {}, floors:[], shrines: ["Latex"]},
 
 	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "search"]), ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
@@ -1662,19 +1669,19 @@ let KinkyDungeonFirstSpawn = false;
 function KinkyDungeonHandleWanderingSpawns(delta) {
 	let effLevel = MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty;
 	let sleepTurnsSpeedMult = 100;
-	let baseChance = ((KinkyDungeonSleepTurns > 0 && KinkyDungeonSleepTurns < 10) ? 0.1 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+	let baseChance = ((KinkyDungeonSleepTurns > 0 && KinkyDungeonSleepTurns < 10) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
-		if (KinkyDungeonTotalSleepTurns > 90 && KinkyDungeonEntities.length < 20 + effLevel) {
-			if (KinkyDungeonTotalSleepTurns > 150) hunters = true;
-			if (KinkyDungeonTotalSleepTurns > 150 && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
+		if (KinkyDungeonTotalSleepTurns > 30 && KinkyDungeonEntities.length < 20 + effLevel) {
+			if (KinkyDungeonTotalSleepTurns > 90) hunters = true;
+			if (KinkyDungeonTotalSleepTurns > 130 && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
 
 			if (KinkyDungeonLightGet(spawnLocation.x, spawnLocation.y) < 1 || KinkyDungeonSeeAll) {
 				KinkyDungeonSearchTimer = 0;
 				let count = 0;
-				let maxCount = 4 * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+				let maxCount = (1 + Math.min(5, Math.round(MiniGameKinkyDungeonLevel/10))) * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 
 				// Spawn a killsquad!
 				let tags = [];
@@ -1872,7 +1879,7 @@ function KinkyDungeonHandleJailSpawns() {
 						let randomPoint = { x: xx, y: yy };
 						for(let i = 0; i < 10; ++i) {
 							randomPoint = KinkyDungeonGetRandomEnemyPoint(true, false, KinkyDungeonJailGuard);
-							let distanceFromCell = Math.ceil((xx - randomPoint.x) * (xx - randomPoint.x) + (yy - randomPoint.y) * (yy - randomPoint.y))
+							let distanceFromCell = Math.ceil((xx - randomPoint.x) * (xx - randomPoint.x) + (yy - randomPoint.y) * (yy - randomPoint.y));
 							if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
 								break;
 							}
