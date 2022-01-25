@@ -209,6 +209,7 @@ KinkyDungeonAccuracy,"Hit Chance: "
 
 KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
+KinkyDungeonWeaponStamina,"SP Cost: "
 
 KinkyDungeonTorsoGrab,The EnemyName grabs you by the harness and keeps you in place!
 KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
@@ -1576,7 +1577,7 @@ KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 
 KinkyDungeonSpellWall,Wall
 KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupied squares)
-KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns
+KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns. It takes 20% damage from spells.
 KinkyDungeonSummonSingleWall,A wall starts to form!
 KinkyDungeonSpellCastWall,You create a line on the ground.
 

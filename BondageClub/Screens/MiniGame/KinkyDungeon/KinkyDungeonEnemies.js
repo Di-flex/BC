@@ -1,6 +1,6 @@
 "use strict";
 let KinkyDungeonEnemies = [
-	{name: "Wall", tags: KDMapInit(["construct", "player", "playerinstakill", "melee"]), allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -2.5,
+	{name: "Wall", tags: KDMapInit(["construct", "player", "playerinstakill", "melee"]), spellResist: 4, allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -2.5,
 		visionRadius: 0, maxhp: 25, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:[]},
 	{name: "Decoy", tags: KDMapInit(["construct", "player"]), noblockplayer: true, allied: true, evasion: 2, armor: 0, followRange: 100, AI: "wander",
@@ -17,10 +17,10 @@ let KinkyDungeonEnemies = [
 		spells: ["AllyFirebolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
-	{name: "Golem", tags: KDMapInit(["construct", "player", "melee", "fireresist", "tickleresist", "electricresist", "charmimmune"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "hunt",
-		visionRadius: 20, playerBlindSight: 100, maxhp: 24, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 5, power: 6,
+	{name: "Golem", tags: KDMapInit(["construct", "player", "melee", "fireresist", "tickleresist", "groperesist", "electricresist", "charmimmune"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "hunt",
+		visionRadius: 20, playerBlindSight: 100, maxhp: 30, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 5, power: 6,
 		terrainTags: {}, floors:[]},
-	{name: "StormCrystal", tags: KDMapInit(["construct", "player", "ranged", "meleeresist", "tickleimmune", "electricresist"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "wander", evasion: -10,
+	{name: "StormCrystal", tags: KDMapInit(["construct", "player", "ranged", "meleeresist", "tickleimmune", "electricimmune"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "wander", evasion: -10,
 		spells: ["AllyCrackle"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 6, maxhp: 24, minLevel:0, weight:0, movePoints: 1000, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:[]},
@@ -31,7 +31,8 @@ let KinkyDungeonEnemies = [
 	{name: "FastZombie", tags: KDMapInit(["ignoreharmless", "zombie", "melee", "ribbonRestraints", "slashweakness"]), evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
 		visionRadius: 6, maxhp: 10, minLevel:4, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":10, "lastthird":14}, floors:[0], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}]},
-	{name: "SamuraiZombie", tags: KDMapInit(["leashing", "zombie", "melee", "elite", "ropeRestraints", "ropeRestraints2", "meleeweakness"]), evasion: -1, armor: 2, followRange: 1, AI: "hunt", stunTime: 2, specialCD: 6, specialAttack: "Stun", specialRemove: "Bind",
+	{name: "SamuraiZombie", tags: KDMapInit(["leashing", "zombie", "melee", "elite", "ropeRestraints", "ropeRestraints2", "meleeweakness"]), evasion: -1, armor: 2, followRange: 1, AI: "hunt",
+		stunTime: 2, specialCD: 6, specialAttack: "Stun", specialRemove: "Bind", specialPower: 5, specialDamage: "pain",
 		specialCDonAttack: false, visionRadius: 6, maxhp: 20, minLevel:4, weight:5, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4, specialWidth: 5, specialRange: 1,
 		terrainTags: {"secondhalf":8, "lastthird":6}, shrines: ["Will"], floors:[0, 11], dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}]},
 	{name: "Ninja", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "meleeweakness", "search"]), followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true,
@@ -916,6 +917,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 			let width = enemy.Enemy.attackWidth;
 			let accuracy = enemy.Enemy.accuracy ? enemy.Enemy.accuracy : 1.0;
 			let vibe = false;
+			let damage = enemy.Enemy.dmgType;
+			let power = enemy.Enemy.power;
 
 
 			if (enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && !KinkyDungeonHasStamina(1.1)) {
@@ -937,6 +940,12 @@ function KinkyDungeonUpdateEnemies(delta) {
 				}
 				if (enemy.Enemy.specialWidth && usingSpecial) {
 					width = enemy.Enemy.specialWidth;
+				}
+				if (enemy.Enemy.specialPower && usingSpecial) {
+					power = enemy.Enemy.specialPower;
+				}
+				if (enemy.Enemy.specialDamage && usingSpecial) {
+					damage = enemy.Enemy.specialDamage;
 				}
 			}
 
@@ -1208,7 +1217,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 					let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 						: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
 					if (hit && Math.random() > playerEvasion) {
-						KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+						if (player.player)
+							KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
 						hit = false;
 					}
 					if (hit) {
@@ -1243,7 +1253,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 								for (let times = 0; times < numTimes; times++) {
 									// Note that higher power enemies get a bonus to the floor restraints appear on
-									let rest = KinkyDungeonGetRestraint(enemy.Enemy, MiniGameKinkyDungeonCheckpoint + enemy.Enemy.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : "");
+									let rest = KinkyDungeonGetRestraint(enemy.Enemy, MiniGameKinkyDungeonCheckpoint + power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : "");
 									if (rest) {
 										replace.push({keyword:"RestraintAdded", value: TextGet("Restraint" + rest.name)});
 										restraintAdd.push(rest);
@@ -1410,7 +1420,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						}
 						if (attack.includes("Will") || willpowerDamage > 0) {
 							if (willpowerDamage == 0)
-								willpowerDamage += enemy.Enemy.power;
+								willpowerDamage += power;
 							let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 							if (buffdmg) willpowerDamage = Math.max(0, willpowerDamage + buffdmg);
 							replace.push({keyword:"DamageTaken", value: willpowerDamage});
@@ -1418,9 +1428,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 							if (usingSpecial && willpowerDamage > 0 && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Will")) enemy.specialCD = enemy.Enemy.specialCD;
 						}
 						if (player.player) {
-							happened += KinkyDungeonDealDamage({damage: willpowerDamage, type: enemy.Enemy.dmgType});
+							happened += KinkyDungeonDealDamage({damage: willpowerDamage, type: damage});
 							for (let r of restraintAdd) {
-								bound += KinkyDungeonAddRestraintIfWeaker(r, enemy.Enemy.power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+								bound += KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
 							}
 							if (attack.includes("Slow")) {
 								KinkyDungeonMovePoints = Math.max(KinkyDungeonMovePoints - 2, -1);
@@ -1443,7 +1453,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 							}
 							happened += bound;
 						} else { // if (Math.random() <= playerEvasion)
-							let dmg = enemy.Enemy.power;
+							let dmg = power;
 							let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 							if (buffdmg) dmg = Math.max(0, dmg + buffdmg);
 							if (enemy.Enemy.fullBoundBonus) {
@@ -1476,7 +1486,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								enemy: enemy,
 								bound: bound,
 								damage: willpowerDamage,
-								damagetype: enemy.Enemy.dmgType,
+								damagetype: damage,
 							});
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 							let text = TextGet("Attack"+enemy.Enemy.name + suffix);
@@ -1825,7 +1835,7 @@ function KinkyDungeonHandleJailSpawns() {
 					if (newRestraint) {
 						let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard.CurrentRestraintSwapGroup);
 						KinkyDungeonAddRestraint(newRestraint, 0, true, false, false);
-						let restraintModification = oldRestraintItem ? "ChangeRestraints" : "AddRestraints"
+						let restraintModification = oldRestraintItem ? "ChangeRestraints" : "AddRestraints";
 						let msg = TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name + restraintModification);
 						if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
 						msg = msg.replace("NewRestraintName", TextGet("Restraint"+newRestraint.name));

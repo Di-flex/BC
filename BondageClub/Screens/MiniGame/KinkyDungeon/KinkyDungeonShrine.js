@@ -74,7 +74,9 @@ function KinkyDungeonShrineCost(type) {
 		let item = KinkyDungeonShopItems[KinkyDungeonShopIndex];
 		if (item.cost != null) return item.cost;
 		if (item.rarity != null) {
-			let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/10)*(30 + 2 * item.rarity * item.rarity * 10)/5);
+			let rarity = item.rarity;
+			if (item.cost) rarity += item.cost;
+			let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/10)*(30 + 2 * rarity * rarity * 10)/5);
 			if (costt > 100) costt = 50 * Math.round(costt / 50);
 			return costt;
 		}

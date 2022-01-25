@@ -351,6 +351,12 @@ Bugfix:
 - Added targeting line for bolt spells
 - Made goddesses anger if you try to drink with 0 rep
 - Decreased enemy count in the jail
+- Golem now has grope resistance and HP 30 (from 24)
+- Storm crystal is now immune to electricity (instead of resisting)
+- Sleepiness now gives a penalty to attack stamina drain
+- Fixed a bug where an ally missing an attack displayed text that it misses you.
+- Fixed drool lasting forever, added tears when being leashed
+- Struggle progress bar
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

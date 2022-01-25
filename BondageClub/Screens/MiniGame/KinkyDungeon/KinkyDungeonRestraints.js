@@ -510,12 +510,17 @@ function KinkyDungeonUnlockAttempt(lock) {
 	return false;
 }
 
+let KinkyDungeonCurrentEscapingItem = null;
+let KinkyDungeonCurrentEscapingMethod = null;
 
 // Lockpick = use tool or cut
 // Otherwise, just a normal struggle
 function KinkyDungeonStruggle(struggleGroup, StruggleType) {
-	var restraint = KinkyDungeonGetRestraintItem(struggleGroup.group);
-	var cost = KinkyDungeonStatStaminaCostStruggle;
+	let restraint = KinkyDungeonGetRestraintItem(struggleGroup.group);
+	KinkyDungeonCurrentEscapingItem = restraint;
+	KinkyDungeonCurrentEscapingMethod = StruggleType;
+	KinkyDungeonStruggleTime = CommonTime() + 750;
+	let cost = KinkyDungeonStatStaminaCostStruggle;
 	if (StruggleType == "Cut") cost = KinkyDungeonStatStaminaCostTool;
 	else if (StruggleType == "Pick") cost = KinkyDungeonStatStaminaCostPick;
 	else if (StruggleType == "Remove") cost = KinkyDungeonStatStaminaCostRemove;
@@ -807,6 +812,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		});
 		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonAdvanceTime(1);
+		if (Pass == "Success") KinkyDungeonCurrentEscapingItem = null;
 		return Pass;
 	}
 	return "Impossible";

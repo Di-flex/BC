@@ -223,6 +223,17 @@ function KinkyDungeonDressPlayer() {
 	let Eyes2 = "";
 	let Eyebrows = "";
 	let Mouth = "";
+	let Fluids = "";
+
+	if (!KinkyDungeonPlayer.CanTalk()) {
+		if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 8) Fluids = "DroolMessy";
+		else if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 4) Fluids = "DroolMedium";
+		else Fluids = "DroolLow";
+	}
+	if (KinkyDungeonLeashedPlayer > 0) {
+		if (Fluids.includes("Drool")) Fluids = Fluids.replace("Drool", "DroolTears");
+		else Fluids = "TearsHigh";
+	}
 
 	if (KinkyDungeonSleepiness) {
 		Eyes = "Dazed";
@@ -275,6 +286,13 @@ function KinkyDungeonDressPlayer() {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Mouth) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
+				CharacterRefresh(KinkyDungeonPlayer);
+			}
+		}
+		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Fluids") {
+			let property = KinkyDungeonPlayer.Appearance[A].Property;
+			if (!property || property.Expression != Fluids) {
+				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Fluids };
 				CharacterRefresh(KinkyDungeonPlayer);
 			}
 		}

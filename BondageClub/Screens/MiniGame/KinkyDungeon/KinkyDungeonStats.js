@@ -331,6 +331,7 @@ function KinkyDungeonUpdateStats(delta) {
 		if (KinkyDungeonSleepiness > 2.99) {
 			KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
 			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel + 1, 3);
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Sleepy", aura: "#222222", type: "AttackStamina", duration: 3, power: -1, player: true, enemies: false, tags: ["attack", "stamina"]});
 		} else if (KinkyDungeonSleepiness > 2) {
 			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 2);
 		} else if (KinkyDungeonSleepiness > 1) {

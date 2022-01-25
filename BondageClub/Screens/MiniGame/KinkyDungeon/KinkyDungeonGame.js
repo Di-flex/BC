@@ -1522,6 +1522,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 }
 
 let KinkyDungeonLastAction = "";
+let KinkyDungeonLastTurnAction = "";
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KDRecentRepIndex = 0;
@@ -1628,6 +1629,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	let end = performance.now();
 	if (KDDebug) console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);
 
+	KinkyDungeonLastTurnAction = KinkyDungeonLastAction;
 	KinkyDungeonLastAction = "";
 }
 
