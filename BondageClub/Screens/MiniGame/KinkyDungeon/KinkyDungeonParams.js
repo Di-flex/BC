@@ -19,6 +19,7 @@ var KinkyDungeonMapParams = [
 		"grateChance" : 0.7,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
+		"cacheInterval" : 3,
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
@@ -73,6 +74,7 @@ var KinkyDungeonMapParams = [
 		"grateChance" : 0.7,
 		"rubblechance" : 0.6,
 		"brickchance" : 0.4,
+		"cacheInterval" : 3,
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 6, Weight: 100},
@@ -125,6 +127,7 @@ var KinkyDungeonMapParams = [
 		"grateChance" : 0.25,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
+		"cacheInterval" : 3,
 
 		"traps": [
 			{Name: "Bandits", Level: 0, Power: 3, Weight: 100},
@@ -402,6 +405,7 @@ var KinkyDungeonMapParams = [
 		"grateChance" : 0.7,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.4,
+		"cacheInterval" : 3,
 
 		"traps": [
 			{Name: "Skeletons", Level: 0, Power: 8, Weight: 100},

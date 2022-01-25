@@ -445,18 +445,24 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Restart") {
+		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
+		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
+		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
+		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
+
+
 		if (MouseIn(600, 100, 64, 64)) {
 			KinkyDungeonSound = !KinkyDungeonSound;
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
 			return true;
 		}
-		if (MouseIn(975, 850, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
+		if (MouseIn(975, 750, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);
 			KinkyDungeonDrawState = "Game";
 			return true;
 		}
-		if (MouseIn(1075, 650, 350, 64)) {
+		if (MouseIn(1075, 450, 350, 64)) {
 			KinkyDungeonState = "Keybindings";
 			if (!KinkyDungeonKeybindings)
 				KinkyDungeonKeybindingsTemp = {
@@ -479,15 +485,20 @@ function KinkyDungeonHandleHUD() {
 			}
 			return true;
 		}
-		if (MouseIn(875, 750, 350, 64)) {
+		if (MouseIn(975, 850, 550, 64)) {
 			KinkyDungeonState = "Lose";
 			//Player.KinkyDungeonSave = {};
 			//ServerAccountUpdate.QueueData({KinkyDungeonSave : Player.KinkyDungeonSave});
 			localStorage.setItem('KinkyDungeonSave', "");
 			MiniGameKinkyDungeonLevel = -1;
 			return true;
-		} else if (MouseIn(1275, 750, 350, 64)) {
+		} else if (MouseIn(975, 550, 550, 64)) {
 			KinkyDungeonDrawState = "Game";
+			return true;
+		} else if (MouseIn(975, 650, 550, 64)) {
+			KinkyDungeonDrawState = "Game";
+			KinkyDungeonAutoWait = true;
+			KinkyDungeonSleepTime = CommonTime() + 500;
 			return true;
 		}
 		return true;
