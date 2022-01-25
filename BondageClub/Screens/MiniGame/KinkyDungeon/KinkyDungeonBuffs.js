@@ -30,7 +30,7 @@ function KinkyDungeonTickBuffs(list, delta, endFloor) {
 	for (const [key, value] of Object.entries(list)) {
 		if (value) {
 			if (value.endFloor && endFloor) list[key] = undefined;
-			else if (value.endSleep && KinkyDungeonSleepTurns > 10 && KinkyDungeonSleepTurns < KinkyDungeonSleepTurnsMax / 2) list[key] = undefined;
+			else if (value.endSleep && KinkyDungeonSleepTurns > 1) list[key] = undefined;
 			else if (!value.duration || value.duration < 0) list[key] = undefined;
 			else {
 				if (value.type == "restore_mp") KinkyDungeonChangeMana(value.power);
