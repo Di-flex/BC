@@ -74,9 +74,9 @@ let KinkyDungeonLearnableSpells = [
 		// Arms
 		["Fireball", "LightningBolt", ],
 		// Legs
-		["Golem", "Leap", ],
+		["Golem", "Leap", "Fissure"],
 		// Passive
-		[],
+		["FloatingWeapon"],
 	],
 
 	//Page 4
@@ -105,6 +105,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Electrify", noise: 6, sfx: "FireSpell", school: "Elements", manacost: 7, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 8, time: 4, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
 		{name: "Crackle", noise: 6, sfx: "FireSpell", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 4, delay: 0, time: 1, range: 4, speed: 4, size: 1, damage: "electric",
 			trailPower: 0, trailLifetime: 1.1, trailTime: 4, trailDamage:"inert", trail:"lingering", trailChance: 1.0, playerEffect: {name: "Shock", time: 1}},
+		{name: "Fissure", noise: 7, sfx: "FireSpell", school: "Elements", manacost: 8, components: ["Legs"], level:3, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 5.5, delay: 0, time: 1, range: 4, speed: 4, size: 1, damage: "fire",
+			trailPower: 1.5, trailLifetime: 6, trailTime: 4, piercingTrail: true, trailDamage:"fire", trail:"lingering", trailChance: 1, playerEffect: {name: "DamageNoMsg", hitTag: "Fissure", time: 1, damage:"fire", power: 3}},
 		{name: "Shield", sfx: "MagicSlash", school: "Elements", manacost: 1, components: ["Legs"], noTargetEnemies: true, noTargetPlayer: true, level:1, type:"inert", block: 10, onhit:"", power: 0, delay: 2, range: 1.5, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 1 turn
 		{name: "GreaterShield", sfx: "MagicSlash", school: "Elements", manacost: 2, components: ["Legs"], noTargetEnemies: true, noTargetPlayer: true, level:2, type:"inert", block: 20, onhit:"", power: 0, delay: 8, range: 2, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 5 turns
 		{name: "IceBreath", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 8, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 1, range: 3, size: 3, aoe: 1.5, lifetime: 10, power: 5, lifetimeHitBonus: 5, damage: "ice", playerEffect: {name: "Damage"}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
@@ -117,6 +119,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				{id: "IronBlood2", type: "SlowLevel", duration: 99999, endSleep: true, power: -1.0, player: true, enemies: false, tags: ["move"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
+		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:1, type:"passive",
+			events: [{type: "FloatingWeapon", trigger: "playerAttack"}, {type: "HandsFree", trigger: "getWeapon"}, {type: "HandsFree", trigger: "calcDamage"}]},
 	],
 	"Conjure": [
 		{name: "MPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -134,7 +138,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Leap", sfx: "Teleport", school: "Conjure", manacost: 8, components: ["Legs"], noTargetDark: true, noTargetEnemies: true, level:3, type:"inert", onhit:"teleport", delay: 1, lifetime:1, range: 5, damage: ""}, // A quick blink which takes effect instantly, but requires legs to be free
 		{name: "Blink", sfx: "Teleport", school: "Conjure", manacost: 4, components: ["Verbal"], noTargetEnemies: true, level:2, type:"inert", onhit:"teleport", delay: 3, lifetime:1, range: 3, damage: ""}, // A slow blink with short range, but it uses verbal components
 		{name: "Wall", sfx: "MagicSlash", school: "Conjure", manacost: 6, components: ["Legs"], noTargetEnemies: true, noTargetPlayer: true, level:1, type:"inert", onhit:"summon", summon: [{name: "Wall", count: 1, time: 10}], power: 0, time: 10, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
-		{name: "Ally", sfx: "MagicSlash", school: "Conjure", manacost: 8, components: ["Verbal"], noTargetEnemies: true, level:1, type:"inert", onhit:"summon", summon: [{name: "Ally", count: 1, time: 9999}], power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
+		{name: "Ally", sfx: "MagicSlash", school: "Conjure", manacost: 8, components: ["Legs"], noTargetEnemies: true, level:1, type:"inert", onhit:"summon", summon: [{name: "Ally", count: 1, time: 9999}], power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "FireElemental", sfx: "MagicSlash", school: "Conjure", manacost: 20, components: ["Verbal"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "FireElemental", count: 1, time: 9999}], power: 0, time: 9999, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Golem", sfx: "MagicSlash", school: "Conjure", manacost: 24, components: ["Legs"], noTargetEnemies: true, level:3, type:"inert", onhit:"summon", summon: [{name: "Golem", count: 1, time: 9999}], power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "StormCrystal", noise: 7, sfx: "MagicSlash", school: "Conjure", manacost: 14, components: ["Legs"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "StormCrystal", count: 1, time: 30}], power: 0, time: 30, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
@@ -246,6 +250,8 @@ let KinkyDungeonSpellListEnemies = [
 let KinkyDungeonSpellOffset = 120;
 let KinkyDungeonSpellChoiceOffset = 110;
 
+let KDPlayerHitBy = [];
+
 function KinkyDungeonSearchSpell(list, name) {
 	for (let L = 0; L < list.length; L++) {
 		let spell = list[L];
@@ -303,6 +309,8 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	let sfx = spell.hitsfx;
 	if (!sfx) sfx = "Damage";
 	if (damage == "inert") return;
+	if (playerEffect.hitTag && !KDPlayerHitBy.includes(playerEffect.hitTag)) KDPlayerHitBy.push(playerEffect.hitTag);
+	else return;
 	if (!playerEffect.chance || Math.random() < playerEffect.chance) {
 		if (playerEffect.name == "Ampule") {
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShatter" + spell.name), "red", 1);
@@ -1129,11 +1137,11 @@ function KinkyDungeonGetCompList(spell) {
 }
 
 function KinkyDungeonSendMagicEvent(Event, data) {
-	for (let index of KinkyDungeonSpellChoices) {
-		let spell = KinkyDungeonSpells[index];
+	for (let i = 0; i < KinkyDungeonSpellChoices.length; i++) {
+		let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 		if (spell && spell.events) {
 			for (let e of spell.events) {
-				if (e.trigger == Event && (KinkyDungeonSpellChoicesToggle[index] || e.always)) {
+				if (e.trigger == Event && (KinkyDungeonSpellChoicesToggle[i] || e.always)) {
 					KinkyDungeonHandleMagicEvent(Event, spell, data);
 				}
 			}

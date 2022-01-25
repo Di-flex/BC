@@ -87,11 +87,11 @@ function KinkyDungeonDrawReputation() {
 			DrawProgressBar(canvasOffsetX + 275 + XX, yPad + canvasOffsetY + spacing * i - spacing/4, 200, spacing/2, 50 + value, color, "#444444");
 
 			MainCanvas.textAlign = "center";
-			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100+1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
-			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100-1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
-			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100+1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
-			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100-1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
-			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100,  2+yPad + canvasOffsetY + spacing * i, "white", "black");
+			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100+1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100-1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100+1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100-1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100,  2+yPad + canvasOffsetY + spacing * i, "white", "black");
 
 			i++;
 		}

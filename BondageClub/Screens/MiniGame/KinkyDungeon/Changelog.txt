@@ -400,6 +400,13 @@ Bugfix:
 - Flash stun duration to 3 from 5
 - Greater flash mana cost to 6 from 8
 - Focused flash mana cost to 9 from 12, duration to 14 from 20
+- Gold rebalanced
+
+2.58
+- New spell: Fissure
+- New spell: Floating Weapon
+- Ancient Tombs now has 1 more shrine and 1 more chest than other levels
+- Fixed bug with spells not toggling properly
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

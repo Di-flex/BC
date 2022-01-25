@@ -272,8 +272,13 @@ function KinkyDungeonSetMaxStats() {
 	return arousalRate;
 }
 
-function KinkyDungeonCanUseWeapon() {
-	return !InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands");
+let KDHandsFreeTag = false;
+
+function KinkyDungeonCanUseWeapon(NoOverride) {
+	KDHandsFreeTag = false;
+	if (!NoOverride)
+		KinkyDungeonSendMagicEvent("getWeapon", {});
+	return (KDHandsFreeTag || (!InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands")));
 }
 
 function KinkyDungeonUpdateStats(delta) {
@@ -310,16 +315,6 @@ function KinkyDungeonUpdateStats(delta) {
 
 	// Unarmed damage calc
 	KinkyDungeonPlayerDamage = KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-
-	if (!KinkyDungeonPlayer.CanInteract()) {
-		KinkyDungeonPlayerDamage.chance /= 2;
-	}
-	if (!KinkyDungeonPlayer.CanWalk() && KinkyDungeonPlayerDamage.unarmed) {
-		KinkyDungeonPlayerDamage.dmg /= 2;
-	}
-	if (KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) {
-		KinkyDungeonPlayerDamage.chance /= 1.5;
-	}
 
 	KinkyDungeonUpdateStruggleGroups();
 

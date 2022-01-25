@@ -38,7 +38,12 @@ function KinkyDungeonWeaponCanCut(RequireInteract) {
 	return false;
 }
 
-function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
+let KDDamageHands = true;
+function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
+	KDDamageHands = true;
+	if (!NoOverride)
+		KinkyDungeonSendMagicEvent("calcDamage", {});
+
 	let damage = KinkyDungeonPlayerDamageDefault;
 	// @ts-ignore
 	KinkyDungeonPlayerDamage = {};
@@ -47,10 +52,31 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree) {
 	else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 
 	Object.assign(KinkyDungeonPlayerDamage, damage);
+
+	if (!KinkyDungeonPlayer.CanInteract() && KDDamageHands) {
+		KinkyDungeonPlayerDamage.chance /= 2;
+	}
+	if (KinkyDungeonSlowLevel > 0 && !KinkyDungeonPlayerDamage.name) {
+		KinkyDungeonPlayerDamage.dmg /= 2;
+	}
+	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && KDDamageHands) {
+		KinkyDungeonPlayerDamage.chance /= 1.5;
+	}
+
 	return KinkyDungeonPlayerDamage;
 }
 
-function KinkyDungeonGetEvasion(Enemy) {
+let KDEvasionHands = true;
+let KDEvasionSlow = true;
+let KDEvasionSight = true;
+let KDEvasionDeaf = true;
+function KinkyDungeonGetEvasion(Enemy, NoOverride) {
+	KDEvasionHands = true;
+	KDEvasionSight = true;
+	KDEvasionDeaf = true;
+	KDEvasionSlow = true;
+	if (!NoOverride)
+		KinkyDungeonSendMagicEvent("calcEvasion", {});
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
@@ -59,9 +85,10 @@ function KinkyDungeonGetEvasion(Enemy) {
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
 
-	hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
-	if (KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.67;
-	if (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
+	if (KDEvasionSight)
+		hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
+	if (KDEvasionDeaf &&KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.9;
+	if (KDEvasionSlow && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
 
 	return hitChance;
 }
@@ -322,6 +349,7 @@ function KinkyDungeonUpdateBullets(delta) {
 		let b = KinkyDungeonBullets[E];
 		let d = delta;
 		let first = true;
+		let trailSquares = [];
 
 		while (d > 0.1) {
 			if (!first && delta > 0) {
@@ -335,8 +363,12 @@ function KinkyDungeonUpdateBullets(delta) {
 					b.time -= delta;
 				}
 
-				if (b.bullet.spell && b.trail && (b.x != Math.round(b.XX) || b.y != Math.round(b.yy)))
-					KinkyDungeonBulletTrail(b);
+				if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
+					&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
+					if (KinkyDungeonBulletTrail(b)) {
+						trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
+					}
+				}
 
 				b.x = Math.round(b.xx);
 				b.y = Math.round(b.yy);
@@ -482,17 +514,20 @@ function KinkyDungeonBulletDoT(b) {
 }
 
 function KinkyDungeonBulletTrail(b) {
+	let trail = false;
 	if (b.bullet.spell.trail == "lingering" && !b.bullet.trail) {
 		let aoe = b.bullet.spell.trailspawnaoe ? b.bullet.spell.trailspawnaoe : 0.0;
 		let rad = Math.ceil(aoe/2);
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
 				if (Math.sqrt(X*X+Y*Y) <= aoe && Math.random() < b.bullet.spell.trailChance) {
+					let trail = true;
 					KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime + (b.bullet.spell.trailLifetimeBonus ? Math.floor(Math.random() * b.bullet.spell.trailLifetimeBonus) : 0), x:b.x + X, y:b.y + Y, vx:0, vy:0, xx:b.x + X, yy:b.y + Y, spriteID:b.bullet.name+"Trail" + CommonTime(),
 						bullet:{trail: true, hit: b.bullet.spell.trailHit, spell:b.bullet.spell, playerEffect:b.bullet.spell.trailPlayerEffect, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
 				}
 			}
 	}
+	return trail;
 }
 
 function KinkyDungeonBulletsCheckCollision(bullet, AoE) {

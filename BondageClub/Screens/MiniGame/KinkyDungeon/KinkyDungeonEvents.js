@@ -156,11 +156,35 @@ function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 
 
 function KinkyDungeonHandleMagicEvent(Event, spell, data) {
-	if (Event == "playerAttack") {
+	if (Event == "calcEvasion") {
+		for (let e of spell.events) {
+			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+				KDEvasionHands = false;
+			}
+		}
+	} if (Event == "calcDamage") {
+		for (let e of spell.events) {
+			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+				KDDamageHands = false;
+			}
+		}
+	} else if (Event == "getWeapon") {
+		for (let e of spell.events) {
+			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+				KDHandsFreeTag = true;
+			}
+		}
+	} else if (Event == "playerAttack") {
 		for (let e of spell.events) {
 			if (e.type == "FlameBlade" && KinkyDungeonHasMana(spell.manacost) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
 				KinkyDungeonChangeMana(-spell.manacost);
 				KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("FlameStrike", true), undefined, undefined, undefined);
+			} else if (e.type == "FloatingWeapon" && KinkyDungeonHasMana(spell.manacost) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+				let chanceWith = KinkyDungeonPlayerDamage.chance;
+				let chanceWithout = KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon(true), true).chance;
+				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+				if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.name && chanceWithout < chanceWith)
+					KinkyDungeonChangeMana(-spell.manacost);
 			}
 		}
 	} else if (Event == "vision") {

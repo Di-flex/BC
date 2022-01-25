@@ -1602,6 +1602,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	let start = performance.now();
 	KinkyDungeonRestraintAdded = false;
 	KinkyDungeonSFX = [];
+	KDPlayerHitBy = [];
 
 	//if (KinkyDungeonMovePoints < 0 && KinkyDungeonStatBind < 1) KinkyDungeonMovePoints = 0;
 

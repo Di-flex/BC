@@ -3,7 +3,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.57"
+KinkyDungeon,"Kinky Dungeon v2.58"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -266,7 +266,7 @@ AttackMaidforceStalker,"The maid stealthily rubs your sensitive areas! (-DamageT
 
 KinkyDungeonSummonSingleMaidforceStalkerImage,The maid throws a smoke bomb at the ground!
 
-NameMaidforceStalkerImage,Mirror Image
+NameMaidforceStalkerImage,M.F. 'Unseen Blade'
 KillMaidforceStalkerImage,"The maid does a fumbled retreat."
 AttackMaidforceStalkerImage,"The maid rubs you from many angles! (-DamageTaken SP)"
 
@@ -1509,6 +1509,12 @@ KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt da
 KinkyDungeonSpellCastCrackle,Lightning erupts from your fingertips!
 KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
 
+KinkyDungeonSpellFissure,Fissure
+KinkyDungeonSpellAllyFissure,Lava Fissure
+KinkyDungeonSpellDescriptionFissure,A great fissure erupts from the earth, dealing DamageDealt damage to enemies in a 4-range line and dealing 15 damage/turn for 6 turns.
+KinkyDungeonSpellCastFissure,You stomp the ground and the earth opens its gaping maw!
+KinkyDungeonSpellTargetFissure,Choose line direction (max range 4 tiles)
+
 KinkyDungeonSpellLightningBolt,Lightning Bolt
 KinkyDungeonSpellDescriptionLightningBolt,A bolt of lightning that does DamageDealt damage to enemies in an infinite line and briefly stuns.
 KinkyDungeonSpellCastLightningBolt,You unleash a bolt of lightning!
@@ -1604,6 +1610,9 @@ KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to se
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 10 turns.
+
+KinkyDungeonSpellFloatingWeapon,Floating Weapon
+KinkyDungeonSpellDescriptionFloatingWeapon,"When equipped: While hands are bound, you can still use weapons, but attacks cost mana."
 
 
 KinkyDungeonSpellIronBlood,Iron Blood

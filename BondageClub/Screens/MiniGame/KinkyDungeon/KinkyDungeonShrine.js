@@ -14,9 +14,9 @@ var KinkyDungeonShrineBaseCosts = {
 let KinkyDungeonOrbAmount = 0;
 
 var KinkyDungeonShrineBaseCostGrowth = {
-	"Elements": 1.75,
-	"Conjure": 1.75,
-	"Illusion": 1.75,
+	"Elements": 2,
+	"Conjure": 2,
+	"Illusion": 2,
 };
 
 let KinkyDungeonGhostDecision = 0;
