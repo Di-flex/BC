@@ -378,6 +378,7 @@ function KinkyDungeonDrawGame() {
 	} else if (KinkyDungeonDrawState == "Restart") {
 		MainCanvas.textAlign = "left";
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
+		DrawCheckbox(600, 180, 64, 64, TextGet("KinkyDungeonDrool"), KinkyDungeonDrool, false, "white");
 		MainCanvas.textAlign = "center";
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");

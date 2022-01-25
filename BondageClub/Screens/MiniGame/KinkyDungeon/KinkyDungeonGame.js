@@ -1423,6 +1423,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
 		if (AllowInteract) {
 			let attackCost = KinkyDungeonStatStaminaCostAttack;
+			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminaCost) attackCost = KinkyDungeonPlayerDamage.staminaCost;
 			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
 				attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
 			}
@@ -1514,7 +1515,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						if ((moveDirection.x != 0 || moveDirection.y != 0)) {
 							KinkyDungeonChangeStamina(moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta);
 							KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
-							KinkyDungeonChangeArousal(KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult);
+							KinkyDungeonStatArousal += (KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult);
+							if (KinkyDungeonHasCrotchRope) {
+								if (KinkyDungeonStatPlugLevel == 0) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrotchRope"), "pink", 2);
+								KinkyDungeonStatArousal += (KinkyDungeonCrotchRopeArousal * moveMult);
+							}
 							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;

@@ -456,6 +456,11 @@ function KinkyDungeonHandleHUD() {
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
 			return true;
 		}
+		if (MouseIn(600, 180, 64, 64)) {
+			KinkyDungeonDrool = !KinkyDungeonDrool;
+			localStorage.setItem("KinkyDungeonDrool", KinkyDungeonDrool ? "True" : "False");
+			return true;
+		}
 		if (MouseIn(975, 750, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);

@@ -8,6 +8,7 @@ let KinkyDungeonStatMaxMax = 72; // Maximum any stat can get boosted to
 let KinkyDungeonStatArousalMax = 36;
 let KinkyDungeonArousalUnlockSuccessMod = 0.5; // Determines how much harder it is to insert a key while aroused. 1.0 is half success chance, 2.0 is one-third, etc.
 let KinkyDungeonStatArousal = 0;
+let KinkyDungeonCrotchRopeArousal = 0.5;
 let KinkyDungeonStatArousalRegen = -0.5;
 let KinkyDungeonStatArousalRegenPerUpgrade = -0.1;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal

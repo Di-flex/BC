@@ -153,7 +153,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
-			KinkyDungeonSendFloater(Enemy, Math.min(dmgDealt, Enemy.hp)*10, "#ff4444");
+			KinkyDungeonSendFloater(Enemy, Math.round(Math.min(dmgDealt, Enemy.hp)*10), "#ff4444");
 			Enemy.hp -= dmgDealt;
 			if (dmgDealt > 0) Enemy.revealed = true;
 		}
@@ -438,7 +438,8 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
 			if (Math.sqrt(X*X+Y*Y) <= rad) {
-				slots.push({x:X, y:Y});
+				if ((x + X > 0 && y + Y > 0 && x + X < KinkyDungeonGridWidth && y + Y < KinkyDungeonGridHeight))
+					slots.push({x:X, y:Y});
 			}
 		}
 
