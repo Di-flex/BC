@@ -716,7 +716,7 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			// Add a lock on the chest! For testing purposes ATM
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false , Floor);
 			if (lock)
-				KinkyDungeonTiles["" + chest.x + "," +chest.y] = {Type: "Lock", Lock: lock};
+				KinkyDungeonTiles["" + chest.x + "," +chest.y] = {Type: "Lock", Lock: lock, Loot: "normal"};
 
 			count += 1;
 		} else {

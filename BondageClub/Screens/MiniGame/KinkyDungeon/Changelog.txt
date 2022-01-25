@@ -374,13 +374,15 @@ Bugfix:
 - Axe now cleaves
 - Hammer now knocks back
 
-2.53
+2.54
 - Passive spells can now be toggled by clicking on them in the UI
 - Reputation numbers in the rep screen
 - Darkblade now lasts for 5 attacks or 50 turns, whichever is longer
 - Added tooltips and visual distinction for shrines
 - Removing restraints now requires an edge like an altar or opened
 - Struggling makes noise
+
+2.55
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

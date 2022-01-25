@@ -88,8 +88,10 @@ function KinkyDungeonLoot(Level, Index, Type) {
 			if (prereqs) {
 				let weightMult = 1.0;
 				let weightBonus = 0;
-				if (KinkyDungeonSpecialLoot && loot.special) weightBonus += loot.special;
-				else weightMult = 0;
+				if (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Loot == "normal") {
+					if (KinkyDungeonSpecialLoot && loot.special) weightBonus += loot.special;
+					else if (KinkyDungeonSpecialLoot) weightMult = 0;
+				}
 
 				let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
 				if (loot.trap || loot.magic) weightMult *= (1 + rep);
