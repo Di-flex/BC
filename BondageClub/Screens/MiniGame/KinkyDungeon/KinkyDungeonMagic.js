@@ -56,7 +56,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 2
 	[
 		// Verbal
-		["Incinerate", "IceBreath", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior", "IronBlood"],
+		["IronBlood", "Incinerate", "IceBreath", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior"],
 		// Arms
 		["Crackle", "SlimeBall", "ShadowSlash", "ShadowBlade", "Corona"],
 		// Legs

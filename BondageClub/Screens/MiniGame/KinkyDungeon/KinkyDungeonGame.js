@@ -1423,7 +1423,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
 		if (AllowInteract) {
 			let attackCost = KinkyDungeonStatStaminaCostAttack;
-			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminaCost) attackCost = KinkyDungeonPlayerDamage.staminaCost;
+			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminacost) attackCost = KinkyDungeonPlayerDamage.staminacost;
 			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
 				attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
 			}

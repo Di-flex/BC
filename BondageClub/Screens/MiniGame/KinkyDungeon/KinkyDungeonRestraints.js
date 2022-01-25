@@ -915,7 +915,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock) {
 		let power = KinkyDungeonRestraintPower(currentRestraint);
 		if ((!currentRestraint || !currentRestraint.restraint ||
 			(power <
-			((Lock || restraint.DefaultLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
+			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
 				|| (currentRestraint && currentRestraint.restraint && KinkyDungeonLinkableAndStricter(currentRestraint.restraint, restraint, currentRestraint.dynamicLink, currentRestraint.oldLock))))
 			&& (!r.dynamicLink || !r.dynamicLink.includes(restraint.name))
 			&& (Bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
