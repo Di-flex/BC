@@ -52,7 +52,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Shield", "Snare", "Wall", "Slime"],
 		// Passive
-		[],
+		["FlameBlade"],
 	],
 
 	//Page 2
@@ -76,7 +76,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Golem", "Leap", ],
 		// Passive
-		["FlameBlade"],
+		[],
 	],
 
 	//Page 4
@@ -115,7 +115,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 99999, endSleep: true, power: 1, player: true, enemies: false, tags: ["attack", "stamina"]},
 				{id: "IronBlood2", type: "SlowLevel", duration: 99999, endSleep: true, power: -1.0, player: true, enemies: false, tags: ["move"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
-		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:3, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
+		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
 	],
 	"Conjure": [
 		{name: "MPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -587,7 +587,7 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 function KinkyDungeonHandleSpell() {
 	let spell = null;
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
-		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive && (MouseIn(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive && (MouseIn(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
 			spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
 		}
 	}

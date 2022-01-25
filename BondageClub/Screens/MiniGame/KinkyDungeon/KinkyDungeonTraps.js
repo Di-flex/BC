@@ -4,7 +4,7 @@ let KinkyDungeonTrapMoved = false;
 
 function KinkyDungeonHandleTraps(x, y, Moved) {
 	let tile = KinkyDungeonTiles[x + "," + y];
-	if (tile && tile.Type == "Trap") {
+	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")) {
 		let msg = "";
 		let color = "red";
 		if (tile.Trap == "Skeletons") {
