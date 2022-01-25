@@ -1634,6 +1634,7 @@ let KinkyDungeonGuardSpawnTimerMax = 74;
 let KinkyDungeonGuardSpawnTimerMin = 52;
 let KinkyDungeonMaxPrisonReduction = 10;
 let KinkyDungeonPrisonReduction = 0;
+let KinkyDungeonPrisonExtraGhostRep = 0;
 
 let KinkyDungeonEnemyID = 0;
 
@@ -1821,6 +1822,7 @@ function KinkyDungeonHandleJailSpawns() {
 					msg = msg.replace("OldRestraintName", TextGet("Restraint"+leashItemToRemove.restraint.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 				}
+				KinkyDungeonPrisonExtraGhostRep += 2;
 				KinkyDungeonJailGuard.CurrentAction = "jailWander";
 				KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
 				KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.y;
@@ -1996,7 +1998,8 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonPrisonReduction += 1;
 						KinkyDungeonChangeRep("Prisoner", -1);
 					}
-					KinkyDungeonChangeRep("Ghost", 1);
+					KinkyDungeonChangeRep("Ghost", 1 + KinkyDungeonPrisonExtraGhostRep);
+					KinkyDungeonPrisonExtraGhostRep = 0;
 				}
 			}
 		}
