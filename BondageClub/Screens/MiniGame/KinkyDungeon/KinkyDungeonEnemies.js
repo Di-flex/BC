@@ -1282,12 +1282,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						if (player.player && playerDist < range + 0.5 && (((!enemy.Enemy.noLeashUnlessExhausted || !KinkyDungeonHasStamina(1.1)) && enemy.Enemy.tags && enemy.Enemy.tags.has("leashing")) || attack.includes("Pull")) && (KinkyDungeonLeashedPlayer < 1 || KinkyDungeonLeashingEnemy == enemy)) {
 							let wearingLeash = false;
 							if (!wearingLeash && !attack.includes("Pull"))
-								for (let restraint of KinkyDungeonRestraintList()) {
-									if (restraint.restraint && restraint.restraint.leash) {
-										wearingLeash = true;
-										break;
-									}
-								}
+								wearingLeash = KinkyDungeonIsWearingLeash();
 							let leashToExit = enemy.Enemy.tags.has("leashing") && !KinkyDungeonHasStamina(1.1) && playerDist < 1.5;
 							let leashed = wearingLeash || attack.includes("Pull");
 							if (leashed) {
