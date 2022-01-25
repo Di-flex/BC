@@ -705,6 +705,8 @@ KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossible3,"You can't pick this by yourself, you'll need help."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
 KinkyDungeonStrugglePickImpossibleBoundAroused,"You let out a frustrated sigh as you struggle to even grasp the pick."
+KinkyDungeonStruggleRemoveNeedEdge,"You wiggle uselessly. Maybe you need some kind of corner or edge..."
+KinkyDungeonStruggleRemoveNeedEdgeAroused,"You rub your body against the floor to no avail, and sigh."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
 KinkyDungeonStruggleRemoveImpossibleAroused,"You roll around tryng to loosen the item to no avail."
 KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try to undo them!"
@@ -717,6 +719,8 @@ KinkyDungeonStruggleCutImpossible2,"You fail to leave even a scratch!"
 KinkyDungeonStruggleCutImpossible3,"You can't get any leverage to cut it with..."
 KinkyDungeonStruggleCutImpossibleBound,"You can't hold a knife, let alone cut the thing."
 KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as the knife bounces around uselessly."
+
+KinkyDungeonNeedOpenChest,"The chest is too smooth to help. Maybe if you opened it?"
 
 KinkyLockable,Lockable
 KinkyNonLockable,Non-Lockable
@@ -764,6 +768,7 @@ KinkyDungeonObject,"object"
 
 KinkyDungeonObjectLock,"That object is locked"
 KinkyDungeonObjectShrine,"A shrine to the goddess of TYPE. A pool of mana glimmers below."
+KinkyDungeonObjectShrineCommerce,"A shrine to the goddess of TYPE."
 KinkyDungeonObjectDoor,"That door is open. Do you want to close it?"
 KinkyDungeonCloseDoorDone,"You slam the door and jam it shut!"
 KinkyDungeonShrineGhost,"Submissive"

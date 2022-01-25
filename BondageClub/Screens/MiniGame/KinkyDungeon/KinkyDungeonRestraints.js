@@ -415,6 +415,26 @@ function KinkyDungeonIsWearingLeash() {
 	return false;
 }
 
+function KinkyDungeonHasHook() {
+	for (let X = KinkyDungeonPlayerEntity.x - 1; X <= KinkyDungeonPlayerEntity.x + 1; X++) {
+		for (let Y = KinkyDungeonPlayerEntity.y - 1; Y <= KinkyDungeonPlayerEntity.y + 1; Y++) {
+			let tile = KinkyDungeonMapGet(X, Y);
+			if (tile == 'A'
+				|| tile == 'a'
+				|| tile == 'c'
+				|| tile == 'O'
+				|| tile == 'o'
+				|| tile == 'B') {
+				return true;
+			} else if (tile == 'C') {
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNeedOpenChest"), "red", 1);
+			}
+		}
+	}
+
+	return KinkyDungeonHasGhostHelp();
+}
+
 function KinkyDungeonIsHandsBound(ApplyGhost) {
 	return (!ApplyGhost || !KinkyDungeonHasGhostHelp()) &&
 		(InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"));
@@ -590,16 +610,33 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	let armsBound = KinkyDungeonIsArmsBound(true);
 	let strict = KinkyDungeonStrictness(true);
+	let hasEdge = KinkyDungeonHasHook();
 
 	// Struggling is unaffected by having arms bound
+	let minAmount = 0.1 - Math.max(0, 0.01*restraint.restraint.power);
+	if (StruggleType == "Remove" && !hasEdge) minAmount = 0;
 	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup.group != "ItemArms" && struggleGroup.group != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) escapeChance /= 1.5;
-	if (StruggleType != "Struggle" && struggleGroup.group != "ItemArms" && armsBound) escapeChance = Math.max(0.1 - Math.max(0, 0.01*restraint.restraint.power), escapeChance - 0.3);
+	if (StruggleType != "Struggle" && struggleGroup.group != "ItemArms" && armsBound) escapeChance = Math.max(minAmount, escapeChance - 0.3);
 
 	// Strict bindings make it harder to escape
 	if (strict) escapeChance = Math.max(0, escapeChance - strict);
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
-		escapeChance = (StruggleType == "Remove") ? escapeChance / 2 : Math.max(0, escapeChance - 0.5);
+		escapeChance = (StruggleType == "Remove" && hasEdge) ? escapeChance / 2 : Math.max(0, escapeChance - 0.5);
+
+	if (StruggleType == "Remove" && escapeChance == 0) {
+		let typesuff = "";
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 1);
+		KinkyDungeonSendInventoryEvent("struggle", {
+			restraint: restraint,
+			group: struggleGroup,
+			struggletype: StruggleType,
+			result: "NeedEdge",
+		});
+		return "NeedEdge";
+	}
 
 	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
 
@@ -825,6 +862,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			result: Pass,
 		});
 		KinkyDungeonLastAction = "Struggle";
+		if (StruggleType == "Struggle") KinkyDungeonAlert = 4;
 		KinkyDungeonAdvanceTime(1);
 		if (Pass == "Success") KinkyDungeonCurrentEscapingItem = null;
 		return Pass;
