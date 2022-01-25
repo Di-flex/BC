@@ -13,15 +13,15 @@ let KinkyDungeonHalfDamageTypes = ["tickle", "charm", "drain"];
 
 // Weapons
 var KinkyDungeonPlayerWeapon = null;
-var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 1.0, type: "unarmed", unarmed: true, sfx: "Unarmed"};
+var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, sfx: "Unarmed"};
 var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 var KinkyDungeonWeapons = {
-	"Knife": {name: "Knife", dmg: 2.5, chance: 1.0, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
+	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.3, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
 	"Axe": {name: "Axe", dmg: 5, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
 	"Hammer": {name: "Hammer", dmg: 8, chance: 1.0, staminacost: 3, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
-	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 0.7, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
+	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
 function KinkyDungeonFindWeapon(Name) {

@@ -137,7 +137,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "VinePlant", color: "#00FF00", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"]),
 		ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", specialCD: 99, specialAttack: "Stun", specialAttackPoints: 1, specialRemove: "Bind",
-		visionRadius: 3, ambushRadius: 1.9, blindSight: 5, maxhp: 10, minLevel:0, weight:10, movePoints: 1, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 2,
+		visionRadius: 3, ambushRadius: 1.9, blindSight: 5, maxhp: 10, minLevel:0, weight:10, movePoints: 1, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {"passage": -50, "adjChest": 8, "door": 8}, floors:[2], shrines: ["Rope", "Will"]},
 	{name: "Bramble", color: "#00FF00", hitsfx: "DealDamage", tags: KDMapInit(["removeDoorSpawn", "plant", "minor", "melee", "slashsevereweakness", "firesevereweakness", "unarmedresist", "crushresist"]),
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "wander", specialCD: 2, specialAttack: "Slow", specialAttackPoints: 1,
@@ -490,7 +490,6 @@ let KinkyDungeonFastStruggleSuppress = false;
 function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	let reenabled = false;
 	let reenabled2 = false;
-	let tooltip = false;
 	if (KinkyDungeonFastMoveSuppress) { //&& !CommonIsMobile
 		KinkyDungeonFastMove = true;
 		KinkyDungeonFastMovePath = [];
@@ -540,11 +539,6 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		if (KinkyDungeonEntities[E].x >= CamX && KinkyDungeonEntities[E].y >= CamY && KinkyDungeonEntities[E].x < CamX + KinkyDungeonGridWidthDisplay && KinkyDungeonEntities[E].y < CamY + KinkyDungeonGridHeightDisplay) {
 			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
 				enemy.revealed = true;
-				if (!tooltip && MouseIn((tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
-					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
-					DrawTextFit(TextGet("Name" + enemy.Enemy.name), (tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2, 250, "white", "black");
-					tooltip = true;
-				}
 				if (!enemy.Enemy.allied && KinkyDungeonLightGet(KinkyDungeonEntities[E].x, KinkyDungeonEntities[E].y) > 0 && KinkyDungeonFastMove &&
 					(enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) {
 					if (KinkyDungeonFastMove && !KinkyDungeonFastMoveSuppress && !reenabled)
@@ -668,20 +662,29 @@ function KinkyDungeonBar(x, y, w, h, value, foreground = "#66FF66", background =
 }
 
 function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
+	let tooltip = false;
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		var enemy = KinkyDungeonEntities[E];
 		let playerDist = Math.max(Math.abs(KinkyDungeonEntities[E].x - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonEntities[E].y - KinkyDungeonPlayerEntity.y));
 		if (enemy.x >= CamX && enemy.y >= CamY && enemy.x < CamX + KinkyDungeonGridWidthDisplay && enemy.y < CamY + KinkyDungeonGridHeightDisplay
-			&& (!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
-			&& (enemy.Enemy.allied || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp) && KinkyDungeonLightGet(enemy.x, enemy.y) > 0))) {
+			&& KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
 			let xx = enemy.visual_x ? enemy.visual_x : enemy.x;
 			let yy = enemy.visual_y ? enemy.visual_y : enemy.y;
-			if (enemy.lifetime != undefined && enemy.maxlifetime > 0 && enemy.maxlifetime < 999) {
-				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 12,
-					KinkyDungeonGridSizeDisplay, 12, enemy.lifetime / enemy.maxlifetime * 100, "#cccccc", "#000000");
+			if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
+				&& (enemy.Enemy.allied || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp)))) {
+				if (enemy.lifetime != undefined && enemy.maxlifetime > 0 && enemy.maxlifetime < 999) {
+					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 12,
+						KinkyDungeonGridSizeDisplay, 12, enemy.lifetime / enemy.maxlifetime * 100, "#cccccc", "#000000");
+				}
+				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
+					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, enemy.Enemy.allied ? "#00ff88" : "#ff0000", enemy.Enemy.allied ? "#aa0000" : "#000000");
 			}
-			KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
-				KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, enemy.Enemy.allied ? "#00ff88" : "#ff0000", enemy.Enemy.allied ? "#aa0000" : "#000000");
+			if (!tooltip && MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
+				KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+				DrawTextFit(TextGet("Name" + enemy.Enemy.name), 1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, 1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/5, 100, "black", "black");
+				DrawTextFit(TextGet("Name" + enemy.Enemy.name), canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/5, 100, "white", "black");
+				tooltip = true;
+			}
 		}
 	}
 }

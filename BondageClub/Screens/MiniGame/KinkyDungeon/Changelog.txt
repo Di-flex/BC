@@ -365,6 +365,8 @@ Bugfix:
 - Fixed weapons not costing the right amount of stamina
 - Added wait button
 - Dex created a system for the guards to take you on a tour of the jail :)
+- Tweaked various difficulties of restraints, Remove is generally slower but costs less stamina
+- Changed up the elemental weights a little
 
 2.53
 
