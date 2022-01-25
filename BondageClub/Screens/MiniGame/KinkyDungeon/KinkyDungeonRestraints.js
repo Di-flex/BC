@@ -401,6 +401,15 @@ function KinkyDungeonHasGhostHelp() {
 	return (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonGhostDecision <= 1);
 }
 
+function KinkyDungeonIsWearingLeash() {
+	for (let restraint of KinkyDungeonRestraintList()) {
+		if (restraint.restraint && restraint.restraint.leash) {
+			return true;
+		}
+	}
+	return false;
+}
+
 function KinkyDungeonIsHandsBound(ApplyGhost) {
 	return (!ApplyGhost || !KinkyDungeonHasGhostHelp()) &&
 		(InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"));
