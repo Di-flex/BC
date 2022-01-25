@@ -14,9 +14,9 @@ var KinkyDungeonShrineBaseCosts = {
 let KinkyDungeonOrbAmount = 0;
 
 var KinkyDungeonShrineBaseCostGrowth = {
-	"Elements": 2,
-	"Conjure": 2,
-	"Illusion": 2,
+	"Elements": 1.75,
+	"Conjure": 1.75,
+	"Illusion": 1.75,
 };
 
 let KinkyDungeonGhostDecision = 0;
@@ -84,7 +84,7 @@ function KinkyDungeonShrineCost(type) {
 	}
 
 	let mult = 1.0;
-	let growth = 1.1;
+	let growth = 1.33;
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
@@ -114,7 +114,7 @@ function KinkyDungeonPayShrine(type) {
 		rep = spell.level;*/
 		KinkyDungeonSpellLevel[type] += 1;
 		ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
-		rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.5));
+		rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.25));
 
 	} else if (type == "Will") {
 		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);

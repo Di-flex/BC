@@ -88,7 +88,7 @@ function KinkyDungeonLoot(Level, Index, Type) {
 			if (prereqs) {
 				let weightMult = 1.0;
 				let weightBonus = 0;
-				if (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Loot == "normal") {
+				if (Type == "chest") {
 					if (KinkyDungeonSpecialLoot && loot.special) weightBonus += loot.special;
 					else if (KinkyDungeonSpecialLoot) weightMult = 0;
 				}
@@ -162,6 +162,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 	if (Loot.name == "spell_points") {
 		let amount = 1;
 		KinkyDungeonSpellPoints += amount;
+		KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `+${amount} Spell Points!!!`, "#8888ff", 5, true);
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("AMOUNT", "" + amount);
 	} else if (Loot.name == "spell_illusion_low") {
@@ -272,6 +273,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("XXX", "" + value);
 		KinkyDungeonAddGold(value);
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, `$+{value} GP`, "white", 5);
 	}
 	return Replacemsg;
 }

@@ -226,7 +226,7 @@ let KinkyDungeonRestraints = [
 	{inventory: true, name: "ObsidianAnkleCuffs2", Asset: "OrnateAnkleCuffs", LinkableBy: ["Wrapping"], UnLink: "ObsidianAnkleCuffs", Type: "Closed", Color: ["#675F50", "#171222", "#9B63C5"], Group: "ItemFeet", blockfeet: true, power: 9, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, enemyTags: {"obsidianRestraints":6}, playerTags: {"ItemFeetFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Cuffs"],
 		events: [{trigger: "remove", type: "unlinkItem"}]},
 	{inventory: true, name: "ObsidianArmCuffs", Asset: "OrnateCuffs", LinkableBy: ["Armbinders", "Straitjackets", "Boxbinders"], Link: "ObsidianArmCuffs2", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"obsidianRestraints":24}, playerTags: {"ItemArmsFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Cuffs"],
-		events: [{trigger: "hit", type: "linkItem", chance: 0.33}]},
+		events: [{trigger: "hit", type: "linkItem", chance: 0.33}, {trigger: "defeat", type: "linkItem", chance: 1.0}]},
 	{name: "ObsidianArmCuffs2", Asset: "OrnateCuffs", Type: "Wrist", LinkableBy: ["Armbinders", "Boxbinders"], Link: "ObsidianArmCuffs3", UnLink: "ObsidianArmCuffs", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": 0.2, "Pick": 0.25}, helpChance: {"Remove": 0.4}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
 		events: [{trigger: "remove", type: "unlinkItem"}, {trigger: "hit", type: "linkItem", chance: 0.33}]},
 	{name: "ObsidianArmCuffs3", Asset: "OrnateCuffs", Type: "Both", LinkableBy: ["Armbinders"], UnLink: "ObsidianArmCuffs4", Color: ["#171222", "#9B63C5"], Group: "ItemArms", power: 9, weight: 0, strictness: 0.1, escapeChance: {"Struggle": -0.1, "Cut": -0.2, "Remove": -0.2, "Pick": 0.25}, helpChance: {"Remove": 0.4}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"],
@@ -1111,6 +1111,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 						InventoryRemove(KinkyDungeonPlayer, remove);
 					}
 				InventoryWear(KinkyDungeonPlayer, restraint.Asset, restraint.Group, restraint.power);
+				KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `+${TextGet("Restraint" + restraint.name)}!`, "pink", 5, true);
 				let placed = InventoryGet(KinkyDungeonPlayer, restraint.Group);
 				let placedOnPlayer = false;
 				if (!placed) console.log(`Error placing ${restraint.name} on player!!!`);

@@ -3,7 +3,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.55"
+KinkyDungeon,"Kinky Dungeon v2.56"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -1894,8 +1894,8 @@ KinkyDungeonGhostUnhelpfulChaste4,"Ghost: How's it feel to be under lock and key
 KinkyDungeonTrapSkeletons,"You step on a pressure plate and a number of skeletons rise up!"
 KinkyDungeonTrapBandits,"You are ambushed by bandits!"
 
-KinkyDungeonOrbIntro,"You have broken a magic orb, gaining +1 Spell Points."
-KinkyDungeonOrbIntro2,"You must choose one of the goddesses to anger below."
+KinkyDungeonOrbIntro,"You have broken a magic orb, gaining a Spell Point and angering a goddess."
+KinkyDungeonOrbIntro2,"Choose one. She will send her minions after you."
 
 KinkyDungeonFreeze,You are frozen!
 KinkyDungeonChill,You are chilled!

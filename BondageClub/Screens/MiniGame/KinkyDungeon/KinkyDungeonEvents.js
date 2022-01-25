@@ -119,34 +119,24 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 	} else if (Event == "hit") {
 		for (let e of item.events) {
 			if (e.type == "linkItem" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
-				for (let inv of KinkyDungeonRestraintList()) {
-					let subMult = 1;
-					let chance = e.chance ? e.chance : 1.0;
-					if (e.noSub != undefined) {
-						let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
-						subMult = e.noSub + (1 - e.noSub * rep);
-					}
-					if (inv.restraint && inv.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
-						let newRestraint = KinkyDungeonGetRestraintByName(inv.restraint.Link);
-						/*let oldLock = [];
-						let oldTightness = [];
-						if (inv.oldLock) oldLock = inv.oldLock;
-						if (inv.oldTightness) oldTightness = inv.oldTightness;
-						let lock = inv.lock ? inv.lock : "";
-						let tightness = inv.tightness ? inv.tightness : 0;
-						oldLock.push(lock);
-						oldTightness.push(tightness);
-						if (newRestraint) {
-							KinkyDungeonAddRestraint(newRestraint, inv.tightness ? inv.tightness : 0, true, "", false);
-							let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
-							if (newItem) newItem.oldLock = oldLock;
-							if (newItem) newItem.oldTightness = oldTightness;
-							KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + inv.restraint.name), "red", 2);
-						}*/
-
-						// New restraint, item being linked to, tightness, lock
-						KinkyDungeonLinkItem(newRestraint, inv, inv.tightness, "");
-					}
+				let subMult = 1;
+				let chance = e.chance ? e.chance : 1.0;
+				if (e.noSub != undefined) {
+					let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
+					subMult = e.noSub + (1 - e.noSub * rep);
+				}
+				if (item.restraint && item.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
+					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
+					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+				}
+			}
+		}
+	} else if (Event == "defeat") {
+		for (let e of item.events) {
+			if (e.type == "linkItem") {
+				if (item.restraint && item.restraint.Link && (Math.random() < e.chance)) {
+					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
+					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 				}
 			}
 		}

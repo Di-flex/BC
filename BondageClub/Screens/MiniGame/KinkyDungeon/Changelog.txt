@@ -383,6 +383,11 @@ Bugfix:
 - Struggling makes noise
 
 2.55
+- Hotfix for no loot from chests
+
+2.56
+- Blue locked chests should now have better loot
+- More visual cues for loot and restraints
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
