@@ -276,7 +276,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonDisarm(Enemy);
 	}
 	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
-		KinkyDungeonAlert = 5;
+		KinkyDungeonAlert = 4;
 	} else {
 		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2)
 			KinkyDungeonAlert = 1;

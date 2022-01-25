@@ -965,6 +965,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (!enemy.warningTiles) enemy.warningTiles = [];
 			let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, true, true);
 			let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, false);
+			let canSeePlayerMedium = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/1.5, false, false);
+			let canSeePlayerClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/2, false, false);
+			let canSeePlayerVeryClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/3, false, false);
 			let canShootPlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true);
 
 			if (enemy.Enemy.projectileAttack && !canShootPlayer) followRange = 1;
@@ -974,7 +977,12 @@ function KinkyDungeonUpdateEnemies(delta) {
 				ignore = false;
 			}
 
-			if ((canSensePlayer || canSeePlayer) && KinkyDungeonTrackSneak(enemy, delta, player)) enemy.aware = true;
+			let sneakMult = 0.25;
+			if (canSeePlayerMedium) sneakMult += 0.35;
+			if (canSeePlayerClose) sneakMult += 0.35;
+			if (canSeePlayerVeryClose) sneakMult += 0.5;
+			if (KinkyDungeonAlert > 0) sneakMult += 1;
+			if ((canSensePlayer || canSeePlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) enemy.aware = true;
 
 			let kite = false;
 			if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
