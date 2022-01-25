@@ -17,10 +17,12 @@ var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", una
 var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 var KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
-	"Sword": {name: "Sword", dmg: 3, chance: 1.3, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
-	"Axe": {name: "Axe", dmg: 5, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
-	"Hammer": {name: "Hammer", dmg: 8, chance: 1.0, staminacost: 3, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing"},
+	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 2, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
+		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
+	"Hammer": {name: "Hammer", dmg: 6, chance: 1.0, staminacost: 3, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
+		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
@@ -264,7 +266,8 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		Enemy.disarmflag = 0;
 		disarm = true;
 	}
-	let eva = !disarm && KinkyDungeonEvasion(Enemy);
+	let evaded = KinkyDungeonEvasion(Enemy);
+	let eva = !disarm && evaded;
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	if (buffdmg) dmg.damage = Math.max(0, dmg.damage + buffdmg);
@@ -289,6 +292,15 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		if (!Enemy.disarmflag) Enemy.disarmflag = 0;
 		Enemy.disarmflag += Enemy.Enemy.disarm;
 	}
+	let data = {
+		targetX: Enemy.x,
+		targetY: Enemy.y,
+		enemy: Enemy,
+		miss: evaded,
+		disarm: disarm,
+	};
+	KinkyDungeonSendWeaponEvent("playerAttack", data);
+	KinkyDungeonSendMagicEvent("playerAttack", data);
 }
 
 function KinkyDungeonUpdateBullets(delta) {
@@ -582,6 +594,16 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 
 		if (KinkyDungeonBullets[E].x >= CamX && KinkyDungeonBullets[E].y >= CamY && KinkyDungeonBullets[E].x < CamX + KinkyDungeonGridWidthDisplay && KinkyDungeonBullets[E].y < CamY + KinkyDungeonGridHeightDisplay) {
 			KinkyDungeonContext.drawImage(spriteCanvas,  (tx - CamX - (bullet.width-1)/2)*KinkyDungeonGridSizeDisplay, (ty - CamY - (bullet.height-1)/2)*KinkyDungeonGridSizeDisplay);
+		}
+	}
+}
+
+function KinkyDungeonSendWeaponEvent(Event, data) {
+	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.events) {
+		for (let e of KinkyDungeonPlayerDamage.events) {
+			if (e.trigger == Event) {
+				KinkyDungeonHandleWeaponEvent(Event, KinkyDungeonPlayerDamage, data);
+			}
 		}
 	}
 }

@@ -49,7 +49,7 @@ StatStamina,"SP: CURRENT/MAX"
 StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"MP: CURRENT/MAX"
 StatUsePotion,"Use Potion"
-KinkyDungeonManaCost," MP + COMPONENTS"
+KinkyDungeonManaCost," MP"
 KinkyDungeonSleep,"Sleep 40 turns"
 
 Wait,"You wait."
@@ -189,7 +189,7 @@ KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns.
 
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
-KinkyDungeonInventoryItemHammerDesc2,"Hard to hit with, but deals good damage."
+KinkyDungeonInventoryItemHammerDesc2,"Deals crushing damage and knocks the target back."
 KinkyDungeonInventoryItemBoltCutters,Bolt Cutters
 KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon."
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
@@ -204,7 +204,7 @@ KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with, even while bound!"
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
-KinkyDungeonInventoryItemAxeDesc2,"A respectable weapon with a mix of damage and agility."
+KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target."
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Kick
 KinkyDungeonAccuracy,"Hit Chance: "
@@ -1583,9 +1583,18 @@ KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
 KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gain +20 damage for Duration turns.
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
+KinkyDungeonSpellFlameBlade,Flame Blade
+KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 3 fire damage to adjacent targets.
+KinkyDungeonSpellFlameStrike,Flame Blade
+
+KinkyDungeonSpellFlameBlade,Flame Blade
+KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 3 fire damage to adjacent targets.
+KinkyDungeonSpellFlameStrike,Flame Blade
+
+
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce your slow level by 1 and reduce melee stamina cost by +400% (0.1/atk) until you sleep.
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce slow level by 1 and gives +100% melee stamina cost reduction (half, assuming no other buffs) until you sleep.
 KinkyDungeonSpellCastIronBlood,You say the transformation chant and your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
@@ -1793,6 +1802,11 @@ KinkyDungeonMagicLevel,"Level: "
 KinkyDungeonMagicCost,"Spell Point Cost: "
 KinkyDungeonMagicManaCost, "Mana Cost: "
 
+KinkyDungeonSpellRemove0,"Remove Spell 1"
+KinkyDungeonSpellRemove1,"Remove Spell 2"
+KinkyDungeonSpellRemove2,"Remove Spell 3"
+KinkyDungeonSpellRemove3,"Remove Spell 4"
+KinkyDungeonSpellRemove4,"Remove Spell 5"
 KinkyDungeonSpell0,"Replace Spell 1"
 KinkyDungeonSpell1,"Replace Spell 2"
 KinkyDungeonSpell2,"Replace Spell 3"

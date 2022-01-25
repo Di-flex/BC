@@ -44,7 +44,7 @@ function KinkyDungeonHandleInventory() {
 			KinkyDungeonAttemptConsumable(item.name, 1);
 		} else if (KinkyDungeonCurrentFilter == "Weapons") {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
-			if (weapon && weapon != "Knife") {
+			if (weapon && weapon != "knife") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
 					KinkyDungeonPlayerWeapon = weapon;

@@ -165,8 +165,10 @@ function KinkyDungeonDrawInputs() {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);
+			let comp = "";
+			if (spell.components && spell.components.length > 0) comp = " + " + components;
 			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + i*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "black");
-			DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost").replace("COMPONENTS", components), 1275 + i*KinkyDungeonSpellChoiceOffset, 880, KinkyDungeonSpellChoiceOffset * 0.95, "#ccddFF", "black");
+			DrawTextFit(spell.manacost+ TextGet("KinkyDungeonManaCost") + comp, 1275 + i*KinkyDungeonSpellChoiceOffset, 880, KinkyDungeonSpellChoiceOffset * 0.95, "#ccddFF", "black");
 			DrawButton(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", "White", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
 		}
 	}

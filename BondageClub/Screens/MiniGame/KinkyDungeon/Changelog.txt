@@ -367,6 +367,12 @@ Bugfix:
 - Dex created a system for the guards to take you on a tour of the jail :)
 - Tweaked various difficulties of restraints, Remove is generally slower but costs less stamina
 - Changed up the elemental weights a little
+- Added tooltips so you can view enemy names
+
+2.53
+- New spell: Flame blade
+- Axe now cleaves
+- Hammer now knocks back
 
 2.53
 

@@ -84,7 +84,7 @@ function KinkyDungeonShrineCost(type) {
 	}
 
 	let mult = 1.0;
-	let growth = 1.33;
+	let growth = 1.1;
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 

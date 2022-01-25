@@ -163,3 +163,41 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 
 }
+
+
+
+function KinkyDungeonHandleMagicEvent(Event, spell, data) {
+	if (Event == "playerAttack") {
+		for (let e of spell.events) {
+			if (e.type == "FlameBlade" && KinkyDungeonHasMana(spell.manacost) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+				KinkyDungeonChangeMana(-spell.manacost);
+				KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("FlameStrike", true), undefined, undefined, undefined);
+			}
+		}
+	}
+}
+
+function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
+	if (Event == "playerAttack") {
+		for (let e of weapon.events) {
+			if (e.type == "Cleave" && data.enemy && !data.disarm) {
+				for (let enemy of KinkyDungeonEntities) {
+					if (enemy != data.enemy) {
+						let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
+						if (dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
+						}
+					}
+				}
+			} else if (e.type == "Knockback" && e.dist && data.enemy && data.targetX && data.targetY && !data.evaded && !data.disarm) {
+				let newX = data.targetX + Math.round(e.dist * (data.targetX - KinkyDungeonPlayerEntity.x));
+				let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
+				if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY))
+					&& (e.dist == 1|| KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
+					data.enemy.x = newX;
+					data.enemy.y = newY;
+				}
+			}
+		}
+	}
+}
