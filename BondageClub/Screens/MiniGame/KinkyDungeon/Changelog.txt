@@ -361,6 +361,10 @@ Bugfix:
 
 2.52
 - Iron blood lasts till the end of the floor
+- Some balancing changes to sleep waves
+- Fixed weapons not costing the right amount of stamina
+- Added wait button
+- Dex created a system for the guards to take you on a tour of the jail :)
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -1674,7 +1674,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
-		if (KinkyDungeonTotalSleepTurns > 30 && KinkyDungeonEntities.length < 20 + effLevel) {
+		if (KinkyDungeonTotalSleepTurns > 60 && KinkyDungeonEntities.length < 20 + effLevel) {
 			if (KinkyDungeonTotalSleepTurns > 90) hunters = true;
 			if (KinkyDungeonTotalSleepTurns > 130 && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
 
