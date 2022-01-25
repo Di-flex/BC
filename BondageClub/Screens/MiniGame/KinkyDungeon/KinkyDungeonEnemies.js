@@ -1813,7 +1813,7 @@ function KinkyDungeonHandleJailSpawns() {
 
 			if (Math.random() < 0.05 + level * 0.4 / 100) {
 				KinkyDungeonJailGuard.CurrentAction = "jailTease";
-			} else if (Math.random() < 0.03) {
+			} else if (Math.random() < 0.03 && KinkyDungeonSleepTurns < 1) {
 				KinkyDungeonJailGuard.RemainingJailLeashTourWaypoints = Math.ceil(Math.random() * 3);
 				KinkyDungeonJailGuard.CurrentAction = "jailLeashTour";
 			} else {
