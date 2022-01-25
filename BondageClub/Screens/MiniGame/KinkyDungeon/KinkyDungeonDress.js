@@ -207,11 +207,11 @@ function KinkyDungeonDressPlayer() {
 
 	KinkyDungeonCheckClothesLoss = false;
 
-	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 0) {
+	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 1) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && !KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "Kneel", false);
 		}
-	} else if (KinkyDungeonSleepTurns < 1) {
+	} else if (KinkyDungeonSleepTurns < 2) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 		}
