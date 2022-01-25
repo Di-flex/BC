@@ -1828,6 +1828,8 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonSendTextMessage(5, TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name), "yellow", 1);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
+					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
+					KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.y;
 				}
 
 				if (KinkyDungeonJailGuard.CurrentAction === "jailAddRestraints") {
@@ -1842,6 +1844,8 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
+					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
+					KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.y;
 				}
 
 				if (KinkyDungeonJailGuard.CurrentAction === "jailRemoveRestraints") {
@@ -1853,10 +1857,12 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
+					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
+					KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.y;
 				}
 
 			} else {
-				KinkyDungeonJailGuard.gx = KinkyDungeonPlayerEntity.x + 1;
+				KinkyDungeonJailGuard.gx = KinkyDungeonPlayerEntity.x;
 				KinkyDungeonJailGuard.gy = KinkyDungeonPlayerEntity.y;
 			}
 		}
