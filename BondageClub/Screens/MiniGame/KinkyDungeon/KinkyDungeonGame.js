@@ -381,20 +381,20 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
 	if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 
-	if (KinkyDungeonGoddessRep.Rope < -10) tags.push("ropeAnger");
-	if (KinkyDungeonGoddessRep.Rope < -25) tags.push("ropeRage");
-	if (KinkyDungeonGoddessRep.Leather < -10) tags.push("leatherAnger");
-	if (KinkyDungeonGoddessRep.Leather < -25) tags.push("leatherRage");
-	if (KinkyDungeonGoddessRep.Metal < -10) tags.push("metalAnger");
-	if (KinkyDungeonGoddessRep.Metal < -25) tags.push("metalRage");
-	if (KinkyDungeonGoddessRep.Latex < -10) tags.push("latexAnger");
-	if (KinkyDungeonGoddessRep.Latex < -25) tags.push("latexRage");
-	if (KinkyDungeonGoddessRep.Elements < -10) tags.push("elementsAnger");
-	if (KinkyDungeonGoddessRep.Elements < -25) tags.push("elementsRage");
-	if (KinkyDungeonGoddessRep.Conjure < -10) tags.push("conjureAnger");
-	if (KinkyDungeonGoddessRep.Conjure < -25) tags.push("conjureRage");
-	if (KinkyDungeonGoddessRep.Illusion < -10) tags.push("illusionAnger");
-	if (KinkyDungeonGoddessRep.Illusion < -25) tags.push("illusionRage");
+	if (KinkyDungeonGoddessRep.Rope < -19) tags.push("ropeAnger");
+	if (KinkyDungeonGoddessRep.Rope < -31) tags.push("ropeRage");
+	if (KinkyDungeonGoddessRep.Leather < -19) tags.push("leatherAnger");
+	if (KinkyDungeonGoddessRep.Leather < -31) tags.push("leatherRage");
+	if (KinkyDungeonGoddessRep.Metal < -19) tags.push("metalAnger");
+	if (KinkyDungeonGoddessRep.Metal < -31) tags.push("metalRage");
+	if (KinkyDungeonGoddessRep.Latex < -19) tags.push("latexAnger");
+	if (KinkyDungeonGoddessRep.Latex < -31) tags.push("latexRage");
+	if (KinkyDungeonGoddessRep.Elements < -19) tags.push("elementsAnger");
+	if (KinkyDungeonGoddessRep.Elements < -31) tags.push("elementsRage");
+	if (KinkyDungeonGoddessRep.Conjure < -19) tags.push("conjureAnger");
+	if (KinkyDungeonGoddessRep.Conjure < -31) tags.push("conjureRage");
+	if (KinkyDungeonGoddessRep.Illusion < -19) tags.push("illusionAnger");
+	if (KinkyDungeonGoddessRep.Illusion < -31) tags.push("illusionRage");
 	if (security > 0) tags.push("jailbreak");
 	if (security > 40) tags.push("highsecurity");
 }
