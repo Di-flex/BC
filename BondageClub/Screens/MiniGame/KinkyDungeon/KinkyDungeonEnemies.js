@@ -878,7 +878,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let moved = false;
 		let ignore = false;
 		let followRange = enemy.Enemy.followRange;
-		let chaseRadius = Math.max(enemy.Enemy.visionRange * 2, enemy.Enemy.blindSight * 2);
+		let chaseRadius = 3 + 2*Math.max(enemy.Enemy.visionRadius ? enemy.Enemy.visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 		let ignoreLocks = enemy.Enemy.keys;
 		let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
 
@@ -1022,7 +1022,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				let patrolChange = false;
 
 				// try 12 times to find a moveable tile, with some random variance
-				if (AI != "wander" && !ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= 10+chaseRadius*2)) && AI != "ambush" && (enemy.aware || canSensePlayer)) {
+				if (AI != "wander" && !ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= chaseRadius)) && AI != "ambush" && (enemy.aware || canSensePlayer)) {
 					if (!enemy.aware) enemy.path = undefined;
 					//enemy.aware = true;
 					for (let T = 0; T < 12; T++) {
@@ -1642,10 +1642,10 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (enemy.lifetime <= 0) enemy.hp = 0;
 		}
 	}
-	KinkyDungeonAlert = 0;
 
 	KinkyDungeonHandleJailSpawns();
 	KinkyDungeonHandleWanderingSpawns(delta);
+	KinkyDungeonAlert = 0;
 }
 
 // Unique ID for enemies, to prevent bullets from hitting them

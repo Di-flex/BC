@@ -393,6 +393,14 @@ Bugfix:
 - New spell: Truesight
 - New spell: Heart Sense
 
+2.57
+- Fixed the text display from chest gold
+- Added noise factor to many spells
+- Enemy chase AI improved and fixed in a lot of cases
+- Flash stun duration to 3 from 5
+- Greater flash mana cost to 6 from 8
+- Focused flash mana cost to 9 from 12, duration to 14 from 20
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
