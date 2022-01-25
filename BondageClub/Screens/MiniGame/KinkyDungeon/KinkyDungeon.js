@@ -140,6 +140,7 @@ function KinkyDungeonIsPlayer() {
 
 let KinkyDungeonCreditsPos = 0;
 let KinkyDungeonSound = true;
+let KinkyDungeonDrool = true;
 
 function KinkyDungeonRun() {
 	let BG = "BrickWall";
