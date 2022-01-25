@@ -155,13 +155,50 @@ function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 }
 
 
-
 function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 	if (Event == "playerAttack") {
 		for (let e of spell.events) {
 			if (e.type == "FlameBlade" && KinkyDungeonHasMana(spell.manacost) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
 				KinkyDungeonChangeMana(-spell.manacost);
 				KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("FlameStrike", true), undefined, undefined, undefined);
+			}
+		}
+	} else if (Event == "vision") {
+		for (let e of spell.events) {
+			if (e.type == "TrueSight" && KinkyDungeonHasMana(spell.manacost)) {
+				if (data.update)
+					KinkyDungeonChangeMana(-spell.manacost * data.update);
+				KinkyDungeonSeeThroughWalls = Math.max(KinkyDungeonSeeThroughWalls, 2);
+			}
+		}
+	} else if (Event == "draw") {
+		for (let e of spell.events) {
+			if (e.type == "EnemySense") {
+				let activate = false;
+				if (KinkyDungeonHasMana(spell.manacost) && !KinkyDungeonPlayerBuffs.EnemySense) {
+					KinkyDungeonChangeMana(-spell.manacost * data.update);
+					KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "EnemySense", type: "EnemySense", duration: 11});
+					activate = true;
+				}
+				if (KinkyDungeonPlayerBuffs.EnemySense && KinkyDungeonPlayerBuffs.EnemySense.duration > 1)
+					for (let E = 0; E < KinkyDungeonEntities.length; E++) {
+						let enemy = KinkyDungeonEntities[E];
+						if (!KinkyDungeonLightGet(enemy.x, enemy.y)
+							&& Math.sqrt((KinkyDungeonPlayerEntity.x - enemy.x) * (KinkyDungeonPlayerEntity.x - enemy.x) + (KinkyDungeonPlayerEntity.y - enemy.y) * (KinkyDungeonPlayerEntity.y - enemy.y)) < e.dist) {
+							let color = "#882222";
+							if (enemy.Enemy.stealth > 0 || enemy.Enemy.AI == "ambush") color = "#441111";
+							if (color == "#882222" || Math.sqrt((KinkyDungeonPlayerEntity.x - enemy.x) * (KinkyDungeonPlayerEntity.x - enemy.x) + (KinkyDungeonPlayerEntity.y - enemy.y) * (KinkyDungeonPlayerEntity.y - enemy.y)) < e.distStealth)
+								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura.png", KinkyDungeonContext,
+									(enemy.visual_x - data.CamX - data.CamX_offset)*KinkyDungeonGridSizeDisplay,
+									(enemy.visual_y - data.CamY - data.CamY_offset)*KinkyDungeonGridSizeDisplay,
+									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
+									color, true, []);
+						}
+					}
+				else if (!activate) {
+					KinkyDungeonDisableSpell("EnemySense");
+					delete KinkyDungeonPlayerBuffs.EnemySense;
+				}
 			}
 		}
 	}
@@ -180,12 +217,14 @@ function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
 					}
 				}
 			} else if (e.type == "Knockback" && e.dist && data.enemy && data.targetX && data.targetY && !data.evaded && !data.disarm) {
-				let newX = data.targetX + Math.round(e.dist * (data.targetX - KinkyDungeonPlayerEntity.x));
-				let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
-				if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY)) && KinkyDungeonNoEnemy(newX, newY, true)
-					&& (e.dist == 1|| KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
-					data.enemy.x = newX;
-					data.enemy.y = newY;
+				if (data.enemy.Enemy && !data.enemy.Enemy.tags.has("unflinching") && !data.enemy.Enemy.tags.has("stunresist") && !data.enemy.Enemy.tags.has("unstoppable")) {
+					let newX = data.targetX + Math.round(e.dist * (data.targetX - KinkyDungeonPlayerEntity.x));
+					let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
+					if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY)) && KinkyDungeonNoEnemy(newX, newY, true)
+						&& (e.dist == 1|| KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
+						data.enemy.x = newX;
+						data.enemy.y = newY;
+					}
 				}
 			}
 		}

@@ -388,6 +388,10 @@ Bugfix:
 2.56
 - Blue locked chests should now have better loot
 - More visual cues for loot and restraints
+- Obsidian cuffs should now get linked if you are defeated
+- Hammer damage reduced from 6 to 5
+- New spell: Truesight
+- New spell: Heart Sense
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

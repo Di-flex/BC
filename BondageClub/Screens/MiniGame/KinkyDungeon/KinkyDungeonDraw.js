@@ -136,7 +136,8 @@ function KinkyDungeonDrawGame() {
 				// Get lighting grid
 				if (KinkyDungeonUpdateLightGrid) {
 					KinkyDungeonUpdateLightGrid = false;
-					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }]);
+					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }], KDVisionUpdate);
+					KDVisionUpdate = 0;
 				}
 
 				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
@@ -241,6 +242,9 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.fill();
 					}
 				}
+
+				KinkyDungeonSendMagicEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
+				KDDrawUpdate = 0;
 
 				// Draw targeting reticule
 				if (!KinkyDungeonAutoWait && !KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {

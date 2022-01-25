@@ -1590,8 +1590,14 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 
 let KinkyDungeonLastAction = "";
 let KinkyDungeonLastTurnAction = "";
+let KDDrawUpdate = 0;
+let KDVisionUpdate = 0;
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	if (delta > 0) {
+		KDDrawUpdate = delta;
+		KDVisionUpdate = delta;
+	}
 	KDRecentRepIndex = 0;
 	let start = performance.now();
 	KinkyDungeonRestraintAdded = false;

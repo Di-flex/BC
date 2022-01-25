@@ -220,7 +220,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 	} else if (Loot.name == "potion_frigid") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
 	} else if (Loot.name == "trap_armbinder") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinder"), MiniGameKinkyDungeonCheckpoint, true, false);
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
@@ -232,37 +232,37 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 				Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
 			else Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinderHarness"));
 	} else if (Loot.name == "trap_cuffs") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapCuffs"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapCuffs"));
 	} else if (Loot.name == "trap_harness") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapHarness"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapHarness"));
 	} else if (Loot.name == "trap_gag") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapGag"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapGag"));
 	} else if (Loot.name == "trap_blindfold") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBlindfold"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBlindfold"));
 	} else if (Loot.name == "trap_boots") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBoots"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBoots"));
 	} else if (Loot.name == "trap_legirons") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapLegirons"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapLegirons"));
 	} else if (Loot.name == "trap_belt") {
-		value = Math.ceil((40 + 40 * Math.random()) * (1 + Floor/40));
+		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibe"), MiniGameKinkyDungeonCheckpoint, true, false);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)

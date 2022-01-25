@@ -144,6 +144,13 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 16, minLevel:0, weight:-80, movePoints: 99999, attackPoints: 1, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -50, "adjChest": -50, "door": -50, "open": 110}, floors:[2], shrines: ["Rope", "Will"]},
 
+	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "leatherRestraints", "glueresist", "leatherRestraintsHeavy", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
+		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
+		visionRadius: 6, maxhp: 14, minLevel:8, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"latexAnger": 2, "latexRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: []},
+
 	{name: "Alchemist", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "leatherRestraints", "glueresist", "leatherRestraintsHeavy", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		spells: ["AmpuleGreen", "AmpuleYellow", "AmpuleRed", "AmpuleBlue"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, kite: 1.5, projectileAttack: true,
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:0, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
@@ -1168,7 +1175,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 				let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
 				let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KinkyDungeonLeashingEnemy == enemy) ? enemy.Enemy.movePoints+1 : enemy.Enemy.attackPoints;
-				if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap)) {
+				if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, usingSpecial)) {
 					if (enemy.warningTiles.length == 0) {
 						let minrange = enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1;
 						if (usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
@@ -2122,12 +2129,12 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 	return false;
 }
 
-function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor) {
+function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor, usingSpecial) {
 	enemy.attackPoints += delta;
 
 	if (enemy.attackPoints >= points) {
 		enemy.attackPoints = 0;
-		if (points > 1)
+		if (points > 1) {
 			for (let T = 0; T < Tiles.length; T++) {
 				let ax = enemy.x + Tiles[T].x;
 				let ay = enemy.y + Tiles[T].y;
@@ -2136,7 +2143,13 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 					return true;
 				}
 			}
-		else return true;
+			if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
+				enemy.specialCD = enemy.Enemy.specialCD;
+			}
+			if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
+				enemy.specialCD = enemy.Enemy.specialCD;
+			}
+		} else return true;
 		enemy.warningTiles = [];
 	} else if (!enemy.Enemy.noCancelAttack) { // Verify player is in warningtiles and reset otherwise
 		let playerIn = false;

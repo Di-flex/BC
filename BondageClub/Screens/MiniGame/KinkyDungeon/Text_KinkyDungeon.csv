@@ -398,10 +398,16 @@ KillAlchemist,"The alchemist screams and runs."
 AttackAlchemistBind,"The Alchemist restrains you! (+RestraintAdded)"
 AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 
-NameAlchemistPet,Alchemist's Pet
-KillAlchemistPet,"The pet wolfgirl escapes!"
-AttackAlchemistPetStun,"The wolfgirl lunges at you with a powerful kick! (-DamageTaken SP)"
-AttackAlchemistPet,"The alchemists' wolfgirl cuddles with you! (-DamageTaken SP)"
+NameAlchemistPet,Wolfgirl
+KillAlchemistPet,"The wolfgirl escapes!"
+AttackAlchemistPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackAlchemistPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
+
+NameDrone,Drone
+KillDrone,"The drone fizzles and falls to the ground!"
+AttackDroneStun,"The drone zaps you with a restraining energy ray! (-DamageTaken SP)"
+AttackDrone,"The drone uses a short-ranged electrocution attack! (-DamageTaken SP)"
+AttackDroneBind,"The drone deconstructs itself into a set of bindings!"
 
 NameAlkahestor,Alkahestor
 KillAlkahestor,"The alkahestor resigns to her fate."
@@ -1593,9 +1599,11 @@ KinkyDungeonSpellFlameBlade,Flame Blade
 KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 3 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
-KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 3 fire damage to adjacent targets.
-KinkyDungeonSpellFlameStrike,Flame Blade
+KinkyDungeonSpellTrueSight,Truesight
+KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to see through walls.
+
+KinkyDungeonSpellEnemySense,Heartsense
+KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 10 turns.
 
 
 KinkyDungeonSpellIronBlood,Iron Blood

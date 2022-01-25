@@ -52,7 +52,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Shield", "Snare", "Wall", "Slime"],
 		// Passive
-		["FlameBlade"],
+		["FlameBlade", "TrueSight"],
 	],
 
 	//Page 2
@@ -64,7 +64,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["GreaterShield", "StormCrystal", "Decoy", ],
 		// Passive
-		[],
+		["EnemySense"],
 	],
 
 	//Page 3
@@ -159,6 +159,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "ShadowWarrior", sfx: "MagicSlash", school: "Illusion", manacost: 12, components: ["Verbal"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "ShadowWarrior", count: 1, time: 12}], power: 6, time: 12, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
 		{name: "Corona", sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert", noMiscast: true,
 			spellcast: {spell: "CoronaBeam", target: "target", directional:true, offset: false}, channel: 2},
+		{name: "TrueSight", school: "Illusion", manacost: 1, defaultOff: true, cancelAutoMove: true, components: [], level:1, type:"passive", events: [{type: "TrueSight", trigger: "vision"}]},
+		{name: "EnemySense", school: "Illusion", manacost: 10, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 8, distStealth: 4}]},
 	],
 };
 let KinkyDungeonSpellListEnemies = [
@@ -263,6 +265,15 @@ function KinkyDungeonFindSpell(name, SearchEnemies) {
 		if (spell) return spell;
 	}
 	return KinkyDungeonSearchSpell(KinkyDungeonSpells, name);
+}
+
+function KinkyDungeonDisableSpell(Name) {
+	for (let i = 0; i < KinkyDungeonSpellChoices.length; i++) {
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].name == Name) {
+			KinkyDungeonSpellChoicesToggle[i] = false;
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+		}
+	}
 }
 
 let KinkyDungeonSpellPress = 0;
@@ -593,6 +604,15 @@ function KinkyDungeonHandleSpell() {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive && (MouseIn(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
 			if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
 				KinkyDungeonSpellChoicesToggle[i] = !KinkyDungeonSpellChoicesToggle[i];
+				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].costOnToggle) {
+					if (KinkyDungeonHasMana(KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].manacost)) {
+						KinkyDungeonChangeMana(-KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].manacost);
+					} else KinkyDungeonSpellChoicesToggle[i] = false;
+				}
+				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].cancelAutoMove) {
+					KinkyDungeonFastMove = false;
+					KinkyDungeonFastMoveSuppress = false;
+				}
 				KinkyDungeonSpellPress = 0;
 				return true;
 			} else spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
@@ -816,7 +836,16 @@ function KinkyDungeonHandleMagic() {
 			if (!KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
 					KinkyDungeonSpellChoices[I] = KinkyDungeonCurrentPage;
-					KinkyDungeonSpellChoicesToggle[I] = true;
+					KinkyDungeonSpellChoicesToggle[I] = !KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].defaultOff;
+					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].costOnToggle) {
+						if (KinkyDungeonHasMana(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].manacost)) {
+							KinkyDungeonChangeMana(-KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].manacost);
+						} else KinkyDungeonSpellChoicesToggle[I] = false;
+					}
+					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].cancelAutoMove) {
+						KinkyDungeonFastMove = false;
+						KinkyDungeonFastMoveSuppress = false;
+					}
 					KinkyDungeonAdvanceTime(1);
 					if (KinkyDungeonTextMessageTime > 0)
 						KinkyDungeonDrawState = "Game";
