@@ -232,7 +232,12 @@ function KinkyDungeonRun() {
 					KinkyDungeonTotalSleepTurns += 1;
 				KinkyDungeonAdvanceTime(1);
 				KinkyDungeonSleepTime = CommonTime() + 10;
-				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax) KinkyDungeonSleepTurns = 0;
+				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
+					KinkyDungeonSleepTurns = 0;
+					if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
+						CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
+					}
+				}
 			}
 			if (KinkyDungeonSleepTurns == 0) {
 				KinkyDungeonChangeStamina(0);
