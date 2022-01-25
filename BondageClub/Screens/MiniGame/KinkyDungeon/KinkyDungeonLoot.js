@@ -17,7 +17,7 @@ var KinkyDungeonLootTable = {
 		//{name: "spell_illusion_low", magic: true, minLevel: 0, weight:1, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedIllusion", "lowlevel"]}, // lowlevel is spell levels 1-7
 		//{name: "spell_conjuration_low", magic: true, minLevel: 0, weight:1, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedConjure", "lowlevel"]}, // lowlevel is spell levels 1-7
 		//{name: "spell_elemental_low", magic: true, minLevel: 0, weight:1, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedElements", "lowlevel"]}, // lowlevel is spell levels 1-7
-		{name: "spell_points", magic: true, minLevel: 0, weight:1, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}, // lowlevel is spell levels 1-7
+		{name: "spell_points", magic: true, minLevel: 0, weight:1, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, special:100, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}, // lowlevel is spell levels 1-7
 		{name: "weapon_boltcutters", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["NoBoltCutters"]},
 		{name: "trap_armbinder", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
 		{name: "trap_armbinderHeavy", minLevel: 1, weight:4, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], submissive: 15, power: 8},
@@ -34,6 +34,10 @@ var KinkyDungeonLootTable = {
 
 
 };
+
+
+// Determines if you get a good loot from a blue locked chest
+let KinkyDungeonSpecialLoot = false;
 
 function KinkyDungeonLoot(Level, Index, Type) {
 	let lootWeightTotal = 0;
@@ -83,6 +87,10 @@ function KinkyDungeonLoot(Level, Index, Type) {
 
 			if (prereqs) {
 				let weightMult = 1.0;
+				let weightBonus = 0;
+				if (KinkyDungeonSpecialLoot && loot.special) weightBonus += loot.special;
+				else weightMult = 0;
+
 				let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
 				if (loot.trap || loot.magic) weightMult *= (1 + rep);
 				if (loot.trap && KinkyDungeonCurrentMaxEnemies > 0) {
@@ -92,7 +100,7 @@ function KinkyDungeonLoot(Level, Index, Type) {
 				}
 
 				lootWeights.push({loot: loot, weight: lootWeightTotal});
-				lootWeightTotal += loot.weight * weightMult;
+				lootWeightTotal += (loot.weight + weightBonus) * weightMult;
 			}
 		}
 	}
@@ -102,6 +110,7 @@ function KinkyDungeonLoot(Level, Index, Type) {
 	for (let L = lootWeights.length - 1; L >= 0; L--) {
 		if (selection > lootWeights[L].weight) {
 			let replace = KinkyDungeonLootEvent(lootWeights[L].loot, Level, TextGet(lootWeights[L].loot.message));
+			KinkyDungeonSpecialLoot = false;
 
 			if (!KinkyDungeonSendActionMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime))
 				KinkyDungeonSendTextMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);
@@ -144,6 +153,7 @@ So the question is not "why did somebody lay these traps." The answer is that th
 
 As for why there are so many restraints in general rather than your typical sort of spirits... well we know what the Mistress surrounded herself with."
 */
+
 
 function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 	let value = 0;

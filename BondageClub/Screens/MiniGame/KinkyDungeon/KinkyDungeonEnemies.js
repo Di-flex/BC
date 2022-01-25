@@ -439,7 +439,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 					let rep = KinkyDungeonGoddessRep[enemy.shrines[s]];
 					if (rep > 0) weightMulti *= Math.max(0, 1.0/(rep/50));
 					else if (rep < 0) {
-						weightMulti *= Math.max(1, 1 + 1.0/(-rep/50));
+						weightMulti *= Math.max(1, 1 + 0.2/(-rep/50));
 						weightBonus += Math.min(10, -rep/8);
 						effLevel += -rep/2.5;
 					}
@@ -679,7 +679,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, enemy.Enemy.allied ? "#00ff88" : "#ff0000", enemy.Enemy.allied ? "#aa0000" : "#000000");
 			}
-			if (!tooltip && MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
+			if (enemy.revealed && !tooltip && MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
 				KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
 				let name = TextGet("Name" + enemy.Enemy.name);
 				DrawTextFit(name, 1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, 1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7, 10 + name.length * 8, "black", "black");
@@ -1443,6 +1443,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						}
 						if (player.player) {
 							happened += KinkyDungeonDealDamage({damage: willpowerDamage, type: damage});
+							KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 							for (let r of restraintAdd) {
 								bound += KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
 							}
@@ -1474,6 +1475,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 								dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 							}
 							happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true, undefined, undefined, enemy);
+							KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 							if (happened > 0) {
 								let sfx = (hitsfx) ? hitsfx : "DealDamage";
 								KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
@@ -1517,6 +1519,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 					}
 
+					KinkyDungeonTickBuffTag(enemy.buffs, "damage", 1);
 
 					enemy.warningTiles = [];
 				}

@@ -778,6 +778,7 @@ KinkyDungeonShrineElements,"Elements"
 KinkyDungeonShrineConjure,"Conjuration"
 KinkyDungeonShrineIllusion,"Illusions"
 KinkyDungeonShrineCommerce,"Commerce"
+KinkyDungeonShrineTooltip,"Shrine of "
 
 KinkyDungeonDrinkShrine,"Drink"
 KinkyDungeonPoolDrink0,"You drink from the pool and your mana is restored."
@@ -1580,7 +1581,7 @@ KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
 KinkyDungeonSpellShadowBlade,Darkblade
 KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
-KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gain +20 damage for Duration turns.
+KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gain +20 damage for Duration turns or 5 attacks, whichever is lower.
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
 KinkyDungeonSpellFlameBlade,Flame Blade
@@ -1901,3 +1902,10 @@ KinkyDungeonHuntDownPlayer,You hear movements all around as you realize you are 
 KinkyDungeonUnLink,"There is another restraint underneath!"
 
 KinkyDungeonCrotchRope,"The restraint rubs against your crotch as you walk..."
+
+KinkyDungeonRepName,"Indifferent"
+KinkyDungeonRepNameAngered,"Angered"
+KinkyDungeonRepNameEnraged,"Enraged"
+KinkyDungeonRepNameCursed,"Cursed"
+KinkyDungeonRepNamePleased,"Pleased"
+KinkyDungeonRepNameThankful,"Thankful"

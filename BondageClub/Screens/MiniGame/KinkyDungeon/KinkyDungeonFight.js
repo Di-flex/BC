@@ -205,6 +205,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	}
 
 	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
+
+	if (dmg > 0)
+		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
 	return dmg;
 }
 
@@ -296,11 +299,15 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		targetX: Enemy.x,
 		targetY: Enemy.y,
 		enemy: Enemy,
-		miss: evaded,
+		miss: !evaded,
 		disarm: disarm,
 	};
 	KinkyDungeonSendWeaponEvent("playerAttack", data);
 	KinkyDungeonSendMagicEvent("playerAttack", data);
+
+	KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damage", 1);
+	if (eva)
+		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }
 
 function KinkyDungeonUpdateBullets(delta) {

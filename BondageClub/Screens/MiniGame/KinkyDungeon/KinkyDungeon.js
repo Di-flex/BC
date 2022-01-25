@@ -782,6 +782,7 @@ function KinkyDungeonSaveGame(ToString) {
 	save.levels = KinkyDungeonSpellLevel;
 	save.id = KinkyDungeonEnemyID;
 	save.choices = KinkyDungeonSpellChoices;
+	save.choices2 = KinkyDungeonSpellChoicesToggle;
 	save.buffs = KinkyDungeonPlayerBuffs;
 
 	let spells = [];
@@ -851,6 +852,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonSpawnJailers = 0;
 			KinkyDungeonSpawnJailersMax = 0;
 			if (saveData.choices) KinkyDungeonSpellChoices = saveData.choices;
+			if (saveData.choices2) KinkyDungeonSpellChoicesToggle = saveData.choices2;
 			if (saveData.buffs) KinkyDungeonPlayerBuffs = saveData.buffs;
 			if (saveData.gold != undefined) KinkyDungeonGold = saveData.gold;
 			if (saveData.id != undefined) KinkyDungeonEnemyID = saveData.id;

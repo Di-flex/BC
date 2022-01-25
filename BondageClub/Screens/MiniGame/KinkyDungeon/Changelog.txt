@@ -375,6 +375,10 @@ Bugfix:
 - Hammer now knocks back
 
 2.53
+- Passive spells can now be toggled by clicking on them in the UI
+- Reputation numbers in the rep screen
+- Darkblade now lasts for 5 attacks or 50 turns, whichever is longer
+- Added tooltips and visual distinction for shrines
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

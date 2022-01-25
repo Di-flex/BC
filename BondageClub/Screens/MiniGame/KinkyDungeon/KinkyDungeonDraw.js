@@ -1,6 +1,6 @@
 "use strict";
 
-function KinkyDungeonGetSprite(code) {
+function KinkyDungeonGetSprite(code, x, y) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
 	if (code == "2") sprite = "Brickwork";
@@ -19,7 +19,7 @@ function KinkyDungeonGetSprite(code) {
 	else if (code == "S") sprite = "StairsUp";
 	else if (code == "s") sprite = "StairsDown";
 	else if (code == "H") sprite = "StairsDown"; // Shortcut
-	else if (code == "A") sprite = "Shrine";
+	else if (code == "A") sprite = (KinkyDungeonTiles[x + "," + y] && KinkyDungeonTiles[x + "," + y].Type == "Shrine" && KinkyDungeonTiles[x + "," + y].Name == "Commerce") ? "ShrineC" : "Shrine";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
@@ -78,6 +78,7 @@ function KinkyDungeonDrawGame() {
 	}
 
 	if (KinkyDungeonDrawState == "Game") {
+		let tooltip = "";
 		if ((KinkyDungeonIsPlayer() || (KinkyDungeonGameData && CommonTime() < KinkyDungeonNextDataLastTimeReceived + KinkyDungeonNextDataLastTimeReceivedTimeout))) {
 
 
@@ -103,10 +104,32 @@ function KinkyDungeonDrawGame() {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
-						let sprite = KinkyDungeonGetSprite(rows[RY][RX]);
+						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY);
+
 
 						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 							(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+
+						if (rows[RY][RX] == "A") {
+							let color = "";
+							if (KinkyDungeonTiles[RX + "," + RY]) {
+								if (KinkyDungeonTiles[RX + "," + RY].Name == "Illusion") color = "#8154FF";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Conjure") color = "#D4AAFF";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Elements") color = "#FF5D00";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Latex") color = "#2667FF";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Leather") color = "#442E1E";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Metal") color = "#808080";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Rope") color = "#7C4926";
+								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Will") color = "#23FF44";
+							}
+							if (color)
+								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "ShrineAura.png",  KinkyDungeonContext,
+									(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay,
+									KinkyDungeonGridSizeDisplay/KinkyDungeonSpriteSize, color, true, []);
+						}
+						if (KinkyDungeonLightGet(RX, RY) > 0 && rows[RY][RX] == "A" && MouseIn(canvasOffsetX + (-CamX_offset + X)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+							tooltip = TextGet("KinkyDungeonShrine" + KinkyDungeonTiles[RX + "," + RY].Name);
+						}
 					}
 				}
 
@@ -343,6 +366,11 @@ function KinkyDungeonDrawGame() {
 					if (value <= 1)
 						KinkyDungeonBar(canvasOffsetX + xAdd + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + yAdd + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 24,
 							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value), "#aaaaaa", "#000000");
+				}
+
+				if (tooltip) {
+					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, 1 + MouseX, 1 + MouseY - KinkyDungeonGridSizeDisplay/2, 200, "black", "black");
+					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, MouseX, MouseY - KinkyDungeonGridSizeDisplay/2, 200, "white", "black");
 				}
 			}
 

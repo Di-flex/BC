@@ -192,7 +192,7 @@ function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
 			} else if (e.type == "Knockback" && e.dist && data.enemy && data.targetX && data.targetY && !data.evaded && !data.disarm) {
 				let newX = data.targetX + Math.round(e.dist * (data.targetX - KinkyDungeonPlayerEntity.x));
 				let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
-				if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY))
+				if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY)) && KinkyDungeonNoEnemy(newX, newY, true)
 					&& (e.dist == 1|| KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
 					data.enemy.x = newX;
 					data.enemy.y = newY;

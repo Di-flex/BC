@@ -91,6 +91,7 @@ let KinkyDungeonLearnableSpells = [
 let KinkyDungeonSpellPoints = 3;
 
 let KinkyDungeonSpellChoices = [];
+let KinkyDungeonSpellChoicesToggle = [];
 let KinkyDungeonSpellChoiceCount = 5;
 let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. When you plan to use a mystic seal, you get 3 spells to choose from.
 	"Elements": [
@@ -150,7 +151,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "FocusedFlash", sfx: "FireSpell", school: "Illusion", manacost: 12, components: ["Verbal"], level:3, type:"inert", onhit:"aoe", time: 20, delay: 2, power: 1, range: 2.5, size: 3, aoe: 1.5, lifetime: 1, damage: "stun", playerEffect: {name: "Blind", time: 12}}, // Longer delay, but the stun lasts much longer.
 		{name: "Shroud", sfx: "FireSpell", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Shroud", type: "Evasion", power: 3.0, player: true, enemies: true, tags: ["darkness"], range: 1.5}, {type: "Sneak", power: 3.0, player: true, enemies: false, tags: ["darkness"], range: 1.5}], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 		{name: "Invisibility", sfx: "FireSpell", school: "Illusion", manacost: 9, components: ["Verbal"], mustTarget: true, level:3, type:"buff", buffs: [{id: "Invisibility", type: "Sneak", duration: 10, power: 10.0, player: true, enemies: true, tags: ["invisibility"]}], onhit:"", time:10, power: 0, range: 2, size: 1, damage: ""},
-		{name: "ShadowBlade", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Arms"], mustTarget: true, level:2, type:"buff", buffs: [{id: "ShadowBlade", type: "AttackDmg", duration: 10, power: 2.0, player: true, enemies: true, tags: ["attack", "damage"]}], onhit:"", time:10, power: 0, range: 2, size: 1, damage: ""},
+		{name: "ShadowBlade", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Arms"], mustTarget: true, level:2, type:"buff",
+			buffs: [{id: "ShadowBlade", type: "AttackDmg", duration: 50, power: 2.0, player: true, enemies: true, maxCount: 5, tags: ["attack", "damage"]}], onhit:"", time:50, power: 0, range: 2, size: 1, damage: ""},
 		{name: "ShadowSlash", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, piercing: true, noTerrainHit: true, noEnemyCollision: true, onhit:"aoe", power: 5, delay: 0, range: 1.5, aoe: 1.5, size: 3, lifetime:1, damage: "cold", speed: 1, time: 2,
 			trailspawnaoe: 1.5, trailPower: 0, trailLifetime: 1.1, trailHit: "", trailDamage:"inert", trail:"lingering", trailChance: 0.4},
 		{name: "Decoy", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Legs"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "Decoy", count: 1, time: 20}], power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
@@ -266,7 +268,8 @@ function KinkyDungeonFindSpell(name, SearchEnemies) {
 let KinkyDungeonSpellPress = 0;
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [-1];
+	KinkyDungeonSpellChoices = [];
+	KinkyDungeonSpellChoicesToggle = [];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
@@ -588,7 +591,11 @@ function KinkyDungeonHandleSpell() {
 	let spell = null;
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive && (MouseIn(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
-			spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
+			if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
+				KinkyDungeonSpellChoicesToggle[i] = !KinkyDungeonSpellChoicesToggle[i];
+				KinkyDungeonSpellPress = 0;
+				return true;
+			} else spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
 		}
 	}
 	/*else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive && (MouseIn(1230 + 1*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[1])) {
@@ -809,6 +816,7 @@ function KinkyDungeonHandleMagic() {
 			if (!KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
 					KinkyDungeonSpellChoices[I] = KinkyDungeonCurrentPage;
+					KinkyDungeonSpellChoicesToggle[I] = true;
 					KinkyDungeonAdvanceTime(1);
 					if (KinkyDungeonTextMessageTime > 0)
 						KinkyDungeonDrawState = "Game";
@@ -817,6 +825,7 @@ function KinkyDungeonHandleMagic() {
 			} else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].type == "passive") {
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
 					KinkyDungeonSpellChoices[I] = -1;
+					KinkyDungeonSpellChoicesToggle[I] = true;
 					return true;
 				}
 			}
@@ -1093,7 +1102,7 @@ function KinkyDungeonSendMagicEvent(Event, data) {
 		let spell = KinkyDungeonSpells[index];
 		if (spell && spell.events) {
 			for (let e of spell.events) {
-				if (e.trigger == Event) {
+				if (e.trigger == Event && (KinkyDungeonSpellChoicesToggle[index] || e.always)) {
 					KinkyDungeonHandleMagicEvent(Event, spell, data);
 				}
 			}

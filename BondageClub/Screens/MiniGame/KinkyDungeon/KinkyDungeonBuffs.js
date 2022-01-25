@@ -43,6 +43,19 @@ function KinkyDungeonTickBuffs(list, delta, endFloor) {
 	}
 }
 
+function KinkyDungeonTickBuffTag(list, tag, Amount) {
+	if (list)
+		for (const [key, value] of Object.entries(list)) {
+			if (value) {
+				if (value.maxCount && value.tags.includes(tag)) {
+					if (!value.currentCount) value.currentCount = 0;
+					value.currentCount += Amount;
+					if (value.currentCount >= value.maxCount) list[key] = undefined;
+				}
+			}
+		}
+}
+
 // Updates buffs for all creatures
 function KinkyDungeonUpdateBuffs(delta, endFloor) {
 	// Tick down buffs the buffs

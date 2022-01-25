@@ -16,6 +16,21 @@ function KinkyDungeonHandleReputation() {
 
 let KDRecentRepIndex = 0;
 
+let KDAnger = -19;
+let KDRage = -31;
+
+function KinkyDungeonRepName(Amount) {
+	let name = "";
+
+	if (Amount > 10) name = "Thankful";
+	if (Amount > 30) name = "Pleased";
+	if (Amount < KDAnger) name = "Angered";
+	if (Amount < KDRage) name = "Enraged";
+	if (Amount < -45) name = "Cursed";
+
+	return TextGet("KinkyDungeonRepName" + name);
+}
+
 function KinkyDungeonChangeRep(Rep, Amount) {
 	if (KinkyDungeonGoddessRep[Rep] != undefined) {
 		let last = KinkyDungeonGoddessRep[Rep];
@@ -45,8 +60,8 @@ function KinkyDungeonDrawReputation() {
 	let XX = 0;
 	let spacing = 60;
 	let yPad = 50;
-	MainCanvas.textAlign = "left";
 	for (let rep in KinkyDungeonGoddessRep) {
+		MainCanvas.textAlign = "left";
 		let value = KinkyDungeonGoddessRep[rep];
 
 		if (rep) {
@@ -62,8 +77,21 @@ function KinkyDungeonDrawReputation() {
 				if (value > 30) color = "#00ff00";
 				else color = "#88ff00";
 			}
+			let suff = "";
+			if (rep != "Ghost" && rep != "Prisoner") suff = "" + KinkyDungeonRepName(value);
 			DrawText(TextGet("KinkyDungeonShrine" + rep), canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i, "white", "black");
+			if (suff) {
+				DrawTextFit(suff, 1+canvasOffsetX + 275 + XX + 250, 1+yPad + canvasOffsetY + spacing * i, 100, "black", "black");
+				DrawTextFit(suff, canvasOffsetX + 275 + XX + 250, yPad + canvasOffsetY + spacing * i, 100, "white", "black");
+			}
 			DrawProgressBar(canvasOffsetX + 275 + XX, yPad + canvasOffsetY + spacing * i - spacing/4, 200, spacing/2, 50 + value, color, "#444444");
+
+			MainCanvas.textAlign = "center";
+			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100+1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100-1,  1+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100+1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100-1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
+			DrawText(" " + (value+50) + " ", canvasOffsetX + 275 + XX + 100,  2+yPad + canvasOffsetY + spacing * i, "white", "black");
 
 			i++;
 		}
