@@ -487,7 +487,7 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 				if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
 					KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.playerEffect ? bullet.bullet.playerEffect : bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				}
-				var nomsg = false;
+				var nomsg = bullet.bullet && bullet.bullet.spell && bullet.bullet.spell.enemyspell;
 				for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 					let enemy = KinkyDungeonEntities[L];
 					if ((!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied) || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied)) && bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {

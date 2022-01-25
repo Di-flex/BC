@@ -385,11 +385,11 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Rope < -31) tags.push("ropeRage");
 	if (KinkyDungeonGoddessRep.Leather < -19) tags.push("leatherAnger");
 	if (KinkyDungeonGoddessRep.Leather < -31) tags.push("leatherRage");
-	if (KinkyDungeonGoddessRep.Metal < -19) tags.push("metalAnger");
+	if (KinkyDungeonGoddessRep.Metal < -15) tags.push("metalAnger");
 	if (KinkyDungeonGoddessRep.Metal < -31) tags.push("metalRage");
-	if (KinkyDungeonGoddessRep.Latex < -19) tags.push("latexAnger");
+	if (KinkyDungeonGoddessRep.Latex < -15) tags.push("latexAnger");
 	if (KinkyDungeonGoddessRep.Latex < -31) tags.push("latexRage");
-	if (KinkyDungeonGoddessRep.Elements < -19) tags.push("elementsAnger");
+	if (KinkyDungeonGoddessRep.Elements < -15) tags.push("elementsAnger");
 	if (KinkyDungeonGoddessRep.Elements < -31) tags.push("elementsRage");
 	if (KinkyDungeonGoddessRep.Conjure < -19) tags.push("conjureAnger");
 	if (KinkyDungeonGoddessRep.Conjure < -31) tags.push("conjureRage");
