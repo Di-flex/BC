@@ -80,6 +80,11 @@ let KinkyDungeonDresses = {
 		{Item: "Catsuit", Group: "Gloves", Color: "#3873C3", Lost: false},
 		{Item: "FaceVeil", Group: "Mask", Color: "#ffffff", Lost: false},
 	],
+	"Wolfgirl" : [
+		{Item: "PilotSuit", Group: "Suit", Color: ['#828FA2', '#323332', '#223525', '#383838', 'Default'], Lost: false},
+		{Item: "PilotPanties", Group: "SuitLower", Color: ['#828FA2', '#323332', '#223525'], Lost: false},
+		{Item: "LatexSocks1", Group: "Socks", Color: "#AAAAAA", Lost: false},
+	],
 	"Maid" : [
 		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#49403A", Lost: false},
 		{Item: "MaidApron2", Group: "Cloth", Color: "Default", Lost: false},
@@ -207,11 +212,11 @@ function KinkyDungeonDressPlayer() {
 
 	KinkyDungeonCheckClothesLoss = false;
 
-	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 1) {
+	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 0) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && !KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "Kneel", false);
 		}
-	} else if (KinkyDungeonSleepTurns < 2) {
+	} else if (KinkyDungeonSleepTurns < 1) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 		}

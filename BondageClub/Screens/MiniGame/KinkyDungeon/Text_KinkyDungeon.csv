@@ -3,7 +3,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.59"
+KinkyDungeon,"Kinky Dungeon v2.5.10"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -403,6 +403,17 @@ KillAlchemistPet,"The wolfgirl escapes!"
 AttackAlchemistPetDash,"The wolfgirl lunges at you with a powerful kick!"
 AttackAlchemistPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 
+NameWolfgirlPet,Wolfgirl
+KillWolfgirlPet,"The wolfgirl escapes!"
+AttackWolfgirlPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackWolfgirlPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
+
+NameWolfgirl,Wolfgirl Trainer
+KillWolfgirl,"The trainer retreats!"
+AttackWolfgirl,"The wolfgirl trainer squeezes your breasts playfully! (-DamageTaken SP)"
+AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (-DamageTaken SP)"
+AttackWolfgirlLock,"The wolfgirl trainer pins you and skillfully locks all of your restraints."
+
 NameDrone,Drone
 KillDrone,"The drone fizzles and falls to the ground!"
 AttackDroneStun,"The drone zaps you with a restraining energy ray! (-DamageTaken SP)"
@@ -564,6 +575,8 @@ KillJailer,"The jailer passes out and drops her possessions!"
 AttackJailerLock,"The jailer locks your restraints!"
 AttackJailerBind,"The jailer places some cuffs on you!"
 AttackJailer,"The jailer plays with you, groping and rubbing your body!"
+
+KinkyDungeonJailerCheck,The guard checks your restraints to make sure they are secure.
 
 NameGuard,Guard
 KillGuard,"The guard passes out and drops her possessions!"
@@ -1059,6 +1072,31 @@ RestraintVinePlantFeet,Ankle Vines
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
 
+RestraintWolfArmbinder,Wolfbinder
+RestraintWolfArmbinderDesc,"A sophisticated training system used to keep wolfgirls from scratching their owners."
+RestraintWolfArmbinderDesc2,"Despite the harsh position, it is padded, breathable, and suitable for long term wear."
+RestraintWolfAnkleCuffs,Smart Training Cuffs
+RestraintWolfAnkleCuffsDesc,"Cuffs with a feature to punish the wearer if they act aggressively."
+RestraintWolfAnkleCuffsDesc2,"They are solid metal and will be hard to remove without the key."
+RestraintWolfAnkleCuffs2,Smart Training Cuffs
+RestraintWolfAnkleCuffs2Desc,"Cuffs with a feature to punish the wearer if they act aggressively."
+RestraintWolfAnkleCuffs2Desc2,"Looks like you got yourself in trouble."
+RestraintWolfHarness,Training Harness
+RestraintWolfHarnessDesc,"A harness that keeps a wolfgirl's suit together. It makes escaping more difficult."
+RestraintWolfHarnessDesc2,"While it is weatherproof and rugged, its straps are merely nylon."
+RestraintWolfBallGag,Training Gag
+RestraintWolfBallGagDesc,"A gag used to prevent wolfgirls from biting their owners."
+RestraintWolfBallGagDesc2,"It is reinforced with steel cables, so getting it off will be tricky."
+RestraintWolfCollar,Training Collar
+RestraintWolfCollarDesc,"A collar used to keep unruly wolfgirls in check."
+RestraintWolfCollarDesc2,"If it works on them, it sure as heck works on you."
+RestraintWolfLeash,Training Leash
+RestraintWolfLeashDesc,"A leash used for training pets."
+RestraintWolfLeashDesc2,"It is a steel cable with a weatherproof rubber coating, and a convenient handle."
+
+KinkyDungeonLinkWolfAnkleCuffs,"Your ankle cuffs snap together on their own!"
+KinkyDungeonUnLinkWolfAnkleCuffs2,"Your ankle cuffs detach!"
+
 RestraintLatexStraitjacket,Latex Jacket
 RestraintLatexStraitjacketDesc,A tight jacket that holds your arms completely useless.
 RestraintLatexStraitjacketDesc2,It has too much grip to struggle out of, but is made of a fragile material.
@@ -1168,7 +1206,7 @@ KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
 
 RestraintCableGag,High-Tech Gag
 RestraintCableGagDesc,"A gag with a soft and filling mouthpiece, reinforced with a metallized strap."
-RestraintCableGagDesc2,"It will be impossible to force it out or cut it with just a knife!"
+RestraintCableGagDesc2,"It will be impossible to force it out or cut it with just a knife."
 
 RestraintCableArms,High-Tech Cables (Arms)
 RestraintCableArmsDesc,"Cables made from a high-tech metallized polyfiber. Impervious to steel edges!"

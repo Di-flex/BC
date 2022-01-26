@@ -395,8 +395,16 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Conjure < KDRage) tags.push("conjureRage");
 	if (KinkyDungeonGoddessRep.Illusion < KDAnger) tags.push("illusionAnger");
 	if (KinkyDungeonGoddessRep.Illusion < KDRage) tags.push("illusionRage");
+	if (KinkyDungeonGoddessRep.Will < KDAnger) tags.push("willAnger");
+	if (KinkyDungeonGoddessRep.Will < KDRage) tags.push("willRage");
+
+	let overrideTags = [];
+	if (KinkyDungeonGoddessRep.Will < -45) tags.push("plant");
+
 	if (security > 0) tags.push("jailbreak");
 	if (security > 40) tags.push("highsecurity");
+
+	return overrideTags;
 }
 
 // @ts-ignore
@@ -451,7 +459,10 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (miniboss) tags.push("miniboss");
 			if (boss) tags.push("boss");
 
-			KinkyDungeonAddTags(tags, Floor);
+			let overrideTags = KinkyDungeonAddTags(tags, Floor);
+			for (let t of Tags) {
+				tags.push(t);
+			}
 
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {

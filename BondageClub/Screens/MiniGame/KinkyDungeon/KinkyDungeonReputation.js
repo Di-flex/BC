@@ -93,6 +93,10 @@ function KinkyDungeonDrawReputation() {
 			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100-1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
 			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100,  2+yPad + canvasOffsetY + spacing * i, "white", "black");
 
+			DrawButton(canvasOffsetX + 275 + XX + 400, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonAid" + rep), value > 10 ? "white" : "pink");
+			DrawButton(canvasOffsetX + 275 + XX + 650, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonRescue" + rep), value > -1 ? "white" : "pink");
+			DrawButton(canvasOffsetX + 275 + XX + 900, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonPenance" + rep), "white");
+
 			i++;
 		}
 

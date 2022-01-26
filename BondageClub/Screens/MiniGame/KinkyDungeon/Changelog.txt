@@ -415,6 +415,9 @@ Bugfix:
 - Made most trap restraints harder
 - Floating weapon is now level 3 properly
 - New Drone enemy (metal goddess)
+- Attempting to fix jail stuff
+
+2.5.10
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

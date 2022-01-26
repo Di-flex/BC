@@ -89,8 +89,8 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 							if (KinkyDungeonSeeThroughWalls > 2)
 								brightness -= 2;
 							else if (KinkyDungeonSeeThroughWalls > 1)
-								brightness -= 4;
-							else brightness -= 6;
+								brightness -= 3;
+							else brightness -= 4;
 						}
 
 						if (brightness > 0) {

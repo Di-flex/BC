@@ -144,7 +144,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 16, minLevel:0, weight:-80, movePoints: 99999, attackPoints: 1, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -50, "adjChest": -50, "door": -50, "open": 110}, floors:[2], shrines: ["Rope", "Will"]},
 
-	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "leatherRestraints", "glueresist", "leatherRestraintsHeavy", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
 		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
 		visionRadius: 6, maxhp: 14, minLevel:8, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
@@ -185,6 +185,18 @@ let KinkyDungeonEnemies = [
 		attack: "MeleeBindWillSuicide", attackPoints: 3, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", multiBind: 2,
 		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
+	{name: "WolfgirlPet", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+		master: {type: "Wolfgirl", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
+		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
+		visionRadius: 6, maxhp: 14, minLevel:5, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"metalAnger": 2, "metalRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: []},
+	{name: "Wolfgirl", color: "#AAAAAA", tags: KDMapInit(["leashing", "wolfgirl", "opendoors", "closedoors", "wolfRestraints", "melee", "elite", "miniboss", "unflinching", "glueweakness", "tickleweakness", "unflinching", "hunter"]), followRange: 1,
+		summon: [
+			{enemy: "WolfgirlPet", range: 2, count: 1, chance: 0.7, strict: true},],
+		spells: ["RestrainingDevice"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, AI: "hunt", visionRadius: 10, maxhp: 22, minLevel:14, weight:-6, movePoints: 2, disarm: 0.33,
+		attackPoints: 3, attack: "MeleeBindLockAllWillSpell", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 4, dmgType: "grope",
+		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -10, "metalAnger": 7, "metalRage": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Metal"], dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 1}]},
 
 	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "search"]), ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, noSpellLeashing: true,
@@ -466,11 +478,13 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 		}
 
 		let noOverride = ["boss", "miniboss", "elite", "minor"];
-
 		let overrideFloor = false;
 		for (let t of tags) {
 			if (!noOverride.includes(t))
-				if (enemy.tags.has(t)) overrideFloor = true;
+				if (enemy.tags.has(t)) {
+					overrideFloor = true;
+					weightMulti *= 1.25;
+				}
 		}
 
 		if (effLevel >= enemy.minLevel && (overrideFloor || enemy.floors.includes(Index)) && (KinkyDungeonGroundTiles.includes(Tile) || !enemy.tags.has("spawnFloorsOnly"))) {
@@ -1976,7 +1990,7 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonChargeRemoteVibrators(KinkyDungeonJailGuard.Enemy.name, extraCharge, true, false);
 					} else if (KinkyDungeonJailGuard.Enemy.dmgType === "grope" || KinkyDungeonJailGuard.Enemy.dmgType === "tickle") {
 						KinkyDungeonDealDamage({damage: KinkyDungeonJailGuard.Enemy.power, type: KinkyDungeonJailGuard.Enemy.dmgType});
-						KinkyDungeonSendTextMessage(5, TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name), "yellow", 1);
+						KinkyDungeonSendTextMessage(5, TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name), "yellow", 3);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
 					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
@@ -1987,12 +2001,15 @@ function KinkyDungeonHandleJailSpawns() {
 					let newRestraint = KinkyDungeonGetJailRestraintForGroup(KinkyDungeonJailGuard.CurrentRestraintSwapGroup);
 					if (newRestraint) {
 						let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard.CurrentRestraintSwapGroup);
-						KinkyDungeonAddRestraint(newRestraint, 0, true, false, false);
-						let restraintModification = oldRestraintItem ? "ChangeRestraints" : "AddRestraints";
-						let msg = TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name + restraintModification);
-						if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
-						msg = msg.replace("NewRestraintName", TextGet("Restraint"+newRestraint.name));
-						KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
+						let added = KinkyDungeonAddRestraintIfWeaker(newRestraint, 0, true);
+						if (added) {
+							let restraintModification = oldRestraintItem ? "ChangeRestraints" : "AddRestraints";
+							let msg = TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name + restraintModification);
+							if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
+							msg = msg.replace("NewRestraintName", TextGet("Restraint"+newRestraint.name));
+							KinkyDungeonSendTextMessage(5, msg, "yellow", 3);
+						} else
+							KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonJailerCheck"), "yellow", 3);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
 					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
@@ -2005,7 +2022,7 @@ function KinkyDungeonHandleJailSpawns() {
 						KinkyDungeonRemoveRestraint(oldRestraintItem.restraint.Group, false);
 						let msg = TextGet("Attack" + KinkyDungeonJailGuard.Enemy.name + "RemoveRestraints");
 						if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
-						KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
+						KinkyDungeonSendTextMessage(5, msg, "yellow", 3);
 					}
 					KinkyDungeonJailGuard.CurrentAction = "jailWander";
 					KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
@@ -2278,6 +2295,7 @@ function KinkyDungeonDefeat() {
 		if (collar.restraint.name == "DragonCollar") defeat_outfit = "Dragon";
 		if (collar.restraint.name == "MaidCollar") defeat_outfit = "Maid";
 		if (collar.restraint.name == "ExpCollar") defeat_outfit = "BlueSuitPrison";
+		if (collar.restraint.name == "WolfCollar") defeat_outfit = "Wolfgirl";
 	}
 
 	KinkyDungeonSetDress(defeat_outfit);
