@@ -708,6 +708,8 @@ KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
 KinkyDungeonStruggleStruggleImpossibleAroused,"You groan in frustration as you realize the item is too tight to escape."
 KinkyDungeonStruggleStruggleImpossible2,"The item tightens itself as you try to squeeze out!"
 KinkyDungeonStruggleStruggleImpossible3,"You will need someone's help to squeeze out."
+KinkyDungeonStruggleStruggleStrict,"You pull and tug but something is keeping it in place."
+KinkyDungeonStruggleStruggleStrictAroused,"You groan and tug uselessly. Something is keeping it item strapped in place!"
 KinkyDungeonStruggleStruggleImpossibleBound,"You are too tightly bound to have a chance."
 KinkyDungeonStruggleStruggleImpossibleBoundAroused,"You shake and moan as you realize your struggles are futile."
 KinkyDungeonStruggleUnlockImpossible,"You can't find a keyhole!"
@@ -716,12 +718,16 @@ KinkyDungeonStruggleUnlockImpossible2,"The item can't be unlocked without a spec
 KinkyDungeonStruggleUnlockImpossible3,"You can't reach the keyhole by yourself!"
 KinkyDungeonStruggleUnlockImpossibleBound,"You can't hold the key to unlock this with."
 KinkyDungeonStruggleUnlockImpossibleBoundAroused,"Your bound and shaking hands can't even hold the key."
+KinkyDungeonStruggleUnlockStrict,"You try, but something is keeping your hands away."
+KinkyDungeonStruggleUnlockStrictAroused,"You flail the key around uselessly but a strap is preventing you!"
 KinkyDungeonStrugglePickImpossible,"This lock is beyond your skill level!"
 KinkyDungeonStrugglePickImpossibleAroused,"You whimper as you realize the lock is far too secure."
 KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossible3,"You can't pick this by yourself, you'll need help."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
 KinkyDungeonStrugglePickImpossibleBoundAroused,"You let out a frustrated sigh as you struggle to even grasp the pick."
+KinkyDungeonStrugglePickStrict,"You try to start picking, but the lock is secured by something else."
+KinkyDungeonStrugglePickStrictAroused,"You whimper as you realize the lock is shielded by another strap."
 KinkyDungeonStruggleRemoveNeedEdge,"You wiggle uselessly. Maybe you need some kind of corner or edge..."
 KinkyDungeonStruggleRemoveNeedEdgeAroused,"You rub your body against the floor to no avail, and sigh."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
@@ -730,12 +736,16 @@ KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try t
 KinkyDungeonStruggleRemoveImpossible3,"You can't reach it by yourself!"
 KinkyDungeonStruggleRemoveImpossibleBound,"You are too tightly bound to manipulate that item."
 KinkyDungeonStruggleRemoveImpossibleBoundAroused,"Your futile struggles do nothing to loosen the fasteners."
+KinkyDungeonStruggleRemoveStrict,"You try to undo the fasteners, but they are blocked by other straps!"
+KinkyDungeonStruggleRemoveStrictAroused,"You rub your body uselessly as you find another strap securing the item."
 KinkyDungeonStruggleCutImpossible,"The item is too durable to cut."
 KinkyDungeonStruggleCutImpossibleAroused,"Your hopeless attempts fail to even leave a scratch."
 KinkyDungeonStruggleCutImpossible2,"You fail to leave even a scratch!"
 KinkyDungeonStruggleCutImpossible3,"You can't get any leverage to cut it with..."
 KinkyDungeonStruggleCutImpossibleBound,"You can't hold a knife, let alone cut the thing."
 KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as the knife bounces around uselessly."
+KinkyDungeonStruggleCutStrict,"Your arms are kept from having leverage due to another item."
+KinkyDungeonStruggleCutStrictAroused,"You fiddle with the tool, but your arms lack leverage due to another item"
 
 KinkyDungeonNeedOpenChest,"The chest is too smooth to help. Maybe if you opened it?"
 
@@ -1534,7 +1544,7 @@ KinkyDungeonSpellTargetElectrify,Choose target location
 KinkyDungeonSpellCastAreaElectrify,The elemental channels the force of the storm!
 
 KinkyDungeonSpellFireball,Fireball
-KinkyDungeonSpellDescriptionFireball,A slow moving ball of flame that explodes for DamageDealt damage, double on a direct hit!
+KinkyDungeonSpellDescriptionFireball,A slow moving ball of flame that explodes for 120 fire damage to the target and DamageDealt damage to surrounding enemies.
 KinkyDungeonSpellCastFireball,You a hurl a fireball!
 KinkyDungeonSpellTargetFireball,Choose aim direction
 

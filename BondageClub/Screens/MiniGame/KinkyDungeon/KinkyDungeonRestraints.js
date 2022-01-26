@@ -607,11 +607,11 @@ function KinkyDungeonIsArmsBound(ApplyGhost) {
 		(InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemArms"));
 }
 
-function KinkyDungeonStrictness(ApplyGhost) {
+function KinkyDungeonStrictness(ApplyGhost, Group) {
 	if (ApplyGhost && KinkyDungeonHasGhostHelp()) return 0;
 	let strictness = 0;
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.strictness && inv.restraint.strictness > strictness) strictness = inv.restraint.strictness;
+		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness && inv.restraint.strictness > strictness) strictness = inv.restraint.strictness;
 	}
 	return strictness;
 }
@@ -760,7 +760,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			else if (restraintEscapeChance < 0) typesuff = "2";
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 1);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 2);
+			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendInventoryEvent("struggle", {
 				restraint: restraint,
 				group: struggleGroup,
@@ -774,7 +775,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	}
 
 	let armsBound = KinkyDungeonIsArmsBound(true);
-	let strict = KinkyDungeonStrictness(true);
+	let strict = KinkyDungeonStrictness(true, struggleGroup);
 	let hasEdge = KinkyDungeonHasHook();
 
 	// Struggling is unaffected by having arms bound
@@ -783,8 +784,6 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup.group != "ItemArms" && struggleGroup.group != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) escapeChance /= 1.5;
 	if (StruggleType != "Struggle" && struggleGroup.group != "ItemArms" && armsBound) escapeChance = Math.max(minAmount, escapeChance - 0.3);
 
-	// Strict bindings make it harder to escape
-	if (strict) escapeChance = Math.max(0, escapeChance - strict);
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
 		escapeChance = (StruggleType == "Remove" && hasEdge) ? escapeChance / 2 : Math.max(0, escapeChance - 0.5);
@@ -793,7 +792,27 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
-		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 1);
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
+		KinkyDungeonLastAction = "Struggle";
+		KinkyDungeonSendInventoryEvent("struggle", {
+			restraint: restraint,
+			group: struggleGroup,
+			struggletype: StruggleType,
+			result: "NeedEdge",
+		});
+		return "NeedEdge";
+	}
+
+
+	// Strict bindings make it harder to escape
+	if (strict) escapeChance = Math.max(0, escapeChance - strict);
+
+	if (escapeChance == 0) {
+		let typesuff = "";
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Strict" + typesuff), "red", 2);
+		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonSendInventoryEvent("struggle", {
 			restraint: restraint,
 			group: struggleGroup,
@@ -845,7 +864,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			let suff = "";
 			if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound" + suff), "red", 1);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound" + suff), "red", 2);
+			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendInventoryEvent("struggle", {
 				restraint: restraint,
 				group: struggleGroup,

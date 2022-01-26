@@ -127,7 +127,8 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				}
 				if (item.restraint && item.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
 					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
-					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
 				}
 			}
 		}
@@ -136,7 +137,8 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "linkItem") {
 				if (item.restraint && item.restraint.Link && (Math.random() < e.chance)) {
 					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
-					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 				}
 			}
 		}

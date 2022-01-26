@@ -1720,15 +1720,18 @@ let KinkyDungeonFirstSpawn = false;
 
 function KinkyDungeonHandleWanderingSpawns(delta) {
 	let effLevel = MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty;
+	let HunterAdjust = KinkyDungeonDifficulty;
+	let EntranceAdjust = KinkyDungeonDifficulty/2;
+	let BaseAdjust = KinkyDungeonDifficulty/10;
 	let sleepTurnsSpeedMult = 100;
 	let baseChance = ((KinkyDungeonSleepTurns > 0 && (KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax - 10 * KinkyDungeonStatStaminaRegenSleep || KinkyDungeonSleepTurns < 11)) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
-		if (KinkyDungeonTotalSleepTurns > 30 && KinkyDungeonEntities.length < 20 + effLevel) {
-			if (KinkyDungeonTotalSleepTurns > 90) hunters = true;
-			if (KinkyDungeonTotalSleepTurns > 130 && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
+		if (KinkyDungeonTotalSleepTurns > 30 - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/10))) {
+			if (KinkyDungeonTotalSleepTurns > 90 - HunterAdjust) hunters = true;
+			if (KinkyDungeonTotalSleepTurns > 130 - EntranceAdjust && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
 
 			if (KinkyDungeonLightGet(spawnLocation.x, spawnLocation.y) < 1 || KinkyDungeonSeeAll) {
 				KinkyDungeonSearchTimer = 0;
@@ -1831,11 +1834,15 @@ function KinkyDungeonAttachTetherToLeasher(dist) {
 	}
 }
 
+function KinkyDungeonInJail() {
+	return KinkyDungeonSpawnJailers > 0 && KinkyDungeonSpawnJailers + 1 >= KinkyDungeonSpawnJailersMax;
+}
+
 function KinkyDungeonHandleJailSpawns(delta) {
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
-	if (KinkyDungeonSpawnJailers > 0 && KinkyDungeonSpawnJailers + 1 >= KinkyDungeonSpawnJailersMax && (KinkyDungeonGuardSpawnTimer <= 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard && playerInCell) {
+	if (KinkyDungeonInJail() && (KinkyDungeonGuardSpawnTimer <= 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard && playerInCell) {
 		KinkyDungeonGuardSpawnTimer = KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
 		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
