@@ -407,6 +407,14 @@ Bugfix:
 - New spell: Floating Weapon
 - Ancient Tombs now has 1 more shrine and 1 more chest than other levels
 - Fixed bug with spells not toggling properly
+- Reverted exponential shrine costs
+
+2.59
+- Lowered weights for picks and knives
+- Lowered weights of stamina pots
+- Made most trap restraints harder
+- Floating weapon is now level 3 properly
+- New Drone enemy (metal goddess)
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

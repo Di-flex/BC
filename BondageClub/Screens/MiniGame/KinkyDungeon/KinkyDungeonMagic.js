@@ -46,11 +46,11 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1
 	[
 		// Verbal
-		["Electrify", "Flash", "Shroud", "Ally"],
+		["Electrify", "Flash", "Shroud"],
 		// Arms
 		["Firebolt", "Icebolt", "ChainBolt", "Dagger"],
 		// Legs
-		["Shield", "Snare", "Wall", "Slime"],
+		["Shield", "Snare", "Wall", "Ally", "Slime"],
 		// Passive
 		["FlameBlade", "TrueSight"],
 	],
@@ -119,7 +119,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				{id: "IronBlood2", type: "SlowLevel", duration: 99999, endSleep: true, power: -1.0, player: true, enemies: false, tags: ["move"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
-		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:1, type:"passive",
+		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:3, type:"passive",
 			events: [{type: "FloatingWeapon", trigger: "playerAttack"}, {type: "HandsFree", trigger: "getWeapon"}, {type: "HandsFree", trigger: "calcDamage"}]},
 	],
 	"Conjure": [

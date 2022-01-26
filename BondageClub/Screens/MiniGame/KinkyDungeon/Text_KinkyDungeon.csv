@@ -2,8 +2,8 @@ KinkyDungeonCredits,Credits
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.58"
+KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
+KinkyDungeon,"Kinky Dungeon v2.59"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -1166,14 +1166,18 @@ RestraintObsidianAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
 
+RestraintCableGag,High-Tech Gag
+RestraintCableGagDesc,"A gag with a soft and filling mouthpiece, reinforced with a metallized strap."
+RestraintCableGagDesc2,"It will be impossible to force it out or cut it with just a knife!"
+
 RestraintCableArms,High-Tech Cables (Arms)
-RestraintCableArmsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableArmsDesc,"Cables made from a high-tech metallized polyfiber. Impervious to steel edges!"
 RestraintCableArmsDesc2,"They are wrapped methodically around your body!"
 RestraintCableLegs,High-Tech Cables (Legs)
-RestraintCableLegsDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableLegsDesc,"Cables made from a high-tech metallized polyfiber. Impervious to steel edges!"
 RestraintCableLegsDesc2,"They are wrapped methodically around your body!"
 RestraintCableHarness,High-Tech Cables (Harness)
-RestraintCableHarnessDesc,"Cables made from a high-tech polyfiber. Impervious to steel edges!"
+RestraintCableHarnessDesc,"Cables made from a high-tech metallized polyfiber. Impervious to steel edges!"
 RestraintCableHarnessDesc2,"They are wrapped methodically around your body!"
 
 RestraintIceArms,Ice (Arms)
@@ -1511,7 +1515,7 @@ KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
 
 KinkyDungeonSpellFissure,Fissure
 KinkyDungeonSpellAllyFissure,Lava Fissure
-KinkyDungeonSpellDescriptionFissure,A great fissure erupts from the earth, dealing DamageDealt damage to enemies in a 4-range line and dealing 15 damage/turn for 6 turns.
+KinkyDungeonSpellDescriptionFissure,"A great fissure erupts from the earth, dealing 70 fire damage to enemies in a 4-range line and dealing 15 damage/turn for 6 turns."
 KinkyDungeonSpellCastFissure,You stomp the ground and the earth opens its gaping maw!
 KinkyDungeonSpellTargetFissure,Choose line direction (max range 4 tiles)
 
@@ -1602,7 +1606,7 @@ KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gai
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
 KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 3 fire damage to adjacent targets.
+KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
 KinkyDungeonSpellTrueSight,Truesight
