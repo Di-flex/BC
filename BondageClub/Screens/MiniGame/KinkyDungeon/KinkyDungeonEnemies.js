@@ -2111,7 +2111,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		KinkyDungeonGuardTimer = 0;
 	}
 	if (!KinkyDungeonEntities.includes(KinkyDungeonJailGuard)) {
-		KinkyDungeonGuardSpawnTimer = 4 + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
+		if (KinkyDungeonGuardSpawnTimer == 0)
+			KinkyDungeonGuardSpawnTimer = 4 + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 		KinkyDungeonJailGuard = undefined;
 	}
 }
