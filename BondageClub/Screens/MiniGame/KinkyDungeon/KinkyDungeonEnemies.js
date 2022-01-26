@@ -1835,7 +1835,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
-	if (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && (KinkyDungeonGuardSpawnTimer <= 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard && playerInCell) {
+	if (KinkyDungeonSpawnJailers > 0 && KinkyDungeonSpawnJailers + 1 >= KinkyDungeonSpawnJailersMax && (KinkyDungeonGuardSpawnTimer <= 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard && playerInCell) {
 		KinkyDungeonGuardSpawnTimer = KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KinkyDungeonGuardSpawnTimerMax - KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
 		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
@@ -1873,7 +1873,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			if (Math.random() < 0.05 + level * 0.4 / 100) {
 				KinkyDungeonJailGuard.CurrentAction = "jailTease";
 			} else if (Math.random() < 0.08 && KinkyDungeonSleepTurns < 1 && KinkyDungeonJailTourTimer < 1) {
-				KinkyDungeonJailGuard.RemainingJailLeashTourWaypoints = Math.ceil(Math.random() * 3);
+				KinkyDungeonJailGuard.RemainingJailLeashTourWaypoints = 1 + Math.ceil(Math.random() * 3);
 				KinkyDungeonJailGuard.CurrentAction = "jailLeashTour";
 				KinkyDungeonJailGuard.KinkyDungeonJailTourInfractions = 0;
 				let msg = TextGet("KinkyDungeonRemindJailTourStart").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard.Enemy.name));
@@ -2340,8 +2340,17 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	KinkyDungeonSpawnJailers = KinkyDungeonSpawnJailersMax;
-	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B")
+	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B") {
 		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	} else {
+		KinkyDungeonPlayerEntity.x = KinkyDungeonStartPosition.x;
+		KinkyDungeonPlayerEntity.y = KinkyDungeonStartPosition.y;
+		let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+		if (leash && (leash.tx || leash.ty)) {
+			leash.tx = undefined;
+			leash.ty = undefined;
+		}
+	}
 
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
