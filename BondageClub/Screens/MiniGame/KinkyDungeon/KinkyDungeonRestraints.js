@@ -130,7 +130,7 @@ let KinkyDungeonRestraints = [
 		enemyTags: {"wolfRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 	{name: "WolfCollar", Asset: "AutoShockCollar", Color: ['#6EAF81', '#6EAF81'], Group: "ItemNeck", power: 11, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0.1, "Pick": 0.05},
 		enemyTags: {"wolfRestraints":3}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Collars"]},
-	{name: "WolfLeash", Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
+	{name: "WolfLeash", tether: 4.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
 		escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"wolfRestraints":9}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":999}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 	// collar #6EAF81
@@ -312,11 +312,123 @@ let KinkyDungeonRestraints = [
 	{removePrison: true, name: "ShadowChainCrotch", crotchrope: true, Asset: "CrotchChain", OverridePriority: 26, Color: "#000000", Group: "ItemTorso", power: 4, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 
 	{name: "BasicCollar", Asset: "LeatherCollar", Color: ["#000000", "Default"], Group: "ItemNeck", power: 1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.15, "Remove": 0.5, "Pick": 0.75}, enemyTags: {"leashing":1, "maidCollar":-1}, playerTags: {"ItemNeckFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
-	{removePrison: true, name: "BasicLeash", Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
+	{removePrison: true, name: "BasicLeash", tether: 4.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 ];
 
 let KDRestraintsCache = new Map();
+
+let KinkyDungeonTetherPointsCount = 10;
+let KinkyDungeonTetherPoints = {};
+
+function KinkyDungeonDrawTether(Entity, CamX, CamY) {
+	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+	if (inv && inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
+		let vx = inv.tx;
+		let vy = inv.ty;
+		if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy) {
+			vx = KinkyDungeonLeashingEnemy.visual_x;
+			vy = KinkyDungeonLeashingEnemy.visual_y;
+		}
+		if (inv.tetherToGuard && KinkyDungeonJailGuard) {
+			vx = KinkyDungeonJailGuard.visual_x;
+			vy = KinkyDungeonJailGuard.visual_y;
+		}
+
+		//let dist = KDistEuclidean(inv.tx - Entity.visual_x, inv.ty - Entity.visual_y);
+		let xx = canvasOffsetX + (Entity.visual_x - CamX)*KinkyDungeonGridSizeDisplay;
+		let yy = canvasOffsetY + (Entity.visual_y - CamY)*KinkyDungeonGridSizeDisplay;
+		let txx = canvasOffsetX + (vx - CamX)*KinkyDungeonGridSizeDisplay;
+		let tyy = canvasOffsetY + (vy - CamY)*KinkyDungeonGridSizeDisplay;
+		let dx = (txx - xx);
+		let dy = (tyy - yy);
+		let dd = 0.1; // Increments
+		for (let d = 0; d < 1; d += dd) {
+			let yOffset = 30 * Math.sin(Math.PI * d);
+			let yOffset2 = 30 * Math.sin(Math.PI * (d + dd));
+
+			MainCanvas.beginPath();
+			MainCanvas.lineWidth = 4;
+			MainCanvas.moveTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*d, KinkyDungeonGridSizeDisplay*0.8 + yOffset + yy + dy*d);
+			MainCanvas.lineTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*(d+dd), KinkyDungeonGridSizeDisplay*0.8 + yOffset2 + yy + dy*(d+dd));
+			//let color = (inv.restraint.Color.length > 0) ? inv.restraint.Color[0] : inv.restraint.Color;
+			MainCanvas.strokeStyle = "#aaaaaa";//(color == "Default") ? "#aaaaaa" : color;
+			MainCanvas.stroke();
+		}
+		return;
+	}
+}
+
+function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
+	let exceeded = false;
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.tether && (inv.tx && inv.ty || inv.tetherToLeasher || inv.tetherToGuard)) {
+			let tether = inv.tetherLength ? inv.tetherLength : inv.restraint.tether;
+
+			if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy) {
+				inv.tx = KinkyDungeonLeashingEnemy.x;
+				inv.ty = KinkyDungeonLeashingEnemy.y;
+			} else if (!KinkyDungeonLeashingEnemy) {
+				inv.tetherToLeasher = undefined;
+				inv.tx = undefined;
+				inv.ty = undefined;
+			}
+			if (inv.tetherToGuard && KinkyDungeonJailGuard) {
+				inv.tx = KinkyDungeonJailGuard.x;
+				inv.ty = KinkyDungeonJailGuard.y;
+			} else if (!KinkyDungeonJailGuard) {
+				inv.tetherToGuard = undefined;
+				inv.tx = undefined;
+				inv.ty = undefined;
+			}
+
+			if (xTo || yTo) {// This means we arre trying to move
+				if (KDistEuclidean(xTo-inv.tx, yTo-inv.ty) > inv.restraint.tether) {
+					if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherTooShort"), "red", 2, true);
+					return false;
+				}
+			} else {// Then we merely update
+				let playerDist = KDistEuclidean(Entity.x-inv.tx, Entity.y-inv.ty);
+				if (playerDist > tether) {
+					let slot = null;
+					let mindist = playerDist;
+					for (let X = Entity.x-1; X <= Entity.x+1; X++) {
+						for (let Y = Entity.y-1; Y <= Entity.y+1; Y++) {
+							if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-inv.tx, Y-inv.ty) < mindist) {
+								mindist = KDistEuclidean(X-inv.tx, Y-inv.ty);
+								slot = {x:X, y:Y};
+							}
+						}
+					}
+					if (!slot) { //Fallback
+						slot = {x:inv.tx, y:inv.ty};
+					}
+					if (slot) {
+						let enemy = KinkyDungeonEnemyAt(slot.x, slot.y);
+						if (enemy) {
+							enemy.x = Entity.x;
+							enemy.y = Entity.y;
+						}
+						Entity.x = slot.x;
+						Entity.y = slot.y;
+						if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull"), "red", 2, true);
+					}
+				}
+			}
+		}
+	}
+
+	return exceeded;
+}
+
+// Gets the length of the neck tether
+function KinkyDungeonTetherLength() {
+	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+	if (inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
+		return inv.restraint.tether;
+	}
+	return null;
+}
 
 function KinkyDungeonKeyGetPickBreakChance(modifier) {
 	let mult = (modifier) ? modifier : 1.0;
@@ -640,6 +752,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				struggletype: StruggleType,
 				result: "Impossible",
 			});
+			KinkyDungeonChangeStamina(cost);
+			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
 	}
@@ -723,6 +837,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				struggletype: StruggleType,
 				result: "Impossible",
 			});
+			KinkyDungeonChangeStamina(cost);
+			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
 	}

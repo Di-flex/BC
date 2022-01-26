@@ -505,6 +505,7 @@ function KinkyDungeonHandleHUD() {
 		} else if (MouseIn(975, 650, 550, 64)) {
 			KinkyDungeonDrawState = "Game";
 			KinkyDungeonAutoWait = true;
+			KinkyDungeonAutoWaitSuppress = true;
 			KinkyDungeonSleepTime = CommonTime() + 500;
 			return true;
 		}

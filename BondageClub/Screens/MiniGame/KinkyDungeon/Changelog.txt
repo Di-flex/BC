@@ -418,6 +418,10 @@ Bugfix:
 - Attempting to fix jail stuff
 
 2.5.10
+- Added new wolfgirl enemy (metal goddess)
+- Attempted to fix the obsidian cuffs glitch for the jail
+
+2.5.11
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

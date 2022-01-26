@@ -44,6 +44,10 @@ function KDMapInit(list) {
 	return map;
 }
 
+function KDistEuclidean(x, y) {
+	return Math.sqrt(x*x + y*y);
+}
+
 /**
  * Loads the kinky dungeon game
  * @returns {void} - Nothing

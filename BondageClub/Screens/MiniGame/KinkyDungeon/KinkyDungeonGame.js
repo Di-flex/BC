@@ -459,7 +459,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (miniboss) tags.push("miniboss");
 			if (boss) tags.push("boss");
 
-			let overrideTags = KinkyDungeonAddTags(tags, Floor);
+			KinkyDungeonAddTags(tags, Floor);
 			for (let t of Tags) {
 				tags.push(t);
 			}
@@ -1261,6 +1261,8 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 }
 
 
+let KinkyDungeonAutoWaitSuppress = false;
+
 // Click function for the game portion
 // @ts-ignore
 // @ts-ignore
@@ -1278,6 +1280,11 @@ function KinkyDungeonClickGame(Level) {
 			false,
 			false,
 		];
+		if (KinkyDungeonAutoWaitSuppress) KinkyDungeonAutoWaitSuppress = false;
+		else if (KinkyDungeonAutoWait) {
+			KinkyDungeonAutoWait = false;
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+		}
 		return;
 	}
 	// beep
@@ -1617,6 +1624,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KDPlayerHitBy = [];
 
 	//if (KinkyDungeonMovePoints < 0 && KinkyDungeonStatBind < 1) KinkyDungeonMovePoints = 0;
+
+	KinkyDungeonUpdateTether(true, KinkyDungeonPlayerEntity);
 
 	KinkyDungeonResetEventVariablesTick();
 	KinkyDungeonSendInventoryEvent("tick", {delta: delta});

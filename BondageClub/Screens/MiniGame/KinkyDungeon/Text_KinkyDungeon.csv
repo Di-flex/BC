@@ -3,7 +3,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.5.10"
+KinkyDungeon,"Kinky Dungeon v2.5.11"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -583,20 +583,18 @@ KillGuard,"The guard passes out and drops her possessions!"
 AttackGuardLock,"The guard locks your restraints!"
 AttackGuardBind,"The guard places some cuffs on you!"
 AttackGuardAddRestraints,"The guard places a NewRestraintName on you"
-AttackGuardChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
-AttackGuardRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
 
 NameGuardHeavy,Armed Guard
 KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
 AttackGuardHeavyLock,"The guard locks your restraints!"
 AttackGuardHeavyBind,"The guard shocks you and slaps on some cuffs!"
-AttackGuardHeavyAddRestraints,"The guard places a NewRestraintName on you"
-AttackGuardHeavyChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
-AttackGuardHeavyRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
 AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
 
+KinkyDungeonChangeRestraints,"The EnemyName replaces your OldRestraintName with a NewRestraintName"
+KinkyDungeonRemoveRestraints,"The EnemyName removes your OldRestraintName"
+KinkyDungeonAddRestraints,"The EnemyName restrains you with a NewRestraintName"
 
 
 NameConjurer,Master Conjurer
@@ -1973,3 +1971,11 @@ KinkyDungeonRepNameEnraged,"Enraged"
 KinkyDungeonRepNameCursed,"Cursed"
 KinkyDungeonRepNamePleased,"Pleased"
 KinkyDungeonRepNameThankful,"Thankful"
+
+KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
+KinkyDungeonTetherPull,"You are yanked back by the tether!"
+KinkyDungeonRemindJailTourStart,"EnemyName: We will be going on a tour. Follow me."
+KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
+KinkyDungeonRemindJailTour1,"EnemyName: I said, follow me!"
+KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
+KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
