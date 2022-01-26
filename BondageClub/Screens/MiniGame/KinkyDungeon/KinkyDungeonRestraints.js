@@ -394,7 +394,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 					let mindist = playerDist;
 					for (let X = Entity.x-1; X <= Entity.x+1; X++) {
 						for (let Y = Entity.y-1; Y <= Entity.y+1; Y++) {
-							if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-inv.tx, Y-inv.ty) < mindist) {
+							if ((X !=  Entity.x || Y != Entity.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-inv.tx, Y-inv.ty) < mindist) {
 								mindist = KDistEuclidean(X-inv.tx, Y-inv.ty);
 								slot = {x:X, y:Y};
 							}

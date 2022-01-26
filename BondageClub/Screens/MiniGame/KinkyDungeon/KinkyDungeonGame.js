@@ -1581,14 +1581,16 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 }
 
 function KinkyDungeonWaitMessage(NoTime) {
-	if (KinkyDungeonStatWillpowerExhaustion > 1) KinkyDungeonSendActionMessage(3, TextGet("WaitSpellExhaustion"), "orange", 2);
-	else if (!KinkyDungeonHasStamina(5, false)) KinkyDungeonSendActionMessage(1, TextGet("WaitExhaustion"
-		+ (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.33 ?
-			((KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.67 ?
-				"ArousedHeavy"
-				: "Aroused"))
-				: "")), "yellow", 2);
-	else KinkyDungeonSendActionMessage(1, TextGet("Wait" + (KinkyDungeonStatArousal > 12 ? "Aroused" : "")), "silver", 2);
+	if (!KinkyDungeonAutoWait) {
+		if (KinkyDungeonStatWillpowerExhaustion > 1) KinkyDungeonSendActionMessage(3, TextGet("WaitSpellExhaustion"), "orange", 2);
+		else if (!KinkyDungeonHasStamina(5, false)) KinkyDungeonSendActionMessage(1, TextGet("WaitExhaustion"
+			+ (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.33 ?
+				((KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.67 ?
+					"ArousedHeavy"
+					: "Aroused"))
+					: "")), "yellow", 2);
+		else KinkyDungeonSendActionMessage(1, TextGet("Wait" + (KinkyDungeonStatArousal > 12 ? "Aroused" : "")), "silver", 2);
+	}
 
 	if (!NoTime && KinkyDungeonStatStamina < KinkyDungeoNStatStaminaLow)
 		KinkyDungeonStatStamina += KinkyDungeonStatStaminaRegenWait;
@@ -1612,7 +1614,7 @@ let KDDrawUpdate = 0;
 let KDVisionUpdate = 0;
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
-	if (KinkyDungeonMovePoints < -1) KinkyDungeonMovePoints += delta;
+	if (KinkyDungeonMovePoints < -1 && KinkyDungeonLeashedPlayer < 1) KinkyDungeonMovePoints += delta;
 	if (delta > 0) {
 		KDDrawUpdate = delta;
 		KDVisionUpdate = delta;

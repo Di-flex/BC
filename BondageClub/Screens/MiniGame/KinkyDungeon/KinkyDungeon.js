@@ -282,7 +282,7 @@ function KinkyDungeonRun() {
 		} else if (KinkyDungeonAutoWait) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KinkyDungeonMove({x:0, y: 0, delta: 0}, 1, false);
-				KinkyDungeonSleepTime = CommonTime() + 500;
+				KinkyDungeonSleepTime = CommonTime() + 280;
 			}
 		} else KinkyDungeonSleepTime = CommonTime() + 100;
 	} else if (KinkyDungeonState == "End") {
