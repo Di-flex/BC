@@ -310,7 +310,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	if (!sfx) sfx = "Damage";
 	if (damage == "inert") return;
 	if (playerEffect.hitTag && !KDPlayerHitBy.includes(playerEffect.hitTag)) KDPlayerHitBy.push(playerEffect.hitTag);
-	else return;
+	else if (playerEffect.hitTag) return;
 	if (!playerEffect.chance || Math.random() < playerEffect.chance) {
 		if (playerEffect.name == "Ampule") {
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShatter" + spell.name), "red", 1);
