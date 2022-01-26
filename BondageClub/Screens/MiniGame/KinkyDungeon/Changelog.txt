@@ -423,6 +423,9 @@ Bugfix:
 
 2.5.11
 - Improved leashing system in the jail
+- Fixed obsidian cuffs being broken
+- Added new messages to tell you that an item's strictness is blocking you from escaping
+
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

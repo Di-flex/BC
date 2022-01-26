@@ -1901,7 +1901,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			}
 		}
 
-		if (KinkyDungeonJailGuard.CurrentAction === "jailLeashTour") {
+		if (KinkyDungeonJailGuard.CurrentAction === "jailLeashTour" && !KinkyDungeonJailTransgressed) {
 			if (!KinkyDungeonJailGuard.RemainingJailLeashTourWaypoints && KinkyDungeonJailGuard.x === KinkyDungeonJailGuard.NextJailLeashTourWaypointX && KinkyDungeonJailGuard.y === KinkyDungeonJailGuard.NextJailLeashTourWaypointY) {
 				let leashItemToRemove = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
 				if (leashItemToRemove) {
@@ -2007,6 +2007,13 @@ function KinkyDungeonHandleJailSpawns(delta) {
 							KinkyDungeonJailGuard.x = guardPath[0].x;
 							KinkyDungeonJailGuard.y = guardPath[0].y;
 						}
+						let enemy = KinkyDungeonEnemyAt(guardPath[0].x, guardPath[0].y);
+						if (enemy) {
+							enemy.x = KinkyDungeonJailGuard.x;
+							enemy.y = KinkyDungeonJailGuard.y;
+							KinkyDungeonJailGuard.x = guardPath[0].x;
+							KinkyDungeonJailGuard.y = guardPath[0].y;
+						}
 					}
 					/*// Pull the player if needed
 					if (playerDist > pullDist) {
@@ -2026,6 +2033,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					}*/
 				}
 			}
+		} else if (KinkyDungeonJailTransgressed) {
+			KinkyDungeonJailGuard.CurrentAction = "jailWander";
 		}
 
 		if (KinkyDungeonJailGuard.CurrentAction === "jailTease" || KinkyDungeonJailGuard.CurrentAction === "jailAddRestraints" || KinkyDungeonJailGuard.CurrentAction === "jailRemoveRestraints") {
@@ -2357,6 +2366,7 @@ function KinkyDungeonDefeat() {
 			leash.tx = undefined;
 			leash.ty = undefined;
 		}
+		KinkyDungeonSpawnJailers = KinkyDungeonSpawnJailersMax - 1;
 	}
 
 	let defeat_outfit = params.defeat_outfit;
