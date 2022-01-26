@@ -583,7 +583,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 			}
 			if (door) {
 				KinkyDungeonMapSet(X, Y, 'D');
-				KinkyDungeonTiles[X + "," + Y] = {Type: "Door"};
+				KinkyDungeonTiles[X + "," + Y] = {Type: "Door", Jail: true};
 				if (lock) KinkyDungeonTiles[X + "," + Y].Lock = lock;
 			} else if (wall) {
 				if (bar)

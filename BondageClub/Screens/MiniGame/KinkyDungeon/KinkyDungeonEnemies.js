@@ -2175,8 +2175,14 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 		enemy.movePoints = 0;
 		let dist = Math.abs(x - KinkyDungeonPlayerEntity.x) + Math.abs(y - KinkyDungeonPlayerEntity.y);
 
-		if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'd' && enemy.Enemy && enemy.Enemy.tags.has("closedoors") && Math.random() < 0.8 && dist > 5) {
+		if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'd' && enemy.Enemy && enemy.Enemy.tags.has("closedoors")
+			&& ((Math.random() < 0.8 && dist > 5) ||
+				(KinkyDungeonTiles[enemy.x + "," + enemy.y] && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail && (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")))) {
 			KinkyDungeonMapSet(enemy.x, enemy.y, 'D');
+			if (KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail
+				&& (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")) {
+				KinkyDungeonTiles[enemy.x + "," + enemy.y].Lock = "Red";
+			}
 			if (dist < 10) {
 				KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonHearDoorCloseNear"), "#dddddd", 4);
 			} else if (dist < 20)
@@ -2334,7 +2340,8 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	KinkyDungeonSpawnJailers = KinkyDungeonSpawnJailersMax;
-	KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B")
+		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
 
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
@@ -2374,6 +2381,7 @@ function KinkyDungeonDefeat() {
 
 	KinkyDungeonDressPlayer();
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
+	KinkyDungeonJailTransgressed = false;
 }
 
 function KinkyDungeonFindMaster(enemy) {
