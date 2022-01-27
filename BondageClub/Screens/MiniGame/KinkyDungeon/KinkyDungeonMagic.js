@@ -34,7 +34,7 @@ let KinkyDungeonPreviewSpell = null;
 // onhit: What happens on AoE. Deals aoepower damage, or just power otherwise
 
 let KinkyDungeonSpellsStart = [
-	{name: "Knife", sfx: "Miss", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, damage: "piercing", speed: 2, playerEffect: {name: "Damage"},
+	{name: "Knife", sfx: "Miss", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, damage: "piercing", speed: 2, playerEffect: {name: "Damage"},
 		events: [{type: "DropKnife", trigger: "bulletHit"},]},
 ];
 
@@ -264,6 +264,8 @@ function KinkyDungeonSearchSpell(list, name) {
 function KinkyDungeonFindSpell(name, SearchEnemies) {
 	if (SearchEnemies) {
 		let spell = KinkyDungeonSearchSpell(KinkyDungeonSpellListEnemies, name);
+		if (spell) return spell;
+		spell = KinkyDungeonSearchSpell(KinkyDungeonSpellsStart, name);
 		if (spell) return spell;
 	}
 	for (let key in KinkyDungeonSpellList) {
@@ -598,7 +600,8 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	let spell = null;
 	if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
 		if (KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].manacost)
-			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost))
+			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
+			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].staminacost)))
 			spell = KinkyDungeonSpells[SpellChoice];
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
 	} else {
@@ -762,6 +765,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
 		KinkyDungeonChangeMana(-spell.manacost);
 		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
+		if (spell.staminacost) KinkyDungeonChangeMana(-spell.staminacost);
 
 		KinkyDungeonChargeVibrators(spell.manacost);
 		if (spell.channel) {
