@@ -155,14 +155,21 @@ KinkyDungeonRarity9,Godlike
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
 
-KinkyDungeonInventoryItemRedKey,Red Key
+KinkyDungeonInventoryItemRedKey,Key
+KinkyDungeonInventoryItemRedKeyDesc,"A key with traces of magic that fades with one use."
+KinkyDungeonInventoryItemRedKeyDesc2,"Can be used to unlock a restraint, door, or chest."
+KinkyDungeonInventoryItemMagicKey,Magic Key
+KinkyDungeonInventoryItemMagicKeyDesc,"A magical key with the power to open blue locks."
+KinkyDungeonInventoryItemMagicKeyDesc2,"Blue locks can't be otherwise picked."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemLockpick,Lockpick
+KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
+KinkyDungeonInventoryItemLockpickDesc2,"Doesn't last forever, but can help in a pinch."
 KinkyDungeonInventoryItem2Lockpick,lockpick x2
 KinkyDungeonInventoryItem4Lockpick,lockpicks x4
 KinkyDungeonInventoryItemPotionMana,Mana Potion
 KinkyDungeonInventoryItemPotionManaUse,You sip the mana potion and feel empowered.
-KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used to reverse magical paralysis."
+KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used by mages to recover their strength."
 KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 24 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
