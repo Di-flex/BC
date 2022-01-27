@@ -367,7 +367,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 							remove = true;
 						} else if (lostitem.looserestraint) {
 							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
-								`+ (loose) ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
+								`+ (loose) ${TextGet("Restraint" + lostitem[itemType].name)}`, "white", 5);
 							remove = true;
 						}
 					}
