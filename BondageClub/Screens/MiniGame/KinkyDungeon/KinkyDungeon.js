@@ -252,14 +252,14 @@ function KinkyDungeonRun() {
 				KinkyDungeonSleepTurns -= 1;
 				if (KinkyDungeonJailTransgressed)
 					KinkyDungeonTotalSleepTurns += 1;
-				KinkyDungeonAdvanceTime(1);
-				KinkyDungeonSleepTime = CommonTime() + 10;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 					KinkyDungeonSleepTurns = 0;
 					if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 						CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 					}
 				}
+				KinkyDungeonAdvanceTime(1);
+				KinkyDungeonSleepTime = CommonTime() + 10;
 			}
 			if (KinkyDungeonSleepTurns == 0) {
 				KinkyDungeonChangeStamina(0);
@@ -822,6 +822,9 @@ function KinkyDungeonGenerateSaveData() {
 	save.buffs = KinkyDungeonPlayerBuffs;
 	save.lostitems = KinkyDungeonLostItems;
 	save.caches = KinkyDungeonCachesPlaced;
+	save.rescued = KinkyDungeonRescued;
+	save.aid = KinkyDungeonAid;
+	save.penance = KinkyDungeonPenance;
 
 	let spells = [];
 	let newInv = [];
@@ -903,6 +906,9 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.points != undefined) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels != undefined) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
+			if (saveData.rescued != undefined) KinkyDungeonRescued = saveData.rescued;
+			if (saveData.aid != undefined) KinkyDungeonAid = saveData.aid;
+			if (saveData.penance != undefined) KinkyDungeonPenance = saveData.penance;
 			if (saveData.stats) {
 				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
 				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;

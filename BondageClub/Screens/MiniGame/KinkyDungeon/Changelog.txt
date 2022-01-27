@@ -437,6 +437,8 @@ Bugfix:
 2.6.1
 - Added tooltips to the item shop
 - Added buttons for rescue in the reputation menu
+- Fixed crash when loading save, enemy pathing, and when leashed
+- Fixed being slowed after sleep
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
