@@ -179,6 +179,14 @@ function KinkyDungeonDrawReputation() {
 						// Rescue
 					}
 				}
+				if (KDRepSelectionMode == "Penance") {
+					DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonRescue"), (KinkyDungeonCanRescue(rep, value)) ? "white" : (KinkyDungeonInJail() && !KinkyDungeonRescued[rep] ? "pink" : "#999999"));
+					if (MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40)) {
+						DrawTextFit(TextGet("KinkyDungeonPenanceDesc" + rep), 1100+1, 850+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonPenanceDesc" + rep), 1100, 850, 1250, "white", "black");
+						// Rescue
+					}
+				}
 				//DrawButton(canvasOffsetX + 275 + XX + 690, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonPenance"), "white");
 			}
 
@@ -191,4 +199,12 @@ function KinkyDungeonDrawReputation() {
 
 function KinkyDungeonCanRescue(rep, value) {
 	return value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
+}
+
+function KinkyDungeonActivatePenance(Floor) {
+
+}
+
+function KinkyDungeonPenanceBindings(Floor, tags, prefShrines) {
+
 }

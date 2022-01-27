@@ -439,6 +439,10 @@ Bugfix:
 - Added buttons for rescue in the reputation menu
 - Fixed crash when loading save, enemy pathing, and when leashed
 - Fixed being slowed after sleep
+- Improved jail pathfinding
+
+2.6.2
+-
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
