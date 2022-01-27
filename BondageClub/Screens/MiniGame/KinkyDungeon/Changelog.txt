@@ -428,6 +428,7 @@ Bugfix:
 - Fixed item layering in general
 - New weapons: spear, flail, staff of flame, staff of binding
 - Binding chain binds for 10 turns instead of 6
+- Added caches, which can contain your items in jail but require a pick.
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -534,7 +534,7 @@ function KinkyDungeonCreateRectangle(Left, Top, Width, Height, Border, Fill, Pad
 						setTo = borderType;
 					} else setTo = fillType;
 				}
-				if (setTo != "") {
+				if (setTo != "" && KinkyDungeonMapGet(Left + X, Top + Y) != "s") {
 					KinkyDungeonMapSet(Left + X, Top + Y, setTo);
 					if (offlimit && OffLimits) {
 						KinkyDungeonTiles[(Left + X) + "," + (Top + Y)] = {OffLimits: true};
