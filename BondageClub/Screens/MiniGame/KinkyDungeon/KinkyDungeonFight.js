@@ -1,21 +1,25 @@
 "use strict";
-var KinkyDungeonKilledEnemy = null;
+let KinkyDungeonKilledEnemy = null;
 let KinkyDungeonAlert = 0;
 
-var KinkyDungeonMissChancePerBlind = 0.15; // Max 3
-var KinkyDungeonMissChancePerSlow = 0.25; // Max 3
-var KinkyDungeonBullets = []; // Bullets on the game board
-var KinkyDungeonBulletsID = {}; // Bullets on the game board
+let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
+let KinkyDungeonMissChancePerSlow = 0.25; // Max 3
+let KinkyDungeonBullets = []; // Bullets on the game board
+let KinkyDungeonBulletsID = {}; // Bullets on the game board
 
-var KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
-var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
+let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
+let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
 let KinkyDungeonHalfDamageTypes = ["tickle", "charm", "drain"];
 
 // Weapons
-var KinkyDungeonPlayerWeapon = null;
-var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, sfx: "Unarmed"};
-var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
-var KinkyDungeonWeapons = {
+let KinkyDungeonPlayerWeapon = null;
+let KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, sfx: "Unarmed"};
+let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
+
+/**
+ * @type {Record<string, KinkyDungeonWeapon>}
+ */
+let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},

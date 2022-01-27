@@ -772,9 +772,13 @@ let KinkyDungeonGameKey = {
 };
 
 
-function KinkyDungeonSaveGame(ToString) {
-	let saveData = {KinkyDungeonSave: {}};
-	let save = saveData.KinkyDungeonSave;
+
+/**
+ * Outputs a savegame
+ * @returns {KinkyDungeonSave} - Saved game object
+ */
+function KinkyDungeonGenerateSaveData() {
+	let save = {};
 	save.level = MiniGameKinkyDungeonLevel;
 	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
 	save.rep = KinkyDungeonGoddessRep;
@@ -824,6 +828,11 @@ function KinkyDungeonSaveGame(ToString) {
 		wep: KinkyDungeonPlayerWeapon,
 		npp: KinkyDungeonNewGame,
 	};
+	return save;
+}
+
+function KinkyDungeonSaveGame(ToString) {
+	let save = KinkyDungeonGenerateSaveData();
 
 	let data = LZString.compressToBase64(JSON.stringify(save));
 	if (!ToString) {

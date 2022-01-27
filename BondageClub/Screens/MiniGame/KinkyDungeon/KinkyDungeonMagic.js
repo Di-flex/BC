@@ -89,11 +89,10 @@ let KinkyDungeonLearnableSpells = [
 	],
 ];
 
-let KinkyDungeonSpellPoints = 3;
-
 let KinkyDungeonSpellChoices = [0];
 let KinkyDungeonSpellChoicesToggle = [true];
 let KinkyDungeonSpellChoiceCount = 5;
+
 let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. When you plan to use a mystic seal, you get 3 spells to choose from.
 	"Elements": [
 		{name: "SPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},

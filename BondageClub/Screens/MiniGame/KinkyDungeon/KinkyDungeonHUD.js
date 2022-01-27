@@ -103,6 +103,7 @@ function KinkyDungeonDrawInputs() {
 
 				if (MouseIn(x + ((!sg.left) ? -(ButtonWidth)*i : 0), y, ButtonWidth*i, ButtonWidth)) {
 					let item = KinkyDungeonGetRestraintItem(sg.group);
+					let lastO = 0;
 					if (item && item.dynamicLink) {
 						let O = 1;
 						MainCanvas.textAlign = "left";
@@ -117,11 +118,34 @@ function KinkyDungeonDrawInputs() {
 								O++;
 							}
 						}
+						lastO = O;
 						O = 0;
 						if (drawn) {
 							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 1 + 530, 1 + MouseY + O * ButtonWidth, "black", "black");
 							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 530, MouseY + O * ButtonWidth, "white", "black");
 						}
+						O = lastO + 1;
+						MainCanvas.textAlign = "center";
+					}
+					if (item && item.restraint && KinkyDungeonStrictness(false, item.restraint.Group)) {
+						let strictItems = KinkyDungeonGetStrictnessItems(item.restraint.Group);
+						let O = lastO + 1;
+						MainCanvas.textAlign = "left";
+						let drawn = false;
+						for (let s of strictItems) {
+							drawn = true;
+							let msg = TextGet("Restraint" + s);
+							DrawText(msg, 1 + 530, 1 + MouseY + O * 50, "black", "black");
+							DrawText(msg, 530, MouseY + O * 50, "white", "black");
+							O++;
+						}
+						lastO = O;
+						O = 0;
+						if (drawn) {
+							DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MouseY + O * ButtonWidth, "black", "black");
+							DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MouseY + O * ButtonWidth, "white", "black");
+						}
+						O = lastO + 1;
 						MainCanvas.textAlign = "center";
 					}
 				}

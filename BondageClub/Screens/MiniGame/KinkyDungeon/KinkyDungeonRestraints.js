@@ -13,6 +13,10 @@
 // These are groups that the game is not allowed to remove because they were tied at the beginning
 let KinkyDungeonRestraintsLocked = [];
 
+let KinkyDungeonCurrentEscapingItem = null;
+let KinkyDungeonCurrentEscapingMethod = null;
+let KinkyDungeonStruggleTime = 0;
+
 let KinkyDungeonMultiplayerInventoryFlag = false;
 let KinkyDungeonItemDropChanceArmsBound = 0.2; // Chance to drop item with just bound arms and not bound hands.
 
@@ -31,7 +35,20 @@ let KinkyDungeonEnchantedKnifeBonus = 0.1; // Bonus whenever you have an enchant
 
 let KinkyDungeonRestraintsCache = new Map();
 
-let KinkyDungeonRestraints = [
+// Format: strict group => [list of groups the strictness applies to]
+const KinkyDungeonStrictnessTable = new Map([
+	["ItemHead", ["ItemEars"]],
+	["ItemMouth", ["ItemHead", "ItemEars"]],
+	["ItemMouth2", ["ItemHead", "ItemEars"]],
+	["ItemMouth3", ["ItemHead", "ItemEars"]],
+	["ItemNeck", ["ItemMouth", "ItemArms"]],
+	["ItemArms", ["ItemHands"]],
+	["ItemTorso", ["ItemArms", "ItemLegs", "ItemPelvis"]],
+	["ItemLegs", ["ItemFeet", "ItemBoots"]],
+	["ItemFeet", ["ItemBoots"]],
+]);
+
+const KinkyDungeonRestraints = [
 	{removePrison: true, name: "DuctTapeArms", Asset: "DuctTape", Color: "#AA2222", Group: "ItemArms", power: -2, weight: 0, escapeChance: {"Struggle": 0.3, "Cut": 0.9, "Remove": 0},
 		enemyTags: {"ribbonRestraints":5}, playerTags: {"ItemArmsFull":8}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Charms"]},
 	{removePrison: true, name: "DuctTapeFeet", Asset: "DuctTape", Color: "#AA2222", Group: "ItemFeet", blockfeet: true, power: -2, weight: 0, escapeChance: {"Struggle": 0.3, "Cut": 0.9, "Remove": 0},
@@ -181,7 +198,7 @@ let KinkyDungeonRestraints = [
 
 	{inventory: true, name: "TrapArmbinder", strictness: 0.1, Asset: "LeatherArmbinder", LinkableBy: ["Wrapping"], Type: "WrapStrap", Group: "ItemArms", power: 8, weight: 2,
 		escapeChance: {"Struggle": 0.1, "Cut": 0.5, "Remove": 0.35, "Pick": 0.15}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Leather", "Armbinders"]},
-	{inventory: true, name: "TrapCuffs", Asset: "MetalCuffs", LinkableBy: ["Wrapping", "Armbinders"], Group: "ItemArms", power: 4, weight: 2, DefaultLock: "Red",
+	{inventory: true, name: "TrapCuffs", strictness: 0.15, Asset: "MetalCuffs", LinkableBy: ["Wrapping", "Armbinders"], Group: "ItemArms", power: 4, weight: 2, DefaultLock: "Red",
 		escapeChance: {"Struggle": 0.0, "Cut": -0.1, "Remove": 10, "Pick": 2.5}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Metal", "Cuffs"]},
 	{inventory: true, name: "TrapHarness", Asset: "LeatherStrapHarness", LinkableBy: ["HeavyCorsets"], OverridePriority: 26, Color: "#222222", Group: "ItemTorso", power: 2, weight: 2, harness: true,
 		escapeChance: {"Struggle": 0.0, "Cut": 0.3, "Remove": 0.8, "Pick": 1.0}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: [], shrine: ["Leather", "Harnesses"]},
@@ -317,9 +334,6 @@ let KinkyDungeonRestraints = [
 ];
 
 let KDRestraintsCache = new Map();
-
-let KinkyDungeonTetherPointsCount = 10;
-let KinkyDungeonTetherPoints = {};
 
 function KinkyDungeonDrawTether(Entity, CamX, CamY) {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
@@ -611,9 +625,37 @@ function KinkyDungeonStrictness(ApplyGhost, Group) {
 	if (ApplyGhost && KinkyDungeonHasGhostHelp()) return 0;
 	let strictness = 0;
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness && inv.restraint.strictness > strictness) strictness = inv.restraint.strictness;
+		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness && inv.restraint.strictness > strictness)  {
+			let strictGroups = KinkyDungeonStrictnessTable.get(inv.restraint.Group);
+			if (strictGroups) {
+				for (let s of strictGroups) {
+					if (s == Group) {
+						strictness += inv.restraint.strictness;
+						break;
+					}
+				}
+			}
+		}
 	}
 	return strictness;
+}
+
+function KinkyDungeonGetStrictnessItems(Group) {
+	let list = [];
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness)  {
+			let strictGroups = KinkyDungeonStrictnessTable.get(inv.restraint.Group);
+			if (strictGroups) {
+				for (let s of strictGroups) {
+					if (s == Group) {
+						list.push(inv.restraint.name);
+						break;
+					}
+				}
+			}
+		}
+	}
+	return list;
 }
 
 function KinkyDungeonGetPickBaseChance() {
@@ -706,9 +748,6 @@ function KinkyDungeonUnlockAttempt(lock) {
 	}
 	return false;
 }
-
-let KinkyDungeonCurrentEscapingItem = null;
-let KinkyDungeonCurrentEscapingMethod = null;
 
 // Lockpick = use tool or cut
 // Otherwise, just a normal struggle

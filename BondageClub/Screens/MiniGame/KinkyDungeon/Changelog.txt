@@ -432,6 +432,7 @@ Bugfix:
 - Bomb damage now 10 from 8, fuse time 5 from 6, now has 1 turn channel
 - Rebalanced restraints so harder ones need higher levels to get trapped in
 - Fixed quick inventory overlapping with the main UI
+- Item strictness only affects nearby items; display strictness impact in HUD
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

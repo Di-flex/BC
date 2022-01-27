@@ -107,6 +107,8 @@ let KinkyDungeonDifficulty = 0;
 
 let KinkyDungeonSubmissiveMult = 0;
 
+let KinkyDungeonSpellPoints = 3;
+
 function KinkyDungeonDefaultStats() {
 	KinkyDungeonLostItems = [];
 	KinkyDungeonFastMove = true;

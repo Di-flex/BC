@@ -382,22 +382,22 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
 	if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 
-	if (KinkyDungeonGoddessRep.Rope < KDAnger) tags.push("ropeAnger");
-	if (KinkyDungeonGoddessRep.Rope < KDRage) tags.push("ropeRage");
-	if (KinkyDungeonGoddessRep.Leather < KDAnger) tags.push("leatherAnger");
-	if (KinkyDungeonGoddessRep.Leather < KDRage) tags.push("leatherRage");
+	if (KinkyDungeonGoddessRep.Rope < KDANGER) tags.push("ropeAnger");
+	if (KinkyDungeonGoddessRep.Rope < KDRAGE) tags.push("ropeRage");
+	if (KinkyDungeonGoddessRep.Leather < KDANGER) tags.push("leatherAnger");
+	if (KinkyDungeonGoddessRep.Leather < KDRAGE) tags.push("leatherRage");
 	if (KinkyDungeonGoddessRep.Metal < -15) tags.push("metalAnger");
-	if (KinkyDungeonGoddessRep.Metal < KDRage) tags.push("metalRage");
+	if (KinkyDungeonGoddessRep.Metal < KDRAGE) tags.push("metalRage");
 	if (KinkyDungeonGoddessRep.Latex < -15) tags.push("latexAnger");
-	if (KinkyDungeonGoddessRep.Latex < KDRage) tags.push("latexRage");
+	if (KinkyDungeonGoddessRep.Latex < KDRAGE) tags.push("latexRage");
 	if (KinkyDungeonGoddessRep.Elements < -15) tags.push("elementsAnger");
-	if (KinkyDungeonGoddessRep.Elements < KDRage) tags.push("elementsRage");
-	if (KinkyDungeonGoddessRep.Conjure < KDAnger) tags.push("conjureAnger");
-	if (KinkyDungeonGoddessRep.Conjure < KDRage) tags.push("conjureRage");
-	if (KinkyDungeonGoddessRep.Illusion < KDAnger) tags.push("illusionAnger");
-	if (KinkyDungeonGoddessRep.Illusion < KDRage) tags.push("illusionRage");
-	if (KinkyDungeonGoddessRep.Will < KDAnger) tags.push("willAnger");
-	if (KinkyDungeonGoddessRep.Will < KDRage) tags.push("willRage");
+	if (KinkyDungeonGoddessRep.Elements < KDRAGE) tags.push("elementsRage");
+	if (KinkyDungeonGoddessRep.Conjure < KDANGER) tags.push("conjureAnger");
+	if (KinkyDungeonGoddessRep.Conjure < KDRAGE) tags.push("conjureRage");
+	if (KinkyDungeonGoddessRep.Illusion < KDANGER) tags.push("illusionAnger");
+	if (KinkyDungeonGoddessRep.Illusion < KDRAGE) tags.push("illusionRage");
+	if (KinkyDungeonGoddessRep.Will < KDANGER) tags.push("willAnger");
+	if (KinkyDungeonGoddessRep.Will < KDRAGE) tags.push("willRage");
 
 	let overrideTags = [];
 	if (KinkyDungeonGoddessRep.Will < -45) tags.push("plant");
@@ -625,6 +625,12 @@ function KinkyDungeonCreateCell(security, width, height) {
 function KinkyDungeonPlaceStairs(startpos, width, height) {
 	// Starting stairs are predetermined and guaranteed to be open
 	KinkyDungeonMapSet(1, startpos, 'S');
+	if (startpos > 1) KinkyDungeonMapSet(2, startpos - 1, '0');
+	KinkyDungeonMapSet(2, startpos, '0');
+	if (startpos < KinkyDungeonGridHeight-1) KinkyDungeonMapSet(2, startpos + 1, '0');
+	if (startpos > 1) KinkyDungeonMapSet(3, startpos - 1, '0');
+	KinkyDungeonMapSet(3, startpos, '0');
+	if (startpos < KinkyDungeonGridHeight-1) KinkyDungeonMapSet(3, startpos + 1, '0');
 
 	// Ending stairs are not.
 	let placed = false;

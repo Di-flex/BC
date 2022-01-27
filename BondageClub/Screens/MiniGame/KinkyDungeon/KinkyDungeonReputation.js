@@ -1,7 +1,14 @@
 "use strict";
 
+const KDANGER = -19;
+const KDRAGE = -31;
+
+/**
+ * @type {Record<string, number>}
+ */
 let KinkyDungeonGoddessRep = {
 };
+
 
 function KinkyDungeonInitReputation() {
 	KinkyDungeonGoddessRep = {"Ghost" : -50, "Prisoner" : -50};
@@ -14,18 +21,13 @@ function KinkyDungeonHandleReputation() {
 	return true;
 }
 
-let KDRecentRepIndex = 0;
-
-let KDAnger = -19;
-let KDRage = -31;
-
 function KinkyDungeonRepName(Amount) {
 	let name = "";
 
 	if (Amount > 10) name = "Thankful";
 	if (Amount > 30) name = "Pleased";
-	if (Amount < KDAnger) name = "Angered";
-	if (Amount < KDRage) name = "Enraged";
+	if (Amount < KDANGER) name = "Angered";
+	if (Amount < KDRAGE) name = "Enraged";
 	if (Amount < -45) name = "Cursed";
 
 	return TextGet("KinkyDungeonRepName" + name);

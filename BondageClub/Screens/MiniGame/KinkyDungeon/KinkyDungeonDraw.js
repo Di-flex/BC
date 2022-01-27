@@ -1,5 +1,8 @@
 "use strict";
 
+
+let KDRecentRepIndex = 0;
+
 function KinkyDungeonGetSprite(code, x, y) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
@@ -26,8 +29,6 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "w") sprite = "Water";
 	return sprite;
 }
-
-let KinkyDungeonStruggleTime = 0;
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
@@ -433,6 +434,7 @@ function KinkyDungeonDrawGame() {
 }
 
 let KinkyDungeonFloaters = [];
+let KinkyDungeonLastFloaterTime = 0;
 
 function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff = "") {
 	if (Entity.x && Entity.y) {
@@ -450,7 +452,6 @@ function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, 
 	}
 }
 
-let KinkyDungeonLastFloaterTime = 0;
 
 function KinkyDungeonDrawFloaters(CamX, CamY) {
 	let delta = CommonTime() - KinkyDungeonLastFloaterTime;
