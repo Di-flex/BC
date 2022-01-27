@@ -3,7 +3,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252"
-KinkyDungeon,"Kinky Dungeon v2.5.10"
+KinkyDungeon,"Kinky Dungeon v2.5.11"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -130,6 +130,8 @@ LootChestTrapMagic,"You find gold and a magic trap! (+RestraintType) (+XXX gold)
 LootChestTrapMagicHarness,"Swirling belts emerge from the chest and leave you bound! (+RestraintType)"
 LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+RestraintType) (+XXX gold)"
 
+LootCacheLostItems,"You recover some of your lost items!"
+
 LootPotionHealth,"You find a red potion with a sweet scent."
 LootPotionMana,"You find a blue potion that glows with magical essence."
 LootPotionsHealth,"You find several health potions."
@@ -187,9 +189,21 @@ KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and ici
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
+KinkyDungeonInventoryItemStaffFlame,Staff of Flame
+KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
+KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
+KinkyDungeonInventoryItemStaffBind,Staff of Binding
+KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
+KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 3 turns."
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
-KinkyDungeonInventoryItemHammerDesc2,"Deals crushing damage and knocks the target back."
+KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
+KinkyDungeonInventoryItemFlail,Flail
+KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fash and hard to dodge."
+KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to adjacent targets. Deals crush damage."
+KinkyDungeonInventoryItemSpear,Spear
+KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
+KinkyDungeonInventoryItemSpearDesc2,"Deals pierce damage to the target and one square behind it."
 KinkyDungeonInventoryItemBoltCutters,Bolt Cutters
 KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon."
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
@@ -198,13 +212,13 @@ KinkyDungeonInventoryItemKnifeDesc,"A go-to for travelers and adventurers."
 KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attacks deal 20 damage instead, halved if feet are bound."
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
-KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon, a superior choice to a knife."
+KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with, even while bound!"
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
-KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target."
+KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Kick
 KinkyDungeonAccuracy,"Hit Chance: "
@@ -583,20 +597,18 @@ KillGuard,"The guard passes out and drops her possessions!"
 AttackGuardLock,"The guard locks your restraints!"
 AttackGuardBind,"The guard places some cuffs on you!"
 AttackGuardAddRestraints,"The guard places a NewRestraintName on you"
-AttackGuardChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
-AttackGuardRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
 
 NameGuardHeavy,Armed Guard
 KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
 AttackGuardHeavyLock,"The guard locks your restraints!"
 AttackGuardHeavyBind,"The guard shocks you and slaps on some cuffs!"
-AttackGuardHeavyAddRestraints,"The guard places a NewRestraintName on you"
-AttackGuardHeavyChangeRestraints,"The guard replaces your OldRestraintName with a NewRestraintName"
-AttackGuardHeavyRemoveRestraints,"The guard removes your OldRestraintName"
 AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
 AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
 
+KinkyDungeonChangeRestraints,"The EnemyName replaces your OldRestraintName with a NewRestraintName"
+KinkyDungeonRemoveRestraints,"The EnemyName removes your OldRestraintName"
+KinkyDungeonAddRestraints,"The EnemyName restrains you with a NewRestraintName"
 
 
 NameConjurer,Master Conjurer
@@ -646,9 +658,17 @@ NameRat,Filthy Rat
 KillRat,"The rat skitters back into a hole in the wall."
 AttackRat,"The filthy rat nibbles at you! (-DamageTaken SP)"
 
-KinkyDungeonNoMana,"You do not have enough mana to cast the spell!"
+KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
+PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
+PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
+PlayerAttackVeryStrong,"You attack the TargetEnemy for a devastating DamageDealt damage!"
+PlayerAttackImmune,"You attack the TargetEnemy, but your weapon has no effect!"
 PlayerRanged,"AttackName hits the TargetEnemy for DamageDealt damage!"
+PlayerRangedWeak,"AttackName hits the TargetEnemy for a reduced DamageDealt damage!"
+PlayerRangedImmune,"AttackName hits the TargetEnemy but it doesn't do anything!"
+PlayerRangedStrong,"AttackName hits the TargetEnemy for an increased DamageDealt damage!"
+PlayerRangedVeryStrong,"AttackName hits the TargetEnemy for a devastating DamageDealt damage!"
 KinkyDungeonBasicAttack,attack
 PlayerMiss,"You miss the TargetEnemy!"
 PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
@@ -710,6 +730,8 @@ KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
 KinkyDungeonStruggleStruggleImpossibleAroused,"You groan in frustration as you realize the item is too tight to escape."
 KinkyDungeonStruggleStruggleImpossible2,"The item tightens itself as you try to squeeze out!"
 KinkyDungeonStruggleStruggleImpossible3,"You will need someone's help to squeeze out."
+KinkyDungeonStruggleStruggleStrict,"You pull and tug but something is keeping it in place."
+KinkyDungeonStruggleStruggleStrictAroused,"You groan and tug uselessly. Something is keeping it item strapped in place!"
 KinkyDungeonStruggleStruggleImpossibleBound,"You are too tightly bound to have a chance."
 KinkyDungeonStruggleStruggleImpossibleBoundAroused,"You shake and moan as you realize your struggles are futile."
 KinkyDungeonStruggleUnlockImpossible,"You can't find a keyhole!"
@@ -718,12 +740,16 @@ KinkyDungeonStruggleUnlockImpossible2,"The item can't be unlocked without a spec
 KinkyDungeonStruggleUnlockImpossible3,"You can't reach the keyhole by yourself!"
 KinkyDungeonStruggleUnlockImpossibleBound,"You can't hold the key to unlock this with."
 KinkyDungeonStruggleUnlockImpossibleBoundAroused,"Your bound and shaking hands can't even hold the key."
+KinkyDungeonStruggleUnlockStrict,"You try, but something is keeping your hands away."
+KinkyDungeonStruggleUnlockStrictAroused,"You flail the key around uselessly but a strap is preventing you!"
 KinkyDungeonStrugglePickImpossible,"This lock is beyond your skill level!"
 KinkyDungeonStrugglePickImpossibleAroused,"You whimper as you realize the lock is far too secure."
 KinkyDungeonStrugglePickImpossible2,"There is no visible locking mechanism."
 KinkyDungeonStrugglePickImpossible3,"You can't pick this by yourself, you'll need help."
 KinkyDungeonStrugglePickImpossibleBound,"You can't maneuver the lockpick."
 KinkyDungeonStrugglePickImpossibleBoundAroused,"You let out a frustrated sigh as you struggle to even grasp the pick."
+KinkyDungeonStrugglePickStrict,"You try to start picking, but the lock is secured by something else."
+KinkyDungeonStrugglePickStrictAroused,"You whimper as you realize the lock is shielded by another strap."
 KinkyDungeonStruggleRemoveNeedEdge,"You wiggle uselessly. Maybe you need some kind of corner or edge..."
 KinkyDungeonStruggleRemoveNeedEdgeAroused,"You rub your body against the floor to no avail, and sigh."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
@@ -732,12 +758,16 @@ KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try t
 KinkyDungeonStruggleRemoveImpossible3,"You can't reach it by yourself!"
 KinkyDungeonStruggleRemoveImpossibleBound,"You are too tightly bound to manipulate that item."
 KinkyDungeonStruggleRemoveImpossibleBoundAroused,"Your futile struggles do nothing to loosen the fasteners."
+KinkyDungeonStruggleRemoveStrict,"You try to undo the fasteners, but they are blocked by other straps!"
+KinkyDungeonStruggleRemoveStrictAroused,"You rub your body uselessly as you find another strap securing the item."
 KinkyDungeonStruggleCutImpossible,"The item is too durable to cut."
 KinkyDungeonStruggleCutImpossibleAroused,"Your hopeless attempts fail to even leave a scratch."
 KinkyDungeonStruggleCutImpossible2,"You fail to leave even a scratch!"
 KinkyDungeonStruggleCutImpossible3,"You can't get any leverage to cut it with..."
 KinkyDungeonStruggleCutImpossibleBound,"You can't hold a knife, let alone cut the thing."
 KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as the knife bounces around uselessly."
+KinkyDungeonStruggleCutStrict,"Your arms are kept from having leverage due to another item."
+KinkyDungeonStruggleCutStrictAroused,"You fiddle with the tool, but your arms lack leverage due to another item"
 
 KinkyDungeonNeedOpenChest,"The chest is too smooth to help. Maybe if you opened it?"
 
@@ -949,22 +979,22 @@ RestraintKittyPaws,Bast Paws
 RestraintKittyPawsDesc,"Leather mittens used to pacify new initiates of the Bast cult."
 RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but aren't the toughest material."
 
-RestraintMysticDuctTapeHead,Youth Wrappings (Head)
+RestraintMysticDuctTapeHead,Blessed Wrappings (Head)
 RestraintMysticDuctTapeHeadDesc,"A band of magic embalming ribbon wrapped tight around your eyes."
 RestraintMysticDuctTapeHeadDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeMouth,Youth Wrappings (Gag)
+RestraintMysticDuctTapeMouth,Blessed Wrappings (Gag)
 RestraintMysticDuctTapeMouthDesc,"A band of magic embalming ribbon wrapped tight around your mouth."
 RestraintMysticDuctTapeMouthDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeArmsMummy,Youth Wrappings (Arms)
+RestraintMysticDuctTapeArmsMummy,Blessed Wrappings (Arms)
 RestraintMysticDuctTapeArmsMummyDesc,"A layer of magic embalming ribbon wrapped tight around your body."
 RestraintMysticDuctTapeArmsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeFeetMummy,Youth Wrappings (Feet)
+RestraintMysticDuctTapeFeetMummy,Blessed Wrappings (Feet)
 RestraintMysticDuctTapeFeetMummyDesc,"A layer of magic embalming ribbon wrapped tight around your shins."
 RestraintMysticDuctTapeFeetMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeBoots,Youth Wrappings (Toes)
+RestraintMysticDuctTapeBoots,Blessed Wrappings (Toes)
 RestraintMysticDuctTapeBootsDesc,"A layer of magic embalming ribbon wrapped tight around your feet."
 RestraintMysticDuctTapeBootsDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
-RestraintMysticDuctTapeLegsMummy,Youth Wrappings (Legs)
+RestraintMysticDuctTapeLegsMummy,Blessed Wrappings (Legs)
 RestraintMysticDuctTapeLegsMummyDesc,"A layer of magic embalming ribbon wrapped tight around your thighs."
 RestraintMysticDuctTapeLegsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
 RestraintStuffing,Stuffing
@@ -1476,6 +1506,12 @@ KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does Damag
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
+
+KinkyDungeonSpellKnife,Knife
+KinkyDungeonSpellDescriptionKnife,Throw one of your knives DamageDealt damage. Lands in the target's tile, but is recoverable afterward.
+KinkyDungeonSpellCastKnife,You a throw a knife!
+KinkyDungeonSpellTargetKnife,Choose aim direction
+
 KinkyDungeonSpellDagger,Shadow Dagger
 KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt damage and pierces all in its path.
 KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
@@ -1536,7 +1572,7 @@ KinkyDungeonSpellTargetElectrify,Choose target location
 KinkyDungeonSpellCastAreaElectrify,The elemental channels the force of the storm!
 
 KinkyDungeonSpellFireball,Fireball
-KinkyDungeonSpellDescriptionFireball,A slow moving ball of flame that explodes for DamageDealt damage, double on a direct hit!
+KinkyDungeonSpellDescriptionFireball,A slow moving ball of flame that explodes for 120 fire damage to the target and DamageDealt damage to surrounding enemies.
 KinkyDungeonSpellCastFireball,You a hurl a fireball!
 KinkyDungeonSpellTargetFireball,Choose aim direction
 
@@ -1600,7 +1636,7 @@ KinkyDungeonSpellSummonUp2,Master Summoner
 KinkyDungeonSpellDescriptionSummonUp2,Increases the permanent summon cap by +1 (from 3 to 4)
 
 KinkyDungeonSpellBomb,Bomb
-KinkyDungeonSpellDescriptionBomb,A bomb that does DamageDealt damage in an area after DelayTime turns.
+KinkyDungeonSpellDescriptionBomb,Channel for 1 turn for a bomb that does DamageDealt fire damage in an area after DelayTime turns.
 KinkyDungeonSpellCastBomb,Fire in the hole!
 KinkyDungeonSpellTargetBomb,Choose target AoE location
 
@@ -1839,12 +1875,12 @@ KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
 
-KinkyDungeonSpellsPage0,"Level I Spells"
-KinkyDungeonSpellsPage1,"Level II Spells"
-KinkyDungeonSpellsPage2,"Level III Spells"
-KinkyDungeonSpellsPage3,"Upgrades"
-KinkyDungeonSpellsPage4,"Passive Spells"
-KinkyDungeonSpellsPage5,"Skills"
+KinkyDungeonSpellsPage0,"Elemental Spells"
+KinkyDungeonSpellsPage1,"Conjuration Spells"
+KinkyDungeonSpellsPage2,"Illusion Spells"
+KinkyDungeonSpellsPage3,"Perks"
+KinkyDungeonSpellsPage4,"Perks II"
+KinkyDungeonSpellsPage5,"Perks III"
 
 KinkyDungeonSpellsPage,"pg. "
 KinkyDungeonSpellsPageNext,"Next Page"
@@ -1973,3 +2009,14 @@ KinkyDungeonRepNameEnraged,"Enraged"
 KinkyDungeonRepNameCursed,"Cursed"
 KinkyDungeonRepNamePleased,"Pleased"
 KinkyDungeonRepNameThankful,"Thankful"
+
+KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
+KinkyDungeonTetherPull,"You are yanked back by the tether!"
+KinkyDungeonRemindJailTourStart,"EnemyName: We will be going on a tour. Follow me."
+KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
+KinkyDungeonRemindJailTour1,"EnemyName: I said, follow me!"
+KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
+KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
+
+KinkyDungeonItemsUnderneath,"Layered underneath:"
+KinkyDungeonItemsStrictness,"Increased strictness due to:"

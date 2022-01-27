@@ -127,7 +127,8 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				}
 				if (item.restraint && item.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
 					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
-					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
 				}
 			}
 		}
@@ -136,7 +137,8 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "linkItem") {
 				if (item.restraint && item.restraint.Link && (Math.random() < e.chance)) {
 					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
-					KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 				}
 			}
 		}
@@ -229,13 +231,33 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 }
 
 function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
-	if (Event == "playerAttack") {
+	if (Event == "tick") {
 		for (let e of weapon.events) {
-			if (e.type == "Cleave" && data.enemy && !data.disarm) {
+			if (e.type == "Buff") {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: weapon.name, type: e.buffType, power: e.power, duration: 2});
+			}
+		}
+	} else if (Event == "playerAttack") {
+		for (let e of weapon.events) {
+			if (e.type == "ElementalEffect" && data.enemy && !data.disarm && !data.evaded) {
+				if (data.enemy) {
+					KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
+				}
+			} if (e.type == "Cleave" && data.enemy && !data.disarm) {
 				for (let enemy of KinkyDungeonEntities) {
 					if (enemy != data.enemy) {
 						let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
-						if (dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+						if (KinkyDungeonEvasion(enemy) && dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
+						}
+					}
+				}
+			} else if (e.type == "Pierce" && data.enemy && !data.disarm) {
+				let xx = 2*data.enemy.x - KinkyDungeonPlayerEntity.x;
+				let yy = 2*data.enemy.y - KinkyDungeonPlayerEntity.y;
+				for (let enemy of KinkyDungeonEntities) {
+					if (enemy != data.enemy) {
+						if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
 							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
 						}
 					}
@@ -249,6 +271,25 @@ function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
 						data.enemy.x = newX;
 						data.enemy.y = newY;
 					}
+				}
+			}
+		}
+	}
+}
+
+function KinkyDungeonHandleBulletEvent(Event, b, data) {
+	if (b.bullet) {
+		if (Event == "bulletHit") {
+			for (let e of b.bullet.events) {
+				if (e.type == "DropKnife") {
+					let point = {x: b.x, y:b.y};
+					if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y))) {
+						if (b.vx || b.vy) {
+							let speed = KDistEuclidean(b.vx, b.vy);
+							point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						}
+					}
+					KinkyDungeonDropItem({name: "Knife"}, point, KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y)), true, true);
 				}
 			}
 		}

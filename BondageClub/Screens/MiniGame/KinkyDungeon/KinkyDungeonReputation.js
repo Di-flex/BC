@@ -1,7 +1,14 @@
 "use strict";
 
+const KDANGER = -19;
+const KDRAGE = -31;
+
+/**
+ * @type {Record<string, number>}
+ */
 let KinkyDungeonGoddessRep = {
 };
+
 
 function KinkyDungeonInitReputation() {
 	KinkyDungeonGoddessRep = {"Ghost" : -50, "Prisoner" : -50};
@@ -14,18 +21,13 @@ function KinkyDungeonHandleReputation() {
 	return true;
 }
 
-let KDRecentRepIndex = 0;
-
-let KDAnger = -19;
-let KDRage = -31;
-
 function KinkyDungeonRepName(Amount) {
 	let name = "";
 
 	if (Amount > 10) name = "Thankful";
 	if (Amount > 30) name = "Pleased";
-	if (Amount < KDAnger) name = "Angered";
-	if (Amount < KDRage) name = "Enraged";
+	if (Amount < KDANGER) name = "Angered";
+	if (Amount < KDRAGE) name = "Enraged";
 	if (Amount < -45) name = "Cursed";
 
 	return TextGet("KinkyDungeonRepName" + name);
@@ -93,9 +95,9 @@ function KinkyDungeonDrawReputation() {
 			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100-1,  3+yPad + canvasOffsetY + spacing * i, "black", "black");
 			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX + 275 + XX + 100,  2+yPad + canvasOffsetY + spacing * i, "white", "black");
 
-			DrawButton(canvasOffsetX + 275 + XX + 400, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonAid" + rep), value > 10 ? "white" : "pink");
-			DrawButton(canvasOffsetX + 275 + XX + 650, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonRescue" + rep), value > -1 ? "white" : "pink");
-			DrawButton(canvasOffsetX + 275 + XX + 900, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonPenance" + rep), "white");
+			//DrawButton(canvasOffsetX + 275 + XX + 400, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonAid" + rep), value > 10 ? "white" : "pink");
+			//DrawButton(canvasOffsetX + 275 + XX + 650, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonRescue" + rep), value > -1 ? "white" : "pink");
+			//DrawButton(canvasOffsetX + 275 + XX + 900, yPad + canvasOffsetY + spacing * i, 200, 50, TextGet("KinkyDungeonPenance" + rep), "white");
 
 			i++;
 		}

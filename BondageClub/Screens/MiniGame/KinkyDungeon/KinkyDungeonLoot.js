@@ -18,7 +18,9 @@ var KinkyDungeonLootTable = {
 		//{name: "spell_conjuration_low", magic: true, minLevel: 0, weight:1, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedConjure", "lowlevel"]}, // lowlevel is spell levels 1-7
 		//{name: "spell_elemental_low", magic: true, minLevel: 0, weight:1, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedElements", "lowlevel"]}, // lowlevel is spell levels 1-7
 		{name: "spell_points", magic: true, minLevel: 0, weight:1, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, special:100, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]}, // lowlevel is spell levels 1-7
-		{name: "weapon_boltcutters", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["NoBoltCutters"]},
+		{name: "weapon_boltcutters", minLevel: 0, weight:0.7, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["BoltCutters"]},
+		{name: "weapon_flail", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["Flail"]},
+		{name: "weapon_spear", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["Spear"]},
 		{name: "trap_armbinder", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
 		{name: "trap_armbinderHeavy", minLevel: 1, weight:4, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], submissive: 15, power: 8},
 		{name: "trap_cuffs", trap: true, minLevel: 1, weight:1, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
@@ -31,9 +33,44 @@ var KinkyDungeonLootTable = {
 		{name: "potions_mana", minLevel: 0, weight:1, message:"LootPotionsMana", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowmanapotions"]},
 		{name: "potions_many", minLevel: 1, weight:1, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowpotions"]},
 	],
+	"cache": [
+		{name: "lost_items", minLevel: 0, weight:999999999999, message:"LootCacheLostItems", messageColor:"lightgreen", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["LostItems"]}, // lowlevel is spell levels 1-7
+		{name: "weapon_boltcutters", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["BoltCutters"]},
+		{name: "potions_many", minLevel: 0, weight:1, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+		{name: "staff_flame", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffFlame"]},
+		{name: "staff_bind", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffBind"]},
+	]
 
 
 };
+
+let KinkyDungeonLostItems = [];
+
+function KinkyDungeonAddLostItems(list, excludeBound) {
+	for (let item of list) {
+		let unique = true;
+		let itemType = "";
+		if (item.weapon) itemType = "weapon";
+		else if (item.looserestraint) itemType = "looserestraint";
+		else if (item.consumable) itemType = "consumable";
+		else if (item.outfit) itemType = "outfit";
+		if (item.weapon && item.weapon.name == "Knife") unique = false;
+		if (itemType && item[itemType]) {
+			for (let item2 of KinkyDungeonLostItems) {
+				if (item2[itemType] && item2[itemType].name == item[itemType].name) {
+					unique = false;
+					break;
+				}
+			}
+		}
+		if (unique && itemType && (!excludeBound || itemType != "weapon" || (item[itemType].magic))) {
+			KinkyDungeonLostItems.push(item);
+			if (itemType == "consumable") {
+				item.quantity = Math.min(item.quantity, 3 + Math.floor(Math.random() * 3));
+			}
+		}
+	}
+}
 
 
 // Determines if you get a good loot from a blue locked chest
@@ -56,17 +93,16 @@ function KinkyDungeonLoot(Level, Index, Type) {
 				let SpellList = null;
 				if (loot.prerequisites.includes("lowlevel")) maxlevel = 5;
 				if (loot.prerequisites.includes("lowpotions") && (
-					KinkyDungeonItemCount("PotionFrigid") + KinkyDungeonItemCount("PotionMana") + KinkyDungeonItemCount("PotionStamina") < 10
+					KinkyDungeonItemCount("PotionFrigid") + KinkyDungeonItemCount("PotionMana") + KinkyDungeonItemCount("PotionStamina") > 10
 				)) prereqs = false;
 				if (loot.prerequisites.includes("lowmanapotions") && (
-					KinkyDungeonItemCount("PotionMana") < 10
+					KinkyDungeonItemCount("PotionMana") > 10
 				)) prereqs = false;
 				if (loot.prerequisites.includes("UnlearnedElements")) SpellList = KinkyDungeonSpellList.Elements;
 				if (loot.prerequisites.includes("UnlearnedConjure")) SpellList = KinkyDungeonSpellList.Conjure;
 				if (loot.prerequisites.includes("UnlearnedIllusion")) SpellList = KinkyDungeonSpellList.Illusion;
 				if (loot.prerequisites.includes("NoBoltCutters") && KinkyDungeonInventoryGet("BoltCutters")) prereqs = false;
-
-				if (KinkyDungeonGoddessRep.Ghost && loot.submissive && (KinkyDungeonGoddessRep.Ghost + 50 < loot.submissive)) prereqs = false;
+				if (loot.prerequisites.includes("LostItems") && KinkyDungeonLostItems.length < 1) prereqs = false;
 
 				if (prereqs)
 					for (let P = 0; P < loot.prerequisites.length; P++) {
@@ -82,6 +118,15 @@ function KinkyDungeonLoot(Level, Index, Type) {
 
 				if (SpellList != null && KinkyDungeonGetUnlearnedSpells(minlevel, maxlevel, SpellList).length == 0) {
 					prereqs = false;
+				}
+			}
+			if (KinkyDungeonGoddessRep.Ghost && loot.submissive && (KinkyDungeonGoddessRep.Ghost + 50 < loot.submissive)) prereqs = false;
+			if (loot.noweapon) {
+				for (let w of loot.noweapon) {
+					if (KinkyDungeonInventoryGet(w)) {
+						prereqs = false;
+						break;
+					}
 				}
 			}
 
@@ -207,6 +252,22 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemBoltCutters"));
+	} else if (Loot.name == "weapon_spear") {
+		KinkyDungeonInventoryAddWeapon("Spear");
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemSpear"));
+	} else if (Loot.name == "weapon_flail") {
+		KinkyDungeonInventoryAddWeapon("Flail");
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemFlail"));
+	} else if (Loot.name == "staff_flame") {
+		KinkyDungeonInventoryAddWeapon("StaffFlame");
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemStaffFlame"));
+	} else if (Loot.name == "staff_bind") {
+		KinkyDungeonInventoryAddWeapon("StaffBind");
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemStaffBind"));
 	} else if (Loot.name == "potions_mana") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 2+Math.floor(Math.random()*2));
 	} else if (Loot.name == "potions_many") {
@@ -267,6 +328,56 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBelt"));
+	}
+
+	else if (Loot.name == "lost_items") {
+		for (let I = 0; I < KinkyDungeonLostItems.length; I++) {
+			let lostitem = KinkyDungeonLostItems[I];
+			if (lostitem) {
+				let itemType = "";
+				if (lostitem.weapon) itemType = "weapon";
+				else if (lostitem.looserestraint) itemType = "looserestraint";
+				else if (lostitem.consumable) itemType = "consumable";
+				else if (lostitem.outfit) itemType = "outfit";
+				let remove = false;
+				if (lostitem[itemType]) {
+					let existingitem = KinkyDungeonGetInventoryItem(lostitem[itemType].name, itemType);
+					if (existingitem && existingitem.item) {
+						if (existingitem.item.consumable) {
+							if (!existingitem.item.quantity) existingitem.item.quantity = lostitem.quantity;
+							else existingitem.item.quantity += lostitem.quantity;
+							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+								`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
+							remove = true;
+						}
+					} else {
+						if (lostitem.consumable) {
+							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+								`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 4);
+							remove = true;
+						} if (lostitem.weapon) {
+							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 6);
+							remove = true;
+						} else if (lostitem.outfit) {
+							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 7);
+							remove = true;
+						} else if (lostitem.looserestraint) {
+							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+								`+ (loose) ${TextGet("Restraint" + lostitem[itemType].name)}`, "white", 5);
+							remove = true;
+						}
+					}
+					if (remove) {
+						KinkyDungeonInventory.push(lostitem);
+						//KinkyDungeonLostItems.splice(I, 1);
+						//I -= 1;
+					}
+				}
+			}
+		}
+		KinkyDungeonLostItems = [];
 	}
 
 	if (value > 0) {

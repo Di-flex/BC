@@ -1,21 +1,25 @@
 "use strict";
-var KinkyDungeonKilledEnemy = null;
+let KinkyDungeonKilledEnemy = null;
 let KinkyDungeonAlert = 0;
 
-var KinkyDungeonMissChancePerBlind = 0.15; // Max 3
-var KinkyDungeonMissChancePerSlow = 0.25; // Max 3
-var KinkyDungeonBullets = []; // Bullets on the game board
-var KinkyDungeonBulletsID = {}; // Bullets on the game board
+let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
+let KinkyDungeonMissChancePerSlow = 0.25; // Max 3
+let KinkyDungeonBullets = []; // Bullets on the game board
+let KinkyDungeonBulletsID = {}; // Bullets on the game board
 
-var KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
-var KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
+let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
+let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
 let KinkyDungeonHalfDamageTypes = ["tickle", "charm", "drain"];
 
 // Weapons
-var KinkyDungeonPlayerWeapon = null;
-var KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, sfx: "Unarmed"};
-var KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
-var KinkyDungeonWeapons = {
+let KinkyDungeonPlayerWeapon = null;
+let KinkyDungeonPlayerDamageDefault = {dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, sfx: "Unarmed"};
+let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
+
+/**
+ * @type {Record<string, KinkyDungeonWeapon>}
+ */
+let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
@@ -23,6 +27,14 @@ var KinkyDungeonWeapons = {
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"Hammer": {name: "Hammer", dmg: 5, chance: 1.0, staminacost: 3, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
+	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
+	"Spear": {name: "Spear", dmg: 3.5, chance: 1.0, staminacost: 2.0, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+		events: [{type: "Pierce", trigger: "playerAttack", power: 3.5, damage: "pierce"}]},
+	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 3}]},
+	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
 	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
 
@@ -138,7 +150,12 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		dmg *= 2;
 	}
 
+
+
 	if (Damage) {
+		let buffType = Damage.type + "DamageBuff";
+		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
+		dmg *= buffAmount;
 		let time = Damage.time ? Damage.time : 0;
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 			if (time)
@@ -221,9 +238,13 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (Enemy.hp <= 0) {
 		KinkyDungeonKilledEnemy = Enemy;
 	}
-
+	let mod = "";
+	if (resistDamage == 1) mod = "Weak";
+	if (resistDamage == 2) mod = "Immune";
+	if (resistDamage == -1) mod = "Strong";
+	if (resistDamage == -2) mod = "VeryStrong";
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
-		TextGet((Ranged) ? "PlayerRanged" : "PlayerAttack").replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + (dmgDealt * 10))
+		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
 			(Damage && (dmg > 0 || effect)) ? "orange" : "red", 2);
 
@@ -392,7 +413,7 @@ function KinkyDungeonUpdateBullets(delta) {
 					E -= 1;
 				}
 				if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
-					KinkyDungeonBulletHit(b, 1.1);
+					KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
 			}
 			if (endTime) b.time = 0;
 		}
@@ -422,8 +443,10 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	}
 }
 
-function KinkyDungeonBulletHit(b, born) {
+function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
+
+	KinkyDungeonSendBulletEvent("bulletHit", b, {target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
 	if (b.bullet.cast && (!b.bullet.cast.chance || Math.random() < b.bullet.cast.chance)) {
 		let xx = b.bullet.cast.tx;
@@ -648,4 +671,13 @@ function KinkyDungeonSendWeaponEvent(Event, data) {
 			}
 		}
 	}
+}
+
+function KinkyDungeonSendBulletEvent(Event, b, data) {
+	if (b.bullet && b.bullet.events)
+		for (let e of b.bullet.events) {
+			if (e.trigger == Event) {
+				KinkyDungeonHandleBulletEvent(Event, b, data);
+			}
+		}
 }

@@ -1,5 +1,8 @@
 "use strict";
 
+
+let KDRecentRepIndex = 0;
+
 function KinkyDungeonGetSprite(code, x, y) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
@@ -26,8 +29,6 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "w") sprite = "Water";
 	return sprite;
 }
-
-let KinkyDungeonStruggleTime = 0;
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
@@ -372,6 +373,8 @@ function KinkyDungeonDrawGame() {
 							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value), "#aaaaaa", "#000000");
 				}
 
+				KinkyDungeonDrawTether(KinkyDungeonPlayerEntity, CamX+CamX_offset, CamY+CamY_offset);
+
 				if (tooltip) {
 					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, 1 + MouseX, 1 + MouseY - KinkyDungeonGridSizeDisplay/2, 200, "black", "black");
 					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, MouseX, MouseY - KinkyDungeonGridSizeDisplay/2, 200, "white", "black");
@@ -431,6 +434,7 @@ function KinkyDungeonDrawGame() {
 }
 
 let KinkyDungeonFloaters = [];
+let KinkyDungeonLastFloaterTime = 0;
 
 function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff = "") {
 	if (Entity.x && Entity.y) {
@@ -438,7 +442,7 @@ function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, 
 			x: Entity.x + Math.random(),
 			y: Entity.y + Math.random(),
 			override: LocationOverride,
-			speed: 25,
+			speed: 20 + (Time ? Time : 0) + Math.random()*10,
 			t: 0,
 			color: Color,
 			text: "" + ((typeof Amount === "string") ? Amount : Math.round(Amount * 10)/10) + suff,
@@ -448,7 +452,6 @@ function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, 
 	}
 }
 
-let KinkyDungeonLastFloaterTime = 0;
 
 function KinkyDungeonDrawFloaters(CamX, CamY) {
 	let delta = CommonTime() - KinkyDungeonLastFloaterTime;

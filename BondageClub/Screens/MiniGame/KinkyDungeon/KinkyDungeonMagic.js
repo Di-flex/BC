@@ -34,7 +34,8 @@ let KinkyDungeonPreviewSpell = null;
 // onhit: What happens on AoE. Deals aoepower damage, or just power otherwise
 
 let KinkyDungeonSpellsStart = [
-
+	{name: "Knife", sfx: "Miss", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, damage: "piercing", speed: 2, playerEffect: {name: "Damage"},
+		events: [{type: "DropKnife", trigger: "bulletHit"},]},
 ];
 
 let KinkyDungeonSpellLevel = {
@@ -43,40 +44,40 @@ let KinkyDungeonSpellLevel = {
 	"Illusion":1,
 };
 let KinkyDungeonLearnableSpells = [
-	//Page 1
+	//Page 1: Elements
 	[
 		// Verbal
-		["Electrify", "Flash", "Shroud"],
+		["Electrify", "Incinerate", "IceBreath","IronBlood",],
 		// Arms
-		["Firebolt", "Icebolt", "ChainBolt", "Dagger"],
+		["Firebolt", "Icebolt", "Crackle", "Fireball", "LightningBolt",],
 		// Legs
-		["Shield", "Snare", "Wall", "Ally", "Slime"],
+		["Shield", "GreaterShield", "Fissure"],
 		// Passive
-		["FlameBlade", "TrueSight"],
+		["Knife", "FlameBlade",],
 	],
 
-	//Page 2
+	//Page 2: Conjuration
 	[
 		// Verbal
-		["Incinerate", "IceBreath","IronBlood", "Bomb", "FireElemental", "Blink", "GreaterFlash", "ShadowWarrior"],
+		["Bomb", "FireElemental", "Blink"],
 		// Arms
-		["Crackle", "SlimeBall", "ShadowSlash", "ShadowBlade", "Corona"],
+		["ChainBolt", "SlimeBall"],
 		// Legs
-		["GreaterShield", "StormCrystal", "Decoy", ],
+		["Snare", "Wall", "Ally", "Slime", "StormCrystal", "Golem", "Leap"],
 		// Passive
-		["EnemySense"],
+		["Knife", "FloatingWeapon"],
 	],
 
-	//Page 3
+	//Page 3: Illusion
 	[
 		// Verbal
-		["FocusedFlash", "Invisibility",],
+		["Flash", "Shroud", "GreaterFlash", "ShadowWarrior", "FocusedFlash", "Invisibility"],
 		// Arms
-		["Fireball", "LightningBolt", ],
+		["Dagger", "ShadowSlash", "ShadowBlade", "Corona"],
 		// Legs
-		["Golem", "Leap", "Fissure"],
+		["Decoy", ],
 		// Passive
-		["FloatingWeapon"],
+		["Knife", "TrueSight", "EnemySense"],
 	],
 
 	//Page 4
@@ -88,11 +89,10 @@ let KinkyDungeonLearnableSpells = [
 	],
 ];
 
-let KinkyDungeonSpellPoints = 3;
-
-let KinkyDungeonSpellChoices = [];
-let KinkyDungeonSpellChoicesToggle = [];
+let KinkyDungeonSpellChoices = [0];
+let KinkyDungeonSpellChoicesToggle = [true];
 let KinkyDungeonSpellChoiceCount = 5;
+
 let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. When you plan to use a mystic seal, you get 3 spells to choose from.
 	"Elements": [
 		{name: "SPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -128,11 +128,11 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "MPUp3", school: "Any", manacost: 0, components: [], level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "SummonUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "SummonUp2", school: "Any", manacost: 0, components: [], level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
-		{name: "Bomb", noise: 5, sfx: "FireSpell", school: "Conjure", manacost: 5, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 6, power: 8, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}}, // Start with flash, an explosion with a 1 turn delay and a 1.5 tile radius. If you are caught in the radius, you also get blinded temporarily!
+		{name: "Bomb", noise: 5, sfx: "FireSpell", school: "Conjure", manacost: 5, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 5, power: 10, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}, channel: 1},
 		{name: "Snare", sfx: "FireSpell", school: "Conjure", manacost: 2, components: ["Legs"], noTargetEnemies: true, level:1, type:"inert", onhit:"lingering", lifetime:9999, time: 12, delay: 5, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
 		{name: "Slime", landsfx: "MagicSlash", school: "Conjure", manacost: 9, components: ["Legs"], level:1, type:"inert", onhit:"lingering", time: 4, delay: 1, range: 4, size: 3, aoe: 2, lifetime: 3, power: 4, lifetimeHitBonus: 20, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 		//{name: "PinkGas", manacost: 4, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 2, range: 4, size: 3, aoe: 2.5, lifetime: 9999, damage: "stun", playerEffect: {name: "PinkGas", time: 3}}, // Dizzying gas, increases arousal
-		{name: "ChainBolt", sfx: "FireSpell", school: "Conjure", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 6,  power: 2, delay: 0, range: 50, damage: "chain", speed: 2, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
+		{name: "ChainBolt", sfx: "FireSpell", school: "Conjure", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 10,  power: 2, delay: 0, range: 50, damage: "chain", speed: 2, playerEffect: {name: "SingleChain", time: 1}}, // Throws a chain which stuns the target for 1 turn
 		{name: "SlimeBall", noise: 1, sfx: "FireSpell", school: "Conjure", manacost: 8, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"", time: 3,  power: 5, delay: 0, range: 50, damage: "glue", speed: 1,
 			trailPower: 4, trailLifetime: 10, trailTime: 3, trailDamage:"glue", trail:"lingering", trailChance: 1.0, playerEffect: {name: "SlimeTrap", time: 3}}, // Throws a ball of slime which oozes more slime
 		{name: "Leap", sfx: "Teleport", school: "Conjure", manacost: 8, components: ["Legs"], noTargetDark: true, noTargetEnemies: true, level:3, type:"inert", onhit:"teleport", delay: 1, lifetime:1, range: 5, damage: ""}, // A quick blink which takes effect instantly, but requires legs to be free
@@ -264,6 +264,8 @@ function KinkyDungeonFindSpell(name, SearchEnemies) {
 	if (SearchEnemies) {
 		let spell = KinkyDungeonSearchSpell(KinkyDungeonSpellListEnemies, name);
 		if (spell) return spell;
+		spell = KinkyDungeonSearchSpell(KinkyDungeonSpellsStart, name);
+		if (spell) return spell;
 	}
 	for (let key in KinkyDungeonSpellList) {
 		let list = KinkyDungeonSpellList[key];
@@ -285,8 +287,8 @@ function KinkyDungeonDisableSpell(Name) {
 let KinkyDungeonSpellPress = 0;
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [];
-	KinkyDungeonSpellChoicesToggle = [];
+	KinkyDungeonSpellChoices = [0];
+	KinkyDungeonSpellChoicesToggle = [true];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
@@ -596,7 +598,9 @@ function KinkyDungeoCheckComponents(spell) {
 function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	let spell = null;
 	if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
-		if (KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].manacost))
+		if (KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].manacost)
+			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
+			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
 			spell = KinkyDungeonSpells[SpellChoice];
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
 	} else {
@@ -714,7 +718,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		let b = KinkyDungeonLaunchBullet(xx, yy,
 			tX-entity.x,tY - entity.y,
 			spell.speed, {name:spell.name, block: spell.block, width:size, height:size, summon:spell.summon, cast: cast, dot: spell.dot,
-				passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit, piercing: spell.piercing,
+				passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit, piercing: spell.piercing, events: spell.events,
 				lifetime:miscast ? 1 : 1000, origin: {x: entity.x, y: entity.y}, range: spell.range, hit:spell.onhit, damage: {damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
 		b.visual_x = entity.x;
 		b.visual_y = entity.y;
@@ -727,7 +731,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 		KinkyDungeonLaunchBullet(tX, tY,
 			moveDirection.x,moveDirection.y,
-			0, {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay, cast: cast, dot: spell.dot,
+			0, {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay, cast: cast, dot: spell.dot, events: spell.events,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
 				damage: spell.type == "inert" ? null : {damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
 	} else if (spell.type == "buff") {
@@ -759,6 +763,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
 		KinkyDungeonChangeMana(-spell.manacost);
+		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
+		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
 
 		KinkyDungeonChargeVibrators(spell.manacost);
 		if (spell.channel) {
@@ -1032,7 +1038,13 @@ function KinkyDungeonListSpells(Mode) {
 						else if (spell.school == "Illusion") {color = "#775599"; suff = "*";}
 						else color = "#aa4444";
 					}
-					DrawButton(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding, suff + TextGet("KinkyDungeonSpell" + spell.name) + suff, color);
+					let finalsuff = suff;
+					if (spell.level > 2) {
+						for (let S = 2; S < spell.level; S++) {
+							finalsuff = finalsuff + suff;
+						}
+					}
+					DrawButton(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding, finalsuff + TextGet("KinkyDungeonSpell" + spell.name) + finalsuff, color);
 				} else if (Mode == "Click") {
 					if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * ii, buttonwidth, spacing - ypadding)) return spell;
 				}

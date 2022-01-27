@@ -1,4 +1,9 @@
 "use strict";
+
+/**
+ * Base costs for all the shrines. Starts at this value, increases thereafter
+ * @type {Record<string, number>}
+ */
 var KinkyDungeonShrineBaseCosts = {
 	//"Charms": 25,
 	"Leather": 40,
@@ -13,6 +18,10 @@ var KinkyDungeonShrineBaseCosts = {
 
 let KinkyDungeonOrbAmount = 0;
 
+/**
+ * Cost growth, overrides the default amount
+ * @type {Record<string, number>}
+ */
 var KinkyDungeonShrineBaseCostGrowth = {
 	"Elements": 2,
 	"Conjure": 2,
@@ -21,6 +30,9 @@ var KinkyDungeonShrineBaseCostGrowth = {
 
 let KinkyDungeonGhostDecision = 0;
 
+/**
+ * @type {KinkyDungeonShopItem[]}
+ */
 var KinkyDungeonShopItems = [];
 var KinkyDungeonShopIndex = 0;
 
@@ -28,8 +40,13 @@ var KinkyDungeonPoolUses = 0;
 var KinkyDungeonShrinePoolChancePerUse = 0.33;
 var KinkyDungeonPoolUsesGrace = 2;
 
-var KinkyDungeonShrineCosts = {};
-var KinkyDungeonShrineTypeRemove = ["Charms", "Leather", "Metal", "Rope", "Latex", "Gags", "Blindfolds", "Boots"]; // These shrines will always remove restraints associated with their shrine
+/**
+ * Current costs multipliers for shrines
+ * @type {Record<string, number>}
+ */
+let KinkyDungeonShrineCosts = {};
+
+let KinkyDungeonShrineTypeRemove = ["Charms", "Leather", "Metal", "Rope", "Latex", "Gags", "Blindfolds", "Boots"]; // These shrines will always remove restraints associated with their shrine
 
 function KinkyDungeonShrineInit() {
 	KinkyDungeonShrineCosts = {};

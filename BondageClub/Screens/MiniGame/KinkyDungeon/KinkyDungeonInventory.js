@@ -90,12 +90,12 @@ function KinkyDungeonFilterInventory(Filter) {
 		else if (item.looserestraint && item.looserestraint.Group) Group = item.looserestraint.Group;
 		if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
-		if (item.restraint && Filter == "Equipped") ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
-		else if (item.looserestraint && Filter == "Restraints") ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
-		else if (item.consumable && Filter == "Consumables") ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
-		else if (item.weapon && Filter == "Weapons") ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});
-		else if (item.outfit && Filter == "Outfits") ret.push({name: item.outfit.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${item.outfit.name}.png`});
-		else if (item && item.name && Filter == "Misc") ret.push({name: item.name, item: item});
+		if (item.restraint && (Filter == "Equipped")) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
+		else if (item.looserestraint && (Filter == "restraint" || Filter == "Restraints")) ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
+		else if (item.consumable && (Filter == "consumable" || Filter == "Consumables")) ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
+		else if (item.weapon && (Filter == "weapon" || Filter == "Weapons")) ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});
+		else if (item.outfit && (Filter == "outfit" || Filter == "Outfits")) ret.push({name: item.outfit.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${item.outfit.name}.png`});
+		else if (item && item.name && (Filter == "Misc")) ret.push({name: item.name, item: item});
 	}
 
 	return ret;
@@ -135,7 +135,7 @@ function KinkyDungeonDrawInventorySelected(List) {
 		} else if (weapon) {
 			DrawText(TextGet("KinkyDungeonWeaponDamage") + (item.item.weapon.dmg * 10), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 310, "black", "silver");
 			DrawText(TextGet("KinkyDungeonWeaponAccuracy") + Math.round(item.item.weapon.chance * 100) + "%", canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 350, "black", "silver");
-			let cost = KinkyDungeonStatStaminaCostAttack;
+			let cost = -KinkyDungeonStatStaminaCostAttack;
 			if (item.item.weapon.staminacost) cost = item.item.weapon.staminacost;
 			DrawText(TextGet("KinkyDungeonWeaponStamina") + (-1*cost), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 390, "black", "silver");
 		}
@@ -216,7 +216,7 @@ function KinkyDungeonQuickGrid(I, Width, Height, Xcount) {
 	let h = 0;
 	let v = 0;
 	while (i < I) {
-		if (h < Xcount) h++; else {
+		if (h < Xcount - 1) h++; else {
 			h = 0;
 			v++;
 		}
