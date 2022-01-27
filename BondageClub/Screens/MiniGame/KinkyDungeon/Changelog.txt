@@ -435,7 +435,8 @@ Bugfix:
 - Item strictness only affects nearby items; display strictness impact in HUD
 
 2.6.1
--
+- Added tooltips to the item shop
+- Added buttons for rescue in the reputation menu
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

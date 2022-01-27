@@ -204,6 +204,7 @@ function KinkyDungeonInitialize(Level, Random) {
 }
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor) {
+	KinkyDungeonRescued = false;
 	KDRestraintsCache = new Map();
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = {};
@@ -510,7 +511,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) + 1, 'b');
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
 	KinkyDungeonTiles[(cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2))] = {Loot: "cache"};
-	KinkyDungeonTiles[cornerX + "," + (cornerY + Math.floor(radius/2))] = {Type: "Lock", Lock: "Red", ReLock: true};
+	KinkyDungeonTiles[cornerX + "," + (cornerY + Math.floor(radius/2))] = {Type: "Door", Lock: "Red", ReLock: true};
 	KinkyDungeonCachesPlaced.push(Floor);
 }
 
