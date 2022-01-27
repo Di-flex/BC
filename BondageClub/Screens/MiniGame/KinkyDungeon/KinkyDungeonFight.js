@@ -29,7 +29,7 @@ var KinkyDungeonWeapons = {
 		events: [{type: "Pierce", trigger: "playerAttack", power: 3.5, damage: "pierce"}]},
 	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 3}]},
-	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 1.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
 	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 };
@@ -150,7 +150,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	if (Damage) {
 		let buffType = Damage.type + "DamageBuff";
-		let buffAmount = 1 + KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType);
+		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		dmg *= buffAmount;
 		let time = Damage.time ? Damage.time : 0;
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {

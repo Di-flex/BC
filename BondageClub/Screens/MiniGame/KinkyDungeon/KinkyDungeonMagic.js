@@ -601,7 +601,7 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
 		if (KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].manacost)
 			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
-			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].staminacost)))
+			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
 			spell = KinkyDungeonSpells[SpellChoice];
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
 	} else {
@@ -765,7 +765,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
 		KinkyDungeonChangeMana(-spell.manacost);
 		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
-		if (spell.staminacost) KinkyDungeonChangeMana(-spell.staminacost);
+		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
 
 		KinkyDungeonChargeVibrators(spell.manacost);
 		if (spell.channel) {

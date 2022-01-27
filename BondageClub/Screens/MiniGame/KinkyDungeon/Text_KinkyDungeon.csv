@@ -191,7 +191,7 @@ KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns.
 
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
-KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. All enemies take 15% more fire damage."
+KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
 KinkyDungeonInventoryItemStaffBind,Staff of Binding
 KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
 KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 3 turns."

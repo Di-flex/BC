@@ -102,18 +102,7 @@ function KinkyDungeonLoot(Level, Index, Type) {
 				if (loot.prerequisites.includes("UnlearnedConjure")) SpellList = KinkyDungeonSpellList.Conjure;
 				if (loot.prerequisites.includes("UnlearnedIllusion")) SpellList = KinkyDungeonSpellList.Illusion;
 				if (loot.prerequisites.includes("NoBoltCutters") && KinkyDungeonInventoryGet("BoltCutters")) prereqs = false;
-				if (loot.noweapon) {
-					for (let w of loot.noweapon) {
-						if (KinkyDungeonInventoryGet(w)) {
-							prereqs = false;
-							break;
-						}
-					}
-				}
-
 				if (loot.prerequisites.includes("LostItems") && KinkyDungeonLostItems.length < 1) prereqs = false;
-
-				if (KinkyDungeonGoddessRep.Ghost && loot.submissive && (KinkyDungeonGoddessRep.Ghost + 50 < loot.submissive)) prereqs = false;
 
 				if (prereqs)
 					for (let P = 0; P < loot.prerequisites.length; P++) {
@@ -129,6 +118,15 @@ function KinkyDungeonLoot(Level, Index, Type) {
 
 				if (SpellList != null && KinkyDungeonGetUnlearnedSpells(minlevel, maxlevel, SpellList).length == 0) {
 					prereqs = false;
+				}
+			}
+			if (KinkyDungeonGoddessRep.Ghost && loot.submissive && (KinkyDungeonGoddessRep.Ghost + 50 < loot.submissive)) prereqs = false;
+			if (loot.noweapon) {
+				for (let w of loot.noweapon) {
+					if (KinkyDungeonInventoryGet(w)) {
+						prereqs = false;
+						break;
+					}
 				}
 			}
 
