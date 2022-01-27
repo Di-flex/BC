@@ -795,7 +795,7 @@ function KinkyDungeonGetRandomEnemyPoint(avoidPlayer, onlyPlayer, Enemy) {
 		if (((!avoidPlayer || Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist)
 			&& (!onlyPlayer || Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) <= playerDist))
 			&& (KinkyDungeonJailTransgressed || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
-			&& KinkyDungeonNoEnemyExceptSub(X, Y, true, Enemy)) {
+			&& KinkyDungeonNoEnemyExceptSub(X, Y, true, Enemy) && (!KinkyDungeonTiles[X + "," + Y] || !KinkyDungeonTiles[X + "," + Y].OffLimits)) {
 			return {x: X, y:Y};
 		}
 		tries += 1;
@@ -1966,7 +1966,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					} else {
 						// Get a random next waypoint in an acceptable range outside of the cell
 						let randomPoint = { x: xx, y: yy };
-						for(let i = 0; i < 10; ++i) {
+						for(let i = 0; i < 40; ++i) {
 							randomPoint = KinkyDungeonGetRandomEnemyPoint(true, false, KinkyDungeonJailGuard);
 							let distanceFromCell = Math.ceil((xx - randomPoint.x) * (xx - randomPoint.x) + (yy - randomPoint.y) * (yy - randomPoint.y));
 							if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
@@ -2000,19 +2000,21 @@ function KinkyDungeonHandleJailSpawns(delta) {
 						KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.NextJailLeashTourWaypointX;
 						KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.NextJailLeashTourWaypointY;
 						let guardPath = KinkyDungeonFindPath(KinkyDungeonJailGuard.x, KinkyDungeonJailGuard.y, KinkyDungeonJailGuard.gx, KinkyDungeonJailGuard.gy, true, false, true, KinkyDungeonMovableTiles);
-						if (guardPath && guardPath.length > 0 && guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
-							// Swap the player and the guard
-							KinkyDungeonPlayerEntity.x = KinkyDungeonJailGuard.x;
-							KinkyDungeonPlayerEntity.y = KinkyDungeonJailGuard.y;
-							KinkyDungeonJailGuard.x = guardPath[0].x;
-							KinkyDungeonJailGuard.y = guardPath[0].y;
-						}
-						let enemy = KinkyDungeonEnemyAt(guardPath[0].x, guardPath[0].y);
-						if (enemy) {
-							enemy.x = KinkyDungeonJailGuard.x;
-							enemy.y = KinkyDungeonJailGuard.y;
-							KinkyDungeonJailGuard.x = guardPath[0].x;
-							KinkyDungeonJailGuard.y = guardPath[0].y;
+						if (guardPath && guardPath.length > 0) {
+							if (guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
+								// Swap the player and the guard
+								KinkyDungeonPlayerEntity.x = KinkyDungeonJailGuard.x;
+								KinkyDungeonPlayerEntity.y = KinkyDungeonJailGuard.y;
+								KinkyDungeonJailGuard.x = guardPath[0].x;
+								KinkyDungeonJailGuard.y = guardPath[0].y;
+							}
+							let enemy = KinkyDungeonEnemyAt(guardPath[0].x, guardPath[0].y);
+							if (enemy) {
+								enemy.x = KinkyDungeonJailGuard.x;
+								enemy.y = KinkyDungeonJailGuard.y;
+								KinkyDungeonJailGuard.x = guardPath[0].x;
+								KinkyDungeonJailGuard.y = guardPath[0].y;
+							}
 						}
 					}
 					/*// Pull the player if needed
@@ -2193,7 +2195,7 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 
 		if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'd' && enemy.Enemy && enemy.Enemy.tags.has("closedoors")
 			&& ((Math.random() < 0.8 && dist > 5) ||
-				(KinkyDungeonTiles[enemy.x + "," + enemy.y] && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail && (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")))) {
+				(KinkyDungeonTiles[enemy.x + "," + enemy.y] && (KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail || KinkyDungeonTiles[enemy.x + "," + enemy.y].ReLock) && (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")))) {
 			KinkyDungeonMapSet(enemy.x, enemy.y, 'D');
 			if (KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail
 				&& (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")) {
@@ -2394,7 +2396,12 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonNormalBlades = 0;
 
 	let newInv = KinkyDungeonRestraintList();
+	let HasBound = false;
 	let boundWeapons = [];
+	if (HasBound) {
+		// TODO add bound weapons here
+	}
+	KinkyDungeonAddLostItems(KinkyDungeonInventory, HasBound);
 	KinkyDungeonInventory = newInv;
 	KinkyDungeonInventoryAddWeapon("Knife");
 	KinkyDungeonPlayerWeapon = "";

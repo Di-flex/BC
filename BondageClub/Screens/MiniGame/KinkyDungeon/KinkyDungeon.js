@@ -346,6 +346,7 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonChestsOpened = [];
 			KinkyDungeonOrbsPlaced = [];
+			KinkyDungeonCachesPlaced = [];
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 1;
@@ -565,7 +566,7 @@ function KinkyDungeonHandleClick() {
 			for (let o of KinkyDungeonOrbsPlaced) {
 				if (Math.random() < 0.5) temp.push(o);
 			}
-			KinkyDungeonOrbsPlaced = [];
+			KinkyDungeonOrbsPlaced = temp;
 			KinkyDungeonSetCheckPoint(0);
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 			MiniGameKinkyDungeonLevel = 1;
@@ -788,6 +789,8 @@ function KinkyDungeonSaveGame(ToString) {
 	save.choices = KinkyDungeonSpellChoices;
 	save.choices2 = KinkyDungeonSpellChoicesToggle;
 	save.buffs = KinkyDungeonPlayerBuffs;
+	save.lostitems = KinkyDungeonLostItems;
+	save.caches = KinkyDungeonCachesPlaced;
 
 	let spells = [];
 	let newInv = [];
@@ -851,6 +854,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonShrineCosts = saveData.costs;
 			KinkyDungeonGoddessRep = saveData.rep;
 			KinkyDungeonOrbsPlaced = saveData.orbs;
+			if (KinkyDungeonCachesPlaced != undefined) KinkyDungeonCachesPlaced = saveData.caches;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			KinkyDungeonSpawnJailers = 0;
@@ -862,6 +866,7 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.id != undefined) KinkyDungeonEnemyID = saveData.id;
 			if (saveData.points != undefined) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels != undefined) KinkyDungeonSpellLevel = saveData.levels;
+			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
 			if (saveData.stats) {
 				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
 				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;

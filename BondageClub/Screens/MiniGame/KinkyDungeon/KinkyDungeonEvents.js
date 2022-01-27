@@ -231,13 +231,33 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 }
 
 function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
-	if (Event == "playerAttack") {
+	if (Event == "tick") {
 		for (let e of weapon.events) {
-			if (e.type == "Cleave" && data.enemy && !data.disarm) {
+			if (e.type == "Buff") {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: weapon.name, type: e.buffType, power: e.power, duration: 2});
+			}
+		}
+	} else if (Event == "playerAttack") {
+		for (let e of weapon.events) {
+			if (e.type == "ElementalEffect" && data.enemy && !data.disarm && !data.evaded) {
+				if (data.enemy) {
+					KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
+				}
+			} if (e.type == "Cleave" && data.enemy && !data.disarm) {
 				for (let enemy of KinkyDungeonEntities) {
 					if (enemy != data.enemy) {
 						let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
-						if (dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+						if (KinkyDungeonEvasion(enemy) && dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
+						}
+					}
+				}
+			} else if (e.type == "Pierce" && data.enemy && !data.disarm) {
+				let xx = 2*data.enemy.x - KinkyDungeonPlayerEntity.x;
+				let yy = 2*data.enemy.y - KinkyDungeonPlayerEntity.y;
+				for (let enemy of KinkyDungeonEntities) {
+					if (enemy != data.enemy) {
+						if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
 							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
 						}
 					}

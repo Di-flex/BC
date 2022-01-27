@@ -1304,7 +1304,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 						InventoryRemove(KinkyDungeonPlayer, remove);
 					}
 				InventoryWear(KinkyDungeonPlayer, restraint.Asset, restraint.Group, restraint.power);
-				KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `+${TextGet("Restraint" + restraint.name)}!`, "pink", 5, true);
+				KinkyDungeonSendFloater({x: 1100, y: 600 - KDRecentRepIndex * 40}, `+${TextGet("Restraint" + restraint.name)}!`, "pink", 5, true);
 				let placed = InventoryGet(KinkyDungeonPlayer, restraint.Group);
 				let placedOnPlayer = false;
 				if (!placed) console.log(`Error placing ${restraint.name} on player!!!`);

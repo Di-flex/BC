@@ -130,6 +130,8 @@ LootChestTrapMagic,"You find gold and a magic trap! (+RestraintType) (+XXX gold)
 LootChestTrapMagicHarness,"Swirling belts emerge from the chest and leave you bound! (+RestraintType)"
 LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+RestraintType) (+XXX gold)"
 
+LootCacheLostItems,"You recover some of your lost items!"
+
 LootPotionHealth,"You find a red potion with a sweet scent."
 LootPotionMana,"You find a blue potion that glows with magical essence."
 LootPotionsHealth,"You find several health potions."
@@ -187,9 +189,21 @@ KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and ici
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
+KinkyDungeonInventoryItemStaffFlame,Staff of Flame
+KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
+KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. All enemies take 15% more fire damage."
+KinkyDungeonInventoryItemStaffBind,Staff of Binding
+KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
+KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 3 turns."
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
-KinkyDungeonInventoryItemHammerDesc2,"Deals crushing damage and knocks the target back."
+KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
+KinkyDungeonInventoryItemFlail,Flail
+KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fash and hard to dodge."
+KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to adjacent targets. Deals crush damage."
+KinkyDungeonInventoryItemSpear,Spear
+KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
+KinkyDungeonInventoryItemSpearDesc2,"Deals pierce damage to the target and one square behind it."
 KinkyDungeonInventoryItemBoltCutters,Bolt Cutters
 KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon."
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
@@ -198,13 +212,13 @@ KinkyDungeonInventoryItemKnifeDesc,"A go-to for travelers and adventurers."
 KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attacks deal 20 damage instead, halved if feet are bound."
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
-KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon, a superior choice to a knife."
+KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with, even while bound!"
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
-KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target."
+KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Kick
 KinkyDungeonAccuracy,"Hit Chance: "
@@ -646,7 +660,15 @@ AttackRat,"The filthy rat nibbles at you! (-DamageTaken SP)"
 
 KinkyDungeonNoMana,"You do not have enough mana to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
+PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
+PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
+PlayerAttackVeryStrong,"You attack the TargetEnemy for a devastating DamageDealt damage!"
+PlayerAttackImmune,"You attack the TargetEnemy, but your weapon has no effect!"
 PlayerRanged,"AttackName hits the TargetEnemy for DamageDealt damage!"
+PlayerRangedWeak,"AttackName hits the TargetEnemy for a reduced DamageDealt damage!"
+PlayerRangedImmune,"AttackName hits the TargetEnemy but it doesn't do anything!"
+PlayerRangedStrong,"AttackName hits the TargetEnemy for an increased DamageDealt damage!"
+PlayerRangedVeryStrong,"AttackName hits the TargetEnemy for a devastating DamageDealt damage!"
 KinkyDungeonBasicAttack,attack
 PlayerMiss,"You miss the TargetEnemy!"
 PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"

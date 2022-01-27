@@ -108,6 +108,7 @@ let KinkyDungeonJailLeash = 3;
 let KinkyDungeonJailLeashX = 4;
 let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
+let KinkyDungeonCachesPlaced = [];
 let KinkyDungeonChestsOpened = [];
 
 let KinkyDungeonSaveInterval = 10;
@@ -279,7 +280,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, width, height); // Replace random internal walls with doodads
 	KinkyDungeonPlaceStairs(startpos, width, height); // Place the start and end locations
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
-	if (InJail || (MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0) KinkyDungeonCreateCache(width, height);
+	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor))) KinkyDungeonCreateCache(Floor, width, height);
 	KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
 	KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
 	let traps = KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height);
@@ -431,7 +432,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 		let playerDist = 6;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
-		if (Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && (!InJail || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
+		if ((!KinkyDungeonTiles["" + X + "," + Y] || !KinkyDungeonTiles["" + X + "," + Y].OffLimits) && Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && (!InJail || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
 			&& KinkyDungeonNoEnemy(X, Y, true)) {
 			let tags = [];
 			if (KinkyDungeonSpawnJailers > 0 && jailerCount < KinkyDungeonSpawnJailersMax) tags.push("jailer");
@@ -492,15 +493,31 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonCurrentMaxEnemies = KinkyDungeonEntities.length;
 }
 
-function KinkyDungeonCreateCache(width, height) {
-
+function KinkyDungeonCreateCache(Floor, width, height) {
+	let radius = 5;
+	let ypos = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+	let cornerX = KinkyDungeonGridWidth - 7;
+	let cornerY = ypos;
+	for (let i = 0; i < 10000; i++) {
+		if (KinkyDungeonEndPosition.y > ypos && KinkyDungeonEndPosition.y < ypos + 6 ) {
+			ypos = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+		} else break;
+	}
+	KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
+	KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2), 'C');
+	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) - 1, 'b');
+	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) + 1, 'b');
+	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
+	KinkyDungeonTiles[(cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2))] = {Loot: "cache"};
+	KinkyDungeonTiles[cornerX + "," + (cornerY + Math.floor(radius/2))] = {Type: "Lock", Lock: "Red", ReLock: true};
+	KinkyDungeonCachesPlaced.push(Floor);
 }
 
 // Type 0: empty border, hollow
 // Type 1: hollow, no empty border
 // Type 2: only empty space
 // Type 3: completely filled
-function KinkyDungeonCreateRectangle(Top, Left, Width, Height, Border, Fill, Padding) {
+function KinkyDungeonCreateRectangle(Left, Top, Width, Height, Border, Fill, Padding, OffLimits) {
 	let pad = Padding ? Padding : 0;
 	let borderType = (Border) ? '1' : '0';
 	let fillType = (Fill) ? '1' : '0';
@@ -508,14 +525,21 @@ function KinkyDungeonCreateRectangle(Top, Left, Width, Height, Border, Fill, Pad
 		for (let Y = - pad; Y < Height + pad; Y++) {
 			if (X + Left < KinkyDungeonGridWidth-1 && Y + Top < KinkyDungeonGridHeight-1 && X + Left > 0 && Y + Top > 0) {
 				let setTo = "";
+				let offlimit = true;
 				if (X < 0 || Y < 0 || X >= Width || Y >= Height) {
 					setTo = '0';
+					offlimit = false;
 				} else {
 					if (X == 0 || X == Width - 1 || Y == 0 || Y == Height-1) {
 						setTo = borderType;
 					} else setTo = fillType;
 				}
-				if (setTo != "") KinkyDungeonMapSet(Top + X, Left + Y, setTo);
+				if (setTo != "") {
+					KinkyDungeonMapSet(Left + X, Top + Y, setTo);
+					if (offlimit && OffLimits) {
+						KinkyDungeonTiles[(Left + X) + "," + (Top + Y)] = {OffLimits: true};
+					}
+				}
 			}
 
 
@@ -583,7 +607,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 			}
 			if (door) {
 				KinkyDungeonMapSet(X, Y, 'D');
-				KinkyDungeonTiles[X + "," + Y] = {Type: "Door", Jail: true};
+				KinkyDungeonTiles[X + "," + Y] = {Type: "Door", Jail: true, ReLock: true};
 				if (lock) KinkyDungeonTiles[X + "," + Y].Lock = lock;
 			} else if (wall) {
 				if (bar)
@@ -727,7 +751,7 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			// Add a lock on the chest! For testing purposes ATM
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false , Floor);
 			if (lock)
-				KinkyDungeonTiles["" + chest.x + "," +chest.y] = {Type: "Lock", Lock: lock, Loot: "normal"};
+				KinkyDungeonTiles["" + chest.x + "," +chest.y] = {Type: "Lock", Lock: lock, Loot: "chest"};
 
 			count += 1;
 		} else {
@@ -1467,7 +1491,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
 		if (KinkyDungeonMovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy.Enemy && Enemy.Enemy.noblockplayer))) { // If the player can move to an empy space or a door
 			if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 1;
-			if (KinkyDungeonTiles["" + moveX + "," + moveY] && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
+			if (KinkyDungeonTiles["" + moveX + "," + moveY] && KinkyDungeonTiles["" + moveX + "," + moveY].Type && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
 				|| (KinkyDungeonTiles["" + moveX + "," + moveY].Type != "Trap" && (KinkyDungeonTiles["" + moveX + "," + moveY].Type != "Door" || (KinkyDungeonTiles["" + moveX + "," + moveY].Lock && KinkyDungeonTiles["" + moveX + "," + moveY].Type == "Door"))))) {
 				if (AllowInteract) {
 					KinkyDungeonTargetTileLocation = "" + moveX + "," + moveY;
@@ -1485,7 +1509,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 					KinkyDungeonDoorCloseTimer = 1;
 				} else if (moveObject == 'C') { // Open the chest
-					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], "chest");
+					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonTiles[moveX + "," +moveY] && KinkyDungeonTiles[moveX + "," +moveY].Loot ? KinkyDungeonTiles[moveX + "," +moveY].Loot : "chest");
 					KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'c');
@@ -1631,6 +1655,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 	KinkyDungeonResetEventVariablesTick();
 	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
+	KinkyDungeonSendMagicEvent("tick", {delta: delta});
+	KinkyDungeonSendWeaponEvent("tick", {delta: delta});
 
 	if (delta >= 1) {
 		KinkyDungeonHandleTraps(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTrapMoved);

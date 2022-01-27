@@ -425,7 +425,9 @@ Bugfix:
 - Improved leashing system in the jail
 - Fixed obsidian cuffs being broken
 - Added new messages to tell you that an item's strictness is blocking you from escaping
-
+- Fixed item layering in general
+- New weapons: spear, flail, staff of flame, staff of binding
+- Binding chain binds for 10 turns instead of 6
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
