@@ -210,6 +210,7 @@ function KinkyDungeonInitialize(Level, Random) {
 function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonRescued = {};
 	KinkyDungeonAid = {};
+	KinkyDungeonActivatePenance(Floor);
 	KinkyDungeonPenance = {};
 	KDRestraintsCache = new Map();
 	KinkyDungeonGrid = "";
@@ -1364,7 +1365,8 @@ function KinkyDungeonClickGame(Level) {
 				}
 			} else KinkyDungeonTargetingSpell = null;
 		} else if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
-			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1 && KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0) {
+			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1
+				&& (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonTargetX, KinkyDungeonPlayerEntity.y - KinkyDungeonTargetY) < 1.5)) {
 				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, true);
 				if (path) {
 					KinkyDungeonFastMovePath = path;
