@@ -53,7 +53,11 @@ var KinkyDungeonMovableTiles = "OCAG" + KinkyDungeonMovableTilesSmartEnemy; // P
 var KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "") + "OoAaCcBb"; // Light does not pass thru doors or grates
 var KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
 
-
+/**
+ * Cost growth, overrides the default amount
+//@type {Map<string, {x: number, y: number, tags?:string[]}>}
+ */
+let KinkyDungeonRandomPathablePoints = new Map();
 var KinkyDungeonTiles = {};
 var KinkyDungeonTargetTile = null;
 var KinkyDungeonTargetTileLocation = "";
@@ -204,6 +208,9 @@ function KinkyDungeonInitialize(Level, Random) {
 }
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor) {
+	KinkyDungeonRescued = {};
+	KinkyDungeonAid = {};
+	KinkyDungeonPenance = {};
 	KDRestraintsCache = new Map();
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = {};
@@ -289,6 +296,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
 	KinkyDungeonPlacePatrols(4, width, height);
 	KinkyDungeonPlaceLore(width, height);
+	KinkyDungeonGenNavMap();
 
 	KinkyDungeonUpdateStats(0);
 
@@ -298,6 +306,22 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	// Set map brightness
 	KinkyDungeonMapBrightness = MapParams.brightness;
 }
+
+/**
+ * Creates a list of all tiles accessible and not hidden by doors
+ */
+function KinkyDungeonGenNavMap() {
+	KinkyDungeonRandomPathablePoints = new Map();
+	let accessible = KinkyDungeonGetAccessible(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y);
+	for (let a of accessible) {
+		let X = parseFloat(a.split(',')[0]);
+		let Y = parseFloat(a.split(',')[1]);
+		let tags = [];
+		if (!KinkyDungeonTiles[a] || !KinkyDungeonTiles[a].OffLimits)
+			KinkyDungeonRandomPathablePoints.set(a,{x: X, y:Y, tags:tags});
+	}
+}
+
 // Checks everything that is accessible to the player
 function KinkyDungeonGetAccessible(startX, startY, testX, testY) {
 	let tempGrid = [];
@@ -510,7 +534,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) + 1, 'b');
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
 	KinkyDungeonTiles[(cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2))] = {Loot: "cache"};
-	KinkyDungeonTiles[cornerX + "," + (cornerY + Math.floor(radius/2))] = {Type: "Lock", Lock: "Red", ReLock: true};
+	KinkyDungeonTiles[cornerX + "," + (cornerY + Math.floor(radius/2))] = {Type: "Door", Lock: "Red", ReLock: true};
 	KinkyDungeonCachesPlaced.push(Floor);
 }
 

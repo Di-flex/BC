@@ -147,7 +147,7 @@ const KinkyDungeonRestraints = [
 		enemyTags: {"wolfRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 	{name: "WolfCollar", Asset: "AutoShockCollar", Color: ['#6EAF81', '#6EAF81'], Group: "ItemNeck", power: 11, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0.1, "Pick": 0.05},
 		enemyTags: {"wolfRestraints":3}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Collars"]},
-	{name: "WolfLeash", tether: 4.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
+	{removePrison: true, name: "WolfLeash", tether: 3.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
 		escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"wolfRestraints":9}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":999}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 	// collar #6EAF81
@@ -329,7 +329,7 @@ const KinkyDungeonRestraints = [
 	{removePrison: true, name: "ShadowChainCrotch", crotchrope: true, Asset: "CrotchChain", OverridePriority: 26, Color: "#000000", Group: "ItemTorso", power: 4, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 
 	{name: "BasicCollar", Asset: "LeatherCollar", Color: ["#000000", "Default"], Group: "ItemNeck", power: 1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.15, "Remove": 0.5, "Pick": 0.75}, enemyTags: {"leashing":1, "maidCollar":-1}, playerTags: {"ItemNeckFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
-	{removePrison: true, name: "BasicLeash", tether: 4.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
+	{removePrison: true, name: "BasicLeash", tether: 3.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 ];
 
@@ -402,45 +402,47 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 					return false;
 				}
 			} else {// Then we merely update
-				let playerDist = KDistChebyshev(Entity.x-inv.tx, Entity.y-inv.ty);
-				if (playerDist > tether) {
-					let slot = null;
-					let mindist = playerDist;
-					for (let X = Entity.x-1; X <= Entity.x+1; X++) {
-						for (let Y = Entity.y-1; Y <= Entity.y+1; Y++) {
-							if ((X !=  Entity.x || Y != Entity.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-inv.tx, Y-inv.ty) < mindist) {
-								mindist = KDistEuclidean(X-inv.tx, Y-inv.ty);
-								slot = {x:X, y:Y};
-							}
-						}
-					}
-					if (!slot) { //Fallback
-						slot = {x:inv.tx, y:inv.ty};
-					}
-					if (slot) {
-						let enemy = KinkyDungeonEnemyAt(slot.x, slot.y);
-						if (enemy) {
-							let slot2 = null;
-							let mindist2 = playerDist;
-							for (let X = enemy.x-1; X <= enemy.x+1; X++) {
-								for (let Y = enemy.y-1; Y <= enemy.y+1; Y++) {
-									if ((X !=  enemy.x || Y != enemy.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-Entity.x, Y-Entity.y) < mindist2) {
-										mindist2 = KDistEuclidean(X-Entity.x, Y-Entity.y);
-										slot2 = {x:X, y:Y};
-									}
+				for (let i = 0; i < 10; i++) {
+					let playerDist = KDistChebyshev(Entity.x-inv.tx, Entity.y-inv.ty);
+					if (playerDist > tether) {
+						let slot = null;
+						let mindist = playerDist;
+						for (let X = Entity.x-1; X <= Entity.x+1; X++) {
+							for (let Y = Entity.y-1; Y <= Entity.y+1; Y++) {
+								if ((X !=  Entity.x || Y != Entity.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-inv.tx, Y-inv.ty) < mindist) {
+									mindist = KDistEuclidean(X-inv.tx, Y-inv.ty);
+									slot = {x:X, y:Y};
 								}
 							}
-							if (slot2) {
-								enemy.x = slot2.x;
-								enemy.y = slot2.y;
-							} else {
-								enemy.x = Entity.x;
-								enemy.y = Entity.y;
-							}
 						}
-						Entity.x = slot.x;
-						Entity.y = slot.y;
-						if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull"), "red", 2, true);
+						if (!slot) { //Fallback
+							slot = {x:inv.tx, y:inv.ty};
+						}
+						if (slot) {
+							let enemy = KinkyDungeonEnemyAt(slot.x, slot.y);
+							if (enemy) {
+								let slot2 = null;
+								let mindist2 = playerDist;
+								for (let X = enemy.x-1; X <= enemy.x+1; X++) {
+									for (let Y = enemy.y-1; Y <= enemy.y+1; Y++) {
+										if ((X !=  enemy.x || Y != enemy.y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y)) && KDistEuclidean(X-Entity.x, Y-Entity.y) < mindist2) {
+											mindist2 = KDistEuclidean(X-Entity.x, Y-Entity.y);
+											slot2 = {x:X, y:Y};
+										}
+									}
+								}
+								if (slot2) {
+									enemy.x = slot2.x;
+									enemy.y = slot2.y;
+								} else {
+									enemy.x = Entity.x;
+									enemy.y = Entity.y;
+								}
+							}
+							Entity.x = slot.x;
+							Entity.y = slot.y;
+							if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull"), "red", 2, true);
+						}
 					}
 				}
 			}
@@ -453,7 +455,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 // Gets the length of the neck tether
 function KinkyDungeonTetherLength() {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
+	if (inv && inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
 		return inv.restraint.tether;
 	}
 	return null;
@@ -842,11 +844,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		return "NeedEdge";
 	}
 
-
+	let possible = escapeChance > 0;
 	// Strict bindings make it harder to escape
 	if (strict) escapeChance = Math.max(0, escapeChance - strict);
 
-	if (escapeChance == 0) {
+	if (possible && escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";

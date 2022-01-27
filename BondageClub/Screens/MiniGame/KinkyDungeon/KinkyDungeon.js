@@ -147,6 +147,7 @@ function KinkyDungeonIsPlayer() {
  */
 
 let KinkyDungeonCreditsPos = 0;
+let KinkyDungeonPatronPos = 0;
 let KinkyDungeonSound = true;
 let KinkyDungeonDrool = true;
 
@@ -176,6 +177,18 @@ function KinkyDungeonRun() {
 
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
 		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
+	} if (KinkyDungeonState == "Patrons") {
+		let credits = TextGet("KinkyDungeonPatronsList" + KinkyDungeonCreditsPos).split('|');
+		let i = 0;
+		MainCanvas.textAlign = "left";
+		for (let c of credits) {
+			DrawText(c, 550, 25 + 40 * i, "white", "silver");
+			i++;
+		}
+		MainCanvas.textAlign = "center";
+
+		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
+		//DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
 
 		MainCanvas.textAlign = "left";
@@ -199,6 +212,7 @@ function KinkyDungeonRun() {
 		DrawButton(50, 930, 400, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
+		DrawButton(1700, 930, 150, 64, TextGet("KinkyDungeonPatrons"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
 		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
@@ -238,14 +252,14 @@ function KinkyDungeonRun() {
 				KinkyDungeonSleepTurns -= 1;
 				if (KinkyDungeonJailTransgressed)
 					KinkyDungeonTotalSleepTurns += 1;
-				KinkyDungeonAdvanceTime(1);
-				KinkyDungeonSleepTime = CommonTime() + 10;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 					KinkyDungeonSleepTurns = 0;
 					if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 						CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 					}
 				}
+				KinkyDungeonAdvanceTime(1);
+				KinkyDungeonSleepTime = CommonTime() + 10;
 			}
 			if (KinkyDungeonSleepTurns == 0) {
 				KinkyDungeonChangeStamina(0);
@@ -345,6 +359,11 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(1730, 930, 110, 64)) {
 			if (KinkyDungeonCreditsPos < 1) KinkyDungeonCreditsPos += 1;
 			else KinkyDungeonCreditsPos = 0;
+		}
+	} if (KinkyDungeonState == "Patrons") {
+		if (MouseIn(1870, 930, 110, 64)) {
+			KinkyDungeonState = "Menu";
+			return true;
 		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
@@ -451,6 +470,10 @@ function KinkyDungeonHandleClick() {
 			}
 		} else if (MouseIn(1870, 930, 110, 64)) {
 			KinkyDungeonState = "Credits";
+			return true;
+		}
+		if (MouseIn(1700, 930, 150, 64)) {
+			KinkyDungeonState = "Patrons";
 			return true;
 		}
 		if (MouseIn(1275, 750, 350, 64)) {
@@ -799,6 +822,9 @@ function KinkyDungeonGenerateSaveData() {
 	save.buffs = KinkyDungeonPlayerBuffs;
 	save.lostitems = KinkyDungeonLostItems;
 	save.caches = KinkyDungeonCachesPlaced;
+	save.rescued = KinkyDungeonRescued;
+	save.aid = KinkyDungeonAid;
+	save.penance = KinkyDungeonPenance;
 
 	let spells = [];
 	let newInv = [];
@@ -867,7 +893,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonShrineCosts = saveData.costs;
 			KinkyDungeonGoddessRep = saveData.rep;
 			KinkyDungeonOrbsPlaced = saveData.orbs;
-			if (KinkyDungeonCachesPlaced != undefined) KinkyDungeonCachesPlaced = saveData.caches;
+			if (saveData.caches != undefined) KinkyDungeonCachesPlaced = saveData.caches;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			KinkyDungeonSpawnJailers = 0;
@@ -880,6 +906,9 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.points != undefined) KinkyDungeonSpellPoints = saveData.points;
 			if (saveData.levels != undefined) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
+			if (saveData.rescued != undefined) KinkyDungeonRescued = saveData.rescued;
+			if (saveData.aid != undefined) KinkyDungeonAid = saveData.aid;
+			if (saveData.penance != undefined) KinkyDungeonPenance = saveData.penance;
 			if (saveData.stats) {
 				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
 				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;
