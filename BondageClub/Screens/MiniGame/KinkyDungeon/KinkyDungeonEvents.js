@@ -276,3 +276,22 @@ function KinkyDungeonHandleWeaponEvent(Event, weapon, data) {
 		}
 	}
 }
+
+function KinkyDungeonHandleBulletEvent(Event, b, data) {
+	if (b.bullet) {
+		if (Event == "bulletHit") {
+			for (let e of b.bullet.events) {
+				if (e.type == "DropKnife") {
+					let point = {x: b.x, y:b.y};
+					if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y))) {
+						if (b.vx || b.vy) {
+							let speed = KDistEuclidean(b.vx, b.vy);
+							point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						}
+					}
+					KinkyDungeonDropItem({name: "Knife"}, point, KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y)), true, true);
+				}
+			}
+		}
+	}
+}

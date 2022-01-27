@@ -409,7 +409,7 @@ function KinkyDungeonUpdateBullets(delta) {
 					E -= 1;
 				}
 				if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
-					KinkyDungeonBulletHit(b, 1.1);
+					KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
 			}
 			if (endTime) b.time = 0;
 		}
@@ -439,8 +439,10 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	}
 }
 
-function KinkyDungeonBulletHit(b, born) {
+function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
+
+	KinkyDungeonSendBulletEvent("bulletHit", b, {target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
 	if (b.bullet.cast && (!b.bullet.cast.chance || Math.random() < b.bullet.cast.chance)) {
 		let xx = b.bullet.cast.tx;
@@ -665,4 +667,13 @@ function KinkyDungeonSendWeaponEvent(Event, data) {
 			}
 		}
 	}
+}
+
+function KinkyDungeonSendBulletEvent(Event, b, data) {
+	if (b.bullet && b.bullet.events)
+		for (let e of b.bullet.events) {
+			if (e.trigger == Event) {
+				KinkyDungeonHandleBulletEvent(Event, b, data);
+			}
+		}
 }

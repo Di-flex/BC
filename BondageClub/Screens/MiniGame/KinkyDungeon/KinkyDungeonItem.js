@@ -30,22 +30,26 @@ function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 	return false;
 }
 
-function KinkyDungeonDropItem(Item) {
+function KinkyDungeonDropItem(Item, Origin, AllowOrigin, noMsg, allowEnemies) {
 	let slots = [];
 	for (let X = -Math.ceil(1); X <= Math.ceil(1); X++)
 		for (let Y = -Math.ceil(1); Y <= Math.ceil(1); Y++) {
-			slots.push({x:X, y:Y});
+			if ((X != 0 || Y != 0))
+				slots.push({x:X, y:Y});
 		}
 
-	let foundslot = null;
-	for (let C = 0; C < 100; C++) {
-		let slot = slots[Math.floor(Math.random() * slots.length)];
-		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x+slot.x, KinkyDungeonPlayerEntity.y+slot.y)) && KinkyDungeonNoEnemy(KinkyDungeonPlayerEntity.x+slot.x, KinkyDungeonPlayerEntity.y+slot.y, true)) {
-			foundslot = {x: KinkyDungeonPlayerEntity.x+slot.x, y: KinkyDungeonPlayerEntity.y+slot.y};
+	let foundslot = AllowOrigin ? {x:Origin.x, y:Origin.y} : null;
+	if (!foundslot || !(KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(foundslot.x, foundslot.y))
+			&& (allowEnemies || KinkyDungeonNoEnemy(foundslot.x, foundslot.y, true))))
+		for (let C = 0; C < 100; C++) {
+			let slot = slots[Math.floor(Math.random() * slots.length)];
+			if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Origin.x+slot.x, Origin.y+slot.y))
+				&& (allowEnemies || KinkyDungeonNoEnemy(Origin.x+slot.x, Origin.y+slot.y, true))) {
+				foundslot = {x: Origin.x+slot.x, y: Origin.y+slot.y};
 
-			C = 100;
-		} else slots.splice(C, 1);
-	}
+				C = 100;
+			} else slots.splice(C, 1);
+		}
 
 	if (foundslot) {
 
@@ -57,7 +61,8 @@ function KinkyDungeonDropItem(Item) {
 		}
 
 		KinkyDungeonGroundItems.push(dropped);
-		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDrop" + Item.name), "red", 2);
+		if (!noMsg)
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDrop" + Item.name), "red", 2);
 
 		return true;
 	}
@@ -139,7 +144,8 @@ function KinkyDungeonItemCheck(x, y, Index) {
 		var item = KinkyDungeonGroundItems[I];
 		if (KinkyDungeonPlayerEntity.x == item.x && KinkyDungeonPlayerEntity.y == item.y) {
 			KinkyDungeonGroundItems.splice(I, 1);
-			return KinkyDungeonItemEvent(item);
+			I -= 1;
+			KinkyDungeonItemEvent(item);
 		}
 	}
 }

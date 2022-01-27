@@ -658,7 +658,7 @@ NameRat,Filthy Rat
 KillRat,"The rat skitters back into a hole in the wall."
 AttackRat,"The filthy rat nibbles at you! (-DamageTaken SP)"
 
-KinkyDungeonNoMana,"You do not have enough mana to cast the spell!"
+KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
 PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
 PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
@@ -1506,6 +1506,12 @@ KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does Damag
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
+
+KinkyDungeonSpellKnife,Knife
+KinkyDungeonSpellDescriptionKnife,Throw one of your knives DamageDealt damage. Lands in the target's tile, but is recoverable afterward.
+KinkyDungeonSpellCastKnife,You a throw a knife!
+KinkyDungeonSpellTargetKnife,Choose aim direction
+
 KinkyDungeonSpellDagger,Shadow Dagger
 KinkyDungeonSpellDescriptionDagger,A cold shadowy blade that deals DamageDealt damage and pierces all in its path.
 KinkyDungeonSpellCastDagger,You a hurl a shadowy dagger!
@@ -1630,7 +1636,7 @@ KinkyDungeonSpellSummonUp2,Master Summoner
 KinkyDungeonSpellDescriptionSummonUp2,Increases the permanent summon cap by +1 (from 3 to 4)
 
 KinkyDungeonSpellBomb,Bomb
-KinkyDungeonSpellDescriptionBomb,A bomb that does DamageDealt damage in an area after DelayTime turns.
+KinkyDungeonSpellDescriptionBomb,Channel for 1 turn for a bomb that does DamageDealt fire damage in an area after DelayTime turns.
 KinkyDungeonSpellCastBomb,Fire in the hole!
 KinkyDungeonSpellTargetBomb,Choose target AoE location
 
