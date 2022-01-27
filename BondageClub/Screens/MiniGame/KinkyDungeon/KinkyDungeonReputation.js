@@ -143,7 +143,7 @@ function KinkyDungeonDrawReputation() {
 			if (KinkyDungeonShrineBaseCosts[rep]) {
 				MainCanvas.textAlign = "center";
 				//DrawButton(canvasOffsetX + 275 + XX + 400, yPad + canvasOffsetY + spacing * i - 20, 100, 40, TextGet("KinkyDungeonAid"), value > 10 ? "white" : "pink");
-				DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonRescue"), (value > -1 && KinkyDungeonInJail() && !KinkyDungeonRescued) ? "white" : "pink");
+				DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonRescue"), (value > -1 && KinkyDungeonInJail() && !KinkyDungeonRescued) ? "white" : (KinkyDungeonInJail() ? "pink" : "#999999"));
 				//DrawButton(canvasOffsetX + 275 + XX + 690, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonPenance"), "white");
 
 				MainCanvas.textAlign = "left";
@@ -151,6 +151,7 @@ function KinkyDungeonDrawReputation() {
 					//DrawTextFit(TextGet("KinkyDungeonAidDesc" + rep), 500, 800, 1250, "white", "black");
 				}
 				if (MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40)) {
+					DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 500+1, 850+1, 1250, "black", "black");
 					DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 500, 850, 1250, "white", "black");
 					// Rescue
 				}
