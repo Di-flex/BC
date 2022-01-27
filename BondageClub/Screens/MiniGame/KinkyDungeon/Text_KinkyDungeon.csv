@@ -1875,12 +1875,12 @@ KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
 
-KinkyDungeonSpellsPage0,"Level I Spells"
-KinkyDungeonSpellsPage1,"Level II Spells"
-KinkyDungeonSpellsPage2,"Level III Spells"
-KinkyDungeonSpellsPage3,"Upgrades"
-KinkyDungeonSpellsPage4,"Passive Spells"
-KinkyDungeonSpellsPage5,"Skills"
+KinkyDungeonSpellsPage0,"Elemental Spells"
+KinkyDungeonSpellsPage1,"Conjuration Spells"
+KinkyDungeonSpellsPage2,"Illusion Spells"
+KinkyDungeonSpellsPage3,"Perks"
+KinkyDungeonSpellsPage4,"Perks II"
+KinkyDungeonSpellsPage5,"Perks III"
 
 KinkyDungeonSpellsPage,"pg. "
 KinkyDungeonSpellsPageNext,"Next Page"

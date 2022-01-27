@@ -431,6 +431,7 @@ Bugfix:
 - Added caches, which can contain your items in jail but require a locked door to reach.
 - Bomb damage now 10 from 8, fuse time 5 from 6, now has 1 turn channel
 - Rebalanced restraints so harder ones need higher levels to get trapped in
+- Fixed quick inventory overlapping with the main UI
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

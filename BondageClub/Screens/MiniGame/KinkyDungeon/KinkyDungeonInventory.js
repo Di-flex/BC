@@ -216,7 +216,7 @@ function KinkyDungeonQuickGrid(I, Width, Height, Xcount) {
 	let h = 0;
 	let v = 0;
 	while (i < I) {
-		if (h < Xcount) h++; else {
+		if (h < Xcount - 1) h++; else {
 			h = 0;
 			v++;
 		}
