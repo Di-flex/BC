@@ -453,7 +453,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 // Gets the length of the neck tether
 function KinkyDungeonTetherLength() {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
+	if (inv && inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
 		return inv.restraint.tether;
 	}
 	return null;

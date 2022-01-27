@@ -890,7 +890,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonShrineCosts = saveData.costs;
 			KinkyDungeonGoddessRep = saveData.rep;
 			KinkyDungeonOrbsPlaced = saveData.orbs;
-			if (KinkyDungeonCachesPlaced != undefined) KinkyDungeonCachesPlaced = saveData.caches;
+			if (saveData.caches != undefined) KinkyDungeonCachesPlaced = saveData.caches;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			KinkyDungeonSpawnJailers = 0;
