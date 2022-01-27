@@ -499,8 +499,9 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	let cornerX = KinkyDungeonGridWidth - 7;
 	let cornerY = ypos;
 	for (let i = 0; i < 10000; i++) {
-		if (KinkyDungeonEndPosition.y > ypos && KinkyDungeonEndPosition.y < ypos + 6 ) {
-			ypos = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+		if (KDistChebyshev(cornerX + Math.floor(radius/2) - KinkyDungeonEndPosition.x, cornerY + Math.floor(radius/2) - KinkyDungeonEndPosition.y) <= 3) {
+			cornerY = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+			cornerX = Math.ceil(KinkyDungeonGridWidth/2) + Math.floor(Math.random() * (KinkyDungeonGridWidth/2 - radius - 1));
 		} else break;
 	}
 	KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
@@ -711,7 +712,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 			for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
 				let X = Math.floor(width * 0.75) - 2 - Math.floor(Math.random() * width/2);
 				let Y = 1 + Math.floor(Math.random() * (height - 2));
-				if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) {
+				if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))
+					&& (!KinkyDungeonTiles[X + "," + Y] || !KinkyDungeonTiles[X + "," + Y].OffLimits)) {
 					KinkyDungeonMapSet(X, Y, 'H');
 					L = 0;
 					placed = true;

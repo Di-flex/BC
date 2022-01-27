@@ -397,12 +397,12 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 			}
 
 			if (xTo || yTo) {// This means we arre trying to move
-				if (KDistEuclidean(xTo-inv.tx, yTo-inv.ty) > inv.restraint.tether) {
+				if (KDistChebyshev(xTo-inv.tx, yTo-inv.ty) > inv.restraint.tether) {
 					if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherTooShort"), "red", 2, true);
 					return false;
 				}
 			} else {// Then we merely update
-				let playerDist = KDistEuclidean(Entity.x-inv.tx, Entity.y-inv.ty);
+				let playerDist = KDistChebyshev(Entity.x-inv.tx, Entity.y-inv.ty);
 				if (playerDist > tether) {
 					let slot = null;
 					let mindist = playerDist;

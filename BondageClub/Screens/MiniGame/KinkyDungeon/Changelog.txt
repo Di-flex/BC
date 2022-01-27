@@ -421,7 +421,7 @@ Bugfix:
 - Added new wolfgirl enemy (metal goddess)
 - Attempted to fix the obsidian cuffs glitch for the jail
 
-2.5.11
+2.6.0
 - Improved leashing system in the jail
 - Fixed obsidian cuffs being broken
 - Added new messages to tell you that an item's strictness is blocking you from escaping
@@ -433,6 +433,9 @@ Bugfix:
 - Rebalanced restraints so harder ones need higher levels to get trapped in
 - Fixed quick inventory overlapping with the main UI
 - Item strictness only affects nearby items; display strictness impact in HUD
+
+2.6.1
+-
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

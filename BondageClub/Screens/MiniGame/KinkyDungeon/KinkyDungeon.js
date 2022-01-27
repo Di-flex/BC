@@ -48,6 +48,10 @@ function KDistEuclidean(x, y) {
 	return Math.sqrt(x*x + y*y);
 }
 
+function KDistChebyshev(x, y) {
+	return Math.max(Math.abs(x), Math.abs(y));
+}
+
 /**
  * Loads the kinky dungeon game
  * @returns {void} - Nothing

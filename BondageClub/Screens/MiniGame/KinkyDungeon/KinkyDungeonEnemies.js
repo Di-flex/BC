@@ -1685,6 +1685,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	let EntranceAdjust = KinkyDungeonDifficulty/2;
 	let BaseAdjust = KinkyDungeonDifficulty/10;
 	let sleepTurnsSpeedMult = 100;
+	let sleepTurnsPerExtraSpawnLevel = 25;
 	let baseChance = ((KinkyDungeonSleepTurns > 0 && (KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax - 10 * KinkyDungeonStatStaminaRegenSleep || KinkyDungeonSleepTurns < 11)) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
@@ -1710,7 +1711,10 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 
 				tags.push("bandit");
 
-				let Enemy = KinkyDungeonGetEnemy(tags, MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
+				let Enemy = KinkyDungeonGetEnemy(
+					tags, MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty/5 + Math.round(KinkyDungeonTotalSleepTurns / sleepTurnsPerExtraSpawnLevel),
+					KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
+					KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
 				let EnemiesSummoned = [];
 				while (Enemy && count < maxCount) {
 					let point = KinkyDungeonGetNearbyPoint(spawnLocation.x, spawnLocation.y, true);
@@ -1877,7 +1881,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				KinkyDungeonJailGuard.gx = KinkyDungeonJailGuard.x;
 				KinkyDungeonJailGuard.gy = KinkyDungeonJailGuard.y;
 			} else {
-				let playerDist = Math.sqrt((KinkyDungeonJailGuard.x - KinkyDungeonPlayerEntity.x)*(KinkyDungeonJailGuard.x - KinkyDungeonPlayerEntity.x) + (KinkyDungeonJailGuard.y - KinkyDungeonPlayerEntity.y)*(KinkyDungeonJailGuard.y - KinkyDungeonPlayerEntity.y));
+				let playerDist = KDistChebyshev(KinkyDungeonJailGuard.x - KinkyDungeonPlayerEntity.x, KinkyDungeonJailGuard.y - KinkyDungeonPlayerEntity.y);//Math.sqrt((KinkyDungeonJailGuard.x - KinkyDungeonPlayerEntity.x)*(KinkyDungeonJailGuard.x - KinkyDungeonPlayerEntity.x) + (KinkyDungeonJailGuard.y - KinkyDungeonPlayerEntity.y)*(KinkyDungeonJailGuard.y - KinkyDungeonPlayerEntity.y));
 				let wearingLeash = KinkyDungeonIsWearingLeash();
 				if (!wearingLeash) {
 					let touchesPlayer = KinkyDungeonCheckLOS(KinkyDungeonJailGuard, KinkyDungeonPlayerEntity, playerDist, 1.5, false, false);
