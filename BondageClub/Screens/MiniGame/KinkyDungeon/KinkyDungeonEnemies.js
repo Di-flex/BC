@@ -165,7 +165,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 8, maxhp: 24, minLevel:0, weight:-3, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "latexAnger": 4, "latexRage": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex", "Elements"],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10, noSummon: true}, {name: "EarthRune", weight: 1, noSummon: true}]},
-	{name: "SlimeEnthusiast", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "meleeweakness", "miniboss", "glueresist", "leatherRestraints", "leatherRestraintsHeavy", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "SlimeEnthusiast", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "meleeweakness", "miniboss", "glueresist", "leatherRestraints", "leatherRestraintsHeavy", "hunter"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		spells: ["RedSlime"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, kite: 1.5, projectileAttack: true,
 		visionRadius: 7, maxhp: 20, minLevel:0, weight:0, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":0.5, "thirdhalf":1, "latexAnger": 5, "latexRage": 5}, shrines: ["Latex"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -185,7 +185,7 @@ let KinkyDungeonEnemies = [
 		attack: "MeleeBindWillSuicide", attackPoints: 3, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", multiBind: 2,
 		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
-	{name: "WolfgirlPet", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "WolfgirlPet", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt", cohesion: 0.9,
 		master: {type: "Wolfgirl", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
 		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
 		visionRadius: 6, maxhp: 14, minLevel:5, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
@@ -198,7 +198,7 @@ let KinkyDungeonEnemies = [
 		attackPoints: 3, attack: "MeleeBindLockAllWillSpell", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 4, dmgType: "grope",
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -10, "metalAnger": 7, "metalRage": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Metal"], dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 1}]},
 
-	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "search"]), ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, noSpellLeashing: true,
 		visionRadius: 6, maxhp: 9, minLevel:0, weight:17, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"thirdhalf":-4, "increasingWeight":-1}, shrines: ["Leather"], floors:[2],
@@ -343,7 +343,7 @@ let KinkyDungeonEnemies = [
 		followLeashedOnly: true, kite: 1.5, followRange: 4, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"], stopToCast: true,
 		spellCooldownMult: 2, spellCooldownMod: 1, AI: "wander", visionRadius: 8, maxhp: 13, minLevel:4, weight:4, movePoints: 3, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -12, "open": 4}, floors:[0, 1, 2], shrines: [], dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}]},
-	{name: "Necromancer", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "meleeweakness", "hunter"]), followRange: 1,
+	{name: "Necromancer", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "meleeweakness", "hunter"]), followRange: 1, cohesion: 0.9,
 		spells: ["SummonSkeleton", "SummonSkeletons"], spellCooldownMult: 1, spellCooldownMod: 2,
 		AI: "hunt", visionRadius: 10, maxhp: 20, minLevel: 1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope",
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -100}, shrines: ["Will"], floors:[1, 2, 3, 11],
@@ -1168,10 +1168,24 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					// Short distance
 					let ex = enemy.x;
 					let ey = enemy.y;
-					let masterCloseness = 0.7;
+					let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.3;
+					let masterCloseness = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.7;
 					if (master && Math.random() < masterCloseness) {
 						ex = master.x;
 						ey = master.y;
+					} else if (Math.random() < cohesion) {
+						let minDist = enemy.Enemy.visionRadius / 2;
+						for (let e of KinkyDungeonEntities) {
+							let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
+							if (dist < minDist) {
+								minDist = dist;
+								let ePoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
+								if (ePoint) {
+									ex = ePoint.x;
+									ey = ePoint.y;
+								}
+							}
+						}
 					}
 					let newPoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
 					if (newPoint && (KinkyDungeonJailTransgressed || newPoint.x > KinkyDungeonJailLeashX + 3)) {
@@ -1698,7 +1712,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 			if (KinkyDungeonLightGet(spawnLocation.x, spawnLocation.y) < 1 || KinkyDungeonSeeAll) {
 				KinkyDungeonSearchTimer = 0;
 				let count = 0;
-				let maxCount = (1 + Math.min(5, Math.round(MiniGameKinkyDungeonLevel/10))) * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+				let maxCount = (2 + Math.min(5, Math.round(MiniGameKinkyDungeonLevel/10))) * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 
 				// Spawn a killsquad!
 				let tags = [];
@@ -1707,7 +1721,12 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 
 				let miniboss = false;
 				let requireTags = ["search"];
-				if (hunters) tags.push("hunter");
+				if (hunters) {
+					requireTags.push("hunter");
+					tags.push("secondhalf");
+					if (KinkyDungeonTotalSleepTurns > 200)
+						tags.push("thirdhalf");
+				}
 
 				tags.push("bandit");
 
@@ -1728,7 +1747,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 							count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));
 							tags.push("boss");
 						} // Boss enemies count as 4 normal enemies
-						else if (Enemy.tags.has("elite")) count += Math.max(1, 100/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 2 normal enemies
+						else if (Enemy.tags.has("elite")) count += Math.max(1, 1000/(2000 + 20*KinkyDungeonDifficulty + KinkyDungeonTotalSleepTurns)); // Elite enemies count as 1.5 normal enemies
 						if (Enemy.tags.has("miniboss")) {
 							if (!miniboss) tags.push("boss");
 							miniboss = true; // Adds miniboss as a tag
