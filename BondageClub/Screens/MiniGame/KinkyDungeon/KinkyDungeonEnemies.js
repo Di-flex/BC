@@ -2181,7 +2181,7 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 			&& ((Math.random() < 0.8 && dist > 5) ||
 				(KinkyDungeonTiles[enemy.x + "," + enemy.y] && (KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail || KinkyDungeonTiles[enemy.x + "," + enemy.y].ReLock) && (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")))) {
 			KinkyDungeonMapSet(enemy.x, enemy.y, 'D');
-			if (KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail
+			if (KinkyDungeonTiles[enemy.x + "," + enemy.y] && KinkyDungeonTiles[enemy.x + "," + enemy.y].Jail
 				&& (!KinkyDungeonJailGuard || KinkyDungeonJailGuard.CurrentAction != "jailLeashTour")) {
 				KinkyDungeonTiles[enemy.x + "," + enemy.y].Lock = "Red";
 			}
