@@ -947,7 +947,14 @@ function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
 	for (let trap of traps) {
 		KinkyDungeonMapSet(trap.x, trap.y, 'T');
 		let t = KinkyDungeonGetTrap(traptypes, Floor, []);
-		KinkyDungeonTiles[trap.x + "," + trap.y] = {Type: "Trap", Trap: t.Name, Power: t.Power};
+		KinkyDungeonTiles[trap.x + "," + trap.y] = {
+			Type: "Trap",
+			Trap: t.Name,
+			Restraint: t.Restraint,
+			Enemy: t.Enemy,
+			Spell: t.Spell,
+			Power: t.Power,
+		};
 	}
 }
 

@@ -22,6 +22,60 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 				KinkyDungeonTiles[x + "," + y] = undefined;
 			}
 		}
+		if (tile.Trap === "SpawnEnemies") {
+			let radius = tile.Power > 4 ? 4 : 2;
+			let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius);
+			if (created > 0) {
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
+		if (tile.Trap == "SpecificSpell") {
+			let spell = KinkyDungeonFindSpell(tile.Spell, true);
+			if (spell) {
+				KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = ""; // The spell will show a message on its own
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
+		if (tile.Trap === "CustomSleepDart") {
+			let spell = KinkyDungeonFindSpell("TrapSleepDart", true);
+			if (spell) {
+				// Search any tile 4 tiles up or down that have Line of Sight to the player
+				let startX = KinkyDungeonPlayerEntity.x;
+				let startY = KinkyDungeonPlayerEntity.y;
+				let possible_coords = [
+					{x: -4, y: 0}, {x: 4, y: 0}, {x: 0, y: -4}, {x: 0, y: 4},
+					{x: -3, y: 0}, {x: 3, y: 0}, {x: 0, y: -3}, {x: 0, y: 3},
+					{x: -2, y: 0}, {x: 2, y: 0}, {x: 0, y: -2}, {x: 0, y: 2},
+				];
+				for (let coord of possible_coords) {
+					if (KinkyDungeonCheckProjectileClearance(startX + coord.x, startY + coord.y, startX, startY)) {
+						startX += coord.x;
+						startY += coord.y;
+						break;
+					}
+				}
+				KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = ""; // We don't want to warn the player about what just happened
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
+		if (tile.Trap === "CustomVine") {
+			let restraint = KinkyDungeonGetRestraintByName("VinePlantFeet");
+			if (restraint) {
+				KinkyDungeonAddRestraintIfWeaker(restraint, tile.Power, false, false);
+			}
+			let created = KinkyDungeonSummonEnemy(x, y, "VinePlant", tile.Power, 1);
+			if (created > 0) {
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = "Default";
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
 		if (msg) {
 			if (msg == "Default")
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2);
@@ -60,7 +114,13 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 
 	for (let L = trapWeights.length - 1; L >= 0; L--) {
 		if (selection > trapWeights[L].weight) {
-			return {Name: trapWeights[L].trap.Name, Power: trapWeights[L].trap.Power};
+			return {
+				Name: trapWeights[L].trap.Name,
+				Restraint: trapWeights[L].trap.Restraint,
+				Enemy: trapWeights[L].trap.Enemy,
+				Spell: trapWeights[L].trap.Spell,
+				Power: trapWeights[L].trap.Power,
+			};
 		}
 	}
 
