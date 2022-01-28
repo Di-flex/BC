@@ -303,7 +303,7 @@ function KinkyDungeonRun() {
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
 		//DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
-
+		KinkyDungeonGameFlag = false;
 		MainCanvas.textAlign = "left";
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
 		MainCanvas.textAlign = "center";
@@ -359,6 +359,7 @@ function KinkyDungeonRun() {
 		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
+		KinkyDungeonGameFlag = true;
 		KinkyDungeonDrawGame();
 		if (KDGameData.SleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
@@ -466,6 +467,7 @@ function KinkyDungeonRun() {
 }
 
 let KinkyDungeonReplaceConfirm = 0;
+let KinkyDungeonGameFlag = false;
 
 function KinkyDungeonHandleClick() {
 	if (MouseIn(1885, 25, 90, 90) && (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")) {
@@ -646,9 +648,9 @@ function KinkyDungeonHandleClick() {
 		if (KinkyDungeonIsPlayer()) KinkyDungeonClickGame();
 	} else if (KinkyDungeonState == "Keybindings") {
 		if (MouseIn(1075, 750, 350, 64)) {
-			if (KinkyDungeonInventory.length > 0 || KinkyDungeonSpells.length > 0 || KinkyDungeonGold > 0 || MiniGameKinkyDungeonLevel >= 0) {
+			KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
+			if (KinkyDungeonGameFlag) {
 				KinkyDungeonState = "Game";
-				KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
 				if (KinkyDungeonKeybindings) {
 					KinkyDungeonKey = [KinkyDungeonKeybindings.Up, KinkyDungeonKeybindings.Left, KinkyDungeonKeybindings.Down, KinkyDungeonKeybindings.Right, KinkyDungeonKeybindings.UpLeft, KinkyDungeonKeybindings.UpRight, KinkyDungeonKeybindings.DownLeft, KinkyDungeonKeybindings.DownRight]; // WASD
 					KinkyDungeonGameKey.KEY_UP = (KinkyDungeonKeybindings.Up);

@@ -442,6 +442,7 @@ Bugfix:
 - Improved jail pathfinding
 
 2.6.2
+- KEYBINDINGS MUST BE REDONE, but now you can use numpad or space/enter/etc
 - You may now offer gold to the goddesses to improve your reputation. Be sure to hold up your end of the bargain.
 - Portal range up to 5 from 3
 - Portal mana cost to 6 from 4
@@ -449,9 +450,11 @@ Bugfix:
 - Blink is now instant
 - Added a hotkey to return to game (from inventory/note/magic screens)
 - Added a checkbox for faster waiting
-- Keybindings have to be redone, but now you can use numpad or space/enter/etc
 - Added orgasm and edging
 - Some pathing changes to reduce enemies getting stuck
+- Jailer now drags you back into the cell before taking off the leash
+- Jailer wont get stuck pathfinding just cause you're in the way
+- Being yanked by tether wakes you up
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
