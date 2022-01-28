@@ -509,7 +509,7 @@ function KinkyDungeonCalculateSlowLevel() {
 
 function KinkyDungeonCanTalk() {
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.gag) return false;
+		if (inv.restraint && inv.restraint.gag) return false;
 	}
 	return KinkyDungeonPlayer.CanTalk();
 }
