@@ -205,7 +205,7 @@ function KinkyDungeonLoad() {
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
 			KinkyDungeonKeybindings = JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"));
-			console.log(KinkyDungeonKeybindings);
+			KinkyDungeonKeybindingsTemp = KinkyDungeonKeybindings;
 		}
 		else console.log("Failed to load keybindings");
 
