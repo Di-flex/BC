@@ -455,6 +455,7 @@ Bugfix:
 - Jailer now drags you back into the cell before taking off the leash
 - Jailer wont get stuck pathfinding just cause you're in the way
 - Being yanked by tether wakes you up
+- You now save every 5 floors instead of 10, unless you are in a side area (like ancient tomb)
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
