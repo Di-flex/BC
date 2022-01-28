@@ -565,8 +565,8 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 		} else if (playerEffect.name == "TrapBindings") {
 			let added = [];
 			for (let i = 0; i < playerEffect.count; i++) {
-				let restraintAdd = KinkyDungeonGetRestraint({tags: playerEffect.tags}, MiniGameKinkyDungeonLevel + spell.count, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
-				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.count)) {
+				let restraintAdd = KinkyDungeonGetRestraint({tags: playerEffect.tags}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
 					added.push(restraintAdd);
 					effect = true;
 				}

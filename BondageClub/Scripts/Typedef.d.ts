@@ -1483,6 +1483,7 @@ interface KDGameDataBase {
 
 	KinkyDungeonAngel: number;
 	KDPenanceStage: number;
+	KDPenanceStageEnd: number;
 	KDPenanceMode: string;
 
 	KinkyDungeonPenance: boolean;

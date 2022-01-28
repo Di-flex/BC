@@ -81,6 +81,7 @@ function KinkyDungeonHandleReputation() {
 					KDGameData.KinkyDungeonPenance = true;
 					KDGameData.KDPenanceMode = "";
 					KDGameData.KDPenanceStage = 0;
+					KDGameData.KDPenanceStageEnd = 0;
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPenanceHappen"), "purple", 4);
 					KinkyDungeonChangeRep(rep, 3);
 					KDGameData.KinkyDungeonPenanceCostCurrent = KinkyDungeonPenanceCosts[rep] ? KinkyDungeonPenanceCosts[rep] : KinkyDungeonPenanceCostDefault;
@@ -286,6 +287,7 @@ function KinkyDungeonUpdatePenance(delta) {
 				} else {
 					KDGameData.KDPenanceMode = "Anger";
 					KDGameData.KDPenanceStage = 0;
+					KDGameData.KDPenanceStageEnd = 0;
 				}
 			} else if (KDGameData.KDPenanceMode == "Anger") {
 				if (KDGameData.KDPenanceStage < 4)
@@ -299,9 +301,10 @@ function KinkyDungeonUpdatePenance(delta) {
 	}
 	if (!KDGameData.KinkyDungeonPenance || (!KinkyDungeonHasStamina(1.1) && KinkyDungeonAngel())) {
 		if (KDGameData.KinkyDungeonAngel) {
+			KDGameData.KDPenanceStageEnd += delta;
 			if (!KinkyDungeonEntities.includes(KinkyDungeonAngel())) {
 				KDGameData.KinkyDungeonAngel = 0;
-			} else if ((KinkyDungeonAngel().Enemy.allied || !KinkyDungeonHasStamina(1.1)) && KinkyDungeonAngel() && (!KDGameData.KinkyDungeonPenance || !KinkyDungeonAngel().Enemy.allied) && Math.random() < 0.1) {
+			} else if ((KinkyDungeonAngel().Enemy.allied || !KinkyDungeonHasStamina(1.1)) && KinkyDungeonAngel() && (!KDGameData.KinkyDungeonPenance || !KinkyDungeonAngel().Enemy.allied) && (KDGameData.KDPenanceStageEnd > 10 && Math.random() < 0.2)) {
 				KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KinkyDungeonAngel()), 1);
 				KDGameData.KinkyDungeonAngel = 0;
 				KDGameData.KinkyDungeonPenance = false;

@@ -1551,7 +1551,7 @@ KinkyDungeonGlueSlowDamage,The glue slows you down! (-DamageDealt SP)
 
 KinkyDungeonSpellFirebolt,Firebolt
 KinkyDungeonSpellAllyFirebolt,Elemental's Firebolt
-KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does DamageDealt damage.
+KinkyDungeonSpellDescriptionFirebolt,A ball of flame that does DamageDealt damage.
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 

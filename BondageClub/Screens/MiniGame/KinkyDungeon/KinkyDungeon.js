@@ -63,6 +63,7 @@ let KDGameDataBase = {
 
 	KinkyDungeonAngel: 0,
 	KDPenanceStage: 0,
+	KDPenanceStageEnd: 0,
 	KDPenanceMode: "",
 
 	KinkyDungeonPenance: false,
@@ -94,6 +95,7 @@ let KDGameData = {
 
 	KinkyDungeonAngel: 0,
 	KDPenanceStage: 0,
+	KDPenanceStageEnd: 0,
 	KDPenanceMode: "",
 
 	KinkyDungeonPenance: false,
