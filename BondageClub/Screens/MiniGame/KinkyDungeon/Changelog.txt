@@ -447,6 +447,7 @@ Bugfix:
 - Portal mana cost to 6 from 4
 - Blink range down to 3 from 5
 - Blink is now instant
+-
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

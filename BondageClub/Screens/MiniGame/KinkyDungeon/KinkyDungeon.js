@@ -64,6 +64,7 @@ let KDGameDataBase = {
 	KinkyDungeonAngel: 0,
 	KDPenanceStage: 0,
 	KDPenanceStageEnd: 0,
+	AngelCurrentRep: "",
 	KDPenanceMode: "",
 
 	KinkyDungeonPenance: false,
@@ -71,7 +72,8 @@ let KDGameDataBase = {
 /**
  * @type {KDGameDataBase}
  */
-let KDGameData = {
+let KDGameData = Object.assign({}, KDGameDataBase);
+/*{
 	KinkyDungeonSpawnJailers: 0,
 	KinkyDungeonSpawnJailersMax: 5,
 	KinkyDungeonLeashedPlayer: 0,
@@ -96,10 +98,11 @@ let KDGameData = {
 	KinkyDungeonAngel: 0,
 	KDPenanceStage: 0,
 	KDPenanceStageEnd: 0,
+	AngelCurrentRep: "",
 	KDPenanceMode: "",
 
 	KinkyDungeonPenance: false,
-};
+};*/
 
 let KDLeashingEnemy = null;
 function KinkyDungeonLeashingEnemy() {
