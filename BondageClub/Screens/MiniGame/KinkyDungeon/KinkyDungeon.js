@@ -629,6 +629,7 @@ function KinkyDungeonHandleClick() {
 					UpLeft: 113,
 					UpRight: 101,
 					Wait: 120,
+					Skip: 13,
 				};
 			else {
 				KinkyDungeonKeybindingsTemp = {};
