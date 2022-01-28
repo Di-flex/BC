@@ -2410,6 +2410,7 @@ function KinkyDungeonDefeat() {
 			enemies.push(e);
 		}
 	}
+	KinkyDungeonEntities = enemies;
 }
 
 function KinkyDungeonFindMaster(enemy) {
