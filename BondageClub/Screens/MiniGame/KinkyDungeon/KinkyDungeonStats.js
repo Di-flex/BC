@@ -532,7 +532,7 @@ function KinkyDungeonCalculateSubmissiveMult() {
 }
 
 function KinkyDungeonCanPlayWithSelf() {
-	return KinkyDungeonStatArousal > KinkyDungeonArousalSleepDeprivationThreshold * KinkyDungeonStatArousalMax && KinkyDungeonHasStamina(-KinkyDungeonEdgeCost);
+	return KinkyDungeonStatArousal > KinkyDungeonArousalSleepDeprivationThreshold * KinkyDungeonStatArousalMax && KinkyDungeonHasStamina(-KinkyDungeonOrgasmCost);
 }
 
 function KinkyDungeonCanTryOrgasm() {
@@ -543,6 +543,7 @@ function KinkyDungeonDoPlayWithSelf() {
 	let amount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*Math.random());
 	amount = Math.max(0, amount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
 	KinkyDungeonChangeArousal(amount);
+	KinkyDungeonChangeStamina(KinkyDungeonPlayCost);
 	if (KinkyDungeonChastityMult() > 0.9) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChastityDeny"), "#FF5BE9", 4);
 	} else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPlaySelf"), "#FF5BE9", 4);
@@ -565,6 +566,7 @@ let KinkyDungeonPlayWithSelfChastityPenalty = 4.5;
 
 let KinkyDungeonOrgasmCost = -8;
 let KinkyDungeonEdgeCost = -2;
+let KinkyDungeonPlayCost = -1;
 
 function KinkyDungeonDoTryOrgasm() {
 	let amount = KinkyDungeonOrgasmVibeLevel;

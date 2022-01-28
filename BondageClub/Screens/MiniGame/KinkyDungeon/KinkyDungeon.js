@@ -646,6 +646,7 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(1075, 750, 350, 64)) {
 			if (KinkyDungeonInventory.length > 0 || KinkyDungeonSpells.length > 0 || KinkyDungeonGold > 0 || MiniGameKinkyDungeonLevel >= 0) {
 				KinkyDungeonState = "Game";
+				KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
 				if (KinkyDungeonKeybindings) {
 					KinkyDungeonKey = [KinkyDungeonKeybindings.Up, KinkyDungeonKeybindings.Left, KinkyDungeonKeybindings.Down, KinkyDungeonKeybindings.Right, KinkyDungeonKeybindings.UpLeft, KinkyDungeonKeybindings.UpRight, KinkyDungeonKeybindings.DownLeft, KinkyDungeonKeybindings.DownRight]; // WASD
 					KinkyDungeonGameKey.KEY_UP = (KinkyDungeonKeybindings.Up);
@@ -666,7 +667,6 @@ function KinkyDungeonHandleClick() {
 					KinkyDungeonGameKey.KEY_SKIP = (KinkyDungeonKeybindings.Skip);
 				}
 			} else KinkyDungeonState = "Menu";
-			KinkyDungeonKeybindings = KinkyDungeonKeybindingsTemp;
 			localStorage.setItem("KinkyDungeonKeybindings", JSON.stringify(KinkyDungeonKeybindings));
 			//ServerAccountUpdate.QueueData({ KinkyDungeonKeybindings: KinkyDungeonKeybindings });
 			return true;

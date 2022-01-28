@@ -1146,7 +1146,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (moved && splice && enemy.path) enemy.path.splice(0, 1);
 					idle = false;
 					break;
-				} else enemy.path = [];
+				} else if (KinkyDungeonPlayerEntity.x == enemy.x + dir.x ** KinkyDungeonPlayerEntity.y == enemy.y + dir.y) enemy.path = undefined;
 			}
 		} else if (Math.abs(enemy.x - enemy.gx) < 2 || Math.abs(enemy.y - enemy.gy) < 2) patrolChange = true;
 
@@ -2111,7 +2111,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 		let candidatePoint = KinkyDungeonGetRandomEnemyPoint(true, false, enemy);
 		if (candidatePoint) {
 			let distanceFromCell = Math.ceil((xx - randomPoint.x) * (xx - randomPoint.x) + (yy - randomPoint.y) * (yy - randomPoint.y));
-			if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
+			if (distanceFromCell > 5) {
 				randomPoint = candidatePoint;
 				break;
 			}
