@@ -29,7 +29,7 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
-	"Spear": {name: "Spear", dmg: 3.5, chance: 1.0, staminacost: 2.0, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+	"Spear": {name: "Spear", dmg: 3.5, chance: 1.0, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 3.5, damage: "pierce"}]},
 	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 3}]},
@@ -54,7 +54,7 @@ let KDDamageHands = true;
 function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	KDDamageHands = true;
 	if (!NoOverride)
-		KinkyDungeonSendMagicEvent("calcDamage", {});
+		KinkyDungeonSendEvent("calcDamage", {});
 
 	let damage = KinkyDungeonPlayerDamageDefault;
 	// @ts-ignore
@@ -88,7 +88,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	KDEvasionDeaf = true;
 	KDEvasionSlow = true;
 	if (!NoOverride)
-		KinkyDungeonSendMagicEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic});
+		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic});
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
@@ -363,8 +363,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		miss: !evaded,
 		disarm: disarm,
 	};
-	KinkyDungeonSendWeaponEvent("playerAttack", data);
-	KinkyDungeonSendMagicEvent("playerAttack", data);
+	KinkyDungeonSendEvent("playerAttack", data);
 
 	KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damage", 1);
 	if (eva)
@@ -459,7 +458,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
 
-	KinkyDungeonSendBulletEvent("bulletHit", b, {target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
+	KinkyDungeonSendEvent("bulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
 	if (b.bullet.cast && (!b.bullet.cast.chance || Math.random() < b.bullet.cast.chance)) {
 		let xx = b.bullet.cast.tx;

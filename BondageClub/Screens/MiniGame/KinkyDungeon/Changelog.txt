@@ -457,6 +457,14 @@ Bugfix:
 - Being yanked by tether wakes you up
 - You now save every 5 floors instead of 10, unless you are in a side area (like ancient tomb)
 
+2.6.3
+- Gain submissive rep for following the jailer (only while you have stamina)
+- Iron blood no longer reduces slow level
+- New passive spell: Cat's Grace
+- Flame blade now requires a weapon to use
+- Can no longer finish casting a spell if you dont meet the components
+- Spear now costs 1.5 sp to use
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

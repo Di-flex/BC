@@ -1474,6 +1474,7 @@ interface KDGameDataBase {
 	KinkyDungeonMaxPrisonReduction: number;
 	KinkyDungeonPrisonReduction: number;
 	KinkyDungeonPrisonExtraGhostRep: number;
+	PrisonGoodBehaviorFromLeash: number;
 
 	KinkyDungeonJailTourTimer: number;
 	KinkyDungeonJailTourTimerMin: number;

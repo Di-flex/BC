@@ -1658,7 +1658,7 @@ KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
 KinkyDungeonSpellCorona,Corona
 KinkyDungeonSpellCoronaBeam,Corona
-KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt damage to the first target hit.
+KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt fire damage to the first target hit.
 KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
 KinkyDungeonSpellTargetCorona,Choose line direction
 
@@ -1738,23 +1738,28 @@ KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gai
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
 KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
+KinkyDungeonSpellDescriptionFlameBlade,When equipped: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
 KinkyDungeonSpellTrueSight,Truesight
 KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to see through walls.
 
 KinkyDungeonSpellEnemySense,Heartsense
-KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 10 turns.
+KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
 
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
 KinkyDungeonSpellDescriptionFloatingWeapon,"When equipped: While hands are bound, you can still use weapons, but attacks cost mana."
 
+KinkyDungeonSpellFleetFooted,Cat's Grace
+KinkyDungeonSpellDescriptionFleetFooted,"When equipped and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
+KinkyDungeonFleetFootedIgnoreTrap,"Your graceful footsteps avoid setting off a trap!"
+KinkyDungeonFleetFootedIgnoreSlow,"You recover gracefully from the slowdown!"
+KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce slow level by 1 and gives +100% melee stamina cost reduction (half, assuming no other buffs) until you sleep.
-KinkyDungeonSpellCastIronBlood,You say the transformation chant and your skin glows a pale red!
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce slow level by 1 and +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by spell level while active.
+KinkyDungeonSpellCastIronBlood,Your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
 KinkyDungeonSpellTargetStoneSkin,Select which creature to buff
@@ -2115,11 +2120,18 @@ KinkyDungeonRepNameThankful,"Thankful"
 
 KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
 KinkyDungeonTetherPull,"You are yanked back by the tether!"
-KinkyDungeonRemindJailTourStart,"EnemyName: We will be going on a tour. Follow me."
+KinkyDungeonRemindJailTourStart,"EnemyName: We will be going for a walk. Follow me."
 KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
-KinkyDungeonRemindJailTour1,"EnemyName: I said, follow me!"
+KinkyDungeonRemindJailTour1,"EnemyName: I said, FOLLOW ME!"
 KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
 KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
+
+KinkyDungeonJailerGoodGirl0,"EnemyName: Good girl."
+KinkyDungeonJailerGoodGirl1,"EnemyName: You'll be making others happy in no time."
+KinkyDungeonJailerGoodGirl2,"EnemyName: You're shaping up to be a good slave."
+KinkyDungeonJailerGoodGirl3,"EnemyName: I wish I could take you to my room..."
+KinkyDungeonJailerGoodGirl4,"EnemyName: It seems the training is going well."
+KinkyDungeonJailerGoodGirl5,"EnemyName: Perhaps you are enjoying this, hehe."
 
 KinkyDungeonItemsUnderneath,"Layered underneath:"
 KinkyDungeonItemsStrictness,"Increased strictness due to:"

@@ -29,9 +29,9 @@ function KinkyDungeonSendBuffEvent(Event, data) {
 function KinkyDungeonTickBuffs(list, delta, endFloor) {
 	for (const [key, value] of Object.entries(list)) {
 		if (value) {
-			if (value.endFloor && endFloor) list[key] = undefined;
-			else if (value.endSleep && KDGameData.SleepTurns > 1) list[key] = undefined;
-			else if (!value.duration || value.duration < 0) list[key] = undefined;
+			if (value.endFloor && endFloor) KinkyDungeonExpireBuff(list, key);
+			else if (value.endSleep && KDGameData.SleepTurns > 1) KinkyDungeonExpireBuff(list, key);
+			else if (!value.duration || value.duration < 0) KinkyDungeonExpireBuff(list, key);
 			else {
 				if (value.type == "restore_mp") KinkyDungeonChangeMana(value.power);
 				if (value.type == "restore_sp") KinkyDungeonChangeStamina(value.power);
@@ -50,7 +50,7 @@ function KinkyDungeonTickBuffTag(list, tag, Amount) {
 				if (value.maxCount && value.tags.includes(tag)) {
 					if (!value.currentCount) value.currentCount = 0;
 					value.currentCount += Amount;
-					if (value.currentCount >= value.maxCount) list[key] = undefined;
+					if (value.currentCount >= value.maxCount) KinkyDungeonExpireBuff(list, key);
 				}
 			}
 		}
@@ -102,21 +102,30 @@ function KinkyDungeonGetBuffedStat(list, Stat) {
 	return stat;
 }
 
+function KinkyDungeonExpireBuff(list, key) {
+	delete list[key];
+}
+
 function KinkyDungeonApplyBuff(list, origbuff) {
 	if (!origbuff) return;
 	let buff = {};
 	Object.assign(buff, origbuff);
 	let id = buff.id ? buff.id : buff.name;
-	if (!list[id] || (list[id].power && buff.power > list[id].power)) list[id] = buff;
-	if ((list[id].power && buff.power == list[id].power && buff.duration > list[id].duration)) list[id].duration = buff.duration;
 
-	if (buff.tags)
-		for (let T = 0; T < buff.tags.length; T++) {
-			let tag = buff.tags[T];
-			if (tag == "darkness" && list == KinkyDungeonPlayerBuffs) {
-				KinkyDungeonBlindLevelBase = Math.max(KinkyDungeonBlindLevelBase, Math.floor(buff.power/0.5));
+	if (list[id] && buff.cancelOnReapply) {
+		KinkyDungeonExpireBuff(list, id);
+	} else {
+		if (!list[id] || (list[id].power && buff.power > list[id].power)) list[id] = buff;
+		if ((list[id].power && buff.power == list[id].power && buff.duration > list[id].duration)) list[id].duration = buff.duration;
+
+		if (buff.tags)
+			for (let T = 0; T < buff.tags.length; T++) {
+				let tag = buff.tags[T];
+				if (tag == "darkness" && list == KinkyDungeonPlayerBuffs) {
+					KinkyDungeonBlindLevelBase = Math.max(KinkyDungeonBlindLevelBase, Math.floor(buff.power/0.5));
+				}
 			}
-		}
+	}
 }
 
 function KinkyDungeonHasBuff(list, Buff) {

@@ -245,7 +245,7 @@ function KinkyDungeonDrawGame() {
 					}
 				}
 
-				KinkyDungeonSendMagicEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
+				KinkyDungeonSendEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
 				KDDrawUpdate = 0;
 
 				// Draw targeting reticule

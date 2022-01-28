@@ -147,7 +147,7 @@ const KinkyDungeonRestraints = [
 		enemyTags: {"wolfRestraints" : 8}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex"]},
 	{name: "WolfCollar", Asset: "AutoShockCollar", Color: ['#6EAF81', '#6EAF81'], Group: "ItemNeck", power: 11, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0.1, "Pick": 0.05},
 		enemyTags: {"wolfRestraints":3}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Metal", "Collars"]},
-	{removePrison: true, name: "WolfLeash", tether: 3.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
+	{removePrison: true, name: "WolfLeash", tether: 2.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
 		escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"wolfRestraints":9}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":999}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 	// collar #6EAF81
@@ -333,7 +333,7 @@ const KinkyDungeonRestraints = [
 	{removePrison: true, divine: true, name: "DivineMuzzle", gag: true, Asset: "FuturisticMuzzle", Modules: [0, 1, 1], Color: ['#AE915C', '#AE915C', '#CAA562', '#5FBEE8'], Group: "ItemMouth3", power: 50, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 	{name: "BasicCollar", Asset: "LeatherCollar", Color: ["#000000", "Default"], Group: "ItemNeck", power: 1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.15, "Remove": 0.5, "Pick": 0.75}, enemyTags: {"leashing":1, "maidCollar":-1}, playerTags: {"ItemNeckFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
-	{removePrison: true, name: "BasicLeash", tether: 3.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
+	{removePrison: true, name: "BasicLeash", tether: 2.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 ];
 
@@ -808,7 +808,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
-			KinkyDungeonSendInventoryEvent("struggle", {
+			KinkyDungeonSendEvent("struggle", {
 				restraint: restraint,
 				group: struggleGroup,
 				struggletype: StruggleType,
@@ -840,7 +840,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
-		KinkyDungeonSendInventoryEvent("struggle", {
+		KinkyDungeonSendEvent("struggle", {
 			restraint: restraint,
 			group: struggleGroup,
 			struggletype: StruggleType,
@@ -859,7 +859,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Strict" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
-		KinkyDungeonSendInventoryEvent("struggle", {
+		KinkyDungeonSendEvent("struggle", {
 			restraint: restraint,
 			group: struggleGroup,
 			struggletype: StruggleType,
@@ -912,7 +912,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound" + suff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
-			KinkyDungeonSendInventoryEvent("struggle", {
+			KinkyDungeonSendEvent("struggle", {
 				restraint: restraint,
 				group: struggleGroup,
 				struggletype: StruggleType,
@@ -1088,7 +1088,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				KinkyDungeonChangeRep("Ghost", 1);
 		}
 
-		KinkyDungeonSendInventoryEvent("struggle", {
+		KinkyDungeonSendEvent("struggle", {
 			restraint: restraint,
 			group: struggleGroup,
 			struggletype: StruggleType,
@@ -1434,7 +1434,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 		var item = KinkyDungeonInventory[I];
 		if ((item.restraint && item.restraint.Group == Group)) {
 			if (!NoEvent)
-				KinkyDungeonSendInventoryEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
+				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
 
 			if (!KinkyDungeonCancelFlag && !Add && !Shrine) {
 				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(item);

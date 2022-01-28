@@ -289,10 +289,10 @@ function KinkyDungeonSetMaxStats() {
 
 let KDHandsFreeTag = false;
 
-function KinkyDungeonCanUseWeapon(NoOverride) {
+function KinkyDungeonCanUseWeapon(NoOverride, e) {
 	KDHandsFreeTag = false;
 	if (!NoOverride)
-		KinkyDungeonSendMagicEvent("getWeapon", {});
+		KinkyDungeonSendEvent("getWeapon", {event: e});
 	return (KDHandsFreeTag || (!InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands")));
 }
 

@@ -233,32 +233,38 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 2}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 0.4, ignoreInInventory: true}]},
 
-	{name: "Dragon", color: "#F92900", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "dragonRestraints", "leatherRestraints", "fireresist", "jail", "search"]), followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "Dragon", color: "#F92900", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "dragonRestraints", "leatherRestraints", "fireresist", "jail", "search"]), cohesion: 0.75,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		visionRadius: 8, maxhp: 10, minLevel:4, weight:-1, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "thirdhalf":-1, "leatherAnger":1}, shrines: ["Leather"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "Pick", weight: 3}, {name: "PotionStamina", weight: 1}]},
-	{name: "DragonIce", color: "#aaaaff", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "iceimmune", "hunter"]), followLeashedOnly: true, ignorechance: 0, armor: 1, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "DragonIce", color: "#aaaaff", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "iceimmune", "hunter"]), cohesion: 0.75,
+		followLeashedOnly: true, ignorechance: 0, armor: 1, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["IceDragonBreathPrepare"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3,
 		visionRadius: 8, maxhp: 14, minLevel:11, weight:-2, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather", "Elements"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 12}, {name: "Pick", weight: 4}, {name: "PotionMana", weight: 1}, {name: "IceRune", weight: 3}]},
-	{name: "DragonPoison", color: "#44ff77", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "unflinching", "fireresist", "hunter"]), followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "DragonPoison", color: "#44ff77", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "unflinching", "fireresist", "hunter"]), cohesion: 0.75,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["PoisonDragonBlast"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -1, tilesMinRange: 2, stopToCast: true,
 		visionRadius: 9, maxhp: 11, minLevel:8, weight:-2, movePoints: 3, attackPoints: 4, attack: "SpellMeleeStunWill", stunTime: 1, attackWidth: 3, attackRange: 2, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather", "Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 12}, {name: "Pick", weight: 4}, {name: "PotionStamina", weight: 3}]},
-	{name: "DragonCrystal", color: "#ff00aa", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "leatherRestraintsHeavy", "electricresist", "fireresist", "hunter"]), followLeashedOnly: true, ignorechance: 0, armor: 1, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "DragonCrystal", color: "#ff00aa", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "leatherRestraints", "leatherRestraintsHeavy", "electricresist", "fireresist", "hunter"]), cohesion: 0.75,
+		followLeashedOnly: true, ignorechance: 0, armor: 1, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["SummonCrystals"], minSpellRange: 0, spellCooldownMult: 1, spellCooldownMod: 2, castWhileMoving: true,
 		visionRadius: 8, maxhp: 10, minLevel:25, weight:-1, movePoints: 1, attackPoints: 2, attack: "SpellMeleeBindWill", stunTime: 1, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather", "Conjure"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 15}, {name: "BlueKey", weight: 1}, {name: "PotionMana", weight: 2}, {name: "EarthRune", weight: 3}]},
-	{name: "DragonShadow", color: "#4400ff", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "shadowRestraints", "coldimmune", "fireresist", "jail", "hunter"]), followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
+	{name: "DragonShadow", color: "#4400ff", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "elite", "dragonRestraints", "shadowRestraints", "coldimmune", "fireresist", "jail", "hunter"]), cohesion: 0.75,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
 		spells: ["ShadowOrb"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 0, pullTowardSelf: true, pullDist: 3,
 		specialCD: 7, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "MagicSlash",
 		visionRadius: 8, maxhp: 16, minLevel:18, weight:-1, movePoints: 2, attackPoints: 2, attack: "SpellMeleeWill", stunTime: 3, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":2}, shrines: ["Leather", "Conjure"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Knife", weight: 4}, {name: "PotionMana", weight: 3}]},
-	{name: "DragonLeader", color: "#F92900", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "boss", "dragonRestraints", "leatherRestraints", "leatherRestraintsHeavy", "fireimmune"]), ignorechance: 0, armor: 0, followRange: 1, AI: "patrol",
+	{name: "DragonLeader", color: "#F92900", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "boss", "dragonRestraints", "leatherRestraints", "leatherRestraintsHeavy", "fireimmune"]),
+		ignorechance: 0, armor: 0, followRange: 1, AI: "patrol",
 		summon: [
 			{enemy: "Dragon", range: 2, count: 2, chance: 0.4, strict: true},
 			{enemy: "DragonIce", range: 3, count: 1, chance: 0.25, strict: true},
@@ -1546,7 +1552,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 					let sfx = (hitsfx) ? hitsfx : (willpowerDamage > 1 ? "Damage" : "DamageWeak");
 					if (usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
-					KinkyDungeonSendInventoryEvent("hit", {
+					KinkyDungeonSendEvent("hit", {
 						happened: happened,
 						attack: attack,
 						enemy: enemy,
@@ -1704,7 +1710,8 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
 		if (KinkyDungeonTotalSleepTurns > 30 - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/10))) {
 			if (KinkyDungeonTotalSleepTurns > 90 - HunterAdjust) hunters = true;
-			if (KinkyDungeonTotalSleepTurns > 130 - EntranceAdjust && Math.random() < 0.5) spawnLocation = KinkyDungeonEndPosition;
+			if ((KinkyDungeonTotalSleepTurns > 130 - EntranceAdjust && KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonEndPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonEndPosition.y) > 5 && Math.random() < 0.5)
+				|| KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) < 5) spawnLocation = KinkyDungeonEndPosition;
 
 			if (KinkyDungeonLightGet(spawnLocation.x, spawnLocation.y) < 1 || KinkyDungeonSeeAll) {
 				KinkyDungeonSearchTimer = 0;
@@ -1940,6 +1947,16 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					&& (KinkyDungeonJailGuard().x - KinkyDungeonJailGuard().NextJailLeashTourWaypointX) * (KinkyDungeonJailGuard().x - KinkyDungeonJailGuard().NextJailLeashTourWaypointX)
 						+ (KinkyDungeonJailGuard().y - KinkyDungeonJailGuard().NextJailLeashTourWaypointY) * (KinkyDungeonJailGuard().y - KinkyDungeonJailGuard().NextJailLeashTourWaypointY) < 2) {
 					KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints--;
+					if (KinkyDungeonJailGuard().NextJailLeashTourWaypointX > KinkyDungeonJailLeashX + 2) {
+						if (KinkyDungeonHasStamina(1.1) && KDRandom() < 0.5) {
+							let index = "0";
+							if (KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions < 1) {
+								index = "" + Math.floor(Math.random() * 6);
+								KinkyDungeonChangeRep("Ghost", 2);
+							}
+							KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerGoodGirl" + index).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 3);
+						}
+					}
 					KinkyDungeonJailGuardGetLeashWaypoint(xx, yy);
 				} else {
 					let pullDist = 2.5;//KinkyDungeonTetherLength() - 1;//KinkyDungeonJailGuard().Enemy.pullDist ? KinkyDungeonJailGuard().Enemy.pullDist : 1;
@@ -1980,6 +1997,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 								KinkyDungeonJailGuard().y = guardPath[0].y;
 							}
 						} else KinkyDungeonJailGuardGetLeashWaypoint(xx, yy);
+						KinkyDungeonUpdateTether(true, KinkyDungeonPlayerEntity);
 					}
 				}
 			}
@@ -2325,7 +2343,7 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width, forwardOffset = 1) {
 
 function KinkyDungeonDefeat() {
 	//MiniGameKinkyDungeonLevel = Math.min(MiniGameKinkyDungeonLevel, Math.max(Math.floor(MiniGameKinkyDungeonLevel/10)*10, MiniGameKinkyDungeonLevel - KinkyDungeonSpawnJailers + KinkyDungeonSpawnJailersMax - 1));
-	KinkyDungeonSendInventoryEvent("defeat", {});
+	KinkyDungeonSendEvent("defeat", {});
 
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.removePrison) {
