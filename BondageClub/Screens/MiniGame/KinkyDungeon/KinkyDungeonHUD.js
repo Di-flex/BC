@@ -257,7 +257,7 @@ function KinkyDungeonDrawProgress(x, y, amount, totalIcons, maxWidth, sprite) {
 function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	// Draw labels
 	let buttonWidth = 48;
-	let suff = (!KinkyDungeonPlayer.CanTalk()) ? "Unavailable" : "";
+	let suff = (!KinkyDungeonCanTalk()) ? "Unavailable" : "";
 	if (KinkyDungeonStatArousal > 0) {
 		DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "black");
 		DrawButton(x, y, buttonWidth, buttonWidth, "", KinkyDungeonItemCount("PotionFrigid") ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
@@ -462,15 +462,15 @@ function KinkyDungeonHandleHUD() {
 		let xxx = canvasOffsetX + KinkyDungeonCanvas.width+10;
 		let yyy = canvasOffsetY;
 		if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionFrigid") && KinkyDungeonStatArousal > 0) {
-			if (KinkyDungeonPlayer.CanTalk())
+			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionFrigid", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 		} else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionStamina") && KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
-			if (KinkyDungeonPlayer.CanTalk())
+			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionStamina", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 		} else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionMana") && KinkyDungeonStatMana < KinkyDungeonStatManaMax) {
-			if (KinkyDungeonPlayer.CanTalk())
+			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionMana", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 		} else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 250, 50)) {
@@ -498,7 +498,7 @@ function KinkyDungeonHandleHUD() {
 	} else if (KinkyDungeonDrawState == "Restart") {
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
 		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
-		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
+		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
 		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
 
 
@@ -512,7 +512,7 @@ function KinkyDungeonHandleHUD() {
 			localStorage.setItem("KinkyDungeonDrool", KinkyDungeonDrool ? "True" : "False");
 			return true;
 		}
-		if (MouseIn(975, 750, 550, 64) && !(KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
+		if (MouseIn(975, 750, 550, 64) && !(KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);
 			KinkyDungeonDrawState = "Game";

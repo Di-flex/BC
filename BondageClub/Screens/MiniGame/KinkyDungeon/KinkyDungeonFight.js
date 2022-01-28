@@ -105,12 +105,24 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride) {
 	return hitChance;
 }
 
+function KinkyDungeonAggro(Enemy) {
+	if (Enemy && Enemy.Enemy ) {
+		if (Enemy.Enemy.name == "Angel") {
+			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
+			if (KDGameData.KDPenanceStage < 4)
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
+		} else if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) {
+			KinkyDungeonJailTransgressed = true;
+		}
+	}
+}
+
 function KinkyDungeonEvasion(Enemy) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy);
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
+	KinkyDungeonAggro(Enemy);
 
 	if (Math.random() < hitChance) return true;
 
@@ -252,7 +264,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
+	KinkyDungeonAggro(Enemy);
 
 	if (dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);

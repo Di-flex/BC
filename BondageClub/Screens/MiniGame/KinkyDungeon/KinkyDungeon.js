@@ -36,6 +36,103 @@ let KinkyDungeonAutoWait = false;
 
 let KinkyDungeonConfigAppearance = false;
 
+/**
+ * @type {KDGameDataBase}
+ */
+let KDGameDataBase = {
+	KinkyDungeonSpawnJailers: 0,
+	KinkyDungeonSpawnJailersMax: 5,
+	KinkyDungeonLeashedPlayer: 0,
+	KinkyDungeonLeashingEnemy: 0,
+
+	KinkyDungeonJailGuard: 0,
+	KinkyDungeonGuardTimer: 0,
+	KinkyDungeonGuardTimerMax: 22,
+	KinkyDungeonGuardSpawnTimer: 0,
+	KinkyDungeonGuardSpawnTimerMax: 20,
+	KinkyDungeonGuardSpawnTimerMin: 6,
+	KinkyDungeonMaxPrisonReduction: 10,
+	KinkyDungeonPrisonReduction: 0,
+	KinkyDungeonPrisonExtraGhostRep: 0,
+
+	KinkyDungeonJailTourTimer: 0,
+	KinkyDungeonJailTourTimerMin: 20,
+	KinkyDungeonJailTourTimerMax: 40,
+
+	KinkyDungeonPenanceCostCurrent: 100,
+
+	KinkyDungeonAngel: 0,
+	KDPenanceStage: 0,
+	KDPenanceMode: "",
+
+	KinkyDungeonPenance: false,
+};
+/**
+ * @type {KDGameDataBase}
+ */
+let KDGameData = {
+	KinkyDungeonSpawnJailers: 0,
+	KinkyDungeonSpawnJailersMax: 5,
+	KinkyDungeonLeashedPlayer: 0,
+	KinkyDungeonLeashingEnemy: 0,
+
+	KinkyDungeonJailGuard: 0,
+	KinkyDungeonGuardTimer: 0,
+	KinkyDungeonGuardTimerMax: 22,
+	KinkyDungeonGuardSpawnTimer: 0,
+	KinkyDungeonGuardSpawnTimerMax: 20,
+	KinkyDungeonGuardSpawnTimerMin: 6,
+	KinkyDungeonMaxPrisonReduction: 10,
+	KinkyDungeonPrisonReduction: 0,
+	KinkyDungeonPrisonExtraGhostRep: 0,
+
+	KinkyDungeonJailTourTimer: 0,
+	KinkyDungeonJailTourTimerMin: 20,
+	KinkyDungeonJailTourTimerMax: 40,
+
+	KinkyDungeonPenanceCostCurrent: 100,
+
+	KinkyDungeonAngel: 0,
+	KDPenanceStage: 0,
+	KDPenanceMode: "",
+
+	KinkyDungeonPenance: false,
+};
+
+let KDLeashingEnemy = null;
+function KinkyDungeonLeashingEnemy() {
+	if (KDGameData.KinkyDungeonLeashingEnemy) {
+		if (!KDLeashingEnemy) {
+			KDLeashingEnemy = KinkyDungeonFindID(KDGameData.KinkyDungeonLeashingEnemy);
+		}
+	} else {
+		KDLeashingEnemy = null;
+	}
+	return KDLeashingEnemy;
+}
+let KDJailGuard = null;
+function KinkyDungeonJailGuard() {
+	if (KDGameData.KinkyDungeonJailGuard) {
+		if (!KDJailGuard) {
+			KDJailGuard = KinkyDungeonFindID(KDGameData.KinkyDungeonJailGuard);
+		}
+	} else {
+		KDJailGuard = null;
+	}
+	return KDJailGuard;
+}
+let KDAngel = null;
+function KinkyDungeonAngel() {
+	if (KDGameData.KinkyDungeonAngel) {
+		if (!KDAngel) {
+			KDAngel = KinkyDungeonFindID(KDGameData.KinkyDungeonAngel);
+		}
+	} else {
+		KDAngel = null;
+	}
+	return KDAngel;
+}
+
 function KDMapInit(list) {
 	let map = new Map();
 	for (let l of list) {
@@ -810,6 +907,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
 	save.rep = KinkyDungeonGoddessRep;
 	save.costs = KinkyDungeonShrineCosts;
+	save.pcosts = KinkyDungeonPenanceCosts;
 	save.orbs = KinkyDungeonOrbsPlaced;
 	save.chests = KinkyDungeonChestsOpened;
 	save.dress = KinkyDungeonCurrentDress;
@@ -824,7 +922,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.caches = KinkyDungeonCachesPlaced;
 	save.rescued = KinkyDungeonRescued;
 	save.aid = KinkyDungeonAid;
-	save.penance = KinkyDungeonPenance;
 	KDrandomizeSeed();
 	save.seed = KinkyDungeonSeed;
 
@@ -898,9 +995,10 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.caches != undefined) KinkyDungeonCachesPlaced = saveData.caches;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
-			KinkyDungeonSpawnJailers = 0;
-			KinkyDungeonSpawnJailersMax = 0;
+			KDGameData.KinkyDungeonSpawnJailers = 0;
+			KDGameData.KinkyDungeonSpawnJailersMax = 0;
 			if (saveData.seed) KDsetSeed(saveData.seed);
+			if (saveData.pcosts) KinkyDungeonPenanceCosts = saveData.pcosts;
 			if (saveData.choices) KinkyDungeonSpellChoices = saveData.choices;
 			if (saveData.choices2) KinkyDungeonSpellChoicesToggle = saveData.choices2;
 			if (saveData.buffs) KinkyDungeonPlayerBuffs = saveData.buffs;
@@ -911,7 +1009,6 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
 			if (saveData.rescued != undefined) KinkyDungeonRescued = saveData.rescued;
 			if (saveData.aid != undefined) KinkyDungeonAid = saveData.aid;
-			if (saveData.penance != undefined) KinkyDungeonPenance = saveData.penance;
 			if (saveData.stats) {
 				if (saveData.stats.picks != undefined) KinkyDungeonLockpicks = saveData.stats.picks;
 				if (saveData.stats.keys != undefined) KinkyDungeonRedKeys = saveData.stats.keys;

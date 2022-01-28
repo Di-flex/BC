@@ -418,7 +418,7 @@ function KinkyDungeonDrawGame() {
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
 		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
-		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KinkyDungeonSpawnJailers + 1 == KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
+		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
 		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
 		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	}
@@ -504,7 +504,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		Entity.visual_y = Entity.y;
 	} else {
 		let speed = 100;
-		if (Entity.player && KinkyDungeonSlowLevel > 0 && KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
+		if (Entity.player && KinkyDungeonSlowLevel > 0 && KDGameData.KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
 		if (KinkyDungeonSleepTurns > 0) speed = 500;
 		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet

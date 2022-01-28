@@ -230,12 +230,12 @@ function KinkyDungeonDressPlayer() {
 	let Mouth = "";
 	let Fluids = "";
 
-	if (KinkyDungeonDrool && !KinkyDungeonPlayer.CanTalk()) {
+	if (KinkyDungeonDrool && !KinkyDungeonCanTalk()) {
 		if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 8) Fluids = "DroolMessy";
 		else if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 4) Fluids = "DroolMedium";
 		else Fluids = "DroolLow";
 	}
-	if (KinkyDungeonDrool && KinkyDungeonLeashedPlayer > 0) {
+	if (KinkyDungeonDrool && KDGameData.KinkyDungeonLeashedPlayer > 0) {
 		if (Fluids.includes("Drool")) Fluids = Fluids.replace("Drool", "DroolTears");
 		else Fluids = "TearsHigh";
 	}

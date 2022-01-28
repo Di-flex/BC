@@ -302,7 +302,7 @@ function KinkyDungeonGhostMessage() {
 			msg = TextGet("KinkyDungeonGhostHelpful" + KinkyDungeonGhostDecision);
 		} else {
 			let BoundType = "Generic";
-			if (!KinkyDungeonPlayer.CanTalk() && Math.random() < 0.33) BoundType = "Gag";
+			if (!KinkyDungeonCanTalk() && Math.random() < 0.33) BoundType = "Gag";
 			if (!KinkyDungeonPlayer.CanInteract() && Math.random() < 0.33) BoundType = "Arms";
 			if (!KinkyDungeonPlayer.CanWalk() && Math.random() < 0.33) BoundType = "Feet";
 			if (KinkyDungeonPlayer.IsChaste() && Math.random() < 0.33) BoundType = "Chaste";

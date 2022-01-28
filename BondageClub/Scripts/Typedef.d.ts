@@ -1458,3 +1458,33 @@ interface KinkyDungeonEvent {
 	buffType?: string;
 	time?: number;
 }
+
+interface KDGameDataBase {
+	KinkyDungeonSpawnJailers: number;
+	KinkyDungeonSpawnJailersMax: number;
+	KinkyDungeonLeashedPlayer: number;
+	KinkyDungeonLeashingEnemy: number;
+
+	KinkyDungeonJailGuard: number;
+	KinkyDungeonGuardTimer: number;
+	KinkyDungeonGuardTimerMax: number;
+	KinkyDungeonGuardSpawnTimer: number;
+	KinkyDungeonGuardSpawnTimerMax: number;
+	KinkyDungeonGuardSpawnTimerMin: number;
+	KinkyDungeonMaxPrisonReduction: number;
+	KinkyDungeonPrisonReduction: number;
+	KinkyDungeonPrisonExtraGhostRep: number;
+
+	KinkyDungeonJailTourTimer: number;
+	KinkyDungeonJailTourTimerMin: number;
+	KinkyDungeonJailTourTimerMax: number;
+
+	KinkyDungeonPenanceCostCurrent: number;
+
+	KinkyDungeonAngel: number;
+	KDPenanceStage: number;
+	KDPenanceMode: string;
+
+	KinkyDungeonPenance: boolean;
+
+}

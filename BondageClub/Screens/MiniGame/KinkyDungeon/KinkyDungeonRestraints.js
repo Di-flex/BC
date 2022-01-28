@@ -328,6 +328,10 @@ const KinkyDungeonRestraints = [
 	{removePrison: true, name: "ShadowChainFeet", Asset: "Chains", LinkableBy: ["Wrapping"], Color: "#000000", Group: "ItemFeet", blockfeet: true, power: 4, weight: 0, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemFeetFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 	{removePrison: true, name: "ShadowChainCrotch", crotchrope: true, Asset: "CrotchChain", OverridePriority: 26, Color: "#000000", Group: "ItemTorso", power: 4, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 
+	{removePrison: true, name: "DivineCuffs", Asset: "FuturisticCuffs", LinkableBy: ["Boxbinders", "Armbinders"], Type: "Wrist", Color: ['#6AB0ED', '#AE915C', '#FFFFFF'], Group: "ItemArms", power: 50, weight: 0, escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemArmsFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
+	{removePrison: true, name: "DivineAnkleCuffs", Asset: "FuturisticAnkleCuffs", LinkableBy: ["Wrapping"], Color: ['#71D2EE', '#AE915C', '#000000'], Group: "ItemFeet", blockfeet: true, power: 50, weight: 0, escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemFeetFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
+	{removePrison: true, name: "DivineMuzzle", gag: true, Asset: "FuturisticMuzzle", Modules: [0, 1, 1], Color: ['#AE915C', '#AE915C', '#CAA562', '#5FBEE8'], Group: "ItemMouth3", power: 50, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
+
 	{name: "BasicCollar", Asset: "LeatherCollar", Color: ["#000000", "Default"], Group: "ItemNeck", power: 1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.15, "Remove": 0.5, "Pick": 0.75}, enemyTags: {"leashing":1, "maidCollar":-1}, playerTags: {"ItemNeckFull":-2}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 	{removePrison: true, name: "BasicLeash", tether: 3.9, Asset: "CollarLeash", Color: "Default", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true, escapeChance: {"Struggle": 0.33, "Cut": 0.2, "Remove": 0.5, "Pick": 1.25}, enemyTags: {"leashing":1}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":99}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
@@ -340,13 +344,13 @@ function KinkyDungeonDrawTether(Entity, CamX, CamY) {
 	if (inv && inv.restraint && inv.restraint.tether && inv.tx && inv.ty) {
 		let vx = inv.tx;
 		let vy = inv.ty;
-		if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy) {
-			vx = KinkyDungeonLeashingEnemy.visual_x;
-			vy = KinkyDungeonLeashingEnemy.visual_y;
+		if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy()) {
+			vx = KinkyDungeonLeashingEnemy().visual_x;
+			vy = KinkyDungeonLeashingEnemy().visual_y;
 		}
-		if (inv.tetherToGuard && KinkyDungeonJailGuard) {
-			vx = KinkyDungeonJailGuard.visual_x;
-			vy = KinkyDungeonJailGuard.visual_y;
+		if (inv.tetherToGuard && KinkyDungeonJailGuard()) {
+			vx = KinkyDungeonJailGuard().visual_x;
+			vy = KinkyDungeonJailGuard().visual_y;
 		}
 
 		//let dist = KDistEuclidean(inv.tx - Entity.visual_x, inv.ty - Entity.visual_y);
@@ -379,18 +383,18 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 		if (inv.restraint && inv.restraint.tether && (inv.tx && inv.ty || inv.tetherToLeasher || inv.tetherToGuard)) {
 			let tether = inv.tetherLength ? inv.tetherLength : inv.restraint.tether;
 
-			if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy) {
-				inv.tx = KinkyDungeonLeashingEnemy.x;
-				inv.ty = KinkyDungeonLeashingEnemy.y;
-			} else if (!KinkyDungeonLeashingEnemy) {
+			if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy()) {
+				inv.tx = KinkyDungeonLeashingEnemy().x;
+				inv.ty = KinkyDungeonLeashingEnemy().y;
+			} else if (!KinkyDungeonLeashingEnemy()) {
 				inv.tetherToLeasher = undefined;
 				inv.tx = undefined;
 				inv.ty = undefined;
 			}
-			if (inv.tetherToGuard && KinkyDungeonJailGuard) {
-				inv.tx = KinkyDungeonJailGuard.x;
-				inv.ty = KinkyDungeonJailGuard.y;
-			} else if (!KinkyDungeonJailGuard) {
+			if (inv.tetherToGuard && KinkyDungeonJailGuard()) {
+				inv.tx = KinkyDungeonJailGuard().x;
+				inv.ty = KinkyDungeonJailGuard().y;
+			} else if (!KinkyDungeonJailGuard()) {
 				inv.tetherToGuard = undefined;
 				inv.tx = undefined;
 				inv.ty = undefined;

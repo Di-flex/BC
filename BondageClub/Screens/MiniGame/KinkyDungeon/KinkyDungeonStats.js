@@ -114,8 +114,8 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonFastMove = true;
 	KinkyDungeonResetEventVariables();
 	KinkyDungeonSetDress("Default");
-	KinkyDungeonSpawnJailers = 0;
-	KinkyDungeonSpawnJailersMax = 0;
+	KDGameData.KinkyDungeonSpawnJailers = 0;
+	KDGameData.KinkyDungeonSpawnJailersMax = 0;
 	KinkyDungeonGold = 0;
 	KinkyDungeonLockpicks = 1;
 	KinkyDungeonRedKeys = 0;
@@ -447,6 +447,13 @@ function KinkyDungeonCalculateSlowLevel() {
 			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
+}
+
+function KinkyDungeonCanTalk() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.gag) return false;
+	}
+	return KinkyDungeonPlayer.CanTalk();
 }
 
 function KinkyDungeonCalculateSubmissiveMult() {

@@ -127,7 +127,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
-	if (needMouth && !KinkyDungeonPlayer.CanTalk()) {
+	if (needMouth && !KinkyDungeonCanTalk()) {
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
 
 		if (KinkyDungeonTextMessageTime > 0)

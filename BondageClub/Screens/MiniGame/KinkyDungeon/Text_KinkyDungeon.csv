@@ -6,7 +6,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.1"
+KinkyDungeon,"Kinky Dungeon v2.6.2"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -152,8 +152,9 @@ KinkyDungeonRarity4,Rare
 KinkyDungeonRarity5,Very Rare
 KinkyDungeonRarity6,Epic
 KinkyDungeonRarity7,Legendary
-KinkyDungeonRarity8,Mythical
-KinkyDungeonRarity9,Godlike
+KinkyDungeonRarity8,Supreme
+KinkyDungeonRarity9,Mythical
+KinkyDungeonRarity10,Divine
 
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
@@ -248,6 +249,32 @@ KinkyDungeonHearDoorCloseFar,You hear a door being shut in the distance.
 
 KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
 KinkyDungeonSlimeHarden,"The slime starts to harden over your skin..."
+
+
+NameAngel,Holy Angel
+KillAngel,"You oneshotted her. What kind of devil are you???"
+AttackAngel,"The angel decides to toy with you while you are trussed up."
+AttackAngelBind,"The angel snaps her fingers and divine restraints appear on your body!"
+
+NameAngelHostile,Holy Angel
+KillAngelHostile,"You subdue the angel!"
+AttackAngelHostile,"The angel decides to toy with you while you are trussed up."
+AttackAngelHostileBind,"The angel snaps her fingers and divine restraints appear on your body!"
+
+KinkyDungeonAngelIntro,"Be not afraid! I have come to take your offering."
+KinkyDungeonAngelWarn,"Hold still and I will take the offering..."
+KinkyDungeonAngelSuccess0,"(She takes the gold)"
+KinkyDungeonAngelSuccess1,"Peace be with you! Goodbye!"
+KinkyDungeonAngelAnger0,"You don't have the gold, do you?"
+KinkyDungeonAngelAnger1,"But do not fear, for I will tell the Goddess that you have paid."
+KinkyDungeonAngelAnger2,"For I will first have a little fun..."
+KinkyDungeonAngelAnger3,"You have brought this upon yourself, after all."
+
+KinkyDungeonAngelAggro,"The angel frowns as you attack her, and glowing rings appear."
+
+KinkyDungeonAngelDefeated,"Angel: MMMMMPHH!!!"
+
+KinkyDungeonAngelUnlock,"(The angel looks puzzled and unlocks your divine restraints)"
 
 
 NameDecoy,Illusion
@@ -1363,6 +1390,16 @@ RestraintShadowChainCrotch,Shadow Chain
 RestraintShadowChainCrotchDesc,"Black chains for those who cross the divines"
 RestraintShadowChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
 
+RestraintDivineCuffs,Divine Cuffs
+RestraintDivineCuffsDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineCuffsDesc2,"Shining cuffs made of holy metal. Nothing can touch it."
+RestraintDivineAnkleCuffs,Divine Cuffs
+RestraintDivineAnkleCuffsDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineAnkleCuffsDesc2,"Shining cuffs made of holy metal. Nothing can touch it."
+RestraintDivineMuzzle,Divine Muzzle
+RestraintDivineMuzzleDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineMuzzleDesc2,"A shining muzzle made of holy metal. Nothing can touch it."
+
 RestraintClothBlindfold,Blindfold
 RestraintClothBlindfoldDesc,"A piece of cloth secured onto your face and blocking vision."
 RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose."
@@ -2049,14 +2086,9 @@ KinkyDungeonAidDescIllusion"For 3 rep the goddess "
 
 KinkyDungeonRescueDesc,"The Goddess may decide to help you out of prison, in exchange for 10 rep"
 
-KinkyDungeonPenanceDescRope,"The Goddess will give "
-KinkyDungeonPenanceDescMetal,
-KinkyDungeonPenanceDescLeather,
-KinkyDungeonPenanceDescLatex,
-KinkyDungeonPenanceDescWill,
-KinkyDungeonPenanceDescConjure,
-KinkyDungeonPenanceDescElements,
-KinkyDungeonPenanceDescIllusion
+KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +3 rep."
 
 KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnappings."
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
+
+KinkyDungeonPenanceHappen,"Time stops as an angel of heaven appears to collect your payment."
