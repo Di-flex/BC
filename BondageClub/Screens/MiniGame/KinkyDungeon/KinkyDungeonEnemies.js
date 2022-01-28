@@ -1870,7 +1870,6 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				let possibleGroup = KinkyDungeonStruggleGroupsBase[Math.floor(Math.random() * KinkyDungeonStruggleGroupsBase.length)];
 				let oldRestraintItem = KinkyDungeonGetRestraintItem(possibleGroup);
 				let newRestraint = KinkyDungeonGetJailRestraintForGroup(possibleGroup);
-				console.log("Checking for swap:", possibleGroup, oldRestraintItem, newRestraint);
 				if (newRestraint && (!oldRestraintItem || (oldRestraintItem.restraint && oldRestraintItem.restraint.name != newRestraint.name))) {
 					KinkyDungeonJailGuard().CurrentAction = "jailAddRestraints";
 					KinkyDungeonJailGuard().CurrentRestraintSwapGroup = possibleGroup;

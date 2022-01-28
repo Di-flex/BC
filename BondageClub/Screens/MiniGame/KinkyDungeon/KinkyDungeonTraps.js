@@ -7,15 +7,54 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard() || (KDistEuclidean(KinkyDungeonJailGuard().x - x, KinkyDungeonJailGuard().y - y) < KinkyDungeonTetherLength() + 2 && KinkyDungeonJailGuard().CurrentAction != "jailLeashTour"))) {
 		let msg = "";
 		let color = "red";
-		if (tile.Trap == "Skeletons") {
-			let created = KinkyDungeonSummonEnemy(x, y, "SummonedSkeleton", tile.Power, 4);
+		if (tile.Trap === "SpawnEnemies") {
+			let radius = tile.Power > 4 ? 4 : 2;
+			let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius);
 			if (created > 0) {
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
-				msg = "Default";
+				msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
 				KinkyDungeonTiles[x + "," + y] = undefined;
 			}
-		} else if (tile.Trap == "Bandits") {
-			let created = KinkyDungeonSummonEnemy(x, y, "Bandit", tile.Power, 2);
+		}
+		if (tile.Trap == "SpecificSpell") {
+			let spell = KinkyDungeonFindSpell(tile.Spell, true);
+			if (spell) {
+				KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = ""; // The spell will show a message on its own
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
+		if (tile.Trap === "CustomSleepDart") {
+			let spell = KinkyDungeonFindSpell("TrapSleepDart", true);
+			if (spell) {
+				// Search any tile 4 tiles up or down that have Line of Sight to the player
+				let startX = KinkyDungeonPlayerEntity.x;
+				let startY = KinkyDungeonPlayerEntity.y;
+				let possible_coords = [
+					{x: -4, y: 0}, {x: 4, y: 0}, {x: 0, y: -4}, {x: 0, y: 4},
+					{x: -3, y: 0}, {x: 3, y: 0}, {x: 0, y: -3}, {x: 0, y: 3},
+					{x: -2, y: 0}, {x: 2, y: 0}, {x: 0, y: -2}, {x: 0, y: 2},
+				];
+				for (let coord of possible_coords) {
+					if (KinkyDungeonCheckProjectileClearance(startX + coord.x, startY + coord.y, startX, startY)) {
+						startX += coord.x;
+						startY += coord.y;
+						break;
+					}
+				}
+				KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+				msg = ""; // We don't want to warn the player about what just happened
+				KinkyDungeonTiles[x + "," + y] = undefined;
+			}
+		}
+		if (tile.Trap === "CustomVine") {
+			let restraint = KinkyDungeonGetRestraintByName("VinePlantFeet");
+			if (restraint) {
+				KinkyDungeonAddRestraintIfWeaker(restraint, tile.Power, false, false);
+			}
+			let created = KinkyDungeonSummonEnemy(x, y, "VinePlant", tile.Power, 1);
 			if (created > 0) {
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 				msg = "Default";
@@ -31,6 +70,76 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 	}
 
 	KinkyDungeonTrapMoved = false;
+}
+
+function KinkyDungeonGetGoddessTrapTypes() {
+	let trapTypes = [];
+	if (KinkyDungeonGoddessRep.Rope < KDANGER) {
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 100 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Ninja", Level: 0, Power: 3, Weight: 20 });
+	}
+	if (KinkyDungeonGoddessRep.Rope < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "RopeKraken", Level: 0, Power: 1, Weight: 200 });
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapRopeStrong", Level: 0, Power: 3, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Leather < KDANGER) {
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 100 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Dragon", Level: 0, Power: 3, Weight: 20 });
+	}
+	if (KinkyDungeonGoddessRep.Leather < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "DragonLeader", Level: 0, Power: 2, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Metal < KDANGER) {
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapCableWeak", Level: 0, Power: 3, Weight: 100 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Drone", Level: 0, Power: 3, Weight: 20 });
+	}
+	if (KinkyDungeonGoddessRep.Metal < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Wolfgirl", Level: 0, Power: 2, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Latex < KDANGER) {
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapSlimeWeak", Level: 0, Power: 3, Weight: 100 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Alkahestor", Level: 0, Power: 1, Weight: 20 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "SmallSlime", Level: 0, Power: 6, Weight: 20 });
+	}
+	if (KinkyDungeonGoddessRep.Latex < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "SlimeEnthusiast", Level: 0, Power: 2, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "BigSlime", Level: 0, Power: 2, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalLatex", Level: 0, Power: 2, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Elements < KDANGER) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalFire", Level: 0, Power: 2, Weight: 5 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalIce", Level: 0, Power: 2, Weight: 5 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalWater", Level: 0, Power: 2, Weight: 5 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalEarth", Level: 0, Power: 2, Weight: 5 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalAir", Level: 0, Power: 2, Weight: 5 });
+	}
+	if (KinkyDungeonGoddessRep.Elements < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalFire", Level: 0, Power: 4, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalIce", Level: 0, Power: 4, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalWater", Level: 0, Power: 4, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalEarth", Level: 0, Power: 4, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ElementalAir", Level: 0, Power: 4, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Conjure < KDANGER) {
+		trapTypes.push({ Name: "SpecificSpell", Spell: "TrapMagicChainsWeak", Level: 0, Power: 3, Weight: 100 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "TickleHand", Level: 0, Power: 6, Weight: 10 });
+	}
+	if (KinkyDungeonGoddessRep.Conjure < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Conjurer", Level: 0, Power: 3, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ConjurerTickler", Level: 0, Power: 3, Weight: 200 });
+	}
+	if (KinkyDungeonGoddessRep.Illusion < KDANGER) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Maidforce", Level: 0, Power: 3, Weight: 10 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "MaidforcePara", Level: 0, Power: 3, Weight: 10 });
+	}
+	if (KinkyDungeonGoddessRep.Illusion < KDRAGE) {
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Maidforce", Level: 0, Power: 6, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "MaidforcePara", Level: 0, Power: 6, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "MaidforceMafia", Level: 0, Power: 6, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "MaidforceHead", Level: 0, Power: 1, Weight: 200 });
+	}
+
+	return trapTypes;
 }
 
 function KinkyDungeonGetTrap(trapTypes, Level, tags) {
@@ -60,7 +169,13 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 
 	for (let L = trapWeights.length - 1; L >= 0; L--) {
 		if (selection > trapWeights[L].weight) {
-			return {Name: trapWeights[L].trap.Name, Power: trapWeights[L].trap.Power};
+			return {
+				Name: trapWeights[L].trap.Name,
+				Restraint: trapWeights[L].trap.Restraint,
+				Enemy: trapWeights[L].trap.Enemy,
+				Spell: trapWeights[L].trap.Spell,
+				Power: trapWeights[L].trap.Power,
+			};
 		}
 	}
 
