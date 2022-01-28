@@ -2110,8 +2110,8 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 	for(let i = 0; i < 40; ++i) {
 		let candidatePoint = KinkyDungeonGetRandomEnemyPoint(true, false, enemy);
 		if (candidatePoint) {
-			let distanceFromCell = Math.ceil((xx - randomPoint.x) * (xx - randomPoint.x) + (yy - randomPoint.y) * (yy - randomPoint.y));
-			if (distanceFromCell > 5) {
+			let distanceFromCell = Math.ceil((xx - candidatePoint.x) * (xx - candidatePoint.x) + (yy - candidatePoint.y) * (yy - candidatePoint.y));
+			if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
 				randomPoint = candidatePoint;
 				break;
 			}
