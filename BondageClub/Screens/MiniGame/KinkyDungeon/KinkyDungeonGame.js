@@ -272,7 +272,7 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	let grateChance = MapParams.grateChance;
 	let brickchance = MapParams.brickchance; // Chance for brickwork to start being placed
 	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
-	let traptypes = MapParams.traps;
+	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
 	let cacheInterval = MapParams.cacheInterval;
 	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density);
 
