@@ -160,19 +160,19 @@ function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 	if (Event == "calcEvasion") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDEvasionHands = false;
 			}
 		}
 	} if (Event == "calcDamage") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDDamageHands = false;
 			}
 		}
 	} else if (Event == "getWeapon") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDHandsFreeTag = true;
 			}
 		}

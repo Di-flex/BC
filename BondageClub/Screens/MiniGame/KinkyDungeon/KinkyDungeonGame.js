@@ -1404,7 +1404,6 @@ function KinkyDungeonListenKeyMove() {
 		else if ((KinkyDungeonGameKey.keyPressed[7]) || (KinkyDungeonGameKey.keyPressed[3] && KinkyDungeonGameKey.keyPressed[1])) moveDirectionDiag = KinkyDungeonGetDirection(1, 1);
 
 		if ((KinkyDungeonGameKey.keyPressed[8])) {moveDirection = KinkyDungeonGetDirection(0, 0); moveDirectionDiag = null;}
-		if ((KinkyDungeonGameKey.keyPressed[9])) {KinkyDungeonDrawState = "Game";}
 
 		if (moveDirectionDiag && KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(moveDirectionDiag.x + KinkyDungeonPlayerEntity.x,  moveDirectionDiag.y + KinkyDungeonPlayerEntity.y))) {
 			moveDirection = moveDirectionDiag;
@@ -1460,9 +1459,9 @@ function KinkyDungeonGameKeyDown() {
 	if (moveDirection) {
 		KinkyDungeonMove(moveDirection, 1);
 	// @ts-ignore
-	} else if (KinkyDungeonKeySpell.includes(KeyPress)) {
+	} else if (KinkyDungeonKeySpell.includes(KinkyDungeonKeybindingCurrentKey)) {
 		// @ts-ignore
-		KinkyDungeonSpellPress = KeyPress;
+		KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
 		KinkyDungeonHandleSpell();
 	}
 }
