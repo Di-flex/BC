@@ -512,6 +512,10 @@ function KinkyDungeonHandleHUD() {
 			localStorage.setItem("KinkyDungeonDrool", KinkyDungeonDrool ? "True" : "False");
 			return true;
 		}
+		if (MouseIn(600, 650, 64, 64)) {
+			KinkyDungeonFastWait = !KinkyDungeonFastWait;
+			return true;
+		}
 		if (MouseIn(975, 750, 550, 64) && !(KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);

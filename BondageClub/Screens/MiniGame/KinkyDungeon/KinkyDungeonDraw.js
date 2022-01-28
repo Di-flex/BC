@@ -41,6 +41,7 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonDrawState == "Game")
 		KinkyDungeonListenKeyMove();
+	if ((KinkyDungeonGameKey.keyPressed[9])) {KinkyDungeonDrawState = "Game";}
 
 	KinkyDungeonCapStats();
 
@@ -414,6 +415,7 @@ function KinkyDungeonDrawGame() {
 		MainCanvas.textAlign = "left";
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
 		DrawCheckbox(600, 180, 64, 64, TextGet("KinkyDungeonDrool"), KinkyDungeonDrool, false, "white");
+		DrawCheckbox(600, 650, 64, 64, TextGet("KinkyDungeonFastWait"), KinkyDungeonFastWait, false, "white");
 		MainCanvas.textAlign = "center";
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");

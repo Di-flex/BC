@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -13,6 +13,7 @@ Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 KinkyDungeonSound,Enable Sounds
 KinkyDungeonDrool,Enable Drool/Tears
+KinkyDungeonFastWait,Wait Quickly
 
 KinkyDungeonLog,Log
 
@@ -91,6 +92,7 @@ KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
 KinkyDungeonKeyWait,Wait
+KinkyDungeonKeySkip,Skip
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 

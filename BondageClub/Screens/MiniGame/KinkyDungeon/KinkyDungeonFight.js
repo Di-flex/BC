@@ -203,7 +203,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				dmgDealt = Math.max(dmg - armor, 0);
 			}
 
-			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(Damage.type) || Damage.type == "fire")) {
 				Enemy.freeze = 0;
 			}
 
