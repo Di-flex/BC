@@ -110,6 +110,7 @@ let KinkyDungeonSubmissiveMult = 0;
 let KinkyDungeonSpellPoints = 3;
 
 function KinkyDungeonDefaultStats() {
+	KinkyDungeonPenanceCosts = {};
 	KinkyDungeonLostItems = [];
 	KinkyDungeonFastMove = true;
 	KinkyDungeonResetEventVariables();
