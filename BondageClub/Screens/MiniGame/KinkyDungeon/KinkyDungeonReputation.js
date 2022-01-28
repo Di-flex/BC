@@ -79,6 +79,8 @@ function KinkyDungeonHandleReputation() {
 				} else if (KDRepSelectionMode == "Penance" && MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40) && KinkyDungeonCanPenance(rep, value)) {
 					// Penance
 					KDGameData.KinkyDungeonPenance = true;
+					KDGameData.KDPenanceMode = "";
+					KDGameData.KDPenanceStage = 0;
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPenanceHappen"), "purple", 4);
 					KinkyDungeonChangeRep(rep, 3);
 					KDGameData.KinkyDungeonPenanceCostCurrent = KinkyDungeonPenanceCosts[rep] ? KinkyDungeonPenanceCosts[rep] : KinkyDungeonPenanceCostDefault;
