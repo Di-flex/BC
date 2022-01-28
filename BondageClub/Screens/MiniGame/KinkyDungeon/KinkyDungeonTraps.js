@@ -7,21 +7,6 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard || (KDistEuclidean(KinkyDungeonJailGuard.x - x, KinkyDungeonJailGuard.y - y) < KinkyDungeonTetherLength() + 2 && KinkyDungeonJailGuard.CurrentAction != "jailLeashTour"))) {
 		let msg = "";
 		let color = "red";
-		if (tile.Trap == "Skeletons") {
-			let created = KinkyDungeonSummonEnemy(x, y, "SummonedSkeleton", tile.Power, 4);
-			if (created > 0) {
-				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
-				msg = "Default";
-				KinkyDungeonTiles[x + "," + y] = undefined;
-			}
-		} else if (tile.Trap == "Bandits") {
-			let created = KinkyDungeonSummonEnemy(x, y, "Bandit", tile.Power, 2);
-			if (created > 0) {
-				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
-				msg = "Default";
-				KinkyDungeonTiles[x + "," + y] = undefined;
-			}
-		}
 		if (tile.Trap === "SpawnEnemies") {
 			let radius = tile.Power > 4 ? 4 : 2;
 			let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius);
