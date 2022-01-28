@@ -106,9 +106,9 @@ function KinkyDungeonApplyBuff(list, origbuff) {
 	if (!origbuff) return;
 	let buff = {};
 	Object.assign(buff, origbuff);
-
-	if (!list[buff.id] || (list[buff.id].power && buff.power > list[buff.id].power)) list[buff.id] = buff;
-	if ((list[buff.id].power && buff.power == list[buff.id].power && buff.duration > list[buff.id].duration)) list[buff.id].duration = buff.duration;
+	let id = buff.id ? buff.id : buff.name;
+	if (!list[id] || (list[id].power && buff.power > list[id].power)) list[id] = buff;
+	if ((list[id].power && buff.power == list[id].power && buff.duration > list[id].duration)) list[id].duration = buff.duration;
 
 	if (buff.tags)
 		for (let T = 0; T < buff.tags.length; T++) {
