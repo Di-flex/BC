@@ -370,6 +370,11 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 
+	if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
+		KinkyDungeonChangeStamina(KinkyDungeonOrgasmExhaustionAmount);
+		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonOrgasmExhaustion"), "red", 2, false, true);
+	}
+
 	KinkyDungeonStatBlind = Math.max(0, KinkyDungeonStatBlind - delta);
 	KinkyDungeonStatFreeze = Math.max(0, KinkyDungeonStatFreeze - delta);
 	KinkyDungeonStatBind = Math.max(0, KinkyDungeonStatBind - delta);
@@ -540,11 +545,14 @@ function KinkyDungeonCanTryOrgasm() {
 }
 
 function KinkyDungeonDoPlayWithSelf() {
-	let amount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*Math.random());
-	amount = Math.max(0, amount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
+	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*Math.random());
+	let amount = Math.max(0, OrigAmount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
+	if (KinkyDungeonIsArmsBound()) amount = Math.max(0, Math.min(amount, OrigAmount - KinkyDungeonPlayWithSelfBoundPenalty));
 	KinkyDungeonChangeArousal(amount);
 	KinkyDungeonChangeStamina(KinkyDungeonPlayCost);
-	if (KinkyDungeonChastityMult() > 0.9) {
+	if (KinkyDungeonIsArmsBound()) {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPlaySelfBound"), "#FF5BE9", 4);
+	} else if (KinkyDungeonChastityMult() > 0.9) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChastityDeny"), "#FF5BE9", 4);
 	} else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPlaySelf"), "#FF5BE9", 4);
 	KDGameData.PlaySelfTurns = 3;
@@ -560,9 +568,12 @@ let KinkyDungeonArousalSleepDeprivationThreshold = 0.25;
 let KinkyDungeonPlaySelfOrgasmThreshold = 3; // Note that it is impossible if you have a belt on, but possible if you only have a bra on
 
 let KinkyDungeonOrgasmTurnsMax = 10;
+let KinkyDungeonOrgasmTurnsCrave = 8;
 let KinkyDungeonPlayWithSelfPowerMin = 3;
 let KinkyDungeonPlayWithSelfPowerMax = 6;
 let KinkyDungeonPlayWithSelfChastityPenalty = 4.5;
+let KinkyDungeonPlayWithSelfBoundPenalty = 3;
+let KinkyDungeonOrgasmExhaustionAmount = -1;
 
 let KinkyDungeonOrgasmCost = -8;
 let KinkyDungeonEdgeCost = -2;

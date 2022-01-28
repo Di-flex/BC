@@ -1132,7 +1132,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				let splice = false;
 				if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 				if (T >= 8 || enemy.path || !KinkyDungeonCheckPath(enemy.x, enemy.y, enemy.gx, enemy.gy)) {
-					if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, ignore, ignoreLocks, MovableTiles); // Give up and pathfind
+					if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, KDRandom() < 0.5 ? ignore : false, ignoreLocks, MovableTiles); // Give up and pathfind
 					if (enemy.path && enemy.path.length > 0) {
 						dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 						if (!KinkyDungeonNoEnemyExceptSub(enemy.x + dir.x, enemy.y + dir.y, false, enemy)) enemy.path = undefined;
@@ -1891,6 +1891,9 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 				}
 				KDGameData.KinkyDungeonPrisonExtraGhostRep += 2;
+				if (!playerInCell) KinkyDungeonPlayerEntity.x -= 1;
+				let enemy = KinkyDungeonEnemyAt(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+				if (enemy) enemy.x += 1
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
 				KDGameData.KinkyDungeonJailTourTimer = KDGameData.KinkyDungeonJailTourTimerMin + Math.floor((KDGameData.KinkyDungeonJailTourTimerMax - KDGameData.KinkyDungeonJailTourTimerMin) * Math.random());
 				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;
@@ -2110,7 +2113,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 	for(let i = 0; i < 40; ++i) {
 		let candidatePoint = KinkyDungeonGetRandomEnemyPoint(true, false, enemy);
 		if (candidatePoint) {
-			let distanceFromCell = Math.ceil((xx - candidatePoint.x) * (xx - candidatePoint.x) + (yy - candidatePoint.y) * (yy - candidatePoint.y));
+			let distanceFromCell = Math.sqrt((xx - candidatePoint.x) * (xx - candidatePoint.x) + (yy - candidatePoint.y) * (yy - candidatePoint.y));
 			if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
 				randomPoint = candidatePoint;
 				break;
