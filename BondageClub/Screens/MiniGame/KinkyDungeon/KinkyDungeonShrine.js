@@ -268,7 +268,9 @@ function KinkyDungeonDrawShrine() {
 		} else {
 			DrawButton(840, 825, 112-15, 60, TextGet("KinkyDungeonCommercePurchase").replace("ItemCost", "" + cost), (cost <= KinkyDungeonGold) ? "White" : "Pink", "", "");
 			if (MouseIn(840, 825, 112-15, 60) && KinkyDungeonShopItems.length > 0 && KinkyDungeonShopItems[KinkyDungeonShopIndex]) {
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX+1, 1+canvasOffsetY + KinkyDungeonCanvas.height - 100, 1000, "black");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX, canvasOffsetY + KinkyDungeonCanvas.height - 100, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX+1, 1+canvasOffsetY + KinkyDungeonCanvas.height - 50, 1000, "black");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX, canvasOffsetY + KinkyDungeonCanvas.height - 50, 1000, "white");
 			}
 			DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonCommerceNext"), "White", "", "");
@@ -302,7 +304,7 @@ function KinkyDungeonGhostMessage() {
 			msg = TextGet("KinkyDungeonGhostHelpful" + KinkyDungeonGhostDecision);
 		} else {
 			let BoundType = "Generic";
-			if (!KinkyDungeonPlayer.CanTalk() && Math.random() < 0.33) BoundType = "Gag";
+			if (!KinkyDungeonCanTalk() && Math.random() < 0.33) BoundType = "Gag";
 			if (!KinkyDungeonPlayer.CanInteract() && Math.random() < 0.33) BoundType = "Arms";
 			if (!KinkyDungeonPlayer.CanWalk() && Math.random() < 0.33) BoundType = "Feet";
 			if (KinkyDungeonPlayer.IsChaste() && Math.random() < 0.33) BoundType = "Chaste";

@@ -82,35 +82,49 @@ let KDEvasionHands = true;
 let KDEvasionSlow = true;
 let KDEvasionSight = true;
 let KDEvasionDeaf = true;
-function KinkyDungeonGetEvasion(Enemy, NoOverride) {
+function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	KDEvasionHands = true;
 	KDEvasionSight = true;
 	KDEvasionDeaf = true;
 	KDEvasionSlow = true;
 	if (!NoOverride)
-		KinkyDungeonSendMagicEvent("calcEvasion", {});
+		KinkyDungeonSendMagicEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic});
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic) hitChance = Math.max(hitChance, 1.0);
-	hitChance *= KinkyDungeonPlayerDamage.chance;
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
+
+	if (!IsSpell) hitChance *= KinkyDungeonPlayerDamage.chance;
 	if (Enemy && Enemy.slow > 0) hitChance *= 2;
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
 
-	if (KDEvasionSight)
-		hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
-	if (KDEvasionDeaf &&KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.9;
-	if (KDEvasionSlow && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
-
+	if (!IsSpell) {
+		if (KDEvasionSight)
+			hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
+		if (KDEvasionDeaf &&KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.9;
+		if (KDEvasionSlow && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
+	}
 	return hitChance;
 }
 
-function KinkyDungeonEvasion(Enemy) {
-	let hitChance = KinkyDungeonGetEvasion(Enemy);
+function KinkyDungeonAggro(Enemy) {
+	if (Enemy && Enemy.Enemy ) {
+		if (Enemy.Enemy.name == "Angel") {
+			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
+			if (KDGameData.KDPenanceStage < 4)
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
+		} else if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) {
+			KinkyDungeonJailTransgressed = true;
+		}
+	}
+}
+
+function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
+	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
+	KinkyDungeonAggro(Enemy);
 
 	if (Math.random() < hitChance) return true;
 
@@ -150,9 +164,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		dmg *= 2;
 	}
 
-
-
-	if (Damage) {
+	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
+	if (Damage && !miss) {
 		let buffType = Damage.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		dmg *= buffAmount;
@@ -191,7 +204,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				dmgDealt = Math.max(dmg - armor, 0);
 			}
 
-			if (Enemy.freeze > 0 && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(Damage.type) || Damage.type == "fire")) {
 				Enemy.freeze = 0;
 			}
 
@@ -245,14 +258,14 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (resistDamage == -2) mod = "VeryStrong";
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
-		: TextGet("PlayerMiss" + ((Damage) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
+		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
 			(Damage && (dmg > 0 || effect)) ? "orange" : "red", 2);
 
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.AI == "ambush" && Spell) {
 		Enemy.ambushtrigger = true;
 	}
 
-	if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) KinkyDungeonJailTransgressed = true;
+	KinkyDungeonAggro(Enemy);
 
 	if (dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);

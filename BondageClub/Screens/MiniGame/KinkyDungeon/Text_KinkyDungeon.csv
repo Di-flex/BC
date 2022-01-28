@@ -1,18 +1,19 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.1"
+KinkyDungeon,"Kinky Dungeon v2.6.2"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 KinkyDungeonSound,Enable Sounds
 KinkyDungeonDrool,Enable Drool/Tears
+KinkyDungeonFastWait,Wait Quickly
 
 KinkyDungeonLog,Log
 
@@ -53,7 +54,9 @@ StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"MP: CURRENT/MAX"
 StatUsePotion,"Use Potion"
 KinkyDungeonManaCost," MP"
-KinkyDungeonSleep,"Sleep 40 turns"
+KinkyDungeonSleep,"Go to sleep"
+KinkyDungeonPlayWithSelf,"Play with yourself"
+KinkyDungeonTryOrgasm,"Let go..."
 
 Wait,"You wait."
 WaitAroused,"Your legs tremble as you wait."
@@ -91,6 +94,7 @@ KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
 KinkyDungeonKeyWait,Wait
+KinkyDungeonKeySkip,Return to game
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 
@@ -152,8 +156,9 @@ KinkyDungeonRarity4,Rare
 KinkyDungeonRarity5,Very Rare
 KinkyDungeonRarity6,Epic
 KinkyDungeonRarity7,Legendary
-KinkyDungeonRarity8,Mythical
-KinkyDungeonRarity9,Godlike
+KinkyDungeonRarity8,Supreme
+KinkyDungeonRarity9,Mythical
+KinkyDungeonRarity10,Divine
 
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
@@ -209,7 +214,7 @@ KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
 KinkyDungeonInventoryItemFlail,Flail
-KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fash and hard to dodge."
+KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fast and hard to dodge."
 KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to adjacent targets. Deals crush damage."
 KinkyDungeonInventoryItemSpear,Spear
 KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
@@ -248,6 +253,32 @@ KinkyDungeonHearDoorCloseFar,You hear a door being shut in the distance.
 
 KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
 KinkyDungeonSlimeHarden,"The slime starts to harden over your skin..."
+
+
+NameAngel,Holy Angel
+KillAngel,"You oneshotted her. What kind of devil are you???"
+AttackAngel,"The angel decides to toy with you while you are trussed up."
+AttackAngelBind,"The angel snaps her fingers and divine restraints appear on your body!"
+
+NameAngelHostile,Holy Angel
+KillAngelHostile,"You subdue the angel!"
+AttackAngelHostile,"The angel decides to toy with you while you are trussed up."
+AttackAngelHostileBind,"The angel snaps her fingers and divine restraints appear on your body!"
+
+KinkyDungeonAngelIntro,"Be not afraid! I have come to take your offering."
+KinkyDungeonAngelWarn,"Hold still and I will take the offering..."
+KinkyDungeonAngelSuccess0,"(She takes the gold)"
+KinkyDungeonAngelSuccess1,"Peace be with you! Goodbye!"
+KinkyDungeonAngelAnger0,"You don't have the gold, do you?"
+KinkyDungeonAngelAnger1,"But do not fear, for I will tell the Goddess that you have paid."
+KinkyDungeonAngelAnger2,"For I will first have a little fun..."
+KinkyDungeonAngelAnger3,"You have brought this upon yourself, after all."
+
+KinkyDungeonAngelAggro,"The angel frowns as you attack her, and glowing rings appear."
+
+KinkyDungeonAngelDefeated,"Angel: MMMMMPHH!!!"
+
+KinkyDungeonAngelUnlock,"(The angel looks puzzled and unlocks your divine restraints)"
 
 
 NameDecoy,Illusion
@@ -425,11 +456,13 @@ AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 NameAlchemistPet,Wolfgirl
 KillAlchemistPet,"The wolfgirl escapes!"
 AttackAlchemistPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackAlchemistPetStun,"The wolfgirl lunges at you with a powerful kick!"
 AttackAlchemistPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 
 NameWolfgirlPet,Wolfgirl
 KillWolfgirlPet,"The wolfgirl escapes!"
 AttackWolfgirlPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackWolfgirlPetStun,"The wolfgirl lunges at you with a powerful kick!"
 AttackWolfgirlPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 
 NameWolfgirl,Wolfgirl Trainer
@@ -806,7 +839,7 @@ KinkyDungeonCantUsePotionsStrict,"You struggle against your bindings but it's to
 KinkyDungeonDropPick,"You drop the pick due to your bound hands!"
 KinkyDungeonDropKnife,"You drop your knife due to your bound hands!"
 KinkyDungeonDropEnchKnife,"You drop the precious knife due to your bound hands!"
-KinkyDungeonDropRedKey,"You drop the red key due to your bound hands!"
+KinkyDungeonDropRedKey,"You drop the key due to your bound hands!"
 KinkyDungeonDropBlueKey,"You drop the green key due to your bound hands!"
 KinkyDungeonDropGreenKey,"You drop the magic key due to your bound hands!"
 
@@ -1028,7 +1061,7 @@ RestraintStrongMagicRopeLegsDesc2,"The knots appear to tie themselves together a
 RestraintStrongMagicRopeFeet,Magic Ankle Rope
 RestraintStrongMagicRopeFeetDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeFeetDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeCrotch,Match Crotch Rope
+RestraintStrongMagicRopeCrotch,Magic Crotch Rope
 RestraintStrongMagicRopeCrotchDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeCrotchDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStrongMagicRopeToe,Magic Toe Rope
@@ -1363,6 +1396,16 @@ RestraintShadowChainCrotch,Shadow Chain
 RestraintShadowChainCrotchDesc,"Black chains for those who cross the divines"
 RestraintShadowChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
 
+RestraintDivineCuffs,Divine Cuffs
+RestraintDivineCuffsDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineCuffsDesc2,"Shining cuffs made of holy metal. Nothing can touch it."
+RestraintDivineAnkleCuffs,Divine Cuffs
+RestraintDivineAnkleCuffsDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineAnkleCuffsDesc2,"Shining cuffs made of holy metal. Nothing can touch it."
+RestraintDivineMuzzle,Divine Muzzle
+RestraintDivineMuzzleDesc,"It is said that even heaven has its hierarchies..."
+RestraintDivineMuzzleDesc2,"A shining muzzle made of holy metal. Nothing can touch it."
+
 RestraintClothBlindfold,Blindfold
 RestraintClothBlindfoldDesc,"A piece of cloth secured onto your face and blocking vision."
 RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose."
@@ -1438,7 +1481,7 @@ ItemPickupKnife,"You picked up a knife."
 ItemPickupKnives,"You found a bundle of discarded knives!"
 ItemPickupEnchKnife,"You picked up an enchanted knife."
 ItemPickupPick,"You picked up a lockpick."
-ItemPickupRedKey,"You picked up a red key."
+ItemPickupRedKey,"You picked up a normal key."
 ItemPickupGreenKey,"You picked up a green key."
 ItemPickupBlueKey,"You picked up a blue key."
 ItemPickupPotionHealth,"You picked up a willpower potion."
@@ -1450,6 +1493,10 @@ ItemPickupLore,"You found a peculiar note on the ground."
 ItemPickupHammer,"You pick up a heavy hammer."
 ItemPickupBoltCutters,"You pick up a set of bolt cutters."
 ItemPickupSword,"You pick up a sharp sword."
+ItemPickupFlail,"You pick up a heavy flail."
+ItemPickupSpear,"You pick up a shortspear."
+ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wizard school..."
+ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupAxe,"You pick up a powerful axe."
 ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
@@ -1512,7 +1559,7 @@ KinkyDungeonGlueSlowDamage,The glue slows you down! (-DamageDealt SP)
 
 KinkyDungeonSpellFirebolt,Firebolt
 KinkyDungeonSpellAllyFirebolt,Elemental's Firebolt
-KinkyDungeonSpellDescriptionFirebolt,A slow moving ball of flame that does DamageDealt damage.
+KinkyDungeonSpellDescriptionFirebolt,A ball of flame that does DamageDealt damage.
 KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
@@ -1539,7 +1586,7 @@ KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!
 KinkyDungeonSpellTargetBlink,Choose target location
 
 KinkyDungeonSpellLeap,Blink
-KinkyDungeonSpellDescriptionLeap,Teleport to a location you can see next turn.
+KinkyDungeonSpellDescriptionLeap,Instantly teleport to a location you can see.
 KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 
@@ -1556,7 +1603,7 @@ KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
 KinkyDungeonSpellBanditBola,Bola
 KinkyDungeonSpellRestrainingDevice,Restraining Device
-KinkyDungeonRestrainingDeviceStun,The maid's restraining device latches onto you as you struggle to get it off!!!
+KinkyDungeonRestrainingDeviceStun,The thrown restraining device latches onto you as you struggle to get it off!!!
 KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables around you!!!
 
 KinkyDungeonSleepy,You are feeling doozy...
@@ -1876,6 +1923,28 @@ KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
+KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
+KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"
+KinkyDungeonSpellCastTrapMummyWeak,"Bands of glowing wrappings start flying in from all sides!"
+KinkyDungeonSpellCastTrapRopeWeak,"Ropes slither out towards you from between the bricks!"
+KinkyDungeonSpellCastTrapRopeStrong,"Ropes fall on you from all sides!"
+KinkyDungeonSpellCastTrapLeatherWeak,"Leather restraints start appearing around you!"
+KinkyDungeonSpellCastTrapCableWeak,"high-tech cables come out from the floor!"
+KinkyDungeonSpellCastTrapSlimeWeak,"Slimes pours out from the walls and ceiling!"
+KinkyDungeonSpellCastTrapMagicChainsWeak,"Ethereal chains appear all around you!"
+KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
+KinkyDungeonTrapBindingsCharmWeak,"The charms stick themselves all over your body!"
+KinkyDungeonTrapBindingsShackleWeak,"Shackles close themselves over your limbs!"
+KinkyDungeonTrapBindingsMummyWeak,"The wrappings close in over your body!"
+KinkyDungeonTrapBindingsRopeWeak,"The ropes wrap themselves around your body!"
+KinkyDungeonTrapBindingsRopeStrong,"The ropes wrap themselves tightly around your body!"
+KinkyDungeonTrapBindingsLeatherWeak,"The leather restraints attach themselves to your body!"
+KinkyDungeonTrapBindingsCableWeak,"The high-tech cables wrap themselves over your body!"
+KinkyDungeonTrapBindingsSlimeWeak,"The slime pours all over you!"
+KinkyDungeonTrapBindingsMagicChainsWeak,"The magic chains wrap themselves around your body!"
+KinkyDungeonTrapBindingsDress,"Your clothes are getting ripped away!"
+KinkyDungeonTrapSleepDart,"You feel a prick as a small dart hits you, and you start feeling drowsy..."
+KinkyDungeonTrapLustCloud,"You breathe in the gas, and a wave of pleasure hits your whole body."
 
 KinkyDungeonInventory,"Inventory"
 KinkyDungeonReputation,"Reputation"
@@ -1996,8 +2065,31 @@ KinkyDungeonGhostUnhelpfulChaste2,"Ghost: Aww, feeling frustrated?"
 KinkyDungeonGhostUnhelpfulChaste3,"Ghost: Looks like someone's been naughty~"
 KinkyDungeonGhostUnhelpfulChaste4,"Ghost: How's it feel to be under lock and key?"
 
-KinkyDungeonTrapSkeletons,"You step on a pressure plate and a number of skeletons rise up!"
-KinkyDungeonTrapBandits,"You are ambushed by bandits!"
+KinkyDungeonTrapSpawnSummonedSkeleton,"You step on a pressure plate and a number of skeletons rise up!"
+KinkyDungeonTrapSpawnBandit,"You are ambushed by bandits!"
+KinkyDungeonTrapSpawnNinja,"You are ambushed by ninjas!"
+KinkyDungeonTrapSpawnRopeKraken,"A large, wriggling mess of ropes fall from the ceiling!"
+KinkyDungeonTrapSpawnDragon,"You are ambushed by dragonhearts!"
+KinkyDungeonTrapSpawnDragonLeader,"You are ambushed by dragonhearts!"
+KinkyDungeonTrapSpawnDrone,"A group of drones surround you!"
+KinkyDungeonTrapSpawnWolfgirl,"You are ambushed by wolfgirls!"
+KinkyDungeonTrapSpawnAlkahestor,"You are ambushed by an alkahestor!"
+KinkyDungeonTrapSpawnSmallSlime,"Small blobs of slime fall from the ceiling!"
+KinkyDungeonTrapSpawnSlimeEnthusiast,"You are ambushed by slime enthusiasts!"
+KinkyDungeonTrapSpawnBigSlime,"A large blob of slime falls from the ceiling!"
+KinkyDungeonTrapSpawnElementalFire,"In a flash of light, a group of fire elementals appear around you!"
+KinkyDungeonTrapSpawnElementalIce,"In a flash of light, a group of ice elementals appear around you!"
+KinkyDungeonTrapSpawnElementalWater,"In a flash of light, a group of water elementals appear around you!"
+KinkyDungeonTrapSpawnElementalEarth,"In a flash of light, a group of earth elementals appear around you!"
+KinkyDungeonTrapSpawnElementalAir,"In a flash of light, a group of air elementals appear around you!"
+KinkyDungeonTrapSpawnTickleHand,"Several ethereal hands appear all around you!"
+KinkyDungeonTrapSpawnConjurer,"You are ambushed by conjurers!"
+KinkyDungeonTrapSpawnConjurerTickler,"You are ambushed by conjurers!"
+KinkyDungeonTrapSpawnMaidforce,"You are ambushed by a group of maids!"
+KinkyDungeonTrapSpawnMaidforcePara,"You are ambushed by a group of maids!"
+KinkyDungeonTrapSpawnMaidforceMafia,"You are ambushed by a group of maids!"
+KinkyDungeonTrapSpawnMaidforceHead,"The Head Maid corners you!"
+KinkyDungeonTrapCustomVine,"A vine crawls from the ground, already wrapping around your feet!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb, gaining a Spell Point and angering a goddess."
 KinkyDungeonOrbIntro2,"Choose one. She will send her minions after you."
@@ -2049,14 +2141,50 @@ KinkyDungeonAidDescIllusion"For 3 rep the goddess "
 
 KinkyDungeonRescueDesc,"The Goddess may decide to help you out of prison, in exchange for 10 rep"
 
-KinkyDungeonPenanceDescRope,"The Goddess will give "
-KinkyDungeonPenanceDescMetal,
-KinkyDungeonPenanceDescLeather,
-KinkyDungeonPenanceDescLatex,
-KinkyDungeonPenanceDescWill,
-KinkyDungeonPenanceDescConjure,
-KinkyDungeonPenanceDescElements,
-KinkyDungeonPenanceDescIllusion
+KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +3 rep."
 
 KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnappings."
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
+
+KinkyDungeonPenanceHappen,"Time stops as an angel of heaven appears to collect your payment."
+
+KinkyDungeonOrgasm0,"You shudder and tremble as a wave of pleasure washes over you!"
+KinkyDungeonOrgasm1,"You lose control of yourself as you convulse in pleasurable bliss!"
+KinkyDungeonOrgasm2,"You let out a moan as you feel the ecstasy of pleasure!"
+KinkyDungeonOrgasm3,"You finally let out a deep breath as you get what you've waited for!"
+KinkyDungeonOrgasm4,"Your whole body thrashes about as you experience long-awaited pleasure!"
+KinkyDungeonOrgasm5,"Your release comes with a bang as your body rocks back and forth!"
+KinkyDungeonOrgasm6,"You wiggle your hips in ecstasy as you experience pure bliss!"
+KinkyDungeonOrgasm7,"You are left gasping for air as you receive your long-awaited orgasm!"
+KinkyDungeonOrgasm8,"You finally are left rocking your body wildly in sheer pleasure!"
+KinkyDungeonOrgasm9,"A powerful wave of pleasure comes over you as you convulse in ecstasy."
+KinkyDungeonOrgasm10,"Your breathing intensifies as you lose control of yourself!"
+
+KinkyDungeonEdge0,"You close your eyes and breath rapidly in anticipation..."
+KinkyDungeonEdge1,"You tilt your head back and moan as your heart beats faster..."
+KinkyDungeonEdge2,"You groan with pleasure as you approach the edge..."
+KinkyDungeonEdge3,"You whimper as you rub your legs together furiously..."
+KinkyDungeonEdge4,"You feel frustrated as the stimulation isn't quite enough..."
+KinkyDungeonEdge5,"Your whole body shakes, but you don't quite go over the edge..."
+KinkyDungeonEdge6,"This is starting to feel like torture..."
+KinkyDungeonEdge7,"You let out a frustrated scream as the torment continues..."
+KinkyDungeonEdge8,"You simmer just under the edge, heart racing, breathing quickly..."
+KinkyDungeonEdge9,"You let out an anguished moan as release dances just out of reach..."
+KinkyDungeonEdge10,"You squirm helplessly as your futile struggles simply arouse you more..."
+
+KinkyDungeonDeny0,"The vibration suddenly weakens."
+KinkyDungeonDeny1,"Your toys cease vibrating abruptly."
+KinkyDungeonDeny2,"The vibrators cut off suddenly, leaving you wanting."
+KinkyDungeonDeny3,"The toys turn off at the last moment, cutting you off."
+KinkyDungeonDeny4,"The toys leave you without pleasure as they turn off."
+KinkyDungeonDeny5,"You are left feeling empty as the toys stop vibrating."
+KinkyDungeonDeny6,"You stomp your foot on the ground in frustration as the vibration ceases."
+KinkyDungeonDeny7,"The toys leave you in agony as they cease vibrating."
+KinkyDungeonDeny8,"The toys torture you by stopping at the last moment."
+KinkyDungeonDeny9,"The toys stop just before you lose yourself."
+KinkyDungeonDeny10,"The toys deny you a chance to finish."
+
+KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
+KinkyDungeonPlaySelf,"You play with yourself..."
+KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
+KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release..."

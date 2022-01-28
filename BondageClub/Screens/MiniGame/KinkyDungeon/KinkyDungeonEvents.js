@@ -125,7 +125,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
 					subMult = e.noSub + (1 - e.noSub * rep);
 				}
-				if (item.restraint && item.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KinkyDungeonLeashedPlayer < 1)) {
+				if (item.restraint && item.restraint.Link && (Math.random() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
 					let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
 					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
@@ -160,19 +160,19 @@ function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 	if (Event == "calcEvasion") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDEvasionHands = false;
 			}
 		}
 	} if (Event == "calcDamage") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDDamageHands = false;
 			}
 		}
 	} else if (Event == "getWeapon") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && KinkyDungeonHasMana(spell.manacost)) {
+			if (e.type == "HandsFree" && !data.IsSpell && KinkyDungeonHasMana(spell.manacost)) {
 				KDHandsFreeTag = true;
 			}
 		}

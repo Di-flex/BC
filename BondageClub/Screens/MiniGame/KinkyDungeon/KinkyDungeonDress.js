@@ -210,13 +210,19 @@ function KinkyDungeonDressPlayer() {
 		if (clothes.Group == "Panties" && !KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = false; // A girl's best friend never leaves her
 	}
 
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && !inv.restraint.Group.includes("Item")) {
+			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.Group, inv.restraint.Color);
+		}
+	}
+
 	KinkyDungeonCheckClothesLoss = false;
 
-	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 0) {
+	if (KinkyDungeonStatStamina <= 1.1 || KDGameData.SleepTurns > 0) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && !KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "Kneel", false);
 		}
-	} else if (KinkyDungeonSleepTurns < 1) {
+	} else if (KDGameData.SleepTurns < 1) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 		}
@@ -230,12 +236,12 @@ function KinkyDungeonDressPlayer() {
 	let Mouth = "";
 	let Fluids = "";
 
-	if (KinkyDungeonDrool && !KinkyDungeonPlayer.CanTalk()) {
+	if (KinkyDungeonDrool && !KinkyDungeonCanTalk()) {
 		if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 8) Fluids = "DroolMessy";
 		else if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 4) Fluids = "DroolMedium";
 		else Fluids = "DroolLow";
 	}
-	if (KinkyDungeonDrool && KinkyDungeonLeashedPlayer > 0) {
+	if (KinkyDungeonDrool && KDGameData.KinkyDungeonLeashedPlayer > 0) {
 		if (Fluids.includes("Drool")) Fluids = Fluids.replace("Drool", "DroolTears");
 		else Fluids = "TearsHigh";
 	}
@@ -248,11 +254,25 @@ function KinkyDungeonDressPlayer() {
 	if (KinkyDungeonStatStamina <= 12 || KinkyDungeonStatArousal > KinkyDungeonStatArousalMax/2) Eyes = "Dazed";
 
 	if (KinkyDungeonStatArousal > 6 || KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.33) Eyebrows = "Soft";
-	if (KinkyDungeonStatArousal > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5) Eyebrows = "Angry";
+
+	let chastityMult = KinkyDungeonChastityMult();
+	if (KinkyDungeonStatArousal > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5 && chastityMult > 0.9) Eyebrows = "Angry";
 
 	if (KinkyDungeonStatArousal >= KinkyDungeonStatArousalMax * 0.8) Eyes = (Eyebrows != "Angry" && KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.99) ? "Lewd" : "Scared";
 
 	if (KinkyDungeonStatArousal >= 0.01 && KinkyDungeonStatArousal <= 3) Eyes2 = "Closed";
+
+	if (KDGameData.OrgasmTurns > 0) {
+		Eyebrows = "Soft";
+		Eyes2 = "";
+		Eyes = "LewdHeart";
+	} else if (KDGameData.OrgasmStamina > 0) {
+		Eyebrows = "Soft";
+	} else if (KDGameData.OrgasmStage > 5 && Math.random() < 0.33) {
+		Eyebrows = "Angry";
+	} else if (KDGameData.OrgasmStage > 3 && Math.random() < 0.33) {
+		Eyebrows = "Angry";
+	}
 
 	if (KinkyDungeonStatStamina <= 4) {
 		Eyes = "Dazed";

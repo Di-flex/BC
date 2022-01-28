@@ -392,5 +392,6 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 function KinkyDungeonAddGold(value) {
 	KinkyDungeonGold += value;
 	if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable()) CharacterChangeMoney(Player, Math.round(value/10));
-	KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, `+${value} GP`, "white", 3.5);
+	let pre = value >= 0 ? "+" : "";
+	KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, pre + `${value} GP`, "white", 3.5);
 }
