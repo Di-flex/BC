@@ -1334,7 +1334,7 @@ let KinkyDungeonAutoWaitSuppress = false;
 // @ts-ignore
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
-	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1 && KinkyDungeonHandleHUD()) {
+	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && KinkyDungeonHandleHUD()) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		KinkyDungeonGameKey.keyPressed = [
 			false,
@@ -1359,7 +1359,7 @@ function KinkyDungeonClickGame(Level) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 	}
 	// If no buttons are clicked then we handle move
-	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1) {
+	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1) {
 		KinkyDungeonSetMoveDirection();
 
 		if (KinkyDungeonTargetingSpell) {
@@ -1369,7 +1369,7 @@ function KinkyDungeonClickGame(Level) {
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
 					}
 					KinkyDungeonAdvanceTime(1);
-					KinkyDungeonSleepTurns = 0;
+					KinkyDungeonInterruptSleep();
 					KinkyDungeonTargetingSpell = null;
 				}
 			} else KinkyDungeonTargetingSpell = null;
@@ -1389,7 +1389,7 @@ function KinkyDungeonClickGame(Level) {
 }
 
 function KinkyDungeonListenKeyMove() {
-	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KinkyDungeonSleepTurns < 1) {
+	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1) {
 		let moveDirection = null;
 		let moveDirectionDiag = null;
 
@@ -1522,7 +1522,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonWaitMessage();
 			}
 
-			KinkyDungeonSleepTurns = 0;
+			KinkyDungeonInterruptSleep();
 			KinkyDungeonAdvanceTime(1);
 		}
 	} else {
@@ -1579,7 +1579,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						if (moveObject == 'g') {
 							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
 							KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 1);
-							KinkyDungeonSleepTurns = CommonTime() + 250;
+							KDGameData.SleepTurns = CommonTime() + 250;
 						}
 					}
 
@@ -1621,7 +1621,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					KinkyDungeonTrapMoved = true;
 					//}
 				}
-				KinkyDungeonSleepTurns = 0;
+				KinkyDungeonInterruptSleep();
 				//for (let d = 0; d < newDelta; d++)
 				// KinkyDungeonAdvanceTime(1, false, d != 0); // was moveDirection.delta, but became too confusing
 				if (newDelta > 1 && newDelta < 10) {
@@ -1636,7 +1636,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 		} else { // If we are blind we can bump into walls!
 			if (KinkyDungeonGetVisionRadius() <= 1) {
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
-				KinkyDungeonSleepTurns = 0;
+				KinkyDungeonInterruptSleep();
 				KinkyDungeonAdvanceTime(1);
 			}
 		}

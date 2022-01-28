@@ -284,11 +284,21 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	KinkyDungeonDrawProgress(x, y + heightPerBar*2.5, KinkyDungeonStatMana/maxVisual, Math.floor(KinkyDungeonStatManaMax/12), width, "Mana");
 
 	let sleepColor = "#444444";
-	if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.25) sleepColor = "#ffffff";
-	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.5) sleepColor = "#bbbbbb";
-	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.75) sleepColor = "#999999";
-	else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) sleepColor = "#777777";
-	DrawButton(x, y+3*heightPerBar, 250, 50, TextGet("KinkyDungeonSleep"), sleepColor);
+
+	if (KinkyDungeonCanTryOrgasm()) {
+		sleepColor = "#FF5BE9";
+	} else if (KinkyDungeonCanPlayWithSelf()) {
+		if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * KinkyDungeonArousalSleepDeprivationThreshold) sleepColor = "#FFD8F9";
+		else if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.5) sleepColor = "#FFB5F5";
+		else if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.75) sleepColor = "#FF87EF";
+		else sleepColor = "#FF5BE9";
+	} else {
+		if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.25) sleepColor = "#ffffff";
+		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.5) sleepColor = "#bbbbbb";
+		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.75) sleepColor = "#999999";
+		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) sleepColor = "#777777";
+	}
+	DrawButton(x, y+3*heightPerBar, 250, 50, KinkyDungeonCanTryOrgasm() ? TextGet("KinkyDungeonTryOrgasm") : (KinkyDungeonCanPlayWithSelf() ? TextGet("KinkyDungeonPlayWithSelf") : TextGet("KinkyDungeonSleep")), sleepColor);
 
 	let i = 3.5;
 	DrawText(TextGet("CurrentGold") + KinkyDungeonGold, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;
@@ -473,9 +483,17 @@ function KinkyDungeonHandleHUD() {
 			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionMana", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
-		} else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 250, 50)) {
-			KinkyDungeonSleepTurns = KinkyDungeonSleepTurnsMax;
-			KinkyDungeonAlert = 4; // Alerts nearby enemies; intent is that the enemies are searching while you sleep;
+		} else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 250, 50) && KDGameData.PlaySelfTurns < 1 && KDGameData.SleepTurns < 1) {
+			if (KinkyDungeonCanTryOrgasm()) {
+				KinkyDungeonDoTryOrgasm();
+				KinkyDungeonAlert = 7; // Alerts nearby enemies because of your moaning~
+			} else if (KinkyDungeonCanPlayWithSelf()) {
+				KinkyDungeonDoPlayWithSelf();
+				KinkyDungeonAlert = 3; // Alerts nearby enemies because of your moaning~
+			} else {
+				KDGameData.SleepTurns = KinkyDungeonSleepTurnsMax;
+				KinkyDungeonAlert = 4; // Alerts nearby enemies; enemies are searching while you sleep
+			}
 			return true;
 		}
 	} else if (KinkyDungeonDrawState == "Orb") {

@@ -68,7 +68,14 @@ let KDGameDataBase = {
 	AngelCurrentRep: "",
 	KDPenanceMode: "",
 
+	OrgasmStage: 0,
+	OrgasmTurns: 0,
+	OrgasmStamina: 0,
+
 	KinkyDungeonPenance: false,
+
+	SleepTurns: 0,
+	PlaySelfTurns: 0,
 };
 /**
  * @type {KDGameDataBase}
@@ -351,13 +358,13 @@ function KinkyDungeonRun() {
 	} else if (KinkyDungeonState == "Game") {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonDrawGame();
-		if (KinkyDungeonSleepTurns > 0) {
+		if (KDGameData.SleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
-				KinkyDungeonSleepTurns -= 1;
+				KDGameData.SleepTurns -= 1;
 				if (KinkyDungeonJailTransgressed)
 					KinkyDungeonTotalSleepTurns += 1;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
-					KinkyDungeonSleepTurns = 0;
+					KDGameData.SleepTurns = 0;
 					if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 						CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 					}
@@ -365,7 +372,16 @@ function KinkyDungeonRun() {
 				KinkyDungeonAdvanceTime(1);
 				KinkyDungeonSleepTime = CommonTime() + 10;
 			}
-			if (KinkyDungeonSleepTurns == 0) {
+			if (KDGameData.SleepTurns == 0) {
+				KinkyDungeonChangeStamina(0);
+			}
+		} else if (KDGameData.PlaySelfTurns > 0) {
+			if (CommonTime() > KinkyDungeonSleepTime) {
+				KinkyDungeonAdvanceTime(1);
+				KDGameData.PlaySelfTurns -= 1;
+				KinkyDungeonSleepTime = CommonTime() + 230;
+			}
+			if (KDGameData.SleepTurns == 0) {
 				KinkyDungeonChangeStamina(0);
 			}
 		} else if (KinkyDungeonStatFreeze > 0) {

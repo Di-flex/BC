@@ -507,7 +507,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 	} else {
 		let speed = 100;
 		if (Entity.player && KinkyDungeonSlowLevel > 0 && KDGameData.KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
-		if (KinkyDungeonSleepTurns > 0) speed = 500;
+		if (KDGameData.SleepTurns > 0) speed = 500;
 		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;

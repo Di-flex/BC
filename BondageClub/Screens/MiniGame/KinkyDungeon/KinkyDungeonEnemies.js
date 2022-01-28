@@ -1071,7 +1071,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	let kite = false;
 	if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
-		if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KinkyDungeonSleepTurns > 0))
+		if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KDGameData.SleepTurns > 0))
 			if (!enemy.Enemy.noKiteWhenHarmless || !harmless)
 				kite = true;
 	}
@@ -1697,7 +1697,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	let BaseAdjust = KinkyDungeonDifficulty/10;
 	let sleepTurnsSpeedMult = 100;
 	let sleepTurnsPerExtraSpawnLevel = 25;
-	let baseChance = ((KinkyDungeonSleepTurns > 0 && (KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax - 10 * KinkyDungeonStatStaminaRegenSleep || KinkyDungeonSleepTurns < 11)) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
+	let baseChance = ((KDGameData.SleepTurns > 0 && (KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax - 10 * KinkyDungeonStatStaminaRegenSleep || KDGameData.SleepTurns < 11)) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
 	// Chance of bothering with random spawns this turn
 	if (delta > 0 && Math.random() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
@@ -1762,11 +1762,11 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 				}
 				if (EnemiesSummoned.length > 0 && KinkyDungeonFirstSpawn) {
 					KinkyDungeonFirstSpawn = false;
-					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonFirstSpawn"), "white", KinkyDungeonSleepTurns + 5);
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonFirstSpawn"), "white", KDGameData.SleepTurns + 5);
 				}
-				if (KinkyDungeonTotalSleepTurns > 200 && !KinkyDungeonHuntDownPlayer && KinkyDungeonSleepTurns < 3) {
+				if (KinkyDungeonTotalSleepTurns > 200 && !KinkyDungeonHuntDownPlayer && KDGameData.SleepTurns < 3) {
 					KinkyDungeonHuntDownPlayer = true;
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHuntDownPlayer"), "red", KinkyDungeonSleepTurns + 10);
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHuntDownPlayer"), "red", KDGameData.SleepTurns + 10);
 				}
 				console.log(EnemiesSummoned);
 			}
@@ -1823,7 +1823,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
-	if (KinkyDungeonInJail() && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KinkyDungeonSleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell) {
+	if (KinkyDungeonInJail() && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KDGameData.SleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell) {
 		KDGameData.KinkyDungeonGuardSpawnTimer = KDGameData.KinkyDungeonGuardSpawnTimerMin + Math.floor(Math.random() * (KDGameData.KinkyDungeonGuardSpawnTimerMax - KDGameData.KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
 		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
@@ -1839,7 +1839,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonGuardAppear"), "white", 6);
 
 		KDGameData.KinkyDungeonGuardTimer = KDGameData.KinkyDungeonGuardTimerMax;
-	} else if (KDGameData.KinkyDungeonGuardSpawnTimer > 0 && KinkyDungeonSleepTurns < 1 && !KinkyDungeonAngel()) KDGameData.KinkyDungeonGuardSpawnTimer -= delta;
+	} else if (KDGameData.KinkyDungeonGuardSpawnTimer > 0 && KDGameData.SleepTurns < 1 && !KinkyDungeonAngel()) KDGameData.KinkyDungeonGuardSpawnTimer -= delta;
 
 	if (KDGameData.KinkyDungeonJailTourTimer > 0) {
 		KDGameData.KinkyDungeonJailTourTimer = Math.max(0, KDGameData.KinkyDungeonJailTourTimer - delta);
@@ -1860,7 +1860,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 
 			if (Math.random() < 0.05 + securityLevel * 0.4 / 100) {
 				KinkyDungeonJailGuard().CurrentAction = "jailTease";
-			} else if (Math.random() < 0.08 && KinkyDungeonSleepTurns < 1 && KDGameData.KinkyDungeonJailTourTimer < 1) {
+			} else if (Math.random() < 0.08 && KDGameData.SleepTurns < 1 && KDGameData.KinkyDungeonJailTourTimer < 1) {
 				KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints = 2 + Math.ceil(Math.random() * 4);
 				KinkyDungeonJailGuard().CurrentAction = "jailLeashTour";
 				KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions = 0;
@@ -2171,7 +2171,7 @@ function KinkyDungeonEnemyAt(x, y) {
 function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 	if (enemy.bind > 0) enemy.movePoints += delta/10;
 	else if (enemy.slow > 0) enemy.movePoints += delta/2;
-	else enemy.movePoints += KinkyDungeonSleepTurns > 0 ? 4*delta : delta;
+	else enemy.movePoints += KDGameData.SleepTurns > 0 ? 4*delta : delta;
 
 	if (enemy.movePoints >= enemy.Enemy.movePoints) {
 		enemy.movePoints = 0;

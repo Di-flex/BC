@@ -676,7 +676,7 @@ function KinkyDungeonPickAttempt() {
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
-	KinkyDungeonSleepTurns = 0;
+	KinkyDungeonInterruptSleep();
 
 	if (lock.includes("Blue")) {
 		if ((KinkyDungeonPlayer.IsBlind() < 1) || !lock.includes("Blue"))
@@ -724,7 +724,7 @@ function KinkyDungeonUnlockAttempt(lock) {
 	let Pass = "Fail";
 	let escapeChance = 1.0;
 
-	KinkyDungeonSleepTurns = 0;
+	KinkyDungeonInterruptSleep();
 
 	let handsBound = KinkyDungeonIsHandsBound();
 	let armsBound = KinkyDungeonIsArmsBound();
@@ -767,7 +767,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	else if (StruggleType == "Pick") cost = KinkyDungeonStatStaminaCostPick;
 	else if (StruggleType == "Remove") cost = KinkyDungeonStatStaminaCostRemove;
 	else if (StruggleType == "Unlock") cost = KinkyDungeonStatStaminaCostPick;
-	KinkyDungeonSleepTurns = 0;
+	KinkyDungeonInterruptSleep();
 	if (StruggleType == "Unlock") cost = 0;
 	let Pass = "Fail";
 	let origEscapeChance = restraint.restraint.escapeChance[StruggleType];

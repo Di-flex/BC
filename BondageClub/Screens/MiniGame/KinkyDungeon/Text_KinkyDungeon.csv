@@ -54,7 +54,9 @@ StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"MP: CURRENT/MAX"
 StatUsePotion,"Use Potion"
 KinkyDungeonManaCost," MP"
-KinkyDungeonSleep,"Sleep 40 turns"
+KinkyDungeonSleep,"Go to sleep"
+KinkyDungeonPlayWithSelf,"Play with yourself"
+KinkyDungeonTryOrgasm,"Let go..."
 
 Wait,"You wait."
 WaitAroused,"Your legs tremble as you wait."
@@ -1601,7 +1603,7 @@ KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
 KinkyDungeonSpellBanditBola,Bola
 KinkyDungeonSpellRestrainingDevice,Restraining Device
-KinkyDungeonRestrainingDeviceStun,The maid's restraining device latches onto you as you struggle to get it off!!!
+KinkyDungeonRestrainingDeviceStun,The thrown restraining device latches onto you as you struggle to get it off!!!
 KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables around you!!!
 
 KinkyDungeonSleepy,You are feeling doozy...
@@ -2145,3 +2147,42 @@ KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnapp
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
 
 KinkyDungeonPenanceHappen,"Time stops as an angel of heaven appears to collect your payment."
+
+KinkyDungeonOrgasm0,"You shudder and tremble as a wave of pleasure washes over you!"
+KinkyDungeonOrgasm1,"You lose control of yourself as you convulse in pleasurable bliss!"
+KinkyDungeonOrgasm2,"You let out a moan as you feel the ecstasy of pleasure!"
+KinkyDungeonOrgasm3,"You finally let out a deep breath as you get what you've waited for!"
+KinkyDungeonOrgasm4,"Your whole body thrashes about as you experience long-awaited pleasure!"
+KinkyDungeonOrgasm5,"Your release comes with a bang as your body rocks back and forth!"
+KinkyDungeonOrgasm6,"You wiggle your hips in ecstasy as you experience pure bliss!"
+KinkyDungeonOrgasm7,"You are left gasping for air as you receive your long-awaited orgasm!"
+KinkyDungeonOrgasm8,"You finally are left rocking your body wildly in sheer pleasure!"
+KinkyDungeonOrgasm9,"A powerful wave of pleasure comes over you as you convulse in ecstasy."
+KinkyDungeonOrgasm10,"Your breathing intensifies as you lose control of yourself!"
+
+KinkyDungeonEdge0,"You close your eyes and breath rapidly in anticipation..."
+KinkyDungeonEdge1,"You tilt your head back and moan as your heart beats faster..."
+KinkyDungeonEdge2,"You groan with pleasure as you approach the edge..."
+KinkyDungeonEdge3,"You whimper as you rub your legs together furiously..."
+KinkyDungeonEdge4,"You feel frustrated as the stimulation isn't quite enough..."
+KinkyDungeonEdge5,"Your whole body shakes, but you don't quite go over the edge..."
+KinkyDungeonEdge6,"This is starting to feel like torture..."
+KinkyDungeonEdge7,"You let out a frustrated scream as the torment continues..."
+KinkyDungeonEdge8,"You simmer just under the edge, heart racing, breathing quickly..."
+KinkyDungeonEdge9,"You let out an anguished moan as release dances just out of reach..."
+KinkyDungeonEdge10,"You squirm helplessly as your futile struggles simply arouse you more..."
+
+KinkyDungeonDeny0,"The vibration suddenly weakens."
+KinkyDungeonDeny1,"Your toys cease vibrating abruptly."
+KinkyDungeonDeny2,"The vibrators cut off suddenly, leaving you wanting."
+KinkyDungeonDeny3,"The toys turn off at the last moment, cutting you off."
+KinkyDungeonDeny4,"The toys leave you without pleasure as they turn off."
+KinkyDungeonDeny5,"You are left feeling empty as the toys stop vibrating."
+KinkyDungeonDeny6,"You stomp your foot on the ground in frustration as the vibration ceases."
+KinkyDungeonDeny7,"The toys leave you in agony as they cease vibrating."
+KinkyDungeonDeny8,"The toys torture you by stopping at the last moment."
+KinkyDungeonDeny9,"The toys stop just before you lose yourself."
+KinkyDungeonDeny10,"The toys deny you a chance to finish."
+
+KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
+KinkyDungeonPlaySelf,"You play with yourself..."

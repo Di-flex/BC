@@ -1487,6 +1487,13 @@ interface KDGameDataBase {
 	AngelCurrentRep: string;
 	KDPenanceMode: string;
 
+	OrgasmStage: number;
+	OrgasmTurns: number;
+	OrgasmStamina: number;
+
+	SleepTurns: number;
+	PlaySelfTurns: number;
+
 	KinkyDungeonPenance: boolean;
 
 }
