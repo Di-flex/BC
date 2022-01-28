@@ -87,7 +87,7 @@ function KinkyDungeonHandleReputation() {
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPenanceHappen"), "purple", 4);
 					KDGameData.KinkyDungeonPenanceCostCurrent = KinkyDungeonPenanceCosts[rep] ? KinkyDungeonPenanceCosts[rep] : KinkyDungeonPenanceCostDefault;
 					if (KinkyDungeonPenanceCosts[rep]) KinkyDungeonPenanceCosts[rep] += KinkyDungeonPenanceCostGrowth;
-					else KinkyDungeonPenanceCosts[rep] = KinkyDungeonPenanceCostDefault;
+					else KinkyDungeonPenanceCosts[rep] = KinkyDungeonPenanceCostDefault + KinkyDungeonPenanceCostGrowth;
 					KDRepSelectionMode = "";
 					KinkyDungeonDrawState = "Game";
 					return true;

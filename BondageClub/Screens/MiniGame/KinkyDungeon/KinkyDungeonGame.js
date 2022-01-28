@@ -1731,33 +1731,36 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 	let toTile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (toTile == 's' || toTile == 'H') { // Go down the next stairs
+		if (!KinkyDungeonJailGuard() || (KDistEuclidean(KinkyDungeonJailGuard().x - KinkyDungeonPlayerEntity.x, KinkyDungeonJailGuard().y - KinkyDungeonPlayerEntity.y) > KinkyDungeonTetherLength() + 2 && KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
+			if (MiniGameKinkyDungeonLevel > Math.max(KinkyDungeonRep, ReputationGet("Gaming")) || Math.max(KinkyDungeonRep, ReputationGet("Gaming")) > KinkyDungeonMaxLevel) {
+				KinkyDungeonRep = Math.max(KinkyDungeonRep, MiniGameKinkyDungeonLevel);
+				DialogSetReputation("Gaming", KinkyDungeonRep);
+			}
 
-		if (MiniGameKinkyDungeonLevel > Math.max(KinkyDungeonRep, ReputationGet("Gaming")) || Math.max(KinkyDungeonRep, ReputationGet("Gaming")) > KinkyDungeonMaxLevel) {
-			KinkyDungeonRep = Math.max(KinkyDungeonRep, MiniGameKinkyDungeonLevel);
-			DialogSetReputation("Gaming", KinkyDungeonRep);
+			MiniGameKinkyDungeonLevel += 1;
+
+			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
+			if (toTile == 's') {
+				KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
+				KinkyDungeonSetCheckPoint();
+			} else if (toTile == 'H') {
+				KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
+				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut);
+			}
+			// Reduce security level when entering a new area
+			if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)
+				KinkyDungeonChangeRep("Prisoner", -5);
+			else // Otherwise it's just a little bit
+				KinkyDungeonChangeRep("Prisoner", -1);
+
+			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
+				KinkyDungeonState = "End";
+				MiniGameVictory = true;
+			} else
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+		} else {
+			KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
 		}
-
-		MiniGameKinkyDungeonLevel += 1;
-
-		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
-		if (toTile == 's') {
-			KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
-			KinkyDungeonSetCheckPoint();
-		} else if (toTile == 'H') {
-			KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
-			KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut);
-		}
-		// Reduce security level when entering a new area
-		if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)
-			KinkyDungeonChangeRep("Prisoner", -5);
-		else // Otherwise it's just a little bit
-			KinkyDungeonChangeRep("Prisoner", -1);
-
-		if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
-			KinkyDungeonState = "End";
-			MiniGameVictory = true;
-		} else
-			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 	}
 	// else if (KinkyDungeonStatWillpower == 0) {
 	// KinkyDungeonState = "Lose";

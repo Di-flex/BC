@@ -107,6 +107,7 @@ CurrentKnife,"Knife: "
 CurrentKnifeMagic,"Mag. Knife: "
 
 ClimbDown,"You climb down the stairs. The passage closes behind you."
+ClimbDownFail,"You can't climb down until you get out of this leash..."
 ClimbDownShortcut,"You climb down and find yourself in a strange new place."
 
 DungeonName0,-Graveyard-
@@ -2141,7 +2142,7 @@ KinkyDungeonAidDescIllusion"For 3 rep the goddess "
 
 KinkyDungeonRescueDesc,"The Goddess may decide to help you out of prison, in exchange for 10 rep"
 
-KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +3 rep."
+KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +5 rep."
 
 KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnappings."
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
