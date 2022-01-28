@@ -158,7 +158,7 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(510, 825, 60, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonShowInventory ? "BackpackOpen.png" : "Backpack.png"), "");
 
 	if (KinkyDungeonTargetTile) {
-		if (KinkyDungeonTargetTile.Type == "Lock") {
+		if (KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) {
 			let action = false;
 			if (KinkyDungeonLockpicks > 0) {
 				DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonPickDoor"), "White", "", "");
