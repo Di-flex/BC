@@ -215,8 +215,10 @@ function KinkyDungeonDrawReputation() {
  * @type {Record<string, number>}
  */
 let KinkyDungeonPenanceCosts = {};
-let KinkyDungeonPenanceCostGrowth = 20;
-let KinkyDungeonPenanceCostDefault = 100;
+let KinkyDungeonPenanceRepBonus = 5;
+let KinkyDungeonPenanceRepBonusFail = 1;
+let KinkyDungeonPenanceCostGrowth = 50;
+let KinkyDungeonPenanceCostDefault = 200;
 
 function KinkyDungeonPenanceCost(rep) {
 	if (KinkyDungeonGoddessRep[rep]) {
@@ -282,7 +284,7 @@ function KinkyDungeonUpdatePenance(delta) {
 				if (KinkyDungeonGold >= KDGameData.KinkyDungeonPenanceCostCurrent) {
 					if (KDGameData.KDPenanceStage >= 2) {
 						KinkyDungeonAddGold(-KDGameData.KinkyDungeonPenanceCostCurrent);
-						KinkyDungeonChangeRep(KDGameData.AngelCurrentRep, 3);
+						KinkyDungeonChangeRep(KDGameData.AngelCurrentRep, KinkyDungeonPenanceRepBonus);
 						KDGameData.KinkyDungeonPenance = false;
 					}
 				} else {
@@ -308,7 +310,7 @@ function KinkyDungeonUpdatePenance(delta) {
 			} else if ((KinkyDungeonAngel().Enemy.allied || !KinkyDungeonHasStamina(1.1)) && KinkyDungeonAngel() && (!KDGameData.KinkyDungeonPenance || !KinkyDungeonAngel().Enemy.allied) && (KDGameData.KDPenanceStageEnd > 10 && Math.random() < 0.2)) {
 				KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KinkyDungeonAngel()), 1);
 				if (!KinkyDungeonAngel().Enemy.allied && KDGameData.KDPenanceMode != "Success")
-					KinkyDungeonChangeRep(KDGameData.AngelCurrentRep, 1);
+					KinkyDungeonChangeRep(KDGameData.AngelCurrentRep, KinkyDungeonPenanceRepBonusFail);
 				KDGameData.KinkyDungeonAngel = 0;
 				KDGameData.KinkyDungeonPenance = false;
 			}
