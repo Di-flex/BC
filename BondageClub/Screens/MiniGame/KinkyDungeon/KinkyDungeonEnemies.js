@@ -1132,7 +1132,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				let splice = false;
 				if (T > 2 && T < 8) dir = KinkyDungeonGetDirectionRandom(dir.x * 10, dir.y * 10); // Fan out a bit
 				if (T >= 8 || enemy.path || !KinkyDungeonCheckPath(enemy.x, enemy.y, enemy.gx, enemy.gy)) {
-					if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, false, ignoreLocks, MovableTiles); // Give up and pathfind
+					if (!enemy.path) enemy.path = KinkyDungeonFindPath(enemy.x, enemy.y, enemy.gx, enemy.gy, true, ignore, ignoreLocks, MovableTiles); // Give up and pathfind
 					if (enemy.path && enemy.path.length > 0) {
 						dir = {x: enemy.path[0].x - enemy.x, y: enemy.path[0].y - enemy.y, delta: 1};
 						if (!KinkyDungeonNoEnemyExceptSub(enemy.x + dir.x, enemy.y + dir.y, false, enemy)) enemy.path = undefined;
@@ -1146,7 +1146,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (moved && splice && enemy.path) enemy.path.splice(0, 1);
 					idle = false;
 					break;
-				}
+				} else enemy.path = [];
 			}
 		} else if (Math.abs(enemy.x - enemy.gx) < 2 || Math.abs(enemy.y - enemy.gy) < 2) patrolChange = true;
 
