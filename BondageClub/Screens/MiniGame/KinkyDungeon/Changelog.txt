@@ -443,6 +443,10 @@ Bugfix:
 
 2.6.2
 - You may now offer gold to the goddesses to improve your reputation. Be sure to hold up your end of the bargain.
+- Portal range up to 5 from 3
+- Portal mana cost to 6 from 4
+- Blink range down to 3 from 5
+- Blink is now instant
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

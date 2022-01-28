@@ -452,11 +452,13 @@ AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 NameAlchemistPet,Wolfgirl
 KillAlchemistPet,"The wolfgirl escapes!"
 AttackAlchemistPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackAlchemistPetStun,"The wolfgirl lunges at you with a powerful kick!"
 AttackAlchemistPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 
 NameWolfgirlPet,Wolfgirl
 KillWolfgirlPet,"The wolfgirl escapes!"
 AttackWolfgirlPetDash,"The wolfgirl lunges at you with a powerful kick!"
+AttackWolfgirlPetStun,"The wolfgirl lunges at you with a powerful kick!"
 AttackWolfgirlPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 
 NameWolfgirl,Wolfgirl Trainer
@@ -1576,7 +1578,7 @@ KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!
 KinkyDungeonSpellTargetBlink,Choose target location
 
 KinkyDungeonSpellLeap,Blink
-KinkyDungeonSpellDescriptionLeap,Teleport to a location you can see next turn.
+KinkyDungeonSpellDescriptionLeap,Instantly teleport to a location you can see.
 KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 
@@ -1915,7 +1917,7 @@ KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
 KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
 KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"
-KinkyDungeonSpellCastTrapMummyWeak,"Bands of fabric start flying in from all sides!"
+KinkyDungeonSpellCastTrapMummyWeak,"Bands of glowing wrappings start flying in from all sides!"
 KinkyDungeonSpellCastTrapRopeWeak,"Ropes slither out towards you from between the bricks!"
 KinkyDungeonSpellCastTrapRopeStrong,"Ropes fall on you from all sides!"
 KinkyDungeonSpellCastTrapLeatherWeak,"Leather restraints start appearing around you!"
@@ -1925,7 +1927,7 @@ KinkyDungeonSpellCastTrapMagicChainsWeak,"Ethereal chains appear all around you!
 KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
 KinkyDungeonTrapBindingsCharmWeak,"The charms stick themselves all over your body!"
 KinkyDungeonTrapBindingsShackleWeak,"Shackles close themselves over your limbs!"
-KinkyDungeonTrapBindingsMummyWeak,"The fabric wraps itself over your body!"
+KinkyDungeonTrapBindingsMummyWeak,"The wrappings close in over your body!"
 KinkyDungeonTrapBindingsRopeWeak,"The ropes wrap themselves around your body!"
 KinkyDungeonTrapBindingsRopeStrong,"The ropes wrap themselves tightly around your body!"
 KinkyDungeonTrapBindingsLeatherWeak,"The leather restraints attach themselves to your body!"

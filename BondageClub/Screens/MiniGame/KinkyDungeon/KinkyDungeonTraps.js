@@ -36,17 +36,31 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					{x: -3, y: 0}, {x: 3, y: 0}, {x: 0, y: -3}, {x: 0, y: 3},
 					{x: -2, y: 0}, {x: 2, y: 0}, {x: 0, y: -2}, {x: 0, y: 2},
 				];
+				let success = false;
 				for (let coord of possible_coords) {
 					if (KinkyDungeonCheckProjectileClearance(startX + coord.x, startY + coord.y, startX, startY)) {
 						startX += coord.x;
 						startY += coord.y;
+						success = true;
 						break;
 					}
 				}
-				KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
-				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
-				msg = ""; // We don't want to warn the player about what just happened
-				KinkyDungeonTiles[x + "," + y] = undefined;
+				if (success) {
+					// We fire the dart
+					KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+					msg = ""; // We don't want to warn the player about what just happened
+					KinkyDungeonTiles[x + "," + y] = undefined;
+				} else {
+					// We do sleep gas instead
+					spell = KinkyDungeonFindSpell("SleepGas", true);
+					if (spell) {
+						KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
+						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
+						msg = ""; // The spell will show a message on its own
+						KinkyDungeonTiles[x + "," + y] = undefined;
+					}
+				}
 			}
 		}
 		if (tile.Trap === "CustomVine") {
