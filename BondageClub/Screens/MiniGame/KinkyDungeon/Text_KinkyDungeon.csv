@@ -210,7 +210,7 @@ KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
 KinkyDungeonInventoryItemFlail,Flail
-KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fash and hard to dodge."
+KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fast and hard to dodge."
 KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to adjacent targets. Deals crush damage."
 KinkyDungeonInventoryItemSpear,Spear
 KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
@@ -1055,7 +1055,7 @@ RestraintStrongMagicRopeLegsDesc2,"The knots appear to tie themselves together a
 RestraintStrongMagicRopeFeet,Magic Ankle Rope
 RestraintStrongMagicRopeFeetDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeFeetDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
-RestraintStrongMagicRopeCrotch,Match Crotch Rope
+RestraintStrongMagicRopeCrotch,Magic Crotch Rope
 RestraintStrongMagicRopeCrotchDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeCrotchDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStrongMagicRopeToe,Magic Toe Rope

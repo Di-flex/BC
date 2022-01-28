@@ -295,11 +295,11 @@ function KinkyDungeonUpdatePenance(delta) {
 			}
 		}
 	}
-	if (!KDGameData.KinkyDungeonPenance || (!KinkyDungeonHasStamina(1.1) && KinkyDungeonAngel() && !KinkyDungeonAngel().Enemy.allied)) {
+	if (!KDGameData.KinkyDungeonPenance || (!KinkyDungeonHasStamina(1.1) && KinkyDungeonAngel())) {
 		if (KDGameData.KinkyDungeonAngel) {
 			if (!KinkyDungeonEntities.includes(KinkyDungeonAngel())) {
 				KDGameData.KinkyDungeonAngel = 0;
-			} else if (!KinkyDungeonHasStamina(1.1) && KinkyDungeonAngel() && !KinkyDungeonAngel().Enemy.allied && Math.random() < 0.1) {
+			} else if ((KinkyDungeonAngel().Enemy.allied || !KinkyDungeonHasStamina(1.1)) && KinkyDungeonAngel() && (!KDGameData.KinkyDungeonPenance || !KinkyDungeonAngel().Enemy.allied) && Math.random() < 0.1) {
 				KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KinkyDungeonAngel()), 1);
 				KDGameData.KinkyDungeonAngel = 0;
 				KDGameData.KinkyDungeonPenance = false;

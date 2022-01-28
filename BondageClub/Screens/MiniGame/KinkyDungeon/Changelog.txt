@@ -442,7 +442,7 @@ Bugfix:
 - Improved jail pathfinding
 
 2.6.2
--
+- You may now offer gold to the goddesses to improve your reputation. Be sure to hold up your end of the bargain.
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
