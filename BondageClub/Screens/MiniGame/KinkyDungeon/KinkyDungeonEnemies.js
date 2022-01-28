@@ -1893,7 +1893,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				KDGameData.KinkyDungeonPrisonExtraGhostRep += 2;
 				if (!playerInCell) KinkyDungeonPlayerEntity.x -= 1;
 				let enemy = KinkyDungeonEnemyAt(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-				if (enemy) enemy.x += 1
+				if (enemy) enemy.x += 1;
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
 				KDGameData.KinkyDungeonJailTourTimer = KDGameData.KinkyDungeonJailTourTimerMin + Math.floor((KDGameData.KinkyDungeonJailTourTimerMax - KDGameData.KinkyDungeonJailTourTimerMin) * Math.random());
 				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;

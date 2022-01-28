@@ -445,6 +445,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 							}
 							Entity.x = slot.x;
 							Entity.y = slot.y;
+							KinkyDungeonInterruptSleep();
 							if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull"), "red", 2, true);
 						}
 					}

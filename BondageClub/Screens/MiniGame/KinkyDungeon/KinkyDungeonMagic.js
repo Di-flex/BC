@@ -276,9 +276,9 @@ function KinkyDungeonFindSpell(name, SearchEnemies) {
 	if (SearchEnemies) {
 		let spell = KinkyDungeonSearchSpell(KinkyDungeonSpellListEnemies, name);
 		if (spell) return spell;
-		spell = KinkyDungeonSearchSpell(KinkyDungeonSpellsStart, name);
-		if (spell) return spell;
 	}
+	let spell2 = KinkyDungeonSearchSpell(KinkyDungeonSpellsStart, name);
+	if (spell2) return spell2;
 	for (let key in KinkyDungeonSpellList) {
 		let list = KinkyDungeonSpellList[key];
 		let spell = KinkyDungeonSearchSpell(list, name);

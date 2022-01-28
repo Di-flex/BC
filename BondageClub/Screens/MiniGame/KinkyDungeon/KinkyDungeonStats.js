@@ -300,6 +300,10 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
 	// Initialize
 	KinkyDungeonCalculateVibeLevel(delta);
+	if (KinkyDungeonVibeLevel > 0 && KinkyDungeonCanPlayWithSelf() && KDGameData.SleepTurns > 0) {
+		KinkyDungeonInterruptSleep();
+		KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSleepDeprivation"), "pink", 3);
+	}
 	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
 
 	let arousalRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatArousalRegen : 0) : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
