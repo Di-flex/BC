@@ -139,13 +139,11 @@ function KinkyDungeonDrawInputs() {
 							DrawText(msg, 530, MouseY + O * 50, "white", "black");
 							O++;
 						}
-						lastO = O;
-						O = 0;
+						O = lastO;
 						if (drawn) {
 							DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MouseY + O * ButtonWidth, "black", "black");
 							DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MouseY + O * ButtonWidth, "white", "black");
 						}
-						O = lastO + 1;
 						MainCanvas.textAlign = "center";
 					}
 				}
