@@ -203,9 +203,11 @@ function KinkyDungeonLoad() {
 			KinkyDungeonDressPlayer();
 		}
 
-		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings")))
+		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
 			KinkyDungeonKeybindings = JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"));
-		else console.log("Failed to load keybindings")
+			console.log(KinkyDungeonKeybindings);
+		}
+		else console.log("Failed to load keybindings");
 
 		if (KinkyDungeonIsPlayer()) {
 			KinkyDungeonState = "Menu";
