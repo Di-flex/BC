@@ -218,6 +218,8 @@ function KinkyDungeonCreateMap(MapParams, Floor) {
 	KinkyDungeonTiles = {};
 	KinkyDungeonTargetTile = "";
 
+	KDGameData.RescueFlag = false;
+
 	KinkyDungeonTotalSleepTurns = 0;
 
 	KinkyDungeonFastMovePath = [];

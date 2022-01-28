@@ -74,6 +74,8 @@ let KDGameDataBase = {
 
 	KinkyDungeonPenance: false,
 
+	RescueFlag: false,
+
 	SleepTurns: 0,
 	PlaySelfTurns: 0,
 };

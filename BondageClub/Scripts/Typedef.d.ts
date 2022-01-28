@@ -1494,6 +1494,8 @@ interface KDGameDataBase {
 	SleepTurns: number;
 	PlaySelfTurns: number;
 
+	RescueFlag: boolean;
+
 	KinkyDungeonPenance: boolean;
 
 }

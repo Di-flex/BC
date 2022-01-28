@@ -70,6 +70,7 @@ function KinkyDungeonHandleReputation() {
 							if (T.Type == "Trap") T.Type = undefined;
 						}
 						KinkyDungeonDrawState = "Game";
+						KDGameData.RescueFlag = true;
 					} else {
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNoRescue"), "purple", 10);
 						KinkyDungeonDrawState = "Game";
