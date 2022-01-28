@@ -279,7 +279,7 @@ function KinkyDungeonUpdatePenance(delta) {
 				if (KinkyDungeonGold >= KDGameData.KinkyDungeonPenanceCostCurrent) {
 					if (KDGameData.KDPenanceStage >= 2) {
 						KinkyDungeonAddGold(-KDGameData.KinkyDungeonPenanceCostCurrent);
-						KDGameData.KinkyDungeonAngel = 0;
+						KDGameData.KinkyDungeonPenance = false;
 					}
 				} else {
 					KDGameData.KDPenanceMode = "Anger";
