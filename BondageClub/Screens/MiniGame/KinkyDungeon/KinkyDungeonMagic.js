@@ -116,7 +116,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "IronBlood", sfx: "FireSpell", school: "Elements", manacost: 0, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:1, type:"buff", channel: 4,
 			buffs: [
 				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 99999, cancelOnReapply: true, endSleep: true, power: 1, player: true, enemies: false, tags: ["attack", "stamina"]},
-				{id: "IronBlood2", type: "ManaCostLevelMult", duration: 99999, cancelOnReapply: true, endSleep: true, power: 1, player: true, enemies: false, tags: ["manacost"]},
+				{id: "IronBlood2", type: "ManaCostMult", duration: 99999, cancelOnReapply: true, endSleep: true, power: 0.25, player: true, enemies: false, tags: ["manacost"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
 		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:3, type:"passive",
@@ -698,7 +698,7 @@ function KinkyDungeonGetManaCost(Spell) {
 	let cost = Spell.manacost;
 	let costscale = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "ManaCostMult"));
 	let lvlcostscale = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "ManaCostLevelMult");
-	if (costscale) cost *= costscale;
+	if (costscale) cost = Math.floor(cost * costscale);
 	if (lvlcostscale && Spell.level && Spell.manacost) cost += Spell.level * lvlcostscale;
 	return cost;
 }

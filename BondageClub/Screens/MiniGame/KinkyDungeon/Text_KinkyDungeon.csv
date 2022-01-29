@@ -929,6 +929,10 @@ RestraintLatexBallGag,Latex Ball Gag
 RestraintLatexBallGagDesc,"A devious device that looks like a ball gag, but has a mouth-filling rod on the inside."
 RestraintLatexBallGagDesc2,"The strap is made of a durable but flexible material"
 
+RestraintWolfPanties,Wolf Panties
+RestraintWolfPantiesDesc,"A set of vibrating panties designed to help subdue unruly wolfgirls."
+RestraintWolfPantiesDesc2,"It's incredibly tight and difficult to remove once it's clipped on, but the material is rubber."
+
 RestraintExpArmbinder,Latex Boxtie Binder
 RestraintExpArmbinderDesc,"A secure but comfortable binder meant for long-term wear by the alchemists' pets."
 RestraintExpArmbinderDesc2,"Made from imbued latex, it will be hard to cut but not impossible."
@@ -1758,7 +1762,7 @@ KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce slow level by 1 and +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by spell level while active.
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: Gain +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by 25% (rounding down) while active.
 KinkyDungeonSpellCastIronBlood,Your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin

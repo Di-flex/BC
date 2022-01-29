@@ -211,8 +211,18 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && !inv.restraint.Group.includes("Item")) {
-			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.Group, inv.restraint.Color);
+		if (inv.restraint && inv.restraint.AssetGroup) {
+			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
+		}
+		if (inv.restraint && inv.restraint.forceUpperPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyUpper", inv.restraint.forceUpperPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
+		}
+		if (inv.restraint && inv.restraint.forceLowerPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", inv.restraint.forceLowerPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
 		}
 	}
 

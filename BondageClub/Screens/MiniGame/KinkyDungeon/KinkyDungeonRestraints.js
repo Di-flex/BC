@@ -150,6 +150,11 @@ const KinkyDungeonRestraints = [
 	{removePrison: true, name: "WolfLeash", tether: 2.9, Asset: "CollarLeash", Color: "#44fF76", Group: "ItemNeckRestraints", leash: true, power: 1, weight: -99, harness: true,
 		escapeChance: {"Struggle": 0.0, "Cut": -0.2, "Remove": 0.4, "Pick": 0.35}, enemyTags: {"wolfRestraints":9}, playerTags: {"ItemNeckRestraintsFull":-2, "ItemNeckFull":999}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
+	{name: "WolfPanties", Asset: "RedBowPanties", strictness: 0.05, Color: ['#4F91DE', '#346942', '#889FA7', 'Default'], AssetGroup: "Panties", Group: "ItemPelvis", power: 4,
+		vibeType: "TeaserRemote", intensity: 2, orgasm: false, battery: 0, maxbattery: 12, weight: 0,
+		escapeChance: {"Struggle": 0.05, "Cut": 0.3, "Remove": 0.05}, escapeMult: 3.0,
+		maxstamina: 0.5, enemyTags: {"wolfRestraints" : 6}, playerTags: {"ItemPelvisFull": -5}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex", "Panties"]},
+
 	// collar #6EAF81
 
 	{name: "ExpArmbinder", Asset: "BoxTieArmbinder", strictness: 0.08, LinkableBy: ["Wrapping"], Color: ["#415690", "#ffffff"], Group: "ItemArms", power: 7, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
@@ -970,6 +975,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		}
 	}
 
+	if (restraint.restraint && restraint.restraint.escapeMult) escapeChance *= restraint.restraint.escapeMult;
+
 	// Handle cases where you can't even attempt to unlock
 	if ((StruggleType == "Unlock" && !((restraint.lock == "Red" && KinkyDungeonRedKeys > 0) || (restraint.lock == "Blue" && KinkyDungeonBlueKeys > 0)))
 		|| (StruggleType == "Pick" && (restraint.lock == "Blue"))) {
@@ -1371,6 +1378,7 @@ let KinkyDungeonCancelFlag = false;
 function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link) {
 	let start = performance.now();
 	var tight = (Tightness) ? Tightness : 0;
+	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
 	if (restraint) {
 		if (!InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group) || Bypass) {
 			let r = KinkyDungeonGetRestraintItem(restraint.Group);
@@ -1396,51 +1404,51 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					for (let remove of restraint.remove) {
 						InventoryRemove(KinkyDungeonPlayer, remove);
 					}
-				InventoryWear(KinkyDungeonPlayer, restraint.Asset, restraint.Group, restraint.power);
+				InventoryWear(KinkyDungeonPlayer, restraint.Asset, AssetGroup, restraint.power);
 				KinkyDungeonSendFloater({x: 1100, y: 600 - KDRecentRepIndex * 40}, `+${TextGet("Restraint" + restraint.name)}!`, "pink", 5, true);
-				let placed = InventoryGet(KinkyDungeonPlayer, restraint.Group);
+				let placed = InventoryGet(KinkyDungeonPlayer, AssetGroup);
 				let placedOnPlayer = false;
 				if (!placed) console.log(`Error placing ${restraint.name} on player!!!`);
-				if (placed && ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && !KinkyDungeonRestraintsLocked.includes(restraint.Group) && restraint.Group != "ItemHead" && InventoryAllow(
+				if (placed && ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && !KinkyDungeonRestraintsLocked.includes(AssetGroup) && AssetGroup != "ItemHead" && InventoryAllow(
 					Player, placed.Asset) &&
-					(!InventoryGetLock(InventoryGet(Player, restraint.Group))
-					|| (InventoryGetLock(InventoryGet(Player, restraint.Group)).Asset.OwnerOnly == false && InventoryGetLock(InventoryGet(Player, restraint.Group)).Asset.LoverOnly == false))) {
-					InventoryWear(Player, restraint.Asset, restraint.Group, restraint.power);
+					(!InventoryGetLock(InventoryGet(Player, AssetGroup))
+					|| (InventoryGetLock(InventoryGet(Player, AssetGroup)).Asset.OwnerOnly == false && InventoryGetLock(InventoryGet(Player, AssetGroup)).Asset.LoverOnly == false))) {
+					InventoryWear(Player, restraint.Asset, AssetGroup, restraint.power);
 					placedOnPlayer = true;
 				}
 				if (placed && !placed.Property) placed.Property = {};
 				if (restraint.Type) {
-					KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", restraint.Group);
-					var options = window["Inventory" + ((restraint.Group.includes("ItemMouth")) ? "ItemMouth" : restraint.Group) + restraint.Asset + "Options"];
-					if (!options) options = TypedItemDataLookup[`${restraint.Group}${restraint.Asset}`].options; // Try again
+					KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
+					var options = window["Inventory" + ((AssetGroup.includes("ItemMouth")) ? "ItemMouth" : AssetGroup) + restraint.Asset + "Options"];
+					if (!options) options = TypedItemDataLookup[`${AssetGroup}${restraint.Asset}`].options; // Try again
 					const option = options.find(o => o.Name === restraint.Type);
 					ExtendedItemSetType(KinkyDungeonPlayer, options, option);
 					if (placedOnPlayer) {
-						Player.FocusGroup = AssetGroupGet("Female3DCG", restraint.Group);
+						Player.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
 						ExtendedItemSetType(Player, options, option);
 						Player.FocusGroup = null;
 					}
 					KinkyDungeonPlayer.FocusGroup = null;
 				}
 				if (restraint.Modules) {
-					let data = ModularItemDataLookup[restraint.Group + restraint.Asset];
+					let data = ModularItemDataLookup[AssetGroup + restraint.Asset];
 					let asset = data.asset;
 					let modules = data.modules;
 					// @ts-ignore
-					InventoryGet(KinkyDungeonPlayer, restraint.Group).Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
+					InventoryGet(KinkyDungeonPlayer, AssetGroup).Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
 					if (placedOnPlayer) {
 						// @ts-ignore
-						InventoryGet(Player, restraint.Group).Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
+						InventoryGet(Player, AssetGroup).Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
 					}
 				}
 				if (restraint.OverridePriority) {
-					if (!InventoryGet(KinkyDungeonPlayer, restraint.Group).Property) InventoryGet(KinkyDungeonPlayer, restraint.Group).Property = {OverridePriority: restraint.OverridePriority};
-					else InventoryGet(KinkyDungeonPlayer, restraint.Group).Property.OverridePriority = restraint.OverridePriority;
+					if (!InventoryGet(KinkyDungeonPlayer, AssetGroup).Property) InventoryGet(KinkyDungeonPlayer, AssetGroup).Property = {OverridePriority: restraint.OverridePriority};
+					else InventoryGet(KinkyDungeonPlayer, AssetGroup).Property.OverridePriority = restraint.OverridePriority;
 				}
 				if (restraint.Color) {
-					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, restraint.Color, restraint.Group);
+					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, restraint.Color, AssetGroup);
 					if (placedOnPlayer)
-						CharacterAppearanceSetColorForGroup(Player, restraint.Color, restraint.Group);
+						CharacterAppearanceSetColorForGroup(Player, restraint.Color, AssetGroup);
 				}
 				let item = {restraint: restraint, tightness: tight, lock: "", events: restraint.events};
 				KinkyDungeonInventory.push(item);
@@ -1479,6 +1487,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		var item = KinkyDungeonInventory[I];
+		let AssetGroup = item && item.restraint && item.restraint.AssetGroup ? item.restraint.AssetGroup : Group;
 		if ((item.restraint && item.restraint.Group == Group)) {
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
@@ -1488,10 +1497,10 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 			}
 
 			if (!KinkyDungeonCancelFlag) {
-				if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && !KinkyDungeonRestraintsLocked.includes(Group) && InventoryGet(Player, Group) &&
-					(!InventoryGetLock(InventoryGet(Player, Group)) || (InventoryGetLock(InventoryGet(Player, Group)).Asset.OwnerOnly == false && InventoryGetLock(InventoryGet(Player, Group)).Asset.LoverOnly == false))
+				if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && !KinkyDungeonRestraintsLocked.includes(AssetGroup) && InventoryGet(Player, AssetGroup) &&
+					(!InventoryGetLock(InventoryGet(Player, AssetGroup)) || (InventoryGetLock(InventoryGet(Player, AssetGroup)).Asset.OwnerOnly == false && InventoryGetLock(InventoryGet(Player, Group)).Asset.LoverOnly == false))
 					&& Group != "ItemHead") {
-					InventoryRemove(Player, Group);
+					InventoryRemove(Player, AssetGroup);
 					if (Group == "ItemNeck") {
 						InventoryRemove(Player, "ItemNeckAccessories");
 						InventoryRemove(Player, "ItemNeckRestraints");
@@ -1502,7 +1511,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 
 				if (item.restraint.inventory && Keep) KinkyDungeonInventory.push({looserestraint: item.restraint, events: item.restraint.looseevents});
 
-				InventoryRemove(KinkyDungeonPlayer, Group);
+				InventoryRemove(KinkyDungeonPlayer, AssetGroup);
 				if (item.restraint.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KinkyDungeonGetRestraintItem("ItemNeckRestraints").restraint.inventory);
 
 				KinkyDungeonCalculateSlowLevel();
@@ -1611,7 +1620,7 @@ function KinkyDungeonUnLinkItem(item) {
 					res.oldTightness = item.oldTightness;
 				}
 				if (item.restraint.UnLink)
-					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnlink" + item.restraint.name), "lightgreen", 2);
+					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.restraint.name), "lightgreen", 2);
 				else
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink"), "lightgreen", 2);
 				return true;

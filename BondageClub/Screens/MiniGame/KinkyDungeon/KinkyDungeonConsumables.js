@@ -154,12 +154,6 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 			KinkyDungeonDrawState = "Game";
 		return false;
 	}
-	/*if (item && item.item && item.item.consumable && !item.item.consumable.noHands && (!item.item.consumable.potion || item.item.consumable.needHands) && !KinkyDungeonPlayer.CanInteract() && (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"))) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
-
-		return true;
-	}*/
 
 	KinkyDungeonUseConsumable(Name, Quantity);
 	return true;
