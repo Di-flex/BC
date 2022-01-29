@@ -476,7 +476,7 @@ Bugfix:
 - You may now find coins in unexpected places
 
 2.6.4
--
+- Skip button now cancels spell targeting
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
