@@ -67,7 +67,8 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];
 		s.shoptype = "Weapon";
-		Table.push(s);
+		if (!KinkyDungeonInventoryGet(s.name))
+			Table.push(s);
 	}
 
 	for (let R = Rarity; R >= 0; R--) {

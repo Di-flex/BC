@@ -338,7 +338,7 @@ function KinkyDungeonUpdateStats(delta) {
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
 
-	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonPlayer.GetBlindLevel());
+	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
 	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = 3;
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
@@ -397,6 +397,14 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
+}
+
+function KinkyDungeonGetBlindLevel() {
+	let blindness = 0;
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.blindfold) blindness = Math.max(blindness + 1, inv.restraint.blindfold);
+	}
+	return blindness ? blindness : KinkyDungeonPlayer.GetBlindLevel();
 }
 
 function KinkyDungeonCapStats() {

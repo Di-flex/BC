@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -243,7 +243,7 @@ KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 KinkyDungeonWeaponStamina,"SP Cost: "
 
-KinkyDungeonTorsoGrab,The EnemyName grabs you by the harness and keeps you in place!
+KinkyDungeonTorsoGrab,The EnemyName grabs you by the RestraintName and keeps you in place!
 KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
 KinkyDungeonAttackMiss,The EnemyName misses you!
 
@@ -2021,6 +2021,16 @@ KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
 KinkyDungeonLore103,"I can't count how many skeletons I've bashed with my hammer today. They seem so fragile..."
 KinkyDungeonLore104,"(The note is scrawled with wiggling lines) IT SEES ME. I SHOULDN'T HAVE DEFILED THE ROPE GODDESS' ALTAR!"
+KinkyDungeonLore105,"It is said that fire and water are opposite planes, but I've noticed that the relation is more lopsided than 'equal and opposite' when they physically manifest. Water elementals resist fire, obviously, but fire elementals? They are weak to water in its frozen form! It is almost as if the abundance of water in this world causes the fire elementals to become weaker..."
+KinkyDungeonLore106,"A drawing of many icicles around pools of water. It marks an 'X' over the pools of water and you can see a figure surrounded by ice shards in the distance being set on fire and smashed with a hammer."
+KinkyDungeonLore107,"The shadow spirits' touch is cold as ice... I have wondered if this temperature property applies to their destructive effects on other types of beings. Unfortunately, I found out the hard way when I tried to summon a shadow creature against an ice elemental..."
+KinkyDungeonLore108,"I was being chased by something fast and heavy, and it was about to crush me when I tossed an Ice Shard behind me. It stopped and I didn't care to look back."
+KinkyDungeonLore109,"I was walking in the library when I got attacked by a magic book! Fortunately my sword seemed to disapatch it quickly, and I used my spear to stab another one shortly after."
+KinkyDungeonLore110,"SOMEBODY STABBED MY FROG AND I AM PISSED."
+KinkyDungeonLore111,"I don't think it's neccessary to tell people that dragons resist fire... right?"
+KinkyDungeonLore112,"I've been studying the dragonheart's weaknesses. So far I've found that the ones bearing the powers of ice dragons are actually weak to fire unlike the others, and the ones who summon crystals to block attacks are nonetheless unable to grab a spear to stop it from reaching them."
+
+
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
 KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."

@@ -29,7 +29,7 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
-	"Spear": {name: "Spear", dmg: 3.5, chance: 1.0, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+	"Spear": {name: "Spear", dmg: 4.0, chance: 1.0, staminacost: 2.0, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 3.5, damage: "pierce"}]},
 	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 3}]},
@@ -179,10 +179,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) dmg *= 0.5;
 
 		if (Enemy.Enemy.tags) {
-			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "immune")) resistDamage = 2;
-			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "resist")) resistDamage = 1;
+			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
 			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "weakness")) resistDamage = -1;
-			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
+			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "immune")) resistDamage = 2;
+			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "resist")) resistDamage = 1;
+
 			if (Enemy.Enemy.tags.has("unstoppable")) resistStun = 2;
 			else if (Enemy.Enemy.tags.has("unflinching")) resistStun = 1;
 			if (Enemy.Enemy.tags.has("unslowable")) resistSlow = 2;
