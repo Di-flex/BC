@@ -475,6 +475,9 @@ Bugfix:
 - Sleep and stamina potions now scale with max stamina
 - You may now find coins in unexpected places
 
+2.6.4
+-
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

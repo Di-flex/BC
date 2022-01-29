@@ -37,9 +37,41 @@ let KinkyDungeonAutoWait = false;
 
 let KinkyDungeonConfigAppearance = false;
 
+
 /**
- * @type {KDGameDataBase}
- */
+*  @typedef {{
+* KinkyDungeonSpawnJailers: number;
+* KinkyDungeonSpawnJailersMax: number;
+* KinkyDungeonLeashedPlayer: number;
+* KinkyDungeonLeashingEnemy: number;
+* KinkyDungeonJailGuard: number;
+* KinkyDungeonGuardTimer: number;
+* KinkyDungeonGuardTimerMax: number;
+* KinkyDungeonGuardSpawnTimer: number;
+* KinkyDungeonGuardSpawnTimerMax: number;
+* KinkyDungeonGuardSpawnTimerMin: number;
+* KinkyDungeonMaxPrisonReduction: number;
+* KinkyDungeonPrisonReduction: number;
+* KinkyDungeonPrisonExtraGhostRep: number;
+* PrisonGoodBehaviorFromLeash: number;
+* KinkyDungeonJailTourTimer: number;
+* KinkyDungeonJailTourTimerMin: number;
+* KinkyDungeonJailTourTimerMax: number;
+* KinkyDungeonPenanceCostCurrent: number;
+* KinkyDungeonAngel: number;
+* KDPenanceStage: number;
+* KDPenanceStageEnd: number;
+* AngelCurrentRep: string;
+* KDPenanceMode: string;
+* OrgasmStage: number;
+* OrgasmTurns: number;
+* OrgasmStamina: number;
+* SleepTurns: number;
+* PlaySelfTurns: number;
+* RescueFlag: boolean;
+* KinkyDungeonPenance: boolean;
+*}} KDGameDataBase
+*/
 let KDGameDataBase = {
 	KinkyDungeonSpawnJailers: 0,
 	KinkyDungeonSpawnJailersMax: 5,
