@@ -211,10 +211,21 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && !inv.restraint.Group.includes("Item")) {
-			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.Group, inv.restraint.Color);
+		if (inv.restraint && inv.restraint.AssetGroup) {
+			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
+		}
+		if (inv.restraint && inv.restraint.forceUpperPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyUpper", inv.restraint.forceUpperPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
+		}
+		if (inv.restraint && inv.restraint.forceLowerPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", inv.restraint.forceLowerPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
 		}
 	}
+	KinkyDungeonWearForcedClothes();
 
 	KinkyDungeonCheckClothesLoss = false;
 
@@ -330,5 +341,22 @@ function KinkyDungeonDressPlayer() {
 		}
 
 	}
+}
 
+function KinkyDungeonWearForcedClothes() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.alwaysDress) {
+			for (let dress of inv.restraint.alwaysDress) {
+				InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
+				if (dress.OverridePriority) {
+					let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
+					if (item) {
+						if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
+						else item.Property.OverridePriority = dress.OverridePriority;
+					}
+				}
+				CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
+			}
+		}
+	}
 }

@@ -2,7 +2,7 @@
 
 var KinkyDungeonConsumables = {
 	"PotionMana" : {name: "PotionMana", potion: true, rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 24, sfx: "PotionDrink"},
-	"PotionStamina" : {name: "PotionStamina", potion: true, rarity: 1, shop: true, type: "restore", sp_instant: 12, sp_gradual: 24, duration: 12, sfx: "PotionDrink"},
+	"PotionStamina" : {name: "PotionStamina", potion: true, rarity: 1, shop: true, type: "restore", sp_instant: 12, sp_gradual: 24, scaleWithMaxSP: true, duration: 12, sfx: "PotionDrink"},
 	"PotionFrigid" : {name: "PotionFrigid", potion: true, rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6, sfx: "PotionDrink"},
 	"SmokeBomb" : {name: "SmokeBomb", noHands: true, rarity: 2, costMod: -1, shop: true, type: "spell", spell: "Shroud", sfx: "FireSpell"},
 	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
@@ -67,7 +67,8 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];
 		s.shoptype = "Weapon";
-		Table.push(s);
+		if (!KinkyDungeonInventoryGet(s.name))
+			Table.push(s);
 	}
 
 	for (let R = Rarity; R >= 0; R--) {
@@ -106,12 +107,16 @@ function KinkyDungeonChangeConsumable(Consumable, Quantity) {
 
 function KinkyDungeonConsumableEffect(Consumable) {
 	if (Consumable.type == "restore") {
+		let multi = 1.0;
+		if (Consumable.scaleWithMaxSP) {
+			multi = Math.max(KinkyDungeonStatStaminaMax / 36);
+		}
 		if (Consumable.mp_instant) KinkyDungeonChangeMana(Consumable.mp_instant);
-		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant);
+		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant * multi);
 		if (Consumable.ap_instant) KinkyDungeonChangeArousal(Consumable.ap_instant);
 
 		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
-		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration, duration: Consumable.duration});
+		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration * multi, duration: Consumable.duration});
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
@@ -153,12 +158,6 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 			KinkyDungeonDrawState = "Game";
 		return false;
 	}
-	/*if (item && item.item && item.item.consumable && !item.item.consumable.noHands && (!item.item.consumable.potion || item.item.consumable.needHands) && !KinkyDungeonPlayer.CanInteract() && (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands"))) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
-
-		return true;
-	}*/
 
 	KinkyDungeonUseConsumable(Name, Quantity);
 	return true;

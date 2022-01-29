@@ -1,12 +1,12 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.2"
+KinkyDungeon,"Kinky Dungeon v2.6.3"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -183,7 +183,7 @@ KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 24 t
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
-KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 12 stamina and 24 more over 12 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid concoction and feel less distracted.
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
@@ -243,7 +243,7 @@ KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 KinkyDungeonWeaponStamina,"SP Cost: "
 
-KinkyDungeonTorsoGrab,The EnemyName grabs you by the harness and keeps you in place!
+KinkyDungeonTorsoGrab,The EnemyName grabs you by the RestraintName and keeps you in place!
 KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
 KinkyDungeonAttackMiss,The EnemyName misses you!
 
@@ -798,7 +798,7 @@ KinkyDungeonStruggleRemoveNeedEdge,"You wiggle uselessly. Maybe you need some ki
 KinkyDungeonStruggleRemoveNeedEdgeAroused,"You rub your body against the floor to no avail, and sigh."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
 KinkyDungeonStruggleRemoveImpossibleAroused,"You roll around tryng to loosen the item to no avail."
-KinkyDungeonStruggleRemoveImpossible2,"The knots tighten themselves as you try to undo them!"
+KinkyDungeonStruggleRemoveImpossible2,"The item tightens itself as you try to undo it!"
 KinkyDungeonStruggleRemoveImpossible3,"You can't reach it by yourself!"
 KinkyDungeonStruggleRemoveImpossibleBound,"You are too tightly bound to manipulate that item."
 KinkyDungeonStruggleRemoveImpossibleBoundAroused,"Your futile struggles do nothing to loosen the fasteners."
@@ -919,15 +919,25 @@ KinkyDungeonInventoryItemTrapLegirons,Leg Irons
 
 KinkyDungeonInventoryItemTrapBlindfold,Blindfold
 
+
 KinkyDungeonInventoryItemTrapBelt,Steel Belt
 KinkyDungeonInventoryItemMaidCBelt,Maid Belt
 
 KinkyDungeonInventoryItemTrapVibe,Egg Vibe
 KinkyDungeonInventoryItemMaidVibe,Maid Vibe
 
+KinkyDungeonInventoryItemBindingDress,BindingDress
+RestraintBindingDress,Binding Dress
+RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."
+RestraintBindingDressDesc2,"It is extremely strict but it is only fabric. The lacing is intricate and will take a long time to remove."
+
 RestraintLatexBallGag,Latex Ball Gag
 RestraintLatexBallGagDesc,"A devious device that looks like a ball gag, but has a mouth-filling rod on the inside."
 RestraintLatexBallGagDesc2,"The strap is made of a durable but flexible material"
+
+RestraintWolfPanties,Wolf Panties
+RestraintWolfPantiesDesc,"A set of vibrating panties designed to help subdue unruly wolfgirls."
+RestraintWolfPantiesDesc2,"It's incredibly tight and difficult to remove once it's clipped on, but the material is rubber."
 
 RestraintExpArmbinder,Latex Boxtie Binder
 RestraintExpArmbinderDesc,"A secure but comfortable binder meant for long-term wear by the alchemists' pets."
@@ -1658,7 +1668,7 @@ KinkyDungeonSpellTargetLightningBolt,Choose line direction
 
 KinkyDungeonSpellCorona,Corona
 KinkyDungeonSpellCoronaBeam,Corona
-KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt damage to the first target hit.
+KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt fire damage to the first target hit.
 KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
 KinkyDungeonSpellTargetCorona,Choose line direction
 
@@ -1738,23 +1748,28 @@ KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gai
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
 KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
+KinkyDungeonSpellDescriptionFlameBlade,When equipped: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
 KinkyDungeonSpellTrueSight,Truesight
 KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to see through walls.
 
 KinkyDungeonSpellEnemySense,Heartsense
-KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 10 turns.
+KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
 
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
 KinkyDungeonSpellDescriptionFloatingWeapon,"When equipped: While hands are bound, you can still use weapons, but attacks cost mana."
 
+KinkyDungeonSpellFleetFooted,Cat's Grace
+KinkyDungeonSpellDescriptionFleetFooted,"When equipped and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
+KinkyDungeonFleetFootedIgnoreTrap,"Your graceful footsteps avoid setting off a trap!"
+KinkyDungeonFleetFootedIgnoreSlow,"You recover gracefully from the slowdown!"
+KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: reduce slow level by 1 and gives +100% melee stamina cost reduction (half, assuming no other buffs) until you sleep.
-KinkyDungeonSpellCastIronBlood,You say the transformation chant and your skin glows a pale red!
+KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: Gain +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by 25% (rounding down) while active.
+KinkyDungeonSpellCastIronBlood,Your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
 KinkyDungeonSpellTargetStoneSkin,Select which creature to buff
@@ -1828,6 +1843,8 @@ KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
 KinkyDungeonSpellRubberBullets,Rubber Bullets
 KinkyDungeonRubberBullets,You are hit by a fusilade of rubber bullets!
 KinkyDungeonRubberBulletsAttach,The rubber bullets congeal into a slimy material on your body!
+
+KinkyDungeonSpellPoisonDragonBlast,Nature Blast
 
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
@@ -1924,6 +1941,19 @@ KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
+
+KinkyDungeonSpellTrapCharmsWeak,Charm Trap
+KinkyDungeonSpellTrapShackleWeak,Shackle Trap
+KinkyDungeonSpellTrapMummyWeak,Mummy Trap
+KinkyDungeonSpellTrapRopeWeak,Rope Trap
+KinkyDungeonSpellTrapRopeStrong,Rope Trap
+KinkyDungeonSpellTrapLeatherWeak,Belt Trap
+KinkyDungeonSpellTrapCableWeak,Cable Trap
+KinkyDungeonSpellTrapSlimeWeak,Slime Trap
+KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
+KinkyDungeonSpellTrapLustCloud,Gas Trap
+KinkyDungeonSpellTrapSleepDart,Sleep Dart
+
 KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
 KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"
 KinkyDungeonSpellCastTrapMummyWeak,"Bands of glowing wrappings start flying in from all sides!"
@@ -2016,6 +2046,16 @@ KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
 KinkyDungeonLore103,"I can't count how many skeletons I've bashed with my hammer today. They seem so fragile..."
 KinkyDungeonLore104,"(The note is scrawled with wiggling lines) IT SEES ME. I SHOULDN'T HAVE DEFILED THE ROPE GODDESS' ALTAR!"
+KinkyDungeonLore105,"It is said that fire and water are opposite planes, but I've noticed that the relation is more lopsided than 'equal and opposite' when they physically manifest. Water elementals resist fire, obviously, but fire elementals? They are weak to water in its frozen form! It is almost as if the abundance of water in this world causes the fire elementals to become weaker..."
+KinkyDungeonLore106,"A drawing of many icicles around pools of water. It marks an 'X' over the pools of water and you can see a figure surrounded by ice shards in the distance being set on fire and smashed with a hammer."
+KinkyDungeonLore107,"The shadow spirits' touch is cold as ice... I have wondered if this temperature property applies to their destructive effects on other types of beings. Unfortunately, I found out the hard way when I tried to summon a shadow creature against an ice elemental..."
+KinkyDungeonLore108,"I was being chased by something fast and heavy, and it was about to crush me when I tossed an Ice Shard behind me. It stopped and I didn't care to look back."
+KinkyDungeonLore109,"I was walking in the library when I got attacked by a magic book! Fortunately my sword seemed to disapatch it quickly, and I used my spear to stab another one shortly after."
+KinkyDungeonLore110,"SOMEBODY STABBED MY FROG AND I AM PISSED."
+KinkyDungeonLore111,"I don't think it's neccessary to tell people that dragons resist fire... right?"
+KinkyDungeonLore112,"I've been studying the dragonheart's weaknesses. So far I've found that the ones bearing the powers of ice dragons are actually weak to fire unlike the others, and the ones who summon crystals to block attacks are nonetheless unable to grab a spear to stop it from reaching them."
+
+
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
 KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."
@@ -2084,8 +2124,8 @@ KinkyDungeonTrapSpawnElementalWater,"In a flash of light, a group of water eleme
 KinkyDungeonTrapSpawnElementalEarth,"In a flash of light, a group of earth elementals appear around you!"
 KinkyDungeonTrapSpawnElementalAir,"In a flash of light, a group of air elementals appear around you!"
 KinkyDungeonTrapSpawnTickleHand,"Several ethereal hands appear all around you!"
-KinkyDungeonTrapSpawnConjurer,"You are ambushed by conjurers!"
-KinkyDungeonTrapSpawnConjurerTickler,"You are ambushed by conjurers!"
+KinkyDungeonTrapSpawnConjurer,"You have stumbled upon a conjurer's study!"
+KinkyDungeonTrapSpawnConjurerTickler,"You have stumbled upon a conjurer's study!"
 KinkyDungeonTrapSpawnMaidforce,"You are ambushed by a group of maids!"
 KinkyDungeonTrapSpawnMaidforcePara,"You are ambushed by a group of maids!"
 KinkyDungeonTrapSpawnMaidforceMafia,"You are ambushed by a group of maids!"
@@ -2115,11 +2155,18 @@ KinkyDungeonRepNameThankful,"Thankful"
 
 KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
 KinkyDungeonTetherPull,"You are yanked back by the tether!"
-KinkyDungeonRemindJailTourStart,"EnemyName: We will be going on a tour. Follow me."
+KinkyDungeonRemindJailTourStart,"EnemyName: We will be going for a walk. Follow me."
 KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
-KinkyDungeonRemindJailTour1,"EnemyName: I said, follow me!"
+KinkyDungeonRemindJailTour1,"EnemyName: I said, FOLLOW ME!"
 KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
 KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
+
+KinkyDungeonJailerGoodGirl0,"EnemyName: Good girl."
+KinkyDungeonJailerGoodGirl1,"EnemyName: You'll be making others happy in no time."
+KinkyDungeonJailerGoodGirl2,"EnemyName: You're shaping up to be a good slave."
+KinkyDungeonJailerGoodGirl3,"EnemyName: I wish I could take you to my room..."
+KinkyDungeonJailerGoodGirl4,"EnemyName: It seems the training is going well."
+KinkyDungeonJailerGoodGirl5,"EnemyName: Perhaps you are enjoying this, hehe."
 
 KinkyDungeonItemsUnderneath,"Layered underneath:"
 KinkyDungeonItemsStrictness,"Increased strictness due to:"

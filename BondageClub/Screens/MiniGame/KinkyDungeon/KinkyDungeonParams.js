@@ -27,8 +27,8 @@ var KinkyDungeonMapParams = [
 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLustCloud", Level: 0, Power: 3, Weight: 30},
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 10},
-			{Name: "SpawnEnemies", Enemy: "Bandit", Level: 0, Power: 1, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", strict: true, Level: 0, Power: 6, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "Bandit", strict: true, Level: 0, Power: 1, Weight: 10},
 		],
 
 		"min_width" : 25,
@@ -88,8 +88,8 @@ var KinkyDungeonMapParams = [
 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLustCloud", Level: 0, Power: 3, Weight: 30},
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 10},
-			{Name: "SpawnEnemies", Enemy: "Bandit", Level: 0, Power: 2, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", strict: true, Level: 0, Power: 6, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "Bandit", strict: true, Level: 0, Power: 2, Weight: 10},
 		],
 
 		"min_width" : 21,
@@ -147,7 +147,7 @@ var KinkyDungeonMapParams = [
 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 10},
 			{Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 10},
 			{Name: "SpecificSpell", Spell: "TrapLustCloud", Level: 0, Power: 3, Weight: 30},
-			{Name: "SpawnEnemies", Enemy: "Bandit", Level: 0, Power: 3, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "Bandit", strict: true, Level: 0, Power: 3, Weight: 10},
 		],
 
 		"min_width" : 29,
@@ -196,7 +196,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.1,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", strict: true, Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 31,
@@ -225,7 +225,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.2,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 15,
@@ -252,7 +252,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.3,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 25,
@@ -281,7 +281,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.3,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 25,
@@ -307,7 +307,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.7,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 25,
@@ -336,7 +336,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.5,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 15,
@@ -365,7 +365,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.9,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 25,
@@ -394,7 +394,7 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.7,
 
 		"traps": [
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
+			{Name: "SpawnEnemies", strict: true, Enemy: "SummonedSkeleton", Level: 0, Power: 6, Weight: 100},
 		],
 
 		"min_width" : 31,
@@ -430,8 +430,8 @@ var KinkyDungeonMapParams = [
 			{Name: "SpecificSpell", Spell: "TrapRopeWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLeatherWeak", Level: 0, Power: 3, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapLustCloud", Level: 0, Power: 3, Weight: 30},
-			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", Level: 0, Power: 8, Weight: 10},
-			{Name: "SpawnEnemies", Enemy: "Bandit", Level: 0, Power: 3, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "SummonedSkeleton", strict: true, Level: 0, Power: 8, Weight: 10},
+			{Name: "SpawnEnemies", Enemy: "Bandit", strict: true, Level: 0, Power: 3, Weight: 10},
 		],
 
 		"min_width" : 21,

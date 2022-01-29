@@ -289,11 +289,11 @@ function KinkyDungeonSetMaxStats() {
 
 let KDHandsFreeTag = false;
 
-function KinkyDungeonCanUseWeapon(NoOverride) {
+function KinkyDungeonCanUseWeapon(NoOverride, e) {
 	KDHandsFreeTag = false;
 	if (!NoOverride)
-		KinkyDungeonSendMagicEvent("getWeapon", {});
-	return (KDHandsFreeTag || (!InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands")));
+		KinkyDungeonSendEvent("getWeapon", {event: e});
+	return (KDHandsFreeTag || !KinkyDungeonIsHandsBound());
 }
 
 function KinkyDungeonUpdateStats(delta) {
@@ -320,25 +320,15 @@ function KinkyDungeonUpdateStats(delta) {
 	let arousalBonus = KinkyDungeonSetMaxStats();
 	if (KDGameData.PlaySelfTurns < 1) arousalRate += arousalBonus;
 
-	// Dont regen while exhausted
-	if (KinkyDungeonStatWillpowerExhaustion > 0) {
-		KinkyDungeonStatWillpowerExhaustion = Math.max(0, KinkyDungeonStatWillpowerExhaustion - delta);
-		KinkyDungeonStaminaRate = 0;
-		KinkyDungeonStatManaRate = 0;
-	} else {
-		let sleepRegen = KinkyDungeonStatStaminaRegenSleep;
-		if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
-		KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
-		KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
-	}
-
-	// Arousal reduces staminal regen
-	KinkyDungeonStaminaRate += KinkyDungeonStatArousal / 100 * KinkyDungeonStatArousalRegenStaminaRegenFactor;
+	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
+	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
+	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
+	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
 
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
 
-	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonPlayer.GetBlindLevel());
+	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
 	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = 3;
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
@@ -397,6 +387,14 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
+}
+
+function KinkyDungeonGetBlindLevel() {
+	let blindness = 0;
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.blindfold) blindness = Math.max(blindness + 1, inv.restraint.blindfold);
+	}
+	return blindness ? blindness : KinkyDungeonPlayer.GetBlindLevel();
 }
 
 function KinkyDungeonCapStats() {

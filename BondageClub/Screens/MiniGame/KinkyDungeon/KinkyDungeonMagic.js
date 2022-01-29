@@ -47,7 +47,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1: Elements
 	[
 		// Verbal
-		["Electrify", "Incinerate", "IceBreath","IronBlood",],
+		["Electrify", "IronBlood", "Incinerate", "IceBreath",],
 		// Arms
 		["Firebolt", "Icebolt", "Crackle", "Fireball", "LightningBolt",],
 		// Legs
@@ -77,7 +77,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Decoy", ],
 		// Passive
-		["Knife", "TrueSight", "EnemySense"],
+		["Knife", "TrueSight", "EnemySense", "FleetFooted"],
 	],
 
 	//Page 4
@@ -113,10 +113,10 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "LightningBolt", noise: 11, sfx: "FireSpell", school: "Elements", manacost: 10, components: ["Arms"], level:3, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 8, delay: 0, time: 1, range: 50, speed: 50, size: 1, damage: "electric",
 			trailHit: "", trailPower: 0, trailLifetime: 1.1, trailTime: 4, trailDamage:"inert", trail:"lingering", trailChance: 1, playerEffect: {name: "Shock", time: 3}},
 		{name: "StoneSkin", sfx: "Bones", school: "Elements", manacost: 8, components: ["Arms"], mustTarget: true, level:1, type:"buff", buffs: [{id: "StoneSkin", type: "Armor", duration: 40, power: 2.0, player: true, enemies: true, tags: ["defense", "armor"]}], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
-		{name: "IronBlood", sfx: "FireSpell", school: "Elements", manacost: 12, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:2, type:"buff", channel: 4,
+		{name: "IronBlood", sfx: "FireSpell", school: "Elements", manacost: 0, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:1, type:"buff", channel: 4,
 			buffs: [
-				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 99999, endSleep: true, power: 1, player: true, enemies: false, tags: ["attack", "stamina"]},
-				{id: "IronBlood2", type: "SlowLevel", duration: 99999, endSleep: true, power: -1.0, player: true, enemies: false, tags: ["move"]},
+				{id: "IronBlood", aura: "#ff0000", type: "AttackStamina", duration: 99999, cancelOnReapply: true, endSleep: true, power: 1, player: true, enemies: false, tags: ["attack", "stamina"]},
+				{id: "IronBlood2", type: "ManaCostMult", duration: 99999, cancelOnReapply: true, endSleep: true, power: 0.25, player: true, enemies: false, tags: ["manacost"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
 		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:3, type:"passive",
@@ -164,7 +164,9 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Corona", noise: 4, sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert", noMiscast: true,
 			spellcast: {spell: "CoronaBeam", target: "target", directional:true, offset: false}, channel: 2},
 		{name: "TrueSight", school: "Illusion", manacost: 1, defaultOff: true, cancelAutoMove: true, components: [], level:1, type:"passive", events: [{type: "TrueSight", trigger: "vision"}]},
-		{name: "EnemySense", school: "Illusion", manacost: 10, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 8, distStealth: 4}]},
+		{name: "EnemySense", school: "Illusion", manacost: 4, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 8, distStealth: 4}]},
+		{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:2, type:"passive",
+			events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", chance: 0.25}]},
 	],
 };
 let KinkyDungeonSpellListEnemies = [
@@ -587,12 +589,12 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			}
 
 		} else if (playerEffect.name == "TrapSleepDart") {
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 10);
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
 			KDGameData.SleepTurns = 10;
 			KinkyDungeonAlert = 4;
 			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 10);
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 4);
 			if (playerEffect.power > 0) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			}
@@ -646,7 +648,7 @@ function KinkyDungeoCheckComponents(spell) {
 function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	let spell = null;
 	if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
-		if (KinkyDungeonHasMana(KinkyDungeonSpells[SpellChoice].manacost)
+		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[SpellChoice]))
 			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
 			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
 			spell = KinkyDungeonSpells[SpellChoice];
@@ -665,8 +667,8 @@ function KinkyDungeonHandleSpell() {
 			if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
 				KinkyDungeonSpellChoicesToggle[i] = !KinkyDungeonSpellChoicesToggle[i];
 				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].costOnToggle) {
-					if (KinkyDungeonHasMana(KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].manacost)) {
-						KinkyDungeonChangeMana(-KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].manacost);
+					if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[i]]))) {
+						KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[i]]));
 					} else KinkyDungeonSpellChoicesToggle[i] = false;
 				}
 				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].cancelAutoMove) {
@@ -692,6 +694,14 @@ function KinkyDungeonHandleSpell() {
 	return false;
 }
 
+function KinkyDungeonGetManaCost(Spell) {
+	let cost = Spell.manacost;
+	let costscale = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "ManaCostMult"));
+	let lvlcostscale = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "ManaCostLevelMult");
+	if (costscale) cost = Math.floor(cost * costscale);
+	if (lvlcostscale && Spell.level && Spell.manacost) cost += Spell.level * lvlcostscale;
+	return cost;
+}
 
 function KinkyDungeonGetCost(Spell) {
 	let cost = Spell.level;
@@ -823,11 +833,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//let cost = spell.staminacost ? spell.staminacost : KinkyDungeonGetCost(spell.level);
 
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
-		KinkyDungeonChangeMana(-spell.manacost);
+		KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
 		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
 
-		KinkyDungeonChargeVibrators(spell.manacost);
+		KinkyDungeonChargeVibrators(KinkyDungeonGetManaCost(spell));
 		if (spell.channel) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
 			KinkyDungeonSleepTime = CommonTime() + 200;
@@ -915,8 +925,8 @@ function KinkyDungeonHandleMagic() {
 					KinkyDungeonSpellChoices[I] = KinkyDungeonCurrentPage;
 					KinkyDungeonSpellChoicesToggle[I] = !KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].defaultOff;
 					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].costOnToggle) {
-						if (KinkyDungeonHasMana(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].manacost)) {
-							KinkyDungeonChangeMana(-KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].manacost);
+						if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]]))) {
+							KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]]));
 						} else KinkyDungeonSpellChoicesToggle[I] = false;
 					}
 					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].cancelAutoMove) {

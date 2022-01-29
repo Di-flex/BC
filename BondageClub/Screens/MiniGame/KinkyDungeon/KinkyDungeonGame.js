@@ -1099,6 +1099,10 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 						if (Math.random() < trapChance && Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) > maxPlayerDist) {
 							// Place a trap or something at the other door if it's far enough from the player
 							trapLocations.push({x: room.door.x, y: room.door.y});
+							if (KDRandom() < 0.1) {
+								let dropped = {x:room.door.x, y:room.door.y, name: "Gold", amount: 1};
+								KinkyDungeonGroundItems.push(dropped);
+							}
 							lock = true;
 						} else if (((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize))
 								|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)
@@ -1366,14 +1370,16 @@ function KinkyDungeonClickGame(Level) {
 
 		if (KinkyDungeonTargetingSpell) {
 			if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
-				if (KinkyDungeonSpellValid) {
-					if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity) && KinkyDungeonTargetingSpell.sfx) {
-						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
+				if (KinkyDungeoCheckComponents(KinkyDungeonTargetingSpell).length == 0) {
+					if (KinkyDungeonSpellValid) {
+						if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity) && KinkyDungeonTargetingSpell.sfx) {
+							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
+						}
+						KinkyDungeonAdvanceTime(1);
+						KinkyDungeonInterruptSleep();
+						KinkyDungeonTargetingSpell = null;
 					}
-					KinkyDungeonAdvanceTime(1);
-					KinkyDungeonInterruptSleep();
-					KinkyDungeonTargetingSpell = null;
-				}
+				} else KinkyDungeonTargetingSpell = null;
 			} else KinkyDungeonTargetingSpell = null;
 		} else if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
 			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1
@@ -1501,6 +1507,7 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 	return false;
 }
 
+let KinkyDungeonNoMoveFlag = false;
 
 function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveX = moveDirection.x + KinkyDungeonPlayerEntity.x;
@@ -1563,65 +1570,70 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'o');
 				} else {// Move
-					//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
-					KinkyDungeonMovePoints = Math.min(Math.ceil(KinkyDungeonSlowLevel + 1), KinkyDungeonMovePoints + delta); // Can't store extra move points
+					KinkyDungeonNoMoveFlag = false;
+					KinkyDungeonSendEvent("beforeMove", {x:moveX, y:moveY});
+					if (!KinkyDungeonNoMoveFlag) {
+						//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
+						KinkyDungeonMovePoints = Math.min(Math.ceil(KinkyDungeonSlowLevel + 1), KinkyDungeonMovePoints + delta); // Can't store extra move points
 
-					if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
+						if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
 
-					if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
-						newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
-						KinkyDungeonLastAction = "Move";
-						moved = true;
-						if (KinkyDungeonSound) {
-							if (moveObject == 'w')
-								AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
-							else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
-						}
-
-						if (moveObject == 'g') {
-							KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
-							KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 1);
-							KDGameData.SleepTurns = CommonTime() + 250;
-						}
-					}
-
-					// Messages to inform player they are slowed
-					if (KinkyDungeonSlowLevel > 0) {
-						let plugLevel = Math.round(Math.min(3, KinkyDungeonStatPlugLevel));
-						let dict = KinkyDungeonPlugCount > 1 ? "plugs" : "plug";
-						let dicts = KinkyDungeonPlugCount > 1 ? "" : "s";
-						if (KinkyDungeonSlowLevel == 0 && KinkyDungeonPlugCount > 0) KinkyDungeonSendTextMessage(0, TextGet("KinkyDungeonPlugWalk" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
-						if (KinkyDungeonSlowLevel == 1) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonSlowed" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
-						else if (KinkyDungeonSlowLevel == 2) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonHopping" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "orange", 2, true);
-						else if (KinkyDungeonSlowLevel == 3) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonInching" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
-						else if (KinkyDungeonSlowLevel < 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrawling" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
-						else KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
-
-						let moveMult = Math.max(1, KinkyDungeonSlowLevel);
-						if (KinkyDungeonSlowLevel > 9) moveMult = 1;
-						if ((moveDirection.x != 0 || moveDirection.y != 0)) {
-							KinkyDungeonChangeStamina(moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta);
-							KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
-							KinkyDungeonStatArousal += (KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult);
-							if (KinkyDungeonHasCrotchRope) {
-								if (KinkyDungeonStatPlugLevel == 0) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrotchRope"), "pink", 2);
-								KinkyDungeonStatArousal += (KinkyDungeonCrotchRopeArousal * moveMult);
+						if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
+							newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
+							KinkyDungeonLastAction = "Move";
+							moved = true;
+							if (KinkyDungeonSound) {
+								if (moveObject == 'w')
+									AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
+								else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
 							}
-							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
-						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
-							KinkyDungeonMovePoints = 0;
-							KinkyDungeonWaitMessage();
+
+							if (moveObject == 'g') {
+								KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonGrateEnter"), "white", 3);
+								KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 1);
+								KDGameData.SleepTurns = CommonTime() + 250;
+							}
 						}
+
+						// Messages to inform player they are slowed
+						if (KinkyDungeonSlowLevel > 0) {
+							let plugLevel = Math.round(Math.min(3, KinkyDungeonStatPlugLevel));
+							let dict = KinkyDungeonPlugCount > 1 ? "plugs" : "plug";
+							let dicts = KinkyDungeonPlugCount > 1 ? "" : "s";
+							if (KinkyDungeonSlowLevel == 0 && KinkyDungeonPlugCount > 0) KinkyDungeonSendTextMessage(0, TextGet("KinkyDungeonPlugWalk" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
+							if (KinkyDungeonSlowLevel == 1) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonSlowed" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "yellow", 2, true);
+							else if (KinkyDungeonSlowLevel == 2) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonHopping" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "orange", 2, true);
+							else if (KinkyDungeonSlowLevel == 3) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonInching" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
+							else if (KinkyDungeonSlowLevel < 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrawling" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
+							else KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
+
+							let moveMult = Math.max(1, KinkyDungeonSlowLevel);
+							if (KinkyDungeonSlowLevel > 9) moveMult = 1;
+							if ((moveDirection.x != 0 || moveDirection.y != 0)) {
+								KinkyDungeonChangeStamina(moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta);
+								KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
+								KinkyDungeonStatArousal += (KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult);
+								if (KinkyDungeonHasCrotchRope) {
+									if (KinkyDungeonStatPlugLevel == 0) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrotchRope"), "pink", 2);
+									KinkyDungeonStatArousal += (KinkyDungeonCrotchRopeArousal * moveMult);
+								}
+								if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
+							} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
+								KinkyDungeonMovePoints = 0;
+								KinkyDungeonWaitMessage();
+							}
+						}
+
+						if (moveObject == 'R') {
+							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
+							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
+
+							KinkyDungeonMapSet(moveX, moveY, 'r');
+						}
+						KinkyDungeonTrapMoved = true;
+						//}
 					}
 
-					if (moveObject == 'R') {
-						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
-						KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
-
-						KinkyDungeonMapSet(moveX, moveY, 'r');
-					}
-					KinkyDungeonTrapMoved = true;
-					//}
 				}
 				KinkyDungeonInterruptSleep();
 				//for (let d = 0; d < newDelta; d++)
@@ -1700,9 +1712,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonUpdateTether(true, KinkyDungeonPlayerEntity);
 
 	KinkyDungeonResetEventVariablesTick();
-	KinkyDungeonSendInventoryEvent("tick", {delta: delta});
-	KinkyDungeonSendMagicEvent("tick", {delta: delta});
-	KinkyDungeonSendWeaponEvent("tick", {delta: delta});
+	KinkyDungeonSendEvent("tick", {delta: delta});
 
 	if (delta >= 1) {
 		KinkyDungeonHandleTraps(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTrapMoved);

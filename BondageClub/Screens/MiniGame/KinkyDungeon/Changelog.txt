@@ -457,6 +457,24 @@ Bugfix:
 - Being yanked by tether wakes you up
 - You now save every 5 floors instead of 10, unless you are in a side area (like ancient tomb)
 
+2.6.3
+- Gain submissive rep for following the jailer (only while you have stamina)
+- Iron blood no longer reduces slow level
+- New passive spell: Cat's Grace
+- Flame blade now requires a weapon to use
+- Can no longer finish casting a spell if you dont meet the components
+- Spear now costs 1.5 sp to use
+- When grabbed it tells you which restraint resulted in the grabbing
+- Various items will only be applied if you are at a lower level of stamina (like armbinders, jackets)
+- Fix crash when clicking chests
+- Iron blood now increases spell mana costs by 25% (rounding down)
+- New wolfgirl panties
+- Can now self-bind
+- Conjurer uses a new restraint now
+- Wolfgirls now get stunned if they miss the dropkick
+- Sleep and stamina potions now scale with max stamina
+- You may now find coins in unexpected places
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs

@@ -55,6 +55,7 @@ let KDGameDataBase = {
 	KinkyDungeonMaxPrisonReduction: 10,
 	KinkyDungeonPrisonReduction: 0,
 	KinkyDungeonPrisonExtraGhostRep: 0,
+	PrisonGoodBehaviorFromLeash: 0,
 
 	KinkyDungeonJailTourTimer: 0,
 	KinkyDungeonJailTourTimerMin: 20,

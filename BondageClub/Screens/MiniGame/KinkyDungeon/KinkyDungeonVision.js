@@ -44,7 +44,7 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	KinkyDungeonSeeThroughWalls = 0;
 
-	KinkyDungeonSendMagicEvent("vision",{update: delta});
+	KinkyDungeonSendEvent("vision",{update: delta});
 
 	KinkyDungeonBlindLevelBase = 0; // Set to 0 when consumed. We only redraw lightmap once so this is safe.
 	KinkyDungeonLightGrid = "";

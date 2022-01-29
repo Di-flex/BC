@@ -245,7 +245,7 @@ function KinkyDungeonDrawGame() {
 					}
 				}
 
-				KinkyDungeonSendMagicEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
+				KinkyDungeonSendEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
 				KDDrawUpdate = 0;
 
 				// Draw targeting reticule
@@ -484,16 +484,16 @@ function KinkyDungeonDrawMessages(NoLog) {
 		DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
 	if (!KinkyDungeonMessageToggle || NoLog) {
 		if (KinkyDungeonTextMessageTime > 0)
-			DrawText(KinkyDungeonTextMessage, 1150, 82, KinkyDungeonTextMessageColor, "black");
+			DrawTextFit(KinkyDungeonTextMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 82, KinkyDungeonCanvas.width, KinkyDungeonTextMessageColor, "black");
 		if (KinkyDungeonActionMessageTime > 0)
-			DrawText(KinkyDungeonActionMessage, 1150, 132, KinkyDungeonActionMessageColor, "black");
+			DrawTextFit(KinkyDungeonActionMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 132, KinkyDungeonCanvas.width, KinkyDungeonActionMessageColor, "black");
 	} else {
 		let extra = 200;
 		DrawRect(canvasOffsetX, 82, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height/2 + extra, "#000000");
 		let Dist = 50;
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
 			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];
-			DrawText(log.text, 1150, 82 + i * Dist + Dist/2, log.color, "white");
+			DrawTextFit(log.text, canvasOffsetX + KinkyDungeonCanvas.width/2, 82 + i * Dist + Dist/2, KinkyDungeonCanvas.width, log.color, "white");
 		}
 		if (KinkyDungeonMessageLog.length > Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist))
 			KinkyDungeonMessageLog.splice(0, Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist) - KinkyDungeonMessageLog.length);
