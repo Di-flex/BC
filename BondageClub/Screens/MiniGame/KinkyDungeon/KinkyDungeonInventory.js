@@ -55,6 +55,33 @@ function KinkyDungeonHandleInventory() {
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
 			}
+		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
+			let equipped = false;
+			let newItem = null;
+			let currentItem = null;
+
+			if (filteredInventory[KinkyDungeonCurrentPageInventory]
+				&& filteredInventory[KinkyDungeonCurrentPageInventory].item
+				&& filteredInventory[KinkyDungeonCurrentPageInventory].item.looserestraint) {
+				newItem = filteredInventory[KinkyDungeonCurrentPageInventory].item.looserestraint;
+				if (newItem) {
+					currentItem = KinkyDungeonGetRestraintItem(newItem.Group);
+					if (!currentItem || KinkyDungeonLinkableAndStricter(currentItem.restraint, newItem)) {
+						equipped = false;
+					} else equipped = true;
+				}
+			}
+			if (!equipped && newItem) {
+				let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, false, "", currentItem && !KinkyDungeonLinkableAndStricter(currentItem.restraint, newItem));
+				if (success) {
+					for (let II = 0; II < KinkyDungeonInventory.length; II++) {
+						if (KinkyDungeonInventory[II].looserestraint && KinkyDungeonInventory[II].looserestraint.name == newItem.name) {
+							KinkyDungeonInventory.splice(II, 1);
+							return true;
+						}
+					}
+				}
+			}
 		}
 
 	}
@@ -184,6 +211,22 @@ function KinkyDungeonDrawInventory() {
 			let equipped = filteredInventory[KinkyDungeonCurrentPageInventory] && filteredInventory[KinkyDungeonCurrentPageInventory].name == KinkyDungeonPlayerWeapon;
 			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 			if (equipped) DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
+		}
+		if (KinkyDungeonCurrentFilter == "Restraints") {
+			let equipped = false;
+
+			if (filteredInventory[KinkyDungeonCurrentPageInventory]
+				&& filteredInventory[KinkyDungeonCurrentPageInventory].item
+				&& filteredInventory[KinkyDungeonCurrentPageInventory].item.looserestraint) {
+				let newItem = filteredInventory[KinkyDungeonCurrentPageInventory].item.looserestraint;
+				if (newItem) {
+					let currentItem = KinkyDungeonGetRestraintItem(newItem.Group);
+					if (!currentItem || KinkyDungeonLinkableAndStricter(currentItem.restraint, newItem)) {
+						equipped = false;
+					} else equipped = true;
+				}
+			}
+			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 		}
 	}
 	if (KinkyDungeonCurrentPageInventory >= filteredInventory.length) KinkyDungeonCurrentPageInventory = Math.max(0, KinkyDungeonCurrentPageInventory - 1);

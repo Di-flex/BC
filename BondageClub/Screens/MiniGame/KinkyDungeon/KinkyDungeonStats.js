@@ -293,7 +293,7 @@ function KinkyDungeonCanUseWeapon(NoOverride, e) {
 	KDHandsFreeTag = false;
 	if (!NoOverride)
 		KinkyDungeonSendEvent("getWeapon", {event: e});
-	return (KDHandsFreeTag || (!InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) && !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands")));
+	return (KDHandsFreeTag || !KinkyDungeonIsHandsBound());
 }
 
 function KinkyDungeonUpdateStats(delta) {

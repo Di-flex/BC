@@ -589,12 +589,12 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			}
 
 		} else if (playerEffect.name == "TrapSleepDart") {
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 10);
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
 			KDGameData.SleepTurns = 10;
 			KinkyDungeonAlert = 4;
 			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 10);
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 4);
 			if (playerEffect.power > 0) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			}
