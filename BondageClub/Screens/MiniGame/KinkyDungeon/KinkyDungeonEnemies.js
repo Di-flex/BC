@@ -476,7 +476,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 			for (let s = 0; s < enemy.shrines.length; s++) {
 				if (KinkyDungeonGoddessRep[enemy.shrines[s]]) {
 					let rep = KinkyDungeonGoddessRep[enemy.shrines[s]];
-					if (rep > 0) weightMulti *= Math.max(0, 1.0/(rep/50));
+					if (rep > 0) weightMulti *= Math.max(0, 1.0/(1 + rep/50));
 					else if (rep < 0) {
 						weightMulti = Math.max(weightMulti, Math.max(1, 1 + 0.2/(-rep/50)));
 						weightBonus = Math.max(weightBonus, Math.min(10, -rep/8));
