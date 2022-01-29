@@ -320,20 +320,10 @@ function KinkyDungeonUpdateStats(delta) {
 	let arousalBonus = KinkyDungeonSetMaxStats();
 	if (KDGameData.PlaySelfTurns < 1) arousalRate += arousalBonus;
 
-	// Dont regen while exhausted
-	if (KinkyDungeonStatWillpowerExhaustion > 0) {
-		KinkyDungeonStatWillpowerExhaustion = Math.max(0, KinkyDungeonStatWillpowerExhaustion - delta);
-		KinkyDungeonStaminaRate = 0;
-		KinkyDungeonStatManaRate = 0;
-	} else {
-		let sleepRegen = KinkyDungeonStatStaminaRegenSleep;
-		if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
-		KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
-		KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
-	}
-
-	// Arousal reduces staminal regen
-	KinkyDungeonStaminaRate += KinkyDungeonStatArousal / 100 * KinkyDungeonStatArousalRegenStaminaRegenFactor;
+	let sleepRegen = KinkyDungeonStatStaminaRegenSleep;
+	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
+	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
+	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
 
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
