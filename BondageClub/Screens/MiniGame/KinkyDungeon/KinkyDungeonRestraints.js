@@ -155,8 +155,8 @@ const KinkyDungeonRestraints = [
 		escapeChance: {"Struggle": 0.05, "Cut": 0.3, "Remove": 0.05}, escapeMult: 3.0,
 		maxstamina: 0.5, enemyTags: {"wolfRestraints" : 6}, playerTags: {"ItemPelvisFull": -5}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex", "Panties"]},
 
-	{inventory: true, name: "BindingDress", Asset: "SleevelessCatsuit", strictness: 0.25, Color: ['#473488'], AssetGroup: "Suit", Group: "ItemArms", bindarms: true, bindhands: true, power: 12, weight: 0,
-		escapeChance: {"Struggle": 0.0, "Cut": 0.2, "Remove": -0.2}, helpChance: {"Struggle": 0.0, "Cut": 0.2, "Remove": 0.025}, forceUpperPose: "BackElbowTouch",
+	{inventory: true, name: "BindingDress", Asset: "SleevelessCatsuit", strictness: 0.25, Color: ['#473488'], AssetGroup: "Suit", Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,
+		escapeChance: {"Struggle": 0.0, "Cut": 0.2, "Remove": -0.2, "Pick": 0.15}, helpChance: {"Struggle": 0.0, "Cut": 0.2, "Remove": 0.025}, forceUpperPose: "BackElbowTouch",
 		alwaysDress: [{Item: "PleatedSkirt", Group: "ClothLower", Color: ['#6B48E0']}],
 		maxstamina: 0.5, enemyTags: {"dressRestraints" : 1}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Latex", "Panties"]},
 
