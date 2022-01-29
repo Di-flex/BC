@@ -471,6 +471,9 @@ Bugfix:
 - New wolfgirl panties
 - Can now self-bind
 - Conjurer uses a new restraint now
+- Wolfgirls now get stunned if they miss the dropkick
+- Sleep and stamina potions now scale with max stamina
+- You may now find coins in unexpected places
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

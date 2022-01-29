@@ -43,6 +43,7 @@ let KinkyDungeonEnemies = [
 		stunTime: 2, specialCD: 6, specialAttack: "Stun", specialRemove: "Bind", specialPower: 5, specialDamage: "pain",
 		specialCDonAttack: false, visionRadius: 6, maxhp: 20, minLevel:4, weight:5, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4, specialWidth: 5, specialRange: 1,
 		terrainTags: {"secondhalf":8, "lastthird":6}, shrines: ["Will"], floors:[0, 11], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}]},
+
 	{name: "Ninja", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "melee", "ropeRestraints", "ropeRestraints2", "meleeweakness", "search"]), followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true,
 		stunTime: 4, specialCD: 6, specialCharges: 6, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, strictAttackLOS: true,
 		visionRadius: 10, maxhp: 12, minLevel:4, weight:4, movePoints: 1, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2, specialWidth: 1, specialAttackPoints: 3, specialRange: 4, specialMinrange: 1.5, //specialFollow: 3,
@@ -152,13 +153,6 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 16, minLevel:0, weight:-80, movePoints: 99999, attackPoints: 1, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -50, "adjChest": -50, "door": -50, "open": 110}, floors:[2], shrines: ["Rope", "Will"]},
 
-	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
-		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
-		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
-		visionRadius: 6, maxhp: 14, minLevel:8, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"latexAnger": 2, "latexRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-		dropTable: []},
-
 	{name: "Alchemist", tags: KDMapInit(["opendoors", "leashing", "alchemist", "ranged", "leatherRestraints", "glueresist", "leatherRestraintsHeavy", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		spells: ["AmpuleGreen", "AmpuleYellow", "AmpuleRed", "AmpuleBlue"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, kite: 1.5, projectileAttack: true,
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:0, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
@@ -193,9 +187,15 @@ let KinkyDungeonEnemies = [
 		attack: "MeleeBindWillSuicide", attackPoints: 3, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", multiBind: 2,
 		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
+	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true,
+		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
+		visionRadius: 6, maxhp: 14, minLevel:8, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"latexAnger": 2, "latexRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: []},
 	{name: "WolfgirlPet", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt", cohesion: 0.9,
-		master: {type: "Wolfgirl", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true,
-		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4,
+		master: {type: "Wolfgirl", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true,
+		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
 		visionRadius: 6, maxhp: 14, minLevel:5, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"metalAnger": 2, "metalRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
@@ -478,8 +478,8 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 					let rep = KinkyDungeonGoddessRep[enemy.shrines[s]];
 					if (rep > 0) weightMulti *= Math.max(0, 1.0/(rep/50));
 					else if (rep < 0) {
-						weightMulti *= Math.max(1, 1 + 0.2/(-rep/50));
-						weightBonus += Math.min(10, -rep/8);
+						weightMulti = Math.max(weightMulti, Math.max(1, 1 + 0.2/(-rep/50)));
+						weightBonus = Math.max(weightBonus, Math.min(10, -rep/8));
 						effLevel += -rep/2.5;
 					}
 				}
@@ -1237,9 +1237,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (!playerIn) {
 					if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
+						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 					}
 					if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
+						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 					}
 				}
 			}
@@ -2257,9 +2259,11 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 			}
 			if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
 				enemy.specialCD = enemy.Enemy.specialCD;
+				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 			}
 			if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
 				enemy.specialCD = enemy.Enemy.specialCD;
+				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 			}
 		} else return true;
 		enemy.warningTiles = [];
@@ -2277,6 +2281,14 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 		if (!playerIn) {
 			enemy.attackPoints = Math.min(KinkyDungeonMovePoints >= 0 ? 1 : 0, enemy.attackPoints);
 			enemy.warningTiles = [];
+			if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
+				enemy.specialCD = enemy.Enemy.specialCD;
+				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+			}
+			if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
+				enemy.specialCD = enemy.Enemy.specialCD;
+				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+			}
 		}
 	}
 	return false;

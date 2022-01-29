@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -183,7 +183,7 @@ KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 24 t
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
-KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 12 stamina and 24 more over 12 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid concoction and feel less distracted.
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
@@ -1844,6 +1844,8 @@ KinkyDungeonSpellRubberBullets,Rubber Bullets
 KinkyDungeonRubberBullets,You are hit by a fusilade of rubber bullets!
 KinkyDungeonRubberBulletsAttach,The rubber bullets congeal into a slimy material on your body!
 
+KinkyDungeonSpellPoisonDragonBlast,Nature Blast
+
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
@@ -1939,6 +1941,19 @@ KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"The dragonheart's magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
+
+KinkyDungeonSpellTrapCharmsWeak,Charm Trap
+KinkyDungeonSpellTrapShackleWeak,Shackle Trap
+KinkyDungeonSpellTrapMummyWeak,Mummy Trap
+KinkyDungeonSpellTrapRopeWeak,Rope Trap
+KinkyDungeonSpellTrapRopeStrong,Rope Trap
+KinkyDungeonSpellTrapLeatherWeak,Belt Trap
+KinkyDungeonSpellTrapCableWeak,Cable Trap
+KinkyDungeonSpellTrapSlimeWeak,Slime Trap
+KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
+KinkyDungeonSpellTrapLustCloud,Gas Trap
+KinkyDungeonSpellTrapSleepDart,Sleep Dart
+
 KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
 KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"
 KinkyDungeonSpellCastTrapMummyWeak,"Bands of glowing wrappings start flying in from all sides!"

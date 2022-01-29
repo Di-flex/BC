@@ -1099,6 +1099,10 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 						if (Math.random() < trapChance && Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) > maxPlayerDist) {
 							// Place a trap or something at the other door if it's far enough from the player
 							trapLocations.push({x: room.door.x, y: room.door.y});
+							if (KDRandom() < 0.1) {
+								let dropped = {x:room.door.x, y:room.door.y, name: "Gold", amount: 1};
+								KinkyDungeonGroundItems.push(dropped);
+							}
 							lock = true;
 						} else if (((Math.random() < grateChance && (!room.room || room.room.length > minLockedRoomSize))
 								|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)

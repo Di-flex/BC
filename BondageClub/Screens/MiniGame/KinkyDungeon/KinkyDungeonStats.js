@@ -320,7 +320,7 @@ function KinkyDungeonUpdateStats(delta) {
 	let arousalBonus = KinkyDungeonSetMaxStats();
 	if (KDGameData.PlaySelfTurns < 1) arousalRate += arousalBonus;
 
-	let sleepRegen = KinkyDungeonStatStaminaRegenSleep;
+	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
 	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
 	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
