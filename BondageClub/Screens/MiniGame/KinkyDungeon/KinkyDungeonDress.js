@@ -341,8 +341,6 @@ function KinkyDungeonDressPlayer() {
 		}
 
 	}
-	CharacterRefresh(KinkyDungeonPlayer);
-
 }
 
 function KinkyDungeonWearForcedClothes() {
