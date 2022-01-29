@@ -145,8 +145,8 @@ function KinkyDungeonGetGoddessTrapTypes() {
 		trapTypes.push({ Name: "SpawnEnemies", Enemy: "TickleHand", Level: 0, Power: 6, Weight: 10 });
 	}
 	if (KinkyDungeonGoddessRep.Conjure < KDRAGE) {
-		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Conjurer", Level: 0, Power: 3, Weight: 200 });
-		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ConjurerTickler", Level: 0, Power: 3, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Conjurer", Level: 0, Power: 1, Weight: 200 });
+		trapTypes.push({ Name: "SpawnEnemies", Enemy: "ConjurerTickler", Level: 0, Power: 1, Weight: 200 });
 	}
 	if (KinkyDungeonGoddessRep.Illusion < KDANGER) {
 		trapTypes.push({ Name: "SpawnEnemies", Enemy: "Maidforce", Level: 0, Power: 3, Weight: 10 });

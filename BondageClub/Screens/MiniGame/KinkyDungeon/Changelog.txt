@@ -466,6 +466,7 @@ Bugfix:
 - Spear now costs 1.5 sp to use
 - When grabbed it tells you which restraint resulted in the grabbing
 - Various items will only be applied if you are at a lower level of stamina (like armbinders, jackets)
+- Fix crash when clicking chests
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
