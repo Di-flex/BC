@@ -362,7 +362,7 @@ function KinkyDungeonHandleHUD() {
 					return true;
 				}
 
-				if (((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Yellow") && (KinkyDungeonRedKeys > 0)
+				if (((KinkyDungeonTargetTile.Lock && KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Yellow") && (KinkyDungeonRedKeys > 0)
 					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0) )) && MouseIn(825, 825, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
