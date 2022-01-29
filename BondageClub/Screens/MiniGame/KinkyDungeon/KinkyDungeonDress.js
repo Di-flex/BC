@@ -9,7 +9,7 @@ let KinkyDungeonDefaultDefaultDress = [
 	{Item: "Socks4", Group: "Socks", Color: "#444444", Lost: false},
 	{Item: "Heels3", Group: "Shoes", Color: "#222222", Lost: false},
 	{Item: "KittyPanties1", Group: "Panties", Color: "#222222", Lost: false},
-	{Item: "FrameBra2", Group: "Bra", Color: "Default", Lost: false},
+	{Item: "FullLatexBra", Group: "Bra", Color: "Default", Lost: false},
 	{Item: "LatexElbowGloves", Group: "Gloves", Color: "Default", Lost: false},
 	{Item: "Necklace4", Group: "Necklace", Color: "#222222", Lost: false},
 ];
@@ -68,6 +68,34 @@ let KinkyDungeonDresses = {
 		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#7F3C9B", Lost: false},
 		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#7F3C9B", Lost: false},
 		{Item: "Catsuit", Group: "Gloves", Color: "#7F3C9B", Lost: false},
+	],
+	"BlueSuit" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#3873C3", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#3873C3", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#3873C3", Lost: false},
+	],
+	"BlueSuitPrison" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#3873C3", Lost: false},
+		{Item: "SeamlessCatsuit", Group: "SuitLower", Color: "#3873C3", Lost: false},
+		{Item: "Catsuit", Group: "Gloves", Color: "#3873C3", Lost: false},
+		{Item: "FaceVeil", Group: "Mask", Color: "#ffffff", Lost: false},
+	],
+	"Wolfgirl" : [
+		{Item: "PilotSuit", Group: "Suit", Color: ['#828FA2', '#323332', '#223525', '#383838', 'Default'], Lost: false},
+		{Item: "PilotPanties", Group: "SuitLower", Color: ['#828FA2', '#323332', '#223525'], Lost: false},
+		{Item: "LatexSocks1", Group: "Socks", Color: "#AAAAAA", Lost: false},
+	],
+	"Maid" : [
+		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#49403A", Lost: false},
+		{Item: "MaidApron2", Group: "Cloth", Color: "Default", Lost: false},
+		{Item: "FullLatexBra", Group: "Bra", Color: "#939393", Lost: false},
+		{Item: "Pantyhose2", Group: "SuitLower", Color: "#939393", Lost: false},
+		{Item: "LaceBands", Group: "Bracelet", Color: ['Default', '#151515'], Lost: false},
+		{Item: "ShortPlaidSkirt", Group: "ClothLower", Color: "#2E2E2E", Lost: false},
+		{Item: "Corset4", Group: "Corset", Color: "#4B4B4B", Lost: false},
+		{Item: "Band1", Group: "Hat", Color: "#767676", Lost: false},
+		{Item: "Shoes5", Group: "Shoes", Color: "#575757", Lost: false},
+		{Item: "Socks6", Group: "Socks", Color: ['#080808', 'Default'], Lost: false},
 	],
 };
 
@@ -163,7 +191,7 @@ function KinkyDungeonDressPlayer() {
 			if (clothes.Lost) KinkyDungeonUndress += 1/KinkyDungeonDresses[KinkyDungeonCurrentDress].length;
 		}
 
-		if (clothes.Lost != PreviouslyLost) KinkyDungeonStatArousal += 10/KinkyDungeonDresses[KinkyDungeonCurrentDress].length;
+		if (clothes.Lost != PreviouslyLost) KinkyDungeonChangeArousal(10/KinkyDungeonDresses[KinkyDungeonCurrentDress].length);
 
 		if (!clothes.Lost) {
 			if (KinkyDungeonCheckClothesLoss) {
@@ -182,13 +210,30 @@ function KinkyDungeonDressPlayer() {
 		if (clothes.Group == "Panties" && !KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = false; // A girl's best friend never leaves her
 	}
 
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.AssetGroup) {
+			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
+		}
+		if (inv.restraint && inv.restraint.forceUpperPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyUpper", inv.restraint.forceUpperPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
+		}
+		if (inv.restraint && inv.restraint.forceLowerPose) {
+			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", inv.restraint.forceLowerPose)) {
+				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
+			}
+		}
+	}
+	KinkyDungeonWearForcedClothes();
+
 	KinkyDungeonCheckClothesLoss = false;
 
-	if (KinkyDungeonStatStamina <= 1.1 || KinkyDungeonSleepTurns > 0) {
+	if (KinkyDungeonStatStamina <= 1.1 || KDGameData.SleepTurns > 0) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && !KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "Kneel", false);
 		}
-	} else if (KinkyDungeonSleepTurns < 1) {
+	} else if (KDGameData.SleepTurns < 1) {
 		if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 			CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 		}
@@ -199,16 +244,46 @@ function KinkyDungeonDressPlayer() {
 	let Eyes = "";
 	let Eyes2 = "";
 	let Eyebrows = "";
+	let Mouth = "";
+	let Fluids = "";
+
+	if (KinkyDungeonDrool && !KinkyDungeonCanTalk()) {
+		if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 8) Fluids = "DroolMessy";
+		else if (SpeechGetTotalGagLevel(KinkyDungeonPlayer) > 4) Fluids = "DroolMedium";
+		else Fluids = "DroolLow";
+	}
+	if (KinkyDungeonDrool && KDGameData.KinkyDungeonLeashedPlayer > 0) {
+		if (Fluids.includes("Drool")) Fluids = Fluids.replace("Drool", "DroolTears");
+		else Fluids = "TearsHigh";
+	}
+
+	if (KinkyDungeonSleepiness) {
+		Eyes = "Dazed";
+	}
 
 	if (KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.45) Eyes = "Sad";
 	if (KinkyDungeonStatStamina <= 12 || KinkyDungeonStatArousal > KinkyDungeonStatArousalMax/2) Eyes = "Dazed";
 
 	if (KinkyDungeonStatArousal > 6 || KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.33) Eyebrows = "Soft";
-	if (KinkyDungeonStatArousal > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5) Eyebrows = "Angry";
+
+	let chastityMult = KinkyDungeonChastityMult();
+	if (KinkyDungeonStatArousal > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5 && chastityMult > 0.9) Eyebrows = "Angry";
 
 	if (KinkyDungeonStatArousal >= KinkyDungeonStatArousalMax * 0.8) Eyes = (Eyebrows != "Angry" && KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.99) ? "Lewd" : "Scared";
 
 	if (KinkyDungeonStatArousal >= 0.01 && KinkyDungeonStatArousal <= 3) Eyes2 = "Closed";
+
+	if (KDGameData.OrgasmTurns > 0) {
+		Eyebrows = "Soft";
+		Eyes2 = "";
+		Eyes = "LewdHeart";
+	} else if (KDGameData.OrgasmStamina > 0) {
+		Eyebrows = "Soft";
+	} else if (KDGameData.OrgasmStage > 5 && Math.random() < 0.33) {
+		Eyebrows = "Angry";
+	} else if (KDGameData.OrgasmStage > 3 && Math.random() < 0.33) {
+		Eyebrows = "Angry";
+	}
 
 	if (KinkyDungeonStatStamina <= 4) {
 		Eyes = "Dazed";
@@ -243,6 +318,20 @@ function KinkyDungeonDressPlayer() {
 				CharacterRefresh(KinkyDungeonPlayer);
 			}
 		}
+		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Mouth") {
+			let property = KinkyDungeonPlayer.Appearance[A].Property;
+			if (!property || property.Expression != Mouth) {
+				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
+				CharacterRefresh(KinkyDungeonPlayer);
+			}
+		}
+		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Fluids") {
+			let property = KinkyDungeonPlayer.Appearance[A].Property;
+			if (!property || property.Expression != Fluids) {
+				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Fluids };
+				CharacterRefresh(KinkyDungeonPlayer);
+			}
+		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes)) {
@@ -252,5 +341,22 @@ function KinkyDungeonDressPlayer() {
 		}
 
 	}
+}
 
+function KinkyDungeonWearForcedClothes() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.alwaysDress) {
+			for (let dress of inv.restraint.alwaysDress) {
+				InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
+				if (dress.OverridePriority) {
+					let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
+					if (item) {
+						if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
+						else item.Property.OverridePriority = dress.OverridePriority;
+					}
+				}
+				CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
+			}
+		}
+	}
 }

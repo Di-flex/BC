@@ -5,6 +5,19 @@
 
 
 let KinkyDungeonSeeAll = false;
+let KinkyDungeonSeeThroughWalls = 0;
+
+function KinkyDungeonCheckProjectileClearance(x1, y1, x2, y2) {
+	let tiles = KinkyDungeonTransparentObjects;
+	let dist = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+	for (let d = 0; d < dist; d += 0.5) {
+		let mult = d / dist;
+		let xx = x1 + mult * (x2-x1);
+		let yy = y1 + mult * (y2-y1);
+		if (!tiles.includes(KinkyDungeonMapGet(Math.round(xx), Math.round(yy)))) return false;
+	}
+	return true;
+}
 
 function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 	let length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
@@ -28,7 +41,11 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 	return true;
 }
 
-function KinkyDungeonMakeLightMap(width, height, Lights) {
+function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
+	KinkyDungeonSeeThroughWalls = 0;
+
+	KinkyDungeonSendEvent("vision",{update: delta});
+
 	KinkyDungeonBlindLevelBase = 0; // Set to 0 when consumed. We only redraw lightmap once so this is safe.
 	KinkyDungeonLightGrid = "";
 	// Generate the grid
@@ -59,7 +76,7 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
 			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
 				let tile = KinkyDungeonMapGet(X, Y);
-				if ((KinkyDungeonTransparentObjects.includes(tile) || (X == KinkyDungeonPlayerEntity.x && Y == KinkyDungeonPlayerEntity.y)) && !visionBlockers[X + "," + Y]) {
+				if (((KinkyDungeonSeeThroughWalls || KinkyDungeonTransparentObjects.includes(tile)) || (X == KinkyDungeonPlayerEntity.x && Y == KinkyDungeonPlayerEntity.y)) && !visionBlockers[X + "," + Y]) {
 					let brightness = KinkyDungeonLightGet(X, Y);
 					if (brightness > 0) {
 						let nearbywalls = 0;
@@ -68,6 +85,13 @@ function KinkyDungeonMakeLightMap(width, height, Lights) {
 								if (!KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(XX, YY)) || visionBlockers[XX + "," + YY]) nearbywalls += 1;
 
 						if (nearbywalls > 3 && brightness <= 3 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) brightness -= 1;
+						if (KinkyDungeonSeeThroughWalls && !KinkyDungeonTransparentObjects.includes(tile)) {
+							if (KinkyDungeonSeeThroughWalls > 2)
+								brightness -= 2;
+							else if (KinkyDungeonSeeThroughWalls > 1)
+								brightness -= 3;
+							else brightness -= 4;
+						}
 
 						if (brightness > 0) {
 							if (Number(KinkyDungeonLightGet(X-1, Y)) < brightness) KinkyDungeonLightSet(X-1, Y, "" + (brightness - 1));

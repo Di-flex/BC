@@ -1379,3 +1379,124 @@ interface ICommand {
 	AutoComplete?: (this: Optional<ICommand, 'Tag'>, parsed: string[], low: string, msg: string) => void;
 	Clear?: false;
 }
+
+
+
+// Kinky Dungeon Typedefs
+interface KinkyDungeonSave {
+	level: number;
+    checkpoint: number;
+    rep: Record<string, number>;
+    costs: Record<string, number>;
+    orbs: number[];
+    chests: number[];
+    dress: string;
+    gold: number;
+    points: number;
+    levels: {
+        Elements: number;
+        Conjure: number;
+        Illusion: number;
+    };
+    id: number;
+    choices: number[];
+	choices2: boolean[];
+	buffs: Record<string, KinkyDungeonBuff>;
+	lostitems: KinkyDungeonInventoryItem[];
+	caches: number[];
+	spells: string[];
+	inventory: {
+		restraint: any;
+		looserestraint: any;
+		weapon: any;
+		consumable: any;
+	}[];
+	stats: {
+		picks: number;
+		keys: number;
+		bkeys: number;
+		knife: number;
+		eknife: number;
+		mana: number;
+		stamina: number;
+		arousal: number;
+		wep: any;
+		npp: number;
+	};
+}
+
+interface KinkyDungeonShopItem {
+	cost: any;
+	rarity: any;
+	costMod?: any;
+	shoptype: string;
+	name: any;
+}
+
+interface KinkyDungeonWeapon {
+	name: string;
+	dmg: number;
+	chance: number;
+	type: string;
+	rarity: number;
+	staminacost?: number;
+	magic?: boolean;
+	cutBonus?: number;
+	unarmed: boolean;
+	shop: boolean;
+	noequip?: boolean;
+	sfx: string;
+	events?: KinkyDungeonEvent[];
+}
+
+interface KinkyDungeonEvent {
+	type: string;
+	trigger: string;
+	power?: number;
+	damage?: string;
+	dist?: number;
+	buffType?: string;
+	time?: number;
+}
+
+interface KDGameDataBase {
+	KinkyDungeonSpawnJailers: number;
+	KinkyDungeonSpawnJailersMax: number;
+	KinkyDungeonLeashedPlayer: number;
+	KinkyDungeonLeashingEnemy: number;
+
+	KinkyDungeonJailGuard: number;
+	KinkyDungeonGuardTimer: number;
+	KinkyDungeonGuardTimerMax: number;
+	KinkyDungeonGuardSpawnTimer: number;
+	KinkyDungeonGuardSpawnTimerMax: number;
+	KinkyDungeonGuardSpawnTimerMin: number;
+	KinkyDungeonMaxPrisonReduction: number;
+	KinkyDungeonPrisonReduction: number;
+	KinkyDungeonPrisonExtraGhostRep: number;
+	PrisonGoodBehaviorFromLeash: number;
+
+	KinkyDungeonJailTourTimer: number;
+	KinkyDungeonJailTourTimerMin: number;
+	KinkyDungeonJailTourTimerMax: number;
+
+	KinkyDungeonPenanceCostCurrent: number;
+
+	KinkyDungeonAngel: number;
+	KDPenanceStage: number;
+	KDPenanceStageEnd: number;
+	AngelCurrentRep: string;
+	KDPenanceMode: string;
+
+	OrgasmStage: number;
+	OrgasmTurns: number;
+	OrgasmStamina: number;
+
+	SleepTurns: number;
+	PlaySelfTurns: number;
+
+	RescueFlag: boolean;
+
+	KinkyDungeonPenance: boolean;
+
+}
