@@ -15,7 +15,7 @@ function KinkyDungeonSendEvent(Event, data) {
 	KinkyDungeonSendMagicEvent(Event, data);
 	KinkyDungeonSendWeaponEvent(Event, data);
 	KinkyDungeonSendInventoryEvent(Event, data);
-	KinkyDungeonSendBulletEvent(Event, data);
+	KinkyDungeonSendBulletEvent(Event, data.bullet, data);
 }
 
 function KinkyDungeonResetEventVariables() {

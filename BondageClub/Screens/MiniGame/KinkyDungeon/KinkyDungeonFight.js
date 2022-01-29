@@ -687,7 +687,7 @@ function KinkyDungeonSendWeaponEvent(Event, data) {
 }
 
 function KinkyDungeonSendBulletEvent(Event, b, data) {
-	if (b.bullet && b.bullet.events)
+	if (b && b.bullet && b.bullet.events)
 		for (let e of b.bullet.events) {
 			if (e.trigger == Event) {
 				KinkyDungeonHandleBulletEvent(Event, b, data);
