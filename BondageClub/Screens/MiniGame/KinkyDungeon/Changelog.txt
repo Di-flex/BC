@@ -485,6 +485,8 @@ Bugfix:
 - Fixed a crash when looking at a blue locked chest
 - Added new messages for unlacing corsets, and the heavy latex corset is easier to remove now
 - Enemies (including the leash guard) should now recalculate if she gets stuck
+- Catgirls now have tails o.o
+-
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

@@ -179,14 +179,25 @@ let KinkyDungeonEnemies = [
 
 	{name: "Drone", color: "#ff3367", tags: KDMapInit(["ignoreharmless", "robot", "minor", "ranged", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness", "hitechCables", "cableGag", "jail", "search"]), AI: "patrol",
 		summon: [
-			{enemy: "Drone", range: 2, count: 2, chance: 1.0, strict: true},],
+			{enemy: "Drone", range: 2, count: 2, chance: 0.7, strict: true},],
 		armor: 2, maxhp: 4, movePoints: 3,
 		visionRadius: 6, followRange: 1, projectileAttack: true,
 		bindOnKneel: true, suicideOnAdd: true,
 		specialCD: 30, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 3, specialRange: 7, specialWidth: 1.5, specialMinrange: 3, specialsfx: "Laser", stunTime: 8,
 		attack: "MeleeBindWillSuicide", attackPoints: 3, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", multiBind: 2,
-		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 2}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
+	{name: "CaptureBot", color: "#aaaaaa",
+		tags: KDMapInit(["ignoreharmless", "robot", "melee", "elite", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness","hitechCables", "cableGag", "controlHarness", "jail", "search"]),
+		AI: "patrol",
+		summon: [
+			{enemy: "Drone", range: 2, count: 2, chance: 0.25, strict: true},],
+		armor: 2, maxhp: 8, movePoints: 2,
+		visionRadius: 8, followRange: 1, projectileAttack: true,
+		attack: "MeleeBindWill", attackPoints: 4, attackWidth: 3, tilesMinRange: 2, attackRange: 2, power: 6, dmgType: "crush", multiBind: 2,
+		minLevel:0, weight:-6, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 6, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10, noSummon: true}]},
+
 	{name: "AlchemistPet", color: "#00BC9D", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true,
 		specialCD: 11, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
@@ -2178,7 +2189,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 		let candidatePoint = KinkyDungeonGetRandomEnemyPoint(true, false, enemy);
 		if (candidatePoint) {
 			let distanceFromCell = Math.sqrt((xx - candidatePoint.x) * (xx - candidatePoint.x) + (yy - candidatePoint.y) * (yy - candidatePoint.y));
-			if (distanceFromCell > KinkyDungeonJailLeash * 3 && distanceFromCell < KinkyDungeonJailLeash * 6) {
+			if (distanceFromCell > KinkyDungeonJailLeash * 2 && distanceFromCell < KinkyDungeonJailLeash * 6) {
 				randomPoint = candidatePoint;
 				break;
 			}

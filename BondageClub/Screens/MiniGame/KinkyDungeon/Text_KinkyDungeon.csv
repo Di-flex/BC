@@ -231,7 +231,7 @@ KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
 KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
-KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with, even while bound!"
+KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
@@ -477,6 +477,12 @@ KillDrone,"The drone fizzles and falls to the ground!"
 AttackDroneStun,"The drone zaps you with a restraining energy ray! (-DamageTaken SP)"
 AttackDrone,"The drone uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackDroneBind,"The drone deconstructs itself into a set of bindings!"
+
+NameCaptureBot,Patrol Unit
+KillCaptureBot,"The patrol unit releases magic smoke and explodes."
+AttackCaptureBotStun,"The patrol unitzaps you with a restraining energy ray! (-DamageTaken SP)"
+AttackCaptureBot,"The patrol unit uses a short-ranged electrocution attack! (-DamageTaken SP)"
+AttackCaptureBotBind,"The patrol unit extends its appendages and wraps them around you!"
 
 NameAlkahestor,Alkahestor
 KillAlkahestor,"The alkahestor resigns to her fate."
@@ -821,6 +827,13 @@ KinkyDungeonStruggleRemoveImpossibleCorsetAroused,"You sigh as you can't find an
 KinkyDungeonStruggleRemoveImpossibleBoundCorset,"The laces are tied tight!"
 KinkyDungeonStruggleRemoveImpossibleBoundCorsetAroused,"You hopelessly try to untie the lacing but it's just too tight!"
 
+KinkyDungeonStruggleStrugglFailClamps,"You try to pull off the clamps..."
+KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
+KinkyDungeonStruggleStruggleImpossibleClamps,"That would really hurt..."
+KinkyDungeonStruggleStruggleImpossibleClampsAroused,"You realize that would really hurt..."
+KinkyDungeonStruggleStruggleImpossibleBoundClamps,"The clamps tug on your nipples as you squirm!"
+KinkyDungeonStruggleStruggleImpossibleBoundClampsAroused,"The clamps tug on your nipples as you squirm!"
+
 KinkyDungeonNeedOpenChest,"The chest is too smooth to help. Maybe if you opened it?"
 
 KinkyLockable,Lockable
@@ -938,6 +951,18 @@ KinkyDungeonInventoryItemBindingDress,BindingDress
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."
 RestraintBindingDressDesc2,"It is extremely strict but it is only fabric. The lacing is intricate and will take a long time to remove."
+
+RestraintDressBra,Dress Bustier
+RestraintDressBraDesc,"A deceptively cruel device, making it impossible to reach your nipples."
+RestraintDressBraDesc2,"Reinforced with steel plates, this will need bolt cutters to take off."
+
+RestraintNippleClamps,Nipple Massagers
+RestraintNippleClampsDesc,"A pair of little teasers."
+RestraintNippleClampsDesc2,"They will make for some great fun!"
+
+RestraintControlHarness,Control Harness
+RestraintControlHarnessDesc,"An advanced harness for controlling high-security prisoners."
+RestraintControlHarnessDesc2,"It seems to be made of flexible steel plates."
 
 RestraintLatexBallGag,Latex Ball Gag
 RestraintLatexBallGagDesc,"A devious device that looks like a ball gag, but has a mouth-filling rod on the inside."
@@ -2124,12 +2149,13 @@ KinkyDungeonTrapSpawnDrone,"A group of drones surround you!"
 KinkyDungeonTrapSpawnWolfgirl,"You are ambushed by wolfgirls!"
 KinkyDungeonTrapSpawnAlkahestor,"You are ambushed by an alkahestor!"
 KinkyDungeonTrapSpawnSmallSlime,"Small blobs of slime fall from the ceiling!"
-KinkyDungeonTrapSpawnSlimeEnthusiast,"You are ambushed by slime enthusiasts!"
+KinkyDungeonTrapSpawnSlimeEnthusiast,"You are ambushed by slime researchers!"
 KinkyDungeonTrapSpawnBigSlime,"A large blob of slime falls from the ceiling!"
-KinkyDungeonTrapSpawnElementalFire,"In a flash of light, a group of fire elementals appear around you!"
-KinkyDungeonTrapSpawnElementalIce,"In a flash of light, a group of ice elementals appear around you!"
-KinkyDungeonTrapSpawnElementalWater,"In a flash of light, a group of water elementals appear around you!"
-KinkyDungeonTrapSpawnElementalEarth,"In a flash of light, a group of earth elementals appear around you!"
+KinkyDungeonTrapSpawnElementalFire,"In a puff of smoke, a group of fire elementals appear around you!"
+KinkyDungeonTrapSpawnElementalIce,"In a flash of fog a group of ice elementals appear around you!"
+KinkyDungeonTrapSpawnElementalWater,"In a burst of mist, a group of water elementals appear around you!"
+KinkyDungeonTrapSpawnElementalEarth,"A group of earth elementals rise out of the ground!"
+KinkyDungeonTrapSpawnElementalLatex,"You hear pouring liquid and a group of latex elementals come out of the walls!"
 KinkyDungeonTrapSpawnElementalAir,"In a flash of light, a group of air elementals appear around you!"
 KinkyDungeonTrapSpawnTickleHand,"Several ethereal hands appear all around you!"
 KinkyDungeonTrapSpawnConjurer,"You have stumbled upon a conjurer's study!"
