@@ -187,15 +187,15 @@ let KinkyDungeonEnemies = [
 		attack: "MeleeBindWillSuicide", attackPoints: 3, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", multiBind: 2,
 		minLevel:0, weight:-4, terrainTags: {"thirdhalf":1, "increasingWeight":1, "metalAnger": 4, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
-	{name: "AlchemistPet", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "AlchemistPet", color: "#00BC9D", tags: KDMapInit(["opendoors", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true,
-		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
+		specialCD: 11, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
 		visionRadius: 6, maxhp: 14, minLevel:8, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"latexAnger": 2, "latexRage": 2}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
-	{name: "WolfgirlPet", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt", cohesion: 0.9,
+	{name: "WolfgirlPet", color: "#00BC9D", tags: KDMapInit(["opendoors", "wolfgirl", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt", cohesion: 0.9,
 		master: {type: "Wolfgirl", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true,
-		specialCD: 8, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
+		specialCD: 11, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 2,
 		visionRadius: 6, maxhp: 14, minLevel:5, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"metalAnger": 3, "metalRage": 3}, shrines: ["Latex", "Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
@@ -365,14 +365,14 @@ let KinkyDungeonEnemies = [
 
 	{name: "Mummy", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "melee", "witch", "elite", "mummyRestraints", "iceresist", "meleeweakness", "hunter"]), followLeashedOnly: true, followRange: 1,
 		spells: ["MummyBolt"], minSpellRange: 1.5, specialCD: 3, specialAttack: "Bind", spellCooldownMult: 1, spellCooldownMod: 5,
-		AI: "hunt", visionRadius: 7, maxhp: 8, minLevel:5, weight:11, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 1, dmgType: "crush",
-		terrainTags: {"secondhalf":2, "lastthird":2, "open": 2, "increasingWeight":1}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "PotionStamina", weight: 1}, {name: "BlueKey", weight: 1}]},
+		AI: "hunt", visionRadius: 7, maxhp: 8, minLevel:5, weight:18, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 1, dmgType: "crush",
+		terrainTags: {"secondhalf":2, "lastthird":4, "open": 2, "increasingWeight":1}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "PotionStamina", weight: 1}, {name: "BlueKey", weight: 1}]},
 	{name: "Cleric", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "ranged", "search"]), followLeashedOnly: true, followRange: 4, attackThruBars: true,
-		AI: "guard", visionRadius: 7, maxhp: 8, minLevel:0, weight:8, movePoints: 1, attackPoints: 3, attack: "MeleeWillStun", attackWidth: 1, attackRange: 6, power: 3, fullBoundBonus: 1, dmgType: "crush", noCancelAttack: true, strictAttackLOS: true,
-		terrainTags: {"secondhalf":2, "lastthird":4, "passage": -99, "open": 4}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionMana", weight: 1}, {name: "RedKey", weight: 1}]},
+		AI: "guard", visionRadius: 7, maxhp: 8, minLevel:0, weight:18, movePoints: 1, attackPoints: 3, attack: "MeleeWillStun", attackWidth: 1, attackRange: 6, power: 3, fullBoundBonus: 1, dmgType: "crush", noCancelAttack: true, strictAttackLOS: true,
+		terrainTags: {"secondhalf":0, "lastthird":1, "passage": -99, "open": 4}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionMana", weight: 1}, {name: "RedKey", weight: 1}]},
 	{name: "MeleeCleric", tags: KDMapInit(["leashing", "opendoors", "closedoors", "melee", "kittyRestraints", "search"]), followRange: 1, blindSight: 4, specialCD: 3, specialAttack: "Bind",
-		AI: "hunt", visionRadius: 6, maxhp: 8, minLevel:0, weight:10, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 2, dmgType: "grope",
-		terrainTags: {"secondhalf":2, "lastthird":2}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionStamina", weight: 1}, {name: "RedKey", weight: 1}]},
+		AI: "hunt", visionRadius: 6, maxhp: 8, minLevel:0, weight:20, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 2, dmgType: "grope",
+		terrainTags: {"secondhalf":0, "lastthird":-2}, floors:[11], shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionStamina", weight: 1}, {name: "RedKey", weight: 1}]},
 
 	{name: "Jailer", tags: KDMapInit(["leashing", "opendoors", "closedoors", "jailer", "melee", "shackleRestraints"]), keys: true, followRange: 1, AI: "patrol", visionRadius: 7, maxhp: 12, minLevel: -1, weight:0, movePoints: 1, attackPoints: 3, attack: "MeleeBindLockAllWill", attackWidth: 1, attackRange: 1, power: 5, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"jailer": 15}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], disarm: 0.5, evasion: -0.5,
@@ -672,20 +672,21 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 
 function KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
-		var enemy = KinkyDungeonEntities[E];
+		let enemy = KinkyDungeonEntities[E];
 		if (enemy.warningTiles) {
 			for (let T=0; T<enemy.warningTiles.length; T++) {
-				var tx = enemy.x + enemy.warningTiles[T].x;
-				var ty = enemy.y + enemy.warningTiles[T].y;
+				let tx = enemy.x + enemy.warningTiles[T].x;
+				let ty = enemy.y + enemy.warningTiles[T].y;
+				let special = enemy.usingSpecial ? "Special" : "";
 				//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
 				if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay && !(tx == enemy.x && ty == enemy.y)) {
 					if (enemy.Enemy.color)
-						DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColor.png", KinkyDungeonContext,
+						DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColor" + special + ".png", KinkyDungeonContext,
 							(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 							KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
 							enemy.Enemy.color, true, []);
 					else
-						DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((enemy.Enemy && enemy.Enemy.allied) ? "WarningAlly.png" : "Warning.png"),
+						DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((enemy.Enemy && enemy.Enemy.allied) ? "WarningAlly" + special + ".png" : "Warning" + special + ".png"),
 							KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 							(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 							KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
@@ -1012,7 +1013,6 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	}
 
 	let attack = enemy.Enemy.attack;
-	let usingSpecial = false;
 	let range = enemy.Enemy.attackRange;
 	let width = enemy.Enemy.attackWidth;
 	let accuracy = enemy.Enemy.accuracy ? enemy.Enemy.accuracy : 1.0;
@@ -1026,25 +1026,28 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		if (!attack.includes("Bind")) attack = "Bind" + attack;
 	}
 
+	let refreshWarningTiles = false;
+
 	let hitsfx = (enemy.Enemy && enemy.Enemy.hitsfx) ? enemy.Enemy.hitsfx : "";
 	let playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
 	if (KinkyDungeonAlert && playerDist < KinkyDungeonAlert) enemy.aware = true;
 	if (enemy.Enemy.specialAttack && (!enemy.specialCD || enemy.specialCD <= 0) && (!enemy.Enemy.specialMinrange || playerDist > enemy.Enemy.specialMinrange)) {
 		attack = attack + enemy.Enemy.specialAttack;
-		usingSpecial = true;
+		refreshWarningTiles = !enemy.usingSpecial;
+		enemy.usingSpecial = true;
 		if (enemy.Enemy && enemy.Enemy.hitsfxSpecial) hitsfx = enemy.Enemy.hitsfxSpecial;
 
 		if (enemy.Enemy.specialRemove) attack = attack.replace(enemy.Enemy.specialRemove, "");
-		if (enemy.Enemy.specialRange && usingSpecial) {
+		if (enemy.Enemy.specialRange && enemy.usingSpecial) {
 			range = enemy.Enemy.specialRange;
 		}
-		if (enemy.Enemy.specialWidth && usingSpecial) {
+		if (enemy.Enemy.specialWidth && enemy.usingSpecial) {
 			width = enemy.Enemy.specialWidth;
 		}
-		if (enemy.Enemy.specialPower && usingSpecial) {
+		if (enemy.Enemy.specialPower && enemy.usingSpecial) {
 			power = enemy.Enemy.specialPower;
 		}
-		if (enemy.Enemy.specialDamage && usingSpecial) {
+		if (enemy.Enemy.specialDamage && enemy.usingSpecial) {
 			damage = enemy.Enemy.specialDamage;
 		}
 	}
@@ -1078,7 +1081,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if ((canSensePlayer || canSeePlayer || canShootPlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) enemy.aware = true;
 
 	let kite = false;
-	if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
+	if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !enemy.usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
 		if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KDGameData.SleepTurns > 0))
 			if (!enemy.Enemy.noKiteWhenHarmless || !harmless)
 				kite = true;
@@ -1214,6 +1217,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		}
 	}
 
+	if (enemy.usingSpecial && !enemy.specialCD) enemy.specialCD = 0;
+
 	playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
 	if ((!enemy.Enemy.followLeashedOnly || KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
 		&& (AI != "ambush" || enemy.ambushtrigger) && !ignore && (!moved || enemy.Enemy.attackWhileMoving)
@@ -1226,26 +1231,25 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 		let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
 		let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KDGameData.KinkyDungeonLeashingEnemy == enemy.id) ? enemy.Enemy.movePoints+1 : enemy.Enemy.attackPoints;
-		if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, usingSpecial)) {
-			if (enemy.warningTiles.length == 0) {
+		if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, enemy.usingSpecial, refreshWarningTiles)) {
+			if (enemy.warningTiles.length == 0 || (refreshWarningTiles && enemy.usingSpecial)) {
 				let minrange = enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1;
-				if (usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
-				if (!usingSpecial || enemy.specialCD < 1)
+				if (enemy.usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
+				if ((!enemy.usingSpecial && enemy.attackPoints > 0) || enemy.specialCD < 1)
 					enemy.warningTiles = KinkyDungeonGetWarningTiles(player.x - enemy.x, player.y - enemy.y, range, width, minrange);
+				if (refreshWarningTiles && enemy.usingSpecial) enemy.attackPoints = Math.min(enemy.attackPoints, delta);
 			} else {
 				let playerIn = false;
 				for (let tile of enemy.warningTiles) {
 					if (player.x == enemy.x + tile.x && player.y == enemy.y + tile.y) {playerIn = true; break;}
 				}
 				if (!playerIn) {
-					if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
+					if (enemy.Enemy.specialRange && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
-						enemy.warningTiles = [];
 						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 					}
-					if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
+					if (enemy.Enemy.specialWidth && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
-						enemy.warningTiles = [];
 						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
 					}
 				}
@@ -1292,7 +1296,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			}
 		} else { // Attack lands!
 			enemy.revealed = true;
-			let hit = ((usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap) <= 1;
+			let hit = ((enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap) <= 1;
 			for (let W = 0; W < enemy.warningTiles.length; W++) {
 				let tile = enemy.warningTiles[W];
 				if (enemy.x + tile.x == player.x && enemy.y + tile.y == player.y) {
@@ -1334,8 +1338,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 							priorityBonus += Lockable[L].restraint.power;
 						}
 						Locked = true;
-						if (usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) enemy.specialCD = enemy.Enemy.specialCD;
-					} else if (attack.includes("Bind") && ((!usingSpecial && !enemy.Enemy.bindOnKneel) || (usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
+						if (enemy.usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+					} else if (attack.includes("Bind") && ((!enemy.usingSpecial && !enemy.Enemy.bindOnKneel) || (enemy.usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
 						let numTimes = 1;
 						if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 						for (let times = 0; times < numTimes; times++) {
@@ -1347,7 +1353,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 								addedRestraint = true;
 							}
 						}
-						if (usingSpecial && addedRestraint && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Bind")) enemy.specialCD = enemy.Enemy.specialCD;
+						if (enemy.usingSpecial && addedRestraint && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Bind")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
 						if (!addedRestraint && enemy.Enemy.fullBoundBonus) {
 							willpowerDamage += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 						}
@@ -1424,7 +1432,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 											KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints+1;
 											KinkyDungeonSleepTime = CommonTime() + 200;
 										}
-										if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
+										if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) {
+											enemy.specialCD = enemy.Enemy.specialCD;
+										}
 										if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'D')  {
 											KinkyDungeonMapSet(enemy.x, enemy.y, 'd');
 											if (KinkyDungeonTiles[enemy.x + ',' +enemy.y] && KinkyDungeonTiles[enemy.x + ',' +enemy.y].Type == "Door")
@@ -1443,7 +1453,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 									if (!KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y)
 										&& Math.sqrt((leashPoint.x - enemy.x) * (leashPoint.x - enemy.x) + (leashPoint.y - enemy.y) * (leashPoint.y - enemy.y)) < playerDist
 										&& Math.sqrt((leashPoint.x - player.x) * (leashPoint.x - player.x) + (leashPoint.y - player.y) * (leashPoint.y - player.y)) <= pullDist * 1.45) {
-										if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) enemy.specialCD = enemy.Enemy.specialCD;
+										if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) {
+											enemy.specialCD = enemy.Enemy.specialCD;
+										}
 										KDGameData.KinkyDungeonLeashedPlayer = 2;
 										KDGameData.KinkyDungeonLeashingEnemy = enemy.id;
 										player.x = leashPoint.x;
@@ -1496,7 +1508,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 							enemy.y = tile.y;
 							enemy.path = undefined;
 							happened += 1;
-							if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Dash")) enemy.specialCD = enemy.Enemy.specialCD;
+							if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Dash")) {
+								enemy.specialCD = enemy.Enemy.specialCD;
+							}
 						}
 					}
 				}
@@ -1507,7 +1521,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (buffdmg) willpowerDamage = Math.max(0, willpowerDamage + buffdmg);
 					replace.push({keyword:"DamageTaken", value: willpowerDamage});
 					msgColor = "#ff8888";
-					if (usingSpecial && willpowerDamage > 0 && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Will")) enemy.specialCD = enemy.Enemy.specialCD;
+					if (enemy.usingSpecial && willpowerDamage > 0 && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Will")) {
+						enemy.specialCD = enemy.Enemy.specialCD;
+					}
 				}
 				if (player.player) {
 					happened += KinkyDungeonDealDamage({damage: willpowerDamage, type: damage});
@@ -1517,19 +1533,25 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					}
 					if (attack.includes("Slow")) {
 						KinkyDungeonMovePoints = Math.max(KinkyDungeonMovePoints - 2, -1);
-						if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Slow")) enemy.specialCD = enemy.Enemy.specialCD;
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Slow")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
 						happened += 1;
 					}
 					if (attack.includes("Effect") && enemy.Enemy.effect) {
 						let affected = KinkyDungeonPlayerEffect(enemy.Enemy.effect.damage, enemy.Enemy.effect.effect, enemy.Enemy.effect.spell);
-						if (affected && usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Effect")) enemy.specialCD = enemy.Enemy.specialCD;
+						if (affected && enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Effect")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
 						happened += 1;
 					}
 					if (attack.includes("Stun")) {
 						let time = enemy.Enemy.stunTime ? enemy.Enemy.stunTime : 1;
 						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, time);
 						KinkyDungeonMovePoints = Math.max(Math.min(-1, -time+1), KinkyDungeonMovePoints-time); // This is to prevent stunlock while slowed heavily
-						if (usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Stun")) enemy.specialCD = enemy.Enemy.specialCD;
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Stun")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
 						happened += 1;
 						priorityBonus += 3*time;
 						Stun = true;
@@ -1550,7 +1572,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					}
 				}
 
-				if (usingSpecial && enemy.specialCD > 0 && enemy.Enemy.specialCharges) {
+				if (enemy.usingSpecial && enemy.specialCD > 0 && enemy.Enemy.specialCharges) {
 					if (enemy.specialCharges == undefined) enemy.specialCharges = enemy.Enemy.specialCharges-1;
 					else enemy.specialCharges -= 1;
 				}
@@ -1563,7 +1585,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (Dash) suffix = "Dash";
 
 					let sfx = (hitsfx) ? hitsfx : (willpowerDamage > 1 ? "Damage" : "DamageWeak");
-					if (usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
+					if (enemy.usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
 					KinkyDungeonSendEvent("hit", {
 						happened: happened,
 						attack: attack,
@@ -1587,6 +1609,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			KinkyDungeonTickBuffTag(enemy.buffs, "damage", 1);
 
 			enemy.warningTiles = [];
+			if (enemy.usingSpecial) enemy.usingSpecial = false;
 		}
 	} else {
 		enemy.warningTiles = [];
@@ -1673,6 +1696,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (vibe || (enemy.Enemy.remote && playerDist < enemy.Enemy.remote)) {
 		KinkyDungeonChargeRemoteVibrators(enemy.Enemy.name, enemy.Enemy.remoteAmount ? enemy.Enemy.remoteAmount : 5, vibe, vibe);
 	}
+	if (enemy.usingSpecial && (idle || (moved && !enemy.Enemy.attackWhileMoving)) && enemy.Enemy.specialCDonAttack) {
+		enemy.specialCD = enemy.Enemy.specialCD;
+	}
+	if (enemy.specialCD > 0) enemy.usingSpecial = false;
 	return idle;
 }
 
@@ -2248,37 +2275,8 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 	return false;
 }
 
-function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor, usingSpecial) {
-	enemy.attackPoints += delta;
-
-	if (enemy.attackPoints >= points) {
-		enemy.attackPoints = 0;
-		if (points > 1) {
-			for (let T = 0; T < Tiles.length; T++) {
-				let ax = enemy.x + Tiles[T].x;
-				let ay = enemy.y + Tiles[T].y;
-
-				if (player.x == ax && player.y == ay && (!enemy.Enemy.strictAttackLOS || KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) {
-					return true;
-				}
-			}
-			if (Tiles.length > 0) {
-				if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
-					enemy.specialCD = enemy.Enemy.specialCD;
-					enemy.attackPoints = 0;
-					enemy.warningTiles = [];
-					if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
-				}
-				if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
-					enemy.specialCD = enemy.Enemy.specialCD;
-					enemy.attackPoints = 0;
-					enemy.warningTiles = [];
-					if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
-				}
-			}
-		} else return true;
-		enemy.warningTiles = [];
-	} else if (!enemy.Enemy.noCancelAttack) { // Verify player is in warningtiles and reset otherwise
+function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor, usingSpecial, refreshWarningTiles) {
+	if (!enemy.Enemy.noCancelAttack && !refreshWarningTiles && points > 1) {
 		let playerIn = false;
 		for (let T = 0; T < Tiles.length; T++) {
 			let ax = enemy.x + Tiles[T].x;
@@ -2289,18 +2287,32 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 				break;
 			}
 		}
+
 		if (!playerIn && Tiles.length > 0) {
-			enemy.attackPoints = Math.min(KinkyDungeonMovePoints >= 0 ? 1 : 0, enemy.attackPoints);
-			enemy.warningTiles = [];
-			if (enemy.Enemy.specialRange && usingSpecial && enemy.Enemy.specialCDonAttack) {
+			if (enemy.Enemy.specialRange && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 				enemy.specialCD = enemy.Enemy.specialCD;
+				enemy.attackPoints = 0;
+				enemy.warningTiles = [];
+				enemy.usingSpecial = false;
 				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+				return false;
 			}
-			if (enemy.Enemy.specialWidth && usingSpecial && enemy.Enemy.specialCDonAttack) {
+			if (enemy.Enemy.specialWidth && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 				enemy.specialCD = enemy.Enemy.specialCD;
+				enemy.attackPoints = 0;
+				enemy.warningTiles = [];
+				enemy.usingSpecial = false;
 				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+				return false;
 			}
 		}
+	}
+
+	enemy.attackPoints += delta;
+
+	if (enemy.attackPoints >= points) {
+		enemy.attackPoints = 0;
+		return true;
 	}
 	return false;
 }
