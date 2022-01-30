@@ -288,7 +288,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "open": 1, "elementsAnger": 8, "elementsRage": 3,}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"],
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "IceRune", weight: 1}]},
 	{name: "ElementalWater", color: "#57ff88", tags: KDMapInit(["opendoors", "elemental", "ranged", "fireresist", "electricweakness", "latexRestraints", "elite", "leashing", "hunter"]), armor: 0, kite: 1.5, followRange: 3, AI: "hunt", evasion: 0.25, summon: [{enemy: "ElementalIce", range: 2.5, count: 1, chance: 0.6, strict: true}],
-		specialCD: 5, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 4, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2,
+		specialCD: 5, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 4, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", hitsfx: "Song", tilesMinRangeSpecial: 2,
 		visionRadius: 8, maxhp: 12, minLevel:4, weight:-2, movePoints: 1, convertTiles: [{from: "0", to: "w"}], followLeashedOnly: true,
 		attackPoints: 3,attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "charm", fullBoundBonus: 3, pullTowardSelf: true, pullDist: 2, pullMsg: true,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "open": 1, "elementsAnger": 8, "elementsRage": 3, "illusionAnger": 2, "latexAnger": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements"],
@@ -2019,7 +2019,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 						KDGameData.KinkyDungeonLeashingEnemy = KinkyDungeonJailGuard().id;
 						KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().NextJailLeashTourWaypointX;
 						KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().NextJailLeashTourWaypointY;
-						let guardPath = KinkyDungeonFindPath(KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().y, KinkyDungeonJailGuard().gx, KinkyDungeonJailGuard().gy, true, false, true, KinkyDungeonMovableTiles);
+						let guardPath = KinkyDungeonFindPath(KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().y, KinkyDungeonJailGuard().gx, KinkyDungeonJailGuard().gy, false, false, true, KinkyDungeonMovableTiles);
 						if (guardPath && guardPath.length > 0) {
 							if (guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
 								// Swap the player and the guard
