@@ -210,7 +210,7 @@ KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to us
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
 KinkyDungeonInventoryItemStaffBind,Staff of Binding
 KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
-KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 3 turns."
+KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 4 turns."
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
@@ -812,6 +812,14 @@ KinkyDungeonStruggleCutImpossibleBound,"You can't hold a knife, let alone cut th
 KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as the knife bounces around uselessly."
 KinkyDungeonStruggleCutStrict,"Your arms are kept from having leverage due to another item."
 KinkyDungeonStruggleCutStrictAroused,"You fiddle with the tool, but your arms lack leverage due to another item"
+
+
+KinkyDungeonStruggleRemoveFailCorset,"You work to unlace the corset..."
+KinkyDungeonStruggleRemoveFailCorsetAroused,"You hurriedly try to unlace the corset..."
+KinkyDungeonStruggleRemoveImpossibleCorset,"The corset has no laces to loosen!"
+KinkyDungeonStruggleRemoveImpossibleCorsetAroused,"You sigh as you can't find any laces to loosen."
+KinkyDungeonStruggleRemoveImpossibleBoundCorset,"The laces are tied tight!"
+KinkyDungeonStruggleRemoveImpossibleBoundCorsetAroused,"You hopelessly try to untie the lacing but it's just too tight!"
 
 KinkyDungeonNeedOpenChest,"The chest is too smooth to help. Maybe if you opened it?"
 

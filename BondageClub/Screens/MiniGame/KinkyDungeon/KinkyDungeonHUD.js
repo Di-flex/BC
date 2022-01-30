@@ -350,7 +350,7 @@ function KinkyDungeonHandleHUD() {
 
 		if (KinkyDungeonTargetTile) {
 			if (KinkyDungeonTargetTile.Type &&
-				((KinkyDungeonTargetTile.Type == "Lock") || (KinkyDungeonTargetTile.Type == "Door" && KinkyDungeonTargetTile.Lock))) {
+				((KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) || (KinkyDungeonTargetTile.Type == "Door" && KinkyDungeonTargetTile.Lock))) {
 				if (KinkyDungeonLockpicks > 0 && MouseIn(963, 825, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonPickAttempt()) {
@@ -362,8 +362,8 @@ function KinkyDungeonHandleHUD() {
 					return true;
 				}
 
-				if (((KinkyDungeonTargetTile.Lock && KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Yellow") && (KinkyDungeonRedKeys > 0)
-					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0) )) && MouseIn(825, 825, 112, 60)) {
+				if (((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
+					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(825, 825, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
 						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;

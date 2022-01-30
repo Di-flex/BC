@@ -45,6 +45,7 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonDrawState = "Game";
 		KinkyDungeonTargetingSpell = null;
 		KinkyDungeonSpellPress = 0;
+		KDRepSelectionMode = "";
 	}
 
 	KinkyDungeonCapStats();
