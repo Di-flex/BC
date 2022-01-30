@@ -41,7 +41,11 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonDrawState == "Game")
 		KinkyDungeonListenKeyMove();
-	if ((KinkyDungeonGameKey.keyPressed[9])) {KinkyDungeonDrawState = "Game";}
+	if ((KinkyDungeonGameKey.keyPressed[9])) {
+		KinkyDungeonDrawState = "Game";
+		KinkyDungeonTargetingSpell = null;
+		KinkyDungeonSpellPress = 0;
+	}
 
 	KinkyDungeonCapStats();
 
