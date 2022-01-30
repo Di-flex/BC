@@ -477,6 +477,7 @@ Bugfix:
 
 2.6.4
 - Skip button now cancels spell targeting
+- Reworked state machine for attacks. Wolfgirls, bast warriors, mummies, zombie warriors should be more consistent
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
