@@ -1429,7 +1429,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 										enemy.y = leashPoint.y;
 										hitsfx = "Struggle";
 										if (!KinkyDungeonHasStamina(1.1)) {
-											KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints+1;
+											KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints;
 											KinkyDungeonSleepTime = CommonTime() + 200;
 										}
 										if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) {
