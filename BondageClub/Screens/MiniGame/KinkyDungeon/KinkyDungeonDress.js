@@ -215,9 +215,10 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.AssetGroup) {
-			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
-		}
+		if (KinkyDungeonCheckClothesLoss)
+			if (inv.restraint && inv.restraint.AssetGroup) {
+				InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
+			}
 		if (inv.restraint && inv.restraint.forceUpperPose) {
 			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyUpper", inv.restraint.forceUpperPose)) {
 				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
@@ -229,7 +230,8 @@ function KinkyDungeonDressPlayer() {
 			}
 		}
 	}
-	KinkyDungeonWearForcedClothes();
+	if (KinkyDungeonCheckClothesLoss)
+		KinkyDungeonWearForcedClothes();
 
 	KinkyDungeonCheckClothesLoss = false;
 
