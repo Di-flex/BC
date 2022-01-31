@@ -302,6 +302,7 @@ let KinkyDungeonCreditsPos = 0;
 let KinkyDungeonPatronPos = 0;
 let KinkyDungeonSound = true;
 let KinkyDungeonDrool = true;
+let KinkyDungeonGraphicsQuality = true;
 let KinkyDungeonFastWait = true;
 
 function KinkyDungeonRun() {

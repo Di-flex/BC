@@ -513,6 +513,20 @@ function KinkyDungeonHandleHUD() {
 			localStorage.setItem("KinkyDungeonDrool", KinkyDungeonDrool ? "True" : "False");
 			return true;
 		}
+		if (MouseIn(600, 260, 64, 64) && (ServerURL == "foobar")) {
+			KinkyDungeonGraphicsQuality = !KinkyDungeonGraphicsQuality;
+			localStorage.setItem("KinkyDungeonDrool", KinkyDungeonGraphicsQuality ? "True" : "False");
+			if (KinkyDungeonGraphicsQuality) {
+				// @ts-ignore
+				if (!Player.GraphicsSettings) Player.GraphicsSettings = {};
+				Player.GraphicsSettings.AnimationQuality = 0;
+			} else {
+				// @ts-ignore
+				if (!Player.GraphicsSettings) Player.GraphicsSettings = {};
+				Player.GraphicsSettings.AnimationQuality = 10000;
+			}
+			return true;
+		}
 		if (MouseIn(600, 650, 64, 64)) {
 			KinkyDungeonFastWait = !KinkyDungeonFastWait;
 			return true;
