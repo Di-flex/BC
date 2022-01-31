@@ -1525,6 +1525,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 										}
 										KinkyDungeonPlayerEntity.x = enemy.x;
 										KinkyDungeonPlayerEntity.y = enemy.y;
+										KinkyDungeonTargetTile = null;
 										enemy.x = leashPoint.x;
 										enemy.y = leashPoint.y;
 										hitsfx = "Struggle";
