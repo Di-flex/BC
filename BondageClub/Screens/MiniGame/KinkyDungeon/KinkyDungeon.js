@@ -71,6 +71,7 @@ let KinkyDungeonConfigAppearance = false;
 * RescueFlag: boolean;
 * KinkyDungeonPenance: boolean;
 * GuardApplyTime: number;
+* WarningLevel: number;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -113,6 +114,8 @@ let KDGameDataBase = {
 	SleepTurns: 0,
 	PlaySelfTurns: 0,
 	GuardApplyTime: 0,
+
+	WarningLevel: 0,
 };
 /**
  * @type {KDGameDataBase}

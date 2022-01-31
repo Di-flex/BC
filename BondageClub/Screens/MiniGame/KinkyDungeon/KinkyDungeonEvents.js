@@ -171,9 +171,14 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			} else if (e.type == "PunishPlayer" && e.trigger == "playerAttack" && item.restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
-				if (KDRandom() < e.chance) {
+				if (KDRandom() < e.chance || (KDGameData.WarningLevel > 2 && KDRandom() < e.warningchance)) {
+					if (e.stun && KDGameData.WarningLevel > 2) {
+						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, e.stun);
+						KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
+					}
+					KDGameData.WarningLevel += 1;
 					KinkyDungeonDealDamage({damage: e.power, type: e.damage});
-					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer" + (KDGameData.WarningLevel > 2 ? "Harsh" : "")).replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			}
@@ -187,9 +192,14 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			} else if (e.type == "PunishPlayer" && e.trigger == "playerCast" && data.spell && item.restraint && (!e.punishComponent || (data.spell.components && data.spell.components.includes(e.punishComponent)))) {
-				if (KDRandom() < e.chance) {
+				if (KDRandom() < e.chance || (KDGameData.WarningLevel > 2 && KDRandom() < e.warningchance)) {
+					if (e.stun && KDGameData.WarningLevel > 2) {
+						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, e.stun);
+						KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
+					}
+					KDGameData.WarningLevel += 1;
 					KinkyDungeonDealDamage({damage: e.power, type: e.damage});
-					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer" + (KDGameData.WarningLevel > 2 ? "Harsh" : "")).replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			}

@@ -133,7 +133,7 @@ function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 
 function KinkyDungeonGetImmunity(tags, type, resist) {
 	if (tags && tags.has(type + resist)
-		|| (KinkyDungeonMeleeDamageTypes.includes(type) && tags.has("melee" + resist))
+		|| ((KinkyDungeonMeleeDamageTypes.includes(type) && (type != "unarmed" || !resist.includes("weakness"))) && tags.has("melee" + resist))
 		|| (!KinkyDungeonMeleeDamageTypes.includes(type) && tags.has("magic"+resist)))
 		return true;
 	return false;

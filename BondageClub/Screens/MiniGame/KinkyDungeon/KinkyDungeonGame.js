@@ -1840,6 +1840,11 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 	KinkyDungeonLastTurnAction = KinkyDungeonLastAction;
 	KinkyDungeonLastAction = "";
+
+	if (KinkyDungeonLastTurnAction != "Attack" && KDGameData.WarningLevel > 0) {
+		if (KDRandom() < 0.1) KDGameData.WarningLevel -= delta;
+		if (KDGameData.WarningLevel > 5) KDGameData.WarningLevel = 5;
+	}
 }
 
 

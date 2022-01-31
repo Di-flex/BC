@@ -459,6 +459,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 }
 
 function KinkyDungeonDefeat() {
+	KDGameData.WarningLevel = 0;
 	//MiniGameKinkyDungeonLevel = Math.min(MiniGameKinkyDungeonLevel, Math.max(Math.floor(MiniGameKinkyDungeonLevel/10)*10, MiniGameKinkyDungeonLevel - KinkyDungeonSpawnJailers + KinkyDungeonSpawnJailersMax - 1));
 	KinkyDungeonSendEvent("defeat", {});
 
