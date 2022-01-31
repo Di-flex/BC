@@ -212,7 +212,7 @@ function KinkyDungeonMissingJailUniform() {
 }
 
 function KinkyDungeonTooMuchRestraint() {
-	let Groups = ["ItemArms", "ItemHands", "ItemHead", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemLegs", "ItemFeet"];
+	let Groups = ["ItemArms", "ItemHands", "ItemHead", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemLegs", "ItemFeet", "ItemHands"];
 
 	for (let g of KinkyDungeonStruggleGroupsBase) {
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
@@ -224,7 +224,7 @@ function KinkyDungeonTooMuchRestraint() {
 		let currentItem = KinkyDungeonGetRestraintItem(g);
 		if (
 			(!rest && currentItem) // There shouldnt be one here
-			|| (rest && currentItem && currentItem.restraint && rest.name != currentItem.restraint.name && (currentItem.restraint.power < rest.power || currentItem.restraint.power <= Math.max(10, rest ? rest.power : 10))) // Wrong item equipped
+			|| (rest && currentItem && currentItem.restraint && rest.name != currentItem.restraint.name && (currentItem.restraint.power < rest.power || currentItem.restraint.power <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
 			if (!currentItem || !currentItem.restraint.cursed)
 				RemoveGroups.push(g);
