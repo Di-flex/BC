@@ -329,6 +329,15 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "elementsAnger": 12, "elementsRage": 6}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Elements", "Latex"],
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}]},
 
+	{name: "Dryad", color: "#44ff77", tags: KDMapInit(["opendoors", "leashing", "plant", "ranged", "elite", "vineRestraints", "pierceweakness", "fireweakness", "hunter"]), cohesion: 0.0,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt",
+		specialCD: 15, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialWidth: 3, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2, stunTime: 4,
+		spells: ["PoisonDragonBlast"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
+		visionRadius: 9, maxhp: 14, minLevel:10, weight:0, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
+		terrainTags: {"secondhalf":1, "thirdhalf":2, "willAnger": 10, "willRage": 4}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 3}]},
+
+
 
 	{name: "ChaoticCrystal", color: "#ff00aa55", hitsfx: "DealDamage", tags: KDMapInit(["crystal", "minor", "melee", "crushweakness"]), regen: -1,
 		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "wander",
@@ -504,7 +513,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 					if (rep > 0) weightMulti *= Math.max(0, 1.0/(1 + rep/50));
 					else if (rep < 0) {
 						weightMulti = Math.max(weightMulti, Math.max(1, 1 + 0.2/(-rep/50)));
-						weightBonus = Math.max(weightBonus, Math.min(10, -rep/8));
+						weightBonus = Math.max(weightBonus, Math.min(10, -rep/10));
 						effLevel += -rep/2.5;
 					}
 				}

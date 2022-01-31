@@ -437,6 +437,7 @@ NameChaoticCrystal,Chaotic Crystal
 KillChaoticCrystal,"The crystal shatters!"
 AttackChaoticCrystal,"The chaotic crystal leeches willpower from you! (-DamageTaken SP)"
 
+
 NameDragonShadow,Shadow Dragonheart
 KillDragonShadow,"The Shadow Dragonheart frowns and runs away."
 AttackDragonShadowBind,"The Shadow Dragonheart apprehends you! (+RestraintAdded)"
@@ -448,6 +449,13 @@ KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
 AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
 AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
 AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
+
+NameDryad,Dryad
+KillDryad,"The dryad sinks into the ground."
+AttackDryadBind,"The dryad extends an arm, and she wraps you in vines! (+RestraintAdded)"
+AttackDryadStun,"The dryad sings a song that mesmerizes you! (-DamageTaken SP)"
+AttackDryad,"The dryad tickles you with a leaf! (-DamageTaken SP)"
+
 
 NameAlchemist,Alchemist
 KillAlchemist,"The alchemist screams and runs."
