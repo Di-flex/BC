@@ -480,9 +480,16 @@ AttackDroneBind,"The drone deconstructs itself into a set of bindings!"
 
 NameCaptureBot,Patrol Unit
 KillCaptureBot,"The patrol unit releases magic smoke and explodes."
-AttackCaptureBotStun,"The patrol unitzaps you with a restraining energy ray! (-DamageTaken SP)"
 AttackCaptureBot,"The patrol unit uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackCaptureBotBind,"The patrol unit extends its appendages and wraps them around you!"
+
+NameEnforcerBot,Enforcer Unit
+KillEnforcerBot,"The enforcer unit releases magic smoke and explodes."
+AttackEnforcerBot,"The enforcer unit fires many cables that squeeze you! (-DamageTaken SP)"
+AttackEnforcerBotBind,"The enforcer fires off restraints that wrap around your body and apprehend you!"
+
+KinkyDungeonRobotShock,The energy bolt hits you and paralyzes you!
+KinkyDungeonSpellRobotBolt,Energy Bolt
 
 NameAlkahestor,Alkahestor
 KillAlkahestor,"The alkahestor resigns to her fate."
@@ -827,6 +834,13 @@ KinkyDungeonStruggleRemoveImpossibleCorsetAroused,"You sigh as you can't find an
 KinkyDungeonStruggleRemoveImpossibleBoundCorset,"The laces are tied tight!"
 KinkyDungeonStruggleRemoveImpossibleBoundCorsetAroused,"You hopelessly try to untie the lacing but it's just too tight!"
 
+KinkyDungeonStruggleRemoveFailTape,"You start peeling off the wrapping..."
+KinkyDungeonStruggleRemoveFailTapeAroused,"You scratch at the wrapping furiously..."
+KinkyDungeonStruggleRemoveImpossibleTape,"The material clings to your skin too tightly!"
+KinkyDungeonStruggleRemoveImpossibleTapeAroused,"You groan in frustration as you try to peel it off but realize it's too sticky."
+KinkyDungeonStruggleRemoveImpossibleBoundTape,"You can't grip the edges to peel it off!"
+KinkyDungeonStruggleRemoveImpossibleBoundTapeAroused,"You make a futile attempt to rub it off."
+
 KinkyDungeonStruggleStrugglFailClamps,"You try to pull off the clamps..."
 KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
 KinkyDungeonStruggleStruggleImpossibleClamps,"That would really hurt..."
@@ -1084,6 +1098,27 @@ RestraintMysticDuctTapeBootsDesc2,"It clings, almost of its own accord, but seem
 RestraintMysticDuctTapeLegsMummy,Blessed Wrappings (Legs)
 RestraintMysticDuctTapeLegsMummyDesc,"A layer of magic embalming ribbon wrapped tight around your thighs."
 RestraintMysticDuctTapeLegsMummyDesc2,"It clings, almost of its own accord, but seems vulnerable to both cutting and stretching."
+
+
+RestraintAutoTapeHead,Autotape (Head)
+RestraintAutoTapeHeadDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeHeadDesc2,"It's very sticky and tough but you could probably get a knife through it."
+RestraintAutoTapeArms,Autotape (Arms)
+RestraintAutoTapeArmsDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeArmsDesc2,"It's very sticky and tough but you could probably get a knife through it."
+RestraintAutoTapeLegs,Autotape (Legs)
+RestraintAutoTapeLegsDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeLegsDesc2,"It's very sticky and tough but you could probably get a knife through it."
+RestraintAutoTapeFeet,Autotape (Ankles)
+RestraintAutoTapeFeetDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeFeetDesc2,"It's very sticky and tough but you could probably get a knife through it."
+RestraintAutoTapeBoots,Autotape (Feet)
+RestraintAutoTapeBootsDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeBootsDesc2,"It's very sticky and tough but you could probably get a knife through it."
+RestraintAutoTapeMouth,Autotape (Mouth)
+RestraintAutoTapeMouthDesc,"Sticky tape made from a metallic material. Used to great effect in police situations."
+RestraintAutoTapeMouthDesc2,"It's very sticky and tough but you could probably get a knife through it."
+
 RestraintStuffing,Stuffing
 RestraintStuffingDesc,"A stuffing of cloth."
 RestraintStuffingDesc2,"You could spit it out easily, provided nothing's covering it."
