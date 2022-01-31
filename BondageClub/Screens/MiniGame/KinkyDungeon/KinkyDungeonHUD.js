@@ -355,7 +355,7 @@ function KinkyDungeonHandleHUD() {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonPickAttempt()) {
 						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
-						else delete KinkyDungeonTiles[KinkyDungeonTargetTileLocation];
+						else KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
 						KinkyDungeonTargetTile = null;
 					}
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
@@ -367,7 +367,7 @@ function KinkyDungeonHandleHUD() {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
 						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
-						else delete KinkyDungeonTiles[KinkyDungeonTargetTileLocation];
+						else KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
 						KinkyDungeonTargetTile = null;
 					}
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);

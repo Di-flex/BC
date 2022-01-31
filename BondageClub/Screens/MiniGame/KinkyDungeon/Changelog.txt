@@ -483,10 +483,15 @@ Bugfix:
 - Staff of binding duration up to 4 from 3
 - Pressing skip now closes out reputation menu options (back to the main screen instead of penance/rescue screens)
 - Fixed a crash when looking at a blue locked chest
-- Added new messages for unlacing corsets, and the heavy latex corset is easier to remove now
 - Enemies (including the leash guard) should now recalculate if she gets stuck
 - Catgirls now have tails o.o
--
+- New Patrol Unit enemy (metal goddess)
+- Added new messages for unlacing corsets
+- Heavy Latex Corset now has a min remove speed and a max remove speed
+- Fixed a bug where the stairs were inside the cache
+- Can no longer equip knife in inventory
+- Guards now put you in the high security uniform, so there is time to fight your way out first!
+- Getting hit with rope kraken spells should now interrupt sleep
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

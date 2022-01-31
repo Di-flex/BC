@@ -632,6 +632,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	}
 
 	if (sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
+	if (effect) KinkyDungeonInterruptSleep();
 
 	return effect;
 }
@@ -851,15 +852,17 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 }
 
 function KinkyDungeonChargeVibrators(cost) {
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		let vibe = KinkyDungeonInventory[I].restraint;
-		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
-			if (vibe.battery == 0) {
-				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
-				if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
-			}
+	if (cost > 0) {
+		for (let I = 0; I < KinkyDungeonInventory.length; I++) {
+			let vibe = KinkyDungeonInventory[I].restraint;
+			if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
+				if (vibe.battery == 0) {
+					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+					if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
+				}
 
-			vibe.battery = Math.min(vibe.maxbattery, vibe.battery + cost * 1.5);
+				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + cost * 1.5);
+			}
 		}
 	}
 }
@@ -869,11 +872,13 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 		let vibe = KinkyDungeonInventory[I].restraint;
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 			if (vibe.battery == 0 || Overcharge) {
-				if (!noSound) {
-					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+				if (vibe.battery < Math.max(0.1, vibe.maxbattery - Amount)) {
+					if (!noSound) {
+						KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
+					}
+					let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
+					if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
 				}
-				let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
-				if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
 				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + Amount);
 			}
 		}

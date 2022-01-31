@@ -323,7 +323,7 @@ function KinkyDungeonhandleQuickInv() {
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
-				let weapon = item.name != "knife" ? item.name : null;
+				let weapon = item.name != "Knife" ? item.name : null;
 				KinkyDungeonPlayerWeapon = weapon;
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 				KinkyDungeonAdvanceTime(1);

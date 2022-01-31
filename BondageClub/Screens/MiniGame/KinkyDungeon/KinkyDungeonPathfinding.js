@@ -46,7 +46,7 @@ function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlaye
 							return KinkyDungeonGetPath(closed, lowest.x, lowest.y, endx, endy);
 						}
 						else if (Tiles.includes(KinkyDungeonMapGet(xx, yy)) && (!RequireLight || KinkyDungeonLightGet(xx, yy) > 0)
-							&& (ignoreLocks || !KinkyDungeonTiles[(xx) + "," + (yy)] || !KinkyDungeonTiles[xx + "," + yy].Lock)
+							&& (ignoreLocks || !KinkyDungeonTiles.get((xx) + "," + (yy)) || !KinkyDungeonTiles.get(xx + "," + yy).Lock)
 							&& (!blockEnemy || KinkyDungeonNoEnemy(xx, yy, blockPlayer))) {
 							succ.set(xx + "," + yy, {x: xx, y: yy,
 								g: moveCost + lowest.g,
