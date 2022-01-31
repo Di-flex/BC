@@ -737,6 +737,11 @@ NamePixie,Pixie
 KillPixie,"The pixie huffs and floats away."
 AttackPixie,"The pixie tickles you with a feather! (-DamageTaken SP)"
 
+NameOrbOfLight,Orb of Light
+KillOrbOfLight,"The orb vanishes in a flash of light."
+AttackOrbOfLightBlind,"The orb blinds you with its intense light!!! (-DamageTaken SP)"
+KinkyDungeonSpellCastOrbHeal,The orb's light restores the health of its allies!
+
 KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
 PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"

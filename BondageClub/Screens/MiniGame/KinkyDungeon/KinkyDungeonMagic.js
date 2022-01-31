@@ -246,6 +246,8 @@ let KinkyDungeonSpellListEnemies = [
 			{id: "ParasolBuff2", type: "Evasion", duration: 5, power: 0.33, player: true, enemies: true, tags: ["defense", "evasion"]},
 			{id: "ParasolBuff3", type: "SpellResist", duration: 5, power: 1.0, player: true, enemies: true, tags: ["defense", "spellresist"]},
 		], onhit:"", time:5, power: 0, range: 6, size: 1, damage: ""},
+	{enemySpell: true, buff: true, heal: true, name: "OrbHeal", sfx: "MagicSlash", school: "Elements", manacost: 1, components: ["Arms"], mustTarget: true, level:3, type:"hit",
+		onhit:"heal", time:2, lifetime: 1, delay: 1, power: 2, aoe: 1.5, range: 5, size: 3, damage: ""},
 	{enemySpell: true, name: "Earthfield", selfcast: true, sfx: "Bones", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Earthfield", type: "Armor", power: 2.0, player: false, enemies: true, noAlly: true, tags: ["armor", "defense"], range: 1.5}], onhit:"", time:6, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Earthrune", selfcast: true, sfx: "Bones", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Earthfield", type: "Armor", power: 2.0, player: true, enemies: true, onlyAlly: true, tags: ["armor", "defense"], range: 1.5}], onhit:"", time:9, aoe: 1.5, power: 0, delay: 9, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Icerune", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 8, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 1, range: 3, size: 3, aoe: 1.5, lifetime: 5, power: 4, lifetimeHitBonus: 3, damage: "ice"}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
@@ -813,7 +815,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 		let b = {x: tX, y:tY,
 			vx: moveDirection.x,vy: moveDirection.y, born: 1,
-			bullet: {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay, cast: cast, dot: spell.dot, events: spell.events,
+			bullet: {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
 				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}};
 		KinkyDungeonBulletHit(b, 1);

@@ -345,18 +345,18 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "thirdhalf":4}, shrines: ["Will"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 3}]},
 
-	/*{name: "OrbOfLight", color: "#ffff00", tags: KDMapInit(["opendoors", "leashing", "ghost", "ranged", "coldsevereweakness", "hunter"]), cohesion: 1.0,
-		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt",
-		spells: ["AreaHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
-		visionRadius: 9, maxhp: 10, minLevel:20, weight:7, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
-		terrainTags: {"secondhalf":3, "thirdhalf":4}, shrines: ["Will"], floors:[2],
-		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 3}]},*/
+	{name: "OrbOfLight", color: "#ffff00", tags: KDMapInit(["opendoors", "ignorenoSP", "ghost", "ranged", "coldsevereweakness"]), cohesion: 1.0,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true,
+		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
+		visionRadius: 10, blindSight: 10, maxhp: 10, minLevel:20, weight:2.5, movePoints: 3, attackPoints: 4, attack: "SpellMeleeBlindWill", blindTime: 3, attackWidth: 8, attackRange: 1, power: 5, dmgType: "fire",
+		terrainTags: {"willAnger":4, "willRage":4}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+	},
 
 	{name: "Pixie", tags: KDMapInit(["ignorenoSP", "fairy", "melee", "minor", "magicweakness"]), followRange: 1, AI: "hunt", squeeze: true, ethereal: true, cohesion: 1.0,
 		summon: [
 			{enemy: "Pixie", range: 3, count: 2, chance: 1.0, strict: true},],
 		spells: ["EnemyFlash"], minSpellRange: 2.5, spellCooldownMult: 1, spellCooldownMod: 14, castWhileMoving: true,
-		visionRadius: 7, blindSight: 7, maxhp: 1, evasion: 1.0, minLevel:0, weight:-2, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
+		visionRadius: 7, blindSight: 7, maxhp: 1, evasion: 1.0, minLevel:0, weight:-2, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "charm",
 		terrainTags: {"willAnger": 4, "willRage": 3}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 
 	{name: "ChaoticCrystal", color: "#ff00aa55", hitsfx: "DealDamage", tags: KDMapInit(["crystal", "minor", "melee", "crushweakness"]), regen: -1,
@@ -1383,6 +1383,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				let msgColor = "yellow";
 				let Locked = false;
 				let Stun = false;
+				let Blind = false;
 				let priorityBonus = 0;
 				let addedRestraint = false;
 
@@ -1620,6 +1621,16 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						priorityBonus += 3*time;
 						Stun = true;
 					}
+					if (attack.includes("Blind")) {
+						let time = enemy.Enemy.blindTime ? enemy.Enemy.blindTime : 1;
+						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, time);
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Blind")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+						happened += 1;
+						priorityBonus += 3*time;
+						Blind = true;
+					}
 					happened += bound;
 				} else { // if (Math.random() <= playerEvasion)
 					let dmg = power;
@@ -1644,6 +1655,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (happened > 0 && player.player) {
 					let suffix = "";
 					if (Stun) suffix = "Stun";
+					else if (Blind) suffix = "Blind";
 					else if (Locked) suffix = "Lock";
 					else if (bound > 0) suffix = "Bind";
 					if (Dash) suffix = "Dash";
@@ -1708,7 +1720,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					// Select a random nearby ally of the enemy
 					let nearAllies = [];
 					for (let e of KinkyDungeonEntities) {
-						if ((e != enemy) && e.aware && !KinkyDungeonHasBuff(e.buffs, spell.name) && ((enemy.Enemy.allied && e.Enemy.allied) || (!enemy.Enemy.allied && !e.Enemy.allied))
+						if ((e != enemy) && (!spell.heal || e.hp < e.Enemy.maxhp - spell.power*0.5) && e.aware && !KinkyDungeonHasBuff(e.buffs, spell.name) && ((enemy.Enemy.allied && e.Enemy.allied) || (!enemy.Enemy.allied && !e.Enemy.allied))
 							&& Math.sqrt((enemy.x - e.x)*(enemy.x - e.x) + (enemy.y - e.y)*(enemy.y - e.y)) < spell.range) {
 							nearAllies.push(e);
 						}
@@ -1725,6 +1737,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					spelltarget = enemy;
 				}
 			}
+			if (spell && spell.heal && spelltarget.hp >= spelltarget.Enemy.maxhp) spell = null;
 			if (spell && !(!enemy.Enemy.minSpellRange || (playerDist > enemy.Enemy.minSpellRange))) spell = null;
 			if (spell && !(!spell.minRange || (playerDist > spell.minRange))) spell = null;
 			if (spell) break;

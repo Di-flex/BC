@@ -480,7 +480,7 @@ Bugfix:
 - Reworked state machine for attacks. Wolfgirls, bast warriors, mummies, zombie warriors should be more consistent
 
 2.6.5
-- New enemies: Dryad, Bat, Patrol Unit, Enforcer Unit, Pixie
+- New enemies: Dryad, Bat, Patrol Unit, Enforcer Unit, Pixie, Orb of Light
 - Catgirls now have tails
 - Added new lore to the ancient tombs and jungle
 - Staff of binding duration up to 4 from 3
