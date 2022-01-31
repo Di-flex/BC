@@ -22,7 +22,7 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "S") sprite = "StairsUp";
 	else if (code == "s") sprite = "StairsDown";
 	else if (code == "H") sprite = "StairsDown"; // Shortcut
-	else if (code == "A") sprite = (KinkyDungeonTiles[x + "," + y] && KinkyDungeonTiles[x + "," + y].Type == "Shrine" && KinkyDungeonTiles[x + "," + y].Name == "Commerce") ? "ShrineC" : "Shrine";
+	else if (code == "A") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Type == "Shrine" && KinkyDungeonTiles.get(x + "," + y).Name == "Commerce") ? "ShrineC" : "Shrine";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
@@ -45,6 +45,7 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonDrawState = "Game";
 		KinkyDungeonTargetingSpell = null;
 		KinkyDungeonSpellPress = 0;
+		KDRepSelectionMode = "";
 	}
 
 	KinkyDungeonCapStats();
@@ -118,15 +119,15 @@ function KinkyDungeonDrawGame() {
 
 						if (rows[RY][RX] == "A") {
 							let color = "";
-							if (KinkyDungeonTiles[RX + "," + RY]) {
-								if (KinkyDungeonTiles[RX + "," + RY].Name == "Illusion") color = "#8154FF";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Conjure") color = "#D4AAFF";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Elements") color = "#FF5D00";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Latex") color = "#2667FF";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Leather") color = "#442E1E";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Metal") color = "#808080";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Rope") color = "#7C4926";
-								else if (KinkyDungeonTiles[RX + "," + RY].Name == "Will") color = "#23FF44";
+							if (KinkyDungeonTiles.get(RX + "," + RY)) {
+								if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Illusion") color = "#8154FF";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Conjure") color = "#D4AAFF";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Elements") color = "#FF5D00";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Latex") color = "#2667FF";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Leather") color = "#442E1E";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Metal") color = "#808080";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Rope") color = "#7C4926";
+								else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Will") color = "#23FF44";
 							}
 							if (color)
 								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "ShrineAura.png",  KinkyDungeonContext,
@@ -134,7 +135,7 @@ function KinkyDungeonDrawGame() {
 									KinkyDungeonGridSizeDisplay/KinkyDungeonSpriteSize, color, true, []);
 						}
 						if (KinkyDungeonLightGet(RX, RY) > 0 && rows[RY][RX] == "A" && MouseIn(canvasOffsetX + (-CamX_offset + X)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
-							tooltip = TextGet("KinkyDungeonShrine" + KinkyDungeonTiles[RX + "," + RY].Name);
+							tooltip = TextGet("KinkyDungeonShrine" + KinkyDungeonTiles.get(RX + "," + RY).Name);
 						}
 					}
 				}

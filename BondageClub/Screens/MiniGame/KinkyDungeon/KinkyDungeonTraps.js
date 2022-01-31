@@ -6,7 +6,7 @@ let KinkyDungeonNoTrapFlag = false;
 
 function KinkyDungeonHandleTraps(x, y, Moved) {
 	KinkyDungeonNoTrapFlag = false;
-	let tile = KinkyDungeonTiles[x + "," + y];
+	let tile = KinkyDungeonTiles.get(x + "," + y);
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
 		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile});
 		if (!KinkyDungeonNoTrapFlag) {
@@ -18,16 +18,16 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 				if (created > 0) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
-					KinkyDungeonTiles[x + "," + y] = undefined;
+					KinkyDungeonTiles.delete(x + "," + y);
 				}
 			}
 			if (tile.Trap == "SpecificSpell") {
 				let spell = KinkyDungeonFindSpell(tile.Spell, true);
 				if (spell) {
-					KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
+					KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, undefined, undefined);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = ""; // The spell will show a message on its own
-					KinkyDungeonTiles[x + "," + y] = undefined;
+					KinkyDungeonTiles.delete(x + "," + y);
 				}
 			}
 			if (tile.Trap === "CustomSleepDart") {
@@ -55,7 +55,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = ""; // We don't want to warn the player about what just happened
-						KinkyDungeonTiles[x + "," + y] = undefined;
+						KinkyDungeonTiles.delete(x + "," + y);
 					} else {
 						// We do sleep gas instead
 						spell = KinkyDungeonFindSpell("SleepGas", true);
@@ -63,7 +63,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 							KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
 							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 							msg = ""; // The spell will show a message on its own
-							KinkyDungeonTiles[x + "," + y] = undefined;
+							KinkyDungeonTiles.delete(x + "," + y);
 						}
 					}
 				}
@@ -77,7 +77,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 				if (created > 0) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = "Default";
-					KinkyDungeonTiles[x + "," + y] = undefined;
+					KinkyDungeonTiles.delete(x + "," + y);
 				}
 			}
 			if (msg) {

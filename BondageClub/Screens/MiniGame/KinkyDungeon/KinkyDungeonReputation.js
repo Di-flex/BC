@@ -180,6 +180,8 @@ function KinkyDungeonDrawReputation() {
 			if (KDRepSelectionMode == "") {
 				DrawButton(600, 800, 250, 50, TextGet("KinkyDungeonAskRescue"), KinkyDungeonInJail() ? "white" : "#999999");
 				DrawButton(1200, 800, 250, 50, TextGet("KinkyDungeonAskPenance"), "white");
+			} else {
+				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonBack"), "white");
 			}
 
 			if (KinkyDungeonShrineBaseCosts[rep]) {

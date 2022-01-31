@@ -22,6 +22,10 @@ let KinkyDungeonDresses = {
 		{Item: "Heels1", Group: "Shoes", Color: "#8A120C", Lost: false},
 		{Item: "Socks4", Group: "Socks", Color: "#222222", Lost: false},
 	],
+	"GreenLeotard" : [
+		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#267237", Lost: false},
+		{Item: "CatsuitPanties", Group: "SuitLower", Color: "#267237", Lost: false},
+	],
 	"Leotard" : [
 		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#53428D", Lost: false},
 		{Item: "CatsuitPanties", Group: "SuitLower", Color: "#53428D", Lost: false},
@@ -347,15 +351,17 @@ function KinkyDungeonWearForcedClothes() {
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.alwaysDress) {
 			for (let dress of inv.restraint.alwaysDress) {
-				InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
-				if (dress.OverridePriority) {
-					let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
-					if (item) {
-						if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
-						else item.Property.OverridePriority = dress.OverridePriority;
+				if (dress.override || !dress.Group.includes("Item") || !InventoryGet(KinkyDungeonPlayer, dress.Group)) {
+					InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
+					if (dress.OverridePriority) {
+						let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
+						if (item) {
+							if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
+							else item.Property.OverridePriority = dress.OverridePriority;
+						}
 					}
+					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
 				}
-				CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
 			}
 		}
 	}

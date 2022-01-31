@@ -70,6 +70,7 @@ let KinkyDungeonConfigAppearance = false;
 * PlaySelfTurns: number;
 * RescueFlag: boolean;
 * KinkyDungeonPenance: boolean;
+* GuardApplyTime: number;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -82,8 +83,8 @@ let KDGameDataBase = {
 	KinkyDungeonGuardTimer: 0,
 	KinkyDungeonGuardTimerMax: 22,
 	KinkyDungeonGuardSpawnTimer: 0,
-	KinkyDungeonGuardSpawnTimerMax: 20,
-	KinkyDungeonGuardSpawnTimerMin: 6,
+	KinkyDungeonGuardSpawnTimerMax: 30,
+	KinkyDungeonGuardSpawnTimerMin: 10,
 	KinkyDungeonMaxPrisonReduction: 10,
 	KinkyDungeonPrisonReduction: 0,
 	KinkyDungeonPrisonExtraGhostRep: 0,
@@ -111,6 +112,7 @@ let KDGameDataBase = {
 
 	SleepTurns: 0,
 	PlaySelfTurns: 0,
+	GuardApplyTime: 0,
 };
 /**
  * @type {KDGameDataBase}

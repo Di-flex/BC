@@ -208,7 +208,7 @@ function KinkyDungeonHandleShrine() {
 			KinkyDungeonTargetTile = null;
 			if (KinkyDungeonGold >= cost) {
 				KinkyDungeonPayShrine(type);
-				delete KinkyDungeonTiles[KinkyDungeonTargetTileLocation];
+				KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
 				let x = KinkyDungeonTargetTileLocation.split(',')[0];
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
