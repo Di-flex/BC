@@ -480,12 +480,13 @@ Bugfix:
 - Reworked state machine for attacks. Wolfgirls, bast warriors, mummies, zombie warriors should be more consistent
 
 2.6.5
+- New enemies: Dryad, Bat, Patrol Unit, Enforcer Unit, Pixie
+- Catgirls now have tails
+- Added new lore to the ancient tombs and jungle
 - Staff of binding duration up to 4 from 3
 - Pressing skip now closes out reputation menu options (back to the main screen instead of penance/rescue screens)
 - Fixed a crash when looking at a blue locked chest
 - Enemies (including the leash guard) should now recalculate if she gets stuck
-- Catgirls now have tails o.o
-- New Patrol Unit enemy (metal goddess)
 - Added new messages for unlacing corsets
 - Heavy Latex Corset now has a min remove speed and a max remove speed
 - Fixed a bug where the stairs were inside the cache
@@ -493,6 +494,9 @@ Bugfix:
 - Guards now put you in the high security uniform, so there is time to fight your way out first!
 - Getting hit with rope kraken spells should now interrupt sleep
 - Rebalanced enemy weights to favor creatures native to the level
+- Greater skeleton now has 1 armor (he has a shield)
+- Ninjas now have pierce weakness and no longer have melee weakness
+
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

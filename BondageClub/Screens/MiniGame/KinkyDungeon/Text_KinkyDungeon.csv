@@ -729,6 +729,14 @@ NameRat,Filthy Rat
 KillRat,"The rat skitters back into a hole in the wall."
 AttackRat,"The filthy rat nibbles at you! (-DamageTaken SP)"
 
+NameBat,Annoying Bat
+KillBat,"You stomp the bat into the ground to make sure it's dead."
+AttackBat,"The bat nibbles incessantly at you! (-DamageTaken SP)"
+
+NamePixie,Pixie
+KillPixie,"The pixie huffs and floats away."
+AttackPixie,"The pixie tickles you with a feather! (-DamageTaken SP)"
+
 KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
 PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
@@ -2137,11 +2145,15 @@ KinkyDungeonLore110,"SOMEBODY STABBED MY FROG AND I AM PISSED."
 KinkyDungeonLore111,"I don't think it's neccessary to tell people that dragons resist fire... right?"
 KinkyDungeonLore112,"I've been studying the dragonheart's weaknesses. So far I've found that the ones bearing the powers of ice dragons are actually weak to fire unlike the others, and the ones who summon crystals to block attacks are nonetheless unable to grab a spear to stop it from reaching them."
 
-
+KinkyDungeonLore1100,"They say a ninja can catch a sword in her hands, but can she stop a spear? Ha, thought not!"
+KinkyDungeonLore1101,"(Pg. 54 from Catherine Willows' journal): The post-collapse civilization sought immortality, but they knew that the technologies of the old civilization were a danger to them. So they turned to another school of thought: Magic."
+KinkyDungeonLore1102,"(Pg. 55 from Catherine Willows' journal): Mummy wrappings, enchanted with ten-thousand magic words per piece of ribbon, were suffucient to protect their bodies from ageing for millenia. What they didn't realize was that the magic didn't protect their souls."
+KinkyDungeonLore1103,"(Pg. 56 from Catherine Willows' journal): The mummies have no clue what they are doing anymore. To them, this is just another one of their ten-thousand dreams they've had. They cannot tell reality from imagination."
 
 KinkyDungeonLore201,"Those damn slimes! They're so sticky and gross... fortunately, I washed myself in the fountain the last time I got caught by one. It came right off!"
 KinkyDungeonLore202,"The dragonhearts were a group of dragonslayers, named for their ritual that imbues them with the power of dragons they've slain. Now they work as mercenaries, and some of them serve a certain Leather goddess."
 KinkyDungeonLore203,"Yes! I've done it! I have created another red slime! I shall call him Fred, yes, Fred... after the slime I lost in a Shield-related accident a while back... poor Fred... I miss him."
+KinkyDungeonLore204,"(Pg. 70 from Catherine Willows' journal): The underground jungle is a curious phenomenon. The level of light pouring through cracks in the ceiling is nonetheless too sparse to sustain plantlife. And yet the restoration goddess, in her ancient wisdom, has decided to preserve this place. How many of her dryads must I pierce or burn until she realizes I am merely passing through?"
 
 
 KinkyDungeonLore-1,"(The note is blank)"
