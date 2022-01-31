@@ -559,7 +559,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonVineEngulf"), "red", 2);
 				effect = true;
 			} else {
-				let RopeDresses = ["Leotard", "Bikini", "Lingerie"];
+				let RopeDresses = ["GreenLeotard", "Lingerie"];
 				if (!RopeDresses.includes(KinkyDungeonCurrentDress)) {
 					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)]);
 					KinkyDungeonDressPlayer();

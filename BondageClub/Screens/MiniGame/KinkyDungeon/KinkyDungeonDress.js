@@ -22,6 +22,10 @@ let KinkyDungeonDresses = {
 		{Item: "Heels1", Group: "Shoes", Color: "#8A120C", Lost: false},
 		{Item: "Socks4", Group: "Socks", Color: "#222222", Lost: false},
 	],
+	"GreenLeotard" : [
+		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#267237", Lost: false},
+		{Item: "CatsuitPanties", Group: "SuitLower", Color: "#267237", Lost: false},
+	],
 	"Leotard" : [
 		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#53428D", Lost: false},
 		{Item: "CatsuitPanties", Group: "SuitLower", Color: "#53428D", Lost: false},
