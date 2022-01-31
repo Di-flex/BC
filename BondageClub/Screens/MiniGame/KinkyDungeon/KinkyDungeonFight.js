@@ -68,7 +68,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (!KinkyDungeonPlayer.CanInteract() && KDDamageHands) {
 		KinkyDungeonPlayerDamage.chance /= 2;
 	}
-	if (KinkyDungeonSlowLevel > 0 && !KinkyDungeonPlayerDamage.name) {
+	if (KinkyDungeonSlowLevel > 1 && !KinkyDungeonPlayerDamage.name) {
 		KinkyDungeonPlayerDamage.dmg /= 2;
 	}
 	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && KDDamageHands) {

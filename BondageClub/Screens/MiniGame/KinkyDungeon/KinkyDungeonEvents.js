@@ -170,6 +170,13 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 				KDEvasionHands = false;
 			}
 		}
+	} if (Event == "calcStats") {
+		for (let e of spell.events) {
+			if (e.type == "Blindness" && e.trigger == "calcStats" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+				//KDBlindnessCap = Math.min(KDBlindnessCap, e.power);
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: spell.name+e.type+e.trigger, type: "Blindness", duration: e.time ? e.time : 0, power: -1});
+			}
+		}
 	} else if (Event == "beforeMove") {
 		for (let e of spell.events) {
 			if (e.type == "FleetFooted" && e.trigger == "beforeMove" && !data.IsSpell && !KinkyDungeonNoMoveFlag && KinkyDungeonSlowLevel > 1 && KinkyDungeonHasStamina(1.1) &&  KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {

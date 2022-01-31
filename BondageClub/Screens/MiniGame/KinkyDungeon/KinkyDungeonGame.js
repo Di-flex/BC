@@ -1721,13 +1721,14 @@ let KDDrawUpdate = 0;
 let KDVisionUpdate = 0;
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	let start = performance.now();
+
 	if (KinkyDungeonMovePoints < -1 && KDGameData.KinkyDungeonLeashedPlayer < 1) KinkyDungeonMovePoints += delta;
 	if (delta > 0) {
 		KDDrawUpdate = delta;
 		KDVisionUpdate = delta;
 	}
 	KDRecentRepIndex = 0;
-	let start = performance.now();
 	KinkyDungeonRestraintAdded = false;
 	KinkyDungeonSFX = [];
 	KDPlayerHitBy = [];

@@ -107,6 +107,14 @@ function KinkyDungeonInventoryGet(Name) {
 	return null;
 }
 
+function KinkyDungeonInventoryGetLoose(Name) {
+	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
+		let item = KinkyDungeonInventory[I];
+		if (item.looserestraint && item.looserestraint.name == Name) return item;
+	}
+	return null;
+}
+
 
 function KinkyDungeonFilterInventory(Filter) {
 	let ret = [];

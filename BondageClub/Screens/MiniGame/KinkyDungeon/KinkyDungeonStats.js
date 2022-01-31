@@ -296,8 +296,13 @@ function KinkyDungeonCanUseWeapon(NoOverride, e) {
 	return (KDHandsFreeTag || !KinkyDungeonIsHandsBound());
 }
 
+let KDBlindnessCap = 0;
+
 function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
+
+	KDBlindnessCap = 3;
+	KinkyDungeonSendEvent("calcStats", {});
 	// Initialize
 	KinkyDungeonCalculateVibeLevel(delta);
 	if (KinkyDungeonVibeLevel > 0 && KinkyDungeonCanPlayWithSelf() && KDGameData.SleepTurns > 0) {
@@ -328,7 +333,9 @@ function KinkyDungeonUpdateStats(delta) {
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
 
-	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
+	let blind = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness")) blind = Math.max(0, blind + KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness"));
+	KinkyDungeonBlindLevel = Math.min(KDBlindnessCap, blind);
 	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = 3;
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
@@ -505,6 +512,7 @@ function KinkyDungeonCalculateSlowLevel() {
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;*/
 		for (let inv of KinkyDungeonRestraintList()) {
 			if (inv.restraint && (inv.restraint.blockfeet || inv.restraint.hobble)) KinkyDungeonSlowLevel += 1;
+			if (inv.restraint && inv.restraint.blockfeet) KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
 		}
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);

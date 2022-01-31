@@ -163,7 +163,10 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "ShadowWarrior", sfx: "MagicSlash", school: "Illusion", manacost: 12, components: ["Verbal"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "ShadowWarrior", count: 1, time: 12}], power: 6, time: 12, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
 		{name: "Corona", noise: 4, sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert", noMiscast: true,
 			spellcast: {spell: "CoronaBeam", target: "target", directional:true, offset: false}, channel: 2},
-		{name: "TrueSight", school: "Illusion", manacost: 1, defaultOff: true, cancelAutoMove: true, components: [], level:1, type:"passive", events: [{type: "TrueSight", trigger: "vision"}]},
+		{name: "TrueSight", school: "Illusion", manacost: 1, defaultOff: true, cancelAutoMove: true, components: [], level:1, type:"passive", events: [
+			{type: "TrueSight", trigger: "vision"},
+			{type: "Blindness", trigger: "calcStats", power: -1},
+		]},
 		{name: "EnemySense", school: "Illusion", manacost: 4, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 8, distStealth: 4}]},
 		{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:2, type:"passive",
 			events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", chance: 0.25}]},
