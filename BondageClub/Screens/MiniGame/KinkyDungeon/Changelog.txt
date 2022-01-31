@@ -504,6 +504,7 @@ Bugfix:
 - Enemies now have an indicator to show their spells are off cooldown
 - New collar: Tracking collar, applied by robots
 - Wolf Collar now shocks if you attack/cast verbal spells
+- Enemies now don't bind you as tight unless you resist, if your submissive stat is high. However they will bind you tight still if you attacked them a lot
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

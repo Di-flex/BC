@@ -189,7 +189,7 @@ let KinkyDungeonEnemies = [
 		minLevel:0, weight:-4, terrainTags: {"secondhalf":0.5, "thirdhalf":0.5, "increasingWeight":0.25, "metalAnger": 4, "metalRage": 2}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: []},
 	{name: "CaptureBot", color: "#aaaaaa",
-		tags: KDMapInit(["ignoreharmless", "leashing", "robot", "melee", "elite", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness","hitechCables", "cableGag", "controlHarness", "jail", "search"]),
+		tags: KDMapInit(["leashing", "robot", "melee", "elite", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness","hitechCables", "cableGag", "controlHarness", "jail", "search"]),
 		AI: "patrol",
 		summon: [
 			{enemy: "Drone", range: 2, count: 2, chance: 0.25, strict: true},],
@@ -199,7 +199,7 @@ let KinkyDungeonEnemies = [
 		minLevel:5, weight:-6, terrainTags: {"secondhalf":1, "thirdhalf":1, "increasingWeight":0.5, "metalAnger": 6, "metalRage": 4}, shrines: ["Metal"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10, noSummon: true}]},
 	{name: "EnforcerBot", color: "#6E9FA3",
-		tags: KDMapInit(["ignoreharmless", "leashing", "robot", "ranged", "miniboss", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness", "autoTape", "cableGag", "controlHarness", "jail", "search"]),
+		tags: KDMapInit(["leashing", "robot", "ranged", "miniboss", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushweakness", "autoTape", "cableGag", "controlHarness", "jail", "search"]),
 		AI: "guard", spellRdy: true,
 		spells: ["RobotBolt"], minSpellRange: 0, spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true,
 		summon: [
@@ -1092,9 +1092,14 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let vibe = false;
 	let damage = enemy.Enemy.dmgType;
 	let power = enemy.Enemy.power;
+	let leashing = enemy.Enemy.tags.has("leashing");
 
+	let targetRestraintLevel = 0.3 + (enemy.aggro ? enemy.aggro : 0);
+	if (enemy.aggro > 0 && delta > 0) enemy.aggro = enemy.aggro * 0.95;
+	if (enemy.hp < enemy.Enemy.maxhp * 0.5) targetRestraintLevel = 999;
+	let addLeash = leashing && KinkyDungeonSubmissiveMult >= targetRestraintLevel && (!KinkyDungeonGetRestraintItem("ItemNeck") || !KinkyDungeonGetRestraintItem("ItemNeckRestraints"));
 
-	if (enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && !KinkyDungeonHasStamina(1.1)) {
+	if (enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && (!KinkyDungeonHasStamina(1.1) || addLeash)) {
 		followRange = 1;
 		if (!attack.includes("Bind")) attack = "Bind" + attack;
 	}
@@ -1103,7 +1108,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	let hitsfx = (enemy.Enemy && enemy.Enemy.hitsfx) ? enemy.Enemy.hitsfx : "";
 	let playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
-	if (KinkyDungeonAlert && playerDist < KinkyDungeonAlert) enemy.aware = true;
+	if (KinkyDungeonAlert && playerDist < KinkyDungeonAlert) {
+		enemy.aware = true;
+		if (!enemy.aggro) enemy.aggro = 0;
+		enemy.aggro += 0.1;
+	}
 	if (enemy.Enemy.specialAttack && (!enemy.specialCD || enemy.specialCD <= 0) && (!enemy.Enemy.specialMinrange || playerDist > enemy.Enemy.specialMinrange)) {
 		attack = attack + enemy.Enemy.specialAttack;
 		refreshWarningTiles = !enemy.usingSpecial;
@@ -1125,6 +1134,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		}
 	}
 
+	let addMoreRestraints = !leashing || (attack.includes("Bind") && (KinkyDungeonSubmissiveMult < targetRestraintLevel || !(KinkyDungeonIsArmsBound() || KinkyDungeonIsHandsBound())));
+
 	if (!enemy.Enemy.attackWhileMoving && range > followRange) {
 		followRange = range;
 	}
@@ -1138,6 +1149,14 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let canSeePlayerClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/2, false, true);
 	let canSeePlayerVeryClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/3, false, true);
 	let canShootPlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true);
+
+	if (KinkyDungeonLastTurnAction && canSeePlayer) {
+		if (!enemy.aggro) enemy.aggro = 0;
+		enemy.aggro += KinkyDungeonLastTurnAction == "Struggle" ? 0.1 :
+			(KinkyDungeonLastTurnAction == "Spell" ? 0.3 :
+				(KinkyDungeonAlert ? 0.1 :
+					0.01));
+	}
 
 	if (enemy.Enemy.projectileAttack && !canShootPlayer) followRange = 1;
 
@@ -1299,12 +1318,13 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
 	if ((!enemy.Enemy.followLeashedOnly || KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
 		&& (AI != "ambush" || enemy.ambushtrigger) && !ignore && (!moved || enemy.Enemy.attackWhileMoving)
-		&& (attack.includes("Melee") || (enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && !KinkyDungeonHasStamina(1.1)))
+		&& (attack.includes("Melee") || (enemy.Enemy.tags && leashing && !KinkyDungeonHasStamina(1.1)))
 		&& KinkyDungeonCheckLOS(enemy, player, playerDist, range + 0.5, !enemy.Enemy.projectileAttack, !enemy.Enemy.projectileAttack)) {//Player is adjacent
 		idle = false;
 		enemy.revealed = true;
 
 		let dir = KinkyDungeonGetDirection(player.x - enemy.x, player.y - enemy.y);
+
 
 		let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
 		let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KDGameData.KinkyDungeonLeashingEnemy == enemy.id) ? enemy.Enemy.movePoints+1 : enemy.Enemy.attackPoints;
@@ -1419,12 +1439,14 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						if (enemy.usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) {
 							enemy.specialCD = enemy.Enemy.specialCD;
 						}
-					} else if (attack.includes("Bind") && ((!enemy.usingSpecial && !enemy.Enemy.bindOnKneel) || (enemy.usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
+					} else if (attack.includes("Bind")
+						&& (addMoreRestraints || addLeash)
+						&& ((!enemy.usingSpecial && !enemy.Enemy.bindOnKneel) || (enemy.usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
 						let numTimes = 1;
 						if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 						for (let times = 0; times < numTimes; times++) {
 							// Note that higher power enemies get a bonus to the floor restraints appear on
-							let rest = KinkyDungeonGetRestraint(enemy.Enemy, MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : "", enemy.Enemy.ignoreStaminaForBinds && !attack.includes("Suicide"));
+							let rest = KinkyDungeonGetRestraint(enemy.Enemy, MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : "", enemy.Enemy.ignoreStaminaForBinds && !attack.includes("Suicide"), !addMoreRestraints && addLeash);
 							if (rest) {
 								replace.push({keyword:"RestraintAdded", value: TextGet("Restraint" + rest.name)});
 								restraintAdd.push(rest);
