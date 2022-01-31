@@ -90,7 +90,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			// Determine which action to take
 			if (missingJailUniform.length > 0 || tooMuchRestraint.length > 0 || changeForFun) {
 				if (missingJailUniform.length > 0 || Math.random() < 0.2) {
-					if (tooMuchRestraint.length > 0) {
+					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1)) {
 						let group = "";
 						if (tooMuchRestraint.includes("ItemMouth3")) group = "ItemMouth3";
 						else if (tooMuchRestraint.includes("ItemMouth2")) group = "ItemMouth2";

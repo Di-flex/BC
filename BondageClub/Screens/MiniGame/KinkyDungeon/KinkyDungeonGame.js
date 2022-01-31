@@ -1738,7 +1738,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 	KinkyDungeonUpdateTether(true, KinkyDungeonPlayerEntity);
 
-	KinkyDungeonResetEventVariablesTick();
+	KinkyDungeonResetEventVariablesTick(delta);
 	KinkyDungeonSendEvent("tick", {delta: delta});
 
 	if (delta >= 1) {

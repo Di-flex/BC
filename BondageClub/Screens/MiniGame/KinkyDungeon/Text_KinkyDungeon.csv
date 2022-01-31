@@ -5,7 +5,7 @@ KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporti
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
+KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 KinkyDungeon,"Kinky Dungeon v2.6.6"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
@@ -1005,6 +1005,10 @@ RestraintNippleClampsDesc2,"They will make for some great fun!"
 RestraintControlHarness,Control Harness
 RestraintControlHarnessDesc,"An advanced harness for controlling high-security prisoners."
 RestraintControlHarnessDesc2,"It seems to be made of flexible steel plates."
+
+RestraintTrackingCollar,Tracking Collar
+RestraintTrackingCollarDesc,"An advanced collar for tracking high-security prisoners."
+RestraintTrackingCollarDesc2,"It seems to be made of flexible steel plates, and it has a high-security lock."
 
 RestraintLatexBallGag,Latex Ball Gag
 RestraintLatexBallGagDesc,"A devious device that looks like a ball gag, but has a mouth-filling rod on the inside."
@@ -2344,3 +2348,6 @@ KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your
 KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release..."
 
 KinkyDungeonSleepDeprivation,"A buzzing vibration wakes you up!"
+
+KinkyDungeonPunishPlayer,Your RestraintName punishes you for your behavior!
+KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!

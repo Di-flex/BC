@@ -10,6 +10,7 @@ let KinkyDungeonSlimeParts = [
 	{group: "ItemFeet", restraint: "SlimeFeet"},
 	{group: "ItemBoots", restraint: "SlimeBoots"},
 ];
+let KDAlertCD = 5;
 
 function KinkyDungeonSendEvent(Event, data) {
 	KinkyDungeonSendMagicEvent(Event, data);
@@ -21,23 +22,27 @@ function KinkyDungeonSendEvent(Event, data) {
 function KinkyDungeonResetEventVariables() {
 	KinkyDungeonSlimeLevel = 0;
 }
-function KinkyDungeonResetEventVariablesTick() {
+function KinkyDungeonResetEventVariablesTick(delta) {
 	if (KinkyDungeonSlimeLevel < 0)
 		KinkyDungeonSlimeLevel = 0;
 	KinkyDungeonSlimeLevelStart = KinkyDungeonSlimeLevel;
+	if (KDAlertCD > 0) KDAlertCD -= delta;
 }
 
 function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 	if (Event == "tick") {
 		for (let e of item.events) {
-			if (e.type == "iceDrain" && e.trigger == "tick" && e.power) {
+			if (e.type == "AlertEnemies" && e.trigger == Event) {
+				if (!e.chance || KDRandom() < e.chance) {
+					KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonAlertEnemies").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+				}
+			} else if (e.type == "iceDrain" && e.trigger == "tick" && e.power) {
 				KinkyDungeonChangeMana(e.power);
 				KinkyDungeonChangeStamina(e.power);
 				KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonIceDrain"), "lightblue", 2);
-			}
-
-
-			if (e.type == "slimeSpread" && e.trigger == "tick") {
+			} else if (e.type == "slimeSpread" && e.trigger == "tick") {
 				KinkyDungeonSlimeLevel = Math.max(KinkyDungeonSlimeLevel, KinkyDungeonSlimeLevelStart + e.power);
 				if (KinkyDungeonSlimeLevel >= 0.99999) {
 					KinkyDungeonSlimeLevel = 0;
@@ -151,9 +156,42 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 		}
 	} else if (Event == "struggle") {
 		for (let e of item.events) {
-			if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.crotchrope && data.struggletype == "Struggle") {
+			if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
 				KinkyDungeonChangeArousal(1);
 				KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
+			}
+		}
+	} else if (Event == "playerAttack") {
+		for (let e of item.events) {
+			if (e.type == "AlertEnemies" && e.trigger == Event) {
+				if (KDAlertCD < 1 && data.enemy && (!e.chance || KDRandom() < e.chance)) { // (data.damage && data.damage.damage && data.enemy.hp > data.enemy.Enemy.maxhp - data.damage.damage*2 - 1)
+					KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);
+					KDAlertCD = 5;
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonAlertEnemies").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+				}
+			} else if (e.type == "PunishPlayer" && e.trigger == "playerAttack" && item.restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+				if (KDRandom() < e.chance) {
+					KinkyDungeonDealDamage({damage: e.power, type: e.damage});
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+				}
+			}
+		}
+	} else if (Event == "playerCast") {
+		for (let e of item.events) {
+			if (e.type == "AlertEnemies" && e.trigger == Event) {
+				if (!e.chance || KDRandom() < e.chance) {
+					KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonAlertEnemies").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+				}
+			} else if (e.type == "PunishPlayer" && e.trigger == "playerCast" && data.spell && item.restraint && (!e.punishComponent || (data.spell.components && data.spell.components.includes(e.punishComponent)))) {
+				if (KDRandom() < e.chance) {
+					KinkyDungeonDealDamage({damage: e.power, type: e.damage});
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
+					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+				}
 			}
 		}
 	}

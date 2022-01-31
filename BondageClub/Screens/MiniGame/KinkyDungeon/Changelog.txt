@@ -498,7 +498,6 @@ Bugfix:
 - Ninjas now have pierce weakness and no longer have melee weakness
 
 2.6.6
-- Chain witch cant cast spells unless she finishes an attack
 - Unarmed accuracy is not decreased by a single (nonblocking) restraint
 - Leg irons and cuffs that link your feet (and hobbleskirts) now give you a minimum of 2 slow level
 - Truesight now reduces your blind level by 1 while active

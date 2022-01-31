@@ -363,6 +363,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		enemy: Enemy,
 		miss: !evaded,
 		disarm: disarm,
+		damage: Damage,
 	};
 	KinkyDungeonSendEvent("playerAttack", data);
 
