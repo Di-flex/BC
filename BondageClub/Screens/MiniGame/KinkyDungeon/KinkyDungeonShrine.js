@@ -87,6 +87,9 @@ function KinkyDungeonGenerateShop(Level) {
 }
 
 function KinkyDungeonShrineCost(type) {
+	let mult = 1.0;
+	let growth = 1.0;
+
 	if (type == "Commerce" && KinkyDungeonShopIndex < KinkyDungeonShopItems.length) {
 		let item = KinkyDungeonShopItems[KinkyDungeonShopIndex];
 		if (item.cost != null) return item.cost;
@@ -98,14 +101,24 @@ function KinkyDungeonShrineCost(type) {
 			return costt;
 		}
 		return 15;
+	} else if (KinkyDungeonShrineTypeRemove.includes(type)) {
+		let rest = KinkyDungeonGetRestraintsWithShrine(type);
+		let maxPower = 1;
+		for (let r of rest) {
+			if (r.restraint && r.restraint.power > maxPower) maxPower = r.restraint.power;
+		}
+		mult = Math.sqrt(Math.max(1, rest.length));
+		mult *= Math.pow(Math.max(1, maxPower), 0.75);
+	} else if (type == "Will") {
+		let value = 0;
+		value += 100 * (1 - KinkyDungeonStatStamina/KinkyDungeonStatStaminaMax);
+		value += 100 * (1 - KinkyDungeonStatMana/KinkyDungeonStatManaMax);
+		return Math.round(value/10)*10;
 	}
-
-	let mult = 1.0;
-	let growth = 1.33;
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
-	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult);
+	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10;
 }
 
 function KinkyDungeonPayShrine(type) {

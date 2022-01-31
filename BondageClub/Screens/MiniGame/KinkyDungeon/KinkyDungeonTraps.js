@@ -52,7 +52,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					}
 					if (success) {
 						// We fire the dart
-						KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, undefined, undefined);
+						KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, { x: startX, y: startY }, KinkyDungeonPlayerEntity, undefined);
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = ""; // We don't want to warn the player about what just happened
 						KinkyDungeonTiles.delete(x + "," + y);

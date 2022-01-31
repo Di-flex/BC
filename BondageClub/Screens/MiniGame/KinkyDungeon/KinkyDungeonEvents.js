@@ -27,6 +27,11 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 		KinkyDungeonSlimeLevel = 0;
 	KinkyDungeonSlimeLevelStart = KinkyDungeonSlimeLevel;
 	if (KDAlertCD > 0) KDAlertCD -= delta;
+
+	if (KinkyDungeonLastTurnAction != "Attack" && KDGameData.WarningLevel > 0) {
+		if (KDRandom() < 0.25) KDGameData.WarningLevel -= delta;
+		if (KDGameData.WarningLevel > 5) KDGameData.WarningLevel = 5;
+	}
 }
 
 function KinkyDungeonHandleInventoryEvent(Event, item, data) {
