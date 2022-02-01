@@ -2,14 +2,15 @@
 
 let KinkyDungeonTrapMoved = false;
 
-let KinkyDungeonNoTrapFlag = false;
 
 function KinkyDungeonHandleTraps(x, y, Moved) {
-	KinkyDungeonNoTrapFlag = false;
+	let flags = {
+		AllowTraps: true,
+	};
 	let tile = KinkyDungeonTiles.get(x + "," + y);
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
-		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile});
-		if (!KinkyDungeonNoTrapFlag) {
+		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile, flags: flags});
+		if (!flags.AllowTraps) {
 			let msg = "";
 			let color = "red";
 			if (tile.Trap === "SpawnEnemies") {

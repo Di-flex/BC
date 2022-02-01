@@ -71,7 +71,7 @@ function KinkyDungeonShrineAvailable(type) {
 
 function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonMakeGhostDecision(); // Decides if the ghosts will be friendly or not
-	KinkyDungeonPoolUses = 0;
+	KinkyDungeonPoolUses = Math.min(KinkyDungeonPoolUses, 1);
 	KinkyDungeonShopIndex = 0;
 	KinkyDungeonShopItems = [];
 	let items_mid = 0;

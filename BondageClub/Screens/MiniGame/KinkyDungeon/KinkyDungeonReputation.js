@@ -28,6 +28,41 @@ function KinkyDungeonInitReputation() {
 	}
 }
 
+function KinkyDungeonRepName(Amount) {
+	let name = "";
+
+	if (Amount > 10) name = "Thankful";
+	if (Amount > 30) name = "Pleased";
+	if (Amount < KDANGER) name = "Angered";
+	if (Amount < KDRAGE) name = "Enraged";
+	if (Amount < -45) name = "Cursed";
+
+	return TextGet("KinkyDungeonRepName" + name);
+}
+
+function KinkyDungeonChangeRep(Rep, Amount) {
+	if (KinkyDungeonGoddessRep[Rep] != undefined) {
+		let last = KinkyDungeonGoddessRep[Rep];
+		//let target = -50;
+		//let interval = 0.02;
+		let start = KinkyDungeonGoddessRep[Rep];
+		//if (Amount >= 0) target = 50;
+		/*for (let i = 0; i < Math.abs(Amount); i++) {
+			KinkyDungeonGoddessRep[Rep] += (target - KinkyDungeonGoddessRep[Rep]) * interval;
+		}*/
+		KinkyDungeonGoddessRep[Rep] += Amount;
+		KinkyDungeonGoddessRep[Rep] = Math.min(50, Math.max(-50, KinkyDungeonGoddessRep[Rep]));
+		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
+			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
+			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
+			KDRecentRepIndex += 1;
+		}
+		if (KinkyDungeonGoddessRep[Rep] != last) return true;
+		return false;
+	}
+	return false;
+}
+
 function KinkyDungeonHandleReputation() {
 	let i = 0;
 	let maxY = 560;
@@ -49,12 +84,19 @@ function KinkyDungeonHandleReputation() {
 				} else if (KDRepSelectionMode == "" && MouseIn(1200, 800, 250, 50)) {
 					KDRepSelectionMode = "Penance";
 					return true;
+				} else if (KDRepSelectionMode == "" && MouseIn(900, 800, 250, 50)) {
+					KDRepSelectionMode = "Aid";
+					return true;
 				}
 
 
-				if (MouseIn(canvasOffsetX + 275 + XX + 400, yPad + canvasOffsetY + spacing * i - 20, 100, 40) && value > KDANGER) {
+				if (KDRepSelectionMode == "Aid" && MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40) && KinkyDungeonCanAidMana(rep, value)) {
 					// Aid
-					//KinkyDungeonChangeRep(rep, -3);
+					KinkyDungeonChangeMana(KinkyDungeonAidManaAmount(rep, value));
+					KinkyDungeonChangeRep(rep, -KinkyDungeonAidManaCost(rep));
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAidManaMe"), "purple", 2);
+					KinkyDungeonDrawState = "Game";
+					KDRepSelectionMode = "";
 				} else if (KDRepSelectionMode == "Rescue" && MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40) && KinkyDungeonCanRescue(rep, value)) {
 					// Rescue
 					KinkyDungeonRescued[rep] = true;
@@ -103,41 +145,6 @@ function KinkyDungeonHandleReputation() {
 	return true;
 }
 
-function KinkyDungeonRepName(Amount) {
-	let name = "";
-
-	if (Amount > 10) name = "Thankful";
-	if (Amount > 30) name = "Pleased";
-	if (Amount < KDANGER) name = "Angered";
-	if (Amount < KDRAGE) name = "Enraged";
-	if (Amount < -45) name = "Cursed";
-
-	return TextGet("KinkyDungeonRepName" + name);
-}
-
-function KinkyDungeonChangeRep(Rep, Amount) {
-	if (KinkyDungeonGoddessRep[Rep] != undefined) {
-		let last = KinkyDungeonGoddessRep[Rep];
-		//let target = -50;
-		//let interval = 0.02;
-		let start = KinkyDungeonGoddessRep[Rep];
-		//if (Amount >= 0) target = 50;
-		/*for (let i = 0; i < Math.abs(Amount); i++) {
-			KinkyDungeonGoddessRep[Rep] += (target - KinkyDungeonGoddessRep[Rep]) * interval;
-		}*/
-		KinkyDungeonGoddessRep[Rep] += Amount;
-		KinkyDungeonGoddessRep[Rep] = Math.min(50, Math.max(-50, KinkyDungeonGoddessRep[Rep]));
-		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
-			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
-			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
-			KDRecentRepIndex += 1;
-		}
-		if (KinkyDungeonGoddessRep[Rep] != last) return true;
-		return false;
-	}
-	return false;
-}
-
 function KinkyDungeonDrawReputation() {
 	let i = 0;
 	let maxY = 560;
@@ -180,6 +187,7 @@ function KinkyDungeonDrawReputation() {
 			if (KDRepSelectionMode == "") {
 				DrawButton(600, 800, 250, 50, TextGet("KinkyDungeonAskRescue"), KinkyDungeonInJail() ? "white" : "#999999");
 				DrawButton(1200, 800, 250, 50, TextGet("KinkyDungeonAskPenance"), "white");
+				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonAskAid"), "white");
 			} else {
 				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonBack"), "white");
 			}
@@ -198,8 +206,17 @@ function KinkyDungeonDrawReputation() {
 				if (KDRepSelectionMode == "Penance") {
 					DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonPenance"), (KinkyDungeonCanPenance(rep, value)) ? "white" : (KDGameData.KinkyDungeonPenance ? "purple" : "#999999"));
 					if (MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40)) {
-						DrawTextFit(TextGet("KinkyDungeonPenanceDesc").replace("AMOUNT", "" + KinkyDungeonPenanceCost(rep)), 1100+1, 850+1, 1250, "black", "black");
-						DrawTextFit(TextGet("KinkyDungeonPenanceDesc").replace("AMOUNT", "" + KinkyDungeonPenanceCost(rep)), 1100, 850, 1250, "white", "black");
+						DrawTextFit(TextGet("KinkyDungeonPenanceDesc").replace("AMOUNT", "" + KinkyDungeonPenanceCost(rep)), 1100+1, 900+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonPenanceDesc").replace("AMOUNT", "" + KinkyDungeonPenanceCost(rep)), 1100, 900, 1250, "white", "black");
+						// Rescue
+					}
+				}
+				if (KDRepSelectionMode == "Aid") {
+					DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
+					DrawButton(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
+					if (MouseIn(canvasOffsetX + 275 + XX + 520, yPad + canvasOffsetY + spacing * i - 20, 150, 40)) {
+						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100+1, 900+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100, 900, 1250, "white", "black");
 						// Rescue
 					}
 				}
@@ -234,6 +251,18 @@ function KinkyDungeonPenanceCost(rep) {
 
 function KinkyDungeonCanPenance(rep, value) {
 	return value < 40 && !KDGameData.KinkyDungeonPenance && KinkyDungeonBullets.length < 1;
+}
+
+function KinkyDungeonAidManaCost(rep) {
+	return 3;
+}
+
+function KinkyDungeonAidManaAmount(rep, value) {
+	return 1 + Math.floor(19 * (value + 50) / 100);
+}
+
+function KinkyDungeonCanAidMana(rep, value) {
+	return value > -30 && KinkyDungeonStatMana < KinkyDungeonStatManaMax;
 }
 
 function KinkyDungeonCanRescue(rep, value) {

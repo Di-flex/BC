@@ -271,17 +271,17 @@ KinkyDungeonSlimeSpread,"The slime is spreading over your body!!!"
 KinkyDungeonSlimeHarden,"The slime starts to harden over your skin..."
 
 
-NameAngel,Holy Angel
+NameAngel,Angel Courier
 KillAngel,"You oneshotted her. What kind of devil are you???"
 AttackAngel,"The angel decides to toy with you while you are trussed up."
 AttackAngelBind,"The angel snaps her fingers and divine restraints appear on your body!"
 
-NameAngelHostile,Holy Angel
+NameAngelHostile,Angel Courier
 KillAngelHostile,"You subdue the angel!"
 AttackAngelHostile,"The angel decides to toy with you while you are trussed up."
 AttackAngelHostileBind,"The angel snaps her fingers and divine restraints appear on your body!"
 
-KinkyDungeonAngelIntro,"Be not afraid! I have come to take your offering."
+KinkyDungeonAngelIntro,"Be not afraid! I am the courier of a local shrine, and I have come to take your offering."
 KinkyDungeonAngelWarn,"Hold still and I will take the offering..."
 KinkyDungeonAngelSuccess0,"(She takes the gold)"
 KinkyDungeonAngelSuccess1,"Peace be with you! Goodbye!"
@@ -2216,6 +2216,10 @@ KinkyDungeonLore8,"(The note is from a famous escape artist) Anything can be unb
 KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed that the dungeon spirits are more active even after the regular inhabitants such as zombies or skeletons are cleared out. My hypothesis is that the spirits are too afraid to come out in the presence of a more powerful, embodied spirit."
 KinkyDungeonLore10,"(A letter between bandit leaders) One of my subordinates has been reporting a girl bound in heavy leather restraints running around. I told her that this is normal, people keep all kinds of servants around here. But definitely keep an eye out for intruders! Don't let them fool you!"
 KinkyDungeonLore11,"(The note is a letter from the school of conjuration) We really would like to know... why did you summon a frog in the laboratory? People are wondering, you know. One of the student's projects got eaten."
+KinkyDungeonLore12,"(You find a carving on the floor, a half-finished magic circle of celestial conjuration. Perhaps a cleric wished to call forth an angel for guidance, before realizing there was a shrine like, a short walk away, where she could contact the heavens much more easily.)"
+KinkyDungeonLore13,"(It looks like a... receipt) Thank you for your offering to CELESTIAL COMMERCE. Please accept this fine-quality steel blade as compensation for your continued devotion and selflessness."
+KinkyDungeonLore14,"(A note written in cursive) To whomever assaulted our courier and left them tied up here: The shrines of the Goddess of ILLUSION are NOT to be used in this manner. If you desire a subject for your lewd experimentations, please attempt to do so on one of the LOCALS and FOR HEAVEN'S SAKE do not call up an angelic courier just so you may tie her up. It does not matter than she consented, nor that you paid, our couriers have responsibilities that they must attend to. Signed: HERONA, ENFORCER of the HIGH GODDESS of ILLUSIONS."
+KinkyDungeonLore15,"(From an essay titled 'On Celestial Supply Chains') It is known that the heavens seek gold. We do not know why it is that the heavens seek it, but we do know that the Goddesses grant us fragments of their limitless power in exchange for this otherwise-useless metal we dredge up from the earth. Clearly they must have enough of it in heaven for it to not matter. And yet there are invisible couriers even at the most remote shrine, lying dormant till you toss a coin their way. Could it be that the gold has power, and it merely activates the presence of the courier who is in an otherwise dormant state?"
 
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
@@ -2356,12 +2360,14 @@ KinkyDungeonJailerRemove,"EnemyName: I am going to change your restraints. Hold 
 KinkyDungeonItemsUnderneath,"Layered underneath:"
 KinkyDungeonItemsStrictness,"Increased strictness due to:"
 
-KinkyDungeonAid,Ask
+KinkyDungeonAidMana,Mana
+KinkyDungeonAidBondage,Bondage
 KinkyDungeonAskAid,Ask for Aid
 KinkyDungeonRescue,Ask
 KinkyDungeonAskRescue,Ask for Rescue
 KinkyDungeonPenance,Offer
 KinkyDungeonAskPenance,Offer Penance
+
 
 KinkyDungeonAidDescRope,"For 3 rep the goddess will grant you slipperiness, boosting your struggling."
 KinkyDungeonAidDescMetal,"For 3 rep the goddess will grant you a key."
@@ -2372,12 +2378,16 @@ KinkyDungeonAidDescConjure,"For 3 rep the goddess"
 KinkyDungeonAidDescElements,"For 3 rep the goddess"
 KinkyDungeonAidDescIllusion"For 3 rep the goddess "
 
+KinkyDungeonAidManaDesc,"The goddess will grant you MANALEVEL mana in exchange for AMOUNT rep"
+KinkyDungeonAidBondageDesc,"The goddess will enjoy seeing you struggle in her bonds (raises submissiveness)"
+
 KinkyDungeonRescueDesc,"The Goddess may decide to help you out of prison, in exchange for 10 rep"
 
-KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +5 rep."
+KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +5 rep"
 
 KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnappings."
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
+KinkyDungeonAidManaMe,"The Goddess fills your mind with heavenly images as she channels energy through your veins."
 
 KinkyDungeonPenanceHappen,"Time stops as an angel of heaven appears to collect your payment."
 
@@ -2429,3 +2439,5 @@ KinkyDungeonPunishPlayerHarsh,Your RestraintName punishes you and warns you with
 KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 
 KinkyDungeonGoldLockRemove,A golden lock pops off of one of your restraints!
+
+KinkyDungeonConfirmAttack,Are you sure you want to attack?

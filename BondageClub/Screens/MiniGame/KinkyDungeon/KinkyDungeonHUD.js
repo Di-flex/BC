@@ -76,7 +76,7 @@ function KinkyDungeonDrawInputs() {
 			if (KinkyDungeonPlayer.IsBlind() < 1) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
-				if (sg.lock == "Gold") {color = "#88FF88"; locktext = TextGet("KinkyGoldLockAbr");}
+				if (sg.lock == "Gold") {color = "#FFFF88"; locktext = TextGet("KinkyGoldLockAbr");}
 			} else {
 				color = "#cccccc";
 				if (sg.lock) {

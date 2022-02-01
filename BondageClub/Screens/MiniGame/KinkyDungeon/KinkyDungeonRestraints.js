@@ -680,12 +680,15 @@ function KinkyDungeonGetRestraintsWithShrine(shrine) {
 function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 	let count = 0;
 
-	for (let item of KinkyDungeonRestraintList()) {
-		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
-			KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, false, true);
-			count++;
+	for (let i = 0; i < 10; i++) {
+		for (let item of KinkyDungeonRestraintList()) {
+			if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
+				KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, false, true);
+				count++;
+			}
 		}
 	}
+
 
 	return count;
 }
@@ -1641,7 +1644,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
 
-			if (!KinkyDungeonCancelFlag && !Add && !Shrine) {
+			if (!KinkyDungeonCancelFlag && !Add) {
 				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(item, Keep);
 			}
 

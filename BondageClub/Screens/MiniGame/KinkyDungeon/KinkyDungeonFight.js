@@ -50,11 +50,12 @@ function KinkyDungeonWeaponCanCut(RequireInteract) {
 	return false;
 }
 
-let KDDamageHands = true;
 function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
-	KDDamageHands = true;
+	let flags = {
+		KDDamageHands: true.valueOf,
+	};
 	if (!NoOverride)
-		KinkyDungeonSendEvent("calcDamage", {});
+		KinkyDungeonSendEvent("calcDamage", {flags: flags});
 
 	let damage = KinkyDungeonPlayerDamageDefault;
 	// @ts-ignore
@@ -72,30 +73,29 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 
 	Object.assign(KinkyDungeonPlayerDamage, damage);
 
-	if (!KinkyDungeonPlayer.CanInteract() && KDDamageHands) {
+	if (!KinkyDungeonPlayer.CanInteract() && flags.KDDamageHands) {
 		KinkyDungeonPlayerDamage.chance /= 2;
 	}
 	if (KinkyDungeonSlowLevel > 1 && !KinkyDungeonPlayerDamage.name) {
 		KinkyDungeonPlayerDamage.dmg /= 2;
 	}
-	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && KDDamageHands) {
+	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && flags.KDDamageHands) {
 		KinkyDungeonPlayerDamage.chance /= 1.5;
 	}
 
 	return KinkyDungeonPlayerDamage;
 }
 
-let KDEvasionHands = true;
-let KDEvasionSlow = true;
-let KDEvasionSight = true;
-let KDEvasionDeaf = true;
 function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
-	KDEvasionHands = true;
-	KDEvasionSight = true;
-	KDEvasionDeaf = true;
-	KDEvasionSlow = true;
+	let flags = {
+		KDEvasionHands: true,
+		KDEvasionSight: true,
+		KDEvasionDeaf: true,
+		KDEvasionSlow: true,
+	};
+
 	if (!NoOverride)
-		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic});
+		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags});
 	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
@@ -106,10 +106,10 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
 
 	if (!IsSpell) {
-		if (KDEvasionSight)
+		if (flags.KDEvasionSight)
 			hitChance = Math.min(hitChance, Math.max(0.1, hitChance - Math.min(3, KinkyDungeonBlindLevel) * KinkyDungeonMissChancePerBlind));
-		if (KDEvasionDeaf &&KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.9;
-		if (KDEvasionSlow && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
+		if (flags.KDEvasionDeaf &&KinkyDungeonPlayer.IsDeaf()) hitChance *= 0.9;
+		if (flags.KDEvasionSlow && KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.name && KinkyDungeonSlowLevel > 0) hitChance *= 1.0 - Math.max(0.5, KinkyDungeonMissChancePerSlow * KinkyDungeonSlowLevel);
 	}
 	return hitChance;
 }

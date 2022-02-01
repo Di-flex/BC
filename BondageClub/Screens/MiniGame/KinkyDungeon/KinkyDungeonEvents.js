@@ -219,8 +219,8 @@ function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
 function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 	if (Event == "calcEvasion") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && e.trigger == "calcEvasion" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
-				KDEvasionHands = false;
+			if (e.type == "HandsFree" && e.trigger == "calcEvasion" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDEvasionHands) {
+				data.flags.KDEvasionHands = false;
 			}
 		}
 	} if (Event == "calcStats") {
@@ -253,24 +253,24 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 		}
 	} else if (Event == "beforeTrap") {
 		for (let e of spell.events) {
-			if (e.type == "FleetFooted" && e.trigger == "beforeTrap" && !KinkyDungeonNoTrapFlag && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+			if (e.type == "FleetFooted" && e.trigger == "beforeTrap" && data.flags.AllowTraps && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
 				if (KDRandom() < e.chance) {
 					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
-					KinkyDungeonNoTrapFlag = true;
+					data.flags.AllowTraps = false;
 					KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonFleetFootedIgnoreTrap"), "lightgreen", 2);
 				}
 			}
 		}
 	} else if (Event == "calcDamage") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && e.trigger == "calcDamage" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
-				KDDamageHands = false;
+			if (e.type == "HandsFree" && e.trigger == "calcDamage" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDDamageHands) {
+				data.flags.KDDamageHands = false;
 			}
 		}
 	} else if (Event == "getWeapon") {
 		for (let e of spell.events) {
-			if (e.type == "HandsFree" && e.trigger == "getWeapon" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
-				KDHandsFreeTag = true;
+			if (e.type == "HandsFree" && e.trigger == "getWeapon" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags && !data.flags.HandsFree) {
+				data.flags.HandsFree = true;
 			}
 		}
 	} else if (Event == "playerAttack") {
@@ -288,10 +288,10 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 		}
 	} else if (Event == "vision") {
 		for (let e of spell.events) {
-			if (e.type == "TrueSight" && e.trigger == "vision" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+			if (e.type == "TrueSight" && e.trigger == "vision" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags) {
 				if (data.update)
 					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell) * data.update);
-				KinkyDungeonSeeThroughWalls = Math.max(KinkyDungeonSeeThroughWalls, 2);
+				data.flags.SeeThroughWalls = Math.max(data.flags.SeeThroughWalls, 2);
 			}
 		}
 	} else if (Event == "draw") {

@@ -287,13 +287,13 @@ function KinkyDungeonSetMaxStats() {
 	return arousalRate;
 }
 
-let KDHandsFreeTag = false;
-
 function KinkyDungeonCanUseWeapon(NoOverride, e) {
-	KDHandsFreeTag = false;
+	let flags = {
+		HandsFree: false,
+	};
 	if (!NoOverride)
-		KinkyDungeonSendEvent("getWeapon", {event: e});
-	return (KDHandsFreeTag || !KinkyDungeonIsHandsBound());
+		KinkyDungeonSendEvent("getWeapon", {event: e, flags: flags});
+	return (flags.KDHandsFreeTag || !KinkyDungeonIsHandsBound());
 }
 
 let KDBlindnessCap = 0;

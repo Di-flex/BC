@@ -424,38 +424,6 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 	return false;
 }
 
-function KinkyDungeonAddTags(tags, Floor) {
-	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
-
-	if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
-	if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
-
-	if (KinkyDungeonGoddessRep.Rope < KDANGER) tags.push("ropeAnger");
-	if (KinkyDungeonGoddessRep.Rope < KDRAGE) tags.push("ropeRage");
-	if (KinkyDungeonGoddessRep.Leather < KDANGER) tags.push("leatherAnger");
-	if (KinkyDungeonGoddessRep.Leather < KDRAGE) tags.push("leatherRage");
-	if (KinkyDungeonGoddessRep.Metal < -15) tags.push("metalAnger");
-	if (KinkyDungeonGoddessRep.Metal < KDRAGE) tags.push("metalRage");
-	if (KinkyDungeonGoddessRep.Latex < -15) tags.push("latexAnger");
-	if (KinkyDungeonGoddessRep.Latex < KDRAGE) tags.push("latexRage");
-	if (KinkyDungeonGoddessRep.Elements < -15) tags.push("elementsAnger");
-	if (KinkyDungeonGoddessRep.Elements < KDRAGE) tags.push("elementsRage");
-	if (KinkyDungeonGoddessRep.Conjure < KDANGER) tags.push("conjureAnger");
-	if (KinkyDungeonGoddessRep.Conjure < KDRAGE) tags.push("conjureRage");
-	if (KinkyDungeonGoddessRep.Illusion < KDANGER) tags.push("illusionAnger");
-	if (KinkyDungeonGoddessRep.Illusion < KDRAGE) tags.push("illusionRage");
-	if (KinkyDungeonGoddessRep.Will < KDANGER) tags.push("willAnger");
-	if (KinkyDungeonGoddessRep.Will < KDRAGE) tags.push("willRage");
-
-	let overrideTags = [];
-	if (KinkyDungeonGoddessRep.Will < -45) tags.push("plant");
-
-	if (security > 0) tags.push("jailbreak");
-	if (security > 40) tags.push("highsecurity");
-
-	return overrideTags;
-}
-
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
@@ -1588,6 +1556,7 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 }
 
 let KinkyDungeonNoMoveFlag = false;
+let KinkyDungeonConfirmAttack = false;
 
 function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveX = moveDirection.x + KinkyDungeonPlayerEntity.x;
@@ -1601,18 +1570,27 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
 				attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
 			}
+			let noadvance = false;
 			if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-				KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type});
-				KinkyDungeonLastAction = "Attack";
+				if (!KinkyDungeonConfirmAttack && (!KinkyDungeonJailTransgressed || Enemy.Enemy.allied)) {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmAttack"), "red", 1);
+					KinkyDungeonConfirmAttack = true;
+					noadvance = true;
+				} else {
+					KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type});
+					KinkyDungeonLastAction = "Attack";
+					KinkyDungeonConfirmAttack = false;
 
-				KinkyDungeonChangeStamina(attackCost);
-
+					KinkyDungeonChangeStamina(attackCost);
+				}
 			} else {
 				KinkyDungeonWaitMessage();
 			}
 
-			KinkyDungeonInterruptSleep();
-			KinkyDungeonAdvanceTime(1);
+			if (!noadvance) {
+				KinkyDungeonInterruptSleep();
+				KinkyDungeonAdvanceTime(1);
+			}
 		}
 	} else {
 		if (moveDirection.x == 0 && moveDirection.y == 0) KinkyDungeonDoorCloseTimer = 0; // Allow manually waiting to turn around and be able to slam a door
@@ -1622,6 +1600,9 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
 		if (KinkyDungeonMovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy.Enemy && Enemy.Enemy.noblockplayer))) { // If the player can move to an empy space or a door
+
+			KinkyDungeonConfirmAttack = false;
+
 			if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 1;
 			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
 				|| (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Trap" && (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Door" || (KinkyDungeonTiles.get("" + moveX + "," + moveY).Lock && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type == "Door"))))) {

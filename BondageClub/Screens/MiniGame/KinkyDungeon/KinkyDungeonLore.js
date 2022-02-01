@@ -1,7 +1,7 @@
 "use strict";
 
 var KinkyDungeonCurrentLore = -1;
-var KinkyDungeonLore = [2, 3, 4, 5, 6, 7, 8, 10, 11];
+var KinkyDungeonLore = [2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15];
 var KinkyDungeonCheckpointLore = [
 	/*0*/ [1,],
 	/*1*/ [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
@@ -21,7 +21,7 @@ var KinkyDungeonCheckpointLore = [
 ];
 var KinkyDungeonLoreScale = 1.7;
 var KinkyDungeonRepeatLoreChance = 0.4; // Chance you will find a duplicate piece of lore
-var KinkyDungeonGenericLoreChance = 0.5; // Chance you will find a generic note instead of a previous note
+var KinkyDungeonGenericLoreChance = 0.33; // Chance you will find a generic note instead of a previous note
 
 function KinkyDungeonNewLore() {
 	let availableLore = [];
