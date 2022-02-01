@@ -10,8 +10,8 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "C") sprite = "Chest";
-	else if (code == "c") sprite = "ChestOpen";
+	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGold" : "Chest";
+	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGoldOpen" : "ChestOpen";
 	else if (code == "D") sprite = "Door";
 	else if (code == "G") sprite = "Ghost";
 	else if (code == "d") sprite = "DoorOpen";

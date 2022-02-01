@@ -33,7 +33,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 25,
 		"max_width" : 31,
-		"min_height" : 11,
+		"min_height" : 13,
 		"max_height" : 19,
 
 		"enemytags": ["zombie"],
@@ -102,7 +102,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 21,
 		"max_width" : 27,
-		"min_height" : 11,
+		"min_height" : 13,
 		"max_height" : 17,
 
 		"enemytags": ["skeleton"],
@@ -280,7 +280,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 25,
 		"max_width" : 51,
-		"min_height" : 9,
+		"min_height" : 13,
 		"max_height" : 15,
 
 		"lockmult" : 2.0,
@@ -335,7 +335,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 25,
 		"max_width" : 31,
-		"min_height" : 11,
+		"min_height" : 13,
 		"max_height" : 19,
 
 		"lockmult" : 2.0,
@@ -393,7 +393,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 25,
 		"max_width" : 31,
-		"min_height" : 11,
+		"min_height" : 13,
 		"max_height" : 19,
 
 		"lockmult" : 4.0,
@@ -459,7 +459,7 @@ var KinkyDungeonMapParams = [
 
 		"min_width" : 21,
 		"max_width" : 27,
-		"min_height" : 11,
+		"min_height" : 13,
 		"max_height" : 17,
 
 		"enemytags": ["mummy", "ghost"],

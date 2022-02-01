@@ -71,6 +71,7 @@ var KinkyDungeonYellowLockChance = 0.15;
 var KinkyDungeonYellowLockChanceScaling = 0.008;
 var KinkyDungeonYellowLockChanceScalingMax = 0.7;
 var KinkyDungeonBlueLockChance = -0.1;
+let KinkyDungeonGoldLockChance = 0.1; // Chance that a blue lock is replaced with a gold lock
 var KinkyDungeonBlueLockChanceScaling = 0.01;
 var KinkyDungeonBlueLockChanceScalingMax = 0.4;
 
@@ -210,6 +211,14 @@ function KinkyDungeonInitialize(Level, Random) {
 }
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.lock == "Gold" && (MiniGameKinkyDungeonLevel >= inv.lockTimer || !inv.lockTimer)) {
+			KinkyDungeonLock(inv, "");
+			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonGoldLockRemove"), "yellow", 2);
+		}
+	}
+
+
 	KinkyDungeonRescued = {};
 	KinkyDungeonAid = {};
 	KDGameData.KinkyDungeonPenance = false;
@@ -294,10 +303,14 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
 	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
 		KinkyDungeonCreateCache(Floor, width, height);
+	let traps = [];//KinkyDungeonCreateForbidden();
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
 		KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
-		let traps = KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height);
+		let traps2 = KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height);
+		for (let t of traps2) {
+			traps.push(t);
+		}
 		KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghostchance, Floor, width, height);
 		KinkyDungeonPlaceBrickwork(brickchance, Floor, width, height);
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
@@ -567,6 +580,44 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", ReLock: true});
 	KinkyDungeonCachesPlaced.push(Floor);
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2) - KinkyDungeonEndPosition.x, y: cornerY + Math.floor(radius/2) - KinkyDungeonEndPosition.y, radius: Math.ceil(radius/2) + 2});
+}
+
+
+function KinkyDungeonCreateForbidden(Floor, width, height) {
+	let trapLocations = [];
+	let radius = 7;
+	let ypos = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+	let cornerX = KinkyDungeonGridWidth - 7;
+	let cornerY = ypos;
+	let i = 0;
+	let xPadStart = KinkyDungeonJailLeashX + 2;
+	for (i = 0; i < 10000; i++) {
+		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2));
+		if (specialDist <= 7) {
+			cornerY = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 1));
+			cornerX = Math.ceil(xPadStart) + Math.floor(Math.random() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
+		} else break;
+	}
+	if (i > 9990) {
+		console.log("Error generating cache, please report this");
+		return trapLocations;
+	}
+	KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
+	KinkyDungeonCreateRectangle(cornerX+1, cornerY, radius-2, radius, true, false, 1, true);
+	KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + 1, 'C');
+	KinkyDungeonMapSet(cornerX + Math.floor(radius/2) + 1, cornerY + radius - 1, 'b');
+	KinkyDungeonMapSet(cornerX + Math.floor(radius/2) - 1, cornerY + radius - 1, 'b');
+	KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, '2');
+
+	/*for (let X = 0; X < 2; X++) {
+
+		trapLocations.push({x: X, y: Y});
+	}*/
+
+	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold"});
+	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2) - KinkyDungeonEndPosition.x, y: cornerY + Math.floor(radius/2) - KinkyDungeonEndPosition.y, radius: Math.ceil(radius/2) + 4});
+
+	return trapLocations;
 }
 
 // Type 0: empty border, hollow
@@ -1004,7 +1055,7 @@ function KinkyDungeonPlacePatrols(Count, width, height) {
 }
 
 
-function KinkyDungeonGenerateLock(Guaranteed, Floor) {
+function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 	let level = (Floor) ? Floor : MiniGameKinkyDungeonLevel;
 	//let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
@@ -1022,7 +1073,10 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor) {
 
 		let BlueChance = Math.min(KinkyDungeonBlueLockChance + level * KinkyDungeonBlueLockChanceScaling, KinkyDungeonBlueLockChanceScalingMax);
 
-		if (locktype < BlueChance) return "Blue" + modifiers;
+		if (locktype < BlueChance) {
+			//if (KDRandom() < KinkyDungeonGoldLockChance) return "Gold" + modifiers;
+			return "Blue" + modifiers;
+		}
 		return "Red" + modifiers;
 	}
 

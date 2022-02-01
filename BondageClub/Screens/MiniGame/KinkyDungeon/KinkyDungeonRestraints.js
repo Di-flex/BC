@@ -467,11 +467,11 @@ const KinkyDungeonRestraints = [
 	{removePrison: true, name: "ShadowChainFeet", Asset: "Chains", LinkableBy: ["Wrapping"], Color: "#000000", Group: "ItemFeet", blockfeet: true, power: 4, weight: 0, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemFeetFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 	{removePrison: true, name: "ShadowChainCrotch", crotchrope: true, Asset: "CrotchChain", OverridePriority: 26, Color: "#000000", Group: "ItemTorso", power: 4, weight: 0, chastity: true, harness: true, escapeChance: {"Struggle": 0.2, "Cut": -0.1, "Remove": -0.1}, enemyTags: {"shadowRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Chains", "Metal"]},
 
-	{removePrison: true, divine: true, name: "DivineCuffs", Asset: "FuturisticCuffs", LinkableBy: ["Boxbinders", "Armbinders"], Type: "Wrist", Color: ['#6AB0ED', '#AE915C', '#FFFFFF'], Group: "ItemArms", bindarms: true, power: 50, weight: 0,
+	{removePrison: true, divine: true, name: "DivineCuffs", Asset: "FuturisticCuffs", LinkableBy: ["Boxbinders", "Armbinders"], DefaultLock: "Gold", Type: "Wrist", Color: ['#6AB0ED', '#AE915C', '#FFFFFF'], Group: "ItemArms", bindarms: true, power: 50, weight: 0,
 		specStruggleTypes: ["Struggle"], escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemArmsFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
-	{removePrison: true, divine: true, name: "DivineAnkleCuffs", Asset: "FuturisticAnkleCuffs", LinkableBy: ["Wrapping"], Color: ['#AE915C', '#71D2EE', '#AE915C', '#000000'], Group: "ItemFeet", Type: "Closed", blockfeet: true, power: 50, weight: 0,
+	{removePrison: true, divine: true, name: "DivineAnkleCuffs", Asset: "FuturisticAnkleCuffs", LinkableBy: ["Wrapping"], DefaultLock: "Gold", Color: ['#AE915C', '#71D2EE', '#AE915C', '#000000'], Group: "ItemFeet", Type: "Closed", blockfeet: true, power: 50, weight: 0,
 		specStruggleTypes: ["Struggle"], escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemFeetFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
-	{removePrison: true, divine: true, name: "DivineMuzzle", gag: true, Asset: "FuturisticMuzzle", Modules: [0, 1, 1], Color: ['#AE915C', '#AE915C', '#CAA562', '#5FBEE8'], Group: "ItemMouth3", power: 50, weight: 0, chastity: true, harness: true,
+	{removePrison: true, divine: true, name: "DivineMuzzle", gag: true, Asset: "FuturisticMuzzle", Modules: [0, 1, 1], Color: ['#AE915C', '#AE915C', '#CAA562', '#5FBEE8'], DefaultLock: "Gold", Group: "ItemMouth3", power: 30, weight: 0, chastity: true, harness: true,
 		specStruggleTypes: ["Struggle"], escapeChance: {"Struggle": -99, "Cut": -99, "Remove": -99}, enemyTags: {"divineRestraints":2}, playerTags: {"ItemPelvisFull":-1}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: []},
 
 	{name: "BasicCollar", Asset: "LeatherCollar", Color: ["#000000", "Default"], Group: "ItemNeck", power: 1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.15, "Remove": 0.5, "Pick": 0.75},
@@ -649,6 +649,7 @@ function KinkyDungeonLock(item, lock) {
 	if (item.restraint && InventoryGet(KinkyDungeonPlayer, item.restraint.Group) && lock != "") {
 		if (KinkyDungeonIsLockable(item.restraint)) {
 			item.lock = lock;
+			if (lock == "Gold") item.lockTimer = MiniGameKinkyDungeonLevel + 6 + Math.round(KDRandom() * 4);
 			InventoryLock(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, item.restraint.Group), "IntricatePadlock", Player.MemberNumber, true);
 			item.pickProgress = 0;
 			if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
@@ -668,7 +669,7 @@ function KinkyDungeonGetRestraintsWithShrine(shrine) {
 
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		var item = KinkyDungeonInventory[I];
-		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine)) {
+		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 			ret.push(item);
 		}
 	}
@@ -680,7 +681,7 @@ function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 	let count = 0;
 
 	for (let item of KinkyDungeonRestraintList()) {
-		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine)) {
+		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 			KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, false, true);
 			count++;
 		}
@@ -694,7 +695,7 @@ function KinkyDungeonUnlockRestraintsWithShrine(shrine) {
 
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		var item = KinkyDungeonInventory[I];
-		if (item.restraint && item.lock && item.restraint.shrine && item.restraint.shrine.includes(shrine)) {
+		if (item.restraint && item.lock && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 
 			KinkyDungeonLock(item, "");
 			count++;
