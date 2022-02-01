@@ -59,9 +59,16 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	let damage = KinkyDungeonPlayerDamageDefault;
 	// @ts-ignore
 	KinkyDungeonPlayerDamage = {};
-	if (!HandsFree || (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 && !KinkyDungeonPlayerWeapon)) { damage = KinkyDungeonPlayerDamageDefault;}
-	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) damage = KinkyDungeonWeapons.Knife;
-	else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
+	if (!HandsFree || (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 && !KinkyDungeonPlayerWeapon)) {
+		damage = KinkyDungeonPlayerDamageDefault;
+		KinkyDungeonPlayerWeapon = null;
+	}
+	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) {
+		damage = KinkyDungeonWeapons.Knife;
+		KinkyDungeonPlayerWeapon = null;
+	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {
+		damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
+	}
 
 	Object.assign(KinkyDungeonPlayerDamage, damage);
 

@@ -506,10 +506,11 @@ Bugfix:
 - Wolf Collar now shocks if you attack/cast verbal spells
 - Enemies now don't bind you as tight unless you resist, if your submissive stat is high. However they will bind you tight still if you attacked them a lot
 - Shrine base costs now scale with restraints/missing stamina/mana
-- Red locked chests
+- New enemies: elf druid and elf ranger
 - Reduced availability of blue keys from goddess-specific enemies. Witches still drop them.
-- Red locked chests can have blue keys
+- Red locked chests can have blue keys and spell points occur at a higher rate
 - Shops will rarely sell blue keys and magic knives at a hefty price
+- The ghost will now use bolt cutters if you have them in your inventory
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

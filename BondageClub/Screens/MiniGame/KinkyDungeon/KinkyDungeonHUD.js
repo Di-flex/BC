@@ -76,6 +76,7 @@ function KinkyDungeonDrawInputs() {
 			if (KinkyDungeonPlayer.IsBlind() < 1) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
+				if (sg.lock == "Gold") {color = "#88FF88"; locktext = TextGet("KinkyGoldLockAbr");}
 			} else {
 				color = "#cccccc";
 				if (sg.lock) {
@@ -164,7 +165,8 @@ function KinkyDungeonDrawInputs() {
 				action = true;
 			}
 
-			if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
+			if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
+				|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
 				DrawButton(825, 825, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
 				action = true;
 			}

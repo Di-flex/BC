@@ -48,10 +48,12 @@ function KinkyDungeonHandleInventory() {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
 					KinkyDungeonPlayerWeapon = weapon;
+					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				} else if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
 					KinkyDungeonPlayerWeapon = null;
+					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
 			}

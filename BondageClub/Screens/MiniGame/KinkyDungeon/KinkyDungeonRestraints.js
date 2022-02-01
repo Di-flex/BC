@@ -951,7 +951,17 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// Bonuses go here
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle")) escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle");
-	if (StruggleType == "Cut" && KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.cutBonus) escapeChance += KinkyDungeonPlayerWeapon.cutBonus;
+	if (StruggleType == "Cut") {
+		if (KinkyDungeonHasGhostHelp()) {
+			let maxBonus = 0;
+			for (let inv of KinkyDungeonInventory) {
+				if (inv.weapon && inv.weapon.cutBonus > maxBonus) maxBonus = inv.weapon.cutBonus;
+			}
+			escapeChance += maxBonus;
+		} else if (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.cutBonus) {
+			escapeChance += KinkyDungeonPlayerWeapon.cutBonus;
+		}
+	}
 	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) escapeChance += KinkyDungeonEnchantedKnifeBonus;
 
 
@@ -1044,6 +1054,9 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Blue locks make it harder to escape an item
 	if (restraint.lock == "Blue" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) escapeChance = Math.max(0, escapeChance - 0.15);
 
+	// Gold locks are extremely magical.
+	if (restraint.lock == "Gold" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) escapeChance = Math.max(0, escapeChance - 0.3);
+
 	if (StruggleType == "Cut" && struggleGroup.group != "ItemHands" && handsBound)
 		escapeChance = escapeChance / 2;
 
@@ -1105,11 +1118,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// Handle cases where you can't even attempt to unlock
 	if ((StruggleType == "Unlock" && !((restraint.lock == "Red" && KinkyDungeonRedKeys > 0) || (restraint.lock == "Blue" && KinkyDungeonBlueKeys > 0)))
-		|| (StruggleType == "Pick" && (restraint.lock == "Blue"))) {
-		if ((KinkyDungeonPlayer.IsBlind() < 1) || !restraint.lock.includes("Blue"))
+		|| (StruggleType == "Pick" && (restraint.lock == "Blue" || restraint.lock == "Gold"))) {
+		if ((KinkyDungeonPlayer.IsBlind() < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold")))
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonPlayer.IsBlind() > 0) ? "Unknown" : restraint.lock) + "Key"), "orange", 2);
 		else
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPickBlueLock"), "orange", 2);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPick" + restraint.lock + "Lock"), "orange", 2);
 	} else {
 
 		// Main struggling block
@@ -1123,7 +1136,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 					|| (StruggleType == "Unlock" && restraint.unlockProgress >= 1 - escapeChance)
 					|| (StruggleType == "Remove" && restraint.removeProgress >= 1 - escapeChance)
 					|| (restraint.struggleProgress >= 1 - escapeChance))
-				&& !(restraint.lock == "Blue" && (StruggleType == "Pick"  || StruggleType == "Cut" ))) {
+				&& !(restraint.lock == "Blue" && StruggleType == "Pick")) {
 				Pass = "Success";
 				if (StruggleType == "Pick" || StruggleType == "Unlock") {
 					if (StruggleType == "Unlock") {
@@ -1150,7 +1163,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 					let breakchance = 0;
 					if (KinkyDungeonNormalBlades > 0 && !restraint.restraint.magic) breakchance = KinkyDungeonGetKnifeBreakChance();
 					else if (KinkyDungeonEnchantedBlades > 0) breakchance = KinkyDungeonGetEnchKnifeBreakChance();
-					if (Math.random() < breakchance || restraint.lock == "Blue") { // Blue locks cannot be picked or cut!
+					if (Math.random() < breakchance) {
 						Pass = "Break";
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/PickBreak.ogg");
 						if (restraint.restraint.magic && KinkyDungeonEnchantedBlades > 0) KinkyDungeonEnchantedBlades -= 1;
@@ -1188,7 +1201,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						}
 					}
 				} else if (StruggleType == "Pick") {
-					if (Math.random() < KinkyDungeonKeyGetPickBreakChance() || restraint.lock == "Blue") { // Blue locks cannot be picked or cut!
+					if (Math.random() < KinkyDungeonKeyGetPickBreakChance() || restraint.lock == "Blue" || restraint.lock == "Gold") { // Blue locks cannot be picked or cut!
 						Pass = "Break";
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/PickBreak.ogg");
 						KinkyDungeonLockpicks -= 1;
@@ -1320,6 +1333,7 @@ function KinkyDungeonGetRestraintByName(Name) {
 function KinkyDungeonGetLockMult(Lock) {
 	if (Lock == "Red") return 2.0;
 	if (Lock == "Blue") return 3.0;
+	if (Lock == "Gold") return 5.0;
 
 	return 1;
 }
