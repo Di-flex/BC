@@ -1592,9 +1592,8 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'c');
 				} else if (moveObject == 'O') { // Open the chest
-					KinkyDungeonTakeOrb(1); // 1 spell point
+					KinkyDungeonTakeOrb(1, moveX, moveY); // 1 spell point
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
-					KinkyDungeonMapSet(moveX, moveY, 'o');
 				} else {// Move
 					KinkyDungeonNoMoveFlag = false;
 					KinkyDungeonSendEvent("beforeMove", {x:moveX, y:moveY});

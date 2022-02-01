@@ -512,7 +512,12 @@ function KinkyDungeonCalculateSlowLevel() {
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;*/
 		for (let inv of KinkyDungeonRestraintList()) {
 			if (inv.restraint && (inv.restraint.blockfeet || inv.restraint.hobble)) KinkyDungeonSlowLevel += 1;
-			if (inv.restraint && inv.restraint.blockfeet) KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
+		}
+		for (let inv of KinkyDungeonRestraintList()) {
+			if (inv.restraint && inv.restraint.blockfeet) {
+				KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
+				break;
+			}
 		}
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);

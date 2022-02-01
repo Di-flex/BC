@@ -167,8 +167,12 @@ function KinkyDungeonPayShrine(type) {
 			else if (item.shoptype == "Basic") {
 				if (item.name == "RedKey") {
 					KinkyDungeonRedKeys += 1;
+				} else if (item.name == "BlueKey") {
+					KinkyDungeonBlueKeys += 1;
 				} else if (item.name == "Knife") {
 					KinkyDungeonNormalBlades += 1;
+				} else if (item.name == "MagicKnife") {
+					KinkyDungeonEnchantedBlades += 1;
 				} else if (item.name == "Lockpick") {
 					KinkyDungeonLockpicks += 1;
 				} else if (item.name == "2Lockpick") {
@@ -418,9 +422,11 @@ function KinkyDungeonGetMapShrines(Dict) {
 	return ret;
 }
 
-function KinkyDungeonTakeOrb(Amount) {
+function KinkyDungeonTakeOrb(Amount, X, Y) {
 	KinkyDungeonDrawState = "Orb";
 	KinkyDungeonOrbAmount = Amount;
+	KDOrbX = X;
+	KDOrbY = Y;
 }
 function KinkyDungeonDrawOrb() {
 
@@ -459,6 +465,10 @@ function KinkyDungeonDrawOrb() {
 
 	MainCanvas.textAlign = "center";
 }
+
+let KDOrbX = 0;
+let KDOrbY = 0;
+
 function KinkyDungeonHandleOrb() {
 	let Amount = KinkyDungeonOrbAmount;
 	let i = 0;
@@ -475,11 +485,15 @@ function KinkyDungeonHandleOrb() {
 				XX = 600;
 			}
 			if (MouseIn(canvasOffsetX + XX, yPad + canvasOffsetY + spacing * i - 27, 250, 55)) {
-				if (KinkyDungeonGoddessRep[shrine] < -45) {
-					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
+				if (KinkyDungeonMapGet(KDOrbX, KDOrbY) == 'O') {
+					if (KinkyDungeonGoddessRep[shrine] < -45) {
+						KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
+					}
+					KinkyDungeonChangeRep(shrine, Amount * -10);
+					KinkyDungeonSpellPoints += Amount;
+					KinkyDungeonMapSet(KDOrbX, KDOrbY, 'o');
 				}
-				KinkyDungeonChangeRep(shrine, Amount * -10);
-				KinkyDungeonSpellPoints += Amount;
+
 				KinkyDungeonDrawState = "Game";
 				return true;
 			}

@@ -8,13 +8,16 @@ var KinkyDungeonConsumables = {
 	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
 	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
 	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
+	"ElfCrystal" : {name: "ElfCrystal", rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
 };
 
 var KinkyDungneonBasic = {
 	"RedKey" : {name: "RedKey", rarity: 0, shop: true},
+	"BlueKey" : {name: "BlueKey", rarity: 4, shop: true},
 	"Lockpick" : {name: "Lockpick", rarity: 0, shop: true},
 	//"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
 	"Knife" : {name: "Knife", rarity: 0, shop: true},
+	"MagicKnife" : {name: "MagicKnife", rarity: 4, shop: true},
 };
 
 function KinkyDungeonFindConsumable(Name) {

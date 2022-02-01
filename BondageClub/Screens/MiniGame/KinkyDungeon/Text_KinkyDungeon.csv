@@ -132,6 +132,7 @@ LootRubbleRedKey,"You find an ordinary key"
 LootRubbleBlueKey,"You find a blue key, glowing with magic"
 
 LootChestGold,The chest contains gold! (+XXX gold)
+LootChestBlueKey,The chest contains a keyring with a glowing magic key!
 LootChestSpell,"You find a magic scroll, which you place in your spellbook. (+SpellLearned)"
 LootChestSpellPoints,"You find an orb containing magical knowledge! (+AMOUNT spell points)"
 LootChestWeapon,"You find a weapon! (+WeaponAcquired)"
@@ -168,9 +169,15 @@ KinkyDungeonConsume,Use Item (Consumes 1)
 KinkyDungeonInventoryItemRedKey,Key
 KinkyDungeonInventoryItemRedKeyDesc,"A key with traces of magic that fades with one use."
 KinkyDungeonInventoryItemRedKeyDesc2,"Can be used to unlock a restraint, door, or chest."
+KinkyDungeonInventoryItemBlueKey,Magic Key
+KinkyDungeonInventoryItemBlueKeyDesc,"A glowing key enchanted with magic that fades with one use."
+KinkyDungeonInventoryItemBlueKeyDesc2,"Can be used to unlock a blue lock."
 KinkyDungeonInventoryItemMagicKey,Magic Key
 KinkyDungeonInventoryItemMagicKeyDesc,"A magical key with the power to open blue locks."
 KinkyDungeonInventoryItemMagicKeyDesc2,"Blue locks can't be otherwise picked."
+KinkyDungeonInventoryItemMagicKnife,Magic Knife
+KinkyDungeonInventoryItemMagicKnifeDesc,"A magical blade which can be hidden on your body."
+KinkyDungeonInventoryItemMagicKnifeDesc2,"Can cut enchanted ropes."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemLockpick,Lockpick
 KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
@@ -205,6 +212,13 @@ KinkyDungeonInventoryItemIceRune,Ice Rune
 KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and icicles pierce through the floor!"
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
+
+
+KinkyDungeonInventoryItemElfCrystal,Elven Crystal
+KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
+KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of elven grace."
+KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
+KinkyDungeonSpellCastSlippery,You feel the restraints become loose on your skin!
 
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
@@ -351,6 +365,18 @@ KillElementalFire,"The fire elemental dissolves into ash."
 AttackElementalFireBind,"The fire elemental conjures forged restraints around your limbs! (+RestraintAdded)"
 AttackElementalFireLock,"The fire elemental places a heavy lock on your restraint! (-DamageTaken SP)"
 AttackElementalFire,"The fire elemental touches you with her burning finger! (-DamageTaken SP)"
+
+
+NameElfRanger,Ranger of the Wild
+KillElfRanger,The ranger disappears into the environment.
+AttackElfRanger,"The ranger gropes your chest with a smile on her face! (-DamageTaken SP)"
+AttackElfRangerBind,"The ranger surprises you and binds you! (+RestraintAdded)"
+
+NameElf,Druid of the Wild
+KillElf,The druid calls forth vines to mask her retreat.
+KinkyDungeonSummonMultiBramble,The druid calls forth vines to mask her retreat.
+AttackElf,"The druid holds your face and kisses you! (-DamageTaken SP)"
+AttackElfBind,"The druid binds you with mithril restraints! (+RestraintAdded)"
 
 NameElementalWater,Water Elemental
 KillElementalWater,"The water elemental melts into a pool of water."
@@ -645,6 +671,7 @@ AttackMonsterRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 NameWitchShock,Shock Witch
 KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind a keyring."
 AttackWitchShockBind,"The witch clips a restraint around your neck!"
+AttackWitchShock,"The witch slaps you playfully!"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
@@ -655,6 +682,7 @@ AttackWitchChain,"The chain witch tugs sensually at your restraints!"
 NameWitchSlime,Slime Witch
 KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behind a keyring."
 AttackWitchSlimeBind,"The witch clips a restraint around your neck!"
+AttackWitchSlime,"The witch squeezes your body playfully!"
 
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
@@ -741,7 +769,7 @@ AttackPixie,"The pixie tickles you with a feather! (-DamageTaken SP)"
 NameOrbOfLight,Orb of Light
 KillOrbOfLight,"The orb vanishes in a flash of light."
 AttackOrbOfLightBlind,"The orb blinds you with its intense light!!! (-DamageTaken SP)"
-KinkyDungeonSpellCastOrbHeal,The orb's light restores the health of its allies!
+KinkyDungeonSpellCastOrbHeal,A light restores the health of its allies!
 
 KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
@@ -964,32 +992,6 @@ KinkyDungeonCategoryFilterOutfits,Outfits
 KinkyDungeonCategoryFilterRestraints,Restraints
 KinkyDungeonCategoryFilterMisc,Miscellaneous
 
-KinkyDungeonInventoryItemTrapMittens,Leather Mitts
-
-KinkyDungeonInventoryItemTrapArmbinder,Armbinder
-
-KinkyDungeonInventoryItemTrapCuffs,Handcuffs
-
-KinkyDungeonInventoryItemTrapHarness,Harness
-
-KinkyDungeonInventoryItemTrapGag,Ball Gag
-
-KinkyDungeonInventoryItemMagicGag,Ball Gag
-
-KinkyDungeonInventoryItemTrapBoots,Slave Heels
-
-KinkyDungeonInventoryItemTrapLegirons,Leg Irons
-
-KinkyDungeonInventoryItemTrapBlindfold,Blindfold
-
-
-KinkyDungeonInventoryItemTrapBelt,Steel Belt
-KinkyDungeonInventoryItemMaidCBelt,Maid Belt
-
-KinkyDungeonInventoryItemTrapVibe,Egg Vibe
-KinkyDungeonInventoryItemMaidVibe,Maid Vibe
-
-KinkyDungeonInventoryItemBindingDress,BindingDress
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."
 RestraintBindingDressDesc2,"It is extremely strict but it is only fabric. The lacing is intricate and will take a long time to remove."
@@ -1160,6 +1162,7 @@ RestraintWeakMagicRopeArmsDesc2,"I wonder who was responsible?"
 RestraintWeakMagicRopeLegs,Leg Ropes
 RestraintWeakMagicRopeLegsDesc,"Faintly glowing ropes from a magic trap."
 RestraintWeakMagicRopeLegsDesc2,"I wonder who was responsible?"
+
 RestraintStrongMagicRopeHogtie,Magic Hogtie
 RestraintStrongMagicRopeHogtieDesc,"It pulls your wrists up to your ankles! So tight!"
 RestraintStrongMagicRopeHogtieDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
@@ -1178,6 +1181,70 @@ RestraintStrongMagicRopeCrotchDesc2,"The knots appear to tie themselves together
 RestraintStrongMagicRopeToe,Magic Toe Rope
 RestraintStrongMagicRopeToeDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeToeDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
+
+RestraintMithrilRopeHogtie,Mithril Hogtie
+RestraintMithrilRopeHogtieDesc,"It pulls your wrists up to your ankles! So tight!"
+RestraintMithrilRopeHogtieDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeArms,Mithril Arm Rope
+RestraintMithrilRopeArmsDesc,"Strongly shining ropes."
+RestraintMithrilRopeArmsDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeLegs,Mithril Leg Rope
+RestraintMithrilRopeLegsDesc,"Strongly shining ropes."
+RestraintMithrilRopeLegsDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeFeet,Mithril Ankle Rope
+RestraintMithrilRopeFeetDesc,"Strongly shining ropes."
+RestraintMithrilRopeFeetDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeCrotch,Mithril Crotch Rope
+RestraintMithrilRopeCrotchDesc,"Strongly shining ropes."
+RestraintMithrilRopeCrotchDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeHarness,Mithril Rope Harness
+RestraintMithrilRopeHarnessDesc,"Strongly shining ropes."
+RestraintMithrilRopeHarnessDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+RestraintMithrilRopeToe,Mithril Toe Rope
+RestraintMithrilRopeToeDesc,"Strongly shining ropes."
+RestraintMithrilRopeToeDesc2,"Made of woven mithril and enchanted to require magic blades to cut!"
+
+
+
+RestraintObsidianCollar,Mithril Collar
+RestraintMithrilCollarDesc,"A collar made from an almost-weightless alloy.."
+RestraintMithrilCollarDesc2,"It feels comfortable but it's also really hard."
+
+RestraintMithrilArmCuffs,Mithril Cuffs
+RestraintMithrilArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
+RestraintMithrilArmCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonLinkMithrilArmCuffs,"The enemy attaches your wrist cuffs together!"
+
+RestraintMithrilArmCuffs2,Mithril Cuffs
+RestraintMithrilArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintMithrilArmCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonUnLinkMithrilArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkMithrilArmCuffs2,"The enemy attaches your elbow cuffs together!"
+
+RestraintMithrilArmCuffs3,Mithril Cuffs
+RestraintMithrilArmCuffs3Desc,"A pair of cuffs keeping your arms in a strict elbow tie!"
+RestraintMithrilArmCuffs3Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonUnLinkMithrilArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
+
+RestraintMithrilArmCuffs4,Mithril Elbow Cuffs
+RestraintMithrilArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
+RestraintMithrilArmCuffs4Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonUnLinkMithrilArmCuffs4,"Your elbows detatch!"
+KinkyDungeonLinkMithrilArmCuffs4,"The enemy attaches your wrist cuffs back together!"
+
+RestraintMithrilLegCuffs,Mithril Leg Cuffs
+RestraintMithrilLegCuffsDesc,"A pair of cuffs chaining your legs together."
+RestraintMithrilLegCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+RestraintMithrilAnkleCuffs,Mithril Ankle Cuffs
+RestraintMithrilAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
+RestraintMithrilAnkleCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonLinkMithrilAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintMithrilAnkleCuffs2,Mithril Ankle Cuffs
+RestraintMithrilAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
+RestraintMithrilAnkleCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
+KinkyDungeonUnLinkMithrilAnkleCuffs2,"The ankle cuff chain detaches!"
+
+
 RestraintStickySlime,Sticky Slime
 RestraintStickySlimeDesc,"A sticky layer of slime keeping you anchored to the ground."
 RestraintStickySlimeDesc2,"It will slow you for a single turn."
@@ -1612,6 +1679,7 @@ ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupAxe,"You pick up a powerful axe."
 ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
 ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
+ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 KinkyDungeonDisarm,"As you strike again, your weapon is pulled out of your grasp!"
@@ -1945,6 +2013,7 @@ KinkyDungeonRubberBullets,You are hit by a fusilade of rubber bullets!
 KinkyDungeonRubberBulletsAttach,The rubber bullets congeal into a slimy material on your body!
 
 KinkyDungeonSpellPoisonDragonBlast,Nature Blast
+KinkyDungeonSpellEntangle,Raging Vines
 
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
@@ -2037,6 +2106,8 @@ KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
 KinkyDungeonSpellVineEngulf,"Animated Vines"
+KinkyDungeonSpellElfArrow,Elven Arrow
+KinkyDungeonEnchantedArrow,"The elven arrow flashes and wraps you in mithril ropes!"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"Nature magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"

@@ -101,6 +101,7 @@ function KinkyDungeonDrawInputs() {
 				DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + toolSprite + ".png", ""); i++;
 				if (KinkyDungeonLockpicks > 0 && sg.lock != "") {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "UseTool.png", ""); i++;}
 
+				let MY = Math.min(500, MouseY);
 				if (MouseIn(x + ((!sg.left) ? -(ButtonWidth)*i : 0), y, ButtonWidth*i, ButtonWidth)) {
 					let item = KinkyDungeonGetRestraintItem(sg.group);
 					let lastO = 0;
@@ -113,16 +114,16 @@ function KinkyDungeonDrawInputs() {
 							{
 								drawn = true;
 								let msg = TextGet("Restraint" + d);
-								DrawText(msg, 1 + 530, 1 + MouseY + O * 50, "black", "black");
-								DrawText(msg, 530, MouseY + O * 50, "white", "black");
+								DrawText(msg, 1 + 530, 1 + MY + O * 50, "black", "black");
+								DrawText(msg, 530, MY + O * 50, "white", "black");
 								O++;
 							}
 						}
 						lastO = O;
 						O = 0;
 						if (drawn) {
-							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 1 + 530, 1 + MouseY + O * ButtonWidth, "black", "black");
-							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 530, MouseY + O * ButtonWidth, "white", "black");
+							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
+							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 530, MY + O * ButtonWidth, "white", "black");
 						}
 						O = lastO + 1;
 						MainCanvas.textAlign = "center";
@@ -135,14 +136,14 @@ function KinkyDungeonDrawInputs() {
 						for (let s of strictItems) {
 							drawn = true;
 							let msg = TextGet("Restraint" + s);
-							DrawText(msg, 1 + 530, 1 + MouseY + O * 50, "black", "black");
-							DrawText(msg, 530, MouseY + O * 50, "white", "black");
+							DrawText(msg, 1 + 530, 1 + MY + O * 50, "black", "black");
+							DrawText(msg, 530, MY + O * 50, "white", "black");
 							O++;
 						}
 						O = lastO;
 						if (drawn) {
-							DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MouseY + O * ButtonWidth, "black", "black");
-							DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MouseY + O * ButtonWidth, "white", "black");
+							DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
+							DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MY + O * ButtonWidth, "white", "black");
 						}
 						MainCanvas.textAlign = "center";
 					}
@@ -378,13 +379,13 @@ function KinkyDungeonHandleHUD() {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(675, 825, 350, 60)) {
-					KinkyDungeonAdvanceTime(1, true);
 					KinkyDungeonTargetTile = null;
 					let x = KinkyDungeonTargetTileLocation.split(',')[0];
 					let y = KinkyDungeonTargetTileLocation.split(',')[1];
 					KinkyDungeonMapSet(parseInt(x), parseInt(y), "D");
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorClose.ogg");
-					KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCloseDoorDone"), "white", 1);
+					KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCloseDoorDone"), "white", 2);
+					KinkyDungeonAdvanceTime(1, true);
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 					return true;
 				}

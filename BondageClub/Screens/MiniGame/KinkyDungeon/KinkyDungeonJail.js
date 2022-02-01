@@ -503,6 +503,7 @@ function KinkyDungeonDefeat() {
 		if (collar.restraint.name == "MaidCollar") defeat_outfit = "Maid";
 		if (collar.restraint.name == "ExpCollar") defeat_outfit = "BlueSuitPrison";
 		if (collar.restraint.name == "WolfCollar") defeat_outfit = "Wolfgirl";
+		if (collar.restraint.name == "MithrilCollar") defeat_outfit = "Elven";
 	}
 
 	KinkyDungeonSetDress(defeat_outfit);
