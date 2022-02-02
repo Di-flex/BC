@@ -517,6 +517,8 @@ Bugfix:
 - You can now ask for a goddess to give you mana
 - Confirmation message for attacking allies or attacking a guard in jail
 - New enchanted restraints! Found in forbidden temples...
+- Jailer will only remove restraints after 90 turns in the prison
+- Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

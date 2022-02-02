@@ -572,7 +572,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				effect = true;
 			} else {
 				let RopeDresses = ["GreenLeotard", "Lingerie"];
-				if (!RopeDresses.includes(KinkyDungeonCurrentDress)) {
+				if (!RopeDresses.includes(KinkyDungeonCurrentDress) && KinkyDungeonCurrentDress != "Elven") {
 					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)]);
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonVineEngulfDress"), "red", 3);
@@ -679,9 +679,9 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 function KinkyDungeoCheckComponents(spell) {
 	let failedcomp = [];
-	if (spell.components.includes("Verbal") && !KinkyDungeonCanTalk()) failedcomp.push("Verbal");
-	if (spell.components.includes("Arms") && (InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemArms"))) failedcomp.push("Arms");
-	if (spell.components.includes("Legs") && (KinkyDungeonSlowLevel > 1 || KinkyDungeonLegsBlocked())) failedcomp.push("Legs");
+	if (spell.components.includes("Verbal") && !KinkyDungeonCanTalk() && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) failedcomp.push("Verbal");
+	if (spell.components.includes("Arms") && KinkyDungeonIsArmsBound() && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoArmsComp") > 0)) failedcomp.push("Arms");
+	if (spell.components.includes("Legs") && (KinkyDungeonSlowLevel > 1 || KinkyDungeonLegsBlocked()) && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoLegsComp") > 0)) failedcomp.push("Legs");
 
 	return failedcomp;
 }

@@ -40,6 +40,7 @@ let KinkyDungeonConfigAppearance = false;
 
 /**
 *  @typedef {{
+* JailRemoveRestraintsTimer: number;
 * KinkyDungeonSpawnJailers: number;
 * KinkyDungeonSpawnJailersMax: number;
 * KinkyDungeonLeashedPlayer: number;
@@ -76,6 +77,7 @@ let KinkyDungeonConfigAppearance = false;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	JailRemoveRestraintsTimer: 0,
 	KinkyDungeonSpawnJailers: 0,
 	KinkyDungeonSpawnJailersMax: 5,
 	KinkyDungeonLeashedPlayer: 0,

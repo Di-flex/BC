@@ -173,6 +173,20 @@ KinkyDungeonRarity10,Divine
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
 
+KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
+KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
+KinkyDungeonInventoryItemScrollArmsDesc,A scroll used by thieves to make their plays in secret.
+KinkyDungeonInventoryItemScrollArmsDesc2,Allows you to cast Arm spells without components for 12 turns.
+
+KinkyDungeonInventoryItemScrollVerbal,Scroll of Speech
+KinkyDungeonInventoryItemScrollVerbalUse,The scroll makes your gagged speech slightly more intelligible!
+KinkyDungeonInventoryItemScrollVerbalDesc,A scroll used to help translate different languages.
+KinkyDungeonInventoryItemScrollVerbalDesc2,Allows you to cast Verbal spells without components for 12 turns.
+
+KinkyDungeonInventoryItemScrollLegs,Scroll of Sauntering
+KinkyDungeonInventoryItemScrollLegsUse,The scroll lets you move your body in swift and accurate ways!
+KinkyDungeonInventoryItemScrollLegsDesc,A scroll used by dancers to upgrade their moves.
+KinkyDungeonInventoryItemScrollLegsDesc2,Allows you to cast Leg spells without components for 12 turns.
 
 KinkyDungeonInventoryItemMistressKey,Ancient Key
 KinkyDungeonInventoryItemMistressKeyDesc,"Perhaps it has something to do with ancient restraints?"
@@ -310,7 +324,7 @@ KinkyDungeonAngelWarn,"Hold still and I will take the offering..."
 KinkyDungeonAngelSuccess0,"(She takes the gold)"
 KinkyDungeonAngelSuccess1,"Peace be with you! Goodbye!"
 KinkyDungeonAngelAnger0,"You don't have the gold, do you?"
-KinkyDungeonAngelAnger1,"But do not fear, for I will tell the Goddess that you have paid."
+KinkyDungeonAngelAnger1,"But do not fear, we will keep this between you and I..."
 KinkyDungeonAngelAnger2,"For I will first have a little fun..."
 KinkyDungeonAngelAnger3,"You have brought this upon yourself, after all."
 
@@ -2291,7 +2305,7 @@ KinkyDungeonUnusable,"That item cant be used."
 
 KinkyDungeonCurseInfoMistressKey,"You realize there is no keyhole on the device, simply a lock-shaped sigil."
 KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyhole and the material is nigh-unbreakable!"
-KinkyDungeonCurseUnlockMistressKey,"You hold the magical key to the item and it finally lets you go, falling off right away."
+KinkyDungeonCurseUnlockMistressKey,"The item loosens and falls off, but you see a red sigil flash and the key suddenly teleports away!"
 KinkyDungeonCurseInfoMistressKeyHave,"You have in your possession KeyAmount magical, ornate key(s). You might as well try..."
 KinkyDungeonCurseDescriptionMistressKey,"You have KeyAmount key(s) for this item."
 
@@ -2494,3 +2508,5 @@ RestraintEnchantedBraDesc2,"The ancient mages sure were kept under lock and key.
 RestraintEnchantedHeels,Ancient Heels
 RestraintEnchantedHeelsDesc,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
 RestraintEnchantedHeelsDesc2,"The ancient mages apparently wore these on the battlefield... brave."
+
+KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.

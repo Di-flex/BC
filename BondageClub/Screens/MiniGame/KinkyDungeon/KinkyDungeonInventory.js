@@ -308,6 +308,11 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, point.y + 30, H, V))
 				DrawRect(point.x, point.y + 30, H, V, "white");
 			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
+
+			MainCanvas.textAlign = "left";
+			DrawText("" + item.item.quantity, point.x+1, point.y+1 + 30, "black");
+			DrawText("" + item.item.quantity, point.x, point.y + 30, "white");
+			MainCanvas.textAlign = "center";
 		}
 	}
 

@@ -1,5 +1,7 @@
 "use strict";
 
+let KinkyDungeonJailRemoveRestraintsTimerMin = 90;
+
 function KinkyDungeonGetJailRestraintForGroup(Group) {
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	let cand = null;
@@ -43,6 +45,8 @@ function KinkyDungeonInJail() {
 }
 
 function KinkyDungeonHandleJailSpawns(delta) {
+	if (KinkyDungeonInJail()) KinkyDungeonJailRemoveRestraintsTimerMin += delta;
+
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
@@ -90,7 +94,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			// Determine which action to take
 			if (missingJailUniform.length > 0 || tooMuchRestraint.length > 0 || changeForFun) {
 				if (missingJailUniform.length > 0 || Math.random() < 0.2) {
-					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1)) {
+					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1) && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) {
 						let group = "";
 						if (tooMuchRestraint.includes("ItemMouth3")) group = "ItemMouth3";
 						else if (tooMuchRestraint.includes("ItemMouth2")) group = "ItemMouth2";
@@ -462,6 +466,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 function KinkyDungeonDefeat() {
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;
+	KDGameData.JailRemoveRestraintsTimer = 0;
 	//MiniGameKinkyDungeonLevel = Math.min(MiniGameKinkyDungeonLevel, Math.max(Math.floor(MiniGameKinkyDungeonLevel/10)*10, MiniGameKinkyDungeonLevel - KinkyDungeonSpawnJailers + KinkyDungeonSpawnJailersMax - 1));
 	KinkyDungeonSendEvent("defeat", {});
 
