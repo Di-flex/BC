@@ -205,6 +205,11 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				data.dmg = Math.max(data.dmg * e.power, 0);
 				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
+		} else if (e.type == "MultiplyDamageMagic" && e.trigger == Event && data.dmg > 0 && data.incomingDamage && !KinkyDungeonMeleeDamageTypes.includes(data.incomingDamage.type)) {
+			if (!e.chance || KDRandom() < e.chance) {
+				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * data.dmg*(e.power - 1));
+				data.dmg = Math.max(data.dmg * e.power, 0);
+			}
 		}
 	} else if (Event == "defeat") {
 		if (e.type == "linkItem" && e.trigger == "defeat") {

@@ -2511,38 +2511,45 @@ KinkyDungeonSelfBondageEnchanted,"You slowly put on the RestraintName, amazed at
 
 KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyhole and the material is nigh-unbreakable!"
 
-LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
-LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
-LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnificently, along with a strange crystal next to it."
 
 RestraintEnchantedBelt,Ancient Chastity Belt
+LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it negates miscast chance due to arousal and slowly regenerates mana."
 RestraintEnchantedBeltDesc,"'Belt of the devoted'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBelt,"You tug at your chastity belt, but you can't even stick a finger inside because it's so tight..."
 
 RestraintEnchantedBra,Ancient Chastity Bra
+LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedBraDesc2,"A chastity bra of sleek, ancient design. While powered, it reduces incoming damage by 1."
 RestraintEnchantedBraDesc,"'Shield of the chaste'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your breasts but feel only hard, unbreakable metal."
 
 RestraintEnchantedHeels,Ancient Heels
+LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with guiding and combat magic. When powered, they reduce slow level by 2 and boost melee damage by +1."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
 RestraintEnchantedBlindfold,Ancient Blindfold
+LootChestEnchantedBlindfold,"You a padded metal blindfold, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedBlindfoldDesc2,"A full-blackout mask. When powered, it negates accuracy penalties due to vision, boosts accuracy by +100%, and boosts melee damage by +1."
 RestraintEnchantedBlindfoldDesc,"'Mask of the Warrior'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBlindfold,"You tug at the mask but it won't come off. It's molded so close to your face that no light shines through!"
 
 RestraintEnchantedMuzzle,Ancient Muzzle
+LootChestEnchantedMuzzle,"You a muzzle with a long rubbery plug on the inside, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedMuzzleDesc2,"A muzzle with a potion port. When powered, it boosts sneak and triples damage dealt to unaware enemies."
 RestraintEnchantedMuzzleDesc,"'Muzzle of the Saboteur'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your mouth, but not only does the soft plug fill your mouth completely, but the muzzle is nigh-unbreakable!"
 
+RestraintEnchantedMittens,Ancient Mittens
+LootChestEnchantedMittens,"You find a pair of shining gloves, glowing magnificently, along with a strange crystal next to it."
+RestraintEnchantedMittensDesc2,"Tight mittens that force the hands into fists. When powered, they multiply all magic damage to enemies by 50%."
+RestraintEnchantedMittensDesc,"'Mittens of Blasting'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedMittens,"You rub your mittens together, but they are unfazed by anything you do to them and your hands are clasped tight."
 
 RestraintEnchantedAnkleCuffs,Ancient Ankle Cuffs
+LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also boosts evasion by +50% (to 2/3rds). Closes without power."
 RestraintEnchantedAnkleCuffsDesc2,"'Anklets of the Faithful Friend'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs,"You jingle the chains around and realize that these unbreakable restraints won't be coming off."

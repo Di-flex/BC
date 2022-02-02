@@ -164,6 +164,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		bullet: bullet,
 		attacker: attacker,
 		dmg: (Damage) ? Damage.damage : 0,
+		incomingDamage: Damage,
 	};
 	KinkyDungeonSendEvent("beforeDamageEnemy", predata);
 	if (!predata.dmg) predata.dmg = 0;

@@ -409,7 +409,7 @@ function KinkyDungeonHandleHUD() {
 
 				let i = 0;
 				if (MouseIn(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth)) {
-					if (sg.curse) KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseStruggle" + sg.curse), "White", 2);
+					if (sg.curse) KinkyDungeonCurseStruggle(sg, sg.curse);
 					else {
 						if (KinkyDungeonFastStruggle) {
 							KinkyDungeonFastStruggleGroup = sg;
