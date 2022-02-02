@@ -534,6 +534,12 @@ const KinkyDungeonRestraints = [
 			{trigger: "beforeDamageEnemy", type: "MultiplyDamageStealth", power: 3.0, requireEnergy: true, energyCost: 0.01}
 		]},
 
+	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedMittens", Asset: "FuturisticMittens", bindhands: true,
+		Color: ['#B6A262', '#B6A262', '#424242', '#000000'], Group: "ItemHands", power: 25, weight: 0,
+		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
+		events: [
+			{trigger: "beforeDamageEnemy", type: "MultiplyDamageMagic", power: 1.5, requireEnergy: true, energyCost: 0.000025} // Energy cost per point o' extra damage
+		]},
 ];
 
 let KDRestraintsCache = new Map();

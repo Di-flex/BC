@@ -358,7 +358,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "willAnger": 5, "willRage": 8}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "ElfCrystal", weight: 3}, {name: "PotionMana", weight: 1}]},
 	{name: "Elf", color: "#67ff44", tags: KDMapInit(["opendoors", "leashing", "elf", "ranged", "miniboss", "mithrilRestraints", "mythrilRope", "pierceweakness", "iceweakness", "chainresist", "hunter"]), cohesion: 0.7,
-		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true, spellRdy: true,
 		spells: ["Entangle", "OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true, kite: 1.5,
 		visionRadius: 14, maxhp: 15, minLevel:15, weight:-3, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "willAnger": 4, "willRage": 6, "miniboss": -3}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],

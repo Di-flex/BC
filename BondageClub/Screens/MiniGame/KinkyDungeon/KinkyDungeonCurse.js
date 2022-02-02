@@ -6,9 +6,17 @@ function KinkyDungeonCurseInfo(sg, Curse) {
 	if (Curse == "MistressKey" && KinkyDungeonItemCount("MistressKey")) {
 		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfoMistressKeyHave").replace("KeyAmount", "" + KinkyDungeonItemCount("MistressKey")), "White", 2);
 	} else {
-		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfo" + Curse), "White", 2);
+		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfo"), "White", 2);
 	}
 }
+
+function KinkyDungeonCurseStruggle(sg, Curse) {
+	if (Curse == "MistressKey") {
+		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseStruggle" + Curse + KinkyDungeonGetRestraintItem(sg.group).restraint.name), "White", 2);
+	} else KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseStruggle" + Curse), "White", 2);
+
+}
+
 function KinkyDungeonCurseAvailable(sg, Curse) {
 	if (Curse == "5Keys" && KinkyDungeonRedKeys >= 5) {
 		return true;

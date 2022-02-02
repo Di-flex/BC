@@ -520,6 +520,8 @@ Bugfix:
 - Jailer will only remove restraints after 90 turns in the prison
 - Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
+2.7.7
+
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
 TODO ValidationFindBlockCycles to prevent bugs
