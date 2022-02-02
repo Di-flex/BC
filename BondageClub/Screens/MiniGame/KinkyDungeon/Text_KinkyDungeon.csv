@@ -146,6 +146,7 @@ LootChestTrapMagic,"You find gold and a magic trap! (+RestraintType) (+XXX gold)
 LootChestTrapMagicHarness,"Swirling belts emerge from the chest and leave you bound! (+RestraintType)"
 LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical trap! (+RestraintType) (+XXX gold)"
+LootChestTrapMagicNipple,"You find gold, plus a devious magical trap! (+RestraintType) (+XXX gold)"
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -937,7 +938,7 @@ KinkyDungeonStruggleRemoveImpossibleTapeAroused,"You groan in frustration as you
 KinkyDungeonStruggleRemoveImpossibleBoundTape,"You can't grip the edges to peel it off!"
 KinkyDungeonStruggleRemoveImpossibleBoundTapeAroused,"You make a futile attempt to rub it off."
 
-KinkyDungeonStruggleStrugglFailClamps,"You try to pull off the clamps..."
+KinkyDungeonStruggleStruggleFailClamps,"You try to pull off the clamps..."
 KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
 KinkyDungeonStruggleStruggleImpossibleClamps,"That would really hurt..."
 KinkyDungeonStruggleStruggleImpossibleClampsAroused,"You realize that would really hurt..."
@@ -1324,6 +1325,9 @@ RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose.
 RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintTrapBra,Steel Chastity Bra
+RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
+RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
 RestraintMaidCBelt,Maid Chastity Belt
 RestraintMaidCBeltDesc,"A chastity belt used to maintain control over initiate maids."
 RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
