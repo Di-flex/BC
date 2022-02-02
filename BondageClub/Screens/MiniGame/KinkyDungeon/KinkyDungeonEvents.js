@@ -37,7 +37,9 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 
 function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	if (Event == "tick") {
-		if (e.type == "SneakBuff" && e.trigger == Event) {
+		if (e.type == "spellRange" && e.trigger == Event) {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "spellRange", duration: 1, power: e.power});
+		} else if (e.type == "SneakBuff" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Sneak", duration: 1, power: e.power});
 		} else if (e.type == "EvasionBuff" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Evasion", duration: 1, power: e.power});
@@ -68,6 +70,9 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		} else if (e.type == "RegenMana" && e.trigger == Event && (!e.limit || KinkyDungeonStatMana/KinkyDungeonStatManaMax < e.limit)) {
 			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			KinkyDungeonChangeMana(e.power);
+		} else if (e.type == "RegenStamina" && e.trigger == Event && (!e.limit || KinkyDungeonStatStamina/KinkyDungeonStatStaminaMax < e.limit)) {
+			if (e.energyCost && KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			KinkyDungeonChangeStamina(e.power);
 		} else if (e.type == "ApplySlowLevelBuff" && e.trigger == Event && item.restraint) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "SlowLevel", duration: 1, power: e.power});
 			if (e.energyCost) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger + "2", type: "SlowLevelEnergyDrain", duration: 1, power: e.energyCost});
@@ -203,7 +208,13 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		if (e.type == "MultiplyDamageStealth" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
 			if (!e.chance || KDRandom() < e.chance) {
 				data.dmg = Math.max(data.dmg * e.power, 0);
-				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * data.dmg*(e.power - 1));
+			}
+		} else if (e.type == "MultiplyDamageStatus" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied
+			&& (KinkyDungeonHasStatus(data.enemy))) {
+			if (!e.chance || KDRandom() < e.chance) {
+				data.dmg = Math.max(data.dmg * e.power, 0);
+				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * data.dmg*(e.power - 1));
 			}
 		} else if (e.type == "MultiplyDamageMagic" && e.trigger == Event && data.dmg > 0 && data.incomingDamage && !KinkyDungeonMeleeDamageTypes.includes(data.incomingDamage.type)) {
 			if (!e.chance || KDRandom() < e.chance) {

@@ -6,7 +6,7 @@ function KinkyDungeonCurseInfo(sg, Curse) {
 	if (Curse == "MistressKey" && KinkyDungeonItemCount("MistressKey")) {
 		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfoMistressKeyHave").replace("KeyAmount", "" + KinkyDungeonItemCount("MistressKey")), "White", 2);
 	} else {
-		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfo"), "White", 2);
+		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseInfo" + Curse), "White", 2);
 	}
 }
 

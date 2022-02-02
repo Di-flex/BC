@@ -630,6 +630,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
+			KinkyDungeonSlowMoveTurns = 4;
 			KinkyDungeonSleepiness = 3;
 			KinkyDungeonAlert = 4;
 			effect = true;
@@ -812,6 +813,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 	}
 
+	let spellRange = spell.range * KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "spellRange"));
+
 	if (spell.type == "bolt") {
 		let size = (spell.size) ? spell.size : 1;
 		let xx = entity.x;
@@ -824,7 +827,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			tX-entity.x,tY - entity.y,
 			spell.speed, {name:spell.name, block: spell.block, width:size, height:size, summon:spell.summon, cast: cast, dot: spell.dot,
 				passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit, piercing: spell.piercing, events: spell.events,
-				lifetime:miscast ? 1 : 1000, origin: {x: entity.x, y: entity.y}, range: spell.range, hit:spell.onhit, damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
+				lifetime:miscast ? 1 : 1000, origin: {x: entity.x, y: entity.y}, range: spellRange, hit:spell.onhit, damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, time:spell.time}, spell: spell}, miscast);
 		b.visual_x = entity.x;
 		b.visual_y = entity.y;
 	} else if (spell.type == "inert" || spell.type == "dot") {
