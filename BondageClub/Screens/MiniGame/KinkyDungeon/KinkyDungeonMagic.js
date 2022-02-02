@@ -936,7 +936,7 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 function KinkyDungeonHandleVibrators() {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let vibe = KinkyDungeonInventory[I].restraint;
-		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && vibe.battery == 0 && Math.random() * 100 < vibe.power) {
+		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && vibe.battery == 0 && Math.random() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
 			if (vibe.battery == 0) {
 				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
 				if (!KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);

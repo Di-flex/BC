@@ -145,6 +145,7 @@ LootChestWeapon,"You find a weapon! (+WeaponAcquired)"
 LootChestTrapMagic,"You find gold and a magic trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicHarness,"Swirling belts emerge from the chest and leave you bound! (+RestraintType)"
 LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+RestraintType) (+XXX gold)"
+LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical trap! (+RestraintType) (+XXX gold)"
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -1315,6 +1316,9 @@ RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
+RestraintTrapPlug,Happy Plug
+RestraintTrapPlugDesc,"A sizeable plug that makes you happy."
+RestraintTrapPlugDesc2,"It vibrates periodically."
 RestraintMaidVibe,Maid Egg
 RestraintMaidVibeDesc,"An energetic little friend that likes to tease you and takes orders from the head maid."
 RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
