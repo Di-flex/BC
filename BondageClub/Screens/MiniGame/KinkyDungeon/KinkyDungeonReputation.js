@@ -107,7 +107,7 @@ function KinkyDungeonHandleReputation() {
 						KinkyDungeonJailTransgressed = false;
 						KDGameData.KinkyDungeonJailGuard = 0;
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
-						for (let T of Object.values(KinkyDungeonTiles)) {
+						for (let T of KinkyDungeonTiles.values()) {
 							if (T.Lock) T.Lock = undefined;
 							if (T.Type == "Trap") T.Type = undefined;
 						}
