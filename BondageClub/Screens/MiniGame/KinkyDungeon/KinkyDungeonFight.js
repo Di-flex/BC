@@ -100,6 +100,10 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
 
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Accuracy")) {
+		hitChance *= KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Accuracy"));
+	}
+
 	if (!IsSpell) hitChance *= KinkyDungeonPlayerDamage.chance;
 	if (Enemy && Enemy.slow > 0) hitChance *= 2;
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
@@ -154,8 +158,15 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		bullet.alreadyHit.push(Enemy.id);
 	}
 
-	let dmg = (Damage) ? Damage.damage : 0;
-	if (!dmg) dmg = 0;
+	let predata = {
+		enemy: Enemy,
+		spell: Spell,
+		bullet: bullet,
+		attacker: attacker,
+		dmg: (Damage) ? Damage.damage : 0,
+	};
+	KinkyDungeonSendEvent("beforeDamageEnemy", predata);
+	if (!predata.dmg) predata.dmg = 0;
 	//let type = (Damage) ? Damage.type : "";
 	let effect = false;
 	let resistStun = 0;
@@ -168,22 +179,22 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor")) armor += KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor");
 
 	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
-		dmg *= 2;
+		predata.dmg *= 2;
 	}
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
 	if (Damage && !miss) {
 		let buffType = Damage.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
-		dmg *= buffAmount;
+		predata.dmg *= buffAmount;
 		let time = Damage.time ? Damage.time : 0;
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 			if (time)
 				time = Math.max(0, Math.ceil(time * spellResist));
-			dmg = Math.max(0, dmg * spellResist);
+			predata.dmg = Math.max(0, predata.dmg * spellResist);
 		}
 
-		if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) dmg *= 0.5;
+		if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) predata.dmg *= 0.5;
 
 		if (Enemy.Enemy.tags) {
 			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
@@ -200,16 +211,16 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		if (Damage.type != "inert" && resistDamage < 2) {
 			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
-				dmgDealt = Math.max(dmg - armor, 0); // Armor goes before resistance
+				dmgDealt = Math.max(predata.dmg - armor, 0); // Armor goes before resistance
 				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 			} else if (resistDamage == -1) {
-				dmgDealt = Math.max(dmg+1, dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+				dmgDealt = Math.max(predata.dmg+1, predata.dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else if (resistDamage == -2) {
-				dmgDealt = Math.max(dmg+1, dmg*2); // Enemies that are severely vulnerable take either dmg+1 or 2x damage, whichever is greater
+				dmgDealt = Math.max(predata.dmg+1, predata.dmg*2); // Enemies that are severely vulnerable take either dmg+1 or 2x damage, whichever is greater
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else {
-				dmgDealt = Math.max(dmg - armor, 0);
+				dmgDealt = Math.max(predata.dmg - armor, 0);
 			}
 
 			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(Damage.type) || Damage.type == "fire")) {
@@ -267,7 +278,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
-			(Damage && (dmg > 0 || effect)) ? "orange" : "red", 2);
+			(Damage && (predata.dmg > 0 || effect)) ? "orange" : "red", 2);
 
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.AI == "ambush" && Spell) {
 		Enemy.ambushtrigger = true;
@@ -275,9 +286,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	KinkyDungeonAggro(Enemy);
 
-	if (dmg > 0)
+	if (predata.dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
-	return dmg;
+	return predata.dmg;
 }
 
 function KinkyDungeonDisarm(Enemy) {
@@ -339,14 +350,23 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		disarm = true;
 	}
 	let evaded = KinkyDungeonEvasion(Enemy);
-	let eva = !disarm && evaded;
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
-	if (buffdmg) dmg.damage = Math.max(0, dmg.damage + buffdmg);
-	KinkyDungeonDamageEnemy(Enemy, (eva) ? dmg : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
-	if (eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
+	let predata = {
+		evaded: evaded,
+		disarm: disarm,
+		eva: !disarm && evaded,
+		Damage: Damage,
+		buffdmg: buffdmg,
+	};
+	KinkyDungeonSendEvent("beforePlayerAttack", predata);
+
+	if (predata.buffdmg) dmg.damage = Math.max(0, dmg.damage + predata.buffdmg);
+
+	KinkyDungeonDamageEnemy(Enemy, (predata.eva) ? dmg : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
+	if (predata.eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
-	} else if (!eva) if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+	} else if (!predata.eva) if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
 	if (disarm) {
 		KinkyDungeonDisarm(Enemy);
 	}
@@ -375,7 +395,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	KinkyDungeonSendEvent("playerAttack", data);
 
 	KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damage", 1);
-	if (eva)
+	if (predata.eva)
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }
 

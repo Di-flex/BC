@@ -451,7 +451,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
 		if ((!KinkyDungeonTiles.get("" + X + "," + Y) || !KinkyDungeonTiles.get("" + X + "," + Y).OffLimits) && Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && (!InJail || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
-			&& KinkyDungeonNoEnemy(X, Y, true)) {
+			&& KinkyDungeonNoEnemy(X, Y, true) && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 			let tags = [];
 			if (KDGameData.KinkyDungeonSpawnJailers > 0 && jailerCount < KDGameData.KinkyDungeonSpawnJailersMax) tags.push("jailer");
 			if (KinkyDungeonMapGet(X, Y) == 'R' || KinkyDungeonMapGet(X, Y) == 'r') tags.push("rubble");
@@ -776,7 +776,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 		for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
 			let X = Math.floor(width * 0.75) - 2 - Math.floor(Math.random() * width/2);
 			let Y = 1 + 2*Math.floor(Math.random()*0.5 * (height - 2));
-			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) {
+			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
 				let wallcount = 0;
 				for (let XX = X-1; XX <= X+1; XX += 1)
@@ -885,8 +885,8 @@ function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghost
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
-			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && Math.max(Math.abs(X - KinkyDungeonStartPosition.x), Math.abs(Y - KinkyDungeonStartPosition.y)) > KinkyDungeonJailLeash &&
-				(!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
+			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && Math.max(Math.abs(X - KinkyDungeonStartPosition.x), Math.abs(Y - KinkyDungeonStartPosition.y)) > KinkyDungeonJailLeash
+				&& (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
 				let freecount = 0;
 				let freecount_diag = 0;
@@ -1071,7 +1071,7 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 	// Populate the doors
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
-			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && KinkyDungeonMapGet(X, Y) != 'D') {
+			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && KinkyDungeonMapGet(X, Y) != 'D' && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
 				let wallcount = 0;
 				let up = false;

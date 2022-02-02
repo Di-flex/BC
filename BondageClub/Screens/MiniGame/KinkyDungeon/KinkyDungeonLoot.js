@@ -46,11 +46,13 @@ var KinkyDungeonLootTable = {
 	"gold": [
 		{name: "MistressKey", minLevel: 0, weight:3, message:"LootChestMistressKey", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 		{name: "AncientCores", minLevel: 0, weight:3, message:"LootChestAncientCores", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
-		{name: "potions_many", minLevel: 0, weight:10, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowpotions"]},
-		{name: "EnchantedBelt", minLevel: 0, weight:10, message:"LootChestEnchantedBelt", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBelt"]},
-		{name: "EnchantedBra", minLevel: 0, weight:10, message:"LootChestEnchantedBra", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBra"]},
-		{name: "EnchantedHeels", minLevel: 0, weight:10, message:"LootChestEnchantedHeels", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedHeels"]},
-		{name: "EnchantedAnkleCuffs", minLevel: 0, weight:10, message:"LootChestEnchantedAnkleCuffs", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedAnkleCuffs"]},
+		{name: "potions_many", minLevel: 0, weight:5, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowpotions"]},
+		{name: "EnchantedBelt", minLevel: 0, weight:5, message:"LootChestEnchantedBelt", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBelt"]},
+		{name: "EnchantedBra", minLevel: 0, weight:5, message:"LootChestEnchantedBra", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBra"]},
+		{name: "EnchantedHeels", minLevel: 0, weight:5, message:"LootChestEnchantedHeels", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedHeels"]},
+		{name: "EnchantedAnkleCuffs", minLevel: 0, weight:5, message:"LootChestEnchantedAnkleCuffs", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedAnkleCuffs", "EnchantedAnkleCuffs2"]},
+		{name: "EnchantedBlindfold", minLevel: 0, weight:5, message:"LootChestEnchantedBlindfold", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBlindfold"]},
+		{name: "EnchantedMuzzle", minLevel: 0, weight:5, message:"LootChestEnchantedMuzzle", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedMuzzle"]},
 	]
 
 
@@ -292,6 +294,14 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs");
 		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+	} else if (Loot.name == "EnchantedMuzzle") {
+		let restraint = KinkyDungeonGetRestraintByName("EnchantedMuzzle");
+		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+	} else if (Loot.name == "EnchantedBlindfold") {
+		let restraint = KinkyDungeonGetRestraintByName("EnchantedBlindfold");
+		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)
@@ -383,7 +393,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("NippleClamps"), MiniGameKinkyDungeonCheckpoint, true, false);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBra"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapPlug"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintNippleClamps"));
 	}
 
 	else if (Loot.name == "lost_items") {

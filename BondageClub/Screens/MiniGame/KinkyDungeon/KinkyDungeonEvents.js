@@ -37,9 +37,13 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 
 function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	if (Event == "tick") {
-		if (e.type == "EvasionBuff" && e.trigger == Event) {
+		if (e.type == "SneakBuff" && e.trigger == Event) {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Sneak", duration: 1, power: e.power});
+		} else if (e.type == "EvasionBuff" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Evasion", duration: 1, power: e.power});
-		} if (e.type == "AllyHealingAura" && e.trigger == Event) {
+		} else if (e.type == "AccuracyBuff" && e.trigger == Event) {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Accuracy", duration: 1, power: e.power});
+		} else if (e.type == "AllyHealingAura" && e.trigger == Event) {
 			let healed = false;
 			for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 				let enemy = KinkyDungeonEntities[L];
@@ -175,10 +179,30 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		if (e.type == "EnergyCost" && e.trigger == Event) {
 			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 		}
+	} if (Event == "calcEvasion") {
+		if (e.type == "HandsFree" && e.trigger == "calcEvasion" && data.flags.KDEvasionHands) {
+			data.flags.KDEvasionHands = false;
+			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+		} else if (e.type == "BlindFighting" && e.trigger == "calcEvasion" && data.flags.KDEvasionSight) {
+			data.flags.KDEvasionSight = false;
+			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+		}
+	} else if (Event == "beforePlayerAttack") {
+		if (e.type == "BoostDamage" && e.trigger == Event) {
+			data.buffdmg = Math.max(0, data.buffdmg + e.power);
+			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+		}
 	} else if (Event == "beforeDamage") {
 		if (e.type == "ModifyDamageFlat" && e.trigger == Event && data.damage > 0) {
 			if (!e.chance || KDRandom() < e.chance) {
 				data.damage = Math.max(data.damage + e.power, 0);
+				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			}
+		}
+	} else if (Event == "beforeDamageEnemy") {
+		if (e.type == "MultiplyDamageStealth" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
+			if (!e.chance || KDRandom() < e.chance) {
+				data.dmg = Math.max(data.dmg * e.power, 0);
 				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
 		}

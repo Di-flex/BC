@@ -1734,6 +1734,11 @@ ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
 ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
+
+ItemPickupScrollArms,"You pick up a Scroll of Sleight."
+ItemPickupScrollVerbal,"You pick up a Scroll of Speech."
+ItemPickupScrollLegs,"You pick up a Scroll of Sauntering."
+
 KinkyDungeonDisarm,"As you strike again, your weapon is pulled out of your grasp!"
 
 KinkyDungeonUnEquipWeapon,"You put away the WEAPONNAME"
@@ -1837,7 +1842,7 @@ KinkyDungeonSpellRestrainingDevice,Restraining Device
 KinkyDungeonRestrainingDeviceStun,The thrown restraining device latches onto you as you struggle to get it off!!!
 KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables around you!!!
 
-KinkyDungeonSleepy,You are feeling doozy...
+KinkyDungeonSleepy,You are feeling drowsy...
 
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 
@@ -2311,7 +2316,6 @@ KinkyDungeonCurseUnlock5Keys,"You insert your 5 keys into the lock and the item 
 KinkyDungeonUnusable,"That item cant be used."
 
 KinkyDungeonCurseInfoMistressKey,"You realize there is no keyhole on the device, simply a lock-shaped sigil."
-KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyhole and the material is nigh-unbreakable!"
 KinkyDungeonCurseUnlockMistressKey,"The item loosens and falls off, but you see a red sigil flash and the key suddenly teleports away!"
 KinkyDungeonCurseInfoMistressKeyHave,"You have in your possession KeyAmount magical, ornate key(s). You might as well try..."
 KinkyDungeonCurseDescriptionMistressKey,"You have KeyAmount key(s) for this item."
@@ -2504,6 +2508,9 @@ KinkyDungeonSelfBondageNipple,"You attack the RestraintName and close your bra's
 KinkyDungeonSelfBondageEnchanted,"You slowly put on the RestraintName, amazed at how it seems to mold to your size..."
 
 
+
+KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyhole and the material is nigh-unbreakable!"
+
 LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
 LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
@@ -2511,21 +2518,39 @@ LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnific
 
 RestraintEnchantedBelt,Ancient Chastity Belt
 RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it negates miscast chance due to arousal and slowly regenerates mana."
-RestraintEnchantedBeltDesc,"Did the ancient civilizations really need that much control over their mages?"
+RestraintEnchantedBeltDesc,"'Belt of the devoted'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedBelt,"You tug at your chastity belt, but you can't even stick a finger inside because it's so tight..."
 
 RestraintEnchantedBra,Ancient Chastity Bra
 RestraintEnchantedBraDesc2,"A chastity bra of sleek, ancient design. While powered, it reduces incoming damage by 1."
-RestraintEnchantedBraDesc,"The ancient mages sure were kept under lock and key..."
+RestraintEnchantedBraDesc,"'Shield of the chaste'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your breasts but feel only hard, unbreakable metal."
 
 RestraintEnchantedHeels,Ancient Heels
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
-RestraintEnchantedHeelsDesc,"The ancient mages apparently wore these on the battlefield... brave."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with guiding and combat magic. When powered, they reduce slow level by 2 and boost melee damage by +1."
+RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
+
+RestraintEnchantedBlindfold,Ancient Blindfold
+RestraintEnchantedBlindfoldDesc2,"A full-blackout mask. When powered, it negates accuracy penalties due to vision, boosts accuracy by +100%, and boosts melee damage by +1."
+RestraintEnchantedBlindfoldDesc,"'Mask of the Warrior'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedBlindfold,"You tug at the mask but it won't come off. It's molded so close to your face that no light shines through!"
+
+RestraintEnchantedMuzzle,Ancient Muzzle
+RestraintEnchantedMuzzleDesc2,"A muzzle with a potion port. When powered, it boosts sneak and triples damage dealt to unaware enemies."
+RestraintEnchantedMuzzleDesc,"'Muzzle of the Saboteur'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your mouth, but not only does the soft plug fill your mouth completely, but the muzzle is nigh-unbreakable!"
+
 
 RestraintEnchantedAnkleCuffs,Ancient Ankle Cuffs
-RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also improves evasion by +50% (to 2/3rds). Closes without power."
-RestraintEnchantedAnkleCuffsDesc2,"Ironic for someone who needs to use her legs to summon."
+RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also boosts evasion by +50% (to 2/3rds). Closes without power."
+RestraintEnchantedAnkleCuffsDesc2,"'Anklets of the Faithful Friend'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs,"You jingle the chains around and realize that these unbreakable restraints won't be coming off."
 RestraintEnchantedAnkleCuffs2,Ancient Ankle Cuffs
 RestraintEnchantedAnkleCuffs2Desc2,"...when powered down, they snap together, rendering the wearer immobile."
-RestraintEnchantedAnkleCuffs2Desc,"...ironic, and not very funny..."
+RestraintEnchantedAnkleCuffs2Desc,"'Anklets of the Unfaithful Friend'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs2,"You struggle fruitlessly. There is no keyhole and the material is nigh-unbreakable!"
+
+
 
 KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.

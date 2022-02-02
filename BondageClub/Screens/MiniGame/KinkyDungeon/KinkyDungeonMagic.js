@@ -630,7 +630,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
-			KDGameData.SleepTurns = 10;
+			KinkyDungeonSleepiness = 3;
 			KinkyDungeonAlert = 4;
 			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {

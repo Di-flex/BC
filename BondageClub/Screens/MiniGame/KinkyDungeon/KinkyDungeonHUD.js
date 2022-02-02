@@ -243,7 +243,7 @@ function KinkyDungeonDrawProgress(x, y, amount, totalIcons, maxWidth, sprite) {
 function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	// Draw labels
 	let buttonWidth = 48;
-	let suff = (!KinkyDungeonCanTalk()) ? "Unavailable" : "";
+	let suff = (!KinkyDungeonCanDrink()) ? "Unavailable" : "";
 	if (KinkyDungeonStatArousal > 0) {
 		DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "black");
 		DrawButton(x, y, buttonWidth, buttonWidth, "", KinkyDungeonItemCount("PotionFrigid") ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");

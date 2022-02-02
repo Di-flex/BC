@@ -140,6 +140,14 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	}
 }
 
+function KinkyDungeonCanDrink() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.allowPotions) return true;
+		else if (inv.restraint && inv.restraint.gag && !inv.restraint.openMouth) return false;
+	}
+	return true;
+}
+
 function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let item = KinkyDungeonGetInventoryItem(Name, "Consumables");
 	if (!item) return false;
@@ -156,7 +164,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 
-	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
+	let needMouth = item.item && item.item.consumable && item.item.consumable.potion && KinkyDungeonCanDrink();
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
@@ -169,7 +177,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 
 		return false;
 	}
-	if (needArms && !KinkyDungeonPlayer.CanInteract() && (KinkyDungeonIsHandsBound())) {
+	if (needArms && KinkyDungeonIsHandsBound()) {
 		KinkyDungeonAdvanceTime(1);
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
 
