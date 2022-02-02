@@ -494,7 +494,7 @@ const KinkyDungeonRestraints = [
 		events: [{trigger: "tick", type: "ApplySlowLevelBuff", power: -2, requireEnergy: true, energyCost: 0.00025}]},
 	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedAnkleCuffs", Asset: "SteelAnkleCuffs", Type: "Chained", Color: ["#AE915C", "#B0B0B0"], Group: "ItemFeet", power: 25, weight: 0,
 		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
-		events: [{trigger: "tick", type: "EnchantedAnkleCuffs"}, {trigger: "tick", type: "AllyHealingAura", aoe: 3.9, power: 1.5}, {trigger: "tick", type: "EvasionBuff", power: 0.25, requireEnergy: true}, {trigger: "miss", type: "EnergyCost", requireEnergy: true, energyCost: 0.0025}]},
+		events: [{trigger: "tick", type: "EnchantedAnkleCuffs"}, {trigger: "tick", type: "AllyHealingAura", aoe: 3.9, power: 1.5}, {trigger: "tick", type: "EvasionBuff", power: 0.25, requireEnergy: true}, {trigger: "miss", type: "EnergyCost", requireEnergy: true, energyCost: 0.0075}]},
 	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, inventoryAs: "EnchantedAnkleCuffs", name: "EnchantedAnkleCuffs2", Asset: "SteelAnkleCuffs", Type: "Closed", blockfeet: true, Color: ["#AE915C", "#B0B0B0"], Group: "ItemFeet", power: 25, weight: 0,
 		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
 		events: [{trigger: "tick", type: "EnchantedAnkleCuffs2", requireEnergy: true}]},
