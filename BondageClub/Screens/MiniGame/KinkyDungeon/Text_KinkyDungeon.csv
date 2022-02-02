@@ -202,6 +202,7 @@ KinkyDungeonFullpower,"You are already full of ancient power."
 
 KinkyDungeonInventoryItemAncientPowerSourceSpent,Spent Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceSpentUse,"You touch the spent crystal and it siphons 100 gold from your bag!"
+KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail,"You touch the spent crystal and the gold in your bag tingles, but nothing happens."
 KinkyDungeonInventoryItemAncientPowerSourceSpentDesc,"You're not sure how they charged these..."
 KinkyDungeonInventoryItemAncientPowerSourceSpentDesc2,"A mysterious device used by the old civilization, now depleted."
 
@@ -2167,7 +2168,7 @@ KinkyDungeonVineEngulf,"Nature magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
 
-KinkyDungeonSpellTrapCharmsWeak,Charm Trap
+KinkyDungeonSpellTrapCharmWeak,Charm Trap
 KinkyDungeonSpellTrapShackleWeak,Shackle Trap
 KinkyDungeonSpellTrapMummyWeak,Mummy Trap
 KinkyDungeonSpellTrapRopeWeak,Rope Trap

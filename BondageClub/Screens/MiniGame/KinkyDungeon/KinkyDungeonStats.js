@@ -528,8 +528,11 @@ function KinkyDungeonCalculateSlowLevel() {
 			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
+	let origSlowLevel = KinkyDungeonSlowLevel;
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel")) KinkyDungeonSlowLevel += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel");
 	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonSlowLevel);
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain")) KDGameData.AncientEnergyLevel =
+		Math.max(0, KDGameData.AncientEnergyLevel - Math.max(0, origSlowLevel - KinkyDungeonSlowLevel) * KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain"));
 }
 
 function KinkyDungeonCanTalk() {

@@ -11,6 +11,7 @@ var KinkyDungeonConsumables = {
 	"ElfCrystal" : {name: "ElfCrystal", rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
 	"MistressKey" : {name: "MistressKey", rarity: 10, shop: false, type: "unusuable"},
 	"AncientPowerSource" : {name: "AncientPowerSource", rarity: 4, shop: true, type: "charge", amount: 0.251},
+	"AncientPowerSourceSpent" : {name: "AncientPowerSourceSpent", rarity: 4, shop: false, type: "recharge", rechargeCost: 100},
 	"ScrollArms" : {name: "ScrollArms", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoArmsComp", duration: 12, power: 1, aura: "#aaffaa", sfx: "FireSpell"},
 	"ScrollVerbal" : {name: "ScrollVerbal", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoVerbalComp", duration: 12, power: 1, aura: "#aaaaff", sfx: "FireSpell"},
 	"ScrollLegs" : {name: "ScrollLegs", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoLegsComp", duration: 12, power: 1, aura: "#ffaaaa", sfx: "FireSpell"},
@@ -130,8 +131,12 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
 	} else if (Consumable.type == "charge") {
 		KDGameData.AncientEnergyLevel = Math.min(Math.max(0, KDGameData.AncientEnergyLevel + Consumable.amount), 1.0);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSourceSpent, 1);
 	} else if (Consumable.type == "buff") {
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: Consumable.name, type: Consumable.buff, power: Consumable.power, duration: Consumable.duration, aura: Consumable.aura});
+	} else if (Consumable.type == "recharge") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+		KinkyDungeonAddGold(-Consumable.rechargeCost);
 	}
 }
 
@@ -144,6 +149,10 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	}
 	if (item.item && item.item.consumable && item.item.consumable.type == "charge" && KDGameData.AncientEnergyLevel >= 1) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonFullpower"), "red", 1);
+		return false;
+	}
+	if (item.item && item.item.consumable && item.item.consumable.type == "recharge" && KinkyDungeonGold < item.item.consumable.rechargeCost) {
+		KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail"), "red", 1);
 		return false;
 	}
 

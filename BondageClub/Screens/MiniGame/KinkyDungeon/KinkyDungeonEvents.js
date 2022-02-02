@@ -38,9 +38,11 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 	if (Event == "tick") {
 		for (let e of item.events) {
 			if (e.type == "RegenMana" && e.trigger == Event && (!e.limit || KinkyDungeonStatMana/KinkyDungeonStatManaMax < e.limit)) {
+				if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 				KinkyDungeonChangeMana(e.power);
 			} else if (e.type == "ApplySlowLevelBuff" && e.trigger == Event && item.restraint) {
 				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "SlowLevel", duration: 1, power: e.power});
+				if (e.energyCost) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger + "2", type: "SlowLevelEnergyDrain", duration: 1, power: e.energyCost});
 			} else if (e.type == "AlertEnemies" && e.trigger == Event) {
 				if (!e.chance || KDRandom() < e.chance) {
 					KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);
@@ -158,6 +160,7 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 			if (e.type == "ModifyDamageFlat" && e.trigger == Event && data.damage > 0) {
 				if (!e.chance || KDRandom() < e.chance) {
 					data.damage = Math.max(data.damage + e.power, 0);
+					if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 				}
 			}
 		}
