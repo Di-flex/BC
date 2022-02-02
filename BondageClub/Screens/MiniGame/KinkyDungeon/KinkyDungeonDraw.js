@@ -79,11 +79,6 @@ function KinkyDungeonDrawGame() {
 	// Draw the stats
 	KinkyDungeonDrawStats(canvasOffsetX + KinkyDungeonCanvas.width+10, canvasOffsetY, 1975 - (canvasOffsetX + KinkyDungeonCanvas.width+5), KinkyDungeonStatBarHeight);
 
-	// Draw the quick inventory
-	if (KinkyDungeonShowInventory) {
-		KinkyDungeonDrawQuickInv();
-	}
-
 	if (KinkyDungeonDrawState == "Game") {
 		let tooltip = "";
 		if ((KinkyDungeonIsPlayer() || (KinkyDungeonGameData && CommonTime() < KinkyDungeonNextDataLastTimeReceived + KinkyDungeonNextDataLastTimeReceivedTimeout))) {
@@ -391,7 +386,12 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawInputs();
 			}
 
+
 			KinkyDungeonDrawMessages();
+			// Draw the quick inventory
+			if (KinkyDungeonShowInventory) {
+				KinkyDungeonDrawQuickInv();
+			}
 		} else {
 			DrawText(TextGet("KinkyDungeonLoading"), 1100, 500, "white", "black");
 			if (CommonTime() > KinkyDungeonGameDataNullTimerTime + KinkyDungeonGameDataNullTimer) {
