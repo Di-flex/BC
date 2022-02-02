@@ -388,17 +388,21 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 					let existingitem = KinkyDungeonGetInventoryItem(lostitem[itemType].name, itemType);
 					if (existingitem && existingitem.item) {
 						if (existingitem.item.consumable) {
-							if (!existingitem.item.quantity) existingitem.item.quantity = lostitem.quantity;
-							else existingitem.item.quantity += lostitem.quantity;
-							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
-								`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
-							remove = true;
+							if (lostitem.consumable.name != "MistressKey") {
+								if (!existingitem.item.quantity) existingitem.item.quantity = lostitem.quantity;
+								else existingitem.item.quantity += lostitem.quantity;
+								KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
+									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
+							} else
+								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
 						}
 					} else {
 						if (lostitem.consumable) {
 							if (lostitem.consumable.name != "MistressKey")
 								KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
 									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 4);
+							else
+								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
 							remove = true;
 						} if (lostitem.weapon) {
 							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * Math.random(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * Math.random()},
@@ -415,9 +419,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 						}
 					}
 					if (remove) {
-						if (lostitem.consumable && lostitem.consumable.name == "MistressKey") {
-							KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
-						} else
+						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey")
 							KinkyDungeonInventory.push(lostitem);
 						//KinkyDungeonLostItems.splice(I, 1);
 						//I -= 1;
