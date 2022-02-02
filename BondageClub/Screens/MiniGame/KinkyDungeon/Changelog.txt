@@ -516,6 +516,7 @@ Bugfix:
 - Drinking from a shrine more than once ever will now always be risky
 - You can now ask for a goddess to give you mana
 - Confirmation message for attacking allies or attacking a guard in jail
+- New enchanted restraints! Found in forbidden temples...
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 
