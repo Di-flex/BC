@@ -578,7 +578,7 @@ function KinkyDungeonCreateForbidden(Floor, width, height) {
 	for (let X = cornerX + Math.floor(radius/2) - 1; X <= cornerX + Math.floor(radius/2) + 1; X++) {
 		for (let Y = cornerY + 1; Y < cornerY + radius - 1; Y++) {
 			if (!(X == cornerX + Math.floor(radius/2) && Y == cornerY + 1) && !(X == cornerX + Math.floor(radius/2) && Y == cornerY + radius - 2)) {
-				if (KDRandom() < 0.7) {
+				if (KDRandom() < 0.65) {
 					trapLocations.push({x: X, y: Y});
 				} else if (X != cornerX + Math.floor(radius/2) && Y >= cornerY + 1) {
 					KinkyDungeonMapSet(X, Y, 'X');
