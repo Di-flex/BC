@@ -1324,11 +1324,15 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					let harnessChance = 0;
 					let harnessRestraintName = "";
 					let list = KinkyDungeonRestraintList();
+					let list2 = [];
 					for (let restraint of list) {
-						if (restraint.restraint && restraint.restraint.harness) harnessChance += 1;
+						if (restraint.restraint && restraint.restraint.harness) {
+							harnessChance += 1;
+							list2.push(restraint.restraint.name);
+						}
 					}
-					let rest = list[Math.floor(Math.random() * list.length)];
-					if (rest && rest.restraint && rest.restraint.name && rest.restraint.harness) harnessRestraintName = rest.restraint.name;
+					let rest = list[Math.floor(KDRandom() * list.length)];
+					if (rest) harnessRestraintName = rest;
 
 					if (harnessChance > 0) {
 						let roll = Math.random();

@@ -9,6 +9,8 @@ var KinkyDungeonConsumables = {
 	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
 	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
 	"ElfCrystal" : {name: "ElfCrystal", rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
+	"MistressKey" : {name: "MistressKey", rarity: 10, shop: false, type: "unusuable"},
+	"AncientPowerSource" : {name: "AncientPowerSource", rarity: 4, shop: true, type: "charge", amount: 0.251},
 };
 
 var KinkyDungneonBasic = {
@@ -123,12 +125,22 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
+	} else if (Consumable.type == "charge") {
+		KDGameData.AncientEnergyLevel = Math.min(Math.max(0, KDGameData.AncientEnergyLevel + Consumable.amount), 1.0);
 	}
 }
 
 function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let item = KinkyDungeonGetInventoryItem(Name, "Consumables");
 	if (!item) return false;
+	if (item.item && item.item.consumable && item.item.consumable.type == "unusuable") {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnusable"), "red", 1);
+		return false;
+	}
+	if (item.item && item.item.consumable && item.item.consumable.type == "charge" && KDGameData.AncientEnergyLevel >= 1) {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonFullpower"), "red", 1);
+		return false;
+	}
 
 	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);

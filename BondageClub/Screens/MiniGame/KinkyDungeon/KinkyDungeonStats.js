@@ -633,9 +633,9 @@ function KinkyDungeonDoTryOrgasm() {
 	KinkyDungeonSendActionMessage(10, TextGet(msg + ("" + msgIndex)), "#FF5BE9", msgTime);
 }
 
-function KinkyDungeonIsChaste() {
+function KinkyDungeonIsChaste(Breast) {
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.chastity) return true;
+		if (inv.restraint && (!Breast && inv.restraint.chastity) || (Breast && inv.restraint.chastitybra)) return true;
 	}
 }
 

@@ -72,6 +72,7 @@ let KinkyDungeonConfigAppearance = false;
 * KinkyDungeonPenance: boolean;
 * GuardApplyTime: number;
 * WarningLevel: number;
+* AncientEnergyLevel: number;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -114,6 +115,8 @@ let KDGameDataBase = {
 	SleepTurns: 0,
 	PlaySelfTurns: 0,
 	GuardApplyTime: 0,
+
+	AncientEnergyLevel: 0,
 
 	WarningLevel: 0,
 };
@@ -316,6 +319,16 @@ function KinkyDungeonRun() {
 	DrawImage("Backgrounds/" + BG + ".jpg", 0, 0);
 
 	// Draw the characters
+	if (KDGameData && KDGameData.AncientEnergyLevel) {
+		let h = 1000 * KDGameData.AncientEnergyLevel;
+		const Grad = MainCanvas.createLinearGradient(0, 1000-h, 0, 1000);
+		Grad.addColorStop(0, `rgba(255,255,0,0)`);
+		Grad.addColorStop(0.5, `rgba(255,255,128,0.5)`);
+		Grad.addColorStop(0.75, `rgba(255,255,255,1.0)`);
+		Grad.addColorStop(1.0, `rgba(255,255,255,0.25)`);
+		MainCanvas.fillStyle = Grad;
+		MainCanvas.fillRect(0, 1000-h, 500, h);
+	}
 	DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
 	if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")

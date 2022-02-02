@@ -10,7 +10,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 	let tile = KinkyDungeonTiles.get(x + "," + y);
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
 		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile, flags: flags});
-		if (!flags.AllowTraps) {
+		if (flags.AllowTraps) {
 			let msg = "";
 			let color = "red";
 			if (tile.Trap === "SpawnEnemies") {
