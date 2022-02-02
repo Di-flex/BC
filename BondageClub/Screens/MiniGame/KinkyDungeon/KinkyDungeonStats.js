@@ -390,6 +390,9 @@ function KinkyDungeonUpdateStats(delta) {
 				KinkyDungeonDifficulty += item.restraint.difficultyBonus;
 			}
 			if (item.restraint.crotchrope) KinkyDungeonHasCrotchRope = true;
+			if (item.restraint.enchantedDrain) {
+				if (KDGameData.AncientEnergyLevel > 0) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - item.restraint.enchantedDrain * delta);
+			}
 		}
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
@@ -495,7 +498,7 @@ function KinkyDungeonLegsBlocked() {
 }
 
 function KinkyDungeonCalculateSlowLevel() {
-	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") : 0);
+	KinkyDungeonSlowLevel = 0;
 	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
 	else {
 		/*let boots = KinkyDungeonGetRestraintItem("ItemBoots");
@@ -525,6 +528,8 @@ function KinkyDungeonCalculateSlowLevel() {
 			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel")) KinkyDungeonSlowLevel += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel");
+	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonSlowLevel);
 }
 
 function KinkyDungeonCanTalk() {

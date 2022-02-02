@@ -1533,6 +1533,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					}
 				}
 				let Dash = false;
+				let data = {};
 				if (attack.includes("Dash") && (enemy.Enemy.dashThruWalls || canSeePlayer)) {
 					// Check player neighbor tiles
 					let tiles = [];
@@ -1581,14 +1582,12 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						willpowerDamage += power;
 					let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 					if (buffdmg) willpowerDamage = Math.max(0, willpowerDamage + buffdmg);
-					replace.push({keyword:"DamageTaken", value: willpowerDamage});
 					msgColor = "#ff8888";
 					if (enemy.usingSpecial && willpowerDamage > 0 && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Will")) {
 						enemy.specialCD = enemy.Enemy.specialCD;
 					}
 				}
 				if (player.player) {
-					happened += KinkyDungeonDealDamage({damage: willpowerDamage, type: damage});
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					for (let r of restraintAdd) {
 						bound += KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
@@ -1629,6 +1628,18 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						Blind = true;
 					}
 					happened += bound;
+
+					data = {
+						attack: attack,
+						enemy: enemy,
+						bound: bound,
+						damage: willpowerDamage,
+						damagetype: damage,
+					};
+					KinkyDungeonSendEvent("beforeDamage", data);
+					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
+
+					replace.push({keyword:"DamageTaken", value: data.damage});
 				} else { // if (Math.random() <= playerEvasion)
 					let dmg = power;
 					let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
@@ -1657,16 +1668,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					else if (bound > 0) suffix = "Bind";
 					if (Dash) suffix = "Dash";
 
-					let sfx = (hitsfx) ? hitsfx : (willpowerDamage > 1 ? "Damage" : "DamageWeak");
+					let sfx = (hitsfx) ? hitsfx : (data.damage > 1 ? "Damage" : "DamageWeak");
 					if (enemy.usingSpecial && enemy.Enemy.specialsfx) sfx = enemy.Enemy.specialsfx;
-					KinkyDungeonSendEvent("hit", {
-						happened: happened,
-						attack: attack,
-						enemy: enemy,
-						bound: bound,
-						damage: willpowerDamage,
-						damagetype: damage,
-					});
+					KinkyDungeonSendEvent("hit", data);
 					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 					let text = TextGet("Attack"+enemy.Enemy.name + suffix);
 					if (replace)

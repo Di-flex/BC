@@ -222,6 +222,7 @@ function KinkyDungeonLoad() {
 
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer) {
+			KDrandomizeSeed();
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 			KinkyDungeonPlayer.Type = "simple";
 			// @ts-ignore
@@ -1189,7 +1190,11 @@ let KinkyDungeonSeed = (Math.random() * 4294967296).toString();
 let KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
 
 function KDrandomizeSeed() {
-	KinkyDungeonSeed = KDRandom().toString();
+	KinkyDungeonSeed = (Math.random() * 4294967296).toString();
+	for (let i = 0; i < 20; i++) {
+		let index = Math.random() * KinkyDungeonSeed.length;
+		KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(Math.random()*50)) + String.fromCharCode(65 + Math.floor(Math.random()*50)));
+	}
 	KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
 	for (let i = 0; i < 1000; i++) {
 		KDRandom();

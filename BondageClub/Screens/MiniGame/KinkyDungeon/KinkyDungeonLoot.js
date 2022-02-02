@@ -40,6 +40,11 @@ var KinkyDungeonLootTable = {
 		{name: "potions_many", minLevel: 0, weight:1, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 		{name: "staff_flame", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffFlame"]},
 		{name: "staff_bind", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffBind"]},
+	],
+	"gold": [
+		{name: "MistressKey", minLevel: 0, weight:3, message:"LootChestMistressKey", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+		{name: "AncientCores", minLevel: 0, weight:3, message:"LootChestAncientCores", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+		{name: "EnchantedBelt", minLevel: 0, weight:10, message:"LootChestEnchantedBelt", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBelt"]},
 	]
 
 
@@ -126,6 +131,14 @@ function KinkyDungeonLoot(Level, Index, Type) {
 			if (loot.noweapon) {
 				for (let w of loot.noweapon) {
 					if (KinkyDungeonInventoryGet(w)) {
+						prereqs = false;
+						break;
+					}
+				}
+			}
+			if (loot.norestraint) {
+				for (let r of loot.norestraint) {
+					if (KinkyDungeonInventoryGet(r)) {
 						prereqs = false;
 						break;
 					}
@@ -252,6 +265,15 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonRedKeys += 1;
 	} else if (Loot.name == "bluekey") {
 		KinkyDungeonBlueKeys += 1;
+	} else if (Loot.name == "MistressKey") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);
+	} else if (Loot.name == "AncientCores") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);
+	} else if (Loot.name == "EnchantedBelt") {
+		let restraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
+		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)

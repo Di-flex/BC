@@ -131,6 +131,12 @@ LootRubbleKnife,You find a rusty knife among the rocks
 LootRubbleRedKey,"You find an ordinary key"
 LootRubbleBlueKey,"You find a blue key, glowing with magic"
 
+LootChestMistressKey,You find a golden key surrounded by strange golden crystals.
+LootChestAncientCores,You find a set of strange golden crystals.
+LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
+LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
+LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
+
 LootChestGold,The chest contains gold! (+XXX gold)
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
 LootChestSpell,"You find a magic scroll, which you place in your spellbook. (+SpellLearned)"
@@ -168,20 +174,20 @@ KinkyDungeonConsume,Use Item (Consumes 1)
 
 
 KinkyDungeonInventoryItemMistressKey,Ancient Key
-KinkyDungeonInventoryItemMistressKeyDesc,"An ancient key plated in gold. It doesnt look like it can open anything..."
-KinkyDungeonInventoryItemMistressKeyDesc2,"Perhaps it has something to do with ancient restraints?"
+KinkyDungeonInventoryItemMistressKeyDesc,"Perhaps it has something to do with ancient restraints?"
+KinkyDungeonInventoryItemMistressKeyDesc2,"An ancient key plated in gold. It doesnt look like it can open anything..."
 
 KinkyDungeonInventoryItemAncientPowerSource,Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceUse,"You hold the crystal and the power flows into you."
-KinkyDungeonInventoryItemAncientPowerSourceDesc,"A mysterious device used by the old civilization, powering their ancient devices."
-KinkyDungeonInventoryItemAncientPowerSourceDesc2,"You're not sure how they charged these..."
+KinkyDungeonInventoryItemAncientPowerSourceDesc,"You're not sure how they charged these..."
+KinkyDungeonInventoryItemAncientPowerSourceDesc2,"A mysterious device used by the old civilization, powering their ancient devices."
 
 KinkyDungeonFullpower,"You are already full of ancient power."
 
 KinkyDungeonInventoryItemAncientPowerSourceSpent,Spent Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceSpentUse,"You touch the spent crystal and it siphons 100 gold from your bag!"
-KinkyDungeonInventoryItemAncientPowerSourceSpentDesc,"A mysterious device used by the old civilization, now depleted."
-KinkyDungeonInventoryItemAncientPowerSourceSpentDesc2,"You're not sure how they charged these..."
+KinkyDungeonInventoryItemAncientPowerSourceSpentDesc,"You're not sure how they charged these..."
+KinkyDungeonInventoryItemAncientPowerSourceSpentDesc2,"A mysterious device used by the old civilization, now depleted."
 
 KinkyDungeonInventoryItemRedKey,Key
 KinkyDungeonInventoryItemRedKeyDesc,"A key with traces of magic that fades with one use."
@@ -1045,7 +1051,7 @@ RestraintExpArmbinder,Latex Boxtie Binder
 RestraintExpArmbinderDesc,"A secure but comfortable binder meant for long-term wear by the alchemists' pets."
 RestraintExpArmbinderDesc2,"Made from imbued latex, it will be hard to cut but not impossible."
 RestraintExpArmbinderHarness,Binder Straps Cincher
-RestraintExpArmbinderHarnessDesc,"A tight cincher used to ensure a binder will not come off."
+RestraintExpArmbinderHarnessDesc,"A tight cincher attached to a binder used to ensure restraints will not come off."
 RestraintExpArmbinderHarnessDesc2,"It's tied in the back and reinforced with steel boning."
 RestraintExpAnkleCuffs,Blacksteel Ankle Cuffs
 RestraintExpAnkleCuffsDesc,"Highly durable cuffs that can withstand even powerful acid."
@@ -2476,3 +2482,11 @@ KinkyDungeonSelfBondageEnchanted,"You slowly put on the RestraintName, amazed at
 RestraintEnchantedBelt,Ancient Chastity Belt
 RestraintEnchantedBeltDesc,"A chastity belt of sleek, ancient design. While powered, it negates miscast chance due to arousal and slowly regenerates mana."
 RestraintEnchantedBeltDesc2,"Did the ancient civilizations really need that much control over their mages?"
+
+RestraintEnchantedBra,Ancient Chastity Bra
+RestraintEnchantedBraDesc,"A chastity bra of sleek, ancient design. While powered, it reduces incoming damage by 1."
+RestraintEnchantedBraDesc2,"The ancient mages sure were kept under lock and key..."
+
+RestraintEnchantedBra,Ancient Heels
+RestraintEnchantedBraDesc,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
+RestraintEnchantedBraDesc2,"The ancient mages apparently wore these on the battlefield... brave."

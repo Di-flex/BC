@@ -754,7 +754,12 @@ function KinkyDungeonGetCost(Spell) {
 function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let entity = KinkyDungeonPlayerEntity;
 	let moveDirection = KinkyDungeonMoveDirection;
-	let miscastChance = KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax;
+	let flags = {
+		miscastChance: KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax,
+	};
+	if (!enemy && !bullet && player) {
+		KinkyDungeonSendEvent("beforeCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
+	}
 	let tX = targetX;
 	let tY = targetY;
 	let miscast = false;
@@ -766,7 +771,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (enemy) {
 		entity = enemy;
 		moveDirection = KinkyDungeonGetDirection(player.x - entity.x, player.y - entity.y);
-		miscastChance = 0;
+		flags.miscastChance = 0;
 	}
 	if (bullet) {
 		entity = bullet;
@@ -775,9 +780,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		} else {
 			moveDirection = {x:0, y:0, delta: 0};
 		}
-		miscastChance = 0;
+		flags.miscastChance = 0;
 	}
-	if (!spell.noMiscast && Math.random() < miscastChance) {
+	if (!spell.noMiscast && Math.random() < flags.miscastChance) {
 
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscast"), "#FF8800", 2);
 
@@ -872,7 +877,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (!enemy && !bullet && player) { // Costs for the player
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 
-		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y});
+		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
 
 		//let cost = spell.staminacost ? spell.staminacost : KinkyDungeonGetCost(spell.level);
 

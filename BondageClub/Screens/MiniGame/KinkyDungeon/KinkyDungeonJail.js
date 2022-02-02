@@ -285,7 +285,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 			let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard().CurrentRestraintSwapGroup);
 			if (KDGameData.GuardApplyTime > applyTime) {
 				if (oldRestraintItem && oldRestraintItem.restraint && !oldRestraintItem.noJailRemove) {
-					KinkyDungeonRemoveRestraint(oldRestraintItem.restraint.Group, false, false, true);
+					KinkyDungeonRemoveRestraint(oldRestraintItem.restraint.Group, false, false, false);
 					let msg = TextGet("KinkyDungeonRemoveRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					//let msg = TextGet("Attack" + KinkyDungeonJailGuard().Enemy.name + "RemoveRestraints");
 					if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
@@ -461,6 +461,7 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 
 function KinkyDungeonDefeat() {
 	KDGameData.WarningLevel = 0;
+	KDGameData.AncientEnergyLevel = 0;
 	//MiniGameKinkyDungeonLevel = Math.min(MiniGameKinkyDungeonLevel, Math.max(Math.floor(MiniGameKinkyDungeonLevel/10)*10, MiniGameKinkyDungeonLevel - KinkyDungeonSpawnJailers + KinkyDungeonSpawnJailersMax - 1));
 	KinkyDungeonSendEvent("defeat", {});
 

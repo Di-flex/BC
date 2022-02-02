@@ -37,7 +37,11 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 	if (Event == "tick") {
 		for (let e of item.events) {
-			if (e.type == "AlertEnemies" && e.trigger == Event) {
+			if (e.type == "RegenMana" && e.trigger == Event && (!e.limit || KinkyDungeonStatMana/KinkyDungeonStatManaMax < e.limit)) {
+				KinkyDungeonChangeMana(e.power);
+			} else if (e.type == "ApplySlowLevelBuff" && e.trigger == Event && item.restraint) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "SlowLevel", duration: 1, power: e.power});
+			} else if (e.type == "AlertEnemies" && e.trigger == Event) {
 				if (!e.chance || KDRandom() < e.chance) {
 					KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);
 					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonAlertEnemies").replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
@@ -149,6 +153,14 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 				}
 			}
 		}
+	} else if (Event == "beforeDamage") {
+		for (let e of item.events) {
+			if (e.type == "ModifyDamageFlat" && e.trigger == Event && data.damage > 0) {
+				if (!e.chance || KDRandom() < e.chance) {
+					data.damage = Math.max(data.damage + e.power, 0);
+				}
+			}
+		}
 	} else if (Event == "defeat") {
 		for (let e of item.events) {
 			if (e.type == "linkItem" && e.trigger == "defeat") {
@@ -186,6 +198,12 @@ function KinkyDungeonHandleInventoryEvent(Event, item, data) {
 					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPunishPlayer" + (KDGameData.WarningLevel > 2 ? "Harsh" : "")).replace("RestraintName", TextGet("Restraint" + item.restraint.name)), "red", 2);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
+			}
+		}
+	} else if (Event == "beforeCast") {
+		for (let e of item.events) {
+			if (e.type == "ReduceMiscastFlat" && e.trigger == Event && data.flags.miscastChance > 0) {
+				data.flags.miscastChance -= e.power;
 			}
 		}
 	} else if (Event == "playerCast") {
@@ -246,7 +264,7 @@ function KinkyDungeonHandleMagicEvent(Event, spell, data) {
 		}
 	} else if (Event == "afterMove") {
 		for (let e of spell.events) {
-			if (e.type == "FleetFooted" && e.trigger == "afterMove" && e.prevSlowLevel && !data.IsSpell && KinkyDungeonSlowLevel == 0) {
+			if (e.type == "FleetFooted" && e.trigger == "afterMove" && e.prevSlowLevel && !data.IsSpell && KinkyDungeonSlowLevel < e.prevSlowLevel) {
 				KinkyDungeonSlowLevel = e.prevSlowLevel;
 				e.prevSlowLevel = undefined;
 			}

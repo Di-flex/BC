@@ -20,6 +20,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
 		"cacheInterval" : 3,
+		"forbiddenChance" : 0.4,
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 30},
@@ -88,6 +89,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.6,
 		"brickchance" : 0.4,
 		"cacheInterval" : 3,
+		"forbiddenChance" : 0.4,
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 30},
@@ -155,6 +157,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
 		"cacheInterval" : 3,
+		"forbiddenChance" : 0.4,
 
 		"traps": [
 			{Name: "CustomVine", Level: 0, Power: 1, Weight: 30},
@@ -446,6 +449,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.4,
 		"cacheInterval" : 3,
+		"forbiddenChance" : 0.4,
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
