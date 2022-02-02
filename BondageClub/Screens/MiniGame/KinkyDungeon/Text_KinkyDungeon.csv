@@ -2491,6 +2491,6 @@ RestraintEnchantedBra,Ancient Chastity Bra
 RestraintEnchantedBraDesc,"A chastity bra of sleek, ancient design. While powered, it reduces incoming damage by 1."
 RestraintEnchantedBraDesc2,"The ancient mages sure were kept under lock and key..."
 
-RestraintEnchantedBra,Ancient Heels
-RestraintEnchantedBraDesc,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
-RestraintEnchantedBraDesc2,"The ancient mages apparently wore these on the battlefield... brave."
+RestraintEnchantedHeels,Ancient Heels
+RestraintEnchantedHeelsDesc,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
+RestraintEnchantedHeelsDesc2,"The ancient mages apparently wore these on the battlefield... brave."
