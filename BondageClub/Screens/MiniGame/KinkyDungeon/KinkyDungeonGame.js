@@ -556,7 +556,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 function KinkyDungeonCreateForbidden(Floor, width, height) {
 	let trapLocations = [];
 	let radius = 7;
-	let ypos = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 2));
+	let ypos = 2 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 3));
 	let cornerX = KinkyDungeonGridWidth - 7;
 	let cornerY = ypos;
 	let i = 0;
@@ -564,7 +564,7 @@ function KinkyDungeonCreateForbidden(Floor, width, height) {
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2));
 		if (specialDist <= 7) {
-			cornerY = 1 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 2));
+			cornerY = 2 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 3));
 			cornerX = Math.ceil(xPadStart) + Math.floor(Math.random() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
 		} else break;
 	}
@@ -577,7 +577,7 @@ function KinkyDungeonCreateForbidden(Floor, width, height) {
 
 	for (let X = cornerX + Math.floor(radius/2) - 1; X <= cornerX + Math.floor(radius/2) + 1; X++) {
 		for (let Y = cornerY + 1; Y < cornerY + radius - 1; Y++) {
-			if (!(X == cornerX + Math.floor(radius/2) && Y == cornerY + 1)) {
+			if (!(X == cornerX + Math.floor(radius/2) && Y == cornerY + 1) && !(X == cornerX + Math.floor(radius/2) && Y == cornerY + radius - 2)) {
 				if (KDRandom() < 0.7) {
 					trapLocations.push({x: X, y: Y});
 				} else if (X != cornerX + Math.floor(radius/2) && Y >= cornerY + 1) {
