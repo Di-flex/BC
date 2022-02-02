@@ -143,6 +143,11 @@ let KinkyDungeonEnemies = [
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:1, weight:0, movePoints: 4, attackPoints: 4, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
 		terrainTags: {"lastthird":10, "passage": 70, "adjChest": 58, "door": 50}, floors:[1], shrines: ["Metal"],
 		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "Sword", weight: 1, ignoreInInventory: true}]},
+	{name: "Mimic", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignoreharmless", "construct", "minor", "melee", "trap", "shackleGag", "slashresist", "pierceresist", "fireweakness", "electricimmune", "chainweakness", "glueimmune", "crushweakness"]),
+		evasion: -0.5, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", bypass: true,
+		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:3, weight:-1, movePoints: 1, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 2,
+		terrainTags: {"rubble": 20, "adjChest": 30, "passage": 14, "illusionRage": 2, "illusionAnger": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Illusion"],
+		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 10, amountMax: 40, weight: 6}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
 	{name: "VinePlant", color: "#00FF00", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"]),
 		ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", specialCD: 99, specialAttack: "Stun", specialAttackPoints: 1, specialRemove: "Bind",
@@ -1153,7 +1158,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					break;
 				}
 			}
-	} else if ((AI == "guard" || AI == "patrol" || AI == "wander" || AI == "hunt" || (AI == "ambush" && !enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, enemy.attackPoints < 1 || !enemy.Enemy.projectileAttack, false) || kite)) {
+	} else if ((AI == "guard" || AI == "patrol" || AI == "wander" || AI == "hunt" || (AI == "ambush" && enemy.ambushtrigger)) && (enemy.Enemy.attackWhileMoving || ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, enemy.attackPoints < 1 || !enemy.Enemy.projectileAttack, false) || kite)) {
 		if (!enemy.gx) enemy.gx = enemy.x;
 		if (!enemy.gy) enemy.gy = enemy.y;
 
@@ -1161,7 +1166,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		let patrolChange = false;
 
 		// try 12 times to find a moveable tile, with some random variance
-		if (AI != "wander" && !ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= chaseRadius)) && AI != "ambush" && (enemy.aware || canSensePlayer)) {
+		if (AI != "wander" && !ignore && (playerDist <= enemy.Enemy.visionRadius || (enemy.aware && playerDist <= chaseRadius)) && (AI != "ambush" || enemy.ambushtrigger) && (enemy.aware || canSensePlayer)) {
 			if (!enemy.aware) enemy.path = undefined;
 			//enemy.aware = true;
 			for (let T = 0; T < 12; T++) {

@@ -563,13 +563,13 @@ function KinkyDungeonCreateForbidden(Floor, width, height) {
 	let xPadStart = KinkyDungeonJailLeashX + 4;
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2));
-		if (specialDist <= 7) {
+		if (specialDist <= 10) {
 			cornerY = 2 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 3));
 			cornerX = Math.ceil(xPadStart) + Math.floor(Math.random() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
 		} else break;
 	}
 	if (i > 9990) {
-		console.log("Error generating cache, please report this");
+		console.log("Error generating forbidden temple");
 		return trapLocations;
 	}
 	KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, false);

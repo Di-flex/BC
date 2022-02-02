@@ -471,6 +471,11 @@ KillAnimatedArmor,"The Animated Armor falls into pieces."
 AttackAnimatedArmorBind,"The Animated Armor restrains you with shackles (+RestraintAdded)"
 AttackAnimatedArmor,"The Animated Armor hugs your body with an iron grip! (-DamageTaken SP)"
 
+NameMimic,Mimic
+KillMimic,"The mimic spills out its contents."
+AttackMimicBind,"The mimic spits out a restraint which latches onto you! (+RestraintAdded)"
+AttackMimic,"The mimic tickles you with its tongue! (-DamageTaken SP)"
+
 NameSkeleton,Skeleton
 KillSkeleton,"The Skeleton falls to pieces."
 AttackSkeletonBind,"The Skeleton restrains you! (+RestraintAdded)"

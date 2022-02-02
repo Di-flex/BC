@@ -118,6 +118,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 
 	for (let L = enemyWeights.length - 1; L >= 0; L--) {
 		if (selection > enemyWeights[L].weight) {
+			if (enemyWeights[L].enemy.name == "Mimic") console.log("Mimic says boo");
 			return enemyWeights[L].enemy;
 		}
 	}
