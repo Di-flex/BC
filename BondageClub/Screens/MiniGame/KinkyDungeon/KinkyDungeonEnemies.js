@@ -1374,8 +1374,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 				: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
 			if (hit && Math.random() > playerEvasion) {
-				if (player.player)
+				if (player.player) {
+					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+				}
 				hit = false;
 			}
 			if (hit) {

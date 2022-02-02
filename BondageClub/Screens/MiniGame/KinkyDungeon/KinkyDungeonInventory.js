@@ -268,7 +268,7 @@ function KinkyDungeonSendInventoryEvent(Event, data) {
 		if (item.events) {
 			for (let e of item.events) {
 				if (e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
-					KinkyDungeonHandleInventoryEvent(Event, item, data);
+					KinkyDungeonHandleInventoryEvent(Event, e, item, data);
 				}
 			}
 		}

@@ -1278,7 +1278,7 @@ function KinkyDungeonSendMagicEvent(Event, data) {
 		if (spell && spell.events) {
 			for (let e of spell.events) {
 				if (e.trigger == Event && (KinkyDungeonSpellChoicesToggle[i] || e.always)) {
-					KinkyDungeonHandleMagicEvent(Event, spell, data);
+					KinkyDungeonHandleMagicEvent(Event, e, spell, data);
 				}
 			}
 		}

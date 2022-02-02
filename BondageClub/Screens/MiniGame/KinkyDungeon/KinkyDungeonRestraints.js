@@ -489,9 +489,15 @@ const KinkyDungeonRestraints = [
 	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedBra", Asset: "PolishedChastityBra", OverridePriority: 26, Color: "#AE915C", Group: "ItemBreast", chastitybra: true, power: 25, weight: 0,
 		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
 		events: [{trigger: "beforeDamage", type: "ModifyDamageFlat", power: -1, requireEnergy: true, energyCost: 0.01}]},
-	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedHeels", Asset: "BalletWedges", OverridePriority: 26, Color: "#AE915C", Group: "ItemBoots", hobble: true, power: 25, weight: 0,
+	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedHeels", Asset: "BalletWedges", Color: "#AE915C", Group: "ItemBoots", hobble: true, power: 25, weight: 0,
 		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
 		events: [{trigger: "tick", type: "ApplySlowLevelBuff", power: -2, requireEnergy: true, energyCost: 0.00025}]},
+	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedAnkleCuffs", Asset: "SteelAnkleCuffs", Type: "Chained", Color: ["#AE915C", "#B0B0B0"], Group: "ItemFeet", power: 25, weight: 0,
+		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
+		events: [{trigger: "tick", type: "EnchantedAnkleCuffs"}, {trigger: "tick", type: "AllyHealingAura", aoe: 3.9, power: 1.5}, {trigger: "tick", type: "EvasionBuff", power: 0.25, requireEnergy: true}, {trigger: "miss", type: "EnergyCost", requireEnergy: true, energyCost: 0.0025}]},
+	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, inventoryAs: "EnchantedAnkleCuffs", name: "EnchantedAnkleCuffs2", Asset: "SteelAnkleCuffs", Type: "Closed", blockfeet: true, Color: ["#AE915C", "#B0B0B0"], Group: "ItemFeet", power: 25, weight: 0,
+		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
+		events: [{trigger: "tick", type: "EnchantedAnkleCuffs2", requireEnergy: true}]},
 
 ];
 
@@ -1678,7 +1684,13 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 
 				KinkyDungeonInventory.splice(I, 1);
 
-				if (item.restraint.inventory && (Keep || item.restraint.enchanted) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) KinkyDungeonInventory.push({looserestraint: item.restraint, events: item.restraint.looseevents});
+				if (item.restraint.inventory && (Keep || item.restraint.enchanted) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
+					if (item.restraint.inventoryAs) {
+						let origRestraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
+						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
+							KinkyDungeonInventory.push({looserestraint: origRestraint, events: origRestraint.looseevents});
+					} else KinkyDungeonInventory.push({looserestraint: item.restraint, events: item.restraint.looseevents});
+				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);
 				if (item.restraint.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KinkyDungeonGetRestraintItem("ItemNeckRestraints").restraint.inventory);

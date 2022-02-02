@@ -133,9 +133,6 @@ LootRubbleBlueKey,"You find a blue key, glowing with magic"
 
 LootChestMistressKey,You find a golden key surrounded by strange golden crystals.
 LootChestAncientCores,You find a set of strange golden crystals.
-LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
-LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
-LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
 
 LootChestGold,The chest contains gold! (+XXX gold)
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
@@ -2507,6 +2504,11 @@ KinkyDungeonSelfBondageNipple,"You attack the RestraintName and close your bra's
 KinkyDungeonSelfBondageEnchanted,"You slowly put on the RestraintName, amazed at how it seems to mold to your size..."
 
 
+LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
+LootChestEnchantedBra,"You find a chastity bra, glowing magnificently, along with a strange crystal next to it."
+LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
+LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnificently, along with a strange crystal next to it."
+
 RestraintEnchantedBelt,Ancient Chastity Belt
 RestraintEnchantedBeltDesc,"A chastity belt of sleek, ancient design. While powered, it negates miscast chance due to arousal and slowly regenerates mana."
 RestraintEnchantedBeltDesc2,"Did the ancient civilizations really need that much control over their mages?"
@@ -2518,5 +2520,12 @@ RestraintEnchantedBraDesc2,"The ancient mages sure were kept under lock and key.
 RestraintEnchantedHeels,Ancient Heels
 RestraintEnchantedHeelsDesc,"A pair of towering heels, enchanted with guiding magic. When powered, they reduce slow level by 2."
 RestraintEnchantedHeelsDesc2,"The ancient mages apparently wore these on the battlefield... brave."
+
+RestraintEnchantedAnkleCuffs,Ancient Ankle Cuffs
+RestraintEnchantedAnkleCuffsDesc,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also improves evasion by 25%. Closes without power."
+RestraintEnchantedAnkleCuffsDesc2,"Ironic for someone who needs to use her legs to summon."
+RestraintEnchantedAnkleCuffs2,Ancient Ankle Cuffs
+RestraintEnchantedAnkleCuffs2Desc,"...when powered down, they snap together, rendering the wearer immobile."
+RestraintEnchantedAnkleCuffs2Desc2,"...ironic, and not very funny..."
 
 KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.

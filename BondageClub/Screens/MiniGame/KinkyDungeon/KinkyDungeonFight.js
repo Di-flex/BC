@@ -702,7 +702,7 @@ function KinkyDungeonSendWeaponEvent(Event, data) {
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.events) {
 		for (let e of KinkyDungeonPlayerDamage.events) {
 			if (e.trigger == Event) {
-				KinkyDungeonHandleWeaponEvent(Event, KinkyDungeonPlayerDamage, data);
+				KinkyDungeonHandleWeaponEvent(Event, e, KinkyDungeonPlayerDamage, data);
 			}
 		}
 	}
@@ -712,7 +712,7 @@ function KinkyDungeonSendBulletEvent(Event, b, data) {
 	if (b && b.bullet && b.bullet.events)
 		for (let e of b.bullet.events) {
 			if (e.trigger == Event) {
-				KinkyDungeonHandleBulletEvent(Event, b, data);
+				KinkyDungeonHandleBulletEvent(Event, e, b, data);
 			}
 		}
 }
