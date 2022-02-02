@@ -2,14 +2,15 @@
 
 let KinkyDungeonTrapMoved = false;
 
-let KinkyDungeonNoTrapFlag = false;
 
 function KinkyDungeonHandleTraps(x, y, Moved) {
-	KinkyDungeonNoTrapFlag = false;
+	let flags = {
+		AllowTraps: true,
+	};
 	let tile = KinkyDungeonTiles.get(x + "," + y);
 	if (tile && tile.Type == "Trap" && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
-		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile});
-		if (!KinkyDungeonNoTrapFlag) {
+		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile, flags: flags});
+		if (flags.AllowTraps) {
 			let msg = "";
 			let color = "red";
 			if (tile.Trap === "SpawnEnemies") {
@@ -60,7 +61,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						// We do sleep gas instead
 						spell = KinkyDungeonFindSpell("SleepGas", true);
 						if (spell) {
-							KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, KinkyDungeonPlayerEntity, undefined);
+							KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, undefined, undefined);
 							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 							msg = ""; // The spell will show a message on its own
 							KinkyDungeonTiles.delete(x + "," + y);

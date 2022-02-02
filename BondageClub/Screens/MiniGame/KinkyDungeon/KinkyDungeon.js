@@ -40,6 +40,7 @@ let KinkyDungeonConfigAppearance = false;
 
 /**
 *  @typedef {{
+* JailRemoveRestraintsTimer: number;
 * KinkyDungeonSpawnJailers: number;
 * KinkyDungeonSpawnJailersMax: number;
 * KinkyDungeonLeashedPlayer: number;
@@ -71,9 +72,12 @@ let KinkyDungeonConfigAppearance = false;
 * RescueFlag: boolean;
 * KinkyDungeonPenance: boolean;
 * GuardApplyTime: number;
+* WarningLevel: number;
+* AncientEnergyLevel: number;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	JailRemoveRestraintsTimer: 0,
 	KinkyDungeonSpawnJailers: 0,
 	KinkyDungeonSpawnJailersMax: 5,
 	KinkyDungeonLeashedPlayer: 0,
@@ -113,6 +117,10 @@ let KDGameDataBase = {
 	SleepTurns: 0,
 	PlaySelfTurns: 0,
 	GuardApplyTime: 0,
+
+	AncientEnergyLevel: 0,
+
+	WarningLevel: 0,
 };
 /**
  * @type {KDGameDataBase}
@@ -216,6 +224,7 @@ function KinkyDungeonLoad() {
 
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer) {
+			KDrandomizeSeed();
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 			KinkyDungeonPlayer.Type = "simple";
 			// @ts-ignore
@@ -302,6 +311,7 @@ let KinkyDungeonCreditsPos = 0;
 let KinkyDungeonPatronPos = 0;
 let KinkyDungeonSound = true;
 let KinkyDungeonDrool = true;
+let KinkyDungeonGraphicsQuality = true;
 let KinkyDungeonFastWait = true;
 
 function KinkyDungeonRun() {
@@ -312,6 +322,16 @@ function KinkyDungeonRun() {
 	DrawImage("Backgrounds/" + BG + ".jpg", 0, 0);
 
 	// Draw the characters
+	if (KDGameData && KDGameData.AncientEnergyLevel) {
+		let h = 1000 * KDGameData.AncientEnergyLevel;
+		const Grad = MainCanvas.createLinearGradient(0, 1000-h, 0, 1000);
+		Grad.addColorStop(0, `rgba(255,255,0,0)`);
+		Grad.addColorStop(0.5, `rgba(255,255,128,0.5)`);
+		Grad.addColorStop(0.75, `rgba(255,255,255,1.0)`);
+		Grad.addColorStop(1.0, `rgba(255,255,255,0.25)`);
+		MainCanvas.fillStyle = Grad;
+		MainCanvas.fillRect(0, 1000-h, 500, h);
+	}
 	DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
 	if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
@@ -1172,7 +1192,11 @@ let KinkyDungeonSeed = (Math.random() * 4294967296).toString();
 let KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
 
 function KDrandomizeSeed() {
-	KinkyDungeonSeed = KDRandom().toString();
+	KinkyDungeonSeed = (Math.random() * 4294967296).toString();
+	for (let i = 0; i < 20; i++) {
+		let index = Math.random() * KinkyDungeonSeed.length;
+		KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(Math.random()*50)) + String.fromCharCode(65 + Math.floor(Math.random()*50)));
+	}
 	KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
 	for (let i = 0; i < 1000; i++) {
 		KDRandom();

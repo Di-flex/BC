@@ -101,6 +101,16 @@ let KinkyDungeonDresses = {
 		{Item: "Shoes5", Group: "Shoes", Color: "#575757", Lost: false},
 		{Item: "Socks6", Group: "Socks", Color: ['#080808', 'Default'], Lost: false},
 	],
+	"Elven" : [
+		{Item: "Swimsuit1", Group: "Bra", Color: ['#E2E2E2'], Lost: false},
+		{Item: "Corset4", Group: "Corset", Color: ['#FFFFFF'], Lost: false},
+		{Item: "Stockings4", Group: "Socks", Color: "#000000", Lost: false},
+		{Item: "FaceVeil", Group: "Mask", Color: "Default", Lost: false},
+		{Item: "HairFlower1", Group: "HairAccessory3", Color: 'Default', Lost: false},
+		{Item: "GarterBelt2", Group: "Garters", Color: "Default", Lost: false},
+		{Item: "NecklaceKey", Group: "Necklace", Color: "Default", Lost: false},
+		{Item: "HulaSkirt", Group: "ClothLower", Color: ['#40B90B', '#6E95C4', '#F5DC34'], Lost: false},
+	],
 };
 
 var KinkyDungeonCheckClothesLoss = false;
@@ -215,10 +225,11 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.AssetGroup) {
-			InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
-		}
-		if (inv.restraint && inv.restraint.forceUpperPose) {
+		if (KinkyDungeonCheckClothesLoss)
+			if (inv.restraint && inv.restraint.AssetGroup) {
+				InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
+			}
+		/*if (inv.restraint && inv.restraint.forceUpperPose) {
 			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyUpper", inv.restraint.forceUpperPose)) {
 				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
 			}
@@ -227,9 +238,10 @@ function KinkyDungeonDressPlayer() {
 			if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", inv.restraint.forceLowerPose)) {
 				CharacterSetActivePose(KinkyDungeonPlayer, inv.restraint.forceUpperPose, false);
 			}
-		}
+		}*/
 	}
-	KinkyDungeonWearForcedClothes();
+	if (KinkyDungeonCheckClothesLoss)
+		KinkyDungeonWearForcedClothes();
 
 	KinkyDungeonCheckClothesLoss = false;
 

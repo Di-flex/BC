@@ -59,7 +59,7 @@ function KinkyDungeonTickBuffTag(list, tag, Amount) {
 // Updates buffs for all creatures
 function KinkyDungeonUpdateBuffs(delta, endFloor) {
 	// Tick down buffs the buffs
-	KinkyDungeonSendBuffEvent("tick", {delta: delta});
+	KinkyDungeonSendEvent("tickBuffs", {delta: delta});
 	KinkyDungeonTickBuffs(KinkyDungeonPlayerBuffs, delta, endFloor);
 	for (let EE = 0; EE < KinkyDungeonEntities.length; EE++) {
 		let enemy = KinkyDungeonEntities[EE];

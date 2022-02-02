@@ -10,8 +10,8 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "C") sprite = "Chest";
-	else if (code == "c") sprite = "ChestOpen";
+	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGold" : "Chest";
+	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGoldOpen" : "ChestOpen";
 	else if (code == "D") sprite = "Door";
 	else if (code == "G") sprite = "Ghost";
 	else if (code == "d") sprite = "DoorOpen";
@@ -420,6 +420,8 @@ function KinkyDungeonDrawGame() {
 		MainCanvas.textAlign = "left";
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
 		DrawCheckbox(600, 180, 64, 64, TextGet("KinkyDungeonDrool"), KinkyDungeonDrool, false, "white");
+		if (ServerURL == "foobar")
+			DrawCheckbox(600, 260, 64, 64, TextGet("KinkyDungeonGraphicsQuality"), KinkyDungeonGraphicsQuality, false, "white");
 		DrawCheckbox(600, 650, 64, 64, TextGet("KinkyDungeonFastWait"), KinkyDungeonFastWait, false, "white");
 		MainCanvas.textAlign = "center";
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");

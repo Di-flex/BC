@@ -497,6 +497,28 @@ Bugfix:
 - Greater skeleton now has 1 armor (he has a shield)
 - Ninjas now have pierce weakness and no longer have melee weakness
 
+2.6.6
+- Unarmed accuracy is not decreased by a single (nonblocking) restraint
+- Leg irons and cuffs that link your feet (and hobbleskirts) now give you a minimum of 2 slow level
+- Truesight now reduces your blind level by 1 while active
+- Enemies now have an indicator to show their spells are off cooldown
+- New collar: Tracking collar, applied by robots
+- Wolf Collar now shocks if you attack/cast verbal spells
+- Enemies now don't bind you as tight unless you resist, if your submissive stat is high. However they will bind you tight still if you attacked them a lot
+- Shrine base costs now scale with restraints/missing stamina/mana
+- New enemies: elf druid and elf ranger
+- Reduced availability of blue keys from goddess-specific enemies. Witches still drop them.
+- Red locked chests can have blue keys and spell points occur at a higher rate
+- Shops will rarely sell blue keys and magic knives at a hefty price
+- The ghost will now use bolt cutters if you have them in your inventory
+- Slime witches and slimes now consistently have fire resist
+- More variety in selections of enemy spawns. If you annoy one goddess, you will encounter her quite often, but if you annoy several, it will pick from a few so it's not too mismashed.
+- Drinking from a shrine more than once ever will now always be risky
+- You can now ask for a goddess to give you mana
+- Confirmation message for attacking allies or attacking a guard in jail
+- New enchanted restraints! Found in forbidden temples...
+- Jailer will only remove restraints after 90 turns in the prison
+- Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

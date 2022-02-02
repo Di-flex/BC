@@ -8,13 +8,22 @@ var KinkyDungeonConsumables = {
 	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
 	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
 	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
+	"ElfCrystal" : {name: "ElfCrystal", rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
+	"MistressKey" : {name: "MistressKey", rarity: 10, shop: false, type: "unusuable"},
+	"AncientPowerSource" : {name: "AncientPowerSource", rarity: 4, shop: true, type: "charge", amount: 0.251},
+	"AncientPowerSourceSpent" : {name: "AncientPowerSourceSpent", rarity: 4, shop: false, type: "recharge", rechargeCost: 100},
+	"ScrollArms" : {name: "ScrollArms", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoArmsComp", duration: 12, power: 1, aura: "#aaffaa", sfx: "FireSpell"},
+	"ScrollVerbal" : {name: "ScrollVerbal", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoVerbalComp", duration: 12, power: 1, aura: "#aaaaff", sfx: "FireSpell"},
+	"ScrollLegs" : {name: "ScrollLegs", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoLegsComp", duration: 12, power: 1, aura: "#ffaaaa", sfx: "FireSpell"},
 };
 
 var KinkyDungneonBasic = {
 	"RedKey" : {name: "RedKey", rarity: 0, shop: true},
+	"BlueKey" : {name: "BlueKey", rarity: 4, shop: true},
 	"Lockpick" : {name: "Lockpick", rarity: 0, shop: true},
 	//"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
 	"Knife" : {name: "Knife", rarity: 0, shop: true},
+	"MagicKnife" : {name: "MagicKnife", rarity: 4, shop: true},
 };
 
 function KinkyDungeonFindConsumable(Name) {
@@ -120,14 +129,42 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
+	} else if (Consumable.type == "charge") {
+		KDGameData.AncientEnergyLevel = Math.min(Math.max(0, KDGameData.AncientEnergyLevel + Consumable.amount), 1.0);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSourceSpent, 1);
+	} else if (Consumable.type == "buff") {
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: Consumable.name, type: Consumable.buff, power: Consumable.power, duration: Consumable.duration, aura: Consumable.aura});
+	} else if (Consumable.type == "recharge") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+		KinkyDungeonAddGold(-Consumable.rechargeCost);
 	}
+}
+
+function KinkyDungeonCanDrink() {
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.restraint && inv.restraint.allowPotions) return true;
+		else if (inv.restraint && inv.restraint.gag && !inv.restraint.openMouth) return false;
+	}
+	return true;
 }
 
 function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let item = KinkyDungeonGetInventoryItem(Name, "Consumables");
 	if (!item) return false;
+	if (item.item && item.item.consumable && item.item.consumable.type == "unusuable") {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnusable"), "red", 1);
+		return false;
+	}
+	if (item.item && item.item.consumable && item.item.consumable.type == "charge" && KDGameData.AncientEnergyLevel >= 1) {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonFullpower"), "red", 1);
+		return false;
+	}
+	if (item.item && item.item.consumable && item.item.consumable.type == "recharge" && KinkyDungeonGold < item.item.consumable.rechargeCost) {
+		KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail"), "red", 1);
+		return false;
+	}
 
-	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
+	let needMouth = item.item && item.item.consumable && item.item.consumable.potion && KinkyDungeonCanDrink();
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
@@ -140,7 +177,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 
 		return false;
 	}
-	if (needArms && !KinkyDungeonPlayer.CanInteract() && (KinkyDungeonIsHandsBound())) {
+	if (needArms && KinkyDungeonIsHandsBound()) {
 		KinkyDungeonAdvanceTime(1);
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
 

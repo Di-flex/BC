@@ -190,7 +190,7 @@ function KinkyDungeonDealDamage(Damage) {
 	let arousalTypesWeak = ["grope"];
 	let arousalTypesStrong = ["tickle", "charm", "happygas"];
 	let staminaTypesWeak = ["electric", "tickle", "drain"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash"];
+	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed"];
 	let manaTypesWeak = ["electric", "poison"];
 	let manaTypesString = ["drain"];
 	if (armor) dmg = Math.max(0, dmg - armor);
@@ -287,17 +287,22 @@ function KinkyDungeonSetMaxStats() {
 	return arousalRate;
 }
 
-let KDHandsFreeTag = false;
-
 function KinkyDungeonCanUseWeapon(NoOverride, e) {
-	KDHandsFreeTag = false;
+	let flags = {
+		HandsFree: false,
+	};
 	if (!NoOverride)
-		KinkyDungeonSendEvent("getWeapon", {event: e});
-	return (KDHandsFreeTag || !KinkyDungeonIsHandsBound());
+		KinkyDungeonSendEvent("getWeapon", {event: e, flags: flags});
+	return (flags.KDHandsFreeTag || !KinkyDungeonIsHandsBound());
 }
+
+let KDBlindnessCap = 0;
 
 function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
+
+	KDBlindnessCap = 3;
+	KinkyDungeonSendEvent("calcStats", {});
 	// Initialize
 	KinkyDungeonCalculateVibeLevel(delta);
 	if (KinkyDungeonVibeLevel > 0 && KinkyDungeonCanPlayWithSelf() && KDGameData.SleepTurns > 0) {
@@ -328,7 +333,9 @@ function KinkyDungeonUpdateStats(delta) {
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
 
-	KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
+	let blind = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness")) blind = Math.max(0, blind + KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness"));
+	KinkyDungeonBlindLevel = Math.min(KDBlindnessCap, blind);
 	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = 3;
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
@@ -383,6 +390,9 @@ function KinkyDungeonUpdateStats(delta) {
 				KinkyDungeonDifficulty += item.restraint.difficultyBonus;
 			}
 			if (item.restraint.crotchrope) KinkyDungeonHasCrotchRope = true;
+			if (item.restraint.enchantedDrain) {
+				if (KDGameData.AncientEnergyLevel > 0) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - item.restraint.enchantedDrain * delta);
+			}
 		}
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
@@ -488,7 +498,7 @@ function KinkyDungeonLegsBlocked() {
 }
 
 function KinkyDungeonCalculateSlowLevel() {
-	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") : 0);
+	KinkyDungeonSlowLevel = 0;
 	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
 	else {
 		/*let boots = KinkyDungeonGetRestraintItem("ItemBoots");
@@ -506,12 +516,23 @@ function KinkyDungeonCalculateSlowLevel() {
 		for (let inv of KinkyDungeonRestraintList()) {
 			if (inv.restraint && (inv.restraint.blockfeet || inv.restraint.hobble)) KinkyDungeonSlowLevel += 1;
 		}
+		for (let inv of KinkyDungeonRestraintList()) {
+			if (inv.restraint && inv.restraint.blockfeet) {
+				KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
+				break;
+			}
+		}
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);
 		for (let inv of KinkyDungeonRestraintList()) {
 			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
+	let origSlowLevel = KinkyDungeonSlowLevel;
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel")) KinkyDungeonSlowLevel += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel");
+	KinkyDungeonSlowLevel = Math.max(0, KinkyDungeonSlowLevel);
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain")) KDGameData.AncientEnergyLevel =
+		Math.max(0, KDGameData.AncientEnergyLevel - Math.max(0, origSlowLevel - KinkyDungeonSlowLevel) * KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain"));
 }
 
 function KinkyDungeonCanTalk() {
@@ -620,9 +641,9 @@ function KinkyDungeonDoTryOrgasm() {
 	KinkyDungeonSendActionMessage(10, TextGet(msg + ("" + msgIndex)), "#FF5BE9", msgTime);
 }
 
-function KinkyDungeonIsChaste() {
+function KinkyDungeonIsChaste(Breast) {
 	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.restraint && inv.restraint.chastity) return true;
+		if (inv.restraint && (!Breast && inv.restraint.chastity) || (Breast && inv.restraint.chastitybra)) return true;
 	}
 }
 
