@@ -57,6 +57,13 @@ var KinkyDungeonLootTable = {
 		{name: "EnchantedMittens", minLevel: 0, weight:4, message:"LootChestEnchantedMittens", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedMittens"]},
 		{name: "EnchantedArmbinder", minLevel: 0, weight:4, message:"LootChestEnchantedArmbinder", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedArmbinder"]},
 		{name: "EnchantedBallGag", minLevel: 0, weight:4, message:"LootChestEnchantedBallGag", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], norestraint: ["EnchantedBallGag"]},
+	],
+	"lessergold": [
+		{name: "Scrolls", minLevel: 0, weight:3, message:"LootChestScrolls", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+		{name: "AncientCores", minLevel: 0, weight:3, message:"LootChestAncientCores", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
+		{name: "potions_many", minLevel: 0, weight:4, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowpotions"]},
+		{name: "staff_flame", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffFlame"]},
+		{name: "staff_bind", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffBind"]},
 	]
 
 };
@@ -281,9 +288,9 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);
 	} else if (Loot.name == "Scrolls") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 2);
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 1 + Math.floor(KDRandom() * 4));
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 1 + Math.floor(KDRandom() * 4));
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, 1 + Math.floor(KDRandom() * 4));
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 2 + Math.floor(KDRandom() * 3));
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 2 + Math.floor(KDRandom() * 3));
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, 2 + Math.floor(KDRandom() * 3));
 	} else if (Loot.name == "AncientCores") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 4);
 	} else if (Loot.name == "EnchantedBelt") {

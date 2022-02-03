@@ -62,6 +62,8 @@ function KinkyDungeonHandleInventory() {
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
 				KinkyDungeonSetDress(toWear.dress, outfit);
+				KinkyDungeonSlowMoveTurns = 3;
+				KinkyDungeonSleepTime = CommonTime() + 200;
 			}
 		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
 			let equipped = false;
