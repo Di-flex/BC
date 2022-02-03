@@ -520,7 +520,7 @@ Bugfix:
 - Jailer will only remove restraints after 90 turns in the prison
 - Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
-2.7.7
+2.6.7
 - Changed some enemy resistances:
 - - Zombies are now consistent
 - - Shadow warrior and allied fire elemental are consistent with their NPC counterparts
