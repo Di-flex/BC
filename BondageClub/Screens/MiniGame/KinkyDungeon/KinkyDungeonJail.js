@@ -208,7 +208,7 @@ function KinkyDungeonMissingJailUniform() {
 		}
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
-		if (rest && (!currentItem || (currentItem.restraint && currentItem.restraint.enchanted))) {
+		if (rest && (!currentItem)) {
 			MissingGroups.push(g);
 		}
 	}
