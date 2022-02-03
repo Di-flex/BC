@@ -1042,6 +1042,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Bonuses go here
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle")) escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle");
 	if (StruggleType == "Cut") {
+		if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting")) escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting");
 		if (KinkyDungeonHasGhostHelp()) {
 			let maxBonus = 0;
 			for (let inv of KinkyDungeonInventory) {
@@ -1051,6 +1052,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		} else if (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.cutBonus) {
 			escapeChance += KinkyDungeonPlayerWeapon.cutBonus;
 		}
+
+		if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCuttingMinimum")) escapeChance = Math.max(escapeChance, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCuttingMinimum"));
 	}
 	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) escapeChance += KinkyDungeonEnchantedKnifeBonus;
 

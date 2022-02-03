@@ -262,6 +262,13 @@ KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of elven grace.
 KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
 KinkyDungeonSpellCastSlippery,You feel the restraints become loose on your skin!
 
+
+KinkyDungeonInventoryItemEnchantedGrinder,Elven Crystal
+KinkyDungeonInventoryItemEnchantedGrinderUse,"The grinder starts spinning for a short time! Its cutting power is immense!"
+KinkyDungeonInventoryItemEnchantedGrinderDesc,"The cutting disc is shining and very sharp."
+KinkyDungeonInventoryItemEnchantedGrinderDesc2,"Grants significantly increased cutting power for a short time."
+KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its cutting power is immense!
+
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
@@ -1748,6 +1755,8 @@ ItemPickupAxe,"You pick up a powerful axe."
 ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
 ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
 ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
+ItemPickupEnchantedGrinder,"You picked up a strange device with a sharpened razor disc."
+LootChestGrinder,"You find a strange ancient device with a sharp cutting blade."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 

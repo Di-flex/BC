@@ -82,6 +82,7 @@ var KinkyDungeonLootTable = {
 		{name: "trap_mitts", trap: true, minLevel: 10, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemHands"], power: 10},
 		{name: "potions_mana", minLevel: 0, weight:3, message:"LootPotionsMana", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowmanapotions"]},
 		{name: "potions_many", minLevel: 1, weight:2, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["lowpotions"]},
+		{name: "grinder", minLevel: 1, weight:2, message:"LootChestGrinder", messageColor:"yellow", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]},
 	],
 
 };
@@ -302,6 +303,8 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonRedKeys += 1;
 	} else if (Loot.name == "bluekey") {
 		KinkyDungeonBlueKeys += 1;
+	} else if (Loot.name == "grinder") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, 1);
 	} else if (Loot.name == "MistressKey") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1);
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);
