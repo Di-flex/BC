@@ -20,7 +20,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
 		"cacheInterval" : 3,
-		"forbiddenChance" : 0.4, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
+		"forbiddenChance" : 0.3, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
 		"traps": [

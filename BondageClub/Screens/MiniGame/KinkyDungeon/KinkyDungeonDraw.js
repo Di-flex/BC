@@ -6,7 +6,8 @@ let KDRecentRepIndex = 0;
 function KinkyDungeonGetSprite(code, x, y) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
-	if (code == "2") sprite = "Brickwork";
+	else if (code == "2") sprite = "Brickwork";
+	else if (code == "3") sprite = "MimicBlock";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";

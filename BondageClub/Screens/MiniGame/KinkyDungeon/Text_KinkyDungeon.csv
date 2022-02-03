@@ -972,7 +972,7 @@ KinkyYellowLock,"Yellow Lock"
 KinkyRedLockAbr,""
 KinkyGreenLockAbr,"(G)"
 KinkyBlueLockAbr,"(B)"
-KinkyGoldLockAbr,"(!!)"
+KinkyGoldLockAbr,"(G)"
 KinkyBlindLockAbr,"(?)"
 KinkyYellowLockAbr,"(Y)"
 
@@ -1330,12 +1330,20 @@ RestraintTrapLegironsDesc2,"The lock doesn't seem very complicated."
 RestraintTrapBlindfold,Blindfold
 RestraintTrapBlindfoldDesc,"A leather strap secured onto your face and blocking vision."
 RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose."
+
 RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
 RestraintTrapBra,Steel Chastity Bra
 RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintTrapBelt2,Cursed Chastity Belt
+RestraintTrapBelt2Desc,"A cruel device used for locking magical vibrators in place."
+RestraintTrapBelt2Desc2,"The lock won't come off until the magic wears off in time..."
+RestraintTrapBra2,Cursed Chastity Bra
+RestraintTrapBra2Desc,"A cruel device used for locking magical massagers in place."
+RestraintTrapBra2Desc2,"The lock won't come off until the magic wears off in time..."
+
 RestraintMaidCBelt,Maid Chastity Belt
 RestraintMaidCBeltDesc,"A chastity belt used to maintain control over initiate maids."
 RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
@@ -2506,7 +2514,7 @@ KinkyDungeonPunishPlayer,Your RestraintName punishes you for your behavior!
 KinkyDungeonPunishPlayerHarsh,Your RestraintName punishes you and warns you with a harsh beep!
 KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 
-KinkyDungeonGoldLockRemove,A golden lock pops off of one of your restraints!
+KinkyDungeonGoldLockRemove,A golden lock fades into a blue lock on one of your restraints!
 
 KinkyDungeonConfirmAttack,Are you sure you want to attack?
 
