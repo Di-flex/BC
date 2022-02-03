@@ -1347,6 +1347,9 @@ RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
+RestraintRopeSnakeCuffs,Rope Cuffs
+RestraintRopeSnakeCuffsDesc,"A quick tie for apprehending prisoners."
+RestraintRopeSnakeCuffsDesc2,"It's not very secure."
 RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintRopeSnakeTorsoDesc2,"The ropes squeeze you gently."
