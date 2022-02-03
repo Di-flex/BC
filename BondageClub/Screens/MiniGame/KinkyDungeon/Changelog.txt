@@ -522,6 +522,8 @@ Bugfix:
 
 2.6.7
 - Added default outfit, when you get back from prison you can find it and get it back.
+- Added silver chests, which have above-average loot in exchange for more powerful traps
+- Added gold locks. These are impossible to unlock, and cannot be removed by shrines. After 2-4 floors, they will decay into blue locks
 
 - Changed some enemy resistances:
 - - Zombies are now consistent
