@@ -218,7 +218,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		}
 	}
 
-
+	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
 	KinkyDungeonAid = {};
 	KDGameData.KinkyDungeonPenance = false;
@@ -516,7 +516,7 @@ let KinkyDungeonSpecialAreas = [];
 function KinkyDungeonGetClosestSpecialAreaDist(x ,y) {
 	let minDist = 10000;
 	for (let area of KinkyDungeonSpecialAreas) {
-		let dist = KDistChebyshev(x - area.x, y - area.y) + area.radius;
+		let dist = KDistChebyshev(x - area.x, y - area.y) - area.radius;
 		if (dist < minDist) minDist = dist;
 	}
 
@@ -529,7 +529,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	let cornerX = KinkyDungeonGridWidth - 7;
 	let cornerY = ypos;
 	let i = 0;
-	let xPadStart = KinkyDungeonJailLeashX + 2;
+	let xPadStart = KinkyDungeonJailLeashX + 5;
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2));
 		if (specialDist <= 4) {
@@ -549,7 +549,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache"});
 	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", ReLock: true});
 	KinkyDungeonCachesPlaced.push(Floor);
-	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2) - KinkyDungeonEndPosition.x, y: cornerY + Math.floor(radius/2) - KinkyDungeonEndPosition.y, radius: Math.ceil(radius/2) + 2});
+	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 1});
 }
 
 
@@ -560,10 +560,10 @@ function KinkyDungeonCreateForbidden(Floor, width, height) {
 	let cornerX = KinkyDungeonGridWidth - 7;
 	let cornerY = ypos;
 	let i = 0;
-	let xPadStart = KinkyDungeonJailLeashX + 4;
+	let xPadStart = KinkyDungeonJailLeashX + 2;
 	for (i = 0; i < 10000; i++) {
-		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2));
-		if (specialDist <= 10) {
+		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2) - 1, cornerY + Math.floor(radius/2));
+		if (specialDist <= 5) {
 			cornerY = 2 + Math.floor(Math.random() * (KinkyDungeonGridHeight - radius - 3));
 			cornerX = Math.ceil(xPadStart) + Math.floor(Math.random() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
 		} else break;

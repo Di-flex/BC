@@ -45,7 +45,7 @@ function KinkyDungeonInJail() {
 }
 
 function KinkyDungeonHandleJailSpawns(delta) {
-	if (KinkyDungeonInJail()) KinkyDungeonJailRemoveRestraintsTimerMin += delta;
+	if (KinkyDungeonInJail()) KDGameData.JailRemoveRestraintsTimer += delta;
 
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
@@ -92,7 +92,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			let changeForFun = false;
 
 			// Determine which action to take
-			if (missingJailUniform.length > 0 || tooMuchRestraint.length > 0 || changeForFun) {
+			if (missingJailUniform.length > 0 || (tooMuchRestraint.length > 0 && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) || changeForFun) {
 				if (missingJailUniform.length > 0 || Math.random() < 0.2) {
 					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1) && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) {
 						let group = "";
@@ -208,7 +208,7 @@ function KinkyDungeonMissingJailUniform() {
 		}
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
-		if (rest && (!currentItem || (currentItem.restraint && currentItem.restraint.enchanted))) {
+		if (rest && (!currentItem)) {
 			MissingGroups.push(g);
 		}
 	}

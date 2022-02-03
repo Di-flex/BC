@@ -305,8 +305,13 @@ function KinkyDungeonDrawQuickInv() {
 		let item = consumables[c];
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(c, H, V, 6);
-			if (MouseIn(point.x, point.y + 30, H, V))
+			if (MouseIn(point.x, point.y + 30, H, V)) {
 				DrawRect(point.x, point.y + 30, H, V, "white");
+				MainCanvas.textAlign = "left";
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y+1 + 30 + V/2, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y + 30 + V/2, "white");
+				MainCanvas.textAlign = "center";
+			}
 			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
 
 			MainCanvas.textAlign = "left";
@@ -320,8 +325,13 @@ function KinkyDungeonDrawQuickInv() {
 		let item = weapons[w];
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
-			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V))
+			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
+				MainCanvas.textAlign = "left";
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), "white");
+				MainCanvas.textAlign = "center";
+			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
 		}
 	}
@@ -330,8 +340,13 @@ function KinkyDungeonDrawQuickInv() {
 		let item = restraints[w];
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
-			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V))
+			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Rheight + point.y, H, V, "white");
+				MainCanvas.textAlign = "left";
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2) + 1, "black");
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2), "white");
+				MainCanvas.textAlign = "center";
+			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});
 		}
 	}

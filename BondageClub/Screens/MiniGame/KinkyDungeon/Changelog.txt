@@ -520,7 +520,25 @@ Bugfix:
 - Jailer will only remove restraints after 90 turns in the prison
 - Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
-2.7.7
+2.6.7
+- Changed some enemy resistances:
+- - Zombies are now consistent
+- - Shadow warrior and allied fire elemental are consistent with their NPC counterparts
+- - Ninjas (and maidforce stalker) now have unarmed resistance, slash resistance ("they say a ninja can stop a sword with her hands"), and weakness to glue and chain attacks
+- - Frog now has electric weakness (water)
+- - Removed magic weaknesses from animated armor, since I'm not sure why fire/electrity would be resisted while ice wouldn't be
+- - Mimic now has melee resist and crushweakness. Still has electric resist since wood is not conductive, but took off glueimmune since it's not really the slime type of mimic
+- - Vine plants are now vulnerable to cold (basically shadow/necrotic) damage
+- - Latex elemental now weak to cold/shadow, and pierce, and resistant to electricity (because rubber)
+- - Red slime now consistent with other slime weaknesses
+- - Robots are now weak to piercing and severely weak to crush, but I increased the HP of drones and patrol units by 20%
+- - Wolfgirls arent wearing armor, so they have pierce and slash weakness, but I boosted the disarm value of the trainer
+- - Bandits have chain and glue weaknesses (weak to binding)
+- - Dragonhearts are more consistent with their types
+- - Elementals have more pronounced weakness, earth elemental is resistant to melee except crush
+- - Dryads have slash weakness
+- - Chain witch now weak to crush and fire, but has 33% more HP
+- - Baast enemies have cold resist (embalmed against necrotic damage), fire weakness due to being undead
 
 TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
 

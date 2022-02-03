@@ -6,7 +6,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.6"
+KinkyDungeon,"Kinky Dungeon v2.6.7"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -133,6 +133,7 @@ LootRubbleBlueKey,"You find a blue key, glowing with magic"
 
 LootChestMistressKey,You find a golden key surrounded by strange golden crystals.
 LootChestAncientCores,You find a set of strange golden crystals.
+LootChestScrolls,"You find a pack of scrolls used for spellcasting, and some strange golden crystals."
 
 LootChestGold,The chest contains gold! (+XXX gold)
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
@@ -1346,6 +1347,9 @@ RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
+RestraintRopeSnakeCuffs,Rope Cuffs
+RestraintRopeSnakeCuffsDesc,"A quick tie for apprehending prisoners."
+RestraintRopeSnakeCuffsDesc2,"It's not very secure."
 RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintRopeSnakeTorsoDesc2,"The ropes squeeze you gently."
@@ -2259,9 +2263,9 @@ KinkyDungeonSpellChoice4, "Current Spell 5: "
 
 KinkyDungeonLore0,"(Preface from the journal of Catherine Willows, well-known explorer who vanished in the dungeon 30 years ago): I am writing this journal in the off chance that I do not come back in my search for the Mistress' staff. If you find this, please make an effort to deliver it back to the surface for the good of all the young women lured by its secrets."
 KinkyDungeonLore1,"(Pg. 24 from Catherine Willows' journal): Many who trowel the upper levels of the Mistress' tomb often ask rhetorically: 'Why are there weird kinky traps guarding treasure chests? Why not have real, deadly traps if the purpose is to dissuade intruders?'"
-KinkyDungeonLore2,"(Pg. 25 from Catherine Willows' journal): ...They make a crucial mistake: The treasure chests aren't trapped. Rather, they are full of gold. And we know that gold is pleasing to the gods: our economy runs on it, and the gods only make interventions in our day-to-day affairs because we give them gold.     Lesser gods, known as spirits, also love gold, but unlike the gods we know, these lesser spirits cannot consume gold on an altar in one fell swoop like the gods can. Therefore, they need to physically inhabit the place where the gold sits, slowly draining it of its pleasing essence."
-KinkyDungeonLore3,"(Pg. 26 from Catherine Willows' journal): So the question is not "why did somebody lay these traps." The answer is that they are not traps at all. I surmise that the upper floors were once a place of offering for the dead. And when the old civilization perished and the entire complex sank into the ground, there was no longer anyone to drive the spirits away and keep them from inhabiting the upstairs.      As for why there are so many restraints in general rather than your typical sort of spirits... well we know what the Mistress surrounded herself with."
-KinkyDungeonLore4,"(The note starts with a drawing of a witch with many chains hanging from her body) The chains make her resistant to fire and she can use them to block melee attacks. However, they conduct lightning directly to her body."
+KinkyDungeonLore2,"(Pg. 25 from Catherine Willows' journal): ...They make a crucial mistake: The treasure chests aren't trapped. Rather, they are full of gold. And we know that gold is pleasing to the gods: our economy runs on it, and the gods only make interventions in our day-to-day affairs because we give them gold. Lesser gods, known as spirits, also love gold, but unlike the gods we know, these lesser spirits cannot consume gold on an altar in one fell swoop like the gods can. Therefore, they need to physically inhabit the place where the gold sits, slowly draining it of its pleasing essence."
+KinkyDungeonLore3,"(Pg. 26 from Catherine Willows' journal): So the question is not "why did somebody lay these traps." The answer is that they are not traps at all. I surmise that the upper floors were once a place of offering for the dead. And when the old civilization perished and the entire complex sank into the ground, there was no longer anyone to drive the spirits away and keep them from inhabiting the upstairs. As for why there are so many restraints in general rather than your typical sort of spirits... well we know what the Mistress surrounded herself with."
+KinkyDungeonLore4,"(The note starts with a drawing of a witch with many chains hanging from her body) She can block melee attacks with her chains. However, they conduct lightning and heat directly to her body, and I was able to take out her chains with bolt cutters."
 KinkyDungeonLore5,"(The note starts with a drawing of a witch with lightning crackling from her fingertips) Water will cause her to short-circuit. I can't seem to hit her with lightning, though. She always redirects it."
 KinkyDungeonLore6,"(The note starts with a drawing of a witch whose body is partly gelatinous) The slime is non-flammable and my attacks pass right through her body... Lightning and ice seem to be effective!"
 KinkyDungeonLore7,"(The note is from a famous escape artist) Many restraints are applied quite tightly by a skilled rigger. However, anything that isn't made of metal will loosen with enough effort. Just be sure that you give it a good effort and aren't tired, and eventually you will get out!"
@@ -2272,7 +2276,7 @@ KinkyDungeonLore11,"(The note is a letter from the school of conjuration) We rea
 KinkyDungeonLore12,"(You find a carving on the floor, a half-finished magic circle of celestial conjuration. Perhaps a cleric wished to call forth an angel for guidance, before realizing there was a shrine like, a short walk away, where she could contact the heavens much more easily.)"
 KinkyDungeonLore13,"(It looks like a... receipt) Thank you for your offering to CELESTIAL COMMERCE. Please accept this fine-quality steel blade as compensation for your continued devotion and selflessness."
 KinkyDungeonLore14,"(A note written in cursive) To whomever assaulted our courier and left them tied up here: The shrines of the Goddess of ILLUSION are NOT to be used in this manner. If you desire a subject for your lewd experimentations, please attempt to do so on one of the LOCALS and FOR HEAVEN'S SAKE do not call up an angelic courier just so you may tie her up. It does not matter than she consented, nor that you paid, our couriers have responsibilities that they must attend to. Signed: HERONA, ENFORCER of the HIGH GODDESS of ILLUSIONS."
-KinkyDungeonLore15,"(From an essay titled 'On Celestial Supply Chains') It is known that the heavens seek gold. We do not know why it is that the heavens seek it, but we do know that the Goddesses grant us fragments of their limitless power in exchange for this otherwise-useless metal we dredge up from the earth. Clearly they must have enough of it in heaven for it to not matter. And yet there are invisible couriers even at the most remote shrine, lying dormant till you toss a coin their way. Could it be that the gold has power, and it merely activates the presence of the courier who is in an otherwise dormant state?"
+KinkyDungeonLore15,"(From an essay titled 'On Celestial Supply Chains') It is known that the heavens seek gold. We do not know why it is that the heavens seek it, but we do know that the Goddesses grant us fragments of their limitless power in exchange for this otherwise-useless metal we dredge up from the earth. Clearly they must have enough of it in heaven for it to not matter. And yet there are invisible couriers even at the most remote shrine, lying dormant till you toss a coin their way. Could it be that the gold itself has power, and without its proximity the courier is simply in an dormant state?"
 
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
@@ -2514,7 +2518,7 @@ KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyh
 
 RestraintEnchantedBelt,Ancient Chastity Belt
 LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it negates miscast chance due to arousal and slowly regenerates mana."
+RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it gives -30% miscast chance due to arousal and slowly regenerates stamina."
 RestraintEnchantedBeltDesc,"'Belt of the devoted'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBelt,"You tug at your chastity belt, but you can't even stick a finger inside because it's so tight..."
 
@@ -2537,21 +2541,51 @@ RestraintEnchantedBlindfoldDesc,"'Mask of the Warrior'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBlindfold,"You tug at the mask but it won't come off. It's molded so close to your face that no light shines through!"
 
 RestraintEnchantedMuzzle,Ancient Muzzle
-LootChestEnchantedMuzzle,"You a muzzle with a long rubbery plug on the inside, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedMuzzleDesc2,"A muzzle with a potion port. When powered, it boosts sneak and triples damage dealt to unaware enemies."
+LootChestEnchantedMuzzle,"You find a muzzle with a long rubbery plug on the inside, glowing magnificently, along with a strange crystal next to it."
+RestraintEnchantedMuzzleDesc2,"A muzzle that seals over the face tightly. When powered, it regenerates mana, boosts sneak, and triples damage dealt to unaware enemies."
 RestraintEnchantedMuzzleDesc,"'Muzzle of the Saboteur'"
-KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your mouth, but not only does the soft plug fill your mouth completely, but the muzzle is nigh-unbreakable!"
+KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your face, but not only does the soft plug fill your mouth completely, the muzzle itself is nigh-unbreakable!"
+
+RestraintEnchantedBallGag,Ancient Gag
+LootChestEnchantedBallGag,"You find a ball gag harness with a long rubbery plug instead of a ball, glowing magnificently, along with a strange crystal next to it."
+RestraintEnchantedBallGagDesc2,"A gag that plugs the mouth completely. When powered, it regenerates mana and causes enemies that are stunned, frozen, bound, or slowed to take 30% more damage."
+RestraintEnchantedBallGagDesc,"'Gag of the Sunderer'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedBallGag,"You tug on the straps at your cheeks, but the straps are so tight the plug doesn't even move!"
+
+RestraintEnchantedBPlug,Ancient Rear Plug
+LootChestEnchantedBPlug,"You find a huge, flexible, segmented plug, along with a strange crystal next to it."
+RestraintEnchantedBPlugDesc2,"A plug that shocks the wearer when someone disciplines them, after orgasm, and mildly when spellcasting. When powered, reduces miscast chance by 30%."
+RestraintEnchantedBPlugDesc,"'Plug of the Obedient'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedBPlug,"You realize the magical plug has expanded inside your body. It won't come out."
+
+RestraintEnchantedPlug,Ancient Plug
+LootChestEnchantedPlug,"You find a huge, ribbed plug, along with a strange crystal next to it."
+RestraintEnchantedPlugDesc2,"A plug that denies the wearer constantly and only rarely grants release. When powered, it grants +70% magic resistance (about 40% reduction)."
+RestraintEnchantedPlugDesc,"'Plug of the Perseverant'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedPlug,"You realize the magical plug has expanded inside your body. It won't come out."
+
+RestraintEnchantedVibe,Ancient Stimulator
+LootChestEnchantedVibe,"You find a flat, round device with a hole on one side, along with a strange crystal next to it."
+RestraintEnchantedVibeDesc2,"A device that teases the wearer for casting spells and attacking. When powered, it reduces mana and stamina costs for casting spells and attacking."
+RestraintEnchantedVibeDesc,"'The Persuader'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedVibe,"You realize the magical device has attached to your body using suction. It won't come off!"
 
 RestraintEnchantedMittens,Ancient Mittens
 LootChestEnchantedMittens,"You find a pair of shining gloves, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedMittensDesc2,"Tight mittens that force the hands into fists. When powered, they multiply all magic damage to enemies by 50%."
+RestraintEnchantedMittensDesc2,"Tight mittens that force the hands into fists. When powered, they increase all magic damage to enemies by 40%."
 RestraintEnchantedMittensDesc,"'Mittens of Blasting'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedMittens,"You rub your mittens together, but they are unfazed by anything you do to them and your hands are clasped tight."
+
+RestraintEnchantedArmbinder,Ancient Armbinder
+LootChestEnchantedArmbinder,"You find a monoglove, glowing magnificently, along with a strange crystal next to it."
+RestraintEnchantedArmbinderDesc2,"An extremely strict armbinder. When powered, reduces miscast chance by 30%, increases all magic damage to enemies by 40%, and increases spell range by 50%."
+RestraintEnchantedArmbinderDesc,"'Armbinder of the Artillerist'"
+KinkyDungeonCurseStruggleMistressKeyEnchantedArmbinder,"You try to wiggle your arms, but they can barely move in this position and are clasped tight. Your arms are sealed."
 
 RestraintEnchantedAnkleCuffs,Ancient Ankle Cuffs
 LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnificently, along with a strange crystal next to it."
 RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also boosts evasion by +50% (to 2/3rds). Closes without power."
-RestraintEnchantedAnkleCuffsDesc2,"'Anklets of the Faithful Friend'"
+RestraintEnchantedAnkleCuffsDesc,"'Anklets of the Faithful Friend'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs,"You jingle the chains around and realize that these unbreakable restraints won't be coming off."
 RestraintEnchantedAnkleCuffs2,Ancient Ankle Cuffs
 RestraintEnchantedAnkleCuffs2Desc2,"...when powered down, they snap together, rendering the wearer immobile."
