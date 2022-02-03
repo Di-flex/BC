@@ -891,8 +891,10 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			KinkyDungeonMapSet(chest.x, chest.y, 'C');
 
 			// Add a lock on the chest! For testing purposes ATM
-			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false , Floor);
-			if (lock)
+			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false, Floor);
+			if (count == 0) {
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver"});
+			} else if (lock)
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: "chest"});
 
 			count += 1;

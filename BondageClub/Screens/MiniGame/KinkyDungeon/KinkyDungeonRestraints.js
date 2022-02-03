@@ -1423,7 +1423,7 @@ function KinkyDungeonGetRestraintByName(Name) {
 function KinkyDungeonGetLockMult(Lock) {
 	if (Lock == "Red") return 2.0;
 	if (Lock == "Blue") return 3.0;
-	if (Lock == "Gold") return 4.0;
+	if (Lock == "Gold") return 3.25;
 
 	return 1;
 }
