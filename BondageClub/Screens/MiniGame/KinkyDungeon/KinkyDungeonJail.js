@@ -45,7 +45,7 @@ function KinkyDungeonInJail() {
 }
 
 function KinkyDungeonHandleJailSpawns(delta) {
-	if (KinkyDungeonInJail()) KinkyDungeonJailRemoveRestraintsTimerMin += delta;
+	if (KinkyDungeonInJail()) KDGameData.JailRemoveRestraintsTimer += delta;
 
 	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
 	let yy = KinkyDungeonStartPosition.y;
