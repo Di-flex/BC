@@ -172,6 +172,10 @@ KinkyDungeonRarity10,Divine
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
 
+KinkyDungeonInventoryItemOutfitDefault,Wizard's Outfit
+KinkyDungeonInventoryItemOutfitDefaultDesc,Your favorite outfit for adventuring.
+KinkyDungeonInventoryItemOutfitDefaultDesc2,Your original outfit. No bonuses, no penalties.
+
 KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
 KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
 KinkyDungeonInventoryItemScrollArmsDesc,A scroll used by thieves to make their plays in secret.

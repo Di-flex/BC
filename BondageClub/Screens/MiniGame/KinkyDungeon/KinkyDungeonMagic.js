@@ -352,7 +352,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				effect = true;
 			} else {
 				if (KinkyDungeonCurrentDress != "BlueSuit") {
-					KinkyDungeonSetDress("BlueSuit");
+					KinkyDungeonSetDress("BlueSuit", "Latex");
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShatterDress" + spell.name), "red", 1);
 					effect = true;
@@ -543,7 +543,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			} else {
 				let RopeDresses = ["Leotard", "Bikini", "Lingerie"];
 				if (!RopeDresses.includes(KinkyDungeonCurrentDress)) {
-					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)]);
+					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)], "");
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRopeEngulfDress"), "red", 3);
 					effect = true;
@@ -573,7 +573,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			} else {
 				let RopeDresses = ["GreenLeotard", "Lingerie"];
 				if (!RopeDresses.includes(KinkyDungeonCurrentDress) && KinkyDungeonCurrentDress != "Elven") {
-					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)]);
+					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)], "");
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonVineEngulfDress"), "red", 3);
 					effect = true;
@@ -619,7 +619,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			} else {
 				let PossibleDresses = ["Leotard", "Bikini", "Lingerie"];
 				if (!PossibleDresses.includes(KinkyDungeonCurrentDress)) {
-					KinkyDungeonSetDress(PossibleDresses[Math.floor(Math.random() * PossibleDresses.length)]);
+					KinkyDungeonSetDress(PossibleDresses[Math.floor(Math.random() * PossibleDresses.length)], "");
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapBindingsDress"), "red", 3);
 					effect = true;

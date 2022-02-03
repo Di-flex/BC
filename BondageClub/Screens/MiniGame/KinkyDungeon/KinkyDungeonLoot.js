@@ -417,6 +417,9 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg) {
 	}
 
 	else if (Loot.name == "lost_items") {
+		if (!KinkyDungeonInventoryGet("OutfitDefault")) {
+			KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
+		}
 		for (let I = 0; I < KinkyDungeonLostItems.length; I++) {
 			let lostitem = KinkyDungeonLostItems[I];
 			if (lostitem) {

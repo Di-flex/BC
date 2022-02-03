@@ -154,6 +154,7 @@ function KinkyDungeonInitialize(Level, Random) {
 	Object.assign(KDGameData, KDGameDataBase);
 
 	KinkyDungeonRefreshRestraintsCache();
+	KinkyDungeonRefreshOutfitCache();
 	//KinkyDungeonRefreshEnemyCache();
 
 	KinkyDungeonDressSet();

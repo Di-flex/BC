@@ -74,6 +74,7 @@ let KinkyDungeonConfigAppearance = false;
 * GuardApplyTime: number;
 * WarningLevel: number;
 * AncientEnergyLevel: number;
+* Outfit: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -119,6 +120,8 @@ let KDGameDataBase = {
 	GuardApplyTime: 0,
 
 	AncientEnergyLevel: 0,
+
+	Outfit: "OutfitDefault",
 
 	WarningLevel: 0,
 };
@@ -649,7 +652,7 @@ function KinkyDungeonHandleClick() {
 				KinkyDungeonDresses.Default = KinkyDungeonDefaultDefaultDress;
 				CharacterAppearanceRestore(KinkyDungeonPlayer, CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player));
 				CharacterReleaseTotal(KinkyDungeonPlayer);
-				KinkyDungeonSetDress("Default");
+				KinkyDungeonSetDress("Default", "OutfitDefault");
 				KinkyDungeonDressPlayer();
 				KinkyDungeonConfigAppearance = true;
 				return true;
@@ -1056,6 +1059,7 @@ function KinkyDungeonGenerateSaveData() {
 		Object.assign(item, inv);
 		if (item.restraint) item.restraint = {name: item.restraint.name};
 		if (item.looserestraint) item.looserestraint = {name: item.looserestraint.name};
+		if (item.outfit) item.outfit = {name: item.outfit.name};
 		if (item.weapon) item.weapon = {name: item.weapon.name};
 		if (item.consumable) item.consumable = {name: item.consumable.name};
 		newInv.push(item);
@@ -1166,6 +1170,7 @@ function KinkyDungeonLoadGame(String) {
 			for (let item of KinkyDungeonInventory) {
 				if (item.restraint) item.restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
 				if (item.looserestraint) item.looserestraint = KinkyDungeonGetRestraintByName(item.looserestraint.name);
+				if (item.outfit) item.outfit = KinkyDungeonGetOutfit(item.outfit.name);
 				if (item.consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
 				if (item.weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
 			}
