@@ -3,7 +3,7 @@
 
 let KDRecentRepIndex = 0;
 
-function KinkyDungeonGetSprite(code, x, y) {
+function KinkyDungeonGetSprite(code, x, y, Fog) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
 	else if (code == "2") sprite = "Brickwork";
@@ -17,7 +17,7 @@ function KinkyDungeonGetSprite(code, x, y) {
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" : "ChestOpen");
 	else if (code == "D") sprite = "Door";
 	else if (code == "G") sprite = "Ghost";
-	else if (code == "d") sprite = "DoorOpen";
+	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "T") sprite = "Trap";
 	else if (code == "r") sprite = "RubbleLooted";
@@ -29,7 +29,7 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "O") sprite = "Orb";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
-	else if (code == "w") sprite = "Water";
+	else if (code == "w") sprite = Fog ? "Floor" : "Water";
 	return sprite;
 }
 
@@ -109,7 +109,7 @@ function KinkyDungeonDrawGame() {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
-						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY);
+						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 
 
 						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,

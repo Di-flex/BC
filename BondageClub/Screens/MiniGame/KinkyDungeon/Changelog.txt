@@ -551,6 +551,7 @@ Bugfix:
 - - Baast enemies have cold resist (embalmed against necrotic damage), fire weakness due to being undead
 
 2.6.8
+- Can now always see diagonal tiles while heavily blindfolded
 -
 
 TODO ValidationFindBlockCycles to prevent bugs
