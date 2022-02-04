@@ -513,7 +513,7 @@ function KinkyDungeonDefeat() {
 		if (collar.restraint.name == "MithrilCollar") defeat_outfit = "Elven";
 	}
 
-	KinkyDungeonSetDress(defeat_outfit);
+	KinkyDungeonSetDress(defeat_outfit, "Prison");
 	KinkyDungeonDressPlayer();
 	for (let r of params.defeat_restraints) {
 		let level = 0;
@@ -521,7 +521,6 @@ function KinkyDungeonDefeat() {
 		if (!r.Level || level >= r.Level)
 			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(r.Name), 0, true);
 	}
-	KinkyDungeonSetDress(defeat_outfit);
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);

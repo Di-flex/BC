@@ -37,8 +37,8 @@ var KinkyDungeonShopItems = [];
 var KinkyDungeonShopIndex = 0;
 
 var KinkyDungeonPoolUses = 0;
-var KinkyDungeonShrinePoolChancePerUse = 0.33;
-var KinkyDungeonPoolUsesGrace = 2;
+var KinkyDungeonShrinePoolChancePerUse = 0.2;
+var KinkyDungeonPoolUsesGrace = 3;
 
 /**
  * Current costs multipliers for shrines
@@ -50,7 +50,7 @@ let KinkyDungeonShrineTypeRemove = ["Charms", "Leather", "Metal", "Rope", "Latex
 
 function KinkyDungeonShrineInit() {
 	KinkyDungeonShrineCosts = {};
-	KinkyDungeonPoolUsesGrace = 2;
+	KinkyDungeonPoolUsesGrace = 3;
 
 	KinkyDungeonInitReputation();
 
