@@ -136,7 +136,7 @@ LootChestAncientCores,You find a set of strange golden crystals.
 LootChestScrolls,"You find a pack of scrolls used for spellcasting, and some strange golden crystals."
 
 LootChestGold,The chest contains gold! (+XXX gold)
-LootChestMagicKnife,The chest contains a glowing magical knife!
+LootChestMagicKnife,The chest contains a glowing magical knife that can turn invisible on your body!
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
 LootChestSpell,"You find a magic scroll, which you place in your spellbook. (+SpellLearned)"
 LootChestSpellPoints,"You find an orb containing magical knowledge! (+AMOUNT spell points)"
