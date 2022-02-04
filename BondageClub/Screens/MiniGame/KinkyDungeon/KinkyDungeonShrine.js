@@ -508,7 +508,7 @@ function KinkyDungeonHandleOrb() {
 			if (KinkyDungeonGoddessRep[shrine] < -45) {
 				KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
 			}
-			KinkyDungeonChangeRep(shrine, Amount * -10);
+			KinkyDungeonChangeRep(shrine, Amount * -9);
 			KinkyDungeonSpellPoints += Amount;
 			KinkyDungeonMapSet(KDOrbX, KDOrbY, 'o');
 		}
