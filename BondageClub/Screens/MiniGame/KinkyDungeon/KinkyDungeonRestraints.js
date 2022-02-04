@@ -496,7 +496,7 @@ const KinkyDungeonRestraints = [
 		escapeChance: {"Struggle": -100, "Cut": -100, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: [],
 		events: [
 			{trigger: "beforeCast", type: "ReduceMiscastFlat", power: 0.3, requireEnergy: true},
-			{trigger: "tick", type: "RegenStamina", power: 0.5, requireEnergy: true, energyCost: 0.001},
+			{trigger: "tick", type: "RegenStamina", power: 1.25, requireEnergy: true, energyCost: 0.002},
 		]},
 
 	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedBra", Asset: "PolishedChastityBra", OverridePriority: 26, Color: "#AE915C", Group: "ItemBreast", chastitybra: true, power: 25, weight: 0,
