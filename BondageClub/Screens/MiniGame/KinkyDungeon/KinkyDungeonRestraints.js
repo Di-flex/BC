@@ -1063,7 +1063,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 
 	// Finger extensions will help if your hands are unbound. Some items cant be removed without them!
-	if (StruggleType == "Remove" && !handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0))
+	// Mouth counts as a finger extension on your hands if your arms aren't tied
+	let armsBound = KinkyDungeonIsArmsBound(true);
+	if (StruggleType == "Remove" &&
+		(!handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0)
+		|| (struggleGroup.group == "ItemHands" && KinkyDungeonCanTalk() && !armsBound)))
 		escapeChance = Math.min(1, escapeChance + 0.15);
 
 	if (escapeChance <= 0) {
@@ -1093,7 +1097,6 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		}
 	}
 
-	let armsBound = KinkyDungeonIsArmsBound(true);
 	let strict = KinkyDungeonStrictness(true, struggleGroup.group);
 	let hasEdge = KinkyDungeonHasHook();
 

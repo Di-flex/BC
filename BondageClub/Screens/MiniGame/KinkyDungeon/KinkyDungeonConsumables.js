@@ -178,7 +178,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 
 		return false;
 	}
-	if (needArms && KinkyDungeonIsHandsBound()) {
+	if (needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
 		KinkyDungeonAdvanceTime(1);
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
 
