@@ -1755,17 +1755,18 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					}
 				}
 
-				KinkyDungeonInventory.splice(I, 1);
-
 				if (item.restraint.inventory && (Keep || item.restraint.enchanted) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
 					if (item.restraint.inventoryAs) {
-						let origRestraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
+						let origRestraint = KinkyDungeonGetRestraintByName(item.restraint.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
 							KinkyDungeonInventory.push({looserestraint: origRestraint, events: origRestraint.looseevents});
 					} else KinkyDungeonInventory.push({looserestraint: item.restraint, events: item.restraint.looseevents});
 				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);
+
+				KinkyDungeonInventory.splice(I, 1);
+
 				if (item.restraint.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KinkyDungeonGetRestraintItem("ItemNeckRestraints").restraint.inventory);
 
 				KinkyDungeonCalculateSlowLevel();
@@ -1773,6 +1774,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 
 				KinkyDungeonMultiplayerInventoryFlag = true;
 				KinkyDungeonUpdateStruggleGroups();
+
 			}
 			KinkyDungeonCancelFlag = false;
 			return true;
