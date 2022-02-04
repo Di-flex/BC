@@ -197,7 +197,7 @@ function KinkyDungeonDressPlayer() {
 				if (KinkyDungeonGetRestraintItem("ItemArms") && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemBreast")) clothes.Lost = true;
 			}
 			//if (clothes.Group == "Bra" && !clothes.NoLose) {
-			//	if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
+			//if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
 			//}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;

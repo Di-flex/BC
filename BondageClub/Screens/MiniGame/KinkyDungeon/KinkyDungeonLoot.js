@@ -76,7 +76,7 @@ var KinkyDungeonLootTable = {
 		{name: "trap_armbinderHeavy", trap:true, lock: "Blue", minLevel: 7, weight:2, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
 		{name: "trap_harness", trap: true, lock: "Gold", minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemTorso"], power: 8},
 		{name: "trap_gagHeavy", trap:true, lock: "Blue", minLevel: 1, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth"], power: 8},
-		{name: "trap_blacksteel", trap:true, lock: "Gold", minLevel: 1, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth"], power: 9},
+		{name: "trap_mithrilankle", trap:true, lock: "Gold", minLevel: 1, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth"], power: 9},
 		{name: "trap_belt", trap: true, lock: "Gold", minLevel: 1, weight:2, message:"LootChestTrapMagicVibe", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemVulvaPiercings"], power: 8},
 		{name: "trap_plug", trap: true, lock: "Gold", minLevel: 1, weight:2, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemVulva"], power: 8},
 		{name: "trap_nipple", trap: true, lock: "Gold", minLevel: 1, weight:2, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemNipples"], power: 8},
@@ -416,11 +416,11 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("PanelGag"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true));
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintPanelGag"));
-	} else if (Loot.name == "trap_blacksteel") {
+	} else if (Loot.name == "trap_mithrilankle") {
 		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
-		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("ExpAnkleCuffs"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true));
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MithrilAnkleCuffs"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true));
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintExpAnkleCuffs"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintMithrilAnkleCuffs"));
 	} else if (Loot.name == "trap_mitts") {
 		value = Math.ceil((70 + 80 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapMittens"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true));
