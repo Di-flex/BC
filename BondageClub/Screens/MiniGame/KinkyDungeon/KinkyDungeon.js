@@ -40,6 +40,8 @@ let KinkyDungeonConfigAppearance = false;
 
 /**
 *  @typedef {{
+* PoolUses: number,
+* PoolUsesGrace: number,
 * JailRemoveRestraintsTimer: number;
 * KinkyDungeonSpawnJailers: number;
 * KinkyDungeonSpawnJailersMax: number;
@@ -78,6 +80,8 @@ let KinkyDungeonConfigAppearance = false;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	PoolUses: 0,
+	PoolUsesGrace: 3,
 	JailRemoveRestraintsTimer: 0,
 	KinkyDungeonSpawnJailers: 0,
 	KinkyDungeonSpawnJailersMax: 5,
@@ -1071,6 +1075,7 @@ function KinkyDungeonGenerateSaveData() {
 
 	save.spells = spells;
 	save.inventory = newInv;
+	save.KDGameData = KDGameData;
 
 	save.stats = {
 		picks: KinkyDungeonLockpicks,
@@ -1153,6 +1158,7 @@ function KinkyDungeonLoadGame(String) {
 				KDOrigMana = KinkyDungeonStatMana;
 				KDOrigArousal = KinkyDungeonStatArousal;
 			}
+			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 
 
 			for (let item of saveData.inventory) {

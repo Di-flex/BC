@@ -292,6 +292,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let cacheInterval = MapParams.cacheInterval;
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
+
+	let shrineTypes = [];
 	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density);
 
 	KinkyDungeonGroundItems = []; // Clear items on the ground
@@ -320,7 +322,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		for (let t of traps2) {
 			traps.push(t);
 		}
-		KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghostchance, Floor, width, height);
+		KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
 		KinkyDungeonPlaceBrickwork(brickchance, Floor, width, height);
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
 		KinkyDungeonPlacePatrols(4, width, height);
@@ -928,10 +930,9 @@ function KinkyDungeonPlaceLore(width, height) {
 
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonPlaceShrines(shrinechance, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
+function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	let shrinelist = [];
 	KinkyDungeonCommercePlaced = 0;
-	let shrineTypes = [];
 
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
