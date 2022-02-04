@@ -165,12 +165,12 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 
-	let needMouth = item.item && item.item.consumable && item.item.consumable.potion && KinkyDungeonCanDrink();
+	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
-	if (needMouth && !KinkyDungeonCanTalk()) {
+	if (needMouth && ((!item.item.consumable.potion && !KinkyDungeonCanTalk()) || (item.item.consumable.potion && !KinkyDungeonCanDrink()))) {
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
 
 		if (KinkyDungeonTextMessageTime > 0)
