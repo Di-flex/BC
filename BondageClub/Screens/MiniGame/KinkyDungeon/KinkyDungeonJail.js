@@ -231,7 +231,7 @@ function KinkyDungeonTooMuchRestraint() {
 			(!rest && currentItem) // There shouldnt be one here
 			|| (rest && currentItem && currentItem.restraint && rest.name != currentItem.restraint.name && (currentItem.restraint.power < rest.power || currentItem.restraint.power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
-			if (!currentItem || (!currentItem.restraint.cursed || !currentItem.restraint.enchanted))
+			if (!currentItem || (!currentItem.restraint.cursed && !currentItem.restraint.enchanted))
 				RemoveGroups.push(g);
 		}
 	}

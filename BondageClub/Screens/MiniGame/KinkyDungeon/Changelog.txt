@@ -529,6 +529,7 @@ Bugfix:
 - Added fog of war (makes playing with the ancient blindfold much much better)
 - Ancient Ball Gag now has 30% miscast reduction
 - Gave the frog the projectileAttack flag
+- Added random orb button
 
 - Changed some enemy resistances:
 - - Zombies are now consistent

@@ -461,6 +461,8 @@ function KinkyDungeonDrawOrb() {
 
 	}
 
+	DrawButton(canvasOffsetX + KinkyDungeonCanvas.width/2 - 200, yPad + canvasOffsetY + spacing * i, 425, 55, TextGet("KinkyDungeonSurpriseMe"), "white");
+
 	MainCanvas.textAlign = "center";
 }
 
@@ -498,6 +500,21 @@ function KinkyDungeonHandleOrb() {
 			i++;
 		}
 
+	}
+
+	if (MouseIn(canvasOffsetX + KinkyDungeonCanvas.width/2 - 200, yPad + canvasOffsetY + spacing * i, 425, 55)) {
+		let shrine = Object.keys(KinkyDungeonShrineBaseCosts)[Math.floor(KDRandom() * Object.keys(KinkyDungeonShrineBaseCosts).length)];
+		if (KinkyDungeonMapGet(KDOrbX, KDOrbY) == 'O') {
+			if (KinkyDungeonGoddessRep[shrine] < -45) {
+				KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
+			}
+			KinkyDungeonChangeRep(shrine, Amount * -10);
+			KinkyDungeonSpellPoints += Amount;
+			KinkyDungeonMapSet(KDOrbX, KDOrbY, 'o');
+		}
+
+		KinkyDungeonDrawState = "Game";
+		return true;
 	}
 
 
