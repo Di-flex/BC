@@ -883,7 +883,7 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 	let extra = Math.random() < treasurechance;
 	treasurecount += (extra ? 1 : 0);
 	let alreadyOpened = (KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
-	treasurecount -= alreadyOpened;
+	if (KinkyDungeonNewGame < 1) treasurecount -= alreadyOpened;
 	while (chestlist.length > 0) {
 		let N = Math.floor(Math.random()*chestlist.length);
 		if (count < treasurecount) {
@@ -892,7 +892,7 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 
 			// Add a lock on the chest! For testing purposes ATM
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false, Floor);
-			if (count == 0) {
+			if (count == 0 || count >= treasurecount - alreadyOpened) {
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver"});
 			} else if (lock)
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: "chest"});
