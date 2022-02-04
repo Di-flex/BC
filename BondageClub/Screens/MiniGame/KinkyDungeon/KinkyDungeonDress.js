@@ -115,7 +115,7 @@ let KinkyDungeonDresses = {
 		{Item: "Socks6", Group: "Socks", Color: ['#080808', 'Default'], Lost: false},
 	],
 	"Elven" : [
-		{Item: "Swimsuit1", Group: "Bra", Color: ['#E2E2E2'], Lost: false},
+		{Item: "Swimsuit1", Group: "Bra", Color: ['#E2E2E2'], Lost: false, NoLose: true},
 		{Item: "Corset4", Group: "Corset", Color: ['#FFFFFF'], Lost: false},
 		{Item: "Stockings4", Group: "Socks", Color: "#000000", Lost: false},
 		{Item: "FaceVeil", Group: "Mask", Color: "Default", Lost: false},
@@ -196,9 +196,9 @@ function KinkyDungeonDressPlayer() {
 				if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemArms") && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemBreast")) clothes.Lost = true;
 			}
-			if (clothes.Group == "Bra") {
-				if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
-			}
+			//if (clothes.Group == "Bra" && !clothes.NoLose) {
+			//	if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
+			//}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;
