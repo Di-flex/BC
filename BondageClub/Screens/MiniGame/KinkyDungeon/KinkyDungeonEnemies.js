@@ -1254,32 +1254,37 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						enemy.gy = newPoint.y;
 					}
 				} else {
-					// Short distance
-					let ex = enemy.x;
-					let ey = enemy.y;
-					let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.3;
-					let masterCloseness = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.7;
-					if (master && Math.random() < masterCloseness) {
-						ex = master.x;
-						ey = master.y;
-					} else if (Math.random() < cohesion) {
-						let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : enemy.Enemy.visionRadius / 2;
-						for (let e of KinkyDungeonEntities) {
-							let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
-							if (dist < minDist) {
-								minDist = dist;
-								let ePoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
-								if (ePoint) {
-									ex = ePoint.x;
-									ey = ePoint.y;
+					if (KinkyDungeonAlert && playerDist < Math.max(4, enemy.Enemy.visionRadius)) {
+						enemy.gx = KinkyDungeonPlayerEntity.x;
+						enemy.gy = KinkyDungeonPlayerEntity.y;
+					} else {
+						// Short distance
+						let ex = enemy.x;
+						let ey = enemy.y;
+						let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.3;
+						let masterCloseness = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.7;
+						if (master && Math.random() < masterCloseness) {
+							ex = master.x;
+							ey = master.y;
+						} else if (Math.random() < cohesion) {
+							let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : enemy.Enemy.visionRadius / 2;
+							for (let e of KinkyDungeonEntities) {
+								let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
+								if (dist < minDist) {
+									minDist = dist;
+									let ePoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
+									if (ePoint) {
+										ex = ePoint.x;
+										ey = ePoint.y;
+									}
 								}
 							}
 						}
-					}
-					let newPoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
-					if (newPoint && (KinkyDungeonJailTransgressed || newPoint.x > KinkyDungeonJailLeashX + 3)) {
-						enemy.gx = newPoint.x;
-						enemy.gy = newPoint.y;
+						let newPoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
+						if (newPoint && (KinkyDungeonJailTransgressed || newPoint.x > KinkyDungeonJailLeashX + 3)) {
+							enemy.gx = newPoint.x;
+							enemy.gy = newPoint.y;
+						}
 					}
 				}
 			}
