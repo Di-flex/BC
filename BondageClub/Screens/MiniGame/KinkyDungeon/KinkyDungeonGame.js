@@ -8,7 +8,8 @@ let MiniGameKinkyDungeonShortcut = 0;
 let MiniGameKinkyDungeonLevel = -1;
 let KinkyDungeonMapIndex = [];
 
-let KinkyDungeonLightGrid = "";
+let KinkyDungeonLightGrid = [];
+let KinkyDungeonFogGrid = [];
 let KinkyDungeonUpdateLightGrid = true;
 let KinkyDungeonGrid = "";
 let KinkyDungeonGrid_Last = "";
@@ -223,6 +224,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = new Map();
 	KinkyDungeonTargetTile = "";
+
+	KinkyDungeonResetFog();
 
 	KDGameData.RescueFlag = false;
 
@@ -1370,27 +1373,21 @@ function KinkyDungeonMapSet(X, Y, SetTo, VisitedRooms) {
 
 function KinkyDungeonMapGet(X, Y) {
 	//let height = KinkyDungeonGrid.split('\n').length;
-	let width = KinkyDungeonGrid.split('\n')[0].length;
+	//let width = //KinkyDungeonGrid.split('\n')[0].length;
 
-	return KinkyDungeonGrid[X + Y*(width+1)];
+	return KinkyDungeonGrid[X + Y*(KinkyDungeonGridWidth+1)];
 }
 
 function KinkyDungeonLightSet(X, Y, SetTo) {
-	let height = KinkyDungeonGridHeight;
-	let width = KinkyDungeonGridWidth;
-
-	if (X >= 0 && X <= width-1 && Y >= 0 && Y <= height-1) {
-		KinkyDungeonLightGrid = KinkyDungeonLightGrid.replaceAt(X + Y*(width+1), SetTo);
+	if (X >= 0 && X <= KinkyDungeonGridWidth-1 && Y >= 0 && Y <= KinkyDungeonGridHeight-1) {
+		KinkyDungeonLightGrid[X + Y*(KinkyDungeonGridWidth)] = SetTo;
 		return true;
 	}
 	return false;
 }
 
 function KinkyDungeonLightGet(X, Y) {
-	//let height = KinkyDungeonLightGrid.split('\n').length;
-	let width = KinkyDungeonLightGrid.split('\n')[0].length;
-
-	return parseFloat(KinkyDungeonLightGrid[X + Y*(width+1)]);
+	return KinkyDungeonLightGrid[X + Y*(KinkyDungeonGridWidth)];
 }
 
 const canvasOffsetX = 500;

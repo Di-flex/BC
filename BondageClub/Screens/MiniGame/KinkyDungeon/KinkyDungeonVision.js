@@ -40,6 +40,15 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 	return true;
 }
 
+function KinkyDungeonResetFog() {
+	KinkyDungeonFogGrid = [];
+	// Generate the grid
+	for (let X = 0; X < KinkyDungeonGridHeight; X++) {
+		for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
+			KinkyDungeonFogGrid.push(0); // 0 = pitch dark
+	}
+}
+
 function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	let flags = {
 		SeeThroughWalls: 0,
@@ -48,18 +57,17 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	KinkyDungeonSendEvent("vision",{update: delta, flags: flags});
 
 	KinkyDungeonBlindLevelBase = 0; // Set to 0 when consumed. We only redraw lightmap once so this is safe.
-	KinkyDungeonLightGrid = "";
+	KinkyDungeonLightGrid = [];
 	// Generate the grid
 	for (let X = 0; X < KinkyDungeonGridHeight; X++) {
 		for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
-			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '0'; // 0 = pitch dark
-		KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
+			KinkyDungeonLightGrid.push(0); // 0 = pitch dark
 	}
 	let maxPass = 0;
 
 	for (let L = 0; L < Lights.length; L++) {
 		maxPass = Math.max(maxPass, Lights[L].brightness);
-		KinkyDungeonLightSet(Lights[L].x, Lights[L].y, "" + Lights[L].brightness);
+		KinkyDungeonLightSet(Lights[L].x, Lights[L].y, Lights[L].brightness);
 	}
 
 	let visionBlockers = {};
@@ -95,16 +103,16 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 						}
 
 						if (brightness > 0) {
-							if (Number(KinkyDungeonLightGet(X-1, Y)) < brightness) KinkyDungeonLightSet(X-1, Y, "" + (brightness - 1));
-							if (Number(KinkyDungeonLightGet(X+1, Y)) < brightness) KinkyDungeonLightSet(X+1, Y, "" + (brightness - 1));
-							if (Number(KinkyDungeonLightGet(X, Y-1)) < brightness) KinkyDungeonLightSet(X, Y-1, "" + (brightness - 1));
-							if (Number(KinkyDungeonLightGet(X, Y+1)) < brightness) KinkyDungeonLightSet(X, Y+1, "" + (brightness - 1));
+							if (Number(KinkyDungeonLightGet(X-1, Y)) < brightness) KinkyDungeonLightSet(X-1, Y, (brightness - 1));
+							if (Number(KinkyDungeonLightGet(X+1, Y)) < brightness) KinkyDungeonLightSet(X+1, Y, (brightness - 1));
+							if (Number(KinkyDungeonLightGet(X, Y-1)) < brightness) KinkyDungeonLightSet(X, Y-1, (brightness - 1));
+							if (Number(KinkyDungeonLightGet(X, Y+1)) < brightness) KinkyDungeonLightSet(X, Y+1, (brightness - 1));
 
 							if (brightness > 1) {
-								if (Number(KinkyDungeonLightGet(X-1, Y-1)) < brightness) KinkyDungeonLightSet(X-1, Y-1, "" + (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X-1, Y+1)) < brightness) KinkyDungeonLightSet(X-1, Y+1, "" + (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X+1, Y-1)) < brightness) KinkyDungeonLightSet(X+1, Y-1, "" + (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X+1, Y+1)) < brightness) KinkyDungeonLightSet(X+1, Y+1, "" + (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
+								if (Number(KinkyDungeonLightGet(X-1, Y-1)) < brightness) KinkyDungeonLightSet(X-1, Y-1, (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
+								if (Number(KinkyDungeonLightGet(X-1, Y+1)) < brightness) KinkyDungeonLightSet(X-1, Y+1, (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
+								if (Number(KinkyDungeonLightGet(X+1, Y-1)) < brightness) KinkyDungeonLightSet(X+1, Y-1, (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
+								if (Number(KinkyDungeonLightGet(X+1, Y+1)) < brightness) KinkyDungeonLightSet(X+1, Y+1, (brightness - 1-(Math.random() > 0.4 ? 1 : 0)));
 							}
 						}
 					}
@@ -114,12 +122,26 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	}
 
 	if (KinkyDungeonSeeAll) {
-		KinkyDungeonLightGrid = "";
+		KinkyDungeonLightGrid = [];
 		// Generate the grid
-		for (let X = 0; X < KinkyDungeonGridHeight; X++) {
-			for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
-				KinkyDungeonLightGrid = KinkyDungeonLightGrid + '9'; // 0 = pitch dark
-			KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
+		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
+				//KinkyDungeonLightGrid = KinkyDungeonLightGrid + '9'; // 0 = pitch dark
+				KinkyDungeonLightGrid.push(10); // 0 = pitch dark
+			//KinkyDungeonLightGrid = KinkyDungeonLightGrid + '\n';
+		}
+	} else {
+		// Generate the grid
+		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
+				if (X >= 0 && X <= width-1 && Y >= 0 && Y <= height-1) {
+					if (KDistChebyshev(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y) < 3
+						&& KDistEuclidean(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y) < 2.9
+						&& KinkyDungeonCheckPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, X, Y)) {
+						KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], 3);
+					}
+					KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], KinkyDungeonLightGrid[X + Y*(width)]);
+				}
 		}
 	}
 }

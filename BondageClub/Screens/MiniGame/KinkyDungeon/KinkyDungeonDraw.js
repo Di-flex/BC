@@ -233,15 +233,18 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 
 				// Draw fog of war
-				rows = KinkyDungeonLightGrid.split('\n');
 				for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
+						let light = Math.max(KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth]/3, Math.min(0.5, KinkyDungeonFogGrid[RX + RY*KinkyDungeonGridWidth]/10));
+						if (KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth] > 0 && KDistChebyshev(KinkyDungeonPlayerEntity.x - RX, KinkyDungeonPlayerEntity.y - RY) < 2) {
+							light = light + (1 - light)*0.5;
+						}
 
 						KinkyDungeonContext.beginPath();
-						KinkyDungeonContext.fillStyle = "rgba(0,0,0," + Math.max(0, 1-Number(rows[RY][RX])/3) + ")";
+						KinkyDungeonContext.fillStyle = "rgba(0,0,0," + Math.max(0, 1-light) + ")";
 
 						KinkyDungeonContext.fillRect((-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset + R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
 						KinkyDungeonContext.fill();
