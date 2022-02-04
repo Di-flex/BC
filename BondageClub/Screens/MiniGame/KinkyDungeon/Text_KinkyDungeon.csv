@@ -257,9 +257,9 @@ KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
 
-KinkyDungeonInventoryItemElfCrystal,Elven Crystal
+KinkyDungeonInventoryItemElfCrystal,Water Crystal
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
-KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of elven grace."
+KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of sylvan grace."
 KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
 KinkyDungeonSpellCastSlippery,You feel the restraints become loose on your skin!
 
