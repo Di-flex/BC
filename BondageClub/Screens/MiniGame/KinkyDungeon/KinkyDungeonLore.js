@@ -1,7 +1,7 @@
 "use strict";
 
 var KinkyDungeonCurrentLore = -1;
-var KinkyDungeonLore = [2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15];
+var KinkyDungeonLore = [2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16];
 var KinkyDungeonCheckpointLore = [
 	/*0*/ [1,],
 	/*1*/ [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
