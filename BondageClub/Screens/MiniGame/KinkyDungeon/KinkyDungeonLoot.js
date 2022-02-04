@@ -267,7 +267,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("AMOUNT", "" + amount);
 	} else if (Loot.name == "spell_illusion_low") {
-		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Illusion);
+		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 2, KinkyDungeonSpellList.Illusion);
 		let spellIndex = Math.floor(Math.random()*SpellsUnlearned.length);
 
 		let spell = SpellsUnlearned[spellIndex];
@@ -275,7 +275,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 	} else if (Loot.name == "spell_conjuration_low") {
-		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Conjure);
+		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 2, KinkyDungeonSpellList.Conjure);
 		let spellIndex = Math.floor(Math.random()*SpellsUnlearned.length);
 
 		let spell = SpellsUnlearned[spellIndex];
@@ -283,7 +283,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 	} else if (Loot.name == "spell_elemental_low") {
-		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList.Elements);
+		let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 2, KinkyDungeonSpellList.Elements);
 		let spellIndex = Math.floor(Math.random()*SpellsUnlearned.length);
 
 		let spell = SpellsUnlearned[spellIndex];

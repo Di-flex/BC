@@ -303,7 +303,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
 	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
 		KinkyDungeonCreateCache(Floor, width, height);
-	let createForbidden = !InJail && KDRandom() < forbiddenChance;
+	let createForbidden = !InJail && KDRandom() < forbiddenChance && (MiniGameKinkyDungeonLevel > 3 || KinkyDungeonNewGame > 0);
 	let traps = (createForbidden ? KinkyDungeonCreateForbidden(greaterChance) : []);
 	if (traps.length > 0) {
 		console.log("Attempted to create forbidden stuff");
