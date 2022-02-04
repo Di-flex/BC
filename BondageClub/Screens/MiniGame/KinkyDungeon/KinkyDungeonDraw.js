@@ -236,8 +236,8 @@ function KinkyDungeonDrawGame() {
 				for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 
-						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
-						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
+						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight-1));
+						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth-1));
 						let light = Math.max(KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth]/3, Math.min(0.5, KinkyDungeonFogGrid[RX + RY*KinkyDungeonGridWidth]/10));
 						if (KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth] > 0 && KDistChebyshev(KinkyDungeonPlayerEntity.x - RX, KinkyDungeonPlayerEntity.y - RY) < 2) {
 							light = light + (1 - light)*0.5;

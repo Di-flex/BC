@@ -43,8 +43,8 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, allowEnemies) {
 function KinkyDungeonResetFog() {
 	KinkyDungeonFogGrid = [];
 	// Generate the grid
-	for (let X = 0; X < KinkyDungeonGridHeight; X++) {
-		for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
+	for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+		for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
 			KinkyDungeonFogGrid.push(0); // 0 = pitch dark
 	}
 }
@@ -59,8 +59,8 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	KinkyDungeonBlindLevelBase = 0; // Set to 0 when consumed. We only redraw lightmap once so this is safe.
 	KinkyDungeonLightGrid = [];
 	// Generate the grid
-	for (let X = 0; X < KinkyDungeonGridHeight; X++) {
-		for (let Y = 0; Y < KinkyDungeonGridWidth; Y++)
+	for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+		for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
 			KinkyDungeonLightGrid.push(0); // 0 = pitch dark
 	}
 	let maxPass = 0;

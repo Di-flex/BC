@@ -225,8 +225,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonTiles = new Map();
 	KinkyDungeonTargetTile = "";
 
-	KinkyDungeonResetFog();
-
 	KDGameData.RescueFlag = false;
 
 	KinkyDungeonTotalSleepTurns = 0;
@@ -241,6 +239,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonCanvas.width = KinkyDungeonCanvasPlayer.width*KinkyDungeonGridWidthDisplay;
 	KinkyDungeonGridHeight = height;
 	KinkyDungeonGridWidth = width;
+
+	KinkyDungeonResetFog();
 
 	// Generate the grid
 	for (let X = 0; X < height; X++) {

@@ -1874,6 +1874,7 @@ KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables a
 KinkyDungeonSleepy,You are feeling drowsy...
 
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
+KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
 KinkyDungeonSpellShield,Shield
 KinkyDungeonSpellDescriptionShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
@@ -2556,7 +2557,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your 
 
 RestraintEnchantedHeels,Ancient Heels
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with guiding and combat magic. When powered, they reduce slow level by 2 and boost melee damage by +1."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 3 cold damage on-hit with brief slow."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
