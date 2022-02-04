@@ -390,7 +390,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));
 	} else if (Loot.name == "trap_armbinderHeavy") {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinder"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true));
-		let harness = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinderHarness"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true));
+		let harness = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapArmbinderHarness"), MiniGameKinkyDungeonCheckpoint, true, KinkyDungeonGenerateLock(true));
 		if (Replacemsg)
 			if (!harness)
 				Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapArmbinder"));

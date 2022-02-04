@@ -1686,8 +1686,9 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 					KinkyDungeonDoorCloseTimer = 1;
 				} else if (moveObject == 'C') { // Open the chest
-					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Loot ? KinkyDungeonTiles.get(moveX + "," +moveY).Loot : "chest");
-					KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
+					let chestType = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Loot ? KinkyDungeonTiles.get(moveX + "," +moveY).Loot : "chest";
+					KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
+					if (chestType == "chest") KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 					KinkyDungeonMapSet(moveX, moveY, 'c');
 				} else if (moveObject == 'O') { // Open the chest
