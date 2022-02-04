@@ -214,13 +214,6 @@ function KinkyDungeonInitialize(Level, Random) {
 }
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
-	for (let inv of KinkyDungeonRestraintList()) {
-		if (inv.lock == "Gold" && (MiniGameKinkyDungeonLevel >= inv.lockTimer || !inv.lockTimer)) {
-			KinkyDungeonLock(inv, "Blue");
-			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonGoldLockRemove"), "yellow", 2);
-		}
-	}
-
 	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
 	KinkyDungeonAid = {};
@@ -1822,6 +1815,13 @@ let KDVisionUpdate = 0;
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	let start = performance.now();
+
+	for (let inv of KinkyDungeonRestraintList()) {
+		if (inv.lock == "Gold" && (MiniGameKinkyDungeonLevel >= inv.lockTimer || !inv.lockTimer)) {
+			KinkyDungeonLock(inv, "Blue");
+			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonGoldLockRemove"), "yellow", 2);
+		}
+	}
 
 	if (KinkyDungeonMovePoints < -1 && KDGameData.KinkyDungeonLeashedPlayer < 1) KinkyDungeonMovePoints += delta;
 	if (delta > 0) {
