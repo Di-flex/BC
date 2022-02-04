@@ -788,7 +788,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 		flags.miscastChance = 0;
 	}
-	if (!spell.noMiscast && Math.random() < flags.miscastChance) {
+	if (!spell.noMiscast && !enemy && !bullet && player && Math.random() < flags.miscastChance) {
 
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscast"), "#FF8800", 2);
 

@@ -527,6 +527,8 @@ Bugfix:
 - Added the enchanted grinder to help cut your way out of things
 - Increased pool drinking grace to 3 free uses (whole game), and lowered drink punish chance to 20%
 - Added fog of war (makes playing with the ancient blindfold much much better)
+- Ancient Ball Gag now has 30% miscast reduction
+- Gave the frog the projectileAttack flag
 
 - Changed some enemy resistances:
 - - Zombies are now consistent

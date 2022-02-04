@@ -2574,8 +2574,8 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your face, but 
 
 RestraintEnchantedBallGag,Ancient Gag
 LootChestEnchantedBallGag,"You find a ball gag harness with a long rubbery plug instead of a ball, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBallGagDesc2,"A gag that plugs the mouth completely. When powered, it regenerates mana and causes enemies that are stunned, frozen, bound, or slowed to take 30% more damage."
-RestraintEnchantedBallGagDesc,"'Gag of the Sunderer'"
+RestraintEnchantedBallGagDesc2,"A gag that fills the mouth. When powered, regends mana, reduces miscast by 30%, and boosts damage to enemies that are stunned, frozen, bound, or slowed by 30%."
+RestraintEnchantedBallGagDesc,"'Gag of the Focused'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBallGag,"You tug on the straps at your cheeks, but the straps are so tight the plug doesn't even move!"
 
 RestraintEnchantedBPlug,Ancient Rear Plug
