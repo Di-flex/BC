@@ -132,14 +132,22 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 		}
 	} else {
 		// Generate the grid
+		let dist = 0;
 		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
 			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
 				if (X >= 0 && X <= width-1 && Y >= 0 && Y <= height-1) {
-					if (KDistChebyshev(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y) < 3
-						&& KDistEuclidean(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y) < 2.9
-						&& KinkyDungeonCheckPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, X, Y)) {
-						KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], 3);
+					dist = KDistChebyshev(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y);
+					if (dist < 3) {
+						if (dist < 3
+							&& KDistEuclidean(KinkyDungeonPlayerEntity.x - X, KinkyDungeonPlayerEntity.y - Y) < 2.9
+							&& KinkyDungeonCheckPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, X, Y)) {
+							KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], 3);
+						}
+						if (dist < 1.5 && KinkyDungeonLightGrid[X + Y*(width)] == 0) {
+							KinkyDungeonLightGrid[X + Y*(width)] = 1;
+						}
 					}
+
 					KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], KinkyDungeonLightGrid[X + Y*(width)]);
 				}
 		}
