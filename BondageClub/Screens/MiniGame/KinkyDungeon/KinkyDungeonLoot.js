@@ -465,13 +465,13 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapPlug"), MiniGameKinkyDungeonCheckpoint, true, false);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt2"), MiniGameKinkyDungeonCheckpoint, true, "Gold");
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("TrapBelt2"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBelt2"));
 	} else if (Loot.name == "trap_nipple2") {
 		value = Math.ceil((150 + 50 * Math.random()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("NippleClamps"), MiniGameKinkyDungeonCheckpoint, true, false);
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBra2"), MiniGameKinkyDungeonCheckpoint, true, "Gold");
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("TrapBra2"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBra2"));
 	}
 
 	else if (Loot.name == "lost_items") {
