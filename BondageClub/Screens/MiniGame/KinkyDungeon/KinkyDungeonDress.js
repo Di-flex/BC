@@ -199,6 +199,9 @@ function KinkyDungeonDressPlayer() {
 			//if (clothes.Group == "Bra" && !clothes.NoLose) {
 			//if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
 			//}
+			if (clothes.Group == "Panties" && !clothes.NoLose) {
+				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;
+			}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;

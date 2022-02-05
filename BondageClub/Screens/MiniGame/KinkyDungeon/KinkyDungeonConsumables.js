@@ -16,6 +16,7 @@ var KinkyDungeonConsumables = {
 	"ScrollArms" : {name: "ScrollArms", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoArmsComp", duration: 12, power: 1, aura: "#aaffaa", sfx: "FireSpell"},
 	"ScrollVerbal" : {name: "ScrollVerbal", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoVerbalComp", duration: 12, power: 1, aura: "#aaaaff", sfx: "FireSpell"},
 	"ScrollLegs" : {name: "ScrollLegs", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoLegsComp", duration: 12, power: 1, aura: "#ffaaaa", sfx: "FireSpell"},
+	"ScrollPurity" : {name: "ScrollPurity", noHands: true, rarity: 4, costMod: -1, shop: true, type: "shrineRemove", shrine: "Vibes", sfx: "FireSpell"},
 };
 
 var KinkyDungneonBasic = {
@@ -138,6 +139,8 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	} else if (Consumable.type == "recharge") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 		KinkyDungeonAddGold(-Consumable.rechargeCost);
+	} else if (Consumable.type == "shrineRemove") {
+		KinkyDungeonRemoveRestraintsWithShrine(Consumable.shrine);
 	}
 }
 
@@ -162,6 +165,11 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	}
 	if (item.item && item.item.consumable && item.item.consumable.type == "recharge" && KinkyDungeonGold < item.item.consumable.rechargeCost) {
 		KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail"), "red", 1);
+		return false;
+	}
+
+	if (item.item && item.item.consumable && item.item.consumable.type == "shrineRemove" && KinkyDungeonGetRestraintsWithShrine(item.item.consumable.shrine).length < 1) {
+		KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoItemToRemove"), "pink", 1);
 		return false;
 	}
 

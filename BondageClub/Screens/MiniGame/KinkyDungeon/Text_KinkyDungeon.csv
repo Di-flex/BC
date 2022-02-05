@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Private|WATA"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -181,6 +181,11 @@ KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
 KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
 KinkyDungeonInventoryItemScrollArmsDesc,A scroll used by thieves to make their plays in secret.
 KinkyDungeonInventoryItemScrollArmsDesc2,Allows you to cast Arm spells without components for 12 turns.
+
+KinkyDungeonInventoryItemScrollPurity,Scroll of Purity
+KinkyDungeonInventoryItemScrollPurityUse,The scroll circles around your body and you feel... empty now.
+KinkyDungeonInventoryItemScrollPurityDesc,A scroll used to enforce chastity within religious orders.
+KinkyDungeonInventoryItemScrollPurityDesc2,Removes all vibrators from your body.
 
 KinkyDungeonInventoryItemScrollVerbal,Scroll of Speech
 KinkyDungeonInventoryItemScrollVerbalUse,The scroll makes your gagged speech slightly more intelligible!
@@ -1772,6 +1777,7 @@ ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
+ItemPickupScrollPurity,"You pick up a Scroll of Purity."
 ItemPickupScrollVerbal,"You pick up a Scroll of Speech."
 ItemPickupScrollLegs,"You pick up a Scroll of Sauntering."
 
@@ -2631,3 +2637,5 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs2,"You struggle fruitless
 KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.
 
 KinkyDungeonSurpriseMe,Random (reduces penalty by 1)
+
+KinkyDungeonNoItemToRemove,You don't have any valid targets on your body for that.
