@@ -105,6 +105,8 @@ ClothLowerAdmiralSkirtStripe,Trim
 ClothLowerHaremPantsPanty,Panty
 ClothLowerHaremPantsVeil,Veil
 ClothLowerHaremPantsPantyline,Panty Line
+ClothLowerMageSKirtSkirt,Skirt
+ClothLowerMageSKirtWaist,Waistband
 ClothLowerTutuBelt,Belt
 ClothLowerTutuLayer1,Layer 1
 ClothLowerTutuLayer2,Layer 2
@@ -216,8 +218,11 @@ TailStrapsDragonTailStrap1Secondary,Secondary
 TailStrapsTentaclesInner,Inner
 TailStrapsTentaclesOuter,Outer
 TailStrapsTentaclesSucker,Suckers
+ItemFeetSteelAnkleCuffsCuffs,Cuffs
+ItemFeetSteelAnkleCuffsChain,Chain
 ItemFeetOrnateAnkleCuffsCuffs,Cuffs
 ItemFeetOrnateAnkleCuffsGems,Gems
+ItemFeetOrnateAnkleCuffsChain,Chain
 ItemFeetFloorShacklesChain,Chain
 ItemFeetFloorShacklesCuffs,Cuffs
 ItemFeetFuturisticAnkleCuffsCuffs,Cuffs
@@ -225,6 +230,7 @@ ItemFeetFuturisticAnkleCuffsDisplay,Display
 ItemFeetFuturisticAnkleCuffsLock,Lock
 ItemFeetLeatherAnkleCuffsCuffs,Cuffs
 ItemFeetLeatherAnkleCuffsRings,Rings
+ItemFeetLeatherAnkleCuffsChain,Chain
 ItemFeetMedicalBedRestraintsBase,Bed Straps
 ItemFeetMedicalBedRestraintsStraps,Cuffs
 ItemFeetTentaclesInner,Inner
@@ -235,8 +241,10 @@ ItemLegsFuturisticLegCuffsDisplay,Display
 ItemLegsFuturisticLegCuffsLock,Lock
 ItemLegsOrnateLegCuffsCuffs,Cuffs
 ItemLegsOrnateLegCuffsGems,Gems
+ItemLegsOrnateLegCuffsChain,Chain
 ItemLegsLeatherLegCuffsCuffs,Cuffs
 ItemLegsLeatherLegCuffsRings,Rings
+ItemLegsLeatherLegCuffsChain,Chain
 ItemLegsLegBinderLatex,Binder
 ItemLegsLegBinderBelts,Belts
 ItemLegsHobbleSkirtLatex,Skirt
@@ -305,6 +313,8 @@ ItemNipplesPiercingsNecklacePiercingChainHeart,Heart
 ItemNipplesPiercingsNecklacePiercingChainPiercing,Piercing
 ItemBreastOrnateChastityBraBra,Bra
 ItemBreastOrnateChastityBraGems,Gems
+ItemArmsBoxTieArmbinderBase,Base
+ItemArmsBoxTieArmbinderShine,Shine
 ItemArmsLeatherCuffsCuffs,Cuffs
 ItemArmsLeatherCuffsRings,Rings
 ItemArmsOrnateCuffsCuffs,Cuffs
