@@ -555,6 +555,7 @@ Bugfix:
 - Spell shrines now cap out at level 5 and you can offer 100g at them for 1 rep afterward instead
 - Fixed traps trying to overwrite ancient restraints
 - Scroll of Purity, a new item that removes vibrators from your body. Available in the shop.
+- Added a new, stealthy rope artist
 
 TODO ValidationFindBlockCycles to prevent bugs
 
