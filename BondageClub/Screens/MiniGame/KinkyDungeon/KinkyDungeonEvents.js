@@ -166,6 +166,12 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			//KinkyDungeonUnLinkItem(item);
 			//Obsolete
 		}
+	} else if (Event == "afterRemove") {
+		if (e.type == "replaceItem" && e.trigger == Event && data.item == item && !data.add && !data.shrine && e.list) {
+			for (let restraint of e.list) {
+				KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(restraint), e.power, true, e.lock, data.keep);
+			}
+		}
 	} else if (Event == "hit") {
 		if (e.type == "linkItem" && e.trigger == "hit" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
 			let subMult = 1;

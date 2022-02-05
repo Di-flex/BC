@@ -447,6 +447,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let miniboss = false;
 	let boss = false;
 	let jailerCount = 0;
+	let EnemyNames = [];
 
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
@@ -505,11 +506,12 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 							KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
 				}
-				//console.log("Created a " + Enemy.name)
+				EnemyNames.push(Enemy.name);
 			}
 		}
 		tries += 1;
 	}
+	console.log(EnemyNames);
 
 	if (KDGameData.KinkyDungeonSpawnJailers > 0) KDGameData.KinkyDungeonSpawnJailers -= 1;
 	if (KDGameData.KinkyDungeonSpawnJailers > 3 && KDGameData.KinkyDungeonSpawnJailers < KDGameData.KinkyDungeonSpawnJailersMax - 1) KDGameData.KinkyDungeonSpawnJailers -= 1; // Reduce twice as fast when you are in deep...

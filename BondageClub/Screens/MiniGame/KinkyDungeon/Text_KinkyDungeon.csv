@@ -471,6 +471,11 @@ AttackSamuraiZombieBind,"The Warrior zombie uses a traditional binding technique
 AttackSamuraiZombieStun,"The Warrior zombie strikes you with her wooden sword! (+STUN)"
 AttackSamuraiZombie,"The Warrior zombie runs its fingers along your body! (-DamageTaken SP)"
 
+NameNawashi,Rope Artist
+KillNawashi,"The rope artist frowns and walks away, looking defeated."
+AttackNawashiBind,"The rope artist performs an intricate technique! (+RestraintAdded)"
+AttackNawashi,"The rope artist smiles and tickles your feet! (-DamageTaken SP)"
+
 NameNinja,Ninja Warrior
 KillNinja,"The warrior retreats into the shadows."
 AttackNinjaBind,"The warrior uses a traditional binding technique (+RestraintAdded)"
@@ -1385,6 +1390,9 @@ RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeCuffs,Rope Cuffs
 RestraintRopeSnakeCuffsDesc,"A quick tie for apprehending prisoners."
 RestraintRopeSnakeCuffsDesc2,"It's not very secure."
+RestraintRopeSnakeHogtie,Rope Hogtie
+RestraintRopeSnakeHogtieDesc,"A very strict and tight hogtie, good for subduing unruly captives."
+RestraintRopeSnakeHogtieDesc2,"It's very secure. You tug on the rope connecting your feet and struggle."
 RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintRopeSnakeTorsoDesc2,"The ropes squeeze you gently."
