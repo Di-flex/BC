@@ -40,6 +40,10 @@ interface HTMLImageElement {
 	errorcount?: number;
 }
 
+interface HTMLElement {
+	setAttribute(qualifiedName: string, value: string | number): void;
+}
+
 //#endregion
 
 //#region Enums
@@ -67,6 +71,8 @@ type VibratorIntensity = -1 | 0 | 1 | 2 | 3;
 type VibratorModeSet = "Standard" | "Advanced";
 
 type VibratorModeState = "Default" | "Deny" | "Orgasm" | "Rest";
+
+type VibratorRemoteAvailability = "Available" | "NoRemote" | "NoLoversRemote" | "RemotesBlocked" | "CannotInteract" | "NoAccess" | "InvalidItem";
 
 //#endregion
 
@@ -141,6 +147,73 @@ interface IChatRoomGameResponse {
 	}
 	Sender: number;
 	RNG: number
+}
+
+//#endregion
+
+//#region Chat
+
+interface ChatRoom {
+	Name: string;
+	Description: string;
+	Admin: number[];
+	Ban: number[];
+	Limit: number;
+	Game: string;
+	Background: string;
+	Private: boolean;
+	Locked: boolean;
+	BlockCategory: string[];
+	Character?: any[]; /* From server, not really a Character object */
+}
+
+type StimulationAction = "Flash" | "Kneel" | "Walk" | "StruggleAction" | "StruggleFail" | "Gag";
+
+type MessageActionType = "Action" | "Chat" | "Whisper" | "Emote" | "Activity" | "Hidden" |
+ "LocalMessage" | "ServerMessage" | "Status";
+
+type MessageContentType = string;
+
+interface ChatMessageDictionaryEntry {
+	[k: string]: any;
+	Tag?: string;
+	Text?: string;
+	MemberNumber?: number;
+}
+
+type ChatMessageDictionary = ChatMessageDictionaryEntry[];
+
+interface IChatRoomMessageBasic {
+	Content: MessageContentType;
+	Sender: number;
+	// SourceMemberNumber: number;
+}
+
+interface IChatRoomMessage extends IChatRoomMessageBasic {
+	Type: MessageActionType;
+	Dictionary?: ChatMessageDictionary;
+	Timeout?: number;
+}
+
+interface IChatRoomSyncBasic {
+	SourceMemberNumber: number
+}
+
+interface IChatRoomSyncMessage extends IChatRoomSyncBasic, ChatRoom {}
+
+//#endregion
+
+//#region FriendList
+
+interface IFriendListBeepLogMessage {
+	MemberNumber?: number; /* undefined for NPCs */
+	MemberName: string;
+	ChatRoomName?: string;
+	Private: boolean;
+	ChatRoomSpace?: string;
+	Sent: boolean;
+	Time: Date;
+	Message?: string;
 }
 
 //#endregion
@@ -395,15 +468,6 @@ interface Pose {
 	MovePosition?: { Group: string; X: number; Y: number; }[];
 }
 
-interface ChatMessageDictionaryEntry {
-	[k: string]: any;
-	Tag?: string;
-	Text?: string;
-	MemberNumber?: number;
-}
-
-type ChatMessageDictionary = ChatMessageDictionaryEntry[];
-
 interface Activity {
 	Name: string;
 	MaxProgress: number;
@@ -636,7 +700,11 @@ interface Character {
 		GameVersion: string;
 		ItemsAffectExpressions: boolean;
 	};
-	Game?: any;
+	Game?: {
+		LARP?: GameLARPParameters,
+		MagicBattle?: GameMagicBattleParameters,
+		GGTS?: GameGGTSParameters,
+	};
 	BlackList: number[];
 	RunScripts?: boolean;
 	HasScriptedAssets?: boolean;
@@ -649,26 +717,46 @@ interface Character {
 	ArousalZoom?: boolean;
 	FixedImage?: string;
 	Rule?: LogRecord[];
+	Status?: string | null;
+	StatusTimer?: number;
+}
+
+/** MovieStudio */
+interface Character {
+	Friendship?: string;
+	InterviewCleanCount?: number;
+}
+
+/** Slave market */
+interface Character {
+	ExpectedTraining?: number;
+	CurrentTraining?: number;
+	TrainingIntensity?: number;
+	TrainingCount?: number;
+	TrainingCountLow?: number;
+	TrainingCountHigh?: number;
+	TrainingCountPerfect?: number;
 }
 
 interface PlayerCharacter extends Character {
+	// PreferenceInitPlayer() must be updated with defaults, when adding a new setting
 	ChatSettings?: {
-		ColorTheme: string;
-		EnterLeave: string;
-		MemberNumbers: string;
-		FontSize: string;
-		DisplayTimestamps: boolean;
-		ColorNames: boolean;
 		ColorActions: boolean;
+		ColorActivities: boolean;
 		ColorEmotes: boolean;
+		ColorNames: boolean;
+		ColorTheme: string;
+		DisplayTimestamps: boolean;
+		EnterLeave: string;
+		FontSize: string;
+		MemberNumbers: string;
+		MuStylePoses: boolean;
 		ShowActivities: boolean;
 		ShowAutomaticMessages: boolean;
-		WhiteSpace: string;
-		ColorActivities: boolean;
-		ShrinkNonDialogue: boolean;
-		MuStylePoses: boolean;
-		ShowChatHelp: boolean;
 		ShowBeepChat: boolean;
+		ShowChatHelp: boolean;
+		ShrinkNonDialogue: boolean;
+		WhiteSpace: string;
 	};
 	VisualSettings?: {
 		ForceFullHeight: boolean;
@@ -748,6 +836,7 @@ interface PlayerCharacter extends Character {
 		AnimationQuality: number;
 		StimulationFlash: boolean;
 		SmoothZoom: boolean;
+		CenterChatrooms: boolean;
 	}
 	NotificationSettings?: {
 		/** @deprecated */
@@ -758,6 +847,7 @@ interface PlayerCharacter extends Character {
 		ChatMessage: NotificationSetting & {
 			/** @deprecated */
 			IncludeActions?: any;
+			Mention?: boolean;
 			Normal?: boolean;
 			Whisper?: boolean;
 			Activity?: boolean;
@@ -1042,6 +1132,14 @@ interface ModularItemOption {
 	OverrideHeight?: Record<string, { Height: number, Priority: number}>;
 	/** Whether or not this option can be selected by the wearer */
 	AllowSelfSelect?: boolean;
+	/** Whether that option moves the character up */
+	HeightModifier?: number;
+	/** Whether that option applies effects */
+	Effect?: string[];
+	/** Whether the option forces a given pose */
+	SetPose?: string;
+	/** If set, the option changes the asset's default priority */
+	OverridePriority?: number
 }
 
 /** An object containing modular item configuration for an asset. Contains all of the necessary information for the
@@ -1458,3 +1556,72 @@ interface KinkyDungeonEvent {
 	buffType?: string;
 	time?: number;
 }
+
+type PokerPlayerType = "None" | "Set" | "Character";
+type PokerPlayerFamily = "None" | "Player";
+
+interface PokerPlayer {
+	Type: PokerPlayerType;
+	Family: PokerPlayerFamily;
+	Name: string;
+	Chip: number;
+
+	/* Runtime values */
+	Difficulty?: number;
+	Hand?: any[];
+	HandValue?: number;
+	Cloth?: Item;
+	ClothLower?: Item;
+	ClothAccessory?: Item;
+	Panties?: Item;
+	Bra?: Item;
+	Character?: Character;
+	Data?: {
+		cache: Record<any, any>;
+	};
+	Image?: void;
+	TextColor?: string;
+	TextSingle?: string;
+	TextMultiple?: string;
+	WebLink?: string;
+	Alternate?: void;
+}
+
+// #region Online Games
+
+/**
+ * Online game status values.
+ *
+ * @property "" - The game is in the setup phase.
+ * @property "Running" - The game is currently running.
+ *
+ * @fix FIXME: "" should really be renamed Setup
+ */
+type OnlineGameStatus = "" | "Running";
+
+interface GameLARPParameters {
+	Status: OnlineGameStatus;
+	Class: string;
+	Team: string;
+	TimerDelay: number;
+	Level: {
+		Name: string;
+		Level: number;
+		Progress: number;
+	}[];
+}
+
+interface GameMagicBattleParameters {
+	Status: OnlineGameStatus;
+	House: string;
+	TeamType: "FreeForAll" | "House";
+}
+
+interface GameGGTSParameters {
+	Level: number;
+	Time: number;
+	Strike: number;
+	Rule: string[];
+}
+
+// #endregion

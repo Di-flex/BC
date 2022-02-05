@@ -1092,8 +1092,9 @@ ItemMouth,DusterGag,Duster Gag
 ItemMouth,CupholderGag,Cup Holder Gag
 ItemMouth,HarnessPonyBits,Bit Gag
 ItemMouth,PumpGag,Pump Gag
-ItemMouth,KittyGag,Kitty Mask Gag
-ItemMouth,KittenHarnessPanelGag,Kitty Harness Gag
+ItemMouth,KittyGag,Kitty Mask
+ItemMouth,KittyHarnessPanelGag,Kitty Harness Gag
+ItemMouth,KittyMuzzleGag,Kitty Muzzle Gag
 ItemMouth,CarrotGag,Rubber Carrot Gag
 ItemMouth,MuzzleGag,Muzzle Gag
 ItemMouth,FuturisticPanelGag,Futuristic Panel Gag
@@ -1151,6 +1152,7 @@ ItemMouth,CropGag,Crop
 ItemMouth,CaneGag,Cane
 ItemMouth,PaciGag,Pacifier Gag
 ItemMouth,Tentacles,Tentacle
+ItemMouth,OTNPlugGag,Harness OTN Plug Gag
 ItemMouth2,,Mouth
 ItemMouth2,ClothGag,Cloth Gag
 ItemMouth2,WiffleGag,Wiffle Ball Gag
@@ -1162,8 +1164,9 @@ ItemMouth2,HarnessPacifierGag,Harness Pacifier
 ItemMouth2,DusterGag,Duster Gag
 ItemMouth2,CupholderGag,Cup Holder Gag
 ItemMouth2,HarnessPonyBits,Bit Gag
-ItemMouth2,KittyGag,Kitty Mask Gag
-ItemMouth2,KittenHarnessPanelGag,Kitty Harness Gag
+ItemMouth2,KittyGag,Kitty Mask
+ItemMouth2,KittyHarnessPanelGag,Kitty Harness Gag
+ItemMouth2,KittyMuzzleGag,Kitty Muzzle Gag
 ItemMouth2,CarrotGag,Rubber Carrot Gag
 ItemMouth2,MuzzleGag,Muzzle Gag
 ItemMouth2,PantiesMask,Panties Mask
@@ -1210,8 +1213,9 @@ ItemMouth3,HarnessPacifierGag,Harness Pacifier
 ItemMouth3,DusterGag,Duster Gag
 ItemMouth3,CupholderGag,Cup Holder Gag
 ItemMouth3,HarnessPonyBits,Bit Gag
-ItemMouth3,KittyGag,Kitty Mask Gag
-ItemMouth3,KittenHarnessPanelGag,Kitty Harness Gag
+ItemMouth3,KittyGag,Kitty Mask
+ItemMouth3,KittyHarnessPanelGag,Kitty Harness Gag
+ItemMouth3,KittyMuzzleGag,Kitty Muzzle Gag
 ItemMouth3,CarrotGag,Rubber Carrot Gag
 ItemMouth3,MuzzleGag,Muzzle Gag
 ItemMouth3,PantiesMask,Panties Mask
@@ -1305,7 +1309,8 @@ ItemHood,Pantyhose,Pantyhose
 ItemHood,GP9GasMask,GP-9 Gas Mask
 ItemHood,OpenFaceHood,Open Face Hood
 ItemHood,GwenHood,Gwen Hood
-ItemHood,TechnoHelmet1,Techno Helmet 1
+ItemHood,TechnoHelmet1,Techno Helmet
+ItemHood,FuturisticHelmet,Futuristic Helmet
 ItemHood,LampHeadHood,Lampshade Hood
 ItemEars,,Ears
 ItemEars,LightDutyEarPlugs,Light Duty Ear Plugs

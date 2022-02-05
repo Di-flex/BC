@@ -33,6 +33,12 @@ ClothGrandMageBackSkirt,Inside Skirt
 ClothGrandMageTrim,Dress Trim
 ClothGrandMageBelt,Belts
 ClothGrandMageBuckle,Buckle
+ClothMaidOutfit1Dress,Dress
+ClothMaidOutfit1Apron,Apron
+ClothMaidOutfit1Frills,Frills
+ClothMaidOutfit2Dress,Dress
+ClothMaidOutfit2Apron,Apron
+ClothMaidOutfit2Frills,Frills
 ClothTShirt2Shirt,Shirt
 ClothTShirt2Print,Print
 ClothAdultBabyDress2Dress,Dress
@@ -403,6 +409,9 @@ ItemNeckLeatherCollarCollar,Collar
 ItemNeckLeatherCollarRing,Ring
 ItemNeckLeatherChokerLeather,Leather
 ItemNeckLeatherChokerMetal,Metal
+ItemNeckMaidCollarFrills,Frills
+ItemNeckMaidCollarCollar,Collar
+ItemNeckMaidCollarBrooch,Brooch
 ItemNeckFuturisticCollarBand,Band
 ItemNeckFuturisticCollarMesh,Mesh (for copying to items)
 ItemNeckFuturisticCollarDisplay,Display
@@ -674,6 +683,20 @@ ItemMouthCageMuzzleMuzzle,Cage
 ItemMouthPaciGagBase,Pacifier
 ItemMouthPaciGagStraps,Straps
 ItemMouthPaciGagMetal,Buckles
+ItemMouthOTNPlugGagBase,Base
+ItemMouthOTNPlugGagStraps,Straps
+ItemMouthOTNPlugGagPlug,Plug
+ItemMouthKittyGagBase,Base
+ItemMouthKittyGagLines,Lines
+ItemMouthKittyGagMouth,Mouth
+ItemMouthKittyHarnessPanelGagPanel,Panel
+ItemMouthKittyHarnessPanelGagStraps,Straps
+ItemMouthKittyHarnessPanelGagLines,Lines
+ItemMouthKittyHarnessPanelGagMouth,Mouth
+ItemMouthKittyMuzzleGagMuzzle,Muzzle
+ItemMouthKittyMuzzleGagStraps,Straps
+ItemMouthKittyMuzzleGagLines,Lines
+ItemMouthKittyMuzzleGagMouth,Mouth
 ItemMouth2WiffleGagStrap,Strap
 ItemMouth2WiffleGagBall,Ball
 ItemMouth2HarnessBallGagBall,Ball
@@ -736,6 +759,17 @@ ItemMouth2CageMuzzleMuzzle,Cage
 ItemMouth2PaciGagBase,Pacifier
 ItemMouth2PaciGagStraps,Straps
 ItemMouth2PaciGagMetal,Buckles
+ItemMouth2KittyGagBase,Base
+ItemMouth2KittyGagLines,Lines
+ItemMouth2KittyGagMouth,Mouth
+ItemMouth2KittyHarnessPanelGagPanel,Panel
+ItemMouth2KittyHarnessPanelGagStraps,Straps
+ItemMouth2KittyHarnessPanelGagLines,Lines
+ItemMouth2KittyHarnessPanelGagMouth,Mouth
+ItemMouth2KittyMuzzleGagMuzzle,Muzzle
+ItemMouth2KittyMuzzleGagStraps,Straps
+ItemMouth2KittyMuzzleGagLines,Lines
+ItemMouth2KittyMuzzleGagMouth,Mouth
 ItemMouth3WiffleGagStrap,Strap
 ItemMouth3WiffleGagBall,Ball
 ItemMouth3HarnessBallGagBall,Ball
@@ -798,6 +832,17 @@ ItemMouth3GasMaskGagHighlights,Highlights
 ItemMouth3PaciGagBase,Pacifier
 ItemMouth3PaciGagStraps,Straps
 ItemMouth3PaciGagMetal,Buckles
+ItemMouth3KittyGagBase,Base
+ItemMouth3KittyGagLines,Lines
+ItemMouth3KittyGagMouth,Mouth
+ItemMouth3KittyHarnessPanelGagPanel,Panel
+ItemMouth3KittyHarnessPanelGagStraps,Straps
+ItemMouth3KittyHarnessPanelGagLines,Lines
+ItemMouth3KittyHarnessPanelGagMouth,Mouth
+ItemMouth3KittyMuzzleGagMuzzle,Muzzle
+ItemMouth3KittyMuzzleGagStraps,Straps
+ItemMouth3KittyMuzzleGagLines,Lines
+ItemMouth3KittyMuzzleGagMouth,Mouth
 MaskFoxMaskUpper,Upper
 MaskFoxMaskLower,Lower
 MaskKittyMask3Highlights,Highlights
@@ -900,6 +945,8 @@ ItemHeadBlackoutLensesLeft,Left Lens
 ItemHeadBlackoutLensesRight,Right Lens
 ItemHeadInteractiveVRHeadsetDisplay,Display
 ItemHeadInteractiveVRHeadsetBody,Body
+ItemHeadFrilledSleepMaskFrills,Frills
+ItemHeadFrilledSleepMaskMask,Mask
 ItemHeadFuturisticMaskDisplay,Tint
 ItemHeadFuturisticMaskText,HUD
 ItemHeadFuturisticMaskLock,Lock Icon
@@ -908,6 +955,9 @@ ClothAccessoryBunnyCollarCuffsCollar,Collar
 ClothAccessoryBunnyCollarCuffsBow,Bow
 ItemHeadPaddedBlindfoldBase,Blindfold
 ItemHeadPaddedBlindfoldTrim,Trim
+ItemHeadKittyBlindfoldBase,Base
+ItemHeadKittyBlindfoldEyes,Eyes
+ItemHeadKittyBlindfoldEars,Ears
 ItemDevicesWetFloorSign,Sign
 ItemDevicesWetFloorText,Text
 BraCuteBikini1Main,Main
