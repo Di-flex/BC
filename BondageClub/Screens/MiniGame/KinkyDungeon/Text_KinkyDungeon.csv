@@ -1170,6 +1170,12 @@ RestraintPanelGagDesc2,"The harness is comprehensive and it's locked in place."
 RestraintKittyGag,Bast Gag
 RestraintKittyGagDesc,"A gag used to silence new initiates of the Bast cult."
 RestraintKittyGagDesc2,"The harness is comprehensive and it's locked in place."
+RestraintKittyMuzzle,Bast Muzzle
+RestraintKittyMuzzleDesc,"A muzzle used to keep a Bast gag secure."
+RestraintKittyMuzzleDesc2,"The leather panel is tough and tight."
+RestraintKittyBlindfold,Bast Blindfold
+RestraintKittyBlindfoldDesc,"A blindfold used to aid in meditation."
+RestraintKittyBlindfoldDesc2,"It is padded but still lets some light through."
 RestraintKittyPaws,Bast Paws
 RestraintKittyPawsDesc,"Leather mittens used to pacify new initiates of the Bast cult."
 RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but aren't the toughest material."
