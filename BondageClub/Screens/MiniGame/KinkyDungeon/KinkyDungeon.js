@@ -814,6 +814,7 @@ function KinkyDungeonHandleClick() {
 				if (Math.random() < 0.5) temp.push(o);
 			}
 			KinkyDungeonOrbsPlaced = temp;
+			KinkyDungeonCachesPlaced = [];
 			KinkyDungeonSetCheckPoint(0);
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 			MiniGameKinkyDungeonLevel = 1;
