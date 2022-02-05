@@ -246,7 +246,7 @@ const KinkyDungeonRestraints = [
 		maxstamina: 0.65, enemyTags: {"mithrilRope":2}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"]},
 	{name: "MithrilRopeHogtie", Asset: "HempRope", Color: "#ffffff", Type: "KneelingHogtie", Group: "ItemArms", bindarms: true, power: 8, weight: 1, magic: true,
 		escapeChance: {"Struggle": 0, "Cut": 0.15, "Remove": 0.05}, specStruggleTypes: ["Remove"],
-		maxstamina: 0.5, enemyTags: {"mithrilRopeHogtie":2}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"],
+		maxstamina: 0.25, enemyTags: {"mithrilRopeHogtie":2}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Rope"],
 		events: [{trigger: "afterRemove", type: "replaceItem", list: ["MithrilRopeArms"], power: 6}]
 	},
 	{name: "MithrilRopeLegs", Asset: "HempRope", Type: "FullBinding", LinkableBy: ["Legbinders", "Hobbleskirts"], Color: "#ffffff", Group: "ItemLegs", hobble: true, power: 5, weight: 1, magic: true,
@@ -1456,7 +1456,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 	let cache = KDRestraintsCache.get(enemy.name);
 	let staminaPercent = KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax;
 
-	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, KinkyDungeonSlowLevel/3)));
+	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
 
 	if (!cache || !enemy.name) {
 		cache = [];
