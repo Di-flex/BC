@@ -116,7 +116,7 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonLostItems = [];
 	KinkyDungeonFastMove = true;
 	KinkyDungeonResetEventVariables();
-	KinkyDungeonSetDress("Default");
+	KinkyDungeonSetDress("Default", "OutfitDefault");
 	KDGameData.KinkyDungeonSpawnJailers = 0;
 	KDGameData.KinkyDungeonSpawnJailersMax = 0;
 	KinkyDungeonGold = 0;
@@ -158,6 +158,7 @@ function KinkyDungeonDefaultStats() {
 
 	KinkyDungeonMovePoints = 0;
 	KinkyDungeonInventory = [];
+	KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);

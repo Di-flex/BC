@@ -550,6 +550,12 @@ var AssetFemale3DCG = [
 				]
 			},
 			{
+				Name: "MageSkirt", Value: 35, Alpha: [{ Group: ["Panties", "ItemPelvis"], Masks: [[0, 0, 500, 570]] }], HideItem: ["ItemDevicesStrapOnSmooth", "ItemDevicesStrapOnStuds"], Attribute: ["Skirt"], Layer: [
+					{ Name: "Skirt", ParentGroup: null, AllowColorize: true },
+					{ Name: "Waist", ParentGroup: null, AllowColorize: true },
+				]
+			},
+			{
 				Name: "LongSkirt1", Value: 40, Left: 69, ParentGroup: null,
 				Attribute: ["Skirt"],
 				HideItem: ["ItemDevicesStrapOnSmooth", "ItemDevicesStrapOnStuds", "PantiesPoofyDiaper", "PantiesBulkyDiaper", "ItemPelvisPoofyDiaper", "ItemPelvisBulkyDiaper"],

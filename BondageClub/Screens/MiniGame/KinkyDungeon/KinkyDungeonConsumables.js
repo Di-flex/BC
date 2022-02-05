@@ -8,7 +8,8 @@ var KinkyDungeonConsumables = {
 	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
 	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
 	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
-	"ElfCrystal" : {name: "ElfCrystal", rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
+	"ElfCrystal" : {name: "ElfCrystal", noHands: true, rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
+	"EnchantedGrinder" : {name: "EnchantedGrinder", noHands: true, rarity: 4, shop: true, type: "spell", spell: "Cutting", sfx: "Laser"},
 	"MistressKey" : {name: "MistressKey", rarity: 10, shop: false, type: "unusuable"},
 	"AncientPowerSource" : {name: "AncientPowerSource", noHands: true, rarity: 4, shop: true, type: "charge", amount: 0.251},
 	"AncientPowerSourceSpent" : {name: "AncientPowerSourceSpent", noHands: true, rarity: 4, shop: false, type: "recharge", rechargeCost: 100},
@@ -164,12 +165,12 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 
-	let needMouth = item.item && item.item.consumable && item.item.consumable.potion && KinkyDungeonCanDrink();
+	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
-	if (needMouth && !KinkyDungeonCanTalk()) {
+	if (needMouth && ((!item.item.consumable.potion && !KinkyDungeonCanTalk()) || (item.item.consumable.potion && !KinkyDungeonCanDrink()))) {
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
 
 		if (KinkyDungeonTextMessageTime > 0)
@@ -177,7 +178,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 
 		return false;
 	}
-	if (needArms && KinkyDungeonIsHandsBound()) {
+	if (needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
 		KinkyDungeonAdvanceTime(1);
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
 

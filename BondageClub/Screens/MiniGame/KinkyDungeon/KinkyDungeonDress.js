@@ -2,6 +2,19 @@
 
 var KinkyDungeonDressesList = {};
 
+
+let KinkyDungeonOutfitsBase = [
+	{name: "OutfitDefault", dress: "Default", shop: false, rarity: 1},
+];
+let KinkyDungeonOutfitCache = new Map();
+
+function KinkyDungeonRefreshOutfitCache() {
+	KinkyDungeonOutfitCache = new Map();
+	for (let r of KinkyDungeonOutfitsBase) {
+		KinkyDungeonOutfitCache.set(r.name, r);
+	}
+}
+
 let KinkyDungeonDefaultDefaultDress = [
 	{Item: "WitchHat1", Group: "Hat", Color: "Default", Lost: false},
 	{Item: "LeatherCorsetTop1", Group: "Cloth", Color: "Default", Lost: false},
@@ -102,14 +115,14 @@ let KinkyDungeonDresses = {
 		{Item: "Socks6", Group: "Socks", Color: ['#080808', 'Default'], Lost: false},
 	],
 	"Elven" : [
-		{Item: "Swimsuit1", Group: "Bra", Color: ['#E2E2E2'], Lost: false},
+		{Item: "Swimsuit1", Group: "Bra", Color: ['#E2E2E2'], Lost: false, NoLose: true},
 		{Item: "Corset4", Group: "Corset", Color: ['#FFFFFF'], Lost: false},
 		{Item: "Stockings4", Group: "Socks", Color: "#000000", Lost: false},
 		{Item: "FaceVeil", Group: "Mask", Color: "Default", Lost: false},
 		{Item: "HairFlower1", Group: "HairAccessory3", Color: 'Default', Lost: false},
-		{Item: "GarterBelt2", Group: "Garters", Color: "Default", Lost: false},
 		{Item: "NecklaceKey", Group: "Necklace", Color: "Default", Lost: false},
-		{Item: "HulaSkirt", Group: "ClothLower", Color: ['#40B90B', '#6E95C4', '#F5DC34'], Lost: false},
+		{Item: "MageSkirt", Group: "ClothLower", Color: ['#40824F', '#AF9225'], OverridePriority: 27, Lost: false},
+		{Item: "Heels1", Group: "Shoes", Color: "#aaaaaa", Lost: false},
 	],
 };
 
@@ -153,7 +166,8 @@ function KinkyDungeonDressSet() {
 	KinkyDungeonNewDress = false;
 }
 
-function KinkyDungeonSetDress(Dress) {
+function KinkyDungeonSetDress(Dress, Outfit) {
+	if (Outfit) KDGameData.Outfit = Outfit;
 	KinkyDungeonCurrentDress = Dress;
 	if (KinkyDungeonDresses) {
 		for (let C = 0; C < KinkyDungeonDresses[KinkyDungeonCurrentDress].length; C++) {
@@ -182,9 +196,9 @@ function KinkyDungeonDressPlayer() {
 				if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemArms") && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemBreast")) clothes.Lost = true;
 			}
-			if (clothes.Group == "Bra") {
-				if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
-			}
+			//if (clothes.Group == "Bra" && !clothes.NoLose) {
+			//if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
+			//}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;
@@ -222,6 +236,7 @@ function KinkyDungeonDressPlayer() {
 		}
 
 		if (clothes.Group == "Panties" && !KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = false; // A girl's best friend never leaves her
+		if (clothes.Group == "Bra" && !KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = false; // A girl's best friend never leaves her
 	}
 
 	for (let inv of KinkyDungeonRestraintList()) {
@@ -377,4 +392,13 @@ function KinkyDungeonWearForcedClothes() {
 			}
 		}
 	}
+}
+
+function KinkyDungeonGetOutfit(Name) {
+	if (KinkyDungeonOutfitCache && KinkyDungeonOutfitCache.get(Name)) {
+		let outfit = {};
+		Object.assign(outfit, KinkyDungeonOutfitCache.get(Name));
+		return outfit;
+	}
+	return null;
 }

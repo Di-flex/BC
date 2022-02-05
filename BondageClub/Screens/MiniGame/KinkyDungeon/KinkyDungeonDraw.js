@@ -3,18 +3,17 @@
 
 let KDRecentRepIndex = 0;
 
-function KinkyDungeonGetSprite(code, x, y) {
+function KinkyDungeonGetSprite(code, x, y, Fog) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
-	if (code == "2") sprite = "Brickwork";
+	else if (code == "2") sprite = "Brickwork";
+	else if (code == "3") sprite = "MimicBlock";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGold" : "Chest";
-	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Loot == "gold") ? "ChestGoldOpen" : "ChestOpen";
 	else if (code == "D") sprite = "Door";
 	else if (code == "G") sprite = "Ghost";
-	else if (code == "d") sprite = "DoorOpen";
+	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "T") sprite = "Trap";
 	else if (code == "r") sprite = "RubbleLooted";
@@ -26,7 +25,16 @@ function KinkyDungeonGetSprite(code, x, y) {
 	else if (code == "O") sprite = "Orb";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
-	else if (code == "w") sprite = "Water";
+	else if (code == "w") sprite = Fog ? "Floor" : "Water";
+	return sprite;
+}
+
+function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
+	let sprite = "";
+	if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" : "Chest");
+	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" : "ChestOpen");
 	return sprite;
 }
 
@@ -106,11 +114,15 @@ function KinkyDungeonDrawGame() {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
-						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY);
+						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+						let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 
 
 						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 							(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+						if (sprite2)
+							DrawImageZoomCanvas(KinkyDungeonRootDirectory + "FloorGeneric/" + sprite2 + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+								(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 
 						if (rows[RY][RX] == "A") {
 							let color = "";
@@ -230,15 +242,19 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 
 				// Draw fog of war
-				rows = KinkyDungeonLightGrid.split('\n');
 				for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
 					for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
 
-						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
-						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
+						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight-1));
+						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth-1));
+						let fog = KinkyDungeonStatBlind > 0 ? 0 : Math.min(0.5, KinkyDungeonFogGrid[RX + RY*KinkyDungeonGridWidth]/10);
+						let light = Math.max(KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth]/3, fog);
+						if (KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth] > 0 && KDistChebyshev(KinkyDungeonPlayerEntity.x - RX, KinkyDungeonPlayerEntity.y - RY) < 2) {
+							light = light + (1 - light)*0.5;
+						}
 
 						KinkyDungeonContext.beginPath();
-						KinkyDungeonContext.fillStyle = "rgba(0,0,0," + Math.max(0, 1-Number(rows[RY][RX])/3) + ")";
+						KinkyDungeonContext.fillStyle = "rgba(0,0,0," + Math.max(0, 1-light) + ")";
 
 						KinkyDungeonContext.fillRect((-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset + R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
 						KinkyDungeonContext.fill();

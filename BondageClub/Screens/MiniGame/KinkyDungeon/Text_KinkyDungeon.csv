@@ -1,12 +1,12 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S."
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Private|WATA"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.7"
+KinkyDungeon,"Kinky Dungeon v2.6.8"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -136,6 +136,7 @@ LootChestAncientCores,You find a set of strange golden crystals.
 LootChestScrolls,"You find a pack of scrolls used for spellcasting, and some strange golden crystals."
 
 LootChestGold,The chest contains gold! (+XXX gold)
+LootChestMagicKnife,The chest contains a glowing magical knife that can turn invisible on your body!
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
 LootChestSpell,"You find a magic scroll, which you place in your spellbook. (+SpellLearned)"
 LootChestSpellPoints,"You find an orb containing magical knowledge! (+AMOUNT spell points)"
@@ -171,6 +172,10 @@ KinkyDungeonRarity10,Divine
 
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
+
+KinkyDungeonInventoryItemOutfitDefault,Wizard's Outfit
+KinkyDungeonInventoryItemOutfitDefaultDesc,Your favorite outfit for adventuring.
+KinkyDungeonInventoryItemOutfitDefaultDesc2,Your original outfit. No bonuses, no penalties.
 
 KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
 KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
@@ -252,11 +257,18 @@ KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
 
-KinkyDungeonInventoryItemElfCrystal,Elven Crystal
+KinkyDungeonInventoryItemElfCrystal,Water Crystal
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
-KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of elven grace."
+KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of sylvan grace."
 KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
 KinkyDungeonSpellCastSlippery,You feel the restraints become loose on your skin!
+
+
+KinkyDungeonInventoryItemEnchantedGrinder,Enchanted Grinder
+KinkyDungeonInventoryItemEnchantedGrinderUse,"The grinder starts spinning for a short time! Its cutting power is immense!"
+KinkyDungeonInventoryItemEnchantedGrinderDesc,"The cutting disc is shining and very sharp."
+KinkyDungeonInventoryItemEnchantedGrinderDesc2,"Grants significantly increased cutting power for a short time."
+KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its cutting power is immense!
 
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
@@ -968,7 +980,7 @@ KinkyYellowLock,"Yellow Lock"
 KinkyRedLockAbr,""
 KinkyGreenLockAbr,"(G)"
 KinkyBlueLockAbr,"(B)"
-KinkyGoldLockAbr,"(!!)"
+KinkyGoldLockAbr,"(G)"
 KinkyBlindLockAbr,"(?)"
 KinkyYellowLockAbr,"(Y)"
 
@@ -994,6 +1006,7 @@ KinkyDungeonPayShrineFail,"You do not have enough for a proper offering."
 KinkyDungeonPayShrineRemoveRestraints,"The goddess removes some of your restraints!"
 KinkyDungeonPayShrineHeal,"The goddess restores your mental and physical state!"
 KinkyDungeonPayShrineSpell,"The goddess teaches you the secrets of SCHOOL. (+1 level)"
+KinkyDungeonPayShrineBuff,"The goddess of SCHOOL appreciates your offering."
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
@@ -1077,7 +1090,7 @@ RestraintExpAnkleCuffs,Blacksteel Ankle Cuffs
 RestraintExpAnkleCuffsDesc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffsDesc2,"They are not coming off without the key."
 KinkyDungeonLinkExpAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintExpAnkleCuffs2,Blacksteel Ankle Cuffs
+RestraintExpAnkleCuffs2,Linked Ankle Cuffs
 RestraintExpAnkleCuffs2Desc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffs2Desc2,"They are not coming off without the key."
 KinkyDungeonUnLinkExpAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -1216,6 +1229,9 @@ RestraintStrongMagicRopeHogtieDesc2,"The knots appear to tie themselves together
 RestraintStrongMagicRopeArms,Magic Arm Rope
 RestraintStrongMagicRopeArmsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeArmsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
+RestraintStrongMagicRopeCuffs,Magic Rope Cuffs
+RestraintStrongMagicRopeCuffsDesc,"Strongly glowing ropes."
+RestraintStrongMagicRopeCuffsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
 RestraintStrongMagicRopeLegs,Magic Leg Rope
 RestraintStrongMagicRopeLegsDesc,"Strongly glowing ropes."
 RestraintStrongMagicRopeLegsDesc2,"The knots appear to tie themselves together again, making them impossible to undo!"
@@ -1286,7 +1302,7 @@ RestraintMithrilAnkleCuffs,Mithril Ankle Cuffs
 RestraintMithrilAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonLinkMithrilAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintMithrilAnkleCuffs2,Mithril Ankle Cuffs
+RestraintMithrilAnkleCuffs2,Linked Ankle Cuffs
 RestraintMithrilAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -1326,12 +1342,20 @@ RestraintTrapLegironsDesc2,"The lock doesn't seem very complicated."
 RestraintTrapBlindfold,Blindfold
 RestraintTrapBlindfoldDesc,"A leather strap secured onto your face and blocking vision."
 RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose."
+
 RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
 RestraintTrapBra,Steel Chastity Bra
 RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintTrapBelt2,Cursed Chastity Belt
+RestraintTrapBelt2Desc,"A cruel device used for locking magical vibrators in place."
+RestraintTrapBelt2Desc2,"The lock won't come off until the magic wears off in time..."
+RestraintTrapBra2,Cursed Chastity Bra
+RestraintTrapBra2Desc,"A cruel device used for locking magical massagers in place."
+RestraintTrapBra2Desc2,"The lock won't come off until the magic wears off in time..."
+
 RestraintMaidCBelt,Maid Chastity Belt
 RestraintMaidCBeltDesc,"A chastity belt used to maintain control over initiate maids."
 RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
@@ -1385,7 +1409,7 @@ RestraintWolfArmbinderDesc2,"Despite the harsh position, it is padded, breathabl
 RestraintWolfAnkleCuffs,Smart Training Cuffs
 RestraintWolfAnkleCuffsDesc,"Cuffs with a feature to punish the wearer if they act aggressively."
 RestraintWolfAnkleCuffsDesc2,"They are solid metal and will be hard to remove without the key."
-RestraintWolfAnkleCuffs2,Smart Training Cuffs
+RestraintWolfAnkleCuffs2,Linked Smart Cuffs
 RestraintWolfAnkleCuffs2Desc,"Cuffs with a feature to punish the wearer if they act aggressively."
 RestraintWolfAnkleCuffs2Desc2,"Looks like you got yourself in trouble."
 RestraintWolfHarness,Training Harness
@@ -1430,7 +1454,7 @@ RestraintDragonAnkleCuffs,Dragonscale Cuffs
 RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonLinkDragonAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintDragonAnkleCuffs2,Dragonscale Cuffs
+RestraintDragonAnkleCuffs2,Linked Cuffs
 RestraintDragonAnkleCuffs2Desc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffs2Desc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonUnLinkDragonAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -1457,7 +1481,7 @@ RestraintMaidAnkleCuffs,Steel Cuffs
 RestraintMaidAnkleCuffsDesc,"A pair of steel cuffs used by the Maidforce."
 RestraintMaidAnkleCuffsDesc2,"They are made of solid steel."
 KinkyDungeonLinkMaidAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintMaidAnkleCuffs2,Steel Cuffs
+RestraintMaidAnkleCuffs2,Linked Cuffs
 RestraintMaidAnkleCuffs2Desc,"A pair of steel cuffs used by the Maidforce."
 RestraintMaidAnkleCuffs2Desc2,"They are made of solid steel."
 KinkyDungeonUnLinkMaidAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -1506,7 +1530,7 @@ RestraintObsidianAnkleCuffs,Obsidian Ankle Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonLinkObsidianAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintObsidianAnkleCuffs2,Obsidian Ankle Cuffs
+RestraintObsidianAnkleCuffs2,Linked Ankle Cuffs
 RestraintObsidianAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -1736,6 +1760,8 @@ ItemPickupAxe,"You pick up a powerful axe."
 ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
 ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
 ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
+ItemPickupEnchantedGrinder,"You picked up a strange device with a sharpened razor disc."
+LootChestGrinder,"You find a strange ancient device with a sharp cutting blade."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 
@@ -1849,6 +1875,7 @@ KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables a
 KinkyDungeonSleepy,You are feeling drowsy...
 
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
+KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
 KinkyDungeonSpellShield,Shield
 KinkyDungeonSpellDescriptionShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
@@ -2277,6 +2304,7 @@ KinkyDungeonLore12,"(You find a carving on the floor, a half-finished magic circ
 KinkyDungeonLore13,"(It looks like a... receipt) Thank you for your offering to CELESTIAL COMMERCE. Please accept this fine-quality steel blade as compensation for your continued devotion and selflessness."
 KinkyDungeonLore14,"(A note written in cursive) To whomever assaulted our courier and left them tied up here: The shrines of the Goddess of ILLUSION are NOT to be used in this manner. If you desire a subject for your lewd experimentations, please attempt to do so on one of the LOCALS and FOR HEAVEN'S SAKE do not call up an angelic courier just so you may tie her up. It does not matter than she consented, nor that you paid, our couriers have responsibilities that they must attend to. Signed: HERONA, ENFORCER of the HIGH GODDESS of ILLUSIONS."
 KinkyDungeonLore15,"(From an essay titled 'On Celestial Supply Chains') It is known that the heavens seek gold. We do not know why it is that the heavens seek it, but we do know that the Goddesses grant us fragments of their limitless power in exchange for this otherwise-useless metal we dredge up from the earth. Clearly they must have enough of it in heaven for it to not matter. And yet there are invisible couriers even at the most remote shrine, lying dormant till you toss a coin their way. Could it be that the gold itself has power, and without its proximity the courier is simply in an dormant state?"
+KinkyDungeonLore16,"They thought they stripped me down and checked everywhere. They didn't know about one of the first tricks we learned in wizard school: how to make an enchanted knife disappear!"
 
 KinkyDungeonLore101,"(A drawing of a suit of armor. It reads: DANGER!!!)"
 KinkyDungeonLore102,"(The note starts with a drawing of a witch in dark robes with bright pink hair) A necromancer. Powerful spellcaster, weak up close."
@@ -2502,7 +2530,7 @@ KinkyDungeonPunishPlayer,Your RestraintName punishes you for your behavior!
 KinkyDungeonPunishPlayerHarsh,Your RestraintName punishes you and warns you with a harsh beep!
 KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 
-KinkyDungeonGoldLockRemove,A golden lock pops off of one of your restraints!
+KinkyDungeonGoldLockRemove,A golden lock fades into a blue lock on one of your restraints!
 
 KinkyDungeonConfirmAttack,Are you sure you want to attack?
 
@@ -2530,7 +2558,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your 
 
 RestraintEnchantedHeels,Ancient Heels
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with guiding and combat magic. When powered, they reduce slow level by 2 and boost melee damage by +1."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 3 cold damage on-hit with brief slow."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
@@ -2548,8 +2576,8 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your face, but 
 
 RestraintEnchantedBallGag,Ancient Gag
 LootChestEnchantedBallGag,"You find a ball gag harness with a long rubbery plug instead of a ball, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBallGagDesc2,"A gag that plugs the mouth completely. When powered, it regenerates mana and causes enemies that are stunned, frozen, bound, or slowed to take 30% more damage."
-RestraintEnchantedBallGagDesc,"'Gag of the Sunderer'"
+RestraintEnchantedBallGagDesc2,"A gag that fills the mouth. When powered, regends mana, reduces miscast by 30%, and boosts damage to enemies that are stunned, frozen, bound, or slowed by 30%."
+RestraintEnchantedBallGagDesc,"'Gag of the Focused'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBallGag,"You tug on the straps at your cheeks, but the straps are so tight the plug doesn't even move!"
 
 RestraintEnchantedBPlug,Ancient Rear Plug
@@ -2595,3 +2623,5 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs2,"You struggle fruitless
 
 
 KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.
+
+KinkyDungeonSurpriseMe,Random (reduces penalty by 1)

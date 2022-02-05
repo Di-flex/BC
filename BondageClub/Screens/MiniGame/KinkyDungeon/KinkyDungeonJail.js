@@ -231,7 +231,7 @@ function KinkyDungeonTooMuchRestraint() {
 			(!rest && currentItem) // There shouldnt be one here
 			|| (rest && currentItem && currentItem.restraint && rest.name != currentItem.restraint.name && (currentItem.restraint.power < rest.power || currentItem.restraint.power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
-			if (!currentItem || (!currentItem.restraint.cursed || !currentItem.restraint.enchanted))
+			if (!currentItem || (!currentItem.restraint.cursed && !currentItem.restraint.enchanted))
 				RemoveGroups.push(g);
 		}
 	}
@@ -408,7 +408,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().NextJailLeashTourWaypointX;
 				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().NextJailLeashTourWaypointY;
 				let guardPath = KinkyDungeonFindPath(KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().y, KinkyDungeonJailGuard().gx, KinkyDungeonJailGuard().gy, false, false, true, KinkyDungeonMovableTiles);
-				if (guardPath && guardPath.length > 0) {
+				if (guardPath && guardPath.length > 0 && KDistChebyshev(guardPath[0].x - KinkyDungeonJailGuard().x, guardPath[0].y - KinkyDungeonJailGuard().y) < 1.5) {
 					if (guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
 						// Swap the player and the guard
 						KinkyDungeonTargetTile = null;
@@ -513,7 +513,7 @@ function KinkyDungeonDefeat() {
 		if (collar.restraint.name == "MithrilCollar") defeat_outfit = "Elven";
 	}
 
-	KinkyDungeonSetDress(defeat_outfit);
+	KinkyDungeonSetDress(defeat_outfit, "Prison");
 	KinkyDungeonDressPlayer();
 	for (let r of params.defeat_restraints) {
 		let level = 0;
@@ -521,7 +521,6 @@ function KinkyDungeonDefeat() {
 		if (!r.Level || level >= r.Level)
 			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(r.Name), 0, true);
 	}
-	KinkyDungeonSetDress(defeat_outfit);
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);

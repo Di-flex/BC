@@ -25,6 +25,8 @@ function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 						if (newPoint) {
 							dropped.x = newPoint.x;
 							dropped.y = newPoint.y;
+						} else {
+							console.log("Failed to find point to drop " + TextGet("KinkyDungeonInventoryItem" + dropWeights[L].drop.name));
 						}
 					}
 					KinkyDungeonGroundItems.push(dropped);

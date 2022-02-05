@@ -521,6 +521,16 @@ Bugfix:
 - Added scrolls of Speech, Sleight, and Sauntering, which allow you to cast spells without components temporarily
 
 2.6.7
+- Added default outfit, when you get back from prison you can find it and get it back.
+- Added silver chests, which have above-average loot in exchange for more powerful traps
+- Added gold locks. These are impossible to unlock, and cannot be removed by shrines. After 2-4 floors, they will decay into blue locks
+- Added the enchanted grinder to help cut your way out of things
+- Increased pool drinking grace to 3 free uses (whole game), and lowered drink punish chance to 20%
+- Added fog of war (makes playing with the ancient blindfold much much better)
+- Ancient Ball Gag now has 30% miscast reduction
+- Gave the frog the projectileAttack flag
+- Added random orb button
+
 - Changed some enemy resistances:
 - - Zombies are now consistent
 - - Shadow warrior and allied fire elemental are consistent with their NPC counterparts
@@ -540,20 +550,14 @@ Bugfix:
 - - Chain witch now weak to crush and fire, but has 33% more HP
 - - Baast enemies have cold resist (embalmed against necrotic damage), fire weakness due to being undead
 
-TODO Character customizer, change outfit and/or the player character's appearance, either have it save or make it use a code to load
+2.6.8
+- Can now always see diagonal tiles while heavily blindfolded
+- Spell shrines now cap out at level 5 and you can offer 100g at them for 1 rep afterward instead
+- Fixed traps trying to overwrite ancient restraints
 
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
-
-TODO Goddess minibosses: (+ means its added already)
-+Rope kraken, many sub-ropes that drag you to center. Casts a spell that attaches ropes, if you have enough attached it replaces your outfit with a swimsuit, leotard, or some kind of lingerie with maybe magical tape gags.
--Steel-clad maids who put you in a maid costume with metal bindings and chastity
-+Dragon-girl enemies who tie you in durable leather bindings
--Either slime related stuff or maybe just a latex witch who is very powerful
--Elementals of ice, forge (metal), water (latex), and earth (corsets, boots, mitts), perhaps bringing you to an elemental realm
-+Powerful conjurers who summon chains, magic books, and tickling hands
--A ninja clan who uses smokescreens, flash grenades, euphoric drugs, and potentially enchantment spells
 
 TODO
 Deputy (slaps on handcuffs only)

@@ -57,6 +57,14 @@ function KinkyDungeonHandleInventory() {
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
 			}
+		} else if (KinkyDungeonCurrentFilter == "Outfits" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
+			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
+			let toWear = KinkyDungeonGetOutfit(outfit);
+			if (toWear) {
+				KinkyDungeonSetDress(toWear.dress, outfit);
+				KinkyDungeonSlowMoveTurns = 3;
+				KinkyDungeonSleepTime = CommonTime() + 200;
+			}
 		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
 			let equipped = false;
 			let newItem = null;
@@ -126,6 +134,13 @@ function KinkyDungeonInventoryGetLoose(Name) {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let item = KinkyDungeonInventory[I];
 		if (item.looserestraint && item.looserestraint.name == Name) return item;
+	}
+	return null;
+}
+function KinkyDungeonInventoryGetOutfit(Name) {
+	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
+		let item = KinkyDungeonInventory[I];
+		if (item.outfit && item.outfit.name == Name) return item;
 	}
 	return null;
 }
@@ -234,6 +249,13 @@ function KinkyDungeonDrawInventory() {
 			let equipped = filteredInventory[KinkyDungeonCurrentPageInventory] && filteredInventory[KinkyDungeonCurrentPageInventory].name == KinkyDungeonPlayerWeapon;
 			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 			if (equipped) DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
+		}
+		if (KinkyDungeonCurrentFilter == "Outfits") {
+			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : "");
+			let toWear = KinkyDungeonGetOutfit(outfit);
+			if (toWear) {
+				DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), KDGameData.Outfit == outfit ? "grey" : "White", "", "");
+			}
 		}
 		if (KinkyDungeonCurrentFilter == "Restraints") {
 			let equipped = false;
