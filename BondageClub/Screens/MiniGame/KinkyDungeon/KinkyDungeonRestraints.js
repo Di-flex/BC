@@ -1223,7 +1223,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Handle cases where you can't even attempt to unlock
 	if ((StruggleType == "Unlock" && !((restraint.lock == "Red" && KinkyDungeonRedKeys > 0) || (restraint.lock == "Blue" && KinkyDungeonBlueKeys > 0)))
 		|| (StruggleType == "Pick" && (restraint.lock == "Blue" || restraint.lock == "Gold"))) {
-		if ((KinkyDungeonPlayer.IsBlind() < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold")))
+		if (StruggleType == "Unlock" && ((KinkyDungeonPlayer.IsBlind() < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold"))))
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonPlayer.IsBlind() > 0) ? "Unknown" : restraint.lock) + "Key"), "orange", 2);
 		else
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPick" + restraint.lock + "Lock"), "orange", 2);
