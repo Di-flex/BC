@@ -71,7 +71,7 @@ var PreferenceCalibrationStage = 0;
  */
 function PreferenceArousalAtLeast(C, Level) {
 	if ((CurrentModule == "Online") && (CurrentScreen == "ChatRoom") && (ChatRoomGame == "GGTS") && (ChatRoomSpace === "Asylum") && (AsylumGGTSGetLevel(C) >= 4))
-		if (InventoryIsWorn(C, "FuturisticChastityBelt", "ItemPelvis") || InventoryIsWorn(C, "FuturisticTrainingBelt", "ItemPelvis"))
+		if (InventoryIsWorn(C, "FuturisticChastityBelt", "ItemPelvis") || InventoryIsWorn(C, "FuturisticTrainingBelt", "ItemPelvis") || InventoryIsWorn(C, "FuckMachine", "ItemDevices"))
 			return true;
 	if ((C.ArousalSettings == null) || (C.ArousalSettings.Active == null)) return false;
 	if (Level === C.ArousalSettings.Active) return true;
@@ -344,19 +344,22 @@ function PreferenceInitPlayer() {
 	// Chat settings
 	// @ts-ignore: Individual properties validated separately
 	if (!C.ChatSettings) C.ChatSettings = {};
-	if (typeof C.ChatSettings.FontSize !== "string") C.ChatSettings.FontSize = "Medium";
-	if (typeof C.ChatSettings.DisplayTimestamps !== "boolean") C.ChatSettings.DisplayTimestamps = true;
-	if (typeof C.ChatSettings.ColorNames !== "boolean") C.ChatSettings.ColorNames = true;
 	if (typeof C.ChatSettings.ColorActions !== "boolean") C.ChatSettings.ColorActions = true;
+	if (typeof C.ChatSettings.ColorActivities !== "boolean") C.ChatSettings.ColorActivities = true;
 	if (typeof C.ChatSettings.ColorEmotes !== "boolean") C.ChatSettings.ColorEmotes = true;
+	if (typeof C.ChatSettings.ColorNames !== "boolean") C.ChatSettings.ColorNames = true;
+	if (typeof C.ChatSettings.ColorTheme !== "string") C.ChatSettings.ColorTheme = "Light";
+	if (typeof C.ChatSettings.DisplayTimestamps !== "boolean") C.ChatSettings.DisplayTimestamps = true;
+	if (typeof C.ChatSettings.EnterLeave !== "string") C.ChatSettings.EnterLeave = "Normal";
+	if (typeof C.ChatSettings.FontSize !== "string") C.ChatSettings.FontSize = "Medium";
+	if (typeof C.ChatSettings.MemberNumbers !== "string") C.ChatSettings.MemberNumbers = "Always";
+	if (typeof C.ChatSettings.MuStylePoses !== "boolean") C.ChatSettings.MuStylePoses = false;
 	if (typeof C.ChatSettings.ShowActivities !== "boolean") C.ChatSettings.ShowActivities = true;
 	if (typeof C.ChatSettings.ShowAutomaticMessages !== "boolean") C.ChatSettings.ShowAutomaticMessages = false;
-	if (typeof C.ChatSettings.WhiteSpace !== "string") C.ChatSettings.WhiteSpace = "Preserve";
-	if (typeof C.ChatSettings.ColorActivities !== "boolean") C.ChatSettings.ColorActivities = true;
-	if (typeof C.ChatSettings.ShrinkNonDialogue !== "boolean") C.ChatSettings.ShrinkNonDialogue = false;
-	if (typeof C.ChatSettings.MuStylePoses !== "boolean") C.ChatSettings.MuStylePoses = false;
-	if (typeof C.ChatSettings.ShowChatHelp !== "boolean") C.ChatSettings.ShowChatHelp = true;
 	if (typeof C.ChatSettings.ShowBeepChat !== "boolean") C.ChatSettings.ShowBeepChat = true;
+	if (typeof C.ChatSettings.ShowChatHelp !== "boolean") C.ChatSettings.ShowChatHelp = true;
+	if (typeof C.ChatSettings.ShrinkNonDialogue !== "boolean") C.ChatSettings.ShrinkNonDialogue = false;
+	if (typeof C.ChatSettings.WhiteSpace !== "string") C.ChatSettings.WhiteSpace = "Preserve";
 
 	// Visual settings
 	// @ts-ignore: Individual properties validated separately
@@ -524,7 +527,7 @@ function PreferenceInitPlayer() {
 	if (typeof NS.ChatJoin.Subs !== "boolean") NS.ChatJoin.Subs = false;
 	if (typeof NS.Audio !== "undefined") delete NS.Audio;
 	if (typeof NS.Disconnect !== "object") NS.Disconnect = PreferenceInitNotificationSetting(NS.Disconnect, defaultAudio);
-	if (typeof NS.Larp !== "object") NS.Larp = PreferenceInitNotificationSetting(NS.Larp, defaultAudio, NotificationEventType.NONE);
+	if (typeof NS.Larp !== "object") NS.Larp = PreferenceInitNotificationSetting(NS.Larp, defaultAudio, NotificationAlertType.NONE);
 	if (typeof NS.Test !== "object") NS.Test = PreferenceInitNotificationSetting(NS.Test, defaultAudio, NotificationAlertType.TITLEPREFIX);
 	C.NotificationSettings = NS;
 
@@ -2068,6 +2071,7 @@ function PreferenceSubscreenNotificationsRun() {
 		PreferenceNotificationsDrawSetting(500, 315, TextGet("NotificationsChatMessage"), NS.ChatMessage);
 		DrawText(TextGet("NotificationsOnly"), 550, 427, "Black", "Gray");
 		const chatMessageDisabled = NS.ChatMessage.AlertType === NotificationAlertType.NONE;
+		DrawCheckbox(1500, 315, 64, 64, TextGet("NotificationsChatMessageMention"), NS.ChatMessage.Mention && !chatMessageDisabled, chatMessageDisabled);
 		DrawCheckbox(700, 395, 64, 64, TextGet("NotificationsChatMessageNormal"), NS.ChatMessage.Normal && !chatMessageDisabled, chatMessageDisabled);
 		DrawCheckbox(1150, 395, 64, 64, TextGet("NotificationsChatMessageWhisper"), NS.ChatMessage.Whisper && !chatMessageDisabled, chatMessageDisabled);
 		DrawCheckbox(1500, 395, 64, 64, TextGet("NotificationsChatMessageActivity"), NS.ChatMessage.Activity && !chatMessageDisabled, chatMessageDisabled);
@@ -2134,6 +2138,7 @@ function PreferenceSubscreenNotificationsClick() {
 
 		PreferenceNotificationsClickSetting(500, 315, NS.ChatMessage, NotificationEventType.CHATMESSAGE);
 		if (NS.ChatMessage.AlertType > 0) {
+			if (MouseIn(1500, 315, 64, 64)) NS.ChatMessage.Mention = !NS.ChatMessage.Mention;
 			if (MouseIn(700, 395, 64, 64)) NS.ChatMessage.Normal = !NS.ChatMessage.Normal;
 			if (MouseIn(1150, 395, 64, 64)) NS.ChatMessage.Whisper = !NS.ChatMessage.Whisper;
 			if (MouseIn(1500, 395, 64, 64)) NS.ChatMessage.Activity = !NS.ChatMessage.Activity;

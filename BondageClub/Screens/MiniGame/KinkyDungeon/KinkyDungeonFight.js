@@ -550,20 +550,24 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		let created = 0;
 		let type = "";
 		for (let sum of b.bullet.summon) {
-			let summonType = sum.name; // Second operand is the enemy type
-			if (!type) type = summonType;
-			let count = sum.count ? sum.count : 1;
-			let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
-			if (count > 0)
-				created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, false, sum.time ? sum.time : undefined);
+			if (!sum.chance || KDRandom() < sum.chance) {
+				let summonType = sum.name; // Second operand is the enemy type
+				if (!type) type = summonType;
+				let count = sum.count ? sum.count : 1;
+				let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
+				if (count > 0)
+					created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden);
+			}
 		}
-		if (created == 1) KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSummonSingle"+type), "white", 2);
-		else if (created > 1) KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonSummonMulti"+type).replace("SummonCount", "" + created), "white", 3);
+		if (!b.bullet.spell || !b.bullet.spell.noSumMsg) {
+			if (created == 1) KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSummonSingle"+type), "white", 2);
+			else if (created > 1) KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonSummonMulti"+type).replace("SummonCount", "" + created), "white", 3);
+		}
 	}
 }
 
 
-function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime) {
+function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden) {
 	let slots = [];
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
@@ -578,7 +582,9 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime)
 	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(Math.random() * slots.length)];
-		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer) && (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))) {
+		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
+			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
+			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
 			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
 				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
 			created += 1;

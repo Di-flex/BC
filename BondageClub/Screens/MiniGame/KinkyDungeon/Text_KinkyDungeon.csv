@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Private|WATA"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -181,6 +181,11 @@ KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
 KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
 KinkyDungeonInventoryItemScrollArmsDesc,A scroll used by thieves to make their plays in secret.
 KinkyDungeonInventoryItemScrollArmsDesc2,Allows you to cast Arm spells without components for 12 turns.
+
+KinkyDungeonInventoryItemScrollPurity,Scroll of Purity
+KinkyDungeonInventoryItemScrollPurityUse,The scroll circles around your body and you feel... empty now.
+KinkyDungeonInventoryItemScrollPurityDesc,A scroll used to enforce chastity within religious orders.
+KinkyDungeonInventoryItemScrollPurityDesc2,Removes all vibrators from your body.
 
 KinkyDungeonInventoryItemScrollVerbal,Scroll of Speech
 KinkyDungeonInventoryItemScrollVerbalUse,The scroll makes your gagged speech slightly more intelligible!
@@ -465,6 +470,11 @@ KillSamuraiZombie,"The Warrior zombie yells and falls cinematically."
 AttackSamuraiZombieBind,"The Warrior zombie uses a traditional binding technique (+RestraintAdded)"
 AttackSamuraiZombieStun,"The Warrior zombie strikes you with her wooden sword! (+STUN)"
 AttackSamuraiZombie,"The Warrior zombie runs its fingers along your body! (-DamageTaken SP)"
+
+NameNawashi,Rope Artist
+KillNawashi,"The rope artist frowns and walks away, looking defeated."
+AttackNawashiBind,"The rope artist performs an intricate technique! (+RestraintAdded)"
+AttackNawashi,"The rope artist smiles and tickles your feet! (-DamageTaken SP)"
 
 NameNinja,Ninja Warrior
 KillNinja,"The warrior retreats into the shadows."
@@ -878,7 +888,7 @@ KinkyDungeonStruggleUnlockNoBlueKey,"The magical lock only accepts blue keys and
 KinkyDungeonStruggleUnlockNoGoldKey,"The magical lock can only be released with a powerful spell!!!"
 KinkyDungeonStruggleUnlockNoUnknownKey,"You don't have a key for this lock."
 KinkyDungeonStruggleCantPickBlueLock,"The lock seems to be magical and rejects all picking attempts!"
-KinkyDungeonStruggleCantPickGoldLock,"The lock is definitely magical and destroys your pick!"
+KinkyDungeonStruggleCantPickGoldLock,"The lock is definitely magical and forces your pick out!"
 
 KinkyDungeonStruggleUnlockJammed,"The key sticks in the lock and jams, mangling the key!"
 
@@ -1170,6 +1180,12 @@ RestraintPanelGagDesc2,"The harness is comprehensive and it's locked in place."
 RestraintKittyGag,Bast Gag
 RestraintKittyGagDesc,"A gag used to silence new initiates of the Bast cult."
 RestraintKittyGagDesc2,"The harness is comprehensive and it's locked in place."
+RestraintKittyMuzzle,Bast Muzzle
+RestraintKittyMuzzleDesc,"A muzzle used to keep a Bast gag secure."
+RestraintKittyMuzzleDesc2,"The leather panel is tough and tight."
+RestraintKittyBlindfold,Bast Blindfold
+RestraintKittyBlindfoldDesc,"A blindfold used to aid in meditation."
+RestraintKittyBlindfoldDesc2,"It is padded but still lets some light through."
 RestraintKittyPaws,Bast Paws
 RestraintKittyPawsDesc,"Leather mittens used to pacify new initiates of the Bast cult."
 RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but aren't the toughest material."
@@ -1374,6 +1390,9 @@ RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeCuffs,Rope Cuffs
 RestraintRopeSnakeCuffsDesc,"A quick tie for apprehending prisoners."
 RestraintRopeSnakeCuffsDesc2,"It's not very secure."
+RestraintRopeSnakeHogtie,Rope Hogtie
+RestraintRopeSnakeHogtieDesc,"A very strict and tight hogtie, good for subduing unruly captives."
+RestraintRopeSnakeHogtieDesc2,"It's very secure. You tug on the rope connecting your feet and struggle."
 RestraintRopeSnakeTorso,Rope Belt
 RestraintRopeSnakeTorsoDesc,"A harness acting as a handle to pull you around"
 RestraintRopeSnakeTorsoDesc2,"The ropes squeeze you gently."
@@ -1766,6 +1785,7 @@ ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
+ItemPickupScrollPurity,"You pick up a Scroll of Purity."
 ItemPickupScrollVerbal,"You pick up a Scroll of Speech."
 ItemPickupScrollLegs,"You pick up a Scroll of Sauntering."
 
@@ -2625,3 +2645,5 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs2,"You struggle fruitless
 KinkyDungeonMistressKeysTakenAway,You search for your ancient keys but it seems they were taken away for good.
 
 KinkyDungeonSurpriseMe,Random (reduces penalty by 1)
+
+KinkyDungeonNoItemToRemove,You don't have any valid targets on your body for that.

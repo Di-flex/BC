@@ -176,7 +176,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					KinkyDungeonMapSet(xx-1, yy, 'D');
 					KinkyDungeonTiles.get((xx-1) + "," + yy).Lock = KinkyDungeonGenerateLock(true, MiniGameKinkyDungeonLevel);
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonGuardDisappear"), "red", 6);
-					if (KDGameData.KinkyDungeonPrisonReduction < KDGameData.KinkyDungeonMaxPrisonReduction) {
+					if (KDGameData.KinkyDungeonPrisonReduction < KDGameData.KinkyDungeonMaxPrisonReduction || KinkyDungeonGoddessRep.Ghost > 0) {
 						KDGameData.KinkyDungeonPrisonReduction += 1;
 						KinkyDungeonChangeRep("Prisoner", -1);
 					}

@@ -103,12 +103,12 @@ let KinkyDungeonDresses = {
 		{Item: "LatexSocks1", Group: "Socks", Color: "#AAAAAA", Lost: false},
 	],
 	"Maid" : [
-		{Item: "SeamlessCatsuit", Group: "Suit", Color: "#49403A", Lost: false},
+		{Item: "SleevelessCatsuit", Group: "Suit", Color: "#aaaaaa", Lost: false},
 		{Item: "MaidApron2", Group: "Cloth", Color: "Default", Lost: false},
-		{Item: "FullLatexBra", Group: "Bra", Color: "#939393", Lost: false},
+		{Item: "FullLatexBra2", Group: "Bra", Color: ["#333333", "#aaaaaa"], Lost: false},
 		{Item: "Pantyhose2", Group: "SuitLower", Color: "#939393", Lost: false},
 		{Item: "LaceBands", Group: "Bracelet", Color: ['Default', '#151515'], Lost: false},
-		{Item: "ShortPlaidSkirt", Group: "ClothLower", Color: "#2E2E2E", Lost: false},
+		{Item: "MageSkirt", Group: "ClothLower", Color: ["#676767", "#2E2E2E"], Lost: false},
 		{Item: "Corset4", Group: "Corset", Color: "#4B4B4B", Lost: false},
 		{Item: "Band1", Group: "Hat", Color: "#767676", Lost: false},
 		{Item: "Shoes5", Group: "Shoes", Color: "#575757", Lost: false},
@@ -199,6 +199,9 @@ function KinkyDungeonDressPlayer() {
 			//if (clothes.Group == "Bra" && !clothes.NoLose) {
 			//if (KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = true;
 			//}
+			if (clothes.Group == "Panties" && !clothes.NoLose) {
+				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;
+			}
 			if (clothes.Group == "ClothLower" && clothes.Skirt) {
 				//if (KinkyDungeonGetRestraintItem("ItemTorso") && KinkyDungeonGetRestraintItem("ItemTorso").restraint.harness) clothes.Lost = true;
 				if (KinkyDungeonGetRestraintItem("ItemPelvis")) clothes.Lost = true;

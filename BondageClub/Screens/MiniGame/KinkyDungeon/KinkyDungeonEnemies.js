@@ -53,6 +53,12 @@ let KinkyDungeonEnemies = [
 		ambushRadius: 1.9, wanderTillSees: true, visionRadius: 10, maxhp: 12, minLevel:4, weight:4, movePoints: 1, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2, specialWidth: 1, specialAttackPoints: 3, specialRange: 4, specialMinrange: 1.5, //specialFollow: 3,
 		terrainTags: {"secondhalf":3, "lastthird":7, "ropeAnger": 2}, shrines: ["Illusion", "Rope"], floors:[1, 11],
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "Pick", weight: 3}, {name: "SmokeBomb", weight: 1}]},
+	{name: "Nawashi", color: "#5261ff", tags: KDMapInit(["leashing", "opendoors", "human", "elite", "melee", "ropeRestraints", "ropeRestraints2", "ropeRestraintsWrist", "ropeAuxiliary", "ropeRestraintsHogtie"]),
+		spells: ["RopeAttack"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, stealth: 2, noReveal: true,
+		followLeashedOnly: true, blindSight: 10, followRange: 1, kite: 3, AI: "hunt", evasion: 0.5, kiteOnlyWhenDisabled: true,
+		visionRadius: 10, maxhp: 22, minLevel:4, weight:1, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2, specialWidth: 1, specialAttackPoints: 3, specialRange: 4, specialMinrange: 1.5, //specialFollow: 3,
+		terrainTags: {"secondhalf":1, "lastthird":2, "ropeAnger": 2, "ropeRage": 2}, shrines: ["Rope"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+		dropTable: [{name: "Knife", weight: 9}, {name: "MagicKnife", weight: 1}]},
 
 	{name: "Maidforce", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "handcuffer", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail", "search"]), blindSight: 3, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneelSpecial: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
@@ -152,7 +158,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"rubble": 20, "adjChest": 30, "passage": 14, "illusionRage": 2, "illusionAnger": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Illusion"],
 		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 10, amountMax: 40, weight: 6}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
-	{name: "VinePlant", color: "#00FF00", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "coldweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"]),
+	{name: "VinePlant", color: "#00FF00", blockVisionWhileStationary: true, tags: KDMapInit(["mimicBlock", "removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "coldweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"]),
 		ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", specialCD: 99, specialAttack: "Stun", specialAttackPoints: 1, specialRemove: "Bind",
 		visionRadius: 3, ambushRadius: 1.9, blindSight: 5, maxhp: 10, minLevel:0, weight:25, movePoints: 1, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {"passage": -50, "adjChest": 8, "door": 12}, floors:[2], shrines: ["Rope", "Will"]},

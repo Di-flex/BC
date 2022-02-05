@@ -294,7 +294,7 @@ function KinkyDungeonCanUseWeapon(NoOverride, e) {
 	};
 	if (!NoOverride)
 		KinkyDungeonSendEvent("getWeapon", {event: e, flags: flags});
-	return (flags.KDHandsFreeTag || !KinkyDungeonIsHandsBound());
+	return (flags.HandsFree || !KinkyDungeonIsHandsBound());
 }
 
 let KDBlindnessCap = 0;

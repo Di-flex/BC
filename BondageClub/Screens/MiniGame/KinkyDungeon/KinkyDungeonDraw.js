@@ -7,7 +7,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	let sprite = "Floor";
 	if (code == "1") sprite = "Wall";
 	else if (code == "2") sprite = "Brickwork";
-	else if (code == "3") sprite = "MimicBlock";
+	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";

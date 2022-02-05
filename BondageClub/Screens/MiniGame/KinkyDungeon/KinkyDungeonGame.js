@@ -447,6 +447,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let miniboss = false;
 	let boss = false;
 	let jailerCount = 0;
+	let EnemyNames = [];
 
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
@@ -505,11 +506,12 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 							KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
 				}
-				//console.log("Created a " + Enemy.name)
+				EnemyNames.push(Enemy.name);
 			}
 		}
 		tries += 1;
 	}
+	console.log(EnemyNames);
 
 	if (KDGameData.KinkyDungeonSpawnJailers > 0) KDGameData.KinkyDungeonSpawnJailers -= 1;
 	if (KDGameData.KinkyDungeonSpawnJailers > 3 && KDGameData.KinkyDungeonSpawnJailers < KDGameData.KinkyDungeonSpawnJailersMax - 1) KDGameData.KinkyDungeonSpawnJailers -= 1; // Reduce twice as fast when you are in deep...
@@ -738,7 +740,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 			}
 			if (door) {
 				KinkyDungeonMapSet(X, Y, 'D');
-				KinkyDungeonTiles.set(X + "," + Y, {Type: "Door", Jail: true, ReLock: true});
+				KinkyDungeonTiles.set(X + "," + Y, {Type: "Door", Lock: "Red", Jail: true, ReLock: true});
 			} else if (wall) {
 				if (bar)
 					KinkyDungeonMapSet(X, Y, 'b');
@@ -1918,10 +1920,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	if (!KinkyDungeonCanTalk() && Math.random() < gagchance) {
 		let msg = "KinkyDungeonGagMumble";
 		let gagMsg = Math.floor(Math.random() * 5);
-		let GagEffect = -2;
-		GagEffect += SpeechGetGagLevel(KinkyDungeonPlayer, "ItemMouth");
-		GagEffect += SpeechGetGagLevel(KinkyDungeonPlayer, "ItemMouth2");
-		GagEffect += SpeechGetGagLevel(KinkyDungeonPlayer, "ItemMouth3");
+		const GagEffect = -2 + SpeechGetGagLevel(KinkyDungeonPlayer, ["ItemMouth", "ItemMouth2", "ItemMouth3"]);
 		gagMsg += GagEffect/3;
 		gagMsg = Math.max(0, Math.min(7, Math.floor(gagMsg)));
 
