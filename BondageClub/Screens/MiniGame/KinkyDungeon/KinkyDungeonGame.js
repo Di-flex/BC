@@ -553,7 +553,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) + 1, 'b');
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
 	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache"});
-	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", ReLock: true});
+	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", OffLimits: true, ReLock: true});
 	KinkyDungeonCachesPlaced.push(Floor);
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 1});
 }

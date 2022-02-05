@@ -11,10 +11,6 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" : "Chest");
-	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" : "ChestOpen");
 	else if (code == "D") sprite = "Door";
 	else if (code == "G") sprite = "Ghost";
 	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
@@ -30,6 +26,15 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
 	else if (code == "w") sprite = Fog ? "Floor" : "Water";
+	return sprite;
+}
+
+function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
+	let sprite = "";
+	if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" : "Chest");
+	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" : "ChestOpen");
 	return sprite;
 }
 
@@ -110,10 +115,14 @@ function KinkyDungeonDrawGame() {
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
 						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+						let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 
 
 						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 							(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+						if (sprite2)
+							DrawImageZoomCanvas(KinkyDungeonRootDirectory + "FloorGeneric/" + sprite2 + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+								(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 
 						if (rows[RY][RX] == "A") {
 							let color = "";

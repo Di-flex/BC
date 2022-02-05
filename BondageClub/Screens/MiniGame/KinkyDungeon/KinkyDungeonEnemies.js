@@ -146,7 +146,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:1, weight:0, movePoints: 4, attackPoints: 4, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
 		terrainTags: {"lastthird":10, "passage": 70, "adjChest": 58, "door": 50}, floors:[1], shrines: ["Metal"],
 		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "Sword", weight: 1, ignoreInInventory: true}]},
-	{name: "Mimic", blockVisionWhileStationary: true, tags: KDMapInit(["mimicBlock", "removeDoorSpawn", "ignoreharmless", "construct", "minor", "melee", "trap", "shackleGag", "crushweakness", "meleeresist", "fireweakness", "electricresist", "chainweakness"]),
+	{name: "Mimic", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignoreharmless", "construct", "minor", "melee", "trap", "shackleGag", "crushweakness", "meleeresist", "fireweakness", "electricresist", "chainweakness"]),
 		evasion: -0.5, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", bypass: true,
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:3, weight:-1, movePoints: 1, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 2,
 		terrainTags: {"rubble": 20, "adjChest": 30, "passage": 14, "illusionRage": 2, "illusionAnger": 2}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: ["Illusion"],
