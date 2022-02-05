@@ -1436,7 +1436,13 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						if (enemy.Enemy.multiBind) numTimes = enemy.Enemy.multiBind;
 						for (let times = 0; times < numTimes; times++) {
 							// Note that higher power enemies get a bonus to the floor restraints appear on
-							let rest = KinkyDungeonGetRestraint(enemy.Enemy, MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : "", enemy.Enemy.ignoreStaminaForBinds && !attack.includes("Suicide"), !addMoreRestraints && addLeash);
+							let rest = KinkyDungeonGetRestraint(
+								enemy.Enemy, MiniGameKinkyDungeonLevel,
+								KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
+								enemy.Enemy.bypass,
+								enemy.Enemy.useLock ? enemy.Enemy.useLock : "",
+								!enemy.Enemy.ignoreStaminaForBinds && !attack.includes("Suicide"),
+								!addMoreRestraints && addLeash);
 							if (rest) {
 								replace.push({keyword:"RestraintAdded", value: TextGet("Restraint" + rest.name)});
 								restraintAdd.push(rest);
