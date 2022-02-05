@@ -556,6 +556,7 @@ Bugfix:
 - Fixed traps trying to overwrite ancient restraints
 - Scroll of Purity, a new item that removes vibrators from your body. Available in the shop.
 - Added a new, stealthy rope artist
+- You can go back to 0 security level, but only if submissive is higher than 50
 
 TODO ValidationFindBlockCycles to prevent bugs
 
