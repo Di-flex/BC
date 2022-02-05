@@ -121,7 +121,7 @@ let KinkyDungeonDresses = {
 		{Item: "FaceVeil", Group: "Mask", Color: "Default", Lost: false},
 		{Item: "HairFlower1", Group: "HairAccessory3", Color: 'Default', Lost: false},
 		{Item: "NecklaceKey", Group: "Necklace", Color: "Default", Lost: false},
-		{Item: "MageSkirt", Group: "ClothLower", Color: ['#40824F', '#AF9225'], Lost: false},
+		{Item: "MageSkirt", Group: "ClothLower", Color: ['#40824F', '#AF9225'], OverridePriority: 27, Lost: false},
 		{Item: "Heels1", Group: "Shoes", Color: "#aaaaaa", Lost: false},
 	],
 };

@@ -3,7 +3,7 @@ let KinkyDungeonKilledEnemy = null;
 let KinkyDungeonAlert = 0;
 
 let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
-let KinkyDungeonMissChancePerSlow = 0.25; // Max 3
+let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
 let KinkyDungeonBulletsID = {}; // Bullets on the game board
 

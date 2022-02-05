@@ -116,6 +116,9 @@ function KinkyDungeonShrineCost(type) {
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
+	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
+		return 100;
+
 	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10;
 }
 
@@ -140,9 +143,14 @@ function KinkyDungeonPayShrine(type) {
 		ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
 		rep = spell.level;*/
-		KinkyDungeonSpellLevel[type] += 1;
-		ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
-		rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.25));
+		if (KinkyDungeonSpellLevel[type] < KinkyDungeonSpellLevelMax) {
+			KinkyDungeonSpellLevel[type] += 1;
+			ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
+			rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.25));
+		} else {
+			ShrineMsg = TextGet("KinkyDungeonPayShrineBuff").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
+			rep = 1;
+		}
 
 	} else if (type == "Will") {
 		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);
