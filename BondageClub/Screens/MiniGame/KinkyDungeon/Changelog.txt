@@ -554,6 +554,7 @@ Bugfix:
 - Can now always see diagonal tiles while heavily blindfolded
 - Spell shrines now cap out at level 5 and you can offer 100g at them for 1 rep afterward instead
 - Fixed traps trying to overwrite ancient restraints
+- Scroll of Purity, a new item that removes vibrators from your body. Available in the shop.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
