@@ -738,7 +738,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 			}
 			if (door) {
 				KinkyDungeonMapSet(X, Y, 'D');
-				KinkyDungeonTiles.set(X + "," + Y, {Type: "Door", Jail: true, ReLock: true});
+				KinkyDungeonTiles.set(X + "," + Y, {Type: "Door", Lock: "Red", Jail: true, ReLock: true});
 			} else if (wall) {
 				if (bar)
 					KinkyDungeonMapSet(X, Y, 'b');
