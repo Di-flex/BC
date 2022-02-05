@@ -38,6 +38,8 @@ let KinkyDungeonSpellsStart = [
 		events: [{type: "DropKnife", trigger: "bulletHit"},]},
 ];
 
+let KinkyDungeonSpellLevelMax = 5;
+
 let KinkyDungeonSpellLevel = {
 	"Elements":1,
 	"Conjure":1,
