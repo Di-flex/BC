@@ -154,7 +154,7 @@ function KinkyDungeonLoot(Level, Index, Type) {
 						if (loot.prerequisites[P].startsWith("Group_")) {
 							let group = loot.prerequisites[P].substring(6);
 							let item = KinkyDungeonGetRestraintItem(group);
-							if (item && item.restraint && item.restraint.power <= loot.power) {
+							if (item && item.restraint && (item.restraint.power > loot.power || item.restraint.enchanted)) {
 								prereqs = false;
 								break;
 							}
