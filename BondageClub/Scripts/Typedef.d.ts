@@ -1499,7 +1499,7 @@ interface KinkyDungeonSave {
     id: number;
     choices: number[];
 	choices2: boolean[];
-	buffs: Record<string, KinkyDungeonBuff>;
+	buffs: Record<string, any>;
 	lostitems: any[];
 	caches: number[];
 	spells: string[];
