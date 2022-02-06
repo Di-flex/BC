@@ -1500,7 +1500,7 @@ interface KinkyDungeonSave {
     choices: number[];
 	choices2: boolean[];
 	buffs: Record<string, KinkyDungeonBuff>;
-	lostitems: KinkyDungeonInventoryItem[];
+	lostitems: any[];
 	caches: number[];
 	spells: string[];
 	inventory: {
