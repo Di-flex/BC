@@ -514,7 +514,7 @@ function KinkyDungeonDefeat() {
 		if (collar.restraint.name == "MithrilCollar") defeat_outfit = "Elven";
 	}
 
-	KinkyDungeonSetDress(defeat_outfit, "Prison");
+	KinkyDungeonSetDress(defeat_outfit, "JailUniform");
 	KinkyDungeonDressPlayer();
 	for (let r of params.defeat_restraints) {
 		let level = 0;
@@ -540,6 +540,7 @@ function KinkyDungeonDefeat() {
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}
+	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("JailUniform")});
 
 	//KinkyDungeonChangeRep("Ghost", 1 + Math.round(KinkyDungeonSpawnJailers/2));
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...

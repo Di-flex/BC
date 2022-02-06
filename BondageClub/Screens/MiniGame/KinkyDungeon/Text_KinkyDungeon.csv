@@ -177,6 +177,10 @@ KinkyDungeonInventoryItemOutfitDefault,Wizard's Outfit
 KinkyDungeonInventoryItemOutfitDefaultDesc,Your favorite outfit for adventuring.
 KinkyDungeonInventoryItemOutfitDefaultDesc2,Your original outfit. No bonuses, no penalties.
 
+KinkyDungeonInventoryItemJailUniform,Jail Uniform
+KinkyDungeonInventoryItemJailUniformDesc,The prisoners are kept in revealing outfits to keep them from hiding things.
+KinkyDungeonInventoryItemJailUniformDesc2,You are more conspicuous.
+
 KinkyDungeonInventoryItemScrollArms,Scroll of Sleight
 KinkyDungeonInventoryItemScrollArmsUse,The scroll makes your memories of arm movements clear as day!
 KinkyDungeonInventoryItemScrollArmsDesc,A scroll used by thieves to make their plays in secret.
