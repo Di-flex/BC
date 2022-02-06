@@ -50,7 +50,7 @@ function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlaye
 						else if (TilesTemp.includes(KinkyDungeonMapGet(xx, yy)) && (!RequireLight || KinkyDungeonLightGet(xx, yy) > 0)
 							&& (ignoreLocks || !KinkyDungeonTiles.get((xx) + "," + (yy)) || !KinkyDungeonTiles.get(xx + "," + yy).Lock)
 							&& (!blockEnemy || KinkyDungeonNoEnemy(xx, yy, blockPlayer))) {
-							let costBonus = (KinkyDungeonTiles.get((xx) + "," + (yy)) && KinkyDungeonTiles.get(xx + "," + yy).Lock) ? 3 : 0;
+							let costBonus = (KinkyDungeonTiles.get((xx) + "," + (yy)) && KinkyDungeonTiles.get(xx + "," + yy).Lock) ? 3 : (KinkyDungeonMapGet(xx, yy) == "D" ? 1.5 : 0);
 							succ.set(xx + "," + yy, {x: xx, y: yy,
 								g: moveCost + costBonus + lowest.g,
 								f: moveCost + costBonus + lowest.g + heuristic(xx, yy, endx, endy),
