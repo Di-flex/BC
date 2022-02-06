@@ -370,8 +370,8 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			}
 		} else if (KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints > 0
             && (KDistChebyshev(KinkyDungeonJailGuard().x - KinkyDungeonJailGuard().NextJailLeashTourWaypointX, KinkyDungeonJailGuard().y - KinkyDungeonJailGuard().NextJailLeashTourWaypointY) < 2
-            || (KDRandom() < 0.05 && KDistChebyshev(KinkyDungeonJailGuard().x - KinkyDungeonJailGuard().NextJailLeashTourWaypointX, KinkyDungeonJailGuard().y - KinkyDungeonJailGuard().NextJailLeashTourWaypointY) < 5))
-			|| KDRandom() < 0.01) {
+            || (KDRandom() < 0.05 && KDistChebyshev(KinkyDungeonJailGuard().x - KinkyDungeonJailGuard().NextJailLeashTourWaypointX, KinkyDungeonJailGuard().y - KinkyDungeonJailGuard().NextJailLeashTourWaypointY) < 5)
+			|| KDRandom() < 0.01)) {
 			KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints--;
 			if (KinkyDungeonJailGuard().NextJailLeashTourWaypointX > KinkyDungeonJailLeashX + 2) {
 				if (KinkyDungeonHasStamina(1.1) && KDRandom() < 0.5 && KinkyDungeonLastAction == "Move") {
