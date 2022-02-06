@@ -2048,7 +2048,7 @@ KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,Channel 4 turns: Gain +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by 25% (rounding down) while active.
+KinkyDungeonSpellDescriptionIronBlood,"Channel 4 turns: Gain +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by 25% (rounding down) while active."
 KinkyDungeonSpellCastIronBlood,Your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin
