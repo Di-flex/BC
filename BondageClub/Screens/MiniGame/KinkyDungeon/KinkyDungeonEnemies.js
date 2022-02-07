@@ -40,11 +40,11 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 10, minLevel:4, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":10, "lastthird":14}, floors:[0], dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
 	{name: "MageZombie", tags: KDMapInit(["leashing", "zombie", "melee", "ribbonRestraints", "meleeweakness", "hunter"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 2, AI: "hunt",
-		spells: ["ZombieOrb", "ZombieOrbIce"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, projectileTargeting: true, minSpellRange: 1.5,
+		spells: ["ZombieOrb", "ZombieOrbIce"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, projectileAttack: true, minSpellRange: 1.5,
 		visionRadius: 6, maxhp: 13, minLevel:6, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {}, floors:[0], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}]},
 	{name: "TalismanZombie", tags: KDMapInit(["leashing", "zombie", "melee", "ribbonRestraints", "meleeweakness", "hunter"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 3, AI: "hunt",
-		spells: ["ZombieOrb", "ZombieBuff", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileTargeting: true, minSpellRange: 1.5,
+		spells: ["ZombieOrb", "ZombieBuff", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true, minSpellRange: 1.5,
 		visionRadius: 6, maxhp: 20, minLevel:7, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"mummy": 3}, floors:[0, 11], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}]},
 	{name: "SamuraiZombie", tags: KDMapInit(["leashing", "zombie", "melee", "elite", "ropeRestraints", "ropeRestraints2", "meleeweakness", "hunter"]), evasion: -1, armor: 2, followRange: 1, AI: "hunt",
@@ -380,7 +380,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "ElfRanger", color: "#67ff44", tags: KDMapInit(["opendoors", "leashing", "elf", "ranged", "elite", "mithrilRestraints", "mythrilRope", "pierceweakness", "iceweakness", "chainresist", "hunter"]), cohesion: 0.0,
 		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", stealth: 3,
-		spells: ["ElfArrow"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true, kite: 1.5,
+		spells: ["ElfArrow"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true, kite: 1.5, projectileAttack: true,
 		visionRadius: 14, maxhp: 12, minLevel:15, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "willAnger": 5, "willRage": 8}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "ElfCrystal", weight: 3}, {name: "PotionMana", weight: 1}]},
@@ -396,7 +396,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "OrbOfLight", color: "#ffff00", tags: KDMapInit(["opendoors", "ignorenoSP", "ghost", "ranged", "coldsevereweakness"]), cohesion: 1.0, cohesionRange: 10,
 		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true, spellRdy: true,
-		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
+		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5, kiteChance: 1.0,
 		visionRadius: 10, blindSight: 10, maxhp: 10, minLevel:20, weight:2.5, movePoints: 3, attackPoints: 4, attack: "SpellMeleeBlindWill", blindTime: 3, attackWidth: 8, attackRange: 1, power: 5, dmgType: "fire",
 		terrainTags: {"willAnger":4, "willRage":4}, shrines: ["Will"], floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], dropTable: [{name: "Nothing", weight: 9}, {name: "ElfCrystal", weight: 3}],
 	},
@@ -450,7 +450,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"rubble":20, "increasingWeight":-5}, floors:[2]},
 
 	{name: "WitchShock", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "electricimmune", "glueweakness", "iceweakness", "hunter"]), followRange: 2,
-		castWhileMoving: true, spells: ["WitchElectrify"], stopToCast: true, spellRdy: true,
+		castWhileMoving: true, spells: ["WitchElectrify"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 6, maxhp: 15, minLevel:3, weight:14, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -7}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: [],
 		dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 2}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
@@ -461,7 +461,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -8}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: [],
 		dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 	{name: "WitchSlime", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "glueimmune", "fireresist", "meleeresist", "electricweakness", "iceweakness", "hunter"]), squeeze: true,
-		followLeashedOnly: true, kite: 1.5, followRange: 4, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"], stopToCast: true, spellRdy: true,
+		followLeashedOnly: true, kite: 1.5, kiteChance: 1.0, followRange: 4, castWhileMoving: true, spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"], stopToCast: true, spellRdy: true,
 		spellCooldownMult: 2, spellCooldownMod: 1, AI: "wander", visionRadius: 8, maxhp: 13, minLevel:4, weight:7, movePoints: 3, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -9, "open": 4}, floors:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrines: [],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
@@ -1160,7 +1160,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					0.01));
 	}
 
-	if (enemy.Enemy.projectileAttack && !canShootPlayer) followRange = 1;
+	if (enemy.Enemy.projectileAttack && (!canShootPlayer || !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) followRange = 1;
 
 	if (!KinkyDungeonJailTransgressed && canSeePlayer && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail")) && (
 		(KinkyDungeonPlayer.CanInteract() && (KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")) ||
@@ -1177,10 +1177,12 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if ((canSensePlayer || canSeePlayer || canShootPlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) enemy.aware = true;
 
 	let kite = false;
+	let kiteChance = enemy.Enemy.kiteChance ? enemy.Enemy.kiteChance : 0.75;
 	if (canSeePlayer && enemy.Enemy && enemy.Enemy.kite && !enemy.usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (!enemy.Enemy.allied || !player.player)) {
 		if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KDGameData.SleepTurns > 0))
 			if (!enemy.Enemy.noKiteWhenHarmless || !harmless)
-				kite = true;
+				if (kiteChance >= 1 || KDRandom() < kiteChance)
+					kite = true;
 	}
 
 	if ((AI == "ambush" && enemy.Enemy.wanderTillSees && !enemy.aware && !enemy.ambushtrigger)) {
