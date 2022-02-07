@@ -613,7 +613,6 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonInitialize(1);
 			MiniGameKinkyDungeonCheckpoint = 1;
-			KinkyDungeonSetCheckPoint(0);
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 				ElementRemove("saveInputField");
@@ -1229,15 +1228,15 @@ function KinkyDungeonLoadGame(String) {
 }
 
 let KinkyDungeonSeed = (Math.random() * 4294967296).toString();
-let KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
+let KDRandom = sfc32(xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)());
 
 function KDrandomizeSeed() {
 	KinkyDungeonSeed = (Math.random() * 4294967296).toString();
 	for (let i = 0; i < 20; i++) {
 		let index = Math.random() * KinkyDungeonSeed.length;
-		KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(Math.random()*50)) + String.fromCharCode(65 + Math.floor(Math.random()*50)));
+		KinkyDungeonSeed = KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(Math.random()*50)) + String.fromCharCode(65 + Math.floor(Math.random()*50)));
 	}
-	KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
+	KDRandom = sfc32(xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)());
 	for (let i = 0; i < 1000; i++) {
 		KDRandom();
 	}
@@ -1245,7 +1244,7 @@ function KDrandomizeSeed() {
 
 function KDsetSeed(string) {
 	KinkyDungeonSeed = string;
-	KDRandom = sfc32(xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed), xmur3(KinkyDungeonSeed));
+	KDRandom = sfc32(xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)());
 	for (let i = 0; i < 1000; i++) {
 		KDRandom();
 	}
