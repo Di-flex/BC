@@ -20,7 +20,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
 		"cacheInterval" : 3,
-		"forbiddenChance" : 0.3, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
+		"forbiddenChance" : 0.35, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
 		"traps": [
@@ -453,8 +453,8 @@ var KinkyDungeonMapParams = [
 		"brickchance" : 0.4,
 		"cacheInterval" : 3,
 		// Side routes have more high-value loot
-		"forbiddenChance" : 0.5,
-		"forbiddenGreaterChance" : 0.5,
+		"forbiddenChance" : 0.75,
+		"forbiddenGreaterChance" : 0.45,
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},

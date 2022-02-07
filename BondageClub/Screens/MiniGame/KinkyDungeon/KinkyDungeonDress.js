@@ -5,6 +5,7 @@ var KinkyDungeonDressesList = {};
 
 let KinkyDungeonOutfitsBase = [
 	{name: "OutfitDefault", dress: "Default", shop: false, rarity: 1},
+	{name: "JailUniform", dress: "JailUniform", shop: false, rarity: 1},
 ];
 let KinkyDungeonOutfitCache = new Map();
 

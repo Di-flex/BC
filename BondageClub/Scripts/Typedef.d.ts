@@ -1499,8 +1499,8 @@ interface KinkyDungeonSave {
     id: number;
     choices: number[];
 	choices2: boolean[];
-	buffs: Record<string, KinkyDungeonBuff>;
-	lostitems: KinkyDungeonInventoryItem[];
+	buffs: Record<string, any>;
+	lostitems: any[];
 	caches: number[];
 	spells: string[];
 	inventory: {
@@ -1555,6 +1555,7 @@ interface KinkyDungeonEvent {
 	dist?: number;
 	buffType?: string;
 	time?: number;
+	chance?: number;
 }
 
 type PokerPlayerType = "None" | "Set" | "Character";

@@ -43,7 +43,7 @@ let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostRemove = -0.25; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
 let KinkyDungeonStatStaminaCostPick = -0.0; // It costs stamina to pick, but much less
-let KinkyDungeonStatStaminaCostAttack = -0.5; // Cost to attack
+let KinkyDungeonStatStaminaCostAttack = -1.0; // Cost to attack
 let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
 // Current Status
@@ -216,7 +216,7 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 	KinkyDungeonInterruptSleep();
 
-	if (KinkyDungeonStatFreeze > 0) {
+	if (KinkyDungeonStatFreeze > 0 && KinkyDungeonMeleeDamageTypes.includes(type)) {
 		KinkyDungeonChangeStamina(-dmg);
 		KinkyDungeonStatFreeze = 0;
 	}
@@ -569,7 +569,7 @@ function KinkyDungeonCanTryOrgasm() {
 }
 
 function KinkyDungeonDoPlayWithSelf() {
-	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*Math.random());
+	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*KDRandom());
 	let amount = Math.max(0, OrigAmount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
 	if (KinkyDungeonIsArmsBound()) amount = Math.max(0, Math.min(amount, OrigAmount - KinkyDungeonPlayWithSelfBoundPenalty));
 	KinkyDungeonChangeArousal(amount);

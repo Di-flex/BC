@@ -557,6 +557,17 @@ Bugfix:
 - Scroll of Purity, a new item that removes vibrators from your body. Available in the shop.
 - Added a new, stealthy rope artist
 - You can go back to 0 security level, but only if submissive is higher than 50
+- Fixed slow level counting weirdly for stamina-dependent restraints like hogties
+- Added a timer for the jailer to automatically move to the next waypoint in leash tours
+- Unarmed attacks now cost 1 stamina
+- There are low-rarity weapons available in the shop
+- Autosave now happens after every floor
+- New difficulty level that doesn't provide save codes
+- Fixed the RNG, should have much higher entropy now
+- Added two new zombies
+- Added a new skeleton
+- Added some new bandits
+- Modified kiting mechanics a little so enemies with a melee attack will sometimes stop to make a melee attack instead of always running away. orbs and other 'helpless' enemies won't do this.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
