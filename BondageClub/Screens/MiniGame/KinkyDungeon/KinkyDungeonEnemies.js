@@ -515,8 +515,8 @@ function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
 	let t = Tiles ? Tiles : KinkyDungeonMovableTilesEnemy;
 	if (p) {
 		for (let i = 0; i < 8; i++) {
-			let XX = p.x + Math.round(Math.random() * 2 * radius - radius);
-			let YY = p.y + Math.round(Math.random() * 2 * radius - radius);
+			let XX = p.x + Math.round(KDRandom() * 2 * radius - radius);
+			let YY = p.y + Math.round(KDRandom() * 2 * radius - radius);
 			if (t.includes(KinkyDungeonMapGet(XX, YY))) {
 				return {x: XX, y: YY};
 			}
@@ -794,7 +794,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			KinkyDungeonChangeRep("Ghost", -5);
 		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
 			KinkyDungeonChangeRep("Ghost", -2);
-		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite") && Math.random() < 0.33)
+		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite") && KDRandom() < 0.33)
 			KinkyDungeonChangeRep("Ghost", -1);
 
 		if (enemy.Enemy && enemy.Enemy.rep)
@@ -851,10 +851,10 @@ function KinkyDungeonGetRandomEnemyPoint(avoidPlayer, onlyPlayer, Enemy) {
 
 	while (tries < 100) {
 		let points = Array.from(KinkyDungeonRandomPathablePoints, ([name, value]) => (value));
-		let point = points[Math.floor(points.length * Math.random())];
+		let point = points[Math.floor(points.length * KDRandom())];
 		if (point) {
-			let X = point.x;//1 + Math.floor(Math.random()*(KinkyDungeonGridWidth - 1));
-			let Y = point.y;//1 + Math.floor(Math.random()*(KinkyDungeonGridHeight - 1));
+			let X = point.x;//1 + Math.floor(KDRandom()*(KinkyDungeonGridWidth - 1));
+			let Y = point.y;//1 + Math.floor(KDRandom()*(KinkyDungeonGridHeight - 1));
 			let playerDist = 6;
 			let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
@@ -899,7 +899,7 @@ function KinkyDungeonGetNearbyPoint(x, y, allowNearPlayer=false, Enemy, Adjacent
 
 	let foundslot = undefined;
 	for (let C = 0; C < 100; C++) {
-		let slot = slots[Math.floor(Math.random() * slots.length)];
+		let slot = slots[Math.floor(KDRandom() * slots.length)];
 		if (slot && KinkyDungeonNoEnemyExceptSub(slot.x, slot.y, false, Enemy)
 			&& (allowNearPlayer || Math.max(Math.abs(KinkyDungeonPlayerEntity.x - slot.x), Math.abs(KinkyDungeonPlayerEntity.y - slot.y)) > 1.5)
 			&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(slot.x, slot.y))) {
@@ -1043,13 +1043,13 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (player.player) {
 		if (enemy.Enemy.tags.has("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
 		if (enemy.Enemy.tags.has("ignoreharmless") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
-			&& harmless && (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+			&& harmless && (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 		if (enemy.Enemy.tags.has("ignoretiedup") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& !KinkyDungeonPlayer.CanInteract() && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
-			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+			&& (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 		if (enemy.Enemy.tags.has("ignoreboundhands") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonPlayer.CanInteract()
-			&& (!enemy.Enemy.ignorechance || Math.random() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
+			&& (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 		if (enemy.Enemy.ignoreflag) {
 			for (let f of enemy.Enemy.ignoreflag) {
 				if (KinkyDungeonFlags[f]) ignore = true;
@@ -1169,7 +1169,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		idle = true;
 		if (ignore || !KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, enemy.attackPoints < 1 || !enemy.Enemy.projectileAttack, false) || kite)
 			for (let T = 0; T < 8; T++) { // try 8 times
-				let dir = KinkyDungeonGetDirection(10*(Math.random()-0.5), 10*(Math.random()-0.5));
+				let dir = KinkyDungeonGetDirection(10*(KDRandom()-0.5), 10*(KDRandom()-0.5));
 				if (MovableTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)) && (T > 5 || !AvoidTiles.includes(KinkyDungeonMapGet(enemy.x + dir.x, enemy.y + dir.y)))
 					&& KinkyDungeonNoEnemy(enemy.x + dir.x, enemy.y + dir.y, true)) {
 					if (KinkyDungeonEnemyTryMove(enemy, dir, delta, enemy.x + dir.x, enemy.y + dir.y)) moved = true;
@@ -1244,7 +1244,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		if (AI == "patrol") {
 			let patrolChance = patrolChange ? 0.2 : 0.04;
 			if (!enemy.patrolIndex) enemy.patrolIndex = KinkyDungeonNearestPatrolPoint(enemy.x, enemy.y);
-			if (KinkyDungeonPatrolPoints[enemy.patrolIndex] && Math.random() < patrolChance) {
+			if (KinkyDungeonPatrolPoints[enemy.patrolIndex] && KDRandom() < patrolChance) {
 				if (enemy.patrolIndex < KinkyDungeonPatrolPoints.length - 1) enemy.patrolIndex += 1;
 				else enemy.patrolIndex = 0;
 
@@ -1255,9 +1255,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 		}
 		if ((AI == "wander" || AI == "hunt") && enemy.movePoints < 1) {
-			if (Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 || (!enemy.path || Math.random() < 0.1)) {
+			if (Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 || (!enemy.path || KDRandom() < 0.1)) {
 				let master = KinkyDungeonFindMaster(enemy).master;
-				if (Math.random() < 0.1 && !master) {
+				if (KDRandom() < 0.1 && !master) {
 					// long distance hunt
 					let newPoint = KinkyDungeonGetRandomEnemyPoint(false, enemy.tracking && KinkyDungeonHuntDownPlayer);
 					if (newPoint) {
@@ -1274,10 +1274,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						let ey = enemy.y;
 						let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.3;
 						let masterCloseness = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.7;
-						if (master && Math.random() < masterCloseness) {
+						if (master && KDRandom() < masterCloseness) {
 							ex = master.x;
 							ey = master.y;
-						} else if (Math.random() < cohesion) {
+						} else if (KDRandom() < cohesion) {
 							let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : enemy.Enemy.visionRadius / 2;
 							for (let e of KinkyDungeonEntities) {
 								let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
@@ -1343,7 +1343,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 			let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 				: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
-			if (playerDist < 1.5 && player.player && attack.includes("Bind") && Math.random() * accuracy <= playerEvasion && KinkyDungeonMovePoints > -1 && KinkyDungeonTorsoGrabCD < 1 && KinkyDungeonLastAction == "Move") {
+			if (playerDist < 1.5 && player.player && attack.includes("Bind") && KDRandom() * accuracy <= playerEvasion && KinkyDungeonMovePoints > -1 && KinkyDungeonTorsoGrabCD < 1 && KinkyDungeonLastAction == "Move") {
 				let caught = false;
 				for (let W = 0; W < enemy.warningTiles.length; W++) {
 					let tile = enemy.warningTiles[W];
@@ -1367,9 +1367,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (rest) harnessRestraintName = rest;
 
 					if (harnessChance > 0) {
-						let roll = Math.random();
+						let roll = KDRandom();
 						for (let T = 0; T < harnessChance; T++) {
-							roll = Math.min(roll, Math.random());
+							roll = Math.min(roll, KDRandom());
 						}
 						if (roll < KinkyDungeonTorsoGrabChance) {
 							KinkyDungeonMovePoints = -1;
@@ -1397,7 +1397,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 			let playerEvasion = (player.player) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 				: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
-			if (hit && Math.random() > playerEvasion) {
+			if (hit && KDRandom() > playerEvasion) {
 				if (player.player) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
@@ -1424,7 +1424,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						let Lstart = 0;
 						let Lmax = Lockable.length-1;
 						if (!enemy.Enemy.attack.includes("LockAll")) {
-							Lstart = Math.floor(Lmax*Math.random()); // Lock one at random
+							Lstart = Math.floor(Lmax*KDRandom()); // Lock one at random
 						}
 						for (let L = Lstart; L <= Lmax; L++) {
 							KinkyDungeonLock(Lockable[L], KinkyDungeonGenerateLock(true)); // Lock it!
@@ -1585,7 +1585,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 							}
 						}
 					if (tiles.length > 0) {
-						let tile = tiles[Math.floor(Math.random()*tiles.length)];
+						let tile = tiles[Math.floor(KDRandom()*tiles.length)];
 						if (enemy.Enemy.dashThrough) {
 							let tiled = 0;
 							for (let t of tiles) {
@@ -1680,7 +1680,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
 
 					replace.push({keyword:"DamageTaken", value: data.damage});
-				} else { // if (Math.random() <= playerEvasion)
+				} else { // if (KDRandom() <= playerEvasion)
 					let dmg = power;
 					let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 					if (buffdmg) dmg = Math.max(0, dmg + buffdmg);
@@ -1757,7 +1757,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 		for (let tries = 0; tries < 6; tries++) {
 			spelltarget = false;
-			spellchoice = enemy.Enemy.spells[Math.floor(Math.random()*enemy.Enemy.spells.length)];
+			spellchoice = enemy.Enemy.spells[Math.floor(KDRandom()*enemy.Enemy.spells.length)];
 			spell = KinkyDungeonFindSpell(spellchoice, true);
 			if ((!spell.castRange && playerDist > spell.range) || (spell.castRange && playerDist > spell.castRange)) spell = null;
 			if (spell && spell.specialCD && enemy.castCooldownSpecial > 0) spell = null;
@@ -1774,7 +1774,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						}
 					}
 					if (nearAllies.length > 0) {
-						let e = nearAllies[Math.floor(Math.random() * nearAllies.length)];
+						let e = nearAllies[Math.floor(KDRandom() * nearAllies.length)];
 						if (e) {
 							spelltarget = e;
 							KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
@@ -1904,7 +1904,7 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 		let dist = Math.abs(x - KinkyDungeonPlayerEntity.x) + Math.abs(y - KinkyDungeonPlayerEntity.y);
 
 		if (KinkyDungeonMapGet(enemy.x, enemy.y) == 'd' && enemy.Enemy && enemy.Enemy.tags.has("closedoors")
-			&& ((Math.random() < 0.8 && dist > 5) ||
+			&& ((KDRandom() < 0.8 && dist > 5) ||
 				(KinkyDungeonTiles.get(enemy.x + "," + enemy.y) && (KinkyDungeonTiles.get(enemy.x + "," + enemy.y).Jail || KinkyDungeonTiles.get(enemy.x + "," + enemy.y).ReLock) && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")))) {
 			KinkyDungeonMapSet(enemy.x, enemy.y, 'D');
 			if (KinkyDungeonTiles.get(enemy.x + "," + enemy.y) && KinkyDungeonTiles.get(enemy.x + "," + enemy.y).Jail
@@ -2004,7 +2004,7 @@ function KinkyDungeonGetWarningTiles(dx, dy, range, width, forwardOffset = 1) {
 	var arr = [];
 	/*
 	var cone = 0.78539816 * (width-0.9)/2;
-	var angle_player = Math.atan2(dx, dy) + ((width % 2 == 0) ? ((Math.random() > 0.5) ? -0.39269908 : 39269908) : 0);
+	var angle_player = Math.atan2(dx, dy) + ((width % 2 == 0) ? ((KDRandom() > 0.5) ? -0.39269908 : 39269908) : 0);
 	if (angle_player > Math.PI) angle_player -= Math.PI;
 	if (angle_player < -Math.PI) angle_player += Math.PI;
 

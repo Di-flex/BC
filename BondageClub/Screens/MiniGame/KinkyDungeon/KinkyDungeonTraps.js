@@ -186,7 +186,7 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 		}
 	}
 
-	var selection = Math.random() * trapWeightTotal;
+	var selection = KDRandom() * trapWeightTotal;
 
 	for (let L = trapWeights.length - 1; L >= 0; L--) {
 		if (selection > trapWeights[L].weight) {
