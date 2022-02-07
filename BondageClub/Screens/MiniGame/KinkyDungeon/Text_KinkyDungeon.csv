@@ -491,6 +491,11 @@ KillMageZombie,"The zombie frowns and disappears in a puff of ice and ribbons."
 AttackMageZombieBind,"The zombie smiles as she wraps you in charms! (+RestraintAdded)"
 AttackMageZombie,"The zombie gropes your body! (-DamageTaken SP)"
 
+NameTalismanZombie,Talisman Zombie
+KillTalismanZombie,"The zombie pouts and puts up a shield to let her retreat."
+AttackTalismanZombieBind,"The zombie giggles as she wraps you in charms! (+RestraintAdded)"
+AttackTalismanZombie,"The zombie gropes your body! (-DamageTaken SP)"
+
 NameSamuraiZombie,Warrior Zombie
 KillSamuraiZombie,"The Warrior zombie yells and falls cinematically."
 AttackSamuraiZombieBind,"The Warrior zombie uses a traditional binding technique (+RestraintAdded)"
@@ -2085,6 +2090,7 @@ KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked eart
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
 KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defense!
 KinkyDungeonSpellCastParasolBuff,"EnemyName uses a charm to buff an enemy's spell resist, and evasion!"
+KinkyDungeonSpellCastZombieBuff,"EnemyName uses a glowing talisman to buff an undead's armor and speed!"
 KinkyDungeonSpellCastEarthrune,You create a zone of increased defense!
 KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 

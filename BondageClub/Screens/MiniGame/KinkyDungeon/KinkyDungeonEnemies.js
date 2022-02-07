@@ -40,9 +40,13 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 10, minLevel:4, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":10, "lastthird":14}, floors:[0], dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
 	{name: "MageZombie", tags: KDMapInit(["leashing", "zombie", "melee", "ribbonRestraints", "meleeweakness", "hunter"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 2, AI: "hunt",
-		spells: ["ZombieOrb", "ZombieOrbIce"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true,
-		visionRadius: 6, maxhp: 13, minLevel:7, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
+		spells: ["ZombieOrb", "ZombieOrbIce"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, projectileTargeting: true, minSpellRange: 1.5,
+		visionRadius: 6, maxhp: 13, minLevel:6, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {}, floors:[0], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}]},
+	{name: "TalismanZombie", tags: KDMapInit(["leashing", "zombie", "melee", "ribbonRestraints", "meleeweakness", "hunter"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 3, AI: "hunt",
+		spells: ["ZombieOrb", "ZombieBuff", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileTargeting: true, minSpellRange: 1.5,
+		visionRadius: 6, maxhp: 20, minLevel:7, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
+		terrainTags: {"mummy": 3}, floors:[0, 11], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10}]},
 	{name: "SamuraiZombie", tags: KDMapInit(["leashing", "zombie", "melee", "elite", "ropeRestraints", "ropeRestraints2", "meleeweakness", "hunter"]), evasion: -1, armor: 2, followRange: 1, AI: "hunt",
 		stunTime: 2, specialCD: 6, specialAttack: "Stun", specialRemove: "Bind", specialPower: 5, specialDamage: "pain",
 		specialCDonAttack: false, visionRadius: 6, maxhp: 20, minLevel:4, weight:5, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4, specialWidth: 5, specialRange: 1,
@@ -1772,9 +1776,21 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					// Select a random nearby ally of the enemy
 					let nearAllies = [];
 					for (let e of KinkyDungeonEntities) {
-						if ((e != enemy) && (!spell.heal || e.hp < e.Enemy.maxhp - spell.power*0.5) && e.aware && !KinkyDungeonHasBuff(e.buffs, spell.name) && ((enemy.Enemy.allied && e.Enemy.allied) || (!enemy.Enemy.allied && !e.Enemy.allied))
+						if ((e != enemy) && (!spell.heal || e.hp < e.Enemy.maxhp - spell.power*0.5)
+							&& e.aware && !KinkyDungeonHasBuff(e.buffs, spell.name)
+							&& ((enemy.Enemy.allied && e.Enemy.allied) || (!enemy.Enemy.allied && !e.Enemy.allied))
 							&& Math.sqrt((enemy.x - e.x)*(enemy.x - e.x) + (enemy.y - e.y)*(enemy.y - e.y)) < spell.range) {
-							nearAllies.push(e);
+							let allow = !spell.filterTags;
+							if (spell.filterTags) {
+								for (let t of spell.filterTags) {
+									if (e.Enemy.tags && e.Enemy.tags.get(t)) {
+										allow = true;
+										break;
+									}
+								}
+							}
+							if (allow)
+								nearAllies.push(e);
 						}
 					}
 					if (nearAllies.length > 0) {
@@ -1899,9 +1915,10 @@ function KinkyDungeonEnemyAt(x, y) {
 }
 
 function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
-	if (enemy.bind > 0) enemy.movePoints += delta/10;
-	else if (enemy.slow > 0) enemy.movePoints += delta/2;
-	else enemy.movePoints += KDGameData.SleepTurns > 0 ? 4*delta : delta;
+	let speedMult = KinkyDungeonGetBuffedStat(enemy.buffs, "MoveSpeed") ? KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(enemy.buffs, "MoveSpeed")) : 1;
+	if (enemy.bind > 0) enemy.movePoints += speedMult * delta/10;
+	else if (enemy.slow > 0) enemy.movePoints += speedMult * delta/2;
+	else enemy.movePoints += KDGameData.SleepTurns > 0 ? 4*delta * speedMult : delta * speedMult;
 
 	if (enemy.movePoints >= enemy.Enemy.movePoints) {
 		enemy.movePoints = 0;

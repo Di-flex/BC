@@ -535,7 +535,8 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		}
 		for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 			let enemy = KinkyDungeonEntities[L];
-			if ((!b.bullet.spell || (!b.bullet.spell.enemySpell && enemy.Enemy.allied) || (!b.bullet.spell.allySpell && !enemy.Enemy.allied)) && enemy.x == b.x && enemy.y == b.y) {
+			if ((!b.bullet.spell || (!b.bullet.spell.enemySpell && enemy.Enemy.allied) || (!b.bullet.spell.allySpell && !enemy.Enemy.allied))
+				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
 				enemy.hp = Math.min(enemy.hp + b.bullet.spell.power, enemy.Enemy.maxhp);
 				KinkyDungeonSendFloater(enemy, `+${Math.round((enemy.hp - origHP) * 10)}`, "#ffaa00", 3);
