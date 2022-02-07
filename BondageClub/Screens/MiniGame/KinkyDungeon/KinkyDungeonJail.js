@@ -490,19 +490,6 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax;
-	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B") {
-		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
-	} else {
-		KinkyDungeonPlayerEntity.x = KinkyDungeonStartPosition.x;
-		KinkyDungeonPlayerEntity.y = KinkyDungeonStartPosition.y;
-		let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-		if (leash && (leash.tx || leash.ty)) {
-			leash.tx = undefined;
-			leash.ty = undefined;
-		}
-		KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
-	}
-
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
 	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
@@ -549,17 +536,31 @@ function KinkyDungeonDefeat() {
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
 	KinkyDungeonJailTransgressed = false;
 
-	let enemies = [];
-	for (let e of  KinkyDungeonEntities) {
-		if (!e.summoned && (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))) {
-			if (e.x < KinkyDungeonJailLeashX) {
-				e.x = KinkyDungeonJailLeashX;
-				e.y = KinkyDungeonStartPosition.y;
-			}
-			enemies.push(e);
-		}
-	}
-	KinkyDungeonEntities = enemies;
-
 	KinkyDungeonSaveGame();
+
+	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B") {
+		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	} else {
+		KinkyDungeonPlayerEntity.x = KinkyDungeonStartPosition.x;
+		KinkyDungeonPlayerEntity.y = KinkyDungeonStartPosition.y;
+		let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+		if (leash && (leash.tx || leash.ty)) {
+			leash.tx = undefined;
+			leash.ty = undefined;
+		}
+		KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
+
+		let enemies = [];
+		for (let e of  KinkyDungeonEntities) {
+			if (!e.summoned && (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))) {
+				if (e.x < KinkyDungeonJailLeashX) {
+					e.x = KinkyDungeonJailLeashX;
+					e.y = KinkyDungeonStartPosition.y;
+				}
+				enemies.push(e);
+			}
+		}
+		KinkyDungeonEntities = enemies;
+	}
+	KinkyDungeonJailTransgressed = false;
 }

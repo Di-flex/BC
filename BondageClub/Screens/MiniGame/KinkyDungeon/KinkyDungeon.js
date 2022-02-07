@@ -1188,7 +1188,7 @@ function KinkyDungeonLoadGame(String) {
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 
-
+			KinkyDungeonInventory = [];
 			for (let item of saveData.inventory) {
 				if (item.restraint) {
 					let restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
