@@ -395,7 +395,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 		}
 	} else if (Event == "playerAttack") {
 		if (e.type == "ElementalEffect" && e.trigger == Event && data.enemy && !data.disarm && !data.evaded) {
-			if (data.enemy) {
+			if (data.enemy && (!e.chance || KDRandom() < e.chance)) {
 				KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
 			}
 		} if (e.type == "Cleave" && e.trigger == Event && data.enemy && !data.disarm) {

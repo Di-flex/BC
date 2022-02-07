@@ -22,6 +22,10 @@ let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
+	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", unarmed: false, rarity: 1, shop: true, sfx: "Freeze"},
+	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.1, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
 	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 2, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
@@ -195,7 +199,6 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			predata.dmg = Math.max(0, predata.dmg * spellResist);
 		}
 
-		if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) predata.dmg *= 0.5;
 
 		if (Enemy.Enemy.tags) {
 			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
@@ -210,12 +213,16 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		}
 
+		if (KinkyDungeonHalfDamageTypes.includes(Damage.type) && resistDamage >= 0) predata.dmg *= 0.5;
+
 		if (Damage.type != "inert" && resistDamage < 2) {
 			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
 				dmgDealt = Math.max(predata.dmg - armor, 0); // Armor goes before resistance
 				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 			} else if (resistDamage == -1) {
-				dmgDealt = Math.max(predata.dmg+1, predata.dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+				if (predata.dmg > 0)
+					dmgDealt = Math.max(predata.dmg+1, predata.dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+				else dmgDealt = 0;
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else if (resistDamage == -2) {
 				dmgDealt = Math.max(predata.dmg+1, predata.dmg*2); // Enemies that are severely vulnerable take either dmg+1 or 2x damage, whichever is greater

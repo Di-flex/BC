@@ -1555,6 +1555,7 @@ interface KinkyDungeonEvent {
 	dist?: number;
 	buffType?: string;
 	time?: number;
+	chance?: number;
 }
 
 type PokerPlayerType = "None" | "Set" | "Character";

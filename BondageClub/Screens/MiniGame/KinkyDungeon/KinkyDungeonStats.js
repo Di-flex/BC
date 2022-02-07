@@ -43,7 +43,7 @@ let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostRemove = -0.25; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
 let KinkyDungeonStatStaminaCostPick = -0.0; // It costs stamina to pick, but much less
-let KinkyDungeonStatStaminaCostAttack = -0.5; // Cost to attack
+let KinkyDungeonStatStaminaCostAttack = -1.0; // Cost to attack
 let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
 // Current Status
