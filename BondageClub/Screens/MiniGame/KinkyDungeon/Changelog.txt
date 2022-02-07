@@ -563,6 +563,7 @@ Bugfix:
 - There are low-rarity weapons available in the shop
 - Autosave now happens after every floor
 - New difficulty level that doesn't provide save codes
+- Fixed the RNG, should have much higher entropy now
 
 TODO ValidationFindBlockCycles to prevent bugs
 

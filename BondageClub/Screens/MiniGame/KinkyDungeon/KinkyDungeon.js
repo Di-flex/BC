@@ -836,7 +836,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonState = "Game";
 			let temp = [];
 			for (let o of KinkyDungeonOrbsPlaced) {
-				if (Math.random() < 0.5) temp.push(o);
+				if (KDRandom() < 0.5) temp.push(o);
 			}
 			KinkyDungeonOrbsPlaced = temp;
 			KinkyDungeonCachesPlaced = [];

@@ -216,7 +216,7 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 	KinkyDungeonInterruptSleep();
 
-	if (KinkyDungeonStatFreeze > 0) {
+	if (KinkyDungeonStatFreeze > 0 && KinkyDungeonMeleeDamageTypes.includes(type)) {
 		KinkyDungeonChangeStamina(-dmg);
 		KinkyDungeonStatFreeze = 0;
 	}

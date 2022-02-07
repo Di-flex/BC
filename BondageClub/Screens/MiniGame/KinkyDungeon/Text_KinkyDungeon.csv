@@ -482,8 +482,14 @@ AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 NameFastZombie,Ravenous Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
-AttackFastZombieBind,"The zombie swiftly wraps you in charms (+RestraintAdded)"
+AttackFastZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackFastZombie,"The zombie gropes your body! (-DamageTaken SP)"
+
+
+NameMageZombie,Mage Zombie
+KillMageZombie,"The zombie frowns and disappears in a puff of ice and ribbons."
+AttackMageZombieBind,"The zombie smiles as she wraps you in charms! (+RestraintAdded)"
+AttackMageZombie,"The zombie gropes your body! (-DamageTaken SP)"
 
 NameSamuraiZombie,Warrior Zombie
 KillSamuraiZombie,"The Warrior zombie yells and falls cinematically."
@@ -2244,6 +2250,9 @@ KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"Nature magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
+
+KinkyDungeonCharmWraps,"The orb explodes into a burst of ribbons!"
+KinkyDungeonCharmWrapsDress,"The orb tears off your clothes!"
 
 KinkyDungeonSpellTrapCharmWeak,Charm Trap
 KinkyDungeonSpellTrapShackleWeak,Shackle Trap
