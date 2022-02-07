@@ -260,13 +260,13 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 9, minLevel:0, weight:23, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"thirdhalf":-4, "increasingWeight":-1}, shrines: ["Leather"], floors:[2],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 24}]},
-	{name: "BanditChief", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "miniboss", "melee", "ballGagRestraints", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
+	{name: "BanditChief", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "miniboss", "melee", "ballGagRestraints", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "hunter"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		summon: [
 			{enemy: "BanditPet", range: 3, count: 2, chance: 1.0, strict: true},],
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, noSpellLeashing: true,
 		visionRadius: 9, maxhp: 24, minLevel:23, weight:-11, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 3.6, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":16, "lastthird":5, "miniboss": -20, "open": 10, "passage": -10, "increasingWeight":1}, shrines: ["Leather"], floors:[2],
-		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Pick", weight: 2}, {name: "Knife", weight: 2}]},
+		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Pick", weight: 2}, {name: "Knife", weight: 2}, {name: "PotionStamina", weight: 2}]},
 	{name: "BanditPet", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "minor", "ballGagRestraints", "ropeRestraints", "tickleweakness", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		master: {type: "BanditChief", range: 2, loose: true, aggressive: true},
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:3, movePoints: 1, attackPoints: 3, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
@@ -276,14 +276,14 @@ let KinkyDungeonEnemies = [
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 7, maxhp: 9, minLevel:0, weight:4, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":7, "thirdhalf":5}, shrines: ["Leather"], floors:[2],
-		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "PotionStamina", weight: 2}]},
+		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "SmokeBomb", weight: 7}]},
 	{name: "BanditGrappler", color: "#ddcaaa",
 		tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "elite", "chainRestraints", "handcuffer","leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "hunter"]),
 		ignorechance: 0, armor: 1, followRange: 1, AI: "hunt",
 		specialCD: 10, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "Chain", specialWidth: 1, specialRemove: "Bind", pullDist: 3, pullTowardSelf: true,
 		visionRadius: 7, maxhp: 10, minLevel:0, weight:1, movePoints: 3, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 2, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":10, "thirdhalf":1}, shrines: ["Leather", "Metal"], floors:[2],
-		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "PotionStamina", weight: 2}]},
+		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "PotionStamina", weight: 1}]},
 
 
 
