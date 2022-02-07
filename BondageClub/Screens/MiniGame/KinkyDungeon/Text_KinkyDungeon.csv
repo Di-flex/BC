@@ -134,6 +134,8 @@ LootRubbleBlueKey,"You find a blue key, glowing with magic"
 LootChestMistressKey,You find a golden key surrounded by strange golden crystals.
 LootChestAncientCores,You find a set of strange golden crystals.
 LootChestScrolls,"You find a pack of scrolls used for spellcasting, and some strange golden crystals."
+LootChestScrollsBasic,"You find a pack of scrolls used for spellcasting."
+LootChestScrollsPurity,"You find a glowing scroll of purity."
 
 LootChestGold,The chest contains gold! (+XXX gold)
 LootChestMagicKnife,The chest contains a glowing magical knife that can turn invisible on your body!
@@ -311,7 +313,7 @@ KinkyDungeonInventoryItemFeatherDesc,"A feather useful for tickling."
 KinkyDungeonInventoryItemFeatherDesc2,"Deals tickle damage (50% effectiveness vs. most enemies). Drains low stamina."
 KinkyDungeonInventoryItemIceCube,Ice Cube
 KinkyDungeonInventoryItemIceCubeDesc,"A magical cube of ice that never melts. Convenient!"
-KinkyDungeonInventoryItemIceCubeDesc2,"Deals 10 ice damage. Its magic affects ghosts too."
+KinkyDungeonInventoryItemIceCubeDesc2,"Deals 10 ice damage with a 10% chance to freeze for 3 turns."
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with."
