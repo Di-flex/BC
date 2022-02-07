@@ -840,9 +840,9 @@ function KinkyDungeonHandleClick() {
 			}
 			KinkyDungeonOrbsPlaced = temp;
 			KinkyDungeonCachesPlaced = [];
+			MiniGameKinkyDungeonLevel = 1;
 			KinkyDungeonSetCheckPoint(0);
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
-			MiniGameKinkyDungeonLevel = 1;
 			KinkyDungeonNewGame += 1;
 			return true;
 		} if (MouseIn(1275, 750, 350, 64)) {
