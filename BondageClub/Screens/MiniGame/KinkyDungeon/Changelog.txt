@@ -566,6 +566,7 @@ Bugfix:
 - Fixed the RNG, should have much higher entropy now
 - Added two new zombies
 - Added a new skeleton
+- Added a new bandit
 
 TODO ValidationFindBlockCycles to prevent bugs
 
