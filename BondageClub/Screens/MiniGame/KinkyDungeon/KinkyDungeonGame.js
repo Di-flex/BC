@@ -103,7 +103,7 @@ let KinkyDungeonDoorCloseTimer = 0;
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
-let KinkyDungeonMaxLevel = 30; // Game stops when you reach this level
+let KinkyDungeonMaxLevel = 40; // Game stops when you reach this level
 
 let KinkyDungeonLastMoveTimer = 0;
 let KinkyDungeonLastMoveTimerStart = 0;
@@ -287,6 +287,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	if (KinkyDungeonGoddessRep.Prisoner && KDGameData.KinkyDungeonSpawnJailers > 0) doorlockchance = doorlockchance + (KDGameData.KinkyDungeonSpawnJailers / KDGameData.KinkyDungeonSpawnJailersMax) * (1.0 - doorlockchance) * (KinkyDungeonGoddessRep.Prisoner + 50)/100;
 	let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
 	let grateChance = MapParams.grateChance;
+	let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
 	let brickchance = MapParams.brickchance; // Chance for brickwork to start being placed
 	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
 	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
@@ -295,7 +296,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let greaterChance = MapParams.forbiddenGreaterChance;
 
 	let shrineTypes = [];
-	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density);
+	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, floodChance);
 
 	KinkyDungeonGroundItems = []; // Clear items on the ground
 	KinkyDungeonBullets = []; // Clear all bullets
@@ -1266,7 +1267,7 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, width, height) {
 		}
 }
 
-function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density) {
+function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, floodChance) {
 	// Variable setup
 
 	let Walls = {};
@@ -1335,10 +1336,14 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density) 
 		if (KDRandom() < 0.1 - 0.015*density) {
 			let size = 1+Math.ceil(KDRandom() * (openness));
 
+			let tile = '0';
+			if (floodChance > 0 && KDRandom() < floodChance) tile = 'w';
+
 			// We open up the tiles
 			for (let XX = wall.x; XX < wall.x +size; XX++)
 				for (let YY = wall.y; YY < wall.y+size; YY++) {
-					KinkyDungeonMapSet(XX, YY, '0');
+					if (!KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY)))
+						KinkyDungeonMapSet(XX, YY, tile);
 					VisitedCells[XX + "," + YY] = {x:XX, y:YY};
 					KinkyDungeonMazeWalls({x:XX, y:YY}, Walls, WallsList);
 					delete Walls[XX + "," + YY];
@@ -1883,6 +1888,9 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			}
 
 			MiniGameKinkyDungeonLevel += 1;
+			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
+				MiniGameKinkyDungeonLevel = 1;
+			}
 
 			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 			if (toTile == 's') {

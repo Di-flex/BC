@@ -6,7 +6,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.6.8"
+KinkyDungeon,"Kinky Dungeon v2.7.0"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -120,7 +120,7 @@ DungeonName0,-Graveyard-
 DungeonName1,-Catacombs-
 DungeonName2,-Underground Jungle-
 DungeonName3,-Lost Temple-
-DungeonName4,-Fungal Caverns-
+DungeonName4,-Library of Magic-
 DungeonName5,-The Bellows-
 DungeonName6,-Underground Desert-
 DungeonName7,-Kingdom of Ice-
@@ -128,6 +128,11 @@ DungeonName8,-Marble Halls-
 DungeonName9,-Ancient Laboratory-
 DungeonName10,-The Mansion-
 DungeonName11,-Ancient Tombs-
+DungeonName12,-Rundown Laboratory-
+DungeonName13,-Fungal Caves-
+DungeonName14,-Orrery-
+DungeonName15,-Summoner's Closet-
+DungeonName16,-Training Facility-
 
 LootRubbleFail,You search through the debris but find nothing of note
 LootRubbleSmallGold,You find some gold coins in a corner (+XXX gold)
@@ -559,6 +564,13 @@ KinkyDungeonSummonMultiChaoticCrystal,Many crystals rise up out of the ground!
 NameChaoticCrystal,Chaotic Crystal
 KillChaoticCrystal,"The crystal shatters!"
 AttackChaoticCrystal,"The chaotic crystal leeches willpower from you! (-DamageTaken SP)"
+
+NameSoulCrystal,Soul Crystal
+KillSoulCrystal,"The crystal shatters into a puff of soul dust!"
+AttackSoulCrystal,"The soul crystal leeches willpower from you! (-DamageTaken SP)"
+NameSoulCrystalActive,Active Soul Crystal
+KillSoulCrystalActive,"The crystal shatters into a puff of soul dust!"
+AttackSoulCrystalActive,"The soul crystal leeches willpower from you! (-DamageTaken SP)"
 
 
 NameDragonShadow,Shadow Dragonheart
@@ -2271,12 +2283,14 @@ KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
 KinkyDungeonSpellVineEngulf,"Animated Vines"
+KinkyDungeonSpellSoulCrystalBind,"Soul-binding Sigil"
 KinkyDungeonSpellElfArrow,Elven Arrow
 KinkyDungeonEnchantedArrow,"The elven arrow flashes and wraps you in mithril ropes!"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"Nature magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
+KinkyDungeonObsidianEngulf,"Restraints materialize on your body!"
 
 KinkyDungeonCharmWraps,"The orb explodes into a burst of ribbons!"
 KinkyDungeonCharmWrapsDress,"The orb tears off your clothes!"
@@ -2465,6 +2479,8 @@ KinkyDungeonGhostUnhelpfulChaste4,"Ghost: How's it feel to be under lock and key
 
 KinkyDungeonTrapSpawnSummonedSkeleton,"You step on a pressure plate and a number of skeletons rise up!"
 KinkyDungeonTrapSpawnBandit,"You are ambushed by bandits!"
+KinkyDungeonTrapSpawnGreaterSkeleton,"Armed skeletons appear from passages in the walls!"
+KinkyDungeonTrapSpawnHeavySkeleton,"A wall panel falls down, and an armored skeleton appears!"
 KinkyDungeonTrapSpawnNinja,"You are ambushed by ninjas!"
 KinkyDungeonTrapSpawnRopeKraken,"A large, wriggling mess of ropes fall from the ceiling!"
 KinkyDungeonTrapSpawnDragon,"You are ambushed by dragonhearts!"

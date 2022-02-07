@@ -96,7 +96,7 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 							for (let YY = Y-1; YY <= Y+1; YY++)
 								if (!KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(XX, YY)) || visionBlockers[XX + "," + YY]) nearbywalls += 1;
 
-						if (nearbywalls > 3 && brightness <= 3 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) brightness -= 1;
+						if (nearbywalls > 3 && brightness <= 9 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) brightness -= nearbywalls * 0.25;
 						if (flags.SeeThroughWalls && !KinkyDungeonTransparentObjects.includes(tile)) {
 							if (flags.SeeThroughWalls > 2)
 								brightness -= 2;
@@ -112,10 +112,10 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 							if (Number(KinkyDungeonLightGet(X, Y+1)) < brightness) KinkyDungeonLightSet(X, Y+1, (brightness - 1));
 
 							if (brightness > 1) {
-								if (Number(KinkyDungeonLightGet(X-1, Y-1)) < brightness) KinkyDungeonLightSet(X-1, Y-1, (brightness - 1-(KDRandom() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X-1, Y+1)) < brightness) KinkyDungeonLightSet(X-1, Y+1, (brightness - 1-(KDRandom() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X+1, Y-1)) < brightness) KinkyDungeonLightSet(X+1, Y-1, (brightness - 1-(KDRandom() > 0.4 ? 1 : 0)));
-								if (Number(KinkyDungeonLightGet(X+1, Y+1)) < brightness) KinkyDungeonLightSet(X+1, Y+1, (brightness - 1-(KDRandom() > 0.4 ? 1 : 0)));
+								if (Number(KinkyDungeonLightGet(X-1, Y-1)) < brightness) KinkyDungeonLightSet(X-1, Y-1, (brightness - 1-0.4));
+								if (Number(KinkyDungeonLightGet(X-1, Y+1)) < brightness) KinkyDungeonLightSet(X-1, Y+1, (brightness - 1-0.4));
+								if (Number(KinkyDungeonLightGet(X+1, Y-1)) < brightness) KinkyDungeonLightSet(X+1, Y-1, (brightness - 1-0.4));
+								if (Number(KinkyDungeonLightGet(X+1, Y+1)) < brightness) KinkyDungeonLightSet(X+1, Y+1, (brightness - 1-0.4));
 							}
 						}
 					}
@@ -151,7 +151,7 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 						}
 					}
 
-					KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], KinkyDungeonLightGrid[X + Y*(width)]);
+					KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], KinkyDungeonLightGrid[X + Y*(width)] ? 2 : 0);
 				}
 		}
 	}

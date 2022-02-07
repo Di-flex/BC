@@ -193,6 +193,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		let buffType = Damage.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
+
+		if (Damage.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
+			predata.dmg *= 2;
+		}
+
 		let time = Damage.time ? Damage.time : 0;
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 			if (time)

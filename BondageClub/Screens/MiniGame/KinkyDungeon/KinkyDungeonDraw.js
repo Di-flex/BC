@@ -8,13 +8,11 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	if (code == "1") sprite = "Wall";
 	else if (code == "2") sprite = "Brickwork";
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
-	else if (code == "B") sprite = "Bed";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
 	else if (code == "D") sprite = "Door";
-	else if (code == "G") sprite = "Ghost";
 	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
-	else if (code == "R") sprite = "Rubble";
+	else if (code == "R") sprite = "RubbleLooted";
 	else if (code == "T") sprite = "Trap";
 	else if (code == "r") sprite = "RubbleLooted";
 	else if (code == "g") sprite = "Grate";
@@ -22,16 +20,20 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "s") sprite = "StairsDown";
 	else if (code == "H") sprite = "StairsDown"; // Shortcut
 	else if (code == "A") sprite = (KinkyDungeonTiles.get(x + "," + y) && KinkyDungeonTiles.get(x + "," + y).Type == "Shrine" && KinkyDungeonTiles.get(x + "," + y).Name == "Commerce") ? "ShrineC" : "Shrine";
-	else if (code == "O") sprite = "Orb";
+	else if (code == "O") sprite = "OrbEmpty";
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
-	else if (code == "w") sprite = Fog ? "Floor" : "Water";
+	else if (code == "w") sprite = "Floor";
 	return sprite;
 }
 
 function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
-	if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
+	if (code == "G") sprite = "Ghost";
+	else if (code == "B") sprite = "Bed";
+	else if (code == "O") sprite = "Orb";
+	else if (code == "w") sprite = Fog ? "" : "Water";
+	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" : "Chest");
 	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" : "ChestOpen");
@@ -248,7 +250,8 @@ function KinkyDungeonDrawGame() {
 						let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight-1));
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth-1));
 						let fog = KinkyDungeonStatBlind > 0 ? 0 : Math.min(0.5, KinkyDungeonFogGrid[RX + RY*KinkyDungeonGridWidth]/10);
-						let light = Math.max(KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth]/3, fog);
+						let lightDiv = (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(RX, RY))) ? 3 : 2;
+						let light = Math.max(KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth]/lightDiv, fog);
 						if (KinkyDungeonLightGrid[RX + RY*KinkyDungeonGridWidth] > 0 && KDistChebyshev(KinkyDungeonPlayerEntity.x - RX, KinkyDungeonPlayerEntity.y - RY) < 2) {
 							light = light + (1 - light)*0.5;
 						}
