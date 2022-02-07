@@ -560,4 +560,6 @@ function KinkyDungeonDefeat() {
 		}
 	}
 	KinkyDungeonEntities = enemies;
+
+	KinkyDungeonSaveGame();
 }
