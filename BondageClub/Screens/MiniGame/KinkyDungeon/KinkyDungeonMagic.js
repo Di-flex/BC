@@ -51,7 +51,7 @@ let KinkyDungeonLearnableSpells = [
 		// Verbal
 		["Electrify", "IronBlood", "Incinerate", "IceBreath",],
 		// Arms
-		["Firebolt", "Icebolt", "Crackle", "Fireball", "LightningBolt",],
+		["Firebolt", "Icebolt", "Crackle", "Fireball", "LightningBolt", "StoneSkin"],
 		// Legs
 		["Shield", "GreaterShield", "Fissure"],
 		// Passive
