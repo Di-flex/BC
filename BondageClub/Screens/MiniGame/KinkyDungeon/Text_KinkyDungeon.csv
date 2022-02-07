@@ -303,9 +303,12 @@ KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attack
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
 KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
+KinkyDungeonInventoryItemVibeWand,Magic Wand
+KinkyDungeonInventoryItemVibeWandDesc,"Its powers extend beyond the traditional schools of magic."
+KinkyDungeonInventoryItemVibeWandDesc2,"Deals charm damage (50% effectiveness vs. most enemies). 50% chance to stun the target for 1 turn."
 KinkyDungeonInventoryItemFeather,Feather
 KinkyDungeonInventoryItemFeatherDesc,"A feather useful for tickling."
-KinkyDungeonInventoryItemFeatherDesc2,"Deals 20 tickle damage (50% effectiveness vs. most enemies). Drains low stamina."
+KinkyDungeonInventoryItemFeatherDesc2,"Deals tickle damage (50% effectiveness vs. most enemies). Drains low stamina."
 KinkyDungeonInventoryItemIceCube,Ice Cube
 KinkyDungeonInventoryItemIceCubeDesc,"A magical cube of ice that never melts. Convenient!"
 KinkyDungeonInventoryItemIceCubeDesc2,"Deals 10 ice damage. Its magic affects ghosts too."

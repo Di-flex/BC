@@ -23,7 +23,8 @@ let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
-	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", unarmed: false, rarity: 1, shop: true, sfx: "Freeze"},
+	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", unarmed: false, rarity: 1, shop: true, sfx: "Freeze",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
 	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.1, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
@@ -300,6 +301,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 }
 
 function KinkyDungeonDisarm(Enemy) {
+	if (!Enemy) {
+		console.log("Error processing disarm! Please report!");
+		return false;
+	}
 	if (Math.random() < KinkyDungeonWeaponGrabChance) {
 		let slots = [];
 		for (let X = -Math.ceil(1); X <= Math.ceil(1); X++)
@@ -319,7 +324,7 @@ function KinkyDungeonDisarm(Enemy) {
 		let foundslot = null;
 		for (let C = 0; C < 100; C++) {
 			let slot = slots[Math.floor(Math.random() * slots.length)];
-			if (KinkyDungeonNoEnemy(slot.x, slot.y, true)
+			if (slot && KinkyDungeonNoEnemy(slot.x, slot.y, true)
 				&& Math.max(Math.abs(KinkyDungeonPlayerEntity.x - slot.x), Math.abs(KinkyDungeonPlayerEntity.y - slot.y)) > 1.5
 				&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(slot.x, slot.y))) {
 				foundslot = {x: slot.x, y: slot.y};
@@ -349,6 +354,7 @@ function KinkyDungeonDisarm(Enemy) {
 			return true;
 		}
 	}
+	return false;
 }
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
