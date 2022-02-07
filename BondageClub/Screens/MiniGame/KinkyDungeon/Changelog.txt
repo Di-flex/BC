@@ -564,6 +564,8 @@ Bugfix:
 - Autosave now happens after every floor
 - New difficulty level that doesn't provide save codes
 - Fixed the RNG, should have much higher entropy now
+- Added two new zombies
+- Added a new skeleton
 
 TODO ValidationFindBlockCycles to prevent bugs
 

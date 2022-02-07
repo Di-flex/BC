@@ -680,9 +680,14 @@ AttackGhostBind,"The Ghost restrains you! (+RestraintAdded)"
 AttackGhost,"The Ghost tickles you! (-DamageTaken SP)"
 
 NameGreaterSkeleton,Skeleton Warrior
-KillGreaterSkeleton,"The Skeleton Warrior collapses and falls into pieces."
+KillGreaterSkeleton,"The skeleton warrior collapses and falls into pieces."
 AttackGreaterSkeleton,"The Skeleton lands a wide, crippling blow! (-DamageTaken SP)"
 AttackGreaterSkeletonBind,"The Skeleton leashes you!"
+
+NameHeavySkeleton,Skeleton Knight
+KillHeavySkeleton,"The skeleton knight collapses and falls into pieces."
+AttackHeavySkeleton,"The skeleton apprehends you and pins you with the haft of its axe! (-DamageTaken SP)"
+AttackHeavySkeletonBind,"The skeleton grabs you and slips a black cuff on! (+RestraintAdded)"
 
 NameVinePlant,Vine Plant
 KillVinePlant,"The plant leaks purple juices everywhere as it wilts."
