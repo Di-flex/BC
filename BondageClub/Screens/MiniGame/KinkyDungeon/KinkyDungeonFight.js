@@ -142,7 +142,7 @@ function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 
 	KinkyDungeonAggro(Enemy);
 
-	if (Math.random() < hitChance) return true;
+	if (KDRandom() < hitChance) return true;
 
 	return false;
 }
@@ -305,7 +305,7 @@ function KinkyDungeonDisarm(Enemy) {
 		console.log("Error processing disarm! Please report!");
 		return false;
 	}
-	if (Math.random() < KinkyDungeonWeaponGrabChance) {
+	if (KDRandom() < KinkyDungeonWeaponGrabChance) {
 		let slots = [];
 		for (let X = -Math.ceil(1); X <= Math.ceil(1); X++)
 			for (let Y = -Math.ceil(1); Y <= Math.ceil(1); Y++) {
@@ -323,7 +323,7 @@ function KinkyDungeonDisarm(Enemy) {
 
 		let foundslot = null;
 		for (let C = 0; C < 100; C++) {
-			let slot = slots[Math.floor(Math.random() * slots.length)];
+			let slot = slots[Math.floor(KDRandom() * slots.length)];
 			if (slot && KinkyDungeonNoEnemy(slot.x, slot.y, true)
 				&& Math.max(Math.abs(KinkyDungeonPlayerEntity.x - slot.x), Math.abs(KinkyDungeonPlayerEntity.y - slot.y)) > 1.5
 				&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(slot.x, slot.y))) {
@@ -503,7 +503,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 
 	KinkyDungeonSendEvent("bulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
-	if (b.bullet.cast && (!b.bullet.cast.chance || Math.random() < b.bullet.cast.chance)) {
+	if (b.bullet.cast && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance)) {
 		let xx = b.bullet.cast.tx;
 		let yy = b.bullet.cast.ty;
 		if (!xx) xx = b.x;
@@ -521,7 +521,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
 				if (Math.sqrt(X*X+Y*Y) <= rad) {
-					let LifetimeBonus = (b.bullet.spell.lifetimeHitBonus) ? Math.floor(Math.random() * b.bullet.spell.lifetimeHitBonus) : 0;
+					let LifetimeBonus = (b.bullet.spell.lifetimeHitBonus) ? Math.floor(KDRandom() * b.bullet.spell.lifetimeHitBonus) : 0;
 					KinkyDungeonBullets.push({born: born, time:b.bullet.spell.lifetime + LifetimeBonus, x:b.x+X, y:b.y+Y, vx:0, vy:0, xx:b.x+X, yy:b.y+Y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 						bullet:{spell:b.bullet.spell, block: (b.bullet.blockhit ? b.bullet.blockhit : 0), damage: {damage:b.bullet.spell.power, type:b.bullet.spell.damage, time:b.bullet.spell.time}, lifetime: b.bullet.spell.lifetime + LifetimeBonus, name:b.bullet.name+"Hit", width:1, height:1}});
 				}
@@ -546,7 +546,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
-				if (Math.sqrt(X*X+Y*Y) <= rad && (!cast.chance || Math.random() < cast.chance)) {
+				if (Math.sqrt(X*X+Y*Y) <= rad && (!cast.chance || KDRandom() < cast.chance)) {
 					let spell = KinkyDungeonFindSpell(cast.spell, true);
 					let xx = b.x + X;
 					let yy = b.y + Y;
@@ -594,7 +594,7 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 	let maxcounter = 0;
 	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
-		let slot = slots[Math.floor(Math.random() * slots.length)];
+		let slot = slots[Math.floor(KDRandom() * slots.length)];
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
@@ -618,9 +618,9 @@ function KinkyDungeonBulletTrail(b) {
 		let rad = Math.ceil(aoe/2);
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
-				if (Math.sqrt(X*X+Y*Y) <= aoe && Math.random() < b.bullet.spell.trailChance) {
+				if (Math.sqrt(X*X+Y*Y) <= aoe && KDRandom() < b.bullet.spell.trailChance) {
 					trail = true;
-					KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime + (b.bullet.spell.trailLifetimeBonus ? Math.floor(Math.random() * b.bullet.spell.trailLifetimeBonus) : 0), x:b.x + X, y:b.y + Y, vx:0, vy:0, xx:b.x + X, yy:b.y + Y, spriteID:b.bullet.name+"Trail" + CommonTime(),
+					KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime + (b.bullet.spell.trailLifetimeBonus ? Math.floor(KDRandom() * b.bullet.spell.trailLifetimeBonus) : 0), x:b.x + X, y:b.y + Y, vx:0, vy:0, xx:b.x + X, yy:b.y + Y, spriteID:b.bullet.name+"Trail" + CommonTime(),
 						bullet:{trail: true, hit: b.bullet.spell.trailHit, spell:b.bullet.spell, playerEffect:b.bullet.spell.trailPlayerEffect, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
 				}
 			}
