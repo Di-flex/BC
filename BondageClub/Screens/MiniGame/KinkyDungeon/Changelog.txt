@@ -561,6 +561,8 @@ Bugfix:
 - Added a timer for the jailer to automatically move to the next waypoint in leash tours
 - Unarmed attacks now cost 1 stamina
 - There are low-rarity weapons available in the shop
+- Autosave now happens after every floor
+- New difficulty level that doesn't provide save codes
 
 TODO ValidationFindBlockCycles to prevent bugs
 

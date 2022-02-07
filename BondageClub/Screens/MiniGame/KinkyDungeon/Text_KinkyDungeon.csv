@@ -16,6 +16,12 @@ KinkyDungeonDrool,Enable Drool/Tears
 KinkyDungeonGraphicsQuality,High Quality Animations
 KinkyDungeonFastWait,Wait Quickly
 
+
+KinkyDungeonDifficulty,Choose difficulty level:
+KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
+KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
+KinkyDungeonDifficulty2,Kinky: Same as roguelike, but you are even more helpless
+
 KinkyDungeonLog,Log
 
 KinkyDungeonDressPlayer,"Change Appearance"
@@ -24,13 +30,12 @@ KinkyDungeonConfirm,Confirm Reset?
 
 KinkyDungeonSaveIntro0,"(Copy the code above and save it on your computer to load later)"
 KinkyDungeonSaveIntro,"You come across a black monolith with its face inscribed in runes."
-KinkyDungeonSaveIntro2,"'The Goddess of Time watches you,' it says. 'She offers you rest'"
-KinkyDungeonSaveIntro3,"She merely demands an offering... in due time."
-KinkyDungeonSaveIntro4,"(There is no punishment for saving the game or reloading)"
-KinkyDungeonSavedGame,"You have a bad feeling about this..."
+KinkyDungeonSaveIntro2,"You study them, but can't come up with an interpretation."
+KinkyDungeonSaveIntro3,"They may still prove useful to future adventurers should you get caught..."
+KinkyDungeonSaveIntro4,"(Your game has been saved automatically, but you can save the code for later)"
 
-KinkyDungeonGameSave,"Yes, I will make the pact."
-KinkyDungeonGameContinue,"I have no use for superstitions!"
+KinkyDungeonGameSave,"Write them down. (+5 submissiveness)"
+KinkyDungeonGameContinue,"I will not be caught! (-5 submissiveness)"
 
 KinkyDungeonRestart,"Quit"
 KinkyDungeonRestartConfirm,"Confirm restart? All progress will be lost (there is no going back)"

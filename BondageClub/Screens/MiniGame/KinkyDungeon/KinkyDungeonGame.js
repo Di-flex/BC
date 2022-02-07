@@ -138,18 +138,23 @@ function KinkyDungeonAddChest(Amount, Floor) {
 	KinkyDungeonChestsOpened[Floor] += Amount;
 }
 
-function KinkyDungeonSetCheckPoint(Checkpoint) {
+function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave) {
 	let prevCheckpoint = MiniGameKinkyDungeonCheckpoint;
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
 		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
+	let saveData = KinkyDungeonSaveGame(true);
 	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 5) == MiniGameKinkyDungeonLevel / 5 && MiniGameKinkyDungeonCheckpoint < 11)) {
 		KDGameData.KinkyDungeonSpawnJailers = 0;
 		KDGameData.KinkyDungeonSpawnJailersMax = 0;
-		KinkyDungeonState = "Save";
-		ElementCreateTextArea("saveDataField");
-		ElementValue("saveDataField", KinkyDungeonSaveGame(true));
+		if (KinkyDungeonDifficultyMode == 0) {
+			KinkyDungeonState = "Save";
+			ElementCreateTextArea("saveDataField");
+			ElementValue("saveDataField", saveData);
+		}
 	}
+	if (AutoSave)
+		KinkyDungeonSaveGame();
 }
 
 function KinkyDungeonInitialize(Level, Random) {
@@ -1882,7 +1887,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 			if (toTile == 's') {
 				KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
-				KinkyDungeonSetCheckPoint();
+				KinkyDungeonSetCheckPoint(undefined, true);
 			} else if (toTile == 'H') {
 				KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
 				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut);
