@@ -648,6 +648,16 @@ KillBandit,"The bandit collapses."
 AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
 AttackBandit,"The bandit caresses your restrained body! (-DamageTaken SP)"
 
+NameBanditChief,Bandit Chief
+KillBanditChief,"The bandit scoffs and retreats until next time."
+AttackBanditChiefBind,"The bandit restrains you tightly! (+RestraintAdded)"
+AttackBanditChief,"The bandit runs her hands all along your restrained body! (-DamageTaken SP)"
+
+NameBanditPet,Bandit Pet
+KillBanditPet,"The bandit blushes and runs away."
+AttackBanditPetBind,"The girl nervously restrains you! (+RestraintAdded)"
+AttackBanditPet,"The bandit tickes you nervously! (-DamageTaken SP)"
+
 NameBanditHunter,Bandit Hunter
 KillBanditHunter,"The bandit hunter retreats."
 AttackBanditHunterBind,"The bandit hunter restrains you! (+RestraintAdded)"

@@ -566,7 +566,8 @@ Bugfix:
 - Fixed the RNG, should have much higher entropy now
 - Added two new zombies
 - Added a new skeleton
-- Added a new bandit
+- Added some new bandits
+- Modified kiting mechanics a little so enemies with a melee attack will sometimes stop to make a melee attack instead of always running away. orbs and other 'helpless' enemies won't do this.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
