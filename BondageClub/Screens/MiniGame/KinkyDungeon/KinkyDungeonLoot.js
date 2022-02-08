@@ -327,39 +327,39 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 4);
 	} else if (Loot.name == "EnchantedBelt") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBra") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBra");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedHeels") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedHeels");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedAnkleCuffs") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMuzzle") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedMuzzle");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBlindfold") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBlindfold");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMittens") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedMittens");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBallGag") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBallGag");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedArmbinder") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedArmbinder");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
@@ -531,8 +531,11 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 						}
 					}
 					if (remove) {
-						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey")
-							KinkyDungeonInventory.push(lostitem);
+						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey") {
+							if (lostitem.looserestraint && lostitem.looserestraint.enchanted) {
+								KinkyDungeonInventory.unshift(lostitem);
+							} else KinkyDungeonInventory.push(lostitem);
+						}
 						//KinkyDungeonLostItems.splice(I, 1);
 						//I -= 1;
 					}

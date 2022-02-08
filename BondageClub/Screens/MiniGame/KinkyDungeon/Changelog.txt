@@ -575,6 +575,8 @@ Bugfix:
 - Truesight now works better in low-light environments
 - Fixed some bugs, including being attacked in jail for no reason (besides teasing) and (hopefully) the bug where a different inventory item is removed than the one you are using, causing visual issues
 - Some floors now have happy gas tiles (makes you aroused)
+- Fixed a bug where enemies that squeeze through bars could push animated armors into bars
+- Enchanted items are now prepended to the restraints list so they're easier to find
 
 TODO ValidationFindBlockCycles to prevent bugs
 
