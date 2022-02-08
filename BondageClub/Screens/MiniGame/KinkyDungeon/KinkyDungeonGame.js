@@ -1898,7 +1898,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 				KinkyDungeonSetCheckPoint(undefined, true);
 			} else if (toTile == 'H') {
 				KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
-				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut);
+				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut, true);
 			}
 			// Reduce security level when entering a new area
 			if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)
