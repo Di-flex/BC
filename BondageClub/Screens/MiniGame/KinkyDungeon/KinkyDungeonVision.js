@@ -10,7 +10,7 @@ function KinkyDungeonCheckProjectileClearance(xx, yy, x2, y2) {
 	let tiles = KinkyDungeonTransparentObjects;
 	let moveDirection = KinkyDungeonGetDirection(x2 - xx, y2 - yy);
 	let x1 = xx + moveDirection.x;
-	let y1 = xx + moveDirection.y;
+	let y1 = yy + moveDirection.y;
 	let dist = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
 	for (let d = 0; d < dist; d += 0.25) {
 		let mult = d / dist;
