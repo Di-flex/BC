@@ -577,6 +577,7 @@ Bugfix:
 - Some floors now have happy gas tiles (makes you aroused)
 - Fixed a bug where enemies that squeeze through bars could push animated armors into bars
 - Enchanted items are now prepended to the restraints list so they're easier to find
+- Enchanted heels drain more energy
 
 TODO ValidationFindBlockCycles to prevent bugs
 
