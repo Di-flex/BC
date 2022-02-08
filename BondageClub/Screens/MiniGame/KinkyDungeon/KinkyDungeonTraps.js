@@ -201,3 +201,11 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 	}
 
 }
+
+function KinkyDungeonUpdateTileEffects(delta) {
+	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+	if (tile == "]") { // Happy Gas!
+		KinkyDungeonChangeArousal(3 * delta);
+		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
+	}
+}

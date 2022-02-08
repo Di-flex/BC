@@ -75,10 +75,10 @@ var KinkyDungeonLootTable = {
 		{name: "spell_elemental_low", magic: true, minLevel: 0, weight: 0.75, message:"LootChestSpell", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["UnlearnedElements", "lowlevel"]}, // lowlevel is spell levels 1-2
 		{name: "staff_flame", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffFlame"]},
 		{name: "staff_bind", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], noweapon: ["StaffBind"]},
-		{name: "trap_armbinderHeavy", trap:true, lock: "Blue", minLevel: 10, weight:2, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
-		{name: "trap_harness", trap: true, lock: "Red", minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemTorso"], power: 4},
-		{name: "trap_gagHeavy", trap:true, lock: "Red", minLevel: 3, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth2"], power: 10},
-		{name: "trap_mithrilankle", trap:true, lock: "Red", minLevel: 5, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemFeet"], power: 18},
+		{name: "trap_armbinderHeavy", trap:true, minLevel: 10, weight:2, message:"LootChestTrapMagicHarness", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemArms"], power: 8},
+		{name: "trap_harness", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemTorso"], power: 4},
+		{name: "trap_gagHeavy", trap:true, minLevel: 3, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemMouth2"], power: 10},
+		{name: "trap_mithrilankle", trap:true, minLevel: 5, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemFeet"], power: 18},
 		{name: "trap_belt", trap: true, lock: "Gold", minLevel: 5, weight:2, message:"LootChestTrapMagicVibe", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemVulvaPiercings"], power: 1},
 		{name: "trap_plug", trap: true, lock: "Gold", minLevel: 10, weight:2, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemVulva"], power: 3},
 		{name: "trap_nipple", trap: true, lock: "Gold", minLevel: 3, weight:2, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], prerequisites: ["Group_ItemNipples"], power: 3},
@@ -327,39 +327,39 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 4);
 	} else if (Loot.name == "EnchantedBelt") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBra") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBra");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedHeels") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedHeels");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedAnkleCuffs") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMuzzle") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedMuzzle");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBlindfold") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBlindfold");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMittens") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedMittens");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBallGag") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedBallGag");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedArmbinder") {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedArmbinder");
-		KinkyDungeonInventory.push({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
@@ -531,8 +531,11 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 						}
 					}
 					if (remove) {
-						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey")
-							KinkyDungeonInventory.push(lostitem);
+						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey") {
+							if (lostitem.looserestraint && lostitem.looserestraint.enchanted) {
+								KinkyDungeonInventory.unshift(lostitem);
+							} else KinkyDungeonInventory.push(lostitem);
+						}
 						//KinkyDungeonLostItems.splice(I, 1);
 						//I -= 1;
 					}
