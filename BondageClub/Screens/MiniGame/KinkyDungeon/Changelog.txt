@@ -574,6 +574,7 @@ Bugfix:
 - New area: Lost Temple
 - Truesight now works better in low-light environments
 - Fixed some bugs, including being attacked in jail for no reason (besides teasing) and (hopefully) the bug where a different inventory item is removed than the one you are using, causing visual issues
+- Some floors now have happy gas tiles (makes you aroused)
 
 TODO ValidationFindBlockCycles to prevent bugs
 
