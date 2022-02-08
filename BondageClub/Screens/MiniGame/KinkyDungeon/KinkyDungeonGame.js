@@ -47,7 +47,7 @@ let KinkyDungeonTerrain = [];
 
 let KinkyDungeonMapBrightness = 5;
 
-let KinkyDungeonGroundTiles = "023w";
+let KinkyDungeonGroundTiles = "023w]";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
 let KinkyDungeonMovableTiles = "OCAG" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests
@@ -288,6 +288,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
 	let grateChance = MapParams.grateChance;
 	let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
+	let gasChance = MapParams.gaschance ? MapParams.gaschance : 0;
 	let brickchance = MapParams.brickchance; // Chance for brickwork to start being placed
 	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
 	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
@@ -329,6 +330,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
 		KinkyDungeonPlacePatrols(4, width, height);
 		KinkyDungeonPlaceLore(width, height);
+		KinkyDungeonPlaceSpecialTiles(gasChance, Floor, width, height);
 		KinkyDungeonGenNavMap();
 		if (InJail) {
 			KinkyDungeonTiles.get(KinkyDungeonJailLeashX + "," + KinkyDungeonStartPosition.y).Lock = KinkyDungeonGenerateLock(true, Floor);
@@ -1033,6 +1035,24 @@ function KinkyDungeonGenerateShrine(Floor) {
 	return "";
 }
 
+
+function KinkyDungeonPlaceSpecialTiles(gaschance, Floor, width, height) {
+	for (let X = 1; X < width; X += 1)
+		for (let Y = 1; Y < height; Y += 1)
+			// Happy Gas
+			if (KinkyDungeonMapGet(X, Y) == '0') {
+				let chance = 0;
+				// Check the 3x3 area
+				for (let XX = X-1; XX <= X+1; XX += 1)
+					for (let YY = Y-1; YY <= Y+1; YY += 1) {
+						if (!(XX == X && YY == Y) && !KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(XX, YY)))
+							chance += gaschance;
+					}
+
+				if (KDRandom() < chance)
+					KinkyDungeonMapSet(X, Y, ']');
+			}
+}
 
 // @ts-ignore
 // @ts-ignore
@@ -1877,6 +1897,9 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonUpdateEnemies(delta); //console.log("Enemy Check " + (performance.now() - now));
 	KinkyDungeonUpdateBullets(delta); //console.log("Bullets Check " + (performance.now() - now));
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
+
+	KinkyDungeonUpdateTileEffects(delta);
+
 	KinkyDungeonUpdateStats(delta);
 
 	let toTile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);

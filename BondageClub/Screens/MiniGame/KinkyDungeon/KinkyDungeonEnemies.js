@@ -1003,7 +1003,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let master = KinkyDungeonFindMaster(enemy).master;
 		if (master && enemy.aware) master.aware = true;
 		if (master && master.aware) enemy.aware = true;
-		if (enemy.dependent && !master) enemy.hp = 0;
+		if (enemy.dependent && !master) enemy.hp = -10000;
 	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
@@ -1075,7 +1075,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 			if (enemy.Enemy.lifespan || enemy.lifetime != undefined) {
 				if (enemy.lifetime == undefined) enemy.lifetime = enemy.Enemy.lifespan;
 				enemy.lifetime -= delta;
-				if (enemy.lifetime <= 0) enemy.hp = 0;
+				if (enemy.lifetime <= 0) enemy.hp = -10000;
 			}
 		}
 	}

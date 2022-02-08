@@ -224,6 +224,7 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
 		"floodchance" : 0.33,
+		"gaschance" : 0.1, // Chance for a passage to be filled with happy gas
 		"cacheInterval" : 3,
 		"forbiddenChance" : 0.5,
 		"forbiddenGreaterChance" : 0.4,

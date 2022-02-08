@@ -24,6 +24,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "o") sprite = "OrbEmpty";
 	else if (code == "a") sprite = "ShrineBroken";
 	else if (code == "w") sprite = "Floor";
+	else if (code == "]") sprite = "Floor";
 	return sprite;
 }
 
@@ -33,6 +34,7 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	else if (code == "B") sprite = "Bed";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
+	else if (code == "]") sprite = "HappyGas";
 	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" : "Chest");
 	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
