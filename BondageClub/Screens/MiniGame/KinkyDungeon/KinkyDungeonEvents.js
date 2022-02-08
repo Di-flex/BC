@@ -213,20 +213,20 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	} else if (Event == "beforeDamageEnemy") {
 		if (e.type == "MultiplyDamageStealth" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
 			if (!e.chance || KDRandom() < e.chance) {
-				let dmg = Math.min(data.enemy.hp, data.dmg);
+				let dmg = Math.max(0, Math.min(data.enemy.hp, data.dmg));
 				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * dmg*(e.power - 1));
 				data.dmg = Math.max(data.dmg * e.power, 0);
 			}
 		} else if (e.type == "MultiplyDamageStatus" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied
 			&& (KinkyDungeonHasStatus(data.enemy))) {
 			if (!e.chance || KDRandom() < e.chance) {
-				let dmg = Math.min(data.enemy.hp, data.dmg);
+				let dmg = Math.max(0, Math.min(data.enemy.hp, data.dmg));
 				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * dmg*(e.power - 1));
 				data.dmg = Math.max(data.dmg * e.power, 0);
 			}
 		} else if (e.type == "MultiplyDamageMagic" && e.trigger == Event && data.dmg > 0 && data.incomingDamage && !KinkyDungeonMeleeDamageTypes.includes(data.incomingDamage.type)) {
 			if (!e.chance || KDRandom() < e.chance) {
-				let dmg = Math.min(data.enemy.hp, data.dmg);
+				let dmg = Math.max(0, Math.min(data.enemy.hp, data.dmg));
 				if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * dmg*(e.power - 1));
 				data.dmg = Math.max(data.dmg * e.power, 0);
 			}

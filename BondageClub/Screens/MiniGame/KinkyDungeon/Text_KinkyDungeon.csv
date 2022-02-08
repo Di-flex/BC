@@ -561,6 +561,14 @@ AttackDragonCrystal,"The Crystal Dragonheart squeezes you in a big hug! (-Damage
 
 KinkyDungeonSummonMultiChaoticCrystal,Many crystals rise up out of the ground!
 
+
+NameStatue,Statue
+KillStatue,"The statue topples over!"
+NameStatueDart,Statue
+KillStatueDart,"The statue topples over and reveals a mechanism!"
+NameStatueGag,Silent Sentinel
+KillStatuegGag,"The statue crumbles into conjured dust!"
+
 NameChaoticCrystal,Chaotic Crystal
 KillChaoticCrystal,"The crystal shatters!"
 AttackChaoticCrystal,"The chaotic crystal leeches willpower from you! (-DamageTaken SP)"
@@ -2306,6 +2314,7 @@ KinkyDungeonSpellTrapSlimeWeak,Slime Trap
 KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
 KinkyDungeonSpellTrapLustCloud,Gas Trap
 KinkyDungeonSpellTrapSleepDart,Sleep Dart
+KinkyDungeonSpellSleepDart,Sleep Dart
 
 KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
 KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"

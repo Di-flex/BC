@@ -425,6 +425,16 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 10, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 2, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -999, "door": -99, "open": 1}, floors:[], shrines: []},
 
+	{name: "Statue", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", ambushRadius: 0,
+		visionRadius: 0, maxhp: 14, minLevel:0, weight:30, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
+		terrainTags: {"passage": -999, "temple": 82, "open": 10}, floors:[3], shrines: []},
+	{name: "StatueDart", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+		spells: ["SleepDart"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, stopToCast: true, castWhileMoving: true, projectileAttack: true,
+		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", ambushRadius: 1.5,
+		visionRadius: 4, maxhp: 14, minLevel:0, weight:25, movePoints: 99999, attackPoints: 4, attack: "Spell", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
+		terrainTags: {"passage": -999, "temple": 72, "open": 15}, floors:[3], shrines: []},
+
 	{name: "SoulCrystal", color: "#880000", hitsfx: "MagicSlash", tags: KDMapInit(["crystal", "minor", "ranged", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "wander",
 		visionRadius: 100, maxhp: 30, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 4, attack: "MeleeWill", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
@@ -765,7 +775,7 @@ function KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX, CamY
 				}
 			}
 		}
-		if (enemy.Enemy.spells && enemy.Enemy.spellRdy && !(enemy.castCooldown > 1)) {
+		if (enemy.Enemy.spells && (enemy.Enemy.spellRdy && (enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) && !(enemy.castCooldown > 1)) {
 			let tx = enemy.visual_x;
 			let ty = enemy.visual_y;
 			//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
