@@ -67,9 +67,11 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 			KinkyDungeonLightGrid.push(0); // 0 = pitch dark
 	}
 	let maxPass = 0;
+	let brightestLight = 0;
 
 	for (let L = 0; L < Lights.length; L++) {
 		maxPass = Math.max(maxPass, Lights[L].brightness);
+		if (Lights[L].brightness > brightestLight) brightestLight = Lights[L].brightness;
 		KinkyDungeonLightSet(Lights[L].x, Lights[L].y, Lights[L].brightness);
 	}
 
@@ -99,10 +101,10 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 						if (nearbywalls > 3 && brightness <= 9 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) brightness -= nearbywalls * 0.25;
 						if (flags.SeeThroughWalls && !KinkyDungeonTransparentObjects.includes(tile)) {
 							if (flags.SeeThroughWalls > 2)
-								brightness -= 2;
+								brightness -= brightestLight < 7 ? 1 : 2;
 							else if (flags.SeeThroughWalls > 1)
-								brightness -= 3;
-							else brightness -= 4;
+								brightness -= brightestLight < 7 ? 1 : 3;
+							else brightness -= brightestLight < 7 ? 1 : 4;
 						}
 
 						if (brightness > 0) {
