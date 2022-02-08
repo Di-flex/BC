@@ -31,6 +31,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
 	if (code == "G") sprite = "Ghost";
+	else if (code == "R") sprite = "Rubble";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
@@ -85,6 +86,8 @@ function KinkyDungeonDrawGame() {
 
 
 
+	DrawText(TextGet("CurrentLevel") + MiniGameKinkyDungeonLevel, 750+1, 42+1, "black", "black");
+	DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500+1, 42+1, "black", "black");
 	DrawText(TextGet("CurrentLevel") + MiniGameKinkyDungeonLevel, 750, 42, "white", "black");
 	DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "black");
 
@@ -512,10 +515,14 @@ function KinkyDungeonDrawMessages(NoLog) {
 	if (!NoLog)
 		DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
 	if (!KinkyDungeonMessageToggle || NoLog) {
-		if (KinkyDungeonTextMessageTime > 0)
+		if (KinkyDungeonTextMessageTime > 0) {
+			DrawTextFit(KinkyDungeonTextMessage, canvasOffsetX + KinkyDungeonCanvas.width/2+1, 82+1, KinkyDungeonCanvas.width, "black", "black");
 			DrawTextFit(KinkyDungeonTextMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 82, KinkyDungeonCanvas.width, KinkyDungeonTextMessageColor, "black");
-		if (KinkyDungeonActionMessageTime > 0)
+		}
+		if (KinkyDungeonActionMessageTime > 0) {
+			DrawTextFit(KinkyDungeonActionMessage, canvasOffsetX + KinkyDungeonCanvas.width/2+1, 132+1, KinkyDungeonCanvas.width, "black", "black");
 			DrawTextFit(KinkyDungeonActionMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 132, KinkyDungeonCanvas.width, KinkyDungeonActionMessageColor, "black");
+		}
 	} else {
 		let extra = 200;
 		DrawRect(canvasOffsetX, 82, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height/2 + extra, "#000000");
