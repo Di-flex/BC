@@ -566,8 +566,10 @@ NameStatue,Statue
 KillStatue,"The statue topples over!"
 NameStatueDart,Statue
 KillStatueDart,"The statue topples over and reveals a mechanism!"
-NameStatueGag,Silent Sentinel
-KillStatuegGag,"The statue crumbles into conjured dust!"
+NameStatueGag,Statue
+KillStatuegGag,"The statue topples over and reveals a mechanism!"
+AttackStatueGagBind,"The statue shoves a gag into your mouth, which inflates to fill the space! (+RestraintAdded)"
+AttackStatueGag,"The statue kisses your gag! (-DamageTaken SP)"
 
 NameChaoticCrystal,Chaotic Crystal
 KillChaoticCrystal,"The crystal shatters!"
@@ -1421,6 +1423,9 @@ RestraintTrapGagDesc2,"You can't seem to enunciate your spells properly with thi
 RestraintMagicGag,Tight Ball Gag
 RestraintMagicGagDesc,"A gag made of a red squishy material, buckled as tight as it will go."
 RestraintMagicGagDesc2,"You can't seem to enunciate your spells properly with this in."
+RestraintMagicGag2,Magic Ball Gag
+RestraintMagicGag2Desc,"A gag enchanted with magic. It grows to fill your mouth so you can hardly speak."
+RestraintMagicGag2Desc2,"It's brimming with conjured energy. A normal knife won't work here!"
 RestraintTrapBoots,Ballet Heels
 RestraintTrapBootsDesc,"A pair of shoes with heels so tall it forces you on your toes."
 RestraintTrapBootsDesc2,"These will take some getting used to."

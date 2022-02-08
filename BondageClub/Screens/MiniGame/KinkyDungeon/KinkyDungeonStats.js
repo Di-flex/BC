@@ -189,7 +189,7 @@ function KinkyDungeonDealDamage(Damage) {
 	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
 	let arousalTypesWeakNeg = ["pain"];
 	let arousalTypesWeak = ["grope"];
-	let arousalTypesStrong = ["tickle", "charm", "souldrain"];
+	let arousalTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
 	let staminaTypesWeak = ["electric", "tickle", "drain"];
 	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"];
 	let manaTypesWeak = ["electric", "poison", "souldrain"];

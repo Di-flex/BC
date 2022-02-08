@@ -342,6 +342,9 @@ const KinkyDungeonRestraints = [
 	// Generic ball gag thats stronger than the trap one
 	{inventory: true, name: "MagicGag", Asset: "BallGag", gag: true, Type: "Tight", Color: ["Default", "Default"], Group: "ItemMouth", DefaultLock: "Red", power: 5, weight: 2, escapeChance: {"Struggle": 0.0, "Cut": 0.45, "Remove": 0.65, "Pick": 0.5},
 		maxstamina: 0.9, enemyTags: {"ballGagRestraints" : 4}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Leather", "Latex", "Gags"]},
+	{inventory: true, name: "MagicGag2", Asset: "BallGag", gag: true, Type: "Tight", Color: ["Default", "##ff00ff"], Group: "ItemMouth", DefaultLock: "Blue", magic: true, power: 8, weight: 2,
+		escapeChance: {"Struggle": 0.0, "Cut": 0.25, "Remove": 0.65, "Pick": 0.5},
+		enemyTags: {"ballGagRestraintsMagic" : 4}, playerTags: {}, minLevel: 0, floors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20], shrine: ["Leather", "Latex", "Gags"]},
 
 	// Generic stronger gag
 	{inventory: true, name: "PanelGag", Asset: "HarnessPanelGag", gag: true, Color: "#888888", Group: "ItemMouth2", power: 5, weight: 2, escapeChance: {"Struggle": 0, "Cut": 0.3, "Remove": 0.4, "Pick": 0.5},
