@@ -67,11 +67,13 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	KinkyDungeonPlayerDamage = {};
 	if (!HandsFree || (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
-		KinkyDungeonPlayerWeapon = null;
+		if (!NoOverride)
+			KinkyDungeonPlayerWeapon = null;
 	}
 	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) {
 		damage = KinkyDungeonWeapons.Knife;
-		KinkyDungeonPlayerWeapon = null;
+		if (!NoOverride)
+			KinkyDungeonPlayerWeapon = null;
 	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {
 		damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 	}
