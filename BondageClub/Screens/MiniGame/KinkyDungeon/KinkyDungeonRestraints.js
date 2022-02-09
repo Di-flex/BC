@@ -303,7 +303,7 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "TrapArmbinderHarness", Asset: "LeatherHarness", LinkableBy: ["HeavyCorsets"], Group: "ItemTorso", power: 3, strictness: 0.1, weight: 0, escapeChance: {"Struggle": 0.0, "Cut": 0.25, "Remove": 0.25, "Pick": 0.15}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Leather", "ArmbinderHarness"],
 		maxstamina: 0.6, events: [{trigger: "remove", type: "armbinderHarness"}]},
 
-	{inventory: true, name: "TrapArmbinder", strictness: 0.1, Asset: "LeatherArmbinder", LinkableBy: ["Wrapping"], Type: "WrapStrap", Group: "ItemArms", bindarms: true, bindhands: true, power: 8, weight: 2,
+	{inventory: true, name: "TrapArmbinder", strictness: 0.1, Asset: "LeatherArmbinder", LinkableBy: ["Wrapping"], Type: "WrapStrap", Group: "ItemArms", bindarms: true, bindhands: true, power: 6, weight: 2,
 		maxstamina: 0.25, escapeChance: {"Struggle": 0.1, "Cut": 0.5, "Remove": 0.35, "Pick": 0.15}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Leather", "Armbinders"]},
 	{inventory: true, name: "TrapCuffs", Asset: "MetalCuffs", LinkableBy: ["Wrapping", "Armbinders"], Group: "ItemArms", bindarms: true, power: 4, weight: 2, DefaultLock: "Red",
 		escapeChance: {"Struggle": 0.0, "Cut": -0.1, "Remove": 10, "Pick": 2.5}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Metal", "Cuffs"]},
@@ -1608,7 +1608,7 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink, oldLock, newLock) {
 	if (oldRestraint && newRestraint) {
 		if ((!oldRestraint.strictness || newRestraint.strictness >= oldRestraint.strictness)
-			&& (newRestraint.power >= oldRestraint.power - 3)) {
+			&& (newRestraint.power >= oldRestraint.power - 1)) {
 			let power = 0;
 			if (dynamicLink && oldLock) {
 				let link = dynamicLink[dynamicLink.length - 1];
@@ -1635,7 +1635,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {
-		return KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep);
+		return KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true);
 	}
 	return 0;
 }
@@ -1659,7 +1659,7 @@ function KinkyDungeonIsLinkable(oldRestraint, newRestraint) {
 let KinkyDungeonRestraintAdded = false;
 let KinkyDungeonCancelFlag = false;
 
-function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link) {
+function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems) {
 	let start = performance.now();
 	var tight = (Tightness) ? Tightness : 0;
 	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
@@ -1740,7 +1740,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 				if (Lock) KinkyDungeonLock(item, Lock);
 				else if (restraint.DefaultLock) KinkyDungeonLock(item, restraint.DefaultLock);
-			} else if (!Link && !linked) {
+			} else if ((!Link && !linked) || SwitchItems) {
 				KinkyDungeonCancelFlag = false;
 				// Otherwise, if we did unlink an item, and we are not in the process of linking (very important to prevent loops)
 				// Then we link the new item to the unlinked item if possible
