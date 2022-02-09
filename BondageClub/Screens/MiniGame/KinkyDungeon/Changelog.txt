@@ -583,6 +583,7 @@ Balance
 - Shadow dagger now does 3 damage (from 2) and has 6 range (from 10)
 - Shroud now has a weaker blinding effect on the player
 - Enemies with shroud-like effects (MaidForce Unseen Blade) now cast a different version of Shroud which does not buff player evasion or sneak, but only gives half the evasion boost to enemies
+- Rebalanced enemy flinch (stun) resistance, and made stun resistance also reduce freeze, bind effects
 
 Changes
 - New changes to light propagation

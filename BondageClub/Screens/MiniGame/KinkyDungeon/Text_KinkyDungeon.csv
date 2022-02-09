@@ -1567,6 +1567,51 @@ RestraintDragonCollar,Dragon Collar
 RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
 RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
 
+RestraintLeatherArmCuffs,Leather Cuffs
+RestraintLeatherArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
+RestraintLeatherArmCuffsDesc2,"They're made of tough cowhide."
+KinkyDungeonLinkLeatherArmCuffs,"The enemy attaches your wrist cuffs together!"
+
+RestraintLeatherArmCuffs2,Linked Leather Cuffs
+RestraintLeatherArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintLeatherArmCuffs2Desc2,"They're made of tough cowhide."
+KinkyDungeonUnLinkLeatherArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkLeatherArmCuffs2,"The enemy attaches your elbow cuffs together!"
+
+RestraintLeatherArmCuffs3,Linked Leather Cuffs
+RestraintLeatherArmCuffs3Desc,"A pair of cuffs keeping your arms in a strict elbow tie!"
+RestraintLeatherArmCuffs3Desc2,"They're made of tough cowhide."
+KinkyDungeonUnLinkLeatherArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
+
+RestraintLeatherArmCuffs4,Linked Leather Elbow Cuffs
+RestraintLeatherArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
+RestraintLeatherArmCuffs4Desc2,"They're made of tough cowhide."
+KinkyDungeonUnLinkLeatherArmCuffs4,"Your elbows detatch!"
+KinkyDungeonLinkLeatherArmCuffs4,"The enemy attaches your wrist cuffs back together!"
+
+
+RestraintScaleArmCuffs,Scale Cuffs
+RestraintScaleArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
+RestraintScaleArmCuffsDesc2,"They're made of detatch."
+KinkyDungeonLinkScaleArmCuffs,"The enemy attaches your wrist cuffs together!"
+
+RestraintScaleArmCuffs2,Linked Scale Cuffs
+RestraintScaleArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
+RestraintScaleArmCuffs2Desc2,"They're made of detatch."
+KinkyDungeonUnLinkScaleArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkScaleArmCuffs2,"The enemy attaches your elbow cuffs together!"
+
+RestraintScaleArmCuffs3,Linked Scale Cuffs
+RestraintScaleArmCuffs3Desc,"A pair of cuffs keeping your arms in a strict elbow tie!"
+RestraintScaleArmCuffs3Desc2,"They're made of detatch."
+KinkyDungeonUnLinkScaleArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
+
+RestraintScaleArmCuffs4,Linked Scale Elbow Cuffs
+RestraintScaleArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
+RestraintScaleArmCuffs4Desc2,"They're made of dragonscale."
+KinkyDungeonUnLinkScaleArmCuffs4,"Your elbows detatch!"
+KinkyDungeonLinkScaleArmCuffs4,"The enemy attaches your wrist cuffs back together!"
+
 RestraintMaidJacket,Latex Jacket
 RestraintMaidJacketDesc,"A bolero jacket keeping your arms pinned snugly. You can't even move them."
 RestraintMaidJacketDesc2,"There is no hope of struggling out. Better hope you can cut it..."
