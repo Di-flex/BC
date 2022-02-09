@@ -2089,6 +2089,7 @@ KinkyDungeonSpellDescriptionFocusedFlash,A focused flash of light which renders 
 KinkyDungeonSpellCastFocusedFlash,You slowly charge up a powerful flash!
 
 KinkyDungeonSpellShroud,Shroud
+KinkyDungeonSpellDarkShroud,Smoke Bomb
 KinkyDungeonSpellSleepGas,Sleep Gas
 KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radius)
 KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking
