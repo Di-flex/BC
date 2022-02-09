@@ -42,7 +42,7 @@ const KinkyDungeonStrictnessTable = new Map([
 	["ItemMouth2", ["ItemHead", "ItemEars"]],
 	["ItemMouth3", ["ItemHead", "ItemEars"]],
 	["ItemNeck", ["ItemMouth", "ItemArms"]],
-	["ItemArms", ["ItemHands", "ItemBreast"]],
+	["ItemArms", ["ItemArms", "ItemHands"]],
 	["ItemTorso", ["ItemArms", "ItemLegs", "ItemPelvis", "ItemBreast"]],
 	["ItemLegs", ["ItemFeet", "ItemBoots"]],
 	["ItemFeet", ["ItemBoots"]],

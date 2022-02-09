@@ -572,6 +572,7 @@ Bugfix:
 2.7
 Content
 - New area: Lost Temple
+- Added leather and scale cuffs
 
 Balance
 - Ice Shard now stuns for 6 turns (from 10), costs 5 mana (from 8)
