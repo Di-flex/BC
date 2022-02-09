@@ -1913,6 +1913,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			MiniGameKinkyDungeonLevel += 1;
 			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
 				MiniGameKinkyDungeonLevel = 1;
+				KinkyDungeonState = "End";
+				MiniGameVictory = true;
 			}
 
 			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
@@ -1929,10 +1931,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			else // Otherwise it's just a little bit
 				KinkyDungeonChangeRep("Prisoner", -1);
 
-			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
-				KinkyDungeonState = "End";
-				MiniGameVictory = true;
-			} else
+			if (KinkyDungeonState != "End")
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 		} else {
 			KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
