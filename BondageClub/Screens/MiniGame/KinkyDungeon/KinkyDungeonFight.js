@@ -254,14 +254,14 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.stun) Enemy.stun = 0;
-			if (resistStun == 1)
+			if (resistStun == 1 || resistDamage == 1)
 				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.stun = Math.max(Enemy.stun, time);
 		}
-		if ((resistDamage < 2) && (Damage.type == "ice")) { // Being immune to the damage stops the stun as well
+		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "ice")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.freeze) Enemy.freeze = 0;
-			if (resistDamage == 1)
+			if (resistDamage == 1 || resistStun == 1)
 				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(time/2), time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
 			else Enemy.freeze = Math.max(Enemy.freeze, time);
 		}
