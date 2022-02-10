@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -1592,18 +1592,18 @@ KinkyDungeonLinkLeatherArmCuffs4,"The enemy attaches your wrist cuffs back toget
 
 RestraintScaleArmCuffs,Scale Cuffs
 RestraintScaleArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
-RestraintScaleArmCuffsDesc2,"They're made of detatch."
+RestraintScaleArmCuffsDesc2,"They're made of dragonscale."
 KinkyDungeonLinkScaleArmCuffs,"The enemy attaches your wrist cuffs together!"
 
 RestraintScaleArmCuffs2,Linked Scale Cuffs
 RestraintScaleArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
-RestraintScaleArmCuffs2Desc2,"They're made of detatch."
+RestraintScaleArmCuffs2Desc2,"They're made of dragonscale."
 KinkyDungeonUnLinkScaleArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkScaleArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
 RestraintScaleArmCuffs3,Linked Scale Cuffs
 RestraintScaleArmCuffs3Desc,"A pair of cuffs keeping your arms in a strict elbow tie!"
-RestraintScaleArmCuffs3Desc2,"They're made of detatch."
+RestraintScaleArmCuffs3Desc2,"They're made of dragonscale."
 KinkyDungeonUnLinkScaleArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
 RestraintScaleArmCuffs4,Linked Scale Elbow Cuffs
