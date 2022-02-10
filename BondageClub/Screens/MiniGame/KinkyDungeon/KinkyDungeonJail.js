@@ -464,6 +464,10 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 	return randomPoint;
 }
 
+function KinkyDungeonInCell() {
+	return (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
+}
+
 function KinkyDungeonDefeat() {
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;

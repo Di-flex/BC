@@ -841,7 +841,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonOrbsPlaced = temp;
 			KinkyDungeonCachesPlaced = [];
 			MiniGameKinkyDungeonLevel = 1;
-			KinkyDungeonSetCheckPoint(0);
+			KinkyDungeonSetCheckPoint(0, true);
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 			KinkyDungeonNewGame += 1;
 			return true;
