@@ -570,6 +570,8 @@ Bugfix:
 - Modified kiting mechanics a little so enemies with a melee attack will sometimes stop to make a melee attack instead of always running away. orbs and other 'helpless' enemies won't do this.
 
 2.7
+- Obsidian/Mithril cuffs should finally be fixed and no longer create weird invisible items
+
 Content
 - New area: Lost Temple
 - Added leather and scale cuffs
