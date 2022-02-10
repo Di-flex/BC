@@ -2247,6 +2247,8 @@ KinkyDungeonSpellDescriptionIceBreath,A field of icicles that deals DamageDealt 
 KinkyDungeonSpellCastIceBreath,You breath out a chilling frost!
 KinkyDungeonSpellTargetIceBreath,Select where to put the icicles (SpellArea radius)
 
+KinkyDungeonSpellZombieOrb,Zombie Orb
+KinkyDungeonSpellZombieOrbIce,Freezing Zombie Orb
 KinkyDungeonSpellMummyBolt,Mystic Bolt
 KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
 
