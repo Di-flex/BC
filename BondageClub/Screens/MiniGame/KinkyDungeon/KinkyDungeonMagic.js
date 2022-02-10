@@ -979,12 +979,12 @@ function KinkyDungeonChargeVibrators(cost) {
 		for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 			let vibe = KinkyDungeonInventory[I].restraint;
 			if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
-				if (vibe.battery == 0) {
+				if (KinkyDungeonInventory[I].battery == 0) {
 					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
 					if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
 				}
 
-				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + cost * 1.5);
+				KinkyDungeonInventory[I].battery = Math.min(vibe.maxbattery, KinkyDungeonInventory[I].battery + cost * 1.5);
 			}
 		}
 	}
@@ -994,15 +994,15 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let vibe = KinkyDungeonInventory[I].restraint;
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
-			if (vibe.battery == 0 || Overcharge) {
-				if (vibe.battery < Math.max(0.1, vibe.maxbattery - Amount)) {
+			if (KinkyDungeonInventory[I].battery == 0 || Overcharge) {
+				if (KinkyDungeonInventory[I].battery < Math.max(0.1, vibe.maxbattery - Amount)) {
 					if (!noSound) {
 						KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
 					}
 					let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
 					if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
 				}
-				vibe.battery = Math.min(vibe.maxbattery, vibe.battery + Amount);
+				KinkyDungeonInventory[I].battery = Math.min(vibe.maxbattery, KinkyDungeonInventory[I].battery + Amount);
 			}
 		}
 	}
@@ -1011,13 +1011,14 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 function KinkyDungeonHandleVibrators() {
 	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 		let vibe = KinkyDungeonInventory[I].restraint;
-		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && vibe.battery == 0 && KDRandom() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
-			if (vibe.battery == 0) {
+		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && KinkyDungeonInventory[I].battery == 0 && !(KinkyDungeonInventory[I].cooldown > 0) && KDRandom() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
+			if (KinkyDungeonInventory[I].battery == 0) {
 				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
 				if (!KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
+				KinkyDungeonInventory[I].cooldown = vibe.teaseCooldown;
 			}
 
-			vibe.battery = Math.min(vibe.maxbattery, vibe.battery + vibe.maxbattery * (0.3 + KDRandom() * 0.7));
+			KinkyDungeonInventory[I].battery = Math.min(vibe.maxbattery, KinkyDungeonInventory[I].battery + vibe.maxbattery * (0.3 + KDRandom() * 0.7));
 		}
 	}
 }

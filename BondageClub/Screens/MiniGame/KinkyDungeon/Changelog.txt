@@ -571,6 +571,7 @@ Bugfix:
 
 2.7
 - Obsidian/Mithril cuffs should finally be fixed and no longer create weird invisible items
+- New tiers of plugs from chests
 
 Content
 - New area: Lost Temple
