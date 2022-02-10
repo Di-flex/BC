@@ -52,6 +52,11 @@ function KinkyDungeonFindWeapon(Name) {
 
 function KinkyDungeonWeaponCanCut(RequireInteract) {
 	if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon].cutBonus > 0 && (!RequireInteract || KinkyDungeonPlayer.CanInteract())) return true;
+	if (KinkyDungeonPlayerBuffs) {
+		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
+			if (b && b.tags && b.tags.includes("allowCut")) return true;
+		}
+	}
 	return false;
 }
 
