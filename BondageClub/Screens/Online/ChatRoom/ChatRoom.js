@@ -203,7 +203,13 @@ function ChatRoomCanRemoveGhost() { return ((CurrentCharacter != null) && (Curre
  * Checks if the player can change the current character's clothes
  * @returns {boolean} - TRUE if the player can change the character's clothes and is allowed to.
  */
-function ChatRoomCanChangeClothes() { return (Player.CanInteract() && (CurrentCharacter != null) && (CurrentCharacter.MemberNumber != null) && CurrentCharacter.AllowItem && !CurrentCharacter.IsEnclose() && !((InventoryGet(CurrentCharacter, "ItemNeck") != null) && (InventoryGet(CurrentCharacter, "ItemNeck").Asset.Name == "ClubSlaveCollar"))); }
+function DialogCanChangeClothes() {
+	return (
+		["ChatRoom", "MainHall", "Private", "Photographic"].includes(CurrentScreen)
+		&& CurrentCharacter != null
+		&& Player.CanChangeClothesOn(CurrentCharacter)
+	);
+}
 /**
  * Checks if the specified owner option is available.
  * @param {string} Option - The option to check for availability
@@ -265,7 +271,7 @@ function ChatRoomCurrentCharacterIsAdmin() { return ((CurrentCharacter != null) 
  * Checks if the room allows the photograph feature to be used.
  * @returns {boolean} - TRUE if the player can take a photo.
  */
-function ChatRoomCanTakePhotos() { return (ChatRoomData && ChatRoomData.BlockCategory && !ChatRoomData.BlockCategory.includes("Photos")) || !ChatRoomData; }
+function DialogCanTakePhotos() { return (ChatRoomData && ChatRoomData.BlockCategory && !ChatRoomData.BlockCategory.includes("Photos")) || !ChatRoomData; }
 
 /**
  * Checks if the player can start searching a player
@@ -429,9 +435,14 @@ function ChatRoomCanAssistStruggle() { return CurrentCharacter.AllowItem && !Cur
  * Checks if the character options menu is available.
  * @returns {boolean} - Whether or not the player can interact with the target character
  */
-function ChatRoomCanPerformCharacterAction() {
-	return ChatRoomCanAssistStand() || ChatRoomCanAssistKneel() || ChatRoomCanAssistStruggle() || ChatRoomCanHoldLeash() || ChatRoomCanStopHoldLeash()
-		|| ChatRoomCanTakePhotos() || ChatRoomCanGiveLockpicks() || ChatRoomCanGiveHighSecurityKeys() || ChatRoomCanGiveHighSecurityKeysAll();
+function DialogCanPerformCharacterAction() {
+	return (
+		ChatRoomCanAssistStand() || ChatRoomCanAssistKneel() || ChatRoomCanAssistStruggle() ||
+		ChatRoomCanHoldLeash() || ChatRoomCanStopHoldLeash() ||
+		DialogCanTakePhotos() ||
+		ChatRoomCanGiveLockpicks() || ChatRoomCanGiveHighSecurityKeys() || ChatRoomCanGiveHighSecurityKeysAll() ||
+		DialogHasGamingHeadset() || DialogCanWatchKinkyDungeon()
+	);
 }
 /**
  * Checks if the target character can be helped back on her feet. This is different than CurrentCharacter.CanKneel()
@@ -691,7 +702,7 @@ function ChatRoomMenuBuild() {
 	if ((ChatRoomGame === "") || (ChatRoomGame === "GGTS")) ChatRoomMenuButtons.push("Cut");
 	else ChatRoomMenuButtons.push("GameOption");
 	ChatRoomMenuButtons.push("Kneel", "Icons");
-	if (ChatRoomCanTakePhotos()) ChatRoomMenuButtons.push("Camera");
+	if (DialogCanTakePhotos()) ChatRoomMenuButtons.push("Camera");
 	ChatRoomMenuButtons.push("Dress", "Profile", "Admin");
 }
 
@@ -795,13 +806,41 @@ function ChatRoomDrawCharacter(DoClick) {
 
 	// Gradually slide the characters around to make room
 	let weight = ChatRoomSlideWeight;
+	// Calculate a multiplier based on current framerate to keep the speed of the animation consistent across different framerates
+	let frametimeAdjustment = TimerRunInterval / (1000 / 30);
 	if (ChatRoomCharacterInitialize || !(Player.GraphicsSettings && Player.GraphicsSettings.SmoothZoom)) {
 		ChatRoomCharacterInitialize = false;
 		weight = 0;
 	}
-	ChatRoomCharacterZoom = (ChatRoomCharacterZoom * weight + ((ChatRoomCharacterCount >= 3 ? Space / 400 : 1))) / (weight + 1);
-	ChatRoomCharacterX_Upper = (ChatRoomCharacterX_Upper * weight + 500 - 0.5 * Space * Math.min(ChatRoomCharacterCount, 5))/(weight + 1);
-	ChatRoomCharacterX_Lower = (ChatRoomCharacterX_Lower * weight + 500 - 0.5 * Space * Math.max(1, ChatRoomCharacterCount - 5))/(weight + 1);
+
+	const zoomFrameStep = (current) => (current * weight + ((ChatRoomCharacterCount >= 3 ? Space / 400 : 1))) / (weight + 1);
+	const slideUpperFrameStep = (current) => (current * weight + 500 - 0.5 * Space * Math.min(ChatRoomCharacterCount, 5))/(weight + 1);
+	const slideLowerFrameStep = (current) => (current * weight + 500 - 0.5 * Space * Math.max(1, ChatRoomCharacterCount - 5))/(weight + 1);
+
+	for (let i = 0; i < frametimeAdjustment; i++) {
+		const nextZoom = zoomFrameStep(ChatRoomCharacterZoom);
+		const nextUpperX = slideUpperFrameStep(ChatRoomCharacterX_Upper);
+		const nextLowerX = slideLowerFrameStep(ChatRoomCharacterX_Lower);
+
+		if (weight === 0) {
+			// skip unnecessary calculations
+			ChatRoomCharacterZoom = nextZoom;
+			ChatRoomCharacterX_Upper = nextUpperX;
+			ChatRoomCharacterX_Lower = nextLowerX;
+			break;
+		}
+
+		const frametimeRemainder = frametimeAdjustment - i;
+		if (frametimeRemainder >= 1) {
+			ChatRoomCharacterZoom = nextZoom;
+			ChatRoomCharacterX_Upper = nextUpperX;
+			ChatRoomCharacterX_Lower = nextLowerX;
+		} else {
+			ChatRoomCharacterZoom += (nextZoom - ChatRoomCharacterZoom) * frametimeRemainder;
+			ChatRoomCharacterX_Upper += (nextUpperX - ChatRoomCharacterX_Upper) * frametimeRemainder;
+			ChatRoomCharacterX_Lower += (nextLowerX - ChatRoomCharacterX_Lower) * frametimeRemainder;
+		}
+	}
 
 	// The more players, the higher the zoom, also changes the drawing coordinates
 	const Zoom = ChatRoomCharacterZoom;
@@ -838,7 +877,6 @@ function ChatRoomDrawCharacter(DoClick) {
 		}
 
 	}
-
 }
 
 /**
@@ -1665,7 +1703,7 @@ function ChatRoomMenuDraw() {
 			} else {
 				ButtonColor = "Pink";
 			}
-		} else if (Button === "Dress" && (!Player.CanChange() || !OnlineGameAllowChange())) {
+		} else if (Button === "Dress" && !Player.CanChangeOwnClothes()) {
 			ButtonColor = "Pink";
 		} else {
 			ButtonColor = "White";
@@ -1785,7 +1823,7 @@ function ChatRoomMenuClick() {
 					break;
 				case "Dress":
 					// When the user wants to change clothes
-					if (Player.CanChange() && OnlineGameAllowChange()) {
+					if (Player.CanChangeOwnClothes()) {
 						document.getElementById("InputChat").style.display = "none";
 						document.getElementById("TextAreaChatLog").style.display = "none";
 						CharacterAppearanceReturnRoom = "ChatRoom";
@@ -3043,7 +3081,7 @@ function ChatRoomRefreshChatSettings() {
  * Shows the current character's profile (Information Sheet screen)
  * @returns {void} - Nothing.
  */
-function ChatRoomViewProfile() {
+function DialogViewProfile() {
 	if (CurrentCharacter != null) {
 		var C = CurrentCharacter;
 		DialogLeave();
@@ -3297,18 +3335,10 @@ function ChatRoomAllowItem(data) {
  * Triggered when the player wants to change another player's outfit.
  * @returns {void} - Nothing
  */
-function ChatRoomChangeClothes() {
+function DialogChangeClothes() {
 	var C = CurrentCharacter;
 	DialogLeave();
 	CharacterAppearanceLoadCharacter(C);
-}
-
-/**
- * Triggered when the player wants to change its own outfit.
- * @returns {void} - Nothing
- */
-function DialogChangeClothes() {
-	ChatRoomChangeClothes();
 }
 
 /**
@@ -3710,7 +3740,7 @@ function ChatRoomPhotoFullRoom() {
  * Take a screenshot of the player and current character
  * @returns {void} - Nothing
  */
-function ChatRoomPhotoCurrentCharacters() {
+function DialogPhotoCurrentCharacters() {
 	ChatRoomPhoto(0, 0, 1000, 1000, [Player, CurrentCharacter]);
 }
 
@@ -3718,7 +3748,7 @@ function ChatRoomPhotoCurrentCharacters() {
  * Take a screenshot of the player
  * @returns {void} - Nothing
  */
-function DialogChatRoomPhotoPlayer() {
+function DialogPhotoPlayer() {
 	ChatRoomPhoto(500, 0, 500, 1000, [Player]);
 }
 
