@@ -596,6 +596,10 @@ Changes
 - Fixed a bug where enemies that squeeze through bars could push animated armors into bars
 - Enchanted items are now prepended to the restraints list so they're easier to find
 
+2.7.1
+- Changed map generator, should have some subtle effects
+- Fixed a very rare map generation glitch that happened on jungle
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

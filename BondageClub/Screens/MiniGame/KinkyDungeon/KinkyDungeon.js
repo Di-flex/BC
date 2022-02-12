@@ -834,16 +834,7 @@ function KinkyDungeonHandleClick() {
 	} else if (KinkyDungeonState == "End") {
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonState = "Game";
-			let temp = [];
-			for (let o of KinkyDungeonOrbsPlaced) {
-				if (KDRandom() < 0.5) temp.push(o);
-			}
-			KinkyDungeonOrbsPlaced = temp;
-			KinkyDungeonCachesPlaced = [];
-			MiniGameKinkyDungeonLevel = 1;
-			KinkyDungeonSetCheckPoint(0, true);
-			KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
-			KinkyDungeonNewGame += 1;
+			KinkyDungeonNewGamePlus();
 			return true;
 		} if (MouseIn(1275, 750, 350, 64)) {
 			KinkyDungeonState = "Menu";
