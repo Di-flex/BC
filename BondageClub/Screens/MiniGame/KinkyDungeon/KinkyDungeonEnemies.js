@@ -1041,6 +1041,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
 			if (enemy.stun > 0 || enemy.freeze > 0) {
 				enemy.warningTiles = [];
+				enemy.disarmflag = 0;
 				if (enemy.stun > 0) enemy.stun -= delta;
 				if (enemy.freeze > 0) enemy.freeze -= delta;
 			} else if (enemy.channel > 0) {

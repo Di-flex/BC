@@ -120,19 +120,25 @@ DungeonName0,-Graveyard-
 DungeonName1,-Catacombs-
 DungeonName2,-Underground Jungle-
 DungeonName3,-Lost Temple-
-DungeonName4,-Library of Magic-
-DungeonName5,-The Bellows-
-DungeonName6,-Underground Desert-
+DungeonName4,-The Bellows-
+DungeonName5,-Rundown Laboratory-
+DungeonName6,-Forgotten Garden-
 DungeonName7,-Kingdom of Ice-
-DungeonName8,-Marble Halls-
-DungeonName9,-Ancient Laboratory-
+DungeonName8,--
+DungeonName9,--
+
 DungeonName10,-The Mansion-
+
 DungeonName11,-Ancient Tombs-
-DungeonName12,-Rundown Laboratory-
-DungeonName13,-Fungal Caves-
+DungeonName12,-Magic Library-
+DungeonName13,-Crystal Cave-
 DungeonName14,-Orrery-
-DungeonName15,-Summoner's Closet-
-DungeonName16,-Training Facility-
+DungeonName15,-Training Center-
+DungeonName16,-Rubber Facility-
+DungeonName17,-Wizards' Den-
+DungeonName18,-Marble Halls-
+DungeonName19,-Doll Storage-
+DungeonName20,--
 
 LootRubbleFail,You search through the debris but find nothing of note
 LootRubbleSmallGold,You find some gold coins in a corner (+XXX gold)

@@ -389,9 +389,12 @@ function KinkyDungeonDisarm(Enemy) {
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	let disarm = false;
-	if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag >= 0.97 && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.type != "unarmed") {
-		Enemy.disarmflag = 0;
-		disarm = true;
+	if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag > 0) {
+		if (Enemy.stun > 0 || Enemy.freeze > 0 || Enemy.blind > 0) Enemy.disarmflag = 0;
+		else if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag >= 0.97 && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.type != "unarmed") {
+			Enemy.disarmflag = 0;
+			disarm = true;
+		}
 	}
 	let evaded = KinkyDungeonEvasion(Enemy);
 	let dmg = Damage;
