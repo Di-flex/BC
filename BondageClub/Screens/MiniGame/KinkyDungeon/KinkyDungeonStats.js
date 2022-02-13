@@ -670,7 +670,7 @@ function KinkyDungeonChastityMult() {
 	let chaste = 0.0;
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.chastity) chaste += 1;
-		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.5;
+		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.15;
 	}
 	return chaste;
 }

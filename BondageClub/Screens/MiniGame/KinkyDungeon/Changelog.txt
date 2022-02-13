@@ -599,6 +599,7 @@ Changes
 2.7.1
 - Changed map generator, should have some subtle effects
 - Fixed a very rare map generation glitch that happened on jungle
+- Added a pity timer for player hits, so you don't miss 4x in a row with a 70% hit chance
 
 TODO ValidationFindBlockCycles to prevent bugs
 

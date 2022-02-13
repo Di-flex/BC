@@ -98,6 +98,9 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	return KinkyDungeonPlayerDamage;
 }
 
+let KinkyDungeonEvasionPityModifier = 0; // Current value
+let KinkyDungeonEvasionPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
+
 function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	let flags = {
 		KDEvasionHands: true,
@@ -145,11 +148,20 @@ function KinkyDungeonAggro(Enemy) {
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
 
+
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
 	KinkyDungeonAggro(Enemy);
 
-	if (KDRandom() < hitChance) return true;
+	if (KDRandom() < hitChance + KinkyDungeonEvasionPityModifier) {
+		KinkyDungeonEvasionPityModifier = 0; // Reset the pity timer
+		return true;
+	}
+
+	if (Enemy) {
+		// Increment the pity timer
+		KinkyDungeonEvasionPityModifier += KinkyDungeonEvasionPityModifierIncrementPercentage * hitChance;
+	}
 
 	return false;
 }

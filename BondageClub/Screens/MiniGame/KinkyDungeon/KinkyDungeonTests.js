@@ -46,6 +46,16 @@ function KDTestFullRunthrough(GameLoops, Init, NGP) {
 		// Run through the stairs
 		KinkyDungeonHandleStairs('s', true);
 		console.log(`Arrived at floor ${MiniGameKinkyDungeonLevel}`);
+
+		if (!EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint]) {
+			EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint] = {};
+		}
+		for (let e of KinkyDungeonEntities) {
+			if (EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] == undefined)
+				EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] = 1;
+			else EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] += 1;
+		}
+
 		if (KinkyDungeonState == "End") {
 			if (NGP)
 				KinkyDungeonNewGamePlus();
@@ -54,15 +64,6 @@ function KDTestFullRunthrough(GameLoops, Init, NGP) {
 				MiniGameKinkyDungeonCheckpoint = 0;
 				KinkyDungeonState = "Game";
 			}
-		}
-
-		if (!EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint]) {
-			EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint] = {};
-		}
-		for (let e of KinkyDungeonEntities) {
-			if (EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] == undefined)
-				EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] = 0;
-			else EnemySpawnData["" + MiniGameKinkyDungeonCheckpoint][e.Enemy.name] += 1;
 		}
 
 		// Check various things
