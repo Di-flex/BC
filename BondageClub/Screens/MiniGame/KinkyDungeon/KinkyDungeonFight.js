@@ -60,6 +60,12 @@ function KinkyDungeonWeaponCanCut(RequireInteract) {
 	return false;
 }
 
+// We reset the pity timer on weapon switch to prevent issues
+function KDSetWeapon(Weapon) {
+	KinkyDungeonEvasionPityModifier = 0;
+	KinkyDungeonPlayerWeapon = Weapon;
+}
+
 function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	let flags = {
 		KDDamageHands: true.valueOf,
@@ -73,12 +79,12 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (!HandsFree || (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
 		if (!NoOverride)
-			KinkyDungeonPlayerWeapon = null;
+			KDSetWeapon(null);
 	}
 	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) {
 		damage = KinkyDungeonWeapons.Knife;
 		if (!NoOverride)
-			KinkyDungeonPlayerWeapon = null;
+			KDSetWeapon(null);
 	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {
 		damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 	}

@@ -530,7 +530,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonAddLostItems(KinkyDungeonInventory, HasBound);
 	KinkyDungeonInventory = newInv;
 	KinkyDungeonInventoryAddWeapon("Knife");
-	KinkyDungeonPlayerWeapon = "";
+	KDSetWeapon(null);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}

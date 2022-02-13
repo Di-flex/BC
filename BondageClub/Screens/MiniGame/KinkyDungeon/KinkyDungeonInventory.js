@@ -47,12 +47,12 @@ function KinkyDungeonHandleInventory() {
 			if (weapon && weapon != "knife") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
-					KinkyDungeonPlayerWeapon = weapon;
+					KDSetWeapon(weapon);
 					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				} else if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
-					KinkyDungeonPlayerWeapon = null;
+					KDSetWeapon(null);
 					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
@@ -411,7 +411,7 @@ function KinkyDungeonhandleQuickInv() {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				let weapon = item.name != "Knife" ? item.name : null;
-				KinkyDungeonPlayerWeapon = weapon;
+				KDSetWeapon(weapon);
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 				KinkyDungeonAdvanceTime(1);
 			}

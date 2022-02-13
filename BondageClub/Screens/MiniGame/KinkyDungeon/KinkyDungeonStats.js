@@ -138,7 +138,7 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonCachesPlaced = [];
 	KinkyDungeonChestsOpened = [];
 
-	KinkyDungeonPlayerWeapon = null;
+	KDSetWeapon(null);
 	KinkyDungeonSpellPoints = 3;
 
 	KinkyDungeonStatArousalMax = 36;
