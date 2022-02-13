@@ -585,7 +585,7 @@ function KinkyDungeonCanTryOrgasm() {
 }
 
 function KinkyDungeonDoPlayWithSelf() {
-	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*KDRandom());
+	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + (KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*KDRandom();
 	let amount = Math.max(0, OrigAmount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
 	if (KinkyDungeonIsArmsBound()) amount = Math.max(0, Math.min(amount, OrigAmount - KinkyDungeonPlayWithSelfBoundPenalty));
 	KinkyDungeonChangeArousal(amount);
@@ -612,7 +612,7 @@ let KinkyDungeonOrgasmTurnsMax = 10;
 let KinkyDungeonOrgasmTurnsCrave = 8;
 let KinkyDungeonPlayWithSelfPowerMin = 3;
 let KinkyDungeonPlayWithSelfPowerMax = 6;
-let KinkyDungeonPlayWithSelfChastityPenalty = 4.5;
+let KinkyDungeonPlayWithSelfChastityPenalty = 5;
 let KinkyDungeonPlayWithSelfBoundPenalty = 3;
 let KinkyDungeonOrgasmExhaustionAmount = -0.5;
 
@@ -670,7 +670,7 @@ function KinkyDungeonChastityMult() {
 	let chaste = 0.0;
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.chastity) chaste += 1;
-		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.15;
+		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.2;
 	}
 	return chaste;
 }
