@@ -1669,6 +1669,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
 	if (restraint) {
 		if (!InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group) || Bypass) {
+			KinkyDungeonEvasionPityModifier = 0;
 			let r = KinkyDungeonGetRestraintItem(restraint.Group);
 			let linkable = (!Link && r && r.restraint && KinkyDungeonIsLinkable(r.restraint, restraint));
 			let linked = false;
