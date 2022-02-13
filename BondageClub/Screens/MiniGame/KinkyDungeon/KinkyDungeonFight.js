@@ -368,7 +368,7 @@ function KinkyDungeonDisarm(Enemy) {
 
 			let dropped = {x:foundslot.x, y:foundslot.y, name: weapon};
 
-			KinkyDungeonPlayerWeapon = "";
+			KDSetWeapon(null);
 			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 			for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 				let item = KinkyDungeonInventory[I];
