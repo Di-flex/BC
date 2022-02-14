@@ -23,6 +23,14 @@ var KinkyDungeonMapParams = [
 		"forbiddenChance" : 0.35, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
+		"shortcuts": [
+			{Level: 3, checkpoint: 11, chance: 0.5},
+			{Level: 4, checkpoint: 11, chance: 1.0},
+		],
+		"mainpath": [
+			{Level: 9, checkpoint: 1},
+		],
+
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 30},
 			{Name: "SpecificSpell", Spell: "TrapCharmWeak", Level: 0, Power: 1, Weight: 30},
@@ -92,6 +100,12 @@ var KinkyDungeonMapParams = [
 		"cacheInterval" : 3,
 		"forbiddenChance" : 0.4,
 		"forbiddenGreaterChance" : 0.33,
+
+		"shortcuts": [
+		],
+		"mainpath": [
+			{Level: 19, checkpoint: 2},
+		],
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 30},
@@ -163,6 +177,13 @@ var KinkyDungeonMapParams = [
 		"forbiddenChance" : 0.4,
 		"forbiddenGreaterChance" : 0.33,
 
+		"shortcuts": [
+
+		],
+		"mainpath": [
+			{Level: 29, checkpoint: 3},
+		],
+
 		"traps": [
 			{Name: "CustomVine", Level: 0, Power: 1, Weight: 30},
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 10},
@@ -230,6 +251,13 @@ var KinkyDungeonMapParams = [
 		"cacheInterval" : 3,
 		"forbiddenChance" : 0.5,
 		"forbiddenGreaterChance" : 0.4,
+
+		"shortcuts": [
+
+		],
+		"mainpath": [
+			{Level: 39, checkpoint: 4},
+		],
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
@@ -567,6 +595,14 @@ var KinkyDungeonMapParams = [
 		"forbiddenChance" : 0.75,
 		"forbiddenGreaterChance" : 0.45,
 
+		"shortcuts": [
+			{Level: 7, checkpoint: 13, chance: 0.33},
+			{Level: 8, checkpoint: 13, chance: 1.0},
+		],
+		"mainpath": [
+			{Level: 9, checkpoint: 1},
+		],
+
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
 			{Name: "SpecificSpell", Spell: "TrapMummyWeak", Level: 0, Power: 1, Weight: 30},
@@ -636,6 +672,18 @@ var KinkyDungeonMapParams = [
 		// Side routes have more high-value loot
 		"forbiddenChance" : 0.75,
 		"forbiddenGreaterChance" : 0.45,
+
+		"shortcuts": [
+			{Level: 24, checkpoint: 2, chance: 0.25},
+			{Level: 25, checkpoint: 2, chance: 0.25},
+			{Level: 26, checkpoint: 2, chance: 0.25},
+			{Level: 27, checkpoint: 2, chance: 0.25},
+			{Level: 28, checkpoint: 2, chance: 1.0},
+		],
+		"mainpath": [
+			{Level: 9, checkpoint: 13},
+			{Level: 29, checkpoint: 3},
+		],
 
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},

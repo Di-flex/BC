@@ -844,6 +844,23 @@ function KinkyDungeonSkinArea(skin, X, Y, Radius) {
 }
 
 function KinkyDungeonGetMainPath(level) {
+	let params = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint];
+	let paths = params ? params.mainpath : null;
+	let path = null;
+	let chanceRoll = KDRandom(); // This is always rolled, in order to not break saves
+	if (paths) {
+		for (let p of paths) {
+			if (p.Level == MiniGameKinkyDungeonLevel) {
+				path = p;
+				break;
+			}
+		}
+	}
+	if (path) {
+		if (chanceRoll < path.chance || path.chance) {
+			return path.checkpoint;
+		}
+	}
 	if ((MiniGameKinkyDungeonLevel + 1) % 10 == 0) {
 		return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
 	}
@@ -851,14 +868,23 @@ function KinkyDungeonGetMainPath(level) {
 }
 
 function KinkyDungeonGetShortcut(level) {
-
-	if (level == 3) {
-		return 11;
+	let params = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint];
+	let paths = params ? params.shortcuts : null;
+	let path = null;
+	let chanceRoll = KDRandom(); // This is always rolled, in order to not break saves
+	if (paths) {
+		for (let p of paths) {
+			if (p.Level == MiniGameKinkyDungeonLevel) {
+				path = p;
+				break;
+			}
+		}
 	}
-	if (level == 2 && KinkyDungeonRep > 5) {
-		return 11;
+	if (path) {
+		if (chanceRoll < path.chance || path.chance) {
+			return path.checkpoint;
+		}
 	}
-
 	return 0;
 }
 
