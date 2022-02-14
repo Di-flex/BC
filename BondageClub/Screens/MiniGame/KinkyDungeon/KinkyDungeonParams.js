@@ -700,7 +700,7 @@ var KinkyDungeonMapParams = [
 		"min_height" : 15,
 		"max_height" : 25,
 
-		"enemytags": ["mushroom"],
+		"enemytags": ["mushroom", "slimeBonus"],
 		"defeat_restraints": [
 			{Name: "Stuffing", Level: 20},
 			{Name: "TrapGag", Level: 20},
