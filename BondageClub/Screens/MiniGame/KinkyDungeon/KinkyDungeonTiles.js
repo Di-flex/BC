@@ -24,6 +24,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		MiniGameKinkyDungeonLevel += 1;
 		if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
 			MiniGameKinkyDungeonLevel = 1;
+			MiniGameKinkyDungeonMainPath = 0;
 			KinkyDungeonState = "End";
 			MiniGameVictory = true;
 		}
