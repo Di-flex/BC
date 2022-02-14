@@ -123,9 +123,9 @@ function KinkyDungeonDrawGame() {
 						let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth));
 						let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 						let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+						let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonTilesSkin.get(RX + "," + RY).skin : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
 
-
-						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint] + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + floor + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 							(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 						if (sprite2)
 							DrawImageZoomCanvas(KinkyDungeonRootDirectory + "FloorGeneric/" + sprite2 + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,

@@ -31,7 +31,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
 		if (toTile == 's') {
 			KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
-			KinkyDungeonSetCheckPoint(undefined, true, suppressCheckPoint);
+			KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonMainPath, true, suppressCheckPoint);
 		} else if (toTile == 'H') {
 			KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
 			KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut, true, suppressCheckPoint);

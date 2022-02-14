@@ -5,6 +5,7 @@ let KinkyDungeonGagMumbleChancePerRestraint = 0.0025;
 
 let MiniGameKinkyDungeonCheckpoint = 0;
 let MiniGameKinkyDungeonShortcut = 0;
+let MiniGameKinkyDungeonMainPath = 0;
 let MiniGameKinkyDungeonLevel = -1;
 let KinkyDungeonMapIndex = [];
 
@@ -60,6 +61,7 @@ let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D"
  */
 let KinkyDungeonRandomPathablePoints = new Map();
 let KinkyDungeonTiles = new Map();
+let KinkyDungeonTilesSkin = new Map();
 let KinkyDungeonTargetTile = null;
 let KinkyDungeonTargetTileLocation = "";
 
@@ -240,6 +242,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KDEnemiesCache = new Map();
 	KinkyDungeonGrid = "";
 	KinkyDungeonTiles = new Map();
+	KinkyDungeonTilesSkin = new Map();
 	KinkyDungeonTargetTile = "";
 
 	KDGameData.RescueFlag = false;
@@ -321,7 +324,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonJailTransgressed = true;
 
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, width, height); // Replace random internal walls with doodads
-	KinkyDungeonPlaceStairs(startpos, width, height); // Place the start and end locations
+	KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), startpos, width, height); // Place the start and end locations
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
 	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
 		KinkyDungeonCreateCache(Floor, width, height);
@@ -776,7 +779,7 @@ function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonMapSet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, 'B');
 }
 
-function KinkyDungeonPlaceStairs(startpos, width, height) {
+function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 	// Starting stairs are predetermined and guaranteed to be open
 	KinkyDungeonMapSet(1, startpos, 'S');
 	if (startpos > 1) KinkyDungeonMapSet(2, startpos - 1, '0');
@@ -821,8 +824,27 @@ function KinkyDungeonPlaceStairs(startpos, width, height) {
 			}
 		}
 
-
+	MiniGameKinkyDungeonMainPath = checkpoint;
+	if (MiniGameKinkyDungeonMainPath != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonMainPath}, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, 4.2);
 	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 0});
+}
+
+function KinkyDungeonSkinArea(skin, X, Y, Radius) {
+	for (let xx = Math.floor(X - Radius); xx <= Math.ceil(X + Radius); xx++) {
+		for (let yy = Math.floor(Y - Radius); yy <= Math.ceil(Y + Radius); yy++) {
+			if (xx >= 0 && xx <= KinkyDungeonGridWidth - 1 && yy >= 0 && yy <= KinkyDungeonGridHeight - 1) {
+				if (KDistEuclidean(xx - X, yy - Y) <= Radius + 0.01) {
+					if (!KinkyDungeonTilesSkin.get(xx + "," + yy)) {
+						KinkyDungeonTilesSkin.set(xx + "," + yy, skin);
+					}
+				}
+			}
+		}
+	}
+}
+
+function KinkyDungeonGetMainPath(level) {
+	return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
 }
 
 function KinkyDungeonGetShortcut(level) {
@@ -843,6 +865,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
 		// Ending stairs are not.
 		let placed = false;
+		let xx = 0;
+		let yy = 0;
 
 		for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
 			let X = Math.floor(width * 0.75) - 2 - Math.floor(KDRandom() * width/2);
@@ -857,6 +881,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 				if (wallcount == 7) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 'H');
+					xx = X;
+					yy = Y;
 					L = 0;
 					break;
 				}
@@ -872,11 +898,14 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 					KinkyDungeonMapSet(X, Y, 'H');
 					L = 0;
 					placed = true;
+					xx = X;
+					yy = Y;
 				}
 			}
 
 		if (placed) {
 			MiniGameKinkyDungeonShortcut = checkpoint;
+			if (MiniGameKinkyDungeonShortcut != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonShortcut}, xx, yy, 2.5);
 		}
 	}
 }
