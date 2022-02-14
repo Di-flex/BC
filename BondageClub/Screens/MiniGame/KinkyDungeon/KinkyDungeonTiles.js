@@ -20,6 +20,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			KinkyDungeonRep = Math.max(KinkyDungeonRep, MiniGameKinkyDungeonLevel);
 			DialogSetReputation("Gaming", KinkyDungeonRep);
 		}
+		MiniGameVictory = false;
 
 		MiniGameKinkyDungeonLevel += 1;
 		if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
@@ -27,6 +28,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			MiniGameKinkyDungeonMainPath = 0;
 			KinkyDungeonState = "End";
 			MiniGameVictory = true;
+			suppressCheckPoint = true;
 		}
 
 		let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
