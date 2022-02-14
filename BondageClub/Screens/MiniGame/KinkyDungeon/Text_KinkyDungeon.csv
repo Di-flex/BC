@@ -54,6 +54,7 @@ End3,"Better luck next time!"
 EndWin,"You have reached the end of the playable portion."
 EndWin2,"Come back later for new dungeons!"
 
+StatMiscastChance,"Miscast: Percent"
 StatArousal,"AP: CURRENT/MAX"
 StatStamina,"SP: CURRENT/MAX"
 StatWillpower,"Willpower: CURRENT/MAX"
@@ -263,9 +264,9 @@ KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel 
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
 KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
-KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid concoction and feel less distracted.
+KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid, bitter concoction and feel chilled to the bone.
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
-KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal by 12 per turn over 3 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal to 0 instantly."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
 KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
 KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs. Can be used without hands."
@@ -2101,11 +2102,11 @@ KinkyDungeonSpellMPUp3,Mana Up III
 KinkyDungeonSpellDescriptionMPUp3,Increases maximum MP by 12
 
 KinkyDungeonSpellAPUp1,Strong Mind I
-KinkyDungeonSpellDescriptionAPUp1,Increases maximum Arousal by 12 and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp1,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
 KinkyDungeonSpellAPUp2,Strong Mind II
-KinkyDungeonSpellDescriptionAPUp2,Increases maximum Arousal by 12 and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp2,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
 KinkyDungeonSpellAPUp3,Strong Mind III
-KinkyDungeonSpellDescriptionAPUp3,Increases maximum Arousal by 12 and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp3,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
 
 KinkyDungeonSpellSpellChoiceUp1,Expert Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp1,Gives you an additional spell choice slot

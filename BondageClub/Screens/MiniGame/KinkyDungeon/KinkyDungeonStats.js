@@ -13,6 +13,7 @@ let KinkyDungeonStatArousalRegen = -0.5;
 let KinkyDungeonStatArousalRegenPerUpgrade = -0.1;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal
 let KinkyDungeonStatArousalMiscastChance = 0.6; // Miscast chance at max arousal
+let KinkyDungeonMiscastChance = 0;
 let KinkyDungeonVibeLevel = 0;
 let KinkyDungeonOrgasmVibeLevel = 0;
 let KinkyDungeonArousalPerVibe = 1; // How much arousal per turn per vibe energy cost
@@ -380,6 +381,8 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 
+	KinkyDungeonCalculateMiscastChance();
+
 	if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
 		KinkyDungeonChangeStamina(KinkyDungeonOrgasmExhaustionAmount);
 		let vibe = KinkyDungeonVibeLevel > 0 ? "Vibe" : "";
@@ -407,6 +410,14 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
+}
+
+function KinkyDungeonCalculateMiscastChance() {
+	let flags = {
+		miscastChance: KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax,
+	};
+	KinkyDungeonSendEvent("calcMiscast", {flags: flags});
+	KinkyDungeonMiscastChance = flags.miscastChance;
 }
 
 function KinkyDungeonGetBlindLevel() {

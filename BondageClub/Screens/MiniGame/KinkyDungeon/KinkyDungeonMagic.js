@@ -824,11 +824,12 @@ function KinkyDungeonGetCost(Spell) {
 	return cost;
 }
 
+
 function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let entity = KinkyDungeonPlayerEntity;
 	let moveDirection = KinkyDungeonMoveDirection;
 	let flags = {
-		miscastChance: KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax,
+		miscastChance: KinkyDungeonMiscastChance,
 	};
 	if (!enemy && !bullet && player) {
 		KinkyDungeonSendEvent("beforeCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});

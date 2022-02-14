@@ -267,7 +267,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 			}
 		}
-	} else if (Event == "beforeCast") {
+	} else if (Event == "calcMiscast") {
 		if (e.type == "ReduceMiscastFlat" && e.trigger == Event && data.flags.miscastChance > 0) {
 			data.flags.miscastChance -= e.power;
 		}
