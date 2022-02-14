@@ -178,7 +178,8 @@ var KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
-
+			{Level: 23, checkpoint: 13, chance: 1.0},
+			{Level: 26, checkpoint: 13, chance: 1.0},
 		],
 		"mainpath": [
 			{Level: 29, checkpoint: 3},
@@ -682,6 +683,7 @@ var KinkyDungeonMapParams = [
 		],
 		"mainpath": [
 			{Level: 9, checkpoint: 13},
+			{Level: 13, checkpoint: 1},
 			{Level: 29, checkpoint: 3},
 		],
 
