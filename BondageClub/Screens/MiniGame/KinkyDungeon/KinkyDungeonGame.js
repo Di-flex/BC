@@ -844,7 +844,10 @@ function KinkyDungeonSkinArea(skin, X, Y, Radius) {
 }
 
 function KinkyDungeonGetMainPath(level) {
-	return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
+	if ((MiniGameKinkyDungeonLevel + 1) % 10 == 0) {
+		return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
+	}
+	return MiniGameKinkyDungeonCheckpoint;
 }
 
 function KinkyDungeonGetShortcut(level) {
