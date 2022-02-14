@@ -603,6 +603,7 @@ Changes
 - Enemies can no longer disarm if stunned or frozen
 - Shortcuts now have tiles from the tileset they lead to, near them
 - Frigid potions are now instant and reduce AP by 72 instead of 36 total
+- Added Crystal Cave (WIP)
 
 TODO ValidationFindBlockCycles to prevent bugs
 

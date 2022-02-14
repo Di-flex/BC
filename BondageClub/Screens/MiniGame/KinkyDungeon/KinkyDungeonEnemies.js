@@ -510,7 +510,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "HighWizard", color: "#a583ff", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "elite", "unflinching", "hunter"]), squeeze: true,
 		followLeashedOnly: true, kite: 1.5, kiteChance: 1.0, followRange: 4, castWhileMoving: true, spells: ["HighBolt", "Spores"], stopToCast: true, spellRdy: true,
-		spellCooldownMult: 2, spellCooldownMod: 1, AI: "hunt", visionRadius: 8, maxhp: 13, minLevel:4, weight:7, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
+		spellCooldownMult: 2, spellCooldownMod: 1, AI: "hunt", visionRadius: 8, maxhp: 13, minLevel:4, weight:12, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4}, floors:KDMapInit([13]), shrines: [],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
