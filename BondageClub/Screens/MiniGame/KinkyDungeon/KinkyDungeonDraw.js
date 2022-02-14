@@ -272,6 +272,14 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonSendEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
 				KDDrawUpdate = 0;
 
+				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
+					if (b && b.mushroom) {
+						DrawImageCanvas(KinkyDungeonRootDirectory + "MushroomOverlay.png", KinkyDungeonContext,
+							0,
+							0);
+					}
+				}
+
 				// Draw targeting reticule
 				if (!KinkyDungeonAutoWait && !KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
 					if (KinkyDungeonTargetingSpell) {

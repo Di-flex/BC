@@ -830,6 +830,11 @@ KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behi
 AttackWitchSlimeBind,"The witch clips a restraint around your neck!"
 AttackWitchSlime,"The witch squeezes your body playfully!"
 
+NameHighWizard,'High' Wizard
+KillHighWizard,"The wizard falls asleep."
+AttackHighWizardBind,"The wizard clips a restraint around your neck!"
+AttackHighWizard,"The wizard laughs maniacally as she tickles you!"
+
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
 AttackJailerLock,"The jailer locks your restraints!"
@@ -2268,6 +2273,12 @@ KinkyDungeonSpellEntangle,Raging Vines
 
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
+
+KinkyDungeonSpellHighBolt,Curious Spell
+KinkyDungeonFlummox,You have been flummoxed!
+
+KinkyDungeonSpellSpores,Spores
+KinkyDungeonSpores,"You inhale some spores, and feel a bit sleepy..."
 
 KinkyDungeonSpellHairpin,Magic Hairpin
 KinkyDungeonHairpin,"The magic hairpin goes for your eyes and forces you to blink!"
