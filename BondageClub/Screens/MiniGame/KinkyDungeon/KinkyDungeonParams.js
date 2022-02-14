@@ -649,7 +649,7 @@ var KinkyDungeonMapParams = [
 			{Type: "Leather", Weight: 6},
 			{Type: "Will", Weight: 7},]
 	},
-	{//DungeonName13,-Fungal Cave-
+	{//DungeonName13,-Crystal Cave-
 		"background" : "ForestCave",
 		"openness" : 4,
 		"density" : 4,

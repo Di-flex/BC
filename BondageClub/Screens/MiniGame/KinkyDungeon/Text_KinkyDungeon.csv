@@ -835,6 +835,12 @@ KillHighWizard,"The wizard falls asleep."
 AttackHighWizardBind,"The wizard clips a restraint around your neck!"
 AttackHighWizard,"The wizard laughs maniacally as she tickles you!"
 
+NameMushy,Mushy
+KillMushy,"The giant mushroom explodes into a cloud of spores!!!"
+AttackMushyBind,"The giant mushroom spits spores into your face and ties you while you are distracted! (+RestraintAdded)"
+AttackMushyBlind,"The giant mushroom spits spores into your face and tries to tie you!"
+AttackMushy,"The giant mushroom emits soporific spores! (-DamageTaken SP)"
+
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
 AttackJailerLock,"The jailer locks your restraints!"
