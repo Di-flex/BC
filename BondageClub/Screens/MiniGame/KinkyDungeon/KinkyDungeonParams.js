@@ -584,7 +584,7 @@ var KinkyDungeonMapParams = [
 		"openness" : 5,
 		"density" : 6,
 		"doodadchance" : 0.15,
-		"wallRubblechance" : 0.05,
+		"wallRubblechance" : 0.035,
 		"barchance" : 0.1,
 		"brightness" : 8,
 		"chestcount" : 3,
