@@ -102,6 +102,12 @@ var KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
+			{Level: 11, checkpoint: 12, chance: 0.25},
+			{Level: 12, checkpoint: 12, chance: 1.0},
+			{Level: 13, checkpoint: 12, chance: 0.25},
+			{Level: 14, checkpoint: 12, chance: 0.25},
+			{Level: 15, checkpoint: 12, chance: 0.25},
+			{Level: 16, checkpoint: 12, chance: 1.0},
 		],
 		"mainpath": [
 			{Level: 19, checkpoint: 2},
@@ -578,6 +584,7 @@ var KinkyDungeonMapParams = [
 		"openness" : 5,
 		"density" : 6,
 		"doodadchance" : 0.15,
+		"wallRubblechance" : 0.05,
 		"barchance" : 0.1,
 		"brightness" : 8,
 		"chestcount" : 3,
@@ -597,11 +604,10 @@ var KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
-			{Level: 7, checkpoint: 13, chance: 0.33},
-			{Level: 8, checkpoint: 13, chance: 1.0},
+			{Level: 16, checkpoint: 1, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 9, checkpoint: 1},
+			{Level: 19, checkpoint: 2},
 		],
 
 		"traps": [

@@ -13,6 +13,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "D") sprite = "Door";
 	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
 	else if (code == "R") sprite = "RubbleLooted";
+	else if (code == "Y") sprite = "Wall";
 	else if (code == "T") sprite = "Trap";
 	else if (code == "r") sprite = "RubbleLooted";
 	else if (code == "g") sprite = "Grate";
@@ -32,6 +33,7 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
 	if (code == "G") sprite = "Ghost";
 	else if (code == "R") sprite = "Rubble";
+	else if (code == "Y") sprite = "Rubble";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";

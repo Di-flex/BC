@@ -148,6 +148,10 @@ LootRubbleKnife,You find a rusty knife among the rocks
 LootRubbleRedKey,"You find an ordinary key"
 LootRubbleBlueKey,"You find a blue key, glowing with magic"
 
+LootBookshelfKey,"You find a key on the shelf!"
+LootBookshelfScroll,"You find a useful scroll in between the books!"
+LootBookshelfTrap,"You find a glowing book, which magically binds you as soon as you open it!"
+
 LootChestMistressKey,You find a golden key surrounded by strange golden crystals.
 LootChestAncientCores,You find a set of strange golden crystals.
 LootChestScrolls,"You find a pack of scrolls used for spellcasting, and some strange golden crystals."
@@ -1714,6 +1718,22 @@ RestraintCableHarness,High-Tech Cables (Harness)
 RestraintCableHarnessDesc,"Cables made from a high-tech metallized polyfiber. Impervious to steel edges!"
 RestraintCableHarnessDesc2,"They are wrapped methodically around your body!"
 
+RestraintRibbonArms,Magic Ribbons (Arms)
+RestraintRibbonArmsDesc,"Ribbons enchanted with powerful magic. They can't be cut without a magic implement!"
+RestraintRibbonArmsDesc2,"They are wrapped tightly around your body with a bow knot!"
+RestraintRibbonLegs,Magic Ribbons (Legs)
+RestraintRibbonLegsDesc,"Ribbons enchanted with powerful magic. They can't be cut without a magic implement!"
+RestraintRibbonLegsDesc2,"They are wrapped tightly around your body with a bow knot!"
+RestraintRibbonHarness,Magic Ribbons (Harness)
+RestraintRibbonHarnessDesc,"Ribbons enchanted with powerful magic. They can't be cut without a magic implement!"
+RestraintRibbonHarnessDesc2,"They are wrapped tightly around your body with a bow knot!"
+RestraintRibbonHands,Magic Ribbons (Mittens)
+RestraintRibbonHandsDesc,"Ribbons enchanted with powerful magic. They can't be cut without a magic implement!"
+RestraintRibbonHandsDesc2,"They are wrapped tightly around your hands with a bow knot!"
+RestraintRibbonMouth,Magic Ribbons (Gag)
+RestraintRibbonMouthDesc,"Ribbons enchanted with powerful magic. They can't be cut without a magic implement!"
+RestraintRibbonMouthDesc2,"They are wrapped tightly around your mouth with a bow knot!"
+
 RestraintIceArms,Ice (Arms)
 RestraintIceArmsDesc,"Frigid restraints made out of ice."
 RestraintIceArmsDesc2,"There's no way to remove it without breaking it off."
@@ -2387,6 +2407,7 @@ KinkyDungeonCharmWraps,"The orb explodes into a burst of ribbons!"
 KinkyDungeonCharmWrapsDress,"The orb tears off your clothes!"
 
 KinkyDungeonSpellTrapCharmWeak,Charm Trap
+KinkyDungeonSpellTrapRibbons,Ribbon Trap
 KinkyDungeonSpellTrapShackleWeak,Shackle Trap
 KinkyDungeonSpellTrapMummyWeak,Mummy Trap
 KinkyDungeonSpellTrapRopeWeak,Rope Trap
@@ -2399,7 +2420,8 @@ KinkyDungeonSpellTrapLustCloud,Gas Trap
 KinkyDungeonSpellTrapSleepDart,Sleep Dart
 KinkyDungeonSpellSleepDart,Sleep Dart
 
-KinkyDungeonSpellCastTrapCharmWeak,"The floor moves, sending a cloud of charms flying around you!"
+KinkyDungeonSpellCastTrapCharmWeak,"A talisman on the floor explodes, sending a cloud of charms flying around you!"
+KinkyDungeonSpellCastTrapRibbons,"Magical binding ribbons emerge from the walls!"
 KinkyDungeonSpellCastTrapShackleWeak,"The ceiling opens, letting a lot of shackles fall on you!"
 KinkyDungeonSpellCastTrapMummyWeak,"Bands of glowing wrappings start flying in from all sides!"
 KinkyDungeonSpellCastTrapRopeWeak,"Ropes slither out towards you from between the bricks!"
@@ -2410,6 +2432,7 @@ KinkyDungeonSpellCastTrapSlimeWeak,"Slimes pours out from the walls and ceiling!
 KinkyDungeonSpellCastTrapMagicChainsWeak,"Ethereal chains appear all around you!"
 KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
 KinkyDungeonTrapBindingsCharmWeak,"The charms stick themselves all over your body!"
+KinkyDungeonTrapBindingsRibbons,"The ribbons tie themselves tightly around your body and won't let go!"
 KinkyDungeonTrapBindingsShackleWeak,"Shackles close themselves over your limbs!"
 KinkyDungeonTrapBindingsMummyWeak,"The wrappings close in over your body!"
 KinkyDungeonTrapBindingsRopeWeak,"The ropes wrap themselves around your body!"

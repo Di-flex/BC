@@ -51,7 +51,7 @@ let KinkyDungeonMapBrightness = 5;
 let KinkyDungeonGroundTiles = "023w]";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
-let KinkyDungeonMovableTiles = "OCAG" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests
+let KinkyDungeonMovableTiles = "OCAGY" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests
 let KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "") + "OoAaCcBb"; // Light does not pass thru doors or grates
 let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
 
@@ -310,6 +310,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let cacheInterval = MapParams.cacheInterval;
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
+	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
 
 	let shrineTypes = [];
 	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, floodChance);
@@ -323,7 +324,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 
 	KinkyDungeonJailTransgressed = true;
 
-	KinkyDungeonReplaceDoodads(doodadchance, barchance, width, height); // Replace random internal walls with doodads
+	KinkyDungeonReplaceDoodads(doodadchance, barchance, wallRubblechance, width, height); // Replace random internal walls with doodads
 	KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), startpos, width, height); // Place the start and end locations
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
 	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
@@ -1334,11 +1335,13 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 	return trapLocations;
 }
 
-function KinkyDungeonReplaceDoodads(Chance, barchance, width, height) {
+function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, width, height) {
 	for (let X = 1; X < width-1; X += 1)
 		for (let Y = 1; Y < height-1; Y += 1) {
 			if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < Chance)
 				KinkyDungeonMapSet(X, Y, 'X');
+			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance)
+				KinkyDungeonMapSet(X, Y, 'Y');
 		}
 	for (let X = 1; X < width - 1; X += 1)
 		for (let Y = 1; Y < height - 1; Y += 1) {
@@ -1837,6 +1840,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
 
 							KinkyDungeonMapSet(moveX, moveY, 'r');
+						} else if (moveObject == 'Y') {
+							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
+							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "shelf");
+
+							KinkyDungeonMapSet(moveX, moveY, '1');
 						}
 						KinkyDungeonTrapMoved = true;
 						//}
