@@ -1319,7 +1319,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/PickBreak.ogg");
 						if (restraint.restraint.magic && KinkyDungeonEnchantedBlades > 0) KinkyDungeonEnchantedBlades -= 1;
 						else {
-							if (KinkyDungeonNormalBlades > 0) {
+							if (KinkyDungeonNormalBlades > 0 && (!restraint.restraint.magic || (KinkyDungeonEnchantedBlades == 0))) {
 								KinkyDungeonNormalBlades -= 1;
 								KinkyDungeonKnifeBreakProgress = 0;
 							} else if (KinkyDungeonEnchantedBlades > 0) {

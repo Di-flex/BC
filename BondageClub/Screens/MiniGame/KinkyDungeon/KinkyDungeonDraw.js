@@ -546,20 +546,20 @@ function KinkyDungeonDrawMessages(NoLog) {
 		DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
 	if (!KinkyDungeonMessageToggle || NoLog) {
 		if (KinkyDungeonTextMessageTime > 0) {
-			DrawTextFit(KinkyDungeonTextMessage, canvasOffsetX + KinkyDungeonCanvas.width/2+1, 82+1, KinkyDungeonCanvas.width, "black", "black");
-			DrawTextFit(KinkyDungeonTextMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 82, KinkyDungeonCanvas.width, KinkyDungeonTextMessageColor, "black");
+			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2+1, 82+1, 1250, "black", "black");
+			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2, 82, 1250, KinkyDungeonTextMessageColor, "black");
 		}
 		if (KinkyDungeonActionMessageTime > 0) {
-			DrawTextFit(KinkyDungeonActionMessage, canvasOffsetX + KinkyDungeonCanvas.width/2+1, 132+1, KinkyDungeonCanvas.width, "black", "black");
-			DrawTextFit(KinkyDungeonActionMessage, canvasOffsetX + KinkyDungeonCanvas.width/2, 132, KinkyDungeonCanvas.width, KinkyDungeonActionMessageColor, "black");
+			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2+1, 132+1, 1250, "black", "black");
+			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2, 132, 1250, KinkyDungeonActionMessageColor, "black");
 		}
 	} else {
 		let extra = 200;
-		DrawRect(canvasOffsetX, 82, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height/2 + extra, "#000000");
+		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000");
 		let Dist = 50;
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
 			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];
-			DrawTextFit(log.text, canvasOffsetX + KinkyDungeonCanvas.width/2, 82 + i * Dist + Dist/2, KinkyDungeonCanvas.width, log.color, "white");
+			DrawTextFit(log.text, 500 + 1250/2, 82 + i * Dist + Dist/2, 1250, log.color, "white");
 		}
 		if (KinkyDungeonMessageLog.length > Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist))
 			KinkyDungeonMessageLog.splice(0, Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist) - KinkyDungeonMessageLog.length);
