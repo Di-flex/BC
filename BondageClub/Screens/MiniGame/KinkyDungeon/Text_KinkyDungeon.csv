@@ -847,6 +847,16 @@ AttackMushyBind,"The giant mushroom spits spores into your face and ties you whi
 AttackMushyBlind,"The giant mushroom spits spores into your face and tries to tie you!"
 AttackMushy,"The giant mushroom emits soporific spores! (-DamageTaken SP)"
 
+NameMushyHappy,Happy Mushy
+KillMushyHappy,"The giant mushroom explodes into a cloud of spores!!!"
+AttackMushyHappyBlind,"The giant mushroom tickles you silly!"
+AttackMushHappy,"The giant mushroom tickles you silly! (-DamageTaken SP)"
+
+NameMushySick,Infected Mushy
+KillMushySick,"The giant mushroom explodes into a cloud of spores!!!"
+AttackMushySickBlind,"The giant mushroom gives you a crushing hug!"
+AttackMushSick,"The giant mushroom gives you a crushing hug! (-DamageTaken SP)"
+
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
 AttackJailerLock,"The jailer locks your restraints!"
@@ -2307,6 +2317,8 @@ KinkyDungeonFlummox,You have been flummoxed!
 
 KinkyDungeonSpellSpores,Spores
 KinkyDungeonSpores,"You inhale some spores, and feel a bit sleepy..."
+KinkyDungeonSporesHappy,"The spores make you feel excited!"
+KinkyDungeonSporesSick,"The toxic spores make you feel faint..."
 
 KinkyDungeonSpellHairpin,Magic Hairpin
 KinkyDungeonHairpin,"The magic hairpin goes for your eyes and forces you to blink!"
