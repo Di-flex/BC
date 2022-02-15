@@ -534,13 +534,13 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -100}, shrines: [], floors:KDMapInit([1, 2, 11]),
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 40, weight: 12}, {name: "BlueKey", weight: 1}]},
 
-	{name: "HighWizard", color: "#a583ff", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "elite", "unflinching", "hunter"]), squeeze: true,
+	{name: "HighWizard", color: "#a583ff", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter"]), squeeze: true,
 		followLeashedOnly: true, kite: 1.5, kiteChance: 1.0, followRange: 4, castWhileMoving: true, spells: ["HighBolt", "Spores"], stopToCast: true, spellRdy: true,
 		spellCooldownMult: 2, spellCooldownMod: 1, AI: "hunt", visionRadius: 8, maxhp: 13, minLevel:4, weight:12, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4}, floors:KDMapInit([13]), shrines: [],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
-	{name: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "elite", "unflinching", "hunter", "dressRestraints", "magicRibbons"]),
+	{name: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter", "dressRestraints", "magicRibbons"]),
 		followLeashedOnly: true, kite: 1.5, kiteChance: 0.3, followRange: 4, castWhileMoving: true, spells: ["Ribbons"], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 10, maxhp: 13, minLevel:14, weight:-6, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
 		attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
