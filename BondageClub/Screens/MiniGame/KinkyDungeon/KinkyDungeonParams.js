@@ -623,7 +623,7 @@ var KinkyDungeonMapParams = [
 		"min_height" : 25,
 		"max_height" : 25,
 
-		"enemytags": ["book", "witch"],
+		"enemytags": ["book", "witch", "dressmaker"],
 		"defeat_restraints": [
 			{Name: "Stuffing", Level: 20},
 			{Name: "TrapGag", Level: 20},

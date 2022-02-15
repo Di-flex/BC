@@ -660,6 +660,20 @@ function KinkyDungeonBulletTrail(b) {
 						bullet:{trail: true, hit: b.bullet.spell.trailHit, spell:b.bullet.spell, playerEffect:b.bullet.spell.trailPlayerEffect, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
 				}
 			}
+	} else if (b.bullet.spell.trail == "cast" && !b.bullet.trail && b.bullet.spell && b.bullet.spell.trailcast) {
+		let aoe = b.bullet.spell.trailspawnaoe ? b.bullet.spell.trailspawnaoe : 0.0;
+		let rad = Math.ceil(aoe/2);
+		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+				if (Math.sqrt(X*X+Y*Y) <= aoe && KDRandom() < b.bullet.spell.trailChance) {
+					trail = true;
+					let cast = b.bullet.spell.trailcast;
+					let spell = KinkyDungeonFindSpell(cast.spell, true);
+					if (spell) {
+						KinkyDungeonCastSpell(b.x + X, b.y + Y, spell, undefined, undefined, undefined);
+					}
+				}
+			}
 	}
 	return trail;
 }

@@ -842,6 +842,14 @@ AttackHighWizardBind,"The wizard clips a restraint around your neck!"
 AttackHighWizard,"The wizard laughs maniacally as she tickles you!"
 
 
+
+NameDressmaker,Dressmaker
+KillDressmaker,"The dressmaker storms out in a rage."
+AttackDressmakerBind,"The dressmaker has you try on one of her new accessories! (+RestraintAdded)"
+AttackDressmakerLock,"The dressmaker adds a lock 'just to complete the look, you know?'"
+AttackDressmaker,"The dressmaker cuddles your helpless body~ (-DamageTaken SP)"
+
+
 NameGiantMushroom,Giant Mushroom
 KillGiantMushroom,"The giant mushroom explodes into a cloud of spores!!!"
 
@@ -2313,6 +2321,7 @@ KinkyDungeonRubberBulletsAttach,The rubber bullets congeal into a slimy material
 KinkyDungeonSpellPoisonDragonBlast,Nature Blast
 KinkyDungeonSpellEntangle,Raging Vines
 
+KinkyDungeonSpellSingleRibbon,Magic Ribbons
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
