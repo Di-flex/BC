@@ -371,7 +371,7 @@ function KinkyDungeonDrawGame() {
 				MainCanvas.fillStyle = Grad;
 				MainCanvas.fillRect(0, 1000-h, 500, h);
 			}
-			if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
+			if ((KinkyDungeonDrawState != "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
 				DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 			DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);

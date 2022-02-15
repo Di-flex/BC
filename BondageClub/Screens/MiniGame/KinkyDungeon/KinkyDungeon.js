@@ -579,7 +579,7 @@ function KinkyDungeonStartNewGame(Load) {
 }
 
 function KinkyDungeonHandleClick() {
-	if (MouseIn(1885, 25, 90, 90) && (KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game")) {
+	if (MouseIn(1885, 25, 90, 90) && (KinkyDungeonDrawState != "Game" || KinkyDungeonState != "Game")) {
 		ElementRemove("saveDataField");
 		ElementRemove("saveInputField");
 		KinkyDungeonExit();
