@@ -262,7 +262,7 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	// TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%")
 
 	DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal > 0) ? "white" : "pink", "black");
-	DrawButton(x, y, buttonWidth, buttonWidth, "", KinkyDungeonItemCount("PotionFrigid") ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
+	DrawButton(x, y, buttonWidth, buttonWidth, "", (KinkyDungeonStatArousal > 0 && KinkyDungeonItemCount("PotionFrigid")) ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	MainCanvas.textAlign = "left";
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionFrigid"), x + buttonWidth, y+buttonWidth/2, buttonWidth/2, "white", "black");
 	MainCanvas.textAlign = "center";
@@ -535,15 +535,21 @@ function KinkyDungeonHandleHUD() {
 			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionFrigid", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
+			return true;
 		} else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionStamina") && KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionStamina", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
+			return true;
 		} else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionMana") && KinkyDungeonStatMana < KinkyDungeonStatManaMax) {
 			if (KinkyDungeonCanTalk())
 				KinkyDungeonAttemptConsumable("PotionMana", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
-		} else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 240, 50) && KDGameData.PlaySelfTurns < 1 && KDGameData.SleepTurns < 1) {
+			return true;
+		} else if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
+		else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
+		else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
+		else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 240, 50) && KDGameData.PlaySelfTurns < 1 && KDGameData.SleepTurns < 1) {
 			if (KinkyDungeonCanTryOrgasm()) {
 				KinkyDungeonDoTryOrgasm();
 				KinkyDungeonAlert = 7; // Alerts nearby enemies because of your moaning~
