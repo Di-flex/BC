@@ -604,6 +604,7 @@ Changes
 - Shortcuts now have tiles from the tileset they lead to, near them
 - Frigid potions are now instant and reduce AP by 72 instead of 36 total
 - Added Crystal Cave (WIP)
+- The struggle menu now rerquires mouseover (or click on mobile) to show the restraint buttons
 
 TODO ValidationFindBlockCycles to prevent bugs
 

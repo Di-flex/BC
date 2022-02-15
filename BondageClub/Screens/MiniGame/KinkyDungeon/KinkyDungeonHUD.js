@@ -21,6 +21,7 @@ let KinkyDungeonStruggleGroupsBase = [
 	"ItemBoots",
 ];
 let KinkyDungeonDrawStruggle = true;
+let KinkyDungeonDrawStruggleHover = false;
 let KinkyDungeonDrawState = "Game";
 let KinkyDungeonSpellValid = false;
 let KinkyDungeonCamX = 0;
@@ -58,6 +59,7 @@ function KinkyDungeonDrawInputs() {
 	}
 
 	// Draw the struggle buttons if applicable
+	KinkyDungeonDrawStruggleHover = false;
 	if (!KinkyDungeonShowInventory && ((KinkyDungeonDrawStruggle || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups))
 		for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
 			let sg = KinkyDungeonStruggleGroups[S];
@@ -91,66 +93,72 @@ function KinkyDungeonDrawInputs() {
 			MainCanvas.textAlign = "center";
 
 			let i = 1;
-			DrawButton(x, y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "Struggle.png", "");
-			if (sg.curse) {
-				DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "CurseInfo.png", ""); i++;
-				if (KinkyDungeonCurseAvailable(sg, sg.curse))
-					DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "CurseUnlock.png", ""); i++;
-			} else if (!sg.blocked) {
-				let toolSprite = (sg.lock != "") ? ((sg.lock != "Jammed") ? "Key" : "LockJam") : "Buckle";
-				if ((KinkyDungeonNormalBlades > 0 || KinkyDungeonWeaponCanCut(true) || KinkyDungeonEnchantedBlades > 0) && !sg.noCut) {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "Cut.png", ""); i++;}
-				DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + toolSprite + ".png", ""); i++;
-				if (KinkyDungeonLockpicks > 0 && sg.lock != "") {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "UseTool.png", ""); i++;}
+			if (MouseIn(((!sg.left) ? (260) : 0), y-24, 230, (ButtonWidth + 46))) {
+				if (!KinkyDungeonDrawStruggleHover) {
+					KinkyDungeonDrawStruggleHover = true;
+				}
+				DrawButton(x, y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "Struggle.png", "");
+				if (sg.curse) {
+					DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "CurseInfo.png", ""); i++;
+					if (KinkyDungeonCurseAvailable(sg, sg.curse))
+						DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "CurseUnlock.png", ""); i++;
+				} else if (!sg.blocked) {
+					let toolSprite = (sg.lock != "") ? ((sg.lock != "Jammed") ? "Key" : "LockJam") : "Buckle";
+					if ((KinkyDungeonNormalBlades > 0 || KinkyDungeonWeaponCanCut(true) || KinkyDungeonEnchantedBlades > 0) && !sg.noCut) {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "Cut.png", ""); i++;}
+					DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + toolSprite + ".png", ""); i++;
+					if (KinkyDungeonLockpicks > 0 && sg.lock != "") {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "UseTool.png", ""); i++;}
 
-				let MY = Math.min(500, MouseY);
-				if (MouseIn(x + ((!sg.left) ? -(ButtonWidth)*i : 0), y, ButtonWidth*i, ButtonWidth)) {
-					let item = KinkyDungeonGetRestraintItem(sg.group);
-					let lastO = 0;
-					if (item && item.dynamicLink) {
-						let O = 1;
-						MainCanvas.textAlign = "left";
-						let drawn = false;
-						for (let d of item.dynamicLink) {
-							if (item.restraint && (!item.restraint.UnLink || d != item.restraint.UnLink))
-							{
+					let MY = Math.min(500, MouseY);
+					if (MouseIn(x + ((!sg.left) ? -(ButtonWidth)*i : 0), y, ButtonWidth*i, ButtonWidth)) {
+						let item = KinkyDungeonGetRestraintItem(sg.group);
+						let lastO = 0;
+						if (item && item.dynamicLink) {
+							let O = 1;
+							MainCanvas.textAlign = "left";
+							let drawn = false;
+							for (let d of item.dynamicLink) {
+								if (item.restraint && (!item.restraint.UnLink || d != item.restraint.UnLink))
+								{
+									drawn = true;
+									let msg = TextGet("Restraint" + d);
+									DrawText(msg, 1 + 530, 1 + MY + O * 50, "black", "black");
+									DrawText(msg, 530, MY + O * 50, "white", "black");
+									O++;
+								}
+							}
+							lastO = O;
+							O = 0;
+							if (drawn) {
+								DrawText(TextGet("KinkyDungeonItemsUnderneath"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
+								DrawText(TextGet("KinkyDungeonItemsUnderneath"), 530, MY + O * ButtonWidth, "white", "black");
+							}
+							O = lastO + 1;
+							MainCanvas.textAlign = "center";
+						}
+						if (item && item.restraint && KinkyDungeonStrictness(false, item.restraint.Group)) {
+							let strictItems = KinkyDungeonGetStrictnessItems(item.restraint.Group);
+							let O = lastO + 1;
+							MainCanvas.textAlign = "left";
+							let drawn = false;
+							for (let s of strictItems) {
 								drawn = true;
-								let msg = TextGet("Restraint" + d);
+								let msg = TextGet("Restraint" + s);
 								DrawText(msg, 1 + 530, 1 + MY + O * 50, "black", "black");
 								DrawText(msg, 530, MY + O * 50, "white", "black");
 								O++;
 							}
+							O = lastO;
+							if (drawn) {
+								DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
+								DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MY + O * ButtonWidth, "white", "black");
+							}
+							MainCanvas.textAlign = "center";
 						}
-						lastO = O;
-						O = 0;
-						if (drawn) {
-							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
-							DrawText(TextGet("KinkyDungeonItemsUnderneath"), 530, MY + O * ButtonWidth, "white", "black");
-						}
-						O = lastO + 1;
-						MainCanvas.textAlign = "center";
-					}
-					if (item && item.restraint && KinkyDungeonStrictness(false, item.restraint.Group)) {
-						let strictItems = KinkyDungeonGetStrictnessItems(item.restraint.Group);
-						let O = lastO + 1;
-						MainCanvas.textAlign = "left";
-						let drawn = false;
-						for (let s of strictItems) {
-							drawn = true;
-							let msg = TextGet("Restraint" + s);
-							DrawText(msg, 1 + 530, 1 + MY + O * 50, "black", "black");
-							DrawText(msg, 530, MY + O * 50, "white", "black");
-							O++;
-						}
-						O = lastO;
-						if (drawn) {
-							DrawText(TextGet("KinkyDungeonItemsStrictness"), 1 + 530, 1 + MY + O * ButtonWidth, "black", "black");
-							DrawText(TextGet("KinkyDungeonItemsStrictness"), 530, MY + O * ButtonWidth, "white", "black");
-						}
-						MainCanvas.textAlign = "center";
 					}
 				}
 			}
 		}
+
 
 	if (KinkyDungeonDrawStruggle) DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideTrue.png", "");
 	else DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideFalse.png", "");
@@ -401,7 +409,7 @@ function KinkyDungeonHandleHUD() {
 			}
 		}
 
-		if (KinkyDungeonStruggleGroups)
+		if (KinkyDungeonStruggleGroups && KinkyDungeonDrawStruggleHover)
 			for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
 				let sg = KinkyDungeonStruggleGroups[S];
 				let ButtonWidth = 60;

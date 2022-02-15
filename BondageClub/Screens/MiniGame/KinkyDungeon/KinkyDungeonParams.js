@@ -263,7 +263,7 @@ var KinkyDungeonMapParams = [
 
 		],
 		"mainpath": [
-			{Level: 39, checkpoint: 4},
+			{Level: 39, checkpoint: 3},
 		],
 
 		"traps": [
