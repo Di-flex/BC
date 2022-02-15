@@ -213,12 +213,12 @@ function KinkyDungeonHandleShrine() {
 
 	if (type == "Commerce") {
 		if (cost > 0) {
-			if (MouseIn(840, 825, 112-15, 60) && cost <= KinkyDungeonGold) {
+			if (MouseIn(KDModalArea_x + 210, KDModalArea_y + 25, 112-15, 60) && cost <= KinkyDungeonGold) {
 				KinkyDungeonPayShrine(type);
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				return true;
 			}
-			else if (MouseIn(963, 825, 112, 60)) {
+			else if (MouseIn(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60)) {
 				KinkyDungeonShopIndex = (KinkyDungeonShopIndex + 1) % KinkyDungeonShopItems.length;
 
 				return true;
@@ -226,7 +226,7 @@ function KinkyDungeonHandleShrine() {
 
 		}
 	} else {
-		if (cost > 0 && MouseIn(650, 825, 325, 60)) {
+		if (cost > 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 325, 60)) {
 			KinkyDungeonAdvanceTime(1, true);
 			KinkyDungeonTargetTile = null;
 			if (KinkyDungeonGold >= cost) {
@@ -243,7 +243,7 @@ function KinkyDungeonHandleShrine() {
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			return true;
-		} else if (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(650, 825, 375, 60)) || MouseIn(1000, 825, 100, 60))) {
+		} else if (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 375, 60)) || MouseIn(KDModalArea_x + 150, KDModalArea_y + 25, 100, 60))) {
 			let chance = 0 + KinkyDungeonShrinePoolChancePerUse * KDGameData.PoolUses;
 
 			KinkyDungeonAdvanceTime(1, true);
@@ -282,34 +282,35 @@ function KinkyDungeonHandleShrine() {
 function KinkyDungeonDrawShrine() {
 	let cost = 0;
 	let type = KinkyDungeonTargetTile.Name;
+	KDModalArea = true;
 
 	if (KinkyDungeonShrineAvailable(type)) cost = KinkyDungeonShrineCost(type);
 
 	if (type == "Commerce") {
 		if (cost == 0) {
-			DrawText(TextGet("KinkyDungeonLockedShrine"), 850, 850, "white", "silver");
+			DrawText(TextGet("KinkyDungeonLockedShrine"), KDModalArea_x, KDModalArea_y, "white", "silver");
 		} else {
-			DrawButton(840, 825, 112-15, 60, TextGet("KinkyDungeonCommercePurchase").replace("ItemCost", "" + cost), (cost <= KinkyDungeonGold) ? "White" : "Pink", "", "");
-			if (MouseIn(840, 825, 112-15, 60) && KinkyDungeonShopItems.length > 0 && KinkyDungeonShopItems[KinkyDungeonShopIndex]) {
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX+1, 1+canvasOffsetY + KinkyDungeonCanvas.height - 300, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX, canvasOffsetY + KinkyDungeonCanvas.height - 300, 1000, "white");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX+1, 1+canvasOffsetY + KinkyDungeonCanvas.height - 250, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX, canvasOffsetY + KinkyDungeonCanvas.height - 250, 1000, "white");
+			DrawButton(KDModalArea_x + 210, KDModalArea_y + 25, 112-15, 60, TextGet("KinkyDungeonCommercePurchase").replace("ItemCost", "" + cost), (cost <= KinkyDungeonGold) ? "White" : "Pink", "", "");
+			if (MouseIn(KDModalArea_x + 210, KDModalArea_y + 25, 112-15, 60) && KinkyDungeonShopItems.length > 0 && KinkyDungeonShopItems[KinkyDungeonShopIndex]) {
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX+1, 1+KDModalArea_y - 100, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), MouseX, KDModalArea_y - 100, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX+1, 1+KDModalArea_y - 50, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc2"), MouseX, KDModalArea_y - 50, 1000, "white");
 			}
-			DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonCommerceNext"), "White", "", "");
+			DrawButton(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonCommerceNext"), "White", "", "");
 			if (KinkyDungeonShopIndex > KinkyDungeonShopItems.length) {
 				KinkyDungeonShopIndex = 0;
 			} else if (KinkyDungeonShopItems.length > 0 && KinkyDungeonShopItems[KinkyDungeonShopIndex]) {
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name), 650 + 175/2, 845, 175, "white", "silver");
-				DrawTextFit(TextGet("KinkyDungeonCommerceCost").replace("ItemCost", "" + cost), 650 + 175/2, 890, 130, "white", "silver");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name), KDModalArea_x + 175/2, KDModalArea_y + 20, 175, "white", "silver");
+				DrawTextFit(TextGet("KinkyDungeonCommerceCost").replace("ItemCost", "" + cost), KDModalArea_x + 175/2, KDModalArea_y + 65, 130, "white", "silver");
 			}
 		}
 	} else {
 		if (cost == 0) {
-			DrawButton(650, 825, 375, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime"))) ? "#AAFFFF" : "#444444", "", "");
+			DrawButton(KDModalArea_x, KDModalArea_y + 25, 375, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime"))) ? "#AAFFFF" : "#444444", "", "");
 		} else {
-			DrawButton(650, 825, 325, 60, TextGet("KinkyDungeonPayShrine").replace("XXX", "" + cost), "White", "", "");
-			DrawButton(1000, 825, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) ? "#AAFFFF" : "#444444", "", "");
+			DrawButton(KDModalArea_x, KDModalArea_y + 25, 325, 60, TextGet("KinkyDungeonPayShrine").replace("XXX", "" + cost), "White", "", "");
+			DrawButton(KDModalArea_x + 150, KDModalArea_y + 25, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) ? "#AAFFFF" : "#444444", "", "");
 		}
 	}
 }

@@ -20,7 +20,7 @@ let KinkyDungeonStruggleGroupsBase = [
 	"ItemFeet",
 	"ItemBoots",
 ];
-let KinkyDungeonDrawStruggle = true;
+let KinkyDungeonDrawStruggle = 1;
 let KinkyDungeonDrawStruggleHover = false;
 let KinkyDungeonDrawState = "Game";
 let KinkyDungeonSpellValid = false;
@@ -61,7 +61,7 @@ function KinkyDungeonDrawInputs() {
 
 	// Draw the struggle buttons if applicable
 	KinkyDungeonDrawStruggleHover = false;
-	if (!KinkyDungeonShowInventory && ((KinkyDungeonDrawStruggle || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups))
+	if (!KinkyDungeonShowInventory && ((KinkyDungeonDrawStruggle > 0 || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups))
 		for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
 			let sg = KinkyDungeonStruggleGroups[S];
 			let ButtonWidth = 60;
@@ -94,7 +94,7 @@ function KinkyDungeonDrawInputs() {
 			MainCanvas.textAlign = "center";
 
 			let i = 1;
-			if (MouseIn(((!sg.left) ? (260) : 0), y-24, 230, (ButtonWidth + 46))) {
+			if (MouseIn(((!sg.left) ? (260) : 0), y-24, 230, (ButtonWidth + 46)) || KinkyDungeonDrawStruggle > 1) {
 				if (!KinkyDungeonDrawStruggleHover) {
 					KinkyDungeonDrawStruggleHover = true;
 				}
@@ -161,7 +161,7 @@ function KinkyDungeonDrawInputs() {
 		}
 
 
-	if (KinkyDungeonDrawStruggle) DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideTrue.png", "");
+	if (KinkyDungeonDrawStruggle > 0) DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "Hide" + (KinkyDungeonDrawStruggle > 1 ? "Full" : "True") + ".png", "");
 	else DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideFalse.png", "");
 
 	DrawButton(510, 825, 60, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonShowInventory ? "BackpackOpen.png" : "Backpack.png"), "");
@@ -170,22 +170,24 @@ function KinkyDungeonDrawInputs() {
 		if (KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) {
 			let action = false;
 			if (KinkyDungeonLockpicks > 0) {
-				DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonPickDoor"), "White", "", "");
+				DrawButton(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonPickDoor"), "White", "", "");
 				action = true;
+				KDModalArea = true;
 			}
 
 			if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
 				|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
-				DrawButton(825, 825, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
+				DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
 				action = true;
+				KDModalArea = true;
 			}
 
-			if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "black");
+			if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), KDModalArea_x + 300, KDModalArea_y + 50, "white", "black");
 
 			if (KinkyDungeonTargetTile.Lock.includes("Red"))
-				DrawText(TextGet("KinkyRedLock"), 700, 850, "white", "black");
+				DrawText(TextGet("KinkyRedLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "black");
 			else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
-				DrawText(TextGet("KinkyBlueLock"), 700, 850, "white", "black");
+				DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "black");
 		} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 			KinkyDungeonDrawShrine();
 		} else if (KinkyDungeonTargetTile.Type == "Ghost") {
@@ -194,21 +196,23 @@ function KinkyDungeonDrawInputs() {
 			if (KinkyDungeonTargetTile.Lock) {
 				let action = false;
 				if (KinkyDungeonLockpicks > 0) {
-					DrawButton(963, 825, 112, 60, TextGet("KinkyDungeonPickDoor"), "White", "", "");
+					DrawButton(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonPickDoor"), "White", "", "");
 					action = true;
+					KDModalArea = true;
 				}
 
 				if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
-					DrawButton(825, 825, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
+					DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
 					action = true;
+					KDModalArea = true;
 				}
 
-				if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), 950, 850, "white", "black");
+				if (!action) DrawText(TextGet("KinkyDungeonLockedDoor"), KDModalArea_x + 300, KDModalArea_y + 50, "white", "black");
 
 				if (KinkyDungeonTargetTile.Lock.includes("Red"))
-					DrawText(TextGet("KinkyRedLock"), 675, 850, "white", "black");
+					DrawText(TextGet("KinkyRedLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "black");
 				else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
-					DrawText(TextGet("KinkyBlueLock"), 675, 850, "white", "black");
+					DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "black");
 			} else
 				DrawButton(675, 825, 350, 60, TextGet("KinkyDungeonCloseDoor"), "White");
 		}
@@ -357,6 +361,12 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}*/
 }
 
+let KDModalArea_x = 600;
+let KDModalArea_y = 700;
+let KDModalArea_width = 800;
+let KDModalArea_height = 100;
+let KDModalArea = true;
+
 function KinkyDungeonHandleHUD() {
 	let buttonWidth = 48;
 	if (KinkyDungeonDrawState == "Game") {
@@ -395,8 +405,11 @@ function KinkyDungeonHandleHUD() {
 			//KinkyDungeonDrawState = "Magic";
 			KinkyDungeonDrawState = "MagicSpells";
 			return true;}
-		else if (MouseIn(510, 925, 120, 60)) { KinkyDungeonDrawStruggle = !KinkyDungeonDrawStruggle; return true;}
-		else if (MouseIn(510, 825, 60, 90)) {
+		else if (MouseIn(510, 925, 120, 60)) {
+			KinkyDungeonDrawStruggle += 1;
+			if (KinkyDungeonDrawStruggle > 2) KinkyDungeonDrawStruggle = 0;
+			return true;
+		} else if (MouseIn(510, 825, 60, 90)) {
 			KinkyDungeonShowInventory = !KinkyDungeonShowInventory;
 		}
 
@@ -415,7 +428,7 @@ function KinkyDungeonHandleHUD() {
 		if (KinkyDungeonTargetTile) {
 			if (KinkyDungeonTargetTile.Type &&
 				((KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) || (KinkyDungeonTargetTile.Type == "Door" && KinkyDungeonTargetTile.Lock))) {
-				if (KinkyDungeonLockpicks > 0 && MouseIn(963, 825, 112, 60)) {
+				if (KinkyDungeonLockpicks > 0 && MouseIn(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonPickAttempt()) {
 						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
@@ -427,7 +440,7 @@ function KinkyDungeonHandleHUD() {
 				}
 
 				if (((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
-					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(825, 825, 112, 60)) {
+					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
 						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
@@ -441,7 +454,7 @@ function KinkyDungeonHandleHUD() {
 				if (KinkyDungeonHandleShrine())
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
-				if (MouseIn(675, 825, 350, 60)) {
+				if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 350, 60)) {
 					KinkyDungeonTargetTile = null;
 					let x = KinkyDungeonTargetTileLocation.split(',')[0];
 					let y = KinkyDungeonTargetTileLocation.split(',')[1];
@@ -652,6 +665,9 @@ function KinkyDungeonHandleHUD() {
 		return true;
 	}
 
+	if (KDModalArea && MouseIn(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height)) return true;
+	if (KinkyDungeonDrawStruggle > 0 && MouseIn(0, 0, 500, 1000)) return true;
+	KDModalArea = false;
 	return false;
 }
 
