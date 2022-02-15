@@ -243,7 +243,7 @@ function KinkyDungeonHandleShrine() {
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			return true;
-		} else if (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 375, 60)) || MouseIn(KDModalArea_x + 150, KDModalArea_y + 25, 100, 60))) {
+		} else if (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 375, 60)) || MouseIn(KDModalArea_x + 350, KDModalArea_y + 25, 100, 60))) {
 			let chance = 0 + KinkyDungeonShrinePoolChancePerUse * KDGameData.PoolUses;
 
 			KinkyDungeonAdvanceTime(1, true);
@@ -310,13 +310,13 @@ function KinkyDungeonDrawShrine() {
 			DrawButton(KDModalArea_x, KDModalArea_y + 25, 375, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime"))) ? "#AAFFFF" : "#444444", "", "");
 		} else {
 			DrawButton(KDModalArea_x, KDModalArea_y + 25, 325, 60, TextGet("KinkyDungeonPayShrine").replace("XXX", "" + cost), "White", "", "");
-			DrawButton(KDModalArea_x + 150, KDModalArea_y + 25, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) ? "#AAFFFF" : "#444444", "", "");
+			DrawButton(KDModalArea_x + 350, KDModalArea_y + 25, 100, 60, TextGet("KinkyDungeonDrinkShrine"), (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) ? "#AAFFFF" : "#444444", "", "");
 		}
 	}
 }
 function KinkyDungeonDrawGhost() {
-	if (KinkyDungeonGhostDecision == 0) DrawText(TextGet("KinkyDungeonDrawGhostHelpful"), 850, 850, "white", "silver");
-	else DrawText(TextGet("KinkyDungeonDrawGhostUnhelpful"), 850, 850, "white", "silver");
+	if (KinkyDungeonGhostDecision == 0) DrawText(TextGet("KinkyDungeonDrawGhostHelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
+	else DrawText(TextGet("KinkyDungeonDrawGhostUnhelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 }
 function KinkyDungeonGhostMessage() {
 	let restraints = KinkyDungeonRestraintList();

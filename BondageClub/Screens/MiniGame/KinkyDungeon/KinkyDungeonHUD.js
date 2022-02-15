@@ -666,7 +666,7 @@ function KinkyDungeonHandleHUD() {
 	}
 
 	if (KDModalArea && MouseIn(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height)) return true;
-	if (KinkyDungeonDrawStruggle > 0 && MouseIn(0, 0, 500, 1000)) return true;
+	if (MouseIn(0, 0, 500, 1000)) return true;
 	KDModalArea = false;
 	return false;
 }
