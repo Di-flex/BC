@@ -300,10 +300,15 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"slimeBonus": 1.5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 2}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 0.4, ignoreInInventory: true}]},
 
+
+	{name: "GiantMushroom", tags: KDMapInit(["mushroom", "mimicBlock", "minor", "unstoppable", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness"]), spellResist: 0.33, sneakThreshold: 0.01,
+		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", ambushRadius: 0,
+		visionRadius: 0, maxhp: 5, minLevel:0, weight:40, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
+		terrainTags: {}, floors:KDMapInit([13]), shrines: ["Will"], ondeath: [{type: "spellOnSelf", spell: "Spores"}],},
 	{name: "Mushy", color: "#4fa4b8",
 		tags: KDMapInit(["leashing", "mushroom", "melee", "minor", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness", "ropeMagicStrong", "ropeAuxiliary", "clothRestraints", "tapeRestraints"]),
 		squeeze: true, evasion: -0.5, followRange: 1, AI: "patrol",
-		visionRadius: 5, maxhp: 8, minLevel: 10, weight:20, movePoints: 4, attackPoints: 2, attack: "MeleeBindBlindWill", blindTime: 2, attackWidth: 2, attackRange: 1, power: 4, dmgType: "poison", fullBoundBonus: 2,
+		visionRadius: 5, maxhp: 8, minLevel: 10, weight:20, movePoints: 4, attackPoints: 2, attack: "MeleeBindBlindWill", blindTime: 2, attackWidth: 3, attackRange: 1, power: 4, dmgType: "poison", fullBoundBonus: 2,
 		terrainTags: {}, floors:KDMapInit([13]), shrines: [], ondeath: [{type: "spellOnSelf", spell: "Spores"}],
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "SmokeBomb", weight: 1}]},
 	{name: "MushyHappy", color: "#4fa4b8",
@@ -891,7 +896,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonSummonEnemy(enemy.x, enemy.y, o.enemy, o.count, o.range, o.strict);
 				} else if (o.type == "spellOnSelf") {
 					let spell = KinkyDungeonFindSpell(o.spell, true);
-					if (spell) KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, undefined, undefined);
+					if (spell) KinkyDungeonCastSpell(enemy.x, enemy.y, spell, undefined, undefined, undefined);
 				}
 			}
 		}

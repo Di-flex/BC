@@ -841,6 +841,10 @@ KillHighWizard,"The wizard falls asleep."
 AttackHighWizardBind,"The wizard clips a restraint around your neck!"
 AttackHighWizard,"The wizard laughs maniacally as she tickles you!"
 
+
+NameGiantMushroom,Giant Mushroom
+KillGiantMushroom,"The giant mushroom explodes into a cloud of spores!!!"
+
 NameMushy,Mushy
 KillMushy,"The giant mushroom explodes into a cloud of spores!!!"
 AttackMushyBind,"The giant mushroom spits spores into your face and ties you while you are distracted! (+RestraintAdded)"
