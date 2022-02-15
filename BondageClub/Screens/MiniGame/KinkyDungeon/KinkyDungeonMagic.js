@@ -791,7 +791,8 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 function KinkyDungeonHandleSpell() {
 	let spell = null;
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
-		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive && (MouseIn(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive
+			&& (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
 			if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
 				KinkyDungeonSpellChoicesToggle[i] = !KinkyDungeonSpellChoicesToggle[i];
 				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].costOnToggle) {
@@ -1109,7 +1110,7 @@ function KinkyDungeonHandleMagic() {
 		return true;
 	}
 
-	if (MouseIn(650, 925, 355, 60)) {
+	if (MouseIn(800, 925, 355, 60)) {
 		KinkyDungeonDrawState = "MagicSpells";
 		return true;
 	}
@@ -1209,7 +1210,7 @@ function KinkyDungeonDrawMagic() {
 	/*} else {
 		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale/2 - 250, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 500, 60, TextGet("KinkyDungeonBookRandomPage"), "White", "", "");
 	}*/
-	DrawButton(650, 925, 355, 60, TextGet("KinkyDungeonMagicSpells"), "White", "", "");
+	DrawButton(800, 925, 355, 60, TextGet("KinkyDungeonMagicSpells"), "White", "", "");
 
 	DrawText(TextGet("KinkyDungeonSpellsLevels")
 		.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
@@ -1292,13 +1293,13 @@ function KinkyDungeonDrawMagicSpells() {
 	DrawButton(canvasOffsetX_ui + 55, canvasOffsetY_ui, 245, 50, TextGet("KinkyDungeonSpellsPageBack"), "White", "", "");
 	DrawButton(canvasOffsetX_ui + 850, canvasOffsetY_ui, 245, 50, TextGet("KinkyDungeonSpellsPageNext"), "White", "", "");
 
-	DrawButton(650, 925, 355, 60, TextGet("KinkyDungeonMagicSpellsBack"), "White", "", "");
+	DrawButton(800, 925, 355, 60, TextGet("KinkyDungeonMagicSpellsBack"), "White", "", "");
 }
 
 
 function KinkyDungeonHandleMagicSpells() {
 
-	if (MouseIn(650, 925, 355, 60)) {
+	if (MouseIn(800, 925, 355, 60)) {
 		KinkyDungeonDrawState = "Magic";
 		return true;
 	} else if (MouseIn(canvasOffsetX_ui + 50, canvasOffsetY_ui, 250, 50)) {

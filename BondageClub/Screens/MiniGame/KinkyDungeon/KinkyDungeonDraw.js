@@ -453,10 +453,10 @@ function KinkyDungeonDrawGame() {
 	} else if (KinkyDungeonDrawState == "Orb") {
 		KinkyDungeonDrawOrb();
 	} else if (KinkyDungeonDrawState == "Magic") {
-		DrawButton(1030, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
+		DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawMagic();
 	} else if (KinkyDungeonDrawState == "MagicSpells") {
-		DrawButton(1030, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
+		DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawMagicSpells();
 	} else if (KinkyDungeonDrawState == "Inventory") {
 		DrawButton(650, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");

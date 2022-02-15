@@ -339,7 +339,7 @@ function KinkyDungeonRun() {
 		KinkyDungeonCanvas.width = 2000;
 		KinkyDungeonCanvas.height = 1000;
 	} else {
-		KinkyDungeonGridWidthDisplay = 17;
+		KinkyDungeonGridWidthDisplay = 16;
 		KinkyDungeonGridHeightDisplay = 9;
 		canvasOffsetX = canvasOffsetX_ui;
 		canvasOffsetY = canvasOffsetY_ui;

@@ -59,6 +59,10 @@ function KinkyDungeonDrawInputs() {
 			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "black");
 	}
 
+	if (KDModalArea) {
+		//DrawRect(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height, "rgba(40, 40, 40, 0.3)");
+	}
+
 	// Draw the struggle buttons if applicable
 	KinkyDungeonDrawStruggleHover = false;
 	if (!KinkyDungeonShowInventory && ((KinkyDungeonDrawStruggle > 0 || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups))
@@ -213,16 +217,18 @@ function KinkyDungeonDrawInputs() {
 					DrawText(TextGet("KinkyRedLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "black");
 				else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
 					DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "black");
-			} else
-				DrawButton(675, 825, 350, 60, TextGet("KinkyDungeonCloseDoor"), "White");
+			} else {
+				KDModalArea = true;
+				DrawButton(KDModalArea_x + 25, KDModalArea_y + 25, 250, 60, TextGet("KinkyDungeonCloseDoor"), "White");
+			}
 		}
 	} else {
-		DrawButton(675, 825, 250, 60, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), "#AAAAAA");
+		DrawButton(1120, 935, 165, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), "#AAAAAA");
 	}
 
 	DrawButton(650, 925, 165, 60, TextGet("KinkyDungeonInventory"), "White", "", "");
 	DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonReputation"), "White", "", "");
-	DrawButton(1030, 925, 165, 60, TextGet("KinkyDungeonMagic"), "White", "", "");
+	DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonMagic"), "White", "", "");
 
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
@@ -230,9 +236,13 @@ function KinkyDungeonDrawInputs() {
 			let components = KinkyDungeonGetCompList(spell);
 			let comp = "";
 			if (spell.components && spell.components.length > 0) comp = " + " + components;
-			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1275 + i*KinkyDungeonSpellChoiceOffset, 835, KinkyDungeonSpellChoiceOffset * 0.95, "white", "black");
-			DrawTextFit(KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp, 1275 + i*KinkyDungeonSpellChoiceOffset, 880, KinkyDungeonSpellChoiceOffset * 0.95, "#ccddFF", "black");
-			DrawButton(1230 + i*KinkyDungeonSpellChoiceOffset, 895, 90, 90, "", KinkyDungeonSpellChoicesToggle[i] ? "White" : "#aaaaaa", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
+
+			MainCanvas.textAlign = "right";
+			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1735, 160 + i*KinkyDungeonSpellChoiceOffset, 235, "white", "black");
+			DrawTextFit(KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp, 1640, 200 + i*KinkyDungeonSpellChoiceOffset, 100, "#ccddFF", "black");
+			MainCanvas.textAlign = "center";
+
+			DrawButton(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60, "", KinkyDungeonSpellChoicesToggle[i] ? "White" : "#aaaaaa", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
 		}
 	}
 	KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelayPing);
@@ -401,7 +411,7 @@ function KinkyDungeonHandleHUD() {
 		else
 		if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Reputation"; return true;}
 		else
-		if (MouseIn(1030, 925, 165, 60)) {
+		if (MouseIn(1540, 925, 200, 60)) {
 			//KinkyDungeonDrawState = "Magic";
 			KinkyDungeonDrawState = "MagicSpells";
 			return true;}
@@ -467,7 +477,7 @@ function KinkyDungeonHandleHUD() {
 				}
 			}
 		} else {
-			if (MouseIn(675, 825, 250, 60)) {
+			if (MouseIn(1120, 935, 165, 50)) {
 				KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor;
 				if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 0;
 				return true;
@@ -565,10 +575,10 @@ function KinkyDungeonHandleHUD() {
 	} else if (KinkyDungeonDrawState == "Orb") {
 		return KinkyDungeonHandleOrb();
 	} else if (KinkyDungeonDrawState == "Magic") {
-		if (MouseIn(1030, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
+		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleMagic();
 	} else if (KinkyDungeonDrawState == "MagicSpells") {
-		if (MouseIn(1030, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
+		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleMagicSpells();
 	} else if (KinkyDungeonDrawState == "Inventory") {
 		if (MouseIn(650, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
