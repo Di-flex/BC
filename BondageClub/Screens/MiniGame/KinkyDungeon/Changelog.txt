@@ -606,6 +606,7 @@ Changes
 - Added Crystal Cave (WIP)
 - The struggle menu now rerquires mouseover (or click on mobile) to show the restraint buttons
 - Revamped parts of the UI/Display, added a fullscreen toggle
+- Increased Teaser Plug cooldown to 170 turns from 130
 
 TODO ValidationFindBlockCycles to prevent bugs
 
