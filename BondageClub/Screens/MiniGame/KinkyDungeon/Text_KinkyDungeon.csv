@@ -107,7 +107,7 @@ KinkyDungeonKeySkip,Return to game
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 
-CurrentLevel,"Current Level: "
+CurrentLevel,"Floor FLOORNUMBER: DUNGEONNAME"
 CurrentGold,"Gold: "
 CurrentLockpicks,"Lockpicks: "
 CurrentKeyRed,"Keys: "
@@ -119,29 +119,29 @@ ClimbDown,"You climb down the stairs. The passage closes behind you."
 ClimbDownFail,"You can't climb down until you get out of this leash..."
 ClimbDownShortcut,"You climb down and find yourself in a strange new place."
 
-DungeonName0,-Graveyard-
-DungeonName1,-Catacombs-
-DungeonName2,-Underground Jungle-
-DungeonName3,-Lost Temple-
-DungeonName4,-The Bellows-
-DungeonName5,-Rundown Laboratory-
-DungeonName6,-Forgotten Garden-
-DungeonName7,-Kingdom of Ice-
-DungeonName8,--
-DungeonName9,--
+DungeonName0,Graveyard
+DungeonName1,Catacombs
+DungeonName2,Underground Jungle
+DungeonName3,Lost Temple
+DungeonName4,The Bellows
+DungeonName5,Rundown Laboratory
+DungeonName6,Forgotten Garden
+DungeonName7,Kingdom of Ice
+DungeonName8,
+DungeonName9,
 
-DungeonName10,-The Mansion-
+DungeonName10,The Mansion
 
-DungeonName11,-Ancient Tombs-
-DungeonName12,-Magic Library-
-DungeonName13,-Crystal Cave-
-DungeonName14,-Orrery-
-DungeonName15,-Training Center-
-DungeonName16,-Rubber Facility-
-DungeonName17,-Wizards' Den-
-DungeonName18,-Marble Halls-
-DungeonName19,-Doll Storage-
-DungeonName20,--
+DungeonName11,Ancient Tombs
+DungeonName12,Magic Library
+DungeonName13,Crystal Cave
+DungeonName14,Orrery
+DungeonName15,Training Center
+DungeonName16,Rubber Facility
+DungeonName17,Wizards' Den
+DungeonName18,Marble Halls
+DungeonName19,Doll Storage
+DungeonName20,
 
 LootRubbleFail,You search through the debris but find nothing of note
 LootRubbleSmallGold,You find some gold coins in a corner (+XXX gold)

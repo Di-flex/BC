@@ -376,10 +376,13 @@ function KinkyDungeonDrawGame() {
 
 			DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
-			DrawText(TextGet("CurrentLevel") + MiniGameKinkyDungeonLevel, 750+1, 42+1, "black", "black");
-			DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500+1, 42+1, "black", "black");
-			DrawText(TextGet("CurrentLevel") + MiniGameKinkyDungeonLevel, 750, 42, "white", "black");
-			DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "black");
+
+			DrawText(TextGet("CurrentLevel").replace("FLOORNUMBER", "" + MiniGameKinkyDungeonLevel).replace("DUNGEONNAME", TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint])),
+				1000+1, 42+1, "black", "black");
+			//DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500+1, 42+1, "black", "black");
+			DrawText(TextGet("CurrentLevel").replace("FLOORNUMBER", "" + MiniGameKinkyDungeonLevel).replace("DUNGEONNAME", TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint])),
+				1000, 42, "white", "black");
+			//DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "black");
 
 			// Draw the stats
 			KinkyDungeonDrawStats(1750, 164, 230, KinkyDungeonStatBarHeight);
