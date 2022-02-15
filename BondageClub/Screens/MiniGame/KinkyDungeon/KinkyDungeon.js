@@ -238,6 +238,7 @@ function KinkyDungeonLoad() {
 			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true, };
 			KinkyDungeonSound = localStorage.getItem("KinkyDungeonSound") != undefined ? localStorage.getItem("KinkyDungeonSound") == "True" : true;
+			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
 
 			KinkyDungeonNewDress = true;
 			var appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
@@ -318,6 +319,7 @@ function KinkyDungeonIsPlayer() {
 let KinkyDungeonCreditsPos = 0;
 let KinkyDungeonPatronPos = 0;
 let KinkyDungeonSound = true;
+let KinkyDungeonFullscreen = true;
 let KinkyDungeonDrool = true;
 let KinkyDungeonGraphicsQuality = true;
 let KinkyDungeonFastWait = true;
@@ -329,22 +331,25 @@ function KinkyDungeonRun() {
 	if (KinkyDungeonState == "Lose") BG = "Pandora/Underground/Cell4";
 	DrawImage("Backgrounds/" + BG + ".jpg", 0, 0);
 
-	// Draw the characters
-	if (KDGameData && KDGameData.AncientEnergyLevel) {
-		let h = 1000 * KDGameData.AncientEnergyLevel;
-		const Grad = MainCanvas.createLinearGradient(0, 1000-h, 0, 1000);
-		Grad.addColorStop(0, `rgba(255,255,0,0)`);
-		Grad.addColorStop(0.5, `rgba(255,255,128,0.5)`);
-		Grad.addColorStop(0.75, `rgba(255,255,255,1.0)`);
-		Grad.addColorStop(1.0, `rgba(255,255,255,0.25)`);
-		MainCanvas.fillStyle = Grad;
-		MainCanvas.fillRect(0, 1000-h, 500, h);
+	if (KinkyDungeonFullscreen) {
+		KinkyDungeonGridWidthDisplay = 2000/KinkyDungeonGridSizeDisplay;//17;
+		KinkyDungeonGridHeightDisplay = 1000/KinkyDungeonGridSizeDisplay;//9;
+		canvasOffsetX = 0;
+		canvasOffsetY = 0;
+		KinkyDungeonCanvas.width = 2000;
+		KinkyDungeonCanvas.height = 1000;
+	} else {
+		KinkyDungeonGridWidthDisplay = 17;
+		KinkyDungeonGridHeightDisplay = 9;
+		canvasOffsetX = canvasOffsetX_ui;
+		canvasOffsetY = canvasOffsetY_ui;
+		KinkyDungeonCanvas.width = KinkyDungeonGridSizeDisplay * KinkyDungeonGridWidthDisplay;
+		KinkyDungeonCanvas.height = KinkyDungeonGridSizeDisplay * KinkyDungeonGridHeightDisplay;
 	}
-	DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
-	if ((KinkyDungeonDrawState == "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
-		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
-
+	// Draw the characters
+	if (KinkyDungeonState != "Game" || KinkyDungeonDrawState != "Game")
+		DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
 	if (KinkyDungeonState == "Credits") {
 		let credits = TextGet("KinkyDungeonCreditsList" + KinkyDungeonCreditsPos).split('|');
@@ -648,6 +653,10 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(600, 100, 64, 64)) {
 			KinkyDungeonSound = !KinkyDungeonSound;
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
+		}
+		if (MouseIn(600, 260, 64, 64)) {
+			KinkyDungeonFullscreen = !KinkyDungeonFullscreen;
+			localStorage.setItem("KinkyDungeonFullscreen", KinkyDungeonFullscreen ? "True" : "False");
 		}
 		if ((MouseIn(875, 750, 350, 64) && (localStorage.getItem('KinkyDungeonSave') || KinkyDungeonState == "Lose")) || MouseIn(875, 820, 350, 64)) {
 			if (!MouseIn(875, 820, 350, 64)) {

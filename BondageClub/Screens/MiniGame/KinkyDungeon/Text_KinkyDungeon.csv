@@ -13,6 +13,7 @@ Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
 KinkyDungeonSound,Enable Sounds
 KinkyDungeonDrool,Enable Drool/Tears
+KinkyDungeonFullscreen,Enable Fullscreen
 KinkyDungeonGraphicsQuality,High Quality Animations
 KinkyDungeonFastWait,Wait Quickly
 
@@ -38,7 +39,7 @@ KinkyDungeonGameSave,"Write them down. (+5 submissiveness)"
 KinkyDungeonGameContinue,"I will not be caught! (-5 submissiveness)"
 
 KinkyDungeonRestart,"Quit"
-KinkyDungeonRestartConfirm,"Confirm restart? All progress will be lost (there is no going back)"
+KinkyDungeonRestartConfirm,""
 KinkyDungeonRestartWait,"I will simply wait to see what happens."
 KinkyDungeonRestartYes,"Give up (Clears save file)"
 KinkyDungeonRestartCapture,"Actually, I will let the enemy capture me instead."
@@ -54,11 +55,12 @@ End3,"Better luck next time!"
 EndWin,"You have reached the end of the playable portion."
 EndWin2,"Come back later for new dungeons!"
 
+StatWeapon,"Weapon: "
 StatMiscastChance,"Miscast: Percent"
-StatArousal,"AP: CURRENT/MAX"
-StatStamina,"SP: CURRENT/MAX"
+StatArousal,"Arousal: CURRENT/MAX"
+StatStamina,"Stamina: CURRENT/MAX"
 StatWillpower,"Willpower: CURRENT/MAX"
-StatMana,"MP: CURRENT/MAX"
+StatMana,"Mana: CURRENT/MAX"
 StatUsePotion,"Use Potion"
 KinkyDungeonManaCost," MP"
 KinkyDungeonSleep,"Go to sleep"

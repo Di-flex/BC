@@ -19,8 +19,8 @@ let KinkyDungeonGridWidth = 31;
 let KinkyDungeonGridHeight = 19;
 
 let KinkyDungeonGridSizeDisplay = 72;
-let KinkyDungeonGridWidthDisplay = 17;
-let KinkyDungeonGridHeightDisplay = 9;
+let KinkyDungeonGridWidthDisplay = 2000/KinkyDungeonGridSizeDisplay;//17;
+let KinkyDungeonGridHeightDisplay = 1000/KinkyDungeonGridSizeDisplay;//9;
 
 let KinkyDungeonMoveDirection = KinkyDungeonGetDirection(0, 0);
 
@@ -1497,8 +1497,10 @@ function KinkyDungeonFogGet(X, Y) {
 	return KinkyDungeonFogGrid[X + Y*(KinkyDungeonGridWidth)];
 }
 
-const canvasOffsetX = 500;
-const canvasOffsetY = 164;
+let canvasOffsetX = 0;
+let canvasOffsetY = 0;
+const canvasOffsetX_ui = 500;
+const canvasOffsetY_ui = 164;
 
 // returns an object containing coordinates of which direction the player will move after a click, plus a time multiplier
 function KinkyDungeonGetDirection(dx, dy) {
@@ -1840,11 +1842,6 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
 
 							KinkyDungeonMapSet(moveX, moveY, 'r');
-						} else if (moveObject == 'Y') {
-							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
-							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "shelf");
-
-							KinkyDungeonMapSet(moveX, moveY, '1');
 						}
 						KinkyDungeonTrapMoved = true;
 						//}
