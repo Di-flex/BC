@@ -828,6 +828,7 @@ interface PlayerCharacter extends Character {
 	LastChatRoomDesc?: string;
 	LastChatRoomAdmin?: any[];
 	LastChatRoomBan?: any[];
+	LastChatRoomBlockCategory?: string[];
 	LastChatRoomTimer?: any;
 	RestrictionSettings?: {
 		BypassStruggle: boolean;
@@ -840,8 +841,9 @@ interface PlayerCharacter extends Character {
 		DisableAnimations: boolean;
 		SearchShowsFullRooms: boolean;
 		SearchFriendsFirst: boolean;
+		SendStatus?: boolean;
+		ShowStatus?: boolean;
 		EnableAfkTimer: boolean;
-		EnableWardrobeIcon: boolean;
 	};
 	GraphicsSettings?: {
 		Font: string;

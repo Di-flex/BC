@@ -34,6 +34,7 @@ var ChatRoomLastSize = 0;
 var ChatRoomLastDesc = "";
 var ChatRoomLastAdmin = [];
 var ChatRoomLastBan = [];
+var ChatRoomLastBlockCategory = [];
 var ChatRoomNewRoomToUpdate = null;
 var ChatRoomNewRoomToUpdateTimer = 0;
 var ChatRoomLeashList = [];
@@ -519,7 +520,7 @@ function ChatRoomCanBeLeashed(C) {
  * @returns {boolean} - TRUE if the player can be leashed
  */
 function ChatRoomCanBeLeashedBy(sourceMemberNumber, C) {
-	if ((ChatRoomData && ChatRoomData.BlockCategory.indexOf("Leashing") < 0) || !ChatRoomData) {
+	if ((ChatRoomData && ChatRoomData.BlockCategory && ChatRoomData.BlockCategory.indexOf("Leashing") < 0) || !ChatRoomData) {
 		// Have to not be tethered, and need a leash
 		var canLeash = false;
 		var isTrapped = false;
@@ -576,7 +577,7 @@ function ChatRoomCreateElement() {
 		ElementCreateTextArea("InputChat");
 		document.getElementById("InputChat").setAttribute("maxLength", 1000);
 		document.getElementById("InputChat").setAttribute("autocomplete", "off");
-		document.getElementById("InputChat").addEventListener("keydown", ChatRoomStatusUpdateTalk);
+		document.getElementById("InputChat").addEventListener("keyup", ChatRoomStatusUpdateTalk);
 		ElementFocus("InputChat");
 	} else if (document.getElementById("InputChat").style.display == "none") ElementFocus("InputChat");
 
@@ -769,6 +770,7 @@ function ChatRoomUpdateDisplay() {
  * @returns {void} - Nothing.
  */
 function DrawStatus(C, X, Y, Zoom) {
+	if ((Player.OnlineSettings != null) && (Player.OnlineSettings.ShowStatus != null) && (Player.OnlineSettings.ShowStatus == false)) return;
 	if (ChatRoomHideIconState >= 2) return;
 	if ((C.ArousalSettings != null) && (C.ArousalSettings.OrgasmTimer != null) && (C.ArousalSettings.OrgasmTimer > 0)) {
 		DrawImageResize("Icons/Status/Orgasm" + (Math.floor(CommonTime() / 1000) % 3).toString() + ".png", X + 225 * Zoom, Y + 920 * Zoom, 50 * Zoom, 30 * Zoom);
@@ -871,7 +873,7 @@ function ChatRoomDrawCharacter(DoClick) {
 
 			// Draw the character, it's status bubble and it's overlay
 			DrawCharacter(ChatRoomCharacterDrawlist[C], CharX, CharY, Zoom);
-			DrawStatus(ChatRoomCharacter[C], CharX, CharY, Zoom);
+			DrawStatus(ChatRoomCharacterDrawlist[C], CharX, CharY, Zoom);
 			if (ChatRoomCharacterDrawlist[C].MemberNumber != null) ChatRoomDrawCharacterOverlay(ChatRoomCharacterDrawlist[C], CharX, CharY, Zoom, C);
 			
 		}
@@ -1167,6 +1169,8 @@ function ChatRoomSetLastChatRoom(room) {
 				Player.LastChatRoomAdmin = ChatRoomData.Admin;
 			if (ChatRoomData && ChatRoomData.Ban)
 				Player.LastChatRoomBan = ChatRoomData.Ban;
+			if (ChatRoomData && ChatRoomData.BlockCategory)
+				Player.LastChatRoomBlockCategory = [...ChatRoomData.BlockCategory];
 
 			ChatRoomLastName = ChatRoomData.Name;
 			ChatRoomLastBG = ChatRoomData.Background;
@@ -1175,6 +1179,7 @@ function ChatRoomSetLastChatRoom(room) {
 			ChatRoomLastDesc = ChatRoomData.Description;
 			ChatRoomLastAdmin = ChatRoomData.Admin;
 			ChatRoomLastBan = ChatRoomData.Ban;
+			ChatRoomLastBlockCategory = [...ChatRoomData.BlockCategory];
 		}
 	} else {
 		Player.LastChatRoomBG = "";
@@ -1186,6 +1191,7 @@ function ChatRoomSetLastChatRoom(room) {
 		ChatRoomLastDesc = "";
 		ChatRoomLastAdmin = [];
 		ChatRoomLastBan = [];
+		ChatRoomLastBlockCategory = [];
 	}
 	Player.LastChatRoom = room;
 	var P = {
@@ -1196,7 +1202,7 @@ function ChatRoomSetLastChatRoom(room) {
 		LastChatRoomDesc: Player.LastChatRoomDesc,
 		LastChatRoomAdmin: Player.LastChatRoomAdmin.toString(),
 		LastChatRoomBan: Player.LastChatRoomBan.toString(),
-
+		LastChatRoomBlockCategory: [...Player.LastChatRoomBlockCategory],
 	};
 	ServerAccountUpdate.QueueData(P);
 }
@@ -1535,14 +1541,25 @@ function ChatRoomUpdateOnlineBounty() {
 }
 
 /**
+ * Updates the local view of character status
+ * @param {Character} C - The character whose status we're updating
+ * @param {string | null} Status - The new status to use
+ * @returns {void} - Nothing.
+ */
+function ChatRoomStatusUpdateLocalCharacter(C, Status) {
+	C.Status = ((Status == "") || (Status == "null")) ? null : Status;
+	C.StatusTimer = (Status == "Talk") ? CommonTime() + 5000 : null;
+}
+
+/**
  * Updates the player status if needed and sends that new status in a chat message
- * @param {String} [Status] - The new status to use
+ * @param {string | null} Status - The new status to use
  * @returns {void} - Nothing.
  */
 function ChatRoomStatusUpdate(Status) {
 	if (Status == Player.Status) return;
-	if ((Status == null) && (Player.StatusTimer != null) && (Player.StatusTimer >= CommonTime())) return;
-	if ((Status == null) && (Player.Status != null) && (Player.Status == "Crawl") && (ChatRoomSlowtimer > 0) && (ChatRoomSlowStop == false) && Player.IsSlow()) return;
+	if ((Player.OnlineSettings != null) && (Player.OnlineSettings.SendStatus != null) && (Player.OnlineSettings.SendStatus == false) && (Status != null)) return;
+	ChatRoomStatusUpdateLocalCharacter(Player, Status);
 	ServerSend("ChatRoomChat", { Content: ((Status == null) ? "null" : Status), Type: "Status" });
 }
 
@@ -1551,7 +1568,44 @@ function ChatRoomStatusUpdate(Status) {
  * @returns {void} - Nothing.
  */
 function ChatRoomStatusUpdateTalk(Key) {
-	ChatRoomStatusUpdate((Key.keyCode == 13) ? "null" : "Talk");
+	const text = ElementValue("InputChat");
+	let talking = true;
+	// Not talking if no chat input
+	if (!text) {
+		talking = false;
+	}
+	// Don't send a public update if whispering someone
+	else if (ChatRoomTargetMemberNumber != null) {
+		talking = false;
+	}
+	// Not talking if entering a command that does not end up in chat
+	else if (text.startsWith("/") && !text.startsWith("//") && !text.startsWith("/me ") && !text.startsWith("/action ")) {
+		talking = false;
+	}
+	// No longer talking if pressed enter
+	else if (Key.key == "Enter") {
+		talking = false;
+	}
+	// Not talking if only one character in input: require at least 2 characters to prevent misclicks etc. from triggering unnecessary status updates
+	else if (text.length <= 2) {
+		talking = false;
+	}
+	ChatRoomStatusUpdate(talking ? "Talk" : null);
+}
+
+/**
+ * Checks if status has expired or is otherwise no longer valid and resets status if so
+ * @returns {void} - Nothing.
+ */
+function ChatRoomStatusCheckExpiration() {
+	const isCrawling = (Player.Status == "Crawl") && (ChatRoomSlowtimer > 0) && (ChatRoomSlowStop == false) && Player.IsSlow();
+	if (Player.StatusTimer) {
+		if (Player.StatusTimer < CommonTime()) {
+			ChatRoomStatusUpdate(null);
+		}
+	} else if (!isCrawling) {
+		ChatRoomStatusUpdate(null);
+	}
 }
 
 /**
@@ -1565,7 +1619,7 @@ function ChatRoomRun() {
 	ChatRoomUpdateOnlineBounty();
 
 	// Draws the chat room controls
-	ChatRoomStatusUpdate();
+	ChatRoomStatusCheckExpiration();
 	ChatRoomUpdateDisplay();
 	ChatRoomCreateElement();
 	ChatRoomFirstTimeHelp();
@@ -2255,8 +2309,7 @@ function ChatRoomMessage(data) {
 
 			// Status messages will update that character status, anything else will cancel the status
 			if (data.Type == "Status") {
-				SenderCharacter.Status = ((msg == "") || (msg == "null")) ? null : msg;
-				SenderCharacter.StatusTimer = (msg == "Talk") ? CommonTime() + 5000 : null;
+				ChatRoomStatusUpdateLocalCharacter(SenderCharacter, msg);
 				return;
 			}
 
@@ -3857,7 +3910,7 @@ function ChatRoomRecreate() {
 			Limit: "" + Player.LastChatRoomSize,
 			Admin: Player.LastChatRoomAdmin,
 			Ban: Player.LastChatRoomBan,
-			BlockCategory: ChatRoomData.BlockCategory,
+			BlockCategory: Player.LastChatRoomBlockCategory,
 			Game: ChatRoomData.Game,
 			Private: Player.LastChatRoomPrivate,
 			Locked: ChatRoomData.Locked,
@@ -3903,7 +3956,8 @@ function ChatRoomDataChanged() {
 		ChatRoomLastPrivate != ChatRoomData.Private ||
 		ChatRoomLastDesc != ChatRoomData.Description ||
 		!CommonArraysEqual(ChatRoomLastAdmin, ChatRoomData.Admin) ||
-		!CommonArraysEqual(ChatRoomLastBan, ChatRoomData.Ban);
+		!CommonArraysEqual(ChatRoomLastBan, ChatRoomData.Ban) ||
+		!CommonArraysEqual(ChatRoomLastBlockCategory, ChatRoomData.BlockCategory);
 }
 
 function ChatRoomRefreshFontSize() {
