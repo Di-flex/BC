@@ -470,7 +470,7 @@ function KinkyDungeonDrawOrb() {
 
 	}
 
-	DrawButton(canvasOffsetX_ui + KinkyDungeonCanvas.width/2 - 200, yPad + canvasOffsetY_ui + spacing * i, 425, 55, TextGet("KinkyDungeonSurpriseMe"), "white");
+	DrawButton(canvasOffsetX_ui + 525, yPad + canvasOffsetY_ui + spacing * i, 425, 55, TextGet("KinkyDungeonSurpriseMe"), "white");
 
 	MainCanvas.textAlign = "center";
 }
@@ -511,7 +511,7 @@ function KinkyDungeonHandleOrb() {
 
 	}
 
-	if (MouseIn(canvasOffsetX_ui + KinkyDungeonCanvas.width/2 - 200, yPad + canvasOffsetY_ui + spacing * i, 425, 55)) {
+	if (MouseIn(canvasOffsetX_ui + 525, yPad + canvasOffsetY_ui + spacing * i, 425, 55)) {
 		let shrine = Object.keys(KinkyDungeonShrineBaseCosts)[Math.floor(KDRandom() * Object.keys(KinkyDungeonShrineBaseCosts).length)];
 		if (KinkyDungeonMapGet(KDOrbX, KDOrbY) == 'O') {
 			if (KinkyDungeonGoddessRep[shrine] < -45) {
