@@ -604,9 +604,11 @@ Changes
 - Shortcuts now have tiles from the tileset they lead to, near them
 - Frigid potions are now instant and reduce AP by 72 instead of 36 total
 - Added Crystal Cave (WIP)
+- Added Magic Library (WIP)
 - The struggle menu now rerquires mouseover (or click on mobile) to show the restraint buttons
-- Revamped parts of the UI/Display, added a fullscreen toggle
+- Revamped the UI and game display, added a fullscreen toggle
 - Increased Teaser Plug cooldown to 170 turns from 130
+- Frog hitpoints to 19 from 24
 
 TODO ValidationFindBlockCycles to prevent bugs
 
