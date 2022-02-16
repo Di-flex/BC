@@ -275,7 +275,8 @@ function KinkyDungeonDrawGame() {
 				}
 
 				// Draw targeting reticule
-				if (!KinkyDungeonAutoWait && !KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()) {
+				if (!KinkyDungeonAutoWait && !KinkyDungeonShowInventory && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height) && KinkyDungeonIsPlayer()
+					&& !MouseIn(0, 0, 500, 1000) && (!KDModalArea || !MouseIn(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height))) {
 					if (KinkyDungeonTargetingSpell) {
 						KinkyDungeonSetTargetLocation();
 
