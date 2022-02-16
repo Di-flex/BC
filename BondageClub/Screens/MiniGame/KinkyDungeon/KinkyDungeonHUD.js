@@ -421,6 +421,7 @@ function KinkyDungeonHandleHUD() {
 			return true;
 		} else if (MouseIn(510, 825, 60, 90)) {
 			KinkyDungeonShowInventory = !KinkyDungeonShowInventory;
+			return true;
 		}
 
 		if ((ServerURL == "foobar" && MouseIn(1880, 82, 100, 50)) || (ServerURL != "foobar" && MouseIn(1750, 20, 100, 50))) {

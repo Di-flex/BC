@@ -1553,6 +1553,7 @@ let KinkyDungeonAutoWaitSuppress = false;
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && KinkyDungeonHandleHUD()) {
+		KinkyDungeonTargetingSpell = null;
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		KinkyDungeonGameKey.keyPressed = [
 			false,

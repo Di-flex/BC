@@ -103,12 +103,12 @@ KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
 KinkyDungeonKeyWait,Wait
-KinkyDungeonKeySkip,Return to game
+KinkyDungeonKeySkip,Cancel/Return
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 
 CurrentLevel,"Floor FLOORNUMBER: DUNGEONNAME"
-CurrentGold,"Gold: "
+CurrentGold,""
 CurrentLockpicks,"Lockpicks: "
 CurrentKeyRed,"Keys: "
 CurrentKeyBlue,"Magic Keys: "
@@ -270,7 +270,7 @@ KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel 
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
 KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
-KinkyDungeonInventoryItemPotionFrigidUse,You chug the frigid, bitter concoction and feel chilled to the bone.
+KinkyDungeonInventoryItemPotionFrigidUse,"You chug the frigid, bitter concoction and feel chilled to the bone."
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
 KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal to 0 instantly."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
