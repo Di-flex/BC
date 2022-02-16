@@ -24,8 +24,10 @@ let KDRepSelectionMode = "";
 function KinkyDungeonInitReputation() {
 	KinkyDungeonGoddessRep = {"Ghost" : -50, "Prisoner" : -50};
 	for (let shrine in KinkyDungeonShrineBaseCosts) {
-		KinkyDungeonGoddessRep[shrine] = 0;
+		KinkyDungeonGoddessRep[shrine] = KinkyDungeonStatsChoice.get("Cursed") ? -50 : 0;
 	}
+	if (KinkyDungeonStatsChoice.get("Wanted")) KinkyDungeonChangeRep("Prisoner", 100);
+	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonChangeRep("Ghost", 100);
 }
 
 function KinkyDungeonRepName(Amount) {
@@ -43,6 +45,8 @@ function KinkyDungeonRepName(Amount) {
 function KinkyDungeonChangeRep(Rep, Amount) {
 	if (KinkyDungeonGoddessRep[Rep] != undefined) {
 		let last = KinkyDungeonGoddessRep[Rep];
+		let minimum = (Rep == "Ghost" && KinkyDungeonStatsChoice.get("Submissive")) || (Rep == "Prisoner" && KinkyDungeonStatsChoice.get("Wanted")) ? 20: -50;
+		let maximum = (KinkyDungeonStatsChoice.get("Cursed") && (Rep != "Ghost" && Rep != "Prisoner")) ? -25: 50;
 		//let target = -50;
 		//let interval = 0.02;
 		let start = KinkyDungeonGoddessRep[Rep];
@@ -51,7 +55,7 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 			KinkyDungeonGoddessRep[Rep] += (target - KinkyDungeonGoddessRep[Rep]) * interval;
 		}*/
 		KinkyDungeonGoddessRep[Rep] += Amount;
-		KinkyDungeonGoddessRep[Rep] = Math.min(50, Math.max(-50, KinkyDungeonGoddessRep[Rep]));
+		KinkyDungeonGoddessRep[Rep] = Math.min(maximum, Math.max(minimum, KinkyDungeonGoddessRep[Rep]));
 		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
 			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
 			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);

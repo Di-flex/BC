@@ -17,6 +17,42 @@ KinkyDungeonFullscreen,Enable Fullscreen
 KinkyDungeonGraphicsQuality,High Quality Animations
 KinkyDungeonFastWait,Wait Quickly
 
+KinkyDungeonStats,"Select your character's background. You cannot change these in the future."
+KinkyDungeonStartGame,"Confirm and start playing!"
+
+KinkyDungeonStatCost,"Point Cost: AMOUNT"
+KinkyDungeonStatPoints,"Points Available: AMOUNT"
+
+KinkyDungeonStat0,"Strong"
+KinkyDungeonStatDesc0,"Boosts the Struggle option when escaping."
+KinkyDungeonStat1,"Helpless"
+KinkyDungeonStatDesc1,"You are physically weak. Struggling is much less effective."
+
+KinkyDungeonStat2,"Flexible"
+KinkyDungeonStatDesc2,"Slightly boosts the Remove and Unlock options when escaping, and escaping is 1.5x as fast except picking."
+KinkyDungeonStat3,"Inflexible"
+KinkyDungeonStatDesc3,"You get a penalty to the Remove and Unlock action, and escaping is 0.75x as fast."
+
+KinkyDungeonStat4,"Locksmith"
+KinkyDungeonStatDesc4,"You get a bonus to lockpicking, allowing you to pick some high-security locks previously impossible."
+KinkyDungeonStat5,"Clueless"
+KinkyDungeonStatDesc5,"You have no idea how to pick locks. Picking is 0.5x as fast and you can't pick most advanced locks."
+
+KinkyDungeonStat6,"Psychic"
+KinkyDungeonStatDesc6,"You can move keys with your mind. You no longer drop keys, and can unlock yourself even with hands covered"
+KinkyDungeonStat7,"Novice"
+KinkyDungeonStatDesc7,"All spells above 1st level cost 2x as many spell points."
+
+KinkyDungeonStat8,"Blessed"
+KinkyDungeonStatDesc8,"You can drink mana from the shrine fountains once per floor without chance of punishment."
+KinkyDungeonStat9,"Cursed"
+KinkyDungeonStatDesc9,"Goddess reputations start at 0 and can never exceed 25."
+
+KinkyDungeonStat10,"Submissive"
+KinkyDungeonStatDesc10,"Your submissiveness starts at 100 and cannot go below 70."
+KinkyDungeonStat11,"Wanted"
+KinkyDungeonStatDesc11,"Your security level starts at 100 and cannot go below 70."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor

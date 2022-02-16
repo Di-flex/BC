@@ -5,6 +5,7 @@ let KinkyDungeonPlayerEntity = null; // The current player entity
 // Arousal -- It lowers your stamina regen
 let KinkyDungeonStatMaxMax = 72; // Maximum any stat can get boosted to
 
+
 let KinkyDungeonStatArousalMax = 36;
 let KinkyDungeonArousalUnlockSuccessMod = 0.5; // Determines how much harder it is to insert a key while aroused. 1.0 is half success chance, 2.0 is one-third, etc.
 let KinkyDungeonStatArousal = 0;
@@ -684,4 +685,45 @@ function KinkyDungeonChastityMult() {
 		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.2;
 	}
 	return chaste;
+}
+
+let KinkyDungeonStatsPresets = {
+	"Strong": {id: 0, cost: 1, block: "Weak"},
+	"Weak": {id: 1, cost: -1, block: "Strong"},
+	"Flexible": {id: 2, cost: 1, block: "Inflexible"},
+	"Inflexible": {id: 3, cost: -1, block: "Flexible"},
+	"Locksmith": {id: 4, cost: 1, block: "Clueless"},
+	"Clueless": {id: 5, cost: -1, block: "Locksmith"},
+	"Psychic": {id: 6, cost: 2},
+	"Novice": {id: 7, cost: -2},
+	"Blessed": {id: 8, cost: 1},
+	"Cursed": {id: 9, cost: -1},
+	"Submissive": {id: 10, cost: 0},
+	"Wanted": {id: 11, cost: -1},
+};
+
+function KinkyDungeonGetStatPoints(Stats) {
+	let total = 0;
+	for (let k of Stats.keys()) {
+		if (Stats.get(k)) {
+			if (KinkyDungeonStatsPresets[k]) {
+				total -= KinkyDungeonStatsPresets[k].cost;
+			}
+		}
+	}
+	return total;
+}
+
+function KinkyDungeonCanPickStat(Stat) {
+	let stat = KinkyDungeonStatsPresets[Stat];
+	if (!stat) return false;
+	if (stat.cost > 0 && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) < stat.cost) return false;
+	for (let k of KinkyDungeonStatsChoice.keys()) {
+		if (KinkyDungeonStatsChoice.get(k)) {
+			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].block == Stat) {
+				return false;
+			}
+		}
+	}
+	return true;
 }

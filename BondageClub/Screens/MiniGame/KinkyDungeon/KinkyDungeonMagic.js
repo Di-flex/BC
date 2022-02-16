@@ -860,6 +860,7 @@ function KinkyDungeonGetManaCost(Spell) {
 
 function KinkyDungeonGetCost(Spell) {
 	let cost = Spell.level;
+	if (Spell.level > 1 && !Spell.passive && KinkyDungeonStatsChoice.get("Novice")) cost *= 2;
 	if (Spell.spellPointCost) return Spell.spellPointCost;
 	return cost;
 }

@@ -39,6 +39,8 @@ let KinkyDungeonAutoWait = false;
 let KinkyDungeonConfigAppearance = false;
 
 
+let KinkyDungeonStatsChoice = new Map();
+
 /**
 *  @typedef {{
 * PoolUses: number,
@@ -409,6 +411,34 @@ function KinkyDungeonRun() {
 		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
 		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+	} else if (KinkyDungeonState == "Stats") {
+		DrawText(TextGet("KinkyDungeonStats"), 1250, 100, "white", "silver");
+		DrawText(TextGet("KinkyDungeonStatPoints").replace("AMOUNT", "" + KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice)), 1250, 150, "white", "silver");
+		DrawButton(1075, 750, 350, 64, TextGet("KinkyDungeonStartGame"), "White", "");
+
+		let i = 0;
+		let X = 0;
+		let Y = 0;
+		for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
+			let dY = 0;
+			if (i % 2 == 1) dY = 80;
+
+			DrawButton(1250 - 600 + X, 280 + Y + dY, 190, 60, TextGet("KinkyDungeonStat" + (stat[1].id)), (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) ? "#999999" : (KinkyDungeonStatsChoice.get(stat[0]) ? "white" : "#884444"));
+			if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
+				DrawTextFit(TextGet("KinkyDungeonStatDesc" + (stat[1].id)), 1250+1, 200+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonStatDesc" + (stat[1].id)), 1250, 200, 1000, "white");
+
+				DrawTextFit(TextGet("KinkyDungeonStatCost").replace("AMOUNT", stat[1].cost + ""), 1250+1, 240+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonStatCost").replace("AMOUNT", stat[1].cost + ""), 1250, 240, 1000, "white");
+			}
+			if (i % 2 != 0) X += 200;
+			if (X > 1000) {
+				X = 0;
+				Y += 200;
+			}
+			i += 1;
+		}
+		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Save") {
 		// Draw temp start screen
 		DrawText(TextGet("KinkyDungeonSaveIntro0"), 1250, 350, "white", "silver");
@@ -609,6 +639,34 @@ function KinkyDungeonHandleClick() {
 		} else if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";
 		}
+	} if (KinkyDungeonState == "Stats") {
+		let i = 0;
+		let X = 0;
+		let Y = 0;
+		for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
+			let dY = 0;
+			if (i % 2 == 1) dY = 80;
+
+			if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
+				if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
+					KinkyDungeonStatsChoice.set(stat[0], true);
+				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
+					KinkyDungeonStatsChoice.delete(stat[0]);
+				}
+			}
+			if (i % 2 != 0) X += 200;
+			if (X > 1000) {
+				X = 0;
+				Y += 200;
+			}
+			i += 1;
+		}
+
+		if (MouseIn(1075, 750, 350, 64)) {
+			KinkyDungeonState = "Diff";
+		} else if (MouseIn(1075, 850, 350, 64)) {
+			KinkyDungeonState = "Menu";
+		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
 			KinkyDungeonChestsOpened = [];
@@ -661,7 +719,10 @@ function KinkyDungeonHandleClick() {
 		if ((MouseIn(875, 750, 350, 64) && (localStorage.getItem('KinkyDungeonSave') || KinkyDungeonState == "Lose")) || MouseIn(875, 820, 350, 64)) {
 			if (!MouseIn(875, 820, 350, 64)) {
 				KinkyDungeonStartNewGame(true);
-			} else KinkyDungeonState = "Diff";
+			} else {
+				KinkyDungeonStatsChoice = new Map();
+				KinkyDungeonState = "Stats";
+			}
 
 			return false;
 		} else if (MouseIn(1275, 820, 350, 64)) {
@@ -1080,6 +1141,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.aid = KinkyDungeonAid;
 	KDrandomizeSeed();
 	save.seed = KinkyDungeonSeed;
+	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 
 	let spells = [];
 	let newInv = [];
@@ -1187,6 +1249,7 @@ function KinkyDungeonLoadGame(String) {
 				KDOrigArousal = KinkyDungeonStatArousal;
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
+			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
 
 			KinkyDungeonInventory = [];
 			for (let item of saveData.inventory) {
