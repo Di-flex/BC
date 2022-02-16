@@ -439,7 +439,13 @@ function KinkyDungeonHandleBulletEvent(Event, e, b, data) {
 				if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y))) {
 					if (b.vx || b.vy) {
 						let speed = KDistEuclidean(b.vx, b.vy);
-						point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Math.round(b.x - b.vx/speed), Math.round(b.y - b.vy/speed)))) {
+							point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						} else if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Math.floor(b.x - b.vx/speed), Math.floor(b.y - b.vy/speed)))) {
+							point = {x: Math.floor(b.x - b.vx/speed), y: Math.floor(b.y - b.vy/speed)};
+						} else {
+							point = {x: Math.ceil(b.x - b.vx/speed), y: Math.ceil(b.y - b.vy/speed)};
+						}
 					}
 				}
 				KinkyDungeonDropItem({name: "Knife"}, point, KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y)), true, true);
