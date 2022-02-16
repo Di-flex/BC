@@ -430,8 +430,8 @@ function KinkyDungeonHandleHUD() {
 		}
 
 		if (!KinkyDungeonTargetingSpell) {
-			if (KinkyDungeonHandleSpell()) return true;
 			KinkyDungeonSpellPress = 0;
+			if (KinkyDungeonHandleSpell()) return true;
 		} else {
 			KinkyDungeonSpellPress = 0;
 		}

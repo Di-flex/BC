@@ -809,6 +809,7 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 
 function KinkyDungeonHandleSpell() {
 	let spell = null;
+	let clicked = false;
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive
 			&& (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
@@ -824,8 +825,12 @@ function KinkyDungeonHandleSpell() {
 					KinkyDungeonFastMoveSuppress = false;
 				}
 				KinkyDungeonSpellPress = 0;
+				clicked = true;
 				return true;
-			} else spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
+			} else {
+				spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
+				clicked = true;
+			}
 		}
 	}
 	/*else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive && (MouseIn(1230 + 1*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[1])) {
@@ -839,6 +844,7 @@ function KinkyDungeonHandleSpell() {
 		KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellTarget" + spell.name).replace("SpellArea", "" + Math.floor(spell.aoe)), "white", 0.1, true);
 		return true;
 	}
+	if (clicked) return true;
 	return false;
 }
 
