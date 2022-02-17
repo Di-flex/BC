@@ -432,7 +432,7 @@ function KinkyDungeonGetBlindLevel() {
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.blindfold) blindness = Math.max(blindness + 1, inv.restraint.blindfold);
 	}
-	return blindness ? blindness : KinkyDungeonPlayer.GetBlindLevel();
+	return blindness ? blindness : 0;
 }
 
 function KinkyDungeonCapStats() {
