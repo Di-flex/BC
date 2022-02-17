@@ -110,6 +110,7 @@ KinkyDungeonRestartWait,"I will simply wait to see what happens."
 KinkyDungeonRestartYes,"Give up (Clears save file)"
 KinkyDungeonRestartCapture,"Actually, I will let the enemy capture me instead."
 KinkyDungeonRestartNo,"No, I wish to press on"
+KinkyDungeonCheckPerks,"See Background"
 
 DeviousChallenge,"Devious Dungeon Challenge is enabled."
 KinkyDungeonLoading,"Waiting for game data..."

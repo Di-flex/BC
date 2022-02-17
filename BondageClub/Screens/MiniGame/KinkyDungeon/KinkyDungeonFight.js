@@ -28,16 +28,16 @@ let KinkyDungeonWeapons = {
 	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
 	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", unarmed: false, rarity: 1, shop: true, sfx: "Freeze",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
-	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.1, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
+	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.15, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
-	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 2, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
+	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"Hammer": {name: "Hammer", dmg: 5, chance: 1.0, staminacost: 3, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
-	"Spear": {name: "Spear", dmg: 4.0, chance: 1.0, staminacost: 2.0, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+	"Spear": {name: "Spear", dmg: 4.0, chance: 1.0, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 3.5, damage: "pierce"}]},
 	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
@@ -425,11 +425,19 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonDisarm(Enemy);
 	}
 	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
-		KinkyDungeonAlert = 4;
+		if (KinkyDungeonAlert) {
+			KinkyDungeonAlert = 8;
+		} else {
+			KinkyDungeonAlert = 4;
+		}
 	} else {
-		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2)
-			KinkyDungeonAlert = 1;
-		else if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 3) {
+		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2) {
+			if (KinkyDungeonAlert) {
+				KinkyDungeonAlert = 3;
+			} else {
+				KinkyDungeonAlert = 1;
+			}
+		} else if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 3) {
 			Enemy.aware = true;
 		}
 	}

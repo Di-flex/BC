@@ -615,6 +615,8 @@ Changes
 2.7.2
 - Fixed a bug where enemies would drag you through a bookshelf o.o
 - Fixed strange miscast chance percentages
+- Axe, spear, cost 1.5 SP instead of 2.0 SP
+- Vibe wand weapon costs 0.15 stamina instead of 0.1
 
 TODO ValidationFindBlockCycles to prevent bugs
 

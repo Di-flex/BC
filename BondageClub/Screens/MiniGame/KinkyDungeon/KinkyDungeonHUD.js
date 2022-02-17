@@ -590,11 +590,17 @@ function KinkyDungeonHandleHUD() {
 	} else if (KinkyDungeonDrawState == "Lore") {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
+	} else if (KinkyDungeonDrawState == "Perks2") {
+		if (MouseIn(1075, 850, 350, 64)) {
+			KinkyDungeonDrawState = "Game";
+			return true;
+		}
 	} else if (KinkyDungeonDrawState == "Restart") {
-		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
-		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
-		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
-		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
+
+		if (MouseIn(1700, 900, 300, 64)) {
+			KinkyDungeonDrawState = "Perks2";
+			return true;
+		}
 
 
 		if (MouseIn(600, 100, 64, 64)) {
