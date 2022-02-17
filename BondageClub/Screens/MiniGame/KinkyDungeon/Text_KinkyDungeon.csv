@@ -987,6 +987,20 @@ NameBookChain,Tome of Chains
 KillBookChain,The floating tome burns into ashes!
 NameBookCelestial,Tome of Light
 KillBookCelestial,The floating tome burns into ashes!
+NameBookArcane,Tome of Magic
+KillBookArcane,The floating tome burns into ashes!
+NameBookIce,Tome of Ice
+KillBookIce,The floating tome burns into ashes!
+NameBookForbidden,Tome of the Abyss
+KillBookForbidden,The floating tome burns into ashes!
+NameBookNature,Tome of Nature
+KillBookNature,The floating tome burns into ashes!
+NameBookElectric,Tome of Thunder
+KillBookElectric,The floating tome burns into ashes!
+NameBookSlime,Tome of Latex
+KillBookSlime,The floating tome burns into ashes!
+NameBookTickle,Tome of Laughs
+KillBookTickle,The floating tome burns into ashes!
 
 
 KinkyDungeonGuardAppear,A guard appears to check on you.
@@ -2415,6 +2429,8 @@ KinkyDungeonSpellHighBolt,Curious Spell
 KinkyDungeonFlummox,You have been flummoxed!
 
 KinkyDungeonSpellSpores,Spores
+KinkyDungeonSpellSporesSick,Noxious Spores
+KinkyDungeonSpellSporesHappy,Enticing Spores
 KinkyDungeonSpores,"You inhale some spores, and feel a bit sleepy..."
 KinkyDungeonSporesHappy,"The spores make you feel excited!"
 KinkyDungeonSporesSick,"The toxic spores make you feel faint..."
