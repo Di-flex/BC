@@ -614,6 +614,7 @@ Changes
 
 2.7.2
 - Fixed a bug where enemies would drag you through a bookshelf o.o
+- Fixed strange miscast chance percentages
 
 TODO ValidationFindBlockCycles to prevent bugs
 
