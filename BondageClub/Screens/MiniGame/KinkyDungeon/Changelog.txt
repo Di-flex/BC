@@ -613,6 +613,7 @@ Changes
 - You can now select some background traits at the start of the game ion order to make your run more difficult/more unique. You must take penalties in order to take bonuses
 
 2.7.2
+- Fixed a bug where enemies would drag you through a bookshelf o.o
 
 TODO ValidationFindBlockCycles to prevent bugs
 
