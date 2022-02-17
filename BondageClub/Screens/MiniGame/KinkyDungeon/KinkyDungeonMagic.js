@@ -547,7 +547,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			effect = true;
 		} else if (playerEffect.name == "Flummox") {
-			//KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Flummox", type: "Flummox", duration: 5, power: 1.0, player: true, mushroom: true, tags: ["overlay", "darkness"]});
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Flummox", type: "Flummox", duration: 5, power: 1.0, player: true, mushroom: true, tags: ["overlay", "darkness"]});
 			KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonFlummox"), "#a583ff", 2);
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			effect = true;
