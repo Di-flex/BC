@@ -863,7 +863,7 @@ function KinkyDungeonGetMainPath(level) {
 		}
 	}
 	if (path) {
-		if (chanceRoll < path.chance || path.chance) {
+		if (chanceRoll < path.chance || !path.chance) {
 			return path.checkpoint;
 		}
 	}
@@ -888,7 +888,7 @@ function KinkyDungeonGetShortcut(level) {
 		}
 	}
 	if (path) {
-		if (chanceRoll < path.chance || path.chance) {
+		if (chanceRoll < path.chance || !path.chance) {
 			return path.checkpoint;
 		}
 	}

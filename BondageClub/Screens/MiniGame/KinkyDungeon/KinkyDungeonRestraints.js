@@ -1117,7 +1117,6 @@ function KinkyDungeonPickAttempt() {
 	}
 	KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonAttemptPick" + Pass).replace("TargetRestraint", TextGet("KinkyDungeonObject")), (Pass == "Success") ? "lightgreen" : "red", 1);
 	KinkyDungeonChangeStamina(cost);
-	if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
 	return Pass == "Success";
 }
 
