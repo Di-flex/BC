@@ -161,7 +161,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 8, maxhp: 6, minLevel:0, weight:20, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
 		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
 	{name: "BookCelestial", tags: KDMapInit(["construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
-		spells: ["EnemyCorona"], spellCooldownMult: 1, spellCooldownMod: 1, sneakThreshold: 0.1,
+		spells: ["EnemyCorona", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 1, sneakThreshold: 0.1,
 		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
 		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
 
