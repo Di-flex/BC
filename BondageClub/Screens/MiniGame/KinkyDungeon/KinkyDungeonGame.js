@@ -296,6 +296,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let ghostchance = MapParams.ghostchance; // Chance for a ghost
 	let shrinecount = MapParams.shrinecount; // Max treasure chest count
 	let rubblechance = MapParams.rubblechance; // Chance of lootable rubble
+	if (KinkyDungeonStatsChoice.get("Pristine")) rubblechance = 0;
 	let doorchance = MapParams.doorchance; // Chance door will be closed
 	let nodoorchance = MapParams.nodoorchance; // Chance of there not being a door
 	let doorlockchance = MapParams.doorlockchance; // Max treasure chest count

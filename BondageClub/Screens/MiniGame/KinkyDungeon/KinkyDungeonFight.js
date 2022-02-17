@@ -2,6 +2,9 @@
 let KinkyDungeonKilledEnemy = null;
 let KinkyDungeonAlert = 0;
 
+let KDBrawlerAmount = 1.0;
+let KDClumsyAmount = 0.7;
+let KDDodgeAmount = 0.25;
 let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
 let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
@@ -97,6 +100,9 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (KinkyDungeonSlowLevel > 1 && !KinkyDungeonPlayerDamage.name) {
 		KinkyDungeonPlayerDamage.dmg /= 2;
 	}
+	if (KinkyDungeonStatsChoice.get("Brawler") && !KinkyDungeonPlayerDamage.name) {
+		KinkyDungeonPlayerDamage.dmg += KDBrawlerAmount;
+	}
 	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && flags.KDDamageHands) {
 		KinkyDungeonPlayerDamage.chance /= 1.5;
 	}
@@ -117,7 +123,8 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 
 	if (!NoOverride)
 		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags});
-	var hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
+	let hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
+	if (KinkyDungeonStatsChoice.get("Clumsy")) hitChance *= KDClumsyAmount;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
 

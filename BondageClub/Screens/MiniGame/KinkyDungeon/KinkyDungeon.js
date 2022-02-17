@@ -650,7 +650,7 @@ function KinkyDungeonHandleClick() {
 			if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
 				if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
 					KinkyDungeonStatsChoice.set(stat[0], true);
-				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
+				} else if (KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanUnPickStat(stat[0])) {
 					KinkyDungeonStatsChoice.delete(stat[0]);
 				}
 			}

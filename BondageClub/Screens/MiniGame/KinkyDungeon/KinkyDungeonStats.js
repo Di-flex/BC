@@ -14,6 +14,7 @@ let KinkyDungeonStatArousalRegen = -0.5;
 let KinkyDungeonStatArousalRegenPerUpgrade = -0.1;
 let KDUnchasteMult = 0.5;
 let KDPurityAmount = 0.25;
+let KDDistractedAmount = 0.1;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal
 let KinkyDungeonStatArousalMiscastChance = 0.6; // Miscast chance at max arousal
 let KinkyDungeonMiscastChance = 0;
@@ -423,6 +424,7 @@ function KinkyDungeonCalculateMiscastChance() {
 	let flags = {
 		miscastChance: KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax,
 	};
+	if (KinkyDungeonStatsChoice.get("Distracted")) flags.miscastChance += KDDistractedAmount;
 	KinkyDungeonSendEvent("calcMiscast", {flags: flags});
 	KinkyDungeonMiscastChance = flags.miscastChance;
 }
@@ -718,6 +720,12 @@ let KinkyDungeonStatsPresets = {
 	"BondageLover": {id: 15, cost: -1},
 	"Purity": {id: 16, cost: 1},
 	"Unchaste": {id: 17, cost: -1},
+	"Dodge": {id: 18, cost: 1, block: "Distracted"},
+	"Distracted": {id: 19, cost: -1, block: "Dodge"},
+	"Brawler": {id: 20, cost: 1},
+	"Clumsy": {id: 21, cost: -1},
+	"Pristine": {id: 22, cost: -1},
+	"LostTechnology": {id: 23, cost: -1},
 };
 
 function KinkyDungeonGetStatPoints(Stats) {
@@ -739,6 +747,19 @@ function KinkyDungeonCanPickStat(Stat) {
 	for (let k of KinkyDungeonStatsChoice.keys()) {
 		if (KinkyDungeonStatsChoice.get(k)) {
 			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].block == Stat) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+function KinkyDungeonCanUnPickStat(Stat) {
+	let stat = KinkyDungeonStatsPresets[Stat];
+	if (!stat) return false;
+	if (stat.cost < 0 && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) < -stat.cost) return false;
+	for (let k of KinkyDungeonStatsChoice.keys()) {
+		if (KinkyDungeonStatsChoice.get(k)) {
+			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].require == Stat) {
 				return false;
 			}
 		}
