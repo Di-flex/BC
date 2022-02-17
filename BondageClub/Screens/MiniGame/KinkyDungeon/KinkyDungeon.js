@@ -1280,7 +1280,9 @@ function KinkyDungeonLoadGame(String) {
 
 			KinkyDungeonSetMaxStats();
 			KinkyDungeonCheckClothesLoss = true;
+			KDNaked = false;
 			KinkyDungeonDressPlayer();
+			KDRefresh = true;
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
