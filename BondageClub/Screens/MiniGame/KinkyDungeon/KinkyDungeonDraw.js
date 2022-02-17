@@ -47,6 +47,10 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
+	if (KDRefresh) CharacterRefresh(KinkyDungeonPlayer);
+	KDNaked = false;
+	KDRefresh = false;
+
 	if (ServerURL == "foobar") {
 		MainCanvas.textAlign = "center";
 		DrawTextFit(TextGet("KinkyDungeon"), 1865, 50, 200, "white", "black");

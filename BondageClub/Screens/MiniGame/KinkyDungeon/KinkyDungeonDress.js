@@ -176,16 +176,21 @@ function KinkyDungeonSetDress(Dress, Outfit) {
 			clothes.Lost = false;
 		}
 		KinkyDungeonCheckClothesLoss = true;
-		KinkyDungeonDressPlayer(true);
+		KinkyDungeonDressPlayer();
+		KDRefresh = true;
 	}
 }
 
-function KinkyDungeonDressPlayer(ForceRefresh) {
-	let refresh = ForceRefresh ? true : false;
+let KDNaked = false;
+let KDRefresh = false;
+
+function KinkyDungeonDressPlayer() {
 
 	if (KinkyDungeonCheckClothesLoss) {
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
-		CharacterNaked(KinkyDungeonPlayer);
+		if (!KDNaked)
+			CharacterNaked(KinkyDungeonPlayer);
+		KDNaked = true;
 		KinkyDungeonUndress = 0;
 	}
 
@@ -345,41 +350,38 @@ function KinkyDungeonDressPlayer(ForceRefresh) {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Blush) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Blush };
-				refresh = true;
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyebrows") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Eyebrows) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Eyebrows };
-				refresh = true;
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Mouth") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Mouth) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
-				refresh = true;
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Fluids") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Fluids) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Fluids };
-				refresh = true;
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes)) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes) };
-				refresh = true;
+				KDRefresh = true;
 			}
 		}
 
-	}
-	if (refresh) {
-		CharacterRefresh(KinkyDungeonPlayer);
 	}
 }
 
