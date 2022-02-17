@@ -240,9 +240,24 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			}
 		}
 	} else if (Event == "struggle") {
-		if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
+		if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.restraint && data.restraint.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
 			KinkyDungeonChangeArousal(1);
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
+		} else if (e.type == "celestialRopePunish" && e.trigger == "struggle" && data.restraint && item == data.restraint) {
+			KinkyDungeonChangeArousal(3);
+			KinkyDungeonChangeMana(-1);
+			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind + 1, 2);
+
+			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
+				if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
+					let property = KinkyDungeonPlayer.Appearance[A].Property;
+					if (!property || property.Expression != "Surprised") {
+						KinkyDungeonPlayer.Appearance[A].Property = { Expression: "Surprised" };
+						CharacterRefresh(KinkyDungeonPlayer);
+					}
+				}
+			}
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCelestialPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 		}
 	} else if (Event == "playerAttack") {
 		if (e.type == "ShadowHeel" && e.trigger == "playerAttack" && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {

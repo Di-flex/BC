@@ -597,7 +597,7 @@ var KinkyDungeonMapParams = [
 		"trapchance" : 0.3,
 		"grateChance" : 0.7,
 		"rubblechance" : 0.7,
-		"brickchance" : 0.1,
+		"brickchance" : 0.03,
 		"cacheInterval" : 3,
 		// Side routes have more high-value loot
 		"forbiddenChance" : 0.75,

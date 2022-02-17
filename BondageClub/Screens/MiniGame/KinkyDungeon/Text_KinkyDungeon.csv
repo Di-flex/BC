@@ -1549,6 +1549,7 @@ RestraintTrapPlug3Desc2,"It vibrates strongly periodically and has a denial sett
 RestraintMaidVibe,Maid Egg
 RestraintMaidVibeDesc,"An energetic little friend that likes to tease you and takes orders from the head maid."
 RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
+
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
 RestraintRopeSnakeArmsDesc2,"The ropes squeeze you gently."
@@ -1573,6 +1574,28 @@ RestraintRopeSnakeLegsDesc2,"The ropes squeeze you gently."
 RestraintRopeSnakeFeet,Ankle Ropes
 RestraintRopeSnakeFeetDesc,"A tie keeping your feet secured together."
 RestraintRopeSnakeFeetDesc2,"The ropes squeeze you gently."
+
+RestraintCelestialRopeArms,Holy Wrist Rope
+RestraintCelestialRopeArmsDesc,"A box tie keeping your arms secured behind your back."
+RestraintCelestialRopeArmsDesc2,"They are aware of your movements..."
+RestraintCelestialRopeCuffs,Holy Rope Cuffs
+RestraintCelestialRopeCuffsDesc,"A quick tie for apprehending prisoners."
+RestraintCelestialRopeCuffsDesc2,"They are aware of your movements..."
+RestraintCelestialRopeTorso,Holy Rope Belt
+RestraintCelestialRopeTorsoDesc,"A harness acting as a handle to pull you around"
+RestraintCelestialRopeTorsoDesc2,"They are aware of your movements..."
+RestraintCelestialRopeCrotch,Holy Crotch Rope
+RestraintCelestialRopeCrotchDesc,"A tight rope impressing upon your most private areas..."
+RestraintCelestialRopeCrotchDesc2,"They are aware of your movements..."
+RestraintCelestialRopeArmsWrist,Holy Wrist Rope
+RestraintCelestialRopeArmsWristDesc,"A wrist and elbow tie keeping your arms secured behind your back."
+RestraintCelestialRopeArmsWristDesc2,"They are aware of your movements..."
+RestraintCelestialRopeLegs,Holy Leg Ropes
+RestraintCelestialRopeLegsDesc,"A tie that hobbles your legs together.."
+RestraintCelestialRopeLegsDesc2,"They are aware of your movements..."
+RestraintCelestialRopeFeet,Holy Ankle Ropes
+RestraintCelestialRopeFeetDesc,"A tie keeping your feet secured together."
+RestraintCelestialRopeFeetDesc2,"They are aware of your movements..."
 
 RestraintVinePlantArms,Wrist Vines
 RestraintVinePlantArmsDesc,"A box tie keeping your arms secured behind your back."
@@ -2392,6 +2415,9 @@ KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side a
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 
 KinkyDungeonCrotchRope,Your struggling leaves you aroused because of the RestraintName...
+KinkyDungeonCelestialPunish0,"You feel your restraints squeeze you and tingle with painful sensations!"
+KinkyDungeonCelestialPunish1,"'Do not resist,' whispers a voice in your head..."
+KinkyDungeonCelestialPunish2,"Your restraints squeeze you painfully without mercy!"
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
@@ -2452,6 +2478,7 @@ KinkyDungeonDamageSelf,"You took DamageDealt damage!"
 KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
+KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
