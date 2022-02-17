@@ -422,7 +422,7 @@ function KinkyDungeonUpdateStats(delta) {
 
 function KinkyDungeonCalculateMiscastChance() {
 	let flags = {
-		miscastChance: KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax,
+		miscastChance: Math.max(0, KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax),
 	};
 	if (KinkyDungeonStatsChoice.get("Distracted")) flags.miscastChance += KDDistractedAmount;
 	KinkyDungeonSendEvent("calcMiscast", {flags: flags});
@@ -702,15 +702,15 @@ function KinkyDungeonChastityMult() {
 }
 
 let KinkyDungeonStatsPresets = {
-	"Strong": {id: 0, cost: 1, block: "Weak"},
+	"Strong": {id: 0, cost: 2, block: "Weak"},
 	"Weak": {id: 1, cost: -1, block: "Strong"},
-	"Flexible": {id: 2, cost: 1, block: "Inflexible"},
+	"Flexible": {id: 2, cost: 2, block: "Inflexible"},
 	"Inflexible": {id: 3, cost: -1, block: "Flexible"},
-	"Locksmith": {id: 4, cost: 1, block: "Clueless"},
+	"Locksmith": {id: 4, cost: 2, block: "Clueless"},
 	"Clueless": {id: 5, cost: -1, block: "Locksmith"},
-	"Psychic": {id: 6, cost: 3},
+	"Psychic": {id: 6, cost: 4},
 	"Novice": {id: 7, cost: -2},
-	"Blessed": {id: 8, cost: 2},
+	"Blessed": {id: 8, cost: 3},
 	"Cursed": {id: 9, cost: -1},
 	"Submissive": {id: 10, cost: 0},
 	"Wanted": {id: 11, cost: -1},
@@ -718,11 +718,11 @@ let KinkyDungeonStatsPresets = {
 	"Meditation": {id: 13, cost: 2},
 	"Willpower": {id: 14, cost: 2},
 	"BondageLover": {id: 15, cost: -1},
-	"Purity": {id: 16, cost: 1},
+	"Purity": {id: 16, cost: 2},
 	"Unchaste": {id: 17, cost: -1},
-	"Dodge": {id: 18, cost: 1, block: "Distracted"},
+	"Dodge": {id: 18, cost: 3, block: "Distracted"},
 	"Distracted": {id: 19, cost: -1, block: "Dodge"},
-	"Brawler": {id: 20, cost: 1},
+	"Brawler": {id: 20, cost: 2},
 	"Clumsy": {id: 21, cost: -1},
 	"Pristine": {id: 22, cost: -1},
 	"LostTechnology": {id: 23, cost: -1},
