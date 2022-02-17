@@ -181,7 +181,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
 		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
 	{name: "BookForbidden", tags: KDMapInit(["coldimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
-		spells: ["SoulCrystalBind"], spellCooldownMult: 1, spellCooldownMod: 7, sneakThreshold: 0.1,
+		spells: ["SoulCrystalBind"], spellCooldownMult: 1, spellCooldownMod: 5, sneakThreshold: 0.1,
 		visionRadius: 6, maxhp: 6, minLevel:15, weight:15, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
 		terrainTags: {"open": 100, "passage": -8}, floors:KDMapInit([12])},
 	{name: "BookArcane", tags: KDMapInit(["coldimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,

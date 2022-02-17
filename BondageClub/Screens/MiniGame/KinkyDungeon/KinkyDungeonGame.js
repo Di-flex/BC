@@ -1562,6 +1562,13 @@ let KinkyDungeonAutoWaitSuppress = false;
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonClickGame(Level) {
+	let _CharacterRefresh = CharacterRefresh;
+	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
+	// @ts-ignore
+	CharacterRefresh = () => {KDRefresh = true;};
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = () => {};
+
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
 	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && KinkyDungeonHandleHUD()) {
@@ -1582,6 +1589,14 @@ function KinkyDungeonClickGame(Level) {
 			KinkyDungeonAutoWait = false;
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 		}
+
+
+
+		// @ts-ignore
+		CharacterRefresh = _CharacterRefresh;
+		// @ts-ignore
+		CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
+
 		return;
 	}
 	// beep
@@ -1620,6 +1635,11 @@ function KinkyDungeonClickGame(Level) {
 			}
 		}
 	}
+
+	// @ts-ignore
+	CharacterRefresh = _CharacterRefresh;
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 }
 
 function KinkyDungeonListenKeyMove() {

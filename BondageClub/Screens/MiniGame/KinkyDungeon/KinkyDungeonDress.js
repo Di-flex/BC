@@ -185,6 +185,12 @@ let KDNaked = false;
 let KDRefresh = false;
 
 function KinkyDungeonDressPlayer() {
+	let _CharacterRefresh = CharacterRefresh;
+	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
+	// @ts-ignore
+	CharacterRefresh = () => {KDRefresh = true;};
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = () => {};
 
 	if (KinkyDungeonCheckClothesLoss) {
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
@@ -382,7 +388,12 @@ function KinkyDungeonDressPlayer() {
 			}
 		}
 
+
 	}
+	// @ts-ignore
+	CharacterRefresh = _CharacterRefresh;
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 }
 
 function KinkyDungeonWearForcedClothes() {
