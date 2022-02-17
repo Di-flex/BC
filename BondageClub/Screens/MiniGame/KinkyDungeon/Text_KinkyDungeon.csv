@@ -53,6 +53,31 @@ KinkyDungeonStatDesc10,"Your submissiveness starts at 100 and cannot go below 70
 KinkyDungeonStat11,"Wanted"
 KinkyDungeonStatDesc11,"Your security level starts at 100 and cannot go below 70."
 
+KinkyDungeonStat12,"Studious"
+KinkyDungeonStatDesc12,"You start the game with Level 2 in all schools and +1 additional spell point."
+KinkyDungeonStat13,"Meditation"
+KinkyDungeonStatDesc13,"You slowly regenerate mana, up to a maximum of 4."
+
+KinkyDungeonStat14,"Willpower"
+KinkyDungeonStatDesc14,"-50% stamina drain from being close to orgasm."
+KinkyDungeonStat15,"Bondage Lover"
+KinkyDungeonStatDesc15,"Attempting to escape arouses you."
+
+KinkyDungeonStat16,"Purity"
+KinkyDungeonStatDesc16,"You cannot play with yourself, but gain a flat 0.25 arousal decay per turn."
+KinkyDungeonStat17,"Unchaste"
+KinkyDungeonStatDesc17,"Your arousal decay is halved while wearing a chastity belt."
+
+KinkyDungeonStat18,"Submissive"
+KinkyDungeonStatDesc18,"Your submissiveness starts at 100 and cannot go below 70."
+KinkyDungeonStat19,"Wanted"
+KinkyDungeonStatDesc19,"Your security level starts at 100 and cannot go below 70."
+
+KinkyDungeonStat20,"Submissive"
+KinkyDungeonStatDesc20,"Your submissiveness starts at 100 and cannot go below 70."
+KinkyDungeonStat21,"Wanted"
+KinkyDungeonStatDesc21,"Your security level starts at 100 and cannot go below 70."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
@@ -2826,6 +2851,7 @@ KinkyDungeonDeny10,"The toys deny you a chance to finish."
 
 KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
 KinkyDungeonPlaySelf,"You play with yourself..."
+KinkyDungeonPlaySelfPurity,"You would never do such a thing."
 KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
 KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release, but the toys are off..."
 KinkyDungeonOrgasmExhaustionVibe,"Your stamina is draining as you crave release, and the toys continue to vibrate..."

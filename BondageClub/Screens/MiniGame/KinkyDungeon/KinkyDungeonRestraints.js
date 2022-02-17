@@ -46,7 +46,11 @@ let KDInflexibleSpeedBonus = 0.75;
 let KDStrongBonus = 0.2;
 let KDWeakBonus = -0.15;
 
+let KDBondageLoverAmount = 1;
+
 let KinkyDungeonRestraintsCache = new Map();
+
+
 
 // Format: strict group => [list of groups the strictness applies to]
 const KinkyDungeonStrictnessTable = new Map([
@@ -1113,6 +1117,7 @@ function KinkyDungeonPickAttempt() {
 	}
 	KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonAttemptPick" + Pass).replace("TargetRestraint", TextGet("KinkyDungeonObject")), (Pass == "Success") ? "lightgreen" : "red", 1);
 	KinkyDungeonChangeStamina(cost);
+	if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
 	return Pass == "Success";
 }
 
@@ -1255,6 +1260,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -1366,6 +1372,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -1529,6 +1536,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonStruggle" + StruggleType + Pass + suff).replace("TargetRestraint", TextGet("Restraint" + restraint.restraint.name)), (Pass == "Success") ? "lightgreen" : "red", 2);
 
 			KinkyDungeonChangeStamina(cost);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
 
 			if (Pass != "Success") {
 				// Reduce the progress

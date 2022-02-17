@@ -373,6 +373,12 @@ function KinkyDungeonResetMagic() {
 		"Conjure":1,
 		"Illusion":1,
 	};
+	if (KinkyDungeonStatsChoice.get("Studious")) {
+		KinkyDungeonSpellLevel.Elements += 1;
+		KinkyDungeonSpellLevel.Conjure += 1;
+		KinkyDungeonSpellLevel.Illusion += 1;
+		KinkyDungeonSpellPoints += 1;
+	}
 }
 
 
