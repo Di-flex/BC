@@ -422,7 +422,7 @@ function KinkyDungeonUpdateStats(delta) {
 
 function KinkyDungeonCalculateMiscastChance() {
 	let flags = {
-		miscastChance: Math.max(0, KinkyDungeonStatArousalMiscastChance * KinkyDungeonStatArousal / KinkyDungeonStatArousalMax),
+		miscastChance: Math.max(0, KinkyDungeonStatArousalMiscastChance * Math.min(1, KinkyDungeonStatArousal / KinkyDungeonStatArousalMax)),
 	};
 	if (KinkyDungeonStatsChoice.get("Distracted")) flags.miscastChance += KDDistractedAmount;
 	KinkyDungeonSendEvent("calcMiscast", {flags: flags});
