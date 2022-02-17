@@ -553,6 +553,7 @@ function KinkyDungeonGetClosestSpecialAreaDist(x ,y) {
 	return minDist;
 }
 
+// @ts-ignore
 function KinkyDungeonCreateCache(Floor, width, height) {
 	let radius = 5;
 	let ypos = 1 + Math.floor(KDRandom() * (KinkyDungeonGridHeight - radius - 1));
@@ -583,6 +584,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 }
 
 
+// @ts-ignore
 function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 	if (KDRandom() < greaterChance) {
 		let trapLocations = [];
@@ -733,6 +735,7 @@ function KinkyDungeonCreateRectangle(Left, Top, Width, Height, Border, Fill, Pad
 }
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonCreateCell(security, width, height) {
 	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
@@ -844,6 +847,7 @@ function KinkyDungeonSkinArea(skin, X, Y, Radius) {
 	}
 }
 
+// @ts-ignore
 function KinkyDungeonGetMainPath(level) {
 	let params = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint];
 	let paths = params ? params.mainpath : null;
@@ -868,6 +872,7 @@ function KinkyDungeonGetMainPath(level) {
 	return MiniGameKinkyDungeonCheckpoint;
 }
 
+// @ts-ignore
 function KinkyDungeonGetShortcut(level) {
 	let params = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint];
 	let paths = params ? params.shortcuts : null;
@@ -1009,6 +1014,7 @@ function KinkyDungeonPlaceLore(width, height) {
 
 // @ts-ignore
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	let shrinelist = [];
 	KinkyDungeonCommercePlaced = 0;
@@ -1082,6 +1088,7 @@ let KinkyDungeonCommercePlaced = 0;
 
 // @ts-ignore
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonGenerateShrine(Floor) {
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
@@ -1109,6 +1116,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 }
 
 
+// @ts-ignore
 function KinkyDungeonPlaceSpecialTiles(gaschance, Floor, width, height) {
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
@@ -1127,6 +1135,7 @@ function KinkyDungeonPlaceSpecialTiles(gaschance, Floor, width, height) {
 			}
 }
 
+// @ts-ignore
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
@@ -1151,6 +1160,7 @@ function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 			}
 }
 
+// @ts-ignore
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
@@ -1550,6 +1560,7 @@ let KinkyDungeonAutoWaitSuppress = false;
 // Click function for the game portion
 // @ts-ignore
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
@@ -1910,6 +1921,12 @@ let KDDrawUpdate = 0;
 let KDVisionUpdate = 0;
 
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	let _CharacterRefresh = CharacterRefresh;
+	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
+	// @ts-ignore
+	CharacterRefresh = () => {KDRefresh = true;};
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = () => {};
 	let start = performance.now();
 
 	for (let inv of KinkyDungeonRestraintList()) {
@@ -2006,6 +2023,11 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonLastTurnAction = KinkyDungeonLastAction;
 	KinkyDungeonLastAction = "";
 	if (KDGameData.AncientEnergyLevel > 1) KDGameData.AncientEnergyLevel = 1;
+
+	// @ts-ignore
+	CharacterRefresh = _CharacterRefresh;
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 }
 
 

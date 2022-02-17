@@ -253,7 +253,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 					let property = KinkyDungeonPlayer.Appearance[A].Property;
 					if (!property || property.Expression != "Surprised") {
 						KinkyDungeonPlayer.Appearance[A].Property = { Expression: "Surprised" };
-						CharacterRefresh(KinkyDungeonPlayer);
+						KDRefresh = true;
 					}
 				}
 			}

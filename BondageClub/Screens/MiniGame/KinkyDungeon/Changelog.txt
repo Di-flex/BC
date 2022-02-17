@@ -609,6 +609,8 @@ Changes
 - Revamped the UI and game display, added a fullscreen toggle
 - Increased Teaser Plug cooldown to 170 turns from 130
 - Frog hitpoints to 19 from 24
+- Performance optimizations to make the game much smoother
+- You can now select some background traits at the start of the game ion order to make your run more difficult/more unique. You must take penalties in order to take bonuses
 
 TODO ValidationFindBlockCycles to prevent bugs
 
