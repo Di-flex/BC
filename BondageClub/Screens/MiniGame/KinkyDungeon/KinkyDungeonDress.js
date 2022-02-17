@@ -177,14 +177,20 @@ function KinkyDungeonSetDress(Dress, Outfit) {
 		}
 		KinkyDungeonCheckClothesLoss = true;
 		KinkyDungeonDressPlayer();
-		CharacterRefresh(KinkyDungeonPlayer);
+		KDRefresh = true;
 	}
 }
 
+let KDNaked = false;
+let KDRefresh = false;
+
 function KinkyDungeonDressPlayer() {
+
 	if (KinkyDungeonCheckClothesLoss) {
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
-		CharacterNaked(KinkyDungeonPlayer);
+		if (!KDNaked)
+			CharacterNaked(KinkyDungeonPlayer);
+		KDNaked = true;
 		KinkyDungeonUndress = 0;
 	}
 
@@ -338,40 +344,41 @@ function KinkyDungeonDressPlayer() {
 	else if (BlushCounter == 4) Blush = "VeryHigh";
 	else if (BlushCounter == 5) Blush = "Extreme";
 
+
 	for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Blush") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Blush) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Blush };
-				CharacterRefresh(KinkyDungeonPlayer);
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyebrows") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Eyebrows) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Eyebrows };
-				CharacterRefresh(KinkyDungeonPlayer);
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Mouth") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Mouth) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
-				CharacterRefresh(KinkyDungeonPlayer);
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Fluids") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != Fluids) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: Fluids };
-				CharacterRefresh(KinkyDungeonPlayer);
+				KDRefresh = true;
 			}
 		}
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
 			let property = KinkyDungeonPlayer.Appearance[A].Property;
 			if (!property || property.Expression != ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes)) {
 				KinkyDungeonPlayer.Appearance[A].Property = { Expression: ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes) };
-				CharacterRefresh(KinkyDungeonPlayer);
+				KDRefresh = true;
 			}
 		}
 

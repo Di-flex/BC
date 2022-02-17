@@ -29,7 +29,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 10, maxhp: 40, spellResist:1, disarm: 2, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackRange: 2, attackWidth: 3, power:6, fullBoundBonus: 6,
 		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "MagicSword", weight: 1}]},
 	{name: "AngelHostile", color:"#ffffaa", tags: KDMapInit(["angel", "ranged", "divineRestraints", "unarmedimmune", "unflinching"]), armor:0, followRange: 0, AI: "hunt", evasion: 0.25, attackWhileMoving: true,
-		spells: ["HeatBolt", "WitchElectrify", "Corona"], spellCooldownMult: 0, spellCooldownMod: 2, castWhileMoving: true, noSpellsLowSP: true, spellRdy: true,
+		spells: ["HeatBolt", "WitchElectrify", "EnemyCorona"], spellCooldownMult: 0, spellCooldownMod: 2, castWhileMoving: true, noSpellsLowSP: true, spellRdy: true,
 		visionRadius: 10, maxhp: 40, spellResist:1, disarm: 2, minLevel:0, weight:0, movePoints: 1, attackPoints: 2, attack: "SpellMeleeWillBind", attackRange: 2, attackWidth: 3, power:2, fullBoundBonus: 6, damage: "tickle",
 		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "MagicSword", weight: 1}], rep: {"Rope": -1, "Leather": -1, "Metal": -1, "Latex": -1, "Will": -1, "Elements": -1, "Conjure": -1, "Illusion": -1}},
 
@@ -100,7 +100,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":1, "lastthird":1, "open": 6, "illusionAnger": 12, "illusionRage": 5, "latexAnger": 4}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "RedKey", weight: 2}, {name: "Pick", weight: 4}]},
 	{name: "MaidforceHead", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "maid", "unflinching", "elite", "miniboss", "ranged", "maidVibeRestraints", "maidCollar", "jail", "hunter"]), followLeashedOnly: true, followRange: 3.5, AI: "hunt", projectileAttack: true,
-		spells: ["AmpuleGreen", "Hairpin", "RestrainingDevice"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 0, hitsfx: "Vibe", disarm: 1, ignoreStaminaForBinds: true,
+		spells: ["AmpuleGreen", "Hairpin", "RestrainingDevice"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 0, hitsfx: "Vibe", disarm: 1, ignoreStaminaForBinds: true, sneakThreshold: 1,
 		useLock: "Red", kite: 2.5, remote: 5, remoteAmount: 4, bypass: true, multiBind: 7, noLeashUnlessExhausted: true, evasion: 0.15, //-15 weight
 		visionRadius: 10, maxhp: 28, minLevel:20, weight:-14, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWillBindLockAllVibe", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":1, "lastthird":1, "open": 4, "illusionAnger": 10, "illusionRage": 4}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
@@ -141,23 +141,53 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, shrines: [], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 	{name: "Frog", color: "#00FF44", tags: KDMapInit(["summoned", "beast", "ranged", "pierceweakness", "electricsevereweakness"]), followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt",
 		pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3}, projectileAttack: true,
-		visionRadius: 10, maxhp: 24, minLevel:0, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackRange: 4, attackWidth: 1, power: 4, strictAttackLOS: true, damage: "tickle",
+		visionRadius: 10, maxhp: 19, minLevel:0, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackRange: 4, attackWidth: 1, power: 4, strictAttackLOS: true, damage: "tickle",
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "Conjurer", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "boss", "elite", "unflinching", "dressRestraints", "latexRestraints", "handcuffer"]), followRange: 1, summon: [{enemy: "Frog", range: 2.5, count: 1, strict: true}],
-		spells: ["SummonTickleHand"], spellCooldownMult: 2, spellCooldownMod: 1, AI: "guard", visionRadius: 8, maxhp: 40, minLevel:15, weight:-31, movePoints: 3, spellRdy: true,
+		spells: ["SummonTickleHand"], spellCooldownMult: 2, spellCooldownMod: 1, AI: "guard", visionRadius: 8, maxhp: 30, minLevel:15, weight:-31, movePoints: 3, spellRdy: true,
+		spellResist: 0.5,
 		attackPoints: 4, attack: "MeleeLockAllWillSpellBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":16, "lastthird":5, "boss": -80, "open": 30, "passage": -60, "conjureAnger": 20, "conjureRage": 70, "increasingWeight":0.5},
 		floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure"], dropTable: [{name: "MagicSword", weight: 1}, {name: "RedKey", weight: 3}]},
 	{name: "ConjurerTickler", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "ranged", "boss", "elite", "unflinching", "dressRestraints", "latexRestraints", "handcuffer"]), followRange: 1, summon: [{enemy: "TickleHandSlave", range: 2.5, count: 3, strict: true}],
-		spells: ["SummonBookChain"], spellCooldownMult: 2, spellCooldownMod: 1, AI: "guard", visionRadius: 8, maxhp: 40, minLevel:15, weight:-31, movePoints: 3, spellRdy: true,
+		spells: ["SummonBookChain"], spellCooldownMult: 2, spellCooldownMod: 1, AI: "guard", visionRadius: 8, maxhp: 30, minLevel:15, weight:-31, movePoints: 3, spellRdy: true,
+		spellResist: 0.5,
 		attackPoints: 4, attack: "MeleeLockAllWillSpellBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle",
 		terrainTags: {"secondhalf":16, "lastthird":5, "boss": -80, "open": 30, "passage": -60, "conjureAnger": 20, "conjureRage": 70, "increasingWeight":0.5},
 		floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure"], dropTable: [{name: "MagicSword", weight: 1}, {name: "RedKey", weight: 3}]},
 
-	{name: "BookChain", tags: KDMapInit(["construct", "book", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 1, AI: "wander", noAlert: true,
-		spells: ["MagicChain"], spellCooldownMult: 1, spellCooldownMod: 1, minSpellRange: 1.5, sneakThreshold: 0,
-		visionRadius: 12, maxhp: 6, minLevel:0, weight:0, movePoints: 12, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
-		terrainTags: {"open": 10, "passage": -1}, floors:KDMapInit([12])},
+	{name: "BookChain", tags: KDMapInit(["chainimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["MagicChain"], spellCooldownMult: 1, spellCooldownMod: 1, minSpellRange: 1.5, sneakThreshold: 0.1, kite: 1.5,
+		visionRadius: 8, maxhp: 6, minLevel:0, weight:20, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookCelestial", tags: KDMapInit(["fireresist", "stunimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["EnemyCorona", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 1, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookNature", tags: KDMapInit(["construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["Entangle", "OrbHeal"], spellCooldownMult: 1, spellCooldownMod: 1, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookElectric", tags: KDMapInit(["electricimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["AreaElectrify"], spellCooldownMult: 1, spellCooldownMod: 1, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookSlime", tags: KDMapInit(["glueimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["WitchSlimeBall", "WitchSlimeBall", "WitchSlime"], spellCooldownMult: 2, spellCooldownMod: 3, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookIce", tags: KDMapInit(["iceimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["IceSlowPrepare", "IceDragonBreathPrepare"], spellCooldownMult: 1, spellCooldownMod: 4, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:13, weight:18, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -7}, floors:KDMapInit([12])},
+	{name: "BookForbidden", tags: KDMapInit(["coldimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["SoulCrystalBind"], spellCooldownMult: 1, spellCooldownMod: 7, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:15, weight:15, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -8}, floors:KDMapInit([12])},
+	{name: "BookArcane", tags: KDMapInit(["coldimmune", "construct", "book", "minor", "ranged", "slashsevereweakness", "piercesevereweakness"]), followLeashedOnly: true, armor: 0, followRange: 3, AI: "hunt", noAlert: true,
+		spells: ["MummyBolt"], spellCooldownMult: 1, spellCooldownMod: 3, sneakThreshold: 0.1,
+		visionRadius: 6, maxhp: 6, minLevel:15, weight:15, movePoints: 5, attackPoints: 2, attack: "Spell", attackRange: 1, attackWidth: 1, power: 6,
+		terrainTags: {"open": 100, "passage": -8}, floors:KDMapInit([12])},
 
 	{name: "AnimatedArmor", blockVisionWhileStationary: true, tags: KDMapInit(["mimicBlock", "removeDoorSpawn", "ignoreharmless", "leashing", "construct", "minor", "melee", "shackleRestraints", "shackleGag", "slashresist", "crushweakness"]),
 		evasion: -0.5, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush",
@@ -201,7 +231,7 @@ let KinkyDungeonEnemies = [
 	{name: "RedSlime", color: "#FF0000", tags: KDMapInit(["ignoretiedup", "experiment", "slime", "melee", "minor", "ballGagRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, followRange: 1, AI: "hunt", sneakThreshold: 1, hitsfx: "",
 		spells: ["RedSlime"], minSpellRange: 2, spellCooldownMult: 1, spellCooldownMod: 1, evasion: 1,
 		visionRadius: 8, maxhp: 4, minLevel: 11, weight:10, movePoints: 2, attackPoints: 3, attack: "SpellMeleeSlowWillBindSuicide", suicideOnSpell: true, suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "crush",
-		terrainTags: {}, floors:KDMapInit([3, 12]), shrines: ["Latex"]},
+		terrainTags: {}, floors:KDMapInit([3]), shrines: ["Latex"]},
 
 	{name: "Drone", color: "#ff3367", tags: KDMapInit(["ignoreharmless", "robot", "minor", "ranged", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushsevereweakness", "pierceweakness", "hitechCables", "cableGag", "jail", "search"]),
 		AI: "patrol",
@@ -252,7 +282,7 @@ let KinkyDungeonEnemies = [
 		summon: [
 			{enemy: "WolfgirlPet", range: 2, count: 1, chance: 0.7, strict: true},],
 		spells: ["RestrainingDevice"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, AI: "hunt", visionRadius: 10, maxhp: 22, minLevel:14, weight:-6, movePoints: 2, disarm: 0.5,
-		attackPoints: 3, attack: "MeleeBindLockAllWillSpell", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 4, dmgType: "grope",
+		attackPoints: 3, attack: "MeleeBindLockAllWillSpell", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 4, dmgType: "grope", sneakThreshold: 1,
 		terrainTags: {"secondhalf":3, "lastthird":5, "miniboss": -10, "metalAnger": 9, "metalRage": 5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Metal"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "RedKey", weight: 9}]},
 
 	{name: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
@@ -287,18 +317,44 @@ let KinkyDungeonEnemies = [
 
 
 
-	{name: "SmallSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "SmallSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "slime", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 3, minLevel: 15, weight:14, movePoints: 1, attackPoints: 2, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
-		terrainTags: {"increasingWeight":-2}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"],
+		terrainTags: {"increasingWeight":-2, "slimeBonus": 4}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"],
 		dropTable: [{name: "Nothing", weight: 49}, {name: "Pick", weight: 4}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 1, ignoreInInventory: true}]},
-	{name: "FastSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "construct", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "FastSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "slime", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 3, minLevel: 22, weight:3, movePoints: 1, attackPoints: 3, attack: "MeleeBindSlowSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 3, power: 4, dmgType: "grope", fullBoundBonus: 4,
-		terrainTags: {"increasingWeight":1}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"],
+		terrainTags: {"increasingWeight":1, "slimeBonus": 2.5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"],
 		dropTable: [{name: "Nothing", weight: 29}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 2}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 0.1, ignoreInInventory: true}]},
-	{name: "BigSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "construct", "elite", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
+	{name: "BigSlime", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "slime", "elite", "melee", "slimeRestraints", "meleeresist", "fireresist", "glueimmune", "electricweakness", "iceweakness"]), squeeze: true, evasion: 0.3, followRange: 1, AI: "hunt", sneakThreshold: 1,
 		visionRadius: 3, maxhp: 12, minLevel: 23, weight:2, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 8, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 3, disarm: 0.5,
-		terrainTags: {}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
+		terrainTags: {"slimeBonus": 1.5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"], ondeath: [{type: "summon", enemy: "SmallSlime", range: 2.5, count: 4, strict: true}],
 		dropTable: [{name: "Nothing", weight: 9}, {name: "Pick", weight: 4}, {name: "RedKey", weight: 2}, {name: "BlueKey", weight: 1}, {name: "Knife", weight: 4}, {name: "MagicSword", weight: 0.4, ignoreInInventory: true}]},
+
+
+	{name: "GiantMushroom", tags: KDMapInit(["mushroom", "mimicBlock", "minor", "unstoppable", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness"]), spellResist: 0.33, sneakThreshold: 0.01,
+		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", ambushRadius: 0,
+		visionRadius: 0, maxhp: 5, minLevel:0, weight:40, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
+		terrainTags: {}, floors:KDMapInit([13]), shrines: ["Will"], ondeath: [{type: "spellOnSelf", spell: "Spores"}],},
+	{name: "Mushy", color: "#4fa4b8",
+		tags: KDMapInit(["leashing", "mushroom", "melee", "minor", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness", "ropeMagicStrong", "ropeAuxiliary", "clothRestraints", "tapeRestraints"]),
+		squeeze: true, evasion: -0.5, followRange: 1, AI: "patrol",
+		visionRadius: 5, maxhp: 8, minLevel: 10, weight:20, movePoints: 4, attackPoints: 2, attack: "MeleeBindBlindWill", blindTime: 2, attackWidth: 3, attackRange: 1, power: 4, dmgType: "poison", fullBoundBonus: 2,
+		terrainTags: {}, floors:KDMapInit([13]), shrines: [], ondeath: [{type: "spellOnSelf", spell: "Spores"}],
+		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "SmokeBomb", weight: 1}]},
+	{name: "MushyHappy", color: "#4fa4b8",
+		tags: KDMapInit(["ignorenoSP", "mushroom", "melee", "minor", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness"]),
+		squeeze: true, evasion: -0.5, followRange: 1, AI: "hunt",
+		spells: ["SporesHappy"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true,
+		visionRadius: 5, maxhp: 8, minLevel: 15, weight:20, movePoints: 4, attackPoints: 2, attack: "SpellMeleeWillBlind", blindTime: 2, attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 3, hitsfx: "Tickle",
+		terrainTags: {}, floors:KDMapInit([13]), shrines: [], ondeath: [{type: "spellOnSelf", spell: "Spores"}],
+		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "SmokeBomb", weight: 1}]},
+	{name: "MushySick", color: "#4fa4b8",
+		tags: KDMapInit(["ignorenoSP", "mushroom", "melee", "minor", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness"]),
+		squeeze: true, evasion: -0.5, followRange: 1, AI: "hunt",
+		spells: ["SporesSick"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true,
+		visionRadius: 5, maxhp: 8, minLevel: 0, weight:20, movePoints: 4, attackPoints: 2, attack: "SpellMeleeWillBlind", blindTime: 2, attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 3,
+		terrainTags: {}, floors:KDMapInit([13]), shrines: ["Will"], ondeath: [{type: "spellOnSelf", spell: "Spores"}],
+		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "SmokeBomb", weight: 1}]},
 
 	{name: "Dragon", color: "#F92900", tags: KDMapInit(["opendoors", "leashing", "dragon", "melee", "dragonRestraints", "handcuffer", "leatherRestraints", "fireresist", "jail", "search"]), cohesion: 0.75,
 		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", master: {type: "DragonLeader", range: 4, loose: true, aggressive: true},
@@ -379,7 +435,7 @@ let KinkyDungeonEnemies = [
 		specialCD: 15, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialWidth: 2, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2, stunTime: 4,
 		specialDamage: "charm", spellRdy: true,
 		spells: ["PoisonDragonBlast"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
-		visionRadius: 9, maxhp: 14, minLevel:10, weight:-3, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
+		visionRadius: 9, maxhp: 14, minLevel:10, weight:-3, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2, hitsfx: "Tickle",
 		terrainTags: {"secondhalf":1, "thirdhalf":2, "willAnger": 11, "willRage": -2}, shrines: ["Will"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 1}]},
 	{name: "JungleDryad", color: "#67ff44", tags: KDMapInit(["opendoors", "leashing", "plant", "ranged", "elite", "vineRestraints", "slashweakness", "pierceweakness", "fireweakness", "search"]), cohesion: 0.0,
@@ -387,7 +443,7 @@ let KinkyDungeonEnemies = [
 		specialCD: 15, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialWidth: 2, specialMinrange: 1.5, specialsfx: "Song", tilesMinRangeSpecial: 2, stunTime: 4,
 		specialDamage: "charm", spellRdy: true,
 		spells: ["PoisonDragonBlast"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5,
-		visionRadius: 9, maxhp: 14, minLevel:20, weight:5, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
+		visionRadius: 9, maxhp: 14, minLevel:20, weight:5, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2, hitsfx: "Tickle",
 		terrainTags: {"secondhalf":3, "thirdhalf":4}, shrines: ["Will"], floors:KDMapInit([2]),
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 1}]},
 
@@ -408,7 +464,7 @@ let KinkyDungeonEnemies = [
 		]},
 
 	{name: "OrbOfLight", color: "#ffff00", tags: KDMapInit(["opendoors", "ignorenoSP", "ghost", "ranged", "unstoppable", "coldsevereweakness"]), cohesion: 1.0, cohesionRange: 10,
-		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true, spellRdy: true,
+		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true, spellRdy: true, sneakThreshold: 0.1,
 		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5, kiteChance: 1.0,
 		visionRadius: 10, blindSight: 10, maxhp: 10, minLevel:20, weight:2.5, movePoints: 3, attackPoints: 4, attack: "SpellMeleeBlindWill", blindTime: 3, attackWidth: 8, attackRange: 1, power: 5, dmgType: "fire",
 		terrainTags: {"willAnger":4, "willRage":4}, shrines: ["Will"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), dropTable: [{name: "Nothing", weight: 9}, {name: "ElfCrystal", weight: 3}],
@@ -426,15 +482,15 @@ let KinkyDungeonEnemies = [
 		visionRadius: 1.5, blindSight: 1.5, maxhp: 10, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 2, attack: "MeleeWill", attackWidth: 8, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"passage": -999, "door": -99, "open": 1}, floors:KDMapInit([]), shrines: []},
 
-	{name: "Statue", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "unflinching", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+	{name: "Statue", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "unflinching", "crushweakness", "chainresist"]), spellResist: 0.33, sneakThreshold: 0.01,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", ambushRadius: 0,
 		visionRadius: 0, maxhp: 14, minLevel:0, weight:30, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {"passage": -999, "temple": 82, "open": 10}, floors:KDMapInit([3]), shrines: []},
-	{name: "StatueGag", tags: KDMapInit(["ignoregagged", "mimicBlock", "statue", "minor", "melee", "unflinching", "ballGagRestraintsMagic", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+	{name: "StatueGag", tags: KDMapInit(["ignoregagged", "mimicBlock", "statue", "minor", "melee", "unflinching", "ballGagRestraintsMagic", "crushweakness", "chainresist"]), spellResist: 0.33, sneakThreshold: 0.01,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", ambushRadius: 1.5,
 		visionRadius: 8, maxhp: 14, minLevel:0, weight:10, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope",
 		terrainTags: {"passage": -999, "temple": 72, "open": 10}, floors:KDMapInit([3]), shrines: ["Latex"]},
-	{name: "StatueDart", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "unflinching", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+	{name: "StatueDart", tags: KDMapInit(["mimicBlock", "statue", "minor", "melee", "unflinching", "crushweakness", "chainresist"]), spellResist: 0.33, sneakThreshold: 0.01,
 		spells: ["SleepDart"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, stopToCast: true, castWhileMoving: true, projectileAttack: true,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", ambushRadius: 1.5,
 		visionRadius: 4, maxhp: 14, minLevel:0, weight:25, movePoints: 99999, attackPoints: 4, attack: "Spell", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
@@ -450,39 +506,39 @@ let KinkyDungeonEnemies = [
 		visionRadius: 100, maxhp: 30, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 4, attack: "SpellMeleeWill", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {"passage": -999, "temple": 10, "open": 115}, floors:KDMapInit([3]), shrines: ["Conjure"]},
 
-	{name: "Gag", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ballGagRestraints", "minor"]), ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
+	{name: "Gag", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ballGagRestraints", "minor", "chainresist"]), ignorechance: 0.75, followRange: 1, AI: "wander", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
 		visionRadius: 3, maxhp: 4, minLevel: 3, weight:4, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":3, "lastthird":2, "increasingWeight":-1}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
-	{name: "RopeSnake", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness"]), ignorechance: 0.75, followRange: 1, AI: "wander", squeeze: true,
+	{name: "RopeSnake", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness", "chainresist"]), ignorechance: 0.75, followRange: 1, AI: "wander", squeeze: true,
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 3, maxhp: 4, minLevel: 1, weight:3, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":4, "lastthird":2, "increasingWeight":-3}, floors:KDMapInit([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
-	{name: "UnforseenRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "minor", "fireweakness", "slashweakness", "search"]), ignorechance: 0.75, followRange: 1, AI: "hunt", stealth: 2.5, squeeze: true,
+	{name: "UnforseenRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "minor", "fireweakness", "slashweakness", "chainresist", "search"]), ignorechance: 0.75, followRange: 1, AI: "hunt", stealth: 2.5, squeeze: true,
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 10, blindSight: 8, maxhp: 4, minLevel: 1, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":1, "lastthird":3}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
-	{name: "LearnedRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "fireweakness", "slashweakness", "search"]), ignorechance: 0.75, followRange: 1, AI: "hunt", squeeze: true, disarm: 0.5,
+	{name: "LearnedRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "ropeRestraints2", "fireweakness", "slashweakness", "chainresist", "search"]), ignorechance: 0.75, followRange: 1, AI: "hunt", squeeze: true, disarm: 0.5,
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
 		visionRadius: 5, maxhp: 8, minLevel: 3, weight:1, movePoints: 2, attackPoints: 3, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 2, power: 3, multiBind: 2, dmgType: "grope", fullBoundBonus: 5,
 		terrainTags: {"secondhalf":4, "lastthird":2}, floors:KDMapInit([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
-	{name: "MonsterRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "unstoppable", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness", "hunter"]), ignorechance: 0.75, followRange: 1, AI: "guard",
+	{name: "MonsterRope", tags: KDMapInit(["ignoreharmless", "construct", "melee", "unstoppable", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness", "chainresist", "hunter"]), ignorechance: 0.75, followRange: 1, AI: "guard",
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], disarm: 0.5,
 		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
 		terrainTags: {"secondhalf":1, "lastthird":4, "increasingWeight":2}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
 
-	{name: "RopeKraken", tags: KDMapInit(["construct", "melee", "boss", "elite", "unflinching", "fireweakness", "slashweakness", "hunter"]), ignorechance: 0.75, followRange: 1, AI: "hunt", summon: [{enemy: "RopeMinion", range: 2.5, count: 8, strict: true}],
+	{name: "RopeKraken", tags: KDMapInit(["construct", "melee", "boss", "elite", "unflinching", "fireweakness", "slashweakness", "chainresist", "hunter"]), ignorechance: 0.75, followRange: 1, AI: "hunt", summon: [{enemy: "RopeMinion", range: 2.5, count: 8, strict: true}],
 		spells: ["RopeEngulf"], spellCooldownMult: 1, spellCooldownMod: 1, ignoreflag: ["kraken"], disarm: 0.25,
 		visionRadius: 10, maxhp: 60, minLevel: 8, weight:-31, movePoints: 4, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 6, dmgType: "grope",
 		terrainTags: {"secondhalf":16, "lastthird":5, "boss": -80, "open": 30, "passage": -60, "ropeAnger": 20, "ropeRage": 60, "increasingWeight":0.5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"],
 		dropTable: [{name: "Knives", weight: 2}, {name: "Knife", weight: 5}, {name: "EnchKnife", weight: 2}, {name: "ElfCrystal", weight: 3}]},
-	{name: "RopeMinion", tags: KDMapInit(["construct", "melee", "fireweakness", "minor", "slashweakness"]), ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"], dependent: true,
+	{name: "RopeMinion", tags: KDMapInit(["construct", "melee", "fireweakness", "minor", "slashweakness", "chainresist"]), ignorechance: 0.75, followRange: 1, AI: "hunt", master: {type: "RopeKraken", range: 4}, ignoreflag: ["kraken"], dependent: true,
 		visionRadius: 10, maxhp: 8, minLevel: 1, weight:-1000, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "crush", fullBoundBonus: 1, noAlert: true,
 		terrainTags: {}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Rope"]},
 
 	{name: "Rat", tags: KDMapInit(["ignorenoSP", "beast", "melee", "minor"]), followRange: 1, AI: "guard", squeeze: true,
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:8, movePoints: 1.5, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain",
 		terrainTags: {"rubble":20, "increasingWeight":-5}, floors:KDMapInit([0])},
-	{name: "Bat", tags: KDMapInit(["ignorenoSP", "beast", "melee", "minor"]), followRange: 1, AI: "guard", squeeze: true, ethereal: true,
+	{name: "Bat", tags: KDMapInit(["ignorenoSP", "beast", "melee", "minor", "chainresist"]), followRange: 1, AI: "guard", squeeze: true, ethereal: true,
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:4, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"rubble":20, "increasingWeight":-5}, floors:KDMapInit([2])},
 
@@ -508,7 +564,20 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":3, "miniboss": -100}, shrines: [], floors:KDMapInit([1, 2, 11]),
 		dropTable: [{name: "Gold", amountMin: 30, amountMax: 40, weight: 12}, {name: "BlueKey", weight: 1}]},
 
-	{name: "Mummy", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "witch", "elite", "mummyRestraints", "coldresist", "fireweakness", "meleeweakness", "hunter"]), followLeashedOnly: true, followRange: 1,
+	{name: "HighWizard", color: "#a583ff", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter"]), squeeze: true,
+		followLeashedOnly: true, kite: 1.5, kiteChance: 1.0, followRange: 4, castWhileMoving: true, spells: ["HighBolt", "Spores"], stopToCast: true, spellRdy: true,
+		spellCooldownMult: 2, spellCooldownMod: 1, AI: "hunt", visionRadius: 8, maxhp: 13, minLevel:4, weight:12, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
+		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4}, floors:KDMapInit([13]), shrines: [],
+		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
+
+	{name: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter", "dressRestraints", "magicRibbons"]),
+		followLeashedOnly: true, kite: 1.5, kiteChance: 0.3, followRange: 4, castWhileMoving: true, spells: ["Ribbons"], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
+		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 10, maxhp: 13, minLevel:14, weight:-6, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
+		attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
+		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4, "dressmaker": 20, "conjureAnger": 4, "conjureRage": 2}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure"],
+		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
+
+	{name: "Mummy", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "elite", "mummyRestraints", "coldresist", "fireweakness", "meleeweakness", "hunter"]), followLeashedOnly: true, followRange: 1,
 		spells: ["MummyBolt"], minSpellRange: 1.5, specialCD: 3, specialAttack: "Bind", spellCooldownMult: 1, spellCooldownMod: 5, spellRdy: true,
 		AI: "hunt", visionRadius: 7, maxhp: 8, minLevel:5, weight:18, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 1, dmgType: "crush",
 		terrainTags: {"secondhalf":2, "lastthird":4, "open": 2, "increasingWeight":1}, floors:KDMapInit([11]), shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "PotionStamina", weight: 1}, {name: "RedKey", weight: 1}]},
@@ -861,6 +930,9 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			for (let o of enemy.Enemy.ondeath) {
 				if (o.type == "summon") {
 					KinkyDungeonSummonEnemy(enemy.x, enemy.y, o.enemy, o.count, o.range, o.strict);
+				} else if (o.type == "spellOnSelf") {
+					let spell = KinkyDungeonFindSpell(o.spell, true);
+					if (spell) KinkyDungeonCastSpell(enemy.x, enemy.y, spell, undefined, undefined, undefined);
 				}
 			}
 		}
@@ -1041,6 +1113,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
 			if (enemy.stun > 0 || enemy.freeze > 0) {
 				enemy.warningTiles = [];
+				enemy.disarmflag = 0;
 				if (enemy.stun > 0) enemy.stun -= delta;
 				if (enemy.freeze > 0) enemy.freeze -= delta;
 			} else if (enemy.channel > 0) {
@@ -1205,8 +1278,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	if (!KinkyDungeonJailTransgressed && canSeePlayer && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail"))
 		&& ((KinkyDungeonPlayer.CanInteract() && (KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle"))
-			|| !KinkyDungeonInCell())
-		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
+			|| !KinkyDungeonPlayerInCell())
+		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
 		KinkyDungeonJailTransgressed = true;
 		ignore = false;
 	}
@@ -1879,9 +1952,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			if (spell && spell.selfcast) {
 				xx = enemy.x;
 				yy = enemy.y;
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
+				if (!spell.noCastMsg)
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 			} else if (spell && spell.msg) {
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
+				if (!spell.noCastMsg)
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 			}
 
 			if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) && spell.sfx) {

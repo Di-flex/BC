@@ -240,9 +240,24 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			}
 		}
 	} else if (Event == "struggle") {
-		if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
+		if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.restraint && data.restraint.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
 			KinkyDungeonChangeArousal(1);
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
+		} else if (e.type == "celestialRopePunish" && e.trigger == "struggle" && data.restraint && item == data.restraint) {
+			KinkyDungeonChangeArousal(3);
+			KinkyDungeonChangeMana(-1);
+			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind + 1, 2);
+
+			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
+				if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
+					let property = KinkyDungeonPlayer.Appearance[A].Property;
+					if (!property || property.Expression != "Surprised") {
+						KinkyDungeonPlayer.Appearance[A].Property = { Expression: "Surprised" };
+						KDRefresh = true;
+					}
+				}
+			}
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCelestialPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 		}
 	} else if (Event == "playerAttack") {
 		if (e.type == "ShadowHeel" && e.trigger == "playerAttack" && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
@@ -267,7 +282,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 			}
 		}
-	} else if (Event == "beforeCast") {
+	} else if (Event == "calcMiscast") {
 		if (e.type == "ReduceMiscastFlat" && e.trigger == Event && data.flags.miscastChance > 0) {
 			data.flags.miscastChance -= e.power;
 		}
@@ -439,7 +454,13 @@ function KinkyDungeonHandleBulletEvent(Event, e, b, data) {
 				if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y))) {
 					if (b.vx || b.vy) {
 						let speed = KDistEuclidean(b.vx, b.vy);
-						point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Math.round(b.x - b.vx/speed), Math.round(b.y - b.vy/speed)))) {
+							point = {x: Math.round(b.x - b.vx/speed), y: Math.round(b.y - b.vy/speed)};
+						} else if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(Math.floor(b.x - b.vx/speed), Math.floor(b.y - b.vy/speed)))) {
+							point = {x: Math.floor(b.x - b.vx/speed), y: Math.floor(b.y - b.vy/speed)};
+						} else {
+							point = {x: Math.ceil(b.x - b.vx/speed), y: Math.ceil(b.y - b.vy/speed)};
+						}
 					}
 				}
 				KinkyDungeonDropItem({name: "Knife"}, point, KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y)), true, true);

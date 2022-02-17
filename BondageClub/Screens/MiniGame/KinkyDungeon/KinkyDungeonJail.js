@@ -464,8 +464,11 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 	return randomPoint;
 }
 
-function KinkyDungeonInCell() {
+function KinkyDungeonPlayerInCell() {
 	return (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
+}
+function KinkyDungeonPointInCell(x, y) {
+	return (Math.abs(x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
 }
 
 function KinkyDungeonDefeat() {
@@ -527,7 +530,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonAddLostItems(KinkyDungeonInventory, HasBound);
 	KinkyDungeonInventory = newInv;
 	KinkyDungeonInventoryAddWeapon("Knife");
-	KinkyDungeonPlayerWeapon = "";
+	KDSetWeapon(null);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}

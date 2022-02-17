@@ -12,6 +12,13 @@ var KinkyDungeonLootTable = {
 		{name: "potion_stamina", minLevel: 2, weight:6, message:"LootPotionStamina", messageColor:"lightgreen", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 		{name: "potion_frigid", minLevel: 5, weight:2, message:"LootPotionFrigid", messageColor:"lightgreen", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 	],
+	"shelf": [
+		{name: "redkey", key: true, minLevel: 1, weight:1, message:"LootBookshelfKey", messageColor:"lightgreen", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+		{name: "scroll_arms", key: true, minLevel: 1, weight:1, message:"LootBookshelfScroll", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+		{name: "scroll_legs", key: true, minLevel: 1, weight:1, message:"LootBookshelfScroll", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+		{name: "scroll_verbal", key: true, minLevel: 1, weight:1, message:"LootBookshelfScroll", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+		{name: "trap_book", key: true, minLevel: 1, weight:5, message:"LootBookshelfTrap", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+	],
 	"chest": [
 		{name: "bluekey", redspecial: 5.5, key: true, minLevel: 5, weight:0.5, message:"LootChestBlueKey", messageColor:"lightgreen", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 		{name: "spell_points", magic: true, special: 100, weight:0, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])}, // lowlevel is spell levels 1-7
@@ -64,8 +71,8 @@ var KinkyDungeonLootTable = {
 		{name: "potions_many", minLevel: 0, weight:4, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["lowpotions"]},
 		{name: "staff_flame", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), noweapon: ["StaffFlame"]},
 		{name: "staff_bind", minLevel: 0, weight:2, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), noweapon: ["StaffBind"]},
-		{name: "trap_plug2", trap: true, minLevel: 12, weight:2, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemBreast"], power: 3},
-		{name: "trap_plug2_torment", trap: true, lock: "Gold", minLevel: 10, weight:2, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 5},
+		{name: "trap_plug2", trap: true, minLevel: 12, weight:1.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemBreast"], power: 3},
+		{name: "trap_plug2_torment", trap: true, lock: "Gold", minLevel: 15, weight:1, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 5},
 		{name: "trap_nipple2", trap: true, minLevel: 8, weight:4, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemPelvis"], power: 3},
 	],
 	"silver": [
@@ -81,11 +88,11 @@ var KinkyDungeonLootTable = {
 		{name: "trap_harness", trap: true, minLevel: 1, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemTorso"], power: 4},
 		{name: "trap_gagHeavy", trap:true, minLevel: 3, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemMouth2"], power: 10},
 		{name: "trap_mithrilankle", trap:true, minLevel: 5, weight:3, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemFeet"], power: 18},
-		{name: "trap_belt", trap: true, lock: "Gold", minLevel: 5, weight:2, message:"LootChestTrapMagicVibe", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulvaPiercings"], power: 1},
-		{name: "trap_plug", trap: true, lock: "Gold", minLevel: 10, weight:2, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 3},
-		{name: "trap_plug_tease", trap: true, lock: "Gold", minLevel: 15, weight:1.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 4},
-		{name: "trap_plug_torment", trap: true, lock: "Gold", minLevel: 20, weight:0.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 5},
-		{name: "trap_nipple", trap: true, lock: "Gold", minLevel: 3, weight:2, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemNipples"], power: 3},
+		{name: "trap_belt", trap: true, minLevel: 5, weight:2, message:"LootChestTrapMagicVibe", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulvaPiercings"], power: 1},
+		{name: "trap_plug", trap: true, minLevel: 10, weight:1.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 3},
+		{name: "trap_plug_tease", trap: true, minLevel: 15, weight:1, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 4},
+		{name: "trap_plug_torment", trap: true, minLevel: 20, weight:0.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva"], power: 5},
+		{name: "trap_nipple", trap: true, minLevel: 3, weight:2, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemNipples"], power: 3},
 		{name: "trap_mitts", trap: true, minLevel: 10, weight:2, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemHands"], power: 10},
 		{name: "potions_mana", minLevel: 0, weight:3, message:"LootPotionsMana", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["lowmanapotions"]},
 		{name: "potions_many", minLevel: 1, weight:2, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["lowpotions"]},
@@ -321,6 +328,12 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 2 + Math.floor(KDRandom() * 3));
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 2 + Math.floor(KDRandom() * 3));
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, 2 + Math.floor(KDRandom() * 3));
+	} else if (Loot.name == "scroll_legs") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 1);
+	} else if (Loot.name == "scroll_arms") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 1);
+	} else if (Loot.name == "scroll_verbal") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, 1);
 	} else if (Loot.name == "scrolls_basic") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 1 + Math.floor(KDRandom() * 3));
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 1 + Math.floor(KDRandom() * 3));
@@ -504,6 +517,19 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBra2"), MiniGameKinkyDungeonCheckpoint, true, (MiniGameKinkyDungeonLevel > 5 || KinkyDungeonNewGame > 0) ? "Gold" : "Red");
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBra2"));
+	} else if (Loot.name == "trap_book") {
+		let spell = null;
+		if (KDRandom() < 0.33) {
+			spell = KinkyDungeonFindSpell("TrapRopeStrong", true);
+		} else if (KDRandom() < 0.5) {
+			spell = KinkyDungeonFindSpell("TrapMagicChainsWeak", true);
+		} else {
+			spell = KinkyDungeonFindSpell("TrapRibbons", true);
+		}
+		if (spell) {
+			KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, spell, undefined, undefined, undefined);
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/MagicSlash.ogg");
+		}
 	}
 
 	else if (Loot.name == "lost_items") {

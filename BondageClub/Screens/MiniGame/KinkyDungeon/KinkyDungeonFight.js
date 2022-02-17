@@ -60,6 +60,12 @@ function KinkyDungeonWeaponCanCut(RequireInteract) {
 	return false;
 }
 
+// We reset the pity timer on weapon switch to prevent issues
+function KDSetWeapon(Weapon) {
+	KinkyDungeonEvasionPityModifier = 0;
+	KinkyDungeonPlayerWeapon = Weapon;
+}
+
 function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	let flags = {
 		KDDamageHands: true.valueOf,
@@ -73,12 +79,12 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (!HandsFree || (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
 		if (!NoOverride)
-			KinkyDungeonPlayerWeapon = null;
+			KDSetWeapon(null);
 	}
 	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) {
 		damage = KinkyDungeonWeapons.Knife;
 		if (!NoOverride)
-			KinkyDungeonPlayerWeapon = null;
+			KDSetWeapon(null);
 	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {
 		damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 	}
@@ -97,6 +103,9 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 
 	return KinkyDungeonPlayerDamage;
 }
+
+let KinkyDungeonEvasionPityModifier = 0; // Current value
+let KinkyDungeonEvasionPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
 
 function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	let flags = {
@@ -145,11 +154,20 @@ function KinkyDungeonAggro(Enemy) {
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
 
+
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
 	KinkyDungeonAggro(Enemy);
 
-	if (KDRandom() < hitChance) return true;
+	if (KDRandom() < hitChance + KinkyDungeonEvasionPityModifier) {
+		KinkyDungeonEvasionPityModifier = 0; // Reset the pity timer
+		return true;
+	}
+
+	if (Enemy) {
+		// Increment the pity timer
+		KinkyDungeonEvasionPityModifier += KinkyDungeonEvasionPityModifierIncrementPercentage * hitChance;
+	}
 
 	return false;
 }
@@ -350,7 +368,7 @@ function KinkyDungeonDisarm(Enemy) {
 
 			let dropped = {x:foundslot.x, y:foundslot.y, name: weapon};
 
-			KinkyDungeonPlayerWeapon = "";
+			KDSetWeapon(null);
 			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 			for (let I = 0; I < KinkyDungeonInventory.length; I++) {
 				let item = KinkyDungeonInventory[I];
@@ -371,9 +389,12 @@ function KinkyDungeonDisarm(Enemy) {
 
 function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	let disarm = false;
-	if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag >= 0.97 && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.type != "unarmed") {
-		Enemy.disarmflag = 0;
-		disarm = true;
+	if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag > 0) {
+		if (Enemy.stun > 0 || Enemy.freeze > 0 || Enemy.blind > 0) Enemy.disarmflag = 0;
+		else if (Enemy.Enemy && Enemy.Enemy.disarm && Enemy.disarmflag >= 0.97 && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.type != "unarmed") {
+			Enemy.disarmflag = 0;
+			disarm = true;
+		}
 	}
 	let evaded = KinkyDungeonEvasion(Enemy);
 	let dmg = Damage;
@@ -637,6 +658,20 @@ function KinkyDungeonBulletTrail(b) {
 					trail = true;
 					KinkyDungeonBullets.push({born: 0, time:b.bullet.spell.trailLifetime + (b.bullet.spell.trailLifetimeBonus ? Math.floor(KDRandom() * b.bullet.spell.trailLifetimeBonus) : 0), x:b.x + X, y:b.y + Y, vx:0, vy:0, xx:b.x + X, yy:b.y + Y, spriteID:b.bullet.name+"Trail" + CommonTime(),
 						bullet:{trail: true, hit: b.bullet.spell.trailHit, spell:b.bullet.spell, playerEffect:b.bullet.spell.trailPlayerEffect, damage: {damage:b.bullet.spell.trailPower, type:b.bullet.spell.trailDamage, time:b.bullet.spell.trailTime}, lifetime: b.bullet.spell.trailLifetime, name:b.bullet.name+"Trail", width:1, height:1}});
+				}
+			}
+	} else if (b.bullet.spell.trail == "cast" && !b.bullet.trail && b.bullet.spell && b.bullet.spell.trailcast) {
+		let aoe = b.bullet.spell.trailspawnaoe ? b.bullet.spell.trailspawnaoe : 0.0;
+		let rad = Math.ceil(aoe/2);
+		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+			for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+				if (Math.sqrt(X*X+Y*Y) <= aoe && KDRandom() < b.bullet.spell.trailChance) {
+					trail = true;
+					let cast = b.bullet.spell.trailcast;
+					let spell = KinkyDungeonFindSpell(cast.spell, true);
+					if (spell) {
+						KinkyDungeonCastSpell(b.x + X, b.y + Y, spell, undefined, undefined, undefined);
+					}
 				}
 			}
 	}

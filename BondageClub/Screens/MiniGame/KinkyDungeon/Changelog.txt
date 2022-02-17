@@ -596,6 +596,22 @@ Changes
 - Fixed a bug where enemies that squeeze through bars could push animated armors into bars
 - Enchanted items are now prepended to the restraints list so they're easier to find
 
+2.7.1
+- Changed map generator, should have some subtle effects
+- Fixed a very rare map generation glitch that happened on jungle
+- Added a pity timer for player hits, so you don't miss 4x in a row with a 70% hit chance
+- Enemies can no longer disarm if stunned or frozen
+- Shortcuts now have tiles from the tileset they lead to, near them
+- Frigid potions are now instant and reduce AP by 72 instead of 36 total
+- Added Crystal Cave (WIP)
+- Added Magic Library (WIP)
+- The struggle menu now rerquires mouseover (or click on mobile) to show the restraint buttons
+- Revamped the UI and game display, added a fullscreen toggle
+- Increased Teaser Plug cooldown to 170 turns from 130
+- Frog hitpoints to 19 from 24
+- Performance optimizations to make the game much smoother
+- You can now select some background traits at the start of the game ion order to make your run more difficult/more unique. You must take penalties in order to take bonuses
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

@@ -19,25 +19,25 @@ let KinkyDungeonShowInventory = false;
 function KinkyDungeonHandleInventory() {
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
 
-	if (KinkyDungeonCurrentPageInventory > 0 && MouseIn(canvasOffsetX + 100, canvasOffsetY + 483*KinkyDungeonBookScale, 250, 60)) {
+	if (KinkyDungeonCurrentPageInventory > 0 && MouseIn(canvasOffsetX_ui + 100, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 250, 60)) {
 		KinkyDungeonCurrentPageInventory -= 1;
 		return true;
 	}
-	if (KinkyDungeonCurrentPageInventory < filteredInventory.length-1 && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale - 325, canvasOffsetY + 483*KinkyDungeonBookScale, 250, 60)) {
+	if (KinkyDungeonCurrentPageInventory < filteredInventory.length-1 && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale - 325, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 250, 60)) {
 		KinkyDungeonCurrentPageInventory += 1;
 		return true;
 	}
 
 	for (let I = 0; I < KinkyDungeonFilters.length; I++)
 		if (KinkyDungeonFilterInventory(KinkyDungeonFilters[I]).length > 0 || I == 1)
-			if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 115 + I*65, 225, 60)) {
+			if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 115 + I*65, 225, 60)) {
 				KinkyDungeonCurrentFilter = KinkyDungeonFilters[I];
 				KinkyDungeonCurrentPageInventory = 0;
 				return true;
 			}
 
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
-		if (KinkyDungeonCurrentFilter == "Consumables" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
+		if (KinkyDungeonCurrentFilter == "Consumables" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let item = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter)[KinkyDungeonCurrentPageInventory];
 			if (!item || !item.name) return true;
 
@@ -46,18 +46,18 @@ function KinkyDungeonHandleInventory() {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			if (weapon && weapon != "knife") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
-				if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
-					KinkyDungeonPlayerWeapon = weapon;
+				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
+					KDSetWeapon(weapon);
 					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
-				} else if (MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
-					KinkyDungeonPlayerWeapon = null;
+				} else if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
+					KDSetWeapon(null);
 					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
 			}
-		} else if (KinkyDungeonCurrentFilter == "Outfits" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
+		} else if (KinkyDungeonCurrentFilter == "Outfits" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
@@ -68,7 +68,7 @@ function KinkyDungeonHandleInventory() {
 				KinkyDungeonSlowMoveTurns = 3;
 				KinkyDungeonSleepTime = CommonTime() + 200;
 			}
-		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60)) {
+		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let equipped = false;
 			let newItem = null;
 			let currentItem = null;
@@ -178,45 +178,45 @@ function KinkyDungeonDrawInventorySelected(List) {
 	let prefix = "KinkyDungeonInventoryItem";
 	if (item.item.restraint || item.item.looserestraint) prefix = "Restraint";
 
-	DrawTextFit(TextGet(prefix + name), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5, 300, "black", "silver");
+	DrawTextFit(TextGet(prefix + name), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5, 300, "black", "silver");
 	let textSplit = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc"), 17).split('\n');
 	let textSplit2 = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc2"), 17).split('\n');
 
 
-	let showpreview =  (item.preview && !MouseIn(canvasOffsetX, canvasOffsetY, 840, 583));
+	let showpreview =  (item.preview && !MouseIn(canvasOffsetX_ui, canvasOffsetY_ui, 840, 583));
 
 
 	let i = 2;
 	if (showpreview) {
-		DrawPreviewBox(canvasOffsetX + 640*KinkyDungeonBookScale/3.35 - 100, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 45, item.preview, "", {Background: "#00000000"});
+		DrawPreviewBox(canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35 - 100, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 45, item.preview, "", {Background: "#00000000"});
 		let restraint = item.item.restraint ? item.item.restraint : (item.item.looserestraint ? item.item.looserestraint : null);
 		let consumable = item.item.consumable;
 		let weapon = item.item.weapon;
 		if (restraint) {
-			DrawText(TextGet("KinkyDungeonRestraintLevel").replace("RestraintLevel", "" + Math.max(1, restraint.power)).replace("Rarity", TextGet("KinkyDungeonRarity" + Math.max(0, Math.min(Math.floor(restraint.power/5))))), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 330, "black", "silver");
+			DrawText(TextGet("KinkyDungeonRestraintLevel").replace("RestraintLevel", "" + Math.max(1, restraint.power)).replace("Rarity", TextGet("KinkyDungeonRarity" + Math.max(0, Math.min(Math.floor(restraint.power/5))))), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 330, "black", "silver");
 			DrawText(
 			item.item.restraint && restraint.escapeChance ? (item.item.lock ? (TextGet("KinkyLocked") + " " + TextGet("Kinky" + item.item.lock + "LockType")) : TextGet("KinkyUnlocked"))
-			: (restraint.escapeChance.Pick != null ? TextGet("KinkyLockable") : TextGet("KinkyNonLockable")), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 370, "black", "silver");
+			: (restraint.escapeChance.Pick != null ? TextGet("KinkyLockable") : TextGet("KinkyNonLockable")), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 370, "black", "silver");
 		} else if (consumable) {
-			DrawText(TextGet("KinkyDungeonConsumableQuantity") + item.item.quantity, canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 330, "black", "silver");
-			DrawText(TextGet("KinkyDungeonRarity") + TextGet("KinkyDungeonRarity" + consumable.rarity), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 370, "black", "silver");
+			DrawText(TextGet("KinkyDungeonConsumableQuantity") + item.item.quantity, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 330, "black", "silver");
+			DrawText(TextGet("KinkyDungeonRarity") + TextGet("KinkyDungeonRarity" + consumable.rarity), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 370, "black", "silver");
 		} else if (weapon) {
-			DrawText(TextGet("KinkyDungeonWeaponDamage") + (item.item.weapon.dmg * 10), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 310, "black", "silver");
-			DrawText(TextGet("KinkyDungeonWeaponAccuracy") + Math.round(item.item.weapon.chance * 100) + "%", canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 350, "black", "silver");
+			DrawText(TextGet("KinkyDungeonWeaponDamage") + (item.item.weapon.dmg * 10), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 310, "black", "silver");
+			DrawText(TextGet("KinkyDungeonWeaponAccuracy") + Math.round(item.item.weapon.chance * 100) + "%", canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 350, "black", "silver");
 			let cost = -KinkyDungeonStatStaminaCostAttack;
 			if (item.item.weapon.staminacost) cost = item.item.weapon.staminacost;
-			DrawText(TextGet("KinkyDungeonWeaponStamina") + (-1*cost), canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + 390, "black", "silver");
+			DrawText(TextGet("KinkyDungeonWeaponStamina") + (-1*cost), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 390, "black", "silver");
 		}
 
 	} else {
 		for (let N = 0; N < textSplit.length; N++) {
 			DrawText(textSplit[N],
-				canvasOffsetX + 640*KinkyDungeonBookScale/3.35, canvasOffsetY + 483*KinkyDungeonBookScale/5 + i * 40, "black", "silver"); i++;}
+				canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + i * 40, "black", "silver"); i++;}
 	}
 	i = 0;
 	for (let N = 0; N < textSplit2.length; N++) {
 		DrawText(textSplit2[N],
-			canvasOffsetX + 640*KinkyDungeonBookScale*(1-1/3.35), canvasOffsetY + 483*KinkyDungeonBookScale/5 + i * 40, "black", "silver"); i++;}
+			canvasOffsetX_ui + 640*KinkyDungeonBookScale*(1-1/3.35), canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + i * 40, "black", "silver"); i++;}
 
 	i = 0;
 
@@ -226,7 +226,7 @@ function KinkyDungeonDrawInventorySelected(List) {
 
 
 function KinkyDungeonDrawInventory() {
-	DrawImageZoomCanvas(KinkyDungeonRootDirectory + "MagicBook.png", MainCanvas, 0, 0, 640, 483, canvasOffsetX, canvasOffsetY, 640*KinkyDungeonBookScale, 483*KinkyDungeonBookScale, false);
+	DrawImageZoomCanvas(KinkyDungeonRootDirectory + "MagicBook.png", MainCanvas, 0, 0, 640, 483, canvasOffsetX_ui, canvasOffsetY_ui, 640*KinkyDungeonBookScale, 483*KinkyDungeonBookScale, false);
 
 
 
@@ -241,23 +241,23 @@ function KinkyDungeonDrawInventory() {
 			col = "#888888";
 		else if (KinkyDungeonFilters.indexOf(KinkyDungeonCurrentFilter) == I) KinkyDungeonCurrentFilter = KinkyDungeonFilters[defaultIndex];
 
-		DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 40, canvasOffsetY + 115 + I*65, 225, 60, TextGet("KinkyDungeonCategoryFilter" + KinkyDungeonFilters[I]), (KinkyDungeonCurrentFilter == KinkyDungeonFilters[I]) ? "White" : col, "", "");
+		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 115 + I*65, 225, 60, TextGet("KinkyDungeonCategoryFilter" + KinkyDungeonFilters[I]), (KinkyDungeonCurrentFilter == KinkyDungeonFilters[I]) ? "White" : col, "", "");
 	}
 
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
 		if (KinkyDungeonCurrentFilter == "Consumables")
-			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
+			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
 		if (KinkyDungeonCurrentFilter == "Weapons" && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Knife") {
 			let equipped = filteredInventory[KinkyDungeonCurrentPageInventory] && filteredInventory[KinkyDungeonCurrentPageInventory].name == KinkyDungeonPlayerWeapon;
-			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
-			if (equipped) DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
+			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
+			if (equipped) DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
 		}
 		if (KinkyDungeonCurrentFilter == "Outfits") {
 			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : "");
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
-				DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), KDGameData.Outfit == outfit ? "grey" : "White", "", "");
+				DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), KDGameData.Outfit == outfit ? "grey" : "White", "", "");
 			}
 		}
 		if (KinkyDungeonCurrentFilter == "Restraints") {
@@ -274,16 +274,16 @@ function KinkyDungeonDrawInventory() {
 					} else equipped = true;
 				}
 			}
-			DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale + 25, canvasOffsetY + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
+			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 		}
 	}
 	if (KinkyDungeonCurrentPageInventory >= filteredInventory.length) KinkyDungeonCurrentPageInventory = Math.max(0, KinkyDungeonCurrentPageInventory - 1);
 
 	if (KinkyDungeonCurrentPageInventory > 0) {
-		DrawButton(canvasOffsetX + 100, canvasOffsetY + 483*KinkyDungeonBookScale, 250, 60, TextGet("KinkyDungeonBookLastPage"), "White", "", "");
+		DrawButton(canvasOffsetX_ui + 100, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 250, 60, TextGet("KinkyDungeonBookLastPage"), "White", "", "");
 	}
 	if (KinkyDungeonCurrentPageInventory < filteredInventory.length-1) {
-		DrawButton(canvasOffsetX + 640*KinkyDungeonBookScale - 325, canvasOffsetY + 483*KinkyDungeonBookScale, 250, 60, TextGet("KinkyDungeonBookNextPage"), "White", "", "");
+		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale - 325, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 250, 60, TextGet("KinkyDungeonBookNextPage"), "White", "", "");
 	}
 
 }
@@ -336,10 +336,10 @@ function KinkyDungeonDrawQuickInv() {
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y+1 + 30 + V/2, "black");
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y + 30 + V/2, "white");
 
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y+1 + 30 + 50 + V/2, KinkyDungeonCanvas.width, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y + 30 + 50 + V/2, KinkyDungeonCanvas.width, "white");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y+1 + 30 + 100 + V/2, KinkyDungeonCanvas.width, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y + 30 + 100 + V/2, KinkyDungeonCanvas.width, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y+1 + 30 + 50 + V/2, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y + 30 + 50 + V/2, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y+1 + 30 + 100 + V/2, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y + 30 + 100 + V/2, 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
@@ -411,7 +411,7 @@ function KinkyDungeonhandleQuickInv() {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				let weapon = item.name != "Knife" ? item.name : null;
-				KinkyDungeonPlayerWeapon = weapon;
+				KDSetWeapon(weapon);
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 				KinkyDungeonAdvanceTime(1);
 			}
