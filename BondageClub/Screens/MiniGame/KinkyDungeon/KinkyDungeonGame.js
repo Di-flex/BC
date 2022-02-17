@@ -296,6 +296,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let ghostchance = MapParams.ghostchance; // Chance for a ghost
 	let shrinecount = MapParams.shrinecount; // Max treasure chest count
 	let rubblechance = MapParams.rubblechance; // Chance of lootable rubble
+	if (KinkyDungeonStatsChoice.get("Pristine")) rubblechance = 0;
 	let doorchance = MapParams.doorchance; // Chance door will be closed
 	let nodoorchance = MapParams.nodoorchance; // Chance of there not being a door
 	let doorlockchance = MapParams.doorlockchance; // Max treasure chest count
@@ -1562,6 +1563,13 @@ let KinkyDungeonAutoWaitSuppress = false;
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonClickGame(Level) {
+	let _CharacterRefresh = CharacterRefresh;
+	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
+	// @ts-ignore
+	CharacterRefresh = () => {KDRefresh = true;};
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = () => {};
+
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
 	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && KinkyDungeonHandleHUD()) {
@@ -1582,6 +1590,14 @@ function KinkyDungeonClickGame(Level) {
 			KinkyDungeonAutoWait = false;
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 		}
+
+
+
+		// @ts-ignore
+		CharacterRefresh = _CharacterRefresh;
+		// @ts-ignore
+		CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
+
 		return;
 	}
 	// beep
@@ -1620,6 +1636,11 @@ function KinkyDungeonClickGame(Level) {
 			}
 		}
 	}
+
+	// @ts-ignore
+	CharacterRefresh = _CharacterRefresh;
+	// @ts-ignore
+	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 }
 
 function KinkyDungeonListenKeyMove() {

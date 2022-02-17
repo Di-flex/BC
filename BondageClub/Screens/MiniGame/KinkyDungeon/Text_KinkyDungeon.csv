@@ -6,7 +6,7 @@ KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
-KinkyDungeon,"Kinky Dungeon v2.7.1"
+KinkyDungeon,"Kinky Dungeon v2.7.2"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -52,6 +52,36 @@ KinkyDungeonStat10,"Submissive"
 KinkyDungeonStatDesc10,"Your submissiveness starts at 100 and cannot go below 70."
 KinkyDungeonStat11,"Wanted"
 KinkyDungeonStatDesc11,"Your security level starts at 100 and cannot go below 70."
+
+KinkyDungeonStat12,"Studious"
+KinkyDungeonStatDesc12,"You start the game with Level 2 in all schools and +1 additional spell point."
+KinkyDungeonStat13,"Meditation"
+KinkyDungeonStatDesc13,"You slowly regenerate mana, up to a maximum of 4."
+
+KinkyDungeonStat14,"Willpower"
+KinkyDungeonStatDesc14,"-50% stamina drain from being close to orgasm."
+KinkyDungeonStat15,"Bondage Lover"
+KinkyDungeonStatDesc15,"Attempting to escape arouses you."
+
+KinkyDungeonStat16,"Purity"
+KinkyDungeonStatDesc16,"You cannot play with yourself, but gain a flat 0.25 arousal decay per turn."
+KinkyDungeonStat17,"Unchaste"
+KinkyDungeonStatDesc17,"Your arousal decay is halved while wearing a chastity belt."
+
+KinkyDungeonStat18,"Focused Dodge"
+KinkyDungeonStatDesc18,"While your miscast chance is 0%, gain 25% evasion."
+KinkyDungeonStat19,"Distracted"
+KinkyDungeonStatDesc19,"+10% miscast chance (at all times)"
+
+KinkyDungeonStat20,"Brawler"
+KinkyDungeonStatDesc20,"Unarmed attacks deal +10 damage."
+KinkyDungeonStat21,"Clumsy"
+KinkyDungeonStatDesc21,"0.7x melee hit chance"
+
+KinkyDungeonStat22,"Pristine"
+KinkyDungeonStatDesc22,"There are no shiny loot objects in the dungeon."
+KinkyDungeonStat23,"Lost Technology"
+KinkyDungeonStatDesc23,"Ancient power cores break with use, and cannot be recharged."
 
 
 KinkyDungeonDifficulty,Choose difficulty level:
@@ -962,6 +992,20 @@ NameBookChain,Tome of Chains
 KillBookChain,The floating tome burns into ashes!
 NameBookCelestial,Tome of Light
 KillBookCelestial,The floating tome burns into ashes!
+NameBookArcane,Tome of Magic
+KillBookArcane,The floating tome burns into ashes!
+NameBookIce,Tome of Ice
+KillBookIce,The floating tome burns into ashes!
+NameBookForbidden,Tome of the Abyss
+KillBookForbidden,The floating tome burns into ashes!
+NameBookNature,Tome of Nature
+KillBookNature,The floating tome burns into ashes!
+NameBookElectric,Tome of Thunder
+KillBookElectric,The floating tome burns into ashes!
+NameBookSlime,Tome of Latex
+KillBookSlime,The floating tome burns into ashes!
+NameBookTickle,Tome of Laughs
+KillBookTickle,The floating tome burns into ashes!
 
 
 KinkyDungeonGuardAppear,A guard appears to check on you.
@@ -2390,6 +2434,8 @@ KinkyDungeonSpellHighBolt,Curious Spell
 KinkyDungeonFlummox,You have been flummoxed!
 
 KinkyDungeonSpellSpores,Spores
+KinkyDungeonSpellSporesSick,Noxious Spores
+KinkyDungeonSpellSporesHappy,Enticing Spores
 KinkyDungeonSpores,"You inhale some spores, and feel a bit sleepy..."
 KinkyDungeonSporesHappy,"The spores make you feel excited!"
 KinkyDungeonSporesSick,"The toxic spores make you feel faint..."
@@ -2826,6 +2872,7 @@ KinkyDungeonDeny10,"The toys deny you a chance to finish."
 
 KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
 KinkyDungeonPlaySelf,"You play with yourself..."
+KinkyDungeonPlaySelfPurity,"You would never do such a thing."
 KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
 KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release, but the toys are off..."
 KinkyDungeonOrgasmExhaustionVibe,"Your stamina is draining as you crave release, and the toys continue to vibrate..."
@@ -2864,13 +2911,13 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your 
 
 RestraintEnchantedHeels,Ancient Heels
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 3 cold damage on-hit with brief slow."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 cold damage on-hit with brief slow."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
 RestraintEnchantedBlindfold,Ancient Blindfold
 LootChestEnchantedBlindfold,"You a padded metal blindfold, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBlindfoldDesc2,"A full-blackout mask. When powered, it negates accuracy penalties due to vision, boosts accuracy by +100%, and boosts melee damage by +1."
+RestraintEnchantedBlindfoldDesc2,"A full-blackout mask. When powered, it negates accuracy penalties due to vision, boosts accuracy by +100%, and boosts melee damage by +10."
 RestraintEnchantedBlindfoldDesc,"'Mask of the Warrior'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBlindfold,"You tug at the mask but it won't come off. It's molded so close to your face that no light shines through!"
 
@@ -2918,7 +2965,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedArmbinder,"You try to wiggle your a
 
 RestraintEnchantedAnkleCuffs,Ancient Ankle Cuffs
 LootChestEnchantedAnkleCuffs,"You find a pair of glowing cuffs, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also boosts evasion by +50% (to 2/3rds). Closes without power."
+RestraintEnchantedAnkleCuffsDesc2,"A pair of cuffs designed for summoners. Heals nearby summons by 15 per turn, and also boosts your evasion by +50% (to 2/3rds). Closes without power."
 RestraintEnchantedAnkleCuffsDesc,"'Anklets of the Faithful Friend'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedAnkleCuffs,"You jingle the chains around and realize that these unbreakable restraints won't be coming off."
 RestraintEnchantedAnkleCuffs2,Ancient Ankle Cuffs

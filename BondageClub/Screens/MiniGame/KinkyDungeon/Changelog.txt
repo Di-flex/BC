@@ -612,6 +612,8 @@ Changes
 - Performance optimizations to make the game much smoother
 - You can now select some background traits at the start of the game ion order to make your run more difficult/more unique. You must take penalties in order to take bonuses
 
+2.7.2
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

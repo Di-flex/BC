@@ -199,7 +199,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 						let Y = point.y;
 						EnemiesSummoned.push(Enemy.name);
 						KinkyDungeonEntities.push({tracking: true, summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
-						if (Enemy.tags.has("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
+						if (Enemy.tags.has("minor")) count += 0.1; else count += 1; // Minor enemies count as 1/10th of an enemy
 						if (Enemy.tags.has("boss")) {
 							count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));
 							tags.push("boss");
