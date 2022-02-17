@@ -1167,7 +1167,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let chaseRadius = 3 + 2*Math.max(enemy.Enemy.visionRadius ? enemy.Enemy.visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 	let ignoreLocks = enemy.Enemy.keys;
 	let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
-	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 0;
+	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 1.0;
 
 	// Check if the enemy ignores the player
 	if (player.player) {
