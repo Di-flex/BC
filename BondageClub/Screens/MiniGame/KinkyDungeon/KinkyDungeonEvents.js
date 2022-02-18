@@ -431,7 +431,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			}
 		} else if (e.type == "Pierce" && e.trigger == Event && data.enemy && !data.disarm) {
 			let dist = e.dist ? e.dist : 1;
-			for (let i = 0; i < dist; i++) {
+			for (let i = 1; i <= dist; i++) {
 				let xx = data.enemy.x + i * (data.enemy.x - KinkyDungeonPlayerEntity.x);
 				let yy = data.enemy.y + i * (data.enemy.y - KinkyDungeonPlayerEntity.y);
 				for (let enemy of KinkyDungeonEntities) {
