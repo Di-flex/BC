@@ -21,7 +21,7 @@ var KinkyDungeonConsumables = {
 
 var KinkyDungneonBasic = {
 	"RedKey" : {name: "RedKey", rarity: 0, shop: true},
-	"BlueKey" : {name: "BlueKey", rarity: 4, shop: true},
+	"BlueKey" : {name: "BlueKey", rarity: 2, costMod: 2, shop: true},
 	"Lockpick" : {name: "Lockpick", rarity: 0, shop: true},
 	//"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
 	"Knife" : {name: "Knife", rarity: 0, shop: true},
