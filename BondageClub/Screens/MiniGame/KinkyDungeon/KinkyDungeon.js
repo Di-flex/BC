@@ -416,6 +416,7 @@ function KinkyDungeonRun() {
 		DrawText(TextGet("KinkyDungeonStats"), 1250, 100, "white", "silver");
 		DrawText(TextGet("KinkyDungeonStatPoints").replace("AMOUNT", "" + KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice)), 1250, 150, "white", "silver");
 		DrawButton(1075, 750, 350, 64, TextGet("KinkyDungeonStartGame"), "White", "");
+		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Save") {
 		// Draw temp start screen
 		DrawText(TextGet("KinkyDungeonSaveIntro0"), 1250, 350, "white", "silver");
@@ -1341,5 +1342,4 @@ function KinkyDungeonDrawPerks(NonSelectable) {
 		}
 		i += 1;
 	}
-	DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 }

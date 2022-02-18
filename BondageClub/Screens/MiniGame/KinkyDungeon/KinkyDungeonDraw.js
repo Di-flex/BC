@@ -499,10 +499,11 @@ function KinkyDungeonDrawGame() {
 		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
 		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed) ? "Pink" : "White", "");
 		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
-		DrawButton(1700, 900, 300, 64, TextGet("KinkyDungeonCheckPerks"), "White", "");
+		DrawButton(1650, 900, 300, 64, TextGet("KinkyDungeonCheckPerks"), "White", "");
 		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	} else if (KinkyDungeonDrawState == "Perks2") {
 		KinkyDungeonDrawPerks(true);
+		DrawButton(1650, 900, 300, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	}
 
 	if (KinkyDungeonStatFreeze > 0) {

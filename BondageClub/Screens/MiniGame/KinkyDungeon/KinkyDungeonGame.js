@@ -834,11 +834,11 @@ function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 0});
 }
 
-function KinkyDungeonSkinArea(skin, X, Y, Radius) {
+function KinkyDungeonSkinArea(skin, X, Y, Radius, NoStairs) {
 	for (let xx = Math.floor(X - Radius); xx <= Math.ceil(X + Radius); xx++) {
 		for (let yy = Math.floor(Y - Radius); yy <= Math.ceil(Y + Radius); yy++) {
 			if (xx >= 0 && xx <= KinkyDungeonGridWidth - 1 && yy >= 0 && yy <= KinkyDungeonGridHeight - 1) {
-				if (KDistEuclidean(xx - X, yy - Y) <= Radius + 0.01) {
+				if (KDistEuclidean(xx - X, yy - Y) <= Radius + 0.01 && (!NoStairs || KinkyDungeonMapGet(xx, yy) != 's')) {
 					if (!KinkyDungeonTilesSkin.get(xx + "," + yy)) {
 						KinkyDungeonTilesSkin.set(xx + "," + yy, skin);
 					}
@@ -941,7 +941,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
 		if (placed) {
 			MiniGameKinkyDungeonShortcut = checkpoint;
-			if (MiniGameKinkyDungeonShortcut != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonShortcut}, xx, yy, 2.5);
+			if (MiniGameKinkyDungeonShortcut != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonShortcut}, xx, yy, 2.5, true);
 		}
 	}
 }

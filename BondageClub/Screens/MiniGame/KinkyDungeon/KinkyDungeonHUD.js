@@ -591,13 +591,13 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Perks2") {
-		if (MouseIn(1075, 850, 350, 64)) {
-			KinkyDungeonDrawState = "Game";
+		if (MouseIn(1650, 900, 300, 64)) {
+			KinkyDungeonDrawState = "Restart";
 			return true;
 		}
 	} else if (KinkyDungeonDrawState == "Restart") {
 
-		if (MouseIn(1700, 900, 300, 64)) {
+		if (MouseIn(1650, 900, 300, 64)) {
 			KinkyDungeonDrawState = "Perks2";
 			return true;
 		}
@@ -690,6 +690,7 @@ function KinkyDungeonHandleHUD() {
 
 	if (KDModalArea && MouseIn(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height)) return true;
 	if (MouseIn(0, 0, 500, 1000)) return true;
+	if (MouseIn(1650, 0, 350, 1000)) return true;
 	KDModalArea = false;
 	return false;
 }

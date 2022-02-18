@@ -86,6 +86,10 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			KinkyDungeonChangeMana(e.power);
 			KinkyDungeonChangeStamina(e.power);
 			KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonIceDrain"), "lightblue", 2);
+		} else if (e.type == "crystalDrain" && e.trigger == "tick" && e.power) {
+			KinkyDungeonChangeMana(e.power);
+			KinkyDungeonChangeArousal(-e.power * 3);
+			KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrystalDrain"), "lightblue", 2);
 		} else if (e.type == "slimeSpread" && e.trigger == "tick") {
 			KinkyDungeonSlimeLevel = Math.max(KinkyDungeonSlimeLevel, KinkyDungeonSlimeLevelStart + e.power);
 			if (KinkyDungeonSlimeLevel >= 0.99999) {
@@ -258,6 +262,9 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				}
 			}
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCelestialPunish" + Math.floor(KDRandom() * 3)), "red", 2);
+		} else if (e.type == "crystalPunish" && e.trigger == "struggle" && data.restraint && item == data.restraint) {
+			KinkyDungeonChangeArousal(1);
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 		}
 	} else if (Event == "playerAttack") {
 		if (e.type == "ShadowHeel" && e.trigger == "playerAttack" && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
