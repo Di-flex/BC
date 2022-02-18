@@ -420,7 +420,12 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			if (data.enemy && (!e.chance || KDRandom() < e.chance)) {
 				KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
 			}
-		} if (e.type == "Cleave" && e.trigger == Event && data.enemy && !data.disarm) {
+		} else if (e.type == "ApplyBuff" && e.trigger == Event && data.enemy && !data.disarm && !data.evaded) {
+			if (data.enemy && (!e.chance || KDRandom() < e.chance)) {
+				if (!data.enemy.buffs) data.enemy.buffs = {};
+				KinkyDungeonApplyBuff(data.enemy.buffs, e.buff);
+			}
+		} else if (e.type == "Cleave" && e.trigger == Event && data.enemy && !data.disarm) {
 			for (let enemy of KinkyDungeonEntities) {
 				if (enemy != data.enemy) {
 					let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));

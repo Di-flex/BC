@@ -410,6 +410,9 @@ KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its 
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
 KinkyDungeonInventoryItemMagicAxeDesc2,"Deals cold damage to the target and 20 cold damage to enemies nearby. Slows for 3 turns."
+KinkyDungeonInventoryItemPickaxe,Pickaxe
+KinkyDungeonInventoryItemPickaxeDesc,"Used for drilling holes in rock and armor."
+KinkyDungeonInventoryItemPickaxeDesc2,"Deals pierce damage. Reduces enemy armor by 15 for 6 turns."
 KinkyDungeonInventoryItemMagicFlail,Enchanted Flail
 KinkyDungeonInventoryItemMagicFlailDesc,"A blessed censer that distributes pain equally."
 KinkyDungeonInventoryItemMagicFlailDesc2,"Deals crush damage to the target and all enemies near the target."
@@ -761,6 +764,11 @@ NameSlimeEnthusiast,Slime Enthusiast
 KillSlimeEnthusiast,"The slime enthusiast screams and runs."
 AttackSlimeEnthusiastBind,"The slime enthusiast restrains you! (+RestraintAdded)"
 AttackSlimeEnthusiast,"The Slime Enthusiast hugs you in a rubbery embrace! (-DamageTaken SP)"
+
+NameMiner,Miner
+KillMiner,"The bandit tosses her pick to the ground and complains about her pay."
+AttackMinerBind,"The miner restrains you! (+RestraintAdded)"
+AttackMiner,"The miner pins you with the haft of her pickaxe! (-DamageTaken SP)"
 
 NameBandit,Bandit
 KillBandit,"The bandit collapses."
@@ -2126,6 +2134,7 @@ ItemPickupFlail,"You pick up a heavy flail."
 ItemPickupSpear,"You pick up a shortspear."
 ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wizard school..."
 ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
+ItemPickupPickaxe,"You pick up a pickaxe."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupMagicAxe,"You pick up an enchanted axe."
 ItemPickupMagicHammer,"You pick up an enchanted hammer."

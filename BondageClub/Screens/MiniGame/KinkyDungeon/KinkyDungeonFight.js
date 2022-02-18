@@ -52,6 +52,8 @@ let KinkyDungeonWeapons = {
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
 	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
+	"Pickaxe": {name: "Pickaxe", dmg: 3, chance: 1.0, staminacost: 1, type: "pierce", unarmed: false, rarity: 3, shop: true, sfx: "LightSwing",
+		events: [{type: "ApplyBuff", trigger: "playerAttack", buff: {id: "ArmorDown", type: "Armor", duration: 6, power: -1.5, player: true, enemies: true, tags: ["debuff", "armor"]}}]},
 };
 
 function KinkyDungeonFindWeapon(Name) {
