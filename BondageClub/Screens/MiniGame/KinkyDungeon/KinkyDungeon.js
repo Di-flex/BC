@@ -415,7 +415,7 @@ function KinkyDungeonRun() {
 		KinkyDungeonDrawPerks(false);
 		DrawText(TextGet("KinkyDungeonStats"), 1250, 100, "white", "silver");
 		DrawText(TextGet("KinkyDungeonStatPoints").replace("AMOUNT", "" + KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice)), 1250, 150, "white", "silver");
-		DrawButton(1075, 750, 350, 64, TextGet("KinkyDungeonStartGame"), "White", "");
+		DrawButton(1075, 750, 350, 64, TextGet("KinkyDungeonStartGame"), KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0 ? "White" : "pink", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Save") {
 		// Draw temp start screen
@@ -628,7 +628,7 @@ function KinkyDungeonHandleClick() {
 			if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
 				if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
 					KinkyDungeonStatsChoice.set(stat[0], true);
-				} else if (KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanUnPickStat(stat[0])) {
+				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
 					KinkyDungeonStatsChoice.delete(stat[0]);
 				}
 			}
@@ -640,10 +640,12 @@ function KinkyDungeonHandleClick() {
 			i += 1;
 		}
 
-		if (MouseIn(1075, 750, 350, 64)) {
+		if (MouseIn(1075, 750, 350, 64) && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0) {
 			KinkyDungeonState = "Diff";
+			return true;
 		} else if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";
+			return true;
 		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
