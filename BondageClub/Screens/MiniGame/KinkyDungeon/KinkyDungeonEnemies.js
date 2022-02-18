@@ -290,7 +290,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":5, "miniboss": -10, "metalAnger": 9, "metalRage": 5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Metal"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "RedKey", weight: 9}]},
 
 	{name: "Miner", tags: KDMapInit(["opendoors", "closedoors", "leashing", "human", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
-		spells: ["MinerBomb"], spellCooldownMult: 1, spellCooldownMod: 10, noSpellLeashing: true,
+		spells: ["MinerBomb"], spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 9, maxhp: 11, minLevel:0, weight:12, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain", fullBoundBonus: 1,
 		terrainTags: {"increasingWeight": 1}, shrines: [], floors:KDMapInit([13]),
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 24}, {name: "Pickaxe", ignoreInInventory: true, weight: 100}]},

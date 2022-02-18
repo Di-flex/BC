@@ -619,6 +619,8 @@ Changes
 - Vibe wand weapon costs 0.15 stamina instead of 0.1
 - Armbinder chest traps now require being moderately restrained before they occur
 - Added more magic weapons
+- Fixed a bug with layering
+- Added some new enemies to the crystal cave
 
 TODO ValidationFindBlockCycles to prevent bugs
 
