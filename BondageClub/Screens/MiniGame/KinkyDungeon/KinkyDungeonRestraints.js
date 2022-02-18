@@ -134,7 +134,7 @@ const KinkyDungeonRestraints = [
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Wrapping"]},
 	{removePrison: true, name: "HardSlimeLegs", remove: ["ClothLower"], Asset: "SeamlessHobbleSkirt", Color: "#9B49BD", Group: "ItemLegs", hobble: true, power: 6, weight: -102,
 		escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
-		enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Legbinders"]},
+		enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Hobbleskirts"]},
 	{removePrison: true, name: "HardSlimeArms", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#9B49BD", Group: "ItemArms", bindarms: true, bindhands: true, power: 8, weight: -102,
 		escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0},
 		enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex"]},
@@ -157,7 +157,7 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "LatexArmbinder", Asset: "SeamlessLatexArmbinder", strictness: 0.1, LinkableBy: ["Wrapping"], Color: "#6A94CC", Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
 		maxstamina: 0.35, enemyTags: {"latexRestraints" : 3}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Armbinders"]},
 	{inventory: true, name: "LatexLegbinder", Asset: "SeamlessLegBinder", LinkableBy: ["Hobbleskirts"], Color: "#6A94CC", Group: "ItemLegs", hobble: true, power: 7, weight: 0,  escapeChance: {"Struggle": -0.05, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
-		maxstamina: 0.6, enemyTags: {"latexRestraintsHeavy" : 6}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Hobbleskirts"]},
+		maxstamina: 0.6, enemyTags: {"latexRestraintsHeavy" : 6}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Legbinders"]},
 	{inventory: true, name: "LatexBoots", Asset: "HighThighBoots", Color: "#6A94CC", Group: "ItemBoots", hobble: true, power: 6, weight: 0, escapeChance: {"Struggle": -0.15, "Cut": 0.12, "Remove": 0.07, "Pick": 0.25},
 		enemyTags: {"latexRestraints" : 8, "latexBoots" : 3}, playerTags: {}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex"]},
 	{inventory: true, name: "LatexCorset", remove: ["Cloth"], Asset: "HeavyLatexCorset", strictness: 0.1, Color: "#5196EF", Group: "ItemTorso", harness: true, power: 8, weight: 0, escapeChance: {"Struggle": -0.05, "Cut": 0.2, "Remove": 0.15}, struggleMinSpeed: {"Remove": 0.05}, struggleMaxSpeed: {"Remove": 0.1},
@@ -230,7 +230,7 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "ExpArmbinderHarness", Asset: "Corset4", LinkableBy: ["HeavyCorsets", "Harnesses"], Color: "#383E4D", Group: "ItemTorso", strictness: 0.1, power: 9, weight: -10,
 		escapeChance: {"Struggle": 0.0, "Cut": 0.1, "Remove": 0.15},
 		maxstamina: 0.6, enemyTags: {"expRestraints" : 9}, playerTags: {"Boxbinders": 20, "Armbinders": 20}, minLevel: 15, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "ArmbinderHarness", "Corset"],
-		events: [{trigger: "remove", type: "armbinderHarness"}]},
+		events: [{trigger: "afterRemove", type: "armbinderHarness"}]},
 	{inventory: true, name: "ExpAnkleCuffs", Asset: "SteelAnkleCuffs", Link: "ExpAnkleCuffs2", Type: "Chained", Color: "#333333", Group: "ItemFeet", hobble: true, power: 9, weight: 0,
 		escapeChance: {"Struggle": -0.5, "Cut": -0.4, "Remove": 0.1, "Pick": 0.15},
 		enemyTags: {"expRestraints":7}, playerTags: {"ItemFeetFull":-2}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Metal", "Cuffs"],
@@ -338,7 +338,7 @@ const KinkyDungeonRestraints = [
 
 	// Trap items. Note that traps do not respect stamina, so its okay for these to have reasonable maxstamina
 	{inventory: true, name: "TrapArmbinderHarness", Asset: "LeatherHarness", LinkableBy: ["HeavyCorsets"], Group: "ItemTorso", power: 3, strictness: 0.1, weight: 0, escapeChance: {"Struggle": -0.1, "Cut": 0.25, "Remove": 0.25, "Pick": 0.15}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Leather", "ArmbinderHarness"],
-		maxstamina: 0.6, events: [{trigger: "remove", type: "armbinderHarness"}]},
+		maxstamina: 0.6, events: [{trigger: "afterRemove", type: "armbinderHarness"}]},
 
 	{inventory: true, name: "TrapArmbinder", strictness: 0.1, Asset: "LeatherArmbinder", LinkableBy: ["Wrapping"], Type: "WrapStrap", Group: "ItemArms", bindarms: true, bindhands: true, power: 6, weight: 2,
 		maxstamina: 0.25, escapeChance: {"Struggle": 0.1, "Cut": 0.5, "Remove": 0.35, "Pick": 0.15}, enemyTags: {"trap":100}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Leather", "Armbinders"]},

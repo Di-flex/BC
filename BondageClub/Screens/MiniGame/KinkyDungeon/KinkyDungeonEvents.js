@@ -150,19 +150,6 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			}
 		}
 	} else if (Event == "remove") {
-		if (e.type == "armbinderHarness" && e.trigger == "remove" && data.item != item && item.restraint && item.restraint.Group) {
-			let armbinder = false;
-			for (let inv of KinkyDungeonRestraintList()) {
-				if (inv.restraint && inv.restraint.shrine && (inv.restraint.shrine.includes("Armbinders") || inv.restraint.shrine.includes("Boxbinders"))) {
-					armbinder = true;
-					break;
-				}
-			}
-			if (!armbinder) {
-				KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, true);
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveArmbinderHarness"), "lightgreen", 2);
-			}
-		}
 		if (e.type == "slimeStop" && e.trigger == "remove" && data.item == item) {
 			KinkyDungeonSlimeLevel = 0;
 		}
@@ -174,6 +161,19 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		if (e.type == "replaceItem" && e.trigger == Event && data.item == item && !data.add && !data.shrine && e.list) {
 			for (let restraint of e.list) {
 				KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(restraint), e.power, true, e.lock, data.keep);
+			}
+		}
+		if (e.type == "armbinderHarness" && e.trigger == Event && data.item != item && item.restraint && item.restraint && item.restraint.Group) {
+			let armbinder = false;
+			for (let inv of KinkyDungeonRestraintList()) {
+				if (inv.restraint && inv.restraint.shrine && (inv.restraint.shrine.includes("Armbinders") || inv.restraint.shrine.includes("Boxbinders"))) {
+					armbinder = true;
+					break;
+				}
+			}
+			if (!armbinder) {
+				KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, true);
+				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveArmbinderHarness"), "lightgreen", 2);
 			}
 		}
 	} else if (Event == "hit") {
