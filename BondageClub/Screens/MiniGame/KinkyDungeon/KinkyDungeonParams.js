@@ -534,6 +534,13 @@ var KinkyDungeonMapParams = [
 		"forbiddenChance" : 0.75,
 		"forbiddenGreaterChance" : 0.45,
 
+		"shortcuts": [
+			{Level: 8, checkpoint: 13, chance: 1.0},
+		],
+		"mainpath": [
+			{Level: 9, checkpoint: 1},
+		],
+
 		"traps": [
 			{Name: "CustomSleepDart", Level: 0, Power: 1, Weight: 20},
 			{Name: "SpecificSpell", Spell: "TrapMummyWeak", Level: 0, Power: 1, Weight: 30},
