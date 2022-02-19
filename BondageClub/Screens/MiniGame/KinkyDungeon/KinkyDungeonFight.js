@@ -478,6 +478,13 @@ function KinkyDungeonUpdateBullets(delta) {
 			if (b.bullet && b.bullet.dot) {
 				KinkyDungeonBulletDoT(b);
 			}
+			if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
+				let xx = b.bullet.cast.tx;
+				let yy = b.bullet.cast.ty;
+				if (!xx) xx = b.x;
+				if (!yy) yy = b.y;
+				KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+			}
 		}
 
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
@@ -562,7 +569,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 
 	KinkyDungeonSendEvent("bulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
-	if (b.bullet.cast && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance)) {
+	if (b.bullet.cast && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && (!b.bullet.spell || !b.bullet.spell.noCastOnHit)) {
 		let xx = b.bullet.cast.tx;
 		let yy = b.bullet.cast.ty;
 		if (!xx) xx = b.x;

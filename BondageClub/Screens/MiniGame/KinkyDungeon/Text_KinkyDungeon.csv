@@ -2317,6 +2317,12 @@ KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (st
 KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
 KinkyDungeonSpellTargetCorona,Choose line direction
 
+KinkyDungeonSpellIcicles,Icicles
+KinkyDungeonSpellIcicle,Icicle
+KinkyDungeonSpellDescriptionIcicles,Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and freeze for 3 turns.
+KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
+KinkyDungeonSpellTargetIcicles,Choose line direction
+
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
 KinkyDungeonSpellSPUp2,Stamina Up II

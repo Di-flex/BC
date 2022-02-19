@@ -621,6 +621,9 @@ Changes
 - Added more magic weapons
 - Fixed a bug with layering
 - Added some new enemies to the crystal cave
+- Added sleep spore hazard to the crystal cave
+- Levels like lost temple and crystal cave only sometimes have gas hazards, not every floor
+- New spell: Icicles
 
 TODO ValidationFindBlockCycles to prevent bugs
 
