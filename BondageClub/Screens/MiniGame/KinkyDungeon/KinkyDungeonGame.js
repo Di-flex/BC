@@ -61,6 +61,7 @@ let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D"
  */
 let KinkyDungeonRandomPathablePoints = new Map();
 let KinkyDungeonTiles = new Map();
+let KinkyDungeonTilesMemory = new Map();
 let KinkyDungeonTilesSkin = new Map();
 let KinkyDungeonTargetTile = null;
 let KinkyDungeonTargetTileLocation = "";
@@ -1627,7 +1628,7 @@ function KinkyDungeonClickGame(Level) {
 			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1
 				&& (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KinkyDungeonFogGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonTargetX, KinkyDungeonPlayerEntity.y - KinkyDungeonTargetY) < 1.5)) {
 				let requireLight = KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0;
-				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, requireLight, !requireLight);
+				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, requireLight, false);
 				if (path) {
 					KinkyDungeonFastMovePath = path;
 					KinkyDungeonSleepTime = 100;

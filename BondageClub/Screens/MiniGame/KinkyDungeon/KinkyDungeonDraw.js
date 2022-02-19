@@ -10,9 +10,22 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "D") sprite = "Door";
-	else if (code == "d") sprite = Fog ? "Door" : "DoorOpen";
-	else if (code == "R") sprite = "RubbleLooted";
+	else if (code == "D") {
+		sprite = "Door";
+		if (Fog) {
+			if (KinkyDungeonTilesMemory.get(x + "," + y)) sprite = KinkyDungeonTilesMemory.get(x + "," + y);
+		} else {
+			KinkyDungeonTilesMemory.set(x + "," + y, "Door");
+		}
+	}
+	else if (code == "d") {
+		sprite = "DoorOpen";
+		if (Fog) {
+			if (KinkyDungeonTilesMemory.get(x + "," + y)) sprite = KinkyDungeonTilesMemory.get(x + "," + y);
+		} else {
+			KinkyDungeonTilesMemory.set(x + "," + y, "DoorOpen");
+		}
+	} else if (code == "R") sprite = "RubbleLooted";
 	else if (code == "Y") sprite = "Wall";
 	else if (code == "T") sprite = "Trap";
 	else if (code == "r") sprite = "RubbleLooted";
