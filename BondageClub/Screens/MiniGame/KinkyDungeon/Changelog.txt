@@ -624,6 +624,7 @@ Changes
 - Added sleep spore hazard to the crystal cave
 - Levels like lost temple and crystal cave only sometimes have gas hazards, not every floor
 - New spell: Icicles
+- New spell: Ice Storm
 
 TODO ValidationFindBlockCycles to prevent bugs
 

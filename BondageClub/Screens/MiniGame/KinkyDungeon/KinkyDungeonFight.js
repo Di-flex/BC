@@ -190,9 +190,11 @@ function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 }
 
 function KinkyDungeonGetImmunity(tags, type, resist) {
-	if (tags && tags.has(type + resist)
-		|| ((KinkyDungeonMeleeDamageTypes.includes(type) && (type != "unarmed" || !resist.includes("weakness"))) && tags.has("melee" + resist))
-		|| (!KinkyDungeonMeleeDamageTypes.includes(type) && tags.has("magic"+resist)))
+	let t = type;
+	if (type == "frost") t = "ice"; // Frost damage is treated as ice damage
+	if (tags && tags.has(t + resist)
+		|| ((KinkyDungeonMeleeDamageTypes.includes(t) && (type != "unarmed" || !resist.includes("weakness"))) && tags.has("melee" + resist))
+		|| (!KinkyDungeonMeleeDamageTypes.includes(t) && tags.has("magic"+resist)))
 		return true;
 	return false;
 }
@@ -313,7 +315,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
-		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
+		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "frost" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1 || resistDamage == 1)
