@@ -47,6 +47,7 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Leather < -45) tags.push("bandit");
 	if (KinkyDungeonGoddessRep.Illusion < -45) tags.push("ghost");
 	if (KinkyDungeonGoddessRep.Conjure < -45) tags.push("witch");
+	if (KinkyDungeonGoddessRep.Conjure < -45) tags.push("book");
 	if (KinkyDungeonGoddessRep.Elements < -45) tags.push("elemental");
 	if (KinkyDungeonGoddessRep.Latex < -45) tags.push("slime");
 	if (KinkyDungeonGoddessRep.Rope < -45) tags.push("construct");
@@ -76,7 +77,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 					else if (rep < 0) {
 						weightMulti = Math.max(weightMulti, Math.max(1, 1 + 0.2/(-rep/50)));
 						weightBonus = Math.max(weightBonus, Math.min(10, -rep/10));
-						effLevel += -rep/2.5;
+						//effLevel += -rep/2.5;
 					}
 				}
 			}

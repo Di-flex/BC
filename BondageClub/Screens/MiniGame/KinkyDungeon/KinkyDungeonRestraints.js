@@ -907,7 +907,7 @@ function KinkyDungeonLock(item, lock) {
 	if (item.restraint && InventoryGet(KinkyDungeonPlayer, item.restraint.Group) && lock != "") {
 		if (KinkyDungeonIsLockable(item.restraint)) {
 			item.lock = lock;
-			if (lock == "Gold") item.lockTimer = Math.min(KinkyDungeonMaxLevel - 1, MiniGameKinkyDungeonLevel + 2 + Math.round(KDRandom() * 2));
+			if (lock == "Gold") item.lockTimer = Math.min(KinkyDungeonMaxLevel - 1, MiniGameKinkyDungeonLevel + 1 + Math.round(KDRandom() * 2));
 			InventoryLock(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, item.restraint.Group), "IntricatePadlock", Player.MemberNumber, true);
 			item.pickProgress = 0;
 			if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
