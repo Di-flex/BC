@@ -1447,8 +1447,8 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 
 	for (let X = 1; X < KinkyDungeonGridWidth; X += 2)
 		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 2) {
-			if (KDRandom() < 0.1 - 0.015*density) {
-				let size = 1+Math.ceil(KDRandom() * (openness));
+			let size = 1+Math.ceil(KDRandom() * (openness));
+			if (KDRandom() < 0.1 - 0.01*density * size) {
 
 				let tile = '0';
 				if (floodChance > 0 && KDRandom() < floodChance) tile = 'w';

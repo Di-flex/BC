@@ -487,6 +487,9 @@ KillShadowWarrior,"The shadow warrior screeches as it vanishes into mist."
 NameGolem,Allied Golem
 KillGolem,"The words vanish from the golem's forehead as it crashes down."
 
+NameMonolith,Crystal Monolith
+KillMonolith,"The crystal fades from the monolith."
+
 
 NameOrbGuardian,Orb Guardian
 KillOrbGuardian,"The Orb Guardian dissolves into sand and bone dust."
@@ -2597,6 +2600,7 @@ KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
+KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"

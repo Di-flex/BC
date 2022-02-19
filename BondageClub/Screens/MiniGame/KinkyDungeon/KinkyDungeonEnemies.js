@@ -479,6 +479,19 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"willAnger":4, "willRage":4}, shrines: ["Will"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), dropTable: [{name: "Nothing", weight: 9}, {name: "ElfCrystal", weight: 3}],
 	},
 
+	{name: "Monolith", color: "#ff5277",
+		tags: KDMapInit(["opendoors", "ignorenoSP", "construct", "temple", "ranged", "slashimmune", "unarmedresist", "pierceimmune", "fireresist", "unstoppable", "tickleresist", "groperesist", "electricresist", "charmimmune"]),
+		cohesion: 0, cohesionRange: 10,
+		summon: [
+			{enemy: "Monolith", range: 4, count: 1, chance: 1.0, strict: false},
+			{enemy: "Monolith", range: 4, count: 1, chance: 0.7, strict: false},
+			{enemy: "Monolith", range: 4, count: 1, chance: 0.33, strict: false},],
+		followLeashedOnly: true, ignorechance: 0, armor: 1, spellResist: 0.5, followRange: 2, AI: "guard", buffallies: true, spellRdy: false, sneakThreshold: 0.1,
+		spells: ["MonolithBeam"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, kite: 1.5, kiteChance: 1.0,
+		visionRadius: 5, blindSight: 5, maxhp: 12, minLevel:10, weight:4, movePoints: 4, attackPoints: 4, attack: "Spell", attackWidth: 8, attackRange: 1, power: 6, dmgType: "fire",
+		terrainTags: {"open": 25}, shrines: [], floors:KDMapInit([3, 11, 13]), dropTable: [{name: "EarthRune", weight: 7}, {name: "ElfCrystal", weight: 3}],
+	},
+
 	{name: "Pixie", tags: KDMapInit(["ignorenoSP", "fairy", "melee", "minor", "magicweakness"]), followRange: 1, AI: "hunt", squeeze: true, ethereal: true, cohesion: 1.0,
 		summon: [
 			{enemy: "Pixie", range: 3, count: 2, chance: 1.0, strict: true},],
