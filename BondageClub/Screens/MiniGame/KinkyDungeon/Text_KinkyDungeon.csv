@@ -2299,6 +2299,11 @@ KinkyDungeonSpellDescriptionSleet,Swirling frost that deals DamageDealt damage p
 KinkyDungeonSpellCastSleet,You stomp your foot and call forth the storm!
 KinkyDungeonSpellTargetSleet,Choose target AoE location (5x5)
 
+KinkyDungeonSpellHeal,Healing Light
+KinkyDungeonSpellDescriptionHeal,Channel to heal 15 hitpoints per turn to summoned allies within a 5x5 area.
+KinkyDungeonSpellCastHeal,You conjure a healing light!
+KinkyDungeonSpellTargetHeal,Choose target AoE location (5x5)
+
 KinkyDungeonSpellCrackle,Crackle
 KinkyDungeonSpellAllyCrackle,Storm Bolt
 KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a 4-range line and briefly stuns.
