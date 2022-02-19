@@ -234,6 +234,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
 	if (Damage && !miss) {
+		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffType = Damage.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
@@ -286,6 +287,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 
 			if (Enemy.Enemy.tags && Enemy.Enemy.tags.has("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
+			else if (buffreduction && dmgDealt > 0) {
+				dmgDealt = Math.max(dmgDealt - buffreduction, 0);
+				KinkyDungeonTickBuffTag(Enemy.buffs, "damageTaken", 1);
+				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
+			}
 
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
@@ -470,6 +476,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	KinkyDungeonSendEvent("playerAttack", data);
 
 	KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damage", 1);
+	KinkyDungeonTickBuffTag(Enemy.buffs, "incomingHit", 1);
 	if (predata.eva)
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }

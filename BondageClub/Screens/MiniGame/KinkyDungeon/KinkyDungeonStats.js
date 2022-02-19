@@ -211,6 +211,17 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 
 	if (armor) dmg = Math.max(0, dmg - armor);
+
+	if (dmg > 0) {
+		let buffreduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
+		if (buffreduction && dmg > 0) {
+			dmg = Math.max(dmg - buffreduction, 0);
+			KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damageTaken", 1);
+			KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
+		}
+	}
+
+
 	if (arousalTypesWeak.includes(type)) {
 		KinkyDungeonChangeArousal(Math.ceil(dmg/2));
 	}

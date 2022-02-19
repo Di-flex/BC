@@ -5,7 +5,8 @@ KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporti
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
+KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
+
 KinkyDungeon,"Kinky Dungeon v2.7.2"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
@@ -2266,10 +2267,15 @@ KinkyDungeonSleepy,You are feeling drowsy...
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
-KinkyDungeonSpellShield,Shield
-KinkyDungeonSpellDescriptionShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
+KinkyDungeonSpellShield,Protection
+KinkyDungeonSpellDescriptionShield,Gives a creature a magic shield, reducing incoming damage by 25 up to 3 times (5 for the player). Expires after 50 turns.
 KinkyDungeonSpellCastShield,You create a temporary shield!
-KinkyDungeonSpellTargetShield,Choose shield location
+KinkyDungeonSpellTargetShield,Choose shielded creature
+
+KinkyDungeonSpellEvasion,Afterimage
+KinkyDungeonSpellDescriptionEvasion,Massively increases a creature's evasion for two attacks. Expires after 25 turns.
+KinkyDungeonSpellCastEvasion,Your movements intensify!
+KinkyDungeonSpellTargetEvasion,Choose creature to buff
 
 KinkyDungeonSpellGreaterShield,Barrier
 KinkyDungeonSpellDescriptionGreaterShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.

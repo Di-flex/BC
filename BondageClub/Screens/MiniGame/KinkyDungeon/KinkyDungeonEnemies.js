@@ -850,6 +850,18 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
+				if (KinkyDungeonGetBuffedStat(enemy.buffs, "Evasion") > 0) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/EvasionBuff.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
+				if (KinkyDungeonGetBuffedStat(enemy.buffs, "DamageReduction") > 0) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/ShieldBuff.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
 				if (enemy.freeze > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Freeze.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -1573,6 +1585,14 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 			let playerEvasion = (player.player) ? playerEvasionMult * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"))
 				: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
+
+			if (hit) {
+				if (player.player)
+					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "incomingHit", 1);
+				else
+					KinkyDungeonTickBuffTag(player.buffs, "incomingHit", 1);
+			}
+
 			if (hit && KDRandom() > playerEvasion) {
 				if (player.player) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
