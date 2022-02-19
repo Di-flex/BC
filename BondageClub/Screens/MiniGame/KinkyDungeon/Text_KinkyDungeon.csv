@@ -2276,7 +2276,7 @@ KinkyDungeonSpellCastShield,You create a temporary shield!
 KinkyDungeonSpellTargetShield,Choose shielded creature
 
 KinkyDungeonSpellEvasion,Afterimage
-KinkyDungeonSpellDescriptionEvasion,Massively increases a creature's evasion for two attacks. Expires after 25 turns.
+KinkyDungeonSpellDescriptionEvasion,Massively increases a creature's evasion for 5 attacks. Expires after 25 turns.
 KinkyDungeonSpellCastEvasion,Your movements intensify!
 KinkyDungeonSpellTargetEvasion,Choose creature to buff
 
