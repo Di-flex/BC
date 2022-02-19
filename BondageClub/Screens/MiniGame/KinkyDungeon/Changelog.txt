@@ -625,6 +625,7 @@ Changes
 - Levels like lost temple and crystal cave only sometimes have gas hazards, not every floor
 - New spell: Icicles
 - New spell: Ice Storm
+- New spell: Healing light
 
 TODO ValidationFindBlockCycles to prevent bugs
 
