@@ -48,7 +48,7 @@ let KinkyDungeonTerrain = [];
 
 let KinkyDungeonMapBrightness = 5;
 
-let KinkyDungeonGroundTiles = "023w]";
+let KinkyDungeonGroundTiles = "023w][";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
 let KinkyDungeonMovableTiles = "OCAGY" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests
@@ -304,7 +304,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
 	let grateChance = MapParams.grateChance;
 	let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
-	let gasChance = MapParams.gaschance ? MapParams.gaschance : 0;
+	let gasChance = (MapParams.gaschance && KDRandom() < MapParams.gaschance) ? (MapParams.gasdensity ? MapParams.gasdensity : 0) : 0;
+	let gasType = MapParams.gastype ? MapParams.gastype : 0;
 	let brickchance = MapParams.brickchance; // Chance for brickwork to start being placed
 	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
 	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
@@ -345,7 +346,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
 		KinkyDungeonPlacePatrols(4, width, height);
 		KinkyDungeonPlaceLore(width, height);
-		KinkyDungeonPlaceSpecialTiles(gasChance, Floor, width, height);
+		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 		KinkyDungeonGenNavMap();
 		if (InJail) {
 			KinkyDungeonTiles.get(KinkyDungeonJailLeashX + "," + KinkyDungeonStartPosition.y).Lock = KinkyDungeonGenerateLock(true, Floor);
@@ -1118,7 +1119,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 
 
 // @ts-ignore
-function KinkyDungeonPlaceSpecialTiles(gaschance, Floor, width, height) {
+function KinkyDungeonPlaceSpecialTiles(gaschance, gasType, Floor, width, height) {
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
 			// Happy Gas
@@ -1132,7 +1133,7 @@ function KinkyDungeonPlaceSpecialTiles(gaschance, Floor, width, height) {
 					}
 
 				if (KDRandom() < chance)
-					KinkyDungeonMapSet(X, Y, ']');
+					KinkyDungeonMapSet(X, Y, gasType);
 			}
 }
 

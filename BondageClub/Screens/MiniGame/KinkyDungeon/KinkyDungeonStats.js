@@ -367,7 +367,7 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonCalculateSlowLevel();
 	let sleepRate = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sleepiness");
 	if ((sleepRate && sleepRate > 0) || KinkyDungeonSleepiness > 0) {
-		KinkyDungeonSleepiness = Math.min(5, KinkyDungeonSleepiness + sleepRate * delta);
+		KinkyDungeonSleepiness = Math.min(8, KinkyDungeonSleepiness + sleepRate * delta);
 		if (KinkyDungeonSleepiness > 2.99) {
 			KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
 			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel + 1, 3);

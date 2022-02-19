@@ -254,7 +254,9 @@ var KinkyDungeonMapParams = [
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
 		"floodchance" : 0.33,
-		"gaschance" : 0.1, // Chance for a passage to be filled with happy gas
+		"gaschance" : 0.5, // Chance for gas to appear on the level
+		"gasdensity" : 0.1, // Chance for a passage to be filled with happy gas
+		"gastype" : ']', // Gas type
 		"cacheInterval" : 3,
 		"forbiddenChance" : 0.5,
 		"forbiddenGreaterChance" : 0.4,
@@ -678,6 +680,10 @@ var KinkyDungeonMapParams = [
 		"grateChance" : 0.7,
 		"rubblechance" : 0.9,
 		"brickchance" : 0.2,
+
+		"gaschance" : 0.33, // Chance for gas to appear on the level
+		"gasdensity" : 0.05, // Chance for a passage to be filled with happy gas
+		"gastype" : '[', // Gas type
 
 		"floodchance" : 0.25,
 		"cacheInterval" : 3,

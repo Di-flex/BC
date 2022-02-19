@@ -5,6 +5,9 @@ function KinkyDungeonUpdateTileEffects(delta) {
 	if (tile == "]") { // Happy Gas!
 		KinkyDungeonChangeArousal(3 * delta);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
+	} else if (tile == "[") { // Happy Gas!
+		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);
+		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSporeGas"), "pink", 1);
 	}
 }
 
