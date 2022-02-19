@@ -188,7 +188,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", chance: 0.25}]},
 		{name: "Evasion", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: ["Legs"], mustTarget: true, level:1, type:"buff",
 			buffs: [
-				{id: "Evasion", type: "Evasion", duration: 25, power: 9.0, player: true, enemies: true, maxCount: 2, tags: ["defense", "incomingHit"]},
+				{id: "Evasion", type: "Evasion", duration: 25, power: 9999.0, player: true, enemies: true, maxCount: 2, tags: ["defense", "incomingHit"]},
 			], onhit:"", time:25, power: 0, range: 2, size: 1, damage: ""},
 	],
 };
