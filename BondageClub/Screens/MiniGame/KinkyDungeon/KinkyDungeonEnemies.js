@@ -474,7 +474,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "OrbOfLight", color: "#ffff00", tags: KDMapInit(["opendoors", "ignorenoSP", "ghost", "ranged", "unstoppable", "coldsevereweakness"]), cohesion: 1.0, cohesionRange: 10,
 		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt", buffallies: true, spellRdy: true, sneakThreshold: 0.1,
-		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: -2, tilesMinRange: 1, stopToCast: true, kite: 1.5, kiteChance: 1.0,
+		spells: ["OrbHeal"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3, tilesMinRange: 1, stopToCast: true, kite: 1.5, kiteChance: 1.0,
 		visionRadius: 10, blindSight: 10, maxhp: 10, minLevel:20, weight:2.5, movePoints: 3, attackPoints: 4, attack: "SpellMeleeBlindWill", blindTime: 3, attackWidth: 8, attackRange: 1, power: 5, dmgType: "fire",
 		terrainTags: {"willAnger":4, "willRage":4}, shrines: ["Will"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), dropTable: [{name: "Nothing", weight: 9}, {name: "ElfCrystal", weight: 3}],
 	},

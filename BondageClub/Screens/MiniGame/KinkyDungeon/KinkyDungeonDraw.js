@@ -162,7 +162,7 @@ function KinkyDungeonDrawGame() {
 										(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay,
 										KinkyDungeonGridSizeDisplay/KinkyDungeonSpriteSize, color, true, []);
 							}
-							if (KinkyDungeonLightGet(RX, RY) > 0 && rows[RY][RX] == "A" && MouseIn(canvasOffsetX + (-CamX_offset + X)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+							if (KinkyDungeonLightGet(RX, RY) > 0 && KinkyDungeonTiles.get(RX + "," + RY) && rows[RY][RX] == "A" && MouseIn(canvasOffsetX + (-CamX_offset + X)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
 								tooltip = TextGet("KinkyDungeonShrine" + KinkyDungeonTiles.get(RX + "," + RY).Name);
 							}
 						}
