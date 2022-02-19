@@ -61,7 +61,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 2: Conjuration
 	[
 		// Verbal
-		["Bomb", "FireElemental", "Blink"],
+		["Heal2", "Bomb", "FireElemental", "Blink"],
 		// Arms
 		["ChainBolt", "SlimeBall", "Heal"],
 		// Legs
@@ -148,6 +148,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Golem", sfx: "MagicSlash", school: "Conjure", manacost: 24, components: ["Legs"], noTargetEnemies: true, level:3, type:"inert", onhit:"summon", summon: [{name: "Golem", count: 1, time: 9999}], power: 0, time: 9999, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "StormCrystal", noise: 7, sfx: "MagicSlash", school: "Conjure", manacost: 14, components: ["Legs"], noTargetEnemies: true, level:2, type:"inert", onhit:"summon", summon: [{name: "StormCrystal", count: 1, time: 30}], power: 0, time: 30, delay: -1, range: 2.5, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "Heal", noise: 3, sfx: "FireSpell", school: "Conjure", manacost: 4, components: ["Verbal"], level:3, type:"inert", onhit:"", delay: 1, power: 1.5, range: 4.5, size: 5, aoe: 2.9, lifetime: 4, time: 2, damage: "heal", channel: 4},
+		{buff: true, heal: true, name: "Heal2", sfx: "MagicSlash", school: "Conjure", manacost: 3, components: ["Verbal"], noTargetPlayer: true, mustTarget: true, level:1, type:"hit",
+			onhit:"heal", time:2, lifetime: 1, delay: 1, power: 4.5, aoe: 0.9, range: 7, size: 1, damage: "inert"},
 	],
 	"Illusion": [
 		{name: "APUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -311,7 +313,7 @@ let KinkyDungeonSpellListEnemies = [
 			{id: "ZombieBuff2", type: "MoveSpeed", duration: 8, power: 2.1, player: false, enemies: true, tags: ["offense", "speed"]},
 		], onhit:"", time:5, power: 0, range: 6, size: 1, damage: ""},
 	{enemySpell: true, buff: true, heal: true, name: "OrbHeal", sfx: "MagicSlash", school: "Elements", manacost: 1, components: ["Arms"], mustTarget: true, level:3, type:"hit",
-		onhit:"heal", time:2, lifetime: 1, delay: 1, power: 2, aoe: 1.5, range: 8, size: 3, damage: ""},
+		onhit:"heal", time:2, lifetime: 1, delay: 1, power: 2, aoe: 1.5, range: 8, size: 3, damage: "inert"},
 	{enemySpell: true, name: "Earthfield", selfcast: true, sfx: "Bones", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Earthfield", type: "Armor", power: 2.0, player: false, enemies: true, noAlly: true, tags: ["armor", "defense"], range: 1.5}], onhit:"", time:6, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Earthrune", selfcast: true, sfx: "Bones", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "Earthfield", type: "Armor", power: 2.0, player: true, enemies: true, onlyAlly: true, tags: ["armor", "defense"], range: 1.5}], onhit:"", time:9, aoe: 1.5, power: 0, delay: 9, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Icerune", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 8, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 1, range: 3, size: 3, aoe: 1.5, lifetime: 5, power: 4, lifetimeHitBonus: 3, damage: "ice"}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
@@ -839,8 +841,8 @@ function KinkyDungeoCheckComponents(spell) {
 }
 
 function KinkyDungeonHandleSpellChoice(SpellChoice) {
-	let spell = null;
-	if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
+	let spell = KinkyDungeonHandleSpellCast(KinkyDungeonSpells[SpellChoice]);
+	/*if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[SpellChoice]))
 			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
 			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
@@ -849,8 +851,22 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	} else {
 		KinkyDungeonTargetingSpell = "";
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonComponentsFail" + KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice])[0]), "red", 1);
-	}
+	}*/
 	return spell;
+}
+
+function KinkyDungeonHandleSpellCast(spell) {
+	if (KinkyDungeoCheckComponents(spell).length == 0) {
+		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
+			&& (!spell.knifecost || KinkyDungeonNormalBlades >= spell.knifecost)
+			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
+			return spell;
+		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
+	} else {
+		KinkyDungeonTargetingSpell = "";
+		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonComponentsFail" + KinkyDungeoCheckComponents(spell)[0]), "red", 1);
+	}
+	return null;
 }
 
 function KinkyDungeonHandleSpell() {
@@ -1163,6 +1179,16 @@ function KinkyDungeonHandleMagic() {
 				}
 			}
 		}
+		if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale * 0.5 - 200, canvasOffsetY_ui - 70 + 483*KinkyDungeonBookScale, 400, 60)) {
+			let spell = KinkyDungeonHandleSpellCast(KinkyDungeonSpells[KinkyDungeonCurrentPage]);
+			if (spell && !(KinkyDungeonSpells[KinkyDungeonCurrentPage].type == "passive") && !KinkyDungeonSpells[KinkyDungeonCurrentPage].passive) {
+				KinkyDungeonAdvanceTime(1);
+
+				KinkyDungeonTargetingSpell = KinkyDungeonSpells[KinkyDungeonCurrentPage];
+				KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellTarget" + KinkyDungeonTargetingSpell.name).replace("SpellArea", "" + Math.floor(KinkyDungeonTargetingSpell.aoe)), "white", 0.1, true);
+			}
+			KinkyDungeonDrawState = "Game";
+		}
 	} else if (KinkyDungeonPreviewSpell && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125, 225, 60)) {
 		let cost = KinkyDungeonGetCost(KinkyDungeonPreviewSpell);
 		let spell = KinkyDungeonPreviewSpell;
@@ -1254,7 +1280,7 @@ function KinkyDungeonDrawMagic() {
 		if (spell.components.includes("Legs")) {DrawText(TextGet("KinkyDungeonComponentsLegs"), canvasOffsetX_ui + 640*KinkyDungeonBookScale*(1-1/3.35), canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195 - 40*i, "black", "silver"); i++;}
 		DrawText(TextGet("KinkyDungeonComponents"), canvasOffsetX_ui + 640*KinkyDungeonBookScale*(1-1/3.35), canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195 - 40*i, "black", "silver"); i = 1;
 
-		if (!KinkyDungeonPreviewSpell)
+		if (!KinkyDungeonPreviewSpell) {
 			for (let I = 0; I < KinkyDungeonSpellChoiceCount; I++) {
 				if ( KinkyDungeonSpellChoices[I] != null && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].passive) {
 					//DrawTextFit(TextGet("KinkyDungeonSpellChoice" + I), canvasOffsetX_ui + 640*KinkyDungeonBookScale + 150, canvasOffsetY_ui + 73 + I*KinkyDungeonSpellOffset, KinkyDungeonSpellOffset, "white", "silver");
@@ -1265,7 +1291,8 @@ function KinkyDungeonDrawMagic() {
 				else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].type == "passive")
 					DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125 + I*KinkyDungeonSpellOffset, 225, 60, TextGet("KinkyDungeonSpellRemove" + I), "White", "", "");
 			}
-		else {
+			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale * 0.5 - 200, canvasOffsetY_ui - 70 + 483*KinkyDungeonBookScale, 400, 60, TextGet("KinkyDungeonSpellCastFromBook"), "White", "", "");
+		} else {
 			let cost = KinkyDungeonGetCost(spell);
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125, 225, 60, TextGet("KinkyDungeonSpellsBuy"),
 				(KinkyDungeonSpellPoints >= cost && KinkyDungeonCheckSpellSchool(spell)) ? "White" : "Pink", "", "");

@@ -162,6 +162,8 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 
+	KinkyDungeonPlayerBuffs = {};
+
 	KinkyDungeonMovePoints = 0;
 	KinkyDungeonInventory = [];
 	KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("OutfitDefault")});

@@ -2409,6 +2409,11 @@ KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
 KinkyDungeonSpellDescriptionShadowBlade,Make the targeted creature (or self) gain +20 damage for Duration turns or 5 attacks, whichever is lower.
 KinkyDungeonSpellCastShadowBlade,You call forth dark runes on your weapon and arms!
 
+KinkyDungeonSpellHeal2,Heal
+KinkyDungeonSpellTargetHeal2,Select which creature to heal
+KinkyDungeonSpellDescriptionHeal2,Restore 45 hitpoints to an allied creature.
+KinkyDungeonSpellCastHeal2,You utter a word of healing.
+
 KinkyDungeonSpellFlameBlade,Flame Blade
 KinkyDungeonSpellDescriptionFlameBlade,When equipped: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
@@ -2555,6 +2560,8 @@ KinkyDungeonCelestialPunish2,"Your restraints squeeze you painfully without merc
 KinkyDungeonCrystalPunish0,"The crystals emit a powerful energy!"
 KinkyDungeonCrystalPunish1,"You feel your body overflow with energy..."
 KinkyDungeonCrystalPunish2,"The crystals react to your struggle attempts with a strange energy!"
+
+KinkyDungeonSpellCastFromBook,Cast Spell
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!

@@ -626,6 +626,8 @@ Changes
 - New spell: Icicles
 - New spell: Ice Storm
 - New spell: Healing light
+- New spell: Heal
+- Can now cast spells from the spellbook (takes 1 turn before you can cast)
 
 TODO ValidationFindBlockCycles to prevent bugs
 
