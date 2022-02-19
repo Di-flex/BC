@@ -774,6 +774,9 @@ KillMiner,"The bandit tosses her pick to the ground and complains about her pay.
 AttackMinerBind,"The miner restrains you! (+RestraintAdded)"
 AttackMiner,"The miner pins you with the haft of her pickaxe! (-DamageTaken SP)"
 
+KinkyDungeonSpellCastMinerBomb,You hear a fuse going off...
+KinkyDungeonSpellMinerBomb,Miner Bomb
+
 NameBandit,Bandit
 KillBandit,"The bandit collapses."
 AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
