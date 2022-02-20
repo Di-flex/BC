@@ -402,8 +402,6 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 
-	KinkyDungeonCalculateMiscastChance();
-
 	if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
 		KinkyDungeonChangeStamina(KinkyDungeonOrgasmExhaustionAmount * (KinkyDungeonStatsChoice.get("Willpower") ? KDWillpowerMultiplier : 1.0));
 		let vibe = KinkyDungeonVibeLevel > 0 ? "Vibe" : "";
@@ -415,6 +413,8 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatBind = Math.max(0, KinkyDungeonStatBind - delta);
 
 	KinkyDungeonCapStats();
+
+	KinkyDungeonCalculateMiscastChance();
 
 	KinkyDungeonHasCrotchRope = false;
 

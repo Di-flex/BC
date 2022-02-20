@@ -631,6 +631,8 @@ Changes
 - Replaced Shield spell with: Protection
 - Barrier mana cost to 1 from 2, duration to 5 from 8
 - Can now cast spells from the spellbook (takes 1 turn before you can cast)
+- The game now remembers which doors are open and which are closed
+- Fixed miscast chance not updating when drinking a frigid potion
 
 TODO ValidationFindBlockCycles to prevent bugs
 

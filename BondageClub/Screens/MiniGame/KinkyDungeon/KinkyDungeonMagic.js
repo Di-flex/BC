@@ -36,6 +36,8 @@ let KinkyDungeonPreviewSpell = null;
 let KinkyDungeonSpellsStart = [
 	{name: "Knife", sfx: "Miss", hitsfx: "LightSwing", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, evadeable: true, damage: "piercing", speed: 2, playerEffect: {name: "Damage"},
 		events: [{type: "DropKnife", trigger: "bulletHit"},]},
+	{name: "Analyze", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: [], level:1, type:"special", special: "analyze",
+		onhit:"", time:25, power: 0, range: 2, size: 1, damage: ""},
 ];
 
 let KinkyDungeonSpellLevelMax = 5;
@@ -55,7 +57,9 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Shield", "GreaterShield", "Fissure", "Sleet"],
 		// Passive
-		["Knife", "FlameBlade",],
+		["FlameBlade",],
+		// Always on
+		["Knife", "Analyze"],
 	],
 
 	//Page 2: Conjuration
@@ -67,7 +71,9 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Snare", "Wall", "Ally", "Slime", "StormCrystal", "Golem", "Leap"],
 		// Passive
-		["Knife", "FloatingWeapon"],
+		["FloatingWeapon"],
+		// Always on
+		["Knife", "Analyze"],
 	],
 
 	//Page 3: Illusion
@@ -79,7 +85,9 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Evasion", "Decoy"],
 		// Passive
-		["Knife", "TrueSight", "EnemySense", "FleetFooted"],
+		["TrueSight", "EnemySense", "FleetFooted"],
+		// Always on
+		["Knife", "Analyze"],
 	],
 
 	//Page 4
@@ -91,8 +99,8 @@ let KinkyDungeonLearnableSpells = [
 	],
 ];
 
-let KinkyDungeonSpellChoices = [0];
-let KinkyDungeonSpellChoicesToggle = [true];
+let KinkyDungeonSpellChoices = [0, 1];
+let KinkyDungeonSpellChoicesToggle = [true, true];
 let KinkyDungeonSpellChoiceCount = 5;
 
 let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. When you plan to use a mystic seal, you get 3 spells to choose from.
@@ -382,8 +390,8 @@ function KinkyDungeonDisableSpell(Name) {
 let KinkyDungeonSpellPress = 0;
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [0];
-	KinkyDungeonSpellChoicesToggle = [true];
+	KinkyDungeonSpellChoices = [0, 1];
+	KinkyDungeonSpellChoicesToggle = [true, true];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
@@ -1000,6 +1008,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 
 	let spellRange = spell.range * KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "spellRange"));
 
+
 	if (spell.type == "bolt") {
 		let size = (spell.size) ? spell.size : 1;
 		let xx = entity.x;
@@ -1060,6 +1069,18 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			}
 		}
 		if (!casted) return false;
+	} else if (spell.type == "special") {
+		if (spell.special == "analyze") {
+			let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
+			if (tile) {
+				if (tile.Loot && tile.Roll) {
+					let event = KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], tile.Loot, tile.Roll, tile, true);
+					if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
+					else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
+
+				} else return false;
+			} else return false;
+		}
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player
@@ -1300,7 +1321,8 @@ function KinkyDungeonDrawMagic() {
 				else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].type == "passive")
 					DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125 + I*KinkyDungeonSpellOffset, 225, 60, TextGet("KinkyDungeonSpellRemove" + I), "White", "", "");
 			}
-			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale * 0.5 - 200, canvasOffsetY_ui - 70 + 483*KinkyDungeonBookScale, 400, 60, TextGet("KinkyDungeonSpellCastFromBook"), "White", "", "");
+			if (!spell.passive && !(spell.type == "passive"))
+				DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale * 0.5 - 200, canvasOffsetY_ui - 70 + 483*KinkyDungeonBookScale, 400, 60, TextGet("KinkyDungeonSpellCastFromBook"), "White", "", "");
 		} else {
 			let cost = KinkyDungeonGetCost(spell);
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125, 225, 60, TextGet("KinkyDungeonSpellsBuy"),

@@ -1274,6 +1274,9 @@ KinkyDungeonShrineIllusion,"Illusions"
 KinkyDungeonShrineCommerce,"Commerce"
 KinkyDungeonShrineTooltip,"Shrine of "
 
+KinkyDungeonShrineTooltipTrap,"You sense that the chest contains a trap and a lot of gold."
+KinkyDungeonShrineTooltipNoTrap,"You sense that the chest is safe to open."
+
 KinkyDungeonDrinkShrine,"Drink"
 KinkyDungeonPoolDrink0,"You drink from the pool and your mana is restored."
 KinkyDungeonPoolDrink1,"You drink again, but you feel as if you are trespassing."
@@ -2279,6 +2282,11 @@ KinkyDungeonSpellEvasion,Afterimage
 KinkyDungeonSpellDescriptionEvasion,Massively increases a creature's evasion for 5 attacks. Expires after 25 turns.
 KinkyDungeonSpellCastEvasion,Your movements intensify!
 KinkyDungeonSpellTargetEvasion,Choose creature to buff
+
+KinkyDungeonSpellAnalyze,Analyze
+KinkyDungeonSpellDescriptionAnalyze,"Informs you if a chest is trapped."
+KinkyDungeonSpellCastAnalyze,You analyze the target!
+KinkyDungeonSpellTargetAnalyze,Choose object to analyze
 
 KinkyDungeonSpellGreaterShield,Barrier
 KinkyDungeonSpellDescriptionGreaterShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.

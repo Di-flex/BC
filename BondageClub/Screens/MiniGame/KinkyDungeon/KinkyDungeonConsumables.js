@@ -126,6 +126,8 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant * multi);
 		if (Consumable.ap_instant) KinkyDungeonChangeArousal(Consumable.ap_instant);
 
+		KinkyDungeonCalculateMiscastChance();
+
 		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
 		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration * multi, duration: Consumable.duration});
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
@@ -181,7 +183,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
 	if (needMouth && ((!item.item.consumable.potion && !KinkyDungeonCanTalk()) || (item.item.consumable.potion && !KinkyDungeonCanDrink()))) {
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
+		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 1);
 
 		if (KinkyDungeonTextMessageTime > 0)
 			KinkyDungeonDrawState = "Game";
@@ -189,8 +191,8 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 	if (needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
+		//KinkyDungeonAdvanceTime(1);
+		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 1);
 
 		if (KinkyDungeonTextMessageTime > 0)
 			KinkyDungeonDrawState = "Game";
@@ -199,8 +201,8 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	}
 
 	if (strictness >= maxStrictness) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotionsStrict"), "red", 2);
+		//KinkyDungeonAdvanceTime(1);
+		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotionsStrict"), "red", 1);
 
 		if (KinkyDungeonTextMessageTime > 0)
 			KinkyDungeonDrawState = "Game";

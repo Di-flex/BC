@@ -134,7 +134,7 @@ function KinkyDungeonAddLostItems(list, excludeBound) {
 let KinkyDungeonSpecialLoot = false;
 let KinkyDungeonLockedLoot = false;
 
-function KinkyDungeonLoot(Level, Index, Type) {
+function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 	let lootWeightTotal = 0;
 	let lootWeights = [];
 
@@ -203,9 +203,9 @@ function KinkyDungeonLoot(Level, Index, Type) {
 				let weightMult = 1.0;
 				let weightBonus = 0;
 				if (Type == "chest") {
-					if (KinkyDungeonSpecialLoot && loot.special) weightBonus += loot.special;
-					else if (KinkyDungeonSpecialLoot) weightMult = 0;
-					if (KinkyDungeonLockedLoot && loot.redspecial) weightBonus += loot.redspecial;
+					if (tile && tile.Special && loot.special) weightBonus += loot.special;
+					else if (tile && tile.Special) weightMult = 0;
+					if (tile && tile.RedSpecial && loot.redspecial) weightBonus += loot.redspecial;
 				}
 
 				let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
@@ -222,13 +222,12 @@ function KinkyDungeonLoot(Level, Index, Type) {
 		}
 	}
 
-	let selection = KDRandom() * lootWeightTotal;
+	let selection = (roll ? roll : KDRandom()) * lootWeightTotal;
 
 	for (let L = lootWeights.length - 1; L >= 0; L--) {
 		if (selection > lootWeights[L].weight) {
+			if (returnOnly) return lootWeights[L].loot;
 			let replace = KinkyDungeonLootEvent(lootWeights[L].loot, Level, TextGet(lootWeights[L].loot.message), lootWeights[L].loot.lock);
-			KinkyDungeonSpecialLoot = false;
-			KinkyDungeonLockedLoot = false;
 
 			if (!KinkyDungeonSendActionMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime))
 				KinkyDungeonSendTextMessage(8, replace, lootWeights[L].loot.messageColor, lootWeights[L].loot.messageTime);

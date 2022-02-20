@@ -580,7 +580,7 @@ function KinkyDungeonCreateCache(Floor, width, height) {
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) - 1, 'b');
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2) + 1, 'b');
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
-	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache"});
+	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache", Roll: KDRandom()});
 	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", OffLimits: true, ReLock: true});
 	KinkyDungeonCachesPlaced.push(Floor);
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 1});
@@ -628,7 +628,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2) - 1, cornerY + radius - 1, 'X');
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, '2');
 
-		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold"});
+		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold", Roll: KDRandom()});
 		KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 4});
 		if ( KDDebug) {
 			console.log("Created forbidden hall");
@@ -669,7 +669,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 
 		KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
 
-		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold"});
+		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold", Roll: KDRandom()});
 		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 1});
 		if (KDDebug) {
 			console.log("Created lesser gold chest");
@@ -982,9 +982,10 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			// Add a lock on the chest! For testing purposes ATM
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false, Floor);
 			if (count == 0 || count >= treasurecount - alreadyOpened) {
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver"});
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom()});
 			} else if (lock)
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: "chest"});
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
+			else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
 
 			count += 1;
 		} else {

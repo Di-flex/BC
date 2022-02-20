@@ -442,8 +442,8 @@ function KinkyDungeonHandleHUD() {
 				if (KinkyDungeonLockpicks > 0 && MouseIn(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonPickAttempt()) {
-						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
-						else KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
+						KinkyDungeonTargetTile.Lock = undefined;
+						if (KinkyDungeonTargetTile.Type == "Lock") delete KinkyDungeonTargetTile.Type;
 						KinkyDungeonTargetTile = null;
 					}
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
@@ -454,8 +454,8 @@ function KinkyDungeonHandleHUD() {
 					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60)) {
 					KinkyDungeonAdvanceTime(1, true);
 					if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
-						if (KinkyDungeonTargetTile.Type == "Door") KinkyDungeonTargetTile.Lock = undefined;
-						else KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
+						KinkyDungeonTargetTile.Lock = undefined;
+						if (KinkyDungeonTargetTile.Type == "Lock") delete KinkyDungeonTargetTile.Type;
 						KinkyDungeonTargetTile = null;
 					}
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
