@@ -634,6 +634,7 @@ Changes
 - The game now remembers which doors are open and which are closed
 - Fixed miscast chance not updating when drinking a frigid potion
 - Summoned creatures (familiar, fire elemental, golem) now follow you to the next level.
+- Miscasting a spell now only wastes a turn, no more mana loss or face-casting
 
 TODO ValidationFindBlockCycles to prevent bugs
 
