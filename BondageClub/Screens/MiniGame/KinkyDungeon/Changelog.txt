@@ -633,6 +633,7 @@ Changes
 - Can now cast spells from the spellbook (takes 1 turn before you can cast)
 - The game now remembers which doors are open and which are closed
 - Fixed miscast chance not updating when drinking a frigid potion
+- Summoned creatures (familiar, fire elemental, golem) now follow you to the next level.
 
 TODO ValidationFindBlockCycles to prevent bugs
 

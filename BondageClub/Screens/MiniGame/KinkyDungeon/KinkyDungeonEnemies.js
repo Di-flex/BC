@@ -6,18 +6,18 @@ let KinkyDungeonEnemies = [
 	{name: "Decoy", tags: KDMapInit(["construct", "player"]), noblockplayer: true, allied: true, evasion: 2, armor: 0, followRange: 100, AI: "wander",
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 2, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "Ally", tags: KDMapInit(["ghost", "player", "melee"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 0.33, accuracy: 1.5,
+	{name: "Ally", tags: KDMapInit(["ghost", "player", "melee"]), keepLevel: true, noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 0.33, accuracy: 1.5,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "ShadowWarrior", tags: KDMapInit(["ghost", "player", "melee", "tickleimmune", "glueimmune"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 1,
 		spells: ["AllyShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 11, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "FireElemental", color: "#FF6200", tags: KDMapInit(["construct", "player", "ranged", "fireimmune", "coldweakness", "icesevereweakness"]), noblockplayer: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
+	{name: "FireElemental", color: "#FF6200", tags: KDMapInit(["construct", "player", "ranged", "fireimmune", "coldweakness", "icesevereweakness"]), keepLevel: true, noblockplayer: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
 		spells: ["AllyFirebolt"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, spellRdy: true,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "Golem", tags: KDMapInit(["construct", "player", "melee", "fireresist", "unstoppable", "tickleresist", "groperesist", "electricresist", "charmimmune"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "hunt",
+	{name: "Golem", tags: KDMapInit(["construct", "player", "melee", "fireresist", "unstoppable", "tickleresist", "groperesist", "electricresist", "charmimmune"]), keepLevel: true, noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "hunt",
 		visionRadius: 20, playerBlindSight: 100, maxhp: 30, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 5, power: 6,
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "StormCrystal", tags: KDMapInit(["construct", "player", "ranged", "unstoppable", "meleeresist", "tickleimmune", "electricimmune"]), noblockplayer: true, allied: true, armor: 2, followRange: 1, AI: "wander", evasion: -10,
@@ -959,7 +959,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 }
 
 function KinkyDungeonEnemyCheckHP(enemy, E) {
-	if (enemy.hp <= 0) {
+	if (enemy.hp <= 0 || (enemy.hp <= 0.5 && enemy.Enemy && enemy.Enemy.maxhp > 3)) {
 		KinkyDungeonEntities.splice(E, 1);
 		if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
 
@@ -1133,7 +1133,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if (!(KDGameData.KinkyDungeonPenance && KinkyDungeonAngel()) || enemy == KinkyDungeonAngel()) {
+			// Delete the enemy
+			if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
+
 			let player = (!KinkyDungeonAngel()) ? KinkyDungeonNearestPlayer(enemy, false, true) : KinkyDungeonPlayerEntity;
+
 
 			if (enemy.Enemy.convertTiles) {
 				let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
@@ -1144,8 +1148,6 @@ function KinkyDungeonUpdateEnemies(delta) {
 				}
 			}
 
-			// Delete the enemy
-			if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
 
 			if (!enemy.castCooldown) enemy.castCooldown = 0;
 			if (enemy.castCooldown > 0) enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);

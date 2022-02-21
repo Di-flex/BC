@@ -456,10 +456,26 @@ function KinkyDungeonIsReachable(testX, testY, testLockX, testLockY) {
 	return false;
 }
 
+function KinkyDungeonGetAllies() {
+	let temp = [];
+	for (let e of KinkyDungeonEntities) {
+		if (e.Enemy && e.Enemy.keepLevel) {
+			e.x = KinkyDungeonStartPosition.x;
+			e.y = KinkyDungeonStartPosition.y;
+			e.visual_x = KinkyDungeonStartPosition.x;
+			e.visual_y = KinkyDungeonStartPosition.y;
+			temp.push(e);
+		}
+	}
+
+	return temp;
+}
+
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
-	KinkyDungeonEntities = [];
+	let allies = KinkyDungeonGetAllies();
+	KinkyDungeonEntities = allies;
 
 	KinkyDungeonHuntDownPlayer = false;
 	KinkyDungeonFirstSpawn = true;

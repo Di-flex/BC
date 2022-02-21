@@ -107,7 +107,8 @@ function KinkyDungeonHandleReputation() {
 
 					if (KDRandom() < 0.5 + value/100) {
 						KinkyDungeonChangeRep(rep, -10);
-						KinkyDungeonEntities = [];
+						let allies = KinkyDungeonGetAllies();
+						KinkyDungeonEntities = allies;
 						KinkyDungeonJailTransgressed = false;
 						KDGameData.KinkyDungeonJailGuard = 0;
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);

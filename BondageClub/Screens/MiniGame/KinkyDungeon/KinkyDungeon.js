@@ -1188,6 +1188,7 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.orbs != undefined
 			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
+			KinkyDungeonEntities = [];
 			MiniGameKinkyDungeonLevel = saveData.level;
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;
