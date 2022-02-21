@@ -194,7 +194,7 @@ function KinkyDungeonInterruptSleep() {
 function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
-	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
+	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
 	let arousalTypesWeakNeg = ["pain"];
 	let arousalTypesWeak = ["grope"];
 	let arousalTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
