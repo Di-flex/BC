@@ -3105,7 +3105,7 @@ KinkyDungeonSporeGas,"The spores make you feel sleepy..."
 
 KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
 KinkyDungeonTooltipArmor,"Armor: AMOUNT"
-KinkyDungeonTooltipEvasion,"Chance to Hit: AMOUNTx"
+KinkyDungeonTooltipEvasion,"Base Chance to Hit: AMOUNT%"
 KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
 KinkyDungeonDamageTypecold,"Void"
 KinkyDungeonDamageTypefrost,"Ice"
