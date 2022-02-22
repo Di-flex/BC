@@ -19,9 +19,11 @@ var KinkyDungeonLootTable = {
 		{name: "scroll_verbal", key: true, minLevel: 1, weight:1, message:"LootBookshelfScroll", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 		{name: "trap_book", key: true, minLevel: 1, weight:5, message:"LootBookshelfTrap", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 	],
+	"blue": [
+		{name: "spell_points", magic: true, minLevel: 0, weight:1, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])}, // lowlevel is spell levels 1-7
+	],
 	"chest": [
 		{name: "bluekey", redspecial: 8.5, key: true, minLevel: 5, weight:0.65, message:"LootChestBlueKey", messageColor:"lightgreen", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
-		{name: "spell_points", magic: true, minLevel: 0, special: 100, weight:0, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])}, // lowlevel is spell levels 1-7
 		{name: "weapon_boltcutters", minLevel: 10, weight:0.7, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), noweapon: ["BoltCutters"]},
 		{name: "weapon_flail", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), noweapon: ["Flail"]},
 		{name: "weapon_spear", minLevel: 0, weight:1, message:"LootChestWeapon", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), noweapon: ["Spear"]},

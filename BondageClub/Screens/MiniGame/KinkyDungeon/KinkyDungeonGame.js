@@ -999,9 +999,10 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false, Floor);
 			if (count == 0 || count >= treasurecount - alreadyOpened) {
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom()});
-			} else if (lock)
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
-			else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
+			} else if (lock) {
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
+				console.log(lock)
+			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
 
 			count += 1;
 		} else {
