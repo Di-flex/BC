@@ -862,6 +862,12 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
+				if (KinkyDungeonGetBuffedStat(enemy.buffs, "DamageAmp") > 0) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/DamageAmp.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
 				if (enemy.freeze > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Freeze.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -952,6 +958,77 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					DrawTextFit(name, 1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, 1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7, 10 + name.length * 8, "black", "black");
 					DrawTextFit(name, canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7, 10 + name.length * 8, "white", "black");
 					tooltip = true;
+
+					if (enemy.buffs && enemy.buffs.Analyze) {
+						let i = 0;
+						let spacing = 25;
+						let pad = 70;
+						if (enemy.Enemy.dmgType) {
+							for (let dt of KinkyDungeonDamageTypes) {
+								if (dt.name == enemy.Enemy.dmgType) {
+									i += 1;
+									let str = TextGet("KinkyDungeonTooltipDealsDamage").replace("DAMAGETYPE", TextGet("KinkyDungeonDamageType" + enemy.Enemy.dmgType));
+									DrawTextFit(str,
+										1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+										1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, dt.bg, dt.bg);
+									DrawTextFit(str,
+										canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+										canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, dt.color, dt.bg);
+									break;
+								}
+							}
+						}
+						if (enemy.Enemy.armor) {
+							i += 1;
+							let str = TextGet("KinkyDungeonTooltipArmor").replace("AMOUNT", "" + enemy.Enemy.armor);
+							DrawTextFit(str,
+								1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+								1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, "black", "black");
+							DrawTextFit(str,
+								canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+								canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, "white", "black");
+						}
+						if (enemy.Enemy.evasion) {
+							i += 1;
+							let str = TextGet("KinkyDungeonTooltipEvasion").replace("AMOUNT", "" + KinkyDungeonMultiplicativeStat(enemy.Enemy.evasion));
+							DrawTextFit(str,
+								1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+								1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, "black", "black");
+							DrawTextFit(str,
+								canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+								canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, "white", "black");
+						}
+
+						let list = Array.from(enemy.Enemy.tags.keys());
+						if (enemy.Enemy.spellResist)
+							list.push("magic");
+						let magic = false;
+						for (let t of list) {
+							for (let dt of KinkyDungeonDamageTypes) {
+								if ((t == dt.name + "resist" || t == dt.name + "weakness" || t == dt.name + "immune" || t == dt.name + "severeweakness")
+									|| (dt.name == "magic" && t.includes("magic") && enemy.Enemy.spellResist)) {
+									i += 1;
+									let mult = 1.0;
+									if (t == dt.name + "resist") mult = 0.5;
+									else if (t == dt.name + "weakness") mult = 1.5;
+									else if (t == dt.name + "immune") mult = 0;
+									else if (t == dt.name + "severeweakness") mult = 2.0;
+									if (dt.name == "magic" && !magic && enemy.Enemy.spellResist) {
+										magic = true;
+										mult *= KinkyDungeonMultiplicativeStat(enemy.Enemy.spellResist);
+									}
+									let str = TextGet("KinkyDungeonTooltipWeakness").replace("MULTIPLIER", "" + Math.round(mult * 10) / 10).replace("DAMAGETYPE", TextGet("KinkyDungeonDamageType"+ dt.name));
+									DrawTextFit(str,
+										1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+										1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, dt.bg, dt.bg);
+									DrawTextFit(str,
+										canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
+										canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, dt.color, dt.bg);
+
+								}
+							}
+						}
+					}
 				}
 			}
 		}

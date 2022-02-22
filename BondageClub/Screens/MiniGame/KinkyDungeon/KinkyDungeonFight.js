@@ -56,6 +56,58 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ApplyBuff", trigger: "playerAttack", buff: {id: "ArmorDown", type: "Armor", duration: 6, power: -1.5, player: true, enemies: true, tags: ["debuff", "armor"]}}]},
 };
 
+let KinkyDungeonDamageTypes = [
+	{name: "cold", color: "#21007F", bg: "white"},
+	{name: "ice", color: "#00D8FF", bg: "black"},
+	{name: "frost", color: "#00D8FF", bg: "black"},
+	{name: "fire", color: "#FF6A00", bg: "black"},
+	{name: "poison", color: "#00D404", bg: "black"},
+	{name: "happygas", color: "#E27CD0", bg: "black"},
+	{name: "charm", color: "#E27CD0", bg: "black"},
+	{name: "electric", color: "#FFD800", bg: "black"},
+	{name: "glue", color: "#E200D0", bg: "black"},
+	{name: "stun", color: "white", bg: "black"},
+	{name: "chain", color: "white", bg: "black"},
+	{name: "tickle", color: "white", bg: "black"},
+	{name: "crush", color: "white", bg: "black"},
+	{name: "grope", color: "white", bg: "black"},
+	{name: "slash", color: "white", bg: "black"},
+	{name: "pierce", color: "white", bg: "black"},
+	{name: "pain", color: "white", bg: "black"},
+	{name: "unarmed", color: "white", bg: "black"},
+	{name: "magic", color: "#00FF90", bg: "black"},
+	{name: "melee", color: "#aaaaaa", bg: "black"},
+];
+
+/*
+						KinkyDungeonTooltipWeakness,"MULTIPLIERx vs. DAMAGETYPE"
+						KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
+						KinkyDungeonDamageTypecold,"Void"
+						KinkyDungeonDamageTypefrost,"Ice"
+						KinkyDungeonDamageTypeice,"Ice"
+						KinkyDungeonDamageTypefire,"Fire"
+						KinkyDungeonDamageTypepoison,"Poison"
+						KinkyDungeonDamageTypecharm,"Charm"
+						KinkyDungeonDamageTypetickle,"Tickle"
+						KinkyDungeonDamageTypegrope,"Grope"
+						KinkyDungeonDamageTypecrush,"Crush"
+						KinkyDungeonDamageTypepierce,"Pierce"
+						KinkyDungeonDamageTypeslash,"Slash"
+						KinkyDungeonDamageTypepain,"Pain"
+						KinkyDungeonDamageTypesouldrain,"Soul Drain"
+						KinkyDungeonDamageTypedrain,"Mana Drain"
+						KinkyDungeonDamageTypeelectric,"Electric"
+						KinkyDungeonDamageTypestun,"Stun"
+						KinkyDungeonDamageTypechain,"Binding"
+						KinkyDungeonDamageTypehappygas,"Lust"
+						KinkyDungeonDamageTypeglue,"Slime"
+						KinkyDungeonDamageTypeunarmed,"Unarmed"
+						KinkyDungeonDamageTypemelee,"Melee"
+						KinkyDungeonDamageTypemagic,"Magic"
+						KinkyDungeonDamageTypeunstoppable,"Unstoppable"
+						KinkyDungeonDamageTypeunflinching,"Unflinching"
+						*/
+
 function KinkyDungeonFindWeapon(Name) {
 	for (let con of Object.values(KinkyDungeonWeapons)) {
 		if (con.name == Name) return con;
@@ -236,6 +288,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
 	if (Damage && !miss) {
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp"));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffType = Damage.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
@@ -244,6 +297,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (Damage.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
 			predata.dmg *= 2;
 		}
+		if (damageAmp) predata.dmg *= damageAmp;
 
 		let time = Damage.time ? Damage.time : 0;
 		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
@@ -342,6 +396,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (resistDamage == 2) mod = "Immune";
 	if (resistDamage == -1) mod = "Strong";
 	if (resistDamage == -2) mod = "VeryStrong";
+	if (!mod && spellResist > 0 && spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) mod = "SpellResist";
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),

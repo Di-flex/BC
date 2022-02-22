@@ -7,7 +7,7 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v2.7.2"
+KinkyDungeon,"Kinky Dungeon v2.7.3"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -411,7 +411,7 @@ KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with."
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
-KinkyDungeonInventoryItemMagicAxeDesc2,"Deals cold damage to the target and 20 cold damage to enemies nearby. Slows for 3 turns."
+KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies nearby. Slows for 3 turns."
 KinkyDungeonInventoryItemPickaxe,Pickaxe
 KinkyDungeonInventoryItemPickaxeDesc,"Used for drilling holes in rock and armor."
 KinkyDungeonInventoryItemPickaxeDesc2,"Deals pierce damage. Reduces enemy armor by 15 for 6 turns."
@@ -1078,10 +1078,12 @@ PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!
 PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
 PlayerAttackVeryStrong,"You attack the TargetEnemy for a devastating DamageDealt damage!"
 PlayerAttackImmune,"You attack the TargetEnemy, but your weapon has no effect!"
+PlayerAttackSpellResist,"You attack the TargetEnemy for DamageDealt damage!, reduced by its magic resistance!"
 PlayerRanged,"AttackName hits the TargetEnemy for DamageDealt damage!"
 PlayerRangedWeak,"AttackName hits the TargetEnemy for a reduced DamageDealt damage!"
 PlayerRangedImmune,"AttackName hits the TargetEnemy but it doesn't do anything!"
 PlayerRangedStrong,"AttackName hits the TargetEnemy for an increased DamageDealt damage!"
+PlayerRangedSpellResist,"AttackName hits the TargetEnemy for DamageDealt damage, reduced by its magic resistance!"
 PlayerRangedVeryStrong,"AttackName hits the TargetEnemy for a devastating DamageDealt damage!"
 KinkyDungeonBasicAttack,attack
 PlayerMiss,"You miss the TargetEnemy!"
@@ -2285,7 +2287,7 @@ KinkyDungeonSpellCastEvasion,Your movements intensify!
 KinkyDungeonSpellTargetEvasion,Choose creature to buff
 
 KinkyDungeonSpellAnalyze,Analyze
-KinkyDungeonSpellDescriptionAnalyze,"Informs you if a chest is trapped."
+KinkyDungeonSpellDescriptionAnalyze,"Cast on Chest: Detect if there is a trap. Cast on Enemy: Show weaknesses on mouseover, and the next 3 hits it takes deal +30% damage."
 KinkyDungeonSpellCastAnalyze,You analyze the target!
 KinkyDungeonSpellTargetAnalyze,Choose object to analyze
 
@@ -3028,7 +3030,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your 
 
 RestraintEnchantedHeels,Ancient Heels
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 cold damage on-hit with brief slow."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 void damage on-hit with brief slow."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
@@ -3100,3 +3102,32 @@ KinkyDungeonNoItemToRemove,You don't have any valid targets on your body for tha
 
 KinkyDungeonHappyGas,"The air swirls with traces of pleasing magic..."
 KinkyDungeonSporeGas,"The spores make you feel sleepy..."
+
+KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
+KinkyDungeonTooltipArmor,"Armor: AMOUNT"
+KinkyDungeonTooltipEvasion,"Chance to Hit: AMOUNTx"
+KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
+KinkyDungeonDamageTypecold,"Void"
+KinkyDungeonDamageTypefrost,"Ice"
+KinkyDungeonDamageTypeice,"Ice"
+KinkyDungeonDamageTypefire,"Fire"
+KinkyDungeonDamageTypepoison,"Poison"
+KinkyDungeonDamageTypecharm,"Charm"
+KinkyDungeonDamageTypetickle,"Tickle"
+KinkyDungeonDamageTypegrope,"Grope"
+KinkyDungeonDamageTypecrush,"Crush"
+KinkyDungeonDamageTypepierce,"Pierce"
+KinkyDungeonDamageTypeslash,"Slash"
+KinkyDungeonDamageTypepain,"Pain"
+KinkyDungeonDamageTypesouldrain,"Soul Drain"
+KinkyDungeonDamageTypedrain,"Mana Drain"
+KinkyDungeonDamageTypeelectric,"Electric"
+KinkyDungeonDamageTypestun,"Stun"
+KinkyDungeonDamageTypechain,"Binding"
+KinkyDungeonDamageTypehappygas,"Lust"
+KinkyDungeonDamageTypeglue,"Slime"
+KinkyDungeonDamageTypeunarmed,"Unarmed"
+KinkyDungeonDamageTypemelee,"Melee"
+KinkyDungeonDamageTypemagic,"Magic"
+KinkyDungeonDamageTypeunstoppable,"Unstoppable"
+KinkyDungeonDamageTypeunflinching,"Unflinching"
