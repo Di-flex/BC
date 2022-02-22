@@ -638,7 +638,8 @@ Changes
 - Vibrator traps now require a chastity belt to be equipped already
 
 2.7.3
--Analyze now has melee range but boosts damage dealt to the target for 3 attacks, and displays the target's weaknesses/resistances
+- Analyze now has melee range but boosts damage dealt to the target for 3 attacks, and displays the target's weaknesses/resistances
+- New spell: Camouflage
 
 Spell Balance:
 - Electrify to 5 mana from 7
