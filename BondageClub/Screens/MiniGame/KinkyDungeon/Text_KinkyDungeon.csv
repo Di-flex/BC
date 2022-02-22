@@ -2428,7 +2428,7 @@ KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
 KinkyDungeonSpellCamo,Camouflage
 KinkyDungeonSpellTargetCamo,Select yourself
-KinkyDungeonSpellDescriptionCamo,Enemies have a harder time noticing you for Duration turns. Cancels if you move or sleep.
+KinkyDungeonSpellDescriptionCamo,"Enemies have a harder time noticing you for Duration turns. Cancels if you move, cast, or sleep."
 KinkyDungeonSpellCastCamo,You pose in a clandestine manner.
 
 KinkyDungeonSpellShadowBlade,Darkblade
