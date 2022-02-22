@@ -2426,10 +2426,10 @@ KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
-KinkyDungeonSpellCamouflage,Camouflage
-KinkyDungeonSpellTargetCamouflage,Select yourself
-KinkyDungeonSpellDescriptionCamouflage,Enemies have a harder time noticing you for Duration turns. Cancels if you move or sleep.
-KinkyDungeonSpellCastCamouflage,You pose in a clandestine manner.
+KinkyDungeonSpellCamo,Camouflage
+KinkyDungeonSpellTargetCamo,Select yourself
+KinkyDungeonSpellDescriptionCamo,Enemies have a harder time noticing you for Duration turns. Cancels if you move or sleep.
+KinkyDungeonSpellCastCamo,You pose in a clandestine manner.
 
 KinkyDungeonSpellShadowBlade,Darkblade
 KinkyDungeonSpellTargetShadowBlade,Select which creature to buff
