@@ -990,7 +990,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 						}
 						if (enemy.Enemy.evasion) {
 							i += 1;
-							let str = TextGet("KinkyDungeonTooltipEvasion").replace("AMOUNT", "" + KinkyDungeonMultiplicativeStat(enemy.Enemy.evasion));
+							let str = TextGet("KinkyDungeonTooltipEvasion").replace("AMOUNT", "" + Math.round(100 * KinkyDungeonMultiplicativeStat(enemy.Enemy.evasion))/100);
 							DrawTextFit(str,
 								1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
 								1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, "black", "black");
@@ -1017,7 +1017,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 										magic = true;
 										mult *= KinkyDungeonMultiplicativeStat(enemy.Enemy.spellResist);
 									}
-									let str = TextGet("KinkyDungeonTooltipWeakness").replace("MULTIPLIER", "" + Math.round(mult * 10) / 10).replace("DAMAGETYPE", TextGet("KinkyDungeonDamageType"+ dt.name));
+									let str = TextGet("KinkyDungeonTooltipWeakness").replace("MULTIPLIER", "" + Math.round(mult * 100) / 100).replace("DAMAGETYPE", TextGet("KinkyDungeonDamageType"+ dt.name));
 									DrawTextFit(str,
 										1 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2,
 										1 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/7 + pad + spacing * i, 10 + str.length * 8, dt.bg, dt.bg);
