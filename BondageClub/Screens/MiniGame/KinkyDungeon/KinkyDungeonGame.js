@@ -1001,7 +1001,6 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom()});
 			} else if (lock) {
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
-				console.log(lock)
 			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
 
 			count += 1;

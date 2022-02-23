@@ -1051,7 +1051,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite") && KDRandom() < 0.33)
 			KinkyDungeonChangeRep("Ghost", -1);
 
-		if (enemy.Enemy && enemy.Enemy.rep)
+		if (enemy.Enemy && enemy.Enemy.rep && !enemy.noRep)
 			for (let rep of Object.keys(enemy.Enemy.rep))
 				KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
 
@@ -1065,7 +1065,8 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				}
 			}
 		}
-		KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
+		if (!enemy.noDrop)
+			KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
 		return true;
 	}
 	return false;

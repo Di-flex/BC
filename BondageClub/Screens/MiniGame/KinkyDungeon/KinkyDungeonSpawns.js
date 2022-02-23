@@ -125,12 +125,12 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 	}
 }
 
-function KinkyDungeonCallGuard(x, y, noTransgress) {
+function KinkyDungeonCallGuard(x, y, noTransgress, normalDrops) {
 	if (!noTransgress)
 		KinkyDungeonJailTransgressed = true;
 	if (!KinkyDungeonJailGuard()) {
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == "Guard");
-		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+		let guard = {summoned: true, noRep: true, noDrop: !normalDrops, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
 			x:KinkyDungeonStartPosition.x, y:KinkyDungeonStartPosition.y, gx: x, gy: y,
 			hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 		KDGameData.KinkyDungeonJailGuard = guard.id;
