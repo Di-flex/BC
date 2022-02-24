@@ -1799,6 +1799,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 										if (enemySwap) {
 											enemySwap.x = KinkyDungeonPlayerEntity.x;
 											enemySwap.y = KinkyDungeonPlayerEntity.y;
+											enemySwap.warningTiles = [];
 										}
 										KinkyDungeonPlayerEntity.x = enemy.x;
 										KinkyDungeonPlayerEntity.y = enemy.y;
@@ -2213,6 +2214,7 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 		if (ee && KinkyDungeonCanSwapWith(ee, enemy)) {
 			ee.x = enemy.x;
 			ee.y = enemy.y;
+			ee.warningTiles = [];
 		}
 		enemy.x += Direction.x;
 		enemy.y += Direction.y;

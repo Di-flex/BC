@@ -642,6 +642,8 @@ Changes
 - New spell: Camouflage
 - Gag statues now apply a red locked gag, but the gag is harder to cut off.
 - Fixed bug where the pickaxe changes made air elementals have 0 armor instead of -1
+- Fixed a bug where the angel would aggro when you attack anything else using a cleave weapon
+- When enemies are swapped, their warning tiles are removed and their attack is cancelled
 
 Spell Balance:
 - Electrify to 5 mana from 7

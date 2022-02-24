@@ -429,7 +429,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			for (let enemy of KinkyDungeonEntities) {
 				if (enemy != data.enemy) {
 					let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
-					if (KinkyDungeonEvasion(enemy) && dist < 1.5 && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+					if (dist < 1.5 && KinkyDungeonEvasion(enemy) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
 						KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
 					}
 				}
