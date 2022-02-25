@@ -647,6 +647,7 @@ Changes
 - When enemies are swapped, their warning tiles are removed and their attack is cancelled
 - Shops no longer have duplicate items
 - When an item requires an enchanted knife, the cut button is now blue-tinted
+- Can no longer raise stats using spell points. Instead, you must find crystal hearts throughout the levels every 3rd, 7th, or 9th floor (9th floors only in special areas like the Tombs)
 
 Spell Balance:
 - Electrify to 5 mana from 7

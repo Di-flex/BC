@@ -347,6 +347,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
 		KinkyDungeonPlacePatrols(4, width, height);
 		KinkyDungeonPlaceLore(width, height);
+		if (MiniGameKinkyDungeonLevel % 10 == 3 || MiniGameKinkyDungeonLevel % 10 == 7 || (MiniGameKinkyDungeonLevel % 10 == 9 && MiniGameKinkyDungeonCheckpoint > 9))
+			KinkyDungeonPlaceHeart(width, height);
 		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 		KinkyDungeonGenNavMap();
 		if (InJail) {
@@ -1021,11 +1023,27 @@ function KinkyDungeonPlaceLore(width, height) {
 	// Populate the lore
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
-			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && KDRandom() < 0.6) loreList.push({x:X, y:Y});
+			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && (!KinkyDungeonTiles[X + "," + Y] || !KinkyDungeonTiles[X + "," + Y].OffLimits) && KDRandom() < 0.6) loreList.push({x:X, y:Y});
 
 	while (loreList.length > 0) {
 		let N = Math.floor(KDRandom()*loreList.length);
 		KinkyDungeonGroundItems.push({x:loreList[N].x, y:loreList[N].y, name: "Lore"});
+		return true;
+	}
+
+}
+
+function KinkyDungeonPlaceHeart(width, height) {
+	let heartList = [];
+
+	// Populate the lore
+	for (let X = 1; X < width; X += 1)
+		for (let Y = 1; Y < height; Y += 1)
+			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && (!KinkyDungeonTiles[X + "," + Y] || !KinkyDungeonTiles[X + "," + Y].OffLimits)) heartList.push({x:X, y:Y});
+
+	while (heartList.length > 0) {
+		let N = Math.floor(KDRandom()*heartList.length);
+		KinkyDungeonGroundItems.push({x:heartList[N].x, y:heartList[N].y, name: "Heart"});
 		return true;
 	}
 

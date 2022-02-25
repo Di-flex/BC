@@ -92,10 +92,8 @@ let KinkyDungeonLearnableSpells = [
 
 	//Page 4
 	[
-		["SPUp1","SPUp2","SPUp3"],
-		["MPUp1","MPUp2","MPUp3"],
-		["APUp1","APUp2","APUp3"],
-		["SummonUp1", "SummonUp2", "SpellChoiceUp1", "SpellChoiceUp2"],
+		["SpellChoiceUp1", "SpellChoiceUp2"],
+		["SummonUp1", "SummonUp2"],
 	],
 ];
 
