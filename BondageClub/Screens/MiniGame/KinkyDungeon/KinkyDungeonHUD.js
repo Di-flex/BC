@@ -109,7 +109,11 @@ function KinkyDungeonDrawInputs() {
 						DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "CurseUnlock.png", ""); i++;
 				} else if (!sg.blocked) {
 					let toolSprite = (sg.lock != "") ? ((sg.lock != "Jammed") ? "Key" : "LockJam") : "Buckle";
-					if ((KinkyDungeonNormalBlades > 0 || KinkyDungeonWeaponCanCut(true) || KinkyDungeonEnchantedBlades > 0) && !sg.noCut) {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "Cut.png", ""); i++;}
+					if ((KinkyDungeonNormalBlades > 0 || KinkyDungeonWeaponCanCut(true) || KinkyDungeonEnchantedBlades > 0) && !sg.noCut) {
+						DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "",
+							((sg.magic) || (KinkyDungeonEnchantedBlades > 0 && KinkyDungeonNormalBlades < 1)) ? "#8394ff" : "White", KinkyDungeonRootDirectory + "Cut.png", "");
+						i++;
+					}
 					DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + toolSprite + ".png", ""); i++;
 					if (KinkyDungeonLockpicks > 0 && sg.lock != "") {DrawButton(x + ((!sg.left) ? -(ButtonWidth)*i : (ButtonWidth)*i), y, ButtonWidth, ButtonWidth, "", "White", KinkyDungeonRootDirectory + "UseTool.png", ""); i++;}
 
@@ -720,6 +724,7 @@ function KinkyDungeonUpdateStruggleGroups() {
 					icon:sg,
 					name:(restraint.restraint) ? restraint.restraint.name : "",
 					lock:restraint.lock,
+					magic:restraint.restraint? restraint.restraint.magic : undefined,
 					noCut:restraint.escapeChance && !restraint.escapeChance.Cut,
 					curse:restraint.restraint? restraint.restraint.curse : undefined,
 					blocked: InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});

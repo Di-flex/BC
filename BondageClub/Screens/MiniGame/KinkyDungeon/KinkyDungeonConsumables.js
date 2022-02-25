@@ -82,8 +82,9 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 			Table.push(s);
 	}
 
+	// No duplicates
 	for (let R = Rarity; R >= 0; R--) {
-		let available = Table.filter((item) => (item.rarity == R));
+		let available = Table.filter((item) => (item.rarity == R && !KinkyDungeonShopItems.some((item2) => {return item2.name == item.name})));
 		if (available.length > 0) return available[Math.floor(KDRandom() * available.length)];
 	}
 	return null;

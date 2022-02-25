@@ -641,9 +641,12 @@ Changes
 - Analyze now has melee range but boosts damage dealt to the target for 3 attacks, and displays the target's weaknesses/resistances
 - New spell: Camouflage
 - Gag statues now apply a red locked gag, but the gag is harder to cut off.
+- Statues now have pierce weakness
 - Fixed bug where the pickaxe changes made air elementals have 0 armor instead of -1
 - Fixed a bug where the angel would aggro when you attack anything else using a cleave weapon
 - When enemies are swapped, their warning tiles are removed and their attack is cancelled
+- Shops no longer have duplicate items
+- When an item requires an enchanted knife, the cut button is now blue-tinted
 
 Spell Balance:
 - Electrify to 5 mana from 7
