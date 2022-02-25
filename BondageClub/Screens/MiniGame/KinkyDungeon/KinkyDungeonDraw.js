@@ -509,6 +509,8 @@ function KinkyDungeonDrawGame() {
 		}
 	} else if (KinkyDungeonDrawState == "Orb") {
 		KinkyDungeonDrawOrb();
+	} else if (KinkyDungeonDrawState == "Heart") {
+		KinkyDungeonDrawHeart();
 	} else if (KinkyDungeonDrawState == "Magic") {
 		DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawMagic();

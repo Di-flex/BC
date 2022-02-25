@@ -80,7 +80,8 @@ function KinkyDungeonGenerateShop(Level) {
 		else if (items_mid < 2 && KDRandom() > 0.6) {Rarity += Math.ceil(KDRandom() * 3); items_mid += 1;}
 
 		let item = KinkyDungeonGetShopItem(Level, Rarity, true);
-		KinkyDungeonShopItems.push({name: item.name, shoptype: item.shoptype, rarity: item.rarity, cost: item.cost});
+		if (item)
+			KinkyDungeonShopItems.push({name: item.name, shoptype: item.shoptype, rarity: item.rarity, cost: item.cost});
 	}
 }
 

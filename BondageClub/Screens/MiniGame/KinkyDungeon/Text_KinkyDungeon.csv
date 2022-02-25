@@ -2588,7 +2588,7 @@ KinkyDungeonCrystalPunish0,"The crystals emit a powerful energy!"
 KinkyDungeonCrystalPunish1,"You feel your body overflow with energy..."
 KinkyDungeonCrystalPunish2,"The crystals react to your struggle attempts with a strange energy!"
 
-KinkyDungeonSpellCastFromBook,Cast Spell
+KinkyDungeonSpellCastFromBook,Cast Spell (1 turn delay)
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
@@ -3136,3 +3136,12 @@ KinkyDungeonDamageTypemelee,"Melee"
 KinkyDungeonDamageTypemagic,"Magic"
 KinkyDungeonDamageTypeunstoppable,"Unstoppable"
 KinkyDungeonDamageTypeunflinching,"Unflinching"
+
+KinkyDungeonHeartIntro,"You found a heart amulet! Choose one of the following stats to improve:"
+KinkyDungeonHeartIntro1,"Arousal: Increases max arousal by +12 and arousal decay by 0.1/turn"
+KinkyDungeonHeartIntro2,"Stamina: Increases max stamina by +12"
+KinkyDungeonHeartIntro3,"Mana: Increases max mana by +12"
+
+KinkyDungeonHeartArousal,"+12 Max Arousal"
+KinkyDungeonHeartStamina,"+12 Max Stamina"
+KinkyDungeonHeartMana,"+12 Max Mana"

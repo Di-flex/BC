@@ -579,6 +579,8 @@ function KinkyDungeonHandleHUD() {
 		}
 	} else if (KinkyDungeonDrawState == "Orb") {
 		return KinkyDungeonHandleOrb();
+	} else if (KinkyDungeonDrawState == "Heart") {
+		return KinkyDungeonHandleHeart();
 	} else if (KinkyDungeonDrawState == "Magic") {
 		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleMagic();

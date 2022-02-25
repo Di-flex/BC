@@ -142,6 +142,8 @@ function KinkyDungeonItemEvent(Item) {
 		priority = Math.min(8, item.rarity + 4);
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon(Item.name);
+	} else if (Item.name == "Heart") {
+		KinkyDungeonDrawState = "Heart";
 	}
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);
@@ -172,3 +174,42 @@ function KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	}
 }
 
+
+
+function KinkyDungeonDrawHeart() {
+
+	DrawText(TextGet("KinkyDungeonHeartIntro"), 1250, 200, "white", "silver");
+	DrawText(TextGet("KinkyDungeonHeartIntro1"), 1250, 300, "white", "silver");
+	DrawText(TextGet("KinkyDungeonHeartIntro2"), 1250, 350, "white", "silver");
+	DrawText(TextGet("KinkyDungeonHeartIntro3"), 1250, 400, "white", "silver");
+
+	DrawButton(650, 700, 350, 60, TextGet("KinkyDungeonHeartArousal"), KinkyDungeonStatArousalMax < 70 ? "White" : "Grey");
+	DrawButton(1050, 700, 350, 60, TextGet("KinkyDungeonHeartStamina"), KinkyDungeonStatStaminaMax < 70 ? "White" : "Grey");
+	DrawButton(1450, 700, 350, 60, TextGet("KinkyDungeonHeartMana"), KinkyDungeonStatManaMax < 70 ? "White" : "Grey");
+
+	if (KinkyDungeonStatArousalMax >= 70 && KinkyDungeonStatStaminaMax >= 70 && KinkyDungeonStatManaMax >= 70) KinkyDungeonDrawState = "Game";
+}
+
+function KinkyDungeonHandleHeart() {
+	if (MouseIn(650, 700, 350, 60) && KinkyDungeonStatArousalMax < 70) {
+		if (KinkyDungeonStatArousalMax < 40) KinkyDungeonSpells.push(KinkyDungeonFindSpell("APUp1"));
+		else if (KinkyDungeonStatArousalMax < 50) KinkyDungeonSpells.push(KinkyDungeonFindSpell("APUp2"));
+		else KinkyDungeonSpells.push(KinkyDungeonFindSpell("APUp3"));
+		KinkyDungeonUpdateStats(0);
+		KinkyDungeonDrawState = "Game";
+	} else if (MouseIn(1050, 700, 350, 60) && KinkyDungeonStatStaminaMax < 70) {
+		if (KinkyDungeonStatStaminaMax < 40) KinkyDungeonSpells.push(KinkyDungeonFindSpell("SPUp1"));
+		else if (KinkyDungeonStatStaminaMax < 50) KinkyDungeonSpells.push(KinkyDungeonFindSpell("SPUp2"));
+		else KinkyDungeonSpells.push(KinkyDungeonFindSpell("SPUp3"));
+		KinkyDungeonUpdateStats(0);
+		KinkyDungeonDrawState = "Game";
+	} else if (MouseIn(1450, 700, 350, 60) && KinkyDungeonStatManaMax < 70) {
+		if (KinkyDungeonStatManaMax < 40) KinkyDungeonSpells.push(KinkyDungeonFindSpell("MPUp1"));
+		else if (KinkyDungeonStatManaMax < 50) KinkyDungeonSpells.push(KinkyDungeonFindSpell("MPUp2"));
+		else KinkyDungeonSpells.push(KinkyDungeonFindSpell("MPUp3"));
+		KinkyDungeonUpdateStats(0);
+		KinkyDungeonDrawState = "Game";
+	}
+
+	return true;
+}
