@@ -62,6 +62,7 @@ var KinkyDungeonLootTable = {
 		{name: "EnchantedMittens", minLevel: 5, weight:4, message:"LootChestEnchantedMittens", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["EnchantedMittens"]},
 		{name: "EnchantedArmbinder", minLevel: 10, weight:4, message:"LootChestEnchantedArmbinder", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["EnchantedArmbinder"], submissive: 5},
 		{name: "EnchantedBallGag", minLevel: 0, weight:4, message:"LootChestEnchantedBallGag", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["EnchantedBallGag"]},
+		{name: "potioncollar", minLevel: 1, weight:10, message:"LootPotionCollar", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["PotionCollar"]},
 	],
 	"lessergold": [
 		{name: "scrolls_purity", minLevel: 0, weight: 1, message:"LootChestScrollsPurity", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
@@ -77,6 +78,7 @@ var KinkyDungeonLootTable = {
 		{name: "trap_plug2", trap: true, minLevel: 12, weight:1.5, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemBreast"], power: 3},
 		{name: "trap_plug2_torment", trap: true, lock: "Gold", minLevel: 15, weight:1, message:"LootChestTrapMagicPlug", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemVulva", "alreadyBelted"], power: 5},
 		{name: "trap_nipple2", trap: true, minLevel: 8, weight:4, message:"LootChestTrapMagicNipple", messageColor:"red", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["Group_ItemPelvis"], power: 3},
+		{name: "potioncollar", minLevel: 1, weight:1.5, message:"LootPotionCollar", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["PotionCollar"]},
 	],
 	"silver": [
 		{name: "scrolls_basic", minLevel: 0, weight: 1.5, message:"LootChestScrollsBasic", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
@@ -101,6 +103,7 @@ var KinkyDungeonLootTable = {
 		{name: "potions_mana", minLevel: 0, weight:3, message:"LootPotionsMana", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["lowmanapotions"]},
 		{name: "potions_many", minLevel: 1, weight:2, message:"LootPotionsMedley", messageColor:"lightblue", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), prerequisites: ["lowpotions"]},
 		{name: "grinder", minLevel: 1, weight:2, message:"LootChestGrinder", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+		{name: "potioncollar", minLevel: 1, weight:0.5, message:"LootPotionCollar", messageColor:"yellow", messageTime: 3, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), norestraint: ["PotionCollar"]},
 	],
 
 };
@@ -384,6 +387,9 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		let restraint = KinkyDungeonGetRestraintByName("EnchantedArmbinder");
 		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+	} else if (Loot.name == "potioncollar") {
+		let restraint = KinkyDungeonGetRestraintByName("PotionCollar");
+		KinkyDungeonInventory.unshift({looserestraint: restraint, events: restraint.looseevents});
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)

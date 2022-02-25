@@ -396,7 +396,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (resistDamage == 2) mod = "Immune";
 	if (resistDamage == -1) mod = "Strong";
 	if (resistDamage == -2) mod = "VeryStrong";
-	if (Damage && !mod && spellResist > 0 && spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) mod = "SpellResist";
+	if (Damage && !mod && spellResist < 1 && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) mod = "SpellResist";
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),

@@ -664,6 +664,8 @@ Spell Balance:
 - Ice shard damage to 30 from 20
 - Ice Breath no longer affects the player
 
+2.7.4
+-
 
 TODO ValidationFindBlockCycles to prevent bugs
 

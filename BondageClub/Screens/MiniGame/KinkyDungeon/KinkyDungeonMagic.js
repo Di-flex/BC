@@ -34,7 +34,7 @@ let KinkyDungeonPreviewSpell = null;
 // onhit: What happens on AoE. Deals aoepower damage, or just power otherwise
 
 let KinkyDungeonSpellsStart = [
-	{name: "Knife", sfx: "Miss", hitsfx: "LightSwing", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, evadeable: true, damage: "piercing", speed: 2, playerEffect: {name: "Damage"},
+	{name: "Knife", sfx: "Miss", hitsfx: "LightSwing", school: "Elements", manacost: 0, components: ["Arms"], knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, evadeable: true, damage: "pierce", speed: 2, playerEffect: {name: "Damage"},
 		events: [{type: "DropKnife", trigger: "bulletHit"},]},
 	{name: "Analyze", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: [], level:1, type:"special", special: "analyze",
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},

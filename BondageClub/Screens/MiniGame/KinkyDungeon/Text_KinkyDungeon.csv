@@ -7,7 +7,7 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
 KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v2.7.3"
+KinkyDungeon,"Kinky Dungeon v2.7.4"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -240,6 +240,7 @@ LootChestTrapMagicBelt,"You find gold and a chastity belt that locks around your
 LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicNipple,"You find gold, plus a devious magical trap! (+RestraintType) (+XXX gold)"
+LootPotionCollar,"You find a special collar that lets you absorb energy from potions."
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -1365,7 +1366,9 @@ RestraintHighsecBallGag,High-Security BallGag
 RestraintHighsecBallGagDesc,"A rubber gag shoved tightly between your lips."
 RestraintHighsecBallGagDesc2,"The mythril straps are nigh-unbreakable, keeping you securely silenced."
 
-
+RestraintPotionCollar,Potion Applicator
+RestraintPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
+RestraintPotionCollarDesc2,"Also allows fitting of a leash."
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."

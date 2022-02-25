@@ -84,7 +84,7 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 
 	// No duplicates
 	for (let R = Rarity; R >= 0; R--) {
-		let available = Table.filter((item) => (item.rarity == R && !KinkyDungeonShopItems.some((item2) => {return item2.name == item.name})));
+		let available = Table.filter((item) => (item.rarity == R && !KinkyDungeonShopItems.some((item2) => {return item2.name == item.name;})));
 		if (available.length > 0) return available[Math.floor(KDRandom() * available.length)];
 	}
 	return null;
@@ -148,6 +148,14 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	}
 }
 
+function KinkyDungeonPotionCollar() {
+	let minCost = 0;
+	for (let r of KinkyDungeonRestraintList()) {
+		if (r.restraint.potionAncientCost && (r.restraint.potionAncientCost < minCost || minCost == 0)) minCost = r.restraint.potionAncientCost;
+	}
+	return minCost;
+}
+
 function KinkyDungeonCanDrink() {
 	for (let inv of KinkyDungeonRestraintList()) {
 		if (inv.restraint && inv.restraint.allowPotions) return true;
@@ -184,21 +192,31 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
 	if (needMouth && ((!item.item.consumable.potion && !KinkyDungeonCanTalk()) || (item.item.consumable.potion && !KinkyDungeonCanDrink()))) {
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 1);
+		let energyCost = KinkyDungeonPotionCollar();
+		if (item.item.consumable.potion && energyCost && KDGameData.AncientEnergyLevel > energyCost) {
+			KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
+		} else {
+			KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 1);
 
-		if (KinkyDungeonTextMessageTime > 0)
-			KinkyDungeonDrawState = "Game";
+			if (KinkyDungeonTextMessageTime > 0)
+				KinkyDungeonDrawState = "Game";
 
-		return false;
+			return false;
+		}
 	}
 	if (needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
-		//KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 1);
+		let energyCost = KinkyDungeonPotionCollar();
+		if (item.item.consumable.potion && energyCost && KDGameData.AncientEnergyLevel > energyCost) {
+			KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
+		} else {
+			//KinkyDungeonAdvanceTime(1);
+			KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 1);
 
-		if (KinkyDungeonTextMessageTime > 0)
-			KinkyDungeonDrawState = "Game";
+			if (KinkyDungeonTextMessageTime > 0)
+				KinkyDungeonDrawState = "Game";
 
-		return false;
+			return false;
+		}
 	}
 
 	if (strictness >= maxStrictness) {

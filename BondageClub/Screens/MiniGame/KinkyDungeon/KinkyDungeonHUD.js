@@ -271,6 +271,11 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	// Draw labels
 	let buttonWidth = 48;
 	let suff = (!KinkyDungeonCanDrink()) ? "Unavailable" : "";
+	if (suff == "Unavailable") {
+		let energyCost = KinkyDungeonPotionCollar();
+		if (energyCost && KDGameData.AncientEnergyLevel > energyCost)
+			suff = "Inject";
+	}
 	//if (KinkyDungeonStatArousal > 0) {
 	//DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "black");
 	// TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%")
@@ -547,17 +552,17 @@ function KinkyDungeonHandleHUD() {
 		let xxx = 1750;
 		let yyy = 164;
 		if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionFrigid") && KinkyDungeonStatArousal > 0) {
-			if (KinkyDungeonCanTalk())
+			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionFrigid", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;
 		} else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionStamina") && KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
-			if (KinkyDungeonCanTalk())
+			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionStamina", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;
 		} else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionMana") && KinkyDungeonStatMana < KinkyDungeonStatManaMax) {
-			if (KinkyDungeonCanTalk())
+			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionMana", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;
