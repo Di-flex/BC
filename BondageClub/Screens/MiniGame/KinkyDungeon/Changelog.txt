@@ -665,7 +665,7 @@ Spell Balance:
 - Ice Breath no longer affects the player
 
 2.7.4
--
+- Added a new potion collar that lets you use potions in exchange for some ancient energy
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -667,7 +667,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		}
 		for (let L = 0; L < KinkyDungeonEntities.length; L++) {
 			let enemy = KinkyDungeonEntities[L];
-			if ((b.reflected || (!b.bullet.spell || (!b.bullet.spell.enemySpell && !enemy.Enemy.allied && b.bullet.damage.type != "heal") || (!b.bullet.spell.allySpell && enemy.Enemy.allied && (!b.bullet.spell.enemySpell || b.bullet.damage.type != "heal"))))
+			if ((b.reflected || (!b.bullet.spell || (!b.bullet.spell.enemySpell && !enemy.Enemy.allied && (!b.bullet.damage || b.bullet.damage.type != "heal")) || (!b.bullet.spell.allySpell && enemy.Enemy.allied && (!b.bullet.spell.enemySpell || (!b.bullet.damage || b.bullet.damage.type != "heal")))))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
 				enemy.hp = Math.min(enemy.hp + b.bullet.spell.power, enemy.Enemy.maxhp);
