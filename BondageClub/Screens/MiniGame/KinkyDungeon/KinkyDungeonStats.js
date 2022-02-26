@@ -180,6 +180,8 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonInitializeDresses();
 	KinkyDungeonDressPlayer();
 	KinkyDungeonShrineInit();
+
+	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
 }
 
 function KinkyDungeonGetVisionRadius() {
