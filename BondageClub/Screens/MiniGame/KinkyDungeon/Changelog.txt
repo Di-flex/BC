@@ -666,6 +666,8 @@ Spell Balance:
 
 2.7.4
 - Added a new potion collar that lets you use potions in exchange for some ancient energy
+- Fixed enemy weight multiplier being broken based on rep, should spawn more goddess enemies at low rep and less at neutral rep
+- Submissiveness score now downscales your stamina for the purpose of restraint thresholds, making it easier to get armbindered as a submissive.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
