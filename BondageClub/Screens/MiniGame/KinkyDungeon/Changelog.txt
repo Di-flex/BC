@@ -669,6 +669,7 @@ Spell Balance:
 - Fixed enemy weight multiplier being broken based on rep, should spawn more goddess enemies at low rep and less at neutral rep
 - Submissiveness score now downscales your stamina for the purpose of restraint thresholds, making it easier to get armbindered as a submissive.
 - Having brawler makes your unarmed attacks able to use flame blade
+- Mana potions now fully restore your mana
 
 TODO ValidationFindBlockCycles to prevent bugs
 

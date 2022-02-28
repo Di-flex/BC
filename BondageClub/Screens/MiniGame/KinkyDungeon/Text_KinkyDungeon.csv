@@ -334,7 +334,7 @@ KinkyDungeonInventoryItem4Lockpick,lockpicks x4
 KinkyDungeonInventoryItemPotionMana,Mana Potion
 KinkyDungeonInventoryItemPotionManaUse,You sip the mana potion and feel empowered.
 KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used by mages to recover their strength."
-KinkyDungeonInventoryItemPotionManaDesc2,"Restores 12 mana and 24 more over 24 turns. Effect does not stack."
+KinkyDungeonInventoryItemPotionManaDesc2,"Restores 72 mana instantly."
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
@@ -2265,6 +2265,7 @@ KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
 KinkyDungeonSpellChainBolt,Binding Chain
+KinkyDungeonSpellMagicChain,Magic Chain
 KinkyDungeonSpellWitchChainBolt,Witch's Chain
 KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and binds an enemy for Duration turns.
 KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!

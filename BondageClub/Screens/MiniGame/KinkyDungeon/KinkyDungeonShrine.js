@@ -88,6 +88,7 @@ function KinkyDungeonGenerateShop(Level) {
 function KinkyDungeonShrineCost(type) {
 	let mult = 1.0;
 	let growth = 1.0;
+	let noMult = false;
 
 	if (type == "Commerce" && KinkyDungeonShopIndex < KinkyDungeonShopItems.length) {
 		let item = KinkyDungeonShopItems[KinkyDungeonShopIndex];
@@ -108,6 +109,7 @@ function KinkyDungeonShrineCost(type) {
 		}
 		mult = Math.sqrt(Math.max(1, rest.length));
 		mult *= Math.pow(Math.max(1, maxPower), 0.75);
+		noMult = true;
 	} else if (type == "Will") {
 		let value = 0;
 		value += 100 * (1 - KinkyDungeonStatStamina/KinkyDungeonStatStaminaMax);
@@ -115,7 +117,7 @@ function KinkyDungeonShrineCost(type) {
 		return Math.round(value/10)*10;
 	}
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
-	if (KinkyDungeonShrineCosts[type] > 0) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
+	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
 	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
 		return 100;
@@ -154,7 +156,7 @@ function KinkyDungeonPayShrine(type) {
 		}
 
 	} else if (type == "Will") {
-		rep = Math.ceil(KinkyDungeonStatMana * 2 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 3 / KinkyDungeonStatStaminaMax);
+		rep = Math.ceil(KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 		KinkyDungeonStatArousal = 0;
