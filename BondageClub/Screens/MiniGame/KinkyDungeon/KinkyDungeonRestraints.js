@@ -2007,6 +2007,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 
 				KinkyDungeonCalculateSlowLevel();
 				KinkyDungeonCheckClothesLoss = true;
+				KinkyDungeonDressPlayer();
 
 				KinkyDungeonMultiplayerInventoryFlag = true;
 				KinkyDungeonUpdateStruggleGroups();

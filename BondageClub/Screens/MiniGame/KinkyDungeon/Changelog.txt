@@ -670,6 +670,7 @@ Spell Balance:
 - Submissiveness score now downscales your stamina for the purpose of restraint thresholds, making it easier to get armbindered as a submissive.
 - Having brawler makes your unarmed attacks able to use flame blade
 - Mana potions now fully restore your mana
+- New binding mechanics! Try out binding spells, including slime spells
 
 TODO ValidationFindBlockCycles to prevent bugs
 

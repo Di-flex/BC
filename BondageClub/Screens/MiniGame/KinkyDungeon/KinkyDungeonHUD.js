@@ -711,6 +711,8 @@ function KinkyDungeonUpdateStruggleGroups() {
 	let struggleGroups = KinkyDungeonStruggleGroupsBase;
 	KinkyDungeonStruggleGroups = [];
 
+	KinkyDungeonCheckClothesLoss = true;
+
 	for (let S = 0; S < struggleGroups.length; S++) {
 		let sg = struggleGroups[S];
 		let Group = sg;
