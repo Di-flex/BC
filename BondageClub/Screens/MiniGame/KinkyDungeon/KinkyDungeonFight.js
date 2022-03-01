@@ -198,6 +198,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	if (Enemy && Enemy.slow > 0) hitChance *= 2;
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
+	if (Enemy) hitChance += 0.25 * KDBoundEffects(Enemy);
 
 	if (!IsSpell) {
 		if (flags.KDEvasionSight)
@@ -376,6 +377,27 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistDamage == 1 || resistStun == 1)
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
+		}
+		if (predata.dmg && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.type == "chain" || Damage.type == "glue" || Damage.type == "magicbind")) {
+			effect = true;
+			if (!Enemy.boundLevel) Enemy.boundLevel = 0;
+			let efficiency = Damage.bindEff ? Damage.bindEff : 3.0;
+			if (resistStun == -2) {
+				efficiency *= 2;
+			} else if (resistStun == -1) {
+				efficiency *= 1.5;
+			}
+			if (resistDamage == 1 || resistStun == 1) {
+				efficiency *= 0.75;
+			}
+			if (resistStun == 2) {
+				efficiency *= 0.5;
+			}
+			if (resistStun == 2) {
+				efficiency *= 0.5;
+			}
+
+			Enemy.boundLevel += efficiency * predata.dmg;
 		}
 		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "frost" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;

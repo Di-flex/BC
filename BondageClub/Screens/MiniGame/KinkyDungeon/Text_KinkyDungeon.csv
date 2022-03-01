@@ -1,6 +1,6 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9|nuzzles"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
@@ -379,7 +379,7 @@ KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to us
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
 KinkyDungeonInventoryItemStaffBind,Staff of Binding
 KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
-KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and binds the target (can't move) for 4 turns."
+KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and roots the target for 4 turns."
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
@@ -2267,7 +2267,7 @@ KinkyDungeonSpellTargetIcebolt,Choose aim direction
 KinkyDungeonSpellChainBolt,Binding Chain
 KinkyDungeonSpellMagicChain,Magic Chain
 KinkyDungeonSpellWitchChainBolt,Witch's Chain
-KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and binds an enemy for Duration turns.
+KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and roots an enemy for Duration turns.
 KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!
 KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
@@ -2397,7 +2397,7 @@ KinkyDungeonSpellCastBomb,Fire in the hole!
 KinkyDungeonSpellTargetBomb,Choose target AoE location
 
 KinkyDungeonSpellSnare,Rope Snare
-KinkyDungeonSpellDescriptionSnare,An invisible circle on the grounds that binds anyone who walks on it for Duration turns
+KinkyDungeonSpellDescriptionSnare,An invisible circle on the grounds that roots anyone who walks on it for Duration turns
 KinkyDungeonSpellCastSnare,You set an invisible trap!
 KinkyDungeonSpellTargetSnare,Select where to put the trap (it will be invisible)
 
