@@ -1656,7 +1656,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 	let restraintWeightTotal = 0;
 	let restraintWeights = [];
 	let cache = KDRestraintsCache.get(enemy.name);
-	let staminaPercent = (Math.max(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatArousal / KinkyDungeonStatArousalMax))
+	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatArousal / KinkyDungeonStatArousalMax))
 		/(1 + (KinkyDungeonGoddessRep.Ghost + 50)/100);
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
