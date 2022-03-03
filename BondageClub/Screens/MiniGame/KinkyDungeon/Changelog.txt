@@ -671,6 +671,9 @@ Spell Balance:
 - Having brawler makes your unarmed attacks able to use flame blade
 - Mana potions now fully restore your mana
 - New binding mechanics! Try out binding spells, including slime spells
+- Ancient muzzle now consumes 75% less energy
+- Shadow slash no longer makes noise
+- Ancient heels now properly consume mana on attack
 
 TODO ValidationFindBlockCycles to prevent bugs
 
