@@ -515,6 +515,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 
 	if (predata.buffdmg) dmg.damage = Math.max(0, dmg.damage + predata.buffdmg);
 
+	let hp = Enemy.hp;
 	KinkyDungeonDamageEnemy(Enemy, (predata.eva) ? dmg : null, undefined, undefined, undefined, undefined, KinkyDungeonPlayerEntity);
 	if (predata.eva && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.sfx) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.sfx + ".ogg");
@@ -523,7 +524,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonDisarm(Enemy);
 	}
 	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
-		if (KinkyDungeonAlert) {
+		if (Enemy && hp < Enemy.Enemy.maxhp) {
 			KinkyDungeonAlert = 8;
 		} else {
 			KinkyDungeonAlert = 4;
