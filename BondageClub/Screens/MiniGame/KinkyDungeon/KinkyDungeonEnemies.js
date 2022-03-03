@@ -1262,8 +1262,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.specialCD -= delta;
 			if (enemy.slow > 0)
 				enemy.slow -= delta;
-			if (enemy.boundLevel > 0) {
-				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta);
+			if (enemy.boundLevel > 0 && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
+				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp);
 			}
 			if (enemy.bind > 0)
 				enemy.bind -= delta;
@@ -1278,7 +1278,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.warningTiles = [];
 				if (enemy.channel > 0) enemy.channel -= delta;
 			} else if (bindLevel > 3) {
-				if (enemy.Enemy.power)
+				if (enemy.Enemy.power && enemy.hp > enemy.Enemy.maxhp * 0.1)
 					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
 			} else {
 				let start = performance.now();

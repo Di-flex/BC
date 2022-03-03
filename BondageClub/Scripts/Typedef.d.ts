@@ -1553,6 +1553,8 @@ interface KinkyDungeonWeapon {
 	dmg: number;
 	chance: number;
 	type: string;
+	bind?: number;
+	tease?: boolean;
 	rarity: number;
 	staminacost?: number;
 	magic?: boolean;
