@@ -3052,7 +3052,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBlindfold,"You tug at the mask but 
 
 RestraintEnchantedMuzzle,Ancient Muzzle
 LootChestEnchantedMuzzle,"You find a muzzle with a long rubbery plug on the inside, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedMuzzleDesc2,"A muzzle that seals over the face tightly. When powered, it regenerates mana, boosts sneak, and triples damage dealt to unaware enemies."
+RestraintEnchantedMuzzleDesc2,"A muzzle that seals over the face tightly. When powered, it regenerates mana, boosts sneak, and multiplies damage dealt to unaware enemies by 2.5x."
 RestraintEnchantedMuzzleDesc,"'Muzzle of the Saboteur'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your face, but not only does the soft plug fill your mouth completely, the muzzle itself is nigh-unbreakable!"
 

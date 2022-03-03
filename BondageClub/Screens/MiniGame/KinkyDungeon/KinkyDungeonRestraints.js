@@ -712,7 +712,7 @@ const KinkyDungeonRestraints = [
 		events: [
 			{trigger: "tick", type: "SneakBuff", power: 2, requireEnergy: true},
 			{trigger: "tick", type: "RegenMana", power: 1.0, requireEnergy: true, energyCost: 0.0025},
-			{trigger: "beforeDamageEnemy", type: "MultiplyDamageStealth", power: 3.0, requireEnergy: true, energyCost: 0.0025}
+			{trigger: "beforeDamageEnemy", type: "MultiplyDamageStealth", power: 2.5, requireEnergy: true, energyCost: 0.0015}
 		]},
 
 	{curse: "MistressKey", enchantedDrain: 0.00025, inventory: true, enchanted: true, name: "EnchantedBallGag", gag: true, Asset: "FuturisticHarnessBallGag", Color: ['#AE915C', '#AE915C', '#424242', "#CAA562", '#000000'],
