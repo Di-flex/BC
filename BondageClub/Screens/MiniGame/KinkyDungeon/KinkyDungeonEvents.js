@@ -269,7 +269,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	} else if (Event == "playerAttack") {
 		if (e.type == "ShadowHeel" && e.trigger == "playerAttack" && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
 			KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("HeelShadowStrike", true), undefined, undefined, undefined);
-			if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 		} else if (e.type == "AlertEnemies" && e.trigger == Event) {
 			if (KDAlertCD < 1 && data.enemy && (!e.chance || KDRandom() < e.chance)) { // (data.damage && data.damage.damage && data.enemy.hp > data.enemy.Enemy.maxhp - data.damage.damage*2 - 1)
 				KinkyDungeonAlert = Math.max(KinkyDungeonAlert, e.power);

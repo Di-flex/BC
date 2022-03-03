@@ -202,7 +202,6 @@ function KinkyDungeonDressPlayer() {
 
 	for (let C = 0; C < KinkyDungeonDresses[KinkyDungeonCurrentDress].length; C++) {
 		let clothes = KinkyDungeonDresses[KinkyDungeonCurrentDress][C];
-		let PreviouslyLost = clothes.Lost;
 
 		if (!clothes.Lost && KinkyDungeonCheckClothesLoss) {
 			if (clothes.Group == "Necklace") {
@@ -234,8 +233,6 @@ function KinkyDungeonDressPlayer() {
 
 			if (clothes.Lost) KinkyDungeonUndress += 1/KinkyDungeonDresses[KinkyDungeonCurrentDress].length;
 		}
-
-		//if (clothes.Lost != PreviouslyLost) KinkyDungeonChangeArousal(10/KinkyDungeonDresses[KinkyDungeonCurrentDress].length);
 
 		if (!clothes.Lost) {
 			if (KinkyDungeonCheckClothesLoss) {
