@@ -2267,7 +2267,7 @@ KinkyDungeonSpellTargetIcebolt,Choose aim direction
 KinkyDungeonSpellChainBolt,Binding Chain
 KinkyDungeonSpellMagicChain,Magic Chain
 KinkyDungeonSpellWitchChainBolt,Witch's Chain
-KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and roots an enemy for Duration turns.
+KinkyDungeonSpellDescriptionChainBolt,Throws a chain that does DamageDealt damage and roots an enemy for Duration turns. Adds 10 points of binding to the target.
 KinkyDungeonSpellCastChainBolt,You a hurl a strand of chain!
 KinkyDungeonSpellTargetChainBolt,Choose aim direction
 
