@@ -401,7 +401,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
-		if (predata.dmg && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.bind || Damage.type == "chain" || Damage.type == "glue" || Damage.type == "magicbind")) {
+		if ((predata.dmg || predata.bind) && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.bind || Damage.type == "chain" || Damage.type == "glue" || Damage.type == "magicbind")) {
 			effect = true;
 			if (!Enemy.boundLevel) Enemy.boundLevel = 0;
 			let efficiency = Damage.bindEff ? Damage.bindEff : 1.0;
