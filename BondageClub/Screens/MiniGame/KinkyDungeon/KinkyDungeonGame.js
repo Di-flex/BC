@@ -1813,7 +1813,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 					KinkyDungeonConfirmAttack = true;
 					noadvance = true;
 				} else {
-					KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, tease: KinkyDungeonPlayerDamage.tease});
+					KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, boundBonus: KinkyDungeonPlayerDamage.boundBonus, tease: KinkyDungeonPlayerDamage.tease});
 					KinkyDungeonLastAction = "Attack";
 					KinkyDungeonConfirmAttack = false;
 

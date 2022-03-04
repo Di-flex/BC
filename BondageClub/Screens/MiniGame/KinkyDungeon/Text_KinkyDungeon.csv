@@ -2350,6 +2350,7 @@ KinkyDungeonSpellCorona,Corona
 KinkyDungeonSpellCoronaBeam,Corona
 KinkyDungeonSpellEnemyCorona,Binding Light
 KinkyDungeonSpellEnemyCoronaBeam,Binding Light
+KinkyDungeonSpellMonolithBeamBeam,Chaos Beam
 KinkyDungeonSpellDescriptionCorona,A beam of light that channels for 2 turns (stunning you briefly) then instantly deals DamageDealt fire damage to the first target hit.
 KinkyDungeonSpellCastCorona,You charge a powerful beam attack!!!
 KinkyDungeonSpellTargetCorona,Choose line direction
@@ -2397,9 +2398,14 @@ KinkyDungeonSpellCastBomb,Fire in the hole!
 KinkyDungeonSpellTargetBomb,Choose target AoE location
 
 KinkyDungeonSpellSnare,Rope Snare
-KinkyDungeonSpellDescriptionSnare,An invisible circle on the grounds that roots anyone who walks on it for Duration turns
+KinkyDungeonSpellDescriptionSnare,An invisible circle on the grounds that stuns anyone who walks on it for Duration turns and applies 20 points of binding.
 KinkyDungeonSpellCastSnare,You set an invisible trap!
 KinkyDungeonSpellTargetSnare,Select where to put the trap (it will be invisible)
+
+KinkyDungeonSpellRopeStrike,Forbidden Ropes
+KinkyDungeonSpellDescriptionRopeStrike,Abyssal ropes deal DamageDealt chain damage in a 3x3 AoE and apply 9 points of binding. Roots briefly.
+KinkyDungeonSpellCastRopeStrike,You call forth ropes from the abyss!
+KinkyDungeonSpellTargetRopeStrike,Select center of a a 3x3 AoE
 
 KinkyDungeonSpellFlash,Lesser Flash
 KinkyDungeonSpellFlashBomb,Flash Bomb

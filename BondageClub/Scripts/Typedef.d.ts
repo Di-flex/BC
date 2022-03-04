@@ -1554,6 +1554,7 @@ interface KinkyDungeonWeapon {
 	chance: number;
 	type: string;
 	bind?: number;
+	boundBonus?: number;
 	tease?: boolean;
 	rarity: number;
 	staminacost?: number;
