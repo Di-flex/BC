@@ -959,7 +959,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let tX = targetX;
 	let tY = targetY;
 	let miscast = false;
-	let selfCast = targetX == KinkyDungeonPlayerEntity.x && targetY == KinkyDungeonPlayerEntity.y;
+	let selfCast = !enemy && !bullet && player && targetX == KinkyDungeonPlayerEntity.x && targetY == KinkyDungeonPlayerEntity.y;
 	let cast = spell.spellcast ? {} : undefined;
 	if (!enemy && !player && !bullet) {
 		moveDirection = {x:0, y:0, delta:1};

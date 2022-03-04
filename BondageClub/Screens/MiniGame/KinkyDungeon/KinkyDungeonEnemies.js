@@ -1262,8 +1262,11 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.specialCD -= delta;
 			if (enemy.slow > 0)
 				enemy.slow -= delta;
-			if (enemy.boundLevel > 0 && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
-				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp);
+			if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
+				let mult = 1.0;
+				if (enemy.bind > 0) mult *= 0.4;
+				else if (enemy.slow > 0) mult *= 0.7;
+				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp * mult);
 			}
 			if (enemy.bind > 0)
 				enemy.bind -= delta;
