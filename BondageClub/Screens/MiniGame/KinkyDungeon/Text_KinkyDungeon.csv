@@ -3021,6 +3021,7 @@ KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 KinkyDungeonGoldLockRemove,A golden lock fades into a blue lock on one of your restraints!
 
 KinkyDungeonConfirmAttack,Are you sure you want to attack?
+KinkyDungeonConfirmStairs,Are you sure you want to go to the next level? (Click self to confirm)
 
 KinkyDungeonSelfBondage,You shudder as you apply the RestraintName to yourself...
 KinkyDungeonSelfBondagePlug,"You insert the RestraintName and close your belt's shield over it, with a click as it locks in place."

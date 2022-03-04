@@ -13,7 +13,13 @@ function KinkyDungeonUpdateTileEffects(delta) {
 
 function KinkyDungeonHandleMoveToTile(toTile) {
 	if (toTile == 's' || toTile == 'H') { // Go down the next stairs
-		KinkyDungeonHandleStairs(toTile);
+		if (KinkyDungeonConfirmStairs) {
+			KinkyDungeonConfirmStairs = false;
+			KinkyDungeonHandleStairs(toTile);
+		} else {
+			KinkyDungeonConfirmStairs = true;
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmStairs"), "white", 1);
+		}
 	}
 }
 
@@ -54,6 +60,8 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
 	}
 }
+
+let KinkyDungeonConfirmStairs = false;
 
 function KinkyDungeonHandleMoveObject(moveX, moveY, moveObject) {
 	if (moveObject == 'D') { // Open the door

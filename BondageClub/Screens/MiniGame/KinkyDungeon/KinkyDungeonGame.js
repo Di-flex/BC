@@ -1855,6 +1855,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonTargetTileLocation = "";
 				if (!KinkyDungeonHandleMoveObject(moveX, moveY, moveObject)) {// Move
 					KinkyDungeonNoMoveFlag = false;
+					KinkyDungeonConfirmStairs = false;
 					KinkyDungeonSendEvent("beforeMove", {x:moveX, y:moveY});
 					if (!KinkyDungeonNoMoveFlag) {
 						//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
