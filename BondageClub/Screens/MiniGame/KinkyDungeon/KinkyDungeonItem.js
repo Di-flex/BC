@@ -187,7 +187,11 @@ function KinkyDungeonDrawHeart() {
 	DrawButton(1050, 700, 350, 60, TextGet("KinkyDungeonHeartStamina"), KinkyDungeonStatStaminaMax < 70 ? "White" : "Grey");
 	DrawButton(1450, 700, 350, 60, TextGet("KinkyDungeonHeartMana"), KinkyDungeonStatManaMax < 70 ? "White" : "Grey");
 
-	if (KinkyDungeonStatArousalMax >= 70 && KinkyDungeonStatStaminaMax >= 70 && KinkyDungeonStatManaMax >= 70) KinkyDungeonDrawState = "Game";
+	if (KinkyDungeonStatArousalMax >= 70 && KinkyDungeonStatStaminaMax >= 70 && KinkyDungeonStatManaMax >= 70) {
+		KinkyDungeonDrawState = "Game";
+		KinkyDungeonChangeStamina(24);
+		KinkyDungeonChangeMana(24);
+	}
 }
 
 function KinkyDungeonHandleHeart() {

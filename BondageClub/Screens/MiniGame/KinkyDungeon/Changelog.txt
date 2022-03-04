@@ -674,6 +674,7 @@ Spell Balance:
 - Ancient muzzle now consumes 85% less energy and multiplier is 2.5 instead of 3x
 - Shadow slash no longer makes noise
 - Ancient heels now properly consume mana on attack
+- Hearts now restore 24 stamina and mana if you pick them up and have max stats
 
 TODO ValidationFindBlockCycles to prevent bugs
 
