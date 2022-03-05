@@ -349,10 +349,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (Damage.type != "inert" && resistDamage < 2) {
 			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
 				dmgDealt = Math.max(predata.dmg - armor, 0); // Armor goes before resistance
-				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+0.5 or 1.5x damage, whichever is greater
 			} else if (resistDamage == -1) {
 				if (predata.dmg > 0)
-					dmgDealt = Math.max(predata.dmg+1, predata.dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
+					dmgDealt = Math.max(predata.dmg+0.5, predata.dmg*1.5); // Enemies that are vulnerable take either dmg+1 or 1.5x damage, whichever is greater
 				else dmgDealt = 0;
 				dmgDealt = Math.max(dmgDealt - armor, 0); // Armor comes after vulnerability
 			} else if (resistDamage == -2) {
