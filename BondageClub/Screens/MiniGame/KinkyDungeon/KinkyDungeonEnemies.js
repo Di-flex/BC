@@ -9,6 +9,9 @@ let KinkyDungeonEnemies = [
 	{name: "Ally", tags: KDMapInit(["ghost", "player", "melee"]), keepLevel: true, noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 0.33, accuracy: 1.5,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
+	{name: "PlayerGag", tags: KDMapInit(["construct", "player", "melee"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "guard", accuracy: 1.5,
+		visionRadius: 20, playerBlindSight: 100, maxhp: 4, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWillSilenceSuicide", silenceTime: 8, attackRange: 1, attackWidth: 1, power: 5, dmgType: "chain",
+		terrainTags: {}, floors:KDMapInit([])},
 	{name: "ShadowWarrior", tags: KDMapInit(["ghost", "player", "melee", "tickleimmune", "glueimmune"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 1,
 		spells: ["AllyShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 11, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
@@ -1270,6 +1273,10 @@ function KinkyDungeonUpdateEnemies(delta) {
 			}
 			if (enemy.bind > 0)
 				enemy.bind -= delta;
+			if (enemy.blind > 0)
+				enemy.blind -= delta;
+			if (enemy.silence > 0)
+				enemy.silence -= delta;
 			if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack")
 				enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
 			if (enemy.stun > 0 || enemy.freeze > 0) {
@@ -1990,13 +1997,50 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 					replace.push({keyword:"DamageTaken", value: data.damage});
 				} else { // if (KDRandom() <= playerEvasion)
+					if (attack.includes("Slow")) {
+						if (player.movePoints)
+							player.movePoints = Math.max(player.movePoints - 1, 0);
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Slow")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+						happened += 1;
+					}
+					if (attack.includes("Stun")) {
+						let time = enemy.Enemy.stunTime ? enemy.Enemy.stunTime : 1;
+						if (!player.stun) player.stun = time;
+						else player.stun = Math.max(time, player.stun);
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Stun")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+						happened += 1;
+					}
+					if (attack.includes("Blind")) {
+						let time = enemy.Enemy.blindTime ? enemy.Enemy.blindTime : 1;
+						if (!player.blind) player.blind = time;
+						else player.blind = Math.max(time, player.blind);
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Blind")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+						happened += 1;
+					}
+					if (attack.includes("Silence")) {
+						let time = enemy.Enemy.silenceTime ? enemy.Enemy.silenceTime : 1;
+						if (!player.silence) player.silence = time;
+						else player.silence = Math.max(time, player.silence);
+						if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Blind")) {
+							enemy.specialCD = enemy.Enemy.specialCD;
+						}
+						happened += 1;
+					}
+
+
 					let dmg = power;
 					let buffdmg = KinkyDungeonGetBuffedStat(enemy.buffs, "AttackDmg");
 					if (buffdmg) dmg = Math.max(0, dmg + buffdmg);
 					if (enemy.Enemy.fullBoundBonus) {
 						dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 					}
-					happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.damage, damage: dmg}, false, true, undefined, undefined, enemy);
+					happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.dmgType, damage: dmg}, false, true, undefined, undefined, enemy);
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					if (happened > 0) {
 						let sfx = (hitsfx) ? hitsfx : "DealDamage";
@@ -2050,7 +2094,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	} else if (AI == "ambush" && ignore) enemy.ambushtrigger = false;
 
 
-	if ((!enemy.Enemy.noSpellDuringAttack || enemy.attackPoints < 1)
+	if ((!enemy.silence || enemy.silence < 1)
+		&& (!enemy.Enemy.noSpellDuringAttack || enemy.attackPoints < 1)
 		&& (!enemy.Enemy.noSpellsWhenHarmless || !harmless)
 		&& (!enemy.Enemy.noSpellsLowSP || KinkyDungeonHasStamina(1.1))
 		&& (!enemy.Enemy.noSpellLeashing || KDGameData.KinkyDungeonLeashingEnemy != enemy.id || KDGameData.KinkyDungeonLeashedPlayer < 1)

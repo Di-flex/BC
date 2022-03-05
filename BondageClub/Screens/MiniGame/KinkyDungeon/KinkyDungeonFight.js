@@ -421,7 +421,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
-			if (!forceKill && Enemy.hp < 0 && attacker && attacker.player) Enemy.hp = 0.01;
+			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.01;
 		}
 		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "frost" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;
@@ -751,7 +751,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 				let count = sum.count ? sum.count : 1;
 				let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 				if (count > 0)
-					created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden);
+					created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget);
 			}
 		}
 		if (!b.bullet.spell || !b.bullet.spell.noSumMsg) {
@@ -762,7 +762,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 }
 
 
-function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden) {
+function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden, goToTarget) {
 	let slots = [];
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
@@ -780,7 +780,7 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
-			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
 				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
 			created += 1;
 		} else C -= 1;

@@ -67,7 +67,7 @@ let KinkyDungeonLearnableSpells = [
 		// Verbal
 		["Heal2", "RopeStrike", "Bomb", "FireElemental", "Blink"],
 		// Arms
-		["ChainBolt", "SlimeBall", "Heal"],
+		["ChainBolt", "SlimeBall", "SummonGag", "Heal"],
 		// Legs
 		["Snare", "Wall", "Ally", "Slime", "StormCrystal", "Golem", "Leap"],
 		// Passive
@@ -146,6 +146,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "SummonUp2", school: "Any", manacost: 0, components: [], level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
 		{name: "Bomb", noise: 5, sfx: "FireSpell", school: "Conjure", manacost: 5, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 5, power: 10, range: 3, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"}, channel: 1},
 		{name: "Snare", sfx: "FireSpell", school: "Conjure", manacost: 2, components: ["Legs"], noTargetEnemies: true, level:1, type:"inert", onhit:"lingering", lifetime:9999, time: 8, bind: 20, delay: 5, range: 1, damage: "stun", playerEffect: {name: "MagicRope", time: 3}}, // Creates a magic rope trap that creates magic ropes on anything that steps on it. They are invisible once placed. Enemies get rooted, players get fully tied!
+		{name: "SummonGag", sfx: "MagicSlash", school: "Conjure", manacost: 6, components: ["Arms"], level:2, projectileTargeting:true, castRange: 50, type:"bolt", onhit:"summon", summon: [{name: "PlayerGag", count: 3, time: 12, goToTarget: true}], power: 0, damage: "tickle", time: 12, delay: 1, range: 0.5, size: 3, aoe: 1.5, lifetime: 1, speed: 1, playerEffect: {}},
 		{name: "RopeStrike", sfx: "MagicSlash", school: "Conjure", manacost: 6, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 1, delay: 1, power: 5, bind: 9, range: 3.5, size: 3, aoe: 1.5, lifetime: 1, damage: "chain", playerEffect: {name: "MagicRope", time: 4}},
 		//{name: "Constrict", sfx: "FireSpell", school: "Conjure", manacost: 3, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 1, boundBonus: 1, power: 4, bind: 4, range: 3.5, size: 1, aoe: 0.75, lifetime: 1, damage: "chain", playerEffect: {name: "MagicRope", time: 4}},
 		{name: "Slime", landsfx: "MagicSlash", school: "Conjure", manacost: 8, components: ["Legs"], level:1, type:"inert", onhit:"lingering", time: 4, delay: 1, range: 4, size: 3, aoe: 2, lifetime: 3, power: 4, lifetimeHitBonus: 20, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!

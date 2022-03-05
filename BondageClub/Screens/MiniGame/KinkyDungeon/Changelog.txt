@@ -677,6 +677,7 @@ Spell Balance:
 - Hearts now restore 24 stamina and mana if you pick them up and have max stats
 - Rope snare now stuns for 8 turns but applies 20 bind damage
 - New spell: Forbidden Rope
+- New spell: Summon gags
 
 TODO ValidationFindBlockCycles to prevent bugs
 

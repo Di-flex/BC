@@ -2407,6 +2407,11 @@ KinkyDungeonSpellDescriptionRopeStrike,Abyssal ropes deal DamageDealt chain dama
 KinkyDungeonSpellCastRopeStrike,You call forth ropes from the abyss!
 KinkyDungeonSpellTargetRopeStrike,Select center of a a 3x3 AoE
 
+KinkyDungeonSpellSummonGag,Conjure Gags
+KinkyDungeonSpellDescriptionSummonGag,Summons 3 gags which will seek out nearby targets, each dealing 5 chain damage and silencing for 7 turns.
+KinkyDungeonSpellCastSummonGag,You release a bunch of gags from your satchel!
+KinkyDungeonSpellTargetSummonGag,The gags will appear around you.
+
 KinkyDungeonSpellFlash,Lesser Flash
 KinkyDungeonSpellFlashBomb,Flash Bomb
 KinkyDungeonSpellMirrorImage,Mirror Image
