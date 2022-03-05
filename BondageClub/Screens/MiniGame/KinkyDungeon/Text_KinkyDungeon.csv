@@ -407,6 +407,9 @@ KinkyDungeonInventoryItemFeatherDesc2,"Deals tickle damage (50% effectiveness vs
 KinkyDungeonInventoryItemIceCube,Ice Cube
 KinkyDungeonInventoryItemIceCubeDesc,"A magical cube of ice that never melts. Convenient!"
 KinkyDungeonInventoryItemIceCubeDesc2,"Deals 10 ice damage with a 10% chance to freeze for 3 turns."
+KinkyDungeonInventoryItemRope,Rope
+KinkyDungeonInventoryItemRopeDesc,"A kidnapper's most versatile tool."
+KinkyDungeonInventoryItemRopeDesc2,"Deals 5 chain damage and applies 4 points of binding."
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with."
@@ -2146,6 +2149,7 @@ ItemPickupBoltCutters,"You pick up a set of bolt cutters."
 ItemPickupSword,"You pick up a sharp sword."
 ItemPickupVibeWand,"You pick up a 'magic' wand..."
 ItemPickupIceCube,"You pick up a magical ice cube."
+ItemPickupRope,"You find some treated hemp rope."
 ItemPickupFeather,"You pick up a feather."
 ItemPickupFlail,"You pick up a heavy flail."
 ItemPickupSpear,"You pick up a shortspear."

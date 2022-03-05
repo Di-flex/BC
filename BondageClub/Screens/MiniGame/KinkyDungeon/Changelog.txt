@@ -678,6 +678,7 @@ Spell Balance:
 - Rope snare now stuns for 8 turns but applies 20 bind damage
 - New spell: Forbidden Rope
 - New spell: Summon gags
+- Added Rope weapon
 
 TODO ValidationFindBlockCycles to prevent bugs
 

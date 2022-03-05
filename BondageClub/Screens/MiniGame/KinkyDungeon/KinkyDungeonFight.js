@@ -29,6 +29,7 @@ let KinkyDungeonWeapons = {
 	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
 	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", tease: true, unarmed: false, rarity: 1, shop: true, sfx: "Freeze",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
+	"Rope": {name: "Rope", dmg: 0.5, bind: 4, chance: 1.0, staminacost: 0.5, type: "chain", unarmed: false, rarity: 1, shop: true, sfx: "Struggle"},
 	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.15, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
@@ -325,7 +326,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 
 		if (KinkyDungeonHalfDamageTypes.includes(Damage.type) && resistDamage >= 0) predata.dmg *= 0.5;
-		if (Enemy.boundLevel > 0 && KinkyDungeonTeaseDamageTypes.includes(Damage.type)) {
+		if (Enemy.boundLevel > 0 && (KinkyDungeonTeaseDamageTypes.includes(Damage.type) || Damage.tease)) {
 			let eff = KDBoundEffects(Enemy);
 			let mult = 1.0;
 			if (eff > 0) {
