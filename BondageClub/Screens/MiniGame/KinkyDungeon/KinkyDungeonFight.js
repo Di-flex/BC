@@ -377,7 +377,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
 			if (Damage && Damage.damage)
 				KinkyDungeonSendFloater(Enemy, Math.round(Math.min(dmgDealt, Enemy.hp)*10), "#ff4444");
-			forceKill = Enemy.hp <= Enemy.Enemy.maxhp*0.1;
+			forceKill = Enemy.hp <= Enemy.Enemy.maxhp*0.1 || Enemy.hp < 1;
 			Enemy.hp -= dmgDealt;
 			if (dmgDealt > 0) Enemy.revealed = true;
 		}
@@ -422,7 +422,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
-			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.01;
+			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.51;
 		}
 		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "frost" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;

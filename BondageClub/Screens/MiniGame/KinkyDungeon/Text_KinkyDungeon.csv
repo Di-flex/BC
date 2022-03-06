@@ -909,6 +909,11 @@ KillGag,"The gag buckles itself in place and falls."
 AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
 AttackGag,"The gravitating gag rubs itself against you! (-DamageTaken SP)"
 
+NamePlayerGag,Conjured Gag
+KillPlayerGag,"The conjured gag buckles itself in place and falls."
+AttackPlayerGagBind,"The gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
+AttackPlayerGag,"The gag rubs itself against you! (-DamageTaken SP)"
+
 NameLearnedRope,Learned Rope
 KillLearnedRope,"The learned rope untangles into a mess of rope."
 AttackLearnedRopeBind,"The magic rope wraps itself intricately around your body! (+RestraintAdded)"
@@ -2596,6 +2601,7 @@ KinkyDungeonSpellSummonSkeleton,Summon Skeleton
 KinkyDungeonSpellSummonSkeletons,Mass Summon Skeleton
 KinkyDungeonSummonSingleSummonedSkeleton,A skeleton arises from bones on the floor!
 KinkyDungeonSummonMultiSummonedSkeleton,A gang of SummonCount skeletons forms around you!
+KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!

@@ -9,7 +9,7 @@ let KinkyDungeonEnemies = [
 	{name: "Ally", tags: KDMapInit(["ghost", "player", "melee"]), keepLevel: true, noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 0.33, accuracy: 1.5,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "PlayerGag", tags: KDMapInit(["construct", "player", "melee"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "guard", accuracy: 1.5,
+	{name: "PlayerGag", tags: KDMapInit(["construct", "player", "melee"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "guard", accuracy: 1.5, noTargetSilenced: true,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 4, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWillSilenceSuicide", silenceTime: 8, attackRange: 1, attackWidth: 1, power: 5, dmgType: "chain",
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "ShadowWarrior", tags: KDMapInit(["ghost", "player", "melee", "tickleimmune", "glueimmune"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "hunt", evasion: 1,
@@ -686,6 +686,7 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy) {
 		let nearestDistance = !enemy.Enemy.allied ? pdist - 0.1 : 100000;
 
 		for (let e of KinkyDungeonEntities) {
+			if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
 			if ((e.Enemy && e.Enemy.allied && !e.Enemy.noattack && (!enemy.Enemy || !enemy.Enemy.allied)) || (enemy.Enemy.allied && !e.Enemy.allied) || (enemy.rage && enemy != e)) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
 					+ (e.y - enemy.y)*(e.y - enemy.y));
@@ -821,6 +822,12 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 				}
 				if (enemy.stun > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
+				if (enemy.silence) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Silence.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
