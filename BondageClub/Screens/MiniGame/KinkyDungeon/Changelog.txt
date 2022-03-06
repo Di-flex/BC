@@ -680,6 +680,11 @@ Spell Balance:
 - New spell: Summon gags
 - Added Rope weapon
 
+2.7.5
+- Base arousal decay, vibrator arousal amounts were halved
+- Wearing chastity now halves your base arousal decay
+- Unchaste now lowers it even further to 25% of base
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

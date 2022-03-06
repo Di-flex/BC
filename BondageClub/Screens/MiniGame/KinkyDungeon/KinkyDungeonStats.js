@@ -10,9 +10,11 @@ let KinkyDungeonStatArousalMax = 36;
 let KinkyDungeonArousalUnlockSuccessMod = 0.5; // Determines how much harder it is to insert a key while aroused. 1.0 is half success chance, 2.0 is one-third, etc.
 let KinkyDungeonStatArousal = 0;
 let KinkyDungeonCrotchRopeArousal = 0.5;
-let KinkyDungeonStatArousalRegen = -0.5;
-let KinkyDungeonStatArousalRegenPerUpgrade = -0.1;
-let KDUnchasteMult = 0.5;
+let KinkyDungeonStatArousalRegen = -0.25;
+let KinkyDungeonStatArousalRegenPerUpgrade = -0.05;
+let KDNoUnchasteBraMult = 0.75;
+let KDNoUnchasteMult = 0.5;
+let KDUnchasteMult = 0.25;
 let KDPurityAmount = 0.25;
 let KDDistractedAmount = 0.15;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal
@@ -20,7 +22,7 @@ let KinkyDungeonStatArousalMiscastChance = 0.6; // Miscast chance at max arousal
 let KinkyDungeonMiscastChance = 0;
 let KinkyDungeonVibeLevel = 0;
 let KinkyDungeonOrgasmVibeLevel = 0;
-let KinkyDungeonArousalPerVibe = 1; // How much arousal per turn per vibe energy cost
+let KinkyDungeonArousalPerVibe = 0.5; // How much arousal per turn per vibe energy cost
 let KinkyDungeonArousalPerPlug = 0.25; // How much arousal per move per plug level
 let KinkyDungeonVibeCostPerIntensity = 0.15;
 
@@ -305,11 +307,12 @@ function KinkyDungeonSetMaxStats() {
 	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
-		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
+		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 8;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
 		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2") KinkyDungeonSpellChoiceCount += 1;
 		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 1;
 		if (s.name == "APUp1" || s.name == "APUp2" || s.name == "APUp3") {
+			KinkyDungeonStatStaminaMax += 4;
 			KinkyDungeonStatArousalMax += 12;
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;
 		}
@@ -341,7 +344,8 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
 
-	let arousalRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatArousalRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult : 1.0) : 0) : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
+	let arousalRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatArousalRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
+		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0) : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
 	if (KinkyDungeonStatsChoice.get("Purity")) {
 		arousalRate -= KDPurityAmount;
 	}
