@@ -1068,7 +1068,11 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 		KinkyDungeonEntities.splice(E, 1);
 		if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
 
-			KinkyDungeonSendActionMessage(1, TextGet("Kill"+enemy.Enemy.name), "orange", 1);
+			if (enemy.boundLevel >= enemy.hp) {
+				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+			} else {
+				KinkyDungeonSendActionMessage(1, TextGet("Kill"+enemy.Enemy.name), "orange", 1);
+			}
 
 			KinkyDungeonKilledEnemy = null;
 		}
