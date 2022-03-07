@@ -684,6 +684,9 @@ Spell Balance:
 - Base arousal decay, vibrator arousal amounts were halved
 - Wearing chastity now halves your base arousal decay
 - Unchaste now lowers it even further to 25% of base
+- Lockpicks and knives no longer appear in rubble if you have more than 3
+- Enemies are vulnerable when they miss you or when you are behind them and take extra damage
+- Enemies steal knives and picks from you now if they can bind and are humanoid (bindable)
 
 TODO ValidationFindBlockCycles to prevent bugs
 

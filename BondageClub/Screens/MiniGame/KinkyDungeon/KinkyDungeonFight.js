@@ -9,6 +9,8 @@ let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
 let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
 let KinkyDungeonBulletsID = {}; // Bullets on the game board
+let KDVulnerableDmg = 1.0;
+let KDVulnerableHitMult = 1.33;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
@@ -200,7 +202,8 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	if (Enemy && Enemy.slow > 0) hitChance *= 2;
 	if (Enemy && (Enemy.stun > 0 || Enemy.freeze > 0)) hitChance *= 5;
 	if (Enemy && Enemy.bind > 0) hitChance *= 3;
-	if (Enemy) hitChance += 0.25 * KDBoundEffects(Enemy);
+	if (Enemy) hitChance *= 1 + 0.25 * KDBoundEffects(Enemy);
+	if (Enemy && Enemy.vulnerable) hitChance *= KDVulnerableHitMult;
 
 	if (!IsSpell) {
 		if (flags.KDEvasionSight)
@@ -535,8 +538,14 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		eva: !disarm && evaded,
 		Damage: Damage,
 		buffdmg: buffdmg,
+		vulnerable: Enemy.vulnerable,
 	};
 	KinkyDungeonSendEvent("beforePlayerAttack", predata);
+
+	if (predata.vulnerable && (predata.eva)) {
+		dmg.damage = Math.max(0, dmg.damage + KDVulnerableDmg);
+		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonVulnerable"), "lightgreen", 2);
+	}
 
 	if (predata.buffdmg) dmg.damage = Math.max(0, dmg.damage + predata.buffdmg);
 

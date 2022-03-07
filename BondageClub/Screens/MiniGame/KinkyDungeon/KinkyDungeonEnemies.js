@@ -820,6 +820,12 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
+				if (enemy.vulnerable) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Vulnerable.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
 				if (enemy.stun > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Stun.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -1242,6 +1248,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
+		if (enemy.vulnerable) enemy.vulnerable = false;
 		if (!(KDGameData.KinkyDungeonPenance && KinkyDungeonAngel()) || enemy == KinkyDungeonAngel()) {
 			// Delete the enemy
 			if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
@@ -1328,6 +1335,15 @@ function KinkyDungeonUpdateEnemies(delta) {
 				if (enemy.lifetime == undefined) enemy.lifetime = enemy.Enemy.lifespan;
 				enemy.lifetime -= delta;
 				if (enemy.lifetime <= 0) enemy.hp = -10000;
+			}
+		}
+	}
+	// vulnerability calc
+	for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
+		let enemy = KinkyDungeonEntities[i];
+		if (!enemy.Enemy.allied) {
+			if (enemy.fx && enemy.fy) {
+				if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = true;
 			}
 		}
 	}
@@ -1635,8 +1651,19 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			if (enemy.warningTiles.length == 0 || (refreshWarningTiles && enemy.usingSpecial)) {
 				let minrange = enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1;
 				if (enemy.usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
-				if ((!enemy.usingSpecial && enemy.attackPoints > 0) || enemy.specialCD < 1)
+				if ((!enemy.usingSpecial && enemy.attackPoints > 0) || enemy.specialCD < 1) {
+					enemy.fx = undefined;
+					enemy.fy = undefined;
 					enemy.warningTiles = KinkyDungeonGetWarningTiles(player.x - enemy.x, player.y - enemy.y, range, width, minrange);
+					let playerIn = false;
+					for (let tile of enemy.warningTiles) {
+						if (KinkyDungeonPlayerEntity.x == enemy.x + tile.x && KinkyDungeonPlayerEntity.y == enemy.y + tile.y) {playerIn = true; break;}
+					}
+					if (!playerIn) {
+						enemy.fx = player.x;
+						enemy.fy = player.y;
+					}
+				}
 				if (refreshWarningTiles && enemy.usingSpecial) enemy.attackPoints = Math.min(enemy.attackPoints, delta);
 			} else {
 				let playerIn = false;
@@ -1723,6 +1750,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (player.player) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+					enemy.vulnerable = true;
 				}
 				hit = false;
 			}
@@ -1783,6 +1811,16 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 							willpowerDamage += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 						}
 					}
+				}
+				if (attack.includes("Bind") && enemy.Enemy.bound && (KinkyDungeonLockpicks > 0 || KinkyDungeonNormalBlades > 0)) {
+					if (KinkyDungeonNormalBlades > 0 && (KinkyDungeonLockpicks == 0 || KDRandom() < 0.5)) {
+						KinkyDungeonNormalBlades -= 1;
+						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealKnife"), "yellow", 2);
+					} else if (KinkyDungeonLockpicks > 0) {
+						KinkyDungeonLockpicks -= 1;
+						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealPick"), "yellow", 2);
+					}
+					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
 				}
 
 				if (attack.includes("Suicide")) {
@@ -2081,6 +2119,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			} else {
 				let sfx = (enemy.Enemy && enemy.Enemy.misssfx) ? enemy.Enemy.misssfx : "Miss";
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
+				enemy.vulnerable = true;
 			}
 
 			KinkyDungeonTickBuffTag(enemy.buffs, "damage", 1);
