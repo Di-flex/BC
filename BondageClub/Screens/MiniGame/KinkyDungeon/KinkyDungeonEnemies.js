@@ -606,7 +606,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4, "dressmaker": 20, "conjureAnger": 5, "conjureRage": 4}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure"],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
-	{name: "Mummy", bound: "Mummy", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "elite", "mummyRestraints", "coldresist", "fireweakness", "meleeweakness", "hunter"]), followLeashedOnly: true, followRange: 1,
+	{name: "Mummy", nopickpocket: true, bound: "Mummy", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "elite", "mummyRestraints", "coldresist", "fireweakness", "meleeweakness", "hunter"]), followLeashedOnly: true, followRange: 1,
 		spells: ["MummyBolt"], minSpellRange: 1.5, specialCD: 3, specialAttack: "Bind", spellCooldownMult: 1, spellCooldownMod: 5, spellRdy: true,
 		AI: "hunt", visionRadius: 7, maxhp: 8, minLevel:5, weight:18, movePoints: 2, attackPoints: 1, attack: "SpellMeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 1, dmgType: "crush",
 		terrainTags: {"secondhalf":2, "lastthird":4, "open": 2, "increasingWeight":1}, floors:KDMapInit([11]), shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "PotionStamina", weight: 1}, {name: "RedKey", weight: 1}]},
@@ -1490,7 +1490,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (!enemy.warningTiles) enemy.warningTiles = [];
 	let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, true, true);
 	let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, false);
-	let canSeePlayerMedium = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/1.5, false, true);
+	let canSeePlayerMedium = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/1.4, false, true);
 	let canSeePlayerClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/2, false, true);
 	let canSeePlayerVeryClose = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius/3, false, true);
 	let canShootPlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, enemy.Enemy.visionRadius, false, true);
@@ -1514,8 +1514,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	}
 
 	let sneakMult = 0.25;
-	if (canSeePlayerMedium) sneakMult += 0.35;
-	if (canSeePlayerClose) sneakMult += 0.35;
+	if (canSeePlayerMedium) sneakMult += 0.45;
+	if (canSeePlayerClose) sneakMult += 0.25;
 	if (canSeePlayerVeryClose) sneakMult += 0.5;
 	if (KinkyDungeonAlert > 0) sneakMult += 1;
 	if ((canSensePlayer || canSeePlayer || canShootPlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) enemy.aware = true;
@@ -1846,7 +1846,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						}
 					}
 				}
-				if (attack.includes("Bind") && player.player && enemy.Enemy.bound && (KinkyDungeonLockpicks > 0 || KinkyDungeonNormalBlades > 0)) {
+				if (attack.includes("Bind") && !enemy.Enemy.nopickpocket && player.player && enemy.Enemy.bound && (KinkyDungeonLockpicks > 0 || KinkyDungeonNormalBlades > 0)) {
 					if (KinkyDungeonNormalBlades > 0 && (KinkyDungeonLockpicks == 0 || KDRandom() < 0.5)) {
 						KinkyDungeonNormalBlades -= 1;
 						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealKnife"), "yellow", 2);
