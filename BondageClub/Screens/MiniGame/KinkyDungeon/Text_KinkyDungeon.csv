@@ -2518,7 +2518,7 @@ KinkyDungeonSpellStormCrystal,Storm Crystal
 KinkyDungeonSpellTargetStormCrystal,Select where to put the storm crystal (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionStormCrystal,Create a stationary crystal that casts Crackle on nearby targets for Duration turns
 KinkyDungeonSummonSingleStormCrystal,A crackling crystal emerges from the ground!
-KinkyDungeonCastSpellStormCrystal,You stomp and the ground shakes!
+KinkyDungeonSpellCastStormCrystal,You stomp and the ground shakes!
 
 KinkyDungeonSpellFireElemental,Fire Elemental
 KinkyDungeonSpellTargetFireElemental,Select where to put the fire elemental (cannot place on occupied squares)
@@ -2531,6 +2531,8 @@ KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (can
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
 KinkyDungeonSummonSingleShadowWarrior,...and the abyss answers!
 KinkyDungeonSpellCastShadowWarrior,You call...
+
+
 
 
 

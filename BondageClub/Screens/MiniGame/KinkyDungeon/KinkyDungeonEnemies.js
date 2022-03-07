@@ -1077,8 +1077,8 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 			} else {
-				if (!KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2))
-					KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
+				if (!KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2))
+					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
 			}
 		} else {
 			if (enemy.knives || enemy.picks) {
@@ -1846,7 +1846,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						}
 					}
 				}
-				if (attack.includes("Bind") && enemy.Enemy.bound && (KinkyDungeonLockpicks > 0 || KinkyDungeonNormalBlades > 0)) {
+				if (attack.includes("Bind") && player.player && enemy.Enemy.bound && (KinkyDungeonLockpicks > 0 || KinkyDungeonNormalBlades > 0)) {
 					if (KinkyDungeonNormalBlades > 0 && (KinkyDungeonLockpicks == 0 || KDRandom() < 0.5)) {
 						KinkyDungeonNormalBlades -= 1;
 						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealKnife"), "yellow", 2);
