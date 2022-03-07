@@ -318,14 +318,14 @@ let KinkyDungeonEnemies = [
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 7, maxhp: 9, minLevel:0, weight:4, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":7, "thirdhalf":5}, shrines: ["Leather"], floors:KDMapInit([2]),
-		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "SmokeBomb", weight: 7}]},
+		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 1}, {name: "SmokeBomb", weight: 7}]},
 	{name: "BanditGrappler", bound: "Bandit", color: "#ddcaaa",
 		tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "melee", "elite", "unflinching", "chainRestraints", "handcuffer","leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "hunter"]),
 		ignorechance: 0, armor: 1, followRange: 1, AI: "hunt",
 		specialCD: 10, specialAttack: "Pull", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialsfx: "Chain", specialWidth: 1, specialRemove: "Bind", pullDist: 3, pullTowardSelf: true,
 		visionRadius: 7, maxhp: 10, minLevel:0, weight:1, movePoints: 3, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 2, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":10, "thirdhalf":1}, shrines: ["Leather", "Metal"], floors:KDMapInit([2]),
-		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 2}, {name: "PotionStamina", weight: 1}]},
+		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 1}, {name: "PotionStamina", weight: 1}]},
 
 
 
@@ -1066,15 +1066,37 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0 || (enemy.hp <= 0.5 && enemy.Enemy && enemy.Enemy.maxhp > 3)) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
-
-			if (enemy.boundLevel >= enemy.hp) {
-				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+		if (enemy.boundLevel >= enemy.hp) {
+			if (enemy.knives || enemy.picks) {
+				for (let i = 0; i < enemy.knives; i++) {
+					let item = {x:enemy.x, y:enemy.y, name: "Knife"};
+					KinkyDungeonGroundItems.push(item);
+				}
+				for (let i = 0; i < enemy.picks; i++) {
+					let item = {x:enemy.x, y:enemy.y, name: "Pick"};
+					KinkyDungeonGroundItems.push(item);
+				}
 			} else {
-				KinkyDungeonSendActionMessage(1, TextGet("Kill"+enemy.Enemy.name), "orange", 1);
+				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
 			}
-
-			KinkyDungeonKilledEnemy = null;
+		} else {
+			if (enemy.knives || enemy.picks) {
+				//if (KDRandom() < 0.5) {
+				for (let i = 0; i < enemy.knives; i++) {
+					let item = {x:enemy.x, y:enemy.y, name: "Knife"};
+					KinkyDungeonGroundItems.push(item);
+				}
+				for (let i = 0; i < enemy.picks; i++) {
+					let item = {x:enemy.x, y:enemy.y, name: "Pick"};
+					KinkyDungeonGroundItems.push(item);
+				}
+				//} else {
+				//	KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStealBackFail").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
+				//}
+			} else if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
+				KinkyDungeonSendActionMessage(1, TextGet("Kill"+enemy.Enemy.name), "orange", 2);
+				KinkyDungeonKilledEnemy = null;
+			}
 		}
 		if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
 			KinkyDungeonChangeRep("Ghost", -5);
@@ -1820,9 +1842,13 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (KinkyDungeonNormalBlades > 0 && (KinkyDungeonLockpicks == 0 || KDRandom() < 0.5)) {
 						KinkyDungeonNormalBlades -= 1;
 						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealKnife"), "yellow", 2);
+						if (!enemy.knives) enemy.knives = 1;
+						else enemy.knives += 1;
 					} else if (KinkyDungeonLockpicks > 0) {
 						KinkyDungeonLockpicks -= 1;
 						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealPick"), "yellow", 2);
+						if (!enemy.picks) enemy.picks = 1;
+						else enemy.picks += 1;
 					}
 					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
 				}

@@ -3177,6 +3177,8 @@ KinkyDungeonHeartMana,"+12 Max Mana"
 KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!
 KinkyDungeonStealPick,The enemy steals a pick from you!
 KinkyDungeonStealKnife,The enemy steals a knife from you!
+KinkyDungeonStealBack,You get your stolen items back.
+KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 
 KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName.
