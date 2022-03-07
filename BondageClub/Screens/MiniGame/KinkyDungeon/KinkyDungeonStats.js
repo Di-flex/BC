@@ -129,6 +129,7 @@ function KinkyDungeonDefaultStats() {
 	KDGameData.KinkyDungeonSpawnJailersMax = 0;
 	KinkyDungeonGold = 0;
 	KinkyDungeonLockpicks = 1;
+	if (KinkyDungeonDifficultyMode == 2) KinkyDungeonLockpicks = 0;
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonNormalBlades = 1;
