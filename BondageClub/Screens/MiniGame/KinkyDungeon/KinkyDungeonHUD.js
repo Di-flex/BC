@@ -34,7 +34,7 @@ let KinkyDungeonDrawDelta = 0;
 const KinkyDungeonLastChatTimeout = 10000;
 
 let KinkyDungeonStatBarHeight = 100;
-let KinkyDungeonToggleAutoDoor = true;
+let KinkyDungeonToggleAutoDoor = false;
 
 let KinkyDungeonFastMove = true;
 let KinkyDungeonFastMovePath = [];
@@ -227,7 +227,7 @@ function KinkyDungeonDrawInputs() {
 			}
 		}
 	} else {
-		DrawButton(1120, 935, 165, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), "#AAAAAA");
+		DrawButton(1120, 935, 165, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
 	}
 
 	DrawButton(650, 925, 165, 60, TextGet("KinkyDungeonInventory"), "White", "", "");
@@ -480,6 +480,7 @@ function KinkyDungeonHandleHUD() {
 					let y = KinkyDungeonTargetTileLocation.split(',')[1];
 					KinkyDungeonMapSet(parseInt(x), parseInt(y), "D");
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorClose.ogg");
+					KinkyDungeonToggleAutoDoor = false;
 					KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCloseDoorDone"), "white", 2);
 					KinkyDungeonAdvanceTime(1, true);
 					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
@@ -489,7 +490,6 @@ function KinkyDungeonHandleHUD() {
 		} else {
 			if (MouseIn(1120, 935, 165, 50)) {
 				KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor;
-				if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 0;
 				return true;
 			}
 		}

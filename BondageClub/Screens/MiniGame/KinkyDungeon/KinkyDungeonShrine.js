@@ -156,7 +156,7 @@ function KinkyDungeonPayShrine(type) {
 		}
 
 	} else if (type == "Will") {
-		rep = Math.ceil(KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax + KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
+		rep = Math.ceil(5 - KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax - KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 		KinkyDungeonStatArousal = 0;
@@ -441,7 +441,7 @@ function KinkyDungeonTakeOrb(Amount, X, Y) {
 function KinkyDungeonDrawOrb() {
 
 	MainCanvas.textAlign = "center";
-	DrawText(TextGet("KinkyDungeonOrbIntro"), 1250, 200, "white", "silver");
+	DrawText(TextGet("KinkyDungeonOrbIntro" + (KinkyDungeonDifficultyMode == 2 ? "Kinky" : "")), 1250, 200, "white", "silver");
 	DrawText(TextGet("KinkyDungeonOrbIntro2"), 1250, 250, "white", "silver");
 	let i = 0;
 	let maxY = 560;
@@ -502,7 +502,46 @@ function KinkyDungeonHandleOrb() {
 						KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
 					}
 					KinkyDungeonChangeRep(shrine, Amount * -10);
-					KinkyDungeonSpellPoints += Amount;
+					if (KinkyDungeonDifficultyMode == 2) {
+						let spell = null;
+						let spellList = [];
+						let maxSpellLevel = 4;
+						for (let S = 0; S < KinkyDungeonSpellList.Conjure.length; S++) {
+							if (KinkyDungeonSpellList.Conjure[S].level <= KinkyDungeonSpellLevel.Conjure && KinkyDungeonSpellList.Conjure[S].school == "Conjure" && !KinkyDungeonSpellList.Conjure[S].secret) {
+								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Conjure[S].level; iii++)
+									spellList.push(KinkyDungeonSpellList.Conjure[S]);
+							}
+						}
+						for (let S = 0; S < KinkyDungeonSpellList.Elements.length; S++) {
+							if (KinkyDungeonSpellList.Elements[S].level <= KinkyDungeonSpellLevel.Elements && KinkyDungeonSpellList.Elements[S].school == "Elements" && !KinkyDungeonSpellList.Elements[S].secret) {
+								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Elements[S].level; iii++)
+									spellList.push(KinkyDungeonSpellList.Elements[S]);
+							}
+						}
+						for (let S = 0; S < KinkyDungeonSpellList.Illusion.length; S++) {
+							if (KinkyDungeonSpellList.Illusion[S].level <= KinkyDungeonSpellLevel.Illusion && KinkyDungeonSpellList.Illusion[S].school == "Illusion" && !KinkyDungeonSpellList.Illusion[S].secret) {
+								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Illusion[S].level; iii++)
+									spellList.push(KinkyDungeonSpellList.Illusion[S]);
+							}
+						}
+
+						for (let SS = 0; SS < KinkyDungeonSpells.length; SS++) {
+							for (let S = 0; S < spellList.length; S++) {
+								if (KinkyDungeonSpells[SS].name == spellList[S].name) {
+									spellList.splice(S, 1);
+								}
+							}
+						}
+
+						spell = spellList[Math.floor(KDRandom() * spellList.length)];
+
+						if (spell) {
+							KinkyDungeonSpells.push(spell);
+							KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonOrbSpell").replace("SPELL", TextGet("KinkyDungeonSpell" + spell.name)), "lightblue", 2);
+						}
+					} else {
+						KinkyDungeonSpellPoints += Amount;
+					}
 					KinkyDungeonMapSet(KDOrbX, KDOrbY, 'o');
 				}
 

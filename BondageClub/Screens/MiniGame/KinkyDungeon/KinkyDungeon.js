@@ -410,6 +410,7 @@ function KinkyDungeonRun() {
 		DrawText(TextGet("KinkyDungeonDifficulty"), 1250, 300, "white", "silver");
 		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
 		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
+		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
@@ -489,7 +490,6 @@ function KinkyDungeonRun() {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				if (KinkyDungeonFastMovePath.length > 0) {
 					let next = KinkyDungeonFastMovePath[0];
-					KinkyDungeonDoorCloseTimer = 1;
 					KinkyDungeonFastMovePath.splice(0, 1);
 					if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
 						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, true);
@@ -613,6 +613,9 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(875, 550, 750, 64)) {
 			KinkyDungeonDifficultyMode = 1;
+			KinkyDungeonStartNewGame();
+		} else if (MouseIn(875, 650, 750, 64)) {
+			KinkyDungeonDifficultyMode = 2;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";

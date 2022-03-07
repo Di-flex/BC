@@ -88,7 +88,7 @@ KinkyDungeonStatDesc23,"Ancient power cores break with use, and cannot be rechar
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
 KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
-KinkyDungeonDifficulty2,Kinky: Same as roguelike, but you are even more helpless
+KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start with 1 spell point"
 
 KinkyDungeonLog,Log
 
@@ -1251,8 +1251,8 @@ KinkyDungeonDropRedKey,"You drop the key due to your bound hands!"
 KinkyDungeonDropBlueKey,"You drop the magic key due to your bound hands!"
 KinkyDungeonDropGreenKey,"You drop the magic key due to your bound hands!"
 
-KinkyDungeonAutoDoorOn,"Close Doors: ON"
-KinkyDungeonAutoDoorOff,"Close Doors: OFF"
+KinkyDungeonAutoDoorOn,"Closing a door..."
+KinkyDungeonAutoDoorOff,"Close a door"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonPickDoor,"Pick"
@@ -2910,6 +2910,7 @@ KinkyDungeonTrapSpawnMaidforceHead,"The Head Maid corners you!"
 KinkyDungeonTrapCustomVine,"A vine crawls from the ground, already wrapping around your feet!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb, gaining a Spell Point and angering a goddess."
+KinkyDungeonOrbIntroKinky,"You have broken a magic orb, gaining a random spell and angering a goddess."
 KinkyDungeonOrbIntro2,"Choose one. She will send her minions after you."
 
 KinkyDungeonFreeze,You are frozen!
@@ -3176,3 +3177,5 @@ KinkyDungeonHeartMana,"+12 Max Mana"
 KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra 10 damage!
 KinkyDungeonStealPick,The enemy steals a pick from you!
 KinkyDungeonStealKnife,The enemy steals a knife from you!
+
+KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.

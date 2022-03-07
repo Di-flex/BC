@@ -81,8 +81,6 @@ const KinkyDungeonGoldLockChance = -0.25; // Chance that a blue lock is replaced
 const KinkyDungeonGoldLockChanceScaling = 0.01;
 const KinkyDungeonGoldLockChanceScalingMax = 0.25;
 
-let KinkyDungeonDoorShutTimer = 6;
-
 const KinkyDungeonEasyLockChance = 0.8;
 const KinkyDungeonEasyLockChanceScaling = -0.007;
 const KinkyDungeonEasyLockChanceScalingMax = 1.0;
@@ -101,8 +99,6 @@ let KinkyDungeonNextDataSendStatsTime = 0;
 let KinkyDungeonNextDataLastTimeReceived = 0;
 let KinkyDungeonNextDataLastTimeReceivedTimeout = 15000; // Clear data if more than 15 seconds of no data received
 
-
-let KinkyDungeonDoorCloseTimer = 0;
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
@@ -1713,7 +1709,7 @@ function KinkyDungeonListenKeyMove() {
 		}
 	}
 	if (KinkyDungeonLastMoveTimerStart < performance.now() && KinkyDungeonLastMoveTimer == 0) KinkyDungeonLastMoveTimerStart = 0;
-	if (!KinkyDungeonGameKey.keyPressed.some((element)=>{return element;})) { KinkyDungeonLastMoveTimer = 0; KinkyDungeonDoorCloseTimer = 0;}
+	if (!KinkyDungeonGameKey.keyPressed.some((element)=>{return element;})) { KinkyDungeonLastMoveTimer = 0;}
 }
 
 function KinkyDungeonGameKeyDown() {
@@ -1829,28 +1825,20 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			}
 		}
 	} else {
-		if (moveDirection.x == 0 && moveDirection.y == 0) KinkyDungeonDoorCloseTimer = 0; // Allow manually waiting to turn around and be able to slam a door
-		else if (KinkyDungeonLastMoveDirection && !(KinkyDungeonLastMoveDirection.x == 0 && KinkyDungeonLastMoveDirection.y == 0) && (Math.abs(KinkyDungeonLastMoveDirection.x - moveDirection.x) + Math.abs(KinkyDungeonLastMoveDirection.y - moveDirection.y)) <= 1) {
-			KinkyDungeonDoorCloseTimer = Math.max(KinkyDungeonDoorCloseTimer, 1); // if you are running in the same direction you cant close the door without turning around. this also helps speed up the game
-		}
-
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
 		if (KinkyDungeonMovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy.Enemy && Enemy.Enemy.noblockplayer))) { // If the player can move to an empy space or a door
 
 			KinkyDungeonConfirmAttack = false;
 
-			if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 1;
-			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
+			if (KinkyDungeonToggleAutoDoor && KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true))
 				|| (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Trap" && (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Door" || (KinkyDungeonTiles.get("" + moveX + "," + moveY).Lock && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type == "Door"))))) {
 				if (AllowInteract) {
 					KinkyDungeonTargetTileLocation = "" + moveX + "," + moveY;
 					KinkyDungeonTargetTile = KinkyDungeonTiles.get(KinkyDungeonTargetTileLocation);
 					KinkyDungeonTargetTileMsg();
-					KinkyDungeonDoorCloseTimer = 2; // To avoid cases with severe annoyance while walking through halls with lots of doors
 				}
 			} else if (moveX != KinkyDungeonPlayerEntity.x || moveY != KinkyDungeonPlayerEntity.y) {
 				let newDelta = 1;
-				if (KinkyDungeonDoorCloseTimer > 0) KinkyDungeonDoorCloseTimer -= 1;
 				KinkyDungeonTargetTile = null;
 				KinkyDungeonTargetTileLocation = "";
 				if (!KinkyDungeonHandleMoveObject(moveX, moveY, moveObject)) {// Move

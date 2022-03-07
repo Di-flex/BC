@@ -687,6 +687,7 @@ Spell Balance:
 - Lockpicks and knives no longer appear in rubble if you have more than 3
 - Enemies are vulnerable when they miss you or when you are behind them and take extra damage
 - Enemies steal knives and picks from you now if they can bind and are humanoid (bindable)
+- New Kinky mode which only gives random spells!
 
 TODO ValidationFindBlockCycles to prevent bugs
 
