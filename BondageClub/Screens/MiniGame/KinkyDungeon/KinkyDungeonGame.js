@@ -2030,6 +2030,10 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
 
 	KinkyDungeonUpdateTileEffects(delta);
+	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
+		let enemy = KinkyDungeonEntities[E];
+		if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
+	}
 
 	KinkyDungeonUpdateStats(delta);
 

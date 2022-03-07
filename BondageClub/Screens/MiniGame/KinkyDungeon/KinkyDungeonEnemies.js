@@ -576,7 +576,7 @@ let KinkyDungeonEnemies = [
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 6, maxhp: 15, minLevel:3, weight:14, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -7}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: [],
 		dropTable: [{name: "RedKey", weight: 9}, {name: "BlueKey", weight: 2}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
-	{name: "WitchChain", bound: "Witch", color: "#AAAAAA", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "melee", "elite", "miniboss", "unflinching", "electricweakness", "crushweakness", "meleeresist", "fireweakness", "hunter"]),
+	{name: "WitchChain", bound: "WitchChain", color: "#AAAAAA", tags: KDMapInit(["leashing", "opendoors", "closedoors", "witch", "melee", "elite", "miniboss", "unflinching", "electricweakness", "crushweakness", "meleeresist", "fireweakness", "hunter"]),
 		followRange: 1, spells: ["WitchChainBolt"], spellRdy: true,
 		spellCooldownMult: 2, spellCooldownMod: 2, AI: "hunt", visionRadius: 6, maxhp: 20, minLevel:5, weight:9, movePoints: 3, disarm: 0.33,
 		attackPoints: 4, attack: "MeleeLockAllWillSpell", attackWidth: 1, attackRange: 1, power: 4, dmgType: "grope",
@@ -1077,7 +1077,8 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 			} else {
-				KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
+				if (!KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2))
+					KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
 			}
 		} else {
 			if (enemy.knives || enemy.picks) {
