@@ -10,6 +10,7 @@ let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
 let KinkyDungeonBulletsID = {}; // Bullets on the game board
 let KDVulnerableDmg = 1.0;
+let KDVulnerableDmgMult = 1.2;
 let KDVulnerableHitMult = 1.33;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
@@ -543,8 +544,9 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	KinkyDungeonSendEvent("beforePlayerAttack", predata);
 
 	if (predata.vulnerable && (predata.eva)) {
-		dmg.damage = Math.max(0, dmg.damage + KDVulnerableDmg);
-		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonVulnerable"), "lightgreen", 2);
+		let dmgBonus = Math.max(KDVulnerableDmg, dmg.damage * KDVulnerableDmgMult);
+		dmg.damage = Math.max(0, dmg.damage + dmgBonus);
+		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonVulnerable").replace("AMOUNT", "" + Math.round(10 * dmgBonus)), "lightgreen", 2);
 	}
 
 	if (predata.buffdmg) dmg.damage = Math.max(0, dmg.damage + predata.buffdmg);

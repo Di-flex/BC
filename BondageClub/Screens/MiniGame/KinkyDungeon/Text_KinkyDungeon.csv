@@ -3174,7 +3174,7 @@ KinkyDungeonHeartArousal,"+12 Arousal, +4 Stamina"
 KinkyDungeonHeartStamina,"+8 Max Stamina"
 KinkyDungeonHeartMana,"+12 Max Mana"
 
-KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra 10 damage!
+KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!
 KinkyDungeonStealPick,The enemy steals a pick from you!
 KinkyDungeonStealKnife,The enemy steals a knife from you!
 
