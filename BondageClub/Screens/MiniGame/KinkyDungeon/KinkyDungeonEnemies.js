@@ -1359,7 +1359,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					if (sneak > 0)
 						enemy.vp = Math.max(sneakThreshold * 2, enemy.vp - 0.5);
 				}
-				enemy.vp = Math.max(0, enemy.vp - 0.1);
+				enemy.vp = Math.max(0, enemy.vp - 0.05);
 			}
 
 			// Delete the enemy
@@ -1392,7 +1392,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let moved = false;
 	let ignore = false;
 	let followRange = enemy.Enemy.followRange;
-	let chaseRadius = 3 + 2*Math.max(enemy.Enemy.visionRadius ? enemy.Enemy.visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
+	let chaseRadius = 3 + (Math.max(followRange * 2, 0)) + 2*Math.max(enemy.Enemy.visionRadius ? enemy.Enemy.visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 	let ignoreLocks = enemy.Enemy.keys;
 	let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
 	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 1.0;
