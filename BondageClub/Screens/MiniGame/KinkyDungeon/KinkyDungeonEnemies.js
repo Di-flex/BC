@@ -1333,6 +1333,13 @@ function KinkyDungeonUpdateEnemies(delta) {
 			} else {
 				let start = performance.now();
 				idle = KinkyDungeonEnemyLoop(enemy, player, delta);
+				if (enemy.knives || enemy.picks) {
+					let light = KinkyDungeonLightGet(enemy.x, enemy.y);
+					if (light == 0 && !enemy.aware && KDRandom() < 0.1) {
+						enemy.knives = 0;
+						enemy.picks = 0;
+					}
+				}
 				let end = performance.now();
 				if (KDDebug)
 					console.log(`Took ${end - start} milliseconds to run loop for enemy ${enemy.Enemy.name}`);
