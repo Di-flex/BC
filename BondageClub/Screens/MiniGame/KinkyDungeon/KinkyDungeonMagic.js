@@ -405,7 +405,7 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
-	if (KinkyDungeonDifficultyMode == 2) KinkyDungeonSpellPoints = 1;
+	if (KinkyDungeonDifficultyMode == 2) KinkyDungeonSpellPoints = 0;
 	KinkyDungeonSpellLevel = {
 		"Elements":1,
 		"Conjure":1,
