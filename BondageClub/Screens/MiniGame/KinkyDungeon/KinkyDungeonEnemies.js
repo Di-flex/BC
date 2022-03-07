@@ -1091,7 +1091,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 				//} else {
-				//	KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStealBackFail").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
+				//KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStealBackFail").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
 				//}
 			} else if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
 				KinkyDungeonSendActionMessage(1, TextGet("Kill"+enemy.Enemy.name), "orange", 2);
@@ -1335,7 +1335,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				idle = KinkyDungeonEnemyLoop(enemy, player, delta);
 				if (enemy.knives || enemy.picks) {
 					let light = KinkyDungeonLightGet(enemy.x, enemy.y);
-					if (light == 0 && !enemy.aware && KDRandom() < 0.1) {
+					if (light == 0 && !enemy.aware && KDRandom() < 0.2) {
 						enemy.knives = 0;
 						enemy.picks = 0;
 					}
