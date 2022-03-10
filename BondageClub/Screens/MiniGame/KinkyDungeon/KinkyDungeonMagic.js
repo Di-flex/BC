@@ -405,7 +405,11 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
-	if (KinkyDungeonDifficultyMode == 2) KinkyDungeonSpellPoints = 0;
+	if (KinkyDungeonDifficultyMode == 2) {
+		KinkyDungeonSpellPoints = 0;
+		KinkyDungeonSpells.push({name: "SpellChoiceUp1", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
+		KinkyDungeonSpells.push({name: "SpellChoiceUp2", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:5, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
+	}
 	KinkyDungeonSpellLevel = {
 		"Elements":1,
 		"Conjure":1,
