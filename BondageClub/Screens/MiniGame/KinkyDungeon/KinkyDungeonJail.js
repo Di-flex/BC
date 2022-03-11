@@ -244,7 +244,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let touchesPlayer = KinkyDungeonCheckLOS(KinkyDungeonJailGuard(), KinkyDungeonPlayerEntity, playerDist, 1.5, false, false);
 	if (touchesPlayer) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailTease") {
-			let playerHasVibrator = KinkyDungeonInventory.some(i => i.restraint && i.restraint.vibeType && i.restraint.vibeType.includes("Charging"));
+			let playerHasVibrator = KinkyDungeonInventory.get(Restraint).values().some(i => i.restraint && i.restraint.vibeType && i.restraint.vibeType.includes("Charging"));
 			if (playerHasVibrator) {
 				let extraCharge = Math.round(2 + level * KDRandom() * 0.2);
 				KinkyDungeonChargeRemoteVibrators(KinkyDungeonJailGuard().Enemy.name, extraCharge, true, false);
@@ -521,20 +521,21 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);
 	KinkyDungeonNormalBlades = 0;
 
-	let newInv = KinkyDungeonRestraintList();
+	let newInv = KinkyDungeonInventory.get(Restraint);
 	let HasBound = false;
 	let boundWeapons = [];
 	if (HasBound) {
 		// TODO add bound weapons here
 	}
 	KinkyDungeonAddLostItems(KinkyDungeonInventory, HasBound);
-	KinkyDungeonInventory = newInv;
+	KDInitInventory();
+	KinkyDungeonInventory.set(Restraint, newInv);
 	KinkyDungeonInventoryAddWeapon("Knife");
 	KDSetWeapon(null);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}
-	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("JailUniform")});
+	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventoryAdd({outfit: KinkyDungeonGetOutfit("JailUniform")});
 
 	//KinkyDungeonChangeRep("Ghost", 1 + Math.round(KinkyDungeonSpawnJailers/2));
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...

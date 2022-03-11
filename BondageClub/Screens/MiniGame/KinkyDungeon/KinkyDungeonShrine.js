@@ -4,7 +4,7 @@
  * Base costs for all the shrines. Starts at this value, increases thereafter
  * @type {Record<string, number>}
  */
-var KinkyDungeonShrineBaseCosts = {
+let KinkyDungeonShrineBaseCosts = {
 	//"Charms": 25,
 	"Leather": 40,
 	"Metal": 60,
@@ -22,7 +22,7 @@ let KinkyDungeonOrbAmount = 0;
  * Cost growth, overrides the default amount
  * @type {Record<string, number>}
  */
-var KinkyDungeonShrineBaseCostGrowth = {
+let KinkyDungeonShrineBaseCostGrowth = {
 	"Elements": 2,
 	"Conjure": 2,
 	"Illusion": 2,
@@ -33,10 +33,10 @@ let KinkyDungeonGhostDecision = 0;
 /**
  * @type {KinkyDungeonShopItem[]}
  */
-var KinkyDungeonShopItems = [];
-var KinkyDungeonShopIndex = 0;
+let KinkyDungeonShopItems = [];
+let KinkyDungeonShopIndex = 0;
 
-var KinkyDungeonShrinePoolChancePerUse = 0.2;
+let KinkyDungeonShrinePoolChancePerUse = 0.2;
 
 /**
  * Current costs multipliers for shrines
@@ -506,28 +506,28 @@ function KinkyDungeonHandleOrb() {
 						let spell = null;
 						let spellList = [];
 						let maxSpellLevel = 4;
-						for (let S = 0; S < KinkyDungeonSpellList.Conjure.length; S++) {
-							if (KinkyDungeonSpellList.Conjure[S].level <= KinkyDungeonSpellLevel.Conjure && KinkyDungeonSpellList.Conjure[S].school == "Conjure" && !KinkyDungeonSpellList.Conjure[S].secret) {
-								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Conjure[S].level; iii++)
-									spellList.push(KinkyDungeonSpellList.Conjure[S]);
+						for (let sp of KinkyDungeonSpellList.Conjure) {
+							if (sp.level <= KinkyDungeonSpellLevel.Conjure && sp.school == "Conjure" && !sp.secret) {
+								for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+									spellList.push(sp);
 							}
 						}
-						for (let S = 0; S < KinkyDungeonSpellList.Elements.length; S++) {
-							if (KinkyDungeonSpellList.Elements[S].level <= KinkyDungeonSpellLevel.Elements && KinkyDungeonSpellList.Elements[S].school == "Elements" && !KinkyDungeonSpellList.Elements[S].secret) {
-								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Elements[S].level; iii++)
-									spellList.push(KinkyDungeonSpellList.Elements[S]);
+						for (let sp of KinkyDungeonSpellList.Elements) {
+							if (sp.level <= KinkyDungeonSpellLevel.Elements && sp.school == "Elements" && !sp.secret) {
+								for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+									spellList.push(sp);
 							}
 						}
-						for (let S = 0; S < KinkyDungeonSpellList.Illusion.length; S++) {
-							if (KinkyDungeonSpellList.Illusion[S].level <= KinkyDungeonSpellLevel.Illusion && KinkyDungeonSpellList.Illusion[S].school == "Illusion" && !KinkyDungeonSpellList.Illusion[S].secret) {
-								for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Illusion[S].level; iii++)
-									spellList.push(KinkyDungeonSpellList.Illusion[S]);
+						for (let sp of KinkyDungeonSpellList.Illusion) {
+							if (sp.level <= KinkyDungeonSpellLevel.Illusion && sp.school == "Illusion" && !sp.secret) {
+								for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+									spellList.push(sp);
 							}
 						}
 
-						for (let SS = 0; SS < KinkyDungeonSpells.length; SS++) {
+						for (let sp of KinkyDungeonSpells) {
 							for (let S = 0; S < spellList.length; S++) {
-								if (KinkyDungeonSpells[SS].name == spellList[S].name) {
+								if (sp.name == spellList[S].name) {
 									spellList.splice(S, 1);
 								}
 							}
@@ -564,28 +564,28 @@ function KinkyDungeonHandleOrb() {
 				let spell = null;
 				let spellList = [];
 				let maxSpellLevel = 4;
-				for (let S = 0; S < KinkyDungeonSpellList.Conjure.length; S++) {
-					if (KinkyDungeonSpellList.Conjure[S].level <= KinkyDungeonSpellLevel.Conjure && KinkyDungeonSpellList.Conjure[S].school == "Conjure" && !KinkyDungeonSpellList.Conjure[S].secret) {
-						for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Conjure[S].level; iii++)
-							spellList.push(KinkyDungeonSpellList.Conjure[S]);
+				for (let sp of KinkyDungeonSpellList.Conjure) {
+					if (sp.level <= KinkyDungeonSpellLevel.Conjure && sp.school == "Conjure" && !sp.secret) {
+						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+							spellList.push(sp);
 					}
 				}
-				for (let S = 0; S < KinkyDungeonSpellList.Elements.length; S++) {
-					if (KinkyDungeonSpellList.Elements[S].level <= KinkyDungeonSpellLevel.Elements && KinkyDungeonSpellList.Elements[S].school == "Elements" && !KinkyDungeonSpellList.Elements[S].secret) {
-						for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Elements[S].level; iii++)
-							spellList.push(KinkyDungeonSpellList.Elements[S]);
+				for (let sp of KinkyDungeonSpellList.Elements) {
+					if (sp.level <= KinkyDungeonSpellLevel.Elements && sp.school == "Elements" && !sp.secret) {
+						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+							spellList.push(sp);
 					}
 				}
-				for (let S = 0; S < KinkyDungeonSpellList.Illusion.length; S++) {
-					if (KinkyDungeonSpellList.Illusion[S].level <= KinkyDungeonSpellLevel.Illusion && KinkyDungeonSpellList.Illusion[S].school == "Illusion" && !KinkyDungeonSpellList.Illusion[S].secret) {
-						for (let iii = 0; iii < maxSpellLevel - KinkyDungeonSpellList.Illusion[S].level; iii++)
-							spellList.push(KinkyDungeonSpellList.Illusion[S]);
+				for (let sp of KinkyDungeonSpellList.Illusion) {
+					if (sp.level <= KinkyDungeonSpellLevel.Illusion && sp.school == "Illusion" && !sp.secret) {
+						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+							spellList.push(sp);
 					}
 				}
 
-				for (let SS = 0; SS < KinkyDungeonSpells.length; SS++) {
+				for (let sp of KinkyDungeonSpells) {
 					for (let S = 0; S < spellList.length; S++) {
-						if (KinkyDungeonSpells[SS].name == spellList[S].name) {
+						if (sp.name == spellList[S].name) {
 							spellList.splice(S, 1);
 						}
 					}

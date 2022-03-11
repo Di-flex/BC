@@ -69,15 +69,14 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	let maxPass = 0;
 	let brightestLight = 0;
 
-	for (let L = 0; L < Lights.length; L++) {
-		maxPass = Math.max(maxPass, Lights[L].brightness);
-		if (Lights[L].brightness > brightestLight) brightestLight = Lights[L].brightness;
-		KinkyDungeonLightSet(Lights[L].x, Lights[L].y, Lights[L].brightness);
+	for (let light of Lights) {
+		maxPass = Math.max(maxPass, light.brightness);
+		if (light.brightness > brightestLight) brightestLight = light.brightness;
+		KinkyDungeonLightSet(light.x, light.y, light.brightness);
 	}
 
 	let visionBlockers = {};
-	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
-		let EE = KinkyDungeonEntities[E];
+	for (let EE of KinkyDungeonEntities) {
 		let Enemy = EE.Enemy;
 		if (Enemy && Enemy.blockVision || (Enemy.blockVisionWhileStationary && !EE.moved && EE.idle)) // Add
 			visionBlockers[EE.x + "," + EE.y] = true;

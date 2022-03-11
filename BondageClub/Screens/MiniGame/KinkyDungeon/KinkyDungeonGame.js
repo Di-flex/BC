@@ -195,8 +195,9 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonMapIndex = [];
 
 
-	for (let I = 1; I < KinkyDungeonMapParams.length; I++)
+	for (let I = 1; I < KinkyDungeonMapParams.length; I++) {
 		KinkyDungeonMapIndex.push(I);
+	}
 
 	// Option to shuffle the dungeon types besides the initial one (graveyard)
 	if (Random) {
@@ -1131,8 +1132,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 		let shrineWeightTotal = 0;
 		let shrineWeights = [];
 
-		for (let L = 0; L < Params.shrines.length; L++) {
-			let shrine = Params.shrines[L];
+		for (let shrine of Params.shrines) {
 			shrineWeights.push({shrine: shrine, weight: shrineWeightTotal});
 			shrineWeightTotal += shrine.Weight;
 		}

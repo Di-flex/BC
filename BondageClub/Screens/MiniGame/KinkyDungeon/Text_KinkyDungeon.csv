@@ -1305,12 +1305,12 @@ ClimbDown,"You climb down to the next level"
 
 KinkyDungeonRestraintLevel,Level RestraintLevel (Rarity)
 
-KinkyDungeonCategoryFilterConsumables,Consumable
-KinkyDungeonCategoryFilterEquipped,Equipped
-KinkyDungeonCategoryFilterWeapons,Weapons
-KinkyDungeonCategoryFilterOutfits,Outfits
-KinkyDungeonCategoryFilterRestraints,Restraints
-KinkyDungeonCategoryFilterMisc,Miscellaneous
+KinkyDungeonCategoryFilterconsumable,Consumable
+KinkyDungeonCategoryFilterrestraint,Equipped
+KinkyDungeonCategoryFilterweapon,Weapons
+KinkyDungeonCategoryFilteroutfit,Outfits
+KinkyDungeonCategoryFilterlooserestraint,Restraints
+KinkyDungeonCategoryFiltermisc,Miscellaneous
 
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."

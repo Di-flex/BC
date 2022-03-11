@@ -66,8 +66,7 @@ function KinkyDungeonDrawInputs() {
 	// Draw the struggle buttons if applicable
 	KinkyDungeonDrawStruggleHover = false;
 	if (!KinkyDungeonShowInventory && ((KinkyDungeonDrawStruggle > 0 || MouseIn(0, 0, 500, 1000)) && KinkyDungeonStruggleGroups))
-		for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
-			let sg = KinkyDungeonStruggleGroups[S];
+		for (let sg of KinkyDungeonStruggleGroups) {
 			let ButtonWidth = 60;
 			let x = 5 + ((!sg.left) ? (490 - ButtonWidth) : 0);
 			let y = 42 + sg.y * (ButtonWidth + 46);
@@ -495,8 +494,7 @@ function KinkyDungeonHandleHUD() {
 		}
 
 		if (KinkyDungeonStruggleGroups && KinkyDungeonDrawStruggleHover)
-			for (let S = 0; S < KinkyDungeonStruggleGroups.length; S++) {
-				let sg = KinkyDungeonStruggleGroups[S];
+			for (let sg of KinkyDungeonStruggleGroups) {
 				let ButtonWidth = 60;
 				let x = 5 + ((!sg.left) ? (490 - ButtonWidth) : 0);
 				let y = 42 + sg.y * (ButtonWidth + 46);

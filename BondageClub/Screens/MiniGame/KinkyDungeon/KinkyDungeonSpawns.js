@@ -60,19 +60,18 @@ function KinkyDungeonAddTags(tags, Floor) {
 
 
 function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
-	var enemyWeightTotal = 0;
-	var enemyWeights = [];
+	let enemyWeightTotal = 0;
+	let enemyWeights = [];
 
-	for (let L = 0; L < KinkyDungeonEnemies.length; L++) {
-		var enemy = KinkyDungeonEnemies[L];
+	for (let enemy of KinkyDungeonEnemies) {
 		let effLevel = Level + 25 * KinkyDungeonNewGame;
 		let weightMulti = 1.0;
 		let weightBonus = 0;
 
 		if (enemy.shrines) {
-			for (let s = 0; s < enemy.shrines.length; s++) {
-				if (KinkyDungeonGoddessRep[enemy.shrines[s]]) {
-					let rep = KinkyDungeonGoddessRep[enemy.shrines[s]];
+			for (let shrine of enemy.shrines) {
+				if (KinkyDungeonGoddessRep[shrine]) {
+					let rep = KinkyDungeonGoddessRep[shrine];
 					if (rep > 0) weightMulti *= Math.max(0, 1 - rep/100); // ranges from 1 to 0.5
 					else if (rep < 0) {
 						weightMulti = Math.max(weightMulti, Math.max(1, 1 - rep/100)); // ranges from 1 to 2
@@ -106,8 +105,8 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 					weight += enemy.terrainTags.increasingWeight * Math.floor(Level/10);
 				if (!enemy.terrainTags.grate && tags.includes("grate"))
 					weight -= 1000;
-				for (let T = 0; T < tags.length; T++)
-					if (enemy.terrainTags[tags[T]]) weight += enemy.terrainTags[tags[T]];
+				for (let tag of tags)
+					if (enemy.terrainTags[tag]) weight += enemy.terrainTags[tag];
 
 				if (weight > 0)
 					enemyWeightTotal += Math.max(0, weight*weightMulti);
@@ -115,7 +114,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 		}
 	}
 
-	var selection = KDRandom() * enemyWeightTotal;
+	let selection = KDRandom() * enemyWeightTotal;
 
 	for (let L = enemyWeights.length - 1; L >= 0; L--) {
 		if (selection > enemyWeights[L].weight) {

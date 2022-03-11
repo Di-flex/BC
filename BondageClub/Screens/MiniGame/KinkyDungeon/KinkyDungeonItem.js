@@ -1,13 +1,12 @@
 "use strict";
-var KinkyDungeonGroundItems = []; // Tracking all items on the ground
+let KinkyDungeonGroundItems = []; // Tracking all items on the ground
 
 function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 	if (dropTable) {
 		let dropWeightTotal = 0;
 		let dropWeights = [];
 
-		for (let L = 0; L < dropTable.length; L++) {
-			let drop = dropTable[L];
+		for (let drop of dropTable) {
 			let weight = drop.weight;
 			dropWeights.push({drop: drop, weight: dropWeightTotal});
 			if (drop.ignoreInInventory && KinkyDungeonInventoryGet(drop.name)) weight = 0;
@@ -152,7 +151,7 @@ function KinkyDungeonItemEvent(Item) {
 
 function KinkyDungeonItemCheck(x, y, Index) {
 	for (let I = 0; I < KinkyDungeonGroundItems.length; I++) {
-		var item = KinkyDungeonGroundItems[I];
+		let item = KinkyDungeonGroundItems[I];
 		if (KinkyDungeonPlayerEntity.x == item.x && KinkyDungeonPlayerEntity.y == item.y) {
 			KinkyDungeonGroundItems.splice(I, 1);
 			I -= 1;
@@ -162,13 +161,12 @@ function KinkyDungeonItemCheck(x, y, Index) {
 }
 
 function KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX, CamY) {
-	for (let E = 0; E < KinkyDungeonGroundItems.length; E++) {
-		var item = KinkyDungeonGroundItems[E];
-		var sprite = item.name;
-		if (KinkyDungeonGroundItems[E].x >= CamX && KinkyDungeonGroundItems[E].y >= CamY && KinkyDungeonGroundItems[E].x < CamX + KinkyDungeonGridWidthDisplay && KinkyDungeonGroundItems[E].y < CamY + KinkyDungeonGridHeightDisplay) {
+	for (let item of KinkyDungeonGroundItems) {
+		let sprite = item.name;
+		if (item.x >= CamX && item.y >= CamY && item.x < CamX + KinkyDungeonGridWidthDisplay && item.y < CamY + KinkyDungeonGridHeightDisplay) {
 			DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Items/" + sprite + ".png",
 				KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
-				(KinkyDungeonGroundItems[E].x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonGroundItems[E].y - CamY)*KinkyDungeonGridSizeDisplay,
+				(item.x - CamX)*KinkyDungeonGridSizeDisplay, (item.y - CamY)*KinkyDungeonGridSizeDisplay,
 				KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 		}
 	}

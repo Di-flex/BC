@@ -165,11 +165,10 @@ function KinkyDungeonGetGoddessTrapTypes() {
 
 function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 
-	var trapWeightTotal = 0;
-	var trapWeights = [];
+	let trapWeightTotal = 0;
+	let trapWeights = [];
 
-	for (let L = 0; L < trapTypes.length; L++) {
-		var trap = trapTypes[L];
+	for (let trap of trapTypes) {
 		let effLevel = Level;
 		let weightMulti = 1.0;
 		let weightBonus = 0;
@@ -178,15 +177,15 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 			trapWeights.push({trap: trap, weight: trapWeightTotal});
 			let weight = trap.Weight + weightBonus;
 			if (trap.terrainTags)
-				for (let T = 0; T < tags.length; T++)
-					if (trap.terrainTags[tags[T]]) weight += trap.terrainTags[tags[T]];
+				for (let tag of tags)
+					if (trap.terrainTags[tag]) weight += trap.terrainTags[tag];
 
 			trapWeightTotal += Math.max(0, weight*weightMulti);
 
 		}
 	}
 
-	var selection = KDRandom() * trapWeightTotal;
+	let selection = KDRandom() * trapWeightTotal;
 
 	for (let L = trapWeights.length - 1; L >= 0; L--) {
 		if (selection > trapWeights[L].weight) {

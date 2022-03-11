@@ -47,8 +47,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Accuracy", duration: 1, power: e.power});
 		} else if (e.type == "AllyHealingAura" && e.trigger == Event) {
 			let healed = false;
-			for (let L = 0; L < KinkyDungeonEntities.length; L++) {
-				let enemy = KinkyDungeonEntities[L];
+			for (let enemy of KinkyDungeonEntities) {
 				if (enemy.Enemy.allied && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					let origHP = enemy.hp;
 					enemy.hp = Math.min(enemy.hp + e.power, enemy.Enemy.maxhp);
@@ -388,8 +387,7 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 				activate = true;
 			}
 			if (KinkyDungeonPlayerBuffs.EnemySense && KinkyDungeonPlayerBuffs.EnemySense.duration > 1)
-				for (let E = 0; E < KinkyDungeonEntities.length; E++) {
-					let enemy = KinkyDungeonEntities[E];
+				for (let enemy of KinkyDungeonEntities) {
 					if (!KinkyDungeonLightGet(enemy.x, enemy.y)
 						&& Math.sqrt((KinkyDungeonPlayerEntity.x - enemy.x) * (KinkyDungeonPlayerEntity.x - enemy.x) + (KinkyDungeonPlayerEntity.y - enemy.y) * (KinkyDungeonPlayerEntity.y - enemy.y)) < e.dist) {
 						let color = "#882222";

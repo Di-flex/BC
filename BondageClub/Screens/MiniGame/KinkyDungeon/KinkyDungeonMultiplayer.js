@@ -85,7 +85,8 @@ function KinkyDungeonUpdateFromData() {
 		}
 	}
 	if (KinkyDungeonGameData.inventory) {
-		KinkyDungeonInventory = [];
+		KDInitInventory();
+		// TODO fix this...
 		let inventory = JSON.parse(KinkyDungeonGameData.inventory);
 
 		CharacterReleaseTotal(KinkyDungeonPlayer);
@@ -191,7 +192,7 @@ function KinkyDungeonPackData(IncludeMap, IncludeItems, IncludeInventory, Includ
 
 	let map = IncludeMap ? KinkyDungeonGrid : "";
 
-	let inventory = IncludeInventory ? JSON.stringify(KinkyDungeonInventory, (key, value) => {
+	let inventory = IncludeInventory ? JSON.stringify(Array.from(KinkyDungeonInventory.get(Restraint).values()), (key, value) => {
 		if (CommonIsNumeric(key) && typeof value === "object") {
 			if (value.restraint) {
 				return "I/" + value.restraint.name + "/l" + value.lock;
