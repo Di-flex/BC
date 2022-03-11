@@ -107,7 +107,7 @@ function KinkyDungeonDrawTether(Entity, CamX, CamY) {
 
 function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 	let exceeded = false;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.tether && (inv.tx && inv.ty || inv.tetherToLeasher || inv.tetherToGuard)) {
 			let tether = inv.tetherLength ? inv.tetherLength : inv.restraint.tether;
 
@@ -252,7 +252,7 @@ function KinkyDungeonLock(item, lock) {
 function KinkyDungeonGetRestraintsWithShrine(shrine) {
 	let ret = [];
 
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 			ret.push(item);
 		}
@@ -265,7 +265,7 @@ function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 	let count = 0;
 
 	for (let i = 0; i < 10; i++) {
-		for (let item of KinkyDungeonRestraintList()) {
+		for (let item of KinkyDungeonAllRestraint()) {
 			if (item.restraint && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 				KinkyDungeonRemoveRestraint(item.restraint.Group, false, false, false, true);
 				count++;
@@ -280,7 +280,7 @@ function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 function KinkyDungeonUnlockRestraintsWithShrine(shrine) {
 	let count = 0;
 
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (item.restraint && item.lock && item.restraint.shrine && item.restraint.shrine.includes(shrine) && item.lock != "Gold") {
 
 			KinkyDungeonLock(item, "");
@@ -294,7 +294,7 @@ function KinkyDungeonUnlockRestraintsWithShrine(shrine) {
 function KinkyDungeonPlayerGetLockableRestraints() {
 	let ret = [];
 
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (!item.lock && item.restraint && item.restraint.escapeChance && item.restraint.escapeChance.Pick != null) {
 			ret.push(item);
 		}
@@ -319,7 +319,7 @@ function KinkyDungeonHasGhostHelp() {
 }
 
 function KinkyDungeonIsWearingLeash() {
-	for (let restraint of KinkyDungeonRestraintList()) {
+	for (let restraint of KinkyDungeonAllRestraint()) {
 		if (restraint.restraint && restraint.restraint.leash) {
 			return true;
 		}
@@ -349,7 +349,7 @@ function KinkyDungeonHasHook() {
 
 function KinkyDungeonIsHandsBound(ApplyGhost) {
 	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands");
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.bindhands) {
 			blocked = true;
 			break;
@@ -361,7 +361,7 @@ function KinkyDungeonIsHandsBound(ApplyGhost) {
 
 function KinkyDungeonIsArmsBound(ApplyGhost) {
 	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemArms");
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.bindarms) {
 			blocked = true;
 			break;
@@ -374,7 +374,7 @@ function KinkyDungeonIsArmsBound(ApplyGhost) {
 function KinkyDungeonStrictness(ApplyGhost, Group) {
 	if (ApplyGhost && KinkyDungeonHasGhostHelp()) return 0;
 	let strictness = 0;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness && inv.restraint.strictness > strictness)  {
 			let strictGroups = KinkyDungeonStrictnessTable.get(inv.restraint.Group);
 			if (strictGroups) {
@@ -392,7 +392,7 @@ function KinkyDungeonStrictness(ApplyGhost, Group) {
 
 function KinkyDungeonGetStrictnessItems(Group) {
 	let list = [];
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.Group != Group && inv.restraint.strictness)  {
 			let strictGroups = KinkyDungeonStrictnessTable.get(inv.restraint.Group);
 			if (strictGroups) {
@@ -911,7 +911,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 					let tightness_reduction = 1;
 
 					// eslint-disable-next-line no-unused-vars
-					for (let _item of KinkyDungeonRestraintList()) {
+					for (let _item of KinkyDungeonAllRestraint()) {
 						tightness_reduction *= 0.8; // Reduced tightness reduction for each restraint currently worn
 					}
 
@@ -937,7 +937,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 }
 
 function KinkyDungeonGetRestraintItem(group) {
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (item.restraint && item.restraint.Group == group) {
 			return item;
 		}
@@ -1067,7 +1067,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth3")) playerTags.set("ItemMouth3" + "Empty", true);
 		} else if (!InventoryGet(KinkyDungeonPlayer, group)) playerTags.set(group + "Empty", true);
 	}
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint) {
 			if (inv.restraint.addTag)
 				for (let tag of inv.restraint.addTag) {
@@ -1266,7 +1266,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 }
 
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		let AssetGroup = item && item.restraint && item.restraint.AssetGroup ? item.restraint.AssetGroup : Group;
 		if ((item.restraint && item.restraint.Group == Group)) {
 			if (!NoEvent)
@@ -1333,22 +1333,10 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	return false;
 }
 
-function KinkyDungeonRestraintList() {
-	let ret = [];
-
-	for (let inv of KinkyDungeonFullInventory()) {
-		if (inv.restraint) {
-			ret.push(inv);
-		}
-	}
-
-	return ret;
-}
-
 function KinkyDungeonRestraintTypes(ShrineFilter) {
 	let ret = [];
 
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.shrine) {
 			for (let shrine of inv.restraint.shrine) {
 				if (ShrineFilter.includes(shrine) && !ret.includes(shrine)) ret.push(shrine);

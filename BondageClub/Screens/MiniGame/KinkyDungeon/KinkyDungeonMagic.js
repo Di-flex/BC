@@ -808,7 +808,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 
 function KinkyDungeonChargeVibrators(cost) {
 	if (cost > 0) {
-		for (let item of KinkyDungeonRestraintList()) {
+		for (let item of KinkyDungeonAllRestraint()) {
 			let vibe = item.restraint;
 			if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 				if (item.battery == 0) {
@@ -823,7 +823,7 @@ function KinkyDungeonChargeVibrators(cost) {
 }
 
 function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		let vibe = item.restraint;
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 			if (item.battery == 0 || Overcharge) {
@@ -841,7 +841,7 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 }
 
 function KinkyDungeonHandleVibrators() {
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		let vibe = item.restraint;
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && item.battery == 0 && !(item.cooldown > 0) && KDRandom() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
 			if (item.battery == 0) {

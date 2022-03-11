@@ -62,8 +62,8 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 				if (prereqs && loot.prerequisites.includes("UnlearnedIllusion")) SpellList = KinkyDungeonSpellList.Illusion;
 				if (prereqs && loot.prerequisites.includes("NoBoltCutters") && KinkyDungeonInventoryGet("BoltCutters")) prereqs = false;
 				else if (prereqs && loot.prerequisites.includes("LostItems") && KinkyDungeonLostItems.length < 1) prereqs = false;
-				else if (prereqs && loot.prerequisites.includes("LightRestraint") && KinkyDungeonRestraintList().length < 1) prereqs = false;
-				else if (prereqs && loot.prerequisites.includes("ModerateRestraint") && KinkyDungeonRestraintList().length < 4 && !(!KinkyDungeonIsHandsBound() && !KinkyDungeonCanTalk() && KinkyDungeonSlowLevel < 1)) prereqs = false;
+				else if (prereqs && loot.prerequisites.includes("LightRestraint") && KinkyDungeonAllRestraint().length < 1) prereqs = false;
+				else if (prereqs && loot.prerequisites.includes("ModerateRestraint") && KinkyDungeonAllRestraint().length < 4 && !(!KinkyDungeonIsHandsBound() && !KinkyDungeonCanTalk() && KinkyDungeonSlowLevel < 1)) prereqs = false;
 
 				if (prereqs)
 					for (let prereq of loot.prerequisites) {

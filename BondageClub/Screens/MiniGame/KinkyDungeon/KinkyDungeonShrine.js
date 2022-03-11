@@ -253,7 +253,7 @@ function KinkyDungeonHandleShrine() {
 
 			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
 				let slimed = 0;
-				for (let inv of KinkyDungeonRestraintList()) {
+				for (let inv of KinkyDungeonAllRestraint()) {
 					if (inv.restraint && inv.restraint.slimeLevel) {
 						slimed += 1;
 						KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
@@ -322,7 +322,7 @@ function KinkyDungeonDrawGhost() {
 	else DrawText(TextGet("KinkyDungeonDrawGhostUnhelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 }
 function KinkyDungeonGhostMessage() {
-	let restraints = KinkyDungeonRestraintList();
+	let restraints = KinkyDungeonAllRestraint();
 	let msg = "";
 	if (restraints.length == 0) {
 		msg = TextGet("KinkyDungeonGhostGreet" + KinkyDungeonGhostDecision);

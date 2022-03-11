@@ -113,14 +113,14 @@ function KinkyDungeonConsumableEffect(Consumable) {
 
 function KinkyDungeonPotionCollar() {
 	let minCost = 0;
-	for (let r of KinkyDungeonRestraintList()) {
+	for (let r of KinkyDungeonAllRestraint()) {
 		if (r.restraint.potionAncientCost && (r.restraint.potionAncientCost < minCost || minCost == 0)) minCost = r.restraint.potionAncientCost;
 	}
 	return minCost;
 }
 
 function KinkyDungeonCanDrink() {
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.allowPotions) return true;
 		else if (inv.restraint && inv.restraint.gag && !inv.restraint.openMouth) return false;
 	}

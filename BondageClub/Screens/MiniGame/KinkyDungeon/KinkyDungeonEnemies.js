@@ -1095,7 +1095,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (caught) {
 					let harnessChance = 0;
 					let harnessRestraintName = "";
-					let list = KinkyDungeonRestraintList();
+					let list = KinkyDungeonAllRestraint();
 					let list2 = [];
 					for (let restraint of list) {
 						if (restraint.restraint && restraint.restraint.harness) {

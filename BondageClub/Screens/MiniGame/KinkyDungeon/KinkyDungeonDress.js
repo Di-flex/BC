@@ -124,7 +124,7 @@ function KinkyDungeonDressPlayer() {
 			if (clothes.Group == "Shoes") {
 				if (KinkyDungeonGetRestraintItem("ItemBoots")) clothes.Lost = true;
 			}
-			for (let inv of KinkyDungeonRestraintList()) {
+			for (let inv of KinkyDungeonAllRestraint()) {
 				if (inv.restraint && inv.restraint.remove) {
 					for (let remove of inv.restraint.remove) {
 						if (remove == clothes.Group) clothes.Lost = true;
@@ -153,7 +153,7 @@ function KinkyDungeonDressPlayer() {
 		if (clothes.Group == "Bra" && !KinkyDungeonGetRestraintItem("ItemBreast")) clothes.Lost = false; // A girl's best friend never leaves her
 	}
 
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (KinkyDungeonCheckClothesLoss)
 			if (inv.restraint && inv.restraint.AssetGroup) {
 				InventoryWear(KinkyDungeonPlayer, inv.restraint.Asset, inv.restraint.AssetGroup, inv.restraint.Color);
@@ -295,7 +295,7 @@ function KinkyDungeonDressPlayer() {
 }
 
 function KinkyDungeonWearForcedClothes() {
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.alwaysDress) {
 			for (let dress of inv.restraint.alwaysDress) {
 				if (dress.override || !dress.Group.includes("Item") || !InventoryGet(KinkyDungeonPlayer, dress.Group)) {

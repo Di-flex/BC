@@ -189,6 +189,21 @@ function KinkyDungeonInventoryGetOutfit(Name) {
 	return KinkyDungeonInventory.get(Outfit).get(Name);
 }
 
+function KinkyDungeonAllRestraint() {
+	return KinkyDungeonInventory.get(Restraint) ? KinkyDungeonInventory.get(Restraint).values() : [];
+}
+function KinkyDungeonAllLooseRestraint() {
+	return KinkyDungeonInventory.get(LooseRestraint) ? KinkyDungeonInventory.get(LooseRestraint).values() : [];
+}
+function KinkyDungeonAllConsumable() {
+	return KinkyDungeonInventory.get(Consumable) ? KinkyDungeonInventory.get(Consumable).values() : [];
+}
+function KinkyDungeonAllOutfit() {
+	return KinkyDungeonInventory.get(Outfit) ? KinkyDungeonInventory.get(Outfit).values() : [];
+}
+function KinkyDungeonAllWeapon() {
+	return KinkyDungeonInventory.get(Weapon) ? KinkyDungeonInventory.get(Weapon).values() : [];
+}
 
 /*for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
 	if (item.looserestraint && item.looserestraint.name == Name) return item;

@@ -1980,7 +1980,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	CharacterAppearanceBuildCanvas = () => {};
 	let start = performance.now();
 
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.lock == "Gold" && (MiniGameKinkyDungeonLevel >= inv.lockTimer || !inv.lockTimer)) {
 			KinkyDungeonLock(inv, "Blue");
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonGoldLockRemove"), "yellow", 2);
@@ -2054,7 +2054,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1, true);
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint)
 			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}

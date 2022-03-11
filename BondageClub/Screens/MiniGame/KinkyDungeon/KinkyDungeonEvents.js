@@ -96,7 +96,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				KinkyDungeonSlimeLevelStart = -100;
 				let slimedParts = [];
 				let potentialSlimeParts = [];
-				for (let inv of KinkyDungeonRestraintList()) {
+				for (let inv of KinkyDungeonAllRestraint()) {
 					if (inv.restraint && inv.restraint.slimeLevel > 0) {
 						slimedParts.push({name: inv.restraint.name, group: inv.restraint.Group, level: inv.restraint.slimeLevel});
 					}
@@ -164,7 +164,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		}
 		if (e.type == "armbinderHarness" && e.trigger == Event && data.item != item && item.restraint && item.restraint && item.restraint.Group) {
 			let armbinder = false;
-			for (let inv of KinkyDungeonRestraintList()) {
+			for (let inv of KinkyDungeonAllRestraint()) {
 				if (inv.restraint && inv.restraint.shrine && (inv.restraint.shrine.includes("Armbinders") || inv.restraint.shrine.includes("Boxbinders"))) {
 					armbinder = true;
 					break;
