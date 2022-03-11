@@ -170,39 +170,30 @@ function KinkyDungeonInventoryRemove(item) {
 }
 
 function KinkyDungeonInventoryGet(Name) {
-	for (let m of KinkyDungeonInventory) {
-		for (let item of m.values()) {
-			if (KDInventoryName(item) == Name) return item;
-		}
+	for (let m of KinkyDungeonInventory.values()) {
+		if (m.has(Name)) return m.get(Name);
 	}
 	return null;
 }
 
 function KinkyDungeonInventoryGetLoose(Name) {
-	for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
-		if (item.looserestraint && item.looserestraint.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(LooseRestraint).get(Name);
 }
 function KinkyDungeonInventoryGetConsumable(Name) {
-	for (let item of KinkyDungeonInventory.get(Consumable).values()) {
-		if (item.consumable && item.consumable.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(Consumable).get(Name);
 }
 function KinkyDungeonInventoryGetWeapon(Name) {
-	for (let item of KinkyDungeonInventory.get(Weapon).values()) {
-		if (item.weapon && item.weapon.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(Weapon).get(Name);
 }
 function KinkyDungeonInventoryGetOutfit(Name) {
-	for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
-		if (item.outfit && item.outfit.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(Outfit).get(Name);
 }
 
+
+/*for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
+	if (item.looserestraint && item.looserestraint.name == Name) return item;
+}
+return null;*/
 
 function KinkyDungeonFilterInventory(Filter, enchanted) {
 	let ret = [];
