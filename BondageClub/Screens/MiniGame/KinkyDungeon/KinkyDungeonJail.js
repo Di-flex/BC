@@ -244,7 +244,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let touchesPlayer = KinkyDungeonCheckLOS(KinkyDungeonJailGuard(), KinkyDungeonPlayerEntity, playerDist, 1.5, false, false);
 	if (touchesPlayer) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailTease") {
-			let playerHasVibrator = KinkyDungeonInventory.get(Restraint).values().some(i => i.restraint && i.restraint.vibeType && i.restraint.vibeType.includes("Charging"));
+			let playerHasVibrator = Array.from(KinkyDungeonAllRestraint()).some(i => i.restraint && i.restraint.vibeType && i.restraint.vibeType.includes("Charging"));
 			if (playerHasVibrator) {
 				let extraCharge = Math.round(2 + level * KDRandom() * 0.2);
 				KinkyDungeonChargeRemoteVibrators(KinkyDungeonJailGuard().Enemy.name, extraCharge, true, false);
@@ -527,7 +527,7 @@ function KinkyDungeonDefeat() {
 	if (HasBound) {
 		// TODO add bound weapons here
 	}
-	KinkyDungeonAddLostItems(KinkyDungeonInventory, HasBound);
+	KinkyDungeonAddLostItems(KinkyDungeonFullInventory(), HasBound);
 	KDInitInventory();
 	KinkyDungeonInventory.set(Restraint, newInv);
 	KinkyDungeonInventoryAddWeapon("Knife");
