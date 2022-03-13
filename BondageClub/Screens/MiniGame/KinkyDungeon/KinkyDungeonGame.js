@@ -499,10 +499,11 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 
 		if (currentCluster && !(10 * KDRandom() < currentCluster.count)) {
 			required = [currentCluster.required];
-			X = currentCluster.x - 3 + Math.floor(KDRandom() * 7);
-			Y = currentCluster.y - 3 + Math.floor(KDRandom() * 7);
+			X = currentCluster.x - 2 + Math.floor(KDRandom() * 5);
+			Y = currentCluster.y - 2 + Math.floor(KDRandom() * 5);
 
 			if (!KinkyDungeonCheckPath(currentCluster.x, currentCluster.y, X, Y, false, true)) {
+				if (5 * KDRandom() < currentCluster.count) currentCluster = null;
 				continue;
 			}
 		} else currentCluster = null;
