@@ -480,7 +480,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 4 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 8 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
@@ -489,10 +489,24 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let jailerCount = 0;
 	let EnemyNames = [];
 
+	let currentCluster = null;
+
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
 		let X = 1 + Math.floor(KDRandom()*(width - 1));
 		let Y = 1 + Math.floor(KDRandom()*(height - 1));
+		let required = undefined;
+
+		if (currentCluster && !(10 * KDRandom() < currentCluster.count)) {
+			required = [currentCluster.required];
+			X = currentCluster.x - 3 + Math.floor(KDRandom() * 7);
+			Y = currentCluster.y - 3 + Math.floor(KDRandom() * 7);
+
+			if (!KinkyDungeonCheckPath(currentCluster.x, currentCluster.y, X, Y, false, true)) {
+				continue;
+			}
+		} else currentCluster = null;
+
 		let playerDist = 6;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
@@ -529,10 +543,19 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 				tags.push(t);
 			}
 
-			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
+			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+				if (!currentCluster && Enemy.clusterWith) {
+					currentCluster = {
+						x : X,
+						y : Y,
+						required: Enemy.clusterWith,
+						count: 1,
+					};
+				} else if (currentCluster) currentCluster.count += 1;
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
+				if (Enemy.difficulty) count += Enemy.difficulty;
 				if (Enemy.tags.has("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
 				if (Enemy.tags.has("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
 				else if (Enemy.tags.has("elite")) count += Math.max(0.5, 50/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies

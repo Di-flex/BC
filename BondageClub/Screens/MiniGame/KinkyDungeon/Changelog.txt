@@ -689,6 +689,14 @@ Spell Balance:
 - Enemies steal knives and picks from you now if they can bind and are humanoid (bindable)
 - New Kinky mode which only gives random spells!
 
+2.7.6
+- Changed the kill leniency system--attacks dealing 2 or less damage no longer kill enemies if the attack leaves them with 1-5hp.
+- Halved stamina cost to move while bound
+- Changed enemy spawning to spawn in clusters
+- Increased enemy cohesiveness so they stay together
+- Enemies now alert each other in a 5 tile radius
+- Added more wonderful bound sprites by Song!
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

@@ -3,6 +3,7 @@
 let KDEnemiesCache = new Map();
 
 let KinkyDungeonSummonCount = 2;
+let KinkyDungeonEnemyAlertRadius = 5;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
@@ -430,7 +431,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 }
 
 function KinkyDungeonEnemyCheckHP(enemy, E) {
-	if (enemy.hp <= 0 || (enemy.hp <= 0.5 && enemy.Enemy && enemy.Enemy.maxhp > 3)) {
+	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
 		if (enemy.boundLevel >= enemy.hp) {
 			if (enemy.knives || enemy.picks) {
@@ -884,7 +885,14 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (canSeePlayerClose) sneakMult += 0.25;
 	if (canSeePlayerVeryClose) sneakMult += 0.5;
 	if (KinkyDungeonAlert > 0) sneakMult += 1;
-	if ((canSensePlayer || canSeePlayer || canShootPlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) enemy.aware = true;
+	if ((canSensePlayer || canSeePlayer || canShootPlayer) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) {
+		enemy.aware = true;
+		if (!enemy.Enemy.allied && !enemy.Enemy.tags.has("minor")) {
+			for (let e of KinkyDungeonEntities) {
+				if (!e.Enemy.allied && e != enemy && KDistChebyshev(e.x - enemy.x, e.y - enemy.y) <= KinkyDungeonEnemyAlertRadius) e.aware = true;
+			}
+		}
+	}
 
 	let kite = false;
 	let kiteChance = enemy.Enemy.kiteChance ? enemy.Enemy.kiteChance : 0.75;
@@ -1001,14 +1009,16 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						// Short distance
 						let ex = enemy.x;
 						let ey = enemy.y;
-						let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.3;
+						let cohesion = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.5;
 						let masterCloseness = enemy.Enemy.cohesion ? enemy.Enemy.cohesion : 0.7;
 						if (master && KDRandom() < masterCloseness) {
 							ex = master.x;
 							ey = master.y;
 						} else if (KDRandom() < cohesion) {
-							let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : enemy.Enemy.visionRadius / 2;
+							let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : enemy.Enemy.visionRadius;
 							for (let e of KinkyDungeonEntities) {
+								if (e == enemy) continue;
+								if (enemy.Enemy.clusterWith && !e.Enemy.tags.has(enemy.Enemy.clusterWith)) continue;
 								let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
 								if (dist < minDist) {
 									minDist = dist;
