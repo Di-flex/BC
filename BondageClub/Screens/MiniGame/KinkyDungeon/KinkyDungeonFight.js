@@ -10,7 +10,7 @@ let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
 let KinkyDungeonBulletsID = {}; // Bullets on the game board
 let KDVulnerableDmg = 1.0;
-let KDVulnerableDmgMult = 0.2;
+let KDVulnerableDmgMult = 0.33;
 let KDVulnerableHitMult = 1.33;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
