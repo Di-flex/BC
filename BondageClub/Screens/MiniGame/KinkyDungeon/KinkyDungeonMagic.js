@@ -368,6 +368,27 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonSetFlag("kraken", 20);
 				}
 			}
+		} else if (playerEffect.name == "RopeEngulfWeak") {
+			let added = [];
+			for (let i = 0; i < playerEffect.power; i++) {
+				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints2", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					added.push(restraintAdd);
+					effect = true;
+				}
+			}
+			if (added.length > 0) {
+				KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonRopeEngulfWeak"), "red", 2);
+				effect = true;
+			} else {
+				let RopeDresses = ["Leotard", "Bikini", "Lingerie"];
+				if (!RopeDresses.includes(KinkyDungeonCurrentDress)) {
+					KinkyDungeonSetDress(RopeDresses[Math.floor(Math.random() * RopeDresses.length)], "");
+					KinkyDungeonDressPlayer();
+					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRopeEngulfDress"), "red", 3);
+					effect = true;
+				}
+			}
 		} else if (playerEffect.name == "VineEngulf") {
 			let added = [];
 			for (let i = 0; i < playerEffect.power; i++) {

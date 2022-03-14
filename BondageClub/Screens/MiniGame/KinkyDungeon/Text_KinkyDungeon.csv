@@ -934,6 +934,11 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch clips a restraint around your neck!"
 AttackWitchShock,"The witch slaps you playfully!"
 
+NameApprentice,Witch's Apprentice
+KillApprentice,"The apprentice runs off and cries in a corner."
+AttackApprenticeBind,"The apprentice clips a restraint around your neck!"
+AttackApprentice,"The apprentice slaps you playfully!"
+
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
@@ -2686,6 +2691,7 @@ KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body and slows you down!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
+KinkyDungeonSpellRopeEngulfWeak,"Rope Strike"
 KinkyDungeonSpellVineEngulf,"Animated Vines"
 KinkyDungeonSpellSoulCrystalBind,"Soul-binding Sigil"
 KinkyDungeonSpellElfArrow,Elven Arrow
