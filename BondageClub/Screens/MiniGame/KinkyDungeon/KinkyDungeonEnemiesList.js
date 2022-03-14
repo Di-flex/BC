@@ -574,7 +574,7 @@ let KinkyDungeonEnemies = [
 	{name: "Apprentice", clusterWith: "apprentice", bound: "Witch", tags: KDMapInit(["leashing", "opendoors", "electric", "closedoors", "apprentice", "ranged", "electricimmune", "glueweakness", "chainweakness", "search"]), followRange: 2,
 		castWhileMoving: true, spells: ["RopeEngulfWeak"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0, cohesion: 1.0,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 4, maxhp: 8, minLevel:2, weight:14, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
-		terrainTags: {"secondhalf":5, "lastthird":5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: [],
+		terrainTags: {"secondhalf":5, "lastthird":5, "increasingWeight": -2}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: [],
 		dropTable: [{name: "RedKey", weight: 1}, {name: "Nothing", weight: 29}]},
 	{name: "WitchShock", clusterWith: "apprentice", bound: "Witch", tags: KDMapInit(["leashing", "opendoors", "electric", "closedoors", "witch", "ranged", "elite", "miniboss", "unflinching", "electricimmune", "glueweakness", "iceweakness", "hunter"]), followRange: 2,
 		castWhileMoving: true, spells: ["WitchElectrify"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0,
