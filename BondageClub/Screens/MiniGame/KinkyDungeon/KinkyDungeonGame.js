@@ -480,7 +480,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 8 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 6 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
