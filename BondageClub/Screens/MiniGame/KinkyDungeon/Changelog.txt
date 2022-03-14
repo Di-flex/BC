@@ -697,6 +697,7 @@ Spell Balance:
 - Increased enemy cohesiveness so they stay together
 - Enemies now alert each other in a 5 tile radius
 - Added more wonderful bound sprites by Song!
+- Vulnerable condition only gives +33% damage instead of +120% (bug)
 
 TODO ValidationFindBlockCycles to prevent bugs
 
