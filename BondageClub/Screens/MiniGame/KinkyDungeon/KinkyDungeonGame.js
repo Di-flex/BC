@@ -548,9 +548,10 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (!currentCluster && Enemy.clusterWith) {
-					let clusterChance = 0.4 + 0.6 * MiniGameKinkyDungeonLevel/KinkyDungeonMaxLevel;
-					if (Enemy.tags.has("miniboss")) clusterChance /= 2;
-					if ((!Enemy.tags.has("elite") && !Enemy.tags.has("miniboss") && !Enemy.tags.has("miniboss")) || KDRandom() < clusterChance)
+					let clusterChance = 0.5 + 0.5 * MiniGameKinkyDungeonLevel/KinkyDungeonMaxLevel;
+					if (Enemy.tags.has("boss")) clusterChance *= 0.4;
+					else if (Enemy.tags.has("elite") || Enemy.tags.has("miniboss")) clusterChance *= 0.6;
+					if (KDRandom() < clusterChance)
 						currentCluster = {
 							x : X,
 							y : Y,

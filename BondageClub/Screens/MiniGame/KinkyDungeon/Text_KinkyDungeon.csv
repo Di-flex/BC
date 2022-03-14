@@ -939,6 +939,11 @@ KillApprentice,"The apprentice runs off and cries in a corner."
 AttackApprenticeBind,"The apprentice clips a restraint around your neck!"
 AttackApprentice,"The apprentice slaps you playfully!"
 
+NameApprentice2,Summoner's Apprentice
+KillApprentice2,"The apprentice runs off and cries in a corner."
+AttackApprentice2Bind,"The apprentice clips a restraint around your neck!"
+AttackApprentice2,"The apprentice slaps you playfully!"
+
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
@@ -2613,6 +2618,8 @@ KinkyDungeonSummonSingleSummonedSkeleton,A skeleton arises from bones on the flo
 KinkyDungeonSummonMultiSummonedSkeleton,A gang of SummonCount skeletons forms around you!
 KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
+KinkyDungeonSummonSingleTickleHand,A floating hand appears and cracks its knuckles!
+KinkyDungeonSummonSingleGag,A floating gag appears and starts flying toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 
