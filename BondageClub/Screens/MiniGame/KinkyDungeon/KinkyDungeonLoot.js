@@ -151,6 +151,7 @@ function KinkyDungeonGetUnlearnedSpells(minlevel, maxlevel, SpellList) {
 		for (let S = 0; S < SpellsUnlearned.length; S++) {
 			if (spell.name == SpellsUnlearned[S].name) {
 				SpellsUnlearned.splice(S, 1);
+				S--;
 			}
 		}
 	}

@@ -529,6 +529,7 @@ function KinkyDungeonHandleOrb() {
 							for (let S = 0; S < spellList.length; S++) {
 								if (sp.name == spellList[S].name) {
 									spellList.splice(S, 1);
+									S--;
 								}
 							}
 						}
@@ -587,6 +588,7 @@ function KinkyDungeonHandleOrb() {
 					for (let S = 0; S < spellList.length; S++) {
 						if (sp.name == spellList[S].name) {
 							spellList.splice(S, 1);
+							S--;
 						}
 					}
 				}
