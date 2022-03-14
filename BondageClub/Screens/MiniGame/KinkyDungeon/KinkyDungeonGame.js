@@ -548,12 +548,15 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
 				if (!currentCluster && Enemy.clusterWith) {
-					currentCluster = {
-						x : X,
-						y : Y,
-						required: Enemy.clusterWith,
-						count: 1,
-					};
+					let clusterChance = 0.4 + 0.6 * MiniGameKinkyDungeonLevel/KinkyDungeonMaxLevel;
+					if (Enemy.tags.has("miniboss")) clusterChance /= 2;
+					if ((!Enemy.tags.has("elite") && !Enemy.tags.has("miniboss") && !Enemy.tags.has("miniboss")) || KDRandom() < clusterChance)
+						currentCluster = {
+							x : X,
+							y : Y,
+							required: Enemy.clusterWith,
+							count: 1,
+						};
 				} else if (currentCluster) currentCluster.count += 1;
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
 				if (Enemy.difficulty) count += Enemy.difficulty;
