@@ -699,6 +699,8 @@ Spell Balance:
 - Added more wonderful bound sprites by Song!
 - Vulnerable condition only gives +33% damage instead of +120% (bug)
 - New enemies: Witch's apprentice and Summoner's apprentice
+- Monoliths don't spawn as crazy often
+- Changed binding system to work based on max hp instead. This is a nerf, but enemy struggle speed is still decreased when they are wounded.
 
 TODO ValidationFindBlockCycles to prevent bugs
 

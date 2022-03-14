@@ -343,7 +343,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, enemy.Enemy.allied ? "#00ff88" : "#ff0000", enemy.Enemy.allied ? "#aa0000" : "#000000");
 				if (enemy.boundLevel != undefined && enemy.boundLevel > 0 && enemy.hp > 1) {
 					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay + 12 - 15,
-						KinkyDungeonGridSizeDisplay, 12, enemy.boundLevel / enemy.hp * 100, "#ffae70", "#52333f");
+						KinkyDungeonGridSizeDisplay, 12, enemy.boundLevel / enemy.Enemy.maxhp * 100, "#ffae70", "#52333f");
 				}
 			}
 			if (KDCanSeeEnemy(enemy, playerDist)) {
@@ -433,7 +433,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (enemy.boundLevel >= enemy.hp) {
+		if (KDBoundEffects(enemy) > 3) {
 			if (enemy.knives || enemy.picks) {
 				for (let i = 0; i < enemy.knives; i++) {
 					let item = {x:enemy.x, y:enemy.y, name: "Knife"};
@@ -602,10 +602,10 @@ function KinkyDungeonHasStatus(enemy) {
 
 function KDBoundEffects(enemy) {
 	let boundLevel = enemy.boundLevel ? enemy.boundLevel : 0;
-	if (boundLevel > enemy.hp) return 4; // Totally tied
-	if (boundLevel > enemy.hp*0.75) return 3;
-	if (boundLevel > enemy.hp*0.5) return 2;
-	if (boundLevel > enemy.hp*0.25) return 1;
+	if (boundLevel > enemy.Enemy.maxhp) return 4; // Totally tied
+	if (boundLevel > enemy.Enemy.maxhp*0.75) return 3;
+	if (boundLevel > enemy.Enemy.maxhp*0.5) return 2;
+	if (boundLevel > enemy.Enemy.maxhp*0.25) return 1;
 	return 0;
 }
 

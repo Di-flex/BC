@@ -219,7 +219,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:0, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "latexAnger": 12, "latexRage": 5}, shrines: ["Latex"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "SmokeBomb", weight: 2}, {name: "PotionStamina", weight: 1}]},
-	{name: "Alkahestor", clusterWith: "alchemist", bound: "Alchemist", tags: KDMapInit(["opendoors", "leashing", "human", "alchemist", "ranged", "miniboss", "glueresist", "expRestraints", "handcuffer", "latexGag", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "Alkahestor", clusterWith: "alchemist", bound: "Alkahestor", tags: KDMapInit(["opendoors", "leashing", "human", "alchemist", "ranged", "miniboss", "glueresist", "expRestraints", "handcuffer", "latexGag", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		spells: ["AmpuleBlue", "SummonLatexElemental"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 4, kite: 1.5, projectileAttack: true,
 		visionRadius: 6, maxhp: 16, minLevel:0, weight:-1, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "latexAnger": 4, "latexRage": 4}, shrines: ["Latex"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
@@ -483,12 +483,8 @@ let KinkyDungeonEnemies = [
 	},
 
 	{name: "Monolith", clusterWith: "chaos", color: "#ff5277",
-		tags: KDMapInit(["opendoors", "ignorenoSP", "construct", "temple", "chaos", "ranged", "slashimmune", "unarmedresist", "pierceimmune", "fireresist", "unstoppable", "tickleresist", "groperesist", "electricresist", "charmimmune"]),
-		cohesion: 0, cohesionRange: 10,
-		summon: [
-			{enemy: "Monolith", range: 4, count: 1, chance: 1.0, strict: false},
-			{enemy: "Monolith", range: 4, count: 1, chance: 0.7, strict: false},
-			{enemy: "Monolith", range: 4, count: 1, chance: 0.33, strict: false},],
+		tags: KDMapInit(["opendoors", "ignorenoSP", "construct", "temple", "minor", "chaos", "ranged", "slashimmune", "unarmedresist", "pierceimmune", "fireresist", "unstoppable", "tickleresist", "groperesist", "electricresist", "charmimmune"]),
+		cohesion: 0, cohesionRange: 10, difficulty: 0.3,
 		followLeashedOnly: true, ignorechance: 0, armor: 1, spellResist: 0.5, followRange: 2, AI: "guard", buffallies: true, spellRdy: false, sneakthreshold: 0.95,
 		spells: ["MonolithBeam"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, kite: 1.5, kiteChance: 1.0,
 		visionRadius: 5, blindSight: 5, maxhp: 12, minLevel:10, weight:4, movePoints: 4, attackPoints: 4, attack: "Spell", attackWidth: 8, attackRange: 1, power: 6, dmgType: "fire",

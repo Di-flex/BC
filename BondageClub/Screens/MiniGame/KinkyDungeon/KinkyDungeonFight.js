@@ -419,7 +419,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistDamage == 1 || resistStun == 1) {
 				efficiency *= 0.75;
 			}
-			if (resistStun == 2) {
+			if (resistDamage == 2) {
 				efficiency *= 0.5;
 			}
 			if (resistStun == 2) {
