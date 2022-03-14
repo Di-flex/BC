@@ -1706,6 +1706,9 @@ RestraintVinePlantFeet,Ankle Vines
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
 
+RestraintWolfCuffs,Quik-Bind Cuffs
+RestraintWolfCuffsDesc,"A set of high-security cuffs that are both restrictive and quick to apply."
+RestraintWolfCuffsDesc2,"It uses a twelve-disc detainer lock."
 RestraintWolfArmbinder,Wolfbinder
 RestraintWolfArmbinderDesc,"A sophisticated training system used to keep wolfgirls from scratching their owners."
 RestraintWolfArmbinderDesc2,"Despite the harsh position, it is padded, breathable, and suitable for long term wear."
