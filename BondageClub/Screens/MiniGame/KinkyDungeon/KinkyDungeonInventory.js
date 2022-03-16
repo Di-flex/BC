@@ -2,12 +2,12 @@
 
 
 var KinkyDungeonFilters = [
-	"Consumables",
-	"Equipped",
-	"Weapons",
-	"Outfits",
-	"Restraints",
-	"Misc"
+	Consumable,
+	Restraint,
+	Weapon,
+	Outfit,
+	LooseRestraint,
+	Misc,
 ];
 
 var KinkyDungeonCurrentFilter = KinkyDungeonFilters[0];
@@ -37,12 +37,12 @@ function KinkyDungeonHandleInventory() {
 			}
 
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
-		if (KinkyDungeonCurrentFilter == "Consumables" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
+		if (KinkyDungeonCurrentFilter == Consumable && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let item = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter)[KinkyDungeonCurrentPageInventory];
 			if (!item || !item.name) return true;
 
 			KinkyDungeonAttemptConsumable(item.name, 1);
-		} else if (KinkyDungeonCurrentFilter == "Weapons") {
+		} else if (KinkyDungeonCurrentFilter == Weapon) {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			if (weapon && weapon != "knife") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
@@ -57,7 +57,7 @@ function KinkyDungeonHandleInventory() {
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				}
 			}
-		} else if (KinkyDungeonCurrentFilter == "Outfits" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
+		} else if (KinkyDungeonCurrentFilter == Outfit && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
@@ -68,7 +68,7 @@ function KinkyDungeonHandleInventory() {
 				KinkyDungeonSlowMoveTurns = 3;
 				KinkyDungeonSleepTime = CommonTime() + 200;
 			}
-		} else if (KinkyDungeonCurrentFilter == "Restraints" && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
+		} else if (KinkyDungeonCurrentFilter == LooseRestraint && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let equipped = false;
 			let newItem = null;
 			let currentItem = null;
@@ -87,25 +87,22 @@ function KinkyDungeonHandleInventory() {
 			if (!equipped && newItem) {
 				let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(currentItem.restraint, newItem));
 				if (success) {
-					for (let II = 0; II < KinkyDungeonInventory.length; II++) {
-						if (KinkyDungeonInventory[II].looserestraint && KinkyDungeonInventory[II].looserestraint.name == newItem.name) {
-							let msg = "KinkyDungeonSelfBondage";
-							if (KinkyDungeonInventory[II].looserestraint.Group == "ItemVulvaPiercings" || KinkyDungeonInventory[II].looserestraint.Group == "ItemVulva" || KinkyDungeonInventory[II].looserestraint.Group == "ItemButt") {
-								if (KinkyDungeonIsChaste(false)) {
-									msg = "KinkyDungeonSelfBondagePlug";
-								}
-							} else if (KinkyDungeonInventory[II].looserestraint.Group == "Item") {
-								if (KinkyDungeonIsChaste(true)) {
-									msg = "KinkyDungeonSelfBondageNipple";
-								}
-							} else if (KinkyDungeonInventory[II].looserestraint.enchanted) {
-								msg = "KinkyDungeonSelfBondageEnchanted";
-							}
-							KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KinkyDungeonInventory[II].looserestraint.name)), "yellow", 1);
-							KinkyDungeonInventory.splice(II, 1);
-							return true;
+					let loose = KinkyDungeonInventoryGetLoose(newItem.name);
+					let msg = "KinkyDungeonSelfBondage";
+					if (loose.looserestraint.Group == "ItemVulvaPiercings" || loose.looserestraint.Group == "ItemVulva" || loose.looserestraint.Group == "ItemButt") {
+						if (KinkyDungeonIsChaste(false)) {
+							msg = "KinkyDungeonSelfBondagePlug";
 						}
+					} else if (loose.looserestraint.Group == "Item") {
+						if (KinkyDungeonIsChaste(true)) {
+							msg = "KinkyDungeonSelfBondageNipple";
+						}
+					} else if (loose.looserestraint.enchanted) {
+						msg = "KinkyDungeonSelfBondageEnchanted";
 					}
+					KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + loose.looserestraint.name)), "yellow", 1);
+					KinkyDungeonInventoryRemove(loose);
+					return true;
 				}
 			}
 		}
@@ -117,54 +114,119 @@ function KinkyDungeonHandleInventory() {
 
 function KinkyDungeonInventoryAddWeapon(Name) {
 	if (!KinkyDungeonInventoryGet(Name) && KinkyDungeonWeapons[Name])
-		KinkyDungeonInventory.push({weapon: KinkyDungeonWeapons[Name], events: KinkyDungeonWeapons[Name].events});
+		KinkyDungeonInventoryAdd({weapon: KinkyDungeonWeapons[Name], events: KinkyDungeonWeapons[Name].events});
+}
+
+function KDInventoryType(item) {
+	if (item.restraint) return Restraint;
+	if (item.looserestraint) return LooseRestraint;
+	if (item.consumable) return Consumable;
+	if (item.weapon) return Weapon;
+	if (item.outfit) return Outfit;
+	return Misc;
+}
+
+function KDInventoryName(item) {
+	if (item.name) return item.name;
+	if (item.restraint) return item.restraint.name;
+	if (item.looserestraint) return item.looserestraint.name;
+	if (item.consumable) return item.consumable.name;
+	if (item.weapon) return item.weapon.name;
+	if (item.outfit) return item.outfit.name;
+}
+
+function KinkyDungeonFullInventory() {
+	let ret = [];
+	for (let m of KinkyDungeonInventory.values()) {
+		for (let item of m.values()) {
+			ret.push(item);
+		}
+	}
+	return ret;
+}
+
+function KinkyDungeonInventoryLength() {
+	let size = 0;
+	for (let m of KinkyDungeonInventory.values()) {
+		size += m.size;
+	}
+	return size;
+}
+
+function KinkyDungeonInventoryAdd(item) {
+	let type = KDInventoryType(item);
+	if (KinkyDungeonInventory.has(type)) {
+		KinkyDungeonInventory.get(type).set(KDInventoryName(item), item);
+	}
+}
+
+function KinkyDungeonInventoryRemove(item) {
+	if (item) {
+		let type = KDInventoryType(item);
+		if (KinkyDungeonInventory.has(type)) {
+			KinkyDungeonInventory.get(type).delete(KDInventoryName(item));
+		}
+	}
 }
 
 function KinkyDungeonInventoryGet(Name) {
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		let item = KinkyDungeonInventory[I];
-		if (item.name == Name) return item;
-		if (item.restraint && item.restraint.name == Name) return item;
-		if (item.looserestraint && item.looserestraint.name == Name) return item;
-		if (item.consumable && item.consumable.name == Name) return item;
-		if (item.weapon && item.weapon.name == Name) return item;
-		if (item.outfit && item.outfit.name == Name) return item;
+	for (let m of KinkyDungeonInventory.values()) {
+		if (m.has(Name)) return m.get(Name);
 	}
 	return null;
 }
 
 function KinkyDungeonInventoryGetLoose(Name) {
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		let item = KinkyDungeonInventory[I];
-		if (item.looserestraint && item.looserestraint.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(LooseRestraint).get(Name);
+}
+function KinkyDungeonInventoryGetConsumable(Name) {
+	return KinkyDungeonInventory.get(Consumable).get(Name);
+}
+function KinkyDungeonInventoryGetWeapon(Name) {
+	return KinkyDungeonInventory.get(Weapon).get(Name);
 }
 function KinkyDungeonInventoryGetOutfit(Name) {
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		let item = KinkyDungeonInventory[I];
-		if (item.outfit && item.outfit.name == Name) return item;
-	}
-	return null;
+	return KinkyDungeonInventory.get(Outfit).get(Name);
 }
 
+function KinkyDungeonAllRestraint() {
+	return KinkyDungeonInventory.get(Restraint) ? KinkyDungeonInventory.get(Restraint).values() : [];
+}
+function KinkyDungeonAllLooseRestraint() {
+	return KinkyDungeonInventory.get(LooseRestraint) ? KinkyDungeonInventory.get(LooseRestraint).values() : [];
+}
+function KinkyDungeonAllConsumable() {
+	return KinkyDungeonInventory.get(Consumable) ? KinkyDungeonInventory.get(Consumable).values() : [];
+}
+function KinkyDungeonAllOutfit() {
+	return KinkyDungeonInventory.get(Outfit) ? KinkyDungeonInventory.get(Outfit).values() : [];
+}
+function KinkyDungeonAllWeapon() {
+	return KinkyDungeonInventory.get(Weapon) ? KinkyDungeonInventory.get(Weapon).values() : [];
+}
+
+/*for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
+	if (item.looserestraint && item.looserestraint.name == Name) return item;
+}
+return null;*/
 
 function KinkyDungeonFilterInventory(Filter, enchanted) {
 	let ret = [];
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		let item = KinkyDungeonInventory[I];
-		let Group = "";
-		if (item.restraint && item.restraint.Group) Group = item.restraint.Group;
-		else if (item.looserestraint && item.looserestraint.Group) Group = item.looserestraint.Group;
-		if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
+	let category = KinkyDungeonInventory.get(Filter);
+	if (category)
+		for (let item of category.values()) {
+			let Group = "";
+			if (item.restraint && item.restraint.Group) Group = item.restraint.Group;
+			else if (item.looserestraint && item.looserestraint.Group) Group = item.looserestraint.Group;
+			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
-		if (item.restraint && (Filter == "Equipped")) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
-		else if (item.looserestraint && (!enchanted || item.looserestraint.enchanted || item.looserestraint.potionAncientCost) && (Filter == "restraint" || Filter == "Restraints")) ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
-		else if (item.consumable && (Filter == "consumable" || Filter == "Consumables")) ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
-		else if (item.weapon && (Filter == "weapon" || Filter == "Weapons")) ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});
-		else if (item.outfit && (Filter == "outfit" || Filter == "Outfits")) ret.push({name: item.outfit.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${item.outfit.name}.png`});
-		else if (item && item.name && (Filter == "Misc")) ret.push({name: item.name, item: item});
-	}
+			if (item.restraint) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
+			else if (item.looserestraint && (!enchanted || item.looserestraint.enchanted || item.looserestraint.potionAncientCost)) ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
+			else if (item.consumable) ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
+			else if (item.weapon) ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});
+			else if (item.outfit) ret.push({name: item.outfit.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${item.outfit.name}.png`});
+			else if (item && item.name) ret.push({name: item.name, item: item});
+		}
 
 	return ret;
 }
@@ -230,7 +292,7 @@ function KinkyDungeonDrawInventory() {
 
 
 
-	if (KinkyDungeonCurrentPageInventory >= KinkyDungeonInventory.length) KinkyDungeonCurrentPageInventory = 0;
+	if (KinkyDungeonCurrentPageInventory >= KinkyDungeonInventoryLength()) KinkyDungeonCurrentPageInventory = 0;
 
 	let defaultIndex = 0;
 	if (KinkyDungeonFilterInventory(KinkyDungeonFilters[0]).length == 0) defaultIndex = 1;
@@ -246,21 +308,21 @@ function KinkyDungeonDrawInventory() {
 
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
-		if (KinkyDungeonCurrentFilter == "Consumables")
+		if (KinkyDungeonCurrentFilter == Consumable)
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
-		if (KinkyDungeonCurrentFilter == "Weapons" && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Knife") {
+		if (KinkyDungeonCurrentFilter == Weapon && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Knife") {
 			let equipped = filteredInventory[KinkyDungeonCurrentPageInventory] && filteredInventory[KinkyDungeonCurrentPageInventory].name == KinkyDungeonPlayerWeapon;
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 			if (equipped) DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
 		}
-		if (KinkyDungeonCurrentFilter == "Outfits") {
+		if (KinkyDungeonCurrentFilter == Outfit) {
 			let outfit = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : "");
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
 				DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonEquip"), KDGameData.Outfit == outfit ? "grey" : "White", "", "");
 			}
 		}
-		if (KinkyDungeonCurrentFilter == "Restraints") {
+		if (KinkyDungeonCurrentFilter == LooseRestraint) {
 			let equipped = false;
 
 			if (filteredInventory[KinkyDungeonCurrentPageInventory]
@@ -289,7 +351,7 @@ function KinkyDungeonDrawInventory() {
 }
 
 function KinkyDungeonSendInventoryEvent(Event, data) {
-	for (let item of KinkyDungeonInventory) {
+	for (let item of KinkyDungeonFullInventory()) {
 		if (item.events) {
 			for (let e of item.events) {
 				if (e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
@@ -319,9 +381,9 @@ function KinkyDungeonQuickGrid(I, Width, Height, Xcount) {
 function KinkyDungeonDrawQuickInv() {
 	let H = 80;
 	let V = 80;
-	let consumables = KinkyDungeonFilterInventory("Consumables");
-	let weapons = KinkyDungeonFilterInventory("Weapons");
-	let restraints = KinkyDungeonFilterInventory("Restraints", true);
+	let consumables = KinkyDungeonFilterInventory(Consumable);
+	let weapons = KinkyDungeonFilterInventory(Weapon);
+	let restraints = KinkyDungeonFilterInventory(LooseRestraint, true);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
 	let Rheight = Wheight + V + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
 
@@ -387,9 +449,9 @@ function KinkyDungeonhandleQuickInv() {
 
 	let H = 80;
 	let V = 80;
-	let consumables = KinkyDungeonFilterInventory("Consumables");
-	let weapons = KinkyDungeonFilterInventory("Weapons");
-	let restraints = KinkyDungeonFilterInventory("Restraints", true);
+	let consumables = KinkyDungeonFilterInventory(Consumable);
+	let weapons = KinkyDungeonFilterInventory(Weapon);
+	let restraints = KinkyDungeonFilterInventory(LooseRestraint, true);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
 	let Rheight = Wheight + V + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
 
@@ -443,25 +505,22 @@ function KinkyDungeonhandleQuickInv() {
 				if (!equipped && newItem) {
 					let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(currentItem.restraint, newItem));
 					if (success) {
-						for (let II = 0; II < KinkyDungeonInventory.length; II++) {
-							if (KinkyDungeonInventory[II].looserestraint && KinkyDungeonInventory[II].looserestraint.name == newItem.name) {
-								let msg = "KinkyDungeonSelfBondage";
-								if (KinkyDungeonInventory[II].looserestraint.Group == "ItemVulvaPiercings" || KinkyDungeonInventory[II].looserestraint.Group == "ItemVulva" || KinkyDungeonInventory[II].looserestraint.Group == "ItemButt") {
-									if (KinkyDungeonIsChaste(false)) {
-										msg = "KinkyDungeonSelfBondagePlug";
-									}
-								} else if (KinkyDungeonInventory[II].looserestraint.Group == "Item") {
-									if (KinkyDungeonIsChaste(true)) {
-										msg = "KinkyDungeonSelfBondageNipple";
-									}
-								} else if (KinkyDungeonInventory[II].looserestraint.enchanted) {
-									msg = "KinkyDungeonSelfBondageEnchanted";
-								}
-								KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KinkyDungeonInventory[II].looserestraint.name)), "yellow", 1);
-								KinkyDungeonInventory.splice(II, 1);
-								return true;
+						let loose = KinkyDungeonInventoryGetLoose(newItem.name);
+						let msg = "KinkyDungeonSelfBondage";
+						if (loose.looserestraint.Group == "ItemVulvaPiercings" || loose.looserestraint.Group == "ItemVulva" || loose.looserestraint.Group == "ItemButt") {
+							if (KinkyDungeonIsChaste(false)) {
+								msg = "KinkyDungeonSelfBondagePlug";
 							}
+						} else if (loose.looserestraint.Group == "Item") {
+							if (KinkyDungeonIsChaste(true)) {
+								msg = "KinkyDungeonSelfBondageNipple";
+							}
+						} else if (loose.looserestraint.enchanted) {
+							msg = "KinkyDungeonSelfBondageEnchanted";
 						}
+						KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + loose.looserestraint.name)), "yellow", 1);
+						KinkyDungeonInventoryRemove(loose);
+						return true;
 					}
 				}
 			}

@@ -47,8 +47,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.restraint.name+e.type+e.trigger, type: "Accuracy", duration: 1, power: e.power});
 		} else if (e.type == "AllyHealingAura" && e.trigger == Event) {
 			let healed = false;
-			for (let L = 0; L < KinkyDungeonEntities.length; L++) {
-				let enemy = KinkyDungeonEntities[L];
+			for (let enemy of KinkyDungeonEntities) {
 				if (enemy.Enemy.allied && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					let origHP = enemy.hp;
 					enemy.hp = Math.min(enemy.hp + e.power, enemy.Enemy.maxhp);
@@ -97,7 +96,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 				KinkyDungeonSlimeLevelStart = -100;
 				let slimedParts = [];
 				let potentialSlimeParts = [];
-				for (let inv of KinkyDungeonRestraintList()) {
+				for (let inv of KinkyDungeonAllRestraint()) {
 					if (inv.restraint && inv.restraint.slimeLevel > 0) {
 						slimedParts.push({name: inv.restraint.name, group: inv.restraint.Group, level: inv.restraint.slimeLevel});
 					}
@@ -165,7 +164,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		}
 		if (e.type == "armbinderHarness" && e.trigger == Event && data.item != item && item.restraint && item.restraint && item.restraint.Group) {
 			let armbinder = false;
-			for (let inv of KinkyDungeonRestraintList()) {
+			for (let inv of KinkyDungeonAllRestraint()) {
 				if (inv.restraint && inv.restraint.shrine && (inv.restraint.shrine.includes("Armbinders") || inv.restraint.shrine.includes("Boxbinders"))) {
 					armbinder = true;
 					break;
@@ -388,8 +387,7 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 				activate = true;
 			}
 			if (KinkyDungeonPlayerBuffs.EnemySense && KinkyDungeonPlayerBuffs.EnemySense.duration > 1)
-				for (let E = 0; E < KinkyDungeonEntities.length; E++) {
-					let enemy = KinkyDungeonEntities[E];
+				for (let enemy of KinkyDungeonEntities) {
 					if (!KinkyDungeonLightGet(enemy.x, enemy.y)
 						&& Math.sqrt((KinkyDungeonPlayerEntity.x - enemy.x) * (KinkyDungeonPlayerEntity.x - enemy.x) + (KinkyDungeonPlayerEntity.y - enemy.y) * (KinkyDungeonPlayerEntity.y - enemy.y)) < e.dist) {
 						let color = "#882222";

@@ -1,13 +1,13 @@
 KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9|nuzzles"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9|nuzzles|Rest|LoudestQuietPerson"
 
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
-KinkyDungeonCreditsList0,"Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz|Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai"
-KinkyDungeonCreditsList1,"Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
+KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
+KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v2.7.5"
+KinkyDungeon,"Kinky Dungeon v2.7.6"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -88,7 +88,7 @@ KinkyDungeonStatDesc23,"Ancient power cores break with use, and cannot be rechar
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
 KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
-KinkyDungeonDifficulty2,Kinky: Same as roguelike, but you are even more helpless
+KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start with very little"
 
 KinkyDungeonLog,Log
 
@@ -934,6 +934,16 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch clips a restraint around your neck!"
 AttackWitchShock,"The witch slaps you playfully!"
 
+NameApprentice,Witch's Apprentice
+KillApprentice,"The apprentice runs off and cries in a corner."
+AttackApprenticeBind,"The apprentice clips a restraint around your neck!"
+AttackApprentice,"The apprentice slaps you playfully!"
+
+NameApprentice2,Summoner's Apprentice
+KillApprentice2,"The apprentice runs off and cries in a corner."
+AttackApprentice2Bind,"The apprentice clips a restraint around your neck!"
+AttackApprentice2,"The apprentice slaps you playfully!"
+
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
@@ -1251,8 +1261,8 @@ KinkyDungeonDropRedKey,"You drop the key due to your bound hands!"
 KinkyDungeonDropBlueKey,"You drop the magic key due to your bound hands!"
 KinkyDungeonDropGreenKey,"You drop the magic key due to your bound hands!"
 
-KinkyDungeonAutoDoorOn,"Close Doors: ON"
-KinkyDungeonAutoDoorOff,"Close Doors: OFF"
+KinkyDungeonAutoDoorOn,"Closing a door..."
+KinkyDungeonAutoDoorOff,"Close a door"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonPickDoor,"Pick"
@@ -1305,12 +1315,12 @@ ClimbDown,"You climb down to the next level"
 
 KinkyDungeonRestraintLevel,Level RestraintLevel (Rarity)
 
-KinkyDungeonCategoryFilterConsumables,Consumable
-KinkyDungeonCategoryFilterEquipped,Equipped
-KinkyDungeonCategoryFilterWeapons,Weapons
-KinkyDungeonCategoryFilterOutfits,Outfits
-KinkyDungeonCategoryFilterRestraints,Restraints
-KinkyDungeonCategoryFilterMisc,Miscellaneous
+KinkyDungeonCategoryFilterconsumable,Consumable
+KinkyDungeonCategoryFilterrestraint,Equipped
+KinkyDungeonCategoryFilterweapon,Weapons
+KinkyDungeonCategoryFilteroutfit,Outfits
+KinkyDungeonCategoryFilterlooserestraint,Restraints
+KinkyDungeonCategoryFiltermisc,Miscellaneous
 
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."
@@ -1706,6 +1716,9 @@ RestraintVinePlantFeet,Ankle Vines
 RestraintVinePlantFeetDesc,"A tie keeping your feet secured together."
 RestraintVinePlantFeetDesc2,"The vines twitch as they try to wrap around tighter."
 
+RestraintWolfCuffs,Quik-Bind Cuffs
+RestraintWolfCuffsDesc,"A set of high-security cuffs that are both restrictive and quick to apply."
+RestraintWolfCuffsDesc2,"It uses a twelve-disc detainer lock."
 RestraintWolfArmbinder,Wolfbinder
 RestraintWolfArmbinderDesc,"A sophisticated training system used to keep wolfgirls from scratching their owners."
 RestraintWolfArmbinderDesc2,"Despite the harsh position, it is padded, breathable, and suitable for long term wear."
@@ -2518,7 +2531,7 @@ KinkyDungeonSpellStormCrystal,Storm Crystal
 KinkyDungeonSpellTargetStormCrystal,Select where to put the storm crystal (cannot place on occupied squares)
 KinkyDungeonSpellDescriptionStormCrystal,Create a stationary crystal that casts Crackle on nearby targets for Duration turns
 KinkyDungeonSummonSingleStormCrystal,A crackling crystal emerges from the ground!
-KinkyDungeonCastSpellStormCrystal,You stomp and the ground shakes!
+KinkyDungeonSpellCastStormCrystal,You stomp and the ground shakes!
 
 KinkyDungeonSpellFireElemental,Fire Elemental
 KinkyDungeonSpellTargetFireElemental,Select where to put the fire elemental (cannot place on occupied squares)
@@ -2531,6 +2544,8 @@ KinkyDungeonSpellTargetShadowWarrior,Select where to put the shadow warrior (can
 KinkyDungeonSpellDescriptionShadowWarrior,Call forth a shadow warrior for 16 turns who deals DamageDealt damage every other turn.
 KinkyDungeonSummonSingleShadowWarrior,...and the abyss answers!
 KinkyDungeonSpellCastShadowWarrior,You call...
+
+
 
 
 
@@ -2603,6 +2618,8 @@ KinkyDungeonSummonSingleSummonedSkeleton,A skeleton arises from bones on the flo
 KinkyDungeonSummonMultiSummonedSkeleton,A gang of SummonCount skeletons forms around you!
 KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
+KinkyDungeonSummonSingleTickleHand,A floating hand appears and cracks its knuckles!
+KinkyDungeonSummonSingleGag,A floating gag appears and starts flying toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 
@@ -2681,11 +2698,13 @@ KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body and slows you down!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
+KinkyDungeonSpellRopeEngulfWeak,"Rope Strike"
 KinkyDungeonSpellVineEngulf,"Animated Vines"
 KinkyDungeonSpellSoulCrystalBind,"Soul-binding Sigil"
 KinkyDungeonSpellElfArrow,Elven Arrow
 KinkyDungeonEnchantedArrow,"The elven arrow flashes and wraps you in mithril ropes!"
 KinkyDungeonRopeEngulf,"Ropes wrap themselves around your body from all sides!"
+KinkyDungeonRopeEngulfWeak,"Ropes wrap themselves around your body from all sides!"
 KinkyDungeonVineEngulf,"Nature magic causes vines to sprout around you!"
 KinkyDungeonRopeEngulfDress,"Your clothes are stripped and replaced!"
 KinkyDungeonVineEngulfDress,"Vines tear off your clothes!"
@@ -2910,6 +2929,7 @@ KinkyDungeonTrapSpawnMaidforceHead,"The Head Maid corners you!"
 KinkyDungeonTrapCustomVine,"A vine crawls from the ground, already wrapping around your feet!"
 
 KinkyDungeonOrbIntro,"You have broken a magic orb, gaining a Spell Point and angering a goddess."
+KinkyDungeonOrbIntroKinky,"You have broken a magic orb, gaining a random spell and angering a goddess."
 KinkyDungeonOrbIntro2,"Choose one. She will send her minions after you."
 
 KinkyDungeonFreeze,You are frozen!
@@ -3172,3 +3192,12 @@ KinkyDungeonHeartIntro3,"Mana: Increases max mana by +12"
 KinkyDungeonHeartArousal,"+12 Arousal, +4 Stamina"
 KinkyDungeonHeartStamina,"+8 Max Stamina"
 KinkyDungeonHeartMana,"+12 Max Mana"
+
+KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!
+KinkyDungeonStealPick,The enemy steals a pick from you!
+KinkyDungeonStealKnife,The enemy steals a knife from you!
+KinkyDungeonStealBack,You get your stolen items back.
+KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
+
+KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
+KinkyDungeonCapture,You capture the EnemyName.

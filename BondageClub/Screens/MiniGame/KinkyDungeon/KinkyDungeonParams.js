@@ -1,5 +1,5 @@
 "use strict";
-var KinkyDungeonMapParams = [
+let KinkyDungeonMapParams = [
 
 	{//DungeonName0,-Graveyard-
 		"background" : "RainyForstPathNight",

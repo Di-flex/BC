@@ -1,36 +1,36 @@
 "use strict";
 let KDDebug = false;
 
-var KinkyDungeonBackground = "BrickWall";
-var KinkyDungeonPlayer = null;
-var KinkyDungeonState = "Menu";
+let KinkyDungeonBackground = "BrickWall";
+let KinkyDungeonPlayer = null;
+let KinkyDungeonState = "Menu";
 
-var KinkyDungeonRep = 0; // Variable to store max level to avoid losing it if the server doesnt take the rep update
+let KinkyDungeonRep = 0; // Variable to store max level to avoid losing it if the server doesnt take the rep update
 
-var KinkyDungeonKeybindings = null;
-var KinkyDungeonKeybindingsTemp = null;
-var KinkyDungeonKeybindingCurrentKey = 0;
+let KinkyDungeonKeybindings = null;
+let KinkyDungeonKeybindingsTemp = null;
+let KinkyDungeonKeybindingCurrentKey = 0;
 
 let KinkyDungeonNewGame = 0;
 let KinkyDungeonDifficultyMode = 0;
 
-var KinkyDungeonGameRunning = false;
+let KinkyDungeonGameRunning = false;
 
-//var KinkyDungeonKeyLower = [87+32, 65+32, 83+32, 68+32, 81+32, 45+32, 90+32, 43+32]; // WASD
-var KinkyDungeonKey = [119, 97, 115, 100, 113, 101, 122, 99]; // WASD
-//var KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
-var KinkyDungeonKeySpell = [49, 50, 51, 52, 53]; // 1 2 3
-var KinkyDungeonKeyWait = [120]; // x
+//let KinkyDungeonKeyLower = [87+32, 65+32, 83+32, 68+32, 81+32, 45+32, 90+32, 43+32]; // WASD
+let KinkyDungeonKey = [119, 97, 115, 100, 113, 101, 122, 99]; // WASD
+//let KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
+let KinkyDungeonKeySpell = [49, 50, 51, 52, 53]; // 1 2 3
+let KinkyDungeonKeyWait = [120]; // x
 let KinkyDungeonKeySkip = [13]; // Enter
 
-var KinkyDungeonRootDirectory = "Screens/MiniGame/KinkyDungeon/";
-var KinkyDungeonPlayerCharacter = null; // Other player object
-var KinkyDungeonGameData = null; // Data sent by other player
-var KinkyDungeonGameDataNullTimer = 4000; // If data is null, we query this often
-var KinkyDungeonGameDataNullTimerTime = 0;
-var KinkyDungeonStreamingPlayers = []; // List of players to stream to
+let KinkyDungeonRootDirectory = "Screens/MiniGame/KinkyDungeon/";
+let KinkyDungeonPlayerCharacter = null; // Other player object
+let KinkyDungeonGameData = null; // Data sent by other player
+let KinkyDungeonGameDataNullTimer = 4000; // If data is null, we query this often
+let KinkyDungeonGameDataNullTimerTime = 0;
+let KinkyDungeonStreamingPlayers = []; // List of players to stream to
 
-var KinkyDungeonInitTime = 0;
+let KinkyDungeonInitTime = 0;
 
 let KinkyDungeonSleepTime = 0;
 let KinkyDungeonFreezeTime = 1000;
@@ -38,6 +38,13 @@ let KinkyDungeonAutoWait = false;
 
 let KinkyDungeonConfigAppearance = false;
 
+const Consumable = "consumable";
+const Restraint = "restraint";
+const LooseRestraint = "looserestraint";
+const Outfit = "outfit";
+const Accessory = "accessory";
+const Weapon = "weapon";
+const Misc = "misc";
 
 let KinkyDungeonStatsChoice = new Map();
 
@@ -243,7 +250,7 @@ function KinkyDungeonLoad() {
 			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
 
 			KinkyDungeonNewDress = true;
-			var appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
+			let appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
 			if (!appearance) {
 				KinkyDungeonNewDress = false;
 				appearance = CharacterAppearanceStringify(KinkyDungeonPlayerCharacter ? KinkyDungeonPlayerCharacter : Player);
@@ -280,8 +287,7 @@ function KinkyDungeonLoad() {
 			}
 		}
 
-		for (let G = 0; G < KinkyDungeonStruggleGroupsBase.length; G++) {
-			let group = KinkyDungeonStruggleGroupsBase[G];
+		for (const group of KinkyDungeonStruggleGroupsBase) {
 			if (group == "ItemM") {
 				if (InventoryGet(Player, "ItemMouth"))
 					KinkyDungeonRestraintsLocked.push("ItemMouth");
@@ -410,6 +416,7 @@ function KinkyDungeonRun() {
 		DrawText(TextGet("KinkyDungeonDifficulty"), 1250, 300, "white", "silver");
 		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
 		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
+		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
@@ -489,7 +496,6 @@ function KinkyDungeonRun() {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				if (KinkyDungeonFastMovePath.length > 0) {
 					let next = KinkyDungeonFastMovePath[0];
-					KinkyDungeonDoorCloseTimer = 1;
 					KinkyDungeonFastMovePath.splice(0, 1);
 					if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
 						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, true);
@@ -575,7 +581,7 @@ function KinkyDungeonStartNewGame(Load) {
 		KinkyDungeonGameKey.KEY_UPRIGHT = (KinkyDungeonKeybindings.UpRight);
 		KinkyDungeonGameKey.KEY_DOWNRIGHT = (KinkyDungeonKeybindings.DownRight);
 
-		//var KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
+		//let KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
 		KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 		KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 		KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
@@ -613,6 +619,9 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(875, 550, 750, 64)) {
 			KinkyDungeonDifficultyMode = 1;
+			KinkyDungeonStartNewGame();
+		} else if (MouseIn(875, 650, 750, 64)) {
+			KinkyDungeonDifficultyMode = 2;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";
@@ -672,7 +681,7 @@ function KinkyDungeonHandleClick() {
 					KinkyDungeonGameKey.KEY_UPRIGHT = (KinkyDungeonKeybindings.UpRight);
 					KinkyDungeonGameKey.KEY_DOWNRIGHT = (KinkyDungeonKeybindings.DownRight);
 
-					//var KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
+					//let KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
 					KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 					KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 					KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
@@ -805,7 +814,7 @@ function KinkyDungeonHandleClick() {
 					KinkyDungeonGameKey.KEY_UPRIGHT = (KinkyDungeonKeybindings.UpRight);
 					KinkyDungeonGameKey.KEY_DOWNRIGHT = (KinkyDungeonKeybindings.DownRight);
 
-					//var KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
+					//let KinkyDungeonKeyNumpad = [56, 52, 50, 54, 55, 57, 49, 51]; // Numpad
 					KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 					KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 					KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
@@ -1126,7 +1135,7 @@ function KinkyDungeonGenerateSaveData() {
 	let spells = [];
 	let newInv = [];
 
-	for (let inv of KinkyDungeonInventory) {
+	for (let inv of KinkyDungeonFullInventory()) {
 		let item = {};
 		Object.assign(item, inv);
 		if (item.restraint) item.restraint = {name: item.restraint.name};
@@ -1232,7 +1241,7 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
 
-			KinkyDungeonInventory = [];
+			KDInitInventory();
 			for (let item of saveData.inventory) {
 				if (item.restraint) {
 					let restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
@@ -1244,13 +1253,18 @@ function KinkyDungeonLoadGame(String) {
 					}
 				}
 			}
-			Object.assign(KinkyDungeonInventory, saveData.inventory);
-			for (let item of KinkyDungeonInventory) {
-				if (item.restraint) item.restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
-				if (item.looserestraint) item.looserestraint = KinkyDungeonGetRestraintByName(item.looserestraint.name);
-				if (item.outfit) item.outfit = KinkyDungeonGetOutfit(item.outfit.name);
-				if (item.consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
-				if (item.weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
+			for (let item of saveData.inventory) {
+				if (KDInventoryName(item)) {
+					let inv = {};
+					let type = KDInventoryType(item);
+					if (type == Restraint) item.restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
+					if (type == LooseRestraint) item.looserestraint = KinkyDungeonGetRestraintByName(item.looserestraint.name);
+					if (type == Outfit) item.outfit = KinkyDungeonGetOutfit(item.outfit.name);
+					if (type == Consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
+					if (type == Weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
+					Object.assign(inv, item);
+					KinkyDungeonInventory.get(KDInventoryType(inv)).set(KDInventoryName(item), inv);
+				}
 			}
 
 			KinkyDungeonSpells = [];
@@ -1296,8 +1310,11 @@ function KDsetSeed(string) {
 	}
 }
 
+
+
 function xmur3(str) {
-	for(var i = 0, h = 1779033703 ^ str.length; i < str.length; i++) {
+	let h = 1779033703 ^ str.length;
+	for(let i = 0; i < str.length; i++) {
 		h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
 		h = h << 13 | h >>> 19;
 	} return function() {
@@ -1310,7 +1327,7 @@ function xmur3(str) {
 function sfc32(a, b, c, d) {
 	return function() {
 		a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;
-		var t = (a + b) | 0;
+		let t = (a + b) | 0;
 		a = b ^ b >>> 9;
 		b = c + (c << 3) | 0;
 		c = (c << 21 | c >>> 11);

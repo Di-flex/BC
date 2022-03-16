@@ -289,7 +289,7 @@ function KinkyDungeonUpdatePenance(delta) {
 				KinkyDungeonBullets = [];
 				if (KDGameData.KDPenanceStage == 0) {
 					let divineRestraints = [];
-					for (let inv of KinkyDungeonRestraintList()) {
+					for (let inv of KinkyDungeonAllRestraint()) {
 						if (inv.restraint && inv.restraint.divine) {
 							divineRestraints.push(inv);
 						}

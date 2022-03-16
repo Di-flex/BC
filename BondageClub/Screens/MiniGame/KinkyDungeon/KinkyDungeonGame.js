@@ -81,8 +81,6 @@ const KinkyDungeonGoldLockChance = -0.25; // Chance that a blue lock is replaced
 const KinkyDungeonGoldLockChanceScaling = 0.01;
 const KinkyDungeonGoldLockChanceScalingMax = 0.25;
 
-let KinkyDungeonDoorShutTimer = 6;
-
 const KinkyDungeonEasyLockChance = 0.8;
 const KinkyDungeonEasyLockChanceScaling = -0.007;
 const KinkyDungeonEasyLockChanceScalingMax = 1.0;
@@ -101,8 +99,6 @@ let KinkyDungeonNextDataSendStatsTime = 0;
 let KinkyDungeonNextDataLastTimeReceived = 0;
 let KinkyDungeonNextDataLastTimeReceivedTimeout = 15000; // Clear data if more than 15 seconds of no data received
 
-
-let KinkyDungeonDoorCloseTimer = 0;
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
@@ -199,8 +195,9 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonMapIndex = [];
 
 
-	for (let I = 1; I < KinkyDungeonMapParams.length; I++)
+	for (let I = 1; I < KinkyDungeonMapParams.length; I++) {
 		KinkyDungeonMapIndex.push(I);
+	}
 
 	// Option to shuffle the dungeon types besides the initial one (graveyard)
 	if (Random) {
@@ -483,7 +480,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 4 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 6 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
@@ -492,10 +489,25 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	let jailerCount = 0;
 	let EnemyNames = [];
 
+	let currentCluster = null;
+
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
 		let X = 1 + Math.floor(KDRandom()*(width - 1));
 		let Y = 1 + Math.floor(KDRandom()*(height - 1));
+		let required = undefined;
+
+		if (currentCluster && !(10 * KDRandom() < currentCluster.count)) {
+			required = [currentCluster.required];
+			X = currentCluster.x - 2 + Math.floor(KDRandom() * 5);
+			Y = currentCluster.y - 2 + Math.floor(KDRandom() * 5);
+
+			if (!KinkyDungeonCheckPath(currentCluster.x, currentCluster.y, X, Y, false, true)) {
+				if (5 * KDRandom() < currentCluster.count) currentCluster = null;
+				continue;
+			}
+		} else currentCluster = null;
+
 		let playerDist = 6;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
@@ -532,11 +544,24 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 				tags.push(t);
 			}
 
-			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y));
+			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+				if (!currentCluster && Enemy.clusterWith) {
+					let clusterChance = 1.0; //1.1 + 0.9 * MiniGameKinkyDungeonLevel/KinkyDungeonMaxLevel;
+					if (Enemy.tags.has("boss")) clusterChance *= 0.4;
+					//else if (Enemy.tags.has("elite") || Enemy.tags.has("miniboss")) clusterChance *= 0.6;
+					if (KDRandom() < clusterChance)
+						currentCluster = {
+							x : X,
+							y : Y,
+							required: Enemy.clusterWith,
+							count: 1,
+						};
+				} else if (currentCluster) currentCluster.count += 1;
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
-				if (Enemy.tags.has("minor")) count += 0.2; else count += 1; // Minor enemies count as 1/5th of an enemy
+				if (Enemy.difficulty) count += Enemy.difficulty;
+				if (Enemy.tags.has("minor")) count += 0.2; else count += currentCluster ? 0.75 : 1.0; // Minor enemies count as 1/5th of an enemy
 				if (Enemy.tags.has("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
 				else if (Enemy.tags.has("elite")) count += Math.max(0.5, 50/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
 				if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
@@ -1135,8 +1160,7 @@ function KinkyDungeonGenerateShrine(Floor) {
 		let shrineWeightTotal = 0;
 		let shrineWeights = [];
 
-		for (let L = 0; L < Params.shrines.length; L++) {
-			let shrine = Params.shrines[L];
+		for (let shrine of Params.shrines) {
 			shrineWeights.push({shrine: shrine, weight: shrineWeightTotal});
 			shrineWeightTotal += shrine.Weight;
 		}
@@ -1713,7 +1737,7 @@ function KinkyDungeonListenKeyMove() {
 		}
 	}
 	if (KinkyDungeonLastMoveTimerStart < performance.now() && KinkyDungeonLastMoveTimer == 0) KinkyDungeonLastMoveTimerStart = 0;
-	if (!KinkyDungeonGameKey.keyPressed.some((element)=>{return element;})) { KinkyDungeonLastMoveTimer = 0; KinkyDungeonDoorCloseTimer = 0;}
+	if (!KinkyDungeonGameKey.keyPressed.some((element)=>{return element;})) { KinkyDungeonLastMoveTimer = 0;}
 }
 
 function KinkyDungeonGameKeyDown() {
@@ -1829,28 +1853,20 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			}
 		}
 	} else {
-		if (moveDirection.x == 0 && moveDirection.y == 0) KinkyDungeonDoorCloseTimer = 0; // Allow manually waiting to turn around and be able to slam a door
-		else if (KinkyDungeonLastMoveDirection && !(KinkyDungeonLastMoveDirection.x == 0 && KinkyDungeonLastMoveDirection.y == 0) && (Math.abs(KinkyDungeonLastMoveDirection.x - moveDirection.x) + Math.abs(KinkyDungeonLastMoveDirection.y - moveDirection.y)) <= 1) {
-			KinkyDungeonDoorCloseTimer = Math.max(KinkyDungeonDoorCloseTimer, 1); // if you are running in the same direction you cant close the door without turning around. this also helps speed up the game
-		}
-
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
 		if (KinkyDungeonMovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy.Enemy && Enemy.Enemy.noblockplayer))) { // If the player can move to an empy space or a door
 
 			KinkyDungeonConfirmAttack = false;
 
-			if (!KinkyDungeonToggleAutoDoor) KinkyDungeonDoorCloseTimer = 1;
-			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true) && KinkyDungeonDoorCloseTimer <= 0)
+			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((KinkyDungeonToggleAutoDoor && moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true))
 				|| (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Trap" && (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Door" || (KinkyDungeonTiles.get("" + moveX + "," + moveY).Lock && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type == "Door"))))) {
 				if (AllowInteract) {
 					KinkyDungeonTargetTileLocation = "" + moveX + "," + moveY;
 					KinkyDungeonTargetTile = KinkyDungeonTiles.get(KinkyDungeonTargetTileLocation);
 					KinkyDungeonTargetTileMsg();
-					KinkyDungeonDoorCloseTimer = 2; // To avoid cases with severe annoyance while walking through halls with lots of doors
 				}
 			} else if (moveX != KinkyDungeonPlayerEntity.x || moveY != KinkyDungeonPlayerEntity.y) {
 				let newDelta = 1;
-				if (KinkyDungeonDoorCloseTimer > 0) KinkyDungeonDoorCloseTimer -= 1;
 				KinkyDungeonTargetTile = null;
 				KinkyDungeonTargetTileLocation = "";
 				if (!KinkyDungeonHandleMoveObject(moveX, moveY, moveObject)) {// Move
@@ -1992,7 +2008,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	CharacterAppearanceBuildCanvas = () => {};
 	let start = performance.now();
 
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.lock == "Gold" && (MiniGameKinkyDungeonLevel >= inv.lockTimer || !inv.lockTimer)) {
 			KinkyDungeonLock(inv, "Blue");
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonGoldLockRemove"), "yellow", 2);
@@ -2042,6 +2058,10 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
 
 	KinkyDungeonUpdateTileEffects(delta);
+	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
+		let enemy = KinkyDungeonEntities[E];
+		if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
+	}
 
 	KinkyDungeonUpdateStats(delta);
 
@@ -2062,7 +2082,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ff8800", 1, true);
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint)
 			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}

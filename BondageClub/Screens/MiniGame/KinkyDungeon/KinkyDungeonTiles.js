@@ -16,8 +16,9 @@ function KinkyDungeonHandleMoveToTile(toTile) {
 		if (KinkyDungeonConfirmStairs) {
 			KinkyDungeonConfirmStairs = false;
 			KinkyDungeonHandleStairs(toTile);
-		} else {
-			KinkyDungeonConfirmStairs = true;
+		} else if (!(KDGameData.SleepTurns > 0)) {
+			if (KinkyDungeonLastAction == "Move")
+				KinkyDungeonConfirmStairs = true;
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmStairs"), "white", 1);
 		}
 	}
@@ -67,7 +68,6 @@ function KinkyDungeonHandleMoveObject(moveX, moveY, moveObject) {
 	if (moveObject == 'D') { // Open the door
 		KinkyDungeonMapSet(moveX, moveY, 'd');
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
-		KinkyDungeonDoorCloseTimer = 1;
 		return true;
 	} else if (moveObject == 'C') { // Open the chest
 		let chestType = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Loot ? KinkyDungeonTiles.get(moveX + "," +moveY).Loot : "chest";

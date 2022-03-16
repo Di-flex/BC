@@ -684,6 +684,23 @@ Spell Balance:
 - Base arousal decay, vibrator arousal amounts were halved
 - Wearing chastity now halves your base arousal decay
 - Unchaste now lowers it even further to 25% of base
+- Lockpicks and knives no longer appear in rubble if you have more than 3
+- Enemies are vulnerable when they miss you or when you are behind them and take extra damage
+- Enemies steal knives and picks from you now if they can bind and are humanoid (bindable)
+- New Kinky mode which only gives random spells!
+
+2.7.6
+- Changed the kill leniency system--attacks dealing 2 or less damage no longer kill enemies if the attack leaves them with 1-5hp.
+- Halved stamina cost to move while bound
+- Changed enemy spawning to spawn in clusters
+- Enemy counts generally increased slightly, but enemy difficulty should factor into the number of enemies better.
+- Increased enemy cohesiveness so they stay together
+- Enemies now alert each other in a 5 tile radius
+- Added more wonderful bound sprites by Song!
+- Vulnerable condition only gives +33% damage instead of +120% (bug)
+- New enemies: Witch's apprentice and Summoner's apprentice
+- Monoliths don't spawn as crazy often
+- Changed binding system to work based on max hp instead. This is a nerf, but enemy struggle speed is still decreased when they are wounded.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
