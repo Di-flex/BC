@@ -470,8 +470,9 @@ function KinkyDungeonHandleHUD() {
 					return true;
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
-				if (KinkyDungeonHandleShrine())
-					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+				if (KinkyDungeonHandleShrine()) {
+					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+				}
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 350, 60)) {
 					KinkyDungeonTargetTile = null;
