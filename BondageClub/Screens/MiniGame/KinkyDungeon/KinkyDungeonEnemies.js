@@ -341,7 +341,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 				}
 				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 15,
 					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, enemy.Enemy.allied ? "#00ff88" : "#ff0000", enemy.Enemy.allied ? "#aa0000" : "#000000");
-				if (enemy.boundLevel != undefined && enemy.boundLevel > 0 && enemy.hp > 1) {
+				if (enemy.boundLevel != undefined && enemy.boundLevel > 0 && (enemy.hp > enemy.Enemy.hp * 0.1 || KDBoundEffects(enemy) < 4)) {
 					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay + 12 - 15,
 						KinkyDungeonGridSizeDisplay, 12, enemy.boundLevel / enemy.Enemy.maxhp * 100, "#ffae70", "#52333f");
 				}
@@ -601,8 +601,9 @@ function KinkyDungeonHasStatus(enemy) {
 }
 
 function KDBoundEffects(enemy) {
+	if (!enemy.Enemy.bound) return 0;
 	let boundLevel = enemy.boundLevel ? enemy.boundLevel : 0;
-	if (boundLevel > enemy.Enemy.maxhp) return 4; // Totally tied
+	if (boundLevel > enemy.Enemy.maxhp || (enemy.hp <= 0.1*enemy.Enemy.maxhp && boundLevel > enemy.hp)) return 4; // Totally tied
 	if (boundLevel > enemy.Enemy.maxhp*0.75) return 3;
 	if (boundLevel > enemy.Enemy.maxhp*0.5) return 2;
 	if (boundLevel > enemy.Enemy.maxhp*0.25) return 1;

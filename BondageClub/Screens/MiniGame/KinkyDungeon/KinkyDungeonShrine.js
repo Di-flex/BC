@@ -568,19 +568,32 @@ function KinkyDungeonHandleOrb() {
 				for (let sp of KinkyDungeonSpellList.Conjure) {
 					if (sp.level <= KinkyDungeonSpellLevel.Conjure && sp.school == "Conjure" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+						{
+							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
+								spellList.push(sp);
 							spellList.push(sp);
+						}
+
 					}
 				}
 				for (let sp of KinkyDungeonSpellList.Elements) {
 					if (sp.level <= KinkyDungeonSpellLevel.Elements && sp.school == "Elements" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+						{
+							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
+								spellList.push(sp);
 							spellList.push(sp);
+						}
 					}
 				}
 				for (let sp of KinkyDungeonSpellList.Illusion) {
 					if (sp.level <= KinkyDungeonSpellLevel.Illusion && sp.school == "Illusion" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
+						{
+							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
+								spellList.push(sp);
 							spellList.push(sp);
+						}
 					}
 				}
 
