@@ -944,6 +944,11 @@ KillApprentice2,"The apprentice runs off and cries in a corner."
 AttackApprentice2Bind,"The apprentice clips a restraint around your neck!"
 AttackApprentice2,"The apprentice slaps you playfully!"
 
+NameApprenticeSlime,Latex Apprentice
+KillApprenticeSlime,"The apprentice runs off and cries in a corner."
+AttackApprenticeSlimeBind,"The apprentice clips a restraint around your neck!"
+AttackApprenticeSlime,"The apprentice slaps you playfully!"
+
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
@@ -2520,6 +2525,11 @@ KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupi
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns. It takes 20% damage from spells.
 KinkyDungeonSummonSingleWall,A wall starts to form!
 KinkyDungeonSpellCastWall,You create a line on the ground.
+
+KinkyDungeonSpellTrueSteel,True Steel
+KinkyDungeonSpellTargetTrueSteel,Choose a target.
+KinkyDungeonSpellDescriptionTrueSteel,"A melee strike that deals DamageDealt slash damage, x2.5 against unaware humanoid enemies."
+KinkyDungeonSpellCastTrueSteel,You slash with an ethereal blade!
 
 KinkyDungeonSpellAlly,Familiar
 KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on occupied squares)

@@ -171,12 +171,12 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 			if (spell.power > 0) {
 				effect = true;
-				KinkyDungeonDealDamage({damage: spell.power*2, type: spell.damage});
+				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			}
 		} else if (playerEffect.name == "Shock") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
-			KinkyDungeonDealDamage({damage: spell.power*2, type: spell.damage});
+			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonShock"), "red", playerEffect.time);
 			effect = true;
 		} else if (playerEffect.name == "CoronaShock") {

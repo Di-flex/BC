@@ -702,6 +702,14 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	} else if (b.bullet.hit == "aoe") {
 		KinkyDungeonBullets.push({secondary: true, born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 			bullet:{spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, bind: b.bullet.spell.bind, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
+	} else if (b.bullet.hit == "instant") {
+		if (!KinkyDungeonBulletsCheckCollision(b, true, true)) {
+			if (!(b.bullet.spell && b.bullet.spell.piercing)) {
+				KinkyDungeonBullets.splice(KinkyDungeonBullets.indexOf(b), 1);
+				KinkyDungeonBulletsID[b.spriteID] = null;
+			}
+			KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
+		}
 	} else if (b.bullet.hit == "lingering") {
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
@@ -830,12 +838,12 @@ function KinkyDungeonBulletTrail(b) {
 	return trail;
 }
 
-function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
+function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	if (bullet.bullet.noEnemyCollision) return true;
 
-	if (bullet.bullet.damage && bullet.time > 0) {
+	if (bullet.bullet.damage && (bullet.time > 0 || force)) {
 		if (bullet.bullet.aoe) {
 			if (AoE) {
 				if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {

@@ -53,7 +53,7 @@ let KinkyDungeonLearnableSpells = [
 		// Verbal
 		["Flash", "Shroud", "GreaterFlash", "ShadowWarrior", "FocusedFlash", "Invisibility"],
 		// Arms
-		["Dagger", "ShadowSlash", "ShadowBlade", "Corona"],
+		["Dagger", "TrueSteel", "ShadowSlash", "ShadowBlade", "Corona"],
 		// Legs
 		["Evasion", "Decoy", "Camo"],
 		// Passive
@@ -149,6 +149,9 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			{id: "Shroud2", type: "Sneak", power: 3.0, player: true, duration: 6, enemies: false, tags: ["darkness"], range: 1.5}
 		], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 		{name: "Invisibility", sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Verbal"], mustTarget: true, level:3, type:"buff", buffs: [{id: "Invisibility", type: "Sneak", duration: 10, power: 10.0, player: true, enemies: true, tags: ["invisibility"]}], onhit:"", time:10, power: 0, range: 2, size: 1, damage: ""},
+		{name: "TrueSteel", sfx: "MagicSlash", school: "Illusion", manacost: 1, components: ["Arms"], noTargetPlayer: true, mustTarget: true, level:1, type:"hit", onhit:"instant", evadeable: true, time:1, power: 3, range: 1.5, size: 1, lifetime: 1, aoe: 0.5, damage: "slash",
+			events: [{trigger: "beforeDamageEnemy", type: "MultiplyDamageStealth", power: 2.5, humanOnly: true}]
+		},
 		{name: "Camo", sfx: "MagicSlash", school: "Illusion", manacost: 3, components: ["Legs"], mustTarget: true, noTargetEnemies: true, level:2, type:"buff",
 			buffs: [
 				{id: "Camo", type: "SlowDetection", duration: 50, power: 49.0, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["SlowDetection", "move", "cast"]}
@@ -277,6 +280,7 @@ let KinkyDungeonSpellListEnemies = [
 	{enemySpell: true, name: "ShadowScythe", sfx: "MagicSlash", manacost: 4, components: ["Verbal"], level:1, type:"inert", noTerrainHit: true, onhit:"aoe", time: 5, delay: 1, power: 6, range: 2, size: 3, aoe: 1.5, lifetime: 1, damage: "chain", playerEffect: {name: "ShadowBind", time: 4}},
 	{enemySpell: true, name: "WitchSlime", landsfx: "MagicSlash", manacost: 2, components: ["Legs"], level:2, type:"inert", onhit:"lingering", time: 2, delay: 1, range: 4, size: 3, aoe: 1, lifetime: 1, lifetimeHitBonus: 9, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 	{enemySpell: true, name: "WitchSlimeBall", sfx: "FireSpell", manacost: 4, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"", time: 2,  power: 2, delay: 0, range: 50, damage: "glue", speed: 1, trailLifetime: 10, trailDamage:"glue", trail:"lingering", trailChance: 1.0, playerEffect: {name: "SlimeTrap", time: 3}}, // Throws a ball of slime which oozes more slime
+	{enemySpell: true, name: "SlimePuddle", sfx: "FireSpell", manacost: 3, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"lingering", time: 2, power: 2, lifetime: 5, lifetimeHitBonus: 5, aoe: 1, delay: 0, range: 50, damage: "glue", speed: 1, playerEffect: {name: "SlimeTrap", time: 3}}, // Throws a ball of slime which oozes more slime
 	{enemySpell: true, name: "WitchElectrify", landsfx: "Shock", manacost: 3, components: ["Arms"], level:2, type:"inert", onhit:"aoe", power: 5, time: 1, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
 	{enemySpell: true, name: "SummonSkeleton", landsfx: "Bones", manacost: 4, components: ["Verbal"], level:3, type:"inert", onhit:"summon", summon: [{name: "SummonedSkeleton", count: 1, time: 12, strict: true}], power: 0, time: 12, delay: 1, range: 4, size: 3, aoe: 2.1, lifetime: 1, damage: "fire"},
 	{enemySpell: true, name: "SummonSkeletons", landsfx: "Bones", manacost: 12, components: ["Verbal"], level:4, type:"inert", onhit:"summon", summon: [{name: "SummonedSkeleton", count: 4, time: 12, strict: true}], power: 0, time: 12, delay: 1, range: 4, size: 3, aoe: 2.6, lifetime: 1, damage: "fire"},
