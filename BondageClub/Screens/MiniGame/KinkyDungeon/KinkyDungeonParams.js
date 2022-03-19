@@ -8,8 +8,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.16,
 		"barchance" : 0.2,
 		"brightness" : 8,
-		"chestcount" : 1,
-		"shrinecount" : 4,
+		"chestcount" : 3,
+		"shrinecount" : 8,
 		"shrinechance" : 0.75,
 		"ghostchance" : 1,
 		"doorchance" : 0.67,
@@ -24,11 +24,11 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
 		"shortcuts": [
-			{Level: 3, checkpoint: 11, chance: 0.5},
-			{Level: 4, checkpoint: 11, chance: 1.0},
+			{Level: 1, checkpoint: 11, chance: 0.5},
+			{Level: 3, checkpoint: 11, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 9, checkpoint: 1},
+			{Level: 5, checkpoint: 1},
 		],
 
 		"traps": [
@@ -86,8 +86,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.11,
 		"barchance" : 0.2,
 		"brightness" : 6,
-		"chestcount" : 2,
-		"shrinecount" : 5,
+		"chestcount" : 4,
+		"shrinecount" : 10,
 		"shrinechance" : 0.6,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.8,
@@ -102,15 +102,14 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
-			{Level: 11, checkpoint: 12, chance: 0.25},
-			{Level: 12, checkpoint: 12, chance: 1.0},
-			{Level: 13, checkpoint: 12, chance: 0.25},
-			{Level: 14, checkpoint: 12, chance: 0.25},
-			{Level: 15, checkpoint: 12, chance: 0.25},
-			{Level: 16, checkpoint: 12, chance: 1.0},
+			{Level: 6, checkpoint: 12, chance: 0.5},
+			{Level: 7, checkpoint: 12, chance: 1.0},
+			{Level: 8, checkpoint: 12, chance: 0.25},
+			{Level: 9, checkpoint: 12, chance: 0.25},
+			{Level: 10, checkpoint: 12, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 19, checkpoint: 2},
+			{Level: 11, checkpoint: 2},
 		],
 
 		"traps": [
@@ -167,9 +166,9 @@ let KinkyDungeonMapParams = [
 		"density" : 5,
 		"doodadchance" : 0.12,
 		"barchance" : 0.05,
-		"brightness" : 7,
-		"chestcount" : 2,
-		"shrinecount" : 5,
+		"brightness" : 8,
+		"chestcount" : 5,
+		"shrinecount" : 10,
 		"shrinechance" : 0.4,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.2,
@@ -184,11 +183,11 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
-			{Level: 23, checkpoint: 13, chance: 1.0},
-			{Level: 26, checkpoint: 13, chance: 1.0},
+			{Level: 13, checkpoint: 13, chance: 1.0},
+			{Level: 15, checkpoint: 13, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 29, checkpoint: 3},
+			{Level: 17, checkpoint: 3},
 		],
 
 		"traps": [
@@ -243,8 +242,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.13,
 		"barchance" : 0.1,
 		"brightness" : 5,
-		"chestcount" : 2,
-		"shrinecount" : 4,
+		"chestcount" : 4,
+		"shrinecount" : 8,
 		"shrinechance" : 0.5,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.9,
@@ -265,7 +264,7 @@ let KinkyDungeonMapParams = [
 
 		],
 		"mainpath": [
-			{Level: 39, checkpoint: 3},
+			{Level: 23, checkpoint: 3},
 		],
 
 		"traps": [
@@ -321,8 +320,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.15,
 		"barchance" : 0.15,
 		"brightness" : 7,
-		"chestcount" : 2,
-		"shrinecount" : 5,
+		"chestcount" : 5,
+		"shrinecount" : 10,
 		"shrinechance" : 0.8,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.05,
@@ -348,8 +347,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.05,
 		"barchance" : 0.03,
 		"brightness" : 8,
-		"chestcount" : 3,
-		"shrinecount" : 4,
+		"chestcount" : 6,
+		"shrinecount" : 8,
 		"shrinechance" : 0.75,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.67,
@@ -377,8 +376,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.13,
 		"barchance" : 0.03,
 		"brightness" : 5,
-		"chestcount" : 2,
-		"shrinecount" : 6,
+		"chestcount" : 4,
+		"shrinecount" : 12,
 		"shrinechance" : 0.5,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.0,
@@ -404,8 +403,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 4,
-		"chestcount" : 2,
-		"shrinecount" : 5,
+		"chestcount" : 4,
+		"shrinecount" : 10,
 		"shrinechance" : 0.8,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.8,
@@ -432,8 +431,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 8,
-		"chestcount" : 4,
-		"shrinecount" : 4,
+		"chestcount" : 8,
+		"shrinecount" : 8,
 		"shrinechance" : 0.75,
 		"ghostchance" : 0.5,
 		"doorchance" : 1.0,
@@ -461,8 +460,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.08,
 		"barchance" : 0.03,
 		"brightness" : 4,
-		"chestcount" : 5,
-		"shrinecount" : 3,
+		"chestcount" : 10,
+		"shrinecount" : 6,
 		"shrinechance" : 0.75,
 		"ghostchance" : 0.5,
 		"doorchance" : 1.0,
@@ -520,8 +519,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.25,
 		"barchance" : 0.05,
 		"brightness" : 5,
-		"chestcount" : 3,
-		"shrinecount" : 6,
+		"chestcount" : 6,
+		"shrinecount" : 12,
 		"shrinechance" : 0.5,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.4,
@@ -537,10 +536,10 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
-			{Level: 8, checkpoint: 13, chance: 1.0},
+			{Level: 4, checkpoint: 13, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 9, checkpoint: 1},
+			{Level: 5, checkpoint: 1},
 		],
 
 		"traps": [
@@ -596,8 +595,8 @@ let KinkyDungeonMapParams = [
 		"wallRubblechance" : 0.035,
 		"barchance" : 0.1,
 		"brightness" : 8,
-		"chestcount" : 3,
-		"shrinecount" : 6,
+		"chestcount" : 6,
+		"shrinecount" : 12,
 		"shrinechance" : 0.5,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.0,
@@ -613,10 +612,10 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
-			{Level: 16, checkpoint: 1, chance: 1.0},
+			{Level: 9, checkpoint: 1, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 19, checkpoint: 2},
+			{Level: 11, checkpoint: 2},
 		],
 
 		"traps": [
@@ -669,8 +668,8 @@ let KinkyDungeonMapParams = [
 		"doodadchance" : 0.15,
 		"barchance" : 0.03,
 		"brightness" : 7,
-		"chestcount" : 2,
-		"shrinecount" : 5,
+		"chestcount" : 4,
+		"shrinecount" : 10,
 		"shrinechance" : 0.8,
 		"ghostchance" : 0.5,
 		"doorchance" : 0.05,
@@ -692,16 +691,14 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
-			{Level: 24, checkpoint: 2, chance: 0.25},
-			{Level: 25, checkpoint: 2, chance: 0.25},
-			{Level: 26, checkpoint: 2, chance: 0.25},
-			{Level: 27, checkpoint: 2, chance: 0.25},
-			{Level: 28, checkpoint: 2, chance: 1.0},
+			{Level: 14, checkpoint: 2, chance: 0.33},
+			{Level: 15, checkpoint: 2, chance: 0.4},
+			{Level: 16, checkpoint: 2, chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 9, checkpoint: 13},
-			{Level: 13, checkpoint: 1},
-			{Level: 29, checkpoint: 3},
+			{Level: 5, checkpoint: 13},
+			{Level: 7, checkpoint: 1},
+			{Level: 17, checkpoint: 3},
 		],
 
 		"traps": [
