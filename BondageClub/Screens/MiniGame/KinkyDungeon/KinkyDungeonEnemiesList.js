@@ -578,7 +578,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":3, "increasingWeight": -1}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure"],
 		dropTable: [{name: "RedKey", weight: 1}, {name: "Nothing", weight: 29}]},
 	{name: "ApprenticeSlime", color: "#FF00FF", bound: "Witch", tags: KDMapInit(["leashing", "opendoors", "binding", "human", "conjurer", "closedoors", "apprentice", "ranged", "glueweakness", "chainweakness", "tickleweakness", "search"]), followRange: 2,
-		castWhileMoving: true, spells: ["SlimePuddle"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0, cohesion: 1.0,
+		castWhileMoving: true, spells: ["SlimePuddle"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0, cohesion: 1.0, minSpellRange: 1.5,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 4, maxhp: 8, minLevel:2, weight:6, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":3, "lastthird":3, "increasingWeight": -1}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Latex"],
 		dropTable: [{name: "RedKey", weight: 1}, {name: "Nothing", weight: 29}]},
