@@ -351,8 +351,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		console.log(`${performance.now() - startTime} ms for cache and cell creation`);
 		startTime = performance.now();
 	}
-	let createForbidden = !InJail && KDRandom() < forbiddenChance);
-	let traps = (createForbidden ? KinkyDungeonCreateForbidden(greaterChance) : []);
+	let createForbidden = !InJail && (KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1);
+	let traps = (createForbidden ? KinkyDungeonCreateForbidden(MiniGameKinkyDungeonLevel <= 1 ? 1.0 : greaterChance) : []);
 	if (KDDebug) {
 		console.log(`${performance.now() - startTime} ms for gold hall creation`);
 		startTime = performance.now();
