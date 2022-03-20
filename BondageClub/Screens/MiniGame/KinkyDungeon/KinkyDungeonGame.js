@@ -400,7 +400,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 			console.log(`${performance.now() - startTime} ms for lore creation`);
 			startTime = performance.now();
 		}
-		if (MiniGameKinkyDungeonLevel % 6 == 1 || MiniGameKinkyDungeonLevel % 6 == 3 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9))
+		if (MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9))
 			KinkyDungeonPlaceHeart(width, height);
 		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 		if (KDDebug) {
@@ -548,7 +548,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 6 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
@@ -1068,6 +1068,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
 
+	let chestPoints = new Map();
+
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
@@ -1083,7 +1085,17 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 					|| (wallcount >= 5
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
 						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
-					chestlist.push({x:X, y:Y});
+					if (!chestPoints.get((X+1) + "," + (Y))
+						&& !chestPoints.get((X-1) + "," + (Y))
+						&& !chestPoints.get((X+1) + "," + (Y+1))
+						&& !chestPoints.get((X+1) + "," + (Y-1))
+						&& !chestPoints.get((X-1) + "," + (Y+1))
+						&& !chestPoints.get((X-1) + "," + (Y-1))
+						&& !chestPoints.get((X) + "," + (Y+1))
+						&& !chestPoints.get((X) + "," + (Y-1))) {
+						chestlist.push({x:X, y:Y});
+						chestPoints.set(X + "," + Y, true);
+					}
 				}
 			}
 
@@ -1440,8 +1452,8 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 					}
 				}
 				let rooms = [];
+				let room = KinkyDungeonGetAccessibleRoom(X, Y);
 				for (let ddoor of roomDoors) {
-					let room = KinkyDungeonGetAccessibleRoom(X, Y);
 					rooms.push({door: ddoor, room: room});
 				}
 				for (let room of rooms) {
