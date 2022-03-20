@@ -19,8 +19,8 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.4,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
-		"cacheInterval" : 3,
-		"forbiddenChance" : 0.35, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
+		"cacheInterval" : 2,
+		"forbiddenChance" : 0.7, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
 		"shortcuts": [
@@ -97,8 +97,8 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.6,
 		"brickchance" : 0.4,
-		"cacheInterval" : 3,
-		"forbiddenChance" : 0.4,
+		"cacheInterval" : 2,
+		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
@@ -178,8 +178,8 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
-		"cacheInterval" : 3,
-		"forbiddenChance" : 0.4,
+		"cacheInterval" : 2,
+		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
 
 		"shortcuts": [
@@ -256,8 +256,8 @@ let KinkyDungeonMapParams = [
 		"gaschance" : 0.5, // Chance for gas to appear on the level
 		"gasdensity" : 0.1, // Chance for a passage to be filled with happy gas
 		"gastype" : ']', // Gas type
-		"cacheInterval" : 3,
-		"forbiddenChance" : 0.5,
+		"cacheInterval" : 2,
+		"forbiddenChance" : 0.8,
 		"forbiddenGreaterChance" : 0.4,
 
 		"shortcuts": [
@@ -530,9 +530,9 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.3,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.4,
-		"cacheInterval" : 3,
+		"cacheInterval" : 1,
 		// Side routes have more high-value loot
-		"forbiddenChance" : 0.75,
+		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
@@ -606,9 +606,9 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.7,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.03,
-		"cacheInterval" : 3,
+		"cacheInterval" : 1,
 		// Side routes have more high-value loot
-		"forbiddenChance" : 0.75,
+		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
@@ -685,9 +685,9 @@ let KinkyDungeonMapParams = [
 		"gastype" : '[', // Gas type
 
 		"floodchance" : 0.25,
-		"cacheInterval" : 3,
+		"cacheInterval" : 1,
 		// Side routes have more high-value loot
-		"forbiddenChance" : 0.75,
+		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
 
 		"shortcuts": [
