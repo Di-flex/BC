@@ -1196,6 +1196,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 
 	// Truncate down to max chest count in a location-neutral way
 	let count = 0;
+	let orbs = 0;
 	while (shrinelist.length > 0) {
 		let N = Math.floor(KDRandom()*shrinelist.length);
 		if (count <= shrinecount) {
@@ -1205,22 +1206,24 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 				KinkyDungeonMapSet(shrine.x, shrine.y, 'a');
 			else {
 				let playerTypes = KinkyDungeonRestraintTypes(shrinefilter);
-				let type = shrineTypes.length == 0 ? "Orb"
-					: (shrineTypes.length == 1 && playerTypes.length > 0 ?
+				let type = shrineTypes.length < 2 ? "Orb"
+					: (shrineTypes.length == 2 && playerTypes.length > 0 ?
 						playerTypes[Math.floor(KDRandom() * playerTypes.length)]
 						: KinkyDungeonGenerateShrine(Floor));
 				let tile = 'A';
-				if (shrineTypes.includes(type)) type = "";
+				if (type != "Orb" && shrineTypes.includes(type)) type = "";
 				if (type == "Orb") {
-					if (!KinkyDungeonOrbsPlaced.includes(Floor) && Floor > 0) {
+					if (orbs < 2 || !KinkyDungeonOrbsPlaced.includes(Floor)) {
 						tile = 'O';
-						KinkyDungeonOrbsPlaced.push(Floor);
+						orbs += 1;
+						if (orbs >= 2)
+							KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
 					shrineTypes.push("Orb");
 				} else if (type) {
 					KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Shrine", Name: type});
 					shrineTypes.push(type);
-				} else if (!shrineTypes.includes("Ghost")) {
+				} else if (!shrineTypes.includes("Ghost") || KDRandom() < 0.5) {
 					shrineTypes.push("Ghost");
 					tile = 'G';
 					KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Ghost"});
