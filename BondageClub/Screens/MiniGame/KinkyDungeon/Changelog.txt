@@ -713,6 +713,8 @@ Spell Balance:
 - Regular bandits now drop less gold on average. They wouldn't be stealing if they weren't poor!
 - New enemies: Seductive Shackes and Levitating Locks
 - Only humanoid (bindable) enemies can now grab your torso (no more getting grabbed by floating handcuffs)
+- Improved enemy chasing so they won't run off in random directions now
+- New spell: Ring
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -2451,12 +2451,17 @@ KinkyDungeonSpellCastSummonGag,You release a bunch of gags from your satchel!
 KinkyDungeonSpellTargetSummonGag,The gags will appear around you.
 
 KinkyDungeonSpellFlash,Lesser Flash
+KinkyDungeonSpellRing,Ring
 KinkyDungeonSpellFlashBomb,Flash Bomb
 KinkyDungeonSpellMirrorImage,Mirror Image
 KinkyDungeonSpellCastMirrorImage,""
 KinkyDungeonSpellDescriptionFlash,A flash of light which renders anyone caught within blind for Duration turns
 KinkyDungeonSpellCastFlash,You charge up a bright flash!
 KinkyDungeonSpellTargetFlash,Select where to center the flash (SpellArea radius)
+
+KinkyDungeonSpellDescriptionRing,A loud noise which stuns for Duration turns and attracts enemies to it. Long-ranged.
+KinkyDungeonSpellCastRing,You point and a noise emanates from the location!
+KinkyDungeonSpellTargetRing,Select where to center the noise (SpellArea radius)
 
 KinkyDungeonSpellGreaterFlash,Greater Flash
 KinkyDungeonSpellDescriptionGreaterFlash,A massive flash of light which renders anyone caught within blind for Duration turns

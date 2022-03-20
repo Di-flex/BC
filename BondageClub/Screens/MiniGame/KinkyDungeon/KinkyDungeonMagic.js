@@ -669,6 +669,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		moveDirection = {x:0, y:0, delta:1};
 	}
 
+	let noiseX = targetX;
+	let noiseY = targetY;
+
 	if (enemy) {
 		entity = enemy;
 		moveDirection = KinkyDungeonGetDirection(player.x - entity.x, player.y - entity.y);
@@ -721,6 +724,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		let size = (spell.size) ? spell.size : 1;
 		let xx = entity.x;
 		let yy = entity.y;
+		noiseX = entity.x;
+		noiseY = entity.y;
 		if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
 			xx += moveDirection.x;
 			yy += moveDirection.y;
@@ -801,6 +806,15 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 	}
 
+	if (spell.noise) {
+		for (let e of KinkyDungeonEntities) {
+			if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= spell.noise) {
+				e.gx = noiseX;
+				e.gy = noiseY;
+			}
+		}
+	}
+
 	if (!enemy && !bullet && player) { // Costs for the player
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 
@@ -819,8 +833,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
 			KinkyDungeonSleepTime = CommonTime() + 200;
 		}
-		if (spell.noise)
-			KinkyDungeonAlert = Math.max(spell.noise, KinkyDungeonAlert);
+		if (spell.noise) {
+			if (spell.components && spell.components.includes("Verbal"))
+				KinkyDungeonAlert = 3;//Math.max(spell.noise, KinkyDungeonAlert);
+		}
 		KinkyDungeonLastAction = "Spell";
 	}
 
