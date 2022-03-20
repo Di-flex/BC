@@ -313,7 +313,12 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
 
 	let shrineTypes = [];
+	let startTime = performance.now();
 	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for maze creation`);
+		startTime = performance.now();
+	}
 	width = KinkyDungeonGridWidth;
 	height = KinkyDungeonGridHeight;
 	startpos *= 2;
@@ -330,29 +335,83 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonJailTransgressed = true;
 
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, wallRubblechance, width, height); // Replace random internal walls with doodads
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for doodad creation`);
+		startTime = performance.now();
+	}
 	KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), startpos, width, height); // Place the start and end locations
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for stair creation`);
+		startTime = performance.now();
+	}
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
 	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
 		KinkyDungeonCreateCache(Floor, width, height);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for cache and cell creation`);
+		startTime = performance.now();
+	}
 	let createForbidden = !InJail && KDRandom() < forbiddenChance && (MiniGameKinkyDungeonLevel > 3 || KinkyDungeonNewGame > 0);
 	let traps = (createForbidden ? KinkyDungeonCreateForbidden(greaterChance) : []);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for gold hall creation`);
+		startTime = performance.now();
+	}
 
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for shortcut creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for chest creation`);
+			startTime = performance.now();
+		}
 		let traps2 = KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for door creation`);
+			startTime = performance.now();
+		}
 		for (let t of traps2) {
 			traps.push(t);
 		}
 		KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for shrine creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceBrickwork(brickchance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for brickwork creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
-		KinkyDungeonPlacePatrols(4, width, height);
-		KinkyDungeonPlaceLore(width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for trap creation`);
+			startTime = performance.now();
+		}
+		KinkyDungeonPlacePatrols(4, width, height);if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for patrol point creation`);
+			startTime = performance.now();
+		}
+		KinkyDungeonPlaceLore(width, height);if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for lore creation`);
+			startTime = performance.now();
+		}
 		if (MiniGameKinkyDungeonLevel % 6 == 1 || MiniGameKinkyDungeonLevel % 6 == 3 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9))
 			KinkyDungeonPlaceHeart(width, height);
 		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for special tile creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonGenNavMap();
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for navmap creation`);
+			startTime = performance.now();
+		}
 		if (InJail) {
 			KinkyDungeonTiles.get(KinkyDungeonJailLeashX + "," + KinkyDungeonStartPosition.y).Lock = KinkyDungeonGenerateLock(true, Floor);
 		}
@@ -361,6 +420,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 
 		// Place enemies after player
 		KinkyDungeonPlaceEnemies(InJail, MapParams.enemytags, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for enemy creation`);
+			startTime = performance.now();
+		}
 	}
 
 	// Set map brightness
