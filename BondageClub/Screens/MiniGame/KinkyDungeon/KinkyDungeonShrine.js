@@ -66,6 +66,7 @@ function KinkyDungeonShrineAvailable(type) {
 	return false;
 }
 
+let KDLevelsPerCheckpoint = 6;
 
 function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonMakeGhostDecision(); // Decides if the ghosts will be friendly or not
@@ -76,7 +77,7 @@ function KinkyDungeonGenerateShop(Level) {
 	let items_high = 0;
 	for (let I = 5 + Math.floor(KDRandom() * 3); I > 0; I--) {
 		let Rarity = 0;
-		if (items_high == 0 && KDRandom() > 0.4) {Rarity = Math.floor(Level/10); items_high += 1;}
+		if (items_high == 0 && KDRandom() > 0.4) {Rarity = Math.floor(Level/KDLevelsPerCheckpoint); items_high += 1;}
 		else if (items_mid < 3 && KDRandom() > 0.6) {Rarity += Math.ceil(KDRandom() * 3); items_mid += 1;}
 
 		let item = KinkyDungeonGetShopItem(Level, Rarity, true);
@@ -96,7 +97,7 @@ function KinkyDungeonShrineCost(type) {
 		if (item.rarity != null) {
 			let rarity = item.rarity;
 			if (item.costMod) rarity += item.costMod;
-			let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/25)*(30 + 2 * rarity * rarity * 10)/5);
+			let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5)*(30 + 2 * rarity * rarity * 10)/5);
 			if (costt > 100) costt = 50 * Math.round(costt / 50);
 			return costt;
 		}

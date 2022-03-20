@@ -102,7 +102,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 				enemyWeights.push({enemy: enemy, weight: enemyWeightTotal});
 				let weight = enemy.weight + weightBonus;
 				if (enemy.terrainTags.increasingWeight)
-					weight += enemy.terrainTags.increasingWeight * Math.floor(Level/10);
+					weight += enemy.terrainTags.increasingWeight * Math.floor(Level/KDLevelsPerCheckpoint);
 				if (!enemy.terrainTags.grate && tags.includes("grate"))
 					weight -= 1000;
 				for (let tag of tags)
@@ -161,7 +161,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	if (delta > 0 && KDRandom() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
-		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/10))) {
+		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
 			if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchHuntersAmount - HunterAdjust) hunters = true;
 			if ((KinkyDungeonTotalSleepTurns > KinkyDungeonSearchEntranceAdjustAmount - EntranceAdjust && KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonEndPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonEndPosition.y) > 5 && KDRandom() < 0.5)
 				|| KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) < 5) spawnLocation = KinkyDungeonEndPosition;
