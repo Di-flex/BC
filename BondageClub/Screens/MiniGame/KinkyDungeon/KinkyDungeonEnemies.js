@@ -3,7 +3,7 @@
 let KDEnemiesCache = new Map();
 
 let KinkyDungeonSummonCount = 2;
-let KinkyDungeonEnemyAlertRadius = 3;
+let KinkyDungeonEnemyAlertRadius = 4;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
