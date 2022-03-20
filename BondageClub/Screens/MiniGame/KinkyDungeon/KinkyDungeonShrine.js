@@ -11,9 +11,9 @@ let KinkyDungeonShrineBaseCosts = {
 	"Rope": 20,
 	"Latex": 40,
 	"Will": 20,
-	"Elements": 100,
-	"Conjure": 100,
-	"Illusion": 100,
+	"Elements": 200,
+	"Conjure": 200,
+	"Illusion": 200,
 };
 
 let KinkyDungeonOrbAmount = 0;

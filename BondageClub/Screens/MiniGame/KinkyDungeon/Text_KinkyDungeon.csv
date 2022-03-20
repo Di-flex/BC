@@ -740,18 +740,18 @@ AttackWolfgirl,"The wolfgirl trainer squeezes your breasts playfully! (-DamageTa
 AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (-DamageTaken SP)"
 AttackWolfgirlLock,"The wolfgirl trainer pins you and skillfully locks all of your restraints."
 
-NameDrone,Drone
+NameDrone,Ancient Drone
 KillDrone,"The drone fizzles and falls to the ground!"
 AttackDroneStun,"The drone zaps you with a restraining energy ray! (-DamageTaken SP)"
 AttackDrone,"The drone uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackDroneBind,"The drone deconstructs itself into a set of bindings!"
 
-NameCaptureBot,Patrol Unit
+NameCaptureBot,Ancient Patrol Unit
 KillCaptureBot,"The patrol unit releases magic smoke and explodes."
 AttackCaptureBot,"The patrol unit uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackCaptureBotBind,"The patrol unit extends its appendages and wraps them around you!"
 
-NameEnforcerBot,Enforcer Unit
+NameEnforcerBot,Ancient Enforcer Unit
 KillEnforcerBot,"The enforcer unit releases magic smoke and explodes."
 AttackEnforcerBot,"The enforcer unit fires many cables that squeeze you! (-DamageTaken SP)"
 AttackEnforcerBotBind,"The enforcer fires off restraints that wrap around your body and apprehend you!"
@@ -908,6 +908,17 @@ NameGag,Gravitating Gag
 KillGag,"The gag buckles itself in place and falls."
 AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
 AttackGag,"The gravitating gag rubs itself against you! (-DamageTaken SP)"
+
+NameCuffs,Seductive Shackles
+KillCuffs,"The shackles' chain breaks as they fall to the floor."
+AttackCuffsBind,"The shackles force themselves around your limbs and click tightly! (+RestraintAdded)"
+AttackCuffs,"The shackles click seductively in your face... (-DamageTaken SP)"
+
+NameLock,Levitating Locks
+KillLock,"The locks and chains fall to the floor in a loud crash."
+AttackLockLock,"A lock clicks itself onto one of your restraints! (+RestraintAdded)"
+AttackLockBind,"A chain locks itself in place on your body! (-DamageTaken SP)"
+AttackLock,"The floating locks and chains rub themselves across your body! (-DamageTaken SP)"
 
 NamePlayerGag,Conjured Gag
 KillPlayerGag,"The conjured gag buckles itself in place and falls."
@@ -1096,7 +1107,7 @@ KillOrbOfLight,"The orb vanishes in a flash of light."
 AttackOrbOfLightBlind,"The orb blinds you with its intense light!!! (-DamageTaken SP)"
 KinkyDungeonSpellCastOrbHeal,A light restores the health of its allies!
 
-KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
+KinkyDungeonNoMana,"You do not have enough resources to cast the spell! (Consider pleading with a goddess)"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
 PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
 PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
@@ -2630,6 +2641,10 @@ KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
 KinkyDungeonSummonSingleTickleHand,A floating hand appears and cracks its knuckles!
 KinkyDungeonSummonSingleGag,A floating gag appears and starts flying toward you!
+KinkyDungeonSummonSingleCuffs,A set of shackles opens wide and starts going for your wrists!
+KinkyDungeonSummonMultiCuffs,A swarm of shackles approaches you!
+KinkyDungeonSummonSingleLock,A cloud of locks and chains clatters as it levitates toward you!
+KinkyDungeonSummonMultiLock,A huge cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 

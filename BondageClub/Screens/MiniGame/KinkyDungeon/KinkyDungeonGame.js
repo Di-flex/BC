@@ -102,7 +102,7 @@ let KinkyDungeonNextDataLastTimeReceivedTimeout = 15000; // Clear data if more t
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
-let KinkyDungeonMaxLevel = 40; // Game stops when you reach this level
+let KinkyDungeonMaxLevel = 24; // Game stops when you reach this level
 
 let KinkyDungeonLastMoveTimer = 0;
 let KinkyDungeonLastMoveTimerStart = 0;
@@ -612,6 +612,10 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 				tags.push(t);
 			}
 
+			if (count < enemyCount * 0.15) {
+				if (!required) required = ["minor"];
+				else required.push("minor");
+			}
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
@@ -1455,9 +1459,9 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 					}
 				}
 				let rooms = [];
-				let room = KinkyDungeonGetAccessibleRoom(X, Y);
+				let room2 = KinkyDungeonGetAccessibleRoom(X, Y);
 				for (let ddoor of roomDoors) {
-					rooms.push({door: ddoor, room: room});
+					rooms.push({door: ddoor, room: room2});
 				}
 				for (let room of rooms) {
 					let success = room.room.length == accessible.length;
@@ -1607,7 +1611,7 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 
 	for (let X = 1; X < KinkyDungeonGridWidth; X += 2)
 		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 2) {
-			let size = 1+Math.ceil(KDRandom() * (2*openness));
+			let size = 1+Math.ceil(KDRandom() * (openness));
 			if (KDRandom() < 0.4 - 0.04*density * size) {
 
 				let tile = '0';

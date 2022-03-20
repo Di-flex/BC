@@ -707,6 +707,12 @@ Spell Balance:
 - World generation has been revamped considerably, most hallways are now 2 tiles wide, and the maps are twice as large in terms of tiles as before
 - Stamina drain from slow movement is now 0.3 stamina per slow level per turn spent moving, a 70% reduction from the original levels a few versions ago
 - There are now only 6 floors instead of 10 per area. Enemy minimum levels and such have been rebalanced for this
+- Gravitating gags and red slimes now ignore gagged players, except if summoned
+- Spell shrines now cost base of 200 instead of 100
+- Blind zombies now drop no gold, to prevent tedium from feeling like you have to clear the first stage to get maximum money
+- Regular bandits now drop less gold on average. They wouldn't be stealing if they weren't poor!
+- New enemies: Seductive Shackes and Levitating Locks
+- Only humanoid (bindable) enemies can now grab your torso (no more getting grabbed by floating handcuffs)
 
 TODO ValidationFindBlockCycles to prevent bugs
 
