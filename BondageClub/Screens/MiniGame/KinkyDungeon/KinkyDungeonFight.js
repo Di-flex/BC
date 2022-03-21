@@ -729,7 +729,18 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			KinkyDungeonPlayerEffect(b.bullet.damage.type, b.bullet.playerEffect ? b.bullet.playerEffect : b.bullet.spell.playerEffect, b.bullet.spell);
 		}
 		for (let enemy of KinkyDungeonEntities) {
-			if ((b.reflected || (!b.bullet.spell || (!b.bullet.spell.enemySpell && !enemy.Enemy.allied && (!b.bullet.damage || b.bullet.damage.type != "heal")) || (!b.bullet.spell.allySpell && enemy.Enemy.allied && (!b.bullet.spell.enemySpell || (!b.bullet.damage || b.bullet.damage.type != "heal")))))
+			if ((b.reflected
+				|| (!b.bullet.spell
+					|| (b.bullet.spell.enemySpell
+						&& !enemy.Enemy.allied && !enemy.rage
+						&& (!b.bullet.damage
+							|| b.bullet.damage.type != "heal"))
+
+					|| (!b.bullet.spell.allySpell
+						&& enemy.Enemy.allied
+						&& (!b.bullet.spell.enemySpell
+							|| (!b.bullet.damage
+								|| b.bullet.damage.type != "heal")))))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
 				enemy.hp = Math.min(enemy.hp + b.bullet.spell.power, enemy.Enemy.maxhp);
@@ -852,7 +863,16 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				}
 				let nomsg = bullet.bullet && bullet.bullet.spell && bullet.bullet.spell.enemyspell && !bullet.reflected;
 				for (let enemy of KinkyDungeonEntities) {
-					if ((bullet.reflected || (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied && bullet.bullet.damage.type != "heal") || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied && (!bullet.bullet.spell.enemySpell || bullet.bullet.damage.type != "heal")))) && bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
+					if ((bullet.reflected
+						|| (!bullet.bullet.spell
+							|| (!bullet.bullet.spell.enemySpell
+								&& (!enemy.Enemy.allied || enemy.rage)
+								&& bullet.bullet.damage.type != "heal")
+							|| (!bullet.bullet.spell.allySpell
+								&& (enemy.Enemy.allied || enemy.rage)
+								&& (!bullet.bullet.spell.enemySpell
+									|| bullet.bullet.damage.type != "heal"))))
+							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
 						if (bullet.bullet.damage.type == "heal") {
 							let origHP = enemy.hp;
 							enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
@@ -869,7 +889,16 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				return false;
 			}
 			for (let enemy of KinkyDungeonEntities) {
-				if ((bullet.reflected || (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied && bullet.bullet.damage.type != "heal") || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied && (!bullet.bullet.spell.enemySpell || bullet.bullet.damage.type != "heal")))) && enemy.x == bullet.x && enemy.y == bullet.y) {
+				if ((bullet.reflected ||
+					(!bullet.bullet.spell ||
+						(!bullet.bullet.spell.enemySpell
+							&& (!enemy.Enemy.allied || enemy.rage)
+							&& bullet.bullet.damage.type != "heal")
+						|| (!bullet.bullet.spell.allySpell
+							&& (enemy.Enemy.allied || enemy.rage)
+							&& (!bullet.bullet.spell.enemySpell
+								|| bullet.bullet.damage.type != "heal"))))
+						&& enemy.x == bullet.x && enemy.y == bullet.y) {
 					if (bullet.bullet.damage.type == "heal") {
 						let origHP = enemy.hp;
 						enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
