@@ -54,8 +54,9 @@ function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlaye
 							&& (tile != "d" || KinkyDungeonTilesMemory.get(xx + "," + yy) == "DoorOpen")) {
 							let costBonus = 0;
 							if (KinkyDungeonMapGet(xx, yy) == "D") costBonus = 2;
-							if (KinkyDungeonMapGet(xx, yy) == "d") costBonus = 1;
-							if (KinkyDungeonMapGet(xx, yy) == "g") costBonus = 2;
+							else if (KinkyDungeonMapGet(xx, yy) == "d") costBonus = 1;
+							else if (KinkyDungeonMapGet(xx, yy) == "g") costBonus = 2;
+							else if (KinkyDungeonMapGet(xx, yy) == "L") costBonus = 2;
 							costBonus = (KinkyDungeonTiles.get((xx) + "," + (yy)) && KinkyDungeonTiles.get(xx + "," + yy).Lock) ? costBonus + 2 : costBonus;
 							succ.set(xx + "," + yy, {x: xx, y: yy,
 								g: moveCost + costBonus + lowest.g,
