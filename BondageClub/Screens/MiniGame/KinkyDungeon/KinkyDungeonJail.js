@@ -79,7 +79,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailWander" && KDistChebyshev(KinkyDungeonJailGuard().gx - KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().gy - KinkyDungeonJailGuard().y) < 1.5) {
 			// Random meandering about the cell, sometimes stopping near the player
 			if (KDRandom() < 0.2) {
-				KinkyDungeonJailGuard().gx = xx - 2;
+				KinkyDungeonJailGuard().gx = xx - 3;
 				if (KDRandom() < 0.5)
 					KinkyDungeonJailGuard().gy = yy + Math.round(KDRandom() * KinkyDungeonJailLeash * 2 - KinkyDungeonJailLeash);
 				else
