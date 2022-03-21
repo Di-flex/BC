@@ -433,6 +433,17 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	}
 }
 
+function KinkyDungeonCapture(enemy) {
+	let msg = "KinkyDungeonCapture";
+	if (KDGameData.Champion && !enemy.summoned) {
+		KinkyDungeonChangeRep(KDGameData.Champion, 1);
+		KinkyDungeonChangeMana(2);
+		msg = "KinkyDungeonCaptureGoddess";
+	}
+	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
+		KinkyDungeonSendTextMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
+}
+
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
@@ -447,8 +458,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 			} else {
-				if (!KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2))
-					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCapture").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 2);
+				KinkyDungeonCapture(enemy);
 			}
 		} else {
 			if (enemy.knives || enemy.picks) {

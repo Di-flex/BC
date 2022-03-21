@@ -3008,11 +3008,16 @@ KinkyDungeonItemsStrictness,"Increased strictness due to:"
 KinkyDungeonAidMana,Mana
 KinkyDungeonAidBondage,Bondage
 KinkyDungeonAskAid,Ask for Aid
+KinkyDungeonAskChampion,Become a Champion
 KinkyDungeonRescue,Ask
 KinkyDungeonAskRescue,Ask for Rescue
 KinkyDungeonPenance,Offer
 KinkyDungeonAskPenance,Offer Penance
+KinkyDungeonChampionCurrent,Current Champion
+KinkyDungeonChampionSwitch,Switch Champion
 
+KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 2 mana per enemy and grant +1 rep."
+KinkyDungeonBecomeChampion,"You are now the champion of the Goddess of GODDESS."
 
 KinkyDungeonAidDescRope,"For 3 rep the goddess will grant you slipperiness, boosting your struggling."
 KinkyDungeonAidDescMetal,"For 3 rep the goddess will grant you a key."
@@ -3232,4 +3237,5 @@ KinkyDungeonStealBack,You get your stolen items back.
 KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 
 KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
-KinkyDungeonCapture,You capture the EnemyName.
+KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
+KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
