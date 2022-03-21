@@ -102,7 +102,7 @@ let KinkyDungeonNextDataLastTimeReceivedTimeout = 15000; // Clear data if more t
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
-let KinkyDungeonMaxLevel = 40; // Game stops when you reach this level
+let KinkyDungeonMaxLevel = 24; // Game stops when you reach this level
 
 let KinkyDungeonLastMoveTimer = 0;
 let KinkyDungeonLastMoveTimerStart = 0;
@@ -113,7 +113,7 @@ let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
 let KinkyDungeonEndPosition = {x: 1, y: 1};
 let KinkyDungeonJailLeash = 3;
-let KinkyDungeonJailLeashX = 4;
+let KinkyDungeonJailLeashX = 5;
 let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
 let KinkyDungeonCachesPlaced = [];
@@ -258,7 +258,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonGridHeight = height;
 	KinkyDungeonGridWidth = width;
 
-	KinkyDungeonResetFog();
 
 	// Generate the grid
 	for (let X = 0; X < height; X++) {
@@ -285,6 +284,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	// Use primm algorithm with modification to spawn random rooms in the maze
 	let openness = MapParams.openness;
 	let density = MapParams.density;
+	let hallopenness = MapParams.hallopenness ? MapParams.hallopenness : MapParams.openness;
 	let doodadchance = MapParams.doodadchance;
 	let barchance = MapParams.barchance;
 	let treasurechance = 1.0; // Chance for an extra locked chest
@@ -313,41 +313,105 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
 
 	let shrineTypes = [];
-	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, floodChance);
+	let startTime = performance.now();
+	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for maze creation`);
+		startTime = performance.now();
+	}
+	width = KinkyDungeonGridWidth;
+	height = KinkyDungeonGridHeight;
+	startpos *= 2;
+
+	KinkyDungeonResetFog();
 
 	KinkyDungeonGroundItems = []; // Clear items on the ground
 	KinkyDungeonBullets = []; // Clear all bullets
 
 	// Place the player!
-	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 1, y:startpos, player:true};
-	KinkyDungeonStartPosition = {x: 1, y: startpos};
+	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 2, y:startpos, player:true};
+	KinkyDungeonStartPosition = {x: 2, y: startpos};
 
 	KinkyDungeonJailTransgressed = true;
 
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, wallRubblechance, width, height); // Replace random internal walls with doodads
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for doodad creation`);
+		startTime = performance.now();
+	}
 	KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), startpos, width, height); // Place the start and end locations
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for stair creation`);
+		startTime = performance.now();
+	}
 	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
-	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 10) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
+	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
 		KinkyDungeonCreateCache(Floor, width, height);
-	let createForbidden = !InJail && KDRandom() < forbiddenChance && (MiniGameKinkyDungeonLevel > 3 || KinkyDungeonNewGame > 0);
-	let traps = (createForbidden ? KinkyDungeonCreateForbidden(greaterChance) : []);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for cache and cell creation`);
+		startTime = performance.now();
+	}
+	let createForbidden = !InJail && (KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1);
+	let traps = (createForbidden ? KinkyDungeonCreateForbidden(MiniGameKinkyDungeonLevel <= 1 ? 1.0 : greaterChance) : []);
+	if (KDDebug) {
+		console.log(`${performance.now() - startTime} ms for gold hall creation`);
+		startTime = performance.now();
+	}
 
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for shortcut creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for chest creation`);
+			startTime = performance.now();
+		}
 		let traps2 = KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for door creation`);
+			startTime = performance.now();
+		}
 		for (let t of traps2) {
 			traps.push(t);
 		}
 		KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for shrine creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceBrickwork(brickchance, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for brickwork creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
-		KinkyDungeonPlacePatrols(4, width, height);
-		KinkyDungeonPlaceLore(width, height);
-		if (MiniGameKinkyDungeonLevel % 10 == 3 || MiniGameKinkyDungeonLevel % 10 == 7 || (MiniGameKinkyDungeonLevel % 10 == 9 && MiniGameKinkyDungeonCheckpoint > 9))
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for trap creation`);
+			startTime = performance.now();
+		}
+		KinkyDungeonPlacePatrols(4, width, height);if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for patrol point creation`);
+			startTime = performance.now();
+		}
+		KinkyDungeonPlaceLore(width, height);if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for lore creation`);
+			startTime = performance.now();
+		}
+		if (MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9))
 			KinkyDungeonPlaceHeart(width, height);
 		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for special tile creation`);
+			startTime = performance.now();
+		}
 		KinkyDungeonGenNavMap();
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for navmap creation`);
+			startTime = performance.now();
+		}
 		if (InJail) {
 			KinkyDungeonTiles.get(KinkyDungeonJailLeashX + "," + KinkyDungeonStartPosition.y).Lock = KinkyDungeonGenerateLock(true, Floor);
 		}
@@ -356,6 +420,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 
 		// Place enemies after player
 		KinkyDungeonPlaceEnemies(InJail, MapParams.enemytags, Floor, width, height);
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for enemy creation`);
+			startTime = performance.now();
+		}
 	}
 
 	// Set map brightness
@@ -480,7 +548,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 6 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
@@ -544,6 +612,10 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 				tags.push(t);
 			}
 
+			if (count < enemyCount * 0.15) {
+				if (!required) required = ["minor"];
+				else required.push("minor");
+			}
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
@@ -853,7 +925,10 @@ function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 					for (let YY = Y-1; YY <= Y+1; YY += 1)
 						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
 							wallcount += 1;
-				if (wallcount == 7) {
+				if (wallcount == 7
+					|| (wallcount >= 5
+						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 's');
 					KinkyDungeonEndPosition = {x: X, y: Y};
@@ -875,7 +950,7 @@ function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 		}
 
 	MiniGameKinkyDungeonMainPath = checkpoint;
-	if (MiniGameKinkyDungeonMainPath != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonMainPath}, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, 4.2);
+	if (MiniGameKinkyDungeonMainPath != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonMainPath}, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, 8.5);
 	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 0});
 }
 
@@ -912,7 +987,7 @@ function KinkyDungeonGetMainPath(level) {
 			return path.checkpoint;
 		}
 	}
-	if ((MiniGameKinkyDungeonLevel + 1) % 10 == 0) {
+	if ((MiniGameKinkyDungeonLevel + 1) % 6 == 0) {
 		return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
 	}
 	return MiniGameKinkyDungeonCheckpoint;
@@ -959,7 +1034,10 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 					for (let YY = Y-1; YY <= Y+1; YY += 1)
 						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
 							wallcount += 1;
-				if (wallcount == 7) {
+				if (wallcount == 7
+					|| (wallcount >= 5
+						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 'H');
 					xx = X;
@@ -986,13 +1064,15 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
 		if (placed) {
 			MiniGameKinkyDungeonShortcut = checkpoint;
-			if (MiniGameKinkyDungeonShortcut != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonShortcut}, xx, yy, 2.5, true);
+			if (MiniGameKinkyDungeonShortcut != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonShortcut}, xx, yy, 4.5, true);
 		}
 	}
 }
 
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
+
+	let chestPoints = new Map();
 
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
@@ -1005,8 +1085,21 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 					for (let YY = Y-1; YY <= Y+1; YY += 1)
 						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
 							wallcount += 1;
-				if (wallcount == 7) {
-					chestlist.push({x:X, y:Y});
+				if (wallcount == 7
+					|| (wallcount >= 5
+						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+					if (!chestPoints.get((X+1) + "," + (Y))
+						&& !chestPoints.get((X-1) + "," + (Y))
+						&& !chestPoints.get((X+1) + "," + (Y+1))
+						&& !chestPoints.get((X+1) + "," + (Y-1))
+						&& !chestPoints.get((X-1) + "," + (Y+1))
+						&& !chestPoints.get((X-1) + "," + (Y-1))
+						&& !chestPoints.get((X) + "," + (Y+1))
+						&& !chestPoints.get((X) + "," + (Y-1))) {
+						chestlist.push({x:X, y:Y});
+						chestPoints.set(X + "," + Y, true);
+					}
 				}
 			}
 
@@ -1107,6 +1200,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 
 	// Truncate down to max chest count in a location-neutral way
 	let count = 0;
+	let orbs = 0;
 	while (shrinelist.length > 0) {
 		let N = Math.floor(KDRandom()*shrinelist.length);
 		if (count <= shrinecount) {
@@ -1116,22 +1210,24 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 				KinkyDungeonMapSet(shrine.x, shrine.y, 'a');
 			else {
 				let playerTypes = KinkyDungeonRestraintTypes(shrinefilter);
-				let type = shrineTypes.length == 0 ? "Orb"
-					: (shrineTypes.length == 1 && playerTypes.length > 0 ?
+				let type = shrineTypes.length < 2 ? "Orb"
+					: (shrineTypes.length == 2 && playerTypes.length > 0 ?
 						playerTypes[Math.floor(KDRandom() * playerTypes.length)]
 						: KinkyDungeonGenerateShrine(Floor));
 				let tile = 'A';
-				if (shrineTypes.includes(type)) type = "";
+				if (type != "Orb" && shrineTypes.includes(type)) type = "";
 				if (type == "Orb") {
-					if (!KinkyDungeonOrbsPlaced.includes(Floor) && Floor > 0) {
+					if (orbs < 2 || !KinkyDungeonOrbsPlaced.includes(Floor)) {
 						tile = 'O';
-						KinkyDungeonOrbsPlaced.push(Floor);
+						orbs += 1;
+						if (orbs >= 2)
+							KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
 					shrineTypes.push("Orb");
 				} else if (type) {
 					KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Shrine", Name: type});
 					shrineTypes.push(type);
-				} else if (!shrineTypes.includes("Ghost")) {
+				} else if (!shrineTypes.includes("Ghost") || KDRandom() < 0.5) {
 					shrineTypes.push("Ghost");
 					tile = 'G';
 					KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Ghost"});
@@ -1345,60 +1441,67 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 		let Y = door.y;
 
 		let roomDoors = [];
-		let accessible = KinkyDungeonGetAccessibleRoom(X, Y);
-		if (accessible.length > minLockedRoomSize) {
-			for (let a of accessible) {
-				let split = a.split(',');
-				let XX = parseInt(split[0]);
-				let YY = parseInt(split[1]);
-				let tileType = KinkyDungeonMapGet(XX, YY);
-				if ((tileType == "D" || tileType == 'd') && !KinkyDungeonTiles.get(a).Lock && XX != X && YY != Y) {
-					roomDoors.push({x: XX, y: YY});
+
+		let trap = KDRandom() < trapChance;
+		let grate = KDRandom() < grateChance;
+
+		if (trap || grate) {
+			let accessible = KinkyDungeonGetAccessibleRoom(X, Y);
+
+			if (accessible.length > minLockedRoomSize) {
+				for (let a of accessible) {
+					let split = a.split(',');
+					let XX = parseInt(split[0]);
+					let YY = parseInt(split[1]);
+					let tileType = KinkyDungeonMapGet(XX, YY);
+					if ((tileType == "D" || tileType == 'd') && !KinkyDungeonTiles.get(a).Lock && XX != X && YY != Y) {
+						roomDoors.push({x: XX, y: YY});
+					}
 				}
-			}
-			let rooms = [];
-			for (let ddoor of roomDoors) {
-				let room = KinkyDungeonGetAccessibleRoom(X, Y);
-				rooms.push({door: ddoor, room: room});
-			}
-			for (let room of rooms) {
-				let success = room.room.length == accessible.length;
-				for (let tile of accessible) {
-					if (!room.room.includes(tile)) {
-						success = false;
+				let rooms = [];
+				let room2 = KinkyDungeonGetAccessibleRoom(X, Y);
+				for (let ddoor of roomDoors) {
+					rooms.push({door: ddoor, room: room2});
+				}
+				for (let room of rooms) {
+					let success = room.room.length == accessible.length;
+					for (let tile of accessible) {
+						if (!room.room.includes(tile)) {
+							success = false;
+							break;
+						}
+					}
+					if (success) {
+						if (!KinkyDungeonTiles.get(room.door.x + "," + room.door.y).Lock && !KinkyDungeonTiles.get(X + "," + Y).Lock
+							&& ((KinkyDungeonGetAccessibleRoom(X+1, Y).length != KinkyDungeonGetAccessibleRoom(X-1, Y).length
+								&& KinkyDungeonIsReachable(X+1, Y, X, Y) && KinkyDungeonIsReachable(X-1, Y, X, Y))
+							|| (KinkyDungeonGetAccessibleRoom(X, Y+1).length != KinkyDungeonGetAccessibleRoom(X, Y-1).length)
+								&& KinkyDungeonIsReachable(X, Y+1, X, Y) && KinkyDungeonIsReachable(X, Y-1, X, Y))
+							&& KinkyDungeonIsAccessible(X, Y)) {
+							let lock = false;
+							//console.log(X + "," + Y + " locked")
+							if (trap && Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) > maxPlayerDist) {
+								// Place a trap or something at the other door if it's far enough from the player
+								trapLocations.push({x: room.door.x, y: room.door.y});
+								if (KDRandom() < 0.1) {
+									let dropped = {x:room.door.x, y:room.door.y, name: "Gold", amount: 1};
+									KinkyDungeonGroundItems.push(dropped);
+								}
+								lock = true;
+							} else if (((grate && (!room.room || room.room.length > minLockedRoomSize))
+									|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)
+									&& room.door.y != KinkyDungeonStartPosition.y) {
+								// Place a grate instead
+								KinkyDungeonMapSet(room.door.x, room.door.y, 'g');
+								lock = true;
+							}
+							if (lock) {
+								KinkyDungeonTiles.get("" + X + "," + Y).Lock = KinkyDungeonGenerateLock(true, Floor);
+								KinkyDungeonMapSet(X, Y, 'D');
+							}
+						}
 						break;
 					}
-				}
-				if (success) {
-					if (!KinkyDungeonTiles.get(room.door.x + "," + room.door.y).Lock && !KinkyDungeonTiles.get(X + "," + Y).Lock
-						&& ((KinkyDungeonGetAccessibleRoom(X+1, Y).length != KinkyDungeonGetAccessibleRoom(X-1, Y).length
-							&& KinkyDungeonIsReachable(X+1, Y, X, Y) && KinkyDungeonIsReachable(X-1, Y, X, Y))
-						|| (KinkyDungeonGetAccessibleRoom(X, Y+1).length != KinkyDungeonGetAccessibleRoom(X, Y-1).length)
-							&& KinkyDungeonIsReachable(X, Y+1, X, Y) && KinkyDungeonIsReachable(X, Y-1, X, Y))
-						&& KinkyDungeonIsAccessible(X, Y)) {
-						let lock = false;
-						//console.log(X + "," + Y + " locked")
-						if (KDRandom() < trapChance && Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) > maxPlayerDist) {
-							// Place a trap or something at the other door if it's far enough from the player
-							trapLocations.push({x: room.door.x, y: room.door.y});
-							if (KDRandom() < 0.1) {
-								let dropped = {x:room.door.x, y:room.door.y, name: "Gold", amount: 1};
-								KinkyDungeonGroundItems.push(dropped);
-							}
-							lock = true;
-						} else if (((KDRandom() < grateChance && (!room.room || room.room.length > minLockedRoomSize))
-								|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)
-								&& room.door.y != KinkyDungeonStartPosition.y) {
-							// Place a grate instead
-							KinkyDungeonMapSet(room.door.x, room.door.y, 'g');
-							lock = true;
-						}
-						if (lock) {
-							KinkyDungeonTiles.get("" + X + "," + Y).Lock = KinkyDungeonGenerateLock(true, Floor);
-							KinkyDungeonMapSet(X, Y, 'D');
-						}
-					}
-					break;
 				}
 			}
 		}
@@ -1435,7 +1538,7 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, width, 
 		}
 }
 
-function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, floodChance) {
+function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
 	// Variable setup
 
 	let Walls = {};
@@ -1509,10 +1612,9 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 	for (let X = 1; X < KinkyDungeonGridWidth; X += 2)
 		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 2) {
 			let size = 1+Math.ceil(KDRandom() * (openness));
-			if (KDRandom() < 0.1 - 0.01*density * size) {
+			if (KDRandom() < 0.4 - 0.04*density * size) {
 
 				let tile = '0';
-				if (floodChance > 0 && KDRandom() < floodChance) tile = 'w';
 
 				// We open up the tiles
 				for (let XX = X; XX < X +size; XX++)
@@ -1522,6 +1624,93 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 						VisitedCells[XX + "," + YY] = {x:XX, y:YY};
 						KinkyDungeonMazeWalls({x:XX, y:YY}, Walls, WallsList);
 						delete Walls[XX + "," + YY];
+					}
+			}
+		}
+
+	// Now we STRETCH the map
+	let KinkyDungeonOldGrid = KinkyDungeonGrid;
+	let w = KinkyDungeonGridWidth;
+	let h = KinkyDungeonGridHeight;
+	KinkyDungeonGridWidth = Math.floor(KinkyDungeonGridWidth*2);
+	KinkyDungeonGridHeight = Math.floor(KinkyDungeonGridHeight*2);
+	KinkyDungeonGrid = "";
+
+	// Generate the grid
+	for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+		for (let X = 0; X < KinkyDungeonGridWidth; X++)
+			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
+		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
+	}
+
+	// Constrict hallways randomly in X
+	for (let Y = 2; Y < KinkyDungeonGridHeight - 1; Y += 1) {
+		if (KDRandom() < 0.4 - 0.04*hallopenness) {
+			let row_top = [];
+			let row_mid = [];
+			let row_bot = [];
+			for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+				row_top.push(KinkyDungeonMapGet(X, Y-1));
+				row_mid.push(KinkyDungeonMapGet(X, Y));
+				row_bot.push(KinkyDungeonMapGet(X, Y+1));
+			}
+			for (let X = 1; X < KinkyDungeonGridWidth-1; X++) {
+				if (row_mid[X] == '0') {
+					if (row_mid[X-1] == '0' || row_mid[X+1] == '0') {
+						if (row_top[X] == '0' && row_bot[X] == '0' && (row_top[X-1] == '1' || row_bot[X+1] == '1')) {
+							// Avoid creating diagonals
+							if (((row_top[X+1] == '0' && row_bot[X+1] == '0') || row_mid[X+1] == '1')
+								&& ((row_top[X-1] == '0' && row_bot[X-1] == '0') || row_mid[X-1] == '1')) {
+								KinkyDungeonMapSet(X, Y, '1');
+								X++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// Constrict hallways randomly in Y
+	for (let X = 2; X < KinkyDungeonGridWidth - 1; X += 1) {
+		if (KDRandom() < 0.4 - 0.04*hallopenness) {
+			let col_top = [];
+			let col_mid = [];
+			let col_bot = [];
+			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+				col_top.push(KinkyDungeonMapGet(X-1, Y));
+				col_mid.push(KinkyDungeonMapGet(X, Y));
+				col_bot.push(KinkyDungeonMapGet(X+1, Y));
+			}
+			for (let Y = 1; Y < KinkyDungeonGridHeight-1; Y++) {
+				if (col_mid[Y] == '0') {
+					if (col_mid[Y-1] == '0' || col_mid[Y+1] == '0') {
+						if (col_top[Y] == '0' && col_bot[Y] == '0' && (col_top[Y-1] == '1' || col_bot[Y+1] == '1')) {
+							if (((col_top[Y+1] == '0' && col_bot[Y+1] == '0') || col_mid[Y+1] == '1')
+								&& ((col_top[Y-1] == '0' && col_bot[Y-1] == '0') || col_mid[Y-1] == '1')) {
+								KinkyDungeonMapSet(X, Y, '1');
+								Y++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	for (let X = 2; X < KinkyDungeonGridWidth; X += 2)
+		for (let Y = 2; Y < KinkyDungeonGridWidth; Y += 2) {
+			let size = 2*Math.ceil(KDRandom() * (openness));
+			if (KDRandom() < 0.4 - 0.04*density * size) {
+
+				let tile = '0';
+				if (floodChance > 0 && KDRandom() < floodChance) tile = 'w';
+
+				// We open up the tiles
+				for (let XX = X; XX < X +size; XX++)
+					for (let YY = Y; YY < Y+size; YY++) {
+						if (!KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY)))
+							KinkyDungeonMapSet(XX, YY, tile);
 					}
 			}
 		}

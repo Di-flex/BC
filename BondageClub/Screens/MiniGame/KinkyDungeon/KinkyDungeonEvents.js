@@ -353,6 +353,12 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonFleetFootedIgnoreTrap"), "lightgreen", 2);
 			}
 		}
+	} else if (Event == "beforeDamageEnemy") {
+		if (e.type == "MultiplyDamageStealth" && e.trigger == Event && data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
+			if ((!e.humanOnly || data.enemy.Enemy.bound) && (!e.chance || KDRandom() < e.chance)) {
+				data.dmg = Math.max(data.dmg * e.power, 0);
+			}
+		}
 	} else if (Event == "calcDamage") {
 		if (e.type == "HandsFree" && e.trigger == "calcDamage" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDDamageHands) {
 			data.flags.KDDamageHands = false;

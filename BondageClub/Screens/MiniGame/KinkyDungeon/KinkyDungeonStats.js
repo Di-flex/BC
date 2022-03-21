@@ -46,7 +46,7 @@ let KinkyDungeonStatManaRegen = 0; // How fast stamina that is converted to mana
 let KinkyDungeonStatManaLowRegen = 0; // How fast stamina that is converted to mana regenerates when low
 let KDMeditationRegen = 0.25;
 let KinkyDungeonStatManaRegenLowThreshold = 4; // Threshold for fast mana regen
-let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.05; // It costs stamina to move while bound
+let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.03; // It costs stamina to move while bound
 let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostRemove = -0.25; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
@@ -599,11 +599,19 @@ function KinkyDungeonCalculateSlowLevel() {
 		Math.max(0, KDGameData.AncientEnergyLevel - Math.max(0, origSlowLevel - KinkyDungeonSlowLevel) * KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain"));
 }
 
-function KinkyDungeonCanTalk() {
+function KinkyDungeonGagTotal() {
+	let total = 0;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (inv.restraint && inv.restraint.gag) return false;
+		if (inv.restraint && (inv.restraint.gag)) total += inv.restraint.gag;
 	}
-	return KinkyDungeonPlayer.CanTalk();
+	return total;
+}
+
+function KinkyDungeonCanTalk(Loose) {
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (inv.restraint && (Loose ? KinkyDungeonGagTotal() >= 0.99 : inv.restraint.gag)) return false;
+	}
+	return true;
 }
 
 function KinkyDungeonCalculateSubmissiveMult() {

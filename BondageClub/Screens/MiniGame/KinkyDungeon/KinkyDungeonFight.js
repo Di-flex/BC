@@ -192,7 +192,8 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags});
 	let hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (KinkyDungeonStatsChoice.get("Clumsy")) hitChance *= KDClumsyAmount;
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion));
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0,
+		(Enemy.aware ? KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion) : Math.max(1, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion))));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
 
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Accuracy")) {
@@ -702,6 +703,14 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	} else if (b.bullet.hit == "aoe") {
 		KinkyDungeonBullets.push({secondary: true, born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(),
 			bullet:{spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, bind: b.bullet.spell.bind, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
+	} else if (b.bullet.hit == "instant") {
+		if (!KinkyDungeonBulletsCheckCollision(b, true, true)) {
+			if (!(b.bullet.spell && b.bullet.spell.piercing)) {
+				KinkyDungeonBullets.splice(KinkyDungeonBullets.indexOf(b), 1);
+				KinkyDungeonBulletsID[b.spriteID] = null;
+			}
+			KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
+		}
 	} else if (b.bullet.hit == "lingering") {
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
@@ -720,7 +729,18 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			KinkyDungeonPlayerEffect(b.bullet.damage.type, b.bullet.playerEffect ? b.bullet.playerEffect : b.bullet.spell.playerEffect, b.bullet.spell);
 		}
 		for (let enemy of KinkyDungeonEntities) {
-			if ((b.reflected || (!b.bullet.spell || (!b.bullet.spell.enemySpell && !enemy.Enemy.allied && (!b.bullet.damage || b.bullet.damage.type != "heal")) || (!b.bullet.spell.allySpell && enemy.Enemy.allied && (!b.bullet.spell.enemySpell || (!b.bullet.damage || b.bullet.damage.type != "heal")))))
+			if ((b.reflected
+				|| (!b.bullet.spell
+					|| (b.bullet.spell.enemySpell
+						&& !enemy.Enemy.allied && !enemy.rage
+						&& (!b.bullet.damage
+							|| b.bullet.damage.type != "heal"))
+
+					|| (!b.bullet.spell.allySpell
+						&& enemy.Enemy.allied
+						&& (!b.bullet.spell.enemySpell
+							|| (!b.bullet.damage
+								|| b.bullet.damage.type != "heal")))))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
 				enemy.hp = Math.min(enemy.hp + b.bullet.spell.power, enemy.Enemy.maxhp);
@@ -830,12 +850,12 @@ function KinkyDungeonBulletTrail(b) {
 	return trail;
 }
 
-function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
+function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	if (bullet.bullet.noEnemyCollision) return true;
 
-	if (bullet.bullet.damage && bullet.time > 0) {
+	if (bullet.bullet.damage && (bullet.time > 0 || force)) {
 		if (bullet.bullet.aoe) {
 			if (AoE) {
 				if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
@@ -843,7 +863,16 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 				}
 				let nomsg = bullet.bullet && bullet.bullet.spell && bullet.bullet.spell.enemyspell && !bullet.reflected;
 				for (let enemy of KinkyDungeonEntities) {
-					if ((bullet.reflected || (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied && bullet.bullet.damage.type != "heal") || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied && (!bullet.bullet.spell.enemySpell || bullet.bullet.damage.type != "heal")))) && bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
+					if ((bullet.reflected
+						|| (!bullet.bullet.spell
+							|| (!bullet.bullet.spell.enemySpell
+								&& (!enemy.Enemy.allied || enemy.rage)
+								&& bullet.bullet.damage.type != "heal")
+							|| (!bullet.bullet.spell.allySpell
+								&& (enemy.Enemy.allied || enemy.rage)
+								&& (!bullet.bullet.spell.enemySpell
+									|| bullet.bullet.damage.type != "heal"))))
+							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
 						if (bullet.bullet.damage.type == "heal") {
 							let origHP = enemy.hp;
 							enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
@@ -860,7 +889,16 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE) {
 				return false;
 			}
 			for (let enemy of KinkyDungeonEntities) {
-				if ((bullet.reflected || (!bullet.bullet.spell || (!bullet.bullet.spell.enemySpell && !enemy.Enemy.allied && bullet.bullet.damage.type != "heal") || (!bullet.bullet.spell.allySpell && enemy.Enemy.allied && (!bullet.bullet.spell.enemySpell || bullet.bullet.damage.type != "heal")))) && enemy.x == bullet.x && enemy.y == bullet.y) {
+				if ((bullet.reflected ||
+					(!bullet.bullet.spell ||
+						(!bullet.bullet.spell.enemySpell
+							&& (!enemy.Enemy.allied || enemy.rage)
+							&& bullet.bullet.damage.type != "heal")
+						|| (!bullet.bullet.spell.allySpell
+							&& (enemy.Enemy.allied || enemy.rage)
+							&& (!bullet.bullet.spell.enemySpell
+								|| bullet.bullet.damage.type != "heal"))))
+						&& enemy.x == bullet.x && enemy.y == bullet.y) {
 					if (bullet.bullet.damage.type == "heal") {
 						let origHP = enemy.hp;
 						enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);

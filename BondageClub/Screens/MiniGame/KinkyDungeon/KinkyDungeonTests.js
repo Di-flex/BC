@@ -4,7 +4,7 @@
 
 function KDRunTests() {
 	KDDebug = true;
-	if (KDTestMapGen(100, [0, 10, 20, 30,], [0, 1, 2, 3, 11,])
+	if (KDTestMapGen(100, [0, 6, 12, 18,], [0, 1, 2, 3, 11,])
 		&& KDTestFullRunthrough(3, true, true)) {
 		console.log("All tests passed!");
 	}
@@ -15,11 +15,11 @@ function KDTestMapGen(count, Ranges, Checkpoints) {
 	for (let Checkpoint of Checkpoints) {
 		MiniGameKinkyDungeonCheckpoint = Checkpoint;
 		for (let FloorRange of Ranges)
-			for (let f = FloorRange; f < FloorRange + 10; f++) {
+			for (let f = FloorRange; f < FloorRange + 6; f++) {
 				console.log(`Testing floor ${f}`);
 				MiniGameKinkyDungeonLevel = f;
 				for (let i = 0; i < count; i++) {
-					if (i % (count/10) == 0)
+					if (i % (count/KDLevelsPerCheckpoint) == 0)
 						console.log(`Testing iteration ${i} on floor ${MiniGameKinkyDungeonLevel}`);
 					KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], f, true);
 					let accessible = KinkyDungeonIsAccessible(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y);

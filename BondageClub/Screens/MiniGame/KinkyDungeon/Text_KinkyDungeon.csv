@@ -7,7 +7,7 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v2.7.6"
+KinkyDungeon,"Kinky Dungeon v2.8"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -360,6 +360,7 @@ KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and ici
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
+KinkyDungeonConsumableLessEffective,The potion was less effective due to your gag!
 
 KinkyDungeonInventoryItemElfCrystal,Water Crystal
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
@@ -740,18 +741,18 @@ AttackWolfgirl,"The wolfgirl trainer squeezes your breasts playfully! (-DamageTa
 AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (-DamageTaken SP)"
 AttackWolfgirlLock,"The wolfgirl trainer pins you and skillfully locks all of your restraints."
 
-NameDrone,Drone
+NameDrone,Ancient Drone
 KillDrone,"The drone fizzles and falls to the ground!"
 AttackDroneStun,"The drone zaps you with a restraining energy ray! (-DamageTaken SP)"
 AttackDrone,"The drone uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackDroneBind,"The drone deconstructs itself into a set of bindings!"
 
-NameCaptureBot,Patrol Unit
+NameCaptureBot,Ancient Patrol Unit
 KillCaptureBot,"The patrol unit releases magic smoke and explodes."
 AttackCaptureBot,"The patrol unit uses a short-ranged electrocution attack! (-DamageTaken SP)"
 AttackCaptureBotBind,"The patrol unit extends its appendages and wraps them around you!"
 
-NameEnforcerBot,Enforcer Unit
+NameEnforcerBot,Ancient Enforcer Unit
 KillEnforcerBot,"The enforcer unit releases magic smoke and explodes."
 AttackEnforcerBot,"The enforcer unit fires many cables that squeeze you! (-DamageTaken SP)"
 AttackEnforcerBotBind,"The enforcer fires off restraints that wrap around your body and apprehend you!"
@@ -909,6 +910,17 @@ KillGag,"The gag buckles itself in place and falls."
 AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
 AttackGag,"The gravitating gag rubs itself against you! (-DamageTaken SP)"
 
+NameCuffs,Seductive Shackles
+KillCuffs,"The shackles' chain breaks as they fall to the floor."
+AttackCuffsBind,"The shackles force themselves around your limbs and click tightly! (+RestraintAdded)"
+AttackCuffs,"The shackles click seductively in your face... (-DamageTaken SP)"
+
+NameLock,Levitating Locks
+KillLock,"The locks and chains fall to the floor in a loud crash."
+AttackLockLock,"A lock clicks itself onto one of your restraints! (+RestraintAdded)"
+AttackLockBind,"A chain locks itself in place on your body! (-DamageTaken SP)"
+AttackLock,"The floating locks and chains rub themselves across your body! (-DamageTaken SP)"
+
 NamePlayerGag,Conjured Gag
 KillPlayerGag,"The conjured gag buckles itself in place and falls."
 AttackPlayerGagBind,"The gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
@@ -943,6 +955,11 @@ NameApprentice2,Summoner's Apprentice
 KillApprentice2,"The apprentice runs off and cries in a corner."
 AttackApprentice2Bind,"The apprentice clips a restraint around your neck!"
 AttackApprentice2,"The apprentice slaps you playfully!"
+
+NameApprenticeSlime,Latex Apprentice
+KillApprenticeSlime,"The apprentice runs off and cries in a corner."
+AttackApprenticeSlimeBind,"The apprentice clips a restraint around your neck!"
+AttackApprenticeSlime,"The apprentice slaps you playfully!"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
@@ -1034,11 +1051,16 @@ AttackFrog,"The frog licks you!"
 
 NameTickleHand,Tickle Hand
 KillTickleHand,"The hand vanishes!"
-AttackTickleHand,"The hand tickles you!"
+AttackTickleHand,"The hand tickles you! (-DamageTaken SP)"
+
+NameTickleTerror,Tickle Terror
+KillTickleTerror,"The tickle terror vanishes... for now"
+AttackTickleTerror,"The monstrous spirit tickles you mercilessly!!! (-DamageTaken SP)"
+AttackTickleTerrorBind,"The monstrous spirit binds you to make you more vulnerable! (+RestraintAdded)"
 
 NameTickleHandSlave,Tickle Hand
 KillTickleHandSlave,"The hand vanishes!"
-AttackTickleHandSlave,"The hand tickles you!"
+AttackTickleHandSlave,"The hand tickles you! (-DamageTaken SP)"
 
 
 NameBookChain,Tome of Chains
@@ -1091,7 +1113,7 @@ KillOrbOfLight,"The orb vanishes in a flash of light."
 AttackOrbOfLightBlind,"The orb blinds you with its intense light!!! (-DamageTaken SP)"
 KinkyDungeonSpellCastOrbHeal,A light restores the health of its allies!
 
-KinkyDungeonNoMana,"You do not have enough resources to cast the spell!"
+KinkyDungeonNoMana,"You do not have enough resources to cast the spell! (Consider pleading with a goddess)"
 PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
 PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
 PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
@@ -1744,6 +1766,14 @@ RestraintWolfLeashDesc2,"It is a steel cable with a weatherproof rubber coating,
 KinkyDungeonLinkWolfAnkleCuffs,"Your ankle cuffs snap together on their own!"
 KinkyDungeonUnLinkWolfAnkleCuffs2,"Your ankle cuffs detach!"
 
+
+RestraintComfyGag,Comfy Muzzle
+RestraintComfyGagDesc,A lovely muzzle that's extraordinarily comfy!
+RestraintComfyGagDesc2,It's made of an ethereal material...
+RestraintComfyStraitjacket,Comfy Straitjacket
+RestraintComfyStraitjacketDesc,A straitjacket that is padded on the inside.
+RestraintComfyStraitjacketDesc2,It feels tight but is actually made of an ethereal material...
+
 RestraintLatexStraitjacket,Latex Jacket
 RestraintLatexStraitjacketDesc,A tight jacket that holds your arms completely useless.
 RestraintLatexStraitjacketDesc2,It has too much grip to struggle out of, but is made of a fragile material.
@@ -2226,6 +2256,7 @@ KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it fizzles!
+KinkyDungeonSpellMiscastGagged,Your gag causes you to mispronounce the magic words!
 KinkyDungeonIceDrain,The ice drains your concentration! Your mana and stamina are slipping away!
 KinkyDungeonCrystalDrain,"A strange, chaotic energy flows into you! Your will is weakened and your mana fades!"
 
@@ -2435,12 +2466,17 @@ KinkyDungeonSpellCastSummonGag,You release a bunch of gags from your satchel!
 KinkyDungeonSpellTargetSummonGag,The gags will appear around you.
 
 KinkyDungeonSpellFlash,Lesser Flash
+KinkyDungeonSpellRing,Ring
 KinkyDungeonSpellFlashBomb,Flash Bomb
 KinkyDungeonSpellMirrorImage,Mirror Image
 KinkyDungeonSpellCastMirrorImage,""
 KinkyDungeonSpellDescriptionFlash,A flash of light which renders anyone caught within blind for Duration turns
 KinkyDungeonSpellCastFlash,You charge up a bright flash!
 KinkyDungeonSpellTargetFlash,Select where to center the flash (SpellArea radius)
+
+KinkyDungeonSpellDescriptionRing,A loud noise which stuns for Duration turns and attracts enemies to it. Long-ranged.
+KinkyDungeonSpellCastRing,You point and a noise emanates from the location!
+KinkyDungeonSpellTargetRing,Select where to center the noise (SpellArea radius)
 
 KinkyDungeonSpellGreaterFlash,Greater Flash
 KinkyDungeonSpellDescriptionGreaterFlash,A massive flash of light which renders anyone caught within blind for Duration turns
@@ -2520,6 +2556,11 @@ KinkyDungeonSpellTargetWall,Select where to put the wall (cannot place on occupi
 KinkyDungeonSpellDescriptionWall,Create a stationary wall for Duration turns. It takes 20% damage from spells.
 KinkyDungeonSummonSingleWall,A wall starts to form!
 KinkyDungeonSpellCastWall,You create a line on the ground.
+
+KinkyDungeonSpellTrueSteel,True Steel
+KinkyDungeonSpellTargetTrueSteel,Choose a target.
+KinkyDungeonSpellDescriptionTrueSteel,"A melee strike that deals DamageDealt slash damage, x2.5 against unaware humanoid enemies."
+KinkyDungeonSpellCastTrueSteel,You slash with an ethereal blade!
 
 KinkyDungeonSpellAlly,Familiar
 KinkyDungeonSpellTargetAlly,Select where to put the familiar (cannot place on occupied squares)
@@ -2620,6 +2661,10 @@ KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
 KinkyDungeonSummonSingleTickleHand,A floating hand appears and cracks its knuckles!
 KinkyDungeonSummonSingleGag,A floating gag appears and starts flying toward you!
+KinkyDungeonSummonSingleCuffs,A set of shackles opens wide and starts going for your wrists!
+KinkyDungeonSummonMultiCuffs,A swarm of shackles approaches you!
+KinkyDungeonSummonSingleLock,A cloud of locks and chains clatters as it levitates toward you!
+KinkyDungeonSummonMultiLock,A huge cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
 KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
 
@@ -2976,11 +3021,16 @@ KinkyDungeonItemsStrictness,"Increased strictness due to:"
 KinkyDungeonAidMana,Mana
 KinkyDungeonAidBondage,Bondage
 KinkyDungeonAskAid,Ask for Aid
+KinkyDungeonAskChampion,Become a Champion
 KinkyDungeonRescue,Ask
 KinkyDungeonAskRescue,Ask for Rescue
 KinkyDungeonPenance,Offer
 KinkyDungeonAskPenance,Offer Penance
+KinkyDungeonChampionCurrent,Current Champion
+KinkyDungeonChampionSwitch,Switch Champion
 
+KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 2 mana per enemy and grant +1 rep."
+KinkyDungeonBecomeChampion,"You are now the champion of the Goddess of GODDESS."
 
 KinkyDungeonAidDescRope,"For 3 rep the goddess will grant you slipperiness, boosting your struggling."
 KinkyDungeonAidDescMetal,"For 3 rep the goddess will grant you a key."
@@ -3200,4 +3250,7 @@ KinkyDungeonStealBack,You get your stolen items back.
 KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 
 KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
-KinkyDungeonCapture,You capture the EnemyName.
+KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
+KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
+
+KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!

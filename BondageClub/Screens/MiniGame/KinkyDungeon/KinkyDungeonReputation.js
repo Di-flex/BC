@@ -91,6 +91,9 @@ function KinkyDungeonHandleReputation() {
 				} else if (KDRepSelectionMode == "" && MouseIn(900, 800, 250, 50)) {
 					KDRepSelectionMode = "Aid";
 					return true;
+				} else if (KDRepSelectionMode == "" && MouseIn(1500, 800, 250, 50)) {
+					KDRepSelectionMode = "Champion";
+					return true;
 				}
 
 
@@ -139,6 +142,11 @@ function KinkyDungeonHandleReputation() {
 					}
 					KDRepSelectionMode = "";
 					KinkyDungeonDrawState = "Game";
+					return true;
+				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
+					// Penance
+					KDGameData.Champion = rep;
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
 					return true;
 				}
 			}
@@ -195,6 +203,7 @@ function KinkyDungeonDrawReputation() {
 				DrawButton(600, 800, 250, 50, TextGet("KinkyDungeonAskRescue"), KinkyDungeonInJail() ? "white" : "#999999");
 				DrawButton(1200, 800, 250, 50, TextGet("KinkyDungeonAskPenance"), "white");
 				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonAskAid"), "white");
+				DrawButton(1500, 800, 250, 50, TextGet("KinkyDungeonAskChampion"), "white");
 			} else {
 				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonBack"), "white");
 			}
@@ -220,13 +229,23 @@ function KinkyDungeonDrawReputation() {
 				}
 				if (KDRepSelectionMode == "Aid") {
 					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
-					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
 					if (MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
 						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100+1, 900+1, 1250, "black", "black");
 						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100, 900, 1250, "white", "black");
 						// Rescue
 					}
 				}
+				if (KDRepSelectionMode == "Champion") {
+					let isChampion = KDGameData.Champion == rep;
+					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet(isChampion ? "KinkyDungeonChampionCurrent" : "KinkyDungeonChampionSwitch"),
+						(isChampion) ? "white" : "#999999");
+					if (MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
+						DrawTextFit(TextGet("KinkyDungeonChampionDesc"), 1100+1, 900+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonChampionDesc"), 1100, 900, 1250, "white", "black");
+						// Rescue
+					}
+				}
+
 				//DrawButton(canvasOffsetX_ui + 275 + XX + 690, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonPenance"), "white");
 			}
 

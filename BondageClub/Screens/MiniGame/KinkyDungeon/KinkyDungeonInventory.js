@@ -220,7 +220,7 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			else if (item.looserestraint && item.looserestraint.Group) Group = item.looserestraint.Group;
 			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
-			if (item.restraint) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
+			if (item.restraint) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.AssetGroup ? item.restraint.AssetGroup : item.restraint.Asset}.png`});
 			else if (item.looserestraint && (!enchanted || item.looserestraint.enchanted || item.looserestraint.potionAncientCost)) ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
 			else if (item.consumable) ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
 			else if (item.weapon) ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});

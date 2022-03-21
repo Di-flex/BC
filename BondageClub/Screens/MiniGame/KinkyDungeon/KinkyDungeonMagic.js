@@ -171,12 +171,12 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 			if (spell.power > 0) {
 				effect = true;
-				KinkyDungeonDealDamage({damage: spell.power*2, type: spell.damage});
+				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			}
 		} else if (playerEffect.name == "Shock") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
-			KinkyDungeonDealDamage({damage: spell.power*2, type: spell.damage});
+			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonShock"), "red", playerEffect.time);
 			effect = true;
 		} else if (playerEffect.name == "CoronaShock") {
@@ -556,7 +556,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 
 function KinkyDungeoCheckComponents(spell) {
 	let failedcomp = [];
-	if (spell.components.includes("Verbal") && !KinkyDungeonCanTalk() && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) failedcomp.push("Verbal");
+	if (spell.components.includes("Verbal") && !KinkyDungeonCanTalk(true) && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) failedcomp.push("Verbal");
 	if (spell.components.includes("Arms") && KinkyDungeonIsArmsBound() && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoArmsComp") > 0)) failedcomp.push("Arms");
 	if (spell.components.includes("Legs") && (KinkyDungeonSlowLevel > 1 || KinkyDungeonLegsBlocked()) && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoLegsComp") > 0)) failedcomp.push("Legs");
 
@@ -657,6 +657,13 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let flags = {
 		miscastChance: KinkyDungeonMiscastChance,
 	};
+	let gaggedMiscastFlag = false;
+	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal")) {
+		let gagTotal = KinkyDungeonGagTotal();
+		flags.miscastChance = flags.miscastChance + Math.max(0, 1 - flags.miscastChance) * Math.min(1, gagTotal);
+		if (gagTotal > 0)
+			gaggedMiscastFlag = true;
+	}
 	if (!enemy && !bullet && player) {
 		KinkyDungeonSendEvent("beforeCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
 	}
@@ -668,6 +675,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (!enemy && !player && !bullet) {
 		moveDirection = {x:0, y:0, delta:1};
 	}
+
+	let noiseX = targetX;
+	let noiseY = targetY;
 
 	if (enemy) {
 		entity = enemy;
@@ -685,7 +695,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 	if (!spell.noMiscast && !enemy && !bullet && player && KDRandom() < flags.miscastChance) {
 
-		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscast"), "#FF8800", 2);
+		if (gaggedMiscastFlag)
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscastGagged"), "#FF8800", 2);
+		else
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscast"), "#FF8800", 2);
 
 		moveDirection = {x:0, y:0, delta:1};
 		tX = entity.x;
@@ -721,6 +734,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		let size = (spell.size) ? spell.size : 1;
 		let xx = entity.x;
 		let yy = entity.y;
+		noiseX = entity.x;
+		noiseY = entity.y;
 		if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
 			xx += moveDirection.x;
 			yy += moveDirection.y;
@@ -786,18 +801,27 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 					if (!en.buffs) en.buffs = {};
 					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze", aura: "#ffffff", type: "DamageAmp", duration: 99999, power: 0.3, player: false, enemies: true, maxCount: 3, tags: ["defense", "damageTaken"]},);
 					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze2", type: "Info", duration: 99999, power: 1.0, player: false, enemies: true, tags: ["info"]},);
-					return true;
+				} else return false;
+			} else {
+				let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
+				if (tile) {
+					if (tile.Loot && tile.Roll) {
+						let event = KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], tile.Loot, tile.Roll, tile, true);
+						if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
+						else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
+
+					} else return false;
 				} else return false;
 			}
-			let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
-			if (tile) {
-				if (tile.Loot && tile.Roll) {
-					let event = KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], tile.Loot, tile.Roll, tile, true);
-					if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
-					else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
+		}
+	}
 
-				} else return false;
-			} else return false;
+	if (spell.noise) {
+		for (let e of KinkyDungeonEntities) {
+			if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= spell.noise) {
+				e.gx = noiseX;
+				e.gy = noiseY;
+			}
 		}
 	}
 
@@ -819,8 +843,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
 			KinkyDungeonSleepTime = CommonTime() + 200;
 		}
-		if (spell.noise)
-			KinkyDungeonAlert = Math.max(spell.noise, KinkyDungeonAlert);
+		if (spell.noise) {
+			if (spell.components && spell.components.includes("Verbal"))
+				KinkyDungeonAlert = 3;//Math.max(spell.noise, KinkyDungeonAlert);
+		}
 		KinkyDungeonLastAction = "Spell";
 	}
 
