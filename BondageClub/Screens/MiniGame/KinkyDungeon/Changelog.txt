@@ -715,6 +715,7 @@ Spell Balance:
 - Only humanoid (bindable) enemies can now grab your torso (no more getting grabbed by floating handcuffs)
 - Improved enemy chasing so they won't run off in random directions now
 - New spell: Ring
+- Gags no longer block spellcasting and potions completely. Potions are less effective and verbal spells have a miscast chance. However, muzzles block it completely as usual.
 
 TODO ValidationFindBlockCycles to prevent bugs
 

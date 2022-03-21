@@ -599,11 +599,19 @@ function KinkyDungeonCalculateSlowLevel() {
 		Math.max(0, KDGameData.AncientEnergyLevel - Math.max(0, origSlowLevel - KinkyDungeonSlowLevel) * KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain"));
 }
 
-function KinkyDungeonCanTalk() {
+function KinkyDungeonGagTotal() {
+	let total = 0;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (inv.restraint && inv.restraint.gag) return false;
+		if (inv.restraint && (inv.restraint.gag)) total += inv.restraint.gag;
 	}
-	return KinkyDungeonPlayer.CanTalk();
+	return total;
+}
+
+function KinkyDungeonCanTalk(Loose) {
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (inv.restraint && (Loose ? KinkyDungeonGagTotal() >= 0.99 : inv.restraint.gag)) return false;
+	}
+	return true;
 }
 
 function KinkyDungeonCalculateSubmissiveMult() {

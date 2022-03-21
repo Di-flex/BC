@@ -551,17 +551,17 @@ function KinkyDungeonHandleHUD() {
 		let xxx = 1750;
 		let yyy = 164;
 		if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionFrigid") && KinkyDungeonStatArousal > 0) {
-			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
+			if (KinkyDungeonCanTalk(true) || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionFrigid", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;
 		} else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionStamina") && KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
-			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
+			if (KinkyDungeonCanTalk(true) || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionStamina", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;
 		} else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionMana") && KinkyDungeonStatMana < KinkyDungeonStatManaMax) {
-			if (KinkyDungeonCanTalk() || KinkyDungeonPotionCollar())
+			if (KinkyDungeonCanTalk(true) || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionMana", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);
 			return true;

@@ -360,6 +360,7 @@ KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and ici
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
 KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns. They deal 40 damage and freeze for 3 turns."
 
+KinkyDungeonConsumableLessEffective,The potion was less effective due to your gag!
 
 KinkyDungeonInventoryItemElfCrystal,Water Crystal
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
@@ -2242,6 +2243,7 @@ KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it fizzles!
+KinkyDungeonSpellMiscastGagged,Your gag causes you to mispronounce the magic words!
 KinkyDungeonIceDrain,The ice drains your concentration! Your mana and stamina are slipping away!
 KinkyDungeonCrystalDrain,"A strange, chaotic energy flows into you! Your will is weakened and your mana fades!"
 
