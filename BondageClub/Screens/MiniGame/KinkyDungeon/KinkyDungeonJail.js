@@ -159,6 +159,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	}
 
 	if (KinkyDungeonJailGuard()) {
+		KinkyDungeonJailGuard().gxx = KinkyDungeonJailGuard().gx;
+		KinkyDungeonJailGuard().gyy = KinkyDungeonJailGuard().gy;
 		if (KDGameData.KinkyDungeonGuardTimer > 0) {
 			// Decrease timer when not on a tour
 			if (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && !KinkyDungeonAngel()) {
