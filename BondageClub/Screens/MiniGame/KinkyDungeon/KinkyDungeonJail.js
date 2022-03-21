@@ -47,7 +47,7 @@ function KinkyDungeonInJail() {
 function KinkyDungeonHandleJailSpawns(delta) {
 	if (KinkyDungeonInJail()) KDGameData.JailRemoveRestraintsTimer += delta;
 
-	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX;
+	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX - 1;
 	let yy = KinkyDungeonStartPosition.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
 	if (KinkyDungeonInJail() && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KDGameData.SleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell && !KDGameData.RescueFlag) {
@@ -79,7 +79,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailWander" && KDistChebyshev(KinkyDungeonJailGuard().gx - KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().gy - KinkyDungeonJailGuard().y) < 1.5) {
 			// Random meandering about the cell, sometimes stopping near the player
 			if (KDRandom() < 0.2) {
-				KinkyDungeonJailGuard().gx = xx - 3;
+				KinkyDungeonJailGuard().gx = xx - 2;
 				if (KDRandom() < 0.5)
 					KinkyDungeonJailGuard().gy = yy + Math.round(KDRandom() * KinkyDungeonJailLeash * 2 - KinkyDungeonJailLeash);
 				else
@@ -183,6 +183,9 @@ function KinkyDungeonHandleJailSpawns(delta) {
 					KinkyDungeonChangeRep("Ghost", 1 + KDGameData.KinkyDungeonPrisonExtraGhostRep);
 					KDGameData.KinkyDungeonPrisonExtraGhostRep = 0;
 				}
+			} else {
+				KinkyDungeonJailGuard().gx = xx;
+				KinkyDungeonJailGuard().gy = yy;
 			}
 		}
 	}
