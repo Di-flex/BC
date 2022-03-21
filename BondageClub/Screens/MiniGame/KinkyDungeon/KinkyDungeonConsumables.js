@@ -86,7 +86,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.scaleWithMaxSP) {
 			multi = Math.max(KinkyDungeonStatStaminaMax / 36);
 		}
-		let gagMult = Math.max(0, KinkyDungeonGagTotal());
+		let gagMult = Math.max(0, 1 - Math.max(0, KinkyDungeonGagTotal()));
 		if (gagMult > 0) {
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonConsumableLessEffective"), "red", 2);
 		}
