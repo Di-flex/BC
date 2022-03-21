@@ -1,32 +1,5 @@
 "use strict";
 
-var KinkyDungeonConsumables = {
-	"PotionMana" : {name: "PotionMana", potion: true, rarity: 0, shop: true, type: "restore", mp_instant: 12, mp_gradual: 24, duration: 24, sfx: "PotionDrink"},
-	"PotionStamina" : {name: "PotionStamina", potion: true, rarity: 1, shop: true, type: "restore", sp_instant: 12, sp_gradual: 24, scaleWithMaxSP: true, duration: 12, sfx: "PotionDrink"},
-	"PotionFrigid" : {name: "PotionFrigid", potion: true, rarity: 1, shop: true, type: "restore", ap_instant: 0, ap_gradual: -36, duration: 6, sfx: "PotionDrink"},
-	"SmokeBomb" : {name: "SmokeBomb", noHands: true, rarity: 2, costMod: -1, shop: true, type: "spell", spell: "Shroud", sfx: "FireSpell"},
-	"PotionInvisibility" : {name: "PotionInvisibility", potion: true, rarity: 3, costMod: -1, shop: true, type: "spell", spell: "Invisibility", sfx: "PotionDrink"},
-	"EarthRune" : {name: "EarthRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Earthrune", sfx: "HeavySwing"},
-	"IceRune" : {name: "IceRune", rarity: 2, costMod: -1, shop: false, type: "spell", spell: "Icerune", sfx: "Freeze"},
-	"ElfCrystal" : {name: "ElfCrystal", noHands: true, rarity: 3, costMod: -1, shop: false, type: "spell", spell: "Slippery", sfx: "MagicSlash"},
-	"EnchantedGrinder" : {name: "EnchantedGrinder", noHands: true, rarity: 4, shop: true, type: "spell", spell: "Cutting", sfx: "Laser"},
-	"MistressKey" : {name: "MistressKey", rarity: 10, shop: false, type: "unusuable"},
-	"AncientPowerSource" : {name: "AncientPowerSource", noHands: true, rarity: 4, shop: true, type: "charge", amount: 0.251},
-	"AncientPowerSourceSpent" : {name: "AncientPowerSourceSpent", noHands: true, rarity: 4, shop: false, type: "recharge", rechargeCost: 100},
-	"ScrollArms" : {name: "ScrollArms", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoArmsComp", duration: 12, power: 1, aura: "#aaffaa", sfx: "FireSpell"},
-	"ScrollVerbal" : {name: "ScrollVerbal", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoVerbalComp", duration: 12, power: 1, aura: "#aaaaff", sfx: "FireSpell"},
-	"ScrollLegs" : {name: "ScrollLegs", noHands: true, rarity: 2, shop: true, type: "buff", buff: "NoLegsComp", duration: 12, power: 1, aura: "#ffaaaa", sfx: "FireSpell"},
-};
-
-var KinkyDungneonBasic = {
-	"RedKey" : {name: "RedKey", rarity: 0, shop: true},
-	"BlueKey" : {name: "BlueKey", rarity: 4, shop: true},
-	"Lockpick" : {name: "Lockpick", rarity: 0, shop: true},
-	//"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
-	"Knife" : {name: "Knife", rarity: 0, shop: true},
-	"MagicKnife" : {name: "MagicKnife", rarity: 4, shop: true},
-};
-
 function KinkyDungeonFindConsumable(Name) {
 	for (let con of Object.values(KinkyDungeonConsumables)) {
 		if (con.name == Name) return con;
@@ -34,10 +7,9 @@ function KinkyDungeonFindConsumable(Name) {
 	return undefined;
 }
 
-function KinkyDungeonGetInventoryItem(Name, Filter = "Consumables") {
+function KinkyDungeonGetInventoryItem(Name, Filter = Consumable) {
 	let Filtered = KinkyDungeonFilterInventory(Filter);
-	for (let I = 0; I < Filtered.length; I++) {
-		let item = Filtered[I];
+	for (let item of Filtered) {
 		if (item.name == Name) return item;
 	}
 	return null;
@@ -55,8 +27,8 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 	let Table = [];
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	if (params.ShopExclusives) {
-		for (let S = 0; S < params.ShopExclusives.length; S++) {
-			Table.push(params.ShopExclusives[S]);
+		for (let exc of params.ShopExclusives) {
+			Table.push(exc);
 		}
 	}
 	let Shopable = Object.entries(KinkyDungeonConsumables).filter(([k, v]) => (v.shop));
@@ -81,9 +53,10 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 			Table.push(s);
 	}
 
+	// No duplicates
 	for (let R = Rarity; R >= 0; R--) {
-		let available = Table.filter((item) => (item.rarity == R));
-		if (available.length > 0) return available[Math.floor(Math.random() * available.length)];
+		let available = Table.filter((item) => (item.rarity == R && !KinkyDungeonShopItems.some((item2) => {return item2.name == item.name;})));
+		if (available.length > 0) return available[Math.floor(KDRandom() * available.length)];
 	}
 	return null;
 }
@@ -91,25 +64,17 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 
 
 function KinkyDungeonChangeConsumable(Consumable, Quantity) {
-	let consumables = KinkyDungeonFilterInventory("Consumables");
-	for (let I = 0; I < consumables.length; I++) {
-		let item = consumables[I];
-		if (item.name == Consumable.name) {
-			item.item.quantity += Quantity;
-			if (item.item.quantity <= 0) {
-				for (let II = 0; II < KinkyDungeonInventory.length; II++) {
-					if (KinkyDungeonInventory[II].consumable && KinkyDungeonInventory[II].consumable.name == Consumable.name) {
-						KinkyDungeonInventory.splice(II, 1);
-						return true;
-					}
-				}
-			}
-			return true;
+	let item = KinkyDungeonInventoryGetConsumable(Consumable.name);
+	if (item) {
+		item.quantity += Quantity;
+		if (item.quantity <= 0) {
+			KinkyDungeonInventoryRemove(item);
 		}
+		return true;
 	}
 
 	if (Quantity >= 0) {
-		KinkyDungeonInventory.push({consumable: Consumable, quantity: Quantity, events: Consumable.events});
+		KinkyDungeonInventoryAdd({consumable: Consumable, quantity: Quantity, events: Consumable.events});
 	}
 
 	return false;
@@ -125,6 +90,8 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant * multi);
 		if (Consumable.ap_instant) KinkyDungeonChangeArousal(Consumable.ap_instant);
 
+		KinkyDungeonCalculateMiscastChance();
+
 		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration, duration: Consumable.duration});
 		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration * multi, duration: Consumable.duration});
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration, duration: Consumable.duration});
@@ -132,17 +99,28 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
 	} else if (Consumable.type == "charge") {
 		KDGameData.AncientEnergyLevel = Math.min(Math.max(0, KDGameData.AncientEnergyLevel + Consumable.amount), 1.0);
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSourceSpent, 1);
+		if (!KinkyDungeonStatsChoice.get("LostTechnology"))
+			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSourceSpent, 1);
 	} else if (Consumable.type == "buff") {
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: Consumable.name, type: Consumable.buff, power: Consumable.power, duration: Consumable.duration, aura: Consumable.aura});
 	} else if (Consumable.type == "recharge") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 		KinkyDungeonAddGold(-Consumable.rechargeCost);
+	} else if (Consumable.type == "shrineRemove") {
+		KinkyDungeonRemoveRestraintsWithShrine(Consumable.shrine);
 	}
 }
 
+function KinkyDungeonPotionCollar() {
+	let minCost = 0;
+	for (let r of KinkyDungeonAllRestraint()) {
+		if (r.restraint.potionAncientCost && (r.restraint.potionAncientCost < minCost || minCost == 0)) minCost = r.restraint.potionAncientCost;
+	}
+	return minCost;
+}
+
 function KinkyDungeonCanDrink() {
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.allowPotions) return true;
 		else if (inv.restraint && inv.restraint.gag && !inv.restraint.openMouth) return false;
 	}
@@ -150,7 +128,8 @@ function KinkyDungeonCanDrink() {
 }
 
 function KinkyDungeonAttemptConsumable(Name, Quantity) {
-	let item = KinkyDungeonGetInventoryItem(Name, "Consumables");
+	if (KDGameData.SleepTurns > 0 || KinkyDungeonSlowMoveTurns > 0) return false;
+	let item = KinkyDungeonGetInventoryItem(Name, Consumable);
 	if (!item) return false;
 	if (item.item && item.item.consumable && item.item.consumable.type == "unusuable") {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnusable"), "red", 1);
@@ -165,32 +144,47 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 
+	if (item.item && item.item.consumable && item.item.consumable.type == "shrineRemove" && KinkyDungeonGetRestraintsWithShrine(item.item.consumable.shrine).length < 1) {
+		KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoItemToRemove"), "pink", 1);
+		return false;
+	}
+
 	let needMouth = item.item && item.item.consumable && item.item.consumable.potion;
 	let needArms = !(item.item && item.item.consumable && item.item.consumable.noHands);
 	let strictness = KinkyDungeonStrictness(false);
 	let maxStrictness = (item.item && item.item.consumable && item.item.consumable.maxStrictness) ? item.item.consumable.maxStrictness : 1000;
 
 	if (needMouth && ((!item.item.consumable.potion && !KinkyDungeonCanTalk()) || (item.item.consumable.potion && !KinkyDungeonCanDrink()))) {
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 2);
+		let energyCost = KinkyDungeonPotionCollar();
+		if (item.item.consumable.potion && energyCost && KDGameData.AncientEnergyLevel > energyCost) {
+			KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
+		} else {
+			KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "red", 1);
 
-		if (KinkyDungeonTextMessageTime > 0)
-			KinkyDungeonDrawState = "Game";
+			if (KinkyDungeonTextMessageTime > 0)
+				KinkyDungeonDrawState = "Game";
 
-		return false;
+			return false;
+		}
 	}
 	if (needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 2);
+		let energyCost = KinkyDungeonPotionCollar();
+		if (item.item.consumable.potion && energyCost && KDGameData.AncientEnergyLevel > energyCost) {
+			KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
+		} else {
+			//KinkyDungeonAdvanceTime(1);
+			KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotions"), "red", 1);
 
-		if (KinkyDungeonTextMessageTime > 0)
-			KinkyDungeonDrawState = "Game";
+			if (KinkyDungeonTextMessageTime > 0)
+				KinkyDungeonDrawState = "Game";
 
-		return false;
+			return false;
+		}
 	}
 
 	if (strictness >= maxStrictness) {
-		KinkyDungeonAdvanceTime(1);
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotionsStrict"), "red", 2);
+		//KinkyDungeonAdvanceTime(1);
+		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonCantUsePotionsStrict"), "red", 1);
 
 		if (KinkyDungeonTextMessageTime > 0)
 			KinkyDungeonDrawState = "Game";
@@ -202,7 +196,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 }
 
 function KinkyDungeonUseConsumable(Name, Quantity) {
-	let item = KinkyDungeonGetInventoryItem(Name, "Consumables");
+	let item = KinkyDungeonGetInventoryItem(Name, Consumable);
 	if (!item || item.item.quantity < Quantity) return false;
 
 	for (let I = 0; I < Quantity; I++) {

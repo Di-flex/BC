@@ -40,6 +40,10 @@ interface HTMLImageElement {
 	errorcount?: number;
 }
 
+interface HTMLElement {
+	setAttribute(qualifiedName: string, value: string | number): void;
+}
+
 //#endregion
 
 //#region Enums
@@ -163,10 +167,10 @@ interface ChatRoom {
 	Character?: any[]; /* From server, not really a Character object */
 }
 
-type StimulationAction = "Flash" | "Kneel" | "Walk" | "StruggleAction" | "StruggleFail";
+type StimulationAction = "Flash" | "Kneel" | "Walk" | "StruggleAction" | "StruggleFail" | "Gag";
 
 type MessageActionType = "Action" | "Chat" | "Whisper" | "Emote" | "Activity" | "Hidden" |
- "LocalMessage" | "ServerMessage";
+ "LocalMessage" | "ServerMessage" | "Status";
 
 type MessageContentType = string;
 
@@ -603,7 +607,22 @@ interface Character {
 	CanWalk: () => boolean;
 	CanKneel: () => boolean;
 	CanInteract: () => boolean;
-	CanChange: () => boolean;
+
+	/**
+	 * Check whether a character can change its own outfit.
+	 *
+	 * @warning Only usable on Player
+	 * @returns {boolean} - TRUE if changing is possible, FALSE otherwise.
+	 */
+	CanChangeOwnClothes: () => boolean;
+
+	/**
+	 * Check whether a character can change another one's outfit.
+	 *
+	 * @param {Character} C - The character to check against.
+	 * @returns {boolean} - TRUE if changing is possible, FALSE otherwise.
+	 */
+	CanChangeClothesOn: (C: Character) => boolean;
 	IsProne: () => boolean;
 	IsRestrained: () => boolean;
 	IsBlind: () => boolean;
@@ -713,6 +732,8 @@ interface Character {
 	ArousalZoom?: boolean;
 	FixedImage?: string;
 	Rule?: LogRecord[];
+	Status?: string | null;
+	StatusTimer?: number;
 }
 
 /** MovieStudio */
@@ -807,6 +828,7 @@ interface PlayerCharacter extends Character {
 	LastChatRoomDesc?: string;
 	LastChatRoomAdmin?: any[];
 	LastChatRoomBan?: any[];
+	LastChatRoomBlockCategory?: string[];
 	LastChatRoomTimer?: any;
 	RestrictionSettings?: {
 		BypassStruggle: boolean;
@@ -819,8 +841,9 @@ interface PlayerCharacter extends Character {
 		DisableAnimations: boolean;
 		SearchShowsFullRooms: boolean;
 		SearchFriendsFirst: boolean;
+		SendStatus?: boolean;
+		ShowStatus?: boolean;
 		EnableAfkTimer: boolean;
-		EnableWardrobeIcon: boolean;
 	};
 	GraphicsSettings?: {
 		Font: string;
@@ -1493,8 +1516,8 @@ interface KinkyDungeonSave {
     id: number;
     choices: number[];
 	choices2: boolean[];
-	buffs: Record<string, KinkyDungeonBuff>;
-	lostitems: KinkyDungeonInventoryItem[];
+	buffs: Record<string, any>;
+	lostitems: any[];
 	caches: number[];
 	spells: string[];
 	inventory: {
@@ -1530,6 +1553,9 @@ interface KinkyDungeonWeapon {
 	dmg: number;
 	chance: number;
 	type: string;
+	bind?: number;
+	boundBonus?: number;
+	tease?: boolean;
 	rarity: number;
 	staminacost?: number;
 	magic?: boolean;
@@ -1549,6 +1575,8 @@ interface KinkyDungeonEvent {
 	dist?: number;
 	buffType?: string;
 	time?: number;
+	chance?: number;
+	buff?: any;
 }
 
 type PokerPlayerType = "None" | "Set" | "Character";

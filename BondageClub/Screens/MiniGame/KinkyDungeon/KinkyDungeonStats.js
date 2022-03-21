@@ -5,17 +5,24 @@ let KinkyDungeonPlayerEntity = null; // The current player entity
 // Arousal -- It lowers your stamina regen
 let KinkyDungeonStatMaxMax = 72; // Maximum any stat can get boosted to
 
+
 let KinkyDungeonStatArousalMax = 36;
 let KinkyDungeonArousalUnlockSuccessMod = 0.5; // Determines how much harder it is to insert a key while aroused. 1.0 is half success chance, 2.0 is one-third, etc.
 let KinkyDungeonStatArousal = 0;
 let KinkyDungeonCrotchRopeArousal = 0.5;
-let KinkyDungeonStatArousalRegen = -0.5;
-let KinkyDungeonStatArousalRegenPerUpgrade = -0.1;
+let KinkyDungeonStatArousalRegen = -0.25;
+let KinkyDungeonStatArousalRegenPerUpgrade = -0.05;
+let KDNoUnchasteBraMult = 0.9;
+let KDNoUnchasteMult = 0.5;
+let KDUnchasteMult = 0.25;
+let KDPurityAmount = 0.25;
+let KDDistractedAmount = 0.15;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal
 let KinkyDungeonStatArousalMiscastChance = 0.6; // Miscast chance at max arousal
+let KinkyDungeonMiscastChance = 0;
 let KinkyDungeonVibeLevel = 0;
 let KinkyDungeonOrgasmVibeLevel = 0;
-let KinkyDungeonArousalPerVibe = 1; // How much arousal per turn per vibe energy cost
+let KinkyDungeonArousalPerVibe = 0.5; // How much arousal per turn per vibe energy cost
 let KinkyDungeonArousalPerPlug = 0.25; // How much arousal per move per plug level
 let KinkyDungeonVibeCostPerIntensity = 0.15;
 
@@ -37,13 +44,14 @@ let KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 let KinkyDungeonStatManaRate = 0;
 let KinkyDungeonStatManaRegen = 0; // How fast stamina that is converted to mana regenerates
 let KinkyDungeonStatManaLowRegen = 0; // How fast stamina that is converted to mana regenerates when low
-let KinkyDungeonStatManaRegenLowThreshold = 1; // Threshold for fast mana regen
-let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.1; // It costs stamina to move while bound
+let KDMeditationRegen = 0.25;
+let KinkyDungeonStatManaRegenLowThreshold = 4; // Threshold for fast mana regen
+let KinkyDungeonStatStaminaRegenPerSlowLevel = -0.05; // It costs stamina to move while bound
 let KinkyDungeonStatStaminaCostStruggle = -1; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostRemove = -0.25; // It costs stamina to struggle
 let KinkyDungeonStatStaminaCostTool = -0.1; // It costs stamina to cut, but much less
 let KinkyDungeonStatStaminaCostPick = -0.0; // It costs stamina to pick, but much less
-let KinkyDungeonStatStaminaCostAttack = -0.5; // Cost to attack
+let KinkyDungeonStatStaminaCostAttack = -1.0; // Cost to attack
 let KinkyDungeonStaminaRate = KinkyDungeonStatStaminaRegen;
 
 // Current Status
@@ -91,7 +99,14 @@ let KinkyDungeonTorsoGrabChance = 0.4;
 let KinkyDungeonWeaponGrabChance = 1.0;
 
 // Your inventory contains items that are on you
-let KinkyDungeonInventory = [];
+let KinkyDungeonInventory = new Map();
+function KDInitInventory() {
+	KinkyDungeonInventory = new Map();
+	for (const c of [Consumable, Restraint, LooseRestraint, Weapon, Outfit]) {
+		KinkyDungeonInventory.set(c, new Map());
+	}
+}
+
 let KinkyDungeonPlayerTags = new Map();
 
 let KinkyDungeonCurrentDress = "Default";
@@ -121,6 +136,7 @@ function KinkyDungeonDefaultStats() {
 	KDGameData.KinkyDungeonSpawnJailersMax = 0;
 	KinkyDungeonGold = 0;
 	KinkyDungeonLockpicks = 1;
+	if (KinkyDungeonDifficultyMode == 2) KinkyDungeonLockpicks = 0;
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonNormalBlades = 1;
@@ -138,7 +154,7 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonCachesPlaced = [];
 	KinkyDungeonChestsOpened = [];
 
-	KinkyDungeonPlayerWeapon = null;
+	KDSetWeapon(null);
 	KinkyDungeonSpellPoints = 3;
 
 	KinkyDungeonStatArousalMax = 36;
@@ -156,9 +172,11 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 	KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 
+	KinkyDungeonPlayerBuffs = {};
+
 	KinkyDungeonMovePoints = 0;
-	KinkyDungeonInventory = [];
-	KinkyDungeonInventory.push({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
+	KDInitInventory();
+	KinkyDungeonInventoryAdd({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
@@ -172,6 +190,8 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonInitializeDresses();
 	KinkyDungeonDressPlayer();
 	KinkyDungeonShrineInit();
+
+	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
 }
 
 function KinkyDungeonGetVisionRadius() {
@@ -186,15 +206,34 @@ function KinkyDungeonInterruptSleep() {
 function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
-	let armor = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor");
+	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
 	let arousalTypesWeakNeg = ["pain"];
 	let arousalTypesWeak = ["grope"];
-	let arousalTypesStrong = ["tickle", "charm", "happygas"];
+	let arousalTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
 	let staminaTypesWeak = ["electric", "tickle", "drain"];
-	let staminaTypesStrong = ["glue", "ice", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed"];
-	let manaTypesWeak = ["electric", "poison"];
+	let staminaTypesStrong = ["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"];
+	let manaTypesWeak = ["electric", "poison", "souldrain"];
 	let manaTypesString = ["drain"];
+
+	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
+		staminaTypesWeak.splice(staminaTypesWeak.indexOf("electric"), 1);
+		staminaTypesStrong.push("electric");
+		manaTypesWeak.splice(manaTypesWeak.indexOf("electric"), 1);
+		manaTypesString.push("electric");
+	}
+
 	if (armor) dmg = Math.max(0, dmg - armor);
+
+	if (dmg > 0) {
+		let buffreduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
+		if (buffreduction && dmg > 0) {
+			dmg = Math.max(dmg - buffreduction, 0);
+			KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damageTaken", 1);
+			KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
+		}
+	}
+
+
 	if (arousalTypesWeak.includes(type)) {
 		KinkyDungeonChangeArousal(Math.ceil(dmg/2));
 	}
@@ -216,7 +255,7 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 	KinkyDungeonInterruptSleep();
 
-	if (KinkyDungeonStatFreeze > 0) {
+	if (KinkyDungeonStatFreeze > 0 && KinkyDungeonMeleeDamageTypes.includes(type)) {
 		KinkyDungeonChangeStamina(-dmg);
 		KinkyDungeonStatFreeze = 0;
 	}
@@ -276,11 +315,12 @@ function KinkyDungeonSetMaxStats() {
 	let arousalRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
-		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 12;
+		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 8;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
 		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2") KinkyDungeonSpellChoiceCount += 1;
 		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 1;
 		if (s.name == "APUp1" || s.name == "APUp2" || s.name == "APUp3") {
+			KinkyDungeonStatStaminaMax += 4;
 			KinkyDungeonStatArousalMax += 12;
 			arousalRate += KinkyDungeonStatArousalRegenPerUpgrade;
 		}
@@ -312,14 +352,18 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
 
-	let arousalRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatArousalRegen : 0) : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
+	let arousalRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatArousalRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
+		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0) : (KinkyDungeonArousalPerVibe * KinkyDungeonVibeLevel);
+	if (KinkyDungeonStatsChoice.get("Purity")) {
+		arousalRate -= KDPurityAmount;
+	}
 	if (KDGameData.OrgasmStamina > 0) {
 		let amount = KDGameData.OrgasmStamina/12;
 		KDGameData.OrgasmStamina = Math.max(0, KDGameData.OrgasmStamina*0.98 - delta/70);
 		arousalRate += -amount;
 	}
 
-	if (KDGameData.OrgasmStage > 0 && KDRandom() < 0.25) KDGameData.OrgasmStage = Math.max(0, KDGameData.OrgasmStage - delta);
+	if (KDGameData.OrgasmStage > 0 && KDRandom() < 0.25 && KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.75) KDGameData.OrgasmStage = Math.max(0, KDGameData.OrgasmStage - delta);
 	if (KinkyDungeonStatArousal >= KinkyDungeonStatArousalMax * 0.99) KDGameData.OrgasmTurns = Math.min(KDGameData.OrgasmTurns + delta, KinkyDungeonOrgasmTurnsMax);
 	else KDGameData.OrgasmTurns = Math.max(KDGameData.OrgasmTurns - delta, 0);
 
@@ -329,7 +373,7 @@ function KinkyDungeonUpdateStats(delta) {
 	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
 	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
-	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold) ? KinkyDungeonStatManaLowRegen : KinkyDungeonStatManaRegen;
+	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold && KinkyDungeonStatsChoice.get("Meditation")) ? KDMeditationRegen : 0;
 
 	// Update the player tags based on the player's groups
 	KinkyDungeonPlayerTags = KinkyDungeonUpdateRestraints(delta);
@@ -350,7 +394,7 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonCalculateSlowLevel();
 	let sleepRate = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sleepiness");
 	if ((sleepRate && sleepRate > 0) || KinkyDungeonSleepiness > 0) {
-		KinkyDungeonSleepiness = Math.min(5, KinkyDungeonSleepiness + sleepRate * delta);
+		KinkyDungeonSleepiness = Math.min(8, KinkyDungeonSleepiness + sleepRate * delta);
 		if (KinkyDungeonSleepiness > 2.99) {
 			KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
 			KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel + 1, 3);
@@ -373,8 +417,9 @@ function KinkyDungeonUpdateStats(delta) {
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 
 	if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
-		KinkyDungeonChangeStamina(KinkyDungeonOrgasmExhaustionAmount);
-		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonOrgasmExhaustion"), "red", 2, false, true);
+		KinkyDungeonChangeStamina(KinkyDungeonOrgasmExhaustionAmount * (KinkyDungeonStatsChoice.get("Willpower") ? KDWillpowerMultiplier : 1.0));
+		let vibe = KinkyDungeonVibeLevel > 0 ? "Vibe" : "";
+		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonOrgasmExhaustion" + vibe), "red", 2, false, true);
 	}
 
 	KinkyDungeonStatBlind = Math.max(0, KinkyDungeonStatBlind - delta);
@@ -383,9 +428,11 @@ function KinkyDungeonUpdateStats(delta) {
 
 	KinkyDungeonCapStats();
 
+	KinkyDungeonCalculateMiscastChance();
+
 	KinkyDungeonHasCrotchRope = false;
 
-	for (let item of KinkyDungeonInventory) {
+	for (let item of KinkyDungeonFullInventory()) {
 		if (item.restraint) {
 			if (item.restraint.difficultyBonus) {
 				KinkyDungeonDifficulty += item.restraint.difficultyBonus;
@@ -400,12 +447,21 @@ function KinkyDungeonUpdateStats(delta) {
 
 }
 
+function KinkyDungeonCalculateMiscastChance() {
+	let flags = {
+		miscastChance: Math.max(0, KinkyDungeonStatArousalMiscastChance * Math.min(1, KinkyDungeonStatArousal / KinkyDungeonStatArousalMax)),
+	};
+	if (KinkyDungeonStatsChoice.get("Distracted")) flags.miscastChance += KDDistractedAmount;
+	KinkyDungeonSendEvent("calcMiscast", {flags: flags});
+	KinkyDungeonMiscastChance = flags.miscastChance;
+}
+
 function KinkyDungeonGetBlindLevel() {
 	let blindness = 0;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.blindfold) blindness = Math.max(blindness + 1, inv.restraint.blindfold);
 	}
-	return blindness ? blindness : KinkyDungeonPlayer.GetBlindLevel();
+	return blindness ? blindness : 0;
 }
 
 function KinkyDungeonCapStats() {
@@ -417,24 +473,27 @@ function KinkyDungeonCapStats() {
 /*
  * Gets the average deny chance of restraints
  */
-function KinkyDungeonGetDenyChance() {
+function KinkyDungeonGetDenyChance(chance) {
 	let avg = 0;
 	let total = 0;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.denyChance) {
 			total += inv.restraint.power;
-			avg += inv.restraint.denyChance * inv.restraint.power;
+			if (chance && inv.restraint.denyChanceLikely)
+				avg += inv.restraint.denyChanceLikely * inv.restraint.power;
+			else
+				avg += inv.restraint.denyChance * inv.restraint.power;
 		}
 	}
 	return avg/Math.max(1, total);
 }
 
-function KinkyDungeonVibratorsDeny() {
+function KinkyDungeonVibratorsDeny(chance) {
 	let toDeny = false;
-	let allowDeny = KDRandom() < KinkyDungeonGetDenyChance();
+	let allowDeny = KDRandom() < KinkyDungeonGetDenyChance(chance);
 	if (allowDeny)
-		for (let inv of KinkyDungeonRestraintList()) {
-			if (inv.restraint && inv.restraint.vibeType.includes("Deny")) {
+		for (let inv of KinkyDungeonAllRestraint()) {
+			if (inv.restraint && inv.restraint.vibeType && inv.restraint.vibeType.includes("Deny")) {
 				inv.deny = inv.restraint.denyTime ? inv.restraint.denyTime : 3;
 				toDeny = true;
 			}
@@ -448,13 +507,15 @@ function KinkyDungeonCalculateVibeLevel(delta) {
 	KinkyDungeonOrgasmVibeLevel = 0;
 	KinkyDungeonStatPlugLevel = 0;
 	KinkyDungeonPlugCount = 0;
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		if (KinkyDungeonInventory[I] && KinkyDungeonInventory[I].restraint) {
-			if (KinkyDungeonInventory[I].restraint.intensity) {
-				let vibe = KinkyDungeonInventory[I].restraint;
-				let drain = vibe.battery - Math.max(0, vibe.battery - delta * KinkyDungeonVibeCostPerIntensity * vibe.intensity);
-				if (KinkyDungeonInventory[I].deny > 0) {
-					KinkyDungeonInventory[I].deny = Math.max(0, KinkyDungeonInventory[I].deny - delta);
+	for (let item of KinkyDungeonAllRestraint()) {
+		if (item && item.restraint) {
+			if (item.restraint.intensity) {
+				let vibe = item.restraint;
+				if (!item.battery) item.battery = 0;
+				if (!(item.battery < 99999999)) item.battery = 0;
+				let drain = item.battery - Math.max(0, item.battery - delta * KinkyDungeonVibeCostPerIntensity * vibe.intensity);
+				if (item.deny > 0) {
+					item.deny = Math.max(0, item.deny - delta);
 					drain = 0;
 				}
 				if (drain > 0) {
@@ -462,13 +523,15 @@ function KinkyDungeonCalculateVibeLevel(delta) {
 					if (vibe.orgasm) KinkyDungeonOrgasmVibeLevel = Math.max(KinkyDungeonOrgasmVibeLevel + drain/4, drain);
 				}
 
-				vibe.battery = Math.max(0, vibe.battery - drain);
+				item.battery = Math.max(0, item.battery - drain);
 			}
-			if (KinkyDungeonInventory[I].restraint.plugSize) {
-				let size = KinkyDungeonInventory[I].restraint.plugSize;
+			if (item.restraint.plugSize) {
+				let size = item.restraint.plugSize;
 				KinkyDungeonStatPlugLevel = Math.max(KinkyDungeonStatPlugLevel + size/2, size);
 				KinkyDungeonPlugCount += 1;
 			}
+			if (item.cooldown > 0)
+				item.cooldown = Math.max(0, item.cooldown - delta);
 		}
 	}
 
@@ -482,8 +545,8 @@ function KinkyDungeonCalculateVibeLevel(delta) {
 }
 
 function KinkyDungeonCanOrgasm() {
-	for (let I = 0; I < KinkyDungeonInventory.length; I++) {
-		if (KinkyDungeonInventory[I] && KinkyDungeonInventory[I].restraint && KinkyDungeonInventory[I].restraint.orgasm) {
+	for (let item of KinkyDungeonAllRestraint()) {
+		if (item && item.restraint && item.restraint.orgasm) {
 			return true;
 		}
 	}
@@ -492,7 +555,7 @@ function KinkyDungeonCanOrgasm() {
 
 function KinkyDungeonLegsBlocked() {
 	if (KinkyDungeonPlayer.Pose.includes("Hogtie")) return true;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.blockfeet) return true;
 	}
 	return false;
@@ -514,10 +577,10 @@ function KinkyDungeonCalculateSlowLevel() {
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Block", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Freeze", true)
 			|| InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemBoots"), "Slow", true))) KinkyDungeonSlowLevel += 1.0;*/
-		for (let inv of KinkyDungeonRestraintList()) {
+		for (let inv of KinkyDungeonAllRestraint()) {
 			if (inv.restraint && (inv.restraint.blockfeet || inv.restraint.hobble)) KinkyDungeonSlowLevel += 1;
 		}
-		for (let inv of KinkyDungeonRestraintList()) {
+		for (let inv of KinkyDungeonAllRestraint()) {
 			if (inv.restraint && inv.restraint.blockfeet) {
 				KinkyDungeonSlowLevel = Math.max(KinkyDungeonSlowLevel, 2);
 				break;
@@ -525,7 +588,7 @@ function KinkyDungeonCalculateSlowLevel() {
 		}
 		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);
-		for (let inv of KinkyDungeonRestraintList()) {
+		for (let inv of KinkyDungeonAllRestraint()) {
 			if (inv.restraint && inv.restraint.freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);
 		}
 	}
@@ -537,7 +600,7 @@ function KinkyDungeonCalculateSlowLevel() {
 }
 
 function KinkyDungeonCanTalk() {
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.gag) return false;
 	}
 	return KinkyDungeonPlayer.CanTalk();
@@ -545,7 +608,7 @@ function KinkyDungeonCanTalk() {
 
 function KinkyDungeonCalculateSubmissiveMult() {
 	let base = 0;
-	for (let item of KinkyDungeonRestraintList()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (item.restraint) {
 			let power = Math.sqrt(Math.max(0, KinkyDungeonGetLockMult(item.lock) * item.restraint.power));
 			base = Math.max(power, base + power/5);
@@ -569,8 +632,12 @@ function KinkyDungeonCanTryOrgasm() {
 }
 
 function KinkyDungeonDoPlayWithSelf() {
-	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + Math.round((KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*Math.random());
+	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + (KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*KDRandom();
 	let amount = Math.max(0, OrigAmount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
+	if (KinkyDungeonStatsChoice.get("Purity")) {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPlaySelfPurity"), "#FF5BE9", 4);
+		return 0;
+	}
 	if (KinkyDungeonIsArmsBound()) amount = Math.max(0, Math.min(amount, OrigAmount - KinkyDungeonPlayWithSelfBoundPenalty));
 	KinkyDungeonChangeArousal(amount);
 	KinkyDungeonChangeStamina(KinkyDungeonPlayCost);
@@ -583,6 +650,7 @@ function KinkyDungeonDoPlayWithSelf() {
 	return amount;
 }
 
+let KinkyDungeonOrgasmVibeLevelMult = 5;
 let KinkyDungeonOrgasmChanceBase = -0.1;
 let KinkyDungeonOrgasmChanceScaling = 1.1;
 let KinkyDungeonMaxOrgasmStage = 7;
@@ -595,24 +663,28 @@ let KinkyDungeonOrgasmTurnsMax = 10;
 let KinkyDungeonOrgasmTurnsCrave = 8;
 let KinkyDungeonPlayWithSelfPowerMin = 3;
 let KinkyDungeonPlayWithSelfPowerMax = 6;
-let KinkyDungeonPlayWithSelfChastityPenalty = 4.5;
+let KinkyDungeonPlayWithSelfChastityPenalty = 5;
 let KinkyDungeonPlayWithSelfBoundPenalty = 3;
-let KinkyDungeonOrgasmExhaustionAmount = -1;
+let KinkyDungeonOrgasmExhaustionAmount = -0.5;
+
+let KDWillpowerMultiplier = 0.5;
 
 let KinkyDungeonOrgasmCost = -8;
-let KinkyDungeonEdgeCost = -2;
-let KinkyDungeonPlayCost = -1;
+let KinkyDungeonEdgeCost = -1;
+let KinkyDungeonPlayCost = -0.05;
 
 function KinkyDungeonDoTryOrgasm() {
-	let amount = KinkyDungeonOrgasmVibeLevel;
+	let amount = KinkyDungeonOrgasmVibeLevel * KinkyDungeonOrgasmVibeLevelMult;
 	let playSelfAmount = KinkyDungeonDoPlayWithSelf();
-	if (playSelfAmount > KinkyDungeonOrgasmVibeLevel) {
-		amount += playSelfAmount;
-	}
+	//if (playSelfAmount > KinkyDungeonOrgasmVibeLevel) {
+	amount += playSelfAmount;
+	//}
 	let chance = KinkyDungeonOrgasmChanceBase + KinkyDungeonOrgasmChanceScaling*(KDGameData.OrgasmTurns/KinkyDungeonOrgasmTurnsMax);
 	let msg = "KinkyDungeonOrgasm";
 	let msgTime = 4;
-	if (amount > KinkyDungeonPlaySelfOrgasmThreshold && KDRandom() < chance) {
+
+	let denied = KinkyDungeonVibratorsDeny(chance);
+	if (!denied && amount > KinkyDungeonPlaySelfOrgasmThreshold && KDRandom() < chance) {
 		// You finally shudder and tremble as a wave of pleasure washes over you...
 		KinkyDungeonStatBlind = 6;
 		KinkyDungeonSlowMoveTurns = 4;
@@ -633,8 +705,7 @@ function KinkyDungeonDoTryOrgasm() {
 		// You squirm helplessly as your futile struggles simply arouse you more...
 		KDGameData.OrgasmTurns = Math.min(KDGameData.OrgasmTurns + amount, KinkyDungeonOrgasmTurnsMax); // Progress the meter if you're not ready yet...
 		KDGameData.OrgasmStage = Math.min(KinkyDungeonMaxOrgasmStage, KDGameData.OrgasmStage + 1); // Stage of denial
-		let denied = KinkyDungeonVibratorsDeny();
-		if (denied) msg = "KinkyDungeonDeny";
+		if (denied && KinkyDungeonVibeLevel > 0) msg = "KinkyDungeonDeny";
 		else msg = "KinkyDungeonEdge";
 	}
 
@@ -643,16 +714,82 @@ function KinkyDungeonDoTryOrgasm() {
 }
 
 function KinkyDungeonIsChaste(Breast) {
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && (!Breast && inv.restraint.chastity) || (Breast && inv.restraint.chastitybra)) return true;
 	}
 }
 
 function KinkyDungeonChastityMult() {
 	let chaste = 0.0;
-	for (let inv of KinkyDungeonRestraintList()) {
+	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && inv.restraint.chastity) chaste += 1;
-		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.5;
+		else if (inv.restraint && inv.restraint.chastitybra) chaste += 0.2;
 	}
 	return chaste;
+}
+
+let KinkyDungeonStatsPresets = {
+	"Strong": {id: 0, cost: 2, block: "Weak"},
+	"Weak": {id: 1, cost: -1, block: "Strong"},
+	"Flexible": {id: 2, cost: 2, block: "Inflexible"},
+	"Inflexible": {id: 3, cost: -1, block: "Flexible"},
+	"Locksmith": {id: 4, cost: 2, block: "Clueless"},
+	"Clueless": {id: 5, cost: -1, block: "Locksmith"},
+	"Psychic": {id: 6, cost: 4},
+	"Novice": {id: 7, cost: -1},
+	"Blessed": {id: 8, cost: 3},
+	"Cursed": {id: 9, cost: -2},
+	"Submissive": {id: 10, cost: 0},
+	"Wanted": {id: 11, cost: -1},
+	"Studious": {id: 12, cost: 1},
+	"Meditation": {id: 13, cost: 2},
+	"Willpower": {id: 14, cost: 2},
+	"BondageLover": {id: 15, cost: -1},
+	"Purity": {id: 16, cost: 2},
+	"Unchaste": {id: 17, cost: -1},
+	"Dodge": {id: 18, cost: 3, block: "Distracted"},
+	"Distracted": {id: 19, cost: -1, block: "Dodge"},
+	"Brawler": {id: 20, cost: 1},
+	"Clumsy": {id: 21, cost: -1},
+	"Pristine": {id: 22, cost: -1},
+	"LostTechnology": {id: 23, cost: -1},
+};
+
+function KinkyDungeonGetStatPoints(Stats) {
+	let total = 0;
+	for (let k of Stats.keys()) {
+		if (Stats.get(k)) {
+			if (KinkyDungeonStatsPresets[k]) {
+				total -= KinkyDungeonStatsPresets[k].cost;
+			}
+		}
+	}
+	return total;
+}
+
+function KinkyDungeonCanPickStat(Stat) {
+	let stat = KinkyDungeonStatsPresets[Stat];
+	if (!stat) return false;
+	if (stat.cost > 0 && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) < stat.cost) return false;
+	for (let k of KinkyDungeonStatsChoice.keys()) {
+		if (KinkyDungeonStatsChoice.get(k)) {
+			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].block == Stat) {
+				return false;
+			}
+		}
+	}
+	return true;
+}
+function KinkyDungeonCanUnPickStat(Stat) {
+	let stat = KinkyDungeonStatsPresets[Stat];
+	if (!stat) return false;
+	if (stat.cost < 0 && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) < -stat.cost) return false;
+	for (let k of KinkyDungeonStatsChoice.keys()) {
+		if (KinkyDungeonStatsChoice.get(k)) {
+			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].require == Stat) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
