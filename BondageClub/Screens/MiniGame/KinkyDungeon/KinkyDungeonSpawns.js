@@ -28,6 +28,13 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Will < KDRAGE) angeredGoddesses.push({tag: "willRage", type: "rope"});
 
 	if (angeredGoddesses.length > 0) {
+		let rage = false;
+		for (let a of angeredGoddesses) {
+			if (!rage && a.tag && a.tag.includes("Rage")) {
+				rage = true;
+				tags.push("goddessRage");
+			}
+		}
 		for (let i = 0; i < 2; i++) {
 			let tag = angeredGoddesses[Math.floor(angeredGoddesses.length * KDRandom())];
 			if (tag && !tags.includes(tag.tag)) {
@@ -38,6 +45,7 @@ function KinkyDungeonAddTags(tags, Floor) {
 				}
 			}
 		}
+		tags.push("goddessAnger");
 	}
 
 
