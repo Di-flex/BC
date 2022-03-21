@@ -60,6 +60,7 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 		let nearestDistance = !enemy.Enemy.allied ? pdist - 0.1 : 100000;
 
 		for (let e of KinkyDungeonEntities) {
+			if (e == enemy) continue;
 			if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
 			if ((e.Enemy && (e.Enemy.allied || e.rage) && !e.Enemy.noattack && (!enemy.Enemy || !enemy.Enemy.allied)) || (enemy.Enemy.allied && !e.Enemy.allied) || (enemy.rage && enemy != e)) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
@@ -447,7 +448,7 @@ function KinkyDungeonCapture(enemy) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (KDBoundEffects(enemy) > 3) {
+		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0) {
 			if (enemy.knives || enemy.picks) {
 				for (let i = 0; i < enemy.knives; i++) {
 					let item = {x:enemy.x, y:enemy.y, name: "Knife"};
@@ -615,6 +616,7 @@ function KinkyDungeonHasStatus(enemy) {
 
 function KDBoundEffects(enemy) {
 	if (!enemy.Enemy.bound) return 0;
+	if (!enemy.boundLevel) return 0;
 	let boundLevel = enemy.boundLevel ? enemy.boundLevel : 0;
 	if (boundLevel > enemy.Enemy.maxhp || (enemy.hp <= 0.1*enemy.Enemy.maxhp && boundLevel > enemy.hp)) return 4; // Totally tied
 	if (boundLevel > enemy.Enemy.maxhp*0.75) return 3;
@@ -693,6 +695,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 				else if (enemy.slow > 0) mult *= 0.7;
 				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp * mult);
 			}
+			if (enemy.Enemy.rage) enemy.rage = 9999;
 			if (enemy.bind > 0)
 				enemy.bind -= delta;
 			if (enemy.blind > 0)
@@ -902,8 +905,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (canSeePlayerVeryClose) sneakMult += 0.5;
 	if (KinkyDungeonAlert > 0) sneakMult += 1;
 	if ((canSensePlayer || canSeePlayer || canShootPlayer || canSeePlayerChase) && KinkyDungeonTrackSneak(enemy, delta * (sneakMult), player)) {
-		enemy.gx = player.x;
-		enemy.gy = player.y;
+		if (!ignore) {
+			enemy.gx = player.x;
+			enemy.gy = player.y;
+		}
 		if (canSensePlayer || canSeePlayer || canShootPlayer) {
 			enemy.aware = true;
 			if (!enemy.Enemy.allied && !enemy.rage && !enemy.Enemy.tags.has("minor")) {

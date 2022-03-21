@@ -1051,11 +1051,16 @@ AttackFrog,"The frog licks you!"
 
 NameTickleHand,Tickle Hand
 KillTickleHand,"The hand vanishes!"
-AttackTickleHand,"The hand tickles you!"
+AttackTickleHand,"The hand tickles you! (-DamageTaken SP)"
+
+NameTickleTerror,Tickle Terror
+KillTickleTerror,"The tickle terror vanishes... for now"
+AttackTickleTerror,"The monstrous spirit tickles you mercilessly!!! (-DamageTaken SP)"
+AttackTickleTerrorBind,"The monstrous spirit binds you to make you more vulnerable! (+RestraintAdded)"
 
 NameTickleHandSlave,Tickle Hand
 KillTickleHandSlave,"The hand vanishes!"
-AttackTickleHandSlave,"The hand tickles you!"
+AttackTickleHandSlave,"The hand tickles you! (-DamageTaken SP)"
 
 
 NameBookChain,Tome of Chains
@@ -1760,6 +1765,14 @@ RestraintWolfLeashDesc2,"It is a steel cable with a weatherproof rubber coating,
 
 KinkyDungeonLinkWolfAnkleCuffs,"Your ankle cuffs snap together on their own!"
 KinkyDungeonUnLinkWolfAnkleCuffs2,"Your ankle cuffs detach!"
+
+
+RestraintComfyGag,Comfy Muzzle
+RestraintComfyGagDesc,A lovely muzzle that's extraordinarily comfy!
+RestraintComfyGagDesc2,It's not very durable.
+RestraintComfyStraitjacket,Comfy Straitjacket
+RestraintComfyStraitjacketDesc,A straitjacket that is padded on the inside.
+RestraintComfyStraitjacketDesc2,It feels tight but is actually quite easy to wriggle out of.
 
 RestraintLatexStraitjacket,Latex Jacket
 RestraintLatexStraitjacketDesc,A tight jacket that holds your arms completely useless.
@@ -3239,3 +3252,5 @@ KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
 KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
+
+KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!

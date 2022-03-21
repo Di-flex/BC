@@ -780,7 +780,14 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else if (StruggleType == "Remove") AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Unbuckle.ogg");
 						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					}
+					let trap = restraint.trap;
 					KinkyDungeonRemoveRestraint(restraint.restraint.Group, StruggleType != "Cut");
+					if (trap) {
+						let summon = KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, trap, 1, 2.5);
+						if (summon) {
+							KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonSummonTrapMonster"), "red", 2);
+						}
+					}
 				}
 			} else {
 				// Failure block for the different failure types
@@ -1125,15 +1132,25 @@ function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink
 	return false;
 }
 
+function KinkyDungeonGenerateRestraintTrap() {
+	return "TickleTerror";
+}
 
-function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep) {
+function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep, Trapped) {
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {
-		return KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true);
+		let ret = KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true);
+		if (Trapped) {
+			let rest = KinkyDungeonGetRestraintItem(restraint.Group);
+			if (rest && rest.restraint && rest.restraint.trappable && !rest.trap) {
+				rest.trap = KinkyDungeonGenerateRestraintTrap();
+			}
+		}
+		return ret;
 	}
 	return 0;
 }
