@@ -1058,6 +1058,16 @@ KillTickleTerror,"The tickle terror vanishes... for now"
 AttackTickleTerror,"The monstrous spirit tickles you mercilessly!!! (-DamageTaken SP)"
 AttackTickleTerrorBind,"The monstrous spirit binds you to make you more vulnerable! (+RestraintAdded)"
 
+NameHugHorror,Hug Horror
+KillHugHorror,"The hug horror vanishes... for now"
+AttackHugHorror,"The monstrous spirit gives a crushing hug!!! (-DamageTaken SP)"
+AttackHugHorrorSlow,"The monstrous spirit gives a crushing hug!!! (-DamageTaken SP)"
+AttackHugHorrorBind,"The monstrous spirit's chains latch on! (+RestraintAdded)"
+
+NameGreedyGhast,Greedy Ghast
+KillGreedyGhast,"The ghast vanishes... for now"
+AttackGreedyGhast,"The moaning spirit gropes your body!!! (-DamageTaken SP)"
+
 NameTickleHandSlave,Tickle Hand
 KillTickleHandSlave,"The hand vanishes!"
 AttackTickleHandSlave,"The hand tickles you! (-DamageTaken SP)"
@@ -2095,6 +2105,19 @@ RestraintShadowChainFeetDesc2,"It doesn't look like a knife is up to the task...
 RestraintShadowChainCrotch,Shadow Chain
 RestraintShadowChainCrotchDesc,"Black chains for those who cross the divines"
 RestraintShadowChainCrotchDesc2,"It doesn't look like a knife is up to the task..."
+
+RestraintGhostChainArms,Ectoplasmic Chains (Arms)
+RestraintGhostChainArmsDesc,"Ghostly chains from a ghost that just doesn't want to let go."
+RestraintGhostChainArmsDesc2,"It's made of an ethereal substance."
+RestraintGhostChainLegs,Ectoplasmic Chains (Legs)
+RestraintGhostChainLegsDesc,"Ghostly chains from a ghost that just doesn't want to let go."
+RestraintGhostChainLegsDesc2,"It's made of an ethereal substance."
+RestraintGhostChainFeet,Ectoplasmic Chains (Ankles)
+RestraintGhostChainFeetDesc,"Ghostly chains from a ghost that just doesn't want to let go."
+RestraintGhostChainFeetDesc2,"It's made of an ethereal substance."
+RestraintGhostChainCrotch,Ectoplasmic Chain
+RestraintGhostChainCrotchDesc,"Ghostly chains from a ghost that just doesn't want to let go."
+RestraintGhostChainCrotchDesc2,"It's made of an ethereal substance."
 
 RestraintDivineCuffs,Divine Cuffs
 RestraintDivineCuffsDesc,"It is said that even heaven has its hierarchies..."

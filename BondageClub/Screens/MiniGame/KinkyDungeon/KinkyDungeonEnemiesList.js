@@ -136,9 +136,15 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, shrines: [], floors:KDMapInit([])},
 
 
-	{name: "TickleTerror", rage: true, color: "#FFFFFF", tags: KDMapInit(["ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true, hitsfx: "Tickle",
-		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 12, minLevel:11, weight:-2, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 3,
-		terrainTags: {"increasingWeight": 0.1}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+	{name: "TickleTerror", rage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true, hitsfx: "Tickle",
+		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 12, minLevel:3, weight:-4, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 3,
+		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+	{name: "HugHorror", rage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghostRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
+		visionRadius: 30, blindSight: 8, evasion: 0.2, maxhp: 20, minLevel:3, weight:-4, movePoints: 3, attackPoints: 2, attack: "MeleeWillBindSlow", attackWidth: 3, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2,
+		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
+	{name: "GreedyGhast", rage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
+		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 7, minLevel:0, weight:-2, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 3,
+		terrainTags: {"increasingWeight": 0.05, "chestTrap": 100}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
 	{name: "TickleHand", clusterWith: "ghost", color: "#FFFFFF", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1, noAlert: true, hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {}, shrines: [], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},

@@ -1133,7 +1133,9 @@ function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink
 }
 
 function KinkyDungeonGenerateRestraintTrap() {
-	return "TickleTerror";
+	let enemy = KinkyDungeonGetEnemy(["chestTrap"], MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, '0', ["chestTrap"]);
+	if (enemy) return enemy.name;
+	return "GreedyGhast";
 }
 
 function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep, Trapped) {
