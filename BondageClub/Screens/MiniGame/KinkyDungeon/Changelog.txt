@@ -703,7 +703,7 @@ Spell Balance:
 - Changed binding system to work based on max hp instead. This is a nerf, but enemy struggle speed is still decreased when they are wounded.
 - New spell: True Steel
 
-2.7.7
+2.8
 - World generation has been revamped considerably, most hallways are now 2 tiles wide, and the maps are twice as large in terms of tiles as before
 - Stamina drain from slow movement is now 0.3 stamina per slow level per turn spent moving, a 70% reduction from the original levels a few versions ago
 - There are now only 6 floors instead of 10 per area. Enemy minimum levels and such have been rebalanced for this
@@ -718,6 +718,7 @@ Spell Balance:
 - Gags no longer block spellcasting and potions completely. Potions are less effective and verbal spells have a miscast chance. However, muzzles block it completely as usual.
 - You can now become a champion of a goddess in order to gain rep and mana by capturing humanoid enemies.
 - A new terrifying sight awaits those who escape from the dungeon's traps...
+
 
 TODO ValidationFindBlockCycles to prevent bugs
 
