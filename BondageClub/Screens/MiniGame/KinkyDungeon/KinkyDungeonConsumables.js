@@ -87,7 +87,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 			multi = Math.max(KinkyDungeonStatStaminaMax / 36);
 		}
 		let gagMult = Math.max(0, 1 - Math.max(0, KinkyDungeonGagTotal()));
-		if (gagMult > 0) {
+		if (gagMult < 0.999) {
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonConsumableLessEffective"), "red", 2);
 		}
 		if (Consumable.mp_instant) KinkyDungeonChangeMana(Consumable.mp_instant * gagMult);
