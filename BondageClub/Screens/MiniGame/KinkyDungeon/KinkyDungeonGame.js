@@ -117,6 +117,7 @@ let KinkyDungeonJailLeashX = 5;
 let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
 let KinkyDungeonCachesPlaced = [];
+let KinkyDungeonHeartsPlaced = [];
 let KinkyDungeonChestsOpened = [];
 
 let KinkyDungeonSaveInterval = 10;
@@ -163,6 +164,7 @@ function KinkyDungeonNewGamePlus() {
 	}
 	KinkyDungeonOrbsPlaced = temp;
 	KinkyDungeonCachesPlaced = [];
+	KinkyDungeonHeartsPlaced = [];
 	MiniGameKinkyDungeonLevel = 1;
 	KinkyDungeonSetCheckPoint(0, true);
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
@@ -401,8 +403,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 			console.log(`${performance.now() - startTime} ms for lore creation`);
 			startTime = performance.now();
 		}
-		if (MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9))
-			KinkyDungeonPlaceHeart(width, height);
+		if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9)) && !KinkyDungeonHeartsPlaced.includes(Floor))
+			KinkyDungeonPlaceHeart(width, height, Floor);
 		KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 		if (KDDebug) {
 			console.log(`${performance.now() - startTime} ms for special tile creation`);
@@ -1152,7 +1154,7 @@ function KinkyDungeonPlaceLore(width, height) {
 
 }
 
-function KinkyDungeonPlaceHeart(width, height) {
+function KinkyDungeonPlaceHeart(width, height, Floor) {
 	let heartList = [];
 
 	// Populate the lore
@@ -1163,6 +1165,7 @@ function KinkyDungeonPlaceHeart(width, height) {
 	while (heartList.length > 0) {
 		let N = Math.floor(KDRandom()*heartList.length);
 		KinkyDungeonGroundItems.push({x:heartList[N].x, y:heartList[N].y, name: "Heart"});
+		KinkyDungeonHeartsPlaced.push(Floor);
 		return true;
 	}
 

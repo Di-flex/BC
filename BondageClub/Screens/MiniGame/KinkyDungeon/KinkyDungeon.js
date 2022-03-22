@@ -664,6 +664,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonChestsOpened = [];
 			KinkyDungeonOrbsPlaced = [];
 			KinkyDungeonCachesPlaced = [];
+			KinkyDungeonHeartsPlaced = [];
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonInitialize(1);
@@ -1129,6 +1130,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.buffs = KinkyDungeonPlayerBuffs;
 	save.lostitems = KinkyDungeonLostItems;
 	save.caches = KinkyDungeonCachesPlaced;
+	save.hearts = KinkyDungeonHeartsPlaced;
 	save.rescued = KinkyDungeonRescued;
 	save.aid = KinkyDungeonAid;
 	KDrandomizeSeed();
@@ -1207,6 +1209,7 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonGoddessRep = saveData.rep;
 			KinkyDungeonOrbsPlaced = saveData.orbs;
 			if (saveData.caches != undefined) KinkyDungeonCachesPlaced = saveData.caches;
+			if (saveData.hearts != undefined) KinkyDungeonHeartsPlaced = saveData.hearts;
 			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			KDGameData.KinkyDungeonSpawnJailers = 0;

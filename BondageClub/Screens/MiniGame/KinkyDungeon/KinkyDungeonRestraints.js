@@ -594,6 +594,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (restraint.attempts < KinkyDungeonMaxImpossibleAttempts) {
 			increasedAttempts = true;
 			restraint.attempts += 0.5;
+			if (StruggleType == "Struggle") restraint.attempts += 0.5;
 			if (escapeChance <= -0.5) restraint.attempts += 0.5;
 		} else {
 			let typesuff = "";

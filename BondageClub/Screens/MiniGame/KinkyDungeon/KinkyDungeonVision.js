@@ -100,10 +100,10 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 						if (nearbywalls > 3 && brightness <= 9 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) brightness -= nearbywalls * 0.25;
 						if (flags.SeeThroughWalls && !KinkyDungeonTransparentObjects.includes(tile)) {
 							if (flags.SeeThroughWalls > 2)
-								brightness -= brightestLight < 7 ? 1 : 2;
+								brightness -= brightestLight < 7 ? 1 : 1;
 							else if (flags.SeeThroughWalls > 1)
-								brightness -= brightestLight < 7 ? 1 : 3;
-							else brightness -= brightestLight < 7 ? 1 : 4;
+								brightness -= brightestLight < 7 ? 1 : 2;
+							else brightness -= brightestLight < 7 ? 1 : 3;
 						}
 
 						if (brightness > 0) {

@@ -152,6 +152,7 @@ function KinkyDungeonDefaultStats() {
 
 	KinkyDungeonOrbsPlaced = [];
 	KinkyDungeonCachesPlaced = [];
+	KinkyDungeonHeartsPlaced = [];
 	KinkyDungeonChestsOpened = [];
 
 	KDSetWeapon(null);
