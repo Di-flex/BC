@@ -24,7 +24,7 @@ let KinkyDungeonMapParams = [
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
 		"shortcuts": [
-			{Level: 1, checkpoint: 11, chance: 0.5},
+			{Level: 1, checkpoint: 11, chance: 1.0},
 			{Level: 3, checkpoint: 11, chance: 1.0},
 		],
 		"mainpath": [
