@@ -2574,6 +2574,7 @@ KinkyDungeonSpellDescriptionStoneSkin,Make the targeted creature gain +20 armor 
 KinkyDungeonSpellCastStoneSkin,Your skin takes on the appearance of cracked earth!
 
 KinkyDungeonSpellCastArmorUp,The EnemyName gains increased armor!
+KinkyDungeonSpellCastArmorUpArea,The EnemyName buffs the armor of her allies!
 KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defense!
 KinkyDungeonSpellCastParasolBuff,"EnemyName uses a charm to buff an enemy's spell resist, and evasion!"
 KinkyDungeonSpellCastZombieBuff,"EnemyName uses a glowing talisman to buff an undead's armor and speed!"
