@@ -2653,7 +2653,10 @@ KinkyDungeonSpellDescriptionDecoy,Create a decoy for Duration turns
 KinkyDungeonSpellCastDecoy,A shadow of yourself materializes!
 KinkyDungeonSummonSingleDecoy,You create a line on the ground and toss in a lock of your hair!
 
+KinkyDungeonSpellFeathers,Feather Explosion
+
 KinkyDungeonSpellSlime,Conjure Slime
+KinkyDungeonSpellSlimePuddle,Apprentice's Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
 KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt glue damage on a hit.
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
