@@ -561,7 +561,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 5, visionSummoned: 12, maxhp: 8, minLevel: 0, weight:5, movePoints: 2, attackPoints: 1, attack: "MeleeWill", suicideOnAdd: true, attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 1, dmgType: "tickle",
 		terrainTags: {"secondhalf":2, "lastthird":5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Illusion", "Rope"], difficulty: 0.4},
 	{name: "Scarves", clusterWith: "construct", tags: KDMapInit(["construct", "melee", "scarfRestraints", "minor", "fireWeakness", "slashWeakness", "meleeresist"]), ignorechance: 0.75, armor: 0, followRange: 1, AI: "hunt", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
-		visionRadius: 3, visionSummoned: 12, maxhp: 8, minLevel: 0, weight:5, movePoints: 1, attackPoints: 2, attack: "MeleeBindWill", suicideOnAdd: true, attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
+		visionRadius: 3, visionSummoned: 12, maxhp: 8, minLevel: 0, weight:5, movePoints: 1, attackPoints: 2, attack: "MeleeBindWill", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":2, "lastthird":5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Conjure", "Rope"], difficulty: 0.4},
 	{name: "RopeSnake", clusterWith: "construct", tags: KDMapInit(["ignoreharmless", "construct", "melee", "ropeRestraints", "minor", "fireweakness", "slashweakness", "chainresist"]), ignorechance: 0.75, followRange: 1, AI: "wander", squeeze: true,
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"],
