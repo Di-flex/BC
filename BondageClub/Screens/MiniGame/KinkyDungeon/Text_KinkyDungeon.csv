@@ -911,6 +911,15 @@ KillRopeSnake,"The magic rope returns to being a normal rope."
 AttackRopeSnakeBind,"The magic rope wraps itself tightly around your body! (+RestraintAdded)"
 AttackRopeSnake,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
+NameFeathers,Cloud of Feathers
+KillFeathers,"The feathers fall to the floor."
+AttackFeathers,"The feathers tickle you mercilessly! (-DamageTaken SP)"
+
+NameScarves,Cloud of Scarves
+KillScarves,"The scarves become knotted and fall to the floor."
+AttackScarvesBind,"The scarves wrap themselves around you! (+RestraintAdded)"
+AttackScarves,"The scarves run against your body, tickling you! (-DamageTaken SP)"
+
 NameGag,Gravitating Gag
 KillGag,"The gag buckles itself in place and falls."
 AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
@@ -2141,6 +2150,18 @@ RestraintClothBlindfoldDesc2,"You can still see through the gap around your nose
 RestraintClothGag,Cloth Gag
 RestraintClothGagDesc,"A piece of cloth tightened over your mouth."
 RestraintClothGagDesc2,"On its own it's not very restrictive."
+RestraintScarfBlindfold,Blindfold
+RestraintClothBlindfoldDesc,"A scarf secured onto your face and blocking vision."
+RestraintScarfBlindfoldDesc2,"You can still see through the gap around your nose."
+RestraintScarfGag,Scarf Gag
+RestraintScarfGagDesc,"A scarf tightened over your mouth."
+RestraintScarfGagDesc2,"On its own it's not very restrictive."
+RestraintScarfArms,Scarf Tie
+RestraintScarfArmsDesc,"A scarf wrapped around your body."
+RestraintScarfArmsDesc2,"On its own it's not very restrictive."
+RestraintScarfLegs,Scarf Leg Tie
+RestraintScarfLegsDesc,"A scarf wrapped around your body."
+RestraintScarfLegsDesc2,"On its own it's not very restrictive."
 
 RestraintSturdyLeatherBeltsArms,Arm Belts
 RestraintSturdyLeatherBeltsArmsDesc,"A ludicrous amount of belts secured with a buckle."
