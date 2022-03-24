@@ -725,6 +725,7 @@ Spell Balance:
 - Added potion collars to the shop
 - The item shop has been reworked. It now gives much more information at a glance! Happy hunting!
 - New enemy: Toad
+- Pickpocketing does not happen while being leashed
 
 TODO ValidationFindBlockCycles to prevent bugs
 
