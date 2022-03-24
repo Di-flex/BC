@@ -1626,22 +1626,24 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 		//CellKeys = Object.keys(VisitedCells);
 	}
 
-	for (let X = 1; X < KinkyDungeonGridWidth; X += 2)
-		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 2) {
-			let size = 1+Math.ceil(KDRandom() * (openness));
-			if (KDRandom() < 0.4 - 0.04*density * size) {
+	for (let X = 1; X < KinkyDungeonGridWidth; X += 1)
+		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 1) {
+			if ((X % 2 == 0 && Y % 2 == 1) || (X % 2 == 1 && Y % 2 == 0)) {
+				let size = 1+Math.ceil(KDRandom() * (openness));
+				if (KDRandom() < 0.6 - 0.06*density * size) {
 
-				let tile = '0';
+					let tile = '0';
 
-				// We open up the tiles
-				for (let XX = X; XX < X +size; XX++)
-					for (let YY = Y; YY < Y+size; YY++) {
-						if (!KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY)))
-							KinkyDungeonMapSet(XX, YY, tile);
-						VisitedCells[XX + "," + YY] = {x:XX, y:YY};
-						KinkyDungeonMazeWalls({x:XX, y:YY}, Walls, WallsList);
-						delete Walls[XX + "," + YY];
-					}
+					// We open up the tiles
+					for (let XX = X; XX < X +size; XX++)
+						for (let YY = Y; YY < Y+size; YY++) {
+							if (!KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY)))
+								KinkyDungeonMapSet(XX, YY, tile);
+							VisitedCells[XX + "," + YY] = {x:XX, y:YY};
+							KinkyDungeonMazeWalls({x:XX, y:YY}, Walls, WallsList);
+							delete Walls[XX + "," + YY];
+						}
+				}
 			}
 		}
 

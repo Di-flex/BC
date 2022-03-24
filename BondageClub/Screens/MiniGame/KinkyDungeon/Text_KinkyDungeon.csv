@@ -918,7 +918,12 @@ AttackFeathers,"The feathers tickle you mercilessly! (-DamageTaken SP)"
 NameScarves,Cloud of Scarves
 KillScarves,"The scarves become knotted and fall to the floor."
 AttackScarvesBind,"The scarves wrap themselves around you! (+RestraintAdded)"
-AttackScarves,"The scarves run against your body, tickling you! (-DamageTaken SP)"
+AttackScarves,"The scarves rub against your body, tickling you! (-DamageTaken SP)"
+
+NameRibbons,Cloud of Ribbons
+KillRibbons,"The ribbons knot themselves in a bow and fall to the floor."
+AttackRibbonsBind,"The ribbons wrap themselves around you! (+RestraintAdded)"
+AttackRibbons,"The ribbons wrap themselves around you! (-DamageTaken SP)"
 
 NameGag,Gravitating Gag
 KillGag,"The gag buckles itself in place and falls."
@@ -2162,6 +2167,9 @@ RestraintScarfArmsDesc2,"On its own it's not very restrictive."
 RestraintScarfLegs,Scarf Leg Tie
 RestraintScarfLegsDesc,"A scarf wrapped around your body."
 RestraintScarfLegsDesc2,"On its own it's not very restrictive."
+RestraintScarfFeet,Scarf Ankle Tie
+RestraintScarfFeetDesc,"A scarf wrapped around your body."
+RestraintScarfFeetDesc2,"On its own it's not very restrictive."
 
 RestraintSturdyLeatherBeltsArms,Arm Belts
 RestraintSturdyLeatherBeltsArmsDesc,"A ludicrous amount of belts secured with a buckle."
@@ -2686,6 +2694,7 @@ KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 KinkyDungeonSpellHighBolt,Curious Spell
 KinkyDungeonFlummox,You have been flummoxed!
 
+KinkyDungeonSpellRibbonBurst,Ribbon Burst
 KinkyDungeonSpellSpores,Spores
 KinkyDungeonSpellSporesSick,Noxious Spores
 KinkyDungeonSpellSporesHappy,Enticing Spores
