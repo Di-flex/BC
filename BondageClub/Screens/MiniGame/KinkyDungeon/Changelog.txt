@@ -722,6 +722,9 @@ Spell Balance:
 - The ghost now helps with potions and items while bound
 - New enemies: Cloud of Scarves/Cloud of Feathers/Cloud of Ribbons
 - Made the map have more interconnectivity
+- Added potion collars to the shop
+- The item shop has been reworked. It now gives much more information at a glance! Happy hunting!
+- New enemy: Toad
 
 TODO ValidationFindBlockCycles to prevent bugs
 

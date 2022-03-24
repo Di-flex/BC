@@ -45,6 +45,14 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 		Table.push(s);
 	}
 	// @ts-ignore
+	Shopable = Object.entries(KinkyDungneonShopRestraints).filter(([k, v]) => (v.shop));
+	for (let S = 0; S < Shopable.length; S++) {
+		let s = Shopable[S][1];
+		s.shoptype = "Restraint";
+		if (!KinkyDungeonInventoryGet(s.name))
+			Table.push(s);
+	}
+	// @ts-ignore
 	Shopable = Object.entries(KinkyDungeonWeapons).filter(([k, v]) => (v.shop));
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];

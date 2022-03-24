@@ -616,7 +616,7 @@ function KinkyDungeonDrawMessages(NoLog) {
 		}
 	} else {
 		let extra = 200;
-		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000");
+		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000aa");
 		let Dist = 50;
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
 			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];

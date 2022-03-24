@@ -325,6 +325,9 @@ KinkyDungeonInventoryItemMagicKeyDesc2,"Blue locks can't be otherwise picked."
 KinkyDungeonInventoryItemMagicKnife,Magic Knife
 KinkyDungeonInventoryItemMagicKnifeDesc,"A magical blade which can be hidden on your body."
 KinkyDungeonInventoryItemMagicKnifeDesc2,"Can cut enchanted ropes."
+KinkyDungeonInventoryItemPotionCollar,Potion Applicator
+KinkyDungeonInventoryItemPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
+KinkyDungeonInventoryItemPotionCollarDesc2,"Also allows fitting of a leash."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemLockpick,Lockpick
 KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
@@ -355,6 +358,10 @@ KinkyDungeonInventoryItemEarthRune,Earth Rune
 KinkyDungeonInventoryItemEarthRuneUse,"You smash the rune in front of you, and glowing rocks rise from the earth."
 KinkyDungeonInventoryItemEarthRuneDesc,"It feels unsettling to look at."
 KinkyDungeonInventoryItemEarthRuneDesc2,"Creates a 3x3 area of +2 armor centered on yourself for 9 turns."
+KinkyDungeonInventoryItemWaterRune,Water Rune
+KinkyDungeonInventoryItemWaterRuneUse,"You crush the rune in your hand, and it turns into water that coats the floor"
+KinkyDungeonInventoryItemWaterRuneDesc,"It feels slimmy."
+KinkyDungeonInventoryItemWaterRuneDesc2,"Creates a 3x3 area on you for 9 turns. Gives +100% magic resist to friendlies, halves enemy speed."
 KinkyDungeonInventoryItemIceRune,Ice Rune
 KinkyDungeonInventoryItemIceRuneUse,"You smash the rune in front of you, and icicles pierce through the floor!"
 KinkyDungeonInventoryItemIceRuneDesc,"It feels cold to the touch."
@@ -1064,10 +1071,15 @@ AttackConjurerTicklerLock,"The master conjurer waves a hand, and locks appear on
 AttackConjurerTicklerBind,"The master conjurer summons a restraint directly onto you!"
 AttackConjurerTickler,"The master conjurer tickles you playfully!"
 
-NameFrog,Pet Frog
+NameFrog,Frog
 KillFrog,"The frog jumps away!"
 AttackFrogPull,"The frog pulls you with its tongue!!!"
 AttackFrog,"The frog licks you!"
+
+NameToad,Toad
+KillToad,"The toad jumps away!"
+AttackToadPull,"The toad pulls you with its tongue!!!"
+AttackToad,"The toad licks you!"
 
 NameTickleHand,Tickle Hand
 KillTickleHand,"The hand vanishes!"
@@ -2276,6 +2288,7 @@ ItemPickupMagicFlail,"You pick up an enchanted flail."
 ItemPickupAxe,"You pick up a powerful axe."
 ItemPickupSmokeBomb,"You pick up a consumable smoke bomb."
 ItemPickupEarthRune,"You picked up a stone trinket with a glowing red sigil."
+ItemPickupWaterRune,"You picked up a wet rock with some kind of symbol on it."
 ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
 ItemPickupEnchantedGrinder,"You picked up a strange device with a sharpened razor disc."
 LootChestGrinder,"You find a strange ancient device with a sharp cutting blade."
@@ -2614,6 +2627,7 @@ KinkyDungeonSpellCastEarthfield,The EnemyName creates a zone of increased defens
 KinkyDungeonSpellCastParasolBuff,"EnemyName uses a charm to buff an enemy's spell resist, and evasion!"
 KinkyDungeonSpellCastZombieBuff,"EnemyName uses a glowing talisman to buff an undead's armor and speed!"
 KinkyDungeonSpellCastEarthrune,You create a zone of increased defense!
+KinkyDungeonSpellCastWaterrune,You create a protective zone!
 KinkyDungeonSpellCastIcerune,You create a fan of icicles!
 
 KinkyDungeonSpellWall,Wall
