@@ -788,7 +788,7 @@ let KinkyDungeonStatsPresets = {
 	"Doll": {id: 31, cost: -1, block: "Slippery"},
 	"Escapee": {id: 32, cost: 2, block: "Dragon"},
 	"Dragon": {id: 33, cost: -1, block: "Escapee"},
-	"Stealthy": {id: 38, cost: 1},
+	"Stealthy": {id: 38, cost: 0},
 	"Conspicuous": {id: 39, cost: -1},
 	"Slayer": {id: 34, cost: 5},
 	"Conjurer": {id: 35, cost: 5},

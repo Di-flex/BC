@@ -727,6 +727,7 @@ Spell Balance:
 - New enemy: Toad
 - Pickpocketing does not happen while being leashed
 - Added a bola and a bomb to the shop
+- Added many new perks, some of which are game-changing, others which are good for reducing or increasing certain restraint types
 
 TODO ValidationFindBlockCycles to prevent bugs
 
