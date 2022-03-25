@@ -726,6 +726,7 @@ Spell Balance:
 - The item shop has been reworked. It now gives much more information at a glance! Happy hunting!
 - New enemy: Toad
 - Pickpocketing does not happen while being leashed
+- Added a bola and a bomb to the shop
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -1545,6 +1545,8 @@ interface KinkyDungeonShopItem {
 	rarity: any;
 	costMod?: any;
 	shoptype: string;
+	consumable?: string;
+	quantity?: number;
 	name: any;
 }
 

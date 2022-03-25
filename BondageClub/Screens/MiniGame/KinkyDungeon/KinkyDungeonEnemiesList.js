@@ -305,7 +305,7 @@ let KinkyDungeonEnemies = [
 		spells: ["MinerBomb"], spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 9, maxhp: 11, minLevel:0, weight:12, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain", fullBoundBonus: 1,
 		terrainTags: {"increasingWeight": 1}, shrines: [], floors:KDMapInit([13]),
-		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 24}, {name: "Pickaxe", ignoreInInventory: true, weight: 100}]},
+		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 21}, {name: "Pickaxe", ignoreInInventory: true, weight: 100}, {name: "Bomb", weight: 9}]},
 	{name: "Bandit", clusterWith: "bandit", bound: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "bandit", "minor", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["BanditBola"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 8, noSpellLeashing: true, difficulty: 0.5,
 		visionRadius: 6, maxhp: 9, minLevel:0, weight:23, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,

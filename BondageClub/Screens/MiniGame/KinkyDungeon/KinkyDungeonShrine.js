@@ -82,7 +82,7 @@ function KinkyDungeonGenerateShop(Level) {
 
 		let item = KinkyDungeonGetShopItem(Level, Rarity, true);
 		if (item)
-			KinkyDungeonShopItems.push({name: item.name, shoptype: item.shoptype, rarity: item.rarity, cost: item.cost});
+			KinkyDungeonShopItems.push({name: item.name, shoptype: item.shoptype, consumable: item.consumable, quantity: item.quantity, rarity: item.rarity, cost: item.cost});
 	}
 	KinkyDungeonShopItems.sort(function(a, b){return a.rarity-b.rarity;});
 }
@@ -198,8 +198,8 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonLockpicks += 2;
 				} else if (item.name == "4Lockpick") {
 					KinkyDungeonLockpicks += 4;
-				} else if (item.name == "3Bola") {
-					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bola, 3);
+				} else if (item.consumable) {
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.consumable], item.quantity);
 				}
 			}
 			ShrineMsg = TextGet("KinkyDungeonPayShrineCommerce").replace("ItemBought", TextGet("KinkyDungeonInventoryItem" + item.name));

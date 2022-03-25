@@ -113,6 +113,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration * gagMult, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
+		KinkyDungeonAdvanceTime(1);
 	} else if (Consumable.type == "targetspell") {
 		KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(Consumable.spell, true);
 		KinkyDungeonTargetingSpellItem = Consumable;
@@ -125,8 +126,10 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	} else if (Consumable.type == "recharge") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 		KinkyDungeonAddGold(-Consumable.rechargeCost);
+		KinkyDungeonAdvanceTime(1);
 	} else if (Consumable.type == "shrineRemove") {
 		KinkyDungeonRemoveRestraintsWithShrine(Consumable.shrine);
+		KinkyDungeonAdvanceTime(1);
 	}
 }
 

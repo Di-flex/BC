@@ -1186,6 +1186,8 @@ function KinkyDungeonPlaceHeart(width, height, Floor) {
 function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	let shrinelist = [];
 	KinkyDungeonCommercePlaced = 0;
+	let shrinePoints = new Map();
+
 
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
@@ -1193,18 +1195,27 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && Math.max(Math.abs(X - KinkyDungeonStartPosition.x), Math.abs(Y - KinkyDungeonStartPosition.y)) > KinkyDungeonJailLeash
 				&& (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
-				let freecount = 0;
-				let freecount_diag = 0;
+				let wallcount = 0;
 				for (let XX = X-1; XX <= X+1; XX += 1)
 					for (let YY = Y-1; YY <= Y+1; YY += 1)
-						if (!(XX == X && YY == Y) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(XX, YY)))
-							if (XX == X || YY == Y)
-								freecount += 1;
-							else
-								freecount_diag += 1;
-
-				if (freecount >= 8 && freecount_diag >= 1)
-					shrinelist.push({x:X, y:Y});
+						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
+							wallcount += 1;
+				if (wallcount == 7 || (wallcount == 0 && KDRandom() < 0.1)
+					|| (wallcount >= 5
+						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+					if (!shrinePoints.get((X+1) + "," + (Y))
+						&& !shrinePoints.get((X-1) + "," + (Y))
+						&& !shrinePoints.get((X+1) + "," + (Y+1))
+						&& !shrinePoints.get((X+1) + "," + (Y-1))
+						&& !shrinePoints.get((X-1) + "," + (Y+1))
+						&& !shrinePoints.get((X-1) + "," + (Y-1))
+						&& !shrinePoints.get((X) + "," + (Y+1))
+						&& !shrinePoints.get((X) + "," + (Y-1))) {
+						shrinelist.push({x:X, y:Y});
+						shrinePoints.set(X + "," + Y, true);
+					}
+				}
 
 
 			} else if (KinkyDungeonMapGet(X, Y) == "R" || KinkyDungeonMapGet(X, Y) == "r")
