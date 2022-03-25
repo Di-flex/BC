@@ -12,6 +12,12 @@ let KinkyDungeonBulletsID = {}; // Bullets on the game board
 let KDVulnerableDmg = 1.0;
 let KDVulnerableDmgMult = 0.33;
 let KDVulnerableHitMult = 1.33;
+let KDPacifistReduction = 0.1;
+let KDRiggerDmgBoost = 1.2;
+let KDRiggerBindBoost = 1.3;
+let KDStealthyDamageMult = 0.7;
+let KDStealthyEvaMult = 0.8;
+let KDStealthyEnemyCountMult = 1.7;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
@@ -230,7 +236,9 @@ function KinkyDungeonAggro(Enemy) {
 
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
-
+	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+		hitChance *= KDStealthyEvaMult;
+	}
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
@@ -295,9 +303,19 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
 		predata.dmg *= 2;
 	}
+	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+		predata.dmg *= KDStealthyDamageMult;
+	}
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
 	if (Damage && !miss) {
+		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && !Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(Damage.type) && Damage.type != "glue" && Damage.type != "chain") {
+			predata.dmg *= KDPacifistReduction;
+		}
+		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (Damage.type != "glue" || Damage.type != "chain")) {
+			predata.dmg *= KDRiggerDmgBoost;
+		}
+
 		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp"));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffType = Damage.type + "DamageBuff";
@@ -351,6 +369,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 
 		let forceKill = false;
+
 		if (Damage.type != "inert" && resistDamage < 2) {
 			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
 				dmgDealt = Math.max(predata.dmg - armor, 0); // Armor goes before resistance

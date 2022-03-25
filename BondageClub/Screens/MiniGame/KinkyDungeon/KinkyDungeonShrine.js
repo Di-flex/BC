@@ -399,9 +399,10 @@ function KinkyDungeonMakeGhostDecision() {
 
 	if (rep > 0) KinkyDungeonGhostDecision += 1;
 	if (rep != undefined) {
-		if (KDRandom() * 100 > -rep + 75) KinkyDungeonGhostDecision += 1;
-		if (KDRandom() * 100 > -rep + 85) KinkyDungeonGhostDecision += 1;
-		if (KDRandom() * 100 > -rep + 95) KinkyDungeonGhostDecision += 1;
+		let mult = KinkyDungeonStatsChoice.get("Doll") ? 1.5 : 1.0;
+		if (KDRandom() * 100 * mult > -rep + 75) KinkyDungeonGhostDecision += 1;
+		if (KDRandom() * 100 * mult > -rep + 85) KinkyDungeonGhostDecision += 1;
+		if (KDRandom() * 100 * mult > -rep + 95) KinkyDungeonGhostDecision += 1;
 	}
 }
 

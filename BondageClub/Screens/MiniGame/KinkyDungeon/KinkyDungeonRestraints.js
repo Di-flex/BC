@@ -23,10 +23,13 @@ let KinkyDungeonItemDropChanceArmsBound = 0.2; // Chance to drop item with just 
 //let KinkyDungeonKnifeBreakChance = 0.15;
 let KinkyDungeonKeyJamChance = 0.33;
 let KinkyDungeonKeyPickBreakAmount = 12; // Number of tries per pick on average 5-11
+let KinkyDungeonKeyPickBreakAmountBase = 12; // Number of tries per pick on average 5-11
 let KinkyDungeonPickBreakProgress = 0;
 let KinkyDungeonKnifeBreakAmount = 10; // Number of tries per knife on average 6-12
+let KinkyDungeonKnifeBreakAmountBase = 10; // Number of tries per knife on average 6-12
 let KinkyDungeonKnifeBreakProgress = 0;
 let KinkyDungeonEnchKnifeBreakAmount = 24; // Number of tries per knife on average
+let KinkyDungeonEnchKnifeBreakAmountBase = 24; // Number of tries per knife on average
 let KinkyDungeonEnchKnifeBreakProgress = 0;
 
 let KinkyDungeonMaxImpossibleAttempts = 3; // base, more if the item is close to being impossible
@@ -42,6 +45,18 @@ let KDFlexibleBonus = 0.1;
 let KDFlexibleSpeedBonus = 1.5;
 let KDInflexibleBonus = -0.1;
 let KDInflexibleSpeedBonus = 0.75;
+
+let KDUnchainedBonus = 0.2;
+let KDDamselBonus = -0.2;
+let KDDamselPickAmount = 6;
+let KDArtistBonus = 0.2;
+let KDBunnyBonus = -0.2;
+let KDBunnyKnifeAmount = 5;
+let KDBunnyEnchKnifeAmount = 12;
+let KDSlipperyBonus = 0.2;
+let KDDollBonus = -0.2;
+let KDEscapeeBonus = 0.2;
+let KDDragonBonus = -0.2;
 
 let KDStrongBonus = 0.2;
 let KDWeakBonus = -0.15;
@@ -546,6 +561,37 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (KinkyDungeonStatsChoice.get("Strong")) escapeChance += KDStrongBonus;
 		if (KinkyDungeonStatsChoice.get("Weak")) escapeChance += KDWeakBonus;
 	}
+	if (KinkyDungeonStatsChoice.get("Unchained") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal"))
+		escapeChance += KDUnchainedBonus;
+	if (KinkyDungeonStatsChoice.get("Damsel") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal")) {
+		escapeChance += KDDamselBonus;
+		KinkyDungeonKeyPickBreakAmount = KDDamselPickAmount;
+	} else KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
+
+
+	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
+		escapeChance += KDArtistBonus;
+	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
+		KinkyDungeonKnifeBreakAmount = KDBunnyKnifeAmount;
+		KinkyDungeonEnchKnifeBreakAmount = KDBunnyEnchKnifeAmount;
+		escapeChance += KDBunnyBonus;
+	} else {
+		KinkyDungeonKnifeBreakAmount = KinkyDungeonKnifeBreakAmountBase;
+		KinkyDungeonEnchKnifeBreakAmount = KinkyDungeonEnchKnifeBreakAmountBase;
+	}
+
+	if (KinkyDungeonStatsChoice.get("Slippery") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDSlipperyBonus;
+	else if (KinkyDungeonStatsChoice.get("Doll") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDDollBonus;
+
+	if (KinkyDungeonStatsChoice.get("Escapee") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDEscapeeBonus;
+	else if (KinkyDungeonStatsChoice.get("Dragon") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDDragonBonus;
+
+
+
 
 	let increasedAttempts = false;
 

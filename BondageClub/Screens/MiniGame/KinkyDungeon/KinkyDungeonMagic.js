@@ -579,7 +579,11 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 }
 
 function KinkyDungeonHandleSpellCast(spell) {
-	if (KinkyDungeoCheckComponents(spell).length == 0) {
+	if (KinkyDungeoCheckComponents(spell).length == 0 || (
+		(KinkyDungeonStatsChoice.get("Slayer") && spell.school == "Elements")
+		|| (KinkyDungeonStatsChoice.get("Conjurer") && spell.school == "Conjure")
+		|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion")
+	)) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
 			&& (!spell.knifecost || KinkyDungeonNormalBlades >= spell.knifecost)
 			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
@@ -640,6 +644,9 @@ function KinkyDungeonGetManaCost(Spell) {
 	if (costscale) cost = Math.floor(cost * costscale);
 	if (costscale > 0) cost = Math.max(Spell.manacost, cost); // Keep it from rounding to 0
 	if (lvlcostscale && Spell.level && Spell.manacost) cost += Spell.level * lvlcostscale;
+	if (KinkyDungeonStatsChoice.get("Slayer") && Spell.school == "Elements" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
+	if (KinkyDungeonStatsChoice.get("Conjurer") && Spell.school == "Conjure" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
+	if (KinkyDungeonStatsChoice.get("Magician") && Spell.school == "Illusion" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
 	return cost;
 }
 

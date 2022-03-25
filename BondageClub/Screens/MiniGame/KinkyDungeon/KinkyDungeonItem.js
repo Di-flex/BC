@@ -17,7 +17,7 @@ function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 
 		for (let L = dropWeights.length - 1; L >= 0; L--) {
 			if (selection > dropWeights[L].weight) {
-				if (dropWeights[L].drop.name != "Nothing" && (!summoned || !dropWeights[L].drop.noSummon)) {
+				if (dropWeights[L].drop.name != "Nothing" && (!KinkyDungeonStatsChoice.get("Stealthy") || dropWeights[L].drop.name != "Gold") && (!summoned || !dropWeights[L].drop.noSummon)) {
 					let dropped = {x:x, y:y, name: dropWeights[L].drop.name, amount: dropWeights[L].drop.amountMin + Math.floor(KDRandom()*dropWeights[L].drop.amountMax)};
 					if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x, y))) {
 						let newPoint = KinkyDungeonGetNearbyPoint(x, y, false, undefined, true);

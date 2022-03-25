@@ -4,6 +4,8 @@ let KDEnemiesCache = new Map();
 
 let KinkyDungeonSummonCount = 2;
 let KinkyDungeonEnemyAlertRadius = 4;
+let KDStealthyMult = 0.9;
+let KDConspicuousMult = 1.5;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
 	let dist = 100000;
@@ -526,6 +528,8 @@ function KinkyDungeonTrackSneak(enemy, delta, player) {
 		if (outfit && outfit.visibility)
 			deltaMult *= outfit.visibility;
 	}
+	if (KinkyDungeonStatsChoice.get("Conspicuous")) deltaMult *= KDConspicuousMult;
+	else if (KinkyDungeonStatsChoice.get("Stealthy")) deltaMult *= KDStealthyMult;
 	enemy.vp = Math.min(sneakThreshold * 2, enemy.vp + delta*deltaMult);
 	return (enemy.vp > sneakThreshold);
 }
@@ -618,6 +622,7 @@ function KDBoundEffects(enemy) {
 	if (!enemy.Enemy.bound) return 0;
 	if (!enemy.boundLevel) return 0;
 	let boundLevel = enemy.boundLevel ? enemy.boundLevel : 0;
+	if (KinkyDungeonStatsChoice.get("Rigger") && !enemy.Enemy.allied) boundLevel *= KDRiggerBindBoost;
 	if (boundLevel > enemy.Enemy.maxhp || (enemy.hp <= 0.1*enemy.Enemy.maxhp && boundLevel > enemy.hp)) return 4; // Totally tied
 	if (boundLevel > enemy.Enemy.maxhp*0.75) return 3;
 	if (boundLevel > enemy.Enemy.maxhp*0.5) return 2;

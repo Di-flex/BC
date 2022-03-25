@@ -84,6 +84,46 @@ KinkyDungeonStatDesc22,"There are no shiny loot objects in the dungeon."
 KinkyDungeonStat23,"Lost Technology"
 KinkyDungeonStatDesc23,"Ancient power cores break with use, and cannot be recharged."
 
+KinkyDungeonStat24,"Rigger"
+KinkyDungeonStatDesc24,"Chain and glue damage increased by 20%. Binding on enemies is 30% stronger."
+KinkyDungeonStat25,"Pacifist"
+KinkyDungeonStatDesc25,"All non-glue, non-chain, or non-teasing damage dealt to humanoid enemies is reduced by 90%."
+
+KinkyDungeonStat26,"Unchained"
+KinkyDungeonStatDesc26,"Start with high Metal reputation, and all metal restraints are easier to escape from."
+KinkyDungeonStat27,"Damsel in Chains"
+KinkyDungeonStatDesc27,"Metal restraints are harder to escape from, picks are weaker, and randomly generated locks are harsher."
+
+KinkyDungeonStat28,"Escape Artist"
+KinkyDungeonStatDesc28,"Start with high Rope reputation, and all rope restraints are easier to escape from."
+KinkyDungeonStat29,"Rope Bunny"
+KinkyDungeonStatDesc29,"Rope restraints are harder to escape from, and knives break more easily."
+
+KinkyDungeonStat30,"Slippery"
+KinkyDungeonStatDesc30,"Start with high Latex reputation, and all latex restraints are easier to escape from."
+KinkyDungeonStat31,"Doll"
+KinkyDungeonStatDesc31,"Latex restraints are harder to escape from, and ghosts are less likely to help you."
+
+KinkyDungeonStat32,"Escapee"
+KinkyDungeonStatDesc32,"Start with high Leather reputation, and all leather restraints are easier to escape from."
+KinkyDungeonStat33,"Dragon Sympathizer"
+KinkyDungeonStatDesc33,"Leather restraints are harder to escape from, and more enemies spawn during sleep."
+
+KinkyDungeonStat34,"Slayer"
+KinkyDungeonStatDesc34,"You can cast Elemental spells without having the components, at twice the cost."
+KinkyDungeonStat35,"Conjurer"
+KinkyDungeonStatDesc35,"You can cast Conjuration spells without having the components, at twice the cost."
+KinkyDungeonStat36,"Magician"
+KinkyDungeonStatDesc36,"You can cast Illusion spells without having the components, at twice the cost."
+
+KinkyDungeonStat37,"Narcoleptic"
+KinkyDungeonStatDesc37,"You slowly lose stamina over time."
+
+KinkyDungeonStat38,"Stealth Mission"
+KinkyDungeonStatDesc38,"You are harder to detect and there are more chests, but enemies are harder and drop no gold."
+KinkyDungeonStat39,"Conspicuous"
+KinkyDungeonStatDesc39,"Enemies detect you more easily."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor

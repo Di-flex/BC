@@ -35,6 +35,7 @@ let KinkyDungeonSlowMoveTurns = 0;
 let KinkyDungeonStatStaminaMax = 36;
 let KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 let KinkyDungeonStatStaminaRegen = 0;
+let KDNarcolepticRegen = -0.06;
 let KinkyDungeonStatStaminaRegenSleep = 36/40;
 let KinkyDungeonStatStaminaRegenSleepBedMultiplier = 1.5;
 let KinkyDungeonStatStaminaRegenWait = 0;
@@ -193,6 +194,9 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonShrineInit();
 
 	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
+	if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
+	if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
+	if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
 }
 
 function KinkyDungeonGetVisionRadius() {
@@ -373,7 +377,8 @@ function KinkyDungeonUpdateStats(delta) {
 
 	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
-	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : KinkyDungeonStatStaminaRegen;
+	let stamRegen = KinkyDungeonStatsChoice.get("Narcoleptic") ? KDNarcolepticRegen : KinkyDungeonStatStaminaRegen;
+	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : stamRegen;
 	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold && KinkyDungeonStatsChoice.get("Meditation")) ? KDMeditationRegen : 0;
 
 	// Update the player tags based on the player's groups
@@ -773,6 +778,22 @@ let KinkyDungeonStatsPresets = {
 	"Clumsy": {id: 21, cost: -1},
 	"Pristine": {id: 22, cost: -1},
 	"LostTechnology": {id: 23, cost: -1},
+	"Rigger": {id: 24, cost: 1},
+	"Pacifist": {id: 25, cost: -2},
+	"Unchained": {id: 26, cost: 2, block: "Damsel"},
+	"Damsel": {id: 27, cost: -1, block: "Unchained"},
+	"Artist": {id: 28, cost: 2, block: "Bunny"},
+	"Bunny": {id: 29, cost: -1, block: "Artist"},
+	"Slippery": {id: 30, cost: 2, block: "Doll"},
+	"Doll": {id: 31, cost: -1, block: "Slippery"},
+	"Escapee": {id: 32, cost: 2, block: "Dragon"},
+	"Dragon": {id: 33, cost: -1, block: "Escapee"},
+	"Stealthy": {id: 38, cost: 1},
+	"Conspicuous": {id: 39, cost: -1},
+	"Slayer": {id: 34, cost: 5},
+	"Conjurer": {id: 35, cost: 5},
+	"Magician": {id: 36, cost: 5},
+	"Narcoleptic": {id: 37, cost: -4},
 };
 
 function KinkyDungeonGetStatPoints(Stats) {

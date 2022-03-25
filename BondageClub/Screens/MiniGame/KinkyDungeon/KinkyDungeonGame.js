@@ -560,6 +560,7 @@ function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
 	KinkyDungeonSearchTimer = 0;
 
 	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	if (KinkyDungeonStatsChoice.get("Stealthy")) enemyCount = Math.round(enemyCount * KDStealthyEnemyCountMult);
 	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
@@ -1118,6 +1119,7 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 	let count = 0;
 	let extra = KDRandom() < treasurechance;
 	treasurecount += (extra ? 1 : 0);
+	if (KinkyDungeonStatsChoice.get("Stealthy")) treasurecount *= 2;
 	let alreadyOpened = (KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
 	if (KinkyDungeonNewGame < 1) treasurecount -= alreadyOpened;
 	while (chestlist.length > 0) {
@@ -1393,8 +1395,15 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 
 		let BlueChance = Math.min(KinkyDungeonBlueLockChance + level * KinkyDungeonBlueLockChanceScaling, KinkyDungeonBlueLockChanceScalingMax);
 
+		if (KinkyDungeonStatsChoice.get("Damsel")) {
+			BlueChance *= 1.5;
+			BlueChance += 0.05;
+		}
 		if (locktype < BlueChance) {
 			let GoldChance = Math.min(KinkyDungeonGoldLockChance + level * KinkyDungeonGoldLockChanceScaling, KinkyDungeonGoldLockChanceScalingMax);
+			if (KinkyDungeonStatsChoice.get("Damsel")) {
+				GoldChance *= 1.6;
+			}
 			if (AllowGold && KDRandom() < GoldChance) return "Gold" + modifiers;
 			return "Blue" + modifiers;
 		}
@@ -1899,7 +1908,10 @@ function KinkyDungeonClickGame(Level) {
 
 		if (KinkyDungeonTargetingSpell) {
 			if (MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
-				if (KinkyDungeoCheckComponents(KinkyDungeonTargetingSpell).length == 0) {
+				if (KinkyDungeoCheckComponents(KinkyDungeonTargetingSpell).length == 0 || (
+					(KinkyDungeonStatsChoice.get("Slayer") && KinkyDungeonTargetingSpell.school == "Elements")
+					|| (KinkyDungeonStatsChoice.get("Conjurer") && KinkyDungeonTargetingSpell.school == "Conjure")
+					|| (KinkyDungeonStatsChoice.get("Magician") && KinkyDungeonTargetingSpell.school == "Illusion"))) {
 					if (KinkyDungeonSpellValid) {
 						if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity) && KinkyDungeonTargetingSpell.sfx) {
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");

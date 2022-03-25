@@ -417,17 +417,17 @@ function KinkyDungeonRun() {
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
 	} else if (KinkyDungeonState == "Diff") {
 		DrawText(TextGet("KinkyDungeonDifficulty"), 1250, 300, "white", "silver");
-		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
-		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty3"), "White", "");
-		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
-		DrawButton(875, 750, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
+		DrawButton(875, 350, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
+		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty3"), "White", "");
+		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
+		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
 		DrawText(TextGet("KinkyDungeonStats"), 1250, 100, "white", "silver");
 		DrawText(TextGet("KinkyDungeonStatPoints").replace("AMOUNT", "" + KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice)), 1250, 150, "white", "silver");
-		DrawButton(1075, 750, 350, 64, TextGet("KinkyDungeonStartGame"), KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0 ? "White" : "pink", "");
-		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonStartGame"), KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0 ? "White" : "pink", "");
+		DrawButton(1075, 920, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Save") {
 		// Draw temp start screen
 		DrawText(TextGet("KinkyDungeonSaveIntro0"), 1250, 350, "white", "silver");
@@ -618,16 +618,16 @@ function KinkyDungeonHandleClick() {
 			return true;
 		}
 	} else if (KinkyDungeonState == "Diff") {
-		if (MouseIn(875, 450, 750, 64)) {
+		if (MouseIn(875, 350, 750, 64)) {
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonStartNewGame();
-		} else if (MouseIn(875, 550, 750, 64)) {
+		} else if (MouseIn(875, 450, 750, 64)) {
 			KinkyDungeonDifficultyMode = 3;
 			KinkyDungeonStartNewGame();
-		} else if (MouseIn(875, 650, 750, 64)) {
+		} else if (MouseIn(875, 550, 750, 64)) {
 			KinkyDungeonDifficultyMode = 1;
 			KinkyDungeonStartNewGame();
-		} else if (MouseIn(875, 750, 750, 64)) {
+		} else if (MouseIn(875, 650, 750, 64)) {
 			KinkyDungeonDifficultyMode = 2;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(1075, 850, 350, 64)) {
@@ -639,27 +639,27 @@ function KinkyDungeonHandleClick() {
 		let Y = 0;
 		for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
 			let dY = 0;
-			if (i % 2 == 1) dY = 80;
+			if (i % 2 == 1) dY = KDPerksHeightMin;
 
-			if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
+			if (MouseIn(1250 - 600 + X, 280 + Y + dY, KDPerksWidth - 10, KDPerksButtonHeight)) {
 				if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
 					KinkyDungeonStatsChoice.set(stat[0], true);
 				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
 					KinkyDungeonStatsChoice.delete(stat[0]);
 				}
 			}
-			if (i % 2 != 0) X += 200;
+			if (i % 2 != 0) X += KDPerksWidth;
 			if (X > 1000) {
 				X = 0;
-				Y += 200;
+				Y += KDPerksHeight;
 			}
 			i += 1;
 		}
 
-		if (MouseIn(1075, 750, 350, 64) && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0) {
+		if (MouseIn(1075, 850, 350, 64) && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) >= 0) {
 			KinkyDungeonState = "Diff";
 			return true;
-		} else if (MouseIn(1075, 850, 350, 64)) {
+		} else if (MouseIn(1075, 920, 350, 64)) {
 			KinkyDungeonState = "Menu";
 			return true;
 		}
@@ -1348,6 +1348,11 @@ function sfc32(a, b, c, d) {
 	};
 }
 
+let KDPerksWidth = 200;
+let KDPerksHeight = 135;
+let KDPerksHeightMin = 55;
+let KDPerksButtonHeight = 45;
+
 function KinkyDungeonDrawPerks(NonSelectable) {
 	let fadeColor = NonSelectable ? "#808080" : "#999999";
 	let i = 0;
@@ -1355,20 +1360,20 @@ function KinkyDungeonDrawPerks(NonSelectable) {
 	let Y = 0;
 	for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
 		let dY = 0;
-		if (i % 2 == 1) dY = 80;
+		if (i % 2 == 1) dY = KDPerksHeightMin;
 
-		DrawButton(1250 - 600 + X, 280 + Y + dY, 190, 60, TextGet("KinkyDungeonStat" + (stat[1].id)), (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) ? fadeColor : (KinkyDungeonStatsChoice.get(stat[0]) ? "white" : (NonSelectable ? fadeColor : "#884444")));
-		if (MouseIn(1250 - 600 + X, 280 + Y + dY, 190, 60)) {
+		DrawButton(1250 - 600 + X, 280 + Y + dY, KDPerksWidth - 10, KDPerksButtonHeight, TextGet("KinkyDungeonStat" + (stat[1].id)), (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) ? fadeColor : (KinkyDungeonStatsChoice.get(stat[0]) ? "white" : (NonSelectable ? fadeColor : "#884444")));
+		if (MouseIn(1250 - 600 + X, 280 + Y + dY, KDPerksWidth - 10, KDPerksButtonHeight)) {
 			DrawTextFit(TextGet("KinkyDungeonStatDesc" + (stat[1].id)), 1250+1, 200+1, 1000, "black");
 			DrawTextFit(TextGet("KinkyDungeonStatDesc" + (stat[1].id)), 1250, 200, 1000, "white");
 
 			DrawTextFit(TextGet("KinkyDungeonStatCost").replace("AMOUNT", stat[1].cost + ""), 1250+1, 240+1, 1000, "black");
 			DrawTextFit(TextGet("KinkyDungeonStatCost").replace("AMOUNT", stat[1].cost + ""), 1250, 240, 1000, "white");
 		}
-		if (i % 2 != 0) X += 200;
+		if (i % 2 != 0) X += KDPerksWidth;
 		if (X > 1000) {
 			X = 0;
-			Y += 200;
+			Y += KDPerksHeight;
 		}
 		i += 1;
 	}
