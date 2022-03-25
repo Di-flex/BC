@@ -88,8 +88,8 @@ KinkyDungeonStatDesc23,"Ancient power cores break with use, and cannot be rechar
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
 KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
-KinkyDungeonDifficulty2,"Random: Orbs give random spells, start with very little"
-KinkyDungeonDifficulty3,"Kinky: No save codes, orbs give random spells, start with very little"
+KinkyDungeonDifficulty3,"Random: Orbs give random spells, start with very little"
+KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start with very little"
 
 KinkyDungeonLog,Log
 
