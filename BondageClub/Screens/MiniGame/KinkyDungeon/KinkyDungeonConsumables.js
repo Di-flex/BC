@@ -113,6 +113,9 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration * gagMult, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {
 		KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(Consumable.spell, true), undefined, undefined, undefined);
+	} else if (Consumable.type == "targetspell") {
+		KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(Consumable.spell, true);
+		KinkyDungeonTargetingSpellItem = Consumable;
 	} else if (Consumable.type == "charge") {
 		KDGameData.AncientEnergyLevel = Math.min(Math.max(0, KDGameData.AncientEnergyLevel + Consumable.amount), 1.0);
 		if (!KinkyDungeonStatsChoice.get("LostTechnology"))
@@ -217,7 +220,8 @@ function KinkyDungeonUseConsumable(Name, Quantity) {
 	for (let I = 0; I < Quantity; I++) {
 		KinkyDungeonConsumableEffect(item.item.consumable);
 	}
-	KinkyDungeonChangeConsumable(item.item.consumable, -Quantity);
+	if (!item.item.consumable.noConsumeOnUse)
+		KinkyDungeonChangeConsumable(item.item.consumable, -(item.item.consumable.useQuantity ? item.item.consumable.useQuantity : 1) * Quantity);
 
 	KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonInventoryItem" + Name + "Use"), "#88FF88", 1);
 	if (item.item.consumable.sfx) {

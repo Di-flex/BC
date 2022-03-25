@@ -77,8 +77,8 @@ function KinkyDungeonGenerateShop(Level) {
 	let items_high = 0;
 	for (let I = 8 + Math.floor(KDRandom() * 3); I > 0; I--) {
 		let Rarity = 0;
-		if (items_high < 2) {Rarity = Math.floor(Level/KDLevelsPerCheckpoint); items_high += 1;}
-		else if (items_mid < 4) {Rarity += Math.ceil(KDRandom() * 3); items_mid += 1;}
+		if (items_high < 3) {Rarity = Math.floor(Level/KDLevelsPerCheckpoint); items_high += 1;}
+		else if (items_mid < 5) {Rarity += Math.round(KDRandom() * 3); items_mid += 1;}
 
 		let item = KinkyDungeonGetShopItem(Level, Rarity, true);
 		if (item)
@@ -198,6 +198,8 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonLockpicks += 2;
 				} else if (item.name == "4Lockpick") {
 					KinkyDungeonLockpicks += 4;
+				} else if (item.name == "3Bola") {
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bola, 3);
 				}
 			}
 			ShrineMsg = TextGet("KinkyDungeonPayShrineCommerce").replace("ItemBought", TextGet("KinkyDungeonInventoryItem" + item.name));

@@ -826,6 +826,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player
+		if (KinkyDungeonTargetingSpellItem) {
+			KinkyDungeonChangeConsumable(KinkyDungeonTargetingSpellItem, -(KinkyDungeonTargetingSpellItem.useQuantity ? KinkyDungeonTargetingSpellItem.useQuantity : 1));
+		}
+
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 
 		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});

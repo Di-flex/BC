@@ -217,6 +217,7 @@ LootRubbleLockpick,You find a lockpick in a crack between the tiles
 LootRubbleKnife,You find a rusty knife among the rocks
 LootRubbleRedKey,"You find an ordinary key"
 LootRubbleBlueKey,"You find a blue key, glowing with magic"
+LootBola,"You find a bola, crafted by bandits"
 
 LootBookshelfKey,"You find a key on the shelf!"
 LootBookshelfScroll,"You find a useful scroll in between the books!"
@@ -325,6 +326,9 @@ KinkyDungeonInventoryItemMagicKeyDesc2,"Blue locks can't be otherwise picked."
 KinkyDungeonInventoryItemMagicKnife,Magic Knife
 KinkyDungeonInventoryItemMagicKnifeDesc,"A magical blade which can be hidden on your body."
 KinkyDungeonInventoryItemMagicKnifeDesc2,"Can cut enchanted ropes."
+KinkyDungeonInventoryItemBola,Bola
+KinkyDungeonInventoryItemBolaDesc,"A pair of weights attached to a rope. Can be thrown."
+KinkyDungeonInventoryItemBolaDesc2,"Deals 9 points of binding, 4 chain damage, and rooting a target for 4 turns."
 KinkyDungeonInventoryItemPotionCollar,Potion Applicator
 KinkyDungeonInventoryItemPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
 KinkyDungeonInventoryItemPotionCollarDesc2,"Also allows fitting of a leash."
@@ -334,6 +338,7 @@ KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
 KinkyDungeonInventoryItemLockpickDesc2,"Doesn't last forever, but can help in a pinch."
 KinkyDungeonInventoryItem2Lockpick,lockpick x2
 KinkyDungeonInventoryItem4Lockpick,lockpicks x4
+KinkyDungeonInventoryItem3Bola,Bola x3
 KinkyDungeonInventoryItemPotionMana,Mana Potion
 KinkyDungeonInventoryItemPotionManaUse,You sip the mana potion and feel empowered.
 KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used by mages to recover their strength."
@@ -2405,6 +2410,11 @@ KinkyDungeonSpellBanditBola,Bola
 KinkyDungeonSpellRestrainingDevice,Restraining Device
 KinkyDungeonRestrainingDeviceStun,The thrown restraining device latches onto you as you struggle to get it off!!!
 KinkyDungeonRestrainingDevice,The restraining device wraps many elastic cables around you!!!
+
+KinkyDungeonSpellPlayerBola,Bola
+KinkyDungeonSpellTargetPlayerBola,Choose aim direction
+KinkyDungeonSpellCastPlayerBola,You throw a bola!
+KinkyDungeonInventoryItemBolaUse,You ready a bola!
 
 KinkyDungeonSleepy,You are feeling drowsy...
 

@@ -102,7 +102,15 @@ let KinkyDungeonNextDataLastTimeReceivedTimeout = 15000; // Clear data if more t
 let KinkyDungeonLastMoveDirection = null;
 let KinkyDungeonTargetingSpell = null;
 
-let KinkyDungeonMaxLevel = 24; // Game stops when you reach this level
+/**
+ * Item to decrement by 1 when spell is cast
+ */
+let KinkyDungeonTargetingSpellItem = null;
+
+/**
+ * Game stops when you reach this level
+ */
+let KinkyDungeonMaxLevel = 24;
 
 let KinkyDungeonLastMoveTimer = 0;
 let KinkyDungeonLastMoveTimerStart = 0;
