@@ -4,7 +4,7 @@ let KDEnemiesCache = new Map();
 
 let KinkyDungeonSummonCount = 2;
 let KinkyDungeonEnemyAlertRadius = 4;
-let KDStealthyMult = 0.9;
+let KDStealthyMult = 0.75;
 let KDConspicuousMult = 1.5;
 
 function KinkyDungeonNearestPatrolPoint(x, y) {
