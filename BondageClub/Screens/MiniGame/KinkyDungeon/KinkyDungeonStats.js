@@ -599,11 +599,22 @@ function KinkyDungeonCalculateSlowLevel() {
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain")) KDGameData.AncientEnergyLevel =
 		Math.max(0, KDGameData.AncientEnergyLevel - Math.max(0, origSlowLevel - KinkyDungeonSlowLevel) * KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevelEnergyDrain"));
 }
-
-function KinkyDungeonGagTotal() {
+/**
+ * Returns the total level of gagging, 1.0 or higher meaning "fully gagged" and 0.0 being able to speak.
+ * @param   {boolean} [AllowFlags] - Whether or not flags such as allowPotions and blockPotions should override the final result
+ * @return  {number} - The gag level, sum of all gag properties of worn restraints
+ */
+function KinkyDungeonGagTotal(AllowFlags) {
 	let total = 0;
+	let allow = false;
+	let prevent = false;
 	for (let inv of KinkyDungeonAllRestraint()) {
 		if (inv.restraint && (inv.restraint.gag)) total += inv.restraint.gag;
+		if (inv.restraint.allowPotions) allow = true;
+	}
+	if (AllowFlags) {
+		if (prevent) return 1.00;
+		else if (allow) return 0.0;
 	}
 	return total;
 }

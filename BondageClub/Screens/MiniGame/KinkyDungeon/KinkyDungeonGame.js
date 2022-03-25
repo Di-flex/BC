@@ -1195,7 +1195,7 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 							else
 								freecount_diag += 1;
 
-				if (freecount >= 4 && freecount_diag >= 1)
+				if (freecount >= 8 && freecount_diag >= 1)
 					shrinelist.push({x:X, y:Y});
 
 

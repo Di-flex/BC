@@ -94,7 +94,11 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.scaleWithMaxSP) {
 			multi = Math.max(KinkyDungeonStatStaminaMax / 36);
 		}
-		let gagMult = Math.max(0, 1 - Math.max(0, KinkyDungeonGagTotal()));
+		let Manamulti = 1.0;
+		if (Consumable.scaleWithMaxMP) {
+			Manamulti = Math.max(KinkyDungeonStatManaMax / 36);
+		}
+		let gagMult = Math.max(0, 1 - Math.max(0, KinkyDungeonGagTotal(true)));
 		if (gagMult < 0.999) {
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonConsumableLessEffective"), "red", 2);
 		}
@@ -104,7 +108,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 
 		KinkyDungeonCalculateMiscastChance();
 
-		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration * gagMult, duration: Consumable.duration});
+		if (Consumable.mp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionMana", type: "restore_mp", power: Consumable.mp_gradual/Consumable.duration * gagMult * Manamulti, duration: Consumable.duration});
 		if (Consumable.sp_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionStamina", type: "restore_sp", power: Consumable.sp_gradual/Consumable.duration * gagMult * multi, duration: Consumable.duration});
 		if (Consumable.ap_gradual) KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {name: "PotionFrigid", type: "restore_ap", power: Consumable.ap_gradual/Consumable.duration * gagMult, duration: Consumable.duration});
 	} else if (Consumable.type == "spell") {

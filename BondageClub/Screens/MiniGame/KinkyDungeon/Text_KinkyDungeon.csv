@@ -337,7 +337,7 @@ KinkyDungeonInventoryItem4Lockpick,lockpicks x4
 KinkyDungeonInventoryItemPotionMana,Mana Potion
 KinkyDungeonInventoryItemPotionManaUse,You sip the mana potion and feel empowered.
 KinkyDungeonInventoryItemPotionManaDesc,"A rare essence used by mages to recover their strength."
-KinkyDungeonInventoryItemPotionManaDesc2,"Restores 72 mana instantly."
+KinkyDungeonInventoryItemPotionManaDesc2,"Restores 100% of mana instantly."
 KinkyDungeonInventoryItemPotionStamina,Stamina Potion
 KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel invigorated.
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
