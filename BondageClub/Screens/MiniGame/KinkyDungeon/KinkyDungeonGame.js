@@ -155,7 +155,7 @@ function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 5) == MiniGameKinkyDungeonLevel / 5 && MiniGameKinkyDungeonCheckpoint < 11)) {
 		KDGameData.KinkyDungeonSpawnJailers = 0;
 		KDGameData.KinkyDungeonSpawnJailersMax = 0;
-		if (KinkyDungeonDifficultyMode == 0 && !suppressCheckPoint) {
+		if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {
 			KinkyDungeonState = "Save";
 			ElementCreateTextArea("saveDataField");
 			ElementValue("saveDataField", saveData);

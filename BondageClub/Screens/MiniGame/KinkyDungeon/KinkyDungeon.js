@@ -621,9 +621,12 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(875, 550, 750, 64)) {
-			KinkyDungeonDifficultyMode = 1;
+			KinkyDungeonDifficultyMode = 3;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(875, 650, 750, 64)) {
+			KinkyDungeonDifficultyMode = 1;
+			KinkyDungeonStartNewGame();
+		} else if (MouseIn(875, 750, 750, 64)) {
 			KinkyDungeonDifficultyMode = 2;
 			KinkyDungeonStartNewGame();
 		} else if (MouseIn(1075, 850, 350, 64)) {
