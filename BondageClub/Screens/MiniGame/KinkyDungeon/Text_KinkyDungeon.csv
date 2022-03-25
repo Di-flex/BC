@@ -441,6 +441,12 @@ KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its c
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
+KinkyDungeonInventoryItemStaffFrostbite,Staff of Frostbite
+KinkyDungeonInventoryItemStaffFrostbiteDesc,"A magical weapon with a 33% chance to freeze the target for 4 turns."
+KinkyDungeonInventoryItemStaffFrostbiteDesc2,"Deals ice damage. Frozen enemies take 5 ice damage per turn."
+KinkyDungeonInventoryItemStaffPermafrost,Staff of Permafrost
+KinkyDungeonInventoryItemStaffPermafrostDesc,"A magical weapon with a 33% chance to freeze the target for 4 turns."
+KinkyDungeonInventoryItemStaffPermafrostDesc2,"Deals ice damage. Multiplies the duration of freeze effects on enemies by 1.5x (min +1 duration)"
 KinkyDungeonInventoryItemStaffBind,Staff of Binding
 KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
 KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and roots the target for 4 turns."
@@ -462,6 +468,9 @@ KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attack
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
 KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
+KinkyDungeonInventoryItemFlamberge,Flamberge
+KinkyDungeonInventoryItemFlambergeDesc,"A blade forged in a magical fire."
+KinkyDungeonInventoryItemFlambergeDesc2,"Deals 20 bonus fire damage on hit."
 KinkyDungeonInventoryItemVibeWand,Magic Wand
 KinkyDungeonInventoryItemVibeWandDesc,"Its powers extend beyond the traditional schools of magic."
 KinkyDungeonInventoryItemVibeWandDesc2,"Deals charm damage (50% effectiveness vs. most enemies). 50% chance to stun the target for 1 turn."
@@ -2327,6 +2336,7 @@ ItemPickupLore,"You found a peculiar note on the ground."
 ItemPickupHammer,"You pick up a heavy hammer."
 ItemPickupBoltCutters,"You pick up a set of bolt cutters."
 ItemPickupSword,"You pick up a sharp sword."
+ItemPickupFlamberge,"You pick up a flamberge."
 ItemPickupVibeWand,"You pick up a 'magic' wand..."
 ItemPickupIceCube,"You pick up a magical ice cube."
 ItemPickupRope,"You find some treated hemp rope."
@@ -2335,6 +2345,7 @@ ItemPickupFlail,"You pick up a heavy flail."
 ItemPickupSpear,"You pick up a shortspear."
 ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wizard school..."
 ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
+ItemPickupStaffFrostbite,"You pick up a staff of frostbite. It feels cold to the touch."
 ItemPickupPickaxe,"You pick up a pickaxe."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupMagicAxe,"You pick up an enchanted axe."

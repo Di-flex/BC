@@ -1575,6 +1575,7 @@ interface KinkyDungeonEvent {
 	power?: number;
 	damage?: string;
 	dist?: number;
+	aoe?: number;
 	buffType?: string;
 	time?: number;
 	chance?: number;

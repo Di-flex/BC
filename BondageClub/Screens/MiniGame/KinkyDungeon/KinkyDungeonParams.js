@@ -19,7 +19,7 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.4,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.7, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
@@ -97,7 +97,7 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.6,
 		"brickchance" : 0.4,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
 
@@ -178,7 +178,7 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
 
@@ -256,7 +256,7 @@ let KinkyDungeonMapParams = [
 		"gaschance" : 0.5, // Chance for gas to appear on the level
 		"gasdensity" : 0.1, // Chance for a passage to be filled with happy gas
 		"gastype" : ']', // Gas type
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.8,
 		"forbiddenGreaterChance" : 0.4,
 

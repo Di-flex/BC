@@ -728,6 +728,7 @@ Spell Balance:
 - Pickpocketing does not happen while being leashed
 - Added a bola and a bomb to the shop
 - Added many new perks, some of which are game-changing, others which are good for reducing or increasing certain restraint types
+- New weapons: Flamberge, Staff of Frostbite, Staff of Permafrost
 
 TODO ValidationFindBlockCycles to prevent bugs
 
