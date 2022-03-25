@@ -418,8 +418,9 @@ function KinkyDungeonRun() {
 	} else if (KinkyDungeonState == "Diff") {
 		DrawText(TextGet("KinkyDungeonDifficulty"), 1250, 300, "white", "silver");
 		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
-		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
-		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
+		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty3"), "White", "");
+		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
+		DrawButton(875, 750, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
