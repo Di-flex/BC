@@ -325,7 +325,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			predata.dmg *= KDRiggerDmgBoost;
 		}
 		let boundPowerLevel = 0;
-		if (KinkyDungeonStatsChoice.get("BoundPower")) {
+		if (KinkyDungeonStatsChoice.get("BoundPower") && !Enemy.Enemy.allied) {
 			for (let inv of KinkyDungeonAllRestraint()) {
 				switch (inv.restraint.Group) {
 					case "ItemArms": boundPowerLevel += 0.2; break;
