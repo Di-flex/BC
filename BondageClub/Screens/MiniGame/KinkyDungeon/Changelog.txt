@@ -730,6 +730,7 @@ Spell Balance:
 - Added many new perks, some of which are game-changing, others which are good for reducing or increasing certain restraint types
 - New weapons: Flamberge, Staff of Frostbite, Staff of Permafrost
 - New restraint item you can buy from the shop: Slime Walkers, allowing you to walk on slime
+- New weapon: IceBreaker, Staff of Storms
 
 TODO ValidationFindBlockCycles to prevent bugs
 

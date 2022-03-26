@@ -67,6 +67,8 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
+	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
 	"StaffFrostbite": {name: "StaffFrostbite", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 4, chance: 0.25}, {type: "AoEDamageFrozen", trigger: "tick", aoe: 10, power: 0.5, damage: "ice"}]},
 	"StaffPermafrost": {name: "StaffPermafrost", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
@@ -293,6 +295,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		time: (Damage) ? Damage.time : 0,
 		dmg: (Damage) ? Damage.damage : 0,
 		bind: (Damage) ? Damage.bind : 0,
+		flags: (Damage) ? Damage.flags : undefined,
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
 		incomingDamage: Damage,
 	};

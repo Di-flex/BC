@@ -465,6 +465,9 @@ KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its c
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
+KinkyDungeonInventoryItemStaffStorm,Staff of Storms
+KinkyDungeonInventoryItemStaffStormDesc,"A magical weapon made for intermediates to use."
+KinkyDungeonInventoryItemStaffStormDesc2,"Deals electric damage. Enemies hit by electric damage echo 15 additional Electric damage in a 5x5 area."
 KinkyDungeonInventoryItemStaffFrostbite,Staff of Frostbite
 KinkyDungeonInventoryItemStaffFrostbiteDesc,"A magical weapon with a 33% chance to freeze the target for 4 turns."
 KinkyDungeonInventoryItemStaffFrostbiteDesc2,"Deals ice damage. Frozen enemies take 5 ice damage per turn."
@@ -2374,6 +2377,7 @@ ItemPickupFeather,"You pick up a feather."
 ItemPickupFlail,"You pick up a heavy flail."
 ItemPickupSpear,"You pick up a shortspear."
 ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wizard school..."
+ItemPickupStaffStorm,"You pick up a staff of the storm. It tingles."
 ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
 ItemPickupStaffFrostbite,"You pick up a staff of frostbite. It feels cold to the touch."
 ItemPickupPickaxe,"You pick up a pickaxe."
