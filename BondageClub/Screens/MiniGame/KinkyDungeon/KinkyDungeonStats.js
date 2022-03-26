@@ -789,11 +789,15 @@ let KinkyDungeonStatsPresets = {
 	"Escapee": {id: 32, cost: 2, block: "Dragon"},
 	"Dragon": {id: 33, cost: -1, block: "Escapee"},
 	"Stealthy": {id: 38, cost: 0},
-	"Conspicuous": {id: 39, cost: -1},
+	"Conspicuous": {id: 39, cost: -1, block: "KillSquad"},
 	"Slayer": {id: 34, cost: 5},
 	"Conjurer": {id: 35, cost: 5},
 	"Magician": {id: 36, cost: 5},
 	"Narcoleptic": {id: 37, cost: -4},
+	"BoundPower": {id: 40, cost: 3},
+	"KillSquad": {id: 41, cost: -3, block: "Conspicuous"},
+	"Supermarket": {id: 42, cost: 2},
+	"PriceGouging": {id: 43, cost: -2},
 };
 
 function KinkyDungeonGetStatPoints(Stats) {

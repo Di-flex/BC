@@ -124,6 +124,16 @@ KinkyDungeonStatDesc38,"You are harder to detect and there are more chests, but 
 KinkyDungeonStat39,"Conspicuous"
 KinkyDungeonStatDesc39,"Enemies detect you more easily."
 
+KinkyDungeonStat40,"Bound Power"
+KinkyDungeonStatDesc40,"Your damage increases based on the number of restraints worn, up to +40% when thoroughly bound."
+KinkyDungeonStat41,"Kill Squad"
+KinkyDungeonStatDesc41,"Enemies see you through walls and at greater distance."
+
+KinkyDungeonStat42,"Supermarket"
+KinkyDungeonStatDesc42,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStat43,"Price Gouging"
+KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
@@ -284,6 +294,7 @@ LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+Restraint
 LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicNipple,"You find gold, plus a devious magical trap! (+RestraintType) (+XXX gold)"
 LootPotionCollar,"You find a special collar that lets you absorb energy from potions."
+LootSlimeWalkers,"You find a pair of garish pink high heels with a slippery surface."
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -382,6 +393,9 @@ KinkyDungeonInventoryItemBombUse,You light the fuse!
 KinkyDungeonInventoryItemPotionCollar,Potion Applicator
 KinkyDungeonInventoryItemPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
 KinkyDungeonInventoryItemPotionCollarDesc2,"Also allows fitting of a leash."
+KinkyDungeonInventoryItemSlimeWalkers,Slime Walkers
+KinkyDungeonInventoryItemSlimeWalkersDesc,"A pair of heels coated in a nonstick material."
+KinkyDungeonInventoryItemSlimeWalkersDesc2,"They will slow you down, but you can walk on slime without getting stuck!"
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemLockpick,Lockpick
 KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
@@ -1516,6 +1530,9 @@ RestraintHighsecBallGagDesc2,"The mythril straps are nigh-unbreakable, keeping y
 RestraintPotionCollar,Potion Applicator
 RestraintPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
 RestraintPotionCollarDesc2,"Also allows fitting of a leash."
+RestraintSlimeWalkers,Slime Walkers
+RestraintSlimeWalkersDesc,"A pair of heels coated in a nonstick material."
+RestraintSlimeWalkersDesc2,"They will slow you down, but you can walk on slime without getting stuck!"
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."

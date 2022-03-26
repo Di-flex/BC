@@ -165,13 +165,22 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (roped)
 				effect = true;
 		} else if (playerEffect.name == "SlimeTrap") {
-			effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
-			KinkyDungeonMovePoints = -1;
-			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
+			let slimeWalker = false;
+			for (let inv of KinkyDungeonAllRestraint()) {
+				if (inv.restraint && inv.restraint.slimeWalk) {
+					slimeWalker = true;
+					break;
+				}
+			}
+			if (!slimeWalker) {
+				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
+				KinkyDungeonMovePoints = -1;
+				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
 
-			if (spell.power > 0) {
-				effect = true;
-				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+				if (spell.power > 0) {
+					effect = true;
+					KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+				}
 			}
 		} else if (playerEffect.name == "Shock") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
