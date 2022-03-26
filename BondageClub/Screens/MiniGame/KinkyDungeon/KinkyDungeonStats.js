@@ -16,6 +16,8 @@ let KDNoUnchasteBraMult = 0.9;
 let KDNoUnchasteMult = 0.5;
 let KDUnchasteMult = 0.25;
 let KDPurityAmount = 0.25;
+let KDFreeSpiritAmount = 0.2;
+let KDDeprivedAmount = 0.05;
 let KDDistractedAmount = 0.15;
 let KinkyDungeonStatArousalRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 arousal
 let KinkyDungeonStatArousalMiscastChance = 0.6; // Miscast chance at max arousal
@@ -362,10 +364,16 @@ function KinkyDungeonUpdateStats(delta) {
 	if (KinkyDungeonStatsChoice.get("Purity")) {
 		arousalRate -= KDPurityAmount;
 	}
+	if (KinkyDungeonStatsChoice.get("FreeSpirit")) {
+		arousalRate += KDFreeSpiritAmount;
+	}
 	if (KDGameData.OrgasmStamina > 0) {
 		let amount = KDGameData.OrgasmStamina/12;
 		KDGameData.OrgasmStamina = Math.max(0, KDGameData.OrgasmStamina*0.98 - delta/70);
 		arousalRate += -amount;
+	}
+	if (KinkyDungeonStatsChoice.get("Deprived") && KinkyDungeonChastityMult() > 0.9) {
+		if (arousalRate < 0) arousalRate = KDDeprivedAmount;
 	}
 
 	if (KDGameData.OrgasmStage > 0 && KDRandom() < 0.25 && KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.75) KDGameData.OrgasmStage = Math.max(0, KDGameData.OrgasmStage - delta);
@@ -770,8 +778,8 @@ let KinkyDungeonStatsPresets = {
 	"Meditation": {id: 13, cost: 2},
 	"Willpower": {id: 14, cost: 2},
 	"BondageLover": {id: 15, cost: -1},
-	"Purity": {id: 16, cost: 2},
-	"Unchaste": {id: 17, cost: -1},
+	"Purity": {id: 16, cost: 2, block: "Deprived"},
+	"Unchaste": {id: 17, cost: -1, block: "FreeSpirit"},
 	"Dodge": {id: 18, cost: 3, block: "Distracted"},
 	"Distracted": {id: 19, cost: -1, block: "Dodge"},
 	"Brawler": {id: 20, cost: 1},
@@ -796,8 +804,10 @@ let KinkyDungeonStatsPresets = {
 	"Narcoleptic": {id: 37, cost: -4},
 	"BoundPower": {id: 40, cost: 3},
 	"KillSquad": {id: 41, cost: -3, block: "Conspicuous"},
-	"Supermarket": {id: 42, cost: 2},
+	"Supermarket": {id: 42, cost: 1},
 	"PriceGouging": {id: 43, cost: -2},
+	"FreeSpirit": {id: 44, cost: 0, block: "Unchaste"},
+	"Deprived": {id: 45, cost: 0, block: "Purity"},
 };
 
 function KinkyDungeonGetStatPoints(Stats) {

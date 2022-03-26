@@ -134,6 +134,16 @@ KinkyDungeonStatDesc42,"Commerce shrines are more commmon, and the shop contains
 KinkyDungeonStat43,"Price Gouging"
 KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
 
+KinkyDungeonStat44,"Free Spirit"
+KinkyDungeonStatDesc44,"Most chastity belts can be struggled out of, but arousal decay is heavily reduced."
+KinkyDungeonStat45,"Deprived"
+KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain arousal while chaste."
+
+KinkyDungeonStat46,"Supermarket"
+KinkyDungeonStatDesc46,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStat47,"Price Gouging"
+KinkyDungeonStatDesc47,"Items are 5x as expensive in the shop."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
@@ -3399,7 +3409,7 @@ KinkyDungeonDamageTypeelectric,"Electric"
 KinkyDungeonDamageTypestun,"Stun"
 KinkyDungeonDamageTypechain,"Binding"
 KinkyDungeonDamageTypehappygas,"Lust"
-KinkyDungeonDamageTypeglue,"Slime"
+KinkyDungeonDamageTypeglue,"Glue"
 KinkyDungeonDamageTypeunarmed,"Unarmed"
 KinkyDungeonDamageTypemelee,"Melee"
 KinkyDungeonDamageTypemagic,"Magic"
