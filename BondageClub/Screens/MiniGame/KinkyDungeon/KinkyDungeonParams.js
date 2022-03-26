@@ -162,8 +162,8 @@ let KinkyDungeonMapParams = [
 
 	{//DungeonName2,-Underground Jungle-
 		"background" : "DeepForest",
-		"openness" : 6,
-		"density" : 5,
+		"openness" : 1,
+		"density" : 1,
 		"doodadchance" : 0.12,
 		"barchance" : 0.05,
 		"brightness" : 8,
@@ -238,7 +238,7 @@ let KinkyDungeonMapParams = [
 	{//DungeonName3,-Lost Temple-
 		"background" : "SpookyForest",
 		"openness" : 2,
-		"density" : 0,
+		"density" : 2,
 		"doodadchance" : 0.13,
 		"barchance" : 0.1,
 		"brightness" : 5,
@@ -427,7 +427,7 @@ let KinkyDungeonMapParams = [
 	},
 	{//DungeonName8,-Marble Halls-
 		"openness" : 4,
-		"density" : 0,
+		"density" : 1,
 		"doodadchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 8,
@@ -485,7 +485,7 @@ let KinkyDungeonMapParams = [
 	},
 	{//DungeonName10,-The Mansion-
 		"openness" : 10,
-		"density" : 0,
+		"density" : 1,
 		"doodadchance" : 0.05,
 		"barchance" : 0.03,
 		"brightness" : 100,
