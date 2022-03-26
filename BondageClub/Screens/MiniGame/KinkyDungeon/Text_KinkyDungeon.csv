@@ -525,6 +525,9 @@ KinkyDungeonInventoryItemMagicSpearDesc2,"Deals pierce damage to the target and 
 KinkyDungeonInventoryItemMagicHammer,Enchanted Hammer
 KinkyDungeonInventoryItemMagicHammerDesc,"Made of a magical, resonant material."
 KinkyDungeonInventoryItemMagicHammerDesc2,"Deals crush damage and knocks the target back. Helps to bash open restraints while cutting."
+KinkyDungeonInventoryItemIceBreaker,IceBreaker
+KinkyDungeonInventoryItemIceBreakerDesc,"A frigid lightweight hammer with a spike on the end."
+KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 3x damage to frozen targets instead of 2x."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
@@ -2377,6 +2380,7 @@ ItemPickupPickaxe,"You pick up a pickaxe."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupMagicAxe,"You pick up an enchanted axe."
 ItemPickupMagicHammer,"You pick up an enchanted hammer."
+ItemPickupIceBreaker,"You pick up a light hammer that's inscribed 'IceBreaker'."
 ItemPickupMagicSpear,"You pick up an enchanted spear."
 ItemPickupMagicFlail,"You pick up an enchanted flail."
 ItemPickupAxe,"You pick up a powerful axe."

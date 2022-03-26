@@ -490,6 +490,11 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				data.time = Math.ceil(data.time * e.power);
 				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
+		} else if (e.type == "MultiplyDamageFrozen" && data.enemy && data.enemy.freeze && e.trigger == Event && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+			if (!e.chance || KDRandom() < e.chance) {
+				data.dmg = Math.ceil(data.dmg * e.power);
+				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			}
 		}
 	}
 }

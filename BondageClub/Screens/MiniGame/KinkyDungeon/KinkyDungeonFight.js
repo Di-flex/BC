@@ -53,6 +53,8 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"MagicHammer": {name: "MagicHammer", dmg: 6, chance: 1.0, staminacost: 2.5, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
+	"IceBreaker": {name: "IceBreaker", dmg: 3.5, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "HeavySwing",
+		events: [{type: "MultiplyDamageFrozen", trigger: "beforeDamageEnemy", power: 1.5}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
 	"MagicFlail": {name: "MagicFlail", dmg: 3, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "LightSwing",
