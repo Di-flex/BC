@@ -509,6 +509,15 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				}
 			}
 		}
+	} else if (Event == "afterDamageEnemy") {
+		if (e.type == "Dollmaker" && e.trigger == Event && data.attacker && data.attacker.player && data.enemy && KDBoundEffects(data.enemy) > 3 && data.enemy.hp < 0.01) {
+			if (!e.chance || KDRandom() < e.chance) {
+				let Enemy = KinkyDungeonEnemies.find(element => element.name == "AllyDoll");
+				KinkyDungeonEntities.push({summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+					x:data.enemy.x, y:data.enemy.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			}
+		}
 	}
 }
 

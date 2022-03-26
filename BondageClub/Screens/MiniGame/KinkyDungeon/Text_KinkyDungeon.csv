@@ -462,6 +462,9 @@ KinkyDungeonInventoryItemEnchantedGrinderDesc,"The cutting disc is shining and v
 KinkyDungeonInventoryItemEnchantedGrinderDesc2,"Grants significantly increased cutting power for a short time."
 KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its cutting power is immense!
 
+KinkyDungeonInventoryItemStaffDoll,Dollmaker's Staff
+KinkyDungeonInventoryItemStaffDollDesc,"You remember this being used on someone else."
+KinkyDungeonInventoryItemStaffDollDesc2,"Deals soul damage. Fully bound enemies captured with this weapon become latex dolls which fight with you."
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
@@ -587,6 +590,8 @@ NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
 NameAlly,Familiar
 KillAlly,"The familiar dissolves into spectral ash."
+NameAllyDoll,Latex Doll
+KillAllyDoll,"The doll gives in to her desires and squirms around on the ground."
 NameStormCrystal,Storm Crystal
 KillStormCrystal,"The storm crystal shatters into many crackling pieces."
 NameFireElemental,Fire Elemental
@@ -3411,7 +3416,7 @@ KinkyDungeonDamageTypecrush,"Crush"
 KinkyDungeonDamageTypepierce,"Pierce"
 KinkyDungeonDamageTypeslash,"Slash"
 KinkyDungeonDamageTypepain,"Pain"
-KinkyDungeonDamageTypesouldrain,"Soul Drain"
+KinkyDungeonDamageTypesouldrain,"Soul"
 KinkyDungeonDamageTypedrain,"Mana Drain"
 KinkyDungeonDamageTypeelectric,"Electric"
 KinkyDungeonDamageTypestun,"Stun"

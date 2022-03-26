@@ -636,7 +636,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 	for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
 		let enemy = KinkyDungeonEntities[i];
-		if (enemy.Enemy.allied && enemy.summoned && (!enemy.lifetime || enemy.lifetime > 999)) {
+		if (enemy.Enemy.allied && enemy.summoned && !enemy.Enemy.noCountLimit && (!enemy.lifetime || enemy.lifetime > 999)) {
 			KinkyDungeonSummons += 1;
 			if (KinkyDungeonSummons > KinkyDungeonSummonCount) {
 				enemy.hp -= Math.max(0.1 * enemy.hp) + 1;
