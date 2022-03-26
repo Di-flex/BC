@@ -512,6 +512,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 
 function KinkyDungeonCheckLOS(enemy, player, distance, maxdistance, allowBlind, allowBars) {
 	let bs = (enemy && enemy.Enemy && enemy.Enemy.blindSight) ? enemy.Enemy.blindSight : 0;
+	if (KinkyDungeonStatsChoice.get("KillSquad")) bs += 20;
 	if (player.player && enemy.Enemy && enemy.Enemy.playerBlindSight) bs = enemy.Enemy.playerBlindSight;
 	return distance <= maxdistance && ((allowBlind && bs >= distance) || KinkyDungeonCheckPath(enemy.x, enemy.y, player.x, player.y, allowBars));
 }
@@ -635,7 +636,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 
 	for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
 		let enemy = KinkyDungeonEntities[i];
-		if (enemy.Enemy.allied && enemy.summoned && (!enemy.lifetime || enemy.lifetime > 999)) {
+		if (enemy.Enemy.allied && enemy.summoned && !enemy.Enemy.noCountLimit && (!enemy.lifetime || enemy.lifetime > 999)) {
 			KinkyDungeonSummons += 1;
 			if (KinkyDungeonSummons > KinkyDungeonSummonCount) {
 				enemy.hp -= Math.max(0.1 * enemy.hp) + 1;
@@ -783,6 +784,18 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let followRange = enemy.Enemy.followRange;
 	let visionRadius = enemy.Enemy.visionRadius ? (enemy.Enemy.visionRadius + ((enemy.lifetime > 0 && enemy.Enemy.visionSummoned) ? enemy.Enemy.visionSummoned : 0)) : 0;
 	let chaseRadius = 8 + (Math.max(followRange * 2, 0)) + 2*Math.max(visionRadius ? visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
+	let blindSight = (enemy && enemy.Enemy && enemy.Enemy.blindSight) ? enemy.Enemy.blindSight : 0;
+	if (KinkyDungeonStatsChoice.get("KillSquad")) {
+		visionRadius *= 2;
+		chaseRadius *= 2;
+		blindSight += 20;
+		if (blindSight > visionRadius) {
+			visionRadius = blindSight;
+		}
+		if (blindSight > chaseRadius) {
+			chaseRadius = blindSight;
+		}
+	}
 	let ignoreLocks = enemy.Enemy.keys;
 	let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
 	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 1.0;
@@ -1084,7 +1097,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (enemy.usingSpecial && !enemy.specialCD) enemy.specialCD = 0;
 
 	playerDist = Math.sqrt((enemy.x - player.x)*(enemy.x - player.x) + (enemy.y - player.y)*(enemy.y - player.y));
-	if ((!enemy.Enemy.followLeashedOnly || KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied || enemy.rage))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, enemy.Enemy.blindSight))
+	if ((!enemy.Enemy.followLeashedOnly || KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id) && (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied || enemy.rage))) && ((enemy.aware && KinkyDungeonTrackSneak(enemy, 0, player)) || playerDist < Math.max(1.5, blindSight))
 		&& (AI != "ambush" || enemy.ambushtrigger) && !ignore && (!moved || enemy.Enemy.attackWhileMoving)
 		&& (attack.includes("Melee") || (enemy.Enemy.tags && leashing && !KinkyDungeonHasStamina(1.1)))
 		&& KinkyDungeonCheckLOS(enemy, player, playerDist, range + 0.5, !enemy.Enemy.projectileAttack, !enemy.Enemy.projectileAttack)) {//Player is adjacent
@@ -1600,7 +1613,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		&& (!enemy.Enemy.noSpellLeashing || KDGameData.KinkyDungeonLeashingEnemy != enemy.id || KDGameData.KinkyDungeonLeashedPlayer < 1)
 		&& (!enemy.Enemy.followLeashedOnly || (KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id) || !addMoreRestraints)
 		&& (!enemy.Enemy.allied || (!player.player && (!player.Enemy || !player.Enemy.allied || enemy.rage)))
-		&& (enemy.aware && (KinkyDungeonTrackSneak(enemy, 0, player) || playerDist < Math.max(1.5, enemy.Enemy.blindSight)))
+		&& (enemy.aware && (KinkyDungeonTrackSneak(enemy, 0, player) || playerDist < Math.max(1.5, blindSight)))
 		&& !ignore && (!moved || enemy.Enemy.castWhileMoving) && enemy.Enemy.attack.includes("Spell")
 		&& KinkyDungeonCheckLOS(enemy, player, playerDist, visionRadius, false, true) && enemy.castCooldown <= 0) {
 		idle = false;

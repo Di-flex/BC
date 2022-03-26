@@ -18,6 +18,7 @@ let KDRiggerBindBoost = 1.3;
 let KDStealthyDamageMult = 0.7;
 let KDStealthyEvaMult = 0.8;
 let KDStealthyEnemyCountMult = 1.7;
+let KDBoundPowerMult = 0.4;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
@@ -52,6 +53,8 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"MagicHammer": {name: "MagicHammer", dmg: 6, chance: 1.0, staminacost: 2.5, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
+	"IceBreaker": {name: "IceBreaker", dmg: 3.5, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "HeavySwing",
+		events: [{type: "MultiplyDamageFrozen", trigger: "beforeDamageEnemy", power: 1.5}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
 	"MagicFlail": {name: "MagicFlail", dmg: 3, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "LightSwing",
@@ -64,6 +67,10 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
+	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
+	"StaffDoll": {name: "StaffDoll", dmg: 3.0, chance: 1.0, staminacost: 1.0, type: "souldrain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "Dollmaker", trigger: "afterDamageEnemy"}]},
 	"StaffFrostbite": {name: "StaffFrostbite", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 4, chance: 0.25}, {type: "AoEDamageFrozen", trigger: "tick", aoe: 10, power: 0.5, damage: "ice"}]},
 	"StaffPermafrost": {name: "StaffPermafrost", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
@@ -290,6 +297,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		time: (Damage) ? Damage.time : 0,
 		dmg: (Damage) ? Damage.damage : 0,
 		bind: (Damage) ? Damage.bind : 0,
+		flags: (Damage) ? Damage.flags : undefined,
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
 		incomingDamage: Damage,
 	};
@@ -323,8 +331,29 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (predata.type != "glue" || predata.type != "chain")) {
 			predata.dmg *= KDRiggerDmgBoost;
 		}
+		let boundPowerLevel = 0;
+		if (KinkyDungeonStatsChoice.get("BoundPower") && !Enemy.Enemy.allied) {
+			for (let inv of KinkyDungeonAllRestraint()) {
+				switch (inv.restraint.Group) {
+					case "ItemArms": boundPowerLevel += 0.2; break;
+					case "ItemLegs": boundPowerLevel += 0.08; break;
+					case "ItemFeet": boundPowerLevel += 0.08; break;
+					case "ItemBoots": boundPowerLevel += 0.04; break;
+					case "ItemMouth": boundPowerLevel += 0.05; break;
+					case "ItemMouth2": boundPowerLevel += 0.05; break;
+					case "ItemMouth3": boundPowerLevel += 0.1; break;
+					case "ItemHead": boundPowerLevel += 0.1; break;
+					case "ItemHands": boundPowerLevel += 0.1; break;
+					case "ItemPelvis": boundPowerLevel += 0.05; break;
+					case "ItemTorso": boundPowerLevel += 0.05; break;
+					case "ItemBreast": boundPowerLevel += 0.05; break;
+					case "ItemNeck": boundPowerLevel += 0.05; break;
+				}
+			}
+			if (boundPowerLevel > 1) boundPowerLevel = 1;
+		}
 
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp"));
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffType = predata.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
@@ -405,6 +434,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
 			}
 
+			KinkyDungeonSendEvent("duringDamageEnemy", predata);
+
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
 			if (Damage && Damage.damage)
@@ -465,6 +496,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			else Enemy.slow = Math.max(Enemy.slow, time);
 		}
 	}
+
+	KinkyDungeonSendEvent("afterDamageEnemy", predata);
 
 	let atkname = (Spell) ? TextGet("KinkyDungeonSpell" + Spell.name) : TextGet("KinkyDungeonBasicAttack");
 

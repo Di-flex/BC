@@ -47,6 +47,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 				let maxlevel = 999;
 				let minlevel = 0;
 				let SpellList = null;
+				if (prereqs && loot.prerequisites.includes("vibe") && KinkyDungeonPlayerTags.has("NoVibes")) prereqs = false;
 				if (prereqs && loot.prerequisites.includes("alreadyBelted") && KinkyDungeonChastityMult() < 0.9) prereqs = false;
 				if (prereqs && loot.prerequisites.includes("lowlevel")) maxlevel = 2;
 				if (prereqs && loot.prerequisites.includes("fewknife") && KinkyDungeonNormalBlades > 3) prereqs = false;

@@ -31,9 +31,10 @@ let KinkyDungneonBasic = {
 	"3Bola" : {name: "3Bola", consumable: "Bola", quantity: 3, rarity: 0, shop: true},
 	"3Bomb" : {name: "3Bomb", consumable: "Bomb", quantity: 3, rarity: 1, shop: true},
 	"MagicKnife" : {name: "MagicKnife", rarity: 4, shop: true},
-	"PotionCollar" : {name: "PotionCollar", rarity: 2, shop: true},
+	//"PotionCollar" : {name: "PotionCollar", rarity: 2, shop: true},
 };
 
 let KinkyDungneonShopRestraints = {
+	"SlimeWalkers" : {name: "SlimeWalkers", rarity: 2, shop: true},
 	"PotionCollar" : {name: "PotionCollar", rarity: 2, shop: true},
 };

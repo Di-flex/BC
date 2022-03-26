@@ -490,6 +490,33 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				data.time = Math.ceil(data.time * e.power);
 				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
+		} else if (e.type == "MultiplyDamageFrozen" && data.enemy && data.enemy.freeze && e.trigger == Event && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+			if (!e.chance || KDRandom() < e.chance) {
+				data.dmg = Math.ceil(data.dmg * e.power);
+				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			}
+		} else if (e.type == "EchoDamage" && data.enemy && (!data.flags || !data.flags.includes("EchoDamage")) && e.trigger == Event && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+			if (!e.chance || KDRandom() < e.chance) {
+				let trigger = false;
+				for (let enemy of KinkyDungeonEntities) {
+					if ((enemy.rage || (enemy.Enemy.allied && data.enemy.Enemy.allied) || (!enemy.Enemy.allied && !data.enemy.Enemy.allied)) && enemy != data.enemy && enemy.hp > 0 && KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y) <= e.aoe) {
+						KinkyDungeonDamageEnemy(enemy, {type:e.damage, damage: e.power, time: e.time, flags: ["EchoDamage"]}, false, true, undefined, undefined, undefined);
+						trigger = true;
+					}
+				}
+				if (trigger) {
+					if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				}
+			}
+		}
+	} else if (Event == "afterDamageEnemy") {
+		if (e.type == "Dollmaker" && e.trigger == Event && data.attacker && data.attacker.player && data.enemy && KDBoundEffects(data.enemy) > 3 && data.enemy.hp < 0.01) {
+			if (!e.chance || KDRandom() < e.chance) {
+				let Enemy = KinkyDungeonEnemies.find(element => element.name == "AllyDoll");
+				KinkyDungeonEntities.push({summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+					x:data.enemy.x, y:data.enemy.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0});
+				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+			}
 		}
 	}
 }

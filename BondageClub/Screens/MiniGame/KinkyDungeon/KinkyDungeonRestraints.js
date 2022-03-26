@@ -568,7 +568,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		KinkyDungeonKeyPickBreakAmount = KDDamselPickAmount;
 	} else KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
 
-
+	if (KinkyDungeonStatsChoice.get("FreeSpirit") && (restraint.restraint.chastity || restraint.restraint.chastitybra)) escapeChance += 0.5;
 	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
 		escapeChance += KDArtistBonus;
 	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
@@ -1136,6 +1136,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 				}
 		}
 	}
+	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
 	return playerTags;
 }
 
@@ -1189,6 +1190,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
+	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {

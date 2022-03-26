@@ -1284,6 +1284,9 @@ function KinkyDungeonGenerateShrine(Floor) {
 		for (let shrine of Params.shrines) {
 			shrineWeights.push({shrine: shrine, weight: shrineWeightTotal});
 			shrineWeightTotal += shrine.Weight;
+			if (KinkyDungeonStatsChoice.has("Supermarket")) {
+				shrineWeightTotal += shrine.Weight; // Double weight of shop shrines
+			}
 		}
 
 		let selection = KDRandom() * shrineWeightTotal;

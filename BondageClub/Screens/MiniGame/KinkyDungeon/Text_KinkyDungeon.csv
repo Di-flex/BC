@@ -124,6 +124,26 @@ KinkyDungeonStatDesc38,"You are harder to detect and there are more chests, but 
 KinkyDungeonStat39,"Conspicuous"
 KinkyDungeonStatDesc39,"Enemies detect you more easily."
 
+KinkyDungeonStat40,"Bound Power"
+KinkyDungeonStatDesc40,"Your damage increases based on the number of restraints worn, up to +40% when thoroughly bound."
+KinkyDungeonStat41,"Kill Squad"
+KinkyDungeonStatDesc41,"Enemies see you through walls and at greater distance."
+
+KinkyDungeonStat42,"Supermarket"
+KinkyDungeonStatDesc42,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStat43,"Price Gouging"
+KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
+
+KinkyDungeonStat44,"Free Spirit"
+KinkyDungeonStatDesc44,"Most chastity belts can be struggled out of, but arousal decay is heavily reduced."
+KinkyDungeonStat45,"Deprived"
+KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain arousal while chaste."
+
+KinkyDungeonStat46,"Supermarket"
+KinkyDungeonStatDesc46,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStat47,"Price Gouging"
+KinkyDungeonStatDesc47,"Items are 5x as expensive in the shop."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
@@ -284,6 +304,7 @@ LootChestTrapMagicVibe,"You find gold and a tormenting magical trap! (+Restraint
 LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical trap! (+RestraintType) (+XXX gold)"
 LootChestTrapMagicNipple,"You find gold, plus a devious magical trap! (+RestraintType) (+XXX gold)"
 LootPotionCollar,"You find a special collar that lets you absorb energy from potions."
+LootSlimeWalkers,"You find a pair of garish pink high heels with a slippery surface."
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -382,6 +403,9 @@ KinkyDungeonInventoryItemBombUse,You light the fuse!
 KinkyDungeonInventoryItemPotionCollar,Potion Applicator
 KinkyDungeonInventoryItemPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
 KinkyDungeonInventoryItemPotionCollarDesc2,"Also allows fitting of a leash."
+KinkyDungeonInventoryItemSlimeWalkers,Slime Walkers
+KinkyDungeonInventoryItemSlimeWalkersDesc,"A pair of heels coated in a nonstick material."
+KinkyDungeonInventoryItemSlimeWalkersDesc2,"They will slow you down, but you can walk on slime without getting stuck!"
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemLockpick,Lockpick
 KinkyDungeonInventoryItemLockpickDesc,"A tool used to pick locks."
@@ -438,9 +462,15 @@ KinkyDungeonInventoryItemEnchantedGrinderDesc,"The cutting disc is shining and v
 KinkyDungeonInventoryItemEnchantedGrinderDesc2,"Grants significantly increased cutting power for a short time."
 KinkyDungeonSpellCastCutting,The grinder starts spinning for a short time! Its cutting power is immense!
 
+KinkyDungeonInventoryItemStaffDoll,Dollmaker's Staff
+KinkyDungeonInventoryItemStaffDollDesc,"You remember this being used on someone else."
+KinkyDungeonInventoryItemStaffDollDesc2,"Deals soul damage. Fully bound enemies captured with this weapon become latex dolls which fight with you."
 KinkyDungeonInventoryItemStaffFlame,Staff of Flame
 KinkyDungeonInventoryItemStaffFlameDesc,"A magical weapon made for novices to use."
 KinkyDungeonInventoryItemStaffFlameDesc2,"Deals fire damage. Enemies take 20% more fire damage"
+KinkyDungeonInventoryItemStaffStorm,Staff of Storms
+KinkyDungeonInventoryItemStaffStormDesc,"A magical weapon made for intermediates to use."
+KinkyDungeonInventoryItemStaffStormDesc2,"Deals electric damage. Enemies hit by electric damage echo 15 additional Electric damage in a 5x5 area."
 KinkyDungeonInventoryItemStaffFrostbite,Staff of Frostbite
 KinkyDungeonInventoryItemStaffFrostbiteDesc,"A magical weapon with a 33% chance to freeze the target for 4 turns."
 KinkyDungeonInventoryItemStaffFrostbiteDesc2,"Deals ice damage. Frozen enemies take 5 ice damage per turn."
@@ -501,6 +531,9 @@ KinkyDungeonInventoryItemMagicSpearDesc2,"Deals pierce damage to the target and 
 KinkyDungeonInventoryItemMagicHammer,Enchanted Hammer
 KinkyDungeonInventoryItemMagicHammerDesc,"Made of a magical, resonant material."
 KinkyDungeonInventoryItemMagicHammerDesc2,"Deals crush damage and knocks the target back. Helps to bash open restraints while cutting."
+KinkyDungeonInventoryItemIceBreaker,IceBreaker
+KinkyDungeonInventoryItemIceBreakerDesc,"A frigid lightweight hammer with a spike on the end."
+KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 3x damage to frozen targets instead of 2x."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
@@ -557,6 +590,8 @@ NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
 NameAlly,Familiar
 KillAlly,"The familiar dissolves into spectral ash."
+NameAllyDoll,Latex Doll
+KillAllyDoll,"The doll gives in to her desires and squirms around on the ground."
 NameStormCrystal,Storm Crystal
 KillStormCrystal,"The storm crystal shatters into many crackling pieces."
 NameFireElemental,Fire Elemental
@@ -1516,6 +1551,9 @@ RestraintHighsecBallGagDesc2,"The mythril straps are nigh-unbreakable, keeping y
 RestraintPotionCollar,Potion Applicator
 RestraintPotionCollarDesc,"An ancient device that allows direct use of potions even while gagged or bound. Costs 5% max ancient energy to use a potion this way."
 RestraintPotionCollarDesc2,"Also allows fitting of a leash."
+RestraintSlimeWalkers,Slime Walkers
+RestraintSlimeWalkersDesc,"A pair of heels coated in a nonstick material."
+RestraintSlimeWalkersDesc2,"They will slow you down, but you can walk on slime without getting stuck!"
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."
@@ -2344,12 +2382,14 @@ ItemPickupFeather,"You pick up a feather."
 ItemPickupFlail,"You pick up a heavy flail."
 ItemPickupSpear,"You pick up a shortspear."
 ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wizard school..."
+ItemPickupStaffStorm,"You pick up a staff of the storm. It tingles."
 ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
 ItemPickupStaffFrostbite,"You pick up a staff of frostbite. It feels cold to the touch."
 ItemPickupPickaxe,"You pick up a pickaxe."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupMagicAxe,"You pick up an enchanted axe."
 ItemPickupMagicHammer,"You pick up an enchanted hammer."
+ItemPickupIceBreaker,"You pick up a light hammer that's inscribed 'IceBreaker'."
 ItemPickupMagicSpear,"You pick up an enchanted spear."
 ItemPickupMagicFlail,"You pick up an enchanted flail."
 ItemPickupAxe,"You pick up a powerful axe."
@@ -3376,13 +3416,13 @@ KinkyDungeonDamageTypecrush,"Crush"
 KinkyDungeonDamageTypepierce,"Pierce"
 KinkyDungeonDamageTypeslash,"Slash"
 KinkyDungeonDamageTypepain,"Pain"
-KinkyDungeonDamageTypesouldrain,"Soul Drain"
+KinkyDungeonDamageTypesouldrain,"Soul"
 KinkyDungeonDamageTypedrain,"Mana Drain"
 KinkyDungeonDamageTypeelectric,"Electric"
 KinkyDungeonDamageTypestun,"Stun"
 KinkyDungeonDamageTypechain,"Binding"
 KinkyDungeonDamageTypehappygas,"Lust"
-KinkyDungeonDamageTypeglue,"Slime"
+KinkyDungeonDamageTypeglue,"Glue"
 KinkyDungeonDamageTypeunarmed,"Unarmed"
 KinkyDungeonDamageTypemelee,"Melee"
 KinkyDungeonDamageTypemagic,"Magic"
