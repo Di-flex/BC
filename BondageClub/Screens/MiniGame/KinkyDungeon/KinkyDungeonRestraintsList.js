@@ -1,5 +1,8 @@
 "use strict";
-
+/**
+ * List off all restraints items
+ * @type {[item]}
+ */
 const KinkyDungeonRestraints = [
 	{name: "ScarfArms", Asset: "DuctTape", Color: "#880022", Group: "ItemArms", bindarms: true, power: 0, weight: 0, escapeChance: {"Struggle": 0.5, "Cut": 0.9, "Remove": 0.2},
 		enemyTags: {"scarfRestraints":2}, playerTags: {"ItemArmsFull":2}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Cloth"]},
