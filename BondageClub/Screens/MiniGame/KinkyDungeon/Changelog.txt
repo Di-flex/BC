@@ -718,6 +718,8 @@ Spell Balance:
 - Gags no longer block spellcasting and potions completely. Potions are less effective and verbal spells have a miscast chance. However, muzzles block it completely as usual.
 - You can now become a champion of a goddess in order to gain rep and mana by capturing humanoid enemies.
 - A new terrifying sight awaits those who escape from the dungeon's traps...
+
+2.9
 - Added barrels you can hide in! They slow you when you exit, however, and make it harder to attack out of...
 - The ghost now helps with potions and items while bound
 - New enemies: Cloud of Scarves/Cloud of Feathers/Cloud of Ribbons
