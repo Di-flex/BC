@@ -63,7 +63,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 	let i = 0;
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2) - 1, cornerY + Math.floor(radius/2));
-		if (specialDist <= 2) {
+		if (specialDist <= 3) {
 			cornerY = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
 			cornerX = Math.ceil(xPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
 		} else break;
