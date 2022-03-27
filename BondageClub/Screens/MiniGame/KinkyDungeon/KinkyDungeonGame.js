@@ -375,7 +375,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let allies = KinkyDungeonGetAllies();
 	KinkyDungeonEntities = allies;
 
-	KinkyDungeonPlaceSetPieces(traps, spawnPoints, width, height);
+	KinkyDungeonPlaceSetPieces(traps, spawnPoints, InJail, width, height);
 
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);

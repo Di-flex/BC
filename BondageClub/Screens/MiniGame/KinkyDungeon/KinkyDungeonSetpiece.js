@@ -9,7 +9,7 @@ let KDSetPieces = [
 ];
 
 
-function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, width, height) {
+function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, height) {
 	let pieces = new Map();
 	for (let p of KDSetPieces) {
 		pieces.set(p.Name, p);
@@ -19,7 +19,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, width, height) {
 	let fails = 0;
 	while (count < pieceCount && fails < 4) {
 		let Piece = KinkyDungeonGetSetPiece();
-		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), trapLocations, spawnPoints).Pass) count += 1;
+		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, spawnPoints).Pass) count += 1;
 		else fails += 1;
 	}
 
@@ -48,12 +48,15 @@ function KinkyDungeonGetSetPiece() {
 	}
 }
 
-function KinkyDungeonGenerateSetpiece(Piece, trapLocations, spawnPoints) {
+function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints) {
 	let radius = Piece.Radius;
 	let xPadStart = Piece.xPad || 2;
 	let yPadStart = Piece.yPad || 2;
 	let xPadEnd = Piece.xPadEnd || 2;
 	let yPadEnd = Piece.yPadEnd || 2;
+	if (InJail) {
+		xPadStart = Math.max(xPadStart, KinkyDungeonJailLeashX + 2);
+	}
 	let ypos = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
 	let cornerX =  Math.ceil(xPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridWidth - xPadStart - xPadEnd - radius - 1));
 	let cornerY = ypos;
