@@ -50,7 +50,7 @@ function KinkyDungeonGetSetPiece() {
 
 function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints) {
 	let radius = Piece.Radius;
-	let xPadStart = Piece.xPad || 2;
+	let xPadStart = Piece.xPad || 5;
 	let yPadStart = Piece.yPad || 2;
 	let xPadEnd = Piece.xPadEnd || 2;
 	let yPadEnd = Piece.yPadEnd || 2;
