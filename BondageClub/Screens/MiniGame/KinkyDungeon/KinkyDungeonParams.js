@@ -28,6 +28,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Graveyard", Weight: 9},
 			{Type: "Altar", Weight: 6},
 			{Type: "QuadCell", Weight: 4},
+			{Type: "Storage", Weight: 7},
 		],
 
 		"shortcuts": [
@@ -113,6 +114,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Bedroom", Weight: 2},
 			{Type: "Altar", Weight: 3},
 			{Type: "QuadCell", Weight: 10},
+			{Type: "Storage", Weight: 7},
 		],
 
 		"shortcuts": [
@@ -554,6 +556,11 @@ let KinkyDungeonMapParams = [
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
 
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 7},
+		],
+
 		"shortcuts": [
 			{Level: 4, checkpoint: 13, chance: 1.0},
 		],
@@ -708,6 +715,11 @@ let KinkyDungeonMapParams = [
 		// Side routes have more high-value loot
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 2},
+		],
 
 		"shortcuts": [
 			{Level: 14, checkpoint: 2, chance: 0.33},

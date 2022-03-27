@@ -4,6 +4,7 @@ let KDSetPieces = [
 	{Name: "Bedroom", Radius: 4},
 	{Name: "Graveyard", Radius: 5},
 	{Name: "Altar", Radius: 5},
+	{Name: "Storage", Radius: 5},
 	{Name: "QuadCell", Radius: 7},
 ];
 
@@ -115,6 +116,26 @@ function KinkyDungeonGenerateSetpiece(Piece, trapLocations, spawnPoints) {
 			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'a');
+			break;
+		case "Storage":
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, false);
+			KinkyDungeonMapSet(cornerX+2, cornerY , KDRandom() < 0.5 ? 'D' : (KDRandom() < 0.5 ? 'g' : 'd'));
+			KinkyDungeonTiles.set("" + (cornerX+2) + "," + (cornerY), {Type: "Door"});
+			KinkyDungeonMapSet(cornerX+2, cornerY+4 , KDRandom() < 0.5 ? 'D' : (KDRandom() < 0.5 ? 'g' : 'd'));
+			KinkyDungeonTiles.set("" + (cornerX+2) + "," + (cornerY+4), {Type: "Door"});
+
+			KinkyDungeonMapSet(cornerX+1, cornerY+1 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+1, cornerY+2 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+1, cornerY+3 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+3, cornerY+1 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+3, cornerY+2 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+3, cornerY+3 , KDRandom() < 0.75 ? 'L' : 'c');
+			if (KDRandom() < 0.33) {
+				if (KDRandom() < 0.75)
+					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["beast"], AI: "guard"});
+				else
+					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["human"], AI: "guard"});
+			}
 			break;
 		case "QuadCell":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
