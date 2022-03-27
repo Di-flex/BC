@@ -369,6 +369,12 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		startTime = performance.now();
 	}
 
+	// Create enemies first so we can spawn them in the set pieces if needed
+	let allies = KinkyDungeonGetAllies();
+	KinkyDungeonEntities = allies;
+
+	KinkyDungeonPlaceSetPieces(traps, width, height);
+
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
 		if (KDDebug) {
@@ -552,9 +558,6 @@ function KinkyDungeonGetAllies() {
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonPlaceEnemies(InJail, Tags, Floor, width, height) {
-	let allies = KinkyDungeonGetAllies();
-	KinkyDungeonEntities = allies;
-
 	KinkyDungeonHuntDownPlayer = false;
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
