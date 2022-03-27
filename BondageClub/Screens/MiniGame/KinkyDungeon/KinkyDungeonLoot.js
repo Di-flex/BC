@@ -224,6 +224,10 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonBlueKeys += 1;
 	} else if (Loot.name == "grinder") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, 1);
+	} else if (Loot.name == "bola") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bola, 2);
+	} else if (Loot.name == "bomb") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bomb, 1);
 	} else if (Loot.name == "MistressKey") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1);
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);

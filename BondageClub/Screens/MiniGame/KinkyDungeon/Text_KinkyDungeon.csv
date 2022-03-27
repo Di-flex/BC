@@ -294,6 +294,9 @@ LootChestScrollsPurity,"You find a glowing scroll of purity."
 LootChestGold,The chest contains gold! (+XXX gold)
 LootChestMagicKnife,The chest contains a glowing magical knife that can turn invisible on your body!
 LootChestBlueKey,The chest contains a keyring with a glowing magic key!
+LootChestRedKey,Someone left their keys here...
+LootChestBola,You found some bolas left by bandits.
+LootChestBomb,You found some high explosives!
 LootChestSpell,"You find a magic scroll, which you place in your spellbook. (+SpellLearned)"
 LootChestSpellPoints,"You find an orb containing magical knowledge! (+AMOUNT spell points)"
 LootChestWeapon,"You find a weapon! (+WeaponAcquired)"

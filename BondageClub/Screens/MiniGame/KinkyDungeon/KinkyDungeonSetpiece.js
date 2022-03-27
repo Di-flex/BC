@@ -124,12 +124,24 @@ function KinkyDungeonGenerateSetpiece(Piece, trapLocations, spawnPoints) {
 			KinkyDungeonMapSet(cornerX+2, cornerY+4 , KDRandom() < 0.5 ? 'D' : (KDRandom() < 0.5 ? 'g' : 'd'));
 			KinkyDungeonTiles.set("" + (cornerX+2) + "," + (cornerY+4), {Type: "Door"});
 
-			KinkyDungeonMapSet(cornerX+1, cornerY+1 , KDRandom() < 0.75 ? 'L' : 'c');
-			KinkyDungeonMapSet(cornerX+1, cornerY+2 , KDRandom() < 0.75 ? 'L' : 'c');
-			KinkyDungeonMapSet(cornerX+1, cornerY+3 , KDRandom() < 0.75 ? 'L' : 'c');
-			KinkyDungeonMapSet(cornerX+3, cornerY+1 , KDRandom() < 0.75 ? 'L' : 'c');
-			KinkyDungeonMapSet(cornerX+3, cornerY+2 , KDRandom() < 0.75 ? 'L' : 'c');
-			KinkyDungeonMapSet(cornerX+3, cornerY+3 , KDRandom() < 0.75 ? 'L' : 'c');
+			KinkyDungeonMapSet(cornerX+1, cornerY+1 , KDRandom() < 0.6 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+1, cornerY+1) == 'C')
+				KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 1), {Loot: "storage", Roll: KDRandom()});
+			KinkyDungeonMapSet(cornerX+1, cornerY+2 , KDRandom() < 0.5 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+1, cornerY+2) == 'C')
+				KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 2), {Loot: "storage", Roll: KDRandom()});
+			KinkyDungeonMapSet(cornerX+1, cornerY+3 , KDRandom() < 0.7 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+1, cornerY+3) == 'C')
+				KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 3), {Loot: "storage", Roll: KDRandom()});
+			KinkyDungeonMapSet(cornerX+3, cornerY+1 , KDRandom() < 0.5 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+3, cornerY+1) == 'C')
+				KinkyDungeonTiles.set((cornerX + 3) + "," + (cornerY + 1), {Loot: "storage", Roll: KDRandom()});
+			KinkyDungeonMapSet(cornerX+3, cornerY+2 , KDRandom() < 0.75 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+3, cornerY+2) == 'C')
+				KinkyDungeonTiles.set((cornerX + 3) + "," + (cornerY + 2), {Loot: "storage", Roll: KDRandom()});
+			KinkyDungeonMapSet(cornerX+3, cornerY+3 , KDRandom() < 0.5 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
+			if (KinkyDungeonMapGet(cornerX+3, cornerY+3) == 'C')
+				KinkyDungeonTiles.set((cornerX + 3) + "," + (cornerY + 3), {Loot: "storage", Roll: KDRandom()});
 			if (KDRandom() < 0.33) {
 				if (KDRandom() < 0.75)
 					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["beast"], AI: "guard"});
