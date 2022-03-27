@@ -889,7 +889,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	}
 	if (player.player && enemy.Enemy && enemy.Enemy.playerFollowRange) followRange = enemy.Enemy.playerFollowRange;
 
-	let AI = enemy.Enemy.AI;
+	let AI = enemy.AI ? enemy.AI : enemy.Enemy.AI;
 	if (!enemy.warningTiles) enemy.warningTiles = [];
 	let canSensePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, visionRadius, true, true);
 	let canSeePlayer = KinkyDungeonCheckLOS(enemy, player, playerDist, visionRadius, false, false);
