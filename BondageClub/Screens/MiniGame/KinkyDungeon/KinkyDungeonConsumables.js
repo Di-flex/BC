@@ -188,7 +188,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 			return false;
 		}
 	}
-	if (!KinkyDungeonHasGhostHelp() && needArms && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
+	if (!KinkyDungeonHasGhostHelp() && needArms && !KinkyDungeonStatsChoice.get("Psychic") && !(item.item && item.item.consumable.potion && !KinkyDungeonIsArmsBound()) && KinkyDungeonIsHandsBound()) {
 		let energyCost = KinkyDungeonPotionCollar();
 		if (item.item.consumable.potion && energyCost && KDGameData.AncientEnergyLevel > energyCost) {
 			KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);

@@ -732,6 +732,7 @@ Spell Balance:
 - New restraint item you can buy from the shop: Slime Walkers, allowing you to walk on slime
 - New weapon: IceBreaker, Staff of Storms, Dollmaker's Staff
 - New set pieces have been added for some map variety
+- You no longer need arms for drinking potions and using items if you have the Psychic trait
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -40,7 +40,7 @@ KinkyDungeonStat5,"Clueless"
 KinkyDungeonStatDesc5,"You have no idea how to pick locks. Picking is 0.5x as fast and you can't pick most advanced locks."
 
 KinkyDungeonStat6,"Psychic"
-KinkyDungeonStatDesc6,"You can move keys with your mind. You no longer drop keys, and can unlock yourself even with hands covered"
+KinkyDungeonStatDesc6,"You no longer drop keys, can unlock yourself with bound hands, and don't need hands for items/potions."
 KinkyDungeonStat7,"Novice"
 KinkyDungeonStatDesc7,"All spells above 1st level cost 2x as many spell points."
 
@@ -2403,6 +2403,8 @@ ItemPickupElfCrystal,"You picked up a crystal beautiful as the moon."
 ItemPickupEnchantedGrinder,"You picked up a strange device with a sharpened razor disc."
 LootChestGrinder,"You find a strange ancient device with a sharp cutting blade."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
+ItemPickupBola,You pick up a bola.
+ItemPickupBomb,You pick up a bomb!
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
