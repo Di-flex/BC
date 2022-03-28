@@ -28,6 +28,16 @@ function KinkyDungeonInitReputation() {
 	}
 	if (KinkyDungeonStatsChoice.get("Wanted")) KinkyDungeonChangeRep("Prisoner", 100);
 	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonChangeRep("Ghost", 100);
+
+	if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonChangeRep("Metal", 40);
+	if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonChangeRep("Rope", 40);
+	if (KinkyDungeonStatsChoice.get("Slippery")) KinkyDungeonChangeRep("Latex", 40);
+	if (KinkyDungeonStatsChoice.get("Escapee")) KinkyDungeonChangeRep("Leather", 40);
+
+	if (KinkyDungeonStatsChoice.get("Damsel")) KinkyDungeonChangeRep("Metal", -25);
+	if (KinkyDungeonStatsChoice.get("Bunny")) KinkyDungeonChangeRep("Rope", -25);
+	if (KinkyDungeonStatsChoice.get("Doll")) KinkyDungeonChangeRep("Latex", -25);
+	if (KinkyDungeonStatsChoice.get("Dragon")) KinkyDungeonChangeRep("Leather", -25);
 }
 
 function KinkyDungeonRepName(Amount) {

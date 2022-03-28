@@ -19,12 +19,20 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.4,
 		"rubblechance" : 0.7,
 		"brickchance" : 0.1,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.7, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
+		"setpieces": [
+			{Type: "Bedroom", Weight: 3},
+			{Type: "Graveyard", Weight: 9},
+			{Type: "Altar", Weight: 6},
+			{Type: "QuadCell", Weight: 4},
+			{Type: "Storage", Weight: 7},
+		],
+
 		"shortcuts": [
-			{Level: 1, checkpoint: 11, chance: 0.5},
+			{Level: 1, checkpoint: 11, chance: 1.0},
 			{Level: 3, checkpoint: 11, chance: 1.0},
 		],
 		"mainpath": [
@@ -77,6 +85,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Rope", Weight: 2},
 			{Type: "Will", Weight: 7},]
 
+
 	},
 
 	{// DungeonName1,-Catacombs-
@@ -97,9 +106,16 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.6,
 		"brickchance" : 0.4,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
+
+		"setpieces": [
+			{Type: "Bedroom", Weight: 2},
+			{Type: "Altar", Weight: 3},
+			{Type: "QuadCell", Weight: 10},
+			{Type: "Storage", Weight: 7},
+		],
 
 		"shortcuts": [
 			{Level: 6, checkpoint: 12, chance: 0.5},
@@ -162,8 +178,8 @@ let KinkyDungeonMapParams = [
 
 	{//DungeonName2,-Underground Jungle-
 		"background" : "DeepForest",
-		"openness" : 6,
-		"density" : 5,
+		"openness" : 1,
+		"density" : 1,
 		"doodadchance" : 0.12,
 		"barchance" : 0.05,
 		"brightness" : 8,
@@ -178,7 +194,7 @@ let KinkyDungeonMapParams = [
 		"grateChance" : 0.1,
 		"rubblechance" : 0.5,
 		"brickchance" : 0.25,
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
 
@@ -238,7 +254,7 @@ let KinkyDungeonMapParams = [
 	{//DungeonName3,-Lost Temple-
 		"background" : "SpookyForest",
 		"openness" : 2,
-		"density" : 0,
+		"density" : 2,
 		"doodadchance" : 0.13,
 		"barchance" : 0.1,
 		"brightness" : 5,
@@ -256,9 +272,14 @@ let KinkyDungeonMapParams = [
 		"gaschance" : 0.5, // Chance for gas to appear on the level
 		"gasdensity" : 0.1, // Chance for a passage to be filled with happy gas
 		"gastype" : ']', // Gas type
-		"cacheInterval" : 2,
+		"cacheInterval" : 1,
 		"forbiddenChance" : 0.8,
 		"forbiddenGreaterChance" : 0.4,
+
+		"setpieces": [
+			{Type: "Bedroom", Weight: 1},
+			{Type: "Altar", Weight: 6},
+		],
 
 		"shortcuts": [
 
@@ -427,7 +448,7 @@ let KinkyDungeonMapParams = [
 	},
 	{//DungeonName8,-Marble Halls-
 		"openness" : 4,
-		"density" : 0,
+		"density" : 1,
 		"doodadchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 8,
@@ -485,7 +506,7 @@ let KinkyDungeonMapParams = [
 	},
 	{//DungeonName10,-The Mansion-
 		"openness" : 10,
-		"density" : 0,
+		"density" : 1,
 		"doodadchance" : 0.05,
 		"barchance" : 0.03,
 		"brightness" : 100,
@@ -534,6 +555,11 @@ let KinkyDungeonMapParams = [
 		// Side routes have more high-value loot
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 7},
+		],
 
 		"shortcuts": [
 			{Level: 4, checkpoint: 13, chance: 1.0},
@@ -689,6 +715,11 @@ let KinkyDungeonMapParams = [
 		// Side routes have more high-value loot
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 2},
+		],
 
 		"shortcuts": [
 			{Level: 14, checkpoint: 2, chance: 0.33},

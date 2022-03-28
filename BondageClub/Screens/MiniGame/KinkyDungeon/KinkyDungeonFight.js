@@ -12,6 +12,13 @@ let KinkyDungeonBulletsID = {}; // Bullets on the game board
 let KDVulnerableDmg = 1.0;
 let KDVulnerableDmgMult = 0.33;
 let KDVulnerableHitMult = 1.33;
+let KDPacifistReduction = 0.1;
+let KDRiggerDmgBoost = 1.2;
+let KDRiggerBindBoost = 1.3;
+let KDStealthyDamageMult = 0.7;
+let KDStealthyEvaMult = 0.8;
+let KDStealthyEnemyCountMult = 1.7;
+let KDBoundPowerMult = 0.4;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
@@ -29,6 +36,8 @@ let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"Flamberge": {name: "Flamberge", dmg: 2.0, chance: 1.0, staminacost: 1.0, type: "slash", unarmed: false, rarity: 3, shop: true, cutBonus: 0.15, sfx: "FireSpell",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 2.0, damage: "fire"}]},
 	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
 	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", tease: true, unarmed: false, rarity: 1, shop: true, sfx: "Freeze",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
@@ -44,6 +53,8 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
 	"MagicHammer": {name: "MagicHammer", dmg: 6, chance: 1.0, staminacost: 2.5, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
 		events: [{type: "Knockback", trigger: "playerAttack", dist: 1}]},
+	"IceBreaker": {name: "IceBreaker", dmg: 3.5, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "HeavySwing",
+		events: [{type: "MultiplyDamageFrozen", trigger: "beforeDamageEnemy", power: 1.5}]},
 	"Flail": {name: "Flail", dmg: 2.5, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
 	"MagicFlail": {name: "MagicFlail", dmg: 3, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "LightSwing",
@@ -56,6 +67,14 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
+	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
+	"StaffDoll": {name: "StaffDoll", dmg: 3.0, chance: 1.0, staminacost: 1.0, type: "souldrain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "Dollmaker", trigger: "afterDamageEnemy"}]},
+	"StaffFrostbite": {name: "StaffFrostbite", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 4, chance: 0.25}, {type: "AoEDamageFrozen", trigger: "tick", aoe: 10, power: 0.5, damage: "ice"}]},
+	"StaffPermafrost": {name: "StaffPermafrost", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 4, chance: 0.25}, {type: "MultiplyTime", trigger: "beforeDamageEnemy", power: 1.5, damage: "ice"}]},
 	"BoltCutters": {name: "BoltCutters", dmg: 3, staminacost: 1.0, chance: 1.0, type: "crush", unarmed: false, rarity: 3, shop: false, cutBonus: 0.3, sfx: "Unarmed"},
 	"Pickaxe": {name: "Pickaxe", dmg: 3, chance: 1.0, staminacost: 1, type: "pierce", unarmed: false, rarity: 3, shop: true, sfx: "LightSwing",
 		events: [{type: "ApplyBuff", trigger: "playerAttack", buff: {id: "ArmorDown", type: "Armor", duration: 6, power: -1.5, player: true, enemies: true, tags: ["debuff", "armor"]}}]},
@@ -230,7 +249,9 @@ function KinkyDungeonAggro(Enemy) {
 
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
-
+	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+		hitChance *= KDStealthyEvaMult;
+	}
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
@@ -272,8 +293,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		spell: Spell,
 		bullet: bullet,
 		attacker: attacker,
+		type: (Damage) ? Damage.type : 0,
+		time: (Damage) ? Damage.time : 0,
 		dmg: (Damage) ? Damage.damage : 0,
 		bind: (Damage) ? Damage.bind : 0,
+		flags: (Damage) ? Damage.flags : undefined,
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
 		incomingDamage: Damage,
 	};
@@ -287,30 +311,61 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	let dmgDealt = 0;
 	let sr = Enemy.Enemy.spellResist ? Enemy.Enemy.spellResist : 0;
 	let spellResist = KinkyDungeonMultiplicativeStat(sr) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "SpellResist"));
-	let armor = (Damage && Enemy.Enemy.armor && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) ? Enemy.Enemy.armor : 0;
+	let armor = (Damage && Enemy.Enemy.armor && KinkyDungeonMeleeDamageTypes.includes(predata.type)) ? Enemy.Enemy.armor : 0;
 	if (KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor")) armor += KinkyDungeonGetBuffedStat(Enemy.buffs, "Armor");
 
 	armor = Math.max(armor, Enemy.Enemy.armor < 0 ? Enemy.Enemy.armor : 0);
 
-	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(predata.type)) {
 		predata.dmg *= 2;
 	}
+	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+		predata.dmg *= KDStealthyDamageMult;
+	}
 
-	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(Damage.type)));
+	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type)));
 	if (Damage && !miss) {
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp"));
+		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && !Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
+			predata.dmg *= KDPacifistReduction;
+		}
+		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (predata.type != "glue" || predata.type != "chain")) {
+			predata.dmg *= KDRiggerDmgBoost;
+		}
+		let boundPowerLevel = 0;
+		if (KinkyDungeonStatsChoice.get("BoundPower") && !Enemy.Enemy.allied) {
+			for (let inv of KinkyDungeonAllRestraint()) {
+				switch (inv.restraint.Group) {
+					case "ItemArms": boundPowerLevel += 0.2; break;
+					case "ItemLegs": boundPowerLevel += 0.08; break;
+					case "ItemFeet": boundPowerLevel += 0.08; break;
+					case "ItemBoots": boundPowerLevel += 0.04; break;
+					case "ItemMouth": boundPowerLevel += 0.05; break;
+					case "ItemMouth2": boundPowerLevel += 0.05; break;
+					case "ItemMouth3": boundPowerLevel += 0.1; break;
+					case "ItemHead": boundPowerLevel += 0.1; break;
+					case "ItemHands": boundPowerLevel += 0.1; break;
+					case "ItemPelvis": boundPowerLevel += 0.05; break;
+					case "ItemTorso": boundPowerLevel += 0.05; break;
+					case "ItemBreast": boundPowerLevel += 0.05; break;
+					case "ItemNeck": boundPowerLevel += 0.05; break;
+				}
+			}
+			if (boundPowerLevel > 1) boundPowerLevel = 1;
+		}
+
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
-		let buffType = Damage.type + "DamageBuff";
+		let buffType = predata.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
 
-		if (Damage.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
+		if (predata.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
 			predata.dmg *= 2;
 		}
 		if (damageAmp) predata.dmg *= damageAmp;
 
-		let time = Damage.time ? Damage.time : 0;
-		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) {
+		let time = predata.time ? predata.time : 0;
+		if (spellResist && !KinkyDungeonMeleeDamageTypes.includes(predata.type)) {
 			if (time)
 				time = Math.max(0, Math.ceil(time * spellResist));
 			predata.dmg = Math.max(0, predata.dmg * spellResist);
@@ -318,10 +373,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 
 		if (Enemy.Enemy.tags) {
-			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "severeweakness")) resistDamage = -2;
-			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "weakness")) resistDamage = -1;
-			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "immune")) resistDamage = 2;
-			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, Damage.type, "resist")) resistDamage = 1;
+			if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, predata.type, "severeweakness")) resistDamage = -2;
+			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, predata.type, "weakness")) resistDamage = -1;
+			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, predata.type, "immune")) resistDamage = 2;
+			else if (KinkyDungeonGetImmunity(Enemy.Enemy.tags, predata.type, "resist")) resistDamage = 1;
 
 			if (Enemy.Enemy.tags.has("unstoppable")) resistStun = 2;
 			else if (Enemy.Enemy.tags.has("unflinching")) resistStun = 1;
@@ -330,8 +385,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		}
 
-		if (KinkyDungeonHalfDamageTypes.includes(Damage.type) && resistDamage >= 0) predata.dmg *= 0.5;
-		if (Enemy.boundLevel > 0 && (KinkyDungeonTeaseDamageTypes.includes(Damage.type) || Damage.tease)) {
+		if (KinkyDungeonHalfDamageTypes.includes(predata.type) && resistDamage >= 0) predata.dmg *= 0.5;
+		if (Enemy.boundLevel > 0 && (KinkyDungeonTeaseDamageTypes.includes(predata.type) || Damage.tease)) {
 			let eff = KDBoundEffects(Enemy);
 			let mult = 1.0;
 			if (eff > 0) {
@@ -340,7 +395,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (eff > 3) {
 				mult += 0.5;
 			}
-			if (KinkyDungeonHalfDamageTypes.includes(Damage.type)) {
+			if (KinkyDungeonHalfDamageTypes.includes(predata.type)) {
 				mult *= 2.0;
 			}
 			predata.dmg *= mult;
@@ -351,8 +406,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 
 		let forceKill = false;
-		if (Damage.type != "inert" && resistDamage < 2) {
-			if (resistDamage == 1 || (resistStun > 0 && Damage.type == "stun")) {
+
+		if (predata.type != "inert" && resistDamage < 2) {
+			if (resistDamage == 1 || (resistStun > 0 && predata.type == "stun")) {
 				dmgDealt = Math.max(predata.dmg - armor, 0); // Armor goes before resistance
 				dmgDealt = dmgDealt*0.5; // Enemies that are vulnerable take either dmg+0.5 or 1.5x damage, whichever is greater
 			} else if (resistDamage == -1) {
@@ -367,7 +423,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				dmgDealt = Math.max(predata.dmg - armor, 0);
 			}
 
-			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(Damage.type) || Damage.type == "fire")) {
+			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(predata.type) || predata.type == "fire")) {
 				Enemy.freeze = 0;
 			}
 
@@ -378,6 +434,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
 			}
 
+			KinkyDungeonSendEvent("duringDamageEnemy", predata);
+
 			if (Spell && Spell.hitsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Spell.hitsfx + ".ogg");
 			else if (dmgDealt > 0 && bullet) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/DealDamage.ogg");
 			if (Damage && Damage.damage)
@@ -387,28 +445,28 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (Enemy.hp > 0 && Enemy.hp <= 0.51 && dmgDealt > 2.01 && !forceKill) Enemy.hp = 0;
 			if (dmgDealt > 0) Enemy.revealed = true;
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "stun" || Damage.type == "electric")) { // Being immune to the damage stops the stun as well
+		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "stun" || predata.type == "electric")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.stun) Enemy.stun = 0;
 			if (resistStun == 1 || resistDamage == 1)
 				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.stun = Math.max(Enemy.stun, time);
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "ice")) { // Being immune to the damage stops the stun as well
+		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "ice")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.freeze) Enemy.freeze = 0;
 			if (resistDamage == 1 || resistStun == 1)
 				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(time/2), time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
 			else Enemy.freeze = Math.max(Enemy.freeze, time);
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (Damage.type == "chain" || Damage.type == "glue")) { // Being immune to the damage stops the bind
+		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "chain" || predata.type == "glue")) { // Being immune to the damage stops the bind
 			effect = true;
 			if (!Enemy.bind) Enemy.bind = 0;
 			if (resistDamage == 1 || resistStun == 1)
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
-		if ((predata.dmg || predata.bind) && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.bind || Damage.type == "chain" || Damage.type == "glue" || Damage.type == "magicbind")) {
+		if ((predata.dmg || predata.bind) && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.bind || predata.type == "chain" || predata.type == "glue" || predata.type == "magicbind")) {
 			effect = true;
 			if (!Enemy.boundLevel) Enemy.boundLevel = 0;
 			let efficiency = Damage.bindEff ? Damage.bindEff : 1.0;
@@ -430,7 +488,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
 			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.51;
 		}
-		if ((resistSlow < 2 && resistDamage < 2) && (Damage.type == "slow" || Damage.type == "cold" || Damage.type == "frost" || Damage.type == "poison")) { // Being immune to the damage stops the stun as well
+		if ((resistSlow < 2 && resistDamage < 2) && (predata.type == "slow" || predata.type == "cold" || predata.type == "frost" || predata.type == "poison")) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1 || resistDamage == 1)
@@ -438,6 +496,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			else Enemy.slow = Math.max(Enemy.slow, time);
 		}
 	}
+
+	KinkyDungeonSendEvent("afterDamageEnemy", predata);
 
 	let atkname = (Spell) ? TextGet("KinkyDungeonSpell" + Spell.name) : TextGet("KinkyDungeonBasicAttack");
 
@@ -449,7 +509,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (resistDamage == 2) mod = "Immune";
 	if (resistDamage == -1) mod = "Strong";
 	if (resistDamage == -2) mod = "VeryStrong";
-	if (Damage && !mod && spellResist < 1 && !KinkyDungeonMeleeDamageTypes.includes(Damage.type)) mod = "SpellResist";
+	if (Damage && !mod && spellResist < 1 && !KinkyDungeonMeleeDamageTypes.includes(predata.type)) mod = "SpellResist";
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
@@ -806,7 +866,7 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
-			KinkyDungeonEntities.push({summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
+			KinkyDungeonEntities.push({summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
 				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
 			created += 1;
 		} else C -= 1;

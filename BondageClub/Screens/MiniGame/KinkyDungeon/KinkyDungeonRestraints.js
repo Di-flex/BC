@@ -23,10 +23,13 @@ let KinkyDungeonItemDropChanceArmsBound = 0.2; // Chance to drop item with just 
 //let KinkyDungeonKnifeBreakChance = 0.15;
 let KinkyDungeonKeyJamChance = 0.33;
 let KinkyDungeonKeyPickBreakAmount = 12; // Number of tries per pick on average 5-11
+let KinkyDungeonKeyPickBreakAmountBase = 12; // Number of tries per pick on average 5-11
 let KinkyDungeonPickBreakProgress = 0;
 let KinkyDungeonKnifeBreakAmount = 10; // Number of tries per knife on average 6-12
+let KinkyDungeonKnifeBreakAmountBase = 10; // Number of tries per knife on average 6-12
 let KinkyDungeonKnifeBreakProgress = 0;
 let KinkyDungeonEnchKnifeBreakAmount = 24; // Number of tries per knife on average
+let KinkyDungeonEnchKnifeBreakAmountBase = 24; // Number of tries per knife on average
 let KinkyDungeonEnchKnifeBreakProgress = 0;
 
 let KinkyDungeonMaxImpossibleAttempts = 3; // base, more if the item is close to being impossible
@@ -42,6 +45,18 @@ let KDFlexibleBonus = 0.1;
 let KDFlexibleSpeedBonus = 1.5;
 let KDInflexibleBonus = -0.1;
 let KDInflexibleSpeedBonus = 0.75;
+
+let KDUnchainedBonus = 0.2;
+let KDDamselBonus = -0.2;
+let KDDamselPickAmount = 6;
+let KDArtistBonus = 0.2;
+let KDBunnyBonus = -0.2;
+let KDBunnyKnifeAmount = 5;
+let KDBunnyEnchKnifeAmount = 12;
+let KDSlipperyBonus = 0.2;
+let KDDollBonus = -0.2;
+let KDEscapeeBonus = 0.2;
+let KDDragonBonus = -0.2;
 
 let KDStrongBonus = 0.2;
 let KDWeakBonus = -0.15;
@@ -546,6 +561,37 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (KinkyDungeonStatsChoice.get("Strong")) escapeChance += KDStrongBonus;
 		if (KinkyDungeonStatsChoice.get("Weak")) escapeChance += KDWeakBonus;
 	}
+	if (KinkyDungeonStatsChoice.get("Unchained") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal"))
+		escapeChance += KDUnchainedBonus;
+	if (KinkyDungeonStatsChoice.get("Damsel") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal")) {
+		escapeChance += KDDamselBonus;
+		KinkyDungeonKeyPickBreakAmount = KDDamselPickAmount;
+	} else KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
+
+	if (KinkyDungeonStatsChoice.get("FreeSpirit") && (restraint.restraint.chastity || restraint.restraint.chastitybra)) escapeChance += 0.5;
+	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
+		escapeChance += KDArtistBonus;
+	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
+		KinkyDungeonKnifeBreakAmount = KDBunnyKnifeAmount;
+		KinkyDungeonEnchKnifeBreakAmount = KDBunnyEnchKnifeAmount;
+		escapeChance += KDBunnyBonus;
+	} else {
+		KinkyDungeonKnifeBreakAmount = KinkyDungeonKnifeBreakAmountBase;
+		KinkyDungeonEnchKnifeBreakAmount = KinkyDungeonEnchKnifeBreakAmountBase;
+	}
+
+	if (KinkyDungeonStatsChoice.get("Slippery") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDSlipperyBonus;
+	else if (KinkyDungeonStatsChoice.get("Doll") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDDollBonus;
+
+	if (KinkyDungeonStatsChoice.get("Escapee") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDEscapeeBonus;
+	else if (KinkyDungeonStatsChoice.get("Dragon") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDDragonBonus;
+
+
+
 
 	let increasedAttempts = false;
 
@@ -594,6 +640,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (restraint.attempts < KinkyDungeonMaxImpossibleAttempts) {
 			increasedAttempts = true;
 			restraint.attempts += 0.5;
+			if (StruggleType == "Struggle") restraint.attempts += 0.5;
 			if (escapeChance <= -0.5) restraint.attempts += 0.5;
 		} else {
 			let typesuff = "";
@@ -697,10 +744,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let bra = null;
 
 	if (struggleGroup.group != "ItemVulva" || struggleGroup.group != "ItemVulvaPiercings" || struggleGroup.group != "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
-	if (belt && belt.chastity) escapeChance = 0.0;
+	if (belt && belt.restraint && belt.restraint.chastity) escapeChance = 0.0;
 
 	if (struggleGroup.group != "ItemNipples" || struggleGroup.group != "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
-	if (bra && bra.chastity) escapeChance = 0.0;
+	if (bra && bra.restraint && bra.restraint.chastity) escapeChance = 0.0;
 
 	if (escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
@@ -1089,6 +1136,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 				}
 		}
 	}
+	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
 	return playerTags;
 }
 
@@ -1133,13 +1181,16 @@ function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink
 }
 
 function KinkyDungeonGenerateRestraintTrap() {
-	return "TickleTerror";
+	let enemy = KinkyDungeonGetEnemy(["chestTrap"], MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, '0', ["chestTrap"]);
+	if (enemy) return enemy.name;
+	return "GreedyGhast";
 }
 
 function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep, Trapped) {
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
+	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {
@@ -1307,7 +1358,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					}
 				}
 
-				if (item.restraint.inventory && (Keep || item.restraint.enchanted) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
+				if (item.restraint.inventory && (Keep || item.restraint.enchanted || item.restraint.alwaysKeep) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
 					if (item.restraint.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(item.restraint.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))

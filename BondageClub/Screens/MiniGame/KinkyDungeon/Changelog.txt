@@ -719,6 +719,22 @@ Spell Balance:
 - You can now become a champion of a goddess in order to gain rep and mana by capturing humanoid enemies.
 - A new terrifying sight awaits those who escape from the dungeon's traps...
 
+2.9
+- Added barrels you can hide in! They slow you when you exit, however, and make it harder to attack out of...
+- The ghost now helps with potions and items while bound
+- New enemies: Cloud of Scarves/Cloud of Feathers/Cloud of Ribbons
+- Made the map have more interconnectivity
+- Added potion collars to the shop
+- The item shop has been reworked. It now gives much more information at a glance! Happy hunting!
+- New enemy: Toad
+- Pickpocketing does not happen while being leashed
+- Added a bola and a bomb to the shop
+- Added many new perks, some of which are game-changing, others which are good for reducing or increasing certain restraint types
+- New weapons: Flamberge, Staff of Frostbite, Staff of Permafrost
+- New restraint item you can buy from the shop: Slime Walkers, allowing you to walk on slime
+- New weapon: IceBreaker, Staff of Storms, Dollmaker's Staff
+- New set pieces have been added for some map variety
+- You no longer need arms for drinking potions and using items if you have the Psychic trait
 
 TODO ValidationFindBlockCycles to prevent bugs
 

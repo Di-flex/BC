@@ -10,6 +10,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
+	else if (code == "L") sprite = "Barrel";
 	else if (code == "D") {
 		sprite = "Door";
 		if (Fog) {
@@ -206,7 +207,7 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
 
-				if (KinkyDungeonMovePoints < 0) {
+				if (KinkyDungeonMovePoints < 0 || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
@@ -615,7 +616,7 @@ function KinkyDungeonDrawMessages(NoLog) {
 		}
 	} else {
 		let extra = 200;
-		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000");
+		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000aa");
 		let Dist = 50;
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
 			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];

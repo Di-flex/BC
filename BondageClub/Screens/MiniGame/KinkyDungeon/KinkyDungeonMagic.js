@@ -80,7 +80,7 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
-	if (KinkyDungeonDifficultyMode == 2) {
+	if (KinkyDungeonDifficultyMode == 2 || KinkyDungeonDifficultyMode == 3) {
 		KinkyDungeonSpellPoints = 0;
 		KinkyDungeonSpells.push({name: "SpellChoiceUp1", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
 		KinkyDungeonSpells.push({name: "SpellChoiceUp2", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:5, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
@@ -165,13 +165,22 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (roped)
 				effect = true;
 		} else if (playerEffect.name == "SlimeTrap") {
-			effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
-			KinkyDungeonMovePoints = -1;
-			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
+			let slimeWalker = false;
+			for (let inv of KinkyDungeonAllRestraint()) {
+				if (inv.restraint && inv.restraint.slimeWalk) {
+					slimeWalker = true;
+					break;
+				}
+			}
+			if (!slimeWalker) {
+				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
+				KinkyDungeonMovePoints = -1;
+				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
 
-			if (spell.power > 0) {
-				effect = true;
-				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+				if (spell.power > 0) {
+					effect = true;
+					KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+				}
 			}
 		} else if (playerEffect.name == "Shock") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
@@ -579,7 +588,11 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 }
 
 function KinkyDungeonHandleSpellCast(spell) {
-	if (KinkyDungeoCheckComponents(spell).length == 0) {
+	if (KinkyDungeoCheckComponents(spell).length == 0 || (
+		(KinkyDungeonStatsChoice.get("Slayer") && spell.school == "Elements")
+		|| (KinkyDungeonStatsChoice.get("Conjurer") && spell.school == "Conjure")
+		|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion")
+	)) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
 			&& (!spell.knifecost || KinkyDungeonNormalBlades >= spell.knifecost)
 			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
@@ -640,6 +653,9 @@ function KinkyDungeonGetManaCost(Spell) {
 	if (costscale) cost = Math.floor(cost * costscale);
 	if (costscale > 0) cost = Math.max(Spell.manacost, cost); // Keep it from rounding to 0
 	if (lvlcostscale && Spell.level && Spell.manacost) cost += Spell.level * lvlcostscale;
+	if (KinkyDungeonStatsChoice.get("Slayer") && Spell.school == "Elements" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
+	if (KinkyDungeonStatsChoice.get("Conjurer") && Spell.school == "Conjure" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
+	if (KinkyDungeonStatsChoice.get("Magician") && Spell.school == "Illusion" && KinkyDungeoCheckComponents(Spell).length > 0) cost *= 2;
 	return cost;
 }
 
@@ -826,6 +842,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player
+		if (KinkyDungeonTargetingSpellItem) {
+			KinkyDungeonChangeConsumable(KinkyDungeonTargetingSpellItem, -(KinkyDungeonTargetingSpellItem.useQuantity ? KinkyDungeonTargetingSpellItem.useQuantity : 1));
+			KinkyDungeonTargetingSpellItem = null;
+		}
+
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 
 		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});

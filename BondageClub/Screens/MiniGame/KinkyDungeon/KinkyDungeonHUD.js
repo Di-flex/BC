@@ -380,7 +380,7 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 }
 
 let KDModalArea_x = 600;
-let KDModalArea_y = 800;
+let KDModalArea_y = 700;
 let KDModalArea_width = 800;
 let KDModalArea_height = 100;
 let KDModalArea = true;
@@ -732,8 +732,8 @@ function KinkyDungeonUpdateStruggleGroups() {
 					icon:sg,
 					name:(restraint.restraint) ? restraint.restraint.name : "",
 					lock:restraint.lock,
-					magic:restraint.restraint? restraint.restraint.magic : undefined,
-					noCut:restraint.escapeChance && !restraint.escapeChance.Cut,
+					magic:restraint.restraint ? restraint.restraint.magic : undefined,
+					noCut:restraint.restraint && restraint.restraint.escapeChance && !restraint.restraint.escapeChance.Cut,
 					curse:restraint.restraint? restraint.restraint.curse : undefined,
 					blocked: InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});
 		}

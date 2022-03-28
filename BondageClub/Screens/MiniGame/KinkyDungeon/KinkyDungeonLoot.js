@@ -47,6 +47,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 				let maxlevel = 999;
 				let minlevel = 0;
 				let SpellList = null;
+				if (prereqs && loot.prerequisites.includes("vibe") && KinkyDungeonPlayerTags.has("NoVibes")) prereqs = false;
 				if (prereqs && loot.prerequisites.includes("alreadyBelted") && KinkyDungeonChastityMult() < 0.9) prereqs = false;
 				if (prereqs && loot.prerequisites.includes("lowlevel")) maxlevel = 2;
 				if (prereqs && loot.prerequisites.includes("fewknife") && KinkyDungeonNormalBlades > 3) prereqs = false;
@@ -223,6 +224,10 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonBlueKeys += 1;
 	} else if (Loot.name == "grinder") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.EnchantedGrinder, 1);
+	} else if (Loot.name == "bola") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bola, 2);
+	} else if (Loot.name == "bomb") {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Bomb, 1);
 	} else if (Loot.name == "MistressKey") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.MistressKey, 1);
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 3);
@@ -304,6 +309,10 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonInventoryAddWeapon("StaffBind");
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItemStaffBind"));
+	} else if (Loot.weapon) {
+		KinkyDungeonInventoryAddWeapon(Loot.weapon);
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("WeaponAcquired", TextGet("KinkyDungeonInventoryItem" + Loot.weapon));
 	} else if (Loot.name == "potions_mana") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 2+Math.floor(KDRandom()*2));
 	} else if (Loot.name == "potions_many") {
