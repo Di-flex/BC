@@ -101,7 +101,10 @@ let KinkyDungeonHasCrotchRope = false;
 let KinkyDungeonTorsoGrabChance = 0.4;
 let KinkyDungeonWeaponGrabChance = 1.0;
 
-// Your inventory contains items that are on you
+/**
+ * Your inventory contains items that are on you
+ * @type {Map<string, Map<string, item>>}
+ */
 let KinkyDungeonInventory = new Map();
 function KDInitInventory() {
 	KinkyDungeonInventory = new Map();
