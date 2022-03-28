@@ -308,6 +308,7 @@ LootChestTrapMagicPlug,"You find gold, plus a filling and tormenting magical tra
 LootChestTrapMagicNipple,"You find gold, plus a devious magical trap! (+RestraintType) (+XXX gold)"
 LootPotionCollar,"You find a special collar that lets you absorb energy from potions."
 LootSlimeWalkers,"You find a pair of garish pink high heels with a slippery surface."
+LootPearlChest,The pearly chest contains a divine gift! (+ITEMGET)
 
 LootCacheLostItems,"You recover some of your lost items!"
 
@@ -3193,6 +3194,7 @@ KinkyDungeonRepNameAngered,"Angered"
 KinkyDungeonRepNameEnraged,"Enraged"
 KinkyDungeonRepNameCursed,"Cursed"
 KinkyDungeonRepNamePleased,"Pleased"
+KinkyDungeonRepNameBlessed,"Blessed"
 KinkyDungeonRepNameThankful,"Thankful"
 
 KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
