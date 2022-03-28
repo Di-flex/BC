@@ -438,9 +438,11 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 
 function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
-	if (KDGameData.Champion && !enemy.summoned) {
-		KinkyDungeonChangeRep(KDGameData.Champion, 1);
-		KinkyDungeonChangeMana(2);
+	if (KDGameData.Champion) {
+		if (!enemy.summoned) {
+			KinkyDungeonChangeRep(KDGameData.Champion, 1);
+			KinkyDungeonChangeMana(2);
+		}
 		msg = "KinkyDungeonCaptureGoddess";
 	}
 	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
