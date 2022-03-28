@@ -1273,6 +1273,7 @@ function KinkyDungeonLoadGame(String) {
 					if (type == Consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
 					if (type == Weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
 					Object.assign(inv, item);
+					// @ts-ignore
 					KinkyDungeonInventory.get(KDInventoryType(inv)).set(KDInventoryName(item), inv);
 				}
 			}
