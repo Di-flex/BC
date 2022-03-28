@@ -114,16 +114,16 @@ function KinkyDungeonHandleInventory() {
 
 function KinkyDungeonInventoryAddWeapon(Name) {
 	if (!KinkyDungeonInventoryGet(Name) && KinkyDungeonWeapons[Name])
-		KinkyDungeonInventoryAdd({weapon: KinkyDungeonWeapons[Name], events: KinkyDungeonWeapons[Name].events});
+		KinkyDungeonInventoryAdd({name:Name, type:Weapon});
 }
 
+/**
+ *
+ * @param item {item}
+ * @return {string}
+ */
 function KDInventoryType(item) {
-	if (item.restraint) return Restraint;
-	if (item.looserestraint) return LooseRestraint;
-	if (item.consumable) return Consumable;
-	if (item.weapon) return Weapon;
-	if (item.outfit) return Outfit;
-	return Misc;
+	return item.type;
 }
 
 function KDInventoryName(item) {
@@ -153,6 +153,10 @@ function KinkyDungeonInventoryLength() {
 	return size;
 }
 
+/**
+ *
+ * @param item {item}
+ */
 function KinkyDungeonInventoryAdd(item) {
 	let type = KDInventoryType(item);
 	if (KinkyDungeonInventory.has(type)) {
@@ -189,6 +193,10 @@ function KinkyDungeonInventoryGetOutfit(Name) {
 	return KinkyDungeonInventory.get(Outfit).get(Name);
 }
 
+/**
+ * Returns iterator to restraints
+ * @return {IterableIterator<item>|*[]}
+ */
 function KinkyDungeonAllRestraint() {
 	return KinkyDungeonInventory.get(Restraint) ? KinkyDungeonInventory.get(Restraint).values() : [];
 }

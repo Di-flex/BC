@@ -1225,6 +1225,17 @@ function KinkyDungeonIsLinkable(oldRestraint, newRestraint) {
 let KinkyDungeonRestraintAdded = false;
 let KinkyDungeonCancelFlag = false;
 
+/**
+ * ToDo: migrate to new standard
+ * @param restraint {string}
+ * @param Tightness
+ * @param Bypass
+ * @param Lock
+ * @param Keep
+ * @param Link
+ * @param SwitchItems
+ * @return {number}
+ */
 function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems) {
 	let start = performance.now();
 	let tight = (Tightness) ? Tightness : 0;
@@ -1302,7 +1313,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					if (placedOnPlayer)
 						CharacterAppearanceSetColorForGroup(Player, restraint.Color, AssetGroup);
 				}
-				let item = {restraint: restraint, tightness: tight, lock: "", events: restraint.events};
+				let item = {name: restraint.name, type: Restraint, tightness: tight, lock: ""};
 				KinkyDungeonInventoryAdd(item);
 
 				if (Lock) KinkyDungeonLock(item, Lock);
@@ -1337,8 +1348,9 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 }
 
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
-	for (let item of KinkyDungeonAllRestraint()) {
-		let AssetGroup = item && item.restraint && item.restraint.AssetGroup ? item.restraint.AssetGroup : Group;
+	for (let i of KinkyDungeonAllRestraint()) {
+		const item = KinkyDungeonRestraintsCache.get(i.name);
+		let AssetGroup = item && item.AssetGroup ? item.AssetGroup : Group;
 		if ((item.restraint && item.restraint.Group == Group)) {
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
@@ -1362,8 +1374,8 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					if (item.restraint.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(item.restraint.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
-							KinkyDungeonInventoryAdd({looserestraint: origRestraint, events: origRestraint.looseevents});
-					} else KinkyDungeonInventoryAdd({looserestraint: item.restraint, events: item.restraint.looseevents});
+							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint});
+					} else KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint});
 				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);

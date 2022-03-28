@@ -87,7 +87,7 @@ function KinkyDungeonChangeConsumable(consumable, Quantity) {
 	}
 
 	if (Quantity >= 0) {
-		KinkyDungeonInventoryAdd({name: consumable.name, type: Consumable, quantity: Quantity, events: Consumable.events});
+		KinkyDungeonInventoryAdd({name: consumable.name, type: Consumable, quantity: Quantity});
 	}
 
 	return false;

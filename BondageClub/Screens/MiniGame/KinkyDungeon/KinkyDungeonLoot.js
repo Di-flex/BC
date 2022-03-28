@@ -177,6 +177,86 @@ As for why there are so many restraints in general rather than your typical sort
 
 function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 	let value = 0;
+
+	function KDLostItemsEvent() {
+		if (!KinkyDungeonInventoryGet("OutfitDefault")) {
+			KinkyDungeonInventoryAdd({name: "OutfitDefault", type: Outfit});
+		}
+		for (let I = 0; I < KinkyDungeonLostItems.length; I++) {
+			let lostitem = KinkyDungeonLostItems[I];
+			if (lostitem) {
+				let itemType = "";
+				if (lostitem.weapon) itemType = "weapon";
+				else if (lostitem.looserestraint) itemType = "looserestraint";
+				else if (lostitem.consumable) itemType = "consumable";
+				else if (lostitem.outfit) itemType = "outfit";
+				let remove = false;
+				if (lostitem[itemType]) {
+					let existingitem = KinkyDungeonGetInventoryItem(lostitem[itemType].name, itemType);
+					if (existingitem && existingitem.item) {
+						if (existingitem.item.consumable) {
+							if (lostitem.consumable.name != "MistressKey") {
+								if (!existingitem.item.quantity) existingitem.item.quantity = lostitem.quantity;
+								else existingitem.item.quantity += lostitem.quantity;
+								KinkyDungeonSendFloater({
+										x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(),
+										y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()
+									},
+									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
+							} else
+								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
+						}
+					} else {
+						if (lostitem.consumable) {
+							if (lostitem.consumable.name != "MistressKey")
+								KinkyDungeonSendFloater({
+										x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(),
+										y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()
+									},
+									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 4);
+							else
+								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
+							remove = true;
+						}
+						if (lostitem.weapon) {
+							KinkyDungeonSendFloater({
+									x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(),
+									y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()
+								},
+								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 6);
+							remove = true;
+						} else if (lostitem.outfit) {
+							KinkyDungeonSendFloater({
+									x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(),
+									y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()
+								},
+								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 7);
+							remove = true;
+						} else if (lostitem.looserestraint) {
+							KinkyDungeonSendFloater({
+									x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(),
+									y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()
+								},
+								`+ (loose) ${TextGet("Restraint" + lostitem[itemType].name)}`, "white", 5);
+							remove = true;
+						}
+					}
+					if (remove) {
+						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey") {
+							//if (lostitem.looserestraint && lostitem.looserestraint.enchanted) {
+							//KinkyDungeonInventory.unshift(lostitem);
+							//} else
+							KinkyDungeonInventoryAdd(lostitem);
+						}
+						//KinkyDungeonLostItems.splice(I, 1);
+						//I -= 1;
+					}
+				}
+			}
+		}
+		KinkyDungeonLostItems = [];
+	}
+
 	if (Loot.name == "spell_points") {
 		let amount = 1;
 		KinkyDungeonSpellPoints += amount;
@@ -251,44 +331,34 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 	} else if (Loot.name == "AncientCores") {
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 4);
 	} else if (Loot.name == "EnchantedBelt") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedBelt");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedBelt",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBra") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedBra");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedBra",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedHeels") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedHeels");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedHeels",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedAnkleCuffs") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedAnkleCuffs",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMuzzle") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedMuzzle");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedMuzzle",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBlindfold") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedBlindfold");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedBlindfold",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedMittens") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedMittens");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedMittens",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedBallGag") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedBallGag");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedBallGag",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "EnchantedArmbinder") {
-		let restraint = KinkyDungeonGetRestraintByName("EnchantedArmbinder");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "EnchantedArmbinder",type: LooseRestraint});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	} else if (Loot.name == "potioncollar") {
-		let restraint = KinkyDungeonGetRestraintByName("PotionCollar");
-		KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+		KinkyDungeonInventoryAdd({name: "potioncollar",type: LooseRestraint});
 	} else if (Loot.name == "weapon_boltcutters") {
 		KinkyDungeonInventoryAddWeapon("BoltCutters");
 		if (Replacemsg)
@@ -453,66 +523,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 	}
 
 	else if (Loot.name == "lost_items") {
-		if (!KinkyDungeonInventoryGet("OutfitDefault")) {
-			KinkyDungeonInventoryAdd({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
-		}
-		for (let I = 0; I < KinkyDungeonLostItems.length; I++) {
-			let lostitem = KinkyDungeonLostItems[I];
-			if (lostitem) {
-				let itemType = "";
-				if (lostitem.weapon) itemType = "weapon";
-				else if (lostitem.looserestraint) itemType = "looserestraint";
-				else if (lostitem.consumable) itemType = "consumable";
-				else if (lostitem.outfit) itemType = "outfit";
-				let remove = false;
-				if (lostitem[itemType]) {
-					let existingitem = KinkyDungeonGetInventoryItem(lostitem[itemType].name, itemType);
-					if (existingitem && existingitem.item) {
-						if (existingitem.item.consumable) {
-							if (lostitem.consumable.name != "MistressKey") {
-								if (!existingitem.item.quantity) existingitem.item.quantity = lostitem.quantity;
-								else existingitem.item.quantity += lostitem.quantity;
-								KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()},
-									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 5);
-							} else
-								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
-						}
-					} else {
-						if (lostitem.consumable) {
-							if (lostitem.consumable.name != "MistressKey")
-								KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()},
-									`+${lostitem.quantity} ${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 4);
-							else
-								KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMistressKeysTakenAway"), "orange", 2);
-							remove = true;
-						} if (lostitem.weapon) {
-							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()},
-								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 6);
-							remove = true;
-						} else if (lostitem.outfit) {
-							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()},
-								`+${TextGet("KinkyDungeonInventoryItem" + lostitem[itemType].name)}`, "white", 7);
-							remove = true;
-						} else if (lostitem.looserestraint) {
-							KinkyDungeonSendFloater({x: KinkyDungeonPlayerEntity.x - 1 + 2 * KDRandom(), y: KinkyDungeonPlayerEntity.y - 1 + 2 * KDRandom()},
-								`+ (loose) ${TextGet("Restraint" + lostitem[itemType].name)}`, "white", 5);
-							remove = true;
-						}
-					}
-					if (remove) {
-						if (!lostitem.consumable || lostitem.consumable.name != "MistressKey") {
-							//if (lostitem.looserestraint && lostitem.looserestraint.enchanted) {
-							//KinkyDungeonInventory.unshift(lostitem);
-							//} else
-							KinkyDungeonInventoryAdd(lostitem);
-						}
-						//KinkyDungeonLostItems.splice(I, 1);
-						//I -= 1;
-					}
-				}
-			}
-		}
-		KinkyDungeonLostItems = [];
+		KDLostItemsEvent();
 	}
 
 	if (value > 0) {
