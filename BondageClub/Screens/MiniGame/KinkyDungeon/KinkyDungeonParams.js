@@ -23,6 +23,14 @@ let KinkyDungeonMapParams = [
 		"forbiddenChance" : 0.7, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
+		"setpieces": [
+			{Type: "Bedroom", Weight: 3},
+			{Type: "Graveyard", Weight: 9},
+			{Type: "Altar", Weight: 6},
+			{Type: "QuadCell", Weight: 4},
+			{Type: "Storage", Weight: 7},
+		],
+
 		"shortcuts": [
 			{Level: 1, checkpoint: 11, chance: 1.0},
 			{Level: 3, checkpoint: 11, chance: 1.0},
@@ -77,6 +85,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Rope", Weight: 2},
 			{Type: "Will", Weight: 7},]
 
+
 	},
 
 	{// DungeonName1,-Catacombs-
@@ -100,6 +109,13 @@ let KinkyDungeonMapParams = [
 		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
+
+		"setpieces": [
+			{Type: "Bedroom", Weight: 2},
+			{Type: "Altar", Weight: 3},
+			{Type: "QuadCell", Weight: 10},
+			{Type: "Storage", Weight: 7},
+		],
 
 		"shortcuts": [
 			{Level: 6, checkpoint: 12, chance: 0.5},
@@ -259,6 +275,11 @@ let KinkyDungeonMapParams = [
 		"cacheInterval" : 1,
 		"forbiddenChance" : 0.8,
 		"forbiddenGreaterChance" : 0.4,
+
+		"setpieces": [
+			{Type: "Bedroom", Weight: 1},
+			{Type: "Altar", Weight: 6},
+		],
 
 		"shortcuts": [
 
@@ -535,6 +556,11 @@ let KinkyDungeonMapParams = [
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
 
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 7},
+		],
+
 		"shortcuts": [
 			{Level: 4, checkpoint: 13, chance: 1.0},
 		],
@@ -689,6 +715,11 @@ let KinkyDungeonMapParams = [
 		// Side routes have more high-value loot
 		"forbiddenChance" : 1.0,
 		"forbiddenGreaterChance" : 0.45,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "Storage", Weight: 2},
+		],
 
 		"shortcuts": [
 			{Level: 14, checkpoint: 2, chance: 0.33},
