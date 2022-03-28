@@ -183,7 +183,7 @@ function KinkyDungeonDefaultStats() {
 
 	KinkyDungeonMovePoints = 0;
 	KDInitInventory();
-	KinkyDungeonInventoryAdd({outfit: KinkyDungeonGetOutfit("OutfitDefault")});
+	KinkyDungeonInventoryAdd({name: "OutfitDefault", type: Outfit});
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
