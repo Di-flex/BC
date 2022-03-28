@@ -293,7 +293,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 			KDGameData.KinkyDungeonGuardTimer = Math.max(KDGameData.KinkyDungeonGuardTimer, 2);
 			let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard().CurrentRestraintSwapGroup);
 			if (KDGameData.GuardApplyTime > applyTime) {
-				if (oldRestraintItem && oldRestraintItem.restraint && !oldRestraintItem.noJailRemove) {
+				if (oldRestraintItem && oldRestraintItem.restraint && !oldRestraintItem.restraint.noJailRemove) {
 					KinkyDungeonRemoveRestraint(oldRestraintItem.restraint.Group, false, false, false);
 					let msg = TextGet("KinkyDungeonRemoveRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					//let msg = TextGet("Attack" + KinkyDungeonJailGuard().Enemy.name + "RemoveRestraints");

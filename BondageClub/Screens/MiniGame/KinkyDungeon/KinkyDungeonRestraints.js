@@ -744,10 +744,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let bra = null;
 
 	if (struggleGroup.group != "ItemVulva" || struggleGroup.group != "ItemVulvaPiercings" || struggleGroup.group != "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
-	if (belt && belt.chastity) escapeChance = 0.0;
+	if (belt && belt.restraint && belt.restraint.chastity) escapeChance = 0.0;
 
 	if (struggleGroup.group != "ItemNipples" || struggleGroup.group != "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
-	if (bra && bra.chastity) escapeChance = 0.0;
+	if (bra && bra.restraint && bra.restraint.chastity) escapeChance = 0.0;
 
 	if (escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
