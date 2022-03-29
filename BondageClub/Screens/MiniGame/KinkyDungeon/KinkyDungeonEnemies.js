@@ -436,14 +436,17 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	}
 }
 
+let KDChampionMax = 25;
+
 function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
 	if (KDGameData.Champion) {
-		if (!enemy.summoned) {
+		if (KDGameData.ChampionCurrent < KDChampionMax) {
 			KinkyDungeonChangeRep(KDGameData.Champion, 1);
 			KinkyDungeonChangeMana(2);
-		}
-		msg = "KinkyDungeonCaptureGoddess";
+			msg = "KinkyDungeonCaptureGoddess";
+			KDGameData.ChampionCurrent += 1;
+		} else msg = "KinkyDungeonCaptureMax";
 	}
 	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
 		KinkyDungeonSendTextMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);

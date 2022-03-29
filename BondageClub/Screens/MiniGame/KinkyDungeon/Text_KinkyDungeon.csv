@@ -3459,6 +3459,7 @@ KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
 KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
+KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit for rewards this floor."
 
 KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!
 

@@ -244,6 +244,7 @@ function KinkyDungeonInitialize(Level, Random) {
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
+	KDGameData.ChampionCurrent = 0;
 	KinkyDungeonAid = {};
 	KDGameData.KinkyDungeonPenance = false;
 	KDRestraintsCache = new Map();
