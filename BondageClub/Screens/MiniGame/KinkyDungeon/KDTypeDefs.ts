@@ -103,6 +103,7 @@ interface KinkyDungeonWeapon {
 	noequip?: boolean;
 	sfx: string;
 	events?: KinkyDungeonEvent[];
+    noHands?: boolean;
 }
 
 interface KinkyDungeonEvent {

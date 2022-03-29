@@ -302,7 +302,8 @@ let KinkyDungeonEnemies = [
 			{enemy: "WolfgirlPet", range: 2, count: 1, chance: 0.7, strict: true},],
 		spells: ["RestrainingDevice"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, AI: "hunt", visionRadius: 10, maxhp: 22, minLevel:5, weight:-6, movePoints: 2, disarm: 0.5,
 		attackPoints: 3, attack: "MeleeBindLockAllWillSpell", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 4, dmgType: "grope", sneakThreshold: 1,
-		terrainTags: {"secondhalf":3, "lastthird":5, "miniboss": -10, "metalAnger": 9, "metalRage": 5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Metal"], dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "RedKey", weight: 9}]},
+		terrainTags: {"secondhalf":3, "lastthird":5, "miniboss": -10, "metalAnger": 9, "metalRage": 5}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Metal"],
+		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "EscortDrone", weight: 0.25, ignoreInInventory: true}, {name: "RedKey", weight: 9}]},
 
 	{name: "Miner", clusterWith: "human", bound: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "human", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["MinerBomb"], spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,

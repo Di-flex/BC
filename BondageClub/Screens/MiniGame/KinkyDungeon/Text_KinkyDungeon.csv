@@ -505,6 +505,9 @@ KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash
 KinkyDungeonInventoryItemFlamberge,Flamberge
 KinkyDungeonInventoryItemFlambergeDesc,"A blade forged in a magical fire."
 KinkyDungeonInventoryItemFlambergeDesc2,"Deals 20 bonus fire damage on hit."
+KinkyDungeonInventoryItemEscortDrone,Escort Drone
+KinkyDungeonInventoryItemEscortDroneDesc,"A semi-autonomous drone with a personal defense beam. Does not require hands to equip."
+KinkyDungeonInventoryItemEscortDroneDesc2,"Deals electric damage. 33% chance to stun for 4 turns."
 KinkyDungeonInventoryItemVibeWand,Magic Wand
 KinkyDungeonInventoryItemVibeWandDesc,"Its powers extend beyond the traditional schools of magic."
 KinkyDungeonInventoryItemVibeWandDesc2,"Deals charm damage (50% effectiveness vs. most enemies). 50% chance to stun the target for 1 turn."
@@ -2379,6 +2382,7 @@ ItemPickupHammer,"You pick up a heavy hammer."
 ItemPickupBoltCutters,"You pick up a set of bolt cutters."
 ItemPickupSword,"You pick up a sharp sword."
 ItemPickupFlamberge,"You pick up a flamberge."
+ItemPickupEscortDrone,"You recover your escort drone."
 ItemPickupVibeWand,"You pick up a 'magic' wand..."
 ItemPickupIceCube,"You pick up a magical ice cube."
 ItemPickupRope,"You find some treated hemp rope."
