@@ -67,7 +67,7 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
-	"EscortDrone": {name: "EscortDrone", dmg: 2.5, chance: 1.0, staminacost: 0.8, type: "electric", noHands: true, unarmed: false, rarity: 10, shop: false, sfx: "Laser",
+	"EscortDrone": {name: "EscortDrone", dmg: 2.5, chance: 1.0, staminacost: 0.8, type: "electric", noHands: true, unarmed: false, magic: true, rarity: 10, shop: false, sfx: "Laser",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, chance: 0.33, damage: "electric", time: 4}]},
 	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
