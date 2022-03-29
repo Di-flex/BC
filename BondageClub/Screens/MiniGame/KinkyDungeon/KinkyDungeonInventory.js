@@ -114,7 +114,7 @@ function KinkyDungeonHandleInventory() {
 
 function KinkyDungeonInventoryAddWeapon(Name) {
 	if (!KinkyDungeonInventoryGet(Name) && KinkyDungeonWeapons[Name])
-		KinkyDungeonInventoryAdd({name:Name, type:Weapon});
+		KinkyDungeonInventoryAdd({name:Name, type:Weapon, events: KinkyDungeonWeapons[Name].events});
 }
 
 /**

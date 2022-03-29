@@ -1227,7 +1227,7 @@ let KinkyDungeonCancelFlag = false;
 
 /**
  * ToDo: migrate to new standard
- * @param restraint {string}
+ * @param restraint {Object}
  * @param Tightness
  * @param Bypass
  * @param Lock
@@ -1313,7 +1313,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					if (placedOnPlayer)
 						CharacterAppearanceSetColorForGroup(Player, restraint.Color, AssetGroup);
 				}
-				let item = {name: restraint.name, type: Restraint, tightness: tight, lock: ""};
+				let item = {name: restraint.name, type: Restraint, events:restraint.events, tightness: tight, lock: ""};
 				KinkyDungeonInventoryAdd(item);
 
 				if (Lock) KinkyDungeonLock(item, Lock);
