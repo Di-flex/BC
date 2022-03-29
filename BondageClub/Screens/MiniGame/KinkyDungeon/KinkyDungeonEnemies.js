@@ -452,7 +452,7 @@ function KinkyDungeonCapture(enemy) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0) {
+		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && !enemy.Enemy.allied) {
 			if (enemy.knives || enemy.picks) {
 				for (let i = 0; i < enemy.knives; i++) {
 					let item = {x:enemy.x, y:enemy.y, name: "Knife"};
