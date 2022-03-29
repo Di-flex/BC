@@ -321,7 +321,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
-	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.05;
+	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.04;
 
 	let shrineTypes = [];
 	let startTime = performance.now();
@@ -1239,7 +1239,15 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 						&& !shrinePoints.get((X-1) + "," + (Y+1))
 						&& !shrinePoints.get((X-1) + "," + (Y-1))
 						&& !shrinePoints.get((X) + "," + (Y+1))
-						&& !shrinePoints.get((X) + "," + (Y-1))) {
+						&& !shrinePoints.get((X) + "," + (Y-1))
+						&& KinkyDungeonMapGet(X-1, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X-1, Y) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y) != 'A'
+						&& KinkyDungeonMapGet(X-1, Y+1) != 'A'
+						&& KinkyDungeonMapGet(X, Y+1) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y+1) != 'A') {
 						shrinelist.push({x:X, y:Y});
 						shrinePoints.set(X + "," + Y, true);
 					}
