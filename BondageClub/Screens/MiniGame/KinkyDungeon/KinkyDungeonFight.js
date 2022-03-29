@@ -325,7 +325,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type)));
 	if (Damage && !miss) {
-		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && !Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
+		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
 			predata.dmg *= KDPacifistReduction;
 		}
 		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (predata.type != "glue" || predata.type != "chain")) {
