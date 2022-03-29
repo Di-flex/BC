@@ -359,44 +359,22 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		else if (Loot.name == "AncientCores") {
 			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 4);
 		}
-		else if (Loot.name == "EnchantedBelt") {
-			KinkyDungeonInventoryAdd({name: "EnchantedBelt", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == `EnchantedBra`) {
-			KinkyDungeonInventoryAdd({name: "EnchantedBra", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedHeels") {
-			KinkyDungeonInventoryAdd({name: "EnchantedHeels", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedAnkleCuffs") {
-			KinkyDungeonInventoryAdd({name: "EnchantedAnkleCuffs", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedMuzzle") {
-			KinkyDungeonInventoryAdd({name: "EnchantedMuzzle", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedBlindfold") {
-			KinkyDungeonInventoryAdd({name: "EnchantedBlindfold", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedMittens") {
-			KinkyDungeonInventoryAdd({name: "EnchantedMittens", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedBallGag") {
-			KinkyDungeonInventoryAdd({name: "EnchantedBallGag", type: LooseRestraint});
-			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
-		}
-		else if (Loot.name == "EnchantedArmbinder") {
-			KinkyDungeonInventoryAdd({name: "EnchantedArmbinder", type: LooseRestraint});
+		else if (
+			Loot.name == "EnchantedBelt" ||
+			Loot.name == `EnchantedBra`||
+			Loot.name == "EnchantedHeels" ||
+			Loot.name == "EnchantedAnkleCuffs"||
+			Loot.name == "EnchantedMuzzle"||
+			Loot.name == "EnchantedBlindfold"||
+			Loot.name == "EnchantedMittens"||
+			Loot.name == "EnchantedBallGag"||
+			Loot.name == "EnchantedArmbinder"
+		) {
+			KinkyDungeonInventoryAdd({name: Loot.name, type: LooseRestraint, events: KinkyDungeonGetRestraintByName(Loot.name)});
 			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 		}
 		else if (Loot.name == "potioncollar") {
-			KinkyDungeonInventoryAdd({name: "potioncollar", type: LooseRestraint});
+			KinkyDungeonInventoryAdd({name: "potioncollar", type: LooseRestraint, events: KinkyDungeonGetRestraintByName(Loot.name)});
 		}
 		else if (Loot.name == "weapon_boltcutters") {
 			KinkyDungeonInventoryAddWeapon("BoltCutters");

@@ -1,6 +1,6 @@
 "use strict";
 /**
- * List off all consumeable items
+ * List off all consumable items
  * @type {Object.<string,consumable>}
  */
 let KinkyDungeonConsumables = {

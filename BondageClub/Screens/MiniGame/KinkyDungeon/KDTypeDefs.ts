@@ -3,12 +3,7 @@ interface item {
     name?: string, // Name of the item
     type?: string, // Type of the item
     events?: any, // Events associated with the item
-    weapon?: KinkyDungeonWeapon, // Item weapon data, if applicable
-    consumable?: any, // Item consumable data, if applicable
     quantity?: number, // Number of consumables in the inventory
-    outfit?: any, // Outfit data, if applicable
-    looserestraint?: any, // Loose restraint data, if applicable
-    restraint?: any, // Which restraint the item is associated with
     lock?: string, // Type of lock, Red, Blue, or Gold (potentially more in future)
     tetherToLeasher?: boolean, // Bool to describe if the item is tethered to the leashing enemy
     tetherToGuard?: boolean, // Bool to describe if the item is tethered to KinkyDungeonJailGuard()
@@ -30,6 +25,24 @@ interface item {
     attempts?: number, // Number of escape attempts, integer
     tightness?: number, // Can be used to make an item tighter and harder to escape, reduces with each escape attempt
     trap?: string, // Determines the current trap attached to the restraint
+}
+
+interface consumable {
+	name: string,
+	rarity: number,
+	type: string,
+	shop?: boolean,
+	spell?: string,
+	potion?: boolean,
+	noHands?: boolean,
+	mp_instant?: number,
+	mp_gradual?: number,
+	scaleWithMaxMP?: boolean,
+	duration?: number,
+	buff?: string,
+	costMod?: number,
+	shrine?: string,
+	sfx?: string
 }
 
 interface KinkyDungeonSave {
