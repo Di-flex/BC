@@ -453,7 +453,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			}
 		} else if (e.type == "Cleave" && e.trigger == Event && data.enemy && !data.disarm) {
 			for (let enemy of KinkyDungeonEntities) {
-				if (enemy != data.enemy) {
+				if (enemy != data.enemy && !enemy.Enemy.allied) {
 					let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
 					if (dist < 1.5 && KinkyDungeonEvasion(enemy) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
 						KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
@@ -466,7 +466,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				let xx = data.enemy.x + i * (data.enemy.x - KinkyDungeonPlayerEntity.x);
 				let yy = data.enemy.y + i * (data.enemy.y - KinkyDungeonPlayerEntity.y);
 				for (let enemy of KinkyDungeonEntities) {
-					if (enemy != data.enemy) {
+					if (enemy != data.enemy && !enemy.Enemy.allied) {
 						if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
 							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
 						}
