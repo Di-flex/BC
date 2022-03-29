@@ -256,7 +256,6 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			KinkyDungeonLostItems = [];
 		}
 
-
 		if (Loot.weapon) {
 			KinkyDungeonInventoryAddWeapon(Loot.weapon);
 			if (Replacemsg)
