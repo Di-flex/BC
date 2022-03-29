@@ -321,7 +321,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
-	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.04;
+	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.045;
 
 	let shrineTypes = [];
 	let startTime = performance.now();
