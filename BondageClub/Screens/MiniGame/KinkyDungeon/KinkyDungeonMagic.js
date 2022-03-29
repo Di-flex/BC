@@ -182,6 +182,17 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 				}
 			}
+		} else if (playerEffect.name == "RemoveLowLevelRope") {
+			let restraints = [];
+			for (let inv of KinkyDungeonAllRestraint()) {
+				if (inv.restraint && inv.restraint.power < 5 && inv.restraint.shrine && inv.restraint.shrine.includes("Rope")) {
+					restraints.push(inv.restraint.Group);
+				}
+			}
+			for (let r of restraints) {
+				KinkyDungeonRemoveRestraint(r, false);
+			}
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonRemoveLowLevelRope"), "lightGreen", 2);
 		} else if (playerEffect.name == "Shock") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
@@ -674,7 +685,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		miscastChance: KinkyDungeonMiscastChance,
 	};
 	let gaggedMiscastFlag = false;
-	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal")) {
+	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal") && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {
 		let gagTotal = KinkyDungeonGagTotal();
 		flags.miscastChance = flags.miscastChance + Math.max(0, 1 - flags.miscastChance) * Math.min(1, gagTotal);
 		if (gagTotal > 0)
@@ -785,7 +796,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 		let b = {x: tX, y:tY,
 			vx: moveDirection.x,vy: moveDirection.y, born: 1,
-			bullet: {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events,
+			bullet: {name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events, aoe: spell.aoe,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
 				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}};
 		KinkyDungeonBulletHit(b, 1);
