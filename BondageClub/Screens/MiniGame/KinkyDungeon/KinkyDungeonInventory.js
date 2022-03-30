@@ -113,7 +113,7 @@ function KinkyDungeonHandleInventory() {
 }
 
 function KinkyDungeonInventoryAddWeapon(Name) {
-	if (!KinkyDungeonInventoryGet(Name) && KinkyDungeonWeapons[Name])
+	if (!KinkyDungeonInventoryGetWeapon(Name) && KinkyDungeonWeapons[Name])
 		KinkyDungeonInventoryAdd({name:Name, type:Weapon, events: KinkyDungeonWeapons[Name].events});
 }
 
@@ -164,6 +164,10 @@ function KinkyDungeonInventoryAdd(item) {
 	}
 }
 
+/**
+ *
+ * @param item {item}
+ */
 function KinkyDungeonInventoryRemove(item) {
 	if (item) {
 		let type = KDInventoryType(item);
