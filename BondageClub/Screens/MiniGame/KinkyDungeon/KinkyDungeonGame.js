@@ -824,7 +824,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
 
 		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold", Roll: KDRandom()});
-		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 1});
+		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 3});
 		if (KDDebug) {
 			console.log("Created lesser gold chest");
 		}
