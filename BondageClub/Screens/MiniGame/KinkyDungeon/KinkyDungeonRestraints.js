@@ -1374,8 +1374,8 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					if (item.restraint.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(item.restraint.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
-							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint});
-					} else KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint});
+							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, looseevents:origRestraint.events});
+					} else KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, looseevents:item.events});
 				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);

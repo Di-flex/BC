@@ -1,7 +1,7 @@
 "use strict";
 /**
  * List off all restraints items
- * @type {[Object]}
+ * @type {[restraint]}
  */
 const KinkyDungeonRestraints = [
 	{name: "ScarfArms", Asset: "DuctTape", Color: "#880022", Group: "ItemArms", bindarms: true, power: 0, weight: 0, escapeChance: {"Struggle": 0.5, "Cut": 0.9, "Remove": 0.2},
