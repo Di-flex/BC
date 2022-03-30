@@ -571,8 +571,8 @@ function KinkyDungeonDefeat() {
 		let enemies = [];
 		for (let e of  KinkyDungeonEntities) {
 			if (!e.summoned && (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))) {
-				if (e.x < KinkyDungeonJailLeashX) {
-					e.x = KinkyDungeonJailLeashX;
+				if (e.x < KinkyDungeonJailLeashX + 4) {
+					e.x = KinkyDungeonJailLeashX + 4;
 					e.y = KinkyDungeonStartPosition.y;
 				}
 				enemies.push(e);
