@@ -1129,7 +1129,9 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 				if (wallcount == 7
 					|| (wallcount >= 5
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
-						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
+						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
+						&& !(KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1')) {
 					if (!chestPoints.get((X+1) + "," + (Y))
 						&& !chestPoints.get((X-1) + "," + (Y))
 						&& !chestPoints.get((X+1) + "," + (Y+1))
@@ -1242,7 +1244,9 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 				if (wallcount == 7 || (wallcount == 0 && KDRandom() < 0.1)
 					|| (wallcount >= 5
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
-						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
+						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
+						&& !(KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1')) {
 					if (!shrinePoints.get((X+1) + "," + (Y))
 						&& !shrinePoints.get((X-1) + "," + (Y))
 						&& !shrinePoints.get((X+1) + "," + (Y+1))
