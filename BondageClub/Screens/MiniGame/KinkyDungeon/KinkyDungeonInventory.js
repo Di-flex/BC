@@ -122,9 +122,7 @@ function KinkyDungeonInventoryAddWeapon(Name) {
  * @param item {item}
  * @return {string}
  */
-function KDInventoryType(item) {
-	return item.type;
-}
+function KDInventoryType(item) {return item.type;}
 
 function KDInventoryName(item) {
 	if (item.name) return item.name;
