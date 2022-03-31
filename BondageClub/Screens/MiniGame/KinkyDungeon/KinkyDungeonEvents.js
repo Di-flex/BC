@@ -179,9 +179,9 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		if (e.type == "linkItem" && e.trigger == "hit" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
 			let subMult = 1;
 			let chance = e.chance ? e.chance : 1.0;
-			if (e.noSub != undefined) {
+			if (e.subMult != undefined) {
 				let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
-				subMult = e.noSub + (1 - e.noSub * rep);
+				subMult = 1.0 + e.subMult * rep;
 			}
 			if (item.restraint && item.restraint.Link && (KDRandom() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
 				let newRestraint = KinkyDungeonGetRestraintByName(item.restraint.Link);
