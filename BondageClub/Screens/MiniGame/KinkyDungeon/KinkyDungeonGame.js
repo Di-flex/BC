@@ -244,6 +244,7 @@ function KinkyDungeonInitialize(Level, Random) {
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
+	KDGameData.ChampionCurrent = 0;
 	KinkyDungeonAid = {};
 	KDGameData.KinkyDungeonPenance = false;
 	KDRestraintsCache = new Map();
@@ -321,7 +322,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
-	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.05;
+	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.045;
 
 	let shrineTypes = [];
 	let startTime = performance.now();
@@ -823,7 +824,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
 
 		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold", Roll: KDRandom()});
-		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 1});
+		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 3});
 		if (KDDebug) {
 			console.log("Created lesser gold chest");
 		}
@@ -1239,7 +1240,15 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 						&& !shrinePoints.get((X-1) + "," + (Y+1))
 						&& !shrinePoints.get((X-1) + "," + (Y-1))
 						&& !shrinePoints.get((X) + "," + (Y+1))
-						&& !shrinePoints.get((X) + "," + (Y-1))) {
+						&& !shrinePoints.get((X) + "," + (Y-1))
+						&& KinkyDungeonMapGet(X-1, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y-1) != 'A'
+						&& KinkyDungeonMapGet(X-1, Y) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y) != 'A'
+						&& KinkyDungeonMapGet(X-1, Y+1) != 'A'
+						&& KinkyDungeonMapGet(X, Y+1) != 'A'
+						&& KinkyDungeonMapGet(X+1, Y+1) != 'A') {
 						shrinelist.push({x:X, y:Y});
 						shrinePoints.set(X + "," + Y, true);
 					}

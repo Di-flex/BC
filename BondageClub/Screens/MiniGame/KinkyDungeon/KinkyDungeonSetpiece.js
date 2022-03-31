@@ -6,36 +6,55 @@ let KDSetPieces = [
 	{Name: "Altar", Radius: 5},
 	{Name: "Storage", Radius: 5},
 	{Name: "QuadCell", Radius: 7},
+	{Name: "PearlChest", Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
 ];
 
+let KDCountSetpiece = new Map();
 
 function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, height) {
+	KDCountSetpiece = new Map();
 	let pieces = new Map();
+
+	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+	let setpieces = [];
+	Object.assign(setpieces, Params.setpieces);
+	setpieces.push({Type: "PearlChest", Weight: 1000});
 	for (let p of KDSetPieces) {
-		pieces.set(p.Name, p);
+		let prereqs = true;
+		if (prereqs && p.Prereqs) {
+			if (prereqs && p.Prereqs.includes("PearlEligible")) {
+				let has = KDPearlRequirement();
+				if (!has) prereqs = false;
+			}
+		}
+		if (prereqs)
+			pieces.set(p.Name, p);
 	}
 	let pieceCount = width * height / 25;
 	let count = 0;
 	let fails = 0;
 	while (count < pieceCount && fails < 4) {
-		let Piece = KinkyDungeonGetSetPiece();
-		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, spawnPoints).Pass) count += 1;
-		else fails += 1;
+		let Piece = KinkyDungeonGetSetPiece(setpieces, pieces);
+		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, spawnPoints).Pass) {
+			count += 1;
+			KDCountSetpiece.set(Piece, KDCountSetpiece.get(Piece) ? (KDCountSetpiece.get(Piece) + 1) : 1);
+		} else fails += 1;
 	}
 
 }
 
-function KinkyDungeonGetSetPiece() {
-	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+function KinkyDungeonGetSetPiece(setpieces, pieces) {
 
-	if (Params.setpieces) {
+	if (setpieces) {
 
 		let pieceWeightTotal = 0;
 		let pieceWeights = [];
 
-		for (let piece of Params.setpieces) {
-			pieceWeights.push({piece: piece, weight: pieceWeightTotal});
-			pieceWeightTotal += piece.Weight;
+		for (let piece of setpieces) {
+			if (pieces.has(piece.Type) && (!pieces.get(piece.Type).Max || !(KDCountSetpiece.get(piece.Type) >= pieces.get(piece.Type).Max))) {
+				pieceWeights.push({piece: piece, weight: pieceWeightTotal});
+				pieceWeightTotal += piece.Weight;
+			}
 		}
 
 		let selection = KDRandom() * pieceWeightTotal;
@@ -119,6 +138,15 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'a');
+			break;
+		case "PearlChest":
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
+			KinkyDungeonMapSet(cornerX, cornerY , 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
+			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
+			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
+			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
 			break;
 		case "Storage":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, false);

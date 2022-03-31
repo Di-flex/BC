@@ -88,6 +88,7 @@ let KinkyDungeonStatsChoice = new Map();
 * AncientEnergyLevel: number;
 * Outfit: string,
 * Champion: string,
+* ChampionCurrent: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -139,6 +140,7 @@ let KDGameDataBase = {
 	Outfit: "OutfitDefault",
 
 	Champion: "",
+	ChampionCurrent: 0,
 
 	WarningLevel: 0,
 };

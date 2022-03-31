@@ -736,6 +736,13 @@ Spell Balance:
 - New set pieces have been added for some map variety
 - You no longer need arms for drinking potions and using items if you have the Psychic trait
 
+2.91
+- Fixed mana potions not scaling with MP
+- Fixed softlock in prison with guard remmoving restraints forever if you removed it first
+- Fixed Weapon effects applying even on a miss (such as flamberge still dealing fire damage)
+- Changed capture to a limit of 25 captures per level, instead of not applying to summoned enemies
+- Cleave and Pierce no longer damage allies
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

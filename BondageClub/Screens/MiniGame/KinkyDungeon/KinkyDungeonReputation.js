@@ -20,6 +20,38 @@ let KinkyDungeonAid = {};
 
 let KDRepSelectionMode = "";
 
+let KDBlessedRewards = {
+	"Latex": ["StaffDoll"],
+	"Rope": ["StaffBind"],
+	"Metal": ["StaffStorm"],
+	"Leather": ["StaffFire"],
+	"Will": ["MagicHammer", "MagicFlail", "MagicSpear"],
+	"Elements": ["IceBreaker",],
+	"Conjure": ["MagicSword"],
+	"Illusion": ["MagicAxe"],
+};
+
+function KDPearlRequirement() {
+	let has = false;
+	for (let rep of Object.entries(KinkyDungeonGoddessRep)) {
+		let rewards = KDBlessedRewards[rep[0]];
+		if (rewards) {
+			let missing = true;
+			for (let r of rewards) {
+				if (KinkyDungeonInventoryGet(r)) {
+					missing = false;
+					break;
+				}
+			}
+			if (missing && rep[1] > 45) {
+				has = true;
+				break;
+			}
+		}
+
+	}
+	return has;
+}
 
 function KinkyDungeonInitReputation() {
 	KinkyDungeonGoddessRep = {"Ghost" : -50, "Prisoner" : -50};
@@ -29,15 +61,15 @@ function KinkyDungeonInitReputation() {
 	if (KinkyDungeonStatsChoice.get("Wanted")) KinkyDungeonChangeRep("Prisoner", 100);
 	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonChangeRep("Ghost", 100);
 
-	if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonChangeRep("Metal", 40);
-	if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonChangeRep("Rope", 40);
-	if (KinkyDungeonStatsChoice.get("Slippery")) KinkyDungeonChangeRep("Latex", 40);
-	if (KinkyDungeonStatsChoice.get("Escapee")) KinkyDungeonChangeRep("Leather", 40);
+	if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonChangeRep("Metal", 10);
+	if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonChangeRep("Rope", 10);
+	if (KinkyDungeonStatsChoice.get("Slippery")) KinkyDungeonChangeRep("Latex", 10);
+	if (KinkyDungeonStatsChoice.get("Escapee")) KinkyDungeonChangeRep("Leather", 10);
 
-	if (KinkyDungeonStatsChoice.get("Damsel")) KinkyDungeonChangeRep("Metal", -25);
-	if (KinkyDungeonStatsChoice.get("Bunny")) KinkyDungeonChangeRep("Rope", -25);
-	if (KinkyDungeonStatsChoice.get("Doll")) KinkyDungeonChangeRep("Latex", -25);
-	if (KinkyDungeonStatsChoice.get("Dragon")) KinkyDungeonChangeRep("Leather", -25);
+	if (KinkyDungeonStatsChoice.get("Damsel")) KinkyDungeonChangeRep("Metal", -10);
+	if (KinkyDungeonStatsChoice.get("Bunny")) KinkyDungeonChangeRep("Rope", -10);
+	if (KinkyDungeonStatsChoice.get("Doll")) KinkyDungeonChangeRep("Latex", -10);
+	if (KinkyDungeonStatsChoice.get("Dragon")) KinkyDungeonChangeRep("Leather", -10);
 }
 
 function KinkyDungeonRepName(Amount) {
@@ -45,6 +77,7 @@ function KinkyDungeonRepName(Amount) {
 
 	if (Amount > 10) name = "Thankful";
 	if (Amount > 30) name = "Pleased";
+	if (Amount > 45) name = "Blessed";
 	if (Amount < KDANGER) name = "Angered";
 	if (Amount < KDRAGE) name = "Enraged";
 	if (Amount < -45) name = "Cursed";

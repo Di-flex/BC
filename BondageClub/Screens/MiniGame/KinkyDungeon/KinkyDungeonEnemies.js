@@ -436,12 +436,17 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	}
 }
 
+let KDChampionMax = 25;
+
 function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
-	if (KDGameData.Champion && !enemy.summoned) {
-		KinkyDungeonChangeRep(KDGameData.Champion, 1);
-		KinkyDungeonChangeMana(2);
-		msg = "KinkyDungeonCaptureGoddess";
+	if (KDGameData.Champion) {
+		if (KDGameData.ChampionCurrent < KDChampionMax) {
+			KinkyDungeonChangeRep(KDGameData.Champion, 1);
+			KinkyDungeonChangeMana(2);
+			msg = "KinkyDungeonCaptureGoddess";
+			KDGameData.ChampionCurrent += 1;
+		} else msg = "KinkyDungeonCaptureMax";
 	}
 	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
 		KinkyDungeonSendTextMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
@@ -450,7 +455,7 @@ function KinkyDungeonCapture(enemy) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0) {
+		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && !enemy.Enemy.allied) {
 			if (enemy.knives || enemy.picks) {
 				for (let i = 0; i < enemy.knives; i++) {
 					let item = {x:enemy.x, y:enemy.y, name: "Knife"};

@@ -442,18 +442,18 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			}
 		}
 	} else if (Event == "playerAttack") {
-		if (e.type == "ElementalEffect" && e.trigger == Event && data.enemy && !data.disarm && !data.evaded) {
+		if (e.type == "ElementalEffect" && e.trigger == Event && data.enemy && !data.miss && !data.disarm) {
 			if (data.enemy && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
 				KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
 			}
-		} else if (e.type == "ApplyBuff" && e.trigger == Event && data.enemy && !data.disarm && !data.evaded) {
+		} else if (e.type == "ApplyBuff" && e.trigger == Event && data.enemy && !data.miss && !data.disarm) {
 			if (data.enemy && (!e.chance || KDRandom() < e.chance)) {
 				if (!data.enemy.buffs) data.enemy.buffs = {};
 				KinkyDungeonApplyBuff(data.enemy.buffs, e.buff);
 			}
 		} else if (e.type == "Cleave" && e.trigger == Event && data.enemy && !data.disarm) {
 			for (let enemy of KinkyDungeonEntities) {
-				if (enemy != data.enemy) {
+				if (enemy != data.enemy && !enemy.Enemy.allied) {
 					let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
 					if (dist < 1.5 && KinkyDungeonEvasion(enemy) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
 						KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
@@ -466,14 +466,14 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				let xx = data.enemy.x + i * (data.enemy.x - KinkyDungeonPlayerEntity.x);
 				let yy = data.enemy.y + i * (data.enemy.y - KinkyDungeonPlayerEntity.y);
 				for (let enemy of KinkyDungeonEntities) {
-					if (enemy != data.enemy) {
+					if (enemy != data.enemy && !enemy.Enemy.allied) {
 						if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
 							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
 						}
 					}
 				}
 			}
-		} else if (e.type == "Knockback" && e.trigger == Event && e.dist && data.enemy && data.targetX && data.targetY && !data.evaded && !data.disarm) {
+		} else if (e.type == "Knockback" && e.trigger == Event && e.dist && data.enemy && data.targetX && data.targetY && !data.miss && !data.disarm) {
 			if (data.enemy.Enemy && !data.enemy.Enemy.tags.has("unflinching") && !data.enemy.Enemy.tags.has("stunresist") && !data.enemy.Enemy.tags.has("unstoppable")) {
 				let newX = data.targetX + Math.round(e.dist * (data.targetX - KinkyDungeonPlayerEntity.x));
 				let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
