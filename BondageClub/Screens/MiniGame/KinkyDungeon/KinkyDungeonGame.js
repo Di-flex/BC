@@ -1108,6 +1108,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 	}
 }
 
+let KDRandomDisallowedNeighbors = "AsSHcH"; // tiles that can't be neighboring a randomly selected point
+
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
 
@@ -1135,7 +1137,15 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 						&& !chestPoints.get((X-1) + "," + (Y+1))
 						&& !chestPoints.get((X-1) + "," + (Y-1))
 						&& !chestPoints.get((X) + "," + (Y+1))
-						&& !chestPoints.get((X) + "," + (Y-1))) {
+						&& !chestPoints.get((X) + "," + (Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
 						chestlist.push({x:X, y:Y});
 						chestPoints.set(X + "," + Y, true);
 					}
@@ -1241,14 +1251,14 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 						&& !shrinePoints.get((X-1) + "," + (Y-1))
 						&& !shrinePoints.get((X) + "," + (Y+1))
 						&& !shrinePoints.get((X) + "," + (Y-1))
-						&& KinkyDungeonMapGet(X-1, Y-1) != 'A'
-						&& KinkyDungeonMapGet(X, Y-1) != 'A'
-						&& KinkyDungeonMapGet(X+1, Y-1) != 'A'
-						&& KinkyDungeonMapGet(X-1, Y) != 'A'
-						&& KinkyDungeonMapGet(X+1, Y) != 'A'
-						&& KinkyDungeonMapGet(X-1, Y+1) != 'A'
-						&& KinkyDungeonMapGet(X, Y+1) != 'A'
-						&& KinkyDungeonMapGet(X+1, Y+1) != 'A') {
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
 						shrinelist.push({x:X, y:Y});
 						shrinePoints.set(X + "," + Y, true);
 					}
