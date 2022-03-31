@@ -1,7 +1,7 @@
 "use strict";
+
 /**
- * List off all consumable items
- * @type {Object.<string,consumable>}
+ * @type {Record<string, consumable>}
  */
 let KinkyDungeonConsumables = {
 	"PotionMana" : {name: "PotionMana", potion: true, rarity: 0, shop: true, type: "restore", mp_instant: 36, mp_gradual: 0, scaleWithMaxMP: true, duration: 0, sfx: "PotionDrink"},
