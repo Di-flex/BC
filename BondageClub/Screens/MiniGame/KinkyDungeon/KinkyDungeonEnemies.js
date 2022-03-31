@@ -440,7 +440,9 @@ let KDChampionMax = 25;
 
 function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
-	if (KDGameData.Champion) {
+	if (enemy.lifetime != undefined && enemy.lifetime < 999) {
+		msg = "KinkyDungeonCaptureBasic";
+	} else if (KDGameData.Champion) {
 		if (KDGameData.ChampionCurrent < KDChampionMax) {
 			KinkyDungeonChangeRep(KDGameData.Champion, 1);
 			KinkyDungeonChangeMana(2);

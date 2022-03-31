@@ -387,7 +387,7 @@ function KinkyDungeonRun() {
 		MainCanvas.textAlign = "center";
 
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
-		//DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
+		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
 		KinkyDungeonGameFlag = false;
 		MainCanvas.textAlign = "left";
@@ -618,6 +618,10 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(1870, 930, 110, 64)) {
 			KinkyDungeonState = "Menu";
 			return true;
+		}
+		if (MouseIn(1730, 930, 110, 64)) {
+			if (KinkyDungeonCreditsPos < 1) KinkyDungeonCreditsPos += 1;
+			else KinkyDungeonCreditsPos = 0;
 		}
 	} else if (KinkyDungeonState == "Diff") {
 		if (MouseIn(875, 350, 750, 64)) {
