@@ -284,6 +284,7 @@ interface KinkyDungeonWeapon {
 	staminacost?: number;
 	magic?: boolean;
 	cutBonus?: number;
+	playSelfBonus?: number;
 	unarmed: boolean;
 	shop: boolean;
 	noequip?: boolean;
