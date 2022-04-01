@@ -31,6 +31,7 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 			Table.push(exc);
 		}
 	}
+	/**@type {Record<string, any>} */
 	let Shopable = Object.entries(KinkyDungeonConsumables).filter(([k, v]) => (v.shop));
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];

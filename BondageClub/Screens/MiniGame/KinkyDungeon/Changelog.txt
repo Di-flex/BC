@@ -745,6 +745,7 @@ Spell Balance:
 
 2.92
 - Added one of the few planned content toggles: Distraction mode vs. Aroused mode, which toggles some of the more hardcore sexual stuff
+- Decoy now triggers traps
 
 TODO ValidationFindBlockCycles to prevent bugs
 

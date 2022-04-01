@@ -687,6 +687,9 @@ function KinkyDungeonUpdateEnemies(delta) {
 					}
 				}
 			}
+			if (enemy.Enemy.triggersTraps) {
+				KinkyDungeonHandleTraps(enemy.x, enemy.y);
+			}
 
 
 			if (!enemy.castCooldown) enemy.castCooldown = 0;

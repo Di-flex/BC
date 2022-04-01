@@ -441,10 +441,13 @@ function KinkyDungeonRun() {
 			DrawTextFit(TextGet("KinkyDungeonSexyModeDesc1"), 1250, 80, 1000, "white", "black");
 		}
 
-		MainCanvas.textAlign = "left";
-		DrawCheckbox(1500, 120, 64, 64, TextGet("KinkyDungeonSexyPlugs"), KinkyDungeonSexyPlug, false, "white");
-		DrawCheckbox(1500, 200, 64, 64, TextGet("KinkyDungeonSexyPiercings"), KinkyDungeonSexyPiercing, false, "white");
-		MainCanvas.textAlign = "center";
+		if (KinkyDungeonSexyMode) {
+			MainCanvas.textAlign = "left";
+			DrawCheckbox(1500, 120, 64, 64, TextGet("KinkyDungeonSexyPlugs"), KinkyDungeonSexyPlug, false, "white");
+			DrawCheckbox(1500, 200, 64, 64, TextGet("KinkyDungeonSexyPiercings"), KinkyDungeonSexyPiercing, false, "white");
+			MainCanvas.textAlign = "center";
+		}
+
 
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
@@ -652,10 +655,10 @@ function KinkyDungeonHandleClick() {
 		} else if (MouseIn(1175, 150, 275, 64)) {
 			KinkyDungeonSexyMode = true;
 			localStorage.setItem("KinkyDungeonSexyMode", KinkyDungeonSexyMode ? "True" : "False");
-		} else if (MouseIn(1500, 120, 64, 64)) {
+		} else if (MouseIn(1500, 120, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPlug = !KinkyDungeonSexyPlug;
 			localStorage.setItem("KinkyDungeonSexyPlug", KinkyDungeonSexyPlug ? "True" : "False");
-		} else if (MouseIn(1500, 200, 64, 64)) {
+		} else if (MouseIn(1500, 200, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPiercing = !KinkyDungeonSexyPiercing;
 			localStorage.setItem("KinkyDungeonSexyPiercing", KinkyDungeonSexyPiercing ? "True" : "False");
 		}
