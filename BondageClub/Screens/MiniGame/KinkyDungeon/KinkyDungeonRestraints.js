@@ -1191,6 +1191,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
+	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {

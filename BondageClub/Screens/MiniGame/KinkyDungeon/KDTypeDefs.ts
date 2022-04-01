@@ -64,7 +64,7 @@ interface consumable {
 }
 
 interface restraint {
-	/** Determines if the item appears in arousal mode only */
+	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
 	name: string,
 	Group: string,

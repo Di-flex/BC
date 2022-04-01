@@ -743,6 +743,9 @@ Spell Balance:
 - Changed capture to a limit of 25 captures per level, instead of not applying to summoned enemies
 - Cleave and Pierce no longer damage allies
 
+2.92
+- Added one of the few planned content toggles: Distraction mode vs. Aroused mode, which toggles some of the more hardcore sexual stuff
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

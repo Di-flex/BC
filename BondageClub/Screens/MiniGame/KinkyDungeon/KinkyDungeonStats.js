@@ -18,6 +18,7 @@ let KDUnchasteMult = 0.25;
 let KDPurityAmount = 0.25;
 let KDFreeSpiritAmount = 0.2;
 let KDDeprivedAmount = 0.05;
+let KDDistractionDecayMultDistractionMode = 0.25;
 let KDDistractedAmount = 0.15;
 let KinkyDungeonStatDistractionRegenStaminaRegenFactor = -0.1; // Stamina drain per time per 100 distraction
 let KinkyDungeonStatDistractionMiscastChance = 0.6; // Miscast chance at max distraction
@@ -132,7 +133,7 @@ let KinkyDungeonSubmissiveMult = 0;
 
 let KinkyDungeonSpellPoints = 3;
 
-function KinkyDungeonDefaultStats() {
+function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonPenanceCosts = {};
 	KinkyDungeonLostItems = [];
 	KinkyDungeonFastMove = true;
@@ -198,10 +199,12 @@ function KinkyDungeonDefaultStats() {
 	KinkyDungeonDressPlayer();
 	KinkyDungeonShrineInit();
 
-	if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
-	if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
-	if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
-	if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
+	if (!Load) {
+		if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
+		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
+		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
+		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
+	}
 }
 
 function KinkyDungeonGetVisionRadius() {
@@ -361,8 +364,8 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
 
-	let distractionRate = (KinkyDungeonVibeLevel == 0) ? (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatDistractionRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
-		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0) : (KinkyDungeonDistractionPerVibe * KinkyDungeonVibeLevel);
+	let distractionRate = (KinkyDungeonVibeLevel == 0) ? (!KinkyDungeonStatsChoice.get("arousalMode") ? KinkyDungeonStatDistractionRegen * KDDistractionDecayMultDistractionMode : (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatDistractionRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
+		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0)) : (KinkyDungeonDistractionPerVibe * KinkyDungeonVibeLevel);
 	if (KinkyDungeonStatsChoice.get("Purity")) {
 		distractionRate -= KDPurityAmount;
 	}
@@ -659,10 +662,12 @@ function KinkyDungeonCalculateSubmissiveMult() {
 }
 
 function KinkyDungeonCanPlayWithSelf() {
+	if (!KinkyDungeonStatsChoice.get("arousalMode")) return false;
 	return KinkyDungeonStatDistraction > KinkyDungeonDistractionSleepDeprivationThreshold * KinkyDungeonStatDistractionMax && KinkyDungeonHasStamina(-KinkyDungeonOrgasmCost);
 }
 
 function KinkyDungeonCanTryOrgasm() {
+	if (!KinkyDungeonStatsChoice.get("arousalMode")) return false;
 	return KinkyDungeonStatDistraction >= KinkyDungeonStatDistractionMax - 0.01 && (KinkyDungeonHasStamina(-KinkyDungeonOrgasmCost) || KDGameData.OrgasmStage > 3) && KDGameData.OrgasmStamina < 1;
 }
 
@@ -813,8 +818,8 @@ let KinkyDungeonStatsPresets = {
 	"PriceGouging": {id: 43, cost: -2},
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},
-	"Purity": {id: 16, cost: 2, block: "Deprived", distractionMode: true},
-	"Unchaste": {id: 17, cost: -1, block: "FreeSpirit", distractionMode: true},
+	//"Purity": {id: 16, cost: 2, block: "Deprived", distractionMode: true},
+	//"Unchaste": {id: 17, cost: -1, block: "FreeSpirit", distractionMode: true},
 };
 
 function KinkyDungeonGetStatPoints(Stats) {

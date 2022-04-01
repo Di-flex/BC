@@ -254,6 +254,10 @@ function KinkyDungeonLoad() {
 			KinkyDungeonSound = localStorage.getItem("KinkyDungeonSound") != undefined ? localStorage.getItem("KinkyDungeonSound") == "True" : true;
 			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
 
+			KinkyDungeonSexyMode = localStorage.getItem("KinkyDungeonSexyMode") != undefined ? localStorage.getItem("KinkyDungeonSexyMode") == "True" : true;
+			KinkyDungeonSexyPiercing = localStorage.getItem("KinkyDungeonSexyPiercing") != undefined ? localStorage.getItem("KinkyDungeonSexyPiercing") == "True" : false;
+			KinkyDungeonSexyPlug = localStorage.getItem("KinkyDungeonSexyPlug") != undefined ? localStorage.getItem("KinkyDungeonSexyPlug") == "True" : false;
+
 			KinkyDungeonNewDress = true;
 			let appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
 			if (!appearance) {
@@ -336,6 +340,9 @@ let KinkyDungeonFullscreen = true;
 let KinkyDungeonDrool = true;
 let KinkyDungeonGraphicsQuality = true;
 let KinkyDungeonFastWait = true;
+let KinkyDungeonSexyMode = false;
+let KinkyDungeonSexyPiercing = false;
+let KinkyDungeonSexyPlug = false;
 
 function KinkyDungeonRun() {
 	let BG = "BrickWall";
@@ -424,6 +431,21 @@ function KinkyDungeonRun() {
 		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonDifficulty1"), "White", "");
 		DrawButton(875, 650, 750, 64, TextGet("KinkyDungeonDifficulty2"), "White", "");
 		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+
+		DrawButton(875, 150, 275, 64, TextGet("KinkyDungeonSexyMode0"), !KinkyDungeonSexyMode ? "White" : "#888888", "");
+		if (MouseIn(875, 150, 275, 64)) {
+			DrawTextFit(TextGet("KinkyDungeonSexyModeDesc0"), 1250, 80, 1000, "white", "black");
+		}
+		DrawButton(1175, 150, 275, 64, TextGet("KinkyDungeonSexyMode1"), KinkyDungeonSexyMode ? "White" : "#888888", "");
+		if (MouseIn(1175, 150, 275, 64)) {
+			DrawTextFit(TextGet("KinkyDungeonSexyModeDesc1"), 1250, 80, 1000, "white", "black");
+		}
+
+		MainCanvas.textAlign = "left";
+		DrawCheckbox(1500, 120, 64, 64, TextGet("KinkyDungeonSexyPlugs"), KinkyDungeonSexyPlug, false, "white");
+		DrawCheckbox(1500, 200, 64, 64, TextGet("KinkyDungeonSexyPiercings"), KinkyDungeonSexyPiercing, false, "white");
+		MainCanvas.textAlign = "center";
+
 	} else if (KinkyDungeonState == "Stats") {
 		KinkyDungeonDrawPerks(false);
 		DrawText(TextGet("KinkyDungeonStats"), 1250, 100, "white", "silver");
@@ -569,7 +591,7 @@ let KinkyDungeonGameFlag = false;
 
 function KinkyDungeonStartNewGame(Load) {
 	KinkyDungeonNewGame = 0;
-	KinkyDungeonInitialize(1);
+	KinkyDungeonInitialize(1, undefined, Load);
 	MiniGameKinkyDungeonCheckpoint = 0;
 	if (Load)
 		KinkyDungeonLoadGame();
@@ -624,6 +646,22 @@ function KinkyDungeonHandleClick() {
 			else KinkyDungeonCreditsPos = 0;
 		}
 	} else if (KinkyDungeonState == "Diff") {
+		if (MouseIn(875, 150, 275, 64)) {
+			KinkyDungeonSexyMode = false;
+			localStorage.setItem("KinkyDungeonSexyMode", KinkyDungeonSexyMode ? "True" : "False");
+		} else if (MouseIn(1175, 150, 275, 64)) {
+			KinkyDungeonSexyMode = true;
+			localStorage.setItem("KinkyDungeonSexyMode", KinkyDungeonSexyMode ? "True" : "False");
+		} else if (MouseIn(1500, 120, 64, 64)) {
+			KinkyDungeonSexyPlug = !KinkyDungeonSexyPlug;
+			localStorage.setItem("KinkyDungeonSexyPlug", KinkyDungeonSexyPlug ? "True" : "False");
+		} else if (MouseIn(1500, 200, 64, 64)) {
+			KinkyDungeonSexyPiercing = !KinkyDungeonSexyPiercing;
+			localStorage.setItem("KinkyDungeonSexyPiercing", KinkyDungeonSexyPiercing ? "True" : "False");
+		}
+		KinkyDungeonStatsChoice.set("arousalMode", KinkyDungeonSexyMode ? true : undefined);
+		KinkyDungeonStatsChoice.set("arousalModePlug", KinkyDungeonSexyPlug ? true : undefined);
+		KinkyDungeonStatsChoice.set("arousalModePiercing", KinkyDungeonSexyPiercing ? true : undefined);
 		if (MouseIn(875, 350, 750, 64)) {
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonStartNewGame();
@@ -677,7 +715,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonHeartsPlaced = [];
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonDifficultyMode = 0;
-			KinkyDungeonInitialize(1);
+			KinkyDungeonInitialize(1, undefined, true);
 			MiniGameKinkyDungeonCheckpoint = 1;
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);

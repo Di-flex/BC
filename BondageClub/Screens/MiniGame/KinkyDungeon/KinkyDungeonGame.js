@@ -178,7 +178,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 	KinkyDungeonNewGame += 1;
 }
-function KinkyDungeonInitialize(Level, Random) {
+function KinkyDungeonInitialize(Level, Random, Load) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -235,7 +235,7 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonCanvasFow.width = KinkyDungeonCanvas.width;
 	KinkyDungeonCanvasFow.height = KinkyDungeonCanvas.height;
 
-	KinkyDungeonDefaultStats();
+	KinkyDungeonDefaultStats(Load);
 
 	// Set up the first level
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);

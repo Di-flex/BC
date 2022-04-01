@@ -41,6 +41,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 	for (let loot of lootType) {
 		if ((Level >= loot.minLevel || KinkyDungeonNewGame > 0) && loot.floors.get(Index)) {
 			let prereqs = true;
+			if (loot.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) prereqs = false;
 
 			if (loot.prerequisites) {
 
