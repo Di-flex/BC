@@ -2800,7 +2800,7 @@ KinkyDungeonSpellCastGolem,You stomp your foot and draw the words of life on the
 
 KinkyDungeonSpellDecoy,Decoy
 KinkyDungeonSpellTargetDecoy,Select where to create an illusion (cannot place on occupied squares)
-KinkyDungeonSpellDescriptionDecoy,Create a decoy for Duration turns
+KinkyDungeonSpellDescriptionDecoy,"Create a decoy for Duration turns. It attracts enemy attention and triggers traps."
 KinkyDungeonSpellCastDecoy,A shadow of yourself materializes!
 KinkyDungeonSummonSingleDecoy,You create a line on the ground and toss in a lock of your hair!
 
