@@ -207,16 +207,16 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	if (KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.45) Eyes = "Sad";
-	if (KinkyDungeonStatStamina <= 12 || KinkyDungeonStatArousal > KinkyDungeonStatArousalMax/2) Eyes = "Dazed";
+	if (KinkyDungeonStatStamina <= 12 || KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax/2) Eyes = "Dazed";
 
-	if (KinkyDungeonStatArousal > 6 || KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.33) Eyebrows = "Soft";
+	if (KinkyDungeonStatDistraction > 6 || KinkyDungeonStatMana < KinkyDungeonStatManaMax*0.33) Eyebrows = "Soft";
 
 	let chastityMult = KinkyDungeonChastityMult();
-	if (KinkyDungeonStatArousal > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5 && chastityMult > 0.9) Eyebrows = "Angry";
+	if (KinkyDungeonStatDistraction > 24 && KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax*0.5 && chastityMult > 0.9) Eyebrows = "Angry";
 
-	if (KinkyDungeonStatArousal >= KinkyDungeonStatArousalMax * 0.8) Eyes = (Eyebrows != "Angry" && KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.99) ? "Lewd" : "Scared";
+	if (KinkyDungeonStatDistraction >= KinkyDungeonStatDistractionMax * 0.8) Eyes = (Eyebrows != "Angry" && KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.99) ? "Lewd" : "Scared";
 
-	if (KinkyDungeonStatArousal >= 0.01 && KinkyDungeonStatArousal <= 3) Eyes2 = "Closed";
+	if (KinkyDungeonStatDistraction >= 0.01 && KinkyDungeonStatDistraction <= 3) Eyes2 = "Closed";
 
 	if (KDGameData.OrgasmTurns > 0) {
 		Eyebrows = "Soft";
@@ -235,9 +235,9 @@ function KinkyDungeonDressPlayer() {
 		Eyes2 = "";
 	}
 
-	if (KinkyDungeonStatArousal > 0.01) BlushCounter += 1;
-	if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.33) BlushCounter += 1;
-	if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.65) BlushCounter += 1;
+	if (KinkyDungeonStatDistraction > 0.01) BlushCounter += 1;
+	if (KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.33) BlushCounter += 1;
+	if (KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.65) BlushCounter += 1;
 
 	if (KinkyDungeonUndress > 0.4) BlushCounter += 1;
 	if (KinkyDungeonUndress > 0.8) BlushCounter += 1;

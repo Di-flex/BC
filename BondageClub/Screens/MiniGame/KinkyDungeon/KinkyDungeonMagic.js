@@ -285,7 +285,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			effect = true;
 		} else if (playerEffect.name == "SporesHappy") {
-			KinkyDungeonChangeArousal(playerEffect.arousal);
+			KinkyDungeonChangeDistraction(playerEffect.distraction);
 			KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSporesHappy"), "#ff5277", 2);
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			effect = true;

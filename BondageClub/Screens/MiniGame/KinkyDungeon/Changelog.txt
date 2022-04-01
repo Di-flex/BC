@@ -45,7 +45,7 @@ Spells
 Other
 - New brickwork visuals
 - The map has more doors, but some of them will be open at the start of the game. You can close them to prevent zombies from chasing you.
-- Added Undressing System. Certain things will pull clothes off, you gain arousal when this happens and visually will blush when extremely naked and aroused.
+- Added Undressing System. Certain things will pull clothes off, you gain distraction when this happens and visually will blush when extremely naked and aroused.
 - You can now hear the last chat message while ingame!
 - The game is persistent so if you hear chat you can exit out and communicate
 
@@ -114,7 +114,7 @@ TODO (expecting to get this done soon):
 -Make it so rope snare can't target spaces with enemies
 -Panel gag, Legbinder and bolero jacket restraints
 -Latex goddess and restraints
--Shock plug that stuns you at high arousal
+-Shock plug that stuns you at high distraction
 -View buffs/penalties as a 3rd option for the struggle display
 -Aura spells that reduce max mana and mana regen
 -Contract spells Attached to a restraint
@@ -127,7 +127,7 @@ Other Features
 - Picks, Knives, and Red Keys are now in the shop
 - Gagged mumbling while moving around
 - More flavorful text when waiting
-- Made the player character more expressive based on stamina, mana and arousal
+- Made the player character more expressive based on stamina, mana and distraction
 - Removed green and yellow locks (too much bloat)
 - Only one shrine of each type per floor
 - If you are bound with shrine-able restraints, one random restraint type will be guaranteed to have a shrine on the next level
@@ -681,8 +681,8 @@ Spell Balance:
 - Added Rope weapon
 
 2.7.5
-- Base arousal decay, vibrator arousal amounts were halved
-- Wearing chastity now halves your base arousal decay
+- Base distraction decay, vibrator distraction amounts were halved
+- Wearing chastity now halves your base distraction decay
 - Unchaste now lowers it even further to 25% of base
 - Lockpicks and knives no longer appear in rubble if you have more than 3
 - Enemies are vulnerable when they miss you or when you are behind them and take extra damage

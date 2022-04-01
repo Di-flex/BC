@@ -174,10 +174,10 @@ function KinkyDungeonPayShrine(type) {
 		rep = Math.ceil(5 - KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax - KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
-		KinkyDungeonStatArousal = 0;
+		KinkyDungeonStatDistraction = 0;
 		KinkyDungeonChangeStamina(0);
 		KinkyDungeonChangeMana(0);
-		KinkyDungeonChangeArousal(0);
+		KinkyDungeonChangeDistraction(0);
 		KinkyDungeonNextDataSendStatsTime = 0;
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineHeal");

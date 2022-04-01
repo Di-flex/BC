@@ -64,6 +64,8 @@ interface consumable {
 }
 
 interface restraint {
+	/** Determines if the item appears in arousal mode only */
+	arousalMode?: boolean,
 	name: string,
 	Group: string,
 	Asset: string,
@@ -115,7 +117,7 @@ interface restraint {
 	chastitybra?: boolean,
 	/** The item rubs against the crotch when you move or struggle*/
 	crotchrope?: boolean,
-	/** The item provides arousal when you walk around*/
+	/** The item provides distraction when you walk around*/
 	plugSize?: number,
 	/** Enemy tags that modify the weight */
 	enemyTags: any,
@@ -256,7 +258,7 @@ interface KinkyDungeonSave {
 		eknife: number;
 		mana: number;
 		stamina: number;
-		arousal: number;
+		distraction: number;
 		wep: any;
 		npp: number;
 	};
@@ -285,6 +287,8 @@ interface KinkyDungeonWeapon {
 	magic?: boolean;
 	cutBonus?: number;
 	playSelfBonus?: number;
+	playSelfMsg?: string;
+	playSelfSound?: string;
 	unarmed: boolean;
 	shop: boolean;
 	noequip?: boolean;

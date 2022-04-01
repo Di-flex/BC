@@ -87,7 +87,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonIceDrain"), "lightblue", 2);
 		} else if (e.type == "crystalDrain" && e.trigger == "tick" && e.power) {
 			KinkyDungeonChangeMana(e.power);
-			KinkyDungeonChangeArousal(-e.power * 3);
+			KinkyDungeonChangeDistraction(-e.power * 3);
 			KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrystalDrain"), "lightblue", 2);
 		} else if (e.type == "slimeSpread" && e.trigger == "tick") {
 			KinkyDungeonSlimeLevel = Math.max(KinkyDungeonSlimeLevel, KinkyDungeonSlimeLevelStart + e.power);
@@ -244,10 +244,10 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		}
 	} else if (Event == "struggle") {
 		if (e.type == "crotchrope" && e.trigger == "struggle" && data.restraint && data.restraint.restraint && data.restraint.restraint.crotchrope && data.struggletype == "Struggle" && data.struggletype == "Remove") {
-			KinkyDungeonChangeArousal(1);
+			KinkyDungeonChangeDistraction(1);
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
 		} else if (e.type == "celestialRopePunish" && e.trigger == "struggle" && data.restraint && item == data.restraint) {
-			KinkyDungeonChangeArousal(3);
+			KinkyDungeonChangeDistraction(3);
 			KinkyDungeonChangeMana(-1);
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind + 1, 2);
 
@@ -262,7 +262,7 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 			}
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCelestialPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 		} else if (e.type == "crystalPunish" && e.trigger == "struggle" && data.restraint && item == data.restraint) {
-			KinkyDungeonChangeArousal(1);
+			KinkyDungeonChangeDistraction(1);
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 		}
 	} else if (Event == "playerAttack") {

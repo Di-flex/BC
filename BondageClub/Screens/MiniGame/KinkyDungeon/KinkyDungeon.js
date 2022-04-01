@@ -1177,7 +1177,7 @@ function KinkyDungeonGenerateSaveData() {
 		eknife: KinkyDungeonEnchantedBlades,
 		mana: KinkyDungeonStatMana,
 		stamina: KinkyDungeonStatStamina,
-		arousal: KinkyDungeonStatArousal,
+		distraction: KinkyDungeonStatDistraction,
 		wep: KinkyDungeonPlayerWeapon,
 		npp: KinkyDungeonNewGame,
 		diff: KinkyDungeonDifficultyMode,
@@ -1244,7 +1244,7 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.eknife != undefined) KinkyDungeonEnchantedBlades = saveData.stats.eknife;
 				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
 				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
-				if (saveData.stats.arousal != undefined) KinkyDungeonStatArousal = saveData.stats.arousal;
+				if (saveData.stats.distraction != undefined) KinkyDungeonStatDistraction = saveData.stats.distraction;
 				if (saveData.stats.wep != undefined) KDSetWeapon(saveData.stats.wep);
 				if (saveData.stats.npp != undefined) KinkyDungeonNewGame = saveData.stats.npp;
 				if (saveData.stats.diff != undefined) KinkyDungeonDifficultyMode = saveData.stats.diff;
@@ -1252,7 +1252,7 @@ function KinkyDungeonLoadGame(String) {
 
 				KDOrigStamina = KinkyDungeonStatStamina;
 				KDOrigMana = KinkyDungeonStatMana;
-				KDOrigArousal = KinkyDungeonStatArousal;
+				KDOrigDistraction = KinkyDungeonStatDistraction;
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);

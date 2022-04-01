@@ -65,9 +65,9 @@ KinkyDungeonStat15,"Bondage Lover"
 KinkyDungeonStatDesc15,"Attempting to escape arouses you."
 
 KinkyDungeonStat16,"Purity"
-KinkyDungeonStatDesc16,"You cannot play with yourself, but gain a flat 0.25 arousal decay per turn."
+KinkyDungeonStatDesc16,"You cannot play with yourself, but gain a flat 0.25 distraction decay per turn."
 KinkyDungeonStat17,"Unchaste"
-KinkyDungeonStatDesc17,"Your arousal decay is 0.25x while wearing a chastity belt instead of 0.5x."
+KinkyDungeonStatDesc17,"Your distraction decay is 0.25x while wearing a chastity belt instead of 0.5x."
 
 KinkyDungeonStat18,"Focused Dodge"
 KinkyDungeonStatDesc18,"While your miscast chance is 0%, your base evasion is 25% (multiplicative)."
@@ -135,9 +135,9 @@ KinkyDungeonStat43,"Price Gouging"
 KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
 
 KinkyDungeonStat44,"Free Spirit"
-KinkyDungeonStatDesc44,"Most chastity belts can be struggled out of, but arousal decay is heavily reduced."
+KinkyDungeonStatDesc44,"Most chastity belts can be struggled out of, but distraction decay is heavily reduced."
 KinkyDungeonStat45,"Deprived"
-KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain arousal while chaste."
+KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain distraction while chaste."
 
 KinkyDungeonStat46,"Supermarket"
 KinkyDungeonStatDesc46,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
@@ -186,7 +186,7 @@ EndWin2,"Come back later for new dungeons!"
 
 StatWeapon,"Weapon: "
 StatMiscastChance,"Miscast: Percent"
-StatArousal,"Arousal: CURRENT/MAX"
+StatDistraction,"Distraction: CURRENT/MAX"
 StatStamina,"Stamina: CURRENT/MAX"
 StatWillpower,"Willpower: CURRENT/MAX"
 StatMana,"Mana: CURRENT/MAX"
@@ -429,7 +429,7 @@ KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more o
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,"You chug the frigid, bitter concoction and feel chilled to the bone."
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
-KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces arousal to 0 instantly."
+KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces distraction to 0 instantly."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
 KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
 KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs. Can be used without hands."
@@ -657,7 +657,7 @@ NameMaidforceHead,M.F. 'Master Plan'
 KillMaidforceHead,"The head maid surrenders gracefully."
 AttackMaidforceHeadBind,"The head maid suddenly whips out a restraint and locks it on! (+RestraintAdded)"
 AttackMaidforceHeadLock,"The head maid snaps her fingers and locks your restraints! (-DamageTaken SP)"
-AttackMaidforceHead,"The head maid uses her remote to drive your toys to max! (-DamageTaken SP)"
+AttackMaidforceHead,"The head maid tickles you strategically! (-DamageTaken SP)"
 
 NameElementalFire,Fire Elemental
 KillElementalFire,"The fire elemental dissolves into ash."
@@ -2629,11 +2629,11 @@ KinkyDungeonSpellMPUp3,Mana Up III
 KinkyDungeonSpellDescriptionMPUp3,Increases maximum MP by 12
 
 KinkyDungeonSpellAPUp1,Strong Mind I
-KinkyDungeonSpellDescriptionAPUp1,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp1,Increases maximum Distraction by 33% of base and Distraction regen by -0.1 per turn
 KinkyDungeonSpellAPUp2,Strong Mind II
-KinkyDungeonSpellDescriptionAPUp2,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp2,Increases maximum Distraction by 33% of base and Distraction regen by -0.1 per turn
 KinkyDungeonSpellAPUp3,Strong Mind III
-KinkyDungeonSpellDescriptionAPUp3,Increases maximum Arousal by 33% of base and Arousal regen by -0.1 per turn
+KinkyDungeonSpellDescriptionAPUp3,Increases maximum Distraction by 33% of base and Distraction regen by -0.1 per turn
 
 KinkyDungeonSpellSpellChoiceUp1,Expert Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp1,Gives you an additional spell choice slot
@@ -3328,7 +3328,7 @@ KinkyDungeonCurseStruggleMistressKey,"You struggle fruitlessly. There is no keyh
 
 RestraintEnchantedBelt,Ancient Chastity Belt
 LootChestEnchantedBelt,"You find a chastity belt, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it gives -30% miscast chance due to arousal and slowly regenerates stamina."
+RestraintEnchantedBeltDesc2,"A chastity belt of sleek, ancient design. While powered, it gives -30% miscast chance due to distraction and slowly regenerates stamina."
 RestraintEnchantedBeltDesc,"'Belt of the devoted'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBelt,"You tug at your chastity belt, but you can't even stick a finger inside because it's so tight..."
 
@@ -3443,12 +3443,12 @@ KinkyDungeonDamageTypeunstoppable,"Unstoppable"
 KinkyDungeonDamageTypeunflinching,"Unflinching"
 
 KinkyDungeonHeartIntro,"You found a heart amulet! Choose one of the following stats to improve:"
-KinkyDungeonHeartIntro1,"Arousal: Increases max arousal by +12, max stamina by +4, and arousal decay by 0.05/turn"
-KinkyDungeonHeartIntro2,"Stamina: Increases max stamina by +8"
-KinkyDungeonHeartIntro3,"Mana: Increases max mana by +12"
+KinkyDungeonHeartIntro1,"Distraction: Increases max distraction by +12 and decay by 0.05/turn."
+KinkyDungeonHeartIntro2,"Stamina: Increases max stamina by +6."
+KinkyDungeonHeartIntro3,"Mana: Increases max mana by +12."
 
-KinkyDungeonHeartArousal,"+12 Arousal, +4 Stamina"
-KinkyDungeonHeartStamina,"+8 Max Stamina"
+KinkyDungeonHeartDistraction,"+12 Max Distraction"
+KinkyDungeonHeartStamina,"+6 Max Stamina"
 KinkyDungeonHeartMana,"+12 Max Mana"
 
 KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!

@@ -3,7 +3,7 @@
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
-		KinkyDungeonChangeArousal(3 * delta);
+		KinkyDungeonChangeDistraction(3 * delta);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
 	} else if (tile == "[") { // Happy Gas!
 		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);
