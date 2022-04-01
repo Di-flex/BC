@@ -175,6 +175,11 @@ function KinkyDungeonInventoryRemove(item) {
 	}
 }
 
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGet(Name) {
 	for (let m of KinkyDungeonInventory.values()) {
 		if (m.has(Name)) return m.get(Name);
@@ -182,15 +187,38 @@ function KinkyDungeonInventoryGet(Name) {
 	return null;
 }
 
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetLoose(Name) {
 	return KinkyDungeonInventory.get(LooseRestraint).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetConsumable(Name) {
 	return KinkyDungeonInventory.get(Consumable).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetWeapon(Name) {
 	return KinkyDungeonInventory.get(Weapon).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetOutfit(Name) {
 	return KinkyDungeonInventory.get(Outfit).get(Name);
 }

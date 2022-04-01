@@ -235,11 +235,13 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			KinkyDungeonInventoryAddWeapon(reward);
 			if (Replacemsg)
 				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
-		} else if (KinkyDungeonFindSpell(reward, true)) {
+		}
+		else if (KinkyDungeonFindSpell(reward, true)) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell(reward, true));
 			if (Replacemsg)
 				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonSpell" + reward));
-		} else if (KinkyDungeonConsumables[reward]) {
+		}
+		else if (KinkyDungeonConsumables[reward]) {
 			KinkyDungeonChangeConsumable(KinkyDungeonConsumables[reward], 1);
 			if (Replacemsg)
 				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
