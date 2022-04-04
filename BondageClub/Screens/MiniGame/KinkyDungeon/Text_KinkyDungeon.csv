@@ -523,6 +523,9 @@ KinkyDungeonInventoryItemRopeDesc2,"Deals 5 chain damage and applies 4 points of
 KinkyDungeonInventoryItemMagicSword,Enchanted Sword
 KinkyDungeonInventoryItemMagicSwordDesc,"Slices through ghosts with ease!"
 KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its target, making it easy to hit with."
+KinkyDungeonInventoryItemDragonslaver,Dragonslaver
+KinkyDungeonInventoryItemDragonslaverDesc,"A powerful weapon with an ancient mechanism that launches binding belts."
+KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% ancient energy to fire a line of belts that deal 40 chain damage and 4 extra binding."
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
 KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies nearby. Slows for 3 turns."
@@ -2411,6 +2414,7 @@ LootChestGrinder,"You find a strange ancient device with a sharp cutting blade."
 ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 ItemPickupBola,You pick up a bola.
 ItemPickupBomb,You pick up a bomb!
+ItemPickupDragonslaver,"You pick up Dragonslaver."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
@@ -2831,6 +2835,7 @@ KinkyDungeonSpellPoisonDragonBlast,Nature Blast
 KinkyDungeonSpellEntangle,Raging Vines
 
 KinkyDungeonSpellSingleRibbon,Magic Ribbons
+KinkyDungeonSpellSingleBelt,Magic Belts
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 

@@ -746,6 +746,7 @@ Spell Balance:
 2.92
 - Added one of the few planned content toggles: Distraction mode vs. Aroused mode, which toggles some of the more hardcore sexual stuff
 - Decoy now triggers traps
+- Added dragonslaver, a divine gift bestowed by the leather goddess
 
 TODO ValidationFindBlockCycles to prevent bugs
 

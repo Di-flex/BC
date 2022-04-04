@@ -420,8 +420,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, "black");
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), "white");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100+1, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100, "white");
+
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
@@ -435,8 +440,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Rheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2) + 1, "black");
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2), "white");
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
+
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});

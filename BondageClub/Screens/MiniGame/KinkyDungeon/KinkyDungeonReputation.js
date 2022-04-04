@@ -24,7 +24,7 @@ let KDBlessedRewards = {
 	"Latex": ["StaffDoll"],
 	"Rope": ["StaffBind"],
 	"Metal": ["StaffStorm"],
-	"Leather": ["StaffFire"],
+	"Leather": ["Dragonslaver"],
 	"Will": ["MagicHammer", "MagicFlail", "MagicSpear"],
 	"Elements": ["IceBreaker",],
 	"Conjure": ["MagicSword"],

@@ -48,6 +48,8 @@ let KinkyDungeonWeapons = {
 		playSelfSound: "Vibe",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
+	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
+		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}]},
 	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"MagicAxe": {name: "MagicAxe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "cold", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
@@ -1055,7 +1057,7 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 function KinkyDungeonSendWeaponEvent(Event, data) {
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.events) {
 		for (let e of KinkyDungeonPlayerDamage.events) {
-			if (e.trigger == Event) {
+			if (e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
 				KinkyDungeonHandleWeaponEvent(Event, e, KinkyDungeonPlayerDamage, data);
 			}
 		}

@@ -311,6 +311,8 @@ interface KinkyDungeonEvent {
 	buff?: any;
     requireEnergy?: any;
     energyCost?: any;
+	/** Spell to cast at the target */
+    spell?: string;
 	/** Chance to trigger is 1+(submissive % * subMult)*/
 	subMult?: number;
 	/** Won't trigger while being leashed */

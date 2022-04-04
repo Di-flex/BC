@@ -460,6 +460,10 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 					}
 				}
 			}
+		} else if (e.type == "CastSpell" && e.trigger == Event && data.enemy && !data.disarm) {
+			let spell = KinkyDungeonFindSpell(e.spell, true);
+			KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, spell, {x:KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y}, {x:data.enemy.x, y:data.enemy.y}, undefined);
+			if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 		} else if (e.type == "Pierce" && e.trigger == Event && data.enemy && !data.disarm) {
 			let dist = e.dist ? e.dist : 1;
 			for (let i = 1; i <= dist; i++) {
