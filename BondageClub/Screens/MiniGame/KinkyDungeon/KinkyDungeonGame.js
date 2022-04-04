@@ -990,7 +990,7 @@ function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 
 	MiniGameKinkyDungeonMainPath = checkpoint;
 	if (MiniGameKinkyDungeonMainPath != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonMainPath}, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, 8.5);
-	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 0});
+	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 2});
 }
 
 function KinkyDungeonSkinArea(skin, X, Y, Radius, NoStairs) {
