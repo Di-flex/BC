@@ -484,9 +484,9 @@ function KinkyDungeonPointInCell(x, y) {
 
 function KinkyDungeonDefeat() {
 	// @ts-ignore
-	if (dataLayer)
+	if (window.dataLayer)
 		// @ts-ignore
-		dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'jailed'});
+		window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'jailed'});
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;
 	KDGameData.JailRemoveRestraintsTimer = 0;

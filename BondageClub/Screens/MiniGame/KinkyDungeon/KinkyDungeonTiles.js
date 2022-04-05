@@ -63,14 +63,14 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		if (KinkyDungeonState != "End") {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 			// @ts-ignore
-			if (dataLayer)
+			if (window.dataLayer)
 				// @ts-ignore
-				dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'nextLevel'});
+				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'nextLevel'});
 		} else {
 			// @ts-ignore
-			if (dataLayer)
+			if (window.dataLayer)
 				// @ts-ignore
-				dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'end'});
+				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'end'});
 		}
 
 	} else {
