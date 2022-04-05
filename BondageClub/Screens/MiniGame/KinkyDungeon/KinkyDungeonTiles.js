@@ -60,8 +60,19 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		else // Otherwise it's just a little bit
 			KinkyDungeonChangeRep("Prisoner", -1);
 
-		if (KinkyDungeonState != "End")
+		if (KinkyDungeonState != "End") {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+			// @ts-ignore
+			if (dataLayer)
+				// @ts-ignore
+				dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'nextLevel'});
+		} else {
+			// @ts-ignore
+			if (dataLayer)
+				// @ts-ignore
+				dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'end'});
+		}
+
 	} else {
 		KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
 	}

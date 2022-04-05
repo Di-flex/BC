@@ -243,6 +243,7 @@ function KinkyDungeonTooMuchRestraint() {
 	return RemoveGroups;
 }
 
+// @ts-ignore
 function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let applyTime = 2;
 	let playerDist = Math.sqrt((KinkyDungeonJailGuard().x - KinkyDungeonPlayerEntity.x)*(KinkyDungeonJailGuard().x - KinkyDungeonPlayerEntity.x) + (KinkyDungeonJailGuard().y - KinkyDungeonPlayerEntity.y)*(KinkyDungeonJailGuard().y - KinkyDungeonPlayerEntity.y));
@@ -482,6 +483,10 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
+	// @ts-ignore
+	if (dataLayer)
+		// @ts-ignore
+		dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'jailed'});
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;
 	KDGameData.JailRemoveRestraintsTimer = 0;
