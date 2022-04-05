@@ -1003,6 +1003,7 @@ function KinkyDungeonHandleMagic() {
 			if (KinkyDungeonSpellPoints >= cost) {
 				KinkyDungeonSpellPoints -= cost;
 				KinkyDungeonSpells.push(KinkyDungeonPreviewSpell);
+				KDSendStatus('learnspell', KinkyDungeonPreviewSpell.name);
 				KinkyDungeonSetMaxStats();
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(KinkyDungeonPreviewSpell.name);
