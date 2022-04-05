@@ -65,12 +65,12 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			// @ts-ignore
 			if (window.dataLayer)
 				// @ts-ignore
-				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'nextLevel'});
+				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'statusType':'nextLevel'});
 		} else {
 			// @ts-ignore
 			if (window.dataLayer)
 				// @ts-ignore
-				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'type':'end'});
+				window.dataLayer.push({'event':'gameStatus','currentLevel':MiniGameKinkyDungeonLevel,'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,'statusType':'end'});
 		}
 
 	} else {
