@@ -642,7 +642,7 @@ function KDSendStatus(type, data) {
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			'spell': type == 'learnspell' ? data : undefined,
 		});
-		if (type == 'nextLevel') {
+		if (type == 'nextLevel' && KinkyDungeonDifficultyMode < 2) {
 			for (let s of KinkyDungeonSpells) {
 				KDSendSpell(s.name);
 			}

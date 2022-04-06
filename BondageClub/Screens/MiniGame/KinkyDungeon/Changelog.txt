@@ -748,8 +748,9 @@ Spell Balance:
 - Decoy now triggers traps
 - Added dragonslaver, a divine gift bestowed by the leather goddess
 
-2.93
+2.93 (April 2022)
 - Perks are now persistent and autosave
+- New spell: Summon Rock
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -24,6 +24,11 @@ let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
 let KinkyDungeonHalfDamageTypes = ["tickle", "charm", "drain"];
 let KinkyDungeonTeaseDamageTypes = ["tickle", "charm", "grope", "pain", "happygas", "poison", "drain", "souldrain"];
+let KinkyDungeonStunDamageTypes = ["fire", "electric", "stun"];
+let KinkyDungeonBindDamageTypes = ["chain", "glue"];
+let KinkyDungeonFreezeDamageTypes = ["ice"];
+let KinkyDungeonSlowDamageTypes = ["crush", "slash", "pierce", "frost", "cold", "poison"];
+let KinkyDungeonVulnerableDamageTypes = ["tickle"];
 
 // Weapons
 let KinkyDungeonPlayerWeapon = null;
@@ -454,21 +459,23 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (Enemy.hp > 0 && Enemy.hp <= 0.51 && dmgDealt > 2.01 && !forceKill) Enemy.hp = 0;
 			if (dmgDealt > 0) Enemy.revealed = true;
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "stun" || predata.type == "electric")) { // Being immune to the damage stops the stun as well
+
+		if ((resistStun < 2 && resistDamage < 2) && (KinkyDungeonStunDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.stun) Enemy.stun = 0;
 			if (resistStun == 1 || resistDamage == 1)
 				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.stun = Math.max(Enemy.stun, time);
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "ice")) { // Being immune to the damage stops the stun as well
+		if ((resistStun < 2 && resistDamage < 2) && (KinkyDungeonFreezeDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.freeze) Enemy.freeze = 0;
 			if (resistDamage == 1 || resistStun == 1)
 				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(time/2), time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
 			else Enemy.freeze = Math.max(Enemy.freeze, time);
 		}
-		if ((resistStun < 2 && resistDamage < 2) && (predata.type == "chain" || predata.type == "glue")) { // Being immune to the damage stops the bind
+
+		if ((resistStun < 2 && resistDamage < 2) && (KinkyDungeonBindDamageTypes.includes(predata.type))) { // Being immune to the damage stops the bind
 			effect = true;
 			if (!Enemy.bind) Enemy.bind = 0;
 			if (resistDamage == 1 || resistStun == 1)
@@ -497,7 +504,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
 			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.51;
 		}
-		if ((resistSlow < 2 && resistDamage < 2) && (predata.type == "slow" || predata.type == "cold" || predata.type == "frost" || predata.type == "poison")) { // Being immune to the damage stops the stun as well
+
+		if ((resistSlow < 2 && resistDamage < 2) && (KinkyDungeonSlowDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1 || resistDamage == 1)
