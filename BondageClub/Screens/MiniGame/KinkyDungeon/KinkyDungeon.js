@@ -694,6 +694,11 @@ function KDSendEvent(type) {
 				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			});
+		} else if (type == 'patreon') {
+			// @ts-ignore
+			window.dataLayer.push({
+				'event':type,
+			});
 		}
 }
 
