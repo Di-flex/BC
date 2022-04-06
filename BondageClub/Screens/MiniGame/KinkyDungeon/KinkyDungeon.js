@@ -605,9 +605,28 @@ function KDSendTrait(trait) {
 		});
 }
 
-function KDSendStatus(type, data) {
+function KDSendSpell(spell) {
 	// @ts-ignore
 	if (window.dataLayer)
+		// @ts-ignore
+		window.dataLayer.push({
+			'event':'spell',
+			'spell':spell,
+		});
+}
+function KDSendWeapon(weapon) {
+	// @ts-ignore
+	if (window.dataLayer)
+		// @ts-ignore
+		window.dataLayer.push({
+			'event':'weapon',
+			'weapon':weapon,
+		});
+}
+
+function KDSendStatus(type, data) {
+	// @ts-ignore
+	if (window.dataLayer) {
 		// @ts-ignore
 		window.dataLayer.push({
 			'event':'gameStatus',
@@ -619,6 +638,15 @@ function KDSendStatus(type, data) {
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			'spell': type == 'learnspell' ? data : undefined,
 		});
+		if (type == 'nextLevel') {
+			for (let s of KinkyDungeonSpells) {
+				KDSendSpell(s.name);
+			}
+			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.name) {
+				KDSendWeapon(KinkyDungeonPlayerDamage.name);
+			}
+		}
+	}
 }
 function KDSendEvent(type) {
 	// @ts-ignore
