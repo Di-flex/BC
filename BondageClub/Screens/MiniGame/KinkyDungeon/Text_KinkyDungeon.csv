@@ -1406,6 +1406,13 @@ KinkyDungeonStruggleRemoveImpossibleTapeAroused,"You groan in frustration as you
 KinkyDungeonStruggleRemoveImpossibleBoundTape,"You can't grip the edges to peel it off!"
 KinkyDungeonStruggleRemoveImpossibleBoundTapeAroused,"You make a futile attempt to rub it off."
 
+KinkyDungeonStruggleRemoveFailMagicChain,"You try to wiggle off the chains..."
+KinkyDungeonStruggleRemoveFailMagicChainAroused,"You squirm trying to get the chains to fall off..."
+KinkyDungeonStruggleRemoveImpossibleMagicChain,"The chains are magical and wrap themselves back around you of their own accord."
+KinkyDungeonStruggleRemoveImpossibleMagicChainAroused,"The chains squeeze you tighter as you try to shake them off."
+KinkyDungeonStruggleRemoveImpossibleBoundMagicChain,"The chains have you bound hopelessly tight!"
+KinkyDungeonStruggleRemoveImpossibleBoundMagicChainAroused,"You sigh and moan as the chains aren't getting any looser."
+
 KinkyDungeonStruggleStruggleFailClamps,"You try to pull off the clamps..."
 KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
 KinkyDungeonStruggleStruggleImpossibleClamps,"That would really hurt..."
