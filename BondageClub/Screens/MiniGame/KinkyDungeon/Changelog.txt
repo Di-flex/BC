@@ -45,7 +45,7 @@ Spells
 Other
 - New brickwork visuals
 - The map has more doors, but some of them will be open at the start of the game. You can close them to prevent zombies from chasing you.
-- Added Undressing System. Certain things will pull clothes off, you gain arousal when this happens and visually will blush when extremely naked and aroused.
+- Added Undressing System. Certain things will pull clothes off, you gain distraction when this happens and visually will blush when extremely naked and aroused.
 - You can now hear the last chat message while ingame!
 - The game is persistent so if you hear chat you can exit out and communicate
 
@@ -114,7 +114,7 @@ TODO (expecting to get this done soon):
 -Make it so rope snare can't target spaces with enemies
 -Panel gag, Legbinder and bolero jacket restraints
 -Latex goddess and restraints
--Shock plug that stuns you at high arousal
+-Shock plug that stuns you at high distraction
 -View buffs/penalties as a 3rd option for the struggle display
 -Aura spells that reduce max mana and mana regen
 -Contract spells Attached to a restraint
@@ -127,7 +127,7 @@ Other Features
 - Picks, Knives, and Red Keys are now in the shop
 - Gagged mumbling while moving around
 - More flavorful text when waiting
-- Made the player character more expressive based on stamina, mana and arousal
+- Made the player character more expressive based on stamina, mana and distraction
 - Removed green and yellow locks (too much bloat)
 - Only one shrine of each type per floor
 - If you are bound with shrine-able restraints, one random restraint type will be guaranteed to have a shrine on the next level
@@ -681,8 +681,8 @@ Spell Balance:
 - Added Rope weapon
 
 2.7.5
-- Base arousal decay, vibrator arousal amounts were halved
-- Wearing chastity now halves your base arousal decay
+- Base distraction decay, vibrator distraction amounts were halved
+- Wearing chastity now halves your base distraction decay
 - Unchaste now lowers it even further to 25% of base
 - Lockpicks and knives no longer appear in rubble if you have more than 3
 - Enemies are vulnerable when they miss you or when you are behind them and take extra damage
@@ -698,9 +698,55 @@ Spell Balance:
 - Enemies now alert each other in a 5 tile radius
 - Added more wonderful bound sprites by Song!
 - Vulnerable condition only gives +33% damage instead of +120% (bug)
-- New enemies: Witch's apprentice and Summoner's apprentice
+- New enemies: Witch's apprentice, Latex apprentice, and Summoner's apprentice
 - Monoliths don't spawn as crazy often
 - Changed binding system to work based on max hp instead. This is a nerf, but enemy struggle speed is still decreased when they are wounded.
+- New spell: True Steel
+
+2.8
+- World generation has been revamped considerably, most hallways are now 2 tiles wide, and the maps are twice as large in terms of tiles as before
+- Stamina drain from slow movement is now 0.3 stamina per slow level per turn spent moving, a 70% reduction from the original levels a few versions ago
+- There are now only 6 floors instead of 10 per area. Enemy minimum levels and such have been rebalanced for this
+- Gravitating gags and red slimes now ignore gagged players, except if summoned
+- Spell shrines now cost base of 200 instead of 100
+- Blind zombies now drop no gold, to prevent tedium from feeling like you have to clear the first stage to get maximum money
+- Regular bandits now drop less gold on average. They wouldn't be stealing if they weren't poor!
+- New enemies: Seductive Shackes and Levitating Locks
+- Only humanoid (bindable) enemies can now grab your torso (no more getting grabbed by floating handcuffs)
+- Improved enemy chasing so they won't run off in random directions now
+- New spell: Ring
+- Gags no longer block spellcasting and potions completely. Potions are less effective and verbal spells have a miscast chance. However, muzzles block it completely as usual.
+- You can now become a champion of a goddess in order to gain rep and mana by capturing humanoid enemies.
+- A new terrifying sight awaits those who escape from the dungeon's traps...
+
+2.9
+- Added barrels you can hide in! They slow you when you exit, however, and make it harder to attack out of...
+- The ghost now helps with potions and items while bound
+- New enemies: Cloud of Scarves/Cloud of Feathers/Cloud of Ribbons
+- Made the map have more interconnectivity
+- Added potion collars to the shop
+- The item shop has been reworked. It now gives much more information at a glance! Happy hunting!
+- New enemy: Toad
+- Pickpocketing does not happen while being leashed
+- Added a bola and a bomb to the shop
+- Added many new perks, some of which are game-changing, others which are good for reducing or increasing certain restraint types
+- New weapons: Flamberge, Staff of Frostbite, Staff of Permafrost
+- New restraint item you can buy from the shop: Slime Walkers, allowing you to walk on slime
+- New weapon: IceBreaker, Staff of Storms, Dollmaker's Staff
+- New set pieces have been added for some map variety
+- You no longer need arms for drinking potions and using items if you have the Psychic trait
+
+2.91
+- Fixed mana potions not scaling with MP
+- Fixed softlock in prison with guard remmoving restraints forever if you removed it first
+- Fixed Weapon effects applying even on a miss (such as flamberge still dealing fire damage)
+- Changed capture to a limit of 25 captures per level, instead of not applying to summoned enemies
+- Cleave and Pierce no longer damage allies
+
+2.92
+- Added one of the few planned content toggles: Distraction mode vs. Aroused mode, which toggles some of the more hardcore sexual stuff
+- Decoy now triggers traps
+- Added dragonslaver, a divine gift bestowed by the leather goddess
 
 TODO ValidationFindBlockCycles to prevent bugs
 

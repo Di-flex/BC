@@ -3,11 +3,16 @@
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
-		KinkyDungeonChangeArousal(3 * delta);
+		KinkyDungeonChangeDistraction(3 * delta);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
 	} else if (tile == "[") { // Happy Gas!
 		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSporeGas"), "pink", 1);
+	} else if (tile == "L") { // Barrel
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "barrel", type: "SlowDetection", duration: 1, power: 9.0, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["SlowDetection", "move", "cast"]});
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "barrel3", type: "Sneak", duration: 1, power: 1.95, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["Sneak", "darkness", "move", "cast"]});
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "barrel2", type: "SlowLevel", duration: 1, power: 1, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["Slow", "move", "cast"]});
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonBarrel"), "lightgreen", 1);
 	}
 }
 
@@ -55,12 +60,18 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		else // Otherwise it's just a little bit
 			KinkyDungeonChangeRep("Prisoner", -1);
 
-		if (KinkyDungeonState != "End")
+		if (KinkyDungeonState != "End") {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+			KDSendStatus('nextLevel');
+		} else {
+			KDSendStatus('end');
+		}
+
 	} else {
 		KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
 	}
 }
+
 
 let KinkyDungeonConfirmStairs = false;
 

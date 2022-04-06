@@ -23,10 +23,13 @@ let KinkyDungeonItemDropChanceArmsBound = 0.2; // Chance to drop item with just 
 //let KinkyDungeonKnifeBreakChance = 0.15;
 let KinkyDungeonKeyJamChance = 0.33;
 let KinkyDungeonKeyPickBreakAmount = 12; // Number of tries per pick on average 5-11
+let KinkyDungeonKeyPickBreakAmountBase = 12; // Number of tries per pick on average 5-11
 let KinkyDungeonPickBreakProgress = 0;
 let KinkyDungeonKnifeBreakAmount = 10; // Number of tries per knife on average 6-12
+let KinkyDungeonKnifeBreakAmountBase = 10; // Number of tries per knife on average 6-12
 let KinkyDungeonKnifeBreakProgress = 0;
 let KinkyDungeonEnchKnifeBreakAmount = 24; // Number of tries per knife on average
+let KinkyDungeonEnchKnifeBreakAmountBase = 24; // Number of tries per knife on average
 let KinkyDungeonEnchKnifeBreakProgress = 0;
 
 let KinkyDungeonMaxImpossibleAttempts = 3; // base, more if the item is close to being impossible
@@ -42,6 +45,18 @@ let KDFlexibleBonus = 0.1;
 let KDFlexibleSpeedBonus = 1.5;
 let KDInflexibleBonus = -0.1;
 let KDInflexibleSpeedBonus = 0.75;
+
+let KDUnchainedBonus = 0.2;
+let KDDamselBonus = -0.2;
+let KDDamselPickAmount = 6;
+let KDArtistBonus = 0.2;
+let KDBunnyBonus = -0.2;
+let KDBunnyKnifeAmount = 5;
+let KDBunnyEnchKnifeAmount = 12;
+let KDSlipperyBonus = 0.2;
+let KDDollBonus = -0.2;
+let KDEscapeeBonus = 0.2;
+let KDDragonBonus = -0.2;
 
 let KDStrongBonus = 0.2;
 let KDWeakBonus = -0.15;
@@ -234,7 +249,7 @@ function KinkyDungeonLock(item, lock) {
 	if (item.restraint && InventoryGet(KinkyDungeonPlayer, item.restraint.Group) && lock != "") {
 		if (KinkyDungeonIsLockable(item.restraint)) {
 			item.lock = lock;
-			if (lock == "Gold") item.lockTimer = Math.min(KinkyDungeonMaxLevel - 1, MiniGameKinkyDungeonLevel + 1 + Math.round(KDRandom() * 2));
+			if (lock == "Gold") item.lockTimer = Math.min(KinkyDungeonMaxLevel - 1, MiniGameKinkyDungeonLevel + 2);
 			InventoryLock(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, item.restraint.Group), "IntricatePadlock", Player.MemberNumber, true);
 			item.pickProgress = 0;
 			if (!KinkyDungeonRestraintsLocked.includes(item.restraint.Group))
@@ -444,7 +459,7 @@ function KinkyDungeonPickAttempt() {
 	if (handsBound && strict < 0.5) escapeChance = Math.max(0, escapeChance - 0.5);
 	else if (strict) escapeChance = Math.max(0, escapeChance - strict);
 
-	escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
+	escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
 
 	if (!KinkyDungeonHasStamina(-cost, true)) {
 		KinkyDungeonWaitMessage(true);
@@ -546,6 +561,37 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (KinkyDungeonStatsChoice.get("Strong")) escapeChance += KDStrongBonus;
 		if (KinkyDungeonStatsChoice.get("Weak")) escapeChance += KDWeakBonus;
 	}
+	if (KinkyDungeonStatsChoice.get("Unchained") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal"))
+		escapeChance += KDUnchainedBonus;
+	if (KinkyDungeonStatsChoice.get("Damsel") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal")) {
+		escapeChance += KDDamselBonus;
+		KinkyDungeonKeyPickBreakAmount = KDDamselPickAmount;
+	} else KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
+
+	if (KinkyDungeonStatsChoice.get("FreeSpirit") && (restraint.restraint.chastity || restraint.restraint.chastitybra)) escapeChance += 0.5;
+	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
+		escapeChance += KDArtistBonus;
+	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
+		KinkyDungeonKnifeBreakAmount = KDBunnyKnifeAmount;
+		KinkyDungeonEnchKnifeBreakAmount = KDBunnyEnchKnifeAmount;
+		escapeChance += KDBunnyBonus;
+	} else {
+		KinkyDungeonKnifeBreakAmount = KinkyDungeonKnifeBreakAmountBase;
+		KinkyDungeonEnchKnifeBreakAmount = KinkyDungeonEnchKnifeBreakAmountBase;
+	}
+
+	if (KinkyDungeonStatsChoice.get("Slippery") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDSlipperyBonus;
+	else if (KinkyDungeonStatsChoice.get("Doll") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+		escapeChance += KDDollBonus;
+
+	if (KinkyDungeonStatsChoice.get("Escapee") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDEscapeeBonus;
+	else if (KinkyDungeonStatsChoice.get("Dragon") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+		escapeChance += KDDragonBonus;
+
+
+
 
 	let increasedAttempts = false;
 
@@ -569,6 +615,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	}
 	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) escapeChance += KinkyDungeonEnchantedKnifeBonus;
 
+	let escapeSpeed = 1.0;
 
 	// Finger extensions will help if your hands are unbound. Some items cant be removed without them!
 	// Mouth counts as a finger extension on your hands if your arms aren't tied
@@ -580,8 +627,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// You can tug using unbound hands
 	if (StruggleType == "Struggle" &&
-		(!handsBound && !armsBound && struggleGroup.group != "ItemHands" && struggleGroup.group != "ItemArms"))
+		(!handsBound && !armsBound && struggleGroup.group != "ItemHands" && struggleGroup.group != "ItemArms")) {
+		escapeSpeed *= 1.4;
 		escapeChance = Math.min(1, escapeChance + 0.05);
+	}
 
 
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) escapeChance = Math.max(escapeChance, 0.25);
@@ -591,6 +640,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		if (restraint.attempts < KinkyDungeonMaxImpossibleAttempts) {
 			increasedAttempts = true;
 			restraint.attempts += 0.5;
+			if (StruggleType == "Struggle") restraint.attempts += 0.5;
 			if (escapeChance <= -0.5) restraint.attempts += 0.5;
 		} else {
 			let typesuff = "";
@@ -598,7 +648,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			else if (restraint.restraint.specStruggleTypes && restraint.restraint.specStruggleTypes.includes(StruggleType)) typesuff = "2";
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			if (typesuff == "" && failSuffix) typesuff = failSuffix;
-			if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+			if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendEvent("struggle", {
@@ -608,7 +658,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -630,7 +680,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (StruggleType == "Remove" && escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
-		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonSendEvent("struggle", {
@@ -651,7 +701,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (possible && escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
-		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Strict" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonSendEvent("struggle", {
@@ -663,7 +713,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		return "NeedEdge";
 	}
 
-	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
+	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
 
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && restraintEscapeChance > 0.01) escapeChance/= 5;
@@ -693,11 +743,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let belt = null;
 	let bra = null;
 
-	if (struggleGroup.group != "ItemVulva" || struggleGroup.group != "ItemVulvaPiercings" || struggleGroup.group != "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
-	if (belt && belt.chastity) escapeChance = 0.0;
+	if (struggleGroup.group == "ItemVulva" || struggleGroup.group == "ItemVulvaPiercings" || struggleGroup.group == "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
+	if (belt && belt.restraint && belt.restraint.chastity) escapeChance = 0.0;
 
-	if (struggleGroup.group != "ItemNipples" || struggleGroup.group != "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
-	if (bra && bra.chastity) escapeChance = 0.0;
+	if (struggleGroup.group == "ItemNipples" || struggleGroup.group == "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
+	if (bra && bra.restraint && bra.restraint.chastity) escapeChance = 0.0;
 
 	if (escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
@@ -710,7 +760,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			let suff = "";
 			if (suff == "" && failSuffix) suff = failSuffix;
-			if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
+			if (KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) suff = suff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound" + suff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendEvent("struggle", {
@@ -720,7 +770,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -777,7 +827,14 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else if (StruggleType == "Remove") AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Unbuckle.ogg");
 						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					}
+					let trap = restraint.trap;
 					KinkyDungeonRemoveRestraint(restraint.restraint.Group, StruggleType != "Cut");
+					if (trap) {
+						let summon = KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, trap, 1, 2.5);
+						if (summon) {
+							KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonSummonTrapMonster"), "red", 2);
+						}
+					}
 				}
 			} else {
 				// Failure block for the different failure types
@@ -822,7 +879,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 							let mult = 1.0;
 							if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 							if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
-							restraint.cutProgress += mult * escapeChance * (0.3 + 0.2 * KDRandom() + 0.6 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
+							restraint.cutProgress += escapeSpeed * mult * escapeChance * (0.3 + 0.2 * KDRandom() + 0.6 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
 						}
 					}
 				} else if (StruggleType == "Pick") {
@@ -842,7 +899,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						let mult = 1.0;
 						if (KinkyDungeonStatsChoice.get("Locksmith")) mult *= KDLocksmithSpeedBonus;
 						if (KinkyDungeonStatsChoice.get("Clueless")) mult *= KDCluelessSpeedBonus;
-						restraint.pickProgress += mult * escapeChance * (0.5 + 1.0 * KDRandom());
+						restraint.pickProgress += escapeSpeed * mult * escapeChance * (0.5 + 1.0 * KDRandom());
 					}
 				} else if (StruggleType == "Unlock") {
 					if (!KinkyDungeonStatsChoice.get("Psychic") && (handsBound || (armsBound && KDRandom() < KinkyDungeonItemDropChanceArmsBound))) {
@@ -857,18 +914,18 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						let mult = 1.0;
 						if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 						if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
-						restraint.unlockProgress += mult * escapeChance * (0.75 + 0.5 * KDRandom());
+						restraint.unlockProgress += escapeSpeed * mult * escapeChance * (0.75 + 0.5 * KDRandom());
 					}
 				} else if (StruggleType == "Remove") {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");let mult = 1.0;
 					if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 					if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
-					restraint.removeProgress += mult * escapeChance * (0.55 + 0.2 * KDRandom() + 0.35 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
+					restraint.removeProgress += escapeSpeed * mult * escapeChance * (0.55 + 0.2 * KDRandom() + 0.35 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
 				} else if (StruggleType == "Struggle") {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");let mult = 1.0;
 					if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 					if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
-					restraint.struggleProgress += mult * escapeChance * (0.4 + 0.3 * KDRandom() + 0.4 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
+					restraint.struggleProgress += escapeSpeed * mult * escapeChance * (0.4 + 0.3 * KDRandom() + 0.4 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
 				}
 			}
 
@@ -880,11 +937,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			} else if (Pass == "Fail") {
 				if (suff == "" && failSuffix) suff = failSuffix;
 			}
-			if ((suff == "" || (Pass == "Fail" && suff == failSuffix)) && (Pass == "Fail" || Pass == "Success") && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
+			if ((suff == "" || (Pass == "Fail" && suff == failSuffix)) && (Pass == "Fail" || Pass == "Success") && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) suff = suff + "Aroused";
 			KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonStruggle" + StruggleType + Pass + suff).replace("TargetRestraint", TextGet("Restraint" + restraint.restraint.name)), (Pass == "Success") ? "lightgreen" : "red", 2);
 
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 
 			if (Pass != "Success") {
 				// Reduce the progress
@@ -971,7 +1028,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 	let restraintWeightTotal = 0;
 	let restraintWeights = [];
 	let cache = KDRestraintsCache.get(enemy.name);
-	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatArousal / KinkyDungeonStatArousalMax))
+	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax))
 		/(1 + (KinkyDungeonGoddessRep.Ghost + 50)/100);
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
@@ -1079,6 +1136,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 				}
 		}
 	}
+	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
 	return playerTags;
 }
 
@@ -1122,15 +1180,29 @@ function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink
 	return false;
 }
 
+function KinkyDungeonGenerateRestraintTrap() {
+	let enemy = KinkyDungeonGetEnemy(["chestTrap"], MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, '0', ["chestTrap"]);
+	if (enemy) return enemy.name;
+	return "GreedyGhast";
+}
 
-function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep) {
+function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep, Trapped) {
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
+	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
+	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {
-		return KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true);
+		let ret = KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true);
+		if (Trapped) {
+			let rest = KinkyDungeonGetRestraintItem(restraint.Group);
+			if (rest && rest.restraint && rest.restraint.trappable && !rest.trap) {
+				rest.trap = KinkyDungeonGenerateRestraintTrap();
+			}
+		}
+		return ret;
 	}
 	return 0;
 }
@@ -1287,7 +1359,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					}
 				}
 
-				if (item.restraint.inventory && (Keep || item.restraint.enchanted) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
+				if (item.restraint.inventory && (Keep || item.restraint.enchanted || item.restraint.alwaysKeep) && !KinkyDungeonInventoryGetLoose(item.restraint.name)) {
 					if (item.restraint.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(item.restraint.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))

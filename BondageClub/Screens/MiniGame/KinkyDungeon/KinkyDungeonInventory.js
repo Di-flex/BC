@@ -190,19 +190,19 @@ function KinkyDungeonInventoryGetOutfit(Name) {
 }
 
 function KinkyDungeonAllRestraint() {
-	return KinkyDungeonInventory.get(Restraint) ? KinkyDungeonInventory.get(Restraint).values() : [];
+	return KinkyDungeonInventory.get(Restraint) ? Array.from(KinkyDungeonInventory.get(Restraint).values()) : [];
 }
 function KinkyDungeonAllLooseRestraint() {
-	return KinkyDungeonInventory.get(LooseRestraint) ? KinkyDungeonInventory.get(LooseRestraint).values() : [];
+	return KinkyDungeonInventory.get(LooseRestraint) ? Array.from(KinkyDungeonInventory.get(LooseRestraint).values()) : [];
 }
 function KinkyDungeonAllConsumable() {
-	return KinkyDungeonInventory.get(Consumable) ? KinkyDungeonInventory.get(Consumable).values() : [];
+	return KinkyDungeonInventory.get(Consumable) ? Array.from(KinkyDungeonInventory.get(Consumable).values()) : [];
 }
 function KinkyDungeonAllOutfit() {
-	return KinkyDungeonInventory.get(Outfit) ? KinkyDungeonInventory.get(Outfit).values() : [];
+	return KinkyDungeonInventory.get(Outfit) ? Array.from(KinkyDungeonInventory.get(Outfit).values()) : [];
 }
 function KinkyDungeonAllWeapon() {
-	return KinkyDungeonInventory.get(Weapon) ? KinkyDungeonInventory.get(Weapon).values() : [];
+	return KinkyDungeonInventory.get(Weapon) ? Array.from(KinkyDungeonInventory.get(Weapon).values()) : [];
 }
 
 /*for (let item of KinkyDungeonInventory.get(LooseRestraint).values()) {
@@ -220,7 +220,7 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			else if (item.looserestraint && item.looserestraint.Group) Group = item.looserestraint.Group;
 			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
-			if (item.restraint) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.Asset}.png`});
+			if (item.restraint) ret.push({name: item.restraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.restraint.AssetGroup ? item.restraint.AssetGroup : item.restraint.Asset}.png`});
 			else if (item.looserestraint && (!enchanted || item.looserestraint.enchanted || item.looserestraint.potionAncientCost)) ret.push({name: item.looserestraint.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${item.looserestraint.Asset}.png`});
 			else if (item.consumable) ret.push({name: item.consumable.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${item.consumable.name}.png`});
 			else if (item.weapon) ret.push({name: item.weapon.name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${item.weapon.name}.png`});
@@ -420,8 +420,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, "black");
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), "white");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100+1, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100, "white");
+
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
@@ -435,8 +440,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Rheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2) + 1, "black");
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2), "white");
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
+				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
+
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});

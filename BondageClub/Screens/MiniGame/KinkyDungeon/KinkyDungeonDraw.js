@@ -10,6 +10,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
+	else if (code == "L") sprite = "Barrel";
 	else if (code == "D") {
 		sprite = "Door";
 		if (Fog) {
@@ -27,7 +28,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 		}
 	} else if (code == "R") sprite = "RubbleLooted";
 	else if (code == "Y") sprite = "Wall";
-	else if (code == "T") sprite = "Trap";
+	else if (code == "T") {if (KinkyDungeonBlindLevel > 0) sprite = "Floor"; else sprite = "Trap";}
 	else if (code == "r") sprite = "RubbleLooted";
 	else if (code == "g") sprite = "Grate";
 	else if (code == "S") sprite = "StairsUp";
@@ -55,10 +56,14 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	else if (code == "[") sprite = "Spores";
 	else if (code == "C") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGold" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlue" : "Chest"));
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlue" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "dark")) ? "ChestDark" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl")) ? "ChestPearl" : "Chest"))));
 	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlueOpen" : "ChestOpen"));
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlueOpen" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "dark")) ? "ChestDarkOpen" :
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl")) ? "ChestPearlOpen" : "ChestOpen"))));
 	return sprite;
 }
 
@@ -206,7 +211,7 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
 
-				if (KinkyDungeonMovePoints < 0) {
+				if (KinkyDungeonMovePoints < 0 || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowLevel") > 0) {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Slow.png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
@@ -549,8 +554,8 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonStatFreeze > 0) {
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, 100, '190, 190, 255');
-	} else if (KinkyDungeonStatArousal > 0) {
-		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatArousal * 100 / KinkyDungeonStatArousalMax);
+	} else if (KinkyDungeonStatDistraction > 0) {
+		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatDistraction * 100 / KinkyDungeonStatDistractionMax);
 	}
 
 
@@ -615,7 +620,7 @@ function KinkyDungeonDrawMessages(NoLog) {
 		}
 	} else {
 		let extra = 200;
-		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000");
+		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000aa");
 		let Dist = 50;
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
 			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];

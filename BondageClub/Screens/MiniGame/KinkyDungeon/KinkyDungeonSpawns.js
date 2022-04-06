@@ -5,8 +5,8 @@
 function KinkyDungeonAddTags(tags, Floor) {
 	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
 
-	if (Floor % 10 >= 4 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
-	if (Floor % 10 >= 7 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
+	if (Floor % 6 >= 2 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
+	if (Floor % 6 >= 5 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 
 	let angeredGoddesses = [];
 
@@ -28,6 +28,13 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Will < KDRAGE) angeredGoddesses.push({tag: "willRage", type: "rope"});
 
 	if (angeredGoddesses.length > 0) {
+		let rage = false;
+		for (let a of angeredGoddesses) {
+			if (!rage && a.tag && a.tag.includes("Rage")) {
+				rage = true;
+				tags.push("goddessRage");
+			}
+		}
 		for (let i = 0; i < 2; i++) {
 			let tag = angeredGoddesses[Math.floor(angeredGoddesses.length * KDRandom())];
 			if (tag && !tags.includes(tag.tag)) {
@@ -38,6 +45,7 @@ function KinkyDungeonAddTags(tags, Floor) {
 				}
 			}
 		}
+		tags.push("goddessAnger");
 	}
 
 
@@ -102,7 +110,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 				enemyWeights.push({enemy: enemy, weight: enemyWeightTotal});
 				let weight = enemy.weight + weightBonus;
 				if (enemy.terrainTags.increasingWeight)
-					weight += enemy.terrainTags.increasingWeight * Math.floor(Level/10);
+					weight += enemy.terrainTags.increasingWeight * Math.floor(Level/KDLevelsPerCheckpoint);
 				if (!enemy.terrainTags.grate && tags.includes("grate"))
 					weight -= 1000;
 				for (let tag of tags)
@@ -154,6 +162,13 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	let HunterAdjust = KinkyDungeonDifficulty;
 	let EntranceAdjust = KinkyDungeonDifficulty/2;
 	let BaseAdjust = KinkyDungeonDifficulty/10;
+	if (KinkyDungeonStatsChoice.get("Dragon")) {
+		BaseAdjust *= 1.2;
+		BaseAdjust += 20;
+		HunterAdjust += 30;
+		EntranceAdjust += 100;
+		effLevel += 12;
+	}
 	let sleepTurnsSpeedMult = 100;
 	let sleepTurnsPerExtraSpawnLevel = 25;
 	let baseChance = ((KDGameData.SleepTurns > 0 && (KinkyDungeonStatStamina > KinkyDungeonStatStaminaMax - 10 * KinkyDungeonStatStaminaRegenSleep || KDGameData.SleepTurns < 11)) ? 0.05 : 0.0005) * Math.sqrt(Math.max(1, effLevel)) * (1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
@@ -161,7 +176,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	if (delta > 0 && KDRandom() < baseChance && KinkyDungeonSearchTimer > KinkyDungeonSearchTimerMin) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) == 'S' ? KinkyDungeonStartPosition : KinkyDungeonEndPosition;
-		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/10))) {
+		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (KinkyDungeonInJail()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
 			if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchHuntersAmount - HunterAdjust) hunters = true;
 			if ((KinkyDungeonTotalSleepTurns > KinkyDungeonSearchEntranceAdjustAmount - EntranceAdjust && KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonEndPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonEndPosition.y) > 5 && KDRandom() < 0.5)
 				|| KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) < 5) spawnLocation = KinkyDungeonEndPosition;
@@ -170,7 +185,9 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 				KinkyDungeonSearchTimer = 0;
 				let count = 0;
 				let maxCount = (2 + Math.min(5, Math.round(MiniGameKinkyDungeonLevel/10))) * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
-
+				if (KinkyDungeonStatsChoice.get("Dragon")) {
+					maxCount *= 2;
+				}
 				// Spawn a killsquad!
 				let tags = [];
 				KinkyDungeonAddTags(tags, MiniGameKinkyDungeonLevel);
@@ -192,6 +209,8 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 					KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
 					KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
 				let EnemiesSummoned = [];
+				// We are going to reroll the ghost decision just to provide some grace for players who are well and truly stuck
+				KinkyDungeonMakeGhostDecision();
 				while (Enemy && count < maxCount) {
 					let point = KinkyDungeonGetNearbyPoint(spawnLocation.x, spawnLocation.y, true);
 					if (point && (KinkyDungeonJailTransgressed || Enemy.tags.has("jail") || Enemy.tags.has("jailer"))) {
@@ -218,7 +237,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 						}
 					} else count += 0.1;
 
-					Enemy = KinkyDungeonGetEnemy(tags, MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
+					Enemy = KinkyDungeonGetEnemy(tags, MiniGameKinkyDungeonLevel + effLevel/6, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
 				}
 				if (EnemiesSummoned.length > 0 && KinkyDungeonFirstSpawn) {
 					KinkyDungeonFirstSpawn = false;
