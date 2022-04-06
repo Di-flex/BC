@@ -944,6 +944,7 @@ function KinkyDungeonHandleClick() {
 		}
 		if (MouseIn(1275, 930, 375, 64)) {
 			let url = 'https://www.patreon.com/ada18980';
+			KDSendEvent(type);
 			window.open(url, '_blank');
 			return true;
 		}
