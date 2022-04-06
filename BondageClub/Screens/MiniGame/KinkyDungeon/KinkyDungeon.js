@@ -419,6 +419,8 @@ function KinkyDungeonRun() {
 		DrawButton(500, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
 		DrawButton(1700, 930, 150, 64, TextGet("KinkyDungeonPatrons"), "White", "");
+		DrawButton(850, 930, 375, 64, TextGet("KinkyDungeonDeviantart"), "White", "");
+		DrawButton(1275, 930, 375, 64, TextGet("KinkyDungeonPatreon"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
 		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
@@ -589,6 +591,55 @@ function KinkyDungeonRun() {
 
 }
 
+
+function KDSendStatus(type, data) {
+	// @ts-ignore
+	if (window.dataLayer)
+		// @ts-ignore
+		window.dataLayer.push({
+			'event':'gameStatus',
+			'currentLevel':MiniGameKinkyDungeonLevel,
+			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+			'statusType':type,
+			'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
+			'traitscount':KinkyDungeonStatsChoice.size,
+			'gold':Math.round(KinkyDungeonGold / 100) * 100,
+			'spell': type == 'learnspell' ? data : undefined,
+		});
+}
+function KDSendEvent(type) {
+	// @ts-ignore
+	if (window.dataLayer)
+		if (type == 'newGame')
+		// @ts-ignore
+			window.dataLayer.push({
+				'event':type,
+				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
+				'traitscount':KinkyDungeonStatsChoice.size,
+			});
+		else if (type == 'jail') {
+			// @ts-ignore
+			window.dataLayer.push({
+				'event':type,
+				'currentLevel':MiniGameKinkyDungeonLevel,
+				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
+				'traitscount':KinkyDungeonStatsChoice.size,
+				'gold':Math.round(KinkyDungeonGold / 100) * 100,
+			});
+		} else if (type == 'loadGame') {
+			// @ts-ignore
+			window.dataLayer.push({
+				'event':type,
+				'currentLevel':MiniGameKinkyDungeonLevel,
+				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
+				'traitscount':KinkyDungeonStatsChoice.size,
+				'gold':Math.round(KinkyDungeonGold / 100) * 100,
+			});
+		}
+}
+
 let KinkyDungeonReplaceConfirm = 0;
 let KinkyDungeonGameFlag = false;
 
@@ -596,8 +647,12 @@ function KinkyDungeonStartNewGame(Load) {
 	KinkyDungeonNewGame = 0;
 	KinkyDungeonInitialize(1, undefined, Load);
 	MiniGameKinkyDungeonCheckpoint = 0;
-	if (Load)
+	if (Load) {
 		KinkyDungeonLoadGame();
+		KDSendEvent('loadGame');
+	} else {
+		KDSendEvent('newGame');
+	}
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
 	KinkyDungeonState = "Game";
 
@@ -691,6 +746,7 @@ function KinkyDungeonHandleClick() {
 			if (MouseIn(1250 - 600 + X, 280 + Y + dY, KDPerksWidth - 10, KDPerksButtonHeight)) {
 				if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
 					KinkyDungeonStatsChoice.set(stat[0], true);
+					localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
 				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
 					KinkyDungeonStatsChoice.delete(stat[0]);
 				}
@@ -766,6 +822,16 @@ function KinkyDungeonHandleClick() {
 			} else {
 				KinkyDungeonStatsChoice = new Map();
 				KinkyDungeonState = "Stats";
+				let statsChoice = localStorage.getItem('KinkyDungeonStatsChoice');
+				if (statsChoice) {
+					let statsArray = JSON.parse(statsChoice);
+					if (statsArray) {
+						for (let s of statsArray) {
+							if (!s.includes('arousalMode'))
+								KinkyDungeonStatsChoice.set(s, true);
+						}
+					}
+				}
 			}
 
 			return false;
@@ -807,6 +873,16 @@ function KinkyDungeonHandleClick() {
 		}
 		if (MouseIn(1700, 930, 150, 64)) {
 			KinkyDungeonState = "Patrons";
+			return true;
+		}
+		if (MouseIn(850, 930, 375, 64)) {
+			let url = 'https://www.deviantart.com/ada18980';
+			window.open(url, '_blank');
+			return true;
+		}
+		if (MouseIn(1275, 930, 375, 64)) {
+			let url = 'https://www.patreon.com/ada18980';
+			window.open(url, '_blank');
 			return true;
 		}
 		if (MouseIn(1275, 750, 350, 64)) {

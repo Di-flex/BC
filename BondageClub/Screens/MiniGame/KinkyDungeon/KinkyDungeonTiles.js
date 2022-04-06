@@ -64,7 +64,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 			KDSendStatus('nextLevel');
 		} else {
-			KDSendStatus('end')
+			KDSendStatus('end');
 		}
 
 	} else {
@@ -72,21 +72,6 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 	}
 }
 
-function KDSendStatus(type, data) {
-	// @ts-ignore
-	if (window.dataLayer)
-		// @ts-ignore
-		window.dataLayer.push({
-			'event':'gameStatus',
-			'currentLevel':MiniGameKinkyDungeonLevel,
-			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
-			'statusType':type,
-			'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
-			'traitscount':KinkyDungeonStatsChoice.size,
-			'gold':Math.round(KinkyDungeonGold / 100) * 100,
-			'spell': type == 'learnspell' ? data : undefined,
-		});
-}
 
 let KinkyDungeonConfirmStairs = false;
 

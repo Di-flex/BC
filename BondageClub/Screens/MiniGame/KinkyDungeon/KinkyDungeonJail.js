@@ -484,6 +484,7 @@ function KinkyDungeonPointInCell(x, y) {
 
 function KinkyDungeonDefeat() {
 	KDSendStatus('jailed');
+	KDSendEvent('jail');
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;
 	KDGameData.JailRemoveRestraintsTimer = 0;
