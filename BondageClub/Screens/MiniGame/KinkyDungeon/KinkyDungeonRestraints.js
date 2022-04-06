@@ -46,17 +46,17 @@ let KDFlexibleSpeedBonus = 1.5;
 let KDInflexibleBonus = -0.1;
 let KDInflexibleSpeedBonus = 0.75;
 
-let KDUnchainedBonus = 0.2;
-let KDDamselBonus = -0.2;
+let KDUnchainedBonus = 0.15;
+let KDDamselBonus = -0.05;
 let KDDamselPickAmount = 6;
-let KDArtistBonus = 0.2;
-let KDBunnyBonus = -0.2;
+let KDArtistBonus = 0.15;
+let KDBunnyBonus = -0.05;
 let KDBunnyKnifeAmount = 5;
 let KDBunnyEnchKnifeAmount = 12;
-let KDSlipperyBonus = 0.2;
-let KDDollBonus = -0.2;
-let KDEscapeeBonus = 0.2;
-let KDDragonBonus = -0.2;
+let KDSlipperyBonus = 0.15;
+let KDDollBonus = -0.05;
+let KDEscapeeBonus = 0.15;
+let KDDragonBonus = -0.05;
 
 let KDStrongBonus = 0.2;
 let KDWeakBonus = -0.15;
@@ -564,6 +564,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (KinkyDungeonStatsChoice.get("Unchained") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal"))
 		escapeChance += KDUnchainedBonus;
 	if (KinkyDungeonStatsChoice.get("Damsel") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal")) {
+		escapeChance /= 2;
 		escapeChance += KDDamselBonus;
 	}
 	if (KinkyDungeonStatsChoice.get("HighSecurity")) {
@@ -576,6 +577,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
 		escapeChance += KDArtistBonus;
 	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
+		escapeChance /= 2;
 		escapeChance += KDBunnyBonus;
 	}
 	if (KinkyDungeonStatsChoice.get("ShoddyKnives")) {
@@ -588,13 +590,17 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	if (KinkyDungeonStatsChoice.get("Slippery") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
 		escapeChance += KDSlipperyBonus;
-	else if (KinkyDungeonStatsChoice.get("Doll") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex"))
+	else if (KinkyDungeonStatsChoice.get("Doll") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Latex")) {
+		escapeChance /= 2;
 		escapeChance += KDDollBonus;
+	}
 
 	if (KinkyDungeonStatsChoice.get("Escapee") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
 		escapeChance += KDEscapeeBonus;
-	else if (KinkyDungeonStatsChoice.get("Dragon") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather"))
+	else if (KinkyDungeonStatsChoice.get("Dragon") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Leather")) {
+		escapeChance /= 2;
 		escapeChance += KDDragonBonus;
+	}
 
 
 
