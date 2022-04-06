@@ -275,12 +275,12 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 		if (energyCost && KDGameData.AncientEnergyLevel > energyCost)
 			suff = "Inject";
 	}
-	//if (KinkyDungeonStatArousal > 0) {
-	//DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal < 100) ? "white" : "pink", "black");
+	//if (KinkyDungeonStatDistraction > 0) {
+	//DrawTextFit(TextGet("StatDistraction").replace("MAX", KinkyDungeonStatDistractionMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatDistraction) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatDistraction < 100) ? "white" : "pink", "black");
 	// TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%")
 
-	DrawTextFit(TextGet("StatArousal").replace("MAX", KinkyDungeonStatArousalMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatArousal) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatArousal > 0) ? "white" : "pink", "black");
-	DrawButton(x, y, buttonWidth, buttonWidth, "", (KinkyDungeonStatArousal > 0 && KinkyDungeonItemCount("PotionFrigid")) ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
+	DrawTextFit(TextGet("StatDistraction").replace("MAX", KinkyDungeonStatDistractionMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatDistraction) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "black");
+	DrawButton(x, y, buttonWidth, buttonWidth, "", (KinkyDungeonStatDistraction > 0 && KinkyDungeonItemCount("PotionFrigid")) ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	MainCanvas.textAlign = "left";
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionFrigid"), x + buttonWidth, y+buttonWidth/2, buttonWidth/2, "white", "black");
 	MainCanvas.textAlign = "center";
@@ -295,9 +295,9 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionMana"), x + buttonWidth, y+2*heightPerBar+buttonWidth/2, buttonWidth/2, "white", "black");
 	MainCanvas.textAlign = "center";
 	let maxVisual = KinkyDungeonStatMaxMax;
-	// Draw arousal
-	//if (KinkyDungeonStatArousal > 0)
-	KinkyDungeonDrawProgress(x, y + heightPerBar*0.5, KinkyDungeonStatArousal/maxVisual, Math.floor(KinkyDungeonStatArousalMax/12), width, "Heart");
+	// Draw distraction
+	//if (KinkyDungeonStatDistraction > 0)
+	KinkyDungeonDrawProgress(x, y + heightPerBar*0.5, KinkyDungeonStatDistraction/maxVisual, Math.floor(KinkyDungeonStatDistractionMax/12), width, "Heart");
 
 	// Draw Stamina/Mana
 	KinkyDungeonDrawProgress(x, y + heightPerBar*1.5, KinkyDungeonStatStamina/maxVisual, Math.floor(KinkyDungeonStatStaminaMax/12), width, "Stamina");
@@ -308,9 +308,9 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	if (KinkyDungeonCanTryOrgasm()) {
 		sleepColor = "#FF5BE9";
 	} else if (KinkyDungeonCanPlayWithSelf()) {
-		if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * KinkyDungeonArousalSleepDeprivationThreshold) sleepColor = "#FFD8F9";
-		else if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.5) sleepColor = "#FFB5F5";
-		else if (KinkyDungeonStatArousal < KinkyDungeonStatArousalMax * 0.75) sleepColor = "#FF87EF";
+		if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * KinkyDungeonDistractionSleepDeprivationThreshold) sleepColor = "#FFD8F9";
+		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.5) sleepColor = "#FFB5F5";
+		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.75) sleepColor = "#FF87EF";
 		else sleepColor = "#FF5BE9";
 	} else {
 		if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.25) sleepColor = "#ffffff";
@@ -367,7 +367,7 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 
 	MainCanvas.textAlign = "center";
 
-	DrawTextFit(TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%"), x+width/2 + 15, y + 160 + 25 + i * heightPerBar, width - 15, (KinkyDungeonStatArousal > 0) ? "white" : "pink", "black");
+	DrawTextFit(TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%"), x+width/2 + 15, y + 160 + 25 + i * heightPerBar, width - 15, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "black");
 
 
 	/*
@@ -550,7 +550,7 @@ function KinkyDungeonHandleHUD() {
 
 		let xxx = 1750;
 		let yyy = 164;
-		if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionFrigid") && KinkyDungeonStatArousal > 0) {
+		if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth) && KinkyDungeonItemCount("PotionFrigid") && KinkyDungeonStatDistraction > 0) {
 			if (KinkyDungeonCanTalk(true) || KinkyDungeonPotionCollar())
 				KinkyDungeonAttemptConsumable("PotionFrigid", 1);
 			else KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonPotionGagged"), "orange", 1);

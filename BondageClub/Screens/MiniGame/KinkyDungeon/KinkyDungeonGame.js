@@ -178,7 +178,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 	KinkyDungeonNewGame += 1;
 }
-function KinkyDungeonInitialize(Level, Random) {
+function KinkyDungeonInitialize(Level, Random, Load) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -235,7 +235,7 @@ function KinkyDungeonInitialize(Level, Random) {
 	KinkyDungeonCanvasFow.width = KinkyDungeonCanvas.width;
 	KinkyDungeonCanvasFow.height = KinkyDungeonCanvas.height;
 
-	KinkyDungeonDefaultStats();
+	KinkyDungeonDefaultStats(Load);
 
 	// Set up the first level
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);
@@ -244,6 +244,7 @@ function KinkyDungeonInitialize(Level, Random) {
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
+	KDGameData.ChampionCurrent = 0;
 	KinkyDungeonAid = {};
 	KDGameData.KinkyDungeonPenance = false;
 	KDRestraintsCache = new Map();
@@ -321,7 +322,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
-	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.05;
+	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.045;
 
 	let shrineTypes = [];
 	let startTime = performance.now();
@@ -823,7 +824,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
 
 		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold", Roll: KDRandom()});
-		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 1});
+		KinkyDungeonSpecialAreas.push({x: cornerX + 1, y: cornerY + 1, radius: 3});
 		if (KDDebug) {
 			console.log("Created lesser gold chest");
 		}
@@ -989,7 +990,7 @@ function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height) {
 
 	MiniGameKinkyDungeonMainPath = checkpoint;
 	if (MiniGameKinkyDungeonMainPath != MiniGameKinkyDungeonCheckpoint) KinkyDungeonSkinArea({skin: MiniGameKinkyDungeonMainPath}, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, 8.5);
-	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 0});
+	KinkyDungeonSpecialAreas.push({x: KinkyDungeonEndPosition.x, y: KinkyDungeonEndPosition.y, radius: 2});
 }
 
 function KinkyDungeonSkinArea(skin, X, Y, Radius, NoStairs) {
@@ -1107,6 +1108,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 	}
 }
 
+let KDRandomDisallowedNeighbors = "AsSHcH"; // tiles that can't be neighboring a randomly selected point
+
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
 
@@ -1126,7 +1129,9 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 				if (wallcount == 7
 					|| (wallcount >= 5
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
-						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
+						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
+						&& !(KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1')) {
 					if (!chestPoints.get((X+1) + "," + (Y))
 						&& !chestPoints.get((X-1) + "," + (Y))
 						&& !chestPoints.get((X+1) + "," + (Y+1))
@@ -1134,7 +1139,15 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 						&& !chestPoints.get((X-1) + "," + (Y+1))
 						&& !chestPoints.get((X-1) + "," + (Y-1))
 						&& !chestPoints.get((X) + "," + (Y+1))
-						&& !chestPoints.get((X) + "," + (Y-1))) {
+						&& !chestPoints.get((X) + "," + (Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
 						chestlist.push({x:X, y:Y});
 						chestPoints.set(X + "," + Y, true);
 					}
@@ -1231,7 +1244,9 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 				if (wallcount == 7 || (wallcount == 0 && KDRandom() < 0.1)
 					|| (wallcount >= 5
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
-						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
+						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
+						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
+						&& !(KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1')) {
 					if (!shrinePoints.get((X+1) + "," + (Y))
 						&& !shrinePoints.get((X-1) + "," + (Y))
 						&& !shrinePoints.get((X+1) + "," + (Y+1))
@@ -1239,7 +1254,15 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 						&& !shrinePoints.get((X-1) + "," + (Y+1))
 						&& !shrinePoints.get((X-1) + "," + (Y-1))
 						&& !shrinePoints.get((X) + "," + (Y+1))
-						&& !shrinePoints.get((X) + "," + (Y-1))) {
+						&& !shrinePoints.get((X) + "," + (Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y-1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
+						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
 						shrinelist.push({x:X, y:Y});
 						shrinePoints.set(X + "," + Y, true);
 					}
@@ -2182,12 +2205,12 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 								KinkyDungeonChangeStamina(moveMult * (KinkyDungeonStatStaminaRegenPerSlowLevel * KinkyDungeonSlowLevel) * delta);
 								KinkyDungeonStatWillpowerExhaustion = Math.max(1, KinkyDungeonStatWillpowerExhaustion);
 							}
-							KinkyDungeonStatArousal += (KinkyDungeonStatPlugLevel * KinkyDungeonArousalPerPlug * moveMult);
+							KinkyDungeonStatDistraction += (KinkyDungeonStatPlugLevel * KinkyDungeonDistractionPerPlug * moveMult);
 							if (KinkyDungeonHasCrotchRope) {
 								if (KinkyDungeonStatPlugLevel == 0) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrotchRope"), "pink", 2);
-								KinkyDungeonStatArousal += (KinkyDungeonCrotchRopeArousal * moveMult);
+								KinkyDungeonStatDistraction += (KinkyDungeonCrotchRopeDistraction * moveMult);
 							}
-							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatArousal -= KinkyDungeonStatArousalRegen;
+							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatDistraction -= KinkyDungeonStatDistractionRegen;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;
 							KinkyDungeonWaitMessage();
@@ -2234,12 +2257,12 @@ function KinkyDungeonWaitMessage(NoTime) {
 	if (!KinkyDungeonAutoWait) {
 		if (KinkyDungeonStatWillpowerExhaustion > 1) KinkyDungeonSendActionMessage(3, TextGet("WaitSpellExhaustion"), "orange", 2);
 		else if (!KinkyDungeonHasStamina(5, false)) KinkyDungeonSendActionMessage(1, TextGet("WaitExhaustion"
-			+ (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.33 ?
-				((KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.67 ?
+			+ (KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.33 ?
+				((KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.67 ?
 					"ArousedHeavy"
 					: "Aroused"))
 					: "")), "yellow", 2);
-		else KinkyDungeonSendActionMessage(1, TextGet("Wait" + (KinkyDungeonStatArousal > 12 ? "Aroused" : "")), "silver", 2);
+		else KinkyDungeonSendActionMessage(1, TextGet("Wait" + (KinkyDungeonStatDistraction > 12 ? "Aroused" : "")), "silver", 2);
 	}
 
 	if (!NoTime && KinkyDungeonStatStamina < KinkyDungeoNStatStaminaLow)
@@ -2361,7 +2384,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 		gagMsg += GagEffect/3;
 		gagMsg = Math.max(0, Math.min(7, Math.floor(gagMsg)));
 
-		if (KDRandom() < KinkyDungeonStatArousal / KinkyDungeonStatArousalMax) msg = "KinkyDungeonGagMumbleAroused";
+		if (KDRandom() < KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax) msg = "KinkyDungeonGagMumbleAroused";
 
 		msg = msg + gagMsg;
 

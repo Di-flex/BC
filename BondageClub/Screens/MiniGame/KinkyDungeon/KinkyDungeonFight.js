@@ -43,8 +43,13 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
 	"Rope": {name: "Rope", dmg: 0.5, bind: 4, chance: 1.0, staminacost: 0.5, type: "chain", unarmed: false, rarity: 1, shop: true, sfx: "Struggle"},
 	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.15, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
+		playSelfBonus: 4,
+		playSelfMsg: "KinkyDungeonPlaySelfVibeWand",
+		playSelfSound: "Vibe",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
+	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
+		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}]},
 	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"MagicAxe": {name: "MagicAxe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "cold", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
@@ -67,6 +72,8 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},
+	"EscortDrone": {name: "EscortDrone", dmg: 2.5, chance: 1.0, staminacost: 0.8, type: "electric", noHands: true, unarmed: false, magic: true, rarity: 10, shop: false, sfx: "Laser",
+		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, chance: 0.33, damage: "electric", time: 4}]},
 	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
 	"StaffDoll": {name: "StaffDoll", dmg: 3.0, chance: 1.0, staminacost: 1.0, type: "souldrain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
@@ -165,6 +172,8 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	let damage = KinkyDungeonPlayerDamageDefault;
 	// @ts-ignore
 	KinkyDungeonPlayerDamage = {};
+	let weapon = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
+	if (weapon && weapon.noHands) HandsFree = true;
 	if (!HandsFree || ((KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 || KinkyDungeonStatsChoice.get("Brawler")) && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
 		if (!NoOverride)
@@ -769,8 +778,8 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 				KinkyDungeonBullets.splice(KinkyDungeonBullets.indexOf(b), 1);
 				KinkyDungeonBulletsID[b.spriteID] = null;
 			}
-			KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 		}
+		KinkyDungeonBullets.push({born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID:b.bullet.name+"Hit" + CommonTime(), bullet:{lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}});
 	} else if (b.bullet.hit == "lingering") {
 		let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 		for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
@@ -1048,7 +1057,7 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 function KinkyDungeonSendWeaponEvent(Event, data) {
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.events) {
 		for (let e of KinkyDungeonPlayerDamage.events) {
-			if (e.trigger == Event) {
+			if (e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
 				KinkyDungeonHandleWeaponEvent(Event, e, KinkyDungeonPlayerDamage, data);
 			}
 		}

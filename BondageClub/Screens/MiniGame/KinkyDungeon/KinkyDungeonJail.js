@@ -243,6 +243,7 @@ function KinkyDungeonTooMuchRestraint() {
 	return RemoveGroups;
 }
 
+// @ts-ignore
 function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let applyTime = 2;
 	let playerDist = Math.sqrt((KinkyDungeonJailGuard().x - KinkyDungeonPlayerEntity.x)*(KinkyDungeonJailGuard().x - KinkyDungeonPlayerEntity.x) + (KinkyDungeonJailGuard().y - KinkyDungeonPlayerEntity.y)*(KinkyDungeonJailGuard().y - KinkyDungeonPlayerEntity.y));
@@ -307,6 +308,11 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 			} else if (oldRestraintItem) {
 				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerStartRemoving").replace("RestraintName", TextGet("Restraint" + oldRestraintItem.restraint.name)), "yellow", 2);
 				KDGameData.GuardApplyTime += delta;
+			} else {
+				KinkyDungeonJailGuard().CurrentAction = "jailWander";
+				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;
+				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
+				KDGameData.GuardApplyTime = 0;
 			}
 		}
 
@@ -477,6 +483,8 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
+	KDSendStatus('jailed');
+	KDSendEvent('jail');
 	KDGameData.WarningLevel = 0;
 	KDGameData.AncientEnergyLevel = 0;
 	KDGameData.JailRemoveRestraintsTimer = 0;
@@ -566,8 +574,8 @@ function KinkyDungeonDefeat() {
 		let enemies = [];
 		for (let e of  KinkyDungeonEntities) {
 			if (!e.summoned && (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))) {
-				if (e.x < KinkyDungeonJailLeashX) {
-					e.x = KinkyDungeonJailLeashX;
+				if (e.x < KinkyDungeonJailLeashX + 4) {
+					e.x = KinkyDungeonJailLeashX + 4;
 					e.y = KinkyDungeonStartPosition.y;
 				}
 				enemies.push(e);

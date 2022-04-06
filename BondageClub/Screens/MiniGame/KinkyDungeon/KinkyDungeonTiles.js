@@ -3,7 +3,7 @@
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
-		KinkyDungeonChangeArousal(3 * delta);
+		KinkyDungeonChangeDistraction(3 * delta);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
 	} else if (tile == "[") { // Happy Gas!
 		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);
@@ -60,12 +60,18 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 		else // Otherwise it's just a little bit
 			KinkyDungeonChangeRep("Prisoner", -1);
 
-		if (KinkyDungeonState != "End")
+		if (KinkyDungeonState != "End") {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+			KDSendStatus('nextLevel');
+		} else {
+			KDSendStatus('end');
+		}
+
 	} else {
 		KinkyDungeonSendActionMessage(10, TextGet("ClimbDownFail"), "#ffffff", 1);
 	}
 }
+
 
 let KinkyDungeonConfirmStairs = false;
 

@@ -459,7 +459,7 @@ function KinkyDungeonPickAttempt() {
 	if (handsBound && strict < 0.5) escapeChance = Math.max(0, escapeChance - 0.5);
 	else if (strict) escapeChance = Math.max(0, escapeChance - strict);
 
-	escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
+	escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
 
 	if (!KinkyDungeonHasStamina(-cost, true)) {
 		KinkyDungeonWaitMessage(true);
@@ -648,7 +648,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			else if (restraint.restraint.specStruggleTypes && restraint.restraint.specStruggleTypes.includes(StruggleType)) typesuff = "2";
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			if (typesuff == "" && failSuffix) typesuff = failSuffix;
-			if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+			if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Impossible" + typesuff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendEvent("struggle", {
@@ -658,7 +658,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -680,7 +680,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (StruggleType == "Remove" && escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
-		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonSendEvent("struggle", {
@@ -701,7 +701,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (possible && escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
-		if (typesuff == "" && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) typesuff = typesuff + "Aroused";
+		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "Strict" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
 		KinkyDungeonSendEvent("struggle", {
@@ -713,7 +713,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		return "NeedEdge";
 	}
 
-	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) escapeChance /= 1.0 + KinkyDungeonStatArousal/KinkyDungeonStatArousalMax*KinkyDungeonArousalUnlockSuccessMod;
+	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
 
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && restraintEscapeChance > 0.01) escapeChance/= 5;
@@ -760,7 +760,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			let suff = "";
 			if (suff == "" && failSuffix) suff = failSuffix;
-			if (KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
+			if (KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) suff = suff + "Aroused";
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "ImpossibleBound" + suff), "red", 2);
 			KinkyDungeonLastAction = "Struggle";
 			KinkyDungeonSendEvent("struggle", {
@@ -770,7 +770,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -937,11 +937,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			} else if (Pass == "Fail") {
 				if (suff == "" && failSuffix) suff = failSuffix;
 			}
-			if ((suff == "" || (Pass == "Fail" && suff == failSuffix)) && (Pass == "Fail" || Pass == "Success") && KinkyDungeonStatArousal > KinkyDungeonStatArousalMax*0.1) suff = suff + "Aroused";
+			if ((suff == "" || (Pass == "Fail" && suff == failSuffix)) && (Pass == "Fail" || Pass == "Success") && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) suff = suff + "Aroused";
 			KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonStruggle" + StruggleType + Pass + suff).replace("TargetRestraint", TextGet("Restraint" + restraint.restraint.name)), (Pass == "Success") ? "lightgreen" : "red", 2);
 
 			KinkyDungeonChangeStamina(cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeArousal(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
 
 			if (Pass != "Success") {
 				// Reduce the progress
@@ -1028,7 +1028,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 	let restraintWeightTotal = 0;
 	let restraintWeights = [];
 	let cache = KDRestraintsCache.get(enemy.name);
-	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatArousal / KinkyDungeonStatArousalMax))
+	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax))
 		/(1 + (KinkyDungeonGoddessRep.Ghost + 50)/100);
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
@@ -1191,6 +1191,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let power = KinkyDungeonRestraintPower(r);
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
+	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
 	if (!r || (r.restraint && (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !r.restraint.enchanted
 		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && r.restraint && KinkyDungeonLinkableAndStricter(r.restraint, restraint, r.dynamicLink, r.oldLock))))) {

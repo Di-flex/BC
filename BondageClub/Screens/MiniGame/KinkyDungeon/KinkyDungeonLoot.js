@@ -41,6 +41,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 	for (let loot of lootType) {
 		if ((Level >= loot.minLevel || KinkyDungeonNewGame > 0) && loot.floors.get(Index)) {
 			let prereqs = true;
+			if (loot.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) prereqs = false;
 
 			if (loot.prerequisites) {
 
@@ -65,6 +66,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 				else if (prereqs && loot.prerequisites.includes("LostItems") && KinkyDungeonLostItems.length < 1) prereqs = false;
 				else if (prereqs && loot.prerequisites.includes("LightRestraint") && KinkyDungeonAllRestraint().length < 1) prereqs = false;
 				else if (prereqs && loot.prerequisites.includes("ModerateRestraint") && KinkyDungeonAllRestraint().length < 4 && !(!KinkyDungeonIsHandsBound() && !KinkyDungeonCanTalk() && KinkyDungeonSlowLevel < 1)) prereqs = false;
+				if (prereqs && loot.prerequisites.includes("pearlChest") && !KDPearlRequirement) prereqs = false;
 
 				if (prereqs)
 					for (let prereq of loot.prerequisites) {
@@ -208,6 +210,33 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
 		KinkyDungeonSpells.push(spell);
+	} else if (Loot.name == "pearlReward") {
+		let rewardAvailable = [];
+		for (let rep of Object.entries(KinkyDungeonGoddessRep)) {
+			let rewards = KDBlessedRewards[rep[0]];
+			if (rewards && rep[1] > 45) {
+				for (let r of rewards) {
+					if (!KinkyDungeonInventoryGet(r)) {
+						rewardAvailable.push(r);
+					}
+				}
+			}
+		}
+		let reward = rewardAvailable[Math.floor(KDRandom() * rewardAvailable.length)];
+		if (KinkyDungeonWeapons[reward]) {
+			KinkyDungeonInventoryAddWeapon(reward);
+			if (Replacemsg)
+				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
+		} else if (KinkyDungeonFindSpell(reward, true)) {
+			KinkyDungeonSpells.push(KinkyDungeonFindSpell(reward, true));
+			if (Replacemsg)
+				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonSpell" + reward));
+		} else if (KinkyDungeonConsumables[reward]) {
+			KinkyDungeonChangeConsumable(KinkyDungeonConsumables[reward], 1);
+			if (Replacemsg)
+				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
+		}
+
 	} else if (Loot.name == "gold") {
 		value = Math.ceil((150 + 50 * KDRandom()) * (1 + Floor/40));
 	} else if (Loot.name == "smallgold") {

@@ -174,10 +174,10 @@ function KinkyDungeonPayShrine(type) {
 		rep = Math.ceil(5 - KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax - KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
-		KinkyDungeonStatArousal = 0;
+		KinkyDungeonStatDistraction = 0;
 		KinkyDungeonChangeStamina(0);
 		KinkyDungeonChangeMana(0);
-		KinkyDungeonChangeArousal(0);
+		KinkyDungeonChangeDistraction(0);
 		KinkyDungeonNextDataSendStatsTime = 0;
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineHeal");
@@ -477,6 +477,16 @@ function KinkyDungeonShrineAngerGods(Type) {
 		KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
 	}
 	KinkyDungeonChangeRep(Type, -10);
+}
+
+function KinkyDungeonGetSetPieces(Dict) {
+	let ret = [];
+	for (let sh of Dict) {
+		if (sh.Type) {
+			ret.push(sh.Type);
+		}
+	}
+	return ret;
 }
 
 function KinkyDungeonGetMapShrines(Dict) {

@@ -35,7 +35,7 @@ function KinkyDungeonTickBuffs(list, delta, endFloor) {
 			else {
 				if (value.type == "restore_mp") KinkyDungeonChangeMana(value.power);
 				if (value.type == "restore_sp") KinkyDungeonChangeStamina(value.power);
-				if (value.type == "restore_ap") KinkyDungeonChangeArousal(value.power);
+				if (value.type == "restore_ap") KinkyDungeonChangeDistraction(value.power);
 
 				value.duration -= delta;
 			}
