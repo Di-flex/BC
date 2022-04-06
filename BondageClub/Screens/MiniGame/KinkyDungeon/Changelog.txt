@@ -751,6 +751,7 @@ Spell Balance:
 2.93 (April 2022)
 - Perks are now persistent and autosave
 - New spell: Summon Rock
+- Rebalanced the perks that make restraints more difficult. They now halve the escape chance first, then apply a minor penalty, rather than applying a straight 20% penalty.
 
 TODO ValidationFindBlockCycles to prevent bugs
 
