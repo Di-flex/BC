@@ -670,6 +670,7 @@ function KDSendEvent(type) {
 			window.dataLayer.push({
 				'event':type,
 				'currentLevel':MiniGameKinkyDungeonLevel,
+				'alreadyInJail':KinkyDungeonInJail() ? 'true' : 'false',
 				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
