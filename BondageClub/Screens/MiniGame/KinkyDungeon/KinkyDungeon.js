@@ -591,6 +591,10 @@ function KinkyDungeonRun() {
 
 }
 
+function KinkyDungeonGetTraitsCount() {
+	return Array.from(KinkyDungeonStatsChoice.keys()).filter((element) => {return !element.includes('arousalMode');}).length;
+}
+
 
 function KDSendStatus(type, data) {
 	// @ts-ignore
@@ -602,7 +606,7 @@ function KDSendStatus(type, data) {
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 			'statusType':type,
 			'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
-			'traitscount':KinkyDungeonStatsChoice.size,
+			'traitscount':KinkyDungeonGetTraitsCount(),
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			'spell': type == 'learnspell' ? data : undefined,
 		});
@@ -615,7 +619,7 @@ function KDSendEvent(type) {
 			window.dataLayer.push({
 				'event':type,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
-				'traitscount':KinkyDungeonStatsChoice.size,
+				'traitscount':KinkyDungeonGetTraitsCount(),
 			});
 		else if (type == 'jail') {
 			// @ts-ignore
@@ -624,7 +628,7 @@ function KDSendEvent(type) {
 				'currentLevel':MiniGameKinkyDungeonLevel,
 				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
-				'traitscount':KinkyDungeonStatsChoice.size,
+				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			});
 		} else if (type == 'loadGame') {
@@ -634,7 +638,7 @@ function KDSendEvent(type) {
 				'currentLevel':MiniGameKinkyDungeonLevel,
 				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
-				'traitscount':KinkyDungeonStatsChoice.size,
+				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			});
 		}
