@@ -565,16 +565,22 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		escapeChance += KDUnchainedBonus;
 	if (KinkyDungeonStatsChoice.get("Damsel") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Metal")) {
 		escapeChance += KDDamselBonus;
+	}
+	if (KinkyDungeonStatsChoice.get("HighSecurity")) {
 		KinkyDungeonKeyPickBreakAmount = KDDamselPickAmount;
-	} else KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
+	} else {
+		KinkyDungeonKeyPickBreakAmount = KinkyDungeonKeyPickBreakAmountBase;
+	}
 
 	if (KinkyDungeonStatsChoice.get("FreeSpirit") && (restraint.restraint.chastity || restraint.restraint.chastitybra)) escapeChance += 0.5;
 	if (KinkyDungeonStatsChoice.get("Artist") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope"))
 		escapeChance += KDArtistBonus;
 	if (KinkyDungeonStatsChoice.get("Bunny") && restraint.restraint.shrine && restraint.restraint.shrine.includes("Rope")) {
+		escapeChance += KDBunnyBonus;
+	}
+	if (KinkyDungeonStatsChoice.get("ShoddyKnives")) {
 		KinkyDungeonKnifeBreakAmount = KDBunnyKnifeAmount;
 		KinkyDungeonEnchKnifeBreakAmount = KDBunnyEnchKnifeAmount;
-		escapeChance += KDBunnyBonus;
 	} else {
 		KinkyDungeonKnifeBreakAmount = KinkyDungeonKnifeBreakAmountBase;
 		KinkyDungeonEnchKnifeBreakAmount = KinkyDungeonEnchKnifeBreakAmountBase;

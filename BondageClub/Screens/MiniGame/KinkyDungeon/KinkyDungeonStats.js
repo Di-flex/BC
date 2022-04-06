@@ -816,6 +816,11 @@ let KinkyDungeonStatsPresets = {
 	"KillSquad": {id: 41, cost: -3, block: "Conspicuous"},
 	"Supermarket": {id: 42, cost: 1},
 	"PriceGouging": {id: 43, cost: -2},
+	"HighSecurity": {id: 48, cost: -1},
+	"ShoddyKnives": {id: 49, cost: -1},
+	"Oppression": {id: 50, cost: -1},
+	"SearchParty": {id: 51, cost: -1},
+
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},
 	//"Purity": {id: 16, cost: 2, block: "Deprived", distractionMode: true},

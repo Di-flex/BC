@@ -408,7 +408,7 @@ function KinkyDungeonMakeGhostDecision() {
 
 	if (rep > 0) KinkyDungeonGhostDecision += 1;
 	if (rep != undefined) {
-		let mult = KinkyDungeonStatsChoice.get("Doll") ? 1.5 : 1.0;
+		let mult = KinkyDungeonStatsChoice.get("Oppression") ? 1.5 : 1.0;
 		if (KDRandom() * 100 * mult > -rep + 75) KinkyDungeonGhostDecision += 1;
 		if (KDRandom() * 100 * mult > -rep + 85) KinkyDungeonGhostDecision += 1;
 		if (KDRandom() * 100 * mult > -rep + 95) KinkyDungeonGhostDecision += 1;
