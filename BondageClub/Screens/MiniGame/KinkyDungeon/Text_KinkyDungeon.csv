@@ -157,7 +157,7 @@ KinkyDungeonStatDesc51,"More enemies spawn during sleep."
 
 
 KinkyDungeonDifficulty,Choose difficulty level:
-KinkyDungeonDifficulty0,Beginner: Get a save code every 5 levels, autosave after each floor
+KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
 KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
 KinkyDungeonDifficulty3,"Random: Orbs give random spells, start with very little"
 KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start with very little"
@@ -2628,6 +2628,12 @@ KinkyDungeonSpellIcicle,Icicle
 KinkyDungeonSpellDescriptionIcicles,Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and freeze for 3 turns.
 KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
+
+KinkyDungeonSpellBoulderLaunch,Summon Rock
+KinkyDungeonSpellBoulder,Rock
+KinkyDungeonSpellDescriptionBoulderLaunch,Channel 1 turn to launch a rock that deals DamageDealt crush damage and slows for 4 turns.
+KinkyDungeonSpellCastBoulderLaunch,You raise a boulder from the ground and kick it forward!
+KinkyDungeonSpellTargetBoulderLaunch,Choose line direction
 
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
