@@ -612,6 +612,8 @@ function KDSendSpell(spell) {
 		window.dataLayer.push({
 			'event':'spell',
 			'spell':spell,
+			'currentLevel':MiniGameKinkyDungeonLevel,
+			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 		});
 }
 function KDSendWeapon(weapon) {
@@ -621,6 +623,8 @@ function KDSendWeapon(weapon) {
 		window.dataLayer.push({
 			'event':'weapon',
 			'weapon':weapon,
+			'currentLevel':MiniGameKinkyDungeonLevel,
+			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 		});
 }
 
