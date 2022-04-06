@@ -151,6 +151,7 @@ function KinkyDungeonPayShrine(type) {
 		KinkyDungeonChangeRep("Ghost", -rep);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
+		KDSendStatus('goddess', type, 'shrineRemove');
 	} else if (type == "Elements" || type == "Illusion" || type == "Conjure") {
 		/*let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList[type]);
 		if (KDRandom() < 0.1 || SpellsUnlearned.length == 0) SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5 + MiniGameKinkyDungeonCheckpoint, KinkyDungeonSpellList[type]);
@@ -165,8 +166,10 @@ function KinkyDungeonPayShrine(type) {
 			KinkyDungeonSpellLevel[type] += 1;
 			ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
 			rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.25));
+			KDSendStatus('goddess', type, 'shrineLevel');
 		} else {
 			ShrineMsg = TextGet("KinkyDungeonPayShrineBuff").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
+			KDSendStatus('goddess', type, 'shrineDonate');
 			rep = 1;
 		}
 
@@ -181,6 +184,7 @@ function KinkyDungeonPayShrine(type) {
 		KinkyDungeonNextDataSendStatsTime = 0;
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineHeal");
+		KDSendStatus('goddess', type, 'shrineHeal');
 	} else if (type == "Commerce") {
 		let item = KinkyDungeonShopItems[KinkyDungeonShopIndex];
 		if (item) {
@@ -216,6 +220,7 @@ function KinkyDungeonPayShrine(type) {
 			if (KinkyDungeonShopIndex > 0) KinkyDungeonShopIndex -= 1;
 
 			rep = item.rarity + 1;
+			KDSendStatus('goddess', type, 'shrineBuy');
 		}
 	}
 
@@ -285,6 +290,7 @@ function KinkyDungeonHandleShrine() {
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KDGameData.PoolUsesGrace -= 1;
 				KinkyDungeonChangeRep(type, -2 - slimed * 2);
+				KDSendStatus('goddess', type, 'shrineDrink');
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
@@ -294,6 +300,7 @@ function KinkyDungeonHandleShrine() {
 				KinkyDungeonShrineAngerGods(type);
 				KDGameData.PoolUses = 10000;
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
+				KDSendStatus('goddess', type, 'shrineEnrage');
 			}
 
 			KDGameData.PoolUses += 1;
@@ -569,6 +576,8 @@ function KinkyDungeonHandleOrb() {
 						KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
 					}
 					KinkyDungeonChangeRep(shrine, Amount * -10);
+
+					KDSendStatus('goddess', shrine, 'takeOrb');
 					if (KinkyDungeonDifficultyMode == 2 || KinkyDungeonDifficultyMode == 3) {
 						let spell = null;
 						let spellList = [];
