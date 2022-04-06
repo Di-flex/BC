@@ -750,6 +750,7 @@ Spell Balance:
 
 2.93 (April 2022)
 - Perks are now persistent and autosave
+- New spell: Summon Rock
 
 TODO ValidationFindBlockCycles to prevent bugs
 

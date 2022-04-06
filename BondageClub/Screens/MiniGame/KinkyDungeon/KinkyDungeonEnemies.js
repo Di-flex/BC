@@ -671,7 +671,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 	}
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
-		if (enemy.vulnerable) enemy.vulnerable = false;
+		if (enemy.vulnerable > 0) enemy.vulnerable -= delta;
 		if (!(KDGameData.KinkyDungeonPenance && KinkyDungeonAngel()) || enemy == KinkyDungeonAngel()) {
 			// Delete the enemy
 			if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}

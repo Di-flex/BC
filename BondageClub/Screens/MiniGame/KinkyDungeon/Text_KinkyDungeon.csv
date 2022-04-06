@@ -2629,6 +2629,12 @@ KinkyDungeonSpellDescriptionIcicles,Channel 3 turns to fire 3 icicles that deal 
 KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
 
+KinkyDungeonSpellBoulderLaunch,Summon Rock
+KinkyDungeonSpellBoulder,Rock
+KinkyDungeonSpellDescriptionBoulderLaunch,Channel 1 turn to launch a rock that deals DamageDealt crush damage and slows for 4 turns.
+KinkyDungeonSpellCastBoulderLaunch,You raise a boulder from the ground and kick it forward!
+KinkyDungeonSpellTargetBoulderLaunch,Choose line direction
+
 KinkyDungeonSpellSPUp1,Stamina Up I
 KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
 KinkyDungeonSpellSPUp2,Stamina Up II
