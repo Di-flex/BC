@@ -1413,6 +1413,13 @@ KinkyDungeonStruggleRemoveImpossibleMagicChainAroused,"The chains squeeze you ti
 KinkyDungeonStruggleRemoveImpossibleBoundMagicChain,"The chains have you bound hopelessly tight!"
 KinkyDungeonStruggleRemoveImpossibleBoundMagicChainAroused,"You sigh and moan as the chains aren't getting any looser."
 
+KinkyDungeonStruggleRemoveFailMagicRope,"You try to untie the ropes..."
+KinkyDungeonStruggleRemoveFailMagicRopeAroused,"You contort yourself trying to reach the knots..."
+KinkyDungeonStruggleRemoveImpossibleMagicRope,"The knot ties itself back again as soon as you get it loose!"
+KinkyDungeonStruggleRemoveImpossibleMagicRopeAroused,"The knots tighten themselves as soon as you reach them, keeping you tight and secure."
+KinkyDungeonStruggleRemoveImpossibleBoundMagicRope,"You can't reach the knots!"
+KinkyDungeonStruggleRemoveImpossibleBoundMagicRopeAroused,"Your squirming is in vain as you can't even reach the knots."
+
 KinkyDungeonStruggleStruggleFailClamps,"You try to pull off the clamps..."
 KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
 KinkyDungeonStruggleStruggleImpossibleClamps,"That would really hurt..."
