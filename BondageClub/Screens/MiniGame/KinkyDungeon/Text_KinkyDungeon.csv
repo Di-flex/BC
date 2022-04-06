@@ -94,22 +94,22 @@ KinkyDungeonStatDesc25,"All non-glue, non-chain, or non-teasing damage dealt to 
 KinkyDungeonStat26,"Unchained"
 KinkyDungeonStatDesc26,"Start with high Metal reputation, and all metal restraints are easier to escape from."
 KinkyDungeonStat27,"Damsel in Chains"
-KinkyDungeonStatDesc27,"Metal restraints are harder to escape from, picks are weaker, and randomly generated locks are harsher."
+KinkyDungeonStatDesc27,"Metal restraints are harder to escape from."
 
 KinkyDungeonStat28,"Escape Artist"
 KinkyDungeonStatDesc28,"Start with high Rope reputation, and all rope restraints are easier to escape from."
 KinkyDungeonStat29,"Rope Bunny"
-KinkyDungeonStatDesc29,"Rope restraints are harder to escape from, and knives break more easily."
+KinkyDungeonStatDesc29,"Rope restraints are harder to escape from."
 
 KinkyDungeonStat30,"Slippery"
 KinkyDungeonStatDesc30,"Start with high Latex reputation, and all latex restraints are easier to escape from."
 KinkyDungeonStat31,"Doll"
-KinkyDungeonStatDesc31,"Latex restraints are harder to escape from, and ghosts are less likely to help you."
+KinkyDungeonStatDesc31,"Latex restraints are harder to escape from."
 
 KinkyDungeonStat32,"Escapee"
 KinkyDungeonStatDesc32,"Start with high Leather reputation, and all leather restraints are easier to escape from."
 KinkyDungeonStat33,"Dragon Sympathizer"
-KinkyDungeonStatDesc33,"Leather restraints are harder to escape from, and more enemies spawn during sleep."
+KinkyDungeonStatDesc33,"Leather restraints are harder to escape from."
 
 KinkyDungeonStat34,"Slayer"
 KinkyDungeonStatDesc34,"You can cast Elemental spells without having the components, at twice the cost."
@@ -145,6 +145,15 @@ KinkyDungeonStat46,"Supermarket"
 KinkyDungeonStatDesc46,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
 KinkyDungeonStat47,"Price Gouging"
 KinkyDungeonStatDesc47,"Items are 5x as expensive in the shop."
+
+KinkyDungeonStat48,"High Security"
+KinkyDungeonStatDesc48,"Picks are weaker, and randomly generated locks are harsher."
+KinkyDungeonStat49,"Shoddy Knives"
+KinkyDungeonStatDesc49,"Knives break more easily."
+KinkyDungeonStat50,"Oppression"
+KinkyDungeonStatDesc50,"Ghosts are less likely to help you."
+KinkyDungeonStat51,"Search Party"
+KinkyDungeonStatDesc51,"More enemies spawn during sleep."
 
 
 KinkyDungeonDifficulty,Choose difficulty level:
