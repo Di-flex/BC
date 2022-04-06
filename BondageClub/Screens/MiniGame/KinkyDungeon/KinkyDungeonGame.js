@@ -1108,7 +1108,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 	}
 }
 
-let KDRandomDisallowedNeighbors = "AsSHcCH"; // tiles that can't be neighboring a randomly selected point
+let KDRandomDisallowedNeighbors = "AsSHcCHDd"; // tiles that can't be neighboring a randomly selected point
 
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
