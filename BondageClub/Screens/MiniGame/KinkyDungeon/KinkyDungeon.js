@@ -628,7 +628,7 @@ function KDSendWeapon(weapon) {
 		});
 }
 
-function KDSendStatus(type, data) {
+function KDSendStatus(type, data, data2) {
 	// @ts-ignore
 	if (window.dataLayer) {
 		// @ts-ignore
@@ -643,6 +643,8 @@ function KDSendStatus(type, data) {
 			'traitscount':KinkyDungeonGetTraitsCount(),
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
 			'spell': type == 'learnspell' ? data : undefined,
+			'goddess': type == 'goddess' ? data : undefined,
+			'helpType': type == 'goddess' ? data2 : undefined,
 		});
 		if (type == 'nextLevel' && KinkyDungeonDifficultyMode < 2) {
 			for (let s of KinkyDungeonSpells) {
