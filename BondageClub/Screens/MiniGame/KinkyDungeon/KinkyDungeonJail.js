@@ -337,7 +337,14 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 		}
 		KDGameData.KinkyDungeonPrisonExtraGhostRep += 2;
-		if (!playerInCell) KinkyDungeonPlayerEntity.x -= 1;
+		if (!playerInCell) {
+			let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			let point = KinkyDungeonGetNearbyPoint(nearestJail.x, nearestJail.y, true, undefined, true);
+			if (point) {
+				KinkyDungeonPlayerEntity.x = point.x;
+				KinkyDungeonPlayerEntity.y = point.y;
+			}
+		}
 		let enemy = KinkyDungeonEnemyAt(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 		if (enemy) enemy.x += 1;
 		KinkyDungeonJailGuard().CurrentAction = "jailWander";
