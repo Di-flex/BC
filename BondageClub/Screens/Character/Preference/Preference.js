@@ -297,7 +297,7 @@ function PreferenceInit(C) {
 
 		// Validates the zones
 		for (let A = 0; A < AssetGroup.length; A++)
-			if ((AssetGroup[A].Zone != null) && AssetGroup[A].Activity.length) {
+			if ((AssetGroup[A].Zone != null) && AssetActivitiesForGroup(Player.AssetFamily, AssetGroup[A].Name, "any").length) {
 				let Found = false;
 				for (let Z = 0; Z < C.ArousalSettings.Zone.length; Z++)
 					if ((C.ArousalSettings.Zone[Z] != null) && (C.ArousalSettings.Zone[Z].Name != null) && (AssetGroup[A].Name == C.ArousalSettings.Zone[Z].Name)) {
@@ -1131,13 +1131,13 @@ function PreferenceSubscreenControllerRun() {
 		DrawTextFit(TextGet("MapSticks"), 590, 525, 310, "Black");
 
 		MainCanvas.textAlign = "center";
-		DrawBackNextButton(500, 193, 250, 64, Player.ControllerSettings.ControllerSensitivity, "White", "",
-			() => PreferenceSettingsSensitivityList[(PreferenceSettingsSensitivityIndex + PreferenceSettingsSensitivityList.length - 1) % PreferenceSettingsSensitivityList.length],
-			() => PreferenceSettingsSensitivityList[(PreferenceSettingsSensitivityIndex + 1) % PreferenceSettingsSensitivityList.length]);
+		DrawBackNextButton(500, 193, 250, 64, Player.ControllerSettings.ControllerSensitivity.toString(), "White", "",
+			() => PreferenceSettingsSensitivityList[(PreferenceSettingsSensitivityIndex + PreferenceSettingsSensitivityList.length - 1) % PreferenceSettingsSensitivityList.length].toString(),
+			() => PreferenceSettingsSensitivityList[(PreferenceSettingsSensitivityIndex + 1) % PreferenceSettingsSensitivityList.length].toString());
 		MainCanvas.textAlign = "center";
-		DrawBackNextButton(500, 593, 250, 64, Player.ControllerSettings.ControllerDeadZone, "White", "",
-			() => PreferenceSettingsDeadZoneList[(PreferenceSettingsDeadZoneIndex + PreferenceSettingsDeadZoneList.length - 1) % PreferenceSettingsDeadZoneList.length],
-			() => PreferenceSettingsDeadZoneList[(PreferenceSettingsDeadZoneIndex + 1) % PreferenceSettingsDeadZoneList.length] );
+		DrawBackNextButton(500, 593, 250, 64, Player.ControllerSettings.ControllerDeadZone.toString(), "White", "",
+			() => PreferenceSettingsDeadZoneList[(PreferenceSettingsDeadZoneIndex + PreferenceSettingsDeadZoneList.length - 1) % PreferenceSettingsDeadZoneList.length].toString(),
+			() => PreferenceSettingsDeadZoneList[(PreferenceSettingsDeadZoneIndex + 1) % PreferenceSettingsDeadZoneList.length].toString() );
 	}
 	if (PreferenceCalibrationStage == 101) {
 		MainCanvas.textAlign = "left";
@@ -1271,7 +1271,7 @@ function PreferenceSubscreenArousalRun() {
 
 		// Draws all the available character zones
 		for (let A = 0; A < AssetGroup.length; A++)
-			if ((AssetGroup[A].Zone != null) && AssetGroup[A].Activity.length && !AssetGroup[A].MirrorActivitiesFrom)
+			if (AssetGroup[A].Zone != null && !AssetGroup[A].MirrorActivitiesFrom && AssetActivitiesForGroup("Female3DCG", AssetGroup[A].Name).length)
 				DrawAssetGroupZone(Player, AssetGroup[A].Zone, 0.9, 50, 50, 1, "#808080FF", 3, PreferenceGetFactorColor(PreferenceGetZoneFactor(Player, AssetGroup[A].Name)));
 
 		// The zones can be selected and drawn on the character
@@ -1767,7 +1767,7 @@ function PreferenceSubscreenArousalClick() {
 
 		// In arousal mode, the player can click on her zones
 		for (let A = 0; A < AssetGroup.length; A++)
-			if ((AssetGroup[A].Zone != null) && AssetGroup[A].Activity.length && !AssetGroup[A].MirrorActivitiesFrom)
+			if (AssetGroup[A].Zone != null && !AssetGroup[A].MirrorActivitiesFrom && AssetActivitiesForGroup("Female3DCG", AssetGroup[A].Name).length)
 				for (let Z = 0; Z < AssetGroup[A].Zone.length; Z++)
 					if (DialogClickedInZone(Player, AssetGroup[A].Zone[Z], 0.9, 50, 50, 1)) {
 						Player.FocusGroup = AssetGroup[A];

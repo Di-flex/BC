@@ -430,8 +430,10 @@ function KinkyDungeonRun() {
 		MainCanvas.textAlign = "center";
 		// Draw temp start screen
 		DrawText(TextGet("KinkyDungeonConsent"), 1250, 300, "white", "silver");
-		DrawButton(975, 820, 450, 64, TextGet("KDOptIn"), "White", "");
-		DrawButton(975, 920, 450, 64, TextGet("KDOptOut"), "White", "");
+		DrawText(TextGet("KinkyDungeonConsent2"), 1250, 400, "white", "silver");
+		DrawText(TextGet("KinkyDungeonConsent3"), 1250, 500, "white", "silver");
+		DrawButton(975, 720, 450, 64, TextGet("KDOptIn"), "White", "");
+		DrawButton(975, 820, 450, 64, TextGet("KDOptOut"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
 		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
@@ -708,7 +710,7 @@ function KDSendEvent(type) {
 			window.dataLayer.push({
 				'event':type,
 			});
-		} else if (type == 'optout') {
+		} else if (type == 'optout' || type == 'optin') {
 			// @ts-ignore
 			window.dataLayer.push({
 				'event':type,
@@ -884,10 +886,11 @@ function KinkyDungeonHandleClick() {
 			return true;
 		}
 	} else if (KinkyDungeonState == "Consent") {
-		if (MouseIn(975, 820, 450, 64)) {
+		if (MouseIn(975, 720, 450, 64)) {
 			KinkyDungeonState = "Menu";
+			KDSendEvent('optin');
 			return true;
-		} else if (MouseIn(975, 920, 450, 64)) {
+		} else if (MouseIn(975, 820, 450, 64)) {
 			KDSendEvent('optout');
 			KDOptOut = true;
 			KinkyDungeonState = "Menu";

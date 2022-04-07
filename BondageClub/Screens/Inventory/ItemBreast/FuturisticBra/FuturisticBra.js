@@ -5,6 +5,7 @@ var normal_yoffset = 0;
 var large_yoffset = 4;
 var xlarge_yoffset = 7;
 
+/** @type ExtendedItemOption[] */
 var InventoryItemBreastFuturisticBraOptions = [
 	{
 		Name: "Show",
@@ -183,6 +184,7 @@ function AssetsItemBreastFuturisticBraAfterDraw({
 // Update data
 function AssetsItemBreastFuturisticBraScriptDraw(data) {
 	var persistentData = data.PersistentData();
+	/** @type {ItemProperties} */
 	var property = (data.Item.Property = data.Item.Property || {});
 	if (typeof persistentData.UpdateTime !== "number") persistentData.UpdateTime = CommonTime() + 4000;
 

@@ -782,24 +782,28 @@ function CharacterItemsHavePoseAvailable(C, Type, Pose) {
  * Checks if a character has a pose from items (not active pose unless an item lets it through)
  * @param {Character} C - Character to check for the pose
  * @param {string} Pose - Pose to check for within items
+ * @param {boolean} [ExcludeClothes=false] - Ignore clothing items in the check
  * @returns {boolean} - TRUE if the character has the pose
  */
-function CharacterItemsHavePose(C, Pose) {
+function CharacterItemsHavePose(C, Pose, ExcludeClothes = false) {
 	if (C.ActivePose != null && C.AllowedActivePose.includes(Pose) && (typeof C.ActivePose == "string" && C.ActivePose == Pose || Array.isArray(C.ActivePose) && C.ActivePose.includes(Pose))) return true;
-	return CharacterDoItemsSetPose(C, Pose);
+	return CharacterDoItemsSetPose(C, Pose, ExcludeClothes);
 }
 
 /**
  * Checks whether the items on a character set a given pose on the character
  * @param {Character} C - The character to check
  * @param {string} pose - The name of the pose to check for
+ * @param {boolean} [excludeClothes=false] - Ignore clothing items in the check
  * @returns {boolean} - Returns true if the character is wearing an item that sets the given pose, false otherwise
  */
-function CharacterDoItemsSetPose(C, pose) {
-	return C.Appearance.some(item => {
-		const setPose = InventoryGetItemProperty(item, "SetPose", true);
-		return setPose && setPose.includes(pose);
-	});
+function CharacterDoItemsSetPose(C, pose, excludeClothes = false) {
+	return C.Appearance
+		.filter(item => !excludeClothes || !item.Asset.Group.Clothing)
+		.some(item => {
+			const setPose = InventoryGetItemProperty(item, "SetPose", true);
+			return setPose && setPose.includes(pose);
+		});
 }
 
 
@@ -1246,7 +1250,7 @@ function CharacterGetBonus(C, BonusType) {
  * Restrains a character with random restraints. Some restraints are specifically disabled for randomization in their definition.
  * @param {Character} C - The target character to restrain
  * @param {"FEW"|"LOT"|"ALL"} [Ratio] - Amount of restraints to put on the character
- * @param {false} [Refresh] - do not call CharacterRefresh if false
+ * @param {boolean} [Refresh] - do not call CharacterRefresh if false
  */
 function CharacterFullRandomRestrain(C, Ratio, Refresh) {
 
@@ -1409,14 +1413,14 @@ function CharacterDecompressWardrobe(Wardrobe) {
 /**
  * Checks if the character is wearing an item that allows for a specific activity
  * @param {Character} C - The character to test for
- * @param {String} Activity - The name of the activity that must be allowed
+ * @param {string} Attribute - The name of the activity that must be allowed
  * @returns {boolean} - TRUE if at least one item allows that activity
  */
-function CharacterHasItemForActivity(C, Activity) {
-	for (let A = 0; A < C.Appearance.length; A++)
-		if ((C.Appearance[A].Asset != null) && (C.Appearance[A].Asset.AllowActivity != null) && (C.Appearance[A].Asset.AllowActivity.indexOf(Activity) >= 0))
-			return true;
-	return false;
+function CharacterHasItemWithAttribute(C, Attribute) {
+	return C.Appearance.some(item =>
+		(item.Asset && item.Asset.Attribute.includes(Attribute))
+		|| (item.Property && Array.isArray(item.Property.Attribute) && item.Property.Attribute.includes(Attribute))
+	);
 }
 
 /**

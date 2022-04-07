@@ -196,6 +196,11 @@ function KinkyDungeonHandleReputation() {
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
 					KDSendStatus('goddess', rep, 'helpChampion');
 					return true;
+				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
+					// Penance
+					KDGameData.Champion = rep;
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
+					return true;
 				}
 			}
 

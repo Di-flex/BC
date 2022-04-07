@@ -1076,6 +1076,16 @@ function ChatRoomClickCharacter(C, CharX, CharY, Zoom, ClickX, ClickY, Pos) {
 	if (OnlineGameClickCharacter(C)) return;
 
 	// Gives focus to the character
+	ChatRoomFocusCharacter(C);
+}
+
+/**
+ * Select the character (open dialog) and clear other chatroom displays.
+ * @param {Character} C - The character to focus on. Does nothing if null.
+ * @returns {void} - Nothing
+ */
+function ChatRoomFocusCharacter(C) {
+	if (C == null) return;
 	document.getElementById("InputChat").style.display = "none";
 	document.getElementById("TextAreaChatLog").style.display = "none";
 	ChatRoomChatHidden = true;
@@ -1146,7 +1156,7 @@ function ChatRoomTarget() {
 	} else {
 		placeholder = TextGet("PublicChat");
 	}
-	document.getElementById("InputChat").placeholder = placeholder;
+	document.getElementById("InputChat").setAttribute("placeholder", placeholder);
 }
 
 /**
@@ -1563,11 +1573,21 @@ function ChatRoomStatusUpdate(Status) {
 	ServerSend("ChatRoomChat", { Content: ((Status == null) ? "null" : Status), Type: "Status" });
 }
 
+let ChatRoomStatusDeadKeys = [
+	"Shift", "Control", "Alt", "Meta", "Fn", "Escape", "Dead",
+	"ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown",
+];
+
 /**
  * Sends the "Talk" status to other players if the player typed in the text box and there's a value in it
+ * @param {KeyboardEvent} Key
  * @returns {void} - Nothing.
  */
 function ChatRoomStatusUpdateTalk(Key) {
+	// Prevent dead keys from doing anything with the status
+	if (ChatRoomStatusDeadKeys.includes(Key.key))
+		return;
+
 	const text = ElementValue("InputChat");
 	let talking = true;
 	// Not talking if no chat input
@@ -2211,6 +2231,9 @@ function ChatRoomMessage(data) {
 
 		// If we found the sender
 		if (SenderCharacter != null) {
+			// Keep track of whether the player is involved
+			let IsPlayerInvolved = (SenderCharacter.MemberNumber == Player.MemberNumber);
+
 			// Replace < and > characters to prevent HTML injections
 			var msg = ChatRoomHTMLEntities(data.Content);
 
@@ -2265,7 +2288,7 @@ function ChatRoomMessage(data) {
 				else if (msg == "RequestFullKinkyDungeonData") {
 					KinkyDungeonStreamingPlayers.push(SenderCharacter.MemberNumber);
 					if (CurrentScreen == "KinkyDungeon")
-						KinkyDungeonSendData(KinkyDungeonPackData(true, true, true, true), SenderCharacter.MemberNumber);
+						KinkyDungeonSendData(KinkyDungeonPackData(true, true, true, true));
 				}
 				else if (msg == "TakeSuitcase"){
 					if (!Player.CanInteract() && ServerChatRoomGetAllowItem(SenderCharacter, Player)) {
@@ -2332,7 +2355,6 @@ function ChatRoomMessage(data) {
 					var dictionary = data.Dictionary;
 					var SourceCharacter = null;
 					let TargetCharacter = null;
-					var IsPlayerInvolved = (SenderCharacter.MemberNumber == Player.MemberNumber);
 					let TargetMemberNumber = null;
 					let ActivityName = null;
 					var GroupName = null;
@@ -2421,7 +2443,7 @@ function ChatRoomMessage(data) {
 
 					// Launches the audio file if allowed
 					if (!Player.AudioSettings.PlayItemPlayerOnly || IsPlayerInvolved)
-						AudioPlayContent(data);
+						AudioPlaySoundForChatMessage(data);
 
 					// Raise a notification if required
 					if (data.Type === "Action" && IsPlayerInvolved && Player.NotificationSettings.ChatMessage.Activity)
@@ -2536,6 +2558,9 @@ function ChatRoomMessage(data) {
 				if (Player.ImmersionSettings.SenseDepMessages && TargetMemberNumber != Player.MemberNumber && SenderCharacter.MemberNumber != Player.MemberNumber && PreferenceIsPlayerInSensDep()) {
 					return;
 				}
+
+				if (!Player.AudioSettings.PlayItemPlayerOnly || IsPlayerInvolved)
+					AudioPlaySoundForChatMessage(data);
 
 				// Exits before outputting the text if the player doesn't want to see the sexual activity messages
 				if ((Player.ChatSettings != null) && (Player.ChatSettings.ShowActivities != null) && !Player.ChatSettings.ShowActivities) return;
