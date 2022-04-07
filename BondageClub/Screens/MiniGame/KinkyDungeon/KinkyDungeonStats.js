@@ -820,6 +820,8 @@ let KinkyDungeonStatsPresets = {
 	"ShoddyKnives": {id: 49, cost: -1},
 	"Oppression": {id: 50, cost: -1},
 	"SearchParty": {id: 51, cost: -1},
+	"NoWayOut": {id: 52, cost: -1},
+	"HeelWalker": {id: 53, cost: 1},
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},

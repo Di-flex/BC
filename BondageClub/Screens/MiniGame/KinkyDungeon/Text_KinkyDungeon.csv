@@ -155,6 +155,11 @@ KinkyDungeonStatDesc50,"Ghosts are less likely to help you."
 KinkyDungeonStat51,"Search Party"
 KinkyDungeonStatDesc51,"More enemies spawn during sleep."
 
+KinkyDungeonStat52,"No Way Out"
+KinkyDungeonStatDesc52,"Enemies will always use the tightest restraints possible and fully bind you."
+KinkyDungeonStat53,"Graceful Walk"
+KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing item, unless it binds your legs together."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
