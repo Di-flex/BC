@@ -1371,7 +1371,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 							if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
 							// Leash pullback
 							if (playerDist < 1.5) {
-								let path = KinkyDungeonFindPath(enemy.x, enemy.y, leashPos.x, leashPos.y, false, false, ignoreLocks, KinkyDungeonMovableTilesSmartEnemy);
+								let path = KinkyDungeonFindPath(enemy.x, enemy.y, leashPos.x, leashPos.y, false, false, true, KinkyDungeonMovableTilesSmartEnemy);
 								if (path && path.length > 0) {
 									let leashPoint = path[0];
 									let enemySwap = KinkyDungeonEnemyAt(leashPoint.x, leashPoint.y);
