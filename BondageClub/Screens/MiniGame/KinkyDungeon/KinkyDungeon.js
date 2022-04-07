@@ -617,7 +617,7 @@ function KDSendTrait(trait) {
 		// @ts-ignore
 		window.dataLayer.push({
 			'event':'trait',
-			'trait':trait,
+			'traitType':trait,
 		});
 }
 
@@ -627,7 +627,7 @@ function KDSendSpell(spell) {
 		// @ts-ignore
 		window.dataLayer.push({
 			'event':'spell',
-			'spell':spell,
+			'spellType':spell,
 			'currentLevel':MiniGameKinkyDungeonLevel,
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 		});
