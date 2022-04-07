@@ -121,7 +121,7 @@ let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
 let KinkyDungeonEndPosition = {x: 1, y: 1};
 let KinkyDungeonJailLeash = 3;
-let KinkyDungeonJailLeashX = 5;
+let KinkyDungeonJailLeashX = 3;
 let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
 let KinkyDungeonCachesPlaced = [];
@@ -253,6 +253,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonTiles = new Map();
 	KinkyDungeonTilesSkin = new Map();
 	KinkyDungeonTargetTile = "";
+
+	KDGameData.JailPoints = [];
 
 	KDGameData.RescueFlag = false;
 
@@ -1556,7 +1558,7 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 						}
 					}
 					if (success) {
-						if (!KinkyDungeonTiles.get(room.door.x + "," + room.door.y).Lock && !KinkyDungeonTiles.get(X + "," + Y).Lock
+						if (!KinkyDungeonTiles.get(room.door.x + "," + room.door.y).Lock && !KinkyDungeonTiles.get(X + "," + Y).Lock && !KinkyDungeonTiles.get(room.door.x + "," + room.door.y).NoTrap
 							&& ((KinkyDungeonGetAccessibleRoom(X+1, Y).length != KinkyDungeonGetAccessibleRoom(X-1, Y).length
 								&& KinkyDungeonIsReachable(X+1, Y, X, Y) && KinkyDungeonIsReachable(X-1, Y, X, Y))
 							|| (KinkyDungeonGetAccessibleRoom(X, Y+1).length != KinkyDungeonGetAccessibleRoom(X, Y-1).length)
@@ -1978,7 +1980,7 @@ function KinkyDungeonClickGame(Level) {
 			if (KinkyDungeonFastMove && Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) > 1
 				&& (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KinkyDungeonFogGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonTargetX, KinkyDungeonPlayerEntity.y - KinkyDungeonTargetY) < 1.5)) {
 				let requireLight = KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0;
-				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, requireLight, false);
+				let path = KinkyDungeonFindPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTargetX, KinkyDungeonTargetY, false, false, false, KinkyDungeonMovableTilesEnemy, requireLight, false, true);
 				if (path) {
 					KinkyDungeonFastMovePath = path;
 					KinkyDungeonSleepTime = 100;

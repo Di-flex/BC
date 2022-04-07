@@ -91,6 +91,7 @@ let KDOptOut = false;
 * Outfit: string,
 * Champion: string,
 * ChampionCurrent: number,
+* JailPoints: {x: number, y: number}[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -143,6 +144,8 @@ let KDGameDataBase = {
 
 	Champion: "",
 	ChampionCurrent: 0,
+
+	JailPoints: [],
 
 	WarningLevel: 0,
 };
