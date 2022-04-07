@@ -39,6 +39,7 @@ let KinkyDungeonStatStaminaMax = 36;
 let KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 let KinkyDungeonStatStaminaRegen = 0;
 let KDNarcolepticRegen = -0.06;
+let KinkyDungeonStatStaminaRegenJail = 0.125;
 let KinkyDungeonStatStaminaRegenSleep = 36/40;
 let KinkyDungeonStatStaminaRegenSleepBedMultiplier = 1.5;
 let KinkyDungeonStatStaminaRegenWait = 0;
@@ -391,6 +392,9 @@ function KinkyDungeonUpdateStats(delta) {
 	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
 	let stamRegen = KinkyDungeonStatsChoice.get("Narcoleptic") ? KDNarcolepticRegen : KinkyDungeonStatStaminaRegen;
+	if (KinkyDungeonInJail() && KinkyDungeonPlayerInCell() && !KinkyDungeonJailTransgressed) {
+		stamRegen = Math.max(stamRegen, KinkyDungeonStatStaminaRegenJail);
+	}
 	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : stamRegen;
 	KinkyDungeonStatManaRate = (KinkyDungeonStatMana < KinkyDungeonStatManaRegenLowThreshold && KinkyDungeonStatsChoice.get("Meditation")) ? KDMeditationRegen : 0;
 
@@ -798,6 +802,18 @@ let KinkyDungeonStatsPresets = {
 	"LostTechnology": {id: 23, cost: -1},
 	"Rigger": {id: 24, cost: 1},
 	"Pacifist": {id: 25, cost: -2},
+	"Slayer": {id: 34, cost: 5},
+	"Narcoleptic": {id: 37, cost: -4},
+	"Conjurer": {id: 35, cost: 5},
+	"Magician": {id: 36, cost: 5},
+	"Stealthy": {id: 38, cost: 0},
+	"Conspicuous": {id: 39, cost: -1, block: "KillSquad"},
+	"BoundPower": {id: 40, cost: 3},
+	"KillSquad": {id: 41, cost: -3, block: "Conspicuous"},
+	"Supermarket": {id: 42, cost: 1},
+	"PriceGouging": {id: 43, cost: -2},
+	"NoWayOut": {id: 52, cost: -1},
+	"HeelWalker": {id: 53, cost: 1},
 	"Unchained": {id: 26, cost: 2, block: "Damsel"},
 	"Damsel": {id: 27, cost: -1, block: "Unchained"},
 	"Artist": {id: 28, cost: 2, block: "Bunny"},
@@ -806,22 +822,10 @@ let KinkyDungeonStatsPresets = {
 	"Doll": {id: 31, cost: -1, block: "Slippery"},
 	"Escapee": {id: 32, cost: 2, block: "Dragon"},
 	"Dragon": {id: 33, cost: -1, block: "Escapee"},
-	"Stealthy": {id: 38, cost: 0},
-	"Conspicuous": {id: 39, cost: -1, block: "KillSquad"},
-	"Slayer": {id: 34, cost: 5},
-	"Conjurer": {id: 35, cost: 5},
-	"Magician": {id: 36, cost: 5},
-	"Narcoleptic": {id: 37, cost: -4},
-	"BoundPower": {id: 40, cost: 3},
-	"KillSquad": {id: 41, cost: -3, block: "Conspicuous"},
-	"Supermarket": {id: 42, cost: 1},
-	"PriceGouging": {id: 43, cost: -2},
 	"HighSecurity": {id: 48, cost: -1},
 	"ShoddyKnives": {id: 49, cost: -1},
 	"Oppression": {id: 50, cost: -1},
 	"SearchParty": {id: 51, cost: -1},
-	"NoWayOut": {id: 52, cost: -1},
-	"HeelWalker": {id: 53, cost: 1},
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},
