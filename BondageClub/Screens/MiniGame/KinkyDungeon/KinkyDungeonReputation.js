@@ -145,6 +145,7 @@ function KinkyDungeonHandleReputation() {
 					KinkyDungeonChangeMana(KinkyDungeonAidManaAmount(rep, value));
 					KinkyDungeonChangeRep(rep, -KinkyDungeonAidManaCost(rep));
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAidManaMe"), "purple", 2);
+					KDSendStatus('goddess', rep, 'helpMana');
 					KinkyDungeonDrawState = "Game";
 					KDRepSelectionMode = "";
 				} else if (KDRepSelectionMode == "Rescue" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanRescue(rep, value)) {
@@ -152,6 +153,7 @@ function KinkyDungeonHandleReputation() {
 					KinkyDungeonRescued[rep] = true;
 
 					if (KDRandom() < 0.5 + value/100) {
+						KDSendStatus('goddess', rep, 'helpRescue');
 						KinkyDungeonChangeRep(rep, -10);
 						let allies = KinkyDungeonGetAllies();
 						KinkyDungeonEntities = allies;
@@ -167,6 +169,7 @@ function KinkyDungeonHandleReputation() {
 					} else {
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNoRescue"), "purple", 10);
 						KinkyDungeonDrawState = "Game";
+						KDSendStatus('goddess', rep, 'helpNoRescue');
 					}
 					KDRepSelectionMode = "";
 					return true;
@@ -185,11 +188,13 @@ function KinkyDungeonHandleReputation() {
 					}
 					KDRepSelectionMode = "";
 					KinkyDungeonDrawState = "Game";
+					KDSendStatus('goddess', rep, 'helpPenance');
 					return true;
 				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
 					// Penance
 					KDGameData.Champion = rep;
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
+					KDSendStatus('goddess', rep, 'helpChampion');
 					return true;
 				}
 			}

@@ -1251,6 +1251,7 @@ KinkyDungeonGuardDisappear,The guard leaves and locks the cell behind her.
 
 
 KinkyDungeonLeashed,"You are grabbed and led to a prison..."
+KinkyDungeonLeashed2,"You may plead to a goddess for rescue in the Reputation screen."
 
 
 NameNecromancer,Necromancer
@@ -1405,6 +1406,20 @@ KinkyDungeonStruggleRemoveImpossibleTape,"The material clings to your skin too t
 KinkyDungeonStruggleRemoveImpossibleTapeAroused,"You groan in frustration as you try to peel it off but realize it's too sticky."
 KinkyDungeonStruggleRemoveImpossibleBoundTape,"You can't grip the edges to peel it off!"
 KinkyDungeonStruggleRemoveImpossibleBoundTapeAroused,"You make a futile attempt to rub it off."
+
+KinkyDungeonStruggleRemoveFailMagicChain,"You try to wiggle off the chains..."
+KinkyDungeonStruggleRemoveFailMagicChainAroused,"You squirm trying to get the chains to fall off..."
+KinkyDungeonStruggleRemoveImpossibleMagicChain,"The chains are magical and wrap themselves back around you of their own accord."
+KinkyDungeonStruggleRemoveImpossibleMagicChainAroused,"The chains squeeze you tighter as you try to shake them off."
+KinkyDungeonStruggleRemoveImpossibleBoundMagicChain,"The chains have you bound hopelessly tight!"
+KinkyDungeonStruggleRemoveImpossibleBoundMagicChainAroused,"You sigh and moan as the chains aren't getting any looser."
+
+KinkyDungeonStruggleRemoveFailMagicRope,"You try to untie the ropes..."
+KinkyDungeonStruggleRemoveFailMagicRopeAroused,"You contort yourself trying to reach the knots..."
+KinkyDungeonStruggleRemoveImpossibleMagicRope,"The knot ties itself back again as soon as you get it loose!"
+KinkyDungeonStruggleRemoveImpossibleMagicRopeAroused,"The knots tighten themselves as soon as you reach them, keeping you tight and secure."
+KinkyDungeonStruggleRemoveImpossibleBoundMagicRope,"You can't reach the knots!"
+KinkyDungeonStruggleRemoveImpossibleBoundMagicRopeAroused,"Your squirming is in vain as you can't even reach the knots."
 
 KinkyDungeonStruggleStruggleFailClamps,"You try to pull off the clamps..."
 KinkyDungeonStruggleStruggleFailClampsAroused,"You tug on your clamps trying to get them off!"
@@ -3497,3 +3512,7 @@ KinkyDungeonSexyModeDesc0,"Removes all chastity belts, forced vibrators, plugs, 
 KinkyDungeonSexyModeDesc1,"Includes all that good stuff."
 KinkyDungeonSexyPlugs,Allow Rear Plugs
 KinkyDungeonSexyPiercings,Allow Piercings
+
+KinkyDungeonConsent,"This game engages in safe and consentual analytics. No personal data is stored."
+KDOptIn,"Accept Data Collection"
+KDOptOut,"Don't Track Me"
