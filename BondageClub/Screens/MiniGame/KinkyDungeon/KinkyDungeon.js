@@ -430,6 +430,8 @@ function KinkyDungeonRun() {
 		MainCanvas.textAlign = "center";
 		// Draw temp start screen
 		DrawText(TextGet("KinkyDungeonConsent"), 1250, 300, "white", "silver");
+		DrawText(TextGet("KinkyDungeonConsent2"), 1250, 400, "white", "silver");
+		DrawText(TextGet("KinkyDungeonConsent3"), 1250, 500, "white", "silver");
 		DrawButton(975, 820, 450, 64, TextGet("KDOptIn"), "White", "");
 		DrawButton(975, 920, 450, 64, TextGet("KDOptOut"), "White", "");
 	} else if (KinkyDungeonState == "Load") {
