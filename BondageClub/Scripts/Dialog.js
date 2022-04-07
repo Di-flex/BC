@@ -123,7 +123,7 @@ var DialogSelfMenuOptions = [
  * @param {string} Value - The value to compare
  * @returns {boolean} - Returns TRUE if a specific reputation type is less or equal than a given value
  */
-function DialogReputationLess(RepType, Value) { return (ReputationGet(RepType) <= Value); }
+function DialogReputationLess(RepType, Value) { return (ReputationGet(RepType) <= parseInt(Value)); }
 
 /**
  * Compares the player's reputation with a given value
@@ -131,7 +131,7 @@ function DialogReputationLess(RepType, Value) { return (ReputationGet(RepType) <
  * @param {string} Value - The value to compare
  * @returns {boolean} - Returns TRUE if a specific reputation type is greater or equal than a given value
  */
-function DialogReputationGreater(RepType, Value) { return (ReputationGet(RepType) >= Value); }
+function DialogReputationGreater(RepType, Value) { return (ReputationGet(RepType) >= parseInt(Value)); }
 
 /**
  * Compares the player's money with a given amount
@@ -145,7 +145,7 @@ function DialogMoneyGreater(Amount) { return (parseInt(Player.Money) >= parseInt
  * @param {string} Amount - The amount that should be charged or added to the player's account
  * @returns {void} - Nothing
  */
-function DialogChangeMoney(Amount) { CharacterChangeMoney(Player, Amount); }
+function DialogChangeMoney(Amount) { CharacterChangeMoney(Player, parseInt(Amount)); }
 
 /**
  * Alters the current player's reputation by a given amount
@@ -366,7 +366,7 @@ function DialogGGTSCanUnlock() {
 }
 
 /**
- * Checks if the player can get the futuristic helmet, only available from GGTS
+ * Checks if the player can get the GGTS helmet, only available from GGTS
  * @returns {boolean} - TRUE if GGTS can unlock
  */
 function DialogGGTSCanGetHelmet() {
@@ -1424,6 +1424,8 @@ function DialogPublishAction(C, ClickItem) {
 				TargetItem.Property.TriggerCount++;
 			if (CurrentScreen == "ChatRoom") {
 				let intensity = TargetItem.Property ? TargetItem.Property.Intensity : 0;
+				if (typeof intensity !== "number")
+					intensity = 0;
 				InventoryExpressionTrigger(C, ClickItem);
 				ChatRoomPublishCustomAction(TargetItem.Asset.Name + "Trigger" + intensity, true, [{ Tag: "DestinationCharacterName", Text: C.Name, MemberNumber: C.MemberNumber }]);
 			} else {
@@ -1769,6 +1771,41 @@ function DialogFindNextSubMenu() {
 	}
 }
 
+/**
+ * Finds and set an available character sub menu.
+ * @param {string} The name of the sub menu, see DialogSelfMenuOptions.
+ * @returns {boolean} - True, when the sub menu is found and available and was switched to. False otherwise and nothing happened.
+ */
+function DialogFindSubMenu(MenuName) {
+	for (let MenuIndex = 0; MenuIndex < DialogSelfMenuOptions.length; MenuIndex++) {
+		let MenuOption = DialogSelfMenuOptions[MenuIndex];
+		if (MenuOption.Name == MenuName) {
+			if (MenuOption.IsAvailable()) {
+				DialogSelfMenuSelected = MenuOption;
+				return true;
+			}
+			return false;
+		}
+	}
+	return false;
+}
+
+/**
+ * Finds and sets a facial expression group. The expression sub menu has to be already opened.
+ * @param {string} The name of the expression group, see XXX.
+ * @returns {boolean} True, when the expression group was found and opened. False otherwise and nothing happens.
+ */
+function DialogFindFacialExpressionMenuGroup(ExpressionGroup) {
+	if (DialogSelfMenuSelected.Name != "Expression") return false;
+	if (!DialogFacialExpressions || !DialogFacialExpressions.length) DialogFacialExpressionsBuild();
+	let I = DialogFacialExpressions.findIndex(expr => expr.Group == ExpressionGroup);
+	if (I != -1) {
+		DialogFacialExpressionsSelected = I;
+		if (DialogExpressionColor != null) ItemColorSaveAndExit();
+		return true;
+	}
+	return false;
+}
 /**
  * Displays the given text for 5 seconds
  * @param {string} NewText - The text to be displayed
