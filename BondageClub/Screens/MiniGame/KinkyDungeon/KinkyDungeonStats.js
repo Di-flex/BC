@@ -710,7 +710,7 @@ let KinkyDungeonPlayWithSelfPowerMax = 6;
 let KinkyDungeonPlayWithSelfPowerVibeWand = 5;
 let KinkyDungeonPlayWithSelfChastityPenalty = 5;
 let KinkyDungeonPlayWithSelfBoundPenalty = 3;
-let KinkyDungeonOrgasmExhaustionAmount = -0.5;
+let KinkyDungeonOrgasmExhaustionAmount = -0.1;
 
 let KDWillpowerMultiplier = 0.5;
 
