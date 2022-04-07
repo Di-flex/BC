@@ -632,6 +632,18 @@ function KDSendSpell(spell) {
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 		});
 }
+
+function KDSendSpellCast(spell) {
+	// @ts-ignore
+	if (window.dataLayer)
+		// @ts-ignore
+		window.dataLayer.push({
+			'event':'spellCast',
+			'spellType':spell,
+			'currentLevel':MiniGameKinkyDungeonLevel,
+			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+		});
+}
 function KDSendWeapon(weapon) {
 	// @ts-ignore
 	if (window.dataLayer)
