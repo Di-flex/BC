@@ -74,6 +74,7 @@ ClothAccessory,FurBolero,Fur Bolero
 ClothAccessory,FacePaint, Face Paint
 ClothAccessory,Bib,Bib
 ClothAccessory,Scarf,Scarf
+ClothAccessory,Glitter,Glitter
 Necklace,,Necklace
 Necklace,Necklace1,Fancy Necklace
 Necklace,Necklace2,Beaded Necklace
@@ -88,6 +89,8 @@ Necklace,ElegantHeartNecklace,Elegant Heart Necklace
 Necklace,Bandana,Bandana
 Necklace,FurScarf,Fur Scarf
 Necklace,FlowerGarland,Flower Garland
+Necklace,NecklaceRope,Rope Necklace
+Necklace,ChokerTattoo,Tattoo Choker
 Suit,,Upper Suit
 Suit,Catsuit,Catsuit
 Suit,SeamlessCatsuit, Seamless Catsuit
@@ -97,6 +100,7 @@ Suit,SeethroughSuit,See-through Suit
 Suit,SeethroughSuitZip,See-through Zipsuit
 Suit,ReverseBunnySuit,Reverse Bunny Suit
 Suit,Blouse1,Blouse
+Suit,SleevelessSlimLatexLeotard,Slim Latex Leotard (Sleeveless)
 ClothLower,,Bottom
 ClothLower,Skirt1,Skirt
 ClothLower,Skirt2,Student Skirt
@@ -155,6 +159,7 @@ Bra,Bra9,Strapless
 Bra,Bandeau1,Bandeau
 Bra,Bustier1,Satin Bustier
 Bra,Bikini1,Frilled Bikini
+Bra,MaidBra1,Maid Bra
 Bra,SexyBikini1,Demonique Bikini
 Bra,SexyBikini2,Micro Bikini
 Bra,SexyBikini3,One Piece Swimsuit
@@ -193,6 +198,7 @@ Bra,HaremBra,Harem Bra
 Bra,FlowerBra,Flower Bra
 Bra,Bra10,Style 4
 Bra,CoconutBra,Coconut Bra
+Bra,SleevelessSlimLatexLeotard,Slim Latex Leotard (Sleeveless)
 Corset,,Corset
 Corset,Corset1,Corset + Garters
 Corset,Corset2,Corset
@@ -218,7 +224,8 @@ Panties,Diapers2,Plastic Covered Diaper
 Panties,Diapers3,Satin Covered Diaper
 Panties,Diapers4,Patterned Diaper
 Panties,Panties16,Frill Panties
-Panties,MaidPanties1,Maid Panties
+Panties,MaidPanties1,Latex Maid Panties
+Panties,MaidPanties2,Maid Panties
 Panties,LatexPanties1,Crotchless Latex Panties
 Panties,WrapPanties1,Wrap Panties
 Panties,CrotchPanties1,Crotchless Briefs
@@ -380,6 +387,7 @@ HairAccessory1,ElfEars,Elf Ears
 HairAccessory1,CowHorns,Cow Horns
 HairAccessory1,Halo,Halo
 HairAccessory1,Antennae,Antennae
+HairAccessory1,UnicornHorn,Unicorn Horn
 HairAccessory2,,Ears
 HairAccessory2,Ears1,Ears Small
 HairAccessory2,Ears2,Ears Large
@@ -406,6 +414,7 @@ HairAccessory2,MouseEars2,Mouse Ears 2
 HairAccessory2,ElfEars,Elf Ears
 HairAccessory2,CowHorns,Cow Horns
 HairAccessory2,Antennae,Antennae
+HairAccessory2,UnicornHorn,UnicornHorn
 Gloves,,Gloves
 Gloves,Gloves1,Short Gloves
 Gloves,Gloves2,Long Gloves
@@ -457,6 +466,7 @@ Mask,OpenFaceHood,Open Face Hood
 Mask,FaceVeil,Face Veil
 Mask,FacePaint, Face Paint
 Mask,PetNose,Pet Nose
+Mask,Glitter,Glitter
 TailStraps,,Tail Strap
 TailStraps,TailStrap,Kitty Tail Strap
 TailStraps,HorseTailStrap,Horse Tail Strap
@@ -554,6 +564,10 @@ HairFront,HairFront18,Style 18
 HairFront,HairFront19,Style 19
 HairFront,HairFront20,Style 20
 HairFront,HairFront21,Style 21
+HairFront,HairFront22,Style 22
+HairFront,HairFront22b,Style 22b
+HairFront,HairFront23,Style 23
+HairFront,HairFront23b,Style 23b
 HairBack,,Back Hair
 HairBack,HairNone,None
 HairBack,HairBack1,Style 1
@@ -815,6 +829,7 @@ ItemPelvis,Ribbons,Ribbons
 ItemPelvis,SilkStraps,Silk Straps
 ItemPelvis,BulkyDiaper,Bulky Chastity Diaper
 ItemPelvis,PoofyDiaper,Poofy Chastity Diaper
+ItemPelvis,HybridChastityBelt,Hybrid Chastity Belt
 ItemTorso,,Torso
 ItemTorso,NylonRopeHarness,Nylon Rope
 ItemTorso,HempRopeHarness,Hemp Rope
@@ -1154,6 +1169,7 @@ ItemMouth,CaneGag,Cane
 ItemMouth,PaciGag,Pacifier Gag
 ItemMouth,Tentacles,Tentacle
 ItemMouth,OTNPlugGag,Harness OTN Plug Gag
+ItemMouth,PonyGag, Bridle Gag
 ItemMouth2,,Mouth
 ItemMouth2,ClothGag,Cloth Gag
 ItemMouth2,WiffleGag,Wiffle Ball Gag
@@ -1279,6 +1295,8 @@ ItemHead,Pantyhose,Pantyhose
 ItemHead,Snorkel,Snorkel
 ItemHead,Ribbons,Ribbon Blindfold
 ItemHead,Tentacles,Tentacles
+ItemHead,MedicalPatch,Medical Patches
+ItemHead,DroneMask,Smooth Latex Mask
 ItemNose,,Nose
 ItemNose,NoseHook,Nose Hook
 ItemNose,PigNose,Pig Nose
@@ -1311,8 +1329,13 @@ ItemHood,GP9GasMask,GP-9 Gas Mask
 ItemHood,OpenFaceHood,Open Face Hood
 ItemHood,GwenHood,Gwen Hood
 ItemHood,TechnoHelmet1,Techno Helmet
-ItemHood,FuturisticHelmet,Futuristic Helmet
+ItemHood,FuturisticHelmet,GGTS Helmet
 ItemHood,LampHeadHood,Lampshade Hood
+ItemHood,AccentHood,Accent Hood
+ItemHood,CollarHood,Collar Hood
+ItemHood,ZipperHood,Zipper Hood
+ItemHood,LatexHabit,Latex Habit Hood
+ItemHood,CowHood,Cow Hood
 ItemEars,,Ears
 ItemEars,LightDutyEarPlugs,Light Duty Ear Plugs
 ItemEars,HeavyDutyEarPlugs,Heavy Duty Ear Plugs
