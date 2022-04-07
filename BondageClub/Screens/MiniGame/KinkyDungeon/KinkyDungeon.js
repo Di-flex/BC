@@ -287,7 +287,8 @@ function KinkyDungeonLoad() {
 		else console.log("Failed to load keybindings");
 
 		if (KinkyDungeonIsPlayer()) {
-			KinkyDungeonState = "Menu";
+			if (ServerURL != 'foobar')
+				KinkyDungeonState = "Menu";
 			KinkyDungeonGameData = null;
 
 			CharacterAppearancePreviousEmoticon = WardrobeGetExpression(Player).Emoticon;
