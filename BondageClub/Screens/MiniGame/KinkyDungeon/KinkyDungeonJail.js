@@ -42,15 +42,17 @@ function KinkyDungeonAttachTetherToGuard(dist) {
 }
 
 function KinkyDungeonInJail() {
-	return KDGameData.KinkyDungeonSpawnJailers > 0 && KDGameData.KinkyDungeonSpawnJailers + 1 >= KDGameData.KinkyDungeonSpawnJailersMax;
+	return KinkyDungeonPlayerInCell();//KDGameData.KinkyDungeonSpawnJailers > 0 && KDGameData.KinkyDungeonSpawnJailers + 1 >= KDGameData.KinkyDungeonSpawnJailersMax;
 }
 
 function KinkyDungeonHandleJailSpawns(delta) {
 	if (KinkyDungeonInJail()) KDGameData.JailRemoveRestraintsTimer += delta;
 
-	let xx = KinkyDungeonStartPosition.x + KinkyDungeonJailLeashX - 1;
-	let yy = KinkyDungeonStartPosition.y;
-	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
+	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+
+	let xx = nearestJail.x + KinkyDungeonJailLeashX;
+	let yy = nearestJail.y;
+	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - nearestJail.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - nearestJail.y) <= KinkyDungeonJailLeash);
 	if (KinkyDungeonInJail() && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KDGameData.SleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell && !KDGameData.RescueFlag) {
 		KDGameData.KinkyDungeonGuardSpawnTimer = KDGameData.KinkyDungeonGuardSpawnTimerMin + Math.floor(KDRandom() * (KDGameData.KinkyDungeonGuardSpawnTimerMax - KDGameData.KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
@@ -335,7 +337,14 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 		}
 		KDGameData.KinkyDungeonPrisonExtraGhostRep += 2;
-		if (!playerInCell) KinkyDungeonPlayerEntity.x -= 1;
+		if (!playerInCell) {
+			let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			let point = KinkyDungeonGetNearbyPoint(nearestJail.x, nearestJail.y, true, undefined, true);
+			if (point) {
+				KinkyDungeonPlayerEntity.x = point.x;
+				KinkyDungeonPlayerEntity.y = point.y;
+			}
+		}
 		let enemy = KinkyDungeonEnemyAt(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 		if (enemy) enemy.x += 1;
 		KinkyDungeonJailGuard().CurrentAction = "jailWander";
@@ -447,8 +456,9 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 function KinkyDungeonJailGuardGetLeashWaypoint(xx, yy) {
 	if (KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints === 0) {
 		// Go back to the cell's bed
-		KinkyDungeonJailGuard().NextJailLeashTourWaypointX = KinkyDungeonStartPosition.x;
-		KinkyDungeonJailGuard().NextJailLeashTourWaypointY = KinkyDungeonStartPosition.y;
+		let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+		KinkyDungeonJailGuard().NextJailLeashTourWaypointX = nearestJail.x;
+		KinkyDungeonJailGuard().NextJailLeashTourWaypointY = nearestJail.y;
 		KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().NextJailLeashTourWaypointX;
 		KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().NextJailLeashTourWaypointY;
 	} else {
@@ -477,13 +487,20 @@ function KinkyDungeonJailGetLeashPoint(xx, yy, enemy) {
 }
 
 function KinkyDungeonPlayerInCell() {
-	return (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
+	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+	if (!nearestJail) return false;
+	return KDistChebyshev(KinkyDungeonPlayerEntity.x - nearestJail.x, KinkyDungeonPlayerEntity.y - nearestJail.y) < 2;
+	//return (Math.abs(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
 }
 function KinkyDungeonPointInCell(x, y) {
-	return (Math.abs(x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
+	let nearestJail = KinkyDungeonNearestJailPoint(x, y);
+	if (!nearestJail) return false;
+	return KDistChebyshev(x - nearestJail.x, y - nearestJail.y) < 2;
+	//return (Math.abs(x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
 }
 
 function KinkyDungeonDefeat() {
+	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	KDSendStatus('jailed');
 	KDSendEvent('jail');
 	KDGameData.WarningLevel = 0;
@@ -507,7 +524,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonStatBlind = 3;
 
 	//MiniGameKinkyDungeonLevel = Math.floor((MiniGameKinkyDungeonLevel + Math.max(0, KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers))/5)*5;
-	MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/2)*2;
+	//MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/2)*2;
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	if (!KinkyDungeonJailedOnce) {
 		KinkyDungeonJailedOnce = true;
@@ -564,29 +581,35 @@ function KinkyDungeonDefeat() {
 
 	KinkyDungeonSaveGame();
 
-	if (KinkyDungeonMapGet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y) != "B") {
-		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
-	} else {
-		KinkyDungeonPlayerEntity.x = KinkyDungeonStartPosition.x;
-		KinkyDungeonPlayerEntity.y = KinkyDungeonStartPosition.y;
-		let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-		if (leash && (leash.tx || leash.ty)) {
-			leash.tx = undefined;
-			leash.ty = undefined;
-		}
-		KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
-
-		let enemies = [];
-		for (let e of  KinkyDungeonEntities) {
-			if (!e.summoned && (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))) {
-				if (e.x < KinkyDungeonJailLeashX + 4) {
-					e.x = KinkyDungeonJailLeashX + 4;
-					e.y = KinkyDungeonStartPosition.y;
-				}
-				enemies.push(e);
-			}
-		}
-		KinkyDungeonEntities = enemies;
+	//if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
+	// KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	//} else {
+	KinkyDungeonPlayerEntity.x = nearestJail.x;
+	KinkyDungeonPlayerEntity.y = nearestJail.y;
+	let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+	if (leash && (leash.tx || leash.ty)) {
+		leash.tx = undefined;
+		leash.ty = undefined;
 	}
+	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
+
+	let enemies = [];
+	for (let e of  KinkyDungeonEntities) {
+		if (!e.summoned) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
+			if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+				let p = KinkyDungeonGetRandomEnemyPoint(true);
+				if (p) {
+					e.x = p.x;
+					e.x = p.y;
+					e.path = undefined;
+					e.gx = e.x;
+					e.gy = e.y;
+				}
+
+			}
+			enemies.push(e);
+		}
+	}
+	KinkyDungeonEntities = enemies;
 	KinkyDungeonJailTransgressed = false;
 }

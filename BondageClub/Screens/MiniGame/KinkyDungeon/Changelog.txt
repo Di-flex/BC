@@ -752,6 +752,8 @@ Spell Balance:
 - Perks are now persistent and autosave
 - New spell: Summon Rock
 - Rebalanced the perks that make restraints more difficult. They now halve the escape chance first, then apply a minor penalty, rather than applying a straight 20% penalty.
+- Added consent screen before menu if playing on standalone
+- Exhaustion from being fully aroused reduced to 0.1 per turn from 0.5 per turn
 
 TODO ValidationFindBlockCycles to prevent bugs
 

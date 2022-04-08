@@ -407,6 +407,11 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRopeEngulfDress"), "red", 3);
 					effect = true;
+				} else {
+					KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
+					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonSlowedBySpell"), "yellow", playerEffect.time);
+					KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+					effect = true;
 				}
 			}
 		} else if (playerEffect.name == "VineEngulf") {
@@ -859,6 +864,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
+		KDSendSpellCast(spell.name);
 
 		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
 

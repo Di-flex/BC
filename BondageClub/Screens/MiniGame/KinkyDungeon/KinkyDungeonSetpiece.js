@@ -7,6 +7,7 @@ let KDSetPieces = [
 	{Name: "Storage", Radius: 5},
 	{Name: "QuadCell", Radius: 7},
 	{Name: "PearlChest", Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
+	{Name: "GuaranteedCell", Radius: 5, Max: 1},
 ];
 
 let KDCountSetpiece = new Map();
@@ -19,6 +20,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, h
 	let setpieces = [];
 	Object.assign(setpieces, Params.setpieces);
 	setpieces.push({Type: "PearlChest", Weight: 1000});
+	setpieces.push({Type: "GuaranteedCell", Weight: 1000});
 	for (let p of KDSetPieces) {
 		let prereqs = true;
 		if (prereqs && p.Prereqs) {
@@ -147,6 +149,27 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
+			break;
+		case "GuaranteedCell":
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
+			KinkyDungeonMapSet(cornerX+4, cornerY+2, 'D');
+			KinkyDungeonTiles.set("" + (cornerX+4) + "," + (cornerY+2), {Type: "Door", NoTrap: true, Jail: true, ReLock: true});
+
+			KinkyDungeonMapSet(cornerX+4, cornerY+1, 'b');
+			KinkyDungeonMapSet(cornerX+4, cornerY+3, 'b');
+			KinkyDungeonMapSet(cornerX+1, cornerY, 'b');
+			KinkyDungeonMapSet(cornerX+2, cornerY, 'b');
+			KinkyDungeonMapSet(cornerX+3, cornerY, 'b');
+			KinkyDungeonMapSet(cornerX+1, cornerY+4, 'b');
+			KinkyDungeonMapSet(cornerX+2, cornerY+4, 'b');
+			KinkyDungeonMapSet(cornerX+3, cornerY+4, 'b');
+			KinkyDungeonMapSet(cornerX+4, cornerY+1, 'b');
+			KinkyDungeonMapSet(cornerX, cornerY+1, 'b');
+			KinkyDungeonMapSet(cornerX, cornerY+2, 'b');
+			KinkyDungeonMapSet(cornerX, cornerY+3, 'b');
+
+			KinkyDungeonMapSet(cornerX+2, cornerY+2, 'B');
+			KDGameData.JailPoints.push({x: cornerX+2, y: cornerY+2});
 			break;
 		case "Storage":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, false);

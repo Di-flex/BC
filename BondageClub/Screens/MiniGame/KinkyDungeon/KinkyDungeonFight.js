@@ -255,7 +255,7 @@ function KinkyDungeonAggro(Enemy) {
 			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
-		} else if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail"))) {
+		} else { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
 			KinkyDungeonJailTransgressed = true;
 		}
 	}

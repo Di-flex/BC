@@ -644,6 +644,9 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;
 		let ty = (Entity.yy) ? Entity.yy : Entity.y;
 		let dist = Math.sqrt((Entity.visual_x - tx) * (Entity.visual_x - tx) + (Entity.visual_y - ty) * (Entity.visual_y - ty));
+		if (dist > 5) {
+			value = 1;
+		}
 		if (dist == 0) return;
 		// Increment
 		let weightx = Math.abs(Entity.visual_x - tx)/(dist);

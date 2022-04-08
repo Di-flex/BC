@@ -1038,6 +1038,7 @@ function KinkyDungeonGetLockMult(Lock) {
 
 function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStamina, LeashingOnly) {
 	let restraintWeightTotal = 0;
+	if (KinkyDungeonStatsChoice.has("NoWayOut")) RequireStamina = false;
 	let restraintWeights = [];
 	let cache = KDRestraintsCache.get(enemy.name);
 	let staminaPercent = (Math.min(KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, 1 - KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax))
