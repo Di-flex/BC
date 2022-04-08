@@ -161,8 +161,10 @@ function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 			ElementValue("saveDataField", saveData);
 		}
 	}
-	if (AutoSave)
+	if (AutoSave) {
 		KinkyDungeonSaveGame();
+	}
+
 }
 
 function KinkyDungeonNewGamePlus() {
@@ -238,10 +240,10 @@ function KinkyDungeonInitialize(Level, Random, Load) {
 	KinkyDungeonDefaultStats(Load);
 
 	// Set up the first level
-	KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);
+	//KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);
 }
 // Starts the the game at a specified level
-function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
+function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonSpecialAreas = [];
 	KinkyDungeonRescued = {};
 	KDGameData.ChampionCurrent = 0;
@@ -262,7 +264,19 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 
 	KinkyDungeonFastMovePath = [];
 
+	// These are generated before the seed as they depend on the player's restraints and rep
 	KinkyDungeonGenerateShop(MiniGameKinkyDungeonLevel);
+	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
+	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
+
+	//console.log(seed);
+	if (!seed) {
+		KDrandomizeSeed(true);
+		KDGameData.LastMapSeed = KinkyDungeonSeed;
+	}
+	console.log("Map Seed: " + KinkyDungeonSeed);
+	KDsetSeed(KinkyDungeonSeed);
+	//console.log(KDRandom());
 
 	let height = MapParams.min_height + 2*Math.floor(0.5*KDRandom() * (MapParams.max_height - MapParams.min_height));
 	let width = MapParams.min_width + 2*Math.floor(0.5*KDRandom() * (MapParams.max_width - MapParams.min_width));
@@ -283,10 +297,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	KinkyDungeonGrid_Last = "";
 	KinkyDungeonUpdateLightGrid = true;
 
-	let InJail = false;//KDGameData.KinkyDungeonSpawnJailers > 0 && KDGameData.KinkyDungeonSpawnJailers == KDGameData.KinkyDungeonSpawnJailersMax;
 	// Setup variables
 	let startpos = 1 + 2*Math.floor(KDRandom()*0.5 * (height - 2));
-	if (InJail) startpos = Math.floor(height/2);
 	if (startpos % 2 != 1) startpos += 1; // startpos MUST be odd
 
 	// MAP GENERATION
@@ -294,6 +306,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let VisitedRooms = [];
 	KinkyDungeonMapSet(1, startpos, '1', VisitedRooms);
 
+	//console.log(KDRandom());
 	// Use primm algorithm with modification to spawn random rooms in the maze
 	let openness = MapParams.openness;
 	let density = MapParams.density;
@@ -302,7 +315,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let barchance = MapParams.barchance;
 	let treasurechance = 1.0; // Chance for an extra locked chest
 	let treasurecount = MapParams.chestcount; // Max treasure chest count
-	if (KDGameData.KinkyDungeonSpawnJailers > 0) treasurecount = 0;
+	//if (KDGameData.KinkyDungeonSpawnJailers > 0) treasurecount = 0;
 	let shrinechance = MapParams.shrinechance; // Chance for an extra shrine
 	let ghostchance = MapParams.ghostchance; // Chance for a ghost
 	let shrinecount = MapParams.shrinecount; // Max treasure chest count
@@ -311,24 +324,24 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let doorchance = MapParams.doorchance; // Chance door will be closed
 	let nodoorchance = MapParams.nodoorchance; // Chance of there not being a door
 	let doorlockchance = MapParams.doorlockchance; // Max treasure chest count
-	if (KinkyDungeonGoddessRep.Prisoner && KDGameData.KinkyDungeonSpawnJailers > 0) doorlockchance = doorlockchance + (KDGameData.KinkyDungeonSpawnJailers / KDGameData.KinkyDungeonSpawnJailersMax) * (1.0 - doorlockchance) * (KinkyDungeonGoddessRep.Prisoner + 50)/100;
+	//if (KinkyDungeonGoddessRep.Prisoner && KDGameData.KinkyDungeonSpawnJailers > 0) doorlockchance = doorlockchance + (KDGameData.KinkyDungeonSpawnJailers / KDGameData.KinkyDungeonSpawnJailersMax) * (1.0 - doorlockchance) * (KinkyDungeonGoddessRep.Prisoner + 50)/100;
 	let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
 	let grateChance = MapParams.grateChance;
 	let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
 	let gasChance = (MapParams.gaschance && KDRandom() < MapParams.gaschance) ? (MapParams.gasdensity ? MapParams.gasdensity : 0) : 0;
 	let gasType = MapParams.gastype ? MapParams.gastype : 0;
 	let brickchance = MapParams.brickchance; // Chance for brickwork to start being placed
-	let shrinefilter = KinkyDungeonGetMapShrines(MapParams.shrines);
-	let traptypes = MapParams.traps.concat(KinkyDungeonGetGoddessTrapTypes());
 	let cacheInterval = MapParams.cacheInterval;
 	let forbiddenChance = MapParams.forbiddenChance;
 	let greaterChance = MapParams.forbiddenGreaterChance;
 	let wallRubblechance = MapParams.wallRubblechance ? MapParams.wallRubblechance : 0;
 	let barrelChance = MapParams.barrelChance ? MapParams.barrelChance : 0.045;
 
+	//console.log(KDRandom());
 	let shrineTypes = [];
 	let startTime = performance.now();
 	KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	//console.log(KDRandom());
 	if (KDDebug) {
 		console.log(`${performance.now() - startTime} ms for maze creation`);
 		startTime = performance.now();
@@ -344,6 +357,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 
 	// Place the player!
 	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 2, y:startpos, player:true};
+
 	KinkyDungeonStartPosition = {x: 2, y: startpos};
 
 	KinkyDungeonJailTransgressed = true;
@@ -351,6 +365,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 	let spawnPoints = [];
 
 	KinkyDungeonReplaceDoodads(doodadchance, barchance, wallRubblechance, barrelChance, width, height); // Replace random internal walls with doodads
+	//console.log(KDRandom());
 	if (KDDebug) {
 		console.log(`${performance.now() - startTime} ms for doodad creation`);
 		startTime = performance.now();
@@ -360,25 +375,27 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 		console.log(`${performance.now() - startTime} ms for stair creation`);
 		startTime = performance.now();
 	}
-	if (InJail) KinkyDungeonCreateCell((KinkyDungeonGoddessRep.Prisoner + 50), width, height);
-	if ((InJail && KinkyDungeonLostItems.length > 0) || ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0 && !KinkyDungeonCachesPlaced.includes(Floor)))
+
+	// We removed cachesplaced due to the rework of the prison system
+	if ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0)
 		KinkyDungeonCreateCache(spawnPoints, Floor, width, height);
 	if (KDDebug) {
 		console.log(`${performance.now() - startTime} ms for cache and cell creation`);
 		startTime = performance.now();
 	}
-	let createForbidden = !InJail && (KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1);
+	let createForbidden = KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1;
 	let traps = (createForbidden ? KinkyDungeonCreateForbidden(MiniGameKinkyDungeonLevel <= 1 ? 1.0 : greaterChance) : []);
 	if (KDDebug) {
 		console.log(`${performance.now() - startTime} ms for gold hall creation`);
 		startTime = performance.now();
 	}
+	//console.log(KDRandom());
 
 	// Create enemies first so we can spawn them in the set pieces if needed
 	let allies = KinkyDungeonGetAllies();
 	KinkyDungeonEntities = allies;
 
-	KinkyDungeonPlaceSetPieces(traps, spawnPoints, InJail, width, height);
+	KinkyDungeonPlaceSetPieces(traps, spawnPoints, false, width, height);
 
 	if (!testPlacement) {
 		KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
@@ -434,19 +451,29 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement) {
 			console.log(`${performance.now() - startTime} ms for navmap creation`);
 			startTime = performance.now();
 		}
-		if (InJail) {
-			KinkyDungeonTiles.get(KinkyDungeonJailLeashX + "," + KinkyDungeonStartPosition.y).Lock = KinkyDungeonGenerateLock(true, Floor);
-		}
 
 		KinkyDungeonUpdateStats(0);
 
 		// Place enemies after player
-		KinkyDungeonPlaceEnemies(spawnPoints, InJail, MapParams.enemytags, Floor, width, height);
+		KinkyDungeonPlaceEnemies(spawnPoints, false, MapParams.enemytags, Floor, width, height);
 		if (KDDebug) {
 			console.log(`${performance.now() - startTime} ms for enemy creation`);
 			startTime = performance.now();
 		}
 	}
+
+	if (KDGameData.KinkyDungeonSpawnJailers > 0 && KDGameData.KinkyDungeonSpawnJailers == KDGameData.KinkyDungeonSpawnJailersMax) {
+		// The above condition is the condition to start in jail
+		// We move the player to the jail after generating one
+		let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+		if (nearestJail) {
+			KinkyDungeonPlayerEntity.x = nearestJail.x;
+			KinkyDungeonPlayerEntity.y = nearestJail.y;
+		}
+	}
+
+	if (KDGameData.KinkyDungeonSpawnJailers > 0) KDGameData.KinkyDungeonSpawnJailers -= 1;
+	if (KDGameData.KinkyDungeonSpawnJailers > 3 && KDGameData.KinkyDungeonSpawnJailers < KDGameData.KinkyDungeonSpawnJailersMax - 1) KDGameData.KinkyDungeonSpawnJailers -= 1; // Reduce twice as fast when you are in deep...
 
 	// Set map brightness
 	KinkyDungeonMapBrightness = MapParams.brightness;
@@ -691,9 +718,6 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, Floor, width, heigh
 		tries += 1;
 	}
 	console.log(EnemyNames);
-
-	if (KDGameData.KinkyDungeonSpawnJailers > 0) KDGameData.KinkyDungeonSpawnJailers -= 1;
-	if (KDGameData.KinkyDungeonSpawnJailers > 3 && KDGameData.KinkyDungeonSpawnJailers < KDGameData.KinkyDungeonSpawnJailersMax - 1) KDGameData.KinkyDungeonSpawnJailers -= 1; // Reduce twice as fast when you are in deep...
 
 	KinkyDungeonCurrentMaxEnemies = KinkyDungeonEntities.length;
 }
@@ -1296,8 +1320,9 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 					if (orbs < 2 || !KinkyDungeonOrbsPlaced.includes(Floor)) {
 						tile = 'O';
 						orbs += 1;
-						if (orbs >= 2)
-							KinkyDungeonOrbsPlaced.push(Floor);
+						// We removed orbsplaced due to the rework of the prison system
+						//if (orbs >= 2)
+						// KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
 					shrineTypes.push("Orb");
 				} else if (type) {

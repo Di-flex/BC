@@ -92,6 +92,7 @@ let KDOptOut = false;
 * Champion: string,
 * ChampionCurrent: number,
 * JailPoints: {x: number, y: number}[],
+* LastMapSeed: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -148,6 +149,7 @@ let KDGameDataBase = {
 	JailPoints: [],
 
 	WarningLevel: 0,
+	LastMapSeed: "",
 };
 /**
  * @type {KDGameDataBase}
@@ -253,7 +255,7 @@ function KinkyDungeonLoad() {
 
 	if (!KinkyDungeonGameRunning) {
 		if (!KinkyDungeonPlayer) {
-			KDrandomizeSeed();
+			KDrandomizeSeed(false);
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 			KinkyDungeonPlayer.Type = "simple";
 			// @ts-ignore
@@ -746,7 +748,7 @@ function KinkyDungeonStartNewGame(Load) {
 	} else {
 		KDSendEvent('newGame');
 	}
-	KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
+	KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel, false, Load);
 	KinkyDungeonState = "Game";
 
 	if (KinkyDungeonKeybindings) {
@@ -870,7 +872,8 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonInitialize(1, undefined, true);
 			MiniGameKinkyDungeonCheckpoint = 1;
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
-				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel);
+				KDSendEvent('loadGame');
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel, false, true);
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";
 
@@ -1020,8 +1023,6 @@ function KinkyDungeonHandleClick() {
 	} else if (KinkyDungeonState == "Save") {
 		if (!KinkyDungeonIsPlayer()) KinkyDungeonState = "Game";
 		if (MouseIn(875, 750, 350, 64)) {
-			//KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSavedGame"), "white", 1);
-			//KinkyDungeonSaveGame();
 			KinkyDungeonState = "Game";
 			ElementRemove("saveDataField");
 			KinkyDungeonChangeRep("Ghost", 5);
@@ -1365,7 +1366,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.hearts = KinkyDungeonHeartsPlaced;
 	save.rescued = KinkyDungeonRescued;
 	save.aid = KinkyDungeonAid;
-	KDrandomizeSeed();
 	save.seed = KinkyDungeonSeed;
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 
@@ -1520,6 +1520,8 @@ function KinkyDungeonLoadGame(String) {
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
+
+			if (saveData.KDGameData && saveData.KDGameData.LastMapSeed) KDsetSeed(saveData.KDGameData.LastMapSeed);
 			return true;
 		}
 	}
@@ -1529,11 +1531,16 @@ function KinkyDungeonLoadGame(String) {
 let KinkyDungeonSeed = (Math.random() * 4294967296).toString();
 let KDRandom = sfc32(xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)());
 
-function KDrandomizeSeed() {
-	KinkyDungeonSeed = (Math.random() * 4294967296).toString();
+/**
+ *
+ * @param {boolean} Native Decides whether or not to use native KDRandom to randomize
+ */
+function KDrandomizeSeed(Native) {
+	let rand = Native ? KDRandom : () => {return Math.random();};
+	KinkyDungeonSeed = (rand() * 4294967296).toString();
 	for (let i = 0; i < 20; i++) {
-		let index = Math.random() * KinkyDungeonSeed.length;
-		KinkyDungeonSeed = KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(Math.random()*50)) + String.fromCharCode(65 + Math.floor(Math.random()*50)));
+		let index = rand() * KinkyDungeonSeed.length;
+		KinkyDungeonSeed = KinkyDungeonSeed.replaceAt(index, String.fromCharCode(65 + Math.floor(rand()*50)) + String.fromCharCode(65 + Math.floor(rand()*50)));
 	}
 	KDRandom = sfc32(xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)(), xmur3(KinkyDungeonSeed)());
 	for (let i = 0; i < 1000; i++) {

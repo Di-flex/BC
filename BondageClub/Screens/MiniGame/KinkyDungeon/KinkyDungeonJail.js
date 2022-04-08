@@ -524,7 +524,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonStatBlind = 3;
 
 	//MiniGameKinkyDungeonLevel = Math.floor((MiniGameKinkyDungeonLevel + Math.max(0, KinkyDungeonSpawnJailersMax - KinkyDungeonSpawnJailers))/5)*5;
-	MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/2)*2;
+	//MiniGameKinkyDungeonLevel = Math.floor(MiniGameKinkyDungeonLevel/2)*2;
 	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonLeashed"), "#ff0000", 3);
 	if (!KinkyDungeonJailedOnce) {
 		KinkyDungeonJailedOnce = true;
@@ -581,36 +581,35 @@ function KinkyDungeonDefeat() {
 
 	KinkyDungeonSaveGame();
 
-	if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
-		KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
-	} else {
-		KinkyDungeonPlayerEntity.x = nearestJail.x;
-		KinkyDungeonPlayerEntity.y = nearestJail.y;
-		let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-		if (leash && (leash.tx || leash.ty)) {
-			leash.tx = undefined;
-			leash.ty = undefined;
-		}
-		KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
-
-		let enemies = [];
-		for (let e of  KinkyDungeonEntities) {
-			if (!e.summoned) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
-				if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
-					let p = KinkyDungeonGetRandomEnemyPoint(true);
-					if (p) {
-						e.x = p.x;
-						e.x = p.y;
-						e.path = undefined;
-						e.gx = e.x;
-						e.gy = e.y;
-					}
-
-				}
-				enemies.push(e);
-			}
-		}
-		KinkyDungeonEntities = enemies;
+	//if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
+	// KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	//} else {
+	KinkyDungeonPlayerEntity.x = nearestJail.x;
+	KinkyDungeonPlayerEntity.y = nearestJail.y;
+	let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
+	if (leash && (leash.tx || leash.ty)) {
+		leash.tx = undefined;
+		leash.ty = undefined;
 	}
+	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
+
+	let enemies = [];
+	for (let e of  KinkyDungeonEntities) {
+		if (!e.summoned) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
+			if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+				let p = KinkyDungeonGetRandomEnemyPoint(true);
+				if (p) {
+					e.x = p.x;
+					e.x = p.y;
+					e.path = undefined;
+					e.gx = e.x;
+					e.gy = e.y;
+				}
+
+			}
+			enemies.push(e);
+		}
+	}
+	KinkyDungeonEntities = enemies;
 	KinkyDungeonJailTransgressed = false;
 }
