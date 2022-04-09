@@ -208,7 +208,10 @@ function KinkyDungeonInitialize(Level, Load) {
 	KinkyDungeonDressPlayer();
 	KinkyDungeonDrawState = "Game";
 
-
+	KinkyDungeonMapIndex = [];
+	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
+		KinkyDungeonMapIndex.push(I);
+	}
 
 	KinkyDungeonTextMessage = "";
 	KinkyDungeonActionMessage = "";

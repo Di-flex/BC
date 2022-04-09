@@ -798,8 +798,8 @@ function KinkyDungeonStartNewGame(Load) {
 		KDSendEvent('loadGame');
 	} else {
 		KDSendEvent('newGame');
+		KDInitializeJourney(KDJourney);
 	}
-	KDInitializeJourney(KDJourney);
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, false, Load);
 	KinkyDungeonState = "Game";
 
@@ -952,7 +952,7 @@ function KinkyDungeonHandleClick() {
 			MiniGameKinkyDungeonCheckpoint = 1;
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				KDSendEvent('loadGame');
-				KDInitializeJourney(KDJourney);
+				//KDInitializeJourney(KDJourney);
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, false, true);
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";
@@ -1448,6 +1448,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.aid = KinkyDungeonAid;
 	save.seed = KinkyDungeonSeed;
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
+	save.mapIndex = KinkyDungeonMapIndex;
 
 	let spells = [];
 	let newInv = [];
@@ -1599,6 +1600,7 @@ function KinkyDungeonLoadGame(String) {
 			KDRefresh = true;
 			if (KDGameData.Journey)
 				KDJourney = KDGameData.Journey;
+			if (saveData.mapIndex) KinkyDungeonMapIndex = saveData.mapIndex;
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
