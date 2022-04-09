@@ -236,7 +236,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 16, minLevel:6, weight:-1, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":1, "thirdhalf":1, "latexAnger": 4, "latexRage": 4}, shrines: ["Latex"], floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]),
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "SmokeBomb", weight: 2}, {name: "PotionMana", weight: 1}]},
-	{name: "ElementalLatex", clusterWith: "alchemist", bound: "Elemental",
+	{name: "ElementalLatex", clusterWith: "alchemist", bound: "Elemental", squeeze: true,
 		tags: KDMapInit(["opendoors", "elemental", "slashweakness", "melee", "glueimmune", "coldweakness", "electricresist", "pierceweakness", "iceweakness", "latexRestraints", "latexGag", "handcuffer", "leashing", "search"]),
 		armor: 0, followRange: 1, AI: "hunt",
 		visionRadius: 8, maxhp: 24, minLevel:3, weight:-3, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3,
