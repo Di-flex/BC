@@ -1050,7 +1050,12 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 		cache = [];
 		let start2 = performance.now();
 		for (let restraint of KinkyDungeonRestraints) {
-			if ((Level >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
+			let effLevel = Level;
+			if (KinkyDungeonStatsChoice.has("TightRestraints")) {
+				effLevel *= KDTightRestraintsMult;
+				effLevel += KDTightRestraintsMod;
+			}
+			if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
 				let enabled = false;
 				let weight = 0;
 				if (enemy.tags.length) {

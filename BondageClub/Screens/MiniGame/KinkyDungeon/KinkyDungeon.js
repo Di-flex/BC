@@ -934,7 +934,7 @@ function KinkyDungeonHandleClick() {
 					let statsArray = JSON.parse(statsChoice);
 					if (statsArray) {
 						for (let s of statsArray) {
-							if (!s.includes('arousalMode'))
+							if (!s.includes('arousalMode') && KinkyDungeonStatsPresets[s])
 								KinkyDungeonStatsChoice.set(s, true);
 						}
 					}

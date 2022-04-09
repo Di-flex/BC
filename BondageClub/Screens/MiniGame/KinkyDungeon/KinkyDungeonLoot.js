@@ -1,6 +1,8 @@
 "use strict";
 
 let KinkyDungeonLostItems = [];
+let KDTightRestraintsMod = 6;
+let KDTightRestraintsMult = 2;
 
 function KinkyDungeonAddLostItems(list, excludeBound) {
 	for (let item of list) {
@@ -39,7 +41,12 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 
 	let lootType = KinkyDungeonLootTable[Type];
 	for (let loot of lootType) {
-		if ((Level >= loot.minLevel || KinkyDungeonNewGame > 0) && loot.floors.get(Index)) {
+		let effLevel = Level;
+		if (loot.trap && KinkyDungeonStatsChoice.has("TightRestraints")) {
+			effLevel *= KDTightRestraintsMult;
+			effLevel += KDTightRestraintsMod;
+		}
+		if ((effLevel >= loot.minLevel || KinkyDungeonNewGame > 0) && loot.floors.get(Index)) {
 			let prereqs = true;
 			if (loot.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) prereqs = false;
 

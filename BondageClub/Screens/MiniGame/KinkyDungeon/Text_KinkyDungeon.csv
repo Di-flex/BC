@@ -160,6 +160,9 @@ KinkyDungeonStatDesc52,"Enemies will always use the tightest restraints possible
 KinkyDungeonStat53,"Graceful Walk"
 KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing item, unless it binds your legs together."
 
+KinkyDungeonStat54,"Well-Equipped"
+KinkyDungeonStatDesc54,"Restraints and traps that are limited by level now appear much earlier."
+
 
 KinkyDungeonDifficulty,Choose difficulty level:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
