@@ -298,6 +298,7 @@ function KinkyDungeonRemoveRestraintsWithShrine(shrine) {
 		for (let item of KinkyDungeonAllRestraint()) {
 			if (KDRestraint(item).shrine && KDRestraint(item).shrine.includes(shrine) && item.lock != "Gold") {
 				KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false, true);
+				KDSendStatus('bound', item.name, "shrine_" + shrine);
 				count++;
 			}
 		}

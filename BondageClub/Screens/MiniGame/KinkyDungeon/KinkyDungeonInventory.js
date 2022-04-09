@@ -86,6 +86,7 @@ function KinkyDungeonHandleInventory() {
 			if (!equipped && newItem) {
 				let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem), false, filteredInventory[KinkyDungeonCurrentPageInventory].item.events);
 				if (success) {
+					KDSendStatus('bound', newItem.name, "self");
 					let loose = KinkyDungeonInventoryGetLoose(newItem.name);
 					let msg = "KinkyDungeonSelfBondage";
 					if (KDRestraint(loose).Group == "ItemVulvaPiercings" || KDRestraint(loose).Group == "ItemVulva" || KDRestraint(loose).Group == "ItemButt") {
@@ -570,6 +571,7 @@ function KinkyDungeonhandleQuickInv() {
 				if (!equipped && newItem) {
 					let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem), false, item.item.events);
 					if (success) {
+						KDSendStatus('bound', newItem.name, "self");
 						let loose = KinkyDungeonInventoryGetLoose(newItem.name);
 						let msg = "KinkyDungeonSelfBondage";
 						if (KDRestraint(loose).Group == "ItemVulvaPiercings" || KDRestraint(loose).Group == "ItemVulva" || KDRestraint(loose).Group == "ItemButt") {
