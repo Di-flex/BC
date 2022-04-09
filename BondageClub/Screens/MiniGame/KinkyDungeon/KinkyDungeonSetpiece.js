@@ -152,8 +152,8 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			break;
 		case "GuaranteedCell":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
-			KinkyDungeonMapSet(cornerX+4, cornerY+2, 'D');
-			KinkyDungeonTiles.set("" + (cornerX+4) + "," + (cornerY+2), {Type: "Door", Lock:"Red", NoTrap: true, Jail: true, ReLock: true});
+			KinkyDungeonMapSet(cornerX+4, cornerY+2, 'd');
+			KinkyDungeonTiles.set("" + (cornerX+4) + "," + (cornerY+2), {Type: "Door", NoTrap: true, Jail: true, ReLock: true});
 
 			KinkyDungeonMapSet(cornerX+4, cornerY+1, 'b');
 			KinkyDungeonMapSet(cornerX+4, cornerY+3, 'b');

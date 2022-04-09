@@ -581,6 +581,17 @@ function KinkyDungeonDefeat() {
 	}
 	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
 
+	// Lock all jail doors
+	for (let X = 1; X < KinkyDungeonGridWidth - 1; X++)
+		for (let Y = 1; Y < KinkyDungeonGridHeight - 1; Y++) {
+			let tile = KinkyDungeonTiles.get(X + "," + Y);
+			if (tile && tile.Jail && tile.ReLock && KinkyDungeonMapGet(X, Y) == 'd') {
+				KinkyDungeonMapSet(X, Y, 'D');
+				if (!tile.Lock)
+					tile.Lock = "Red";
+			}
+		}
+
 	let enemies = [];
 	for (let e of  KinkyDungeonEntities) {
 		if (!e.summoned) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))

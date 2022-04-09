@@ -766,6 +766,10 @@ Spell Balance:
 - Major refactor! Saves will be broken
 - Flamberge now costs 1.25 sp instead of 1.0
 
+3.01
+- Jail doors now lock
+- Fixed issue with potion collar causing crashes
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
