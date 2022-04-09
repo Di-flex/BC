@@ -468,6 +468,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		if (nearestJail) {
 			KinkyDungeonPlayerEntity.x = nearestJail.x;
 			KinkyDungeonPlayerEntity.y = nearestJail.y;
+
+			KinkyDungeonJailTransgressed = false;
 		}
 	}
 

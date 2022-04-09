@@ -1560,6 +1560,8 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
 
+			if (!KDGameData.AlreadyOpened) KDGameData.AlreadyOpened = [];
+
 			KDInitInventory();
 			for (let item of saveData.inventory) {
 				if (item.restraint) {

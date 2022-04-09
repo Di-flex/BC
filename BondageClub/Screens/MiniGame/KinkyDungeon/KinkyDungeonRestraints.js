@@ -1451,7 +1451,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 		if (oldItem.dynamicLink) dynamicLink = oldItem.dynamicLink;
 		let olock = oldItem.lock ? oldItem.lock : "";
 		let oldtight = oldItem.tightness ? oldItem.tightness : 0;
-		let oevents = oldItem.events ? oldItem.events : undefined;
+		let oevents = oldItem.events ? oldItem.events : [];
 		let oldlink = oldItem.restraint.name;
 		oldLock.push(olock);
 		oldTightness.push(oldtight);
