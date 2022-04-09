@@ -769,6 +769,8 @@ Spell Balance:
 3.01
 - Jail doors now lock
 - Fixed issue with potion collar causing crashes
+- Experimental fix: Prevent leashers getting stuck if you get leashed into a statue
+- New spell: Enhance Power
 
 TODO ValidationFindBlockCycles to prevent bugs
 

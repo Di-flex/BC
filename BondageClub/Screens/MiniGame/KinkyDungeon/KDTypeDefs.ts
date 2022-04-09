@@ -278,6 +278,8 @@ interface KinkyDungeonEvent {
 	trigger: string;
 	sfx?: string;
 	power?: number;
+	bind?: number;
+	mult?: number;
 	damage?: string;
 	dist?: number;
 	aoe?: number;
@@ -286,6 +288,9 @@ interface KinkyDungeonEvent {
 	chance?: number;
 	buff?: any;
 	lock?: string;
+	msg?: string;
+	/** Type of struggle that this event triggers on */
+	StruggleType?: string;
     requireEnergy?: boolean;
 	/** Limit of whatever thius event modifies */
 	limit?: number

@@ -2765,20 +2765,32 @@ KinkyDungeonSpellDescriptionHeal2,Restore 45 hitpoints to an allied creature.
 KinkyDungeonSpellCastHeal2,You utter a word of healing.
 
 KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
+KinkyDungeonSpellDescriptionFlameBlade,When enabled: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
+KinkyDungeonSpellStrength,Enhance Power
+KinkyDungeonSpellDescriptionStrength,"When enabled: Struggling is more powerful, and attacks deal +2 crush damage"
+KinkyDungeonSpellStrengthStruggle,Your body glows with magical energy!
+
+KinkyDungeonSpellDexterity,Enhance Dexterity
+KinkyDungeonSpellDescriptionDexterity,"When enabled: Removing and unlocking are more powerful, and unarmed/slash/crush/pierce damage is increased by 1.3x"
+KinkyDungeonSpellStrengthDexterity,Your body glows with shimmering energy!
+
+KinkyDungeonSpellWillpower,Enhance Will
+KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
+KinkyDungeonSpellStrengthWillpower,You focus intently!
+
 KinkyDungeonSpellTrueSight,Truesight
-KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to see through walls.
+KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls.
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
 
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
-KinkyDungeonSpellDescriptionFloatingWeapon,"When equipped: While hands are bound, you can still use weapons, but attacks cost mana."
+KinkyDungeonSpellDescriptionFloatingWeapon,"When enabled: While hands are bound, you can still use weapons, but attacks cost mana."
 
 KinkyDungeonSpellFleetFooted,Cat's Grace
-KinkyDungeonSpellDescriptionFleetFooted,"When equipped and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
+KinkyDungeonSpellDescriptionFleetFooted,"When enabled and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
 KinkyDungeonFleetFootedIgnoreTrap,"Your graceful footsteps avoid setting off a trap!"
 KinkyDungeonFleetFootedIgnoreSlow,"You recover gracefully from the slowdown!"
 KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."

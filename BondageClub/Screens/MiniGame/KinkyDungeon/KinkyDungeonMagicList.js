@@ -37,7 +37,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Shield", "BoulderLaunch", "GreaterShield", "Fissure", "Sleet"],
 		// Passive
-		["FlameBlade",],
+		["FlameBlade", "Strength"],
 		// Always on
 		["Knife", "Analyze"],
 	],
@@ -116,8 +116,10 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				{id: "IronBlood2", type: "ManaCostMult", duration: 99999, cancelOnReapply: true, endSleep: true, power: 0.25, player: true, enemies: false, tags: ["manacost"]},
 			], onhit:"", time:30, power: 0, range: 2, size: 1, damage: ""},
 		{name: "FlameBlade", sfx: "FireSpell", school: "Elements", manacost: 3, components: [], level:1, type:"passive", events: [{type: "FlameBlade", trigger: "playerAttack"}]},
-		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:3, type:"passive",
-			events: [{type: "FloatingWeapon", trigger: "playerAttack"}, {type: "HandsFree", trigger: "getWeapon"}, {type: "HandsFree", trigger: "calcDamage"}]},
+		{name: "Strength", sfx: "FireSpell", school: "Elements", manacost: 1, components: [], level:1, type:"passive", events: [
+			{type: "ElementalEffect", power: 2, damage: "crush", trigger: "playerAttack"},
+			{type: "ModifyStruggle", mult: 1.5, power: 0.2, StruggleType: "Struggle", trigger: "beforeStruggleCalc", msg: "KinkyDungeonSpellStrengthStruggle"},
+		]},
 	],
 	"Conjure": [
 		{name: "MPUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},
@@ -145,6 +147,8 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Heal", noise: 3, sfx: "FireSpell", school: "Conjure", manacost: 4, components: ["Verbal"], level:3, type:"inert", onhit:"aoe", delay: 1, power: 1.5, range: 4.5, size: 5, aoe: 2.9, lifetime: 4, time: 2, damage: "heal", channel: 4},
 		{buff: true, heal: true, name: "Heal2", sfx: "MagicSlash", school: "Conjure", manacost: 3, components: ["Verbal"], noTargetPlayer: true, mustTarget: true, level:1, type:"hit",
 			onhit:"heal", time:2, lifetime: 1, delay: 1, power: 4.5, aoe: 0.9, range: 7, size: 1, damage: "inert"},
+		{name: "FloatingWeapon", sfx: "MagicSlash", school: "Conjure", manacost: 2, components: [], level:3, type:"passive",
+			events: [{type: "FloatingWeapon", trigger: "playerAttack"}, {type: "HandsFree", trigger: "getWeapon"}, {type: "HandsFree", trigger: "calcDamage"}]},
 	],
 	"Illusion": [
 		{name: "APUp1", school: "Any", manacost: 0, components: [], level:2, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},

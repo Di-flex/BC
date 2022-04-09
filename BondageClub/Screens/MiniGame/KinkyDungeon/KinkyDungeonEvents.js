@@ -392,12 +392,26 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 		if (e.type == "FlameBlade" && e.trigger == Event && KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name || KinkyDungeonStatsChoice.get("Brawler")) && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
 			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 			KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("FlameStrike", true), undefined, undefined, undefined);
+		} else if (e.type == "ElementalEffect" && e.trigger == Event && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && !data.miss && !data.disarm && data.targetX && data.targetY && data.enemy && !(data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+			KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time, bind: e.bind}, false, true, undefined, undefined, undefined);
 		} else if (e.type == "FloatingWeapon" && e.trigger == Event && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
 			let chanceWith = KinkyDungeonPlayerDamage.chance;
 			let chanceWithout = KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon(true), true).chance;
 			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.name && chanceWithout < chanceWith)
 				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+		}
+	} else if (Event == "beforeStruggleCalc") {
+		if (e.type == "ModifyStruggle" && e.trigger == Event && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.escapeChance && (!e.StruggleType || data.StruggleType)) {
+			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+			if (e.mult && data.escapeChance > 0)
+				data.escapeChance *= e.mult;
+			if (e.power)
+				data.escapeChance += e.power;
+			if (e.msg) {
+				KinkyDungeonSendTextMessage(3, TextGet(e.msg), "yellow", 2);
+			}
 		}
 	} else if (Event == "vision") {
 		if (e.type == "TrueSight" && e.trigger == "vision" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags) {
@@ -472,7 +486,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 	} else if (Event == "playerAttack") {
 		if (e.type == "ElementalEffect" && e.trigger == Event && data.enemy && !data.miss && !data.disarm) {
 			if (data.enemy && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
-				KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
+				KinkyDungeonDamageEnemy(data.enemy, {type:e.damage, damage: e.power, time: e.time, bind: e.bind}, false, true, undefined, undefined, undefined);
 			}
 		} else if (e.type == "ApplyBuff" && e.trigger == Event && data.enemy && !data.miss && !data.disarm) {
 			if (data.enemy && (!e.chance || KDRandom() < e.chance)) {
