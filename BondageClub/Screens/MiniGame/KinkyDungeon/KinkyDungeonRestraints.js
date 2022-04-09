@@ -1072,42 +1072,42 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
 
-	if (!cache || !enemy.name) {
-		cache = [];
-		let start2 = performance.now();
-		for (let restraint of KinkyDungeonRestraints) {
-			let effLevel = Level;
-			if (KinkyDungeonStatsChoice.has("TightRestraints")) {
-				effLevel *= KDTightRestraintsMult;
-				effLevel += KDTightRestraintsMod;
+	//if (!cache || !enemy.name) {
+	cache = [];
+	let start2 = performance.now();
+	for (let restraint of KinkyDungeonRestraints) {
+		let effLevel = Level;
+		if (KinkyDungeonStatsChoice.has("TightRestraints")) {
+			effLevel *= KDTightRestraintsMult;
+			effLevel += KDTightRestraintsMod;
+		}
+		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
+			let enabled = false;
+			let weight = 0;
+			if (enemy.tags.length) {
+				for (let t of enemy.tags)
+					if (restraint.enemyTags[t] != undefined) {
+						weight += restraint.enemyTags[t];
+						enabled = true;
+					}
+			} else {
+				for (let t of enemy.tags.keys())
+					if (restraint.enemyTags[t] != undefined) {
+						weight += restraint.enemyTags[t];
+						enabled = true;
+					}
 			}
-			if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
-				let enabled = false;
-				let weight = 0;
-				if (enemy.tags.length) {
-					for (let t of enemy.tags)
-						if (restraint.enemyTags[t] != undefined) {
-							weight += restraint.enemyTags[t];
-							enabled = true;
-						}
-				} else {
-					for (let t of enemy.tags.keys())
-						if (restraint.enemyTags[t] != undefined) {
-							weight += restraint.enemyTags[t];
-							enabled = true;
-						}
-				}
-				if (enabled) {
-					cache.push({r: restraint, w:weight});
-				}
+			if (enabled) {
+				cache.push({r: restraint, w:weight});
 			}
 		}
-		let end2 = performance.now();
-		if (KDDebug)
-			console.log(`Saved ${end2 - start2} milliseconds by caching`);
-		if (enemy.name)
-			KDRestraintsCache.set(enemy.name, cache);
 	}
+	let end2 = performance.now();
+	if (KDDebug)
+		console.log(`Saved ${end2 - start2} milliseconds by caching`);
+	if (enemy.name)
+		KDRestraintsCache.set(enemy.name, cache);
+	//}
 
 	let start = performance.now();
 	for (let r of cache) {
