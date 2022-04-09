@@ -1089,7 +1089,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 		let currentRestraint = KinkyDungeonGetRestraintItem(restraint.Group);
 		//let lockMult = currentRestraint ? KinkyDungeonGetLockMult(currentRestraint.lock) : 1;
 		let newLock = Lock ? Lock : restraint.DefaultLock;
-		let power = KinkyDungeonRestraintPower(currentRestraint);
+		let power = KinkyDungeonRestraintPower(currentRestraint, true);
 		if ((!LeashingOnly || (restraint.Group == "ItemNeck" || restraint.Group == "ItemNeckRestraints"))
 			&& (!RequireStamina || !restraint.maxstamina || staminaPercent <= restraint.maxstamina || (LeashingOnly && (restraint.Group == "ItemNeck" || restraint.Group == "ItemNeckRestraints")))
 			&& (!currentRestraint || !currentRestraint.restraint ||
@@ -1444,14 +1444,18 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 		let oldLock = [];
 		let oldTightness = [];
 		let dynamicLink = [];
+		let oldEvents = [];
 		if (oldItem.oldLock) oldLock = oldItem.oldLock;
 		if (oldItem.oldTightness) oldTightness = oldItem.oldTightness;
+		if (oldItem.oldEvents) oldEvents = oldItem.oldEvents;
 		if (oldItem.dynamicLink) dynamicLink = oldItem.dynamicLink;
 		let olock = oldItem.lock ? oldItem.lock : "";
 		let oldtight = oldItem.tightness ? oldItem.tightness : 0;
+		let oevents = oldItem.events ? oldItem.events : undefined;
 		let oldlink = oldItem.restraint.name;
 		oldLock.push(olock);
 		oldTightness.push(oldtight);
+		oldEvents.push(oevents);
 		dynamicLink.push(oldlink);
 		if (newRestraint) {
 			KinkyDungeonAddRestraint(newRestraint, tightness, true, Lock, Keep, true);
@@ -1459,6 +1463,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 			if (newItem) newItem.oldLock = oldLock;
 			if (newItem) newItem.oldTightness = oldTightness;
 			if (newItem) newItem.dynamicLink = dynamicLink;
+			if (newItem) newItem.oldEvents = oldEvents;
 			if (oldItem.restraint.Link)
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.restraint.name), "red", 2);
 			return true;
@@ -1467,6 +1472,12 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 	return false;
 }
 
+/**
+ *
+ * @param {item} item
+ * @param {boolean} Keep
+ * @returns
+ */
 function KinkyDungeonUnLinkItem(item, Keep) {
 	//if (!data.add && !data.shrine)
 	if (item.restraint) {
@@ -1480,11 +1491,16 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 			let newRestraint = KinkyDungeonGetRestraintByName(UnLink);
 			let oldLock = "";
 			let oldTightness = 0;
+			/** @type {KinkyDungeonEvent[]} */
+			let oldEvents = undefined;
 			if (item.oldLock && item.oldLock.length > 0) {
 				oldLock = item.oldLock[item.oldLock.length - 1];
 			}
 			if (item.oldTightness && item.oldTightness.length > 0) {
 				oldTightness = item.oldTightness[item.oldTightness.length - 1];
+			}
+			if (item.oldEvents && item.oldEvents.length > 0) {
+				oldEvents = item.oldEvents[item.oldEvents.length - 1];
 			}
 			if (newRestraint) {
 				if (item.dynamicLink && dynamic)
@@ -1493,8 +1509,11 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 					item.oldLock.splice(item.oldLock.length-1, 1);
 				if (item.oldTightness)
 					item.oldTightness.splice(item.oldTightness.length-1, 1);
+				if (item.oldEvents)
+					item.oldEvents.splice(item.oldEvents.length-1, 1);
 				KinkyDungeonAddRestraint(newRestraint, oldTightness, true, oldLock ? oldLock : "", Keep);
 				let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
+				if (res && res.restraint && res.restraint.name == newRestraint.name) res.events = oldEvents;
 				if (res && res.restraint && item.dynamicLink && item.dynamicLink.length > 0) {
 					res.dynamicLink = item.dynamicLink;
 				}
@@ -1503,6 +1522,9 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 				}
 				if (res && res.restraint && item.oldTightness && item.oldTightness.length > 0) {
 					res.oldTightness = item.oldTightness;
+				}
+				if (res && res.restraint && item.oldEvents && item.oldEvents.length > 0) {
+					res.oldEvents = item.oldEvents;
 				}
 				if (item.restraint.UnLink)
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.restraint.name), "lightgreen", 2);

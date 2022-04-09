@@ -21,6 +21,7 @@ interface item {
     dynamicLink?: string[], /** Stores a list of restraint names for the linked item system*/
     oldLock?: string[], /** Stores linked item locks*/
     oldTightness?: number[], /** Stores linked item tightness*/
+    oldEvents?: KinkyDungeonEvent[][], /** Stores linked item tightness*/
     battery?: number, /** Vibrator battery level*/
     cooldown?: number, /** Vibrator cooldown, won't restart vibrrating until this is 0. Ticks down each turn.*/
     deny?: number, /** Vibrator deny timer, similar to cooldown but independent. Ticks down each turn.*/
@@ -311,6 +312,8 @@ interface KinkyDungeonEvent {
 	buff?: any;
     requireEnergy?: any;
     energyCost?: any;
+	/** The event gets copied to any restraint if the item is linked */
+	inheritLinked?: boolean;
 	/** Spell to cast at the target */
     spell?: string;
 	/** Chance to trigger is 1+(submissive % * subMult)*/

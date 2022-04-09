@@ -757,7 +757,8 @@ Spell Balance:
 - New jail system
 
 2.94
-- Changes to item layering
+- Changes to item layering (more items will layer with others, like belts over cuffs)
+- Effects like Ice restraints can now activate even if covered by something like an armbinder
 - Removed Willpower perk, added perk to increase average difficulty of restraints
 
 TODO ValidationFindBlockCycles to prevent bugs
