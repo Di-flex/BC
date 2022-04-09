@@ -2420,7 +2420,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (inv.restraint)
+		if (KDRestraint(inv))
 			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}
 	if (!KinkyDungeonCanTalk() && KDRandom() < gagchance) {

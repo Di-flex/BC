@@ -1430,6 +1430,7 @@ let KinkyDungeonGameKey = {
  * @returns {KinkyDungeonSave} - Saved game object
  */
 function KinkyDungeonGenerateSaveData() {
+	/** @type {KinkyDungeonSave} */
 	let save = {};
 	save.level = MiniGameKinkyDungeonLevel;
 	save.checkpoint = MiniGameKinkyDungeonCheckpoint;
@@ -1459,13 +1460,9 @@ function KinkyDungeonGenerateSaveData() {
 	let newInv = [];
 
 	for (let inv of KinkyDungeonFullInventory()) {
+		/** @type {item} */
 		let item = {};
 		Object.assign(item, inv);
-		if (item.restraint) item.restraint = {name: item.restraint.name};
-		if (item.looserestraint) item.looserestraint = {name: item.looserestraint.name};
-		if (item.outfit) item.outfit = {name: item.outfit.name};
-		if (item.weapon) item.weapon = {name: item.weapon.name};
-		if (item.consumable) item.consumable = {name: item.consumable.name};
 		newInv.push(item);
 	}
 
@@ -1569,8 +1566,8 @@ function KinkyDungeonLoadGame(String) {
 
 			KDInitInventory();
 			for (let item of saveData.inventory) {
-				if (item.restraint) {
-					let restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
+				if (item.type == Restraint) {
+					let restraint = KinkyDungeonGetRestraintByName(item.name);
 					if (restraint) {
 						KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
 						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
@@ -1580,18 +1577,7 @@ function KinkyDungeonLoadGame(String) {
 				}
 			}
 			for (let item of saveData.inventory) {
-				if (KDInventoryName(item)) {
-					let inv = {};
-					let type = KDInventoryType(item);
-					if (type == Restraint) item.restraint = KinkyDungeonGetRestraintByName(item.restraint.name);
-					if (type == LooseRestraint) item.looserestraint = KinkyDungeonGetRestraintByName(item.looserestraint.name);
-					if (type == Outfit) item.outfit = KinkyDungeonGetOutfit(item.outfit.name);
-					if (type == Consumable) item.consumable = KinkyDungeonFindConsumable(item.consumable.name);
-					if (type == Weapon) item.weapon = KinkyDungeonFindWeapon(item.weapon.name);
-					Object.assign(inv, item);
-					// @ts-ignore
-					KinkyDungeonInventory.get(KDInventoryType(inv)).set(KDInventoryName(item), inv);
-				}
+				KinkyDungeonInventoryAdd(item);
 			}
 
 			KinkyDungeonSpells = [];

@@ -1192,9 +1192,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					let list = KinkyDungeonAllRestraint();
 					let list2 = [];
 					for (let restraint of list) {
-						if (restraint.restraint && restraint.restraint.harness) {
+						if (KDRestraint(restraint) && KDRestraint(restraint).harness) {
 							harnessChance += 1;
-							list2.push(restraint.restraint.name);
+							list2.push(KDRestraint(restraint).name);
 						}
 					}
 					let rest = list2[Math.floor(KDRandom() * list2.length)];
@@ -1270,7 +1270,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						}
 						for (let L = Lstart; L <= Lmax; L++) {
 							KinkyDungeonLock(Lockable[L], KinkyDungeonGenerateLock(true)); // Lock it!
-							priorityBonus += Lockable[L].restraint.power;
+							priorityBonus += KDRestraint(Lockable[L]).power;
 						}
 						Locked = true;
 						happened += 1;
@@ -1752,7 +1752,7 @@ let KinkyDungeonEnemyID = 0;
 
 function KinkyDungeonAttachTetherToLeasher(dist) {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv && inv.restraint && inv.restraint.tether) {
+	if (inv && KDRestraint(inv).tether) {
 		inv.tetherToLeasher = true;
 		if (dist) inv.tetherLength = dist;
 	}

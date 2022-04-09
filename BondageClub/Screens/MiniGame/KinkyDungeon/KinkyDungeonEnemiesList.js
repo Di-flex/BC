@@ -358,7 +358,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "GiantMushroom", clusterWith: "mushroom", tags: KDMapInit(["mushroom", "mimicBlock", "minor", "unstoppable", "slashweakness", "fireweakness", "glueresist", "poisonimmune", "coldweakness"]), spellResist: 0.33, sneakThreshold: 0.01,
 		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", ambushRadius: 0, difficulty: -0.05,
-		visionRadius: 0, maxhp: 5, minLevel:0, weight:40, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
+		visionRadius: 0, maxhp: 1, minLevel:0, weight:40, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {}, floors:KDMapInit([13]), shrines: ["Will"], ondeath: [{type: "spellOnSelf", spell: "Spores"}],},
 	{name: "Toad", clusterWith: "beast", color: "#00FF44", tags: KDMapInit(["ignorenoSP", "beast", "ranged", "pierceweakness", "electricsevereweakness"]), followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt",
 		pullTowardSelf: true, pullDist: 3, master: {type: "GiantMushroom", range: 3}, projectileAttack: true,

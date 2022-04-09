@@ -167,7 +167,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 		} else if (playerEffect.name == "SlimeTrap") {
 			let slimeWalker = false;
 			for (let inv of KinkyDungeonAllRestraint()) {
-				if (inv.restraint && inv.restraint.slimeWalk) {
+				if (KDRestraint(inv).slimeWalk) {
 					slimeWalker = true;
 					break;
 				}
@@ -185,8 +185,8 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 		} else if (playerEffect.name == "RemoveLowLevelRope") {
 			let restraints = [];
 			for (let inv of KinkyDungeonAllRestraint()) {
-				if (inv.restraint && inv.restraint.power < 5 && inv.restraint.shrine && inv.restraint.shrine.includes("Rope")) {
-					restraints.push(inv.restraint.Group);
+				if (KDRestraint(inv).power < 5 && KDRestraint(inv).shrine && KDRestraint(inv).shrine.includes("Rope")) {
+					restraints.push(KDRestraint(inv).Group);
 				}
 			}
 			for (let r of restraints) {
@@ -894,7 +894,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 function KinkyDungeonChargeVibrators(cost) {
 	if (cost > 0) {
 		for (let item of KinkyDungeonAllRestraint()) {
-			let vibe = item.restraint;
+			let vibe = KDRestraint(item);
 			if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 				if (item.battery == 0) {
 					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
@@ -909,7 +909,7 @@ function KinkyDungeonChargeVibrators(cost) {
 
 function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 	for (let item of KinkyDungeonAllRestraint()) {
-		let vibe = item.restraint;
+		let vibe = KDRestraint(item);
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
 			if (item.battery == 0 || Overcharge) {
 				if (item.battery < Math.max(0.1, vibe.maxbattery - Amount)) {
@@ -927,7 +927,7 @@ function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
 
 function KinkyDungeonHandleVibrators() {
 	for (let item of KinkyDungeonAllRestraint()) {
-		let vibe = item.restraint;
+		let vibe = KDRestraint(item);
 		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && item.battery == 0 && !(item.cooldown > 0) && KDRandom() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
 			if (item.battery == 0) {
 				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");

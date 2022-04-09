@@ -361,14 +361,14 @@ function KinkyDungeonUpdatePenance(delta) {
 				if (KDGameData.KDPenanceStage == 0) {
 					let divineRestraints = [];
 					for (let inv of KinkyDungeonAllRestraint()) {
-						if (inv.restraint && inv.restraint.divine) {
+						if (KDRestraint(inv).divine) {
 							divineRestraints.push(inv);
 						}
 					}
 					if (divineRestraints.length > 0) {
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelUnlock"), "yellow", 3);
 						for (let r of divineRestraints) {
-							KinkyDungeonRemoveRestraint(r.restraint.Group, false, false, true, true);
+							KinkyDungeonRemoveRestraint(KDRestraint(r).Group, false, false, true, true);
 						}
 					} else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelIntro"), "yellow", 2);
 

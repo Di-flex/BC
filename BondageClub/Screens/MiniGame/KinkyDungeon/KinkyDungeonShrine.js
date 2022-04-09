@@ -120,7 +120,7 @@ function KinkyDungeonShrineCost(type) {
 		let rest = KinkyDungeonGetRestraintsWithShrine(type);
 		let maxPower = 1;
 		for (let r of rest) {
-			if (r.restraint && r.restraint.power > maxPower) maxPower = r.restraint.power;
+			if (KDRestraint(r).power > maxPower) maxPower = KDRestraint(r).power;
 		}
 		mult = Math.sqrt(Math.max(1, rest.length));
 		mult *= Math.pow(Math.max(1, maxPower), 0.75);
@@ -194,7 +194,7 @@ function KinkyDungeonPayShrine(type) {
 				KinkyDungeonInventoryAddWeapon(item.name);
 			else if (item.shoptype == "Restraint") {
 				let restraint = KinkyDungeonGetRestraintByName(item.name);
-				KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, looseevents:restraint.events});
+				KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, events:restraint.events});
 			}
 			else if (item.shoptype == "Basic") {
 				if (item.name == "RedKey") {
@@ -281,9 +281,9 @@ function KinkyDungeonHandleShrine() {
 			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
 				let slimed = 0;
 				for (let inv of KinkyDungeonAllRestraint()) {
-					if (inv.restraint && inv.restraint.slimeLevel) {
+					if (KDRestraint(inv).slimeLevel) {
 						slimed += 1;
-						KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
+						KinkyDungeonRemoveRestraint(KDRestraint(inv).Group, false);
 					}
 				}
 				if (slimed) KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonPoolDrinkSlime"), "#FF00FF", 2);
