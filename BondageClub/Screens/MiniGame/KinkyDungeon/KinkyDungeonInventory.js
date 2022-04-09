@@ -399,7 +399,7 @@ function KinkyDungeonDrawInventory() {
 }
 
 function KinkyDungeonSendInventoryEvent(Event, data) {
-	for (let item of KinkyDungeonFullInventory()) {
+	for (let item of KinkyDungeonAllRestraint()) {
 		if (item.oldEvents)
 			for (let oldEvents of item.oldEvents) {
 				for (let e of oldEvents) {
