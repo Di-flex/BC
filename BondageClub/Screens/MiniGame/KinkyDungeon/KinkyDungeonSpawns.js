@@ -162,7 +162,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 	let HunterAdjust = KinkyDungeonDifficulty;
 	let EntranceAdjust = KinkyDungeonDifficulty/2;
 	let BaseAdjust = KinkyDungeonDifficulty/10;
-	if (KinkyDungeonStatsChoice.get("Dragon")) {
+	if (KinkyDungeonStatsChoice.get("SearchParty")) {
 		BaseAdjust *= 1.2;
 		BaseAdjust += 20;
 		HunterAdjust += 30;
@@ -185,7 +185,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 				KinkyDungeonSearchTimer = 0;
 				let count = 0;
 				let maxCount = (2 + Math.min(5, Math.round(MiniGameKinkyDungeonLevel/10))) * Math.sqrt(1 + KinkyDungeonTotalSleepTurns / sleepTurnsSpeedMult);
-				if (KinkyDungeonStatsChoice.get("Dragon")) {
+				if (KinkyDungeonStatsChoice.get("SearchParty")) {
 					maxCount *= 2;
 				}
 				// Spawn a killsquad!

@@ -1192,9 +1192,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					let list = KinkyDungeonAllRestraint();
 					let list2 = [];
 					for (let restraint of list) {
-						if (restraint.restraint && restraint.restraint.harness) {
+						if (KDRestraint(restraint) && KDRestraint(restraint).harness) {
 							harnessChance += 1;
-							list2.push(restraint.restraint.name);
+							list2.push(KDRestraint(restraint).name);
 						}
 					}
 					let rest = list2[Math.floor(KDRandom() * list2.length)];
@@ -1270,7 +1270,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						}
 						for (let L = Lstart; L <= Lmax; L++) {
 							KinkyDungeonLock(Lockable[L], KinkyDungeonGenerateLock(true)); // Lock it!
-							priorityBonus += Lockable[L].restraint.power;
+							priorityBonus += KDRestraint(Lockable[L]).power;
 						}
 						Locked = true;
 						happened += 1;
@@ -1489,7 +1489,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (player.player) {
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					for (let r of restraintAdd) {
-						bound += KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+						let bb =  KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+						if (bb) {
+							KDSendStatus('bound', r.name, "enemy_" + enemy.Enemy.name);
+						}
+						bound += bb;
 					}
 					if (attack.includes("Slow")) {
 						KinkyDungeonMovePoints = Math.max(KinkyDungeonMovePoints - 2, -1);
@@ -1752,7 +1756,7 @@ let KinkyDungeonEnemyID = 0;
 
 function KinkyDungeonAttachTetherToLeasher(dist) {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv && inv.restraint && inv.restraint.tether) {
+	if (inv && KDRestraint(inv).tether) {
 		inv.tetherToLeasher = true;
 		if (dist) inv.tetherLength = dist;
 	}
@@ -1770,6 +1774,7 @@ function KinkyDungeonNoEnemy(x, y, Player) {
 // e = potential sub
 // Enemy = leader
 function KinkyDungeonCanSwapWith(e, Enemy) {
+	if (Enemy == KinkyDungeonLeashingEnemy()) return true;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.ethereal && e && e.Enemy && !e.Enemy.ethereal) return false; // Ethereal enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.squeeze && e && e.Enemy && !e.Enemy.squeeze) return false; // Squeeze enemies NEVER have seniority, this can teleport other enemies into walls
 	if (!e.Enemy.tags || (e.Enemy.tags.has("minor") && !Enemy.Enemy.tags.has("minor")))

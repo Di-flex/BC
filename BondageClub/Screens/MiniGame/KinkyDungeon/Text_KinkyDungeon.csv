@@ -9,7 +9,7 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v2.93"
+KinkyDungeon,"Kinky Dungeon v3.01"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -19,6 +19,11 @@ KinkyDungeonDrool,Enable Drool/Tears
 KinkyDungeonFullscreen,Enable Fullscreen
 KinkyDungeonGraphicsQuality,High Quality Animations
 KinkyDungeonFastWait,Wait Quickly
+
+KinkyDungeonJourney,"Select a journey. This will determine the ordering of game areas."
+KinkyDungeonJourney0,"Standard: The intended experience"
+KinkyDungeonJourney1,"Random: A chaotic journey"
+KinkyDungeonJourney2,"Harder: A more difficult journey"
 
 KinkyDungeonStats,"Select your character's background. You cannot change these in the future."
 KinkyDungeonStartGame,"Confirm and start playing!"
@@ -160,11 +165,14 @@ KinkyDungeonStatDesc52,"Enemies will always use the tightest restraints possible
 KinkyDungeonStat53,"Graceful Walk"
 KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing item, unless it binds your legs together."
 
+KinkyDungeonStat54,"Well-Equipped"
+KinkyDungeonStatDesc54,"Restraints and traps that are limited by level now appear much earlier."
 
-KinkyDungeonDifficulty,Choose difficulty level:
+
+KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
-KinkyDungeonDifficulty1,Roguelike: No save codes, only autosave
-KinkyDungeonDifficulty3,"Random: Orbs give random spells, start with very little"
+KinkyDungeonDifficulty1,"Roguelike: No save codes, only autosave"
+KinkyDungeonDifficulty3,"Exciting: Orbs give random spells"
 KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start with very little"
 
 KinkyDungeonLog,Log
@@ -877,7 +885,7 @@ AttackWolfgirlPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 NameWolfgirl,Wolfgirl Trainer
 KillWolfgirl,"The trainer retreats!"
 AttackWolfgirl,"The wolfgirl trainer squeezes your breasts playfully! (-DamageTaken SP)"
-AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (-DamageTaken SP)"
+AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (+RestraintAdded)"
 AttackWolfgirlLock,"The wolfgirl trainer pins you and skillfully locks all of your restraints."
 
 NameDrone,Ancient Drone
@@ -2757,20 +2765,32 @@ KinkyDungeonSpellDescriptionHeal2,Restore 45 hitpoints to an allied creature.
 KinkyDungeonSpellCastHeal2,You utter a word of healing.
 
 KinkyDungeonSpellFlameBlade,Flame Blade
-KinkyDungeonSpellDescriptionFlameBlade,When equipped: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
+KinkyDungeonSpellDescriptionFlameBlade,When enabled: Weapon attacks cost mana and create a flame strike that deals 30 fire damage to adjacent targets.
 KinkyDungeonSpellFlameStrike,Flame Blade
 
+KinkyDungeonSpellStrength,Enhance Power
+KinkyDungeonSpellDescriptionStrength,"When enabled: Struggling is more powerful, and attacks deal +2 crush damage"
+KinkyDungeonSpellStrengthStruggle,Your body glows with magical energy!
+
+KinkyDungeonSpellDexterity,Enhance Dexterity
+KinkyDungeonSpellDescriptionDexterity,"When enabled: Removing and unlocking are more powerful, and unarmed/slash/crush/pierce damage is increased by 1.3x"
+KinkyDungeonSpellStrengthDexterity,Your body glows with shimmering energy!
+
+KinkyDungeonSpellWillpower,Enhance Will
+KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
+KinkyDungeonSpellStrengthWillpower,You focus intently!
+
 KinkyDungeonSpellTrueSight,Truesight
-KinkyDungeonSpellDescriptionTrueSight,When equipped: Drain mana every turn to see through walls.
+KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls.
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
 
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
-KinkyDungeonSpellDescriptionFloatingWeapon,"When equipped: While hands are bound, you can still use weapons, but attacks cost mana."
+KinkyDungeonSpellDescriptionFloatingWeapon,"When enabled: While hands are bound, you can still use weapons, but attacks cost mana."
 
 KinkyDungeonSpellFleetFooted,Cat's Grace
-KinkyDungeonSpellDescriptionFleetFooted,"When equipped and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
+KinkyDungeonSpellDescriptionFleetFooted,"When enabled and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
 KinkyDungeonFleetFootedIgnoreTrap,"Your graceful footsteps avoid setting off a trap!"
 KinkyDungeonFleetFootedIgnoreSlow,"You recover gracefully from the slowdown!"
 KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
@@ -2944,7 +2964,7 @@ KinkyDungeonSlowed0,Your movements are hobbled.
 KinkyDungeonSlowed1,Your hobbled movement disturbs the plugs inside of you.
 KinkyDungeonSlowed2,The large plugs shift(s) around inside of you from your hobbled movement...
 KinkyDungeonSlowed3,The massive plugs rub(s) around inside of you as you hobble forward...
-KinkyDungeonHopping0,You are forced to hop!
+KinkyDungeonHopping0,You hop forward!
 KinkyDungeonHopping1,You hop and feel the plugs shifting around inside your body.
 KinkyDungeonHopping2,The plugs shift in and out with each hop...
 KinkyDungeonHopping3,The massive plugs slide in and out mercilessly as you hop...

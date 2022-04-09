@@ -5,12 +5,12 @@ interface item {
     /** Type of the item*/
     type?: string,
     events?: KinkyDungeonEvent[], /** Events associated with the item*/
-    weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
-    consumable?: any, /** Item consumable data, if applicable*/
+    //weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
+    //consumable?: any, /** Item consumable data, if applicable*/
     quantity?: number, /** Number of consumables in the inventory*/
     outfit?: any, /** Outfit data, if applicable*/
-    looserestraint?: any, /** Loose restraint data, if applicable*/
-    restraint?: any, /** Which restraint the item is associated with*/
+    //looserestraint?: any, /** Loose restraint data, if applicable*/
+    //restraint?: any, /** Which restraint the item is associated with*/
     lock?: string, /** Type of lock, Red, Blue, or Gold (potentially more in future)*/
     tetherToLeasher?: boolean, /** Bool to describe if the item is tethered to the leashing enemy*/
     tetherToGuard?: boolean, /** Bool to describe if the item is tethered to KinkyDungeonJailGuard()*/
@@ -21,6 +21,7 @@ interface item {
     dynamicLink?: string[], /** Stores a list of restraint names for the linked item system*/
     oldLock?: string[], /** Stores linked item locks*/
     oldTightness?: number[], /** Stores linked item tightness*/
+    oldEvents?: KinkyDungeonEvent[][], /** Stores linked item tightness*/
     battery?: number, /** Vibrator battery level*/
     cooldown?: number, /** Vibrator cooldown, won't restart vibrrating until this is 0. Ticks down each turn.*/
     deny?: number, /** Vibrator deny timer, similar to cooldown but independent. Ticks down each turn.*/
@@ -42,6 +43,9 @@ interface consumable {
 	spell?: string,
 	potion?: boolean,
 	noHands?: boolean,
+	needMouth?: boolean,
+	/** Max strictness allowed before the item cant be used */
+	maxStrictness?: number,
 	mp_instant?: number,
 	sp_instant?: number,
 	ap_instant?: number,
@@ -111,10 +115,20 @@ interface restraint {
 		Pick?: number
 		Unlock?: number
 	},
+	/** Multiplier to struggle power */
+	struggleMult?: {
+		Struggle?: number,
+		Cut?: number,
+		Remove?: number
+		Pick?: number
+		Unlock?: number
+	},
 	/** The item is a chastity belt */
 	chastity?: boolean,
 	/** The item is a chastity bra */
 	chastitybra?: boolean,
+	/** The item is a piercing */
+	piercing?: boolean,
 	/** The item rubs against the crotch when you move or struggle*/
 	crotchrope?: boolean,
 	/** The item provides distraction when you walk around*/
@@ -158,6 +172,8 @@ interface restraint {
 	inventoryAs?: string,
 	/** The item is always kept in your inventory no matter how it gets removed, so long as you don't cut it */
 	alwaysKeep?: boolean,
+	/** The jailer won't remove these */
+	noJailRemove?: boolean,
 	/** Increases the difficulty of other items */
 	strictness?: number,
 	/** Can be linked by items with this shrine category */
@@ -190,8 +206,8 @@ interface restraint {
 	denyChanceLikely?: number,
 	/** Multiplies the escape chance */
 	escapeMult?: number,
-	/** Multiplies the escape chance */
-	alwaysDress?: object[],
+	/** Clothes for dressing */
+	alwaysDress?: any[],
 	/** The item always bypasses covering items, such as dresses and chastity belts */
 	bypass?: boolean,
 	/** The item can only be cut with magical implements */
@@ -222,47 +238,6 @@ interface restraint {
 	enchanted?: boolean,
 }
 
-interface KinkyDungeonSave {
-	level: number;
-    checkpoint: number;
-    rep: Record<string, number>;
-    costs: Record<string, number>;
-    orbs: number[];
-    chests: number[];
-    dress: string;
-    gold: number;
-    points: number;
-    levels: {
-        Elements: number;
-        Conjure: number;
-        Illusion: number;
-    };
-    id: number;
-    choices: number[];
-	choices2: boolean[];
-	buffs: Record<string, any>;
-	lostitems: any[];
-	caches: number[];
-	spells: string[];
-	inventory: {
-		restraint: any;
-		looserestraint: any;
-		weapon: any;
-		consumable: any;
-	}[];
-	stats: {
-		picks: number;
-		keys: number;
-		bkeys: number;
-		knife: number;
-		eknife: number;
-		mana: number;
-		stamina: number;
-		distraction: number;
-		wep: any;
-		npp: number;
-	};
-}
 
 interface KinkyDungeonShopItem {
 	cost: any;
@@ -295,6 +270,7 @@ interface KinkyDungeonWeapon {
 	sfx: string;
 	events?: KinkyDungeonEvent[];
     noHands?: boolean;
+	silent?: boolean;
 }
 
 interface KinkyDungeonEvent {
@@ -302,6 +278,8 @@ interface KinkyDungeonEvent {
 	trigger: string;
 	sfx?: string;
 	power?: number;
+	bind?: number;
+	mult?: number;
 	damage?: string;
 	dist?: number;
 	aoe?: number;
@@ -309,8 +287,16 @@ interface KinkyDungeonEvent {
 	time?: number;
 	chance?: number;
 	buff?: any;
-    requireEnergy?: any;
-    energyCost?: any;
+	lock?: string;
+	msg?: string;
+	/** Type of struggle that this event triggers on */
+	StruggleType?: string;
+    requireEnergy?: boolean;
+	/** Limit of whatever thius event modifies */
+	limit?: number
+    energyCost?: number;
+	/** The event gets copied to any restraint if the item is linked */
+	inheritLinked?: boolean;
 	/** Spell to cast at the target */
     spell?: string;
 	/** Chance to trigger is 1+(submissive % * subMult)*/
@@ -325,4 +311,67 @@ interface KinkyDungeonEvent {
 	punishComponent?: string;
 	/** List of restraints or other string params */
 	list?: string[];
+	/** Whether or not the event only triggers on human targets */
+	humanOnly?: boolean;
+	/** Distance having to do with stealth */
+	distStealth?: number;
+
+	// MUTABLE QUANTITIES
+	prevSlowLevel?: number;
+}
+
+type KinkyDungeonDress = {
+	Item: string;
+	Group: string;
+	Color: string | string[];
+	Lost: boolean;
+	NoLose?: boolean;
+	OverridePriority?: number;
+	Skirt?: boolean;
+}[]
+
+interface KinkyDungeonSave {
+	level: number;
+    checkpoint: number;
+    rep: Record<string, number>;
+    costs: Record<string, number>;
+    pcosts: Record<string, number>;
+    orbs: number[];
+    chests: number[];
+    dress: string;
+    gold: number;
+    points: number;
+    levels: {
+        Elements: number;
+        Conjure: number;
+        Illusion: number;
+    };
+	rescued: Record<string, boolean>;
+	aid: Record<string, boolean>;
+	seed: string;
+	statchoice: [string, boolean][];
+	mapIndex: number[];
+    id: number;
+    choices: number[];
+	choices2: boolean[];
+	buffs: Record<string, any>;
+	lostitems: any[];
+	caches: number[];
+	hearts: number[];
+	spells: string[];
+	inventory: item[];
+	KDGameData: KDGameDataBase;
+	stats: {
+		picks: number;
+		keys: number;
+		bkeys: number;
+		knife: number;
+		eknife: number;
+		mana: number;
+		stamina: number;
+		distraction: number;
+		wep: any;
+		npp: number;
+		diff: number;
+	};
 }

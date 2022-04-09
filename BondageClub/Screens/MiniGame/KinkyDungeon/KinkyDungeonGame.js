@@ -132,6 +132,17 @@ let KinkyDungeonSaveInterval = 10;
 
 let KinkyDungeonSFX = [];
 
+function KDAlreadyOpened(x, y) {
+	if (KDGameData.AlreadyOpened) {
+		for (let ao of KDGameData.AlreadyOpened) {
+			if (ao.x == x && ao.y == y) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 function KinkyDungeonPlaySound(src) {
 	if (KinkyDungeonSound && !KinkyDungeonSFX.includes(src)) {
 		AudioPlayInstantSound(src);
@@ -180,7 +191,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 	KinkyDungeonNewGame += 1;
 }
-function KinkyDungeonInitialize(Level, Random, Load) {
+function KinkyDungeonInitialize(Level, Load) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -197,7 +208,10 @@ function KinkyDungeonInitialize(Level, Random, Load) {
 	KinkyDungeonDressPlayer();
 	KinkyDungeonDrawState = "Game";
 
-
+	KinkyDungeonMapIndex = [];
+	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
+		KinkyDungeonMapIndex.push(I);
+	}
 
 	KinkyDungeonTextMessage = "";
 	KinkyDungeonActionMessage = "";
@@ -206,25 +220,9 @@ function KinkyDungeonInitialize(Level, Random, Load) {
 
 	KinkyDungeonMapIndex = [];
 
-
 	for (let I = 1; I < KinkyDungeonMapParams.length; I++) {
 		KinkyDungeonMapIndex.push(I);
 	}
-
-	// Option to shuffle the dungeon types besides the initial one (graveyard)
-	if (Random) {
-		/* Randomize array in-place using Durstenfeld shuffle algorithm */
-		// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-		for (let i = KinkyDungeonMapIndex.length - 1; i > 0; i--) {
-			let j = Math.floor(KDRandom() * (i + 1));
-			let temp = KinkyDungeonMapIndex[i];
-			KinkyDungeonMapIndex[i] = KinkyDungeonMapIndex[j];
-			KinkyDungeonMapIndex[j] = temp;
-		}
-	}
-	KinkyDungeonMapIndex.unshift(0);
-	KinkyDungeonMapIndex.push(10);
-
 
 	KinkyDungeonContextPlayer = KinkyDungeonCanvasPlayer.getContext("2d");
 	KinkyDungeonCanvasPlayer.width = KinkyDungeonGridSizeDisplay;
@@ -271,6 +269,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 	//console.log(seed);
 	if (!seed) {
+		KDGameData.AlreadyOpened = [];
 		KDrandomizeSeed(true);
 		KDGameData.LastMapSeed = KinkyDungeonSeed;
 	}
@@ -469,6 +468,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		if (nearestJail) {
 			KinkyDungeonPlayerEntity.x = nearestJail.x;
 			KinkyDungeonPlayerEntity.y = nearestJail.y;
+
+			KinkyDungeonJailTransgressed = false;
 		}
 	}
 
@@ -1134,7 +1135,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 	}
 }
 
-let KDRandomDisallowedNeighbors = "AsSHcCHDd"; // tiles that can't be neighboring a randomly selected point
+let KDRandomDisallowedNeighbors = "AasSHcCHDdOo"; // tiles that can't be neighboring a randomly selected point
 
 function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
 	let chestlist = [];
@@ -1185,7 +1186,8 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 	let extra = KDRandom() < treasurechance;
 	treasurecount += (extra ? 1 : 0);
 	if (KinkyDungeonStatsChoice.get("Stealthy")) treasurecount *= 2;
-	let alreadyOpened = (KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
+	// Removed due to the way the jail system was reworked
+	let alreadyOpened = 0;//(KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
 	if (KinkyDungeonNewGame < 1) treasurecount -= alreadyOpened;
 	while (chestlist.length > 0) {
 		let N = Math.floor(KDRandom()*chestlist.length);
@@ -1201,12 +1203,17 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
 			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
 
+			if (KDAlreadyOpened(chest.x, chest.y)) {
+				KinkyDungeonMapSet(chest.x, chest.y, 'c');
+				KinkyDungeonTiles.delete("" + chest.x + "," +chest.y);
+			}
 			count += 1;
 		} else {
 
 			let chest = chestlist[N];
 			if (KDRandom() < rubblechance) KinkyDungeonMapSet(chest.x, chest.y, 'R');
 			else KinkyDungeonMapSet(chest.x, chest.y, 'r');
+			if (KDAlreadyOpened(chest.x, chest.y)) KinkyDungeonMapSet(chest.x, chest.y, 'r');
 		}
 		chestlist.splice(N, 1);
 	}
@@ -1324,9 +1331,16 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 						//if (orbs >= 2)
 						// KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
+					if (KDAlreadyOpened(shrine.x, shrine.y)) {
+						tile = 'o';
+					}
 					shrineTypes.push("Orb");
 				} else if (type) {
-					KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Shrine", Name: type});
+					if (KDAlreadyOpened(shrine.x, shrine.y)) {
+						tile = 'a';
+					} else {
+						KinkyDungeonTiles.set("" + shrine.x + "," +shrine.y, {Type: "Shrine", Name: type});
+					}
 					shrineTypes.push(type);
 				} else if (!shrineTypes.includes("Ghost") || KDRandom() < 0.5) {
 					shrineTypes.push("Ghost");
@@ -1626,8 +1640,13 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelC
 		for (let Y = 1; Y < height-1; Y += 1) {
 			if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < Chance)
 				KinkyDungeonMapSet(X, Y, 'X');
-			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance)
+			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance) {
 				KinkyDungeonMapSet(X, Y, 'Y');
+				if (KDAlreadyOpened(X, Y)) {
+					KinkyDungeonMapSet(X, Y, '1');
+				}
+			}
+
 		}
 	for (let X = 1; X < width - 1; X += 1)
 		for (let Y = 1; Y < height - 1; Y += 1) {
@@ -2401,7 +2420,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	}
 	let gagchance = KinkyDungeonGagMumbleChance;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (inv.restraint)
+		if (KDRestraint(inv))
 			gagchance += KinkyDungeonGagMumbleChancePerRestraint;
 	}
 	if (!KinkyDungeonCanTalk() && KDRandom() < gagchance) {

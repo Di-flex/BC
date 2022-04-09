@@ -35,7 +35,7 @@ function KinkyDungeonGetJailRestraintLevelFor(Name) {
 
 function KinkyDungeonAttachTetherToGuard(dist) {
 	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv && inv.restraint && inv.restraint.tether) {
+	if (inv && KDRestraint(inv).tether) {
 		inv.tetherToGuard = true;
 		if (dist) inv.tetherLength = dist;
 	}
@@ -121,18 +121,6 @@ function KinkyDungeonHandleJailSpawns(delta) {
 						KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonJailerAdd").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 2);
 					}
 				}
-				/*
-				let possibleGroup = KinkyDungeonStruggleGroupsBase[Math.floor(KDRandom() * KinkyDungeonStruggleGroupsBase.length)];
-				let oldRestraintItem = KinkyDungeonGetRestraintItem(possibleGroup);
-				let newRestraint = KinkyDungeonGetJailRestraintForGroup(possibleGroup);
-				if (newRestraint && (!oldRestraintItem || (oldRestraintItem.restraint && oldRestraintItem.restraint.name != newRestraint.name))) {
-					KinkyDungeonJailGuard().CurrentAction = "jailAddRestraints";
-					KinkyDungeonJailGuard().CurrentRestraintSwapGroup = possibleGroup;
-				}
-				if (oldRestraintItem && !newRestraint && KinkyDungeonGetJailRestraintLevelFor(oldRestraintItem.restraint.name) > 0) {
-					KinkyDungeonJailGuard().CurrentAction = "jailRemoveRestraints";
-					KinkyDungeonJailGuard().CurrentRestraintSwapGroup = possibleGroup;
-				}*/
 			} else if (KDRandom() < 0.05 + securityLevel * 0.1 / 100) {
 				// Always a random chance to tease
 				KinkyDungeonJailGuard().CurrentAction = "jailTease";
@@ -237,9 +225,9 @@ function KinkyDungeonTooMuchRestraint() {
 		let lockMult = 1;//currentItem ? Math.max(1, KinkyDungeonGetLockMult(currentItem.lock) - 1) : 0;
 		if (
 			(!rest && currentItem) // There shouldnt be one here
-			|| (rest && currentItem && currentItem.restraint && rest.name != currentItem.restraint.name && (currentItem.restraint.power < rest.power || currentItem.restraint.power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
+			|| (rest && currentItem && currentItem && rest.name != currentItem.name && (KDRestraint(currentItem).power < rest.power || KDRestraint(currentItem).power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
-			if (!currentItem || (!currentItem.restraint.cursed && !currentItem.restraint.enchanted))
+			if (!currentItem || (!KDRestraint(currentItem).curse && !KDRestraint(currentItem).enchanted))
 				RemoveGroups.push(g);
 		}
 	}
@@ -253,7 +241,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let touchesPlayer = KinkyDungeonCheckLOS(KinkyDungeonJailGuard(), KinkyDungeonPlayerEntity, playerDist, 1.5, false, false);
 	if (touchesPlayer) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailTease") {
-			let playerHasVibrator = Array.from(KinkyDungeonAllRestraint()).some(i => i.restraint && i.restraint.vibeType && i.restraint.vibeType.includes("Charging"));
+			let playerHasVibrator = Array.from(KinkyDungeonAllRestraint()).some(i => KDRestraint(i).vibeType && KDRestraint(i).vibeType.includes("Charging"));
 			if (playerHasVibrator) {
 				let extraCharge = Math.round(2 + level * KDRandom() * 0.2);
 				KinkyDungeonChargeRemoteVibrators(KinkyDungeonJailGuard().Enemy.name, extraCharge, true, false);
@@ -277,7 +265,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 					if (added) {
 						let restraintModification = oldRestraintItem ? "ChangeRestraints" : "AddRestraints";
 						let msg = TextGet("KinkyDungeon" + restraintModification).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
-						if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
+						if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.name));
 						msg = msg.replace("NewRestraintName", TextGet("Restraint"+newRestraint.name));
 						KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 					} else
@@ -297,11 +285,11 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 			KDGameData.KinkyDungeonGuardTimer = Math.max(KDGameData.KinkyDungeonGuardTimer, 2);
 			let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard().CurrentRestraintSwapGroup);
 			if (KDGameData.GuardApplyTime > applyTime) {
-				if (oldRestraintItem && oldRestraintItem.restraint && !oldRestraintItem.restraint.noJailRemove) {
-					KinkyDungeonRemoveRestraint(oldRestraintItem.restraint.Group, false, false, false);
+				if (oldRestraintItem && KDRestraint(oldRestraintItem) && !KDRestraint(oldRestraintItem).noJailRemove) {
+					KinkyDungeonRemoveRestraint(KDRestraint(oldRestraintItem).Group, false, false, false);
 					let msg = TextGet("KinkyDungeonRemoveRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					//let msg = TextGet("Attack" + KinkyDungeonJailGuard().Enemy.name + "RemoveRestraints");
-					if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.restraint.name));
+					if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 				}
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
@@ -309,7 +297,7 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				KDGameData.GuardApplyTime = 0;
 			} else if (oldRestraintItem) {
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerStartRemoving").replace("RestraintName", TextGet("Restraint" + oldRestraintItem.restraint.name)), "yellow", 2);
+				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerStartRemoving").replace("RestraintName", TextGet("Restraint" + oldRestraintItem.name)), "yellow", 2);
 				KDGameData.GuardApplyTime += delta;
 			} else {
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
@@ -333,7 +321,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 		if (leashItemToRemove) {
 			KinkyDungeonRemoveRestraint("ItemNeckRestraints", false);
 			let msg = TextGet("KinkyDungeonRemoveRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
-			msg = msg.replace("OldRestraintName", TextGet("Restraint"+leashItemToRemove.restraint.name));
+			msg = msg.replace("OldRestraintName", TextGet("Restraint"+leashItemToRemove.name));
 			KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
 		}
 		KDGameData.KinkyDungeonPrisonExtraGhostRep += 2;
@@ -359,7 +347,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			if (touchesPlayer) {
 				if (!KinkyDungeonGetRestraintItem("ItemNeck")) {
 					let collar = KinkyDungeonGetRestraintByName("BasicCollar");
-					KinkyDungeonAddRestraintIfWeaker(collar, KinkyDungeonJailGuard().Enemy.power, true, false);
+					KinkyDungeonAddRestraintIfWeaker(collar, KinkyDungeonJailGuard().Enemy.power, true, "");
 					let msg = TextGet("KinkyDungeonAddRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					msg = msg.replace("NewRestraintName", TextGet("Restraint"+collar.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
@@ -369,7 +357,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 					KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				} else {
 					let leash = KinkyDungeonGetRestraintByName("BasicLeash");
-					KinkyDungeonAddRestraintIfWeaker(leash, KinkyDungeonJailGuard().Enemy.power, true, false);
+					KinkyDungeonAddRestraintIfWeaker(leash, KinkyDungeonJailGuard().Enemy.power, true, "");
 					let msg = TextGet("KinkyDungeonAddRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					msg = msg.replace("NewRestraintName", TextGet("Restraint"+leash.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
@@ -510,8 +498,8 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonSendEvent("defeat", {});
 
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (inv.restraint && inv.restraint.removePrison) {
-			KinkyDungeonRemoveRestraint(inv.restraint.Group, false);
+		if (KDRestraint(inv).removePrison) {
+			KinkyDungeonRemoveRestraint(KDRestraint(inv).Group, false);
 		}
 	}
 	KDGameData.KinkyDungeonPrisonReduction = 0;
@@ -535,12 +523,12 @@ function KinkyDungeonDefeat() {
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
 	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
-	if (collar && collar.restraint) {
-		if (collar.restraint.name == "DragonCollar") defeat_outfit = "Dragon";
-		if (collar.restraint.name == "MaidCollar") defeat_outfit = "Maid";
-		if (collar.restraint.name == "ExpCollar") defeat_outfit = "BlueSuitPrison";
-		if (collar.restraint.name == "WolfCollar") defeat_outfit = "Wolfgirl";
-		if (collar.restraint.name == "MithrilCollar") defeat_outfit = "Elven";
+	if (collar && KDRestraint(collar)) {
+		if (KDRestraint(collar).name == "DragonCollar") defeat_outfit = "Dragon";
+		if (KDRestraint(collar).name == "MaidCollar") defeat_outfit = "Maid";
+		if (KDRestraint(collar).name == "ExpCollar") defeat_outfit = "BlueSuitPrison";
+		if (KDRestraint(collar).name == "WolfCollar") defeat_outfit = "Wolfgirl";
+		if (KDRestraint(collar).name == "MithrilCollar") defeat_outfit = "Elven";
 	}
 
 	KinkyDungeonSetDress(defeat_outfit, "JailUniform");
@@ -570,7 +558,7 @@ function KinkyDungeonDefeat() {
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}
-	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventoryAdd({outfit: KinkyDungeonGetOutfit("JailUniform")});
+	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventoryAdd({name: "JailUniform", type: Outfit});
 
 	//KinkyDungeonChangeRep("Ghost", 1 + Math.round(KinkyDungeonSpawnJailers/2));
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...
@@ -592,6 +580,17 @@ function KinkyDungeonDefeat() {
 		leash.ty = undefined;
 	}
 	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax - 1;
+
+	// Lock all jail doors
+	for (let X = 1; X < KinkyDungeonGridWidth - 1; X++)
+		for (let Y = 1; Y < KinkyDungeonGridHeight - 1; Y++) {
+			let tile = KinkyDungeonTiles.get(X + "," + Y);
+			if (tile && tile.Jail && tile.ReLock && KinkyDungeonMapGet(X, Y) == 'd') {
+				KinkyDungeonMapSet(X, Y, 'D');
+				if (!tile.Lock)
+					tile.Lock = "Red";
+			}
+		}
 
 	let enemies = [];
 	for (let e of  KinkyDungeonEntities) {

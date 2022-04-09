@@ -87,16 +87,19 @@ function KinkyDungeonHandleMoveObject(moveX, moveY, moveObject) {
 		if (chestType == "chest") KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 		KinkyDungeonMapSet(moveX, moveY, 'c');
+		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
 		return true;
 	} else if (moveObject == 'Y') { // Open the chest
 		let chestType = MiniGameKinkyDungeonCheckpoint == 12 ? "shelf" : "rubble";
 		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 		KinkyDungeonMapSet(moveX, moveY, '1');
+		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
 		return true;
 	} else if (moveObject == 'O') { // Open the chest
 		KinkyDungeonTakeOrb(1, moveX, moveY); // 1 spell point
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
+		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
 		return true;
 	}
 	return false;
