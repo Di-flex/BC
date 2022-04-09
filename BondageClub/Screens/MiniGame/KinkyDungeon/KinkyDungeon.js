@@ -93,6 +93,7 @@ let KDOptOut = false;
 * ChampionCurrent: number,
 * JailPoints: {x: number, y: number}[],
 * LastMapSeed: string,
+* AlreadyOpened: {x: number, y:number}[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -150,6 +151,8 @@ let KDGameDataBase = {
 
 	WarningLevel: 0,
 	LastMapSeed: "",
+
+	AlreadyOpened: [],
 };
 /**
  * @type {KDGameDataBase}

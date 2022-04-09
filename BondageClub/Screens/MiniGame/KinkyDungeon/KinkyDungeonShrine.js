@@ -264,6 +264,7 @@ function KinkyDungeonHandleShrine() {
 				let x = KinkyDungeonTargetTileLocation.split(',')[0];
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
+				KDGameData.AlreadyOpened.push({x: parseInt(x), y: parseInt(y)});
 				KinkyDungeonUpdateStats(0);
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
