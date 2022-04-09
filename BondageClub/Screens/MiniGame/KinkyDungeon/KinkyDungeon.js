@@ -229,6 +229,11 @@ function KinkyDungeonAngel() {
 	return KDAngel;
 }
 
+/**
+ *
+ * @param list
+ * @return {Map<any, any>}
+ */
 function KDMapInit(list) {
 	let map = new Map();
 	for (let l of list) {

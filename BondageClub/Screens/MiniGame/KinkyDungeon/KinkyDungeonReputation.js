@@ -20,6 +20,10 @@ let KinkyDungeonAid = {};
 
 let KDRepSelectionMode = "";
 
+/**
+ *
+ * @type {Object.<string, string[]>}
+ */
 let KDBlessedRewards = {
 	"Latex": ["StaffDoll"],
 	"Rope": ["StaffBind"],

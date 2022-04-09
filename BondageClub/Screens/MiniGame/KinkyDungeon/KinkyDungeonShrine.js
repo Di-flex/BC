@@ -194,7 +194,7 @@ function KinkyDungeonPayShrine(type) {
 				KinkyDungeonInventoryAddWeapon(item.name);
 			else if (item.shoptype == "Restraint") {
 				let restraint = KinkyDungeonGetRestraintByName(item.name);
-				KinkyDungeonInventoryAdd({looserestraint: restraint, events: restraint.looseevents});
+				KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, looseevents:restraint.events});
 			}
 			else if (item.shoptype == "Basic") {
 				if (item.name == "RedKey") {

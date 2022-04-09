@@ -71,9 +71,14 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 }
 
 
-
-function KinkyDungeonChangeConsumable(Consumable, Quantity) {
-	let item = KinkyDungeonInventoryGetConsumable(Consumable.name);
+/**
+ *
+ * @param consumable {consumable}
+ * @param Quantity {int}
+ * @return {boolean}
+ */
+function KinkyDungeonChangeConsumable(consumable, Quantity) {
+	let item = KinkyDungeonInventoryGetConsumable(consumable.name);
 	if (item) {
 		item.quantity += Quantity;
 		if (item.quantity <= 0) {
@@ -83,7 +88,7 @@ function KinkyDungeonChangeConsumable(Consumable, Quantity) {
 	}
 
 	if (Quantity >= 0) {
-		KinkyDungeonInventoryAdd({consumable: Consumable, quantity: Quantity, events: Consumable.events});
+		KinkyDungeonInventoryAdd({name: consumable.name, type: Consumable, quantity: Quantity});
 	}
 
 	return false;

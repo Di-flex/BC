@@ -583,7 +583,7 @@ function KinkyDungeonDisarm(Enemy) {
 
 			KDSetWeapon(null);
 			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-			KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet(weapon));
+			KinkyDungeonInventoryRemove(KinkyDungeonInventoryGetWeapon(weapon));
 
 			KinkyDungeonGroundItems.push(dropped);
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm"), "red", 2);

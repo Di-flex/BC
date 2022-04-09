@@ -113,18 +113,16 @@ function KinkyDungeonHandleInventory() {
 }
 
 function KinkyDungeonInventoryAddWeapon(Name) {
-	if (!KinkyDungeonInventoryGet(Name) && KinkyDungeonWeapons[Name])
-		KinkyDungeonInventoryAdd({weapon: KinkyDungeonWeapons[Name], events: KinkyDungeonWeapons[Name].events});
+	if (!KinkyDungeonInventoryGetWeapon(Name) && KinkyDungeonWeapons[Name])
+		KinkyDungeonInventoryAdd({name:Name, type:Weapon, events: KinkyDungeonWeapons[Name].events});
 }
 
-function KDInventoryType(item) {
-	if (item.restraint) return Restraint;
-	if (item.looserestraint) return LooseRestraint;
-	if (item.consumable) return Consumable;
-	if (item.weapon) return Weapon;
-	if (item.outfit) return Outfit;
-	return Misc;
-}
+/**
+ *
+ * @param item {item}
+ * @return {string}
+ */
+function KDInventoryType(item) {return item.type;}
 
 function KDInventoryName(item) {
 	if (item.name) return item.name;
@@ -153,6 +151,10 @@ function KinkyDungeonInventoryLength() {
 	return size;
 }
 
+/**
+ *
+ * @param item {item}
+ */
 function KinkyDungeonInventoryAdd(item) {
 	let type = KDInventoryType(item);
 	if (KinkyDungeonInventory.has(type)) {
@@ -160,6 +162,10 @@ function KinkyDungeonInventoryAdd(item) {
 	}
 }
 
+/**
+ *
+ * @param item {item}
+ */
 function KinkyDungeonInventoryRemove(item) {
 	if (item) {
 		let type = KDInventoryType(item);
@@ -169,6 +175,11 @@ function KinkyDungeonInventoryRemove(item) {
 	}
 }
 
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGet(Name) {
 	for (let m of KinkyDungeonInventory.values()) {
 		if (m.has(Name)) return m.get(Name);
@@ -176,19 +187,46 @@ function KinkyDungeonInventoryGet(Name) {
 	return null;
 }
 
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetLoose(Name) {
 	return KinkyDungeonInventory.get(LooseRestraint).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetConsumable(Name) {
 	return KinkyDungeonInventory.get(Consumable).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetWeapon(Name) {
 	return KinkyDungeonInventory.get(Weapon).get(Name);
 }
+
+/**
+ *
+ * @param Name
+ * @return {null|item}
+ */
 function KinkyDungeonInventoryGetOutfit(Name) {
 	return KinkyDungeonInventory.get(Outfit).get(Name);
 }
 
+/**
+ * Returns iterator to restraints
+ * @return {IterableIterator<item>|*[]}
+ */
 function KinkyDungeonAllRestraint() {
 	return KinkyDungeonInventory.get(Restraint) ? Array.from(KinkyDungeonInventory.get(Restraint).values()) : [];
 }
