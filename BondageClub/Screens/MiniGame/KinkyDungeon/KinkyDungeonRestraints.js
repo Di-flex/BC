@@ -1149,6 +1149,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 
 }
 
+// @ts-ignore
 function KinkyDungeonUpdateRestraints(delta) {
 	let playerTags = new Map();
 	for (let G = 0; G < KinkyDungeonPlayer.Appearance.length; G++) {
@@ -1242,6 +1243,16 @@ function KinkyDungeonGenerateRestraintTrap() {
 	return "GreedyGhast";
 }
 
+/**
+ * @param {restraint} restraint
+ * @param {number} [Tightness]
+ * @param {boolean} [Bypass]
+ * @param {string} [Lock]
+ * @param {boolean} [Keep]
+ * @param {boolean} [Trapped]
+ * @param {KinkyDungeonEvent[]} [events]
+ * @returns {number}
+ */
 function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Keep, Trapped, events) {
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
 	let power = KinkyDungeonRestraintPower(r);
@@ -1263,6 +1274,12 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	return 0;
 }
 
+/**
+ *
+ * @param {restraint} oldRestraint
+ * @param {restraint} newRestraint
+ * @returns {boolean}
+ */
 function KinkyDungeonIsLinkable(oldRestraint, newRestraint) {
 	if (oldRestraint && newRestraint && oldRestraint && oldRestraint.LinkableBy && newRestraint.shrine) {
 		for (let l of oldRestraint.LinkableBy) {
@@ -1283,15 +1300,15 @@ let KinkyDungeonRestraintAdded = false;
 let KinkyDungeonCancelFlag = false;
 
 /**
- * ToDo: migrate to new standard
- * @param restraint {Object}
- * @param Tightness
- * @param Bypass
- * @param Lock
- * @param Keep
- * @param Link
- * @param SwitchItems
- * @return {number}
+ * @param {restraint} restraint
+ * @param {number} Tightness
+ * @param {boolean} [Bypass]
+ * @param {string} [Lock]
+ * @param {boolean} [Keep]
+ * @param {boolean} [Link]
+ * @param {boolean} [SwitchItems]
+ * @param {KinkyDungeonEvent[]} [events]
+ * @returns
  */
 function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems, events) {
 	let start = performance.now();
@@ -1323,7 +1340,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					for (let remove of restraint.remove) {
 						InventoryRemove(KinkyDungeonPlayer, remove);
 					}
-				InventoryWear(KinkyDungeonPlayer, restraint.Asset, AssetGroup, restraint.power);
+				InventoryWear(KinkyDungeonPlayer, restraint.Asset, AssetGroup, restraint.Color);
 				KinkyDungeonSendFloater({x: 1100, y: 600 - KDRecentRepIndex * 40}, `+${TextGet("Restraint" + restraint.name)}!`, "pink", 5, true);
 				KDRecentRepIndex += 1;
 				let placed = InventoryGet(KinkyDungeonPlayer, AssetGroup);
@@ -1333,7 +1350,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					Player, placed.Asset) &&
 					(!InventoryGetLock(InventoryGet(Player, AssetGroup))
 					|| (InventoryGetLock(InventoryGet(Player, AssetGroup)).Asset.OwnerOnly == false && InventoryGetLock(InventoryGet(Player, AssetGroup)).Asset.LoverOnly == false))) {
-					InventoryWear(Player, restraint.Asset, AssetGroup, restraint.power);
+					InventoryWear(Player, restraint.Asset, AssetGroup, restraint.Color);
 					placedOnPlayer = true;
 				}
 				if (placed && !placed.Property) placed.Property = {};
@@ -1366,8 +1383,10 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 					else InventoryGet(KinkyDungeonPlayer, AssetGroup).Property.OverridePriority = restraint.OverridePriority;
 				}
 				if (restraint.Color) {
+					// @ts-ignore
 					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, restraint.Color, AssetGroup);
 					if (placedOnPlayer)
+						// @ts-ignore
 						CharacterAppearanceSetColorForGroup(Player, restraint.Color, AssetGroup);
 				}
 				let item = {name: restraint.name, type: Restraint, events:events ? events : restraint.events, tightness: tight, lock: ""};
@@ -1408,12 +1427,12 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	for (let i of KinkyDungeonAllRestraint()) {
 		const item = KinkyDungeonRestraintsCache.get(i.name);
 		let AssetGroup = item && item.AssetGroup ? item.AssetGroup : Group;
-		if ((KDRestraint(item).Group == Group)) {
+		if (item.Group == Group) {
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
 
 			if (!KinkyDungeonCancelFlag && !Add) {
-				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(item, Keep);
+				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(i, Keep);
 			}
 
 			if (!KinkyDungeonCancelFlag) {
@@ -1488,9 +1507,17 @@ function KinkyDungeonRestraintTypes(ShrineFilter) {
 }
 
 
-
+/**
+ *
+ * @param {restraint} newRestraint
+ * @param {item} oldItem
+ * @param {number} tightness
+ * @param {string} [Lock]
+ * @param {boolean} [Keep]
+ * @returns {boolean}
+ */
 function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
-	if (newRestraint && oldItem && oldItem.restraint) {
+	if (newRestraint && oldItem && oldItem.type == Restraint) {
 		let oldLock = [];
 		let oldTightness = [];
 		let dynamicLink = [];
@@ -1502,7 +1529,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 		let olock = oldItem.lock ? oldItem.lock : "";
 		let oldtight = oldItem.tightness ? oldItem.tightness : 0;
 		let oevents = oldItem.events ? oldItem.events : [];
-		let oldlink = oldItem.restraint.name;
+		let oldlink = oldItem.name;
 		oldLock.push(olock);
 		oldTightness.push(oldtight);
 		oldEvents.push(oevents);
@@ -1514,8 +1541,8 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep) {
 			if (newItem) newItem.oldTightness = oldTightness;
 			if (newItem) newItem.dynamicLink = dynamicLink;
 			if (newItem) newItem.oldEvents = oldEvents;
-			if (oldItem.restraint.Link)
-				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.restraint.name), "red", 2);
+			if (KDRestraint(oldItem).Link)
+				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.name), "red", 2);
 			return true;
 		}
 	}

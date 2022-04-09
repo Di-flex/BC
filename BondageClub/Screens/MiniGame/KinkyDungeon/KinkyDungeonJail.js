@@ -347,7 +347,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			if (touchesPlayer) {
 				if (!KinkyDungeonGetRestraintItem("ItemNeck")) {
 					let collar = KinkyDungeonGetRestraintByName("BasicCollar");
-					KinkyDungeonAddRestraintIfWeaker(collar, KinkyDungeonJailGuard().Enemy.power, true, false);
+					KinkyDungeonAddRestraintIfWeaker(collar, KinkyDungeonJailGuard().Enemy.power, true, "");
 					let msg = TextGet("KinkyDungeonAddRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					msg = msg.replace("NewRestraintName", TextGet("Restraint"+collar.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
@@ -357,7 +357,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 					KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				} else {
 					let leash = KinkyDungeonGetRestraintByName("BasicLeash");
-					KinkyDungeonAddRestraintIfWeaker(leash, KinkyDungeonJailGuard().Enemy.power, true, false);
+					KinkyDungeonAddRestraintIfWeaker(leash, KinkyDungeonJailGuard().Enemy.power, true, "");
 					let msg = TextGet("KinkyDungeonAddRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					msg = msg.replace("NewRestraintName", TextGet("Restraint"+leash.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
