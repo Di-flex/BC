@@ -885,7 +885,7 @@ AttackWolfgirlPet,"The wolfgirl cuddles with you! (-DamageTaken SP)"
 NameWolfgirl,Wolfgirl Trainer
 KillWolfgirl,"The trainer retreats!"
 AttackWolfgirl,"The wolfgirl trainer squeezes your breasts playfully! (-DamageTaken SP)"
-AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (-DamageTaken SP)"
+AttackWolfgirlBind,"The wolfgirl trainer secures you in training gear! (+RestraintAdded)"
 AttackWolfgirlLock,"The wolfgirl trainer pins you and skillfully locks all of your restraints."
 
 NameDrone,Ancient Drone
