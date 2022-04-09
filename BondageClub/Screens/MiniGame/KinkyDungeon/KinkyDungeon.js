@@ -761,7 +761,7 @@ function KDInitializeJourney(Journey) {
 		let II = I;
 		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
 		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
-		KinkyDungeonMapIndex.push(I);
+		KinkyDungeonMapIndex.push(II);
 	}
 
 	KDGameData.Journey = Journey;
@@ -915,6 +915,7 @@ function KinkyDungeonHandleClick() {
 					localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
 				} else if (KinkyDungeonStatsChoice.get(stat[0])) {
 					KinkyDungeonStatsChoice.delete(stat[0]);
+					localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
 				}
 			}
 			if (i % 2 != 0) X += KDPerksWidth;

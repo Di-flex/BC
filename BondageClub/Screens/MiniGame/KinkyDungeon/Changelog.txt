@@ -760,6 +760,7 @@ Spell Balance:
 - Changes to item layering (more items will layer with others, like belts over cuffs)
 - Effects like Ice restraints can now activate even if covered by something like an armbinder
 - Removed Willpower perk, added perk to increase average difficulty of restraints
+- Added Journeys, ways to customize the areas you visit in the game
 
 TODO ValidationFindBlockCycles to prevent bugs
 
