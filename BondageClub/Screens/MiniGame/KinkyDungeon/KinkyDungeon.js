@@ -636,6 +636,7 @@ function KDSendTrait(trait) {
 		window.dataLayer.push({
 			'event':'trait',
 			'traitType':trait,
+			'journey':KDJourney,
 		});
 }
 
@@ -648,6 +649,7 @@ function KDSendSpell(spell) {
 			'spellType':spell,
 			'currentLevel':MiniGameKinkyDungeonLevel,
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+			'journey':KDJourney,
 		});
 }
 
@@ -660,6 +662,7 @@ function KDSendSpellCast(spell) {
 			'spellType':spell,
 			'currentLevel':MiniGameKinkyDungeonLevel,
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+			'journey':KDJourney,
 		});
 }
 function KDSendWeapon(weapon) {
@@ -671,6 +674,7 @@ function KDSendWeapon(weapon) {
 			'weapon':weapon,
 			'currentLevel':MiniGameKinkyDungeonLevel,
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
+			'journey':KDJourney,
 		});
 }
 
@@ -709,6 +713,7 @@ function KDSendEvent(type) {
 				'event':type,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
+				'journey':KDJourney,
 			});
 			for (let s of KinkyDungeonStatsChoice.keys()) {
 				KDSendTrait(s);
@@ -725,6 +730,7 @@ function KDSendEvent(type) {
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
+				'journey':KDJourney,
 			});
 		} else if (type == 'loadGame') {
 			// @ts-ignore
@@ -737,6 +743,7 @@ function KDSendEvent(type) {
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
+				'journey':KDJourney,
 			});
 		} else if (type == 'patreon') {
 			// @ts-ignore
@@ -1590,6 +1597,8 @@ function KinkyDungeonLoadGame(String) {
 			KDNaked = false;
 			KinkyDungeonDressPlayer();
 			KDRefresh = true;
+			if (KDGameData.Journey)
+				KDJourney = KDGameData.Journey;
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
