@@ -115,6 +115,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["latexRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShatterBind" + spell.name), "red", 1);
 				effect = true;
 			} else {
@@ -133,6 +134,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["shadowRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShadowStrike"), "red", 1);
 				effect = true;
 			}
@@ -161,6 +163,8 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let roped = false;
 			roped = roped || KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("WeakMagicRopeArms")) > 0;
 			roped = roped || KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("WeakMagicRopeLegs")) > 0;
+
+			if (roped) KDSendStatus('bound', "WeakMagicRopeArms", "spell_" + spell.name);
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonMagicRopeSelf"), "red", playerEffect.time);
 			if (roped)
 				effect = true;
@@ -174,6 +178,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			}
 			if (!slimeWalker) {
 				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
+				if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
 				KinkyDungeonMovePoints = -1;
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
 
@@ -190,6 +195,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				}
 			}
 			for (let r of restraints) {
+				if (effect) KDSendStatus('escape', KinkyDungeonGetRestraintItem(r).name, "spell_" + spell.name);
 				KinkyDungeonRemoveRestraint(r, false);
 			}
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonRemoveLowLevelRope"), "lightGreen", 2);
@@ -203,6 +209,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["celestialRopes"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 			} else {
 				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			}
@@ -215,6 +222,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["crystalRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 			} else {
 				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			}
@@ -251,6 +259,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["slimeRestraintsRandom"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd) {
 					KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonRubberBulletsAttach"), "red", 2);
 				}
 			} else KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonRubberBullets"), "red", 2);
@@ -262,6 +271,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["chainRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSingleChain"), "red", playerEffect.time);
 				effect = true;
 			} else {
@@ -275,6 +285,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["chainRestraintsMagic"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSingleChain"), "red", playerEffect.time);
 				effect = true;
 			}
@@ -306,6 +317,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
+				KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSingleRope"), "red", playerEffect.time);
 				effect = true;
 			} else {
@@ -320,6 +332,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.count; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["hitechCables"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -341,6 +354,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				for (let i = 0; i < playerEffect.count; i++) {
 					let restraintAdd = KinkyDungeonGetRestraint({tags: ["glueRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+						KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 						added.push(restraintAdd);
 						effect = true;
 					}
@@ -363,6 +377,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.power; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeMagicStrong", "ropeAuxiliary", "clothRestraints", "tapeRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -381,6 +396,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 					let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeMagicHogtie"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+						KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 						KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonRopeEngulf"), "red", 2);
 						effect = true;
 					}
@@ -393,6 +409,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.power; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints2", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -419,6 +436,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.power; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["vineRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -445,6 +463,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.count; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["obsidianRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -463,6 +482,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.power; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ribbonRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -489,6 +509,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.count; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: ["mithrilRope"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}
@@ -508,6 +529,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			for (let i = 0; i < playerEffect.count; i++) {
 				let restraintAdd = KinkyDungeonGetRestraint({tags: playerEffect.tags}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
+					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);
 					effect = true;
 				}

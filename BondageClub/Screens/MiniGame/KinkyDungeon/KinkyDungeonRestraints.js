@@ -861,6 +861,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					}
 					let trap = restraint.trap;
+					KDSendStatus('escape', restraint.name, StruggleType);
 					KinkyDungeonRemoveRestraint(KDRestraint(restraint).Group, StruggleType != "Cut");
 					if (trap) {
 						let summon = KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, trap, 1, 2.5);

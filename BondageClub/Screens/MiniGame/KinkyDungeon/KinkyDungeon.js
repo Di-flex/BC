@@ -700,6 +700,9 @@ function KDSendStatus(type, data, data2) {
 			'spell': type == 'learnspell' ? data : undefined,
 			'goddess': type == 'goddess' ? data : undefined,
 			'helpType': type == 'goddess' ? data2 : undefined,
+			'restraint': (type == 'escape' || type == 'bound') ? data : undefined,
+			'method': type == 'escape' ? data2 : undefined,
+			'attacker': type == 'bound' ? data2 : undefined,
 		});
 		if (type == 'nextLevel' && KinkyDungeonDifficultyMode < 2) {
 			for (let s of KinkyDungeonSpells) {

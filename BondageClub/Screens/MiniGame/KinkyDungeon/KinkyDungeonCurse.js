@@ -35,6 +35,7 @@ function KinkyDungeonCurseUnlock(sg, Curse) {
 	}
 
 	if (unlock) {
+		KDSendStatus('escape', KinkyDungeonGetRestraintItem(sg.group).name, "Curse");
 		KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonCurseUnlock" + Curse), "#99FF99", 2);
 		KinkyDungeonRemoveRestraint(sg.group, keep);
 	}

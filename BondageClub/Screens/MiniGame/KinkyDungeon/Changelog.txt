@@ -764,6 +764,7 @@ Spell Balance:
 
 3.0
 - Major refactor! Saves will be broken
+- Flamberge now costs 1.25 sp instead of 1.0
 
 TODO ValidationFindBlockCycles to prevent bugs
 

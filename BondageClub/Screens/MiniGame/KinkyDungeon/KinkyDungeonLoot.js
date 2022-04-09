@@ -567,6 +567,9 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		}
 		KinkyDungeonLostItems = [];
 	}
+	if (Loot.trap) {
+		KDSendStatus('bound', Loot.name, "chest");
+	}
 
 	if (value > 0) {
 		if (Replacemsg)

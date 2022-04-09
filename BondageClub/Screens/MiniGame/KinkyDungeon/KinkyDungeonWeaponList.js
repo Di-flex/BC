@@ -6,7 +6,7 @@
 let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
-	"Flamberge": {name: "Flamberge", dmg: 2.0, chance: 1.0, staminacost: 1.0, type: "slash", unarmed: false, rarity: 3, shop: true, cutBonus: 0.15, sfx: "FireSpell",
+	"Flamberge": {name: "Flamberge", dmg: 2.0, chance: 1.0, staminacost: 1.25, type: "slash", unarmed: false, rarity: 3, shop: true, cutBonus: 0.15, sfx: "FireSpell",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 2.0, damage: "fire"}]},
 	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
 	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", tease: true, unarmed: false, rarity: 1, shop: true, sfx: "Freeze",

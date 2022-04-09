@@ -1489,7 +1489,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (player.player) {
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					for (let r of restraintAdd) {
-						bound += KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+						let bb =  KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+						if (bb) {
+							KDSendStatus('bound', r.name, "enemy_" + enemy.Enemy.name);
+						}
+						bound += bb;
 					}
 					if (attack.includes("Slow")) {
 						KinkyDungeonMovePoints = Math.max(KinkyDungeonMovePoints - 2, -1);
