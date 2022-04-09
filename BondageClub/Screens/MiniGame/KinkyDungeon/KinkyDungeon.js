@@ -48,6 +48,8 @@ const Misc = "misc";
 
 let KinkyDungeonStatsChoice = new Map();
 
+let KDJourney = "";
+
 let KDOptOut = false;
 
 /**
@@ -94,6 +96,8 @@ let KDOptOut = false;
 * JailPoints: {x: number, y: number}[],
 * LastMapSeed: string,
 * AlreadyOpened: {x: number, y:number}[],
+* Journey: string,
+* CheckpointIndices: number[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -153,6 +157,8 @@ let KDGameDataBase = {
 	LastMapSeed: "",
 
 	AlreadyOpened: [],
+	Journey: "",
+	CheckpointIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 };
 /**
  * @type {KDGameDataBase}
@@ -447,6 +453,13 @@ function KinkyDungeonRun() {
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
+	} else if (KinkyDungeonState == "Journey") {
+		DrawText(TextGet("KinkyDungeonJourney"), 1250, 300, "white", "silver");
+		DrawButton(875, 350, 750, 64, TextGet("KinkyDungeonJourney0"), "White", "");
+		DrawButton(875, 450, 750, 64, TextGet("KinkyDungeonJourney1"), "White", "");
+		DrawButton(875, 550, 750, 64, TextGet("KinkyDungeonJourney2"), "White", "");
+		DrawButton(1075, 850, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+
 	} else if (KinkyDungeonState == "Diff") {
 		DrawText(TextGet("KinkyDungeonDifficulty"), 1250, 300, "white", "silver");
 		DrawButton(875, 350, 750, 64, TextGet("KinkyDungeonDifficulty0"), "White", "");
@@ -741,9 +754,37 @@ function KDSendEvent(type) {
 let KinkyDungeonReplaceConfirm = 0;
 let KinkyDungeonGameFlag = false;
 
+function KDInitializeJourney(Journey) {
+	KinkyDungeonMapIndex = [];
+
+	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
+		let II = I;
+		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
+		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
+		KinkyDungeonMapIndex.push(I);
+	}
+
+	KDGameData.Journey = Journey;
+	// Option to shuffle the dungeon types besides the initial one (graveyard)
+	if (KDGameData.Journey == "Random") {
+		/* Randomize array in-place using Durstenfeld shuffle algorithm */
+		// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+		for (let i = KinkyDungeonMapIndex.length - 1; i >= 0; i--) {
+			let j = Math.floor(KDRandom() * (i + 1));
+			let temp = KinkyDungeonMapIndex[i];
+			KinkyDungeonMapIndex[i] = KinkyDungeonMapIndex[j];
+			KinkyDungeonMapIndex[j] = temp;
+		}
+	} else if (KDGameData.Journey == "Harder") {
+		KinkyDungeonMapIndex = [11, 12, 13, 3, 15, 16, 17, 18, 19, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	}
+	//KinkyDungeonMapIndex.unshift(0);
+	KinkyDungeonMapIndex.push(10);
+}
+
 function KinkyDungeonStartNewGame(Load) {
 	KinkyDungeonNewGame = 0;
-	KinkyDungeonInitialize(1, undefined, Load);
+	KinkyDungeonInitialize(1, Load);
 	MiniGameKinkyDungeonCheckpoint = 0;
 	if (Load) {
 		KinkyDungeonLoadGame();
@@ -751,7 +792,8 @@ function KinkyDungeonStartNewGame(Load) {
 	} else {
 		KDSendEvent('newGame');
 	}
-	KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel, false, Load);
+	KDInitializeJourney(KDJourney);
+	KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, false, Load);
 	KinkyDungeonState = "Game";
 
 	if (KinkyDungeonKeybindings) {
@@ -801,19 +843,40 @@ function KinkyDungeonHandleClick() {
 			if (KinkyDungeonCreditsPos < 1) KinkyDungeonCreditsPos += 1;
 			else KinkyDungeonCreditsPos = 0;
 		}
+	} else if (KinkyDungeonState == "Journey") {
+		if (MouseIn(875, 350, 750, 64)) {
+			KDJourney = "";
+			KinkyDungeonState = "Stats";
+			return true;
+		} else if (MouseIn(875, 450, 750, 64)) {
+			KDJourney = "Random";
+			KinkyDungeonState = "Stats";
+			return true;
+		} else if (MouseIn(875, 550, 750, 64)) {
+			KDJourney = "Harder";
+			KinkyDungeonState = "Stats";
+			return true;
+		} else if (MouseIn(1075, 850, 350, 64)) {
+			KinkyDungeonState = "Menu";
+			return true;
+		}
 	} else if (KinkyDungeonState == "Diff") {
 		if (MouseIn(875, 150, 275, 64)) {
 			KinkyDungeonSexyMode = false;
 			localStorage.setItem("KinkyDungeonSexyMode", KinkyDungeonSexyMode ? "True" : "False");
+			return true;
 		} else if (MouseIn(1175, 150, 275, 64)) {
 			KinkyDungeonSexyMode = true;
 			localStorage.setItem("KinkyDungeonSexyMode", KinkyDungeonSexyMode ? "True" : "False");
+			return true;
 		} else if (MouseIn(1500, 120, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPlug = !KinkyDungeonSexyPlug;
 			localStorage.setItem("KinkyDungeonSexyPlug", KinkyDungeonSexyPlug ? "True" : "False");
+			return true;
 		} else if (MouseIn(1500, 200, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPiercing = !KinkyDungeonSexyPiercing;
 			localStorage.setItem("KinkyDungeonSexyPiercing", KinkyDungeonSexyPiercing ? "True" : "False");
+			return true;
 		}
 		KinkyDungeonStatsChoice.set("arousalMode", KinkyDungeonSexyMode ? true : undefined);
 		KinkyDungeonStatsChoice.set("arousalModePlug", KinkyDungeonSexyPlug ? true : undefined);
@@ -821,19 +884,24 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(875, 350, 750, 64)) {
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonStartNewGame();
+			return true;
 		} else if (MouseIn(875, 450, 750, 64)) {
 			KinkyDungeonDifficultyMode = 3;
 			KinkyDungeonStartNewGame();
+			return true;
 		} else if (MouseIn(875, 550, 750, 64)) {
 			KinkyDungeonDifficultyMode = 1;
 			KinkyDungeonStartNewGame();
+			return true;
 		} else if (MouseIn(875, 650, 750, 64)) {
 			KinkyDungeonDifficultyMode = 2;
 			KinkyDungeonStartNewGame();
+			return true;
 		} else if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";
+			return true;
 		}
-	} if (KinkyDungeonState == "Stats") {
+	} else if (KinkyDungeonState == "Stats") {
 		let i = 0;
 		let X = 0;
 		let Y = 0;
@@ -872,11 +940,12 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonHeartsPlaced = [];
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonDifficultyMode = 0;
-			KinkyDungeonInitialize(1, undefined, true);
+			KinkyDungeonInitialize(1, true);
 			MiniGameKinkyDungeonCheckpoint = 1;
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				KDSendEvent('loadGame');
-				KinkyDungeonCreateMap(KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint], MiniGameKinkyDungeonLevel, false, true);
+				KDInitializeJourney(KDJourney);
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, false, true);
 				ElementRemove("saveInputField");
 				KinkyDungeonState = "Game";
 
@@ -931,7 +1000,7 @@ function KinkyDungeonHandleClick() {
 				KinkyDungeonStartNewGame(true);
 			} else {
 				KinkyDungeonStatsChoice = new Map();
-				KinkyDungeonState = "Stats";
+				KinkyDungeonState = "Journey";
 				let statsChoice = localStorage.getItem('KinkyDungeonStatsChoice');
 				if (statsChoice) {
 					let statsArray = JSON.parse(statsChoice);

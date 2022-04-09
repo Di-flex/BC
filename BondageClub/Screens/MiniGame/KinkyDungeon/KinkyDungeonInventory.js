@@ -62,8 +62,8 @@ function KinkyDungeonHandleInventory() {
 			let toWear = KinkyDungeonGetOutfit(outfit);
 			if (toWear) {
 				let dress = toWear.dress;
-				if (dress == "JailUniform" && KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint])
-					dress = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint].defeat_outfit;
+				if (dress == "JailUniform" && KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]])
+					dress = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].defeat_outfit;
 				KinkyDungeonSetDress(dress, outfit);
 				KinkyDungeonSlowMoveTurns = 3;
 				KinkyDungeonSleepTime = CommonTime() + 200;

@@ -191,7 +191,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
 	KinkyDungeonNewGame += 1;
 }
-function KinkyDungeonInitialize(Level, Random, Load) {
+function KinkyDungeonInitialize(Level, Load) {
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -217,25 +217,9 @@ function KinkyDungeonInitialize(Level, Random, Load) {
 
 	KinkyDungeonMapIndex = [];
 
-
 	for (let I = 1; I < KinkyDungeonMapParams.length; I++) {
 		KinkyDungeonMapIndex.push(I);
 	}
-
-	// Option to shuffle the dungeon types besides the initial one (graveyard)
-	if (Random) {
-		/* Randomize array in-place using Durstenfeld shuffle algorithm */
-		// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-		for (let i = KinkyDungeonMapIndex.length - 1; i > 0; i--) {
-			let j = Math.floor(KDRandom() * (i + 1));
-			let temp = KinkyDungeonMapIndex[i];
-			KinkyDungeonMapIndex[i] = KinkyDungeonMapIndex[j];
-			KinkyDungeonMapIndex[j] = temp;
-		}
-	}
-	KinkyDungeonMapIndex.unshift(0);
-	KinkyDungeonMapIndex.push(10);
-
 
 	KinkyDungeonContextPlayer = KinkyDungeonCanvasPlayer.getContext("2d");
 	KinkyDungeonCanvasPlayer.width = KinkyDungeonGridSizeDisplay;
