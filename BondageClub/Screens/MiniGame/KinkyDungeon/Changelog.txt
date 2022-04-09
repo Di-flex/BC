@@ -762,6 +762,9 @@ Spell Balance:
 - Removed Willpower perk, added perk to increase average difficulty of restraints
 - Added Journeys, ways to customize the areas you visit in the game
 
+3.0
+- Major refactor! Saves will be broken
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
