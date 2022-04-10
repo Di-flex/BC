@@ -507,7 +507,11 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 		} else if (playerEffect.name == "EnchantedArrow") {
 			let added = [];
 			for (let i = 0; i < playerEffect.count; i++) {
-				let restraintAdd = KinkyDungeonGetRestraint({tags: ["mithrilRope"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+				let ropeRests = ["mithrilRope"];
+				if (KinkyDungeonStatStamina < KinkyDungeonStatStamina * 0.25) {
+					ropeRests.push("mithrilRopeHogtie");
+				}
+				let restraintAdd = KinkyDungeonGetRestraint({tags: ropeRests}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
 					KDSendStatus('bound', restraintAdd, "spell_" + spell.name);
 					added.push(restraintAdd);

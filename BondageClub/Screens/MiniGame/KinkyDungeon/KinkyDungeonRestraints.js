@@ -80,6 +80,7 @@ function KDRestraint(item) {
 
 // Format: strict group => [list of groups the strictness applies to]
 const KinkyDungeonStrictnessTable = new Map([
+	["ItemHood", ["ItemHead", "ItemEars","ItemMouth","ItemMouth2","ItemMouth3"]],
 	["ItemHead", ["ItemEars"]],
 	["ItemMouth", ["ItemHead", "ItemEars"]],
 	["ItemMouth2", ["ItemHead", "ItemEars"]],
@@ -1251,7 +1252,9 @@ function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink
 					}
 				}
 			}
-			return KinkyDungeonGetLockMult(newLock) * newRestraint.power > power && KinkyDungeonIsLinkable(oldRestraint, newRestraint);
+			// Allow for a power multiplier, set to 20 currently for basically always cover
+			let linkable = KinkyDungeonIsLinkable(oldRestraint, newRestraint);
+			return KinkyDungeonGetLockMult(newLock) * newRestraint.power * (linkable ? 20 : 1) > power && linkable;
 		}
 	}
 	return false;

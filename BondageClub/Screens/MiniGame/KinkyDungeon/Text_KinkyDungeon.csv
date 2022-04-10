@@ -345,16 +345,16 @@ LootPotionFrigid,"You find a snow-like potion that's cold to the touch."
 LootPotionsMedley,"You find a medley of potions."
 
 KinkyDungeonRarity,"Rarity: "
-KinkyDungeonRarity0,Trifle
-KinkyDungeonRarity1,Lesser
-KinkyDungeonRarity2,Common
-KinkyDungeonRarity3,Uncommon
-KinkyDungeonRarity4,Rare
-KinkyDungeonRarity5,Very Rare
-KinkyDungeonRarity6,Epic
-KinkyDungeonRarity7,Legendary
-KinkyDungeonRarity8,Supreme
-KinkyDungeonRarity9,Mythical
+KinkyDungeonRarity0,Lesser
+KinkyDungeonRarity1,Common
+KinkyDungeonRarity2,Uncommon
+KinkyDungeonRarity3,Rare
+KinkyDungeonRarity4,Very Rare
+KinkyDungeonRarity5,Epic
+KinkyDungeonRarity6,Legendary
+KinkyDungeonRarity7,Supreme
+KinkyDungeonRarity8,Mythic
+KinkyDungeonRarity9,Angelic
 KinkyDungeonRarity10,Divine
 
 KinkyDungeonConsumableQuantity,Quantity:
@@ -1667,6 +1667,9 @@ RestraintKittyBlindfoldDesc2,"It is padded but still lets some light through."
 RestraintKittyPaws,Bast Paws
 RestraintKittyPawsDesc,"Leather mittens used to pacify new initiates of the Bast cult."
 RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but aren't the toughest material."
+RestraintKittySuit,Bast Suit
+RestraintKittySuitDesc,"Leather suit used on unruly initiates of the Bast cult."
+RestraintKittySuitDesc2,"It's nearly impossible to escape without help once locked inside."
 
 RestraintMysticDuctTapeHead,Blessed Wrappings (Head)
 RestraintMysticDuctTapeHeadDesc,"A band of magic embalming ribbon wrapped tight around your eyes."
@@ -2771,10 +2774,6 @@ KinkyDungeonSpellFlameStrike,Flame Blade
 KinkyDungeonSpellStrength,Enhance Power
 KinkyDungeonSpellDescriptionStrength,"When enabled: Struggling is more powerful, and attacks deal +2 crush damage"
 KinkyDungeonSpellStrengthStruggle,Your body glows with magical energy!
-
-KinkyDungeonSpellDexterity,Enhance Dexterity
-KinkyDungeonSpellDescriptionDexterity,"When enabled: Removing and unlocking are more powerful, and unarmed/slash/crush/pierce damage is increased by 1.3x"
-KinkyDungeonSpellStrengthDexterity,Your body glows with shimmering energy!
 
 KinkyDungeonSpellWillpower,Enhance Will
 KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
