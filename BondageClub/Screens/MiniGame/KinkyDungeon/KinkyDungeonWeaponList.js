@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * @type {Record<string, KinkyDungeonWeapon>}
+ * @type {Record<string, weapon>}
  */
 let KinkyDungeonWeapons = {
 	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},

@@ -32,9 +32,9 @@ let KinkyDungeonVulnerableDamageTypes = ["tickle"];
 
 // Weapons
 let KinkyDungeonPlayerWeapon = null;
-/** @type {KinkyDungeonWeapon} */
+/** @type {weapon} */
 let KinkyDungeonPlayerDamageDefault = {name: "", dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, rarity: 0, shop: false, sfx: "Unarmed"};
-/** @type {KinkyDungeonWeapon} */
+/** @type {weapon} */
 let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 
 let KinkyDungeonDamageTypes = [
@@ -63,7 +63,7 @@ let KinkyDungeonDamageTypes = [
 /**
  *
  * @param {item} item
- * @returns {KinkyDungeonWeapon}
+ * @returns {weapon}
  */
 function KDWeapon(item) {
 	return KinkyDungeonWeapons[item.name];

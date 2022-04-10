@@ -4,44 +4,45 @@ interface item {
 	name: string,
 	/** Type of the item*/
 	type?: string,
-	events?: KinkyDungeonEvent[],
 	/** Events associated with the item*/
 	//weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
 	//consumable?: any, /** Item consumable data, if applicable*/
-	quantity?: number,
+	events?: KinkyDungeonEvent[],
 	/** Number of consumables in the inventory*/
-	outfit?: any,
+	quantity?: number,
 	/** Outfit data, if applicable*/
+	outfit?: any,
 	//looserestraint?: any, /** Loose restraint data, if applicable*/
 	//restraint?: any, /** Which restraint the item is associated with*/
-	lock?: string,
 	/** Type of lock, Red, Blue, or Gold (potentially more in future)*/
-	tetherToLeasher?: boolean,
+	lock?: string,
 	/** Bool to describe if the item is tethered to the leashing enemy*/
-	tetherToGuard?: boolean,
+	tetherToLeasher?: boolean,
 	/** Bool to describe if the item is tethered to KinkyDungeonJailGuard()*/
+	tetherToGuard?: boolean,
+	/** Location of the tether*/
 	tx?: number,
 	/** Location of the tether*/
 	ty?: number,
-	/** Location of the tether*/
-	tetherLength?: number,
 	/** Length of the tether*/
-	lockTimer?: number,
+	tetherLength?: number,
 	/** Used for Gold locks only, determines which floor the lock will release*/
-	dynamicLink?: string[],
+	lockTimer?: number,
 	/** Stores a list of restraint names for the linked item system*/
-	oldLock?: string[],
+	dynamicLink?: string[],
 	/** Stores linked item locks*/
+	oldLock?: string[],
+	/** Stores linked item tightness*/
 	oldTightness?: number[],
 	/** Stores linked item tightness*/
 	oldEvents?: KinkyDungeonEvent[][],
-	/** Stores linked item tightness*/
-	battery?: number,
 	/** Vibrator battery level*/
-	cooldown?: number,
+	battery?: number,
 	/** Vibrator cooldown, won't restart vibrrating until this is 0. Ticks down each turn.*/
-	deny?: number,
+	cooldown?: number,
 	/** Vibrator deny timer, similar to cooldown but independent. Ticks down each turn.*/
+	deny?: number,
+	/** Escape progress tracking*/
 	pickProgress?: number,
 	/** Escape progress tracking*/
 	struggleProgress?: number,
@@ -51,12 +52,12 @@ interface item {
 	cutProgress?: number,
 	/** Escape progress tracking*/
 	unlockProgress?: number,
-	/** Escape progress tracking*/
-	attempts?: number,
 	/** Number of escape attempts, integer*/
-	tightness?: number,
+	attempts?: number,
 	/** Can be used to make an item tighter and harder to escape, reduces with each escape attempt*/
-	trap?: string, /** Determines the current trap attached to the restraint*/
+	tightness?: number,
+	/** Determines the current trap attached to the restraint*/
+	trap?: string,
 }
 
 interface consumable {
@@ -264,137 +265,269 @@ interface restraint {
 
 
 interface enemy {
-	name: string
-	tags: Map<string, boolean>
-	spellResist: number
-	allied?: boolean
-
-	lowpriority
-	evasion
-	armor
-	followRange
-	AI
-	regen
-	visionRadius,
-	maxhp,
-	minLevel,
-	weight,
-	movePoints,
-	attackPoints,
-	attack,
-	attackRange,
-	terrainTags,
-	floors,
-	noblockplayer,
-	triggersTraps,
-	keepLevel,
-	accuracy,
-	playerBlindSight,
-	attackWidth,
-	power,
-	dmgType,
-	bound,
-	color,
-	noCountLimit,
-	noTargetSilenced,
-	silenceTime,
-	spells,
-	spellCooldownMult,
-	spellCooldownMod,
-	kite,
-	playerFollowRange,
-	minSpellRange,
-	stopToCast,
-	spellRdy,
-	castWhileMoving,
-	noAttack,
-	disarm,
-	fullBoundBonus,
-	dropTable,
-	attackWhileMoving,
-	noSpellsLowSP,
-	damage,
-	rep,
-	clusterWith,
-	ignorechance,
-	difficulty,
-	projectileAttack,
-	buffallies,
-	stunTime,
-	specialCD,
-	specialAttack,
-	specialRemove,
-	specialPower,
-	specialDamage,
-	specialCDonAttack,
-	specialWidth,
-	specialRange,
-	shrines,
-	followLeashedOnly,
-	blindSight,
-	specialCharges,
-	strictAttackLOS,
-	specialAttackPoints,
-	specialMinrange,
-	stealth,
-	noReveal,
-	ambushRadius,
-	wanderTillSees,
-	kiteOnlyWhenDisabled,
-	bindOnKneelSpecial,
-	bindOnKneel,
-	hitsfx,
-	useLock,
-	tilesMinRange,
-	noKiteWhenHarmless,
-	noSpellsWhenHarmless,
-	ignoreStaminaForBinds,
-	sneakThreshold,
-	remote,
-	remoteAmount,
-	bypass,
-	multiBind,
-	noLeashUnlessExhausted,
-	ethereal,
-	alwaysEvade,
-	summonRage,
-	noAlert,
-	master,
-	pullTowardSelf,
-	pullDist,
-	summon,
-	sneakthreshold,
-	blockVisionWhileStationary,
-	squeeze,
-	suicideOnSpell,
-	suicideOnAdd,
-	specialsfx,
-	stunOnSpecialCD,
-	cohesion,
-	noSpellLeashing,
-	projectileTargeting,
-	ondeath,
-	blindTime,
-	tilesMinRangeSpecial,
-	convertTiles,
-	pullMsg,
-	dashThruWalls,
-	dashThrough,
-	cohesionRange,
-	kiteChance,
-	ignoreflag,
-	failAttackflag,
-	visionSummoned,
-	dependent,
-	nopickpocket,
-	attackThruBars,
-	noCancelAttack,
-	keys
+	name: string,
+	/** Tags, used for determining weaknesses, spawning, restraints applied, and rank*/
+	tags: Map<string, boolean>,
+	/** Spell resist, formula is spell damage taken = 1 / (1 + spell resist) */
+	spellResist?: number,
+	/** Whether or not the enemy is friendly to the player and attacks enemies */
+	allied?: boolean,
+	/** Enemies will prioritize this enemy less than other enemies. Used by allies only. */
+	lowpriority? : boolean,
+	/** Hit chance = 1 / (1 + evasion) */
+	evasion?: number,
+	/** */
+	armor?: number,
+	/** */
+	followRange?: number,
+	/** wander = wanders randomly
+	 * hunt = wanders, then follows the player
+	 * guard = follows a specific point
+	 * ambush = waits for the player to come near before becoming active
+	 * patrol = walks between predefined global points on the map
+	*/
+	AI?: string,
+	/** HP regen per turn*/
+	regen?: number,
+	/** */
+	visionRadius?: number,
+	/** Max enemy hp*/
+	maxhp?: number,
+	/** HP the enemy starts at */
+	startinghp?: number,
+	/** */
+	minLevel?: number,
+	/** */
+	weight?: number,
+	/** */
+	movePoints?: number,
+	/** */
+	attackPoints?: number,
+	/** String declaring what types of attacks this unit has */
+	attack?: string,
+	/** */
+	attackRange?: number,
+	/** */
+	terrainTags?: Record<string, number>,
+	/** */
+	floors?: Map<number, boolean>,
+	/** */
+	noblockplayer?: boolean,
+	/** */
+	triggersTraps?: boolean,
+	/** The enemy follows the player at the end of the level */
+	keepLevel?: boolean,
+	/** Boost to accuracy, 1 + (1 + accuracy)*/
+	accuracy?: number,
+	/** Blindsight toward the player but not other enemies. Mainly used by allies so they know where the player is. */
+	playerBlindSight?: number,
+	/** */
+	attackWidth?: number,
+	/** */
+	power?: number,
+	/** */
+	dmgType?: string,
+	/** */
+	bound?: string,
+	/** */
+	color?: string,
+	/** Does not count toward the player's permanent summmon limit */
+	noCountLimit?: boolean,
+	/** Does not target silenced enemies */
+	noTargetSilenced?: boolean,
+	/** */
+	silenceTime?: number,
+	/** List of spells*/
+	spells?: string[],
+	/** */
+	spellCooldownMult?: number,
+	/** */
+	spellCooldownMod?: number,
+	/** */
+	kite?: number,
+	/** */
+	playerFollowRange?: number,
+	/** */
+	minSpellRange?: number,
+	/** */
+	stopToCast?: boolean,
+	/** Shows a marker when the creature has a spell ready */
+	spellRdy?: boolean,
+	/** Casts while moving */
+	castWhileMoving?: boolean,
+	/** Enemy does not attack */
+	noAttack?: boolean,
+	/** Disarm counter increased by this fraction when attacked. When it reaches 1, the player's next attack will miss, otherweise it will reduce by this amount per turn */
+	disarm?: number,
+	/** Boost to power when target is not the player or when the enemy cant tie up the player */
+	fullBoundBonus?: number,
+	/** Loot*/
+	dropTable?: any[],
+	/** */
+	attackWhileMoving?: boolean,
+	/** Doesnt cast spells when the player is out of stamina */
+	noSpellsLowSP?: boolean,
+	/** Damage type */
+	damage?: string,
+	/** Rep changes on death */
+	rep?: Record<string, number>,
+	/** When generating clusters of enemies, the clustering units must have this tag*/
+	clusterWith?: string,
+	/** Chance to ignore the player if the enemy has an ignore tag like ignorenoSP */
+	ignorechance?: number,
+	/** The enemy count is incremented by this amount when the enemy is spawned during map gen*/
+	difficulty?: number,
+	/** The enemy will not attack if the path to the player is blocked, and will move closer*/
+	projectileAttack?: boolean,
+	/** The enemy will use 'buff' tagged spells on allies*/
+	buffallies?: boolean,
+	/** Special attack property*/
+	stunTime?: number,
+	/** Special attack property. Cooldown of the special attack.*/
+	specialCD?: number,
+	/** Special attack property. Added to the special attack in addition to the enemy's default attack*/
+	specialAttack?: string,
+	/** Special attack property. Removed these types from the main attack when special attacking.*/
+	specialRemove?: string,
+	/** Special attack property*/
+	specialPower?: number,
+	/** Special attack property*/
+	specialDamage?: string,
+	/** Special attack property. Special attack will go on CD when the enemy uses it, not when it hits*/
+	specialCDonAttack?: boolean,
+	/** Special attack property*/
+	specialWidth?: number,
+	/** Special attack property*/
+	specialRange?: number,
+	/** Which shrines the enemy is associated with*/
+	shrines?: string[],
+	/** */
+	followLeashedOnly?: boolean,
+	/** */
+	blindSight?: number,
+	/** */
+	specialCharges?: number,
+	/** */
+	strictAttackLOS?: boolean,
+	/** */
+	specialAttackPoints?: number,
+	/** */
+	specialMinrange?: number,
+	/** */
+	stealth?: number,
+	/** After being seen the enemy can go back into stealth if the player moves away*/
+	noReveal?: boolean,
+	/** */
+	ambushRadius?: number,
+	/** For AI = 'ambush', this enemy will wander until it sees the player and triggers the ambush. Mostly used for invisible enemies. */
+	wanderTillSees?: boolean,
+	/** For kiting enemies, this enemy moves in to attack Only When the player is Disabled. Used on enemies like the Maidforce stalker who stay away from the enemy but have powerful disabling effects like flash bombs*/
+	kiteOnlyWhenDisabled?: boolean,
+	/** The special attack only binds on kneeling players*/
+	bindOnKneelSpecial?: boolean,
+	/** The regular attack only binds on kneeling players*/
+	bindOnKneel?: boolean,
+	/** Sfx when an attack lands*/
+	hitsfx?: string,
+	/** All lockable restraints will use this lock*/
+	useLock?: string,
+	/** Minimum range for attack warning tiles, used to prevent high range enemies from attacking all around them*/
+	tilesMinRange?: number,
+	/** */
+	noKiteWhenHarmless?: boolean,
+	/** */
+	noSpellsWhenHarmless?: boolean,
+	/** */
+	ignoreStaminaForBinds?: boolean,
+	/** */
+	sneakThreshold?: number,
+	/** */
+	remote?: number,
+	/** */
+	remoteAmount?: number,
+	/** */
+	bypass?: boolean,
+	/** */
+	multiBind?: number,
+	/** */
+	noLeashUnlessExhausted?: boolean,
+	/** */
+	ethereal?: boolean,
+	/** */
+	alwaysEvade?: boolean,
+	/** */
+	summonRage?: boolean,
+	/** */
+	noAlert?: boolean,
+	/** The enemy will follow enemies defined by this block*/
+	master?: {type: string, range: number, loose?: boolean, aggressive?: boolean},
+	/** */
+	pullTowardSelf?: boolean,
+	/** */
+	pullDist?: number,
+	/** */
+	summon?: any[],
+	/** */
+	sneakthreshold?: number,
+	/** */
+	blockVisionWhileStationary?: boolean,
+	/** */
+	squeeze?: boolean,
+	/** */
+	suicideOnSpell?: boolean,
+	/** */
+	suicideOnAdd?: boolean,
+	/** */
+	specialsfx?: string,
+	/** Stuns the enemy when the special attack goes on CD without a hit */
+	stunOnSpecialCD?: number,
+	/** Dashes to the player even when a dash misses*/
+	dashOnMiss?: boolean,
+	/** */
+	cohesion?: number,
+	/** */
+	noSpellLeashing?: boolean,
+	/** */
+	projectileTargeting?: boolean,
+	/** */
+	ondeath?: any[],
+	/** */
+	blindTime?: number,
+	/** */
+	tilesMinRangeSpecial?: number,
+	/** */
+	convertTiles?: any[],
+	/** the enemy sends a special message when pulling the player */
+	pullMsg?: boolean,
+	/** */
+	dashThruWalls?: boolean,
+	/** */
+	dashThrough?: boolean,
+	/** */
+	cohesionRange?: number,
+	/** */
+	kiteChance?: number,
+	/** this enemy ignores the player when these flags are set*/
+	ignoreflag?: string[],
+	/** flags set when the player is hit but no binding occurs*/
+	failAttackflag?: string[],
+	/** */
+	visionSummoned?: number,
+	/** */
+	dependent?: boolean,
+	/** */
+	nopickpocket?: boolean,
+	/** */
+	attackThruBars?: boolean,
+	/** */
+	noCancelAttack?: boolean,
+	/** */
+	keys?: boolean,
 
 
 }
 
-interface KinkyDungeonShopItem {
+interface shopItem {
 	cost: any;
 	rarity: any;
 	costMod?: any;
@@ -404,7 +537,7 @@ interface KinkyDungeonShopItem {
 	name: any;
 }
 
-interface KinkyDungeonWeapon {
+interface weapon {
 	name: string;
 	dmg: number;
 	chance: number;

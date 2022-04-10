@@ -574,7 +574,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	 */
 	let data = {
 		struggleType: StruggleType,
-		escapeChance: restraintEscapeChancePre ? restraintEscapeChancePre : 1.0,
+		escapeChance: restraintEscapeChancePre != undefined ? restraintEscapeChancePre : 1.0,
 		origEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		restraintEscapeChance: restraintEscapeChancePre,
 		cost: KinkyDungeonStatStaminaCostStruggle,
@@ -644,7 +644,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	}
 
 
-
+	data.origEscapeChance = data.escapeChance;
 
 	let increasedAttempts = false;
 
@@ -660,13 +660,18 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 				if (KDWeapon(inv).cutBonus > maxBonus) maxBonus = KDWeapon(inv).cutBonus;
 			}
 			data.escapeChance += maxBonus;
+			data.origEscapeChance += maxBonus;
 		} else if (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.cutBonus) {
 			data.escapeChance += KinkyDungeonPlayerWeapon.cutBonus;
+			data.origEscapeChance += KinkyDungeonPlayerWeapon.cutBonus;
 		}
 
 		if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCuttingMinimum")) data.escapeChance = Math.max(data.escapeChance, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCuttingMinimum"));
 	}
-	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) data.escapeChance += KinkyDungeonEnchantedKnifeBonus;
+	if (StruggleType == "Cut" && KinkyDungeonEnchantedBlades > 0) {
+		data.escapeChance += KinkyDungeonEnchantedKnifeBonus;
+		data.origEscapeChance += KinkyDungeonEnchantedKnifeBonus;
+	}
 
 	let escapeSpeed = 1.0;
 
@@ -675,18 +680,23 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let armsBound = KinkyDungeonIsArmsBound(true);
 	if (StruggleType == "Remove" &&
 		(!handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0)
-		|| (struggleGroup.group == "ItemHands" && KinkyDungeonCanTalk() && !armsBound)))
+		|| (struggleGroup.group == "ItemHands" && KinkyDungeonCanTalk() && !armsBound))) {
 		data.escapeChance = Math.min(1, data.escapeChance + 0.15);
+		data.origEscapeChance = Math.min(1, data.escapeChance + 0.15);
+	}
 
 	// You can tug using unbound hands
 	if (StruggleType == "Struggle" &&
 		(!handsBound && !armsBound && struggleGroup.group != "ItemHands" && struggleGroup.group != "ItemArms")) {
 		escapeSpeed *= 1.4;
 		data.escapeChance = Math.min(1, data.escapeChance + 0.05);
+		data.origEscapeChance = Math.min(1, data.origEscapeChance + 0.05);
 	}
 
 
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.25);
+
+
 
 	if (data.escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;

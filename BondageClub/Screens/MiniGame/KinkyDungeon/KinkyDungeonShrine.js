@@ -31,7 +31,7 @@ let KinkyDungeonShrineBaseCostGrowth = {
 let KinkyDungeonGhostDecision = 0;
 
 /**
- * @type {KinkyDungeonShopItem[]}
+ * @type {shopItem[]}
  */
 let KinkyDungeonShopItems = [];
 let KinkyDungeonShopIndex = 0;

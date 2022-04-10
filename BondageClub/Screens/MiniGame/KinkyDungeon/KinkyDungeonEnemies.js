@@ -1141,7 +1141,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		let attackMult = Math.max(0, KDBoundEffects(enemy) - 1);
 		let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
 		let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KDGameData.KinkyDungeonLeashingEnemy == enemy.id) ? enemy.Enemy.movePoints+moveMult+1 : enemy.Enemy.attackPoints + attackMult;
-		if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, enemy.usingSpecial, refreshWarningTiles)) {
+		if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, enemy.usingSpecial, refreshWarningTiles, attack, MovableTiles)) {
 			if (enemy.warningTiles.length == 0 || (refreshWarningTiles && enemy.usingSpecial)) {
 				let minrange = enemy.Enemy.tilesMinRange ? enemy.Enemy.tilesMinRange : 1;
 				if (enemy.usingSpecial && enemy.Enemy.tilesMinRangeSpecial) minrange = enemy.Enemy.tilesMinRangeSpecial;
@@ -1168,10 +1168,16 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 					if (enemy.Enemy.specialRange && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
 						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+						if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
+							KDDash(enemy, player, MovableTiles);
+						}
 					}
 					if (enemy.Enemy.specialWidth && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
 						enemy.specialCD = enemy.Enemy.specialCD;
 						if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+						if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
+							KDDash(enemy, player, MovableTiles);
+						}
 					}
 				}
 			}
@@ -1434,47 +1440,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				let Dash = false;
 				let data = {};
 				if (attack.includes("Dash") && (enemy.Enemy.dashThruWalls || canSeePlayer)) {
-					// Check player neighbor tiles
-					let tiles = [];
-					for (let X = player.x-1; X <= player.x+1; X++)
-						for (let Y = player.y-1; Y <= player.y+1; Y++) {
-							let tile = KinkyDungeonMapGet(X, Y);
-							if ((X != 0 || Y != 0) && !(!KinkyDungeonNoEnemy(X, Y, true) || !MovableTiles.includes(tile) || (tile == 'D' && !enemy.Enemy.ethereal))) {
-								tiles.push({x:X, y:Y});
-							}
-						}
-					if (tiles.length > 0) {
-						let tile = tiles[Math.floor(KDRandom()*tiles.length)];
-						if (enemy.Enemy.dashThrough) {
-							let tiled = 0;
-							for (let t of tiles) {
-								let dist = Math.sqrt((enemy.x - t.x)*(enemy.x - t.x) + (enemy.y - t.y)*(enemy.y - t.y));
-								if (dist > tiled) {
-									tile = t;
-									tiled = dist;
-								}
-							}
-						} else {
-							let tiled = Math.sqrt((enemy.x - tile.x)*(enemy.x - tile.x) + (enemy.y - tile.y)*(enemy.y - tile.y));
-							for (let t of tiles) {
-								let dist = Math.sqrt((enemy.x - t.x)*(enemy.x - t.x) + (enemy.y - t.y)*(enemy.y - t.y));
-								if (dist < tiled) {
-									tile = t;
-									tiled = dist;
-								}
-							}
-						}
-						if (tile && (tile.x != player.x || tile.y != player.y) && (tile.x != KinkyDungeonPlayerEntity.x || tile.y != KinkyDungeonPlayerEntity.y) && MovableTiles.includes(KinkyDungeonMapGet(tile.x, tile.y))) {
-							Dash = true;
-							enemy.x = tile.x;
-							enemy.y = tile.y;
-							enemy.path = undefined;
-							happened += 1;
-							if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Dash")) {
-								enemy.specialCD = enemy.Enemy.specialCD;
-							}
-						}
-					}
+					let d = KDDash(enemy, player, MovableTiles);
+					Dash = d.Dash;
+					happened += d.happened;
 				}
 				if (attack.includes("Will") || willpowerDamage > 0) {
 					if (willpowerDamage == 0)
@@ -1623,6 +1591,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				let sfx = (enemy.Enemy && enemy.Enemy.misssfx) ? enemy.Enemy.misssfx : "Miss";
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 				enemy.vulnerable = 1;
+				if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
+					KDDash(enemy, player, MovableTiles);
+				}
 			}
 
 			KinkyDungeonTickBuffTag(enemy.buffs, "damage", 1);
@@ -1866,7 +1837,7 @@ function KinkyDungeonEnemyTryMove(enemy, Direction, delta, x, y) {
 	return false;
 }
 
-function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor, usingSpecial, refreshWarningTiles) {
+function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, replace, msgColor, usingSpecial, refreshWarningTiles, attack, MovableTiles) {
 	if (!enemy.Enemy.noCancelAttack && !refreshWarningTiles && points > 1) {
 		let playerIn = false;
 		for (let T = 0; T < Tiles.length; T++) {
@@ -1886,6 +1857,9 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 				enemy.warningTiles = [];
 				enemy.usingSpecial = false;
 				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+				if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
+					KDDash(enemy, player, MovableTiles);
+				}
 				return false;
 			}
 			if (enemy.Enemy.specialWidth && enemy.usingSpecial && enemy.Enemy.specialCDonAttack) {
@@ -1894,6 +1868,9 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 				enemy.warningTiles = [];
 				enemy.usingSpecial = false;
 				if (enemy.Enemy.stunOnSpecialCD) enemy.stun = enemy.Enemy.stunOnSpecialCD;
+				if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
+					KDDash(enemy, player, MovableTiles);
+				}
 				return false;
 			}
 		}
@@ -2013,4 +1990,51 @@ function KinkyDungeonFindID(id) {
 		if (e.id == id) return e;
 	}
 	return null;
+}
+
+function KDDash(enemy, player, MovableTiles) {
+	let happened = 0;
+	let Dash = false;
+	// Check player neighbor tiles
+	let tiles = [];
+	for (let X = player.x-1; X <= player.x+1; X++)
+		for (let Y = player.y-1; Y <= player.y+1; Y++) {
+			let tile = KinkyDungeonMapGet(X, Y);
+			if ((X != 0 || Y != 0) && !(!KinkyDungeonNoEnemy(X, Y, true) || !MovableTiles.includes(tile) || (tile == 'D' && !enemy.Enemy.ethereal))) {
+				tiles.push({x:X, y:Y});
+			}
+		}
+	if (tiles.length > 0) {
+		let tile = tiles[Math.floor(KDRandom()*tiles.length)];
+		if (enemy.Enemy.dashThrough) {
+			let tiled = 0;
+			for (let t of tiles) {
+				let dist = Math.sqrt((enemy.x - t.x)*(enemy.x - t.x) + (enemy.y - t.y)*(enemy.y - t.y));
+				if (dist > tiled) {
+					tile = t;
+					tiled = dist;
+				}
+			}
+		} else {
+			let tiled = Math.sqrt((enemy.x - tile.x)*(enemy.x - tile.x) + (enemy.y - tile.y)*(enemy.y - tile.y));
+			for (let t of tiles) {
+				let dist = Math.sqrt((enemy.x - t.x)*(enemy.x - t.x) + (enemy.y - t.y)*(enemy.y - t.y));
+				if (dist < tiled) {
+					tile = t;
+					tiled = dist;
+				}
+			}
+		}
+		if (tile && (tile.x != player.x || tile.y != player.y) && (tile.x != KinkyDungeonPlayerEntity.x || tile.y != KinkyDungeonPlayerEntity.y) && MovableTiles.includes(KinkyDungeonMapGet(tile.x, tile.y))) {
+			Dash = true;
+			enemy.x = tile.x;
+			enemy.y = tile.y;
+			enemy.path = undefined;
+			happened += 1;
+			if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Dash")) {
+				enemy.specialCD = enemy.Enemy.specialCD;
+			}
+		}
+	}
+	return {happened: happened, Dash: Dash};
 }

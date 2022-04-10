@@ -477,7 +477,7 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
  *
  * @param {string} Event
  * @param {KinkyDungeonEvent} e
- * @param {KinkyDungeonWeapon} weapon
+ * @param {weapon} weapon
  * @param {*} data
  */
 function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
