@@ -1538,6 +1538,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 						bound: bound,
 						damage: willpowerDamage,
 						damagetype: damage,
+						restraintsAdded: restraintAdd,
 					};
 					KinkyDungeonSendEvent("beforeDamage", data);
 					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});

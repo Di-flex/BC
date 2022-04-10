@@ -184,16 +184,27 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 		}
 	} else if (Event == "hit") {
 		if (e.type == "linkItem" && e.trigger == "hit" && (data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
-			let subMult = 1;
-			let chance = e.chance ? e.chance : 1.0;
-			if (e.subMult != undefined) {
-				let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
-				subMult = 1.0 + e.subMult * rep;
+			let added = false;
+			if (data.restraintsAdded) {
+				for (let r of data.restraintsAdded) {
+					if (r.name == item.name) {
+						added = true;
+						break;
+					}
+				}
 			}
-			if (item && KDRestraint(item).Link && (KDRandom() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
-				let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
-				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
-				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+			if (!added) {
+				let subMult = 1;
+				let chance = e.chance ? e.chance : 1.0;
+				if (e.subMult != undefined) {
+					let rep = (KinkyDungeonGoddessRep.Ghost + 50)/100;
+					subMult = 1.0 + e.subMult * rep;
+				}
+				if (item && KDRestraint(item).Link && (KDRandom() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
+					let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
+					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+				}
 			}
 		}
 	} else if (Event == "miss") {
