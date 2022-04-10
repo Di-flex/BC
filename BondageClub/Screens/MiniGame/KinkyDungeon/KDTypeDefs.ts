@@ -1,38 +1,62 @@
 /** Kinky Dungeon Typedefs*/
 interface item {
-     /** Name of the item*/
-    name: string,
-    /** Type of the item*/
-    type?: string,
-    events?: KinkyDungeonEvent[], /** Events associated with the item*/
-    //weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
-    //consumable?: any, /** Item consumable data, if applicable*/
-    quantity?: number, /** Number of consumables in the inventory*/
-    outfit?: any, /** Outfit data, if applicable*/
-    //looserestraint?: any, /** Loose restraint data, if applicable*/
-    //restraint?: any, /** Which restraint the item is associated with*/
-    lock?: string, /** Type of lock, Red, Blue, or Gold (potentially more in future)*/
-    tetherToLeasher?: boolean, /** Bool to describe if the item is tethered to the leashing enemy*/
-    tetherToGuard?: boolean, /** Bool to describe if the item is tethered to KinkyDungeonJailGuard()*/
-    tx?: number, /** Location of the tether*/
-    ty?: number, /** Location of the tether*/
-    tetherLength?: number, /** Length of the tether*/
-    lockTimer?: number, /** Used for Gold locks only, determines which floor the lock will release*/
-    dynamicLink?: string[], /** Stores a list of restraint names for the linked item system*/
-    oldLock?: string[], /** Stores linked item locks*/
-    oldTightness?: number[], /** Stores linked item tightness*/
-    oldEvents?: KinkyDungeonEvent[][], /** Stores linked item tightness*/
-    battery?: number, /** Vibrator battery level*/
-    cooldown?: number, /** Vibrator cooldown, won't restart vibrrating until this is 0. Ticks down each turn.*/
-    deny?: number, /** Vibrator deny timer, similar to cooldown but independent. Ticks down each turn.*/
-    pickProgress?: number, /** Escape progress tracking*/
-    struggleProgress?: number, /** Escape progress tracking*/
-    removeProgress?: number, /** Escape progress tracking*/
-    cutProgress?: number, /** Escape progress tracking*/
-    unlockProgress?: number, /** Escape progress tracking*/
-    attempts?: number, /** Number of escape attempts, integer*/
-    tightness?: number, /** Can be used to make an item tighter and harder to escape, reduces with each escape attempt*/
-    trap?: string, /** Determines the current trap attached to the restraint*/
+	/** Name of the item*/
+	name: string,
+	/** Type of the item*/
+	type?: string,
+	events?: KinkyDungeonEvent[],
+	/** Events associated with the item*/
+	//weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
+	//consumable?: any, /** Item consumable data, if applicable*/
+	quantity?: number,
+	/** Number of consumables in the inventory*/
+	outfit?: any,
+	/** Outfit data, if applicable*/
+	//looserestraint?: any, /** Loose restraint data, if applicable*/
+	//restraint?: any, /** Which restraint the item is associated with*/
+	lock?: string,
+	/** Type of lock, Red, Blue, or Gold (potentially more in future)*/
+	tetherToLeasher?: boolean,
+	/** Bool to describe if the item is tethered to the leashing enemy*/
+	tetherToGuard?: boolean,
+	/** Bool to describe if the item is tethered to KinkyDungeonJailGuard()*/
+	tx?: number,
+	/** Location of the tether*/
+	ty?: number,
+	/** Location of the tether*/
+	tetherLength?: number,
+	/** Length of the tether*/
+	lockTimer?: number,
+	/** Used for Gold locks only, determines which floor the lock will release*/
+	dynamicLink?: string[],
+	/** Stores a list of restraint names for the linked item system*/
+	oldLock?: string[],
+	/** Stores linked item locks*/
+	oldTightness?: number[],
+	/** Stores linked item tightness*/
+	oldEvents?: KinkyDungeonEvent[][],
+	/** Stores linked item tightness*/
+	battery?: number,
+	/** Vibrator battery level*/
+	cooldown?: number,
+	/** Vibrator cooldown, won't restart vibrrating until this is 0. Ticks down each turn.*/
+	deny?: number,
+	/** Vibrator deny timer, similar to cooldown but independent. Ticks down each turn.*/
+	pickProgress?: number,
+	/** Escape progress tracking*/
+	struggleProgress?: number,
+	/** Escape progress tracking*/
+	removeProgress?: number,
+	/** Escape progress tracking*/
+	cutProgress?: number,
+	/** Escape progress tracking*/
+	unlockProgress?: number,
+	/** Escape progress tracking*/
+	attempts?: number,
+	/** Number of escape attempts, integer*/
+	tightness?: number,
+	/** Can be used to make an item tighter and harder to escape, reduces with each escape attempt*/
+	trap?: string, /** Determines the current trap attached to the restraint*/
 }
 
 interface consumable {
@@ -239,6 +263,137 @@ interface restraint {
 }
 
 
+interface enemy {
+	name: string
+	tags: Map<string, boolean>
+	spellResist: number
+	allied?: boolean
+
+	lowpriority
+	evasion
+	armor
+	followRange
+	AI
+	regen
+	visionRadius,
+	maxhp,
+	minLevel,
+	weight,
+	movePoints,
+	attackPoints,
+	attack,
+	attackRange,
+	terrainTags,
+	floors,
+	noblockplayer,
+	triggersTraps,
+	keepLevel,
+	accuracy,
+	playerBlindSight,
+	attackWidth,
+	power,
+	dmgType,
+	bound,
+	color,
+	noCountLimit,
+	noTargetSilenced,
+	silenceTime,
+	spells,
+	spellCooldownMult,
+	spellCooldownMod,
+	kite,
+	playerFollowRange,
+	minSpellRange,
+	stopToCast,
+	spellRdy,
+	castWhileMoving,
+	noAttack,
+	disarm,
+	fullBoundBonus,
+	dropTable,
+	attackWhileMoving,
+	noSpellsLowSP,
+	damage,
+	rep,
+	clusterWith,
+	ignorechance,
+	difficulty,
+	projectileAttack,
+	buffallies,
+	stunTime,
+	specialCD,
+	specialAttack,
+	specialRemove,
+	specialPower,
+	specialDamage,
+	specialCDonAttack,
+	specialWidth,
+	specialRange,
+	shrines,
+	followLeashedOnly,
+	blindSight,
+	specialCharges,
+	strictAttackLOS,
+	specialAttackPoints,
+	specialMinrange,
+	stealth,
+	noReveal,
+	ambushRadius,
+	wanderTillSees,
+	kiteOnlyWhenDisabled,
+	bindOnKneelSpecial,
+	bindOnKneel,
+	hitsfx,
+	useLock,
+	tilesMinRange,
+	noKiteWhenHarmless,
+	noSpellsWhenHarmless,
+	ignoreStaminaForBinds,
+	sneakThreshold,
+	remote,
+	remoteAmount,
+	bypass,
+	multiBind,
+	noLeashUnlessExhausted,
+	ethereal,
+	alwaysEvade,
+	summonRage,
+	noAlert,
+	master,
+	pullTowardSelf,
+	pullDist,
+	summon,
+	sneakthreshold,
+	blockVisionWhileStationary,
+	squeeze,
+	suicideOnSpell,
+	suicideOnAdd,
+	specialsfx,
+	stunOnSpecialCD,
+	cohesion,
+	noSpellLeashing,
+	projectileTargeting,
+	ondeath,
+	blindTime,
+	tilesMinRangeSpecial,
+	convertTiles,
+	pullMsg,
+	dashThruWalls,
+	dashThrough,
+	cohesionRange,
+	kiteChance,
+	ignoreflag,
+	failAttackflag,
+	visionSummoned,
+	dependent,
+	nopickpocket,
+	attackThruBars,
+	noCancelAttack,
+	keys
+
+
+}
+
 interface KinkyDungeonShopItem {
 	cost: any;
 	rarity: any;
@@ -269,7 +424,7 @@ interface KinkyDungeonWeapon {
 	noequip?: boolean;
 	sfx: string;
 	events?: KinkyDungeonEvent[];
-    noHands?: boolean;
+	noHands?: boolean;
 	silent?: boolean;
 }
 
@@ -291,14 +446,14 @@ interface KinkyDungeonEvent {
 	msg?: string;
 	/** Type of struggle that this event triggers on */
 	StruggleType?: string;
-    requireEnergy?: boolean;
+	requireEnergy?: boolean;
 	/** Limit of whatever thius event modifies */
 	limit?: number
-    energyCost?: number;
+	energyCost?: number;
 	/** The event gets copied to any restraint if the item is linked */
 	inheritLinked?: boolean;
 	/** Spell to cast at the target */
-    spell?: string;
+	spell?: string;
 	/** Chance to trigger is 1+(submissive % * subMult)*/
 	subMult?: number;
 	/** Won't trigger while being leashed */
@@ -332,27 +487,27 @@ type KinkyDungeonDress = {
 
 interface KinkyDungeonSave {
 	level: number;
-    checkpoint: number;
-    rep: Record<string, number>;
-    costs: Record<string, number>;
-    pcosts: Record<string, number>;
-    orbs: number[];
-    chests: number[];
-    dress: string;
-    gold: number;
-    points: number;
-    levels: {
-        Elements: number;
-        Conjure: number;
-        Illusion: number;
-    };
+	checkpoint: number;
+	rep: Record<string, number>;
+	costs: Record<string, number>;
+	pcosts: Record<string, number>;
+	orbs: number[];
+	chests: number[];
+	dress: string;
+	gold: number;
+	points: number;
+	levels: {
+		Elements: number;
+		Conjure: number;
+		Illusion: number;
+	};
 	rescued: Record<string, boolean>;
 	aid: Record<string, boolean>;
 	seed: string;
 	statchoice: [string, boolean][];
 	mapIndex: number[];
-    id: number;
-    choices: number[];
+	id: number;
+	choices: number[];
 	choices2: boolean[];
 	buffs: Record<string, any>;
 	lostitems: any[];
