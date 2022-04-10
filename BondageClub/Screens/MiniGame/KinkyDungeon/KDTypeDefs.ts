@@ -1,7 +1,7 @@
 /** Kinky Dungeon Typedefs*/
 interface item {
      /** Name of the item*/
-    name?: string,
+    name: string,
     /** Type of the item*/
     type?: string,
     events?: KinkyDungeonEvent[], /** Events associated with the item*/

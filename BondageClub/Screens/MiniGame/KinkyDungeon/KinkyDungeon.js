@@ -1460,12 +1460,11 @@ function KinkyDungeonGenerateSaveData() {
 	save.mapIndex = KinkyDungeonMapIndex;
 
 	let spells = [];
+	/**@type {item[]} */
 	let newInv = [];
 
 	for (let inv of KinkyDungeonFullInventory()) {
-		/** @type {item} */
-		let item = {};
-		Object.assign(item, inv);
+		let item = Object.assign({}, inv);
 		newInv.push(item);
 	}
 
