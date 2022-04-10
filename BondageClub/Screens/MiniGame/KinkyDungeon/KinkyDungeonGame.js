@@ -162,20 +162,6 @@ function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
 		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
-	let saveData = KinkyDungeonSaveGame(true);
-	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && MiniGameKinkyDungeonCheckpoint < 11)) {
-		KDGameData.KinkyDungeonSpawnJailers = 0;
-		KDGameData.KinkyDungeonSpawnJailersMax = 0;
-		if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {
-			KinkyDungeonState = "Save";
-			ElementCreateTextArea("saveDataField");
-			ElementValue("saveDataField", saveData);
-		}
-	}
-	if (AutoSave) {
-		KinkyDungeonSaveGame();
-	}
-
 }
 
 function KinkyDungeonNewGamePlus() {

@@ -62,6 +62,17 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 
 		if (KinkyDungeonState != "End") {
 			KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+			let saveData = KinkyDungeonSaveGame(true);
+			if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && MiniGameKinkyDungeonCheckpoint < 11)) {
+				KDGameData.KinkyDungeonSpawnJailers = 0;
+				KDGameData.KinkyDungeonSpawnJailersMax = 0;
+				if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {
+					KinkyDungeonState = "Save";
+					ElementCreateTextArea("saveDataField");
+					ElementValue("saveDataField", saveData);
+				}
+			}
+			KinkyDungeonSaveGame();
 			KDSendStatus('nextLevel');
 		} else {
 			KDSendStatus('end');
