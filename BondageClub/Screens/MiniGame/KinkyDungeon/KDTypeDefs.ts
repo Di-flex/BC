@@ -460,7 +460,7 @@ interface enemy {
 	/** */
 	noAlert?: boolean,
 	/** The enemy will follow enemies defined by this block*/
-	master?: {type: string, range: number, loose?: boolean, aggressive?: boolean},
+	master?: {type: string, range: number, loose?: boolean, aggressive?: boolean, dependent?: boolean},
 	/** */
 	pullTowardSelf?: boolean,
 	/** */
@@ -523,6 +523,12 @@ interface enemy {
 	noCancelAttack?: boolean,
 	/** */
 	keys?: boolean,
+	/** If this enemy is always enraged */
+	rage?: boolean,
+	/** Starting lifetime of enemy*/
+	lifespan?: number,
+	/** This enemy cant be swapped */
+	noDisplace?: boolean,
 
 
 }
@@ -608,6 +614,55 @@ interface KinkyDungeonEvent {
 	prevSlowLevel?: number;
 }
 
+interface entity {
+	Enemy: enemy,
+	id?: number,
+	hp: number,
+	AI?: string,
+	summoned?: boolean,
+	boundLevel?: number,
+	lifetime?: number,
+	maxlifetime?: number,
+	attackPoints?: number,
+	movePoints?: number,
+	aware?: boolean,
+	vp?: number,
+	tracking?: boolean,
+	revealed?: boolean,
+	ambushtrigger?: boolean,
+	castCooldown?: number,
+	castCooldownSpecial?: number,
+	specialCharges?: number,
+	usingSpecial?: boolean,
+	specialCD?: number,
+	disarmflag?: number,
+	channel?: number,
+	picks?: number,
+	knives?: number,
+	x: number,
+	y: number,
+	fx?: number,
+	fy?: number,
+	path?: {x: number, y: number}[],
+	gx?: number,
+	gy?: number,
+	gxx?: number,
+	gyy?: number,
+	rage?: number,
+	bind?: number,
+	blind?: number,
+	slow?: number,
+	freeze?: number,
+	stun?: number,
+	silence?: number,
+	vulnerable?: number,
+	buffs?: any,
+	warningTiles?: any,
+	visual_x?: number,
+	visual_y?: number,
+	Analyze?: boolean,
+}
+
 type KinkyDungeonDress = {
 	Item: string;
 	Group: string;
@@ -663,3 +718,4 @@ interface KinkyDungeonSave {
 		diff: number;
 	};
 }
+
