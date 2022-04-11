@@ -268,7 +268,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		// Handle leash touring or end it if the player is not jailed
 		if (KinkyDungeonJailGuard().CurrentAction === "jailLeashTour" && KDGameData.PrisonerState == 'jail') {
 			KinkyDungeonHandleLeashTour(xx, yy, playerInCell);
-		} else if (KDGameData.PrisonerState == 'jail') {
+		} else if (KDGameData.PrisonerState != 'jail') {
 			KinkyDungeonJailGuard().CurrentAction = "jailWander";
 			KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;
 			KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
