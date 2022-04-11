@@ -135,7 +135,7 @@ let KinkyDungeonEnemies = [
 	{name: "Ghost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", hitsfx: "Tickle",
 		visionRadius: 10, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], floors:KDMapInit([0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20])},
-	{name: "OrbGuardian", clusterWith: "ghost", tags: KDMapInit(["divine", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+	{name: "OrbGuardian", alwaysHostile: true, clusterWith: "ghost", tags: KDMapInit(["divine", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["ShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 100, blindSight: 100, evasion: 0.5, alwaysEvade: true, maxhp: 12, minLevel:0, weight:-10, movePoints: 2, attackPoints: 1, attack: "Spell", attackWidth: 3,
 		attackRange: 1, power: 4, dmgType: "cold", fullBoundBonus: 0,

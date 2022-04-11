@@ -479,6 +479,8 @@ interface enemy {
 	suicideOnAdd?: boolean,
 	/** */
 	suicideOnLock?: boolean,
+	/** Hostile even on parole */
+	alwaysHostile?: boolean,
 	/** */
 	specialsfx?: string,
 	/** Stuns the enemy when the special attack goes on CD without a hit */

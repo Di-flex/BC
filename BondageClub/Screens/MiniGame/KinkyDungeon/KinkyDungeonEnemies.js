@@ -855,7 +855,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				if (KinkyDungeonFlags[f]) ignore = true;
 			}
 		}
-		if (!KinkyDungeonHostile() && !(enemy.rage > 0)) ignore = true;
+		if (!KinkyDungeonHostile() && !(enemy.rage > 0) && !enemy.Enemy.alwaysHostile) ignore = true;
 	}
 
 	let MovableTiles = KinkyDungeonMovableTilesEnemy;
@@ -945,7 +945,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	if (enemy.Enemy.projectileAttack && (!canShootPlayer || !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) followRange = 1;
 
-	if (!KinkyDungeonHostile() && !(enemy.rage > 0) && canSeePlayer && player.player
+	if (!KinkyDungeonHostile() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && canSeePlayer && player.player
 		&& ((KinkyDungeonPlayer.CanInteract() || (KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle"))
 			|| !KinkyDungeonPlayerInCell())
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
@@ -965,7 +965,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (KDGameData.JailKey) chance += 0.15;
 	if (playerDist < 1.5) chance += 0.13;
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
-	if (KinkyDungeonCanPlay() && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
+	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
 		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
 		let index = Math.floor(Math.random() * 3);
