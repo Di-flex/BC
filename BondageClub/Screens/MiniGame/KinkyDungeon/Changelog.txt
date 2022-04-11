@@ -775,6 +775,7 @@ Spell Balance:
 3.1
 - New system for being released after spending time in jail, enemies treat you as a prisoner and will play with you. You need to find a key to open the jail but it gets locked if enemies play with you
 - Removed multiplayer streaming in BC (too much bugs)
+- Stone Skin duration up to 50 turns from 40, mana cost 6 from 8
 
 TODO ValidationFindBlockCycles to prevent bugs
 
