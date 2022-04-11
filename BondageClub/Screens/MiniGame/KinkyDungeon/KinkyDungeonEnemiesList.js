@@ -548,11 +548,11 @@ let KinkyDungeonEnemies = [
 		visionRadius: 4, maxhp: 14, minLevel:0, weight:25, movePoints: 99999, attackPoints: 4, attack: "Spell", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {"passage": -999, "temple": 72, "open": 15}, floors:KDMapInit([3]), shrines: []},
 
-	{name: "SoulCrystal", clusterWith: "chaos", color: "#880000", hitsfx: "MagicSlash", tags: KDMapInit(["crystal", "chaos", "minor", "unstoppable", "ranged", "crushweakness", "jail"]), spellResist: 0.33, sneakThreshold: 0.01,
+	{name: "SoulCrystal", clusterWith: "chaos", color: "#880000", hitsfx: "MagicSlash", tags: KDMapInit(["crystal", "chaos", "minor", "unstoppable", "ranged", "crushweakness"]), spellResist: 0.33, sneakThreshold: 0.01,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "wander",
 		visionRadius: 100, maxhp: 30, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 4, attack: "MeleeWill", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {"passage": -999, "temple": 20, "open": 125}, floors:KDMapInit([3]), shrines: ["Conjure"]},
-	{name: "SoulCrystalActive", clusterWith: "chaos", color: "#880000", hitsfx: "MagicSlash", tags: KDMapInit(["crystal", "chaos", "unstoppable", "miniboss", "ranged", "crushweakness", "jail"]), spellResist: 0.33,
+	{name: "SoulCrystalActive", clusterWith: "chaos", color: "#880000", hitsfx: "MagicSlash", tags: KDMapInit(["crystal", "chaos", "unstoppable", "miniboss", "ranged", "crushweakness"]), spellResist: 0.33,
 		evasion: -9, ignorechance: 1.0, armor: 2, followRange: 1, AI: "wander",
 		spells: ["SoulCrystalBind"], spellCooldownMult: 1, spellCooldownMod: 0, followLeashedOnly: true, stopToCast: true, castWhileMoving: true, sneakThreshold: 0.01,
 		visionRadius: 100, maxhp: 30, minLevel:0, weight:-99, movePoints: 99999, attackPoints: 4, attack: "SpellMeleeWill", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
