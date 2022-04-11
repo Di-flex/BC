@@ -697,7 +697,7 @@ function KDSendStatus(type, data, data2) {
 			'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 			'traitscount':KinkyDungeonGetTraitsCount(),
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
-			'spell': type == 'learnspell' ? data : undefined,
+			'spellType': type == 'learnspell' ? data : undefined,
 			'goddess': type == 'goddess' ? data : undefined,
 			'helpType': type == 'goddess' ? data2 : undefined,
 			'restraint': (type == 'escape' || type == 'bound') ? data : undefined,
