@@ -29,7 +29,7 @@ function KinkyDungeonLoseJailKeys(Taken) {
 function KinkyDungeonPlayerIsVisibleToJailers() {
 	for (let enemy of KinkyDungeonEntities) {
 		if (!enemy.Enemy.allied && !enemy.rage && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer'))
-			&& KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, false)) {
+			&& KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, true)) {
 			return true;
 		}
 	}
