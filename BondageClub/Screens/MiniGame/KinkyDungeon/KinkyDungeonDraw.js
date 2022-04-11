@@ -153,7 +153,7 @@ function KinkyDungeonDrawGame() {
 						if (RY >= 0 && RY < KinkyDungeonGridHeight && RX >= 0 && RX < KinkyDungeonGridWidth) {
 							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
-							let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonTilesSkin.get(RX + "," + RY).skin : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
+							let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonMapIndex[KinkyDungeonTilesSkin.get(RX + "," + RY).skin] : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
 
 							if (KinkyDungeonForceRender) {
 								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0);

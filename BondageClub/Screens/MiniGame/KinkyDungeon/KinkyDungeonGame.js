@@ -121,6 +121,7 @@ let KinkyDungeonLastMoveTimerCooldownStart = 50;
 let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
 let KinkyDungeonEndPosition = {x: 1, y: 1};
+let KinkyDungeonShortcutPosition = null;
 let KinkyDungeonJailLeash = 3;
 let KinkyDungeonJailLeashX = 3;
 let KinkyDungeonOrbsPlaced = [];
@@ -228,6 +229,7 @@ function KinkyDungeonInitialize(Level, Load) {
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonSpecialAreas = [];
+	KinkyDungeonShortcutPosition = null;
 	KinkyDungeonRescued = {};
 	KDGameData.ChampionCurrent = 0;
 	KinkyDungeonAid = {};
@@ -1095,6 +1097,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 'H');
+					KinkyDungeonShortcutPosition = {x:X, y:Y};
 					xx = X;
 					yy = Y;
 					L = 0;
@@ -1114,6 +1117,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 					placed = true;
 					xx = X;
 					yy = Y;
+					KinkyDungeonShortcutPosition = {x:X, y:Y};
 				}
 			}
 
