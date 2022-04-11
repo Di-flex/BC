@@ -951,7 +951,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
 		if (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail")) {
 			KinkyDungeonAggroAction((KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle") ? 'struggle' : 'jailbreak', {enemy: enemy});
-			if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && KDRandom() < 0.25 && (!KinkyDungeonIsArmsBound() || !KinkyDungeonIsHandsBound())) {
+			if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && KDRandom() < 0.4 && (!KinkyDungeonIsArmsBound() || !KinkyDungeonIsHandsBound())) {
 				enemy.playWithPlayer = 17;
 				enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
 				let index = Math.floor(Math.random() * 3);
