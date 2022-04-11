@@ -92,8 +92,8 @@ function KinkyDungeonAggroAction(action, data) {
 
 		// Struggling only makes them angry if you are a prisoner and the guard is present
 		case 'struggle':
-			if (KDGameData.PrisonerState == "jail" && KinkyDungeonJailGuard())
-				KDGameData.PrisonerState = "";
+			//if (KDGameData.PrisonerState == "jail" && KinkyDungeonJailGuard())
+			// KDGameData.PrisonerState = "";
 			break;
 
 		// Roaming free only makes them angry if you are a prisoner
