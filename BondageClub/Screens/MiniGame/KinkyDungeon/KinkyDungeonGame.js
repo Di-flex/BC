@@ -453,7 +453,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		}
 	}
 
-	if (KDGameData.PrisonerState == 'jail') {
+	if (KDGameData.PrisonerState == 'jail' && seed) {
 		// The above condition is the condition to start in jail
 		// We move the player to the jail after generating one
 		let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
