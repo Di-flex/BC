@@ -610,7 +610,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 4, maxhp: 1, evasion: 0.5, minLevel:0, weight:4, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "pain",
 		terrainTags: {"rubble":20, "increasingWeight":-5}, floors:KDMapInit([2])},
 
-	{name: "Apprentice", color: "#9563ff", bound: "Witch", tags: KDMapInit(["leashing", "opendoors", "binding", "human", "closedoors", "apprentice", "ranged", "glueweakness", "chainweakness", "tickleweakness", "search"]), followRange: 2,
+	{name: "Apprentice", color: "#9563ff", spellWhileParole: true, bound: "Witch", tags: KDMapInit(["leashing", "opendoors", "binding", "human", "closedoors", "apprentice", "ranged", "glueweakness", "chainweakness", "tickleweakness", "search"]), followRange: 2,
 		castWhileMoving: true, spells: ["RopeEngulfWeak"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 1.0, cohesion: 1.0, followLeashedOnly: true,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 5, maxhp: 8, minLevel:2, weight:7, movePoints: 2, attackPoints: 2, attack: "Spell", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":3, "lastthird":3, "increasingWeight": -1}, floors:KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrines: ["Elements"],
