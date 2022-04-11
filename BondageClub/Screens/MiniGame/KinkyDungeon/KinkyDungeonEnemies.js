@@ -962,6 +962,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		ignore = !KinkyDungeonHostile();
 	}
 	let chance = 0.5;
+	if (KDGameData.JailKey) chance += 0.15;
 	if (playerDist < 1.5) chance += 0.13;
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
 	if (KinkyDungeonCanPlay() && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
