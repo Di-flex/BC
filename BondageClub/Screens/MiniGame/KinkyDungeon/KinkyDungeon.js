@@ -456,7 +456,7 @@ function KinkyDungeonRun() {
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
 		DrawButton(1700, 930, 150, 64, TextGet("KinkyDungeonPatrons"), "White", "");
 		DrawButton(850, 930, 375, 64, TextGet("KinkyDungeonDeviantart"), "White", "");
-		DrawButton(1275, 930, 375, 64, TextGet("KinkyDungeonPatreon"), "White", "");
+		DrawButton(1275, 930, 375, 64, TextGet("KinkyDungeonPatreon"), "#ffeecc", "");
 	} else if (KinkyDungeonState == "Consent") {
 		MainCanvas.textAlign = "center";
 		// Draw temp start screen
