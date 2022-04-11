@@ -945,7 +945,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	if (enemy.Enemy.projectileAttack && (!canShootPlayer || !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) followRange = 1;
 
-	if (!KinkyDungeonHostile() && canSeePlayer
+	if (!KinkyDungeonHostile() && canSeePlayer && player.player
 		&& ((KinkyDungeonPlayer.CanInteract() || (KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle"))
 			|| !KinkyDungeonPlayerInCell())
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
@@ -964,7 +964,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let chance = 0.5;
 	if (playerDist < 1.5) chance += 0.13;
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
-	if (KinkyDungeonCanPlay() && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
+	if (KinkyDungeonCanPlay() && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
 		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
 		let index = Math.floor(Math.random() * 3);
@@ -972,7 +972,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
 	}
 
-	if (!KinkyDungeonHostile() && enemy.playWithPlayer) ignore = false;
+	if (!KinkyDungeonHostile() && player.player && enemy.playWithPlayer) ignore = false;
 
 	let sneakMult = 0.25;
 	if (canSeePlayerMedium) sneakMult += 0.45;
