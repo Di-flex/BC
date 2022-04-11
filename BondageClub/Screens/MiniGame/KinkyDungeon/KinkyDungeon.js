@@ -98,6 +98,10 @@ let KDOptOut = false;
 * AlreadyOpened: {x: number, y:number}[],
 * Journey: string,
 * CheckpointIndices: number[],
+* PrisonerState: string,
+* TimesJailed: number,
+* JailTurns: number,
+* JailKey: boolean,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -113,8 +117,8 @@ let KDGameDataBase = {
 	KinkyDungeonGuardTimer: 0,
 	KinkyDungeonGuardTimerMax: 22,
 	KinkyDungeonGuardSpawnTimer: 0,
-	KinkyDungeonGuardSpawnTimerMax: 30,
-	KinkyDungeonGuardSpawnTimerMin: 10,
+	KinkyDungeonGuardSpawnTimerMax: 40,
+	KinkyDungeonGuardSpawnTimerMin: 25,
 	KinkyDungeonMaxPrisonReduction: 10,
 	KinkyDungeonPrisonReduction: 0,
 	KinkyDungeonPrisonExtraGhostRep: 0,
@@ -159,6 +163,14 @@ let KDGameDataBase = {
 	AlreadyOpened: [],
 	Journey: "",
 	CheckpointIndices: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+
+	// "" = not a prisoner
+	// "jail" = must remain in cell
+	// "parole" = can roam but not allowed to take most actions
+	PrisonerState: "",
+	TimesJailed: 0,
+	JailTurns: 0,
+	JailKey: true,
 };
 /**
  * @type {KDGameDataBase}
@@ -529,7 +541,7 @@ function KinkyDungeonRun() {
 		if (KDGameData.SleepTurns > 0) {
 			if (CommonTime() > KinkyDungeonSleepTime) {
 				KDGameData.SleepTurns -= 1;
-				if (KinkyDungeonJailTransgressed)
+				if (KinkyDungeonHostile())
 					KinkyDungeonTotalSleepTurns += 1;
 				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 					KDGameData.SleepTurns = 0;
@@ -692,12 +704,12 @@ function KDSendStatus(type, data, data2) {
 			'currentLevel':MiniGameKinkyDungeonLevel,
 			'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 			'difficulty':KinkyDungeonDifficultyMode,
-			'newgameplus':KinkyDungeonNewGamePlus,
+			'newgameplus':KinkyDungeonNewGame,
 			'statusType':type,
 			'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 			'traitscount':KinkyDungeonGetTraitsCount(),
 			'gold':Math.round(KinkyDungeonGold / 100) * 100,
-			'spell': type == 'learnspell' ? data : undefined,
+			'spellType': type == 'learnspell' ? data : undefined,
 			'goddess': type == 'goddess' ? data : undefined,
 			'helpType': type == 'goddess' ? data2 : undefined,
 			'restraint': (type == 'escape' || type == 'bound') ? data : undefined,
@@ -734,7 +746,7 @@ function KDSendEvent(type) {
 				'alreadyInJail':KinkyDungeonInJail() ? 'true' : 'false',
 				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 				'difficulty':KinkyDungeonDifficultyMode,
-				'newgameplus':KinkyDungeonNewGamePlus,
+				'newgameplus':KinkyDungeonNewGame,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
@@ -747,7 +759,7 @@ function KDSendEvent(type) {
 				'currentLevel':MiniGameKinkyDungeonLevel,
 				'currentCheckpoint':MiniGameKinkyDungeonCheckpoint,
 				'difficulty':KinkyDungeonDifficultyMode,
-				'newgameplus':KinkyDungeonNewGamePlus,
+				'newgameplus':KinkyDungeonNewGame,
 				'aroused':KinkyDungeonStatsChoice.get("arousalMode") ? 'yes' : 'no',
 				'traitscount':KinkyDungeonGetTraitsCount(),
 				'gold':Math.round(KinkyDungeonGold / 100) * 100,
@@ -1460,12 +1472,11 @@ function KinkyDungeonGenerateSaveData() {
 	save.mapIndex = KinkyDungeonMapIndex;
 
 	let spells = [];
+	/**@type {item[]} */
 	let newInv = [];
 
 	for (let inv of KinkyDungeonFullInventory()) {
-		/** @type {item} */
-		let item = {};
-		Object.assign(item, inv);
+		let item = Object.assign({}, inv);
 		newInv.push(item);
 	}
 

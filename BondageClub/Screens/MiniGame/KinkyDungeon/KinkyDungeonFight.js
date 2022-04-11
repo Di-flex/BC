@@ -32,9 +32,9 @@ let KinkyDungeonVulnerableDamageTypes = ["tickle"];
 
 // Weapons
 let KinkyDungeonPlayerWeapon = null;
-/** @type {KinkyDungeonWeapon} */
+/** @type {weapon} */
 let KinkyDungeonPlayerDamageDefault = {name: "", dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, rarity: 0, shop: false, sfx: "Unarmed"};
-/** @type {KinkyDungeonWeapon} */
+/** @type {weapon} */
 let KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;
 
 let KinkyDungeonDamageTypes = [
@@ -63,7 +63,7 @@ let KinkyDungeonDamageTypes = [
 /**
  *
  * @param {item} item
- * @returns {KinkyDungeonWeapon}
+ * @returns {weapon}
  */
 function KDWeapon(item) {
 	return KinkyDungeonWeapons[item.name];
@@ -174,19 +174,19 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	return hitChance;
 }
 
-function KinkyDungeonAggro(Enemy) {
-	if (Enemy && Enemy.Enemy ) {
+function KinkyDungeonAggro(Enemy, Spell, Attacker) {
+	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
 		if (Enemy.Enemy.name == "Angel") {
 			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
 		} else { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
-			KinkyDungeonJailTransgressed = true;
+			KinkyDungeonAggroAction('attack', {enemy: Enemy});
 		}
 	}
 }
 
-function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
+function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
 	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
@@ -194,7 +194,7 @@ function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
-	KinkyDungeonAggro(Enemy);
+	KinkyDungeonAggro(Enemy, undefined, Attacker);
 
 	if (KDRandom() < hitChance + KinkyDungeonEvasionPityModifier) {
 		KinkyDungeonEvasionPityModifier = 0; // Reset the pity timer
@@ -262,7 +262,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		predata.dmg *= KDStealthyDamageMult;
 	}
 
-	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type)));
+	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type)), attacker);
 	if (Damage && !miss) {
 		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
 			predata.dmg *= KDPacifistReduction;
@@ -461,7 +461,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	KinkyDungeonAggro(Enemy);
+	KinkyDungeonAggro(Enemy, Spell, attacker);
 
 	if (predata.dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
@@ -528,7 +528,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 			disarm = true;
 		}
 	}
-	let evaded = KinkyDungeonEvasion(Enemy);
+	let evaded = KinkyDungeonEvasion(Enemy, KinkyDungeonPlayerEntity);
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	let predata = {
@@ -559,19 +559,19 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	}
 	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
 		if (Enemy && hp < Enemy.Enemy.maxhp) {
-			KinkyDungeonAlert = 8;
-		} else {
 			KinkyDungeonAlert = 4;
+		} else {
+			KinkyDungeonAlert = 2;
 		}
 	} else {
 		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2) {
 			if (KinkyDungeonAlert) {
-				KinkyDungeonAlert = 3;
+				KinkyDungeonAlert = 2;
 			} else {
 				KinkyDungeonAlert = 1;
 			}
 		} else if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 3) {
-			Enemy.aware = true;
+			// Meep
 		}
 	}
 

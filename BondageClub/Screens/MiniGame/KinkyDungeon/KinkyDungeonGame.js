@@ -43,6 +43,7 @@ let KinkyDungeonContextFow = null;
 let KinkyDungeonCanvasPlayer = document.createElement("canvas");
 let KinkyDungeonContextPlayer = null;
 
+/** @type {entity[]} */
 let KinkyDungeonEntities = [];
 let KinkyDungeonTerrain = [];
 
@@ -120,9 +121,9 @@ let KinkyDungeonLastMoveTimerCooldownStart = 50;
 let KinkyDungeonPatrolPoints = [];
 let KinkyDungeonStartPosition = {x: 1, y: 1};
 let KinkyDungeonEndPosition = {x: 1, y: 1};
+let KinkyDungeonShortcutPosition = null;
 let KinkyDungeonJailLeash = 3;
 let KinkyDungeonJailLeashX = 3;
-let KinkyDungeonJailTransgressed = false;
 let KinkyDungeonOrbsPlaced = [];
 let KinkyDungeonCachesPlaced = [];
 let KinkyDungeonHeartsPlaced = [];
@@ -158,24 +159,9 @@ function KinkyDungeonAddChest(Amount, Floor) {
 }
 
 function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
-	let prevCheckpoint = MiniGameKinkyDungeonCheckpoint;
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
 		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
-	let saveData = KinkyDungeonSaveGame(true);
-	if (MiniGameKinkyDungeonCheckpoint != prevCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && MiniGameKinkyDungeonCheckpoint < 11)) {
-		KDGameData.KinkyDungeonSpawnJailers = 0;
-		KDGameData.KinkyDungeonSpawnJailersMax = 0;
-		if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {
-			KinkyDungeonState = "Save";
-			ElementCreateTextArea("saveDataField");
-			ElementValue("saveDataField", saveData);
-		}
-	}
-	if (AutoSave) {
-		KinkyDungeonSaveGame();
-	}
-
 }
 
 function KinkyDungeonNewGamePlus() {
@@ -243,6 +229,7 @@ function KinkyDungeonInitialize(Level, Load) {
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonSpecialAreas = [];
+	KinkyDungeonShortcutPosition = null;
 	KinkyDungeonRescued = {};
 	KDGameData.ChampionCurrent = 0;
 	KinkyDungeonAid = {};
@@ -253,6 +240,11 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonTiles = new Map();
 	KinkyDungeonTilesSkin = new Map();
 	KinkyDungeonTargetTile = "";
+
+	if (KDGameData.JailKey == undefined) {
+		KDGameData.JailKey = true;
+	}
+	if (!KDGameData.JailKey || (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail')) KinkyDungeonLoseJailKeys();
 
 	KDGameData.JailPoints = [];
 
@@ -272,6 +264,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		KDGameData.AlreadyOpened = [];
 		KDrandomizeSeed(true);
 		KDGameData.LastMapSeed = KinkyDungeonSeed;
+		// Reset the chase if this is a new floor
+		if (KDGameData.PrisonerState == "chase") {
+			KDGameData.PrisonerState = "";
+		}
 	}
 	console.log("Map Seed: " + KinkyDungeonSeed);
 	KDsetSeed(KinkyDungeonSeed);
@@ -358,8 +354,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 2, y:startpos, player:true};
 
 	KinkyDungeonStartPosition = {x: 2, y: startpos};
-
-	KinkyDungeonJailTransgressed = true;
 
 	let spawnPoints = [];
 
@@ -461,15 +455,13 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		}
 	}
 
-	if (KDGameData.KinkyDungeonSpawnJailers > 0 && KDGameData.KinkyDungeonSpawnJailers == KDGameData.KinkyDungeonSpawnJailersMax) {
+	if (KDGameData.PrisonerState == 'jail' && seed) {
 		// The above condition is the condition to start in jail
 		// We move the player to the jail after generating one
 		let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 		if (nearestJail) {
 			KinkyDungeonPlayerEntity.x = nearestJail.x;
 			KinkyDungeonPlayerEntity.y = nearestJail.y;
-
-			KinkyDungeonJailTransgressed = false;
 		}
 	}
 
@@ -921,7 +913,6 @@ function KinkyDungeonCreateRectangle(Left, Top, Width, Height, Border, Fill, Pad
 // @ts-ignore
 // @ts-ignore
 function KinkyDungeonCreateCell(security, width, height) {
-	KinkyDungeonJailTransgressed = false;
 	let cellWidth = KinkyDungeonJailLeashX;
 	KinkyDungeonJailLeash = 5;
 	let modsecurity = security - (KinkyDungeonGoddessRep.Ghost + 50);
@@ -1106,6 +1097,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))) {
 					placed = true;
 					KinkyDungeonMapSet(X, Y, 'H');
+					KinkyDungeonShortcutPosition = {x:X, y:Y};
 					xx = X;
 					yy = Y;
 					L = 0;
@@ -1125,6 +1117,7 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 					placed = true;
 					xx = X;
 					yy = Y;
+					KinkyDungeonShortcutPosition = {x:X, y:Y};
 				}
 			}
 
@@ -1149,12 +1142,26 @@ function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Fl
 			(!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
 				let wallcount = 0;
+				let adjcount = 0;
+				let diagadj = 0;
 				for (let XX = X-1; XX <= X+1; XX += 1)
-					for (let YY = Y-1; YY <= Y+1; YY += 1)
-						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
+					for (let YY = Y-1; YY <= Y+1; YY += 1) {
+						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X')) {
 							wallcount += 1;
+							// Adjacent wall
+							if (XX == X || YY == Y) adjcount += 1;
+						} else if (!(XX == X && YY == Y) && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY))) {
+							if (!(XX == X || YY == Y)) {// Diagonal floor. We check the adjacent floors around the diagonals to determine if this is an alcove or a passage
+								if (XX == X + 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X + 1, Y))) diagadj += 1;
+								else if (XX == X - 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X - 1, Y))) diagadj += 1;
+								else if (YY == Y + 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y + 1))) diagadj += 1;
+								else if (YY == Y - 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y - 1))) diagadj += 1;
+							}
+						}
+					}
+
 				if (wallcount == 7
-					|| (wallcount >= 5
+					|| (wallcount >= 4 && (wallcount - adjcount - diagadj == 0)
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
 						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
 						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
@@ -1254,6 +1261,7 @@ function KinkyDungeonPlaceHeart(width, height, Floor) {
 }
 
 
+
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
@@ -1270,12 +1278,26 @@ function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrine
 				&& (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
 				let wallcount = 0;
+				let adjcount = 0;
+				let diagadj = 0;
 				for (let XX = X-1; XX <= X+1; XX += 1)
-					for (let YY = Y-1; YY <= Y+1; YY += 1)
-						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X'))
+					for (let YY = Y-1; YY <= Y+1; YY += 1) {
+						if (!(XX == X && YY == Y) && (KinkyDungeonMapGet(XX, YY) == '1' || KinkyDungeonMapGet(XX, YY) == 'X')) {
 							wallcount += 1;
-				if (wallcount == 7 || (wallcount == 0 && KDRandom() < 0.1)
-					|| (wallcount >= 5
+							// Adjacent wall
+							if (XX == X || YY == Y) adjcount += 1;
+						} else if (!(XX == X && YY == Y) && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(XX, YY))) {
+							if (!(XX == X || YY == Y)) {// Diagonal floor. We check the adjacent floors around the diagonals to determine if this is an alcove or a passage
+								if (XX == X + 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X + 1, Y))) diagadj += 1;
+								else if (XX == X - 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X - 1, Y))) diagadj += 1;
+								else if (YY == Y + 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y + 1))) diagadj += 1;
+								else if (YY == Y - 1 && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y - 1))) diagadj += 1;
+							}
+						}
+					}
+
+				if (wallcount == 7
+					|| (wallcount >= 4 && (wallcount - adjcount - diagadj == 0)
 						&& (KinkyDungeonMapGet(X+1, Y) == '1' || KinkyDungeonMapGet(X-1, Y) == '1')
 						&& (KinkyDungeonMapGet(X, Y+1) == '1' || KinkyDungeonMapGet(X, Y-1) == '1'))
 						&& !(KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X-1, Y) == '1')
@@ -2169,7 +2191,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 			}
 			let noadvance = false;
 			if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-				if (!KinkyDungeonConfirmAttack && (!KinkyDungeonJailTransgressed || Enemy.Enemy.allied)) {
+				if (!KinkyDungeonConfirmAttack && (!KinkyDungeonHostile() || Enemy.Enemy.allied)) {
 					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmAttack"), "red", 1);
 					KinkyDungeonConfirmAttack = true;
 					noadvance = true;
@@ -2313,6 +2335,8 @@ function KinkyDungeonWaitMessage(NoTime) {
 
 	if (!NoTime && KinkyDungeonStatStamina < KinkyDungeoNStatStaminaLow)
 		KinkyDungeonStatStamina += KinkyDungeonStatStaminaRegenWait;
+
+	KinkyDungeonLastAction = "Wait";
 }
 
 // Returns th number of turns that must elapse

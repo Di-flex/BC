@@ -160,8 +160,17 @@ function KinkyDungeonHandleReputation() {
 						KDSendStatus('goddess', rep, 'helpRescue');
 						KinkyDungeonChangeRep(rep, -10);
 						let allies = KinkyDungeonGetAllies();
+						// Tie up all non-allies
+						for (let e of KinkyDungeonEntities) {
+							if (e.Enemy.bound && !e.Enemy.tags.has("angel")) {
+								allies.push(e);
+								if (!e.boundLevel) e.boundLevel = e.Enemy.maxhp;
+								else e.boundLevel += e.Enemy.maxhp;
+								e.hp = 0.1;
+							}
+						}
 						KinkyDungeonEntities = allies;
-						KinkyDungeonJailTransgressed = false;
+						KDGameData.PrisonerState = '';
 						KDGameData.KinkyDungeonJailGuard = 0;
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
 						for (let T of KinkyDungeonTiles.values()) {
@@ -344,7 +353,7 @@ function KinkyDungeonCanAidMana(rep, value) {
 }
 
 function KinkyDungeonCanRescue(rep, value) {
-	return (KinkyDungeonEntities.length > 0 || KinkyDungeonJailTransgressed == true) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
+	return (KDGameData.PrisonerState) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
 }
 
 
