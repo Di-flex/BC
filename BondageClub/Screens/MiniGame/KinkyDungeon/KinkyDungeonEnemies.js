@@ -1774,9 +1774,9 @@ function KinkyDungeonNoEnemy(x, y, Player) {
 // e = potential sub
 // Enemy = leader
 function KinkyDungeonCanSwapWith(e, Enemy) {
-	if (Enemy == KinkyDungeonLeashingEnemy()) return true;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.ethereal && e && e.Enemy && !e.Enemy.ethereal) return false; // Ethereal enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.squeeze && e && e.Enemy && !e.Enemy.squeeze) return false; // Squeeze enemies NEVER have seniority, this can teleport other enemies into walls
+	if (Enemy == KinkyDungeonLeashingEnemy()) return true;
 	if (!e.Enemy.tags || (e.Enemy.tags.has("minor") && !Enemy.Enemy.tags.has("minor")))
 		return true;
 	else if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && Enemy.Enemy.tags.has("elite")) {
