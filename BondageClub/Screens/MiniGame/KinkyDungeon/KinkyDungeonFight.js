@@ -181,7 +181,7 @@ function KinkyDungeonAggro(Enemy) {
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
 		} else { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
-			KinkyDungeonJailTransgressed = true;
+			KinkyDungeonAggroAction('attack', {enemy: Enemy});
 		}
 	}
 }

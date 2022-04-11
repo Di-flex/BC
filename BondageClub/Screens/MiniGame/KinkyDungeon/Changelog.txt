@@ -772,6 +772,10 @@ Spell Balance:
 - Experimental fix: Prevent leashers getting stuck if you get leashed into a statue
 - New spell: Enhance Power
 
+3.1
+- New system for being released after spending time in jail, enemies treat you as a prisoner and will play with you. You need to find a key to open the jail but it gets locked if enemies play with you
+- Removed multiplayer streaming in BC (too much bugs)
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

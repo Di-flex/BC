@@ -170,7 +170,7 @@ function KinkyDungeonHandleReputation() {
 							}
 						}
 						KinkyDungeonEntities = allies;
-						KinkyDungeonJailTransgressed = false;
+						KDGameData.PrisonerState = '';
 						KDGameData.KinkyDungeonJailGuard = 0;
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
 						for (let T of KinkyDungeonTiles.values()) {
@@ -353,7 +353,7 @@ function KinkyDungeonCanAidMana(rep, value) {
 }
 
 function KinkyDungeonCanRescue(rep, value) {
-	return (KinkyDungeonEntities.length > 0 || KinkyDungeonJailTransgressed == true) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
+	return (KDGameData.PrisonerState) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
 }
 
 

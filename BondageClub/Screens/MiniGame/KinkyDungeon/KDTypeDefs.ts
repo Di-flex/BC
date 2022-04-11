@@ -529,7 +529,10 @@ interface enemy {
 	lifespan?: number,
 	/** This enemy cant be swapped */
 	noDisplace?: boolean,
-
+	/** The enemy will cast spells even if you are in parole */
+	spellWhileParole?: boolean,
+	/** This line is a suffic to the line they say when they want to play with you */
+	playLine?: string,
 
 }
 
@@ -661,6 +664,8 @@ interface entity {
 	visual_x?: number,
 	visual_y?: number,
 	Analyze?: boolean,
+	/** Number of turns the enemy is temporarily hostile for */
+	playWithPlayer?: number,
 }
 
 type KinkyDungeonDress = {

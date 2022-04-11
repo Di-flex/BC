@@ -3271,11 +3271,16 @@ KinkyDungeonRemindJailTour1,"EnemyName: I said, FOLLOW ME!"
 KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
 KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
 
+KinkyDungeonRemindJailRelease0,"EnemyName: I hope you learned your lesson. Now get your butt out of here."
+KinkyDungeonRemindJailRelease1,"EnemyName: You've been a good girl. I hope you don't make the same mistake again. You can leave."
+KinkyDungeonRemindJailRelease2,"EnemyName: That's a good girl. Now behave yourself, okay? You're free to go."
+KinkyDungeonRemindJailRelease3,"EnemyName: Looks like you got yourself in a bind! (she pats your butt playfully) Go make the others happy!"
+
 KinkyDungeonJailerGoodGirl0,"EnemyName: Good girl."
 KinkyDungeonJailerGoodGirl1,"EnemyName: You'll be making others happy in no time."
 KinkyDungeonJailerGoodGirl2,"EnemyName: You're shaping up to be a good slave."
 KinkyDungeonJailerGoodGirl3,"EnemyName: I wish I could take you to my room..."
-KinkyDungeonJailerGoodGirl4,"EnemyName: It seems the training is going well."
+KinkyDungeonJailerGoodGirl4,"EnemyName: It seems your training is going well."
 KinkyDungeonJailerGoodGirl5,"EnemyName: Perhaps you are enjoying this, hehe."
 
 KinkyDungeonJailerStartAdding,The guard starts adding a RestraintName!
@@ -3542,3 +3547,28 @@ KinkyDungeonConsent2,"It sends data about spell choices, levels reached, etc, to
 KinkyDungeonConsent3,"No personal data is sent or stored."
 KDOptIn,"Accept"
 KDOptOut,"Don't Track Me"
+
+KinkyDungeonRemoveJailKey,"Your key to the stairs is taken away!"
+ItemPickupKeyring,"You found a keyring to the stairs! Now you just need to get there."
+KinkyDungeonNeedJailKey,"There seems to be a locked high-security door. Looks like you need a key."
+
+KinkyDungeonRemindJailPlayCaught0,"EnemyName: Hey! Where do you think you're going?"
+KinkyDungeonRemindJailPlayCaught1,"EnemyName: You look like you're having fun, why don't we play?"
+KinkyDungeonRemindJailPlayCaught2,"The EnemyName grins and starts walking toward you..."
+KinkyDungeonRemindJailPlay0,"EnemyName: You look like a good girl. Come on~"
+KinkyDungeonRemindJailPlay1,"EnemyName: Come here, let's play!"
+KinkyDungeonRemindJailPlay2,"The EnemyName starts approaching you..."
+
+KinkyDungeonRemindJailPlayAlchemistCaught0,"EnemyName: Look! A fine specimen!"
+KinkyDungeonRemindJailPlayAlchemistCaught1,"EnemyName: You're not supposed to be here... ah well!"
+KinkyDungeonRemindJailPlayAlchemistCaught2,"EnemyName: You'd look good in some latex!"
+KinkyDungeonRemindJailPlayAlchemist0,"EnemyName: You'll make a fine test subject..."
+KinkyDungeonRemindJailPlayAlchemist1,"EnemyName: Come here, I want to perform some tests!"
+KinkyDungeonRemindJailPlayAlchemist2,"EnemyName: Looks like it's time to drop some science!"
+
+KinkyDungeonRemindJailPlayZombieCaught0,"EnemyName: Hug... Me..."
+KinkyDungeonRemindJailPlayZombieCaught1,"EnemyName: Cute girl..."
+KinkyDungeonRemindJailPlayZombieCaught2,"The EnemyName giggles..."
+KinkyDungeonRemindJailPlayZombie0,"EnemyName: Helpless..."
+KinkyDungeonRemindJailPlayZombie1,"EnemyName: Brains..."
+KinkyDungeonRemindJailPlayZombie2,"EnemyName: Squishy..."
