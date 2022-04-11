@@ -53,7 +53,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	let xx = nearestJail.x + KinkyDungeonJailLeashX;
 	let yy = nearestJail.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - nearestJail.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - nearestJail.y) <= KinkyDungeonJailLeash);
-	if (KinkyDungeonInJail() && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KDGameData.SleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell && !KDGameData.RescueFlag) {
+	if (KinkyDungeonInJail() && !KinkyDungeonJailTransgressed && (KDGameData.KinkyDungeonGuardSpawnTimer <= 1 || KDGameData.SleepTurns == 3) && !KinkyDungeonJailGuard() && playerInCell && !KDGameData.RescueFlag) {
 		KDGameData.KinkyDungeonGuardSpawnTimer = KDGameData.KinkyDungeonGuardSpawnTimerMin + Math.floor(KDRandom() * (KDGameData.KinkyDungeonGuardSpawnTimerMax - KDGameData.KinkyDungeonGuardSpawnTimerMin));
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == (KinkyDungeonGoddessRep.Prisoner < 0 ? "Guard" : "GuardHeavy"));
 		let guard = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
