@@ -2602,6 +2602,8 @@ KinkyDungeonSpellTargetGreaterShield,Choose shield location
 
 KinkyDungeonSpellElectrify,Electrify
 KinkyDungeonSpellWitchElectrify,Witch's Electricity
+KinkyDungeonSpellWitchElectricOrb,Witch's Electric Orb
+KinkyDungeonSpellWitchElectricBurst,Witch's Electric Burst
 KinkyDungeonSpellDescriptionElectrify,A delayed shock that deals DamageDealt damage and stuns for Duration turns.
 KinkyDungeonSpellCastElectrify,You charge up a burst of electricty!
 KinkyDungeonSpellTargetElectrify,Choose target location

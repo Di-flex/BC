@@ -1354,7 +1354,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 				}
 
 				if (attack.includes("Suicide")) {
-					if (!enemy.Enemy.suicideOnAdd || addedRestraint || (!player.player && attack.includes("Bind"))) {
+					if ((!enemy.Enemy.suicideOnAdd && !enemy.Enemy.suicideOnLock)
+						|| (enemy.Enemy.suicideOnAdd && addedRestraint) || (enemy.Enemy.suicideOnLock && Locked) || (!player.player && attack.includes("Bind") && enemy.Enemy.suicideOnAdd)) {
 						enemy.hp = 0;
 					} else if (!KinkyDungeonHasStamina(1.1) && enemy.Enemy.failAttackflag) {
 						for (let f of enemy.Enemy.failAttackflag) {
