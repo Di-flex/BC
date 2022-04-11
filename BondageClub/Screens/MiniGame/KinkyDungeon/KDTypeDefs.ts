@@ -666,6 +666,7 @@ interface entity {
 	Analyze?: boolean,
 	/** Number of turns the enemy is temporarily hostile for */
 	playWithPlayer?: number,
+	playWithPlayerCD?: number,
 }
 
 type KinkyDungeonDress = {

@@ -740,6 +740,8 @@ function KinkyDungeonUpdateEnemies(delta) {
 				enemy.blind -= delta;
 			if (enemy.playWithPlayer > 0)
 				enemy.playWithPlayer -= delta;
+			if (enemy.playWithPlayerCD > 0)
+				enemy.playWithPlayerCD -= delta;
 			if (enemy.silence > 0)
 				enemy.silence -= delta;
 			if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack")
@@ -878,7 +880,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 
 	let targetRestraintLevel = 0.3 + (enemy.aggro ? enemy.aggro : 0);
 	if (enemy.aggro > 0 && delta > 0) enemy.aggro = enemy.aggro * 0.95;
-	if (KinkyDungeonStatsChoice.has("NoWayOut") || enemy.hp < enemy.Enemy.maxhp * 0.5) targetRestraintLevel = 999;
+	if (KinkyDungeonStatsChoice.has("NoWayOut") || KinkyDungeonCanPlay() || enemy.hp < enemy.Enemy.maxhp * 0.5) targetRestraintLevel = 999;
 	let addLeash = leashing && KinkyDungeonSubmissiveMult >= targetRestraintLevel && (!KinkyDungeonGetRestraintItem("ItemNeck") || !KinkyDungeonGetRestraintItem("ItemNeckRestraints"));
 
 	if (enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && (!KinkyDungeonHasStamina(1.1) || addLeash)) {
@@ -949,8 +951,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
 		if (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail")) {
 			KinkyDungeonAggroAction((KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle") ? 'struggle' : 'jailbreak', {enemy: enemy});
-			if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && KDRandom() < 0.25 && (!KinkyDungeonIsArmsBound() || !KinkyDungeonIsHandsBound())) {
+			if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && KDRandom() < 0.25 && (!KinkyDungeonIsArmsBound() || !KinkyDungeonIsHandsBound())) {
 				enemy.playWithPlayer = 17;
+				enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
 				let index = Math.floor(Math.random() * 3);
 				let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
 				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlayCaught" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
@@ -961,8 +964,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	let chance = 0.5;
 	if (playerDist < 1.5) chance += 0.13;
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
-	if (KinkyDungeonCanPlay() && canSeePlayer && enemy.aware && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
-		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (7 * Math.min(10, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
+	if (KinkyDungeonCanPlay() && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
+		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
+		enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
 		let index = Math.floor(Math.random() * 3);
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
 		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
