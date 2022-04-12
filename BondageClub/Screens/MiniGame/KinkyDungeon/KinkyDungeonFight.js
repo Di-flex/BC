@@ -734,7 +734,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			if ((b.reflected
 				|| (!b.bullet.spell
 					|| (b.bullet.spell.enemySpell
-						&& !enemy.Enemy.allied && !enemy.rage
+						&& !enemy.Enemy.allied && !(enemy.rage > 0)
 						&& (!b.bullet.damage
 							|| b.bullet.damage.type != "heal"))
 
@@ -868,10 +868,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell
 							|| (!bullet.bullet.spell.enemySpell
-								&& (!enemy.Enemy.allied || enemy.rage)
+								&& (!enemy.Enemy.allied || enemy.rage > 0)
 								&& bullet.bullet.damage.type != "heal")
 							|| (!bullet.bullet.spell.allySpell
-								&& (enemy.Enemy.allied || enemy.rage)
+								&& (enemy.Enemy.allied || enemy.rage > 0)
 								&& (!bullet.bullet.spell.enemySpell
 									|| bullet.bullet.damage.type != "heal"))))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
@@ -894,10 +894,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				if ((bullet.reflected ||
 					(!bullet.bullet.spell ||
 						(!bullet.bullet.spell.enemySpell
-							&& (!enemy.Enemy.allied || enemy.rage)
+							&& (!enemy.Enemy.allied || enemy.rage > 0)
 							&& bullet.bullet.damage.type != "heal")
 						|| (!bullet.bullet.spell.allySpell
-							&& (enemy.Enemy.allied || enemy.rage)
+							&& (enemy.Enemy.allied || enemy.rage > 0)
 							&& (!bullet.bullet.spell.enemySpell
 								|| bullet.bullet.damage.type != "heal"))))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {
