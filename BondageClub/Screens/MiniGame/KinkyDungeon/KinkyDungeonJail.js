@@ -28,12 +28,13 @@ function KinkyDungeonLoseJailKeys(Taken) {
 
 function KinkyDungeonPlayerIsVisibleToJailers() {
 	for (let enemy of KinkyDungeonEntities) {
-		if (!enemy.Enemy.allied && !enemy.rage && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer'))
-			&& KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, true)) {
-			return true;
+		if (!enemy.Enemy.allied && !(enemy.rage > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
+			if (KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, true)) {
+				return enemy;
+			}
 		}
 	}
-	return false;
+	return null;
 }
 
 function KinkyDungeonCanPlay() {
@@ -61,46 +62,102 @@ function KinkyDungeonCheckRelease() {
  * @param {string} action
  */
 function KinkyDungeonAggroAction(action, data) {
+	let e = null;
 	switch (action) {
 		// Attacking ALWAYS makes the enemy angry
 		case 'attack':
-			KDGameData.PrisonerState = "";
+			KinkyDungeonStartChase(data.enemy, "Attack");
+			break;
+
+		// Magic ALWAYS makes the enemy angry
+		case 'magic':
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "Spell");
+			}
+			break;
+		// Magic ALWAYS makes the enemy angry
+		case 'item':
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "SpellItem");
+			}
 			break;
 
 		// Having a guard called ALWAYS makes the enemy angry
 		case 'call':
-			KDGameData.PrisonerState = "";
+			KinkyDungeonStartChase(data.enemy, "");
 			break;
 
 		// Chests ALWAYS make the enemy angry
 		case 'chest':
-			if (KinkyDungeonPlayerIsVisibleToJailers())
-				KDGameData.PrisonerState = "";
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "Chest");
+			}
+			break;
+
+		// Chests ALWAYS make the enemy angry
+		case 'rubble':
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonPlayExcuse(data.enemy, "Loot");
+			}
 			break;
 
 		// Altars ALWAYS make the enemy angry
 		case 'shrine':
-			if (KinkyDungeonPlayerIsVisibleToJailers())
-				KDGameData.PrisonerState = "";
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "Shrine");
+			}
 			break;
 
 		// Chests ALWAYS make the enemy angry
 		case 'orb':
-			if (KinkyDungeonPlayerIsVisibleToJailers())
-				KDGameData.PrisonerState = "";
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "Orb");
+			}
 			break;
 
-		// Struggling only makes them angry if you are a prisoner and the guard is present
 		case 'struggle':
-			//if (KDGameData.PrisonerState == "jail" && KinkyDungeonJailGuard())
-			// KDGameData.PrisonerState = "";
+			if (KDGameData.PrisonerState == "parole" && data.enemy)
+				KinkyDungeonPlayExcuse(data.enemy, "Struggle");
+			break;
+
+		case 'unrestrained':
+			if (KDGameData.PrisonerState == "parole" && data.enemy)
+				KinkyDungeonPlayExcuse(data.enemy, "Free");
 			break;
 
 		// Roaming free only makes them angry if you are a prisoner
 		case 'jailbreak':
-			if (KDGameData.PrisonerState == "jail")
-				KDGameData.PrisonerState = "";
+			if (KDGameData.PrisonerState == "jail"){
+				KinkyDungeonStartChase(data.enemy, "Jailbreak");
+			}
 			break;
+	}
+}
+
+function KinkyDungeonStartChase(enemy, Type) {
+	if (KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'chase')
+		KDGameData.PrisonerState = "chase";
+	if (Type && enemy && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
+		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
+		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 1 : 5, TextGet("KinkyDungeonRemindJailChase" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, true);
+	}
+}
+
+function KinkyDungeonPlayExcuse(enemy, Type) {
+	if (Type == "Free" && enemy && enemy.Enemy.noChaseUnrestrained) {
+		return;
+	}
+	if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
+		enemy.playWithPlayer = 17;
+		enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
+		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
+		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, true);
 	}
 }
 

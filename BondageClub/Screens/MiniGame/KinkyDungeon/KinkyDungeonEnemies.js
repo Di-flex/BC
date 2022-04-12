@@ -946,22 +946,15 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 	if (enemy.Enemy.projectileAttack && (!canShootPlayer || !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) followRange = 1;
 
 	if (!KinkyDungeonHostile() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && canSeePlayer && player.player
-		&& ((KinkyDungeonPlayer.CanInteract() || (KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle"))
-			|| !KinkyDungeonPlayerInCell())
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
 		if (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail")) {
-			KinkyDungeonAggroAction((KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle") ? 'struggle' : 'jailbreak', {enemy: enemy});
-			if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && KDRandom() < 0.4 && (!KinkyDungeonIsArmsBound() || !KinkyDungeonIsHandsBound())) {
-				enemy.playWithPlayer = 17;
-				enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
-				let index = Math.floor(Math.random() * 3);
-				let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlayCaught" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
-			}
+			if (KinkyDungeonPlayer.CanInteract()) KinkyDungeonAggroAction('unrestrained', {enemy: enemy});
+			else if ((KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")) KinkyDungeonAggroAction('struggle', {enemy: enemy});
+			else if (!KinkyDungeonPlayerInCell()) KinkyDungeonAggroAction('jailbreak', {enemy: enemy});
 		}
 		ignore = !KinkyDungeonHostile();
 	}
-	let chance = 0.5;
+	let chance = 0.05;
 	if (KDGameData.JailKey) chance += 0.15;
 	if (playerDist < 1.5) chance += 0.13;
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
@@ -970,7 +963,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
 		let index = Math.floor(Math.random() * 3);
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
-		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
 	}
 
 	if (!KinkyDungeonHostile() && player.player && enemy.playWithPlayer) ignore = false;
@@ -1104,7 +1097,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 			enemy.gx = enemy.gxx;
 			enemy.gy = enemy.gyy;
 		}
-		if ((AI == "wander" || AI == "hunt") && enemy.movePoints < 1 && !enemy.aware) {
+		if ((AI == "wander" || AI == "hunt") && enemy.movePoints < 1 && (!enemy.aware || !KinkyDungeonHostile())) {
 			if (Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 || (!(enemy.vp > 0.05) && (!enemy.path || KDRandom() < 0.1))) {
 				let master = KinkyDungeonFindMaster(enemy).master;
 				if (KDRandom() < 0.1 && !master) {

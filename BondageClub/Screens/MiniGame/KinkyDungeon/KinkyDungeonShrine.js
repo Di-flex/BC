@@ -244,11 +244,7 @@ function KinkyDungeonHandleShrine() {
 		if (cost > 0) {
 			if (MouseIn(KDModalArea_x + 410, KDModalArea_y + 25, 112-15, 60) && cost <= KinkyDungeonGold) {
 				KinkyDungeonPayShrine(type);
-				if (KinkyDungeonTargetTileLocation) {
-					let x = KinkyDungeonTargetTileLocation.split(',')[0];
-					let y = KinkyDungeonTargetTileLocation.split(',')[1];
-					KinkyDungeonAggroAction('shrine', {x: parseInt(x), y:parseInt(y)});
-				}
+				KinkyDungeonAggroAction('shrine', {});
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 				return true;
 			}
@@ -298,11 +294,7 @@ function KinkyDungeonHandleShrine() {
 				if (chance > 0) KDGameData.PoolUsesGrace -= 1;
 				KinkyDungeonChangeRep(type, -2 - slimed * 2);
 				KDSendStatus('goddess', type, 'shrineDrink');
-				if (KinkyDungeonTargetTileLocation) {
-					let x = KinkyDungeonTargetTileLocation.split(',')[0];
-					let y = KinkyDungeonTargetTileLocation.split(',')[1];
-					KinkyDungeonAggroAction('shrine', {x: parseInt(x), y:parseInt(y)});
-				}
+				KinkyDungeonAggroAction('shrine', {});
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
@@ -632,11 +624,7 @@ function KinkyDungeonHandleOrb() {
 						KinkyDungeonSpellPoints += Amount;
 					}
 					KinkyDungeonMapSet(KDOrbX, KDOrbY, 'o');
-					if (KinkyDungeonTargetTileLocation) {
-						let x = KinkyDungeonTargetTileLocation.split(',')[0];
-						let y = KinkyDungeonTargetTileLocation.split(',')[1];
-						KinkyDungeonAggroAction('orb', {x: parseInt(x), y:parseInt(y)});
-					}
+					KinkyDungeonAggroAction('orb', {});
 				}
 
 				KinkyDungeonDrawState = "Game";

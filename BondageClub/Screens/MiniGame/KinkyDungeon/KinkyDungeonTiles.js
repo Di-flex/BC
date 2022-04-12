@@ -104,11 +104,7 @@ function KinkyDungeonHandleMoveObject(moveX, moveY, moveObject) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 		KinkyDungeonMapSet(moveX, moveY, 'c');
 		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
-		if (KinkyDungeonTargetTileLocation) {
-			let x = KinkyDungeonTargetTileLocation.split(',')[0];
-			let y = KinkyDungeonTargetTileLocation.split(',')[1];
-			KinkyDungeonAggroAction('chest', {x: parseInt(x), y:parseInt(y)});
-		}
+		KinkyDungeonAggroAction('chest', {});
 		return true;
 	} else if (moveObject == 'Y') { // Open the chest
 		let chestType = MiniGameKinkyDungeonCheckpoint == 12 ? "shelf" : "rubble";
