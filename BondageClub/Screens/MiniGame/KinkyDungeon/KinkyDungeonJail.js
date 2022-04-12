@@ -306,6 +306,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				// Unlock all jail doors
 				for (let T of KinkyDungeonTiles.values()) {
 					if (T.Lock && T.Jail) T.Lock = undefined;
+					if (T.Type == "Lock") T.Type = undefined;
 				}
 
 			}
@@ -402,7 +403,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	// Unlock all jail doors when chasing
 	if (!KDGameData.PrisonerState || KDGameData.PrisonerState == 'chase') {
 		for (let T of KinkyDungeonTiles.values()) {
-			if (T.Lock && T.Jail) T.Lock = undefined;
+			if (T.Lock && T.Type == "Door" && T.Jail) T.Lock = undefined;
 		}
 	}
 

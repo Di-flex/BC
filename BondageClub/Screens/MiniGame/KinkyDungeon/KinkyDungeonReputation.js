@@ -175,6 +175,7 @@ function KinkyDungeonHandleReputation() {
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
 						for (let T of KinkyDungeonTiles.values()) {
 							if (T.Lock) T.Lock = undefined;
+							if (T.Type == "Lock") T.Type = undefined;
 							if (T.Type == "Trap") T.Type = undefined;
 						}
 						KinkyDungeonDrawState = "Game";

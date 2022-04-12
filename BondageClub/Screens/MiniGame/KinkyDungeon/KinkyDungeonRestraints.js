@@ -570,6 +570,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	 * escapeChance: number,
 	 * origEscapeChance: number,
 	 * helpChance: number,
+	 * strict: number,
+	 * hasEdge: boolean,
 	 * restraintEscapeChance: number,
 	 * cost: number,
 	 * }}
@@ -579,6 +581,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		escapeChance: restraintEscapeChancePre,
 		origEscapeChance: restraintEscapeChancePre,
 		helpChance: helpChance,
+		strict: KinkyDungeonStrictness(true, struggleGroup.group),
+		hasEdge: KinkyDungeonHasHook(),
 		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
 	};
@@ -730,18 +734,15 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		}
 	}
 
-	let strict = KinkyDungeonStrictness(true, struggleGroup.group);
-	let hasEdge = KinkyDungeonHasHook();
-
 	// Struggling is unaffected by having arms bound
 	let minAmount = 0.1 - Math.max(0, 0.01*KDRestraint(restraint).power);
-	if (StruggleType == "Remove" && !hasEdge) minAmount = 0;
+	if (StruggleType == "Remove" && !data.hasEdge) minAmount = 0;
 	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup.group != "ItemArms" && struggleGroup.group != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) data.escapeChance /= 1.5;
 	if (StruggleType != "Struggle" && struggleGroup.group != "ItemArms" && armsBound) data.escapeChance = Math.max(minAmount, data.escapeChance - 0.3);
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
-		data.escapeChance = (StruggleType == "Remove" && hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
+		data.escapeChance = (StruggleType == "Remove" && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
 	if (StruggleType == "Remove" && data.escapeChance == 0) {
 		let typesuff = "";
@@ -760,7 +761,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	let possible = data.escapeChance > 0;
 	// Strict bindings make it harder to escape
-	if (strict) data.escapeChance = Math.max(0, data.escapeChance - strict);
+	if (data.strict) data.escapeChance = Math.max(0, data.escapeChance - data.strict);
 
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.2);
 
