@@ -473,10 +473,16 @@ interface enemy {
 	blockVisionWhileStationary?: boolean,
 	/** */
 	squeeze?: boolean,
+	/** Enemy will not chase player for being unrestrained. Use on enemies like drones who have lines but dont bind readily */
+	noChaseUnrestrained?: boolean,
 	/** */
 	suicideOnSpell?: boolean,
 	/** */
 	suicideOnAdd?: boolean,
+	/** */
+	suicideOnLock?: boolean,
+	/** Hostile even on parole */
+	alwaysHostile?: boolean,
 	/** */
 	specialsfx?: string,
 	/** Stuns the enemy when the special attack goes on CD without a hit */
