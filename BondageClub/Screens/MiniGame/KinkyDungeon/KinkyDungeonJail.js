@@ -818,7 +818,7 @@ function KinkyDungeonDefeat() {
 				let p = KinkyDungeonGetRandomEnemyPoint(true);
 				if (p) {
 					e.x = p.x;
-					e.x = p.y;
+					e.y = p.y;
 					e.path = undefined;
 					e.gx = e.x;
 					e.gy = e.y;
