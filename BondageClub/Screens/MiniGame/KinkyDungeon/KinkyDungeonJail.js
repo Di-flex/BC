@@ -141,6 +141,11 @@ function KinkyDungeonAggroAction(action, data) {
 }
 
 function KinkyDungeonStartChase(enemy, Type) {
+	if (KDGameData.PrisonerState == 'parole') {
+		KinkyDungeonChangeRep("Ghost", -10);
+		KinkyDungeonChangeRep("Prisoner", 2);
+		KDGameData.PrisonerState = "chase";
+	}
 	if (KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'chase')
 		KDGameData.PrisonerState = "chase";
 	if (Type && enemy && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
