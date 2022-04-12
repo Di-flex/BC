@@ -149,6 +149,7 @@ function KinkyDungeonItemEvent(Item) {
 		} else KinkyDungeonDrawState = "Heart";
 	} else if (Item.name == "Keyring") {
 		KDGameData.JailKey = true;
+		KinkyDungeonAggroAction('key', {});
 	}
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 	KinkyDungeonSendActionMessage(priority, TextGet("ItemPickup" + Item.name).replace("XXX", Item.amount), color, 2);

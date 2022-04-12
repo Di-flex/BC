@@ -658,6 +658,12 @@ function KDBoundEffects(enemy) {
 
 function KinkyDungeonUpdateEnemies(delta) {
 	let KinkyDungeonSummons = 0;
+	let visionMod = 1.0;
+	if (KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]]) {
+		if (KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].brightness) {
+			visionMod = Math.min(1.0, KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].brightness / 10);
+		}
+	}
 
 	for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
 		let enemy = KinkyDungeonEntities[i];
@@ -759,7 +765,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
 			} else {
 				let start = performance.now();
-				idle = KinkyDungeonEnemyLoop(enemy, player, delta);
+				idle = KinkyDungeonEnemyLoop(enemy, player, delta, visionMod);
 				if (enemy.knives || enemy.picks) {
 					let light = KinkyDungeonLightGet(enemy.x, enemy.y);
 					if (light == 0 && !enemy.aware && KDRandom() < 0.2) {
@@ -813,12 +819,13 @@ function KinkyDungeonUpdateEnemies(delta) {
 	KinkyDungeonAlert = 0;
 }
 
-function KinkyDungeonEnemyLoop(enemy, player, delta) {
+function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod) {
 	let idle = true;
 	let moved = false;
 	let ignore = false;
 	let followRange = enemy.Enemy.followRange;
 	let visionRadius = enemy.Enemy.visionRadius ? (enemy.Enemy.visionRadius + ((enemy.lifetime > 0 && enemy.Enemy.visionSummoned) ? enemy.Enemy.visionSummoned : 0)) : 0;
+	if (visionMod) visionRadius *= visionMod;
 	let chaseRadius = 8 + (Math.max(followRange * 2, 0)) + 2*Math.max(visionRadius ? visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 	let blindSight = (enemy && enemy.Enemy && enemy.Enemy.blindSight) ? enemy.Enemy.blindSight : 0;
 	if (KinkyDungeonStatsChoice.get("KillSquad")) {
@@ -955,9 +962,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta) {
 		ignore = !KinkyDungeonHostile();
 	}
 	let chance = 0.05;
-	if (KDGameData.JailKey) chance += 0.15;
-	if (playerDist < 1.5) chance += 0.13;
-	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.077;
+	if (KDGameData.JailKey) chance += 0.2;
+	if (playerDist < 1.5) chance += 0.1;
+	if (enemy.aware) chance += 0.1;
+	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.1;
 	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
 		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;

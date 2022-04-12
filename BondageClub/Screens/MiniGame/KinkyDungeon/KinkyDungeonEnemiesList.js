@@ -667,7 +667,7 @@ let KinkyDungeonEnemies = [
 	{name: "Cleric", clusterWith: "mummy", bound: "Cleric", color: "#00FF00", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "ranged", "search", "coldresist", "fireweakness"]), followLeashedOnly: true, followRange: 4, attackThruBars: true,
 		AI: "guard", visionRadius: 7, maxhp: 8, minLevel:0, weight:13, movePoints: 1, attackPoints: 3, attack: "MeleeWillStun", attackWidth: 1, attackRange: 6, power: 3, fullBoundBonus: 1, dmgType: "crush", noCancelAttack: true, strictAttackLOS: true,
 		terrainTags: {"secondhalf":0, "lastthird":1, "passage": -99, "open": 4}, floors:KDMapInit([11]), shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionMana", weight: 1}, {name: "RedKey", weight: 1}]},
-	{name: "MeleeCleric", clusterWith: "mummy", bound: "MeleeCleric", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "kittyRestraints", "search", "coldresist", "fireweakness"]), followRange: 1, blindSight: 4, specialCD: 3, specialAttack: "Bind",
+	{name: "MeleeCleric", clusterWith: "mummy", bound: "MeleeCleric", tags: KDMapInit(["leashing", "opendoors", "closedoors", "mummy", "melee", "kittyRestraints", "search", "coldresist", "fireweakness"]), followRange: 1, blindSight: 2.5, specialCD: 3, specialAttack: "Bind",
 		AI: "hunt", visionRadius: 6, maxhp: 8, minLevel:0, weight:15, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, fullBoundBonus: 2, dmgType: "grope",
 		terrainTags: {"secondhalf":0, "lastthird":-2}, floors:KDMapInit([11]), shrines: ["Will"], dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "PotionStamina", weight: 1}, {name: "RedKey", weight: 1}]},
 

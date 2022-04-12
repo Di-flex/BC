@@ -27,13 +27,15 @@ function KinkyDungeonLoseJailKeys(Taken) {
 }
 
 function KinkyDungeonPlayerIsVisibleToJailers() {
+	let list = [];
 	for (let enemy of KinkyDungeonEntities) {
 		if (!enemy.Enemy.allied && !(enemy.rage > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 			if (KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, true)) {
-				return enemy;
+				list.push(enemy);
 			}
 		}
 	}
+	if (list.length > 0) return list[Math.floor(Math.random() * list.length)];
 	return null;
 }
 
@@ -137,15 +139,29 @@ function KinkyDungeonAggroAction(action, data) {
 				KinkyDungeonStartChase(data.enemy, "Jailbreak");
 			}
 			break;
+
+		// Roaming free only makes them angry if you are a prisoner
+		case 'key':
+			e = KinkyDungeonPlayerIsVisibleToJailers();
+			if (e) {
+				KinkyDungeonStartChase(e, "Key");
+			}
+			break;
 	}
 }
 
 function KinkyDungeonStartChase(enemy, Type) {
+	if (KDGameData.PrisonerState == 'parole') {
+		KinkyDungeonChangeRep("Ghost", -10);
+		KinkyDungeonChangeRep("Prisoner", 2);
+		KDGameData.PrisonerState = "chase";
+	}
 	if (KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'chase')
 		KDGameData.PrisonerState = "chase";
 	if (Type && enemy && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
-		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 1 : 5, TextGet("KinkyDungeonRemindJailChase" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, true);
+		let index = (Type == "Attack" || Type == "Spell") ? ("" + Math.floor(Math.random() * 3)) : "";
+		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 3 : 5, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, (!KDGameData.PrisonerState));
 	}
 }
 
@@ -156,6 +172,11 @@ function KinkyDungeonPlayExcuse(enemy, Type) {
 	if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 		enemy.playWithPlayer = 17;
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
+
+		if (Type == "Key") {
+			enemy.playWithPlayer = 30;
+			enemy.playWithPlayerCD = enemy.playWithPlayer;
+		}
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
 		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, true);
 	}
