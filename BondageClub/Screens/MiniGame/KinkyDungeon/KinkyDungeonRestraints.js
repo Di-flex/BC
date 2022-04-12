@@ -558,9 +558,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	KinkyDungeonCurrentEscapingMethod = StruggleType;
 	KinkyDungeonStruggleTime = CommonTime() + 750;
 	let Pass = "Fail";
-	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType];
-	if (KinkyDungeonHasGhostHelp() && KDRestraint(restraint).helpChance && KDRestraint(restraint).helpChance[StruggleType]) {
-		restraintEscapeChancePre = KDRestraint(restraint).helpChance[StruggleType];
+	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType] ? KDRestraint(restraint).escapeChance[StruggleType] : 1.0;
+	let helpChance = (KDRestraint(restraint).helpChance != undefined && KDRestraint(restraint).helpChance[StruggleType] != undefined) ? KDRestraint(restraint).helpChance[StruggleType] : 0.0;
+	if (KinkyDungeonHasGhostHelp() && helpChance) {
+		restraintEscapeChancePre = helpChance;
 	}
 
 	/**
@@ -568,15 +569,17 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	 * struggleType: string,
 	 * escapeChance: number,
 	 * origEscapeChance: number,
+	 * helpChance: number,
 	 * restraintEscapeChance: number,
 	 * cost: number,
 	 * }}
 	 */
 	let data = {
 		struggleType: StruggleType,
-		escapeChance: restraintEscapeChancePre != undefined ? restraintEscapeChancePre : 1.0,
-		origEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
-		restraintEscapeChance: restraintEscapeChancePre,
+		escapeChance: restraintEscapeChancePre,
+		origEscapeChance: restraintEscapeChancePre,
+		helpChance: helpChance,
+		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
 	};
 
@@ -650,7 +653,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	let handsBound = KinkyDungeonIsHandsBound(true);
 
-	// Bonuses go here
+	// Bonuses go here. Buffs dont get added to orig escape chance, but
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle")) data.escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle");
 	if (StruggleType == "Cut") {
 		if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting")) data.escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting");
@@ -681,19 +684,19 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (StruggleType == "Remove" &&
 		(!handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0)
 		|| (struggleGroup.group == "ItemHands" && KinkyDungeonCanTalk() && !armsBound))) {
-		data.escapeChance = Math.min(1, data.escapeChance + 0.15);
-		data.origEscapeChance = Math.min(1, data.escapeChance + 0.15);
+		data.escapeChance = Math.max(data.escapeChance, Math.min(1, data.escapeChance + 0.15));
+		data.origEscapeChance = Math.max(data.origEscapeChance, Math.min(1, data.origEscapeChance + 0.15));
 	}
 
 	// You can tug using unbound hands
 	if (StruggleType == "Struggle" &&
 		(!handsBound && !armsBound && struggleGroup.group != "ItemHands" && struggleGroup.group != "ItemArms")) {
 		escapeSpeed *= 1.4;
-		data.escapeChance = Math.min(1, data.escapeChance + 0.05);
-		data.origEscapeChance = Math.min(1, data.origEscapeChance + 0.05);
+		data.escapeChance = Math.max(data.escapeChance, Math.min(1, data.escapeChance + 0.05));
+		data.origEscapeChance = Math.max(data.origEscapeChance, Math.min(1, data.origEscapeChance + 0.05));
 	}
 
-
+	// Psychic doesnt modify original chance, so that you understand its the perk helping you
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.25);
 
 
@@ -707,7 +710,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (data.escapeChance <= -0.5) restraint.attempts += 0.5;
 		} else {
 			let typesuff = "";
-			if (data.origEscapeChance <= 0 && KDRestraint(restraint).helpChance && KDRestraint(restraint).helpChance[StruggleType] > 0) typesuff = "3";
+			if (data.origEscapeChance <= 0 && data.helpChance) typesuff = "3";
 			else if (KDRestraint(restraint).specStruggleTypes && KDRestraint(restraint).specStruggleTypes.includes(StruggleType)) typesuff = "2";
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			if (typesuff == "" && failSuffix) typesuff = failSuffix;
@@ -996,7 +999,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			// Aftermath
 			let suff = "";
 			if (Pass == "Fail" && data.escapeChance > 0 && data.origEscapeChance <= 0) {
-				if (KinkyDungeonHasGhostHelp() && KDRestraint(restraint).helpChance && KDRestraint(restraint).helpChance[StruggleType] > 0) suff = "3";
+				if (KinkyDungeonHasGhostHelp() && data.helpChance) suff = "3";
 				else suff = "2";
 			} else if (Pass == "Fail") {
 				if (suff == "" && failSuffix) suff = failSuffix;
