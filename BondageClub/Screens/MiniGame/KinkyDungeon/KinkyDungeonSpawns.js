@@ -134,7 +134,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 
 function KinkyDungeonCallGuard(x, y, noTransgress, normalDrops) {
 	if (!noTransgress)
-		KinkyDungeonAggroAction('call');
+		KinkyDungeonAggroAction('call', {});
 	if (!KinkyDungeonJailGuard()) {
 		let Enemy = KinkyDungeonEnemies.find(element => element.name == "Guard");
 		let guard = {summoned: true, noRep: true, noDrop: !normalDrops, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),

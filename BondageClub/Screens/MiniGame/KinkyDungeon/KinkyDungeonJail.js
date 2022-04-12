@@ -62,6 +62,7 @@ function KinkyDungeonCheckRelease() {
 /**
  *
  * @param {string} action
+ * @param {{enemy?: enemy, x?: number, y?: number}} data
  */
 function KinkyDungeonAggroAction(action, data) {
 	let e = null;
@@ -144,7 +145,7 @@ function KinkyDungeonAggroAction(action, data) {
 		case 'key':
 			e = KinkyDungeonPlayerIsVisibleToJailers();
 			if (e) {
-				KinkyDungeonStartChase(e, "Key");
+				KinkyDungeonPlayExcuse(e, "Key");
 			}
 			break;
 	}
@@ -395,6 +396,13 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				KinkyDungeonJailGuard().gx = xx;
 				KinkyDungeonJailGuard().gy = yy;
 			}
+		}
+	}
+
+	// Unlock all jail doors when chasing
+	if (!KDGameData.PrisonerState || KDGameData.PrisonerState == 'chase') {
+		for (let T of KinkyDungeonTiles.values()) {
+			if (T.Lock && T.Jail) T.Lock = undefined;
 		}
 	}
 
