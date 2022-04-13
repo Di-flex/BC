@@ -456,7 +456,7 @@ function KinkyDungeonDrawQuickInv() {
 	let consumables = fC.slice(KDScrollOffset.Consumable, KDScrollOffset.Consumable + KDItemsPerScreen.Consumable);
 	let fW = KinkyDungeonFilterInventory(Weapon);
 	let weapons = fW.slice(KDScrollOffset.Weapon, KDScrollOffset.Weapon + KDItemsPerScreen.Weapon);
-	let fR = KinkyDungeonFilterInventory(LooseRestraint, true);
+	let fR = KinkyDungeonFilterInventory(LooseRestraint);
 	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
 	let Rheight = 480 + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
@@ -553,7 +553,7 @@ function KinkyDungeonhandleQuickInv() {
 	let consumables = fC.slice(KDScrollOffset.Consumable, KDScrollOffset.Consumable + KDItemsPerScreen.Consumable);
 	let fW = KinkyDungeonFilterInventory(Weapon);
 	let weapons = fW.slice(KDScrollOffset.Weapon, KDScrollOffset.Weapon + KDItemsPerScreen.Weapon);
-	let fR = KinkyDungeonFilterInventory(LooseRestraint, true);
+	let fR = KinkyDungeonFilterInventory(LooseRestraint);
 	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
 	let Rheight = 480 + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
