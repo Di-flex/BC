@@ -1405,6 +1405,19 @@ KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as t
 KinkyDungeonStruggleCutStrict,"Your arms are kept from having leverage due to another item."
 KinkyDungeonStruggleCutStrictAroused,"You fiddle with the tool, but your arms lack leverage due to another item"
 
+KinkyDungeonStruggleRemoveFailShadowHand,"You pry at the hands..."
+KinkyDungeonStruggleRemoveFailShadowHandAroused,"You moan as the hands squeeze you tightly..."
+KinkyDungeonStruggleRemoveImpossibleShadowHand,"There's no way they are just letting go!"
+KinkyDungeonStruggleRemoveImpossibleShadowHandAroused,"You whimper as you realize the hands won't let go no matter what..."
+KinkyDungeonStruggleRemoveImpossibleBoundShadowHand,"You hear dark laughter as you realize the hands won't let go..."
+KinkyDungeonStruggleRemoveImpossibleBoundShadowHandAroused,"You hear a dark giggle as fruitlessly try to wiggle free!"
+
+KinkyDungeonStruggleStruggleFailShadowHand,"You try to pull away!"
+KinkyDungeonStruggleStruggleFailShadowHandAroused,"You blush and try to escape the hands' grip!"
+KinkyDungeonStruggleStruggleImpossibleShadowHand,"Their grip is too strong..."
+KinkyDungeonStruggleStruggleImpossibleShadowHandAroused,"Their grip is too strong... it's hopeless."
+KinkyDungeonStruggleStruggleImpossibleBoundShadowHand,"You're bound too tight to have a chance."
+KinkyDungeonStruggleStruggleImpossibleBoundShadowHandAroused,"You whimper as you realize you're too tightly bound to have a chance."
 
 KinkyDungeonStruggleRemoveFailCorset,"You work to unlace the corset..."
 KinkyDungeonStruggleRemoveFailCorsetAroused,"You hurriedly try to unlace the corset..."
@@ -1874,6 +1887,10 @@ RestraintTrapPlug3Desc2,"It vibrates strongly periodically and has a denial sett
 RestraintMaidVibe,Maid Egg
 RestraintMaidVibeDesc,"An energetic little friend that likes to tease you and takes orders from the head maid."
 RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
+
+RestraintShadowHandMouth,Shadow Hand Gag
+RestraintShadowHandMouthDesc,"It clasps tightly over the mouth and prevents you from casting your spells!"
+RestraintShadowHandMouthDesc2,"You have no choice but to struggle."
 
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
@@ -3265,8 +3282,8 @@ KinkyDungeonRepNamePleased,"Pleased"
 KinkyDungeonRepNameBlessed,"Blessed"
 KinkyDungeonRepNameThankful,"Thankful"
 
-KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
-KinkyDungeonTetherPull,"You are yanked back by the tether!"
+KinkyDungeonTetherTooShort,"You run up against the TETHER pulling you back."
+KinkyDungeonTetherPull,"You are yanked back by the TETHER!"
 KinkyDungeonRemindJailTourStart,"EnemyName: We will be going for a walk. Follow me."
 KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
 KinkyDungeonRemindJailTour1,"EnemyName: I said, FOLLOW ME!"

@@ -95,39 +95,41 @@ const KinkyDungeonStrictnessTable = new Map([
 let KDRestraintsCache = new Map();
 
 function KinkyDungeonDrawTether(Entity, CamX, CamY) {
-	let inv = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
-	if (inv && KDRestraint(inv).tether && inv.tx && inv.ty) {
-		let vx = inv.tx;
-		let vy = inv.ty;
-		if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy()) {
-			vx = KinkyDungeonLeashingEnemy().visual_x;
-			vy = KinkyDungeonLeashingEnemy().visual_y;
-		}
-		if (inv.tetherToGuard && KinkyDungeonJailGuard()) {
-			vx = KinkyDungeonJailGuard().visual_x;
-			vy = KinkyDungeonJailGuard().visual_y;
-		}
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (inv && KDRestraint(inv).tether && inv.tx && inv.ty) {
+			let vx = inv.tx;
+			let vy = inv.ty;
+			if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy()) {
+				vx = KinkyDungeonLeashingEnemy().visual_x;
+				vy = KinkyDungeonLeashingEnemy().visual_y;
+			}
+			if (inv.tetherToGuard && KinkyDungeonJailGuard()) {
+				vx = KinkyDungeonJailGuard().visual_x;
+				vy = KinkyDungeonJailGuard().visual_y;
+			}
 
-		//let dist = KDistEuclidean(inv.tx - Entity.visual_x, inv.ty - Entity.visual_y);
-		let xx = canvasOffsetX + (Entity.visual_x - CamX)*KinkyDungeonGridSizeDisplay;
-		let yy = canvasOffsetY + (Entity.visual_y - CamY)*KinkyDungeonGridSizeDisplay;
-		let txx = canvasOffsetX + (vx - CamX)*KinkyDungeonGridSizeDisplay;
-		let tyy = canvasOffsetY + (vy - CamY)*KinkyDungeonGridSizeDisplay;
-		let dx = (txx - xx);
-		let dy = (tyy - yy);
-		let dd = 0.1; // Increments
-		for (let d = 0; d < 1; d += dd) {
-			let yOffset = 30 * Math.sin(Math.PI * d);
-			let yOffset2 = 30 * Math.sin(Math.PI * (d + dd));
+			//let dist = KDistEuclidean(inv.tx - Entity.visual_x, inv.ty - Entity.visual_y);
+			let xx = canvasOffsetX + (Entity.visual_x - CamX)*KinkyDungeonGridSizeDisplay;
+			let yy = canvasOffsetY + (Entity.visual_y - CamY)*KinkyDungeonGridSizeDisplay;
+			let txx = canvasOffsetX + (vx - CamX)*KinkyDungeonGridSizeDisplay;
+			let tyy = canvasOffsetY + (vy - CamY)*KinkyDungeonGridSizeDisplay;
+			let dx = (txx - xx);
+			let dy = (tyy - yy);
+			let dd = 0.1; // Increments
+			for (let d = 0; d < 1; d += dd) {
+				let yOffset = 30 * Math.sin(Math.PI * d);
+				let yOffset2 = 30 * Math.sin(Math.PI * (d + dd));
 
-			MainCanvas.beginPath();
-			MainCanvas.lineWidth = 4;
-			MainCanvas.moveTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*d, KinkyDungeonGridSizeDisplay*0.8 + yOffset + yy + dy*d);
-			MainCanvas.lineTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*(d+dd), KinkyDungeonGridSizeDisplay*0.8 + yOffset2 + yy + dy*(d+dd));
-			MainCanvas.strokeStyle = "#aaaaaa";//(color == "Default") ? "#aaaaaa" : color;
-			MainCanvas.stroke();
+				MainCanvas.beginPath();
+				MainCanvas.lineWidth = 4;
+				MainCanvas.moveTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*d, KinkyDungeonGridSizeDisplay*0.8 + yOffset + yy + dy*d);
+				MainCanvas.lineTo(KinkyDungeonGridSizeDisplay/2 + xx + dx*(d+dd), KinkyDungeonGridSizeDisplay*0.8 + yOffset2 + yy + dy*(d+dd));
+				// @ts-ignore
+				MainCanvas.strokeStyle = KDRestraint(inv).Color[0] ? KDRestraint(inv).Color[0] : KDRestraint(inv).Color;//(color == "Default") ? "#aaaaaa" : color;
+				MainCanvas.stroke();
+			}
+			return;
 		}
-		return;
 	}
 }
 
@@ -140,7 +142,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 			if (inv.tetherToLeasher && KinkyDungeonLeashingEnemy()) {
 				inv.tx = KinkyDungeonLeashingEnemy().x;
 				inv.ty = KinkyDungeonLeashingEnemy().y;
-			} else if (!KinkyDungeonLeashingEnemy()) {
+			} else if (inv.tetherToLeasher && !KinkyDungeonLeashingEnemy()) {
 				inv.tetherToLeasher = undefined;
 				inv.tx = undefined;
 				inv.ty = undefined;
@@ -148,7 +150,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 			if (inv.tetherToGuard && KinkyDungeonJailGuard()) {
 				inv.tx = KinkyDungeonJailGuard().x;
 				inv.ty = KinkyDungeonJailGuard().y;
-			} else if (!KinkyDungeonJailGuard()) {
+			} else if (inv.tetherToGuard && !KinkyDungeonJailGuard()) {
 				inv.tetherToGuard = undefined;
 				inv.tx = undefined;
 				inv.ty = undefined;
@@ -156,7 +158,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 
 			if (xTo || yTo) {// This means we arre trying to move
 				if (KDistChebyshev(xTo-inv.tx, yTo-inv.ty) > KDRestraint(inv).tether) {
-					if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherTooShort"), "red", 2, true);
+					if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherTooShort").replace("TETHER", TextGet("Restraint" + inv.name)), "red", 2, true);
 					return false;
 				}
 			} else {// Then we merely update
@@ -200,7 +202,7 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 							Entity.x = slot.x;
 							Entity.y = slot.y;
 							KinkyDungeonInterruptSleep();
-							if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull"), "red", 2, true);
+							if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull").replace("TETHER", TextGet("Restraint" + inv.name)), "red", 2, true);
 						}
 					}
 				}

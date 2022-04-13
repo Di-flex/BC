@@ -571,6 +571,14 @@ function KinkyDungeonMultiplicativeStat(Stat) {
 	return 1;
 }
 
+function KDNearbyEnemies(x, y, dist) {
+	let list = [];
+	for (let e of KinkyDungeonEntities) {
+		if (KDistEuclidean(x - e.x, y - e.y) <= dist) list.push(e);
+	}
+	return list;
+}
+
 function KinkyDungeonGetRandomEnemyPoint(avoidPlayer, onlyPlayer, Enemy) {
 	let tries = 0;
 
