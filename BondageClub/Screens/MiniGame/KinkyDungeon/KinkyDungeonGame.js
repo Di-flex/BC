@@ -240,6 +240,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	KinkyDungeonTiles = new Map();
 	KinkyDungeonTilesSkin = new Map();
 	KinkyDungeonTargetTile = "";
+	KinkyDungeonGroundItems = []; // Clear items on the ground
+	KinkyDungeonBullets = []; // Clear all bullets
 
 	if (KDGameData.JailKey == undefined) {
 		KDGameData.JailKey = true;
@@ -346,9 +348,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	startpos *= 2;
 
 	KinkyDungeonResetFog();
-
-	KinkyDungeonGroundItems = []; // Clear items on the ground
-	KinkyDungeonBullets = []; // Clear all bullets
 
 	// Place the player!
 	KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 2, y:startpos, player:true};
