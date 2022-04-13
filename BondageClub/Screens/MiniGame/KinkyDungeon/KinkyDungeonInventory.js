@@ -443,7 +443,7 @@ let KDScrollOffset = {
 
 let KDItemsPerScreen = {
 	"Consumable": 18,
-	"Restraint": 12,
+	"Restraint": 18,
 	"Weapon": 18,
 };
 
