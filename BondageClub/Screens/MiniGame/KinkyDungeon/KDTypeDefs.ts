@@ -592,6 +592,8 @@ interface KinkyDungeonEvent {
 	buff?: any;
 	lock?: string;
 	msg?: string;
+	/** A required enemy tag */
+	requiredTag?: string;
 	/** Type of struggle that this event triggers on */
 	StruggleType?: string;
 	requireEnergy?: boolean;
@@ -646,8 +648,7 @@ interface entity {
 	specialCD?: number,
 	disarmflag?: number,
 	channel?: number,
-	picks?: number,
-	knives?: number,
+	items?: string[],
 	x: number,
 	y: number,
 	fx?: number,

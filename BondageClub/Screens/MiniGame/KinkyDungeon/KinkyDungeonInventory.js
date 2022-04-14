@@ -435,14 +435,47 @@ function KinkyDungeonQuickGrid(I, Width, Height, Xcount) {
 	return {x: Width*h, y: Height*v};
 }
 
+let KDScrollOffset = {
+	"Consumable": 0,
+	"Restraint": 0,
+	"Weapon": 0,
+};
+
+let KDItemsPerScreen = {
+	"Consumable": 18,
+	"Restraint": 18,
+	"Weapon": 18,
+};
+
+let KDScrollAmount = 6;
+
 function KinkyDungeonDrawQuickInv() {
 	let H = 80;
 	let V = 80;
-	let consumables = KinkyDungeonFilterInventory(Consumable);
-	let weapons = KinkyDungeonFilterInventory(Weapon);
-	let restraints = KinkyDungeonFilterInventory(LooseRestraint, true);
+	let fC = KinkyDungeonFilterInventory(Consumable);
+	let consumables = fC.slice(KDScrollOffset.Consumable, KDScrollOffset.Consumable + KDItemsPerScreen.Consumable);
+	let fW = KinkyDungeonFilterInventory(Weapon);
+	let weapons = fW.slice(KDScrollOffset.Weapon, KDScrollOffset.Weapon + KDItemsPerScreen.Weapon);
+	let fR = KinkyDungeonFilterInventory(LooseRestraint);
+	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
-	let Rheight = Wheight + V + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
+	let Rheight = 480;
+
+	if (fC.length > KDItemsPerScreen.Consumable) {
+		DrawButton(510, 5, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+		DrawButton(510, 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+	}
+	if (fW.length > KDItemsPerScreen.Weapon) {
+		DrawButton(510, 705, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+		DrawButton(510, 750, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+	}
+	if (fR.length > KDItemsPerScreen.Restraint) {
+		DrawButton(510, 455, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+		DrawButton(510, 500, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+	}
+
+
+	let ToolTipX = 600;
 
 
 	for (let c = 0; c < consumables.length; c++) {
@@ -452,13 +485,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, point.y + 30, H, V)) {
 				DrawRect(point.x, point.y + 30, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y+1 + 30 + V/2, "black");
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, point.y + 30 + V/2, "white");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, point.y+1 + 30 + V/2, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, point.y + 30 + V/2, "white");
 
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y+1 + 30 + 50 + V/2, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, point.y + 30 + 50 + V/2, 1000, "white");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y+1 + 30 + 100 + V/2, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, point.y + 30 + 100 + V/2, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, point.y+1 + 30 + 50 + V/2, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, point.y + 30 + 50 + V/2, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, point.y+1 + 30 + 100 + V/2, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, point.y + 30 + 100 + V/2, 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
@@ -477,13 +510,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100+1, "black");
-				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100, "white");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100+1, "black");
+				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100, "white");
 
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
-				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
@@ -497,13 +530,13 @@ function KinkyDungeonDrawQuickInv() {
 			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Rheight + point.y, H, V, "white");
 				MainCanvas.textAlign = "left";
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
-				DrawText(TextGet("Restraint" + item.name), 500, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
+				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
+				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
 
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), 500, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});
@@ -512,16 +545,51 @@ function KinkyDungeonDrawQuickInv() {
 }
 
 function KinkyDungeonhandleQuickInv() {
-	KinkyDungeonShowInventory = false;
+
 
 	let H = 80;
 	let V = 80;
-	let consumables = KinkyDungeonFilterInventory(Consumable);
-	let weapons = KinkyDungeonFilterInventory(Weapon);
-	let restraints = KinkyDungeonFilterInventory(LooseRestraint, true);
+	let fC = KinkyDungeonFilterInventory(Consumable);
+	let consumables = fC.slice(KDScrollOffset.Consumable, KDScrollOffset.Consumable + KDItemsPerScreen.Consumable);
+	let fW = KinkyDungeonFilterInventory(Weapon);
+	let weapons = fW.slice(KDScrollOffset.Weapon, KDScrollOffset.Weapon + KDItemsPerScreen.Weapon);
+	let fR = KinkyDungeonFilterInventory(LooseRestraint);
+	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
-	let Rheight = Wheight + V + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
+	let Rheight = 480;
 
+	if (fC.length > KDItemsPerScreen.Consumable) {
+		if (MouseIn(510, 5, 90, 40)) {
+			KDScrollOffset.Consumable = Math.min(Math.ceil((fC.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Consumable + KDScrollAmount);
+			return true;
+		}
+		if (MouseIn(510, 50, 90, 40)) {
+			KDScrollOffset.Consumable = Math.max(0, KDScrollOffset.Consumable - KDScrollAmount);
+			return true;
+		}
+	}
+	if (fW.length > KDItemsPerScreen.Weapon) {
+		if (MouseIn(510, 705, 90, 40)) {
+			KDScrollOffset.Weapon = Math.min(Math.ceil((fW.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Weapon + KDScrollAmount);
+			return true;
+		}
+		if (MouseIn(510, 750, 90, 40)) {
+			KDScrollOffset.Weapon = Math.max(0, KDScrollOffset.Weapon - KDScrollAmount);
+			return true;
+		}
+	}
+	if (fR.length > KDItemsPerScreen.Restraint) {
+		if (MouseIn(510, 455, 90, 40)) {
+			KDScrollOffset.Restraint = Math.min(Math.ceil((fR.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Restraint + KDScrollAmount);
+			return true;
+		}
+		if (MouseIn(510, 500, 90, 40)) {
+			KDScrollOffset.Restraint = Math.max(0, KDScrollOffset.Restraint - KDScrollAmount);
+			return true;
+		}
+	}
+
+	KinkyDungeonShowInventory = false;
 
 	for (let c = 0; c < consumables.length; c++) {
 		let item = consumables[c];

@@ -46,6 +46,26 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	if (Event == "tick") {
 		if (e.type == "spellRange" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.name+e.type+e.trigger, type: "spellRange", duration: 1, power: e.power});
+		} else if (e.type == "ShadowHandTether" && e.dist) {
+			let enemy = (item.tx && item.ty) ? KinkyDungeonEnemyAt(item.tx, item.ty) : undefined;
+			if (KDGameData.KinkyDungeonLeashedPlayer > 0 && KinkyDungeonLeashingEnemy() && enemy != KinkyDungeonLeashingEnemy()) {
+				item.tx = undefined;
+				item.ty = undefined;
+			} else {
+				if (item.tx && item.ty && (!enemy || (e.requiredTag && !enemy.Enemy.tags.has(e.requiredTag)))) {
+					item.tx = undefined;
+					item.ty = undefined;
+					return;
+				} else {
+					// The shadow hands will link to a nearby enemy if possible
+					for (enemy of KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, e.dist)) {
+						if (!e.requiredTag || enemy.Enemy.tags.has(e.requiredTag)) {
+							item.tx = enemy.x;
+							item.ty = enemy.y;
+						}
+					}
+				}
+			}
 		} else if (e.type == "SneakBuff" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.name+e.type+e.trigger, type: "Sneak", duration: 1, power: e.power});
 		} else if (e.type == "EvasionBuff" && e.trigger == Event) {
