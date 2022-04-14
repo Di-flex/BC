@@ -7,7 +7,7 @@ let KDTightRestraintsMult = 2;
 
 /**
  * @param {item[]} list
- * @param {boolean} excludeBound
+ * @param {boolean} excludeBound - bound weapons, i.e. magic knives and weapons
  */
 function KinkyDungeonAddLostItems(list, excludeBound) {
 	for (let item of list) {
