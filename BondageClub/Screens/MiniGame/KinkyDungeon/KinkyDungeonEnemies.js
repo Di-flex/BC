@@ -1354,7 +1354,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod) {
 							if (!enemy.items) enemy.items = [item.name];
 							enemy.items.push(item.name);
 						} else if (item.type == Consumable) {
-							KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.name], 1);
+							KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.name], -1);
 							/** @type {item} */
 							let item2 = Object.assign({}, item);
 							item2.quantity = 1;
