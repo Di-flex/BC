@@ -761,7 +761,17 @@ function KinkyDungeonUpdateEnemies(delta) {
 					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
 			} else {
 				let start = performance.now();
-				idle = KinkyDungeonEnemyLoop(enemy, player, delta, visionMod);
+
+				let playerItems = [];
+				for (let inv of KinkyDungeonAllWeapon()) {
+					if (inv.name != "Knife")
+						playerItems.push(inv);
+				}
+				for (let inv of KinkyDungeonAllConsumable()) {
+					playerItems.push(inv);
+				}
+
+				idle = KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems);
 				if (enemy.items) {
 					let light = KinkyDungeonLightGet(enemy.x, enemy.y);
 					if (light == 0 && !enemy.aware && KDRandom() < 0.2) {
@@ -814,7 +824,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 	KinkyDungeonAlert = 0;
 }
 
-function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod) {
+function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	let idle = true;
 	let moved = false;
 	let ignore = false;
@@ -960,6 +970,12 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod) {
 	if (KDGameData.JailKey) chance += 0.2;
 	if (playerDist < 1.5) chance += 0.1;
 	if (enemy.aware) chance += 0.1;
+	if (playerItems || KinkyDungeonRedKeys > 0) {
+		chance += 0.2;
+		if (playerItems.length > 6) {
+			chance += 0.5;
+		}
+	}
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.1;
 	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.aware && !(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail() && KDRandom() < chance) {
 		enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
@@ -1337,14 +1353,6 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod) {
 					}
 				}
 				if (attack.includes("Bind") && KDGameData.KinkyDungeonLeashedPlayer < 1 && !enemy.Enemy.nopickpocket && player.player && enemy.Enemy.bound) {
-					let playerItems = [];
-					for (let inv of KinkyDungeonAllWeapon()) {
-						if (inv.name != "Knife")
-							playerItems.push(inv);
-					}
-					for (let inv of KinkyDungeonAllConsumable()) {
-						playerItems.push(inv);
-					}
 					let item = playerItems.length > 0 ? playerItems[Math.floor(KDRandom() * playerItems.length)] : undefined;
 					if (item && playerItems.length > 0
 						&& KinkyDungeonIsArmsBound() && ((!KinkyDungeonPlayerDamage || item.name != KinkyDungeonPlayerDamage.name) || KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.05) && KDRandom() < 0.5) {

@@ -43,7 +43,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "MagicSword", weight: 1, ignoreInInventory: true}, {name: "MagicSpear", weight: 1, ignoreInInventory: true}, {name: "MagicAxe", weight: 1, ignoreInInventory: true}, {name: "MagicFlail", weight: 1, ignoreInInventory: true}, {name: "MagicHammer", weight: 1, ignoreInInventory: true}], rep: {"Rope": -1, "Leather": -1, "Metal": -1, "Latex": -1, "Will": -1, "Elements": -1, "Conjure": -1, "Illusion": -1}},
 
 	{name: "BlindZombie", bound: "Zombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["ignoreharmless", "minor", "zombie", "melee", "fireweakness", "ribbonRestraints", "meleeweakness"]), evasion: -1, ignorechance: 0.33, armor: 0, followRange: 1, AI: "wander",
-		visionRadius: 1.5, maxhp: 8, minLevel:0, weight:14, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 2,
+		visionRadius: 2.5, maxhp: 8, minLevel:0, weight:14, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"increasingWeight":-1.5}, floors:KDMapInit([0]), dropTable: [], difficulty: 0.9},
 	{name: "FastZombie", bound: "Zombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["ignoreharmless", "zombie", "melee", "fireweakness", "ribbonRestraints", "meleeweakness"]), evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
 		visionRadius: 6, maxhp: 10, minLevel:1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
