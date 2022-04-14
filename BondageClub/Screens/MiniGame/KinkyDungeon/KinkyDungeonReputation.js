@@ -20,6 +20,10 @@ let KinkyDungeonAid = {};
 
 let KDRepSelectionMode = "";
 
+/**
+ *
+ * @type {Object.<string, string[]>}
+ */
 let KDBlessedRewards = {
 	"Latex": ["StaffDoll"],
 	"Rope": ["StaffBind"],
@@ -156,12 +160,22 @@ function KinkyDungeonHandleReputation() {
 						KDSendStatus('goddess', rep, 'helpRescue');
 						KinkyDungeonChangeRep(rep, -10);
 						let allies = KinkyDungeonGetAllies();
+						// Tie up all non-allies
+						for (let e of KinkyDungeonEntities) {
+							if (e.Enemy.bound && !e.Enemy.tags.has("angel")) {
+								allies.push(e);
+								if (!e.boundLevel) e.boundLevel = e.Enemy.maxhp;
+								else e.boundLevel += e.Enemy.maxhp;
+								e.hp = 0.1;
+							}
+						}
 						KinkyDungeonEntities = allies;
-						KinkyDungeonJailTransgressed = false;
+						KDGameData.PrisonerState = '';
 						KDGameData.KinkyDungeonJailGuard = 0;
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
 						for (let T of KinkyDungeonTiles.values()) {
 							if (T.Lock) T.Lock = undefined;
+							if (T.Type == "Lock") T.Type = undefined;
 							if (T.Type == "Trap") T.Type = undefined;
 						}
 						KinkyDungeonDrawState = "Game";
@@ -195,11 +209,6 @@ function KinkyDungeonHandleReputation() {
 					KDGameData.Champion = rep;
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
 					KDSendStatus('goddess', rep, 'helpChampion');
-					return true;
-				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
-					// Penance
-					KDGameData.Champion = rep;
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
 					return true;
 				}
 			}
@@ -345,7 +354,7 @@ function KinkyDungeonCanAidMana(rep, value) {
 }
 
 function KinkyDungeonCanRescue(rep, value) {
-	return (KinkyDungeonEntities.length > 0 || KinkyDungeonJailTransgressed == true) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
+	return (KDGameData.PrisonerState) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
 }
 
 
@@ -362,14 +371,14 @@ function KinkyDungeonUpdatePenance(delta) {
 				if (KDGameData.KDPenanceStage == 0) {
 					let divineRestraints = [];
 					for (let inv of KinkyDungeonAllRestraint()) {
-						if (inv.restraint && inv.restraint.divine) {
+						if (KDRestraint(inv).divine) {
 							divineRestraints.push(inv);
 						}
 					}
 					if (divineRestraints.length > 0) {
 						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelUnlock"), "yellow", 3);
 						for (let r of divineRestraints) {
-							KinkyDungeonRemoveRestraint(r.restraint.Group, false, false, true, true);
+							KinkyDungeonRemoveRestraint(KDRestraint(r).Group, false, false, true, true);
 						}
 					} else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelIntro"), "yellow", 2);
 
