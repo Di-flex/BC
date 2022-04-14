@@ -252,6 +252,11 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			if (Replacemsg)
 				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
 		}
+		else {
+			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+			if (Replacemsg)
+				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItemAncientPowerSource"));
+		}
 
 	}
 	else if (Loot.name == "gold") {
