@@ -459,7 +459,7 @@ function KinkyDungeonDrawQuickInv() {
 	let fR = KinkyDungeonFilterInventory(LooseRestraint);
 	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
-	let Rheight = 480 + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
+	let Rheight = 480;
 
 	if (fC.length > KDItemsPerScreen.Consumable) {
 		DrawButton(510, 5, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
@@ -470,8 +470,8 @@ function KinkyDungeonDrawQuickInv() {
 		DrawButton(510, 750, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
 	}
 	if (fR.length > KDItemsPerScreen.Restraint) {
-		DrawButton(510, 505, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
-		DrawButton(510, 550, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+		DrawButton(510, 455, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+		DrawButton(510, 500, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
 	}
 
 
@@ -533,10 +533,10 @@ function KinkyDungeonDrawQuickInv() {
 				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
 				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
 
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50+1, 1000, "black");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
-				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-50+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-50, 1000, "white");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)+1, 1000, "black");
+				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2), 1000, "white");
 				MainCanvas.textAlign = "center";
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});
@@ -556,11 +556,11 @@ function KinkyDungeonhandleQuickInv() {
 	let fR = KinkyDungeonFilterInventory(LooseRestraint);
 	let restraints = fR.slice(KDScrollOffset.Restraint, KDScrollOffset.Restraint + KDItemsPerScreen.Restraint);
 	let Wheight = KinkyDungeonQuickGrid(weapons.length-1, H, V, 6).y;
-	let Rheight = 480 + KinkyDungeonQuickGrid(restraints.length-1, H, V, 6).y;
+	let Rheight = 480;
 
 	if (fC.length > KDItemsPerScreen.Consumable) {
 		if (MouseIn(510, 5, 90, 40)) {
-			KDScrollOffset.Consumable = Math.min(Math.floor((fC.length - 1)/KDItemsPerScreen.Consumable) * KDItemsPerScreen.Consumable, KDScrollOffset.Consumable + KDScrollAmount);
+			KDScrollOffset.Consumable = Math.min(Math.ceil((fC.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Consumable + KDScrollAmount);
 			return true;
 		}
 		if (MouseIn(510, 50, 90, 40)) {
@@ -570,7 +570,7 @@ function KinkyDungeonhandleQuickInv() {
 	}
 	if (fW.length > KDItemsPerScreen.Weapon) {
 		if (MouseIn(510, 705, 90, 40)) {
-			KDScrollOffset.Weapon = Math.min(Math.floor((fC.length - 1)/KDItemsPerScreen.Weapon) * KDItemsPerScreen.Weapon, KDScrollOffset.Weapon + KDScrollAmount);
+			KDScrollOffset.Weapon = Math.min(Math.ceil((fW.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Weapon + KDScrollAmount);
 			return true;
 		}
 		if (MouseIn(510, 750, 90, 40)) {
@@ -579,11 +579,11 @@ function KinkyDungeonhandleQuickInv() {
 		}
 	}
 	if (fR.length > KDItemsPerScreen.Restraint) {
-		if (MouseIn(510, 505, 90, 40)) {
-			KDScrollOffset.Restraint = Math.min(Math.floor((fC.length - 1)/KDItemsPerScreen.Restraint) * KDItemsPerScreen.Restraint, KDScrollOffset.Restraint + KDScrollAmount);
+		if (MouseIn(510, 455, 90, 40)) {
+			KDScrollOffset.Restraint = Math.min(Math.ceil((fR.length - KDItemsPerScreen.Consumable)/KDScrollAmount) * KDScrollAmount, KDScrollOffset.Restraint + KDScrollAmount);
 			return true;
 		}
-		if (MouseIn(510, 550, 90, 40)) {
+		if (MouseIn(510, 500, 90, 40)) {
 			KDScrollOffset.Restraint = Math.max(0, KDScrollOffset.Restraint - KDScrollAmount);
 			return true;
 		}
