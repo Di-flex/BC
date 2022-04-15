@@ -560,7 +560,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	KinkyDungeonCurrentEscapingMethod = StruggleType;
 	KinkyDungeonStruggleTime = CommonTime() + 750;
 	let Pass = "Fail";
-	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType] ? KDRestraint(restraint).escapeChance[StruggleType] : 1.0;
+	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType] != undefined ? KDRestraint(restraint).escapeChance[StruggleType] : 1.0;
 	let helpChance = (KDRestraint(restraint).helpChance != undefined && KDRestraint(restraint).helpChance[StruggleType] != undefined) ? KDRestraint(restraint).helpChance[StruggleType] : 0.0;
 	if (KinkyDungeonHasGhostHelp() && helpChance) {
 		restraintEscapeChancePre = helpChance;
@@ -845,16 +845,16 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		}
 	}
 
-	if (KDRestraint(restraint) && KDRestraint(restraint).escapeMult) data.escapeChance *= KDRestraint(restraint).escapeMult;
+	if (KDRestraint(restraint) && KDRestraint(restraint).escapeMult != undefined) data.escapeChance *= KDRestraint(restraint).escapeMult;
 
 
-	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMinSpeed && KDRestraint(restraint).struggleMinSpeed[StruggleType])
+	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMinSpeed && KDRestraint(restraint).struggleMinSpeed[StruggleType] != undefined)
 		data.escapeChance = Math.max(data.escapeChance, KDRestraint(restraint).struggleMinSpeed[StruggleType]);
 
-	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMult && KDRestraint(restraint).struggleMult[StruggleType])
+	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMult && KDRestraint(restraint).struggleMult[StruggleType] != undefined)
 		data.escapeChance *= KDRestraint(restraint).struggleMult[StruggleType];
 
-	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMaxSpeed && KDRestraint(restraint).struggleMaxSpeed[StruggleType])
+	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMaxSpeed && KDRestraint(restraint).struggleMaxSpeed[StruggleType] != undefined)
 		data.escapeChance = Math.min(data.escapeChance, KDRestraint(restraint).struggleMaxSpeed[StruggleType]);
 
 	// Handle cases where you can't even attempt to unlock
