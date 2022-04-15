@@ -303,6 +303,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			if (release >= 0) {
 				KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonRemindJailRelease" + release).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 4);
 				KDGameData.PrisonerState = 'parole';
+				KinkyDungeonInterruptSleep();
 				// Unlock all jail doors
 				for (let T of KinkyDungeonTiles.values()) {
 					if (T.Lock && T.Jail) T.Lock = undefined;

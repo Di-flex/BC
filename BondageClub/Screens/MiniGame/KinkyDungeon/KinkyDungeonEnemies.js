@@ -1367,7 +1367,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 							/** @type {item} */
 							let item2 = Object.assign({}, item);
 							item2.quantity = 1;
-							KinkyDungeonAddLostItems([item2], false);
+							//KinkyDungeonAddLostItems([item2], false);
 							if (!enemy.items) enemy.items = [item.name];
 							enemy.items.push(item.name);
 						}
