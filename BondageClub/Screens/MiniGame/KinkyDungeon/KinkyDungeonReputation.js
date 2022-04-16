@@ -160,6 +160,15 @@ function KinkyDungeonHandleReputation() {
 						KDSendStatus('goddess', rep, 'helpRescue');
 						KinkyDungeonChangeRep(rep, -10);
 						let allies = KinkyDungeonGetAllies();
+						// Tie up all non-allies
+						for (let e of KinkyDungeonEntities) {
+							if (e.Enemy.bound && !e.Enemy.tags.has("angel")) {
+								allies.push(e);
+								if (!e.boundLevel) e.boundLevel = e.Enemy.maxhp;
+								else e.boundLevel += e.Enemy.maxhp;
+								e.hp = 0.1;
+							}
+						}
 						KinkyDungeonEntities = allies;
 						KinkyDungeonJailTransgressed = false;
 						KDGameData.KinkyDungeonJailGuard = 0;

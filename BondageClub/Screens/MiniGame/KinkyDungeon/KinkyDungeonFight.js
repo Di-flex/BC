@@ -559,19 +559,19 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	}
 	if (!KinkyDungeonPlayerDamage || !KinkyDungeonPlayerDamage.silent || !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") > 0)) {
 		if (Enemy && hp < Enemy.Enemy.maxhp) {
-			KinkyDungeonAlert = 8;
-		} else {
 			KinkyDungeonAlert = 4;
+		} else {
+			KinkyDungeonAlert = 2;
 		}
 	} else {
 		if (!KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") || KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 2) {
 			if (KinkyDungeonAlert) {
-				KinkyDungeonAlert = 3;
+				KinkyDungeonAlert = 2;
 			} else {
 				KinkyDungeonAlert = 1;
 			}
 		} else if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Silence") < 3) {
-			Enemy.aware = true;
+			// Meep
 		}
 	}
 

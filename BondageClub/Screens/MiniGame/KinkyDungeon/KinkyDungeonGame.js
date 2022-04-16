@@ -43,6 +43,7 @@ let KinkyDungeonContextFow = null;
 let KinkyDungeonCanvasPlayer = document.createElement("canvas");
 let KinkyDungeonContextPlayer = null;
 
+/** @type {entity[]} */
 let KinkyDungeonEntities = [];
 let KinkyDungeonTerrain = [];
 
