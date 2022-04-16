@@ -23,7 +23,6 @@ function KinkyDungeonSendEvent(Event, data) {
 function KinkyDungeonResetEventVariables() {
 	KinkyDungeonSlimeLevel = 0;
 }
-
 function KinkyDungeonResetEventVariablesTick(delta) {
 	if (KinkyDungeonSlimeLevel < 0)
 		KinkyDungeonSlimeLevel = 0;
@@ -367,6 +366,7 @@ const KDEventMap = {
 			if (item && KDRestraint(item).Link && (KDRandom() < e.chance)) {
 				let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
 				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 			}
 		}
 	},
