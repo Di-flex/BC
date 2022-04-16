@@ -361,7 +361,7 @@ const KDEventMap = new Map([
 	}]
 ]);
 /**
- *
+ * a
  * @param {string} Event
  * @param {KinkyDungeonEvent} e
  * @param {item} item
