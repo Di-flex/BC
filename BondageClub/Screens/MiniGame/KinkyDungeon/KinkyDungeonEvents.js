@@ -36,6 +36,7 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 }
 
 /**
+ * Function mapping
  * @type {Map<string, function(KinkyDungeonEvent, item, *): void>}
  */
 const KDEventMap = new Map([
@@ -361,7 +362,7 @@ const KDEventMap = new Map([
 	}]
 ]);
 /**
- * a
+ *
  * @param {string} Event
  * @param {KinkyDungeonEvent} e
  * @param {item} item
