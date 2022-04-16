@@ -1456,6 +1456,15 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 	return 0;
 }
 
+/**
+ *
+ * @param Group
+ * @param Keep
+ * @param Add
+ * @param NoEvent
+ * @param Shrine
+ * @return {boolean}
+ */
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	for (let i of KinkyDungeonAllRestraint()) {
 		const item = KinkyDungeonRestraintsCache.get(i.name);

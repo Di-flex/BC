@@ -364,7 +364,48 @@ const KinkyDungeonRestraints = [
 	{name: "KittyPaws", Asset: "PawMittens", Color: ["#FFFFFF","#FFFFFF","#FFFFFF","#B38295"], Group: "ItemHands", bindhands: true, power: 5, weight: 2, escapeChance: {"Struggle": 0.1, "Cut": 0.3, "Remove": 0.3, "Pick": 0.2},
 		maxstamina: 0.9, enemyTags: {"kittyRestraints":8}, playerTags: {}, minLevel: 6, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Leather", "Mittens"]},
 	{name: "KittySuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Red", bindarms: true, bindhands: true, power: 11, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
+		events:[
+			{trigger:"defeat", type:"custom", function:()=>{ // get defeated, wear KittyPetSuit
+					KinkyDungeonInventoryRemove({name:"KittySuit",type: Restraint}); // maychange
+					KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"),10) // maychange
+				}},
+		],
 		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":3}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]}, // Counts as a straitjacket for purpose of linking
+	// Only apply if already wearing KittySuit
+	{name: "KittyPetSuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Blue", bindarms: true, bindhands: true, power: 12, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
+		alwaysDress: [],
+		events:[
+			{trigger:"wear", type:"custom", function:()=>{
+					// add some more restraints
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(""))
+					// check if wearing ears
+					//don't care about ears in HairAccessory2 for now. Regex that later
+					// Also, may want to use SendStatus
+					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.BuyGroup && (item.Asset.DynamicGroupName==="HairAccessory2")})){
+						InventoryWear(KinkyDungeonPlayer, "KittenEars2", "HairAccessory1");
+						KinkyDungeonInventoryAdd({name:"KittenEars2",type: Misc})
+
+					}
+					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.BuyGroup && (item.Asset.DynamicGroupName==="TailStraps")})){
+						InventoryWear(KinkyDungeonPlayer, "TailStrap", "TailStraps");
+						KinkyDungeonInventoryAdd({name:"TailStrap",type: Misc})
+					}
+				}},
+			{trigger: "remove",type: "custom", function:()=>{
+					// remove kitty ears if put on
+					if (KinkyDungeonInventoryGet("KittySetEars")){
+						KinkyDungeonInventoryRemove({name:"KittenEars2",type: Misc});
+						InventoryRemove(KinkyDungeonPlayer,"HairAccessory1",true)
+					}
+					// remove kitty tail if put on
+					if (KinkyDungeonInventoryGet("KittySetTail")){
+						KinkyDungeonInventoryRemove({name:"TailStrap",type: Misc});
+						InventoryRemove(KinkyDungeonPlayer,"TailStraps",true)
+					}
+				}}
+		],
+		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":0}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]},
+
 
 	// These restraints are easy, so they dont have maxstamina
 	{inventory: true, name: "WristShackles", Asset: "WristShackles", LinkableBy: ["Wrapping", "Belts", "Ties", "Armbinders"], Group: "ItemArms", Color: "Default", bindarms: true, Type: "Behind", power: 1, weight: 2, DefaultLock: "Red", escapeChance: {"Struggle": 0.1, "Cut": -0.25, "Remove": 10, "Pick": 5}, enemyTags: {"shackleRestraints":2, "handcuffer": 6}, playerTags: {"ItemArmsFull":-1}, minLevel: 0, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Metal", "Cuffs"]},

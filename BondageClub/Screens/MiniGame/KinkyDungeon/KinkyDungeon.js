@@ -2,6 +2,9 @@
 let KDDebug = false;
 
 let KinkyDungeonBackground = "BrickWall";
+/**
+ * @type {Character}
+ */
 let KinkyDungeonPlayer = null;
 let KinkyDungeonState = "Consent";
 
