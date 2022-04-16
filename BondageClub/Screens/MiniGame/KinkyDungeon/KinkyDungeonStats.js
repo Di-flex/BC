@@ -392,7 +392,7 @@ function KinkyDungeonUpdateStats(delta) {
 	let sleepRegen = KinkyDungeonStatStaminaRegenSleep * KinkyDungeonStatStaminaMax / 36;
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'B') sleepRegen *= 2;
 	let stamRegen = KinkyDungeonStatsChoice.get("Narcoleptic") ? KDNarcolepticRegen : KinkyDungeonStatStaminaRegen;
-	if (KinkyDungeonInJail() && KinkyDungeonPlayerInCell() && !KinkyDungeonJailTransgressed) {
+	if (KinkyDungeonInJail() && KinkyDungeonPlayerInCell() && KDGameData.PrisonerState == 'jail') {
 		stamRegen = Math.max(stamRegen, KinkyDungeonStatStaminaRegenJail);
 	}
 	KinkyDungeonStaminaRate = KDGameData.SleepTurns > 0  && KDGameData.SleepTurns < KinkyDungeonSleepTurnsMax - 1? sleepRegen : stamRegen;

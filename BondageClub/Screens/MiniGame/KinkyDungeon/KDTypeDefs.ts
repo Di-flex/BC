@@ -473,10 +473,16 @@ interface enemy {
 	blockVisionWhileStationary?: boolean,
 	/** */
 	squeeze?: boolean,
+	/** Enemy will not chase player for being unrestrained. Use on enemies like drones who have lines but dont bind readily */
+	noChaseUnrestrained?: boolean,
 	/** */
 	suicideOnSpell?: boolean,
 	/** */
 	suicideOnAdd?: boolean,
+	/** */
+	suicideOnLock?: boolean,
+	/** Hostile even on parole */
+	alwaysHostile?: boolean,
 	/** */
 	specialsfx?: string,
 	/** Stuns the enemy when the special attack goes on CD without a hit */
@@ -529,7 +535,10 @@ interface enemy {
 	lifespan?: number,
 	/** This enemy cant be swapped */
 	noDisplace?: boolean,
-
+	/** The enemy will cast spells even if you are in parole */
+	spellWhileParole?: boolean,
+	/** This line is a suffic to the line they say when they want to play with you */
+	playLine?: string,
 
 }
 
@@ -583,6 +592,8 @@ interface KinkyDungeonEvent {
 	buff?: any;
 	lock?: string;
 	msg?: string;
+	/** A required enemy tag */
+	requiredTag?: string;
 	/** Type of struggle that this event triggers on */
 	StruggleType?: string;
 	requireEnergy?: boolean;
@@ -637,8 +648,7 @@ interface entity {
 	specialCD?: number,
 	disarmflag?: number,
 	channel?: number,
-	picks?: number,
-	knives?: number,
+	items?: string[],
 	x: number,
 	y: number,
 	fx?: number,
@@ -661,6 +671,9 @@ interface entity {
 	visual_x?: number,
 	visual_y?: number,
 	Analyze?: boolean,
+	/** Number of turns the enemy is temporarily hostile for */
+	playWithPlayer?: number,
+	playWithPlayerCD?: number,
 }
 
 type KinkyDungeonDress = {

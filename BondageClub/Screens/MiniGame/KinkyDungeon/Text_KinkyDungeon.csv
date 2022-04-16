@@ -3,13 +3,13 @@ KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
 KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:||nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|NDW|Dazman1234"
+KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:||nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|NDW|Dazman1234|linlizheng"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v3.01"
+KinkyDungeon,"Kinky Dungeon v3.11"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -1405,6 +1405,19 @@ KinkyDungeonStruggleCutImpossibleBoundAroused,"You cry out in your bindings as t
 KinkyDungeonStruggleCutStrict,"Your arms are kept from having leverage due to another item."
 KinkyDungeonStruggleCutStrictAroused,"You fiddle with the tool, but your arms lack leverage due to another item"
 
+KinkyDungeonStruggleRemoveFailShadowHand,"You pry at the hands..."
+KinkyDungeonStruggleRemoveFailShadowHandAroused,"You moan as the hands squeeze you tightly..."
+KinkyDungeonStruggleRemoveImpossibleShadowHand,"There's no way they are just letting go!"
+KinkyDungeonStruggleRemoveImpossibleShadowHandAroused,"You whimper as you realize the hands won't let go no matter what..."
+KinkyDungeonStruggleRemoveImpossibleBoundShadowHand,"You hear dark laughter as you realize the hands won't let go..."
+KinkyDungeonStruggleRemoveImpossibleBoundShadowHandAroused,"You hear a dark giggle as fruitlessly try to wiggle free!"
+
+KinkyDungeonStruggleStruggleFailShadowHand,"You try to pull away!"
+KinkyDungeonStruggleStruggleFailShadowHandAroused,"You blush and try to escape the hands' grip!"
+KinkyDungeonStruggleStruggleImpossibleShadowHand,"Their grip is too strong..."
+KinkyDungeonStruggleStruggleImpossibleShadowHandAroused,"Their grip is too strong... it's hopeless."
+KinkyDungeonStruggleStruggleImpossibleBoundShadowHand,"You're bound too tight to have a chance."
+KinkyDungeonStruggleStruggleImpossibleBoundShadowHandAroused,"You whimper as you realize you're too tightly bound to have a chance."
 
 KinkyDungeonStruggleRemoveFailCorset,"You work to unlace the corset..."
 KinkyDungeonStruggleRemoveFailCorsetAroused,"You hurriedly try to unlace the corset..."
@@ -1874,6 +1887,10 @@ RestraintTrapPlug3Desc2,"It vibrates strongly periodically and has a denial sett
 RestraintMaidVibe,Maid Egg
 RestraintMaidVibeDesc,"An energetic little friend that likes to tease you and takes orders from the head maid."
 RestraintMaidVibeDesc2,"It is charged by residual magic from your spells."
+
+RestraintShadowHandMouth,Shadow Hand Gag
+RestraintShadowHandMouthDesc,"It clasps tightly over the mouth and prevents you from casting your spells!"
+RestraintShadowHandMouthDesc2,"You have no choice but to struggle."
 
 RestraintRopeSnakeArms,Wrist Rope
 RestraintRopeSnakeArmsDesc,"A box tie keeping your arms secured behind your back."
@@ -2602,6 +2619,8 @@ KinkyDungeonSpellTargetGreaterShield,Choose shield location
 
 KinkyDungeonSpellElectrify,Electrify
 KinkyDungeonSpellWitchElectrify,Witch's Electricity
+KinkyDungeonSpellWitchElectricOrb,Witch's Electric Orb
+KinkyDungeonSpellWitchElectricBurst,Witch's Electric Burst
 KinkyDungeonSpellDescriptionElectrify,A delayed shock that deals DamageDealt damage and stuns for Duration turns.
 KinkyDungeonSpellCastElectrify,You charge up a burst of electricty!
 KinkyDungeonSpellTargetElectrify,Choose target location
@@ -3263,19 +3282,24 @@ KinkyDungeonRepNamePleased,"Pleased"
 KinkyDungeonRepNameBlessed,"Blessed"
 KinkyDungeonRepNameThankful,"Thankful"
 
-KinkyDungeonTetherTooShort,"You run up against the tether pulling you back."
-KinkyDungeonTetherPull,"You are yanked back by the tether!"
+KinkyDungeonTetherTooShort,"You run up against the TETHER pulling you back."
+KinkyDungeonTetherPull,"You are yanked back by the TETHER!"
 KinkyDungeonRemindJailTourStart,"EnemyName: We will be going for a walk. Follow me."
 KinkyDungeonRemindJailTour0,"EnemyName: I told you to follow me!"
 KinkyDungeonRemindJailTour1,"EnemyName: I said, FOLLOW ME!"
 KinkyDungeonRemindJailTour2,"EnemyName: I won't repeat myself"
 KinkyDungeonRemindJailTour3,"EnemyName: Then let's put you back in your cell!"
 
+KinkyDungeonRemindJailRelease0,"EnemyName: I hope you learned your lesson. Now get your butt out of here."
+KinkyDungeonRemindJailRelease1,"EnemyName: You've been a good girl. I hope you don't make the same mistake again. You can leave."
+KinkyDungeonRemindJailRelease2,"EnemyName: That's a good girl. Now behave yourself, okay? You're free to go."
+KinkyDungeonRemindJailRelease3,"EnemyName: Looks like you got yourself in a bind! (she pats your butt playfully) Go make the others happy!"
+
 KinkyDungeonJailerGoodGirl0,"EnemyName: Good girl."
 KinkyDungeonJailerGoodGirl1,"EnemyName: You'll be making others happy in no time."
 KinkyDungeonJailerGoodGirl2,"EnemyName: You're shaping up to be a good slave."
 KinkyDungeonJailerGoodGirl3,"EnemyName: I wish I could take you to my room..."
-KinkyDungeonJailerGoodGirl4,"EnemyName: It seems the training is going well."
+KinkyDungeonJailerGoodGirl4,"EnemyName: It seems your training is going well."
 KinkyDungeonJailerGoodGirl5,"EnemyName: Perhaps you are enjoying this, hehe."
 
 KinkyDungeonJailerStartAdding,The guard starts adding a RestraintName!
@@ -3363,7 +3387,7 @@ KinkyDungeonPlaySelf,"You play with yourself..."
 KinkyDungeonPlaySelfVibeWand,"You play with yourself using the magic wand..."
 KinkyDungeonPlaySelfPurity,"You would never do such a thing."
 KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
-KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release, but the toys are off..."
+KinkyDungeonOrgasmExhaustion,"Your stamina is draining as you crave release, but can't quite get there without help..."
 KinkyDungeonOrgasmExhaustionVibe,"Your stamina is draining as you crave release, and the toys continue to vibrate..."
 
 KinkyDungeonSleepDeprivation,"A buzzing vibration wakes you up!"
@@ -3514,7 +3538,11 @@ KinkyDungeonHeartMana,"+12 Max Mana"
 
 KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!
 KinkyDungeonStealPick,The enemy steals a pick from you!
-KinkyDungeonStealKnife,The enemy steals a knife from you!
+KinkyDungeonStealKnife,The enemy takes away your knife!
+KinkyDungeonStealRedKey,The enemy steals a key from your body!
+KinkyDungeonSealEnchKnife,The enemy wrests away your magical knife!
+KinkyDungeonStealBlueKey,The enemy takes away your precious magic key!
+KinkyDungeonStealItem,The enemy steals one ITEMSTOLEN from you!
 KinkyDungeonStealBack,You get your stolen items back.
 KinkyDungeonStealBackFail,The EnemyName manages to retreat with your items!
 
@@ -3542,3 +3570,140 @@ KinkyDungeonConsent2,"It sends data about spell choices, levels reached, etc, to
 KinkyDungeonConsent3,"No personal data is sent or stored."
 KDOptIn,"Accept"
 KDOptOut,"Don't Track Me"
+
+KinkyDungeonRemoveJailKey,"Your key to the stairs is taken away!"
+ItemPickupKeyring,"You found a keyring to the stairs! Now you just need to get there."
+KinkyDungeonNeedJailKey,"There seems to be a locked high-security door. Looks like you need a key."
+
+KinkyDungeonRemindJailPlayFree,"EnemyName: Hey! Where do you think you're going?"
+KinkyDungeonRemindJailPlayStruggle,"EnemyName: You look like you're having fun, why don't we play?"
+KinkyDungeonRemindJailPlayLoot,"EnemyName: What do you think you're doing with that?"
+KinkyDungeonRemindJailPlayKey,"EnemyName: Looks like you found my keys! Hand them over."
+KinkyDungeonRemindJailPlay0,"EnemyName: You look like a good girl. Come on~"
+KinkyDungeonRemindJailPlay1,"EnemyName: Come here, let's play!"
+KinkyDungeonRemindJailPlay2,"The EnemyName grins and starts walking toward you..."
+KinkyDungeonRemindJailChaseAttack0,"EnemyName: Hey! Play nice!"
+KinkyDungeonRemindJailChaseAttack1,"EnemyName: Stop that! Guards!"
+KinkyDungeonRemindJailChaseAttack2,"EnemyName: You're mine!"
+KinkyDungeonRemindJailChaseSpell0,"EnemyName: Sorceress!"
+KinkyDungeonRemindJailChaseSpell1,"EnemyName: Get her!"
+KinkyDungeonRemindJailChaseSpell2,"EnemyName: She's a mage! Stop her!"
+KinkyDungeonRemindJailChaseSpellItem,"EnemyName: Watch it!"
+KinkyDungeonRemindJailChaseShrine,"EnemyName: Don't touch that!"
+KinkyDungeonRemindJailChaseChest,"EnemyName: Don't touch that!"
+KinkyDungeonRemindJailChaseOrb,"EnemyName: Don't touch that!"
+KinkyDungeonRemindJailChaseJailbreak,"EnemyName: We have an escapee!"
+
+KinkyDungeonRemindJailPlayGaggedFree,"The EnemyName looks at you nervously."
+KinkyDungeonRemindJailPlayGaggedStruggle,"The EnemyName giggles."
+KinkyDungeonRemindJailPlayGaggedLoot,"EnemyName: Mmmph?"
+KinkyDungeonRemindJailPlayGaggedKey,"EnemyName: Mmmghgh!!!"
+KinkyDungeonRemindJailPlayGagged0,"EnemyName: Mmmmph..."
+KinkyDungeonRemindJailPlayGagged1,"EnemyName: Hhhhmph!"
+KinkyDungeonRemindJailPlayGagged2,"EnemyName: Mmmmmmmmm..."
+KinkyDungeonRemindJailChaseGaggedAttack0,"EnemyName: Mmmph!"
+KinkyDungeonRemindJailChaseGaggedAttack1,"EnemyName: Nngghhh!"
+KinkyDungeonRemindJailChaseGaggedAttack2,"EnemyName: Gggghh!!!"
+KinkyDungeonRemindJailChaseGaggedSpell0,"EnemyName: Mmmaaghthh!"
+KinkyDungeonRemindJailChaseGaggedSpell1,"EnemyName: Wwwmmmthhh!"
+KinkyDungeonRemindJailChaseGaggedSpell2,"EnemyName: Mmmmmph!"
+KinkyDungeonRemindJailChaseGaggedSpellItem,"EnemyName: Mmmph."
+KinkyDungeonRemindJailChaseGaggedShrine,"EnemyName: Mmmph!"
+KinkyDungeonRemindJailChaseGaggedChest,"The EnemyName looks at you suspiciously."
+KinkyDungeonRemindJailChaseGaggedOrb,"The EnemyName looks at you angrily."
+KinkyDungeonRemindJailChaseGaggedJailbreak,"EnemyName: Mmmmph!!!"
+
+KinkyDungeonRemindJailPlayBanditFree,"EnemyName: Hey! You should know your place."
+KinkyDungeonRemindJailPlayBanditStruggle,"EnemyName: I'm gonna teach you a lesson, girl."
+KinkyDungeonRemindJailPlayBanditLoot,"EnemyName: What are you rummaging around for?"
+KinkyDungeonRemindJailPlayBanditKey,"EnemyName: Oh no you don't!"
+KinkyDungeonRemindJailPlayBandit0,"EnemyName: I'm gonna teach you a lesson, girl."
+KinkyDungeonRemindJailPlayBandit1,"EnemyName: I'm gonna miss you when we find you a nice master..."
+KinkyDungeonRemindJailPlayBandit2,"EnemyName: Looks like you need some training, girl."
+KinkyDungeonRemindJailChaseBanditAttack0,"EnemyName: You picked a bad time to get lost, friend."
+KinkyDungeonRemindJailChaseBanditAttack1,"EnemyName: Never should have come here."
+KinkyDungeonRemindJailChaseBanditAttack2,"EnemyName: I used to be an adventurer like you."
+KinkyDungeonRemindJailChaseBanditSpell0,"EnemyName: You must be one of those wizards."
+KinkyDungeonRemindJailChaseBanditSpell1,"EnemyName: The mages sell real well..."
+KinkyDungeonRemindJailChaseBanditSpell2,"EnemyName: Mage! Stop her!"
+KinkyDungeonRemindJailChaseBanditSpellItem,"EnemyName: Watch it!"
+KinkyDungeonRemindJailChaseBanditShrine,"EnemyName: Not on my watch."
+KinkyDungeonRemindJailChaseBanditChest,"EnemyName: That's my stash..."
+KinkyDungeonRemindJailChaseBanditOrb,"EnemyName: You'll fetch a pretty penny from that goddess you just pissed off."
+KinkyDungeonRemindJailChaseBanditJailbreak,"EnemyName: Hah! Found ya!"
+
+KinkyDungeonRemindJailPlaySkeletonFree,"The EnemyName starts chasing you!"
+KinkyDungeonRemindJailPlaySkeletonStruggle,"The EnemyName won't leave you be!"
+KinkyDungeonRemindJailPlaySkeletonLoot,"The EnemyName walks toward you with arms outstretched..."
+KinkyDungeonRemindJailPlaySkeletonKey,"The EnemyName notices you taking the key!"
+KinkyDungeonRemindJailPlaySkeleton0,"The EnemyName wants to socialize..."
+KinkyDungeonRemindJailPlaySkeleton1,"The EnemyName sends shivers down your spine..."
+KinkyDungeonRemindJailPlaySkeleton2,"The EnemyName walks toward you with arms outstretched..."
+KinkyDungeonRemindJailChaseSkeletonAttack0,"The EnemyName is rattled!"
+KinkyDungeonRemindJailChaseSkeletonAttack1,"The EnemyName scrabbles slowly by..."
+KinkyDungeonRemindJailChaseSkeletonAttack2,"You shake and shudder at the EnemyName's shriek!"
+KinkyDungeonRemindJailChaseSkeletonSpell0,"The EnemyName wants to shock your soul..."
+KinkyDungeonRemindJailChaseSkeletonSpell1,"The EnemyName comes to seal your doom..."
+KinkyDungeonRemindJailChaseSkeletonSpell2,"The EnemyName shouts a startling shrilling scream!"
+KinkyDungeonRemindJailChaseSkeletonSpellItem,"The EnemyName walks toward you with arms outstretched..."
+KinkyDungeonRemindJailChaseSkeletonShrine,"The EnemyName moves to defend the goddess..."
+KinkyDungeonRemindJailChaseSkeletonChest,"The EnemyName defends its cache..."
+KinkyDungeonRemindJailChaseSkeletonOrb,"The EnemyName lets out a shriek!"
+KinkyDungeonRemindJailChaseSkeletonJailbreak,"The EnemyName tries to catch you!"
+
+KinkyDungeonRemindJailPlayRobotFree,"EnemyName: Insufficient bindings. Commence submission protocol."
+KinkyDungeonRemindJailPlayRobotStruggle,"EnemyName: Struggling detected. Commence inspection."
+KinkyDungeonRemindJailPlayRobotLoot,"EnemyName: Theft detected. This is a warning."
+KinkyDungeonRemindJailPlayRobotKey,"EnemyName: Confiscating item."
+KinkyDungeonRemindJailPlayRobot0,"EnemyName: Inmate detected. Commence training protocol."
+KinkyDungeonRemindJailPlayRobot1,"EnemyName: Inmate detected. Commence routine inspection."
+KinkyDungeonRemindJailPlayRobot2,"EnemyName: Inmate detected. Commence submission training."
+KinkyDungeonRemindJailChaseRobotAttack0,"EnemyName: Violence detected. Subduing assailant."
+KinkyDungeonRemindJailChaseRobotAttack1,"EnemyName: Damage detected. Initiating combat routine"
+KinkyDungeonRemindJailChaseRobotAttack2,"EnemyName: Unruly inmate detected. Performing corrective action."
+KinkyDungeonRemindJailChaseRobotSpell0,"EnemyName: Magic detected. Subduing assailant."
+KinkyDungeonRemindJailChaseRobotSpell1,"EnemyName: Energy spike detected. Preparing shields."
+KinkyDungeonRemindJailChaseRobotSpell2,"EnemyName: Unlawful use of magic. Please submit to arrest."
+KinkyDungeonRemindJailChaseRobotSpellItem,"EnemyName: Violence detected. Subduing assailant."
+KinkyDungeonRemindJailChaseRobotShrine,"EnemyName: Unlawful conduct. Please submit to arrest."
+KinkyDungeonRemindJailChaseRobotChest,"EnemyName: Theft detected. Please submit to arrest."
+KinkyDungeonRemindJailChaseRobotOrb,"EnemyName: Unlawful conduct. Please submit to arrest."
+KinkyDungeonRemindJailChaseRobotJailbreak,"EnemyName: Inmate has escaped. Commence capture protocol."
+
+KinkyDungeonRemindJailPlayAlchemistStruggle,"EnemyName: Look! A fine specimen!"
+KinkyDungeonRemindJailPlayAlchemistFree,"EnemyName: You'd look good in some latex!"
+KinkyDungeonRemindJailPlayAlchemistLoot,"EnemyName: Hey! That's mine!"
+KinkyDungeonRemindJailPlayAlchemistKey,"EnemyName: You're not supposed to have that!"
+KinkyDungeonRemindJailPlayAlchemist0,"EnemyName: You'll make a fine test subject..."
+KinkyDungeonRemindJailPlayAlchemist1,"EnemyName: Come here, I want to perform some tests!"
+KinkyDungeonRemindJailPlayAlchemist2,"EnemyName: Looks like it's time to drop some science!"
+KinkyDungeonRemindJailChaseAlchemistAttack0,"EnemyName: Bad girl!"
+KinkyDungeonRemindJailChaseAlchemistAttack1,"EnemyName: Keep your filthy hands off me!"
+KinkyDungeonRemindJailChaseAlchemistAttack2,"EnemyName: Your chances of winning are... less than zero."
+KinkyDungeonRemindJailChaseAlchemistSpell0,"EnemyName: Good girls don't use magic without permission."
+KinkyDungeonRemindJailChaseAlchemistSpell1,"EnemyName: Keep that magic away from my experiments!"
+KinkyDungeonRemindJailChaseAlchemistSpell2,"EnemyName: You're going to break something!"
+KinkyDungeonRemindJailChaseAlchemistSpellItem,"EnemyName: That's dangerous!"
+KinkyDungeonRemindJailChaseAlchemistShrine,"EnemyName: Stop! That's scientific equipment!"
+KinkyDungeonRemindJailChaseAlchemistChest,"EnemyName: Don't touch my supplies!"
+KinkyDungeonRemindJailChaseAlchemistOrb,"EnemyName: That's off-limits!"
+KinkyDungeonRemindJailChaseAlchemistJailbreak,"EnemyName: You're not supposed to be here... ah well!"
+
+KinkyDungeonRemindJailPlayZombieFree,"EnemyName: Cute... Girl..."
+KinkyDungeonRemindJailPlayZombieStruggle,"EnemyName: Helpless..."
+KinkyDungeonRemindJailPlayZombieLoot,"EnemyName: Mine..."
+KinkyDungeonRemindJailPlayZombieKey,"EnemyName: Shiny..."
+KinkyDungeonRemindJailPlayZombie0,"The EnemyName giggles..."
+KinkyDungeonRemindJailPlayZombie1,"EnemyName: Brains..."
+KinkyDungeonRemindJailPlayZombie2,"EnemyName: Squishy..."
+KinkyDungeonRemindJailChaseZombieAttack0,"EnemyName: Rude..."
+KinkyDungeonRemindJailChaseZombieAttack1,"EnemyName: Mean..."
+KinkyDungeonRemindJailChaseZombieAttack2,"EnemyName: Ouch..."
+KinkyDungeonRemindJailChaseZombieSpell0,"EnemyName: Pretty... Lights..."
+KinkyDungeonRemindJailChaseZombieSpell1,"EnemyName: Sparkles..."
+KinkyDungeonRemindJailChaseZombieSpell2,"EnemyName: It... Burns..."
+KinkyDungeonRemindJailChaseZombieSpellItem,"EnemyName: Hey..."
+KinkyDungeonRemindJailChaseZombieShrine,"EnemyName: Defiler..."
+KinkyDungeonRemindJailChaseZombieChest,"EnemyName: Thief..."
+KinkyDungeonRemindJailChaseZombieOrb,"EnemyName: Intruder..."
+KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
