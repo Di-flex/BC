@@ -38,7 +38,7 @@ function KinkyDungeonResetEventVariablesTick(delta) {
 /**
  * Function mapping
  * to expand, keep (e, item, data) => {...} as a constant API call
- * @type {Record<string, Record<string, function(KinkyDungeonEvent, item, *): void>>}
+ * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, item, *): void>>}
  */
 const KDEventMap = {
 	"tick": {
