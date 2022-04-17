@@ -543,7 +543,7 @@ let KinkyDungeonMapParams = [
 		"density" : 3,
 		"doodadchance" : 0.25,
 		"barchance" : 0.05,
-		"brightness" : 5,
+		"brightness" : 6,
 		"chestcount" : 6,
 		"shrinecount" : 12,
 		"shrinechance" : 0.5,

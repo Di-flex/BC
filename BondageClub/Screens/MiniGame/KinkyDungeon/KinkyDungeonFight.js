@@ -174,19 +174,19 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	return hitChance;
 }
 
-function KinkyDungeonAggro(Enemy) {
-	if (Enemy && Enemy.Enemy ) {
+function KinkyDungeonAggro(Enemy, Spell, Attacker) {
+	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
 		if (Enemy.Enemy.name == "Angel") {
 			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
 		} else { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
-			KinkyDungeonJailTransgressed = true;
+			KinkyDungeonAggroAction('attack', {enemy: Enemy});
 		}
 	}
 }
 
-function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
+function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
 	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
@@ -194,7 +194,7 @@ function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic) {
 
 	if (!Enemy) KinkyDungeonSleepTime = 0;
 
-	KinkyDungeonAggro(Enemy);
+	KinkyDungeonAggro(Enemy, undefined, Attacker);
 
 	if (KDRandom() < hitChance + KinkyDungeonEvasionPityModifier) {
 		KinkyDungeonEvasionPityModifier = 0; // Reset the pity timer
@@ -262,7 +262,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		predata.dmg *= KDStealthyDamageMult;
 	}
 
-	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type)));
+	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type), attacker));
 	if (Damage && !miss) {
 		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
 			predata.dmg *= KDPacifistReduction;
@@ -461,7 +461,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	KinkyDungeonAggro(Enemy);
+	KinkyDungeonAggro(Enemy, Spell, attacker);
 
 	if (predata.dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
@@ -528,7 +528,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 			disarm = true;
 		}
 	}
-	let evaded = KinkyDungeonEvasion(Enemy);
+	let evaded = KinkyDungeonEvasion(Enemy, KinkyDungeonPlayerEntity);
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	let predata = {
@@ -734,7 +734,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			if ((b.reflected
 				|| (!b.bullet.spell
 					|| (b.bullet.spell.enemySpell
-						&& !enemy.Enemy.allied && !enemy.rage
+						&& !enemy.Enemy.allied && !(enemy.rage > 0)
 						&& (!b.bullet.damage
 							|| b.bullet.damage.type != "heal"))
 
@@ -868,10 +868,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell
 							|| (!bullet.bullet.spell.enemySpell
-								&& (!enemy.Enemy.allied || enemy.rage)
+								&& (!enemy.Enemy.allied || enemy.rage > 0)
 								&& bullet.bullet.damage.type != "heal")
 							|| (!bullet.bullet.spell.allySpell
-								&& (enemy.Enemy.allied || enemy.rage)
+								&& (enemy.Enemy.allied || enemy.rage > 0)
 								&& (!bullet.bullet.spell.enemySpell
 									|| bullet.bullet.damage.type != "heal"))))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
@@ -894,10 +894,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				if ((bullet.reflected ||
 					(!bullet.bullet.spell ||
 						(!bullet.bullet.spell.enemySpell
-							&& (!enemy.Enemy.allied || enemy.rage)
+							&& (!enemy.Enemy.allied || enemy.rage > 0)
 							&& bullet.bullet.damage.type != "heal")
 						|| (!bullet.bullet.spell.allySpell
-							&& (enemy.Enemy.allied || enemy.rage)
+							&& (enemy.Enemy.allied || enemy.rage > 0)
 							&& (!bullet.bullet.spell.enemySpell
 								|| bullet.bullet.damage.type != "heal"))))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {

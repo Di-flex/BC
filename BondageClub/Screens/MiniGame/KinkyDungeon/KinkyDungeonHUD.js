@@ -648,7 +648,7 @@ function KinkyDungeonHandleHUD() {
 			KinkyDungeonFastWait = !KinkyDungeonFastWait;
 			return true;
 		}
-		if (MouseIn(975, 750, 550, 64) && !(KDGameData.KinkyDungeonSpawnJailers + 1 == KDGameData.KinkyDungeonSpawnJailersMax && !KinkyDungeonJailTransgressed)) {
+		if (MouseIn(975, 750, 550, 64) && KDGameData.PrisonerState != 'jail') {
 			KinkyDungeonDefeat();
 			KinkyDungeonChangeRep("Ghost", 4);
 			KinkyDungeonDrawState = "Game";

@@ -7,7 +7,7 @@ let KDTightRestraintsMult = 2;
 
 /**
  * @param {item[]} list
- * @param {boolean} excludeBound
+ * @param {boolean} excludeBound - bound weapons, i.e. magic knives and weapons
  */
 function KinkyDungeonAddLostItems(list, excludeBound) {
 	for (let item of list) {
@@ -251,6 +251,11 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 			KinkyDungeonChangeConsumable(KinkyDungeonConsumables[reward], 1);
 			if (Replacemsg)
 				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItem" + reward));
+		}
+		else {
+			KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+			if (Replacemsg)
+				Replacemsg = Replacemsg.replace("ITEMGET", TextGet("KinkyDungeonInventoryItemAncientPowerSource"));
 		}
 
 	}

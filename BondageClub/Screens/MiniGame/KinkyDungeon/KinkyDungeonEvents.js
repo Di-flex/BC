@@ -46,6 +46,26 @@ function KinkyDungeonHandleInventoryEvent(Event, e, item, data) {
 	if (Event == "tick") {
 		if (e.type == "spellRange" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.name+e.type+e.trigger, type: "spellRange", duration: 1, power: e.power});
+		} else if (e.type == "ShadowHandTether" && e.dist) {
+			let enemy = (item.tx && item.ty) ? KinkyDungeonEnemyAt(item.tx, item.ty) : undefined;
+			if (KDGameData.KinkyDungeonLeashedPlayer > 0 && KinkyDungeonLeashingEnemy() && enemy != KinkyDungeonLeashingEnemy()) {
+				item.tx = undefined;
+				item.ty = undefined;
+			} else {
+				if (item.tx && item.ty && (!enemy || (e.requiredTag && !enemy.Enemy.tags.has(e.requiredTag)))) {
+					item.tx = undefined;
+					item.ty = undefined;
+					return;
+				} else {
+					// The shadow hands will link to a nearby enemy if possible
+					for (enemy of KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, e.dist)) {
+						if (!e.requiredTag || enemy.Enemy.tags.has(e.requiredTag)) {
+							item.tx = enemy.x;
+							item.ty = enemy.y;
+						}
+					}
+				}
+			}
 		} else if (e.type == "SneakBuff" && e.trigger == Event) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: item.name+e.type+e.trigger, type: "Sneak", duration: 1, power: e.power});
 		} else if (e.type == "EvasionBuff" && e.trigger == Event) {
@@ -521,7 +541,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 			for (let enemy of KinkyDungeonEntities) {
 				if (enemy != data.enemy && !enemy.Enemy.allied) {
 					let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
-					if (dist < 1.5 && KinkyDungeonEvasion(enemy) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
+					if (dist < 1.5 && KinkyDungeonEvasion(enemy, false, false, KinkyDungeonPlayerEntity) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
 						KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power, time: e.time}, false, true, undefined, undefined, undefined);
 					}
 				}
@@ -537,7 +557,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 				let yy = data.enemy.y + i * (data.enemy.y - KinkyDungeonPlayerEntity.y);
 				for (let enemy of KinkyDungeonEntities) {
 					if (enemy != data.enemy && !enemy.Enemy.allied) {
-						if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
+						if (KinkyDungeonEvasion(enemy, false, false, KinkyDungeonPlayerEntity) && enemy.x == xx && enemy.y == yy) {
 							KinkyDungeonDamageEnemy(enemy, {type: e.damage, damage: e.power}, false, true, undefined, undefined, undefined);
 						}
 					}
