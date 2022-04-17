@@ -382,30 +382,34 @@ const KinkyDungeonRestraints = [
 			{trigger:"wear", type:"custom", function:()=>{
 					// add some more restraints
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(""))
+					// Use leather pet crawler for pads
+					KinkyDungeonPlayer.Appearance.push({
+						Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"ItemArms","StrictLeatherPetCrawler"),
+						Color: "Default",
+						isKittyed: 1
+					})
+
 					// check if wearing ears
 					//don't care about ears in HairAccessory2 for now. Regex that later
 					// Also, may want to use SendStatus
-					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.BuyGroup && (item.Asset.DynamicGroupName==="HairAccessory2")})){
-						InventoryWear(KinkyDungeonPlayer, "KittenEars2", "HairAccessory1");
-						KinkyDungeonInventoryAdd({name:"KittenEars2",type: Misc})
-
+					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="HairAccessory2")})){
+						KinkyDungeonPlayer.Appearance.push({
+							Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"HairAccessory1","KittenEars2"),
+							Color: "Default",
+							isKittyed: 1
+						})
 					}
-					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.BuyGroup && (item.Asset.DynamicGroupName==="TailStraps")})){
-						InventoryWear(KinkyDungeonPlayer, "TailStrap", "TailStraps");
-						KinkyDungeonInventoryAdd({name:"TailStrap",type: Misc})
+					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="TailStraps")})){
+						KinkyDungeonPlayer.Appearance.push({
+							Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"TailStraps","TailStrap"),
+							Color: "Default",
+							isKittyed: 1
+						})
 					}
 				}},
 			{trigger: "remove",type: "custom", function:()=>{
-					// remove kitty ears if put on
-					if (KinkyDungeonInventoryGet("KittySetEars")){
-						KinkyDungeonInventoryRemove({name:"KittenEars2",type: Misc});
-						InventoryRemove(KinkyDungeonPlayer,"HairAccessory1",true)
-					}
-					// remove kitty tail if put on
-					if (KinkyDungeonInventoryGet("KittySetTail")){
-						KinkyDungeonInventoryRemove({name:"TailStrap",type: Misc});
-						InventoryRemove(KinkyDungeonPlayer,"TailStraps",true)
-					}
+					// remove kitty stuff
+					KinkyDungeonPlayer.Appearance= KinkyDungeonPlayer.Appearance.filter((v)=>{!(v.isKittyed)})
 				}}
 		],
 		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":0}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]},
