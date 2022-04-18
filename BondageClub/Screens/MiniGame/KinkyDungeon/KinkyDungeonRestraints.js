@@ -459,6 +459,8 @@ function KinkyDungeonPickAttempt() {
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
+	if (!lock) return;
+
 	KinkyDungeonInterruptSleep();
 
 	if (lock.includes("Blue")) {
