@@ -107,6 +107,7 @@ let KinkyDungeonTargetingSpell = null;
  * Item to decrement by 1 when spell is cast
  */
 let KinkyDungeonTargetingSpellItem = null;
+let KinkyDungeonTargetingSpellWeapon = null;
 
 /**
  * Game stops when you reach this level
@@ -2139,6 +2140,10 @@ function KinkyDungeonGameKeyDown() {
 		// @ts-ignore
 		KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
 		KinkyDungeonHandleSpell();
+	} else if (KinkyDungeonKeyWeapon.includes(KinkyDungeonKeybindingCurrentKey)) {
+		// @ts-ignore
+		KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
+		KinkyDungeonRangedAttack();
 	}
 }
 

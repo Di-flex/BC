@@ -174,6 +174,11 @@ function KinkyDungeonDrawInputs() {
 	else DrawButton(510, 925, 120, 60, "", KinkyDungeonStruggleGroups.length > 0 ? "White" : "grey", KinkyDungeonRootDirectory + "HideFalse.png", "");
 
 	DrawButton(510, 825, 60, 90, "", "White", KinkyDungeonRootDirectory + (KinkyDungeonShowInventory ? "BackpackOpen.png" : "Backpack.png"), "");
+	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.special) {
+		if (MouseIn(580, 825, 50, 90)) DrawTextFit(TextGet("KinkyDungeonSpecial" + KinkyDungeonPlayerDamage.name), MouseX, MouseY - 150, 750, "white", "black");
+		DrawButton(580, 825, 50, 90, "", "White", KinkyDungeonRootDirectory + "Ranged.png", "");
+	}
+
 
 	if (KinkyDungeonTargetTile) {
 		if (KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) {
@@ -381,6 +386,20 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}*/
 }
 
+function KinkyDungeonRangedAttack() {
+	if (KinkyDungeonPlayerDamage.special.type == "spell") {
+		let energyCost = KinkyDungeonPlayerDamage.special.energyCost;
+		if (KDGameData.AncientEnergyLevel < energyCost) {
+			KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInsufficientEnergy"), "red", 1);
+			return true;
+		}
+		KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true);
+		KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+		return true;
+	}
+	return false;
+}
+
 let KDModalArea_x = 600;
 let KDModalArea_y = 700;
 let KDModalArea_width = 800;
@@ -432,6 +451,8 @@ function KinkyDungeonHandleHUD() {
 		} else if (MouseIn(510, 825, 60, 90)) {
 			KinkyDungeonShowInventory = !KinkyDungeonShowInventory;
 			return true;
+		} else if (MouseIn(580, 825, 50, 90) && KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.special) {
+			return KinkyDungeonRangedAttack();
 		}
 
 		if ((ServerURL == "foobar" && MouseIn(1880, 82, 100, 50)) || (ServerURL != "foobar" && MouseIn(1750, 20, 100, 50))) {
@@ -668,6 +689,7 @@ function KinkyDungeonHandleHUD() {
 					Spell3: 51,
 					Spell4: 52,
 					Spell5: 53,
+					SpellWeapon: 54,
 					Up: 119,
 					UpLeft: 113,
 					UpRight: 101,

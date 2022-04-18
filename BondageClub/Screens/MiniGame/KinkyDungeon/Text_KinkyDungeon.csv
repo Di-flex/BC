@@ -3,7 +3,7 @@ KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
 KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:||nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|NDW|Dazman1234|linlizheng"
+KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:||nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
@@ -255,6 +255,7 @@ KinkyDungeonKeySpell2,Spell 2
 KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
+KinkyDungeonKeySpellWeapon,Ranged Attack
 KinkyDungeonKeyWait,Wait
 KinkyDungeonKeySkip,Cancel/Return
 KinkyDungeonCurrentPress,"Current Key Pressed"
@@ -550,6 +551,9 @@ KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its 
 KinkyDungeonInventoryItemDragonslaver,Dragonslaver
 KinkyDungeonInventoryItemDragonslaverDesc,"A powerful weapon with an ancient mechanism that launches binding belts."
 KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% ancient energy to fire a line of belts that deal 40 chain damage and 4 extra binding."
+KinkyDungeonInventoryItemSlimethrower,Latex Projector
+KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
+KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
 KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies nearby. Slows for 3 turns."
@@ -2914,6 +2918,9 @@ KinkyDungeonSpellEntangle,Raging Vines
 
 KinkyDungeonSpellSingleRibbon,Magic Ribbons
 KinkyDungeonSpellSingleBelt,Magic Belts
+KinkyDungeonSpellSlimethrower,Slime
+KinkyDungeonSpellCastSlimethrower,You project a pool of sticky slime!
+KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
@@ -3710,3 +3717,7 @@ KinkyDungeonRemindJailChaseZombieShrine,"EnemyName: Defiler..."
 KinkyDungeonRemindJailChaseZombieChest,"EnemyName: Thief..."
 KinkyDungeonRemindJailChaseZombieOrb,"EnemyName: Intruder..."
 KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
+
+KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
+KinkyDungeonSpecialDragonslaver,Throw a line of belts for 40 chain damage and 4 binding
+KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit

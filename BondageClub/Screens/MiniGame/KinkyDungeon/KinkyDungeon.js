@@ -25,6 +25,7 @@ let KinkyDungeonKey = [119, 97, 115, 100, 113, 101, 122, 99]; // WASD
 let KinkyDungeonKeySpell = [49, 50, 51, 52, 53]; // 1 2 3
 let KinkyDungeonKeyWait = [120]; // x
 let KinkyDungeonKeySkip = [13]; // Enter
+let KinkyDungeonKeyWeapon = [54]; // Enter
 
 let KinkyDungeonRootDirectory = "Screens/MiniGame/KinkyDungeon/";
 let KinkyDungeonPlayerCharacter = null; // Other player object
@@ -637,6 +638,8 @@ function KinkyDungeonRun() {
 		DrawButton(1350, 200, 200, 64, TextGet("KinkyDungeonKeySpell4") + ": '" + (KinkyDungeonKeybindingsTemp.Spell4) + "'", "White", "");
 		DrawButton(1575, 200, 200, 64, TextGet("KinkyDungeonKeySpell5") + ": '" + (KinkyDungeonKeybindingsTemp.Spell5) + "'", "White", "");
 
+		DrawButton(1075, 100, 300, 64, TextGet("KinkyDungeonKeySpellWeapon") + ": '" + (KinkyDungeonKeybindingsTemp.SpellWeapon) + "'", "White", "");
+
 		if (KinkyDungeonKeybindingCurrentKey)
 			DrawText(TextGet("KinkyDungeonCurrentPress") + ": '" + (KinkyDungeonKeybindingCurrentKey) + "'", 1250, 900, "white", "silver");
 
@@ -841,6 +844,7 @@ function KinkyDungeonStartNewGame(Load) {
 		KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 		KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 		KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
+		KinkyDungeonKeyWeapon = [KinkyDungeonKeybindings.SpellWeapon]; // 6 (54)
 
 		KinkyDungeonGameKey.KEY_WAIT = (KinkyDungeonKeybindings.Wait);
 		KinkyDungeonGameKey.KEY_SKIP = (KinkyDungeonKeybindings.Skip);
@@ -995,6 +999,7 @@ function KinkyDungeonHandleClick() {
 					KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 					KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 					KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
+					KinkyDungeonKeyWeapon = [KinkyDungeonKeybindings.SpellWeapon]; // 6 (54)
 
 					KinkyDungeonGameKey.KEY_WAIT = (KinkyDungeonKeybindings.Wait);
 					KinkyDungeonGameKey.KEY_SKIP = (KinkyDungeonKeybindings.Skip);
@@ -1158,6 +1163,7 @@ function KinkyDungeonHandleClick() {
 					KinkyDungeonKeySpell = [KinkyDungeonKeybindings.Spell1, KinkyDungeonKeybindings.Spell2, KinkyDungeonKeybindings.Spell3, KinkyDungeonKeybindings.Spell4, KinkyDungeonKeybindings.Spell5]; // ! @ #
 					KinkyDungeonKeyWait = [KinkyDungeonKeybindings.Wait]; // Space and 5 (53)
 					KinkyDungeonKeySkip = [KinkyDungeonKeybindings.Skip]; // Space and 5 (53)
+					KinkyDungeonKeyWeapon = [KinkyDungeonKeybindings.SpellWeapon]; // 6 (54)
 
 					KinkyDungeonGameKey.KEY_WAIT = (KinkyDungeonKeybindings.Wait);
 					KinkyDungeonGameKey.KEY_SKIP = (KinkyDungeonKeybindings.Skip);
@@ -1219,6 +1225,10 @@ function KinkyDungeonHandleClick() {
 			}
 			if (MouseIn(1125, 200, 200, 64)) {
 				KinkyDungeonKeybindingsTemp.Spell3 = KinkyDungeonKeybindingCurrentKey;
+				return true;
+			}
+			if (MouseIn(1075, 100, 300, 64)) {
+				KinkyDungeonKeybindingsTemp.SpellWeapon = KinkyDungeonKeybindingCurrentKey;
 				return true;
 			}
 			if (MouseIn(1350, 200, 200, 64)) {
