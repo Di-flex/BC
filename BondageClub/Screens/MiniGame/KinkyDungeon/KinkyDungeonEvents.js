@@ -237,9 +237,9 @@ const KDEventMap = {
 		},
 		"unlinkItem": (e, item, data) => {
 			if (data.item === item && !data.add && !data.shrine) {
-				console.log("Deprecated function")
-				console.log(Event, e, item, data)
-				console.trace()
+				console.log("Deprecated function");
+				console.log(Event, e, item, data);
+				console.trace();
 				//KinkyDungeonUnLinkItem(item);
 				//Obsolete
 			}
@@ -462,7 +462,7 @@ const KDEventMap = {
 			}
 		}
 	}
-}
+};
 
 /**
  *
