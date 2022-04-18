@@ -393,9 +393,8 @@ function KinkyDungeonRangedAttack() {
 			KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInsufficientEnergy"), "red", 1);
 			return true;
 		}
-		if (energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
 		KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true);
-		KinkyDungeonTargetingSpellItem = Consumable;
+		KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
 		return true;
 	}
 	return false;
