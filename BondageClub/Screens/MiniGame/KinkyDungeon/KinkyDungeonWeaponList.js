@@ -21,6 +21,8 @@ let KinkyDungeonWeapons = {
 	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
 		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}],
 		special: {type: "spell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075}},
+	"Slimethrower": {name: "Slimethrower", dmg: 3, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 10, shop: false, sfx: "HeavySwing",
+		special: {type: "spell", spell: "Slimethrower", requiresEnergy: true, energyCost: 0.015}},
 	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"MagicAxe": {name: "MagicAxe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "cold", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",

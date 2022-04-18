@@ -782,6 +782,7 @@ Spell Balance:
 3.11
 - Refactored some events (Thanks Demopans)
 - Dragonslaver can now use the ranged attack separately
+- New weapon: Latex projector
 
 TODO ValidationFindBlockCycles to prevent bugs
 
