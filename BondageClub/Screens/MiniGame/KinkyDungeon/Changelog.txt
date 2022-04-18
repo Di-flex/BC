@@ -780,7 +780,8 @@ Spell Balance:
 - Enemies can now take many kinds of items from the player
 
 3.11
--
+- Refactored some events (Thanks Demopans)
+- Dragonslaver can now use the ranged attack separately
 
 TODO ValidationFindBlockCycles to prevent bugs
 

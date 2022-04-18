@@ -622,6 +622,7 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
 			spell = KinkyDungeonSpells[SpellChoice];
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
+		KinkyDungeonInsufficientEnergy
 	} else {
 		KinkyDungeonTargetingSpell = "";
 		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonComponentsFail" + KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice])[0]), "red", 1);
@@ -886,6 +887,15 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (!enemy && !bullet && player) { // Costs for the player
 		if (KinkyDungeonTargetingSpellItem) {
 			KinkyDungeonChangeConsumable(KinkyDungeonTargetingSpellItem, -(KinkyDungeonTargetingSpellItem.useQuantity ? KinkyDungeonTargetingSpellItem.useQuantity : 1));
+			KinkyDungeonTargetingSpellItem = null;
+			KinkyDungeonAggroAction('item', {});
+		} else if (KinkyDungeonTargetingSpellWeapon) {
+			let special = KinkyDungeonPlayerDamage ? KinkyDungeonPlayerDamage.special : null;
+			if (special) {
+				let energyCost = KinkyDungeonPlayerDamage.special.energyCost;
+				if (KDGameData.AncientEnergyLevel < energyCost) return;
+				if (energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
+			}
 			KinkyDungeonTargetingSpellItem = null;
 			KinkyDungeonAggroAction('item', {});
 		} else {
