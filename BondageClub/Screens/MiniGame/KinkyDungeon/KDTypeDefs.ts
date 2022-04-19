@@ -105,12 +105,16 @@ interface restraint {
 	weight: number,
 	/** Minimum floor for the restraint to be used by enemies */
 	minLevel: number,
+	/** Maximum level, wont be used at this or higher. Inclusive. */
+	maxLevel?: number,
 	/** Relative power level. Used to determine if the restraint will get overridden by a more powerful one */
 	power: number,
 	/** Copied to the events variable */
 	events?: KinkyDungeonEvent[],
+	/** The item is present on all floors */
+	allFloors?: boolean,
 	/** Determines the floors the restraint can appear on */
-	floors: Map<any, any>,
+	floors?: Map<any, any>,
 	escapeChance: {
 		Struggle?: number,
 		Cut?: number,
@@ -311,6 +315,8 @@ interface enemy {
 	terrainTags?: Record<string, number>,
 	/** */
 	floors?: Map<number, boolean>,
+	/** */
+	allFloors?: boolean,
 	/** */
 	noblockplayer?: boolean,
 	/** */

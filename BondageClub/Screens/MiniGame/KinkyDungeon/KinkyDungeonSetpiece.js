@@ -153,7 +153,6 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
 			break;
 		case "LesserPearl":
-			console.log(cornerX + "," + cornerY)
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
 			KinkyDungeonMapSet(cornerX, cornerY , 'a');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');

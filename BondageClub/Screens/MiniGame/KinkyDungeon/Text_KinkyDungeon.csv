@@ -1623,6 +1623,12 @@ RestraintSlimeWalkersDesc2,"They will slow you down, but you can walk on slime w
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."
+RestraintSteelCollar,Slave Collar
+RestraintSteelCollarDesc,"A high-security steel collar befitting of a slave."
+RestraintSteelCollarDesc2,"Allows fitting of a leash."
+RestraintMagicCollar,Enchanted Collar
+RestraintMagicCollarDesc,"A collar made with magically enchanted materials. It is difficult to cut off."
+RestraintMagicCollarDesc2,"Allows fitting of a leash."
 RestraintBasicLeash,Leash
 RestraintBasicLeashDesc,"A leash made from a strong material."
 RestraintBasicLeashDesc2,"Functions as a handle for moving unruly prisoners."
