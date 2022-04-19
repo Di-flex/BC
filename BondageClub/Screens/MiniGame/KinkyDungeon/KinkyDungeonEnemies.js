@@ -1779,7 +1779,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 			}
 
-			if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) && spell.sfx) {
+			if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) == "Cast" && spell.sfx) {
 				if (enemy.Enemy.suicideOnSpell) enemy.hp = 0;
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
 			}

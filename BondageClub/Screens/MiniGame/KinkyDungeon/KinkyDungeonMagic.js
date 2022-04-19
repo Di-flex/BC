@@ -709,7 +709,6 @@ function KinkyDungeonGetCost(Spell) {
 	return cost;
 }
 
-
 function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let entity = KinkyDungeonPlayerEntity;
 	let moveDirection = KinkyDungeonMoveDirection;
@@ -763,7 +762,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		tX = entity.x;
 		tY = entity.y;
 		miscast = true;
-		return false;
+		return "Miscast";
 	}
 
 	if (cast) {
@@ -851,7 +850,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				}
 			}
 		}
-		if (!casted) return false;
+		if (!casted)
+			return "Fail";
 	} else if (spell.type == "special") {
 		if (spell.special == "analyze") {
 			let en = KinkyDungeonEnemyAt(targetX, targetY);
@@ -860,7 +860,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 					if (!en.buffs) en.buffs = {};
 					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze", aura: "#ffffff", type: "DamageAmp", duration: 99999, power: 0.3, player: false, enemies: true, maxCount: 3, tags: ["defense", "damageTaken"]},);
 					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze2", type: "Info", duration: 99999, power: 1.0, player: false, enemies: true, tags: ["info"]},);
-				} else return false;
+				} else return "Fail";
 			} else {
 				let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
 				if (tile) {
@@ -869,8 +869,24 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 						if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
 						else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
 
-					} else return false;
-				} else return false;
+					} else return "Fail";
+				} else return "Fail";
+			}
+		} else if (spell.special == "weaponAttack") {
+			KinkyDungeonTargetingSpellWeapon = null;
+			let en = KinkyDungeonEnemyAt(targetX, targetY);
+			if (en) {
+				KinkyDungeonLaunchAttack(en);
+				return "Cast";
+			} else return "Fail";
+		} else if (spell.special == "weaponAttackOrSpell") {
+			KinkyDungeonTargetingSpellWeapon = null;
+			let en = KinkyDungeonEnemyAt(targetX, targetY);
+			if (en) {
+				KinkyDungeonLaunchAttack(en);
+				return "Cast";
+			} else {
+				return KinkyDungeonActivateWeaponSpell(true) ? "Cast" : "Fail";
 			}
 		}
 	}
@@ -926,7 +942,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		KinkyDungeonLastAction = "Spell";
 	}
 
-	return true;
+	return "Cast";
 }
 
 function KinkyDungeonChargeVibrators(cost) {

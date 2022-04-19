@@ -386,16 +386,43 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "black"); i+= 0.5;}*/
 }
 
-function KinkyDungeonRangedAttack() {
-	if (KinkyDungeonPlayerDamage.special.type == "spell") {
+function KinkyDungeonActivateWeaponSpell(instant) {
+	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.special) {
 		let energyCost = KinkyDungeonPlayerDamage.special.energyCost;
 		if (KDGameData.AncientEnergyLevel < energyCost) {
 			KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonInsufficientEnergy"), "red", 1);
-			return true;
+			return false;
 		}
-		KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true);
-		KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+		if (KinkyDungeonPlayerDamage.special.selfCast) {
+			KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true), undefined, undefined, undefined);
+		} else if (!instant) {
+			KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true);
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+		} else {
+			KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true), undefined, KinkyDungeonPlayerEntity, undefined);
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+		}
 		return true;
+	}
+	return false;
+}
+
+function KinkyDungeonRangedAttack() {
+	if (KinkyDungeonPlayerDamage.special.type == "spell" || KinkyDungeonPlayerDamage.special.type == "hitorspell") {
+		if (KinkyDungeonPlayerDamage.special.type == "hitorspell") {
+			KinkyDungeonTargetingSpell = {name: "WeaponAttack", components: [], level:1, type:"special", special: "weaponAttackOrSpell", noMiscast: true,
+				onhit:"", time:25, power: 0, range: KinkyDungeonPlayerDamage.special.range ? KinkyDungeonPlayerDamage.special.range : 1.5, size: 1, damage: ""};
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+			return true;
+		} /*else if (KinkyDungeonPlayerDamage.special.type == "attack") {
+			KinkyDungeonTargetingSpell = {name: "WeaponAttack", components: [], level:1, type:"special", special: "weaponAttack", noMiscast: true,
+				onhit:"", time:25, power: 0, range: KinkyDungeonPlayerDamage.special.range ? KinkyDungeonPlayerDamage.special.range : 1.5, size: 1, damage: ""};
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+			return true;
+		}*/ else {
+			return KinkyDungeonActivateWeaponSpell();
+		}
+
 	}
 	return false;
 }

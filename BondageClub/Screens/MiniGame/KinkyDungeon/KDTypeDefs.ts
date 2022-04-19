@@ -582,7 +582,13 @@ interface weapon {
 	events?: KinkyDungeonEvent[];
 	noHands?: boolean;
 	silent?: boolean;
-	special?: {type: string, spell?: string, requiresEnergy?: boolean, energyCost?: number};
+	special?: {
+		type: string,
+		spell?: string,
+		selfCast?: boolean,
+		requiresEnergy?: boolean,
+		energyCost?: number,
+		range?: number,};
 }
 
 interface KinkyDungeonEvent {

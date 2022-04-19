@@ -2035,10 +2035,12 @@ function KinkyDungeonClickGame(Level) {
 					|| (KinkyDungeonStatsChoice.get("Conjurer") && KinkyDungeonTargetingSpell.school == "Conjure")
 					|| (KinkyDungeonStatsChoice.get("Magician") && KinkyDungeonTargetingSpell.school == "Illusion"))) {
 					if (KinkyDungeonSpellValid) {
-						if (KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity) && KinkyDungeonTargetingSpell.sfx) {
+						let Result = KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity);
+						if (Result == "Cast" && KinkyDungeonTargetingSpell.sfx) {
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
 						}
-						KinkyDungeonAdvanceTime(1);
+						if (Result != "Fail")
+							KinkyDungeonAdvanceTime(1);
 						KinkyDungeonInterruptSleep();
 						KinkyDungeonTargetingSpell = null;
 					}
@@ -2183,6 +2185,35 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 let KinkyDungeonNoMoveFlag = false;
 let KinkyDungeonConfirmAttack = false;
 
+function KinkyDungeonLaunchAttack(Enemy) {
+	let attackCost = KinkyDungeonStatStaminaCostAttack;
+	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminacost) attackCost = -KinkyDungeonPlayerDamage.staminacost;
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
+		attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
+	}
+	let noadvance = false;
+	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
+		if (!KinkyDungeonConfirmAttack && (!KinkyDungeonHostile() || Enemy.Enemy.allied)) {
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmAttack"), "red", 1);
+			KinkyDungeonConfirmAttack = true;
+			noadvance = true;
+		} else {
+			KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, boundBonus: KinkyDungeonPlayerDamage.boundBonus, tease: KinkyDungeonPlayerDamage.tease});
+			KinkyDungeonLastAction = "Attack";
+			KinkyDungeonConfirmAttack = false;
+
+			KinkyDungeonChangeStamina(attackCost);
+		}
+	} else {
+		KinkyDungeonWaitMessage();
+	}
+
+	if (!noadvance) {
+		KinkyDungeonInterruptSleep();
+		KinkyDungeonAdvanceTime(1);
+	}
+}
+
 function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveX = moveDirection.x + KinkyDungeonPlayerEntity.x;
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
@@ -2190,32 +2221,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
 	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
 		if (AllowInteract) {
-			let attackCost = KinkyDungeonStatStaminaCostAttack;
-			if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminacost) attackCost = -KinkyDungeonPlayerDamage.staminacost;
-			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
-				attackCost = Math.min(0, attackCost * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")));
-			}
-			let noadvance = false;
-			if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-				if (!KinkyDungeonConfirmAttack && (!KinkyDungeonHostile() || Enemy.Enemy.allied)) {
-					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonConfirmAttack"), "red", 1);
-					KinkyDungeonConfirmAttack = true;
-					noadvance = true;
-				} else {
-					KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, boundBonus: KinkyDungeonPlayerDamage.boundBonus, tease: KinkyDungeonPlayerDamage.tease});
-					KinkyDungeonLastAction = "Attack";
-					KinkyDungeonConfirmAttack = false;
-
-					KinkyDungeonChangeStamina(attackCost);
-				}
-			} else {
-				KinkyDungeonWaitMessage();
-			}
-
-			if (!noadvance) {
-				KinkyDungeonInterruptSleep();
-				KinkyDungeonAdvanceTime(1);
-			}
+			KinkyDungeonLaunchAttack(Enemy);
 		}
 	} else {
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
