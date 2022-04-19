@@ -208,6 +208,8 @@ let KinkyDungeonSpellListEnemies = [
 	{allySpell: true, name: "SingleBelt", sfx: "Struggle", manacost: 4, components: [], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 4, bind: 4, range: 2, size: 1, lifetime: 1, damage: "chain", playerEffect: {name: "TrapBindings", text: "KinkyDungeonTrapBindingsLeatherWeak", tags: ["leatherRestraints", "leatherRestraintsHeavy"], power: 3, damage: "chain", count: 2, noGuard: true}},
 	{allySpell: true, name: "Slimethrower", landsfx: "FireSpell", manacost: 0, components: ["Legs"], level:2, type:"hit", onhit:"lingering", time: 3, range: 3.9, power: 3.5, size: 1, aoe: 1, lifetime: 1, lifetimeHitBonus: 9, damage: "glue", playerEffect: {name: "SlimeTrap", time: 3}}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 	{allySpell: true, name: "Slimethrower2", landsfx: "FireSpell", manacost: 0, components: [], level:2, type:"hit", onhit:"lingering", time: 3, range: 3.9, power: 2.5, size: 1, aoe: 1, lifetime: 1, lifetimeHitBonus: 9, damage: "glue"}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
+	{name: "SlimeSuit", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: [], level:1, type:"special", special: "dress", outfit: "SlimeSuit", noMiscast: true,
+		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
 
 	{name: "SlimeForm", sfx: "MagicSlash", school: "Illusion", manacost: 8, components: ["Verbal"], mustTarget: true, level:3, type:"buff",
 		buffs: [
@@ -218,7 +220,7 @@ let KinkyDungeonSpellListEnemies = [
 				{trigger: "beforeAttack", type: "CounterattackDamage", power: 2.5, damage: "glue"},
 			]},
 		], onhit:"", time:10, power: 0, range: 2, size: 1, damage: "",
-		extraCast: {spell: "Slimethrower2"}},
+		extraCast: [{spell: "Slimethrower2"}, {spell: "SlimeSuit"}]},
 
 
 	// Rest of the spells

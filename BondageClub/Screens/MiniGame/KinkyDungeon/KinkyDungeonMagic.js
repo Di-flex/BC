@@ -873,6 +873,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 					} else return "Fail";
 				} else return "Fail";
 			}
+		} else if (spell.special == "dress") {
+			KinkyDungeonSetDress(spell.outfit);
 		} else if (spell.special == "weaponAttack") {
 			KinkyDungeonTargetingSpellWeapon = null;
 			let en = KinkyDungeonEnemyAt(targetX, targetY);
@@ -893,7 +895,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (spell.extraCast) {
-		KinkyDungeonCastSpell(targetX, targetY, KinkyDungeonFindSpell(spell.extraCast.spell, true), undefined, undefined, undefined);
+		for (let extraCast of spell.extraCast)
+			KinkyDungeonCastSpell(targetX, targetY, KinkyDungeonFindSpell(extraCast.spell, true), undefined, undefined, undefined);
 	}
 
 	if (spell.noise) {
