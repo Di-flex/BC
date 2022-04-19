@@ -176,6 +176,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					break;
 				}
 			}
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) slimeWalker = true;
 			if (!slimeWalker) {
 				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
 				if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
@@ -889,6 +890,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				return KinkyDungeonActivateWeaponSpell(true) ? "Cast" : "Fail";
 			}
 		}
+	}
+
+	if (spell.extraCast) {
+		KinkyDungeonCastSpell(targetX, targetY, KinkyDungeonFindSpell(spell.extraCast.spell, true), undefined, undefined, undefined);
 	}
 
 	if (spell.noise) {

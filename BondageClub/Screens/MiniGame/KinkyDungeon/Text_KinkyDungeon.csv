@@ -552,7 +552,7 @@ KinkyDungeonInventoryItemDragonslaver,Dragonslaver
 KinkyDungeonInventoryItemDragonslaverDesc,"A powerful weapon with an ancient mechanism that launches binding belts."
 KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% ancient energy to fire a line of belts that deal 40 chain damage and 4 extra binding."
 KinkyDungeonInventoryItemTheEncaser,The Encaser
-KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form, which lets you pass thru grates, +50% evasion, and deals 25 glue damage when attacked."
+KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
 KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
 KinkyDungeonInventoryItemSlimethrower,Latex Projector
 KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
@@ -2926,6 +2926,7 @@ KinkyDungeonSpellEntangle,Raging Vines
 KinkyDungeonSpellSingleRibbon,Magic Ribbons
 KinkyDungeonSpellSingleBelt,Magic Belts
 KinkyDungeonSpellSlimethrower,Slime
+KinkyDungeonSpellSlimethrower2,Slime
 KinkyDungeonSpellCastSlimethrower,You project a pool of sticky slime!
 KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
 KinkyDungeonSpellCastSlimemForm,"The slime from your staff coats your body, granting you strange powers!"
@@ -3728,5 +3729,5 @@ KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
 KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
-KinkyDungeonSpecialTheEncaser,"5% energy to enter Slime Form for 10 turns. Pass thru walls, +50% evasion, enemies take damage on hit."
+KinkyDungeonSpecialTheEncaser,"5% energy to enter Slime Form for 25 turns, and create slime around yourself."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit

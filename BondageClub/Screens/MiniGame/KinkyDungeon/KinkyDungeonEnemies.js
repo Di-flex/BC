@@ -1286,10 +1286,19 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonTickBuffTag(player.buffs, "incomingHit", 1);
 			}
 
+			let preData = {
+				attack: attack,
+				enemy: enemy,
+				damagetype: damage,
+				attacker: enemy,
+			};
+			KinkyDungeonSendEvent("beforeAttack", preData);
+
 			if (hit && KDRandom() > playerEvasion) {
 				if (player.player) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
+
 					enemy.vulnerable = 1;
 				}
 				hit = false;
@@ -1586,6 +1595,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						damage: willpowerDamage,
 						damagetype: damage,
 						restraintsAdded: restraintAdd,
+						attacker: enemy,
 					};
 					KinkyDungeonSendEvent("beforeDamage", data);
 					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});

@@ -484,8 +484,16 @@ function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) 
  * @param {any} entity
  * @param {*} data
  */
-function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
-
+function KinkyDungeonHandleBuffEvent(Event, e, buff, entity, data) {
+	if (Event == "beforeAttack") {
+		if (e.type == "CounterattackDamage" && data.attacker) {
+			if (data.attacker.player) {
+				KinkyDungeonDealDamage({damage: e.power, type: e.damage, bind: e.bind, time: e.time});
+			} else {
+				KinkyDungeonDamageEnemy(data.attacker, {damage: e.power, type: e.damage, bind: e.bind, time: e.time}, false, true);
+			}
+		}
+	}
 }
 
 /**

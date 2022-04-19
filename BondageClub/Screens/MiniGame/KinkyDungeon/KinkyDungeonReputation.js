@@ -25,7 +25,7 @@ let KDRepSelectionMode = "";
  * @type {Object.<string, string[]>}
  */
 let KDBlessedRewards = {
-	"Latex": ["Slimethrower"],
+	"Latex": ["TheEncaser"],
 	"Rope": ["StaffBind"],
 	"Metal": ["StaffStorm"],
 	"Leather": ["Dragonslaver"],
