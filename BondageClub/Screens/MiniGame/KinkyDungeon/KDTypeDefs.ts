@@ -539,6 +539,8 @@ interface enemy {
 	spellWhileParole?: boolean,
 	/** This line is a suffic to the line they say when they want to play with you */
 	playLine?: string,
+	/** Blocks vision */
+	blockVision?: boolean,
 
 }
 
@@ -631,6 +633,8 @@ interface entity {
 	id?: number,
 	hp: number,
 	AI?: string,
+	moved?: boolean,
+	idle?: boolean,
 	summoned?: boolean,
 	boundLevel?: number,
 	lifetime?: number,

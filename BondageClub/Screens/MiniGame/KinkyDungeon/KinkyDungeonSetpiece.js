@@ -7,6 +7,7 @@ let KDSetPieces = [
 	{Name: "Storage", Radius: 5},
 	{Name: "QuadCell", Radius: 7},
 	{Name: "PearlChest", Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
+	{Name: "LesserPearl", Radius: 5, Chance: 0.5, Max: 1},
 	{Name: "GuaranteedCell", Radius: 5, Max: 1},
 ];
 
@@ -21,6 +22,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, h
 	Object.assign(setpieces, Params.setpieces);
 	setpieces.push({Type: "PearlChest", Weight: 1000});
 	setpieces.push({Type: "GuaranteedCell", Weight: 1000});
+	setpieces.push({Type: "LesserPearl", Weight: 1000});
 	for (let p of KDSetPieces) {
 		let prereqs = true;
 		if (prereqs && p.Prereqs) {
@@ -149,6 +151,59 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
+			break;
+		case "LesserPearl":
+			console.log(cornerX + "," + cornerY)
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
+			KinkyDungeonMapSet(cornerX, cornerY , 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
+			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
+
+			if (!Piece.Chance || KDRandom() < Piece.Chance) {
+				KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
+				KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "lesserpearl", Roll: KDRandom()});
+				let chance = 0.75;
+				let chance2 = 0.25;
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 3, y: cornerY + 1});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 3, y: cornerY + 2});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 3, y: cornerY + 3});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 1, y: cornerY + 1});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 1, y: cornerY + 2});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 1, y: cornerY + 3});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 2, y: cornerY + 1});
+				if (KDRandom() < chance) trapLocations.push({x: cornerX + 2, y: cornerY + 3});
+
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
+			} else {
+				KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'a');
+
+				let chance2 = 0.1;
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY + radius - 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
+			}
+
 			break;
 		case "GuaranteedCell":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
