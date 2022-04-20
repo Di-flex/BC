@@ -27,7 +27,7 @@ let KinkyDungeonWeapons = {
 		special: {type: "spell", spell: "BondageBust", requiresEnergy: true, energyCost: 0.01, range: 4}},
 	"TheEncaser": {name: "TheEncaser", dmg: 4, chance: 1.0, staminacost: 1.0, type: "glue", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "glue", time: 2}],
-		special: {type: "spell", selfCast: true, spell: "SlimeForm", requiresEnergy: true, energyCost: 0.05}},
+		special: {type: "spell", selfCast: true, spell: "SlimeForm", requiresEnergy: true, energyCost: 0.025}},
 
 	"Slimethrower": {name: "Slimethrower", dmg: 3, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 10, shop: false, sfx: "HeavySwing",
 		special: {type: "spell", spell: "Slimethrower", requiresEnergy: true, energyCost: 0.015}},
