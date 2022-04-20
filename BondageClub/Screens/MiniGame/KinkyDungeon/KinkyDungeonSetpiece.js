@@ -154,10 +154,10 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			break;
 		case "LesserPearl":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
-			KinkyDungeonMapSet(cornerX, cornerY , 'a');
-			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
-			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
-			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
+			KinkyDungeonMapSet(cornerX, cornerY , 'o');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'o');
+			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'o');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'o');
 
 			if (!Piece.Chance || KDRandom() < Piece.Chance) {
 				KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
@@ -179,9 +179,9 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY + radius - 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY + radius - 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY + radius - 1});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 2});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 3});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
@@ -195,9 +195,9 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY + radius - 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 2, y: cornerY + radius - 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 3, y: cornerY + radius - 1});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
-				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 1});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 2});
+				if (KDRandom() < chance2) trapLocations.push({x: cornerX, y: cornerY + 3});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 1});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
