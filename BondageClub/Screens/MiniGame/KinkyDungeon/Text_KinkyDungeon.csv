@@ -555,7 +555,7 @@ KinkyDungeonInventoryItemTheEncaser,The Encaser
 KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
 KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
 KinkyDungeonInventoryItemBondageBuster,Bondage Buster
-KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 50 electric damage and briefly stuns the first target hit."
+KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 30 electric damage and briefly stuns the first target hit."
 KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
 KinkyDungeonInventoryItemSlimethrower,Latex Projector
 KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
@@ -3738,5 +3738,5 @@ KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
 KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
 KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
-KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam."
+KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam thadeals 30 electric damage."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit
