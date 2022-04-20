@@ -2902,6 +2902,7 @@ KinkyDungeonSpellFeathers,Feather Explosion
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellSlimePuddle,Apprentice's Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
+KinkyDungeonSpellMiniSlime,Witch's Slime Ball
 KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt glue damage on a hit.
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
 KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius)
@@ -3041,6 +3042,7 @@ KinkyDungeonBlindSelf,"You are blinded!"
 KinkyDungeonDamageSelf,"You took DamageDealt damage!"
 KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
+KinkyDungeonMiniSlime,"The slime ball sticks to you and slows you!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
 KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"

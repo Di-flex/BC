@@ -176,17 +176,40 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					break;
 				}
 			}
-			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) slimeWalker = true;
 			if (!slimeWalker) {
-				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
-				if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
-				KinkyDungeonMovePoints = -1;
+				if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+					effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
+					if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
+					KinkyDungeonMovePoints = -1;
+				}
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
 
 				if (spell.power > 0) {
 					effect = true;
 					KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 				}
+			}
+		} else if (playerEffect.name == "Slime") {
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
+				if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
+				KinkyDungeonMovePoints = -1;
+			}
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSlime"), "red", playerEffect.time);
+
+			if (spell.power > 0) {
+				effect = true;
+				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+			}
+		} else if (playerEffect.name == "MiniSlime") {
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+				KinkyDungeonMovePoints = -1;
+			}
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonMiniSlime"), "red", playerEffect.time);
+
+			if (spell.power > 0) {
+				effect = true;
+				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			}
 		} else if (playerEffect.name == "RemoveLowLevelRope") {
 			let restraints = [];
