@@ -554,6 +554,9 @@ KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% anc
 KinkyDungeonInventoryItemTheEncaser,The Encaser
 KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
 KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
+KinkyDungeonInventoryItemBondageBuster,Bondage Buster
+KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 50 electric damage and briefly stuns the first target hit."
+KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
 KinkyDungeonInventoryItemSlimethrower,Latex Projector
 KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
 KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
@@ -2488,6 +2491,7 @@ ItemPickupBola,You pick up a bola.
 ItemPickupBomb,You pick up a bomb!
 ItemPickupDragonslaver,"You pick up Dragonslaver."
 ItemPickupTheEncaser,"You pick up the Encaser."
+ItemPickupBondageBuster,"You retrieve the Bondage Buster."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
@@ -3732,4 +3736,5 @@ KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
 KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
 KinkyDungeonSpecialTheEncaser,"5% energy to enter Slime Form for 25 turns, and create slime around yourself."
+KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit
