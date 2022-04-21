@@ -2817,7 +2817,7 @@ KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
 KinkyDungeonSpellStrengthWillpower,You focus intently!
 
 KinkyDungeonSpellTrueSight,Truesight
-KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls.
+KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls and increase accuracy by 40%.
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.

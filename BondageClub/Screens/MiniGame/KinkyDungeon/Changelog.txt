@@ -785,7 +785,8 @@ Spell Balance:
 - New weapon: Latex projector
 - More collars that start at level 3 and up
 - Added lesser pearly chests, which can contain gifts based on your goddess reputation, and also power crystals
-_ New weapons: The Encaser and the Bondage Buster
+- New weapons: The Encaser and the Bondage Buster
+- Buffed Truesight and Heartsense
 
 TODO ValidationFindBlockCycles to prevent bugs
 
