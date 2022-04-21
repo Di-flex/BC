@@ -3,7 +3,7 @@
  * @type {enemy[]}
  */
 let KinkyDungeonEnemies = [
-	{name: "Wall", tags: KDMapInit(["construct", "player", "playerinstakill", "melee"]), spellResist: 4, allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -2.5,
+	{name: "Wall", tags: KDMapInit(["construct", "player", "playerinstakill", "melee"]), spellResist: 4, allied: true, lowpriority: true, evasion: -100, armor: 1, followRange: 100, AI: "wander", regen: -1.0,
 		visionRadius: 0, maxhp: 25, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "Decoy", tags: KDMapInit(["construct", "player"]), noblockplayer: true, allied: true, evasion: 2, armor: 0, followRange: 100, AI: "wander", triggersTraps: true,
@@ -142,13 +142,13 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, shrines: [], floors:KDMapInit([])},
 
 
-	{name: "TickleTerror", summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true, hitsfx: "Tickle",
+	{name: "TickleTerror", regen: -0.4, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true, hitsfx: "Tickle",
 		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 12, minLevel:3, weight:-4, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 3,
 		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50, "goddessRage": 4}, shrines: ["Illusion"], allFloors: true},
-	{name: "HugHorror", summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghostRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
+	{name: "HugHorror", regen: -0.5, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghostRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
 		visionRadius: 30, blindSight: 8, evasion: 0.2, maxhp: 20, minLevel:3, weight:-4, movePoints: 3, attackPoints: 2, attack: "MeleeWillBindSlow", attackWidth: 3, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50, "goddessRage": 4}, shrines: ["Illusion"], allFloors: true},
-	{name: "GreedyGhast", summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
+	{name: "GreedyGhast", regen: -0.25, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", noAlert: true,
 		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 7, minLevel:0, weight:-2, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"increasingWeight": 0.05, "chestTrap": 100, "goddessRage": 5}, shrines: ["Illusion"], allFloors: true},
 	{name: "TickleHand", clusterWith: "ghost", color: "#FFFFFF", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", regen: -0.1, noAlert: true, hitsfx: "Tickle",
