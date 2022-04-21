@@ -830,7 +830,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	let ignore = false;
 	let followRange = enemy.Enemy.followRange;
 	let visionRadius = enemy.Enemy.visionRadius ? (enemy.Enemy.visionRadius + ((enemy.lifetime > 0 && enemy.Enemy.visionSummoned) ? enemy.Enemy.visionSummoned : 0)) : 0;
-	if (visionMod) visionRadius *= visionMod;
+	if (visionMod && visionRadius > 1.5) visionRadius = Math.max(1.5, visionRadius * visionMod);
 	let chaseRadius = 8 + (Math.max(followRange * 2, 0)) + 2*Math.max(visionRadius ? visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 	let blindSight = (enemy && enemy.Enemy && enemy.Enemy.blindSight) ? enemy.Enemy.blindSight : 0;
 	if (KinkyDungeonStatsChoice.get("KillSquad")) {
