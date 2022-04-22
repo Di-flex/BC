@@ -404,14 +404,14 @@ function KinkyDungeonSendInventoryEvent(Event, data) {
 		if (item.oldEvents)
 			for (let oldEvents of item.oldEvents) {
 				for (let e of oldEvents) {
-					if (e.inheritLinked && e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
+					if (e.inheritLinked && e.trigger === Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
 						KinkyDungeonHandleInventoryEvent(Event, e, item, data);
 					}
 				}
 			}
 		if (item.events) {
 			for (let e of item.events) {
-				if (e.trigger == Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
+				if (e.trigger === Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
 					KinkyDungeonHandleInventoryEvent(Event, e, item, data);
 				}
 			}

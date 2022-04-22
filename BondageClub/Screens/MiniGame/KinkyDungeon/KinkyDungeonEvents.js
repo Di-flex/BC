@@ -243,6 +243,10 @@ const KDEventMap = {
 				//KinkyDungeonUnLinkItem(item);
 				//Obsolete
 			}
+		},
+		"KittyPetSuitRemove":(e, item, data) => {
+			// remove kitty stuff
+			KinkyDungeonPlayer.Appearance= KinkyDungeonPlayer.Appearance.filter((v)=>{!(v.isKittyed)})
 		}
 	},
 	"afterRemove": {
@@ -367,6 +371,42 @@ const KDEventMap = {
 				let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
 				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
 				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+			}
+		},
+		"KittySuitUpgrade": (e, item, data) => {
+			// get defeat, upgrade suit
+			KinkyDungeonInventoryRemove({name:"KittySuit",type: Restraint}); // maychange
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"),10) // maychange
+			// leash if collared
+			if(KinkyDungeonAllRestraint().find((i)=>{i.name.match("(?:Collar|collar")})){
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"),1) // maychange
+			}
+			// Wear kitty props
+			// Use leather pet crawler for pads
+			/*
+			KinkyDungeonPlayer.Appearance.push({
+				Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"ItemArms","StrictLeatherPetCrawler"),
+				Color: "Default",
+				isKittyed: 1
+			})
+			*/
+
+			// check if wearing ears
+			//don't care about ears in HairAccessory2 for now. Regex that later
+			// Also, may want to use SendStatus
+			if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="HairAccessory2")})){
+				KinkyDungeonPlayer.Appearance.push({
+					Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"HairAccessory1","KittenEars2"),
+					Color: "Default",
+					isKittyed: 1
+				})
+			}
+			if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="TailStraps")})){
+				KinkyDungeonPlayer.Appearance.push({
+					Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"TailStraps","TailStrap"),
+					Color: "Default",
+					isKittyed: 1
+				})
 			}
 		}
 	},

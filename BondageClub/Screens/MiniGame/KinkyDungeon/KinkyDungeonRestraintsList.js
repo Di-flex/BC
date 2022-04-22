@@ -369,48 +369,14 @@ const KinkyDungeonRestraints = [
 		maxstamina: 0.9, enemyTags: {"kittyRestraints":8}, playerTags: {}, minLevel: 6, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Leather", "Mittens"]},
 	{name: "KittySuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Red", bindarms: true, bindhands: true, power: 11, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
 		events:[
-			{trigger:"defeat", type:"custom", function:()=>{ // get defeated, wear KittyPetSuit
-					KinkyDungeonInventoryRemove({name:"KittySuit",type: Restraint}); // maychange
-					KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"),10) // maychange
-				}},
+			{trigger:"defeat", type:"KittySuitUpgrade"},
 		],
 		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":3}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]}, // Counts as a straitjacket for purpose of linking
 	// Only apply if already wearing KittySuit
 	{name: "KittyPetSuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Blue", bindarms: true, bindhands: true, power: 12, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
 		alwaysDress: [],
 		events:[
-			{trigger:"wear", type:"custom", function:()=>{
-					// add some more restraints
-					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(""))
-					// Use leather pet crawler for pads
-					KinkyDungeonPlayer.Appearance.push({
-						Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"ItemArms","StrictLeatherPetCrawler"),
-						Color: "Default",
-						isKittyed: 1
-					})
-
-					// check if wearing ears
-					//don't care about ears in HairAccessory2 for now. Regex that later
-					// Also, may want to use SendStatus
-					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="HairAccessory2")})){
-						KinkyDungeonPlayer.Appearance.push({
-							Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"HairAccessory1","KittenEars2"),
-							Color: "Default",
-							isKittyed: 1
-						})
-					}
-					if (!KinkyDungeonPlayer.Appearance.find((item)=>{return item.Asset.DynamicGroupName && (item.Asset.DynamicGroupName==="TailStraps")})){
-						KinkyDungeonPlayer.Appearance.push({
-							Asset: AssetGet(KinkyDungeonPlayer.AssetFamily,"TailStraps","TailStrap"),
-							Color: "Default",
-							isKittyed: 1
-						})
-					}
-				}},
-			{trigger: "remove",type: "custom", function:()=>{
-					// remove kitty stuff
-					KinkyDungeonPlayer.Appearance= KinkyDungeonPlayer.Appearance.filter((v)=>{!(v.isKittyed)})
-				}}
+			{trigger: "remove",type: "KittyPetSuitRemove"}
 		],
 		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":0}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]},
 
