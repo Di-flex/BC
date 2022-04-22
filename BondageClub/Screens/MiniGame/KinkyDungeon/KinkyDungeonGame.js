@@ -166,6 +166,8 @@ function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 }
 
 function KinkyDungeonNewGamePlus() {
+	KDInitializeJourney(KDGameData.Journey);
+
 	let temp = [];
 	for (let o of KinkyDungeonOrbsPlaced) {
 		if (KDRandom() < 0.5) temp.push(o);

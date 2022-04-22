@@ -2,6 +2,7 @@
 
 let KinkyDungeonSlimeLevel = 0;
 let KinkyDungeonSlimeLevelStart = 0;
+let KinkyDungeonAttackTwiceFlag = false;
 let KinkyDungeonSlimeParts = [
 	{group: "ItemHead", restraint: "SlimeHead"},
 	{group: "ItemArms", restraint: "SlimeArms"},
@@ -19,11 +20,14 @@ function KinkyDungeonSendEvent(Event, data) {
 	KinkyDungeonSendBulletEvent(Event, data.bullet, data);
 	KinkyDungeonSendBuffEvent(Event, data);
 }
-
+/** Called during initialization */
 function KinkyDungeonResetEventVariables() {
 	KinkyDungeonSlimeLevel = 0;
 }
+/** Called every tick */
 function KinkyDungeonResetEventVariablesTick(delta) {
+	KinkyDungeonAttackTwiceFlag = false;
+
 	if (KinkyDungeonSlimeLevel < 0)
 		KinkyDungeonSlimeLevel = 0;
 	KinkyDungeonSlimeLevelStart = KinkyDungeonSlimeLevel;
