@@ -814,7 +814,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 		let enemy = KinkyDungeonEntities[i];
 		if (!enemy.Enemy.allied) {
 			if (enemy.fx && enemy.fy) {
-				if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = 1;
+				if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 			}
 		}
 	}
@@ -830,7 +830,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	let ignore = false;
 	let followRange = enemy.Enemy.followRange;
 	let visionRadius = enemy.Enemy.visionRadius ? (enemy.Enemy.visionRadius + ((enemy.lifetime > 0 && enemy.Enemy.visionSummoned) ? enemy.Enemy.visionSummoned : 0)) : 0;
-	if (visionMod) visionRadius *= visionMod;
+	if (visionMod && visionRadius > 1.5) visionRadius = Math.max(1.5, visionRadius * visionMod);
 	let chaseRadius = 8 + (Math.max(followRange * 2, 0)) + 2*Math.max(visionRadius ? visionRadius : 0, enemy.Enemy.blindSight ? enemy.Enemy.blindSight : 0);
 	let blindSight = (enemy && enemy.Enemy && enemy.Enemy.blindSight) ? enemy.Enemy.blindSight : 0;
 	if (KinkyDungeonStatsChoice.get("KillSquad")) {
@@ -1286,11 +1286,20 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonTickBuffTag(player.buffs, "incomingHit", 1);
 			}
 
+			let preData = {
+				attack: attack,
+				enemy: enemy,
+				damagetype: damage,
+				attacker: enemy,
+			};
+			KinkyDungeonSendEvent("beforeAttack", preData);
+
 			if (hit && KDRandom() > playerEvasion) {
 				if (player.player) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
-					enemy.vulnerable = 1;
+
+					enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
 				hit = false;
 			}
@@ -1475,7 +1484,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 										enemy.y = leashPoint.y;
 										hitsfx = "Struggle";
 										if (!KinkyDungeonHasStamina(1.1)) {
-											KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints + moveMult;
+											KinkyDungeonSlowMoveTurns = enemy.Enemy.movePoints + moveMult - (KDRandom() < 0.25 ? 1 : 0);
 											KinkyDungeonSleepTime = CommonTime() + 200;
 										}
 										if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Pull")) {
@@ -1586,6 +1595,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						damage: willpowerDamage,
 						damagetype: damage,
 						restraintsAdded: restraintAdd,
+						attacker: enemy,
 					};
 					KinkyDungeonSendEvent("beforeDamage", data);
 					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
@@ -1670,7 +1680,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			} else {
 				let sfx = (enemy.Enemy && enemy.Enemy.misssfx) ? enemy.Enemy.misssfx : "Miss";
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
-				enemy.vulnerable = 1;
+				enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				if (attack.includes("Dash") && enemy.Enemy.dashOnMiss) {
 					KDDash(enemy, player, MovableTiles);
 				}
@@ -1779,7 +1789,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonSpellCast" + spell.name).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "white", 2);
 			}
 
-			if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) && spell.sfx) {
+			if (spell && KinkyDungeonCastSpell(xx, yy, spell, enemy, player) == "Cast" && spell.sfx) {
 				if (enemy.Enemy.suicideOnSpell) enemy.hp = 0;
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + spell.sfx + ".ogg");
 			}

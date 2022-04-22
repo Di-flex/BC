@@ -105,12 +105,16 @@ interface restraint {
 	weight: number,
 	/** Minimum floor for the restraint to be used by enemies */
 	minLevel: number,
+	/** Maximum level, wont be used at this or higher. Inclusive. */
+	maxLevel?: number,
 	/** Relative power level. Used to determine if the restraint will get overridden by a more powerful one */
 	power: number,
 	/** Copied to the events variable */
 	events?: KinkyDungeonEvent[],
+	/** The item is present on all floors */
+	allFloors?: boolean,
 	/** Determines the floors the restraint can appear on */
-	floors: Map<any, any>,
+	floors?: Map<any, any>,
 	escapeChance: {
 		Struggle?: number,
 		Cut?: number,
@@ -311,6 +315,8 @@ interface enemy {
 	terrainTags?: Record<string, number>,
 	/** */
 	floors?: Map<number, boolean>,
+	/** */
+	allFloors?: boolean,
 	/** */
 	noblockplayer?: boolean,
 	/** */
@@ -539,6 +545,8 @@ interface enemy {
 	spellWhileParole?: boolean,
 	/** This line is a suffic to the line they say when they want to play with you */
 	playLine?: string,
+	/** Blocks vision */
+	blockVision?: boolean,
 
 }
 
@@ -574,7 +582,13 @@ interface weapon {
 	events?: KinkyDungeonEvent[];
 	noHands?: boolean;
 	silent?: boolean;
-	special?: {type: string, spell?: string, requiresEnergy?: boolean, energyCost?: number};
+	special?: {
+		type: string,
+		spell?: string,
+		selfCast?: boolean,
+		requiresEnergy?: boolean,
+		energyCost?: number,
+		range?: number,};
 }
 
 interface KinkyDungeonEvent {
@@ -631,6 +645,8 @@ interface entity {
 	id?: number,
 	hp: number,
 	AI?: string,
+	moved?: boolean,
+	idle?: boolean,
 	summoned?: boolean,
 	boundLevel?: number,
 	lifetime?: number,

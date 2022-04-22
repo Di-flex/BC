@@ -459,6 +459,8 @@ function KinkyDungeonPickAttempt() {
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
+	if (!lock) return;
+
 	KinkyDungeonInterruptSleep();
 
 	if (lock.includes("Blue")) {
@@ -1118,7 +1120,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			effLevel *= KDTightRestraintsMult;
 			effLevel += KDTightRestraintsMod;
 		}
-		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
+		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && (!restraint.maxLevel || effLevel < restraint.maxLevel) && (restraint.allFloors || restraint.floors.get(Index))) {
 			let enabled = false;
 			let weight = 0;
 			if (enemy.tags.length) {
@@ -1217,6 +1219,8 @@ function KinkyDungeonUpdateRestraints(delta) {
 			}
 	}
 	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
+	if (KinkyDungeonStatsChoice.get("Unchained")) playerTags.set("Unchained", true);
+	if (KinkyDungeonStatsChoice.get("Damsel")) playerTags.set("Damsel", true);
 	return playerTags;
 }
 

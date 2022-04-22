@@ -42,6 +42,14 @@ function KinkyDungeonResetEventVariablesTick(delta) {
  */
 const KDEventMap = {
 	"tick": {
+		"AccuracyBuff": (e, item, data) => {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+				id: item.name + e.type + e.trigger,
+				type: "Accuracy",
+				duration: 1,
+				power: e.power
+			});
+		},
 		"spellRange": (e, item, data) => {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
 				id: item.name + e.type + e.trigger,
@@ -62,14 +70,6 @@ const KDEventMap = {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
 				id: item.name + e.type + e.trigger,
 				type: "Evasion",
-				duration: 1,
-				power: e.power
-			});
-		},
-		"AccuracyBuff": (e, item, data) => {
-			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
-				id: item.name + e.type + e.trigger,
-				type: "Accuracy",
 				duration: 1,
 				power: e.power
 			});
@@ -524,8 +524,16 @@ function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) 
  * @param {any} entity
  * @param {*} data
  */
-function KinkyDungeonHandleBuffEvent(Event, buff, entity, data) {
-
+function KinkyDungeonHandleBuffEvent(Event, e, buff, entity, data) {
+	if (Event == "beforeAttack") {
+		if (e.type == "CounterattackDamage" && data.attacker) {
+			if (data.attacker.player) {
+				KinkyDungeonDealDamage({damage: e.power, type: e.damage, bind: e.bind, time: e.time});
+			} else {
+				KinkyDungeonDamageEnemy(data.attacker, {damage: e.power, type: e.damage, bind: e.bind, time: e.time}, false, true);
+			}
+		}
+	}
 }
 
 /**
@@ -540,7 +548,18 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 		if (e.type == "HandsFree" && e.trigger == "calcEvasion" && !data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDEvasionHands) {
 			data.flags.KDEvasionHands = false;
 		}
-	}
+	} else
+	if (Event == "tick") {
+		if (e.type == "AccuracyBuff" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+			//KDBlindnessCap = Math.min(KDBlindnessCap, e.power);
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+				id: spell.name + e.type + e.trigger,
+				type: "Accuracy",
+				duration: 1,
+				power: e.power,
+			});
+		}
+	} else
 	if (Event == "calcStats") {
 		if (e.type == "Blindness" && e.trigger == "calcStats" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
 			//KDBlindnessCap = Math.min(KDBlindnessCap, e.power);

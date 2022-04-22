@@ -221,6 +221,7 @@ function KinkyDungeonDealDamage(Damage) {
 	let dmg = Damage.damage;
 	let type = Damage.type;
 	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
+	let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, type + "DamageResist"));
 	let distractionTypesWeakNeg = ["pain"];
 	let distractionTypesWeak = ["grope"];
 	let distractionTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
@@ -228,6 +229,8 @@ function KinkyDungeonDealDamage(Damage) {
 	let staminaTypesStrong = ["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"];
 	let manaTypesWeak = ["electric", "poison", "souldrain"];
 	let manaTypesString = ["drain"];
+
+	dmg *= buffresist;
 
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
 		staminaTypesWeak.splice(staminaTypesWeak.indexOf("electric"), 1);

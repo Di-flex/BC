@@ -478,7 +478,7 @@ KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns.
 
 KinkyDungeonConsumableLessEffective,The potion was less effective due to your gag!
 
-KinkyDungeonInventoryItemElfCrystal,Water Crystal
+KinkyDungeonInventoryItemElfCrystal,Amulet of Grace
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
 KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of sylvan grace."
 KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
@@ -551,6 +551,12 @@ KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its 
 KinkyDungeonInventoryItemDragonslaver,Dragonslaver
 KinkyDungeonInventoryItemDragonslaverDesc,"A powerful weapon with an ancient mechanism that launches binding belts."
 KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% ancient energy to fire a line of belts that deal 40 chain damage and 4 extra binding."
+KinkyDungeonInventoryItemTheEncaser,Metamorphosis
+KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
+KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
+KinkyDungeonInventoryItemBondageBuster,Bondage Buster
+KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 30 electric damage and briefly stuns the first target hit."
+KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
 KinkyDungeonInventoryItemSlimethrower,Latex Projector
 KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
 KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
@@ -1623,6 +1629,12 @@ RestraintSlimeWalkersDesc2,"They will slow you down, but you can walk on slime w
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."
+RestraintSteelCollar,Slave Collar
+RestraintSteelCollarDesc,"A high-security steel collar befitting of a slave."
+RestraintSteelCollarDesc2,"Allows fitting of a leash."
+RestraintMagicCollar,Enchanted Collar
+RestraintMagicCollarDesc,"A collar made with magically enchanted materials. It is difficult to cut off."
+RestraintMagicCollarDesc2,"Allows fitting of a leash."
 RestraintBasicLeash,Leash
 RestraintBasicLeashDesc,"A leash made from a strong material."
 RestraintBasicLeashDesc2,"Functions as a handle for moving unruly prisoners."
@@ -2481,6 +2493,8 @@ ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 ItemPickupBola,You pick up a bola.
 ItemPickupBomb,You pick up a bomb!
 ItemPickupDragonslaver,"You pick up Dragonslaver."
+ItemPickupTheEncaser,"You pick up the Encaser."
+ItemPickupBondageBuster,"You retrieve the Bondage Buster."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
@@ -2806,7 +2820,7 @@ KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
 KinkyDungeonSpellStrengthWillpower,You focus intently!
 
 KinkyDungeonSpellTrueSight,Truesight
-KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls.
+KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls and increase accuracy by 40%.
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
@@ -2895,6 +2909,7 @@ KinkyDungeonSpellFeathers,Feather Explosion
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellSlimePuddle,Apprentice's Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
+KinkyDungeonSpellMiniSlime,Witch's Slime Ball
 KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt glue damage on a hit.
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
 KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius)
@@ -2919,8 +2934,12 @@ KinkyDungeonSpellEntangle,Raging Vines
 KinkyDungeonSpellSingleRibbon,Magic Ribbons
 KinkyDungeonSpellSingleBelt,Magic Belts
 KinkyDungeonSpellSlimethrower,Slime
+KinkyDungeonSpellSlimethrower2,Slime
 KinkyDungeonSpellCastSlimethrower,You project a pool of sticky slime!
+KinkyDungeonSpellBondageBustBeam,Bondage Buster
+KinkyDungeonSpellCastBondageBust,You charge up a beam and fire it!
 KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
+KinkyDungeonSpellCastSlimemForm,"The slime from your staff coats your body, granting you strange powers!"
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
@@ -3032,6 +3051,7 @@ KinkyDungeonBlindSelf,"You are blinded!"
 KinkyDungeonDamageSelf,"You took DamageDealt damage!"
 KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
+KinkyDungeonMiniSlime,"The slime ball sticks to you and slows you!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
 KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"
@@ -3719,5 +3739,7 @@ KinkyDungeonRemindJailChaseZombieOrb,"EnemyName: Intruder..."
 KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
-KinkyDungeonSpecialDragonslaver,Throw a line of belts for 40 chain damage and 4 binding
+KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
+KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
+KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam thadeals 30 electric damage."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit

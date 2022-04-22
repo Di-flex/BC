@@ -294,9 +294,11 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
+		let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, predata.type + "DamageResist"));
 		let buffType = predata.type + "DamageBuff";
 		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
+		predata.dmg *= buffresist;
 
 		if (predata.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
 			predata.dmg *= 2;
@@ -436,6 +438,13 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistSlow == 1 || resistDamage == 1)
 				Enemy.slow = Math.max(Enemy.slow, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.slow = Math.max(Enemy.slow, time);
+		}
+		if ((resistDamage < 2) && (KinkyDungeonVulnerableDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
+			effect = true;
+			if (!Enemy.vulnerable) Enemy.vulnerable = 0;
+			if (resistDamage == 1)
+				Enemy.vulnerable = Math.max(Enemy.vulnerable, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
+			else Enemy.vulnerable = Math.max(Enemy.vulnerable, time);
 		}
 	}
 

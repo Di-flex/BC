@@ -58,12 +58,12 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilver" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlue" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "dark")) ? "ChestDark" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl")) ? "ChestPearl" : "Chest"))));
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl" || KinkyDungeonTiles.get(x + "," + y).Loot == "lesserpearl")) ? "ChestPearl" : "Chest"))));
 	else if (code == "c") sprite = (KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "gold" || KinkyDungeonTiles.get(x + "," + y).Loot == "lessergold")) ? "ChestGoldOpen" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "silver")) ? "ChestSilverOpen" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "blue")) ? "ChestBlueOpen" :
 		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "dark")) ? "ChestDarkOpen" :
-		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl")) ? "ChestPearlOpen" : "ChestOpen"))));
+		((KinkyDungeonTiles.get(x + "," + y) && (KinkyDungeonTiles.get(x + "," + y).Loot == "pearl" || KinkyDungeonTiles.get(x + "," + y).Loot == "lesserpearl")) ? "ChestPearlOpen" : "ChestOpen"))));
 	return sprite;
 }
 
@@ -458,9 +458,19 @@ function KinkyDungeonDrawGame() {
 			KinkyDungeonDrawFloaters(CamX+CamX_offset, CamY+CamY_offset);
 
 			if (KinkyDungeonCanvas) {
+				let barInt = 0;
 				if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax*0.9) {
-					KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12,
+					KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12 - 13 * barInt,
 						KinkyDungeonGridSizeDisplay, 12, 100 * KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, "#44ff44", "#000000");
+					barInt += 1;
+				}
+				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
+					if (b && b.aura && b.duration > 0 && b.duration < 999) {
+						if (!b.maxduration) b.maxduration = b.duration;
+						KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12 - 13 * barInt,
+							KinkyDungeonGridSizeDisplay, 12, 100 * b.duration / b.maxduration, b.aura, "#000000");
+						barInt += 1;
+					}
 				}
 				if (KinkyDungeonCurrentEscapingItem && KinkyDungeonLastTurnAction == "Struggle") {
 					let item = KinkyDungeonCurrentEscapingItem;

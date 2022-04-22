@@ -111,6 +111,12 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 			if (prereqs) {
 				let weightMult = 1.0;
 				let weightBonus = 0;
+				if (loot.goddess) {
+					let grep = KinkyDungeonGoddessRep[loot.goddess];
+					if (grep) {
+						weightBonus += loot.goddessWeight * grep/50;
+					}
+				}
 				if (Type == "chest") {
 					if (tile && tile.Special && loot.special) weightBonus += loot.special;
 					else if (tile && tile.Special) weightMult = 0;
@@ -126,7 +132,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 				}
 
 				lootWeights.push({loot: loot, weight: lootWeightTotal});
-				lootWeightTotal += (loot.weight + weightBonus) * weightMult;
+				lootWeightTotal += Math.max(0, (loot.weight + weightBonus) * weightMult);
 			}
 		}
 	}
