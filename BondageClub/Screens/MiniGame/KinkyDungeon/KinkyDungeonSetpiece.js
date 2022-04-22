@@ -20,9 +20,9 @@ function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, h
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	let setpieces = [];
 	Object.assign(setpieces, Params.setpieces);
-	setpieces.push({Type: "PearlChest", Weight: 1000});
-	setpieces.push({Type: "GuaranteedCell", Weight: 1000});
-	setpieces.push({Type: "LesserPearl", Weight: 1000});
+	setpieces.push({Type: "GuaranteedCell", Weight: 100000});
+	setpieces.push({Type: "PearlChest", Weight: 100});
+	setpieces.push({Type: "LesserPearl", Weight: 10});
 	for (let p of KDSetPieces) {
 		let prereqs = true;
 		if (prereqs && p.Prereqs) {

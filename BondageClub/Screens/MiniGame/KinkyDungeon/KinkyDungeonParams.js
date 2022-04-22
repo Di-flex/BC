@@ -141,8 +141,8 @@ let KinkyDungeonMapParams = [
 
 		"min_width" : 21,
 		"max_width" : 27,
-		"min_height" : 13,
-		"max_height" : 17,
+		"min_height" : 15,
+		"max_height" : 19,
 
 		"enemytags": ["skeleton"],
 		"defeat_restraints": [
