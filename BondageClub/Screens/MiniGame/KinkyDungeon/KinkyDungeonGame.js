@@ -2193,7 +2193,7 @@ function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDu
 let KinkyDungeonNoMoveFlag = false;
 let KinkyDungeonConfirmAttack = false;
 
-function KinkyDungeonLaunchAttack(Enemy) {
+function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let attackCost = KinkyDungeonStatStaminaCostAttack;
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.staminacost) attackCost = -KinkyDungeonPlayerDamage.staminacost;
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackStamina")) {
@@ -2218,7 +2218,8 @@ function KinkyDungeonLaunchAttack(Enemy) {
 
 	if (!noadvance) {
 		KinkyDungeonInterruptSleep();
-		KinkyDungeonAdvanceTime(1);
+		if (!skip)
+			KinkyDungeonAdvanceTime(1);
 	}
 }
 

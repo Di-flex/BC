@@ -277,7 +277,7 @@ function KinkyDungeonLoad() {
 
 	if (!Player.KinkyDungeonExploredLore) Player.KinkyDungeonExploredLore = [];
 	// @ts-ignore
-	if (ServerURL != 'foobar') KinkyDungeonState = "Menu";
+	if (ServerURL != 'foobar' && KinkyDungeonState == 'Consent') KinkyDungeonState = "Menu";
 	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
@@ -319,7 +319,7 @@ function KinkyDungeonLoad() {
 		else console.log("Failed to load keybindings");
 
 		if (KinkyDungeonIsPlayer()) {
-			if (ServerURL != 'foobar')
+			if (ServerURL != 'foobar' && KinkyDungeonState == "Consent")
 				KinkyDungeonState = "Menu";
 			KinkyDungeonGameData = null;
 

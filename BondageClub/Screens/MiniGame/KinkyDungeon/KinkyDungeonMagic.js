@@ -902,14 +902,14 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			KinkyDungeonTargetingSpellWeapon = null;
 			let en = KinkyDungeonEnemyAt(targetX, targetY);
 			if (en) {
-				KinkyDungeonLaunchAttack(en);
+				KinkyDungeonLaunchAttack(en, true);
 				return "Cast";
 			} else return "Fail";
 		} else if (spell.special == "weaponAttackOrSpell") {
 			KinkyDungeonTargetingSpellWeapon = null;
 			let en = KinkyDungeonEnemyAt(targetX, targetY);
 			if (en) {
-				KinkyDungeonLaunchAttack(en);
+				KinkyDungeonLaunchAttack(en, true);
 				return "Cast";
 			} else {
 				return KinkyDungeonActivateWeaponSpell(true) ? "Cast" : "Fail";

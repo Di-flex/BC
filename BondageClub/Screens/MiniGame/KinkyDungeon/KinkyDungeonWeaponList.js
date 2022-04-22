@@ -19,9 +19,9 @@ let KinkyDungeonWeapons = {
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "stun", time: 1, chance: 0.5}]},
 	"MagicSword": {name: "MagicSword", dmg: 3, chance: 2, staminacost: 1.0, type: "slash", unarmed: false, rarity: 4, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing"},
 
-	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
+	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.25, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
 		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}],
-		special: {type: "hitorspell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075, range: 4}},
+		special: {type: "hitorspell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075, range: 3.9}},
 	"BondageBuster": {name: "BondageBuster", dmg: 2, chance: 1.0, staminacost: 0.3,  type: "tickle", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "Shock",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, time: 6, damage: "tickle"}],
 		special: {type: "spell", spell: "BondageBust", requiresEnergy: true, energyCost: 0.01, range: 4}},
