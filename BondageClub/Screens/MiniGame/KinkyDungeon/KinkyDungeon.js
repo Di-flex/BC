@@ -794,7 +794,8 @@ function KDInitializeJourney(Journey) {
 		KinkyDungeonMapIndex.push(II);
 	}
 
-	KDGameData.Journey = Journey;
+	if (Journey)
+		KDGameData.Journey = Journey;
 	// Option to shuffle the dungeon types besides the initial one (graveyard)
 	if (KDGameData.Journey == "Random") {
 		/* Randomize array in-place using Durstenfeld shuffle algorithm */
