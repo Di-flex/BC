@@ -103,6 +103,8 @@ let KDOptOut = false;
 * TimesJailed: number,
 * JailTurns: number,
 * JailKey: boolean,
+* CurrentDialog: string,
+* CurrentDialogStage: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -172,6 +174,9 @@ let KDGameDataBase = {
 	TimesJailed: 0,
 	JailTurns: 0,
 	JailKey: true,
+
+	CurrentDialog: "",
+	CurrentDialogStage: "",
 };
 /**
  * @type {KDGameDataBase}

@@ -509,8 +509,12 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawInputs();
 			}
 
+			if (KDGameData.CurrentDialog) {
+				KDDrawDialogue();
+			}
 
 			KinkyDungeonDrawMessages();
+
 			// Draw the quick inventory
 			if (KinkyDungeonShowInventory) {
 				KinkyDungeonDrawQuickInv();

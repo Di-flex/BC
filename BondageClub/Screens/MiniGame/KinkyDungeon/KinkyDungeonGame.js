@@ -2076,7 +2076,7 @@ function KinkyDungeonGetMovable() {
 }
 
 function KinkyDungeonListenKeyMove() {
-	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1) {
+	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && !KDGameData.CurrentDialog) {
 		let moveDirection = null;
 		let moveDirectionDiag = null;
 
@@ -2116,7 +2116,8 @@ function KinkyDungeonListenKeyMove() {
 function KinkyDungeonGameKeyDown() {
 	let moveDirection = null;
 
-
+	if (KDGameData.CurrentDialog) return;
+	if (!(KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1)) return;
 
 	/*
 	// Cardinal moves
