@@ -68,18 +68,12 @@ let KinkyDungeonTargetTile = null;
 let KinkyDungeonTargetTileLocation = "";
 
 const KinkyDungeonBaseLockChance = 0.1;
-const KinkyDungeonScalingLockChance = 0.1; // Lock chance per 10 floors. Does not affect the guaranteed locked chest each level
-const KinkyDungeonGreenLockChance = 0.3;
-const KinkyDungeonGreenLockChanceScaling = 0.01;
-const KinkyDungeonGreenLockChanceScalingMax = 0.8;
-const KinkyDungeonYellowLockChance = 0.15;
-const KinkyDungeonYellowLockChanceScaling = 0.008;
-const KinkyDungeonYellowLockChanceScalingMax = 0.7;
+const KinkyDungeonScalingLockChance = 0.15; // Lock chance per 10 floors. Does not affect the guaranteed locked chest each level
 const KinkyDungeonBlueLockChance = -0.1;
-const KinkyDungeonBlueLockChanceScaling = 0.01;
+const KinkyDungeonBlueLockChanceScaling = 0.015;
 const KinkyDungeonBlueLockChanceScalingMax = 0.4;
 const KinkyDungeonGoldLockChance = -0.25; // Chance that a blue lock is replaced with a gold lock
-const KinkyDungeonGoldLockChanceScaling = 0.01;
+const KinkyDungeonGoldLockChanceScaling = 0.015;
 const KinkyDungeonGoldLockChanceScalingMax = 0.25;
 
 const KinkyDungeonEasyLockChance = 0.8;
@@ -1499,7 +1493,7 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 	//let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
 	let chance = (level == 0) ? 0 : KinkyDungeonBaseLockChance;
-	chance += KinkyDungeonScalingLockChance * level / 10;
+	chance += KinkyDungeonScalingLockChance * level / KDLevelsPerCheckpoint;
 
 	if (Guaranteed) chance = 1.0;
 
@@ -1512,13 +1506,13 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 
 		let BlueChance = Math.min(KinkyDungeonBlueLockChance + level * KinkyDungeonBlueLockChanceScaling, KinkyDungeonBlueLockChanceScalingMax);
 
-		if (KinkyDungeonStatsChoice.get("Damsel")) {
+		if (KinkyDungeonStatsChoice.get("HighSecurity")) {
 			BlueChance *= 1.5;
 			BlueChance += 0.05;
 		}
 		if (locktype < BlueChance) {
 			let GoldChance = Math.min(KinkyDungeonGoldLockChance + level * KinkyDungeonGoldLockChanceScaling, KinkyDungeonGoldLockChanceScalingMax);
-			if (KinkyDungeonStatsChoice.get("Damsel")) {
+			if (KinkyDungeonStatsChoice.get("HighSecurity")) {
 				GoldChance *= 1.6;
 			}
 			if (AllowGold && KDRandom() < GoldChance) return "Gold" + modifiers;
