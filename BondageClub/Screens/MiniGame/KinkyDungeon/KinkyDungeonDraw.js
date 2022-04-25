@@ -352,7 +352,7 @@ function KinkyDungeonDrawGame() {
 						if (KinkyDungeonTargetingSpell.noTargetEnemies && KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.noTargetAllies) {
 							let enemy = KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY);
-							if (enemy && enemy.Enemy && enemy.Enemy.allied)
+							if (enemy && KDAllied(enemy))
 								KinkyDungeonSpellValid = false;
 						}
 						if (KinkyDungeonTargetingSpell.selfTargetOnly && (KinkyDungeonPlayerEntity.x != KinkyDungeonTargetX || KinkyDungeonPlayerEntity.y != KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;

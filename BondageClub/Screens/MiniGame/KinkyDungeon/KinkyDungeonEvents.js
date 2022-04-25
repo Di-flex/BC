@@ -81,7 +81,7 @@ const KDEventMapInventory = {
 		"AllyHealingAura": (e, item, data) => {
 			let healed = false;
 			for (let enemy of KinkyDungeonEntities) {
-				if (enemy.Enemy.allied && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
+				if (KDAllied(enemy) && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					let origHP = enemy.hp;
 					enemy.hp = Math.min(enemy.hp + e.power, enemy.Enemy.maxhp);
 					if (enemy.hp - origHP > 0) {
@@ -338,7 +338,7 @@ const KDEventMapInventory = {
 	},
 	"beforeDamageEnemy": {
 		"MultiplyDamageStealth": (e, item, data) => {
-			if (data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
+			if (data.dmg > 0 && data.enemy && KDHostile(data.enemy) && !data.enemy.aware) {
 				if (!e.chance || KDRandom() < e.chance) {
 					let dmg = Math.max(0, Math.min(data.enemy.hp, data.dmg));
 					if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * dmg * (e.power - 1));
@@ -347,7 +347,7 @@ const KDEventMapInventory = {
 			}
 		},
 		"MultiplyDamageStatus": (e, item, data) => {
-			if (data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && (KinkyDungeonHasStatus(data.enemy))) {
+			if (data.dmg > 0 && data.enemy && KDHostile(data.enemy) && (KinkyDungeonHasStatus(data.enemy))) {
 				if (!e.chance || KDRandom() < e.chance) {
 					let dmg = Math.max(0, Math.min(data.enemy.hp, data.dmg));
 					if (e.energyCost && e.power > 1) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * dmg * (e.power - 1));
@@ -408,7 +408,7 @@ const KDEventMapInventory = {
 	},
 	"playerAttack": {
 		"ShadowHeel": (e, item, data) => {
-			if (data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			if (data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy))) {
 				KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("HeelShadowStrike", true), undefined, undefined, undefined);
 				if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
@@ -422,7 +422,7 @@ const KDEventMapInventory = {
 			}
 		},
 		"PunishPlayer": (e, item, data) => {
-			if (item.type === Restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			if (item.type === Restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy))) {
 				if (KDRandom() < e.chance || (KDGameData.WarningLevel > 2 && KDRandom() < e.warningchance)) {
 					if (e.stun && KDGameData.WarningLevel > 2) {
 						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, e.stun);
@@ -587,7 +587,7 @@ const KDEventMapSpell = {
 	},
 	"beforeDamageEnemy": {
 		"MultiplyDamageStealth": (e, spell, data) => {
-			if (data.dmg > 0 && data.enemy && !data.enemy.Enemy.allied && !data.enemy.aware) {
+			if (data.dmg > 0 && data.enemy && KDHostile(data.enemy) && !data.enemy.aware) {
 				if ((!e.humanOnly || data.enemy.Enemy.bound) && (!e.chance || KDRandom() < e.chance)) {
 					data.dmg = Math.max(data.dmg * e.power, 0);
 				}
@@ -610,13 +610,13 @@ const KDEventMapSpell = {
 	},
 	"playerAttack": {
 		"FlameBlade": (e, spell, data) => {
-			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name || KinkyDungeonStatsChoice.get("Brawler")) && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name || KinkyDungeonStatsChoice.get("Brawler")) && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && (data.enemy && KDHostile(data.enemy))) {
 				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 				KinkyDungeonCastSpell(data.targetX, data.targetY, KinkyDungeonFindSpell("FlameStrike", true), undefined, undefined, undefined);
 			}
 		},
 		"ElementalEffect": (e, spell, data) => {
-			if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && !data.miss && !data.disarm && data.targetX && data.targetY && data.enemy && !(data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && !data.miss && !data.disarm && data.targetX && data.targetY && data.enemy && KDHostile(data.enemy)) {
 				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 				KinkyDungeonDamageEnemy(data.enemy, {
 					type: e.damage,
@@ -627,7 +627,7 @@ const KDEventMapSpell = {
 			}
 		},
 		"FloatingWeapon": (e, spell, data) => {
-			if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && data.enemy.Enemy.allied)) {
+			if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy))) {
 				let chanceWith = KinkyDungeonPlayerDamage.chance;
 				let chanceWithout = KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon(true), true).chance;
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
@@ -719,7 +719,7 @@ const KDEventMapWeapon = {
 		"AoEDamageFrozen": (e, weapon, data) => {
 			let trigger = false;
 			for (let enemy of KinkyDungeonEntities) {
-				if (!enemy.Enemy.allied && enemy.freeze && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
+				if (KDHostile(enemy) && enemy.freeze && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					KinkyDungeonDamageEnemy(enemy, {
 						type: e.damage,
 						damage: e.power,
@@ -735,7 +735,7 @@ const KDEventMapWeapon = {
 		"AoEDamage": (e, weapon, data) => {
 			let trigger = false;
 			for (let enemy of KinkyDungeonEntities) {
-				if (!enemy.Enemy.allied && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
+				if (KDHostile(enemy) && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					KinkyDungeonDamageEnemy(enemy, {
 						type: e.damage,
 						damage: e.power,
@@ -773,7 +773,7 @@ const KDEventMapWeapon = {
 		"Cleave": (e, weapon, data) => {
 			if (data.enemy && !data.disarm) {
 				for (let enemy of KinkyDungeonEntities) {
-					if (enemy != data.enemy && !enemy.Enemy.allied) {
+					if (enemy != data.enemy && KDHostile(enemy)) {
 						let dist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
 						if (dist < 1.5 && KinkyDungeonEvasion(enemy) && Math.max(Math.abs(enemy.x - data.enemy.x), Math.abs(enemy.y - data.enemy.y))) {
 							KinkyDungeonDamageEnemy(enemy, {
@@ -803,7 +803,7 @@ const KDEventMapWeapon = {
 					let xx = data.enemy.x + i * (data.enemy.x - KinkyDungeonPlayerEntity.x);
 					let yy = data.enemy.y + i * (data.enemy.y - KinkyDungeonPlayerEntity.y);
 					for (let enemy of KinkyDungeonEntities) {
-						if (enemy != data.enemy && !enemy.Enemy.allied) {
+						if (enemy != data.enemy && KDHostile(enemy)) {
 							if (KinkyDungeonEvasion(enemy) && enemy.x == xx && enemy.y == yy) {
 								KinkyDungeonDamageEnemy(enemy, {
 									type: e.damage,
@@ -851,7 +851,7 @@ const KDEventMapWeapon = {
 				if (!e.chance || KDRandom() < e.chance) {
 					let trigger = false;
 					for (let enemy of KinkyDungeonEntities) {
-						if ((enemy.rage || (enemy.Enemy.allied && data.enemy.Enemy.allied) || (!enemy.Enemy.allied && !data.enemy.Enemy.allied)) && enemy != data.enemy && enemy.hp > 0 && KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y) <= e.aoe) {
+						if ((enemy.rage || (KDAllied(enemy) && KDAllied(data.enemy)) || (KDHostile(enemy) && KDHostile(data.enemy))) && enemy != data.enemy && enemy.hp > 0 && KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y) <= e.aoe) {
 							KinkyDungeonDamageEnemy(enemy, {
 								type: e.damage,
 								damage: e.power,
