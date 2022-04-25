@@ -68,20 +68,13 @@ let KinkyDungeonTargetTile = null;
 let KinkyDungeonTargetTileLocation = "";
 
 const KinkyDungeonBaseLockChance = 0.1;
-const KinkyDungeonScalingLockChance = 0.15; // Lock chance per 10 floors. Does not affect the guaranteed locked chest each level
+const KinkyDungeonScalingLockChance = 0.1; // Lock chance per 10 floors. Does not affect the guaranteed locked chest each level
 const KinkyDungeonBlueLockChance = -0.1;
 const KinkyDungeonBlueLockChanceScaling = 0.015;
 const KinkyDungeonBlueLockChanceScalingMax = 0.4;
 const KinkyDungeonGoldLockChance = -0.25; // Chance that a blue lock is replaced with a gold lock
 const KinkyDungeonGoldLockChanceScaling = 0.015;
 const KinkyDungeonGoldLockChanceScalingMax = 0.25;
-
-const KinkyDungeonEasyLockChance = 0.8;
-const KinkyDungeonEasyLockChanceScaling = -0.007;
-const KinkyDungeonEasyLockChanceScalingMax = 1.0;
-const KinkyDungeonHardLockChance = 0.2;
-const KinkyDungeonHardLockChanceScaling = 0.005;
-const KinkyDungeonHardLockChanceScalingMax = 0.4;
 
 let KinkyDungeonCurrentMaxEnemies = 1;
 
@@ -1973,6 +1966,10 @@ function KinkyDungeonGetDirectionRandom(dx, dy) {
 
 let KinkyDungeonAutoWaitSuppress = false;
 
+function KinkyDungeonControlsEnabled() {
+	return KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && !KDGameData.CurrentDialog;
+}
+
 // Click function for the game portion
 // @ts-ignore
 // @ts-ignore
@@ -1987,7 +1984,7 @@ function KinkyDungeonClickGame(Level) {
 
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
-	if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && KinkyDungeonHandleHUD()) {
+	if (KinkyDungeonControlsEnabled() && KinkyDungeonHandleHUD()) {
 		if (prevSpell) KinkyDungeonTargetingSpell = null;
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		KinkyDungeonGameKey.keyPressed = [
@@ -2021,7 +2018,7 @@ function KinkyDungeonClickGame(Level) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 	}
 	// If no buttons are clicked then we handle move
-	else if (KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1) {
+	else if (KinkyDungeonControlsEnabled()) {
 		KinkyDungeonSetMoveDirection();
 
 		if (KinkyDungeonTargetingSpell) {
@@ -2070,7 +2067,7 @@ function KinkyDungeonGetMovable() {
 }
 
 function KinkyDungeonListenKeyMove() {
-	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1 && !KDGameData.CurrentDialog) {
+	if (KinkyDungeonLastMoveTimer < performance.now() && KinkyDungeonControlsEnabled()) {
 		let moveDirection = null;
 		let moveDirectionDiag = null;
 
@@ -2111,7 +2108,7 @@ function KinkyDungeonGameKeyDown() {
 	let moveDirection = null;
 
 	if (KDGameData.CurrentDialog) return;
-	if (!(KinkyDungeonSlowMoveTurns < 1 && KinkyDungeonStatFreeze < 1 && KDGameData.SleepTurns < 1)) return;
+	if (!KinkyDungeonControlsEnabled()) return;
 
 	/*
 	// Cardinal moves

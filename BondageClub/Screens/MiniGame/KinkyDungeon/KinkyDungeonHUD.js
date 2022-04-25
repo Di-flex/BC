@@ -622,13 +622,11 @@ function KinkyDungeonHandleHUD() {
 		} else if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
 		else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
 		else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
-		else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 240, 50) && KDGameData.PlaySelfTurns < 1 && KDGameData.SleepTurns < 1) {
+		else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 240, 50) && KinkyDungeonControlsEnabled()) {
 			if (KinkyDungeonCanTryOrgasm()) {
 				KinkyDungeonDoTryOrgasm();
-				KinkyDungeonAlert = 7; // Alerts nearby enemies because of your moaning~
 			} else if (KinkyDungeonCanPlayWithSelf()) {
 				KinkyDungeonDoPlayWithSelf();
-				KinkyDungeonAlert = 3; // Alerts nearby enemies because of your moaning~
 			} else {
 				KDGameData.SleepTurns = KinkyDungeonSleepTurnsMax;
 				KinkyDungeonAlert = 4; // Alerts nearby enemies; enemies are searching while you sleep

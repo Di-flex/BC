@@ -451,6 +451,13 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		if (Replacemsg)
 			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapVibe"));
 	}
+	else if (Loot.name == "trap_protobelt") {
+		value = Math.ceil((100 + 100 * KDRandom()) * (1 + Floor/40));
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapVibeProto"), MiniGameKinkyDungeonCheckpoint, true, "");
+		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBeltProto"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true), undefined, true);
+		if (Replacemsg)
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapVibe"));
+	}
 	else if (Loot.name == "trap_beltonly") {
 		value = Math.ceil((70 + 80 * KDRandom()) * (1 + Floor/40));
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), MiniGameKinkyDungeonCheckpoint, true, Lock ? Lock : KinkyDungeonGenerateLock(true, undefined, true), undefined, true);
@@ -491,7 +498,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapPlug"), MiniGameKinkyDungeonCheckpoint, true, "");
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt2"), MiniGameKinkyDungeonCheckpoint, true, (MiniGameKinkyDungeonLevel > 5 || KinkyDungeonNewGame > 0) ? "Gold" : "Red", undefined, true);
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBelt2"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapPlug"));
 	}
 	else if (Loot.name == "trap_plug2_torment") {
 		value = Math.ceil((150 + 50 * KDRandom()) * (1 + Floor/40));
@@ -499,7 +506,7 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapPlug3"), MiniGameKinkyDungeonCheckpoint, true, "");
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt2"), MiniGameKinkyDungeonCheckpoint, true, (MiniGameKinkyDungeonLevel > 5 || KinkyDungeonNewGame > 0) ? "Gold" : "Red", undefined, true);
 		if (Replacemsg)
-			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapBelt2"));
+			Replacemsg = Replacemsg.replace("RestraintType", TextGet("RestraintTrapPlug3"));
 	}
 	else if (Loot.name == "trap_nipple2") {
 		value = Math.ceil((150 + 50 * KDRandom()) * (1 + Floor/40));

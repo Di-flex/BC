@@ -117,6 +117,35 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 	return KinkyDungeonPlayerEntity;
 }
 
+function KinkyDungeonInDanger() {
+	for (let b of KinkyDungeonBullets) {
+		let bdist = 1.5;
+		if (b.vx && b.vy) bdist = 2*Math.sqrt(b.vx*b.vx + b.vy*b.vy);
+		if (KinkyDungeonLightGet(Math.round(b.x), Math.round(b.y)) > 0 && Math.max(Math.abs(b.x - KinkyDungeonPlayerEntity.x), Math.abs(b.y - KinkyDungeonPlayerEntity.y)) < bdist) {
+			return true;
+		}
+	}
+	for (let enemy of KinkyDungeonEntities) {
+		let playerDist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
+		if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
+			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
+				if ((KinkyDungeonHostile() || playerDist < 1.5)) {
+					if ((KDHostile(enemy) || enemy.rage) && KinkyDungeonLightGet(enemy.x, enemy.y) > 0 &&
+					(enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) {
+						return true;
+					}
+					if ((KDHostile(enemy) || enemy.rage) && KinkyDungeonLightGet(enemy.x, enemy.y) > 0 &&
+					(enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) {
+						return true;
+					}
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
 let KinkyDungeonFastMoveSuppress = false;
 let KinkyDungeonFastStruggleSuppress = false;
 function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {

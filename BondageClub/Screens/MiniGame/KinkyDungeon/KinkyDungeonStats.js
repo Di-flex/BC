@@ -367,8 +367,33 @@ function KinkyDungeonUpdateStats(delta) {
 		KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSleepDeprivation"), "pink", 3);
 	}
 	KinkyDungeonDifficulty = KinkyDungeonNewGame * 20;
+	if (KinkyDungeonVibeLevel > 0) {
+		KDGameData.OrgasmNextStageTimer = Math.min(KDOrgasmStageTimerMax, KDGameData.OrgasmNextStageTimer + delta);
+		if (KDGameData.OrgasmNextStageTimer >= KDOrgasmStageTimerMax && KDRandom() < KDOrgasmStageTimerMaxChance) {
+			if (KDGameData.OrgasmStage < KinkyDungeonMaxOrgasmStage) {
+				if (KinkyDungeonCanPlayWithSelf() && !KinkyDungeonInDanger()) {
+					if (!KinkyDungeonStatsChoice.get("Purity")) {
+						KinkyDungeonDoPlayWithSelf();
+						KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPlaySelfAutomatic"), "#FF5BE9", 5);
+					} else {
+						KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPlaySelfAutomaticPurity"), "#FF5BE9", 5);
+					}
+				}
+				KDGameData.OrgasmStage += 1;
+				KDGameData.OrgasmNextStageTimer = 1;
+			} else {
+				if (KinkyDungeonCanOrgasm()) {
+					KinkyDungeonDoTryOrgasm();
+					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonOrgasmAutomatic"), "#FF5BE9", KinkyDungeonOrgasmStunTime + 1);
+					KDGameData.OrgasmNextStageTimer = 1;
+				}
+			}
+		}
+	} else if (KDGameData.OrgasmNextStageTimer > 0) {
+		KDGameData.OrgasmNextStageTimer = Math.max(0, KDGameData.OrgasmNextStageTimer - delta);
+	}
 
-	let distractionRate = (KinkyDungeonVibeLevel == 0) ? (!KinkyDungeonStatsChoice.get("arousalMode") ? KinkyDungeonStatDistractionRegen * KDDistractionDecayMultDistractionMode : (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatDistractionRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
+	let distractionRate = (KinkyDungeonVibeLevel == 0 && KDGameData.OrgasmNextStageTimer < 1) ? (!KinkyDungeonStatsChoice.get("arousalMode") ? KinkyDungeonStatDistractionRegen * KDDistractionDecayMultDistractionMode : (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatDistractionRegen*((KinkyDungeonStatsChoice.get("Unchaste") && KinkyDungeonChastityMult() > 0.9) ? KDUnchasteMult :
 		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0)) : (KinkyDungeonDistractionPerVibe * KinkyDungeonVibeLevel);
 	if (KinkyDungeonStatsChoice.get("Purity")) {
 		distractionRate -= KDPurityAmount;
@@ -667,6 +692,7 @@ function KinkyDungeonCanTryOrgasm() {
 }
 
 function KinkyDungeonDoPlayWithSelf() {
+	KinkyDungeonAlert = 3; // Alerts nearby enemies because of your moaning~
 	let OrigAmount = KinkyDungeonPlayWithSelfPowerMin + (KinkyDungeonPlayWithSelfPowerMax - KinkyDungeonPlayWithSelfPowerMin)*KDRandom();
 	let amount = Math.max(0, OrigAmount - KinkyDungeonChastityMult() * KinkyDungeonPlayWithSelfChastityPenalty);
 	if (KinkyDungeonStatsChoice.get("Purity")) {
@@ -707,11 +733,16 @@ let KinkyDungeonPlayWithSelfChastityPenalty = 5;
 let KinkyDungeonPlayWithSelfBoundPenalty = 3;
 let KinkyDungeonOrgasmExhaustionAmount = -0.1;
 
+let KDOrgasmStageTimerMax = 10; // Turns for orgasm stage timer to progress naturally
+let KDOrgasmStageTimerMaxChance = 0.1; // Chance for the event to happen
+
 let KDWillpowerMultiplier = 0.5;
 
 let KinkyDungeonOrgasmCost = -8;
 let KinkyDungeonEdgeCost = -1;
 let KinkyDungeonPlayCost = -0.05;
+
+let KinkyDungeonOrgasmStunTime = 4;
 
 function KinkyDungeonDoTryOrgasm() {
 	let amount = KinkyDungeonOrgasmVibeLevel * KinkyDungeonOrgasmVibeLevelMult;
@@ -727,9 +758,10 @@ function KinkyDungeonDoTryOrgasm() {
 	if (!denied && amount > KinkyDungeonPlaySelfOrgasmThreshold && KDRandom() < chance) {
 		// You finally shudder and tremble as a wave of pleasure washes over you...
 		KinkyDungeonStatBlind = 6;
-		KinkyDungeonSlowMoveTurns = 4;
+		KinkyDungeonOrgasmStunTime = 4;
 		KDGameData.OrgasmStamina = KinkyDungeonStatDistraction;
 		KinkyDungeonChangeStamina(KinkyDungeonOrgasmCost);
+		KinkyDungeonAlert = 7; // Alerts nearby enemies because of your moaning~
 	} else {
 		KinkyDungeonChangeStamina(KinkyDungeonEdgeCost);
 		// You close your eyes and breath rapidly in anticipation...

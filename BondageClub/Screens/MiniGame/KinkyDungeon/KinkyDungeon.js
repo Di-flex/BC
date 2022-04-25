@@ -105,9 +105,12 @@ let KDOptOut = false;
 * JailKey: boolean,
 * CurrentDialog: string,
 * CurrentDialogStage: string,
+* OrgasmNextStageTimer: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	OrgasmNextStageTimer: 0,
+
 	PoolUses: 0,
 	PoolUsesGrace: 3,
 	JailRemoveRestraintsTimer: 0,

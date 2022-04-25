@@ -1877,7 +1877,10 @@ RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose.
 
 RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
-RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintTrapBeltDesc2,"The shields will open up to accept new toys, but won't let them out..."
+RestraintTrapBeltProto,Prototype Belt
+RestraintTrapBeltProtoDesc,"A strange device built using unknown technology."
+RestraintTrapBeltProtoDesc2,"The lock is extremely advanced, and the ports at the bottom readily accept toys but won't let them out..."
 RestraintTrapBra,Steel Chastity Bra
 RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
@@ -1894,6 +1897,9 @@ RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
+RestraintTrapVibeProto,Prototype Egg
+RestraintTrapVibeProtoesc,"A teaser that periodically vibrates."
+RestraintTrapVibeProtoDesc2,"Also absorbs charge from your spells."
 RestraintTrapPlug,Happy Plug
 RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."
 RestraintTrapPlugDesc2,"It vibrates periodically and allows orgasms."
@@ -3416,6 +3422,9 @@ KinkyDungeonDeny10,"The toys deny you a chance to finish."
 
 KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
 KinkyDungeonPlaySelf,"You play with yourself..."
+KinkyDungeonPlaySelfAutomatic,"You let your hands wander for a moment..."
+KinkyDungeonPlaySelfAutomaticPurity,"Your instincts are getting the better of you..."
+KinkyDungeonOrgasmAutomatic,"Your body moves of its own accord..."
 KinkyDungeonPlaySelfVibeWand,"You play with yourself using the magic wand..."
 KinkyDungeonPlaySelfPurity,"You would never do such a thing."
 KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
