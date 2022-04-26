@@ -265,6 +265,7 @@ function KinkyDungeonHandleShrine() {
 				let x = KinkyDungeonTargetTileLocation.split(',')[0];
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
+				KinkyDungeonTargetTileLocation = "";
 				KinkyDungeonAggroAction('shrine', {x: parseInt(x), y:parseInt(y)});
 				KDGameData.AlreadyOpened.push({x: parseInt(x), y: parseInt(y)});
 				KinkyDungeonUpdateStats(0);

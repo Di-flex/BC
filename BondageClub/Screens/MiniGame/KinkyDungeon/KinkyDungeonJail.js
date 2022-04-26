@@ -647,6 +647,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 					if (guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
 						// Swap the player and the guard
 						KinkyDungeonTargetTile = null;
+						KinkyDungeonTargetTileLocation = "";
 						KinkyDungeonPlayerEntity.x = KinkyDungeonJailGuard().x;
 						KinkyDungeonPlayerEntity.y = KinkyDungeonJailGuard().y;
 						KinkyDungeonJailGuard().x = guardPath[0].x;

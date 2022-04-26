@@ -640,17 +640,6 @@ function KinkyDungeoCheckComponents(spell) {
 
 function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	let spell = KinkyDungeonHandleSpellCast(KinkyDungeonSpells[SpellChoice]);
-	/*if (KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice]).length == 0) {
-		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[SpellChoice]))
-			&& (!KinkyDungeonSpells[SpellChoice].knifecost || KinkyDungeonNormalBlades >= KinkyDungeonSpells[SpellChoice].knifecost)
-			&& (!KinkyDungeonSpells[SpellChoice].staminacost || KinkyDungeonHasStamina(KinkyDungeonSpells[SpellChoice].staminacost)))
-			spell = KinkyDungeonSpells[SpellChoice];
-		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
-		KinkyDungeonInsufficientEnergy
-	} else {
-		KinkyDungeonTargetingSpell = "";
-		KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonComponentsFail" + KinkyDungeoCheckComponents(KinkyDungeonSpells[SpellChoice])[0]), "red", 1);
-	}*/
 	return spell;
 }
 
