@@ -741,6 +741,7 @@ function KinkyDungeonUpdateEnemies(delta) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if (enemy.vulnerable > 0) enemy.vulnerable -= delta;
+		else enemy.vulnerable = 0;
 		if (!(KDGameData.KinkyDungeonPenance && KinkyDungeonAngel()) || enemy == KinkyDungeonAngel()) {
 			// Delete the enemy
 			if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}
@@ -1344,8 +1345,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
 
-					enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
+				enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				hit = false;
 			}
 			if (hit) {

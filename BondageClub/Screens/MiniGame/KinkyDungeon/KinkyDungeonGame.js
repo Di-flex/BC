@@ -2013,6 +2013,7 @@ function KinkyDungeonClickGame(Level) {
 	// beep
 	else if (KinkyDungeonAutoWait && MouseIn(canvasOffsetX, canvasOffsetY, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height)) {
 		KinkyDungeonAutoWait = false;
+
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
 	}
 	// If no buttons are clicked then we handle move
@@ -2026,13 +2027,8 @@ function KinkyDungeonClickGame(Level) {
 					|| (KinkyDungeonStatsChoice.get("Conjurer") && KinkyDungeonTargetingSpell.school == "Conjure")
 					|| (KinkyDungeonStatsChoice.get("Magician") && KinkyDungeonTargetingSpell.school == "Illusion"))) {
 					if (KinkyDungeonSpellValid) {
-						let Result = KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonTargetingSpell, undefined, KinkyDungeonPlayerEntity);
-						if (Result == "Cast" && KinkyDungeonTargetingSpell.sfx) {
-							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
-						}
-						if (Result != "Fail")
-							KinkyDungeonAdvanceTime(1);
-						KinkyDungeonInterruptSleep();
+						KDSendInput("tryCastSpell", {tx: KinkyDungeonTargetX, ty: KinkyDungeonTargetY, spell: KinkyDungeonTargetingSpell.name});
+
 						KinkyDungeonTargetingSpell = null;
 					}
 				} else KinkyDungeonTargetingSpell = null;
@@ -2047,7 +2043,7 @@ function KinkyDungeonClickGame(Level) {
 					KinkyDungeonSleepTime = 100;
 				}
 			} else if (!KinkyDungeonFastMove || Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) <= 1) {
-				KinkyDungeonMove(KinkyDungeonMoveDirection, 1, true);
+				KDSendInput("move", {dir: KinkyDungeonMoveDirection, delta: 1, AllowInteract: true});
 			}
 		}
 	}
@@ -2089,7 +2085,7 @@ function KinkyDungeonListenKeyMove() {
 
 		if (moveDirection) {
 			if (KinkyDungeonLastMoveTimerStart < performance.now() && KinkyDungeonLastMoveTimerStart > 0) {
-				KinkyDungeonMove(moveDirection, 1, KinkyDungeonLastMoveTimer == 0);
+				KDSendInput("move", {dir: moveDirection, delta: 1, AllowInteract: KinkyDungeonLastMoveTimer == 0});
 				KinkyDungeonLastMoveTimer = performance.now() + KinkyDungeonLastMoveTimerCooldown;
 			} else if (KinkyDungeonLastMoveTimerStart == 0) {
 				KinkyDungeonLastMoveTimerStart = performance.now()+ KinkyDungeonLastMoveTimerCooldownStart;
@@ -2136,7 +2132,7 @@ function KinkyDungeonGameKeyDown() {
 	*/
 
 	if (moveDirection) {
-		KinkyDungeonMove(moveDirection, 1);
+		KDSendInput("move", {dir: moveDirection, delta: 1});
 	// @ts-ignore
 	} else if (KinkyDungeonKeySpell.includes(KinkyDungeonKeybindingCurrentKey)) {
 		// @ts-ignore

@@ -569,69 +569,71 @@ function KinkyDungeonRun() {
 		KinkyDungeonGameRunning = true;
 		KinkyDungeonGameFlag = true;
 		KinkyDungeonDrawGame();
-		if (KDGameData.SleepTurns > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				KDGameData.SleepTurns -= 1;
-				if (KinkyDungeonHostile())
-					KinkyDungeonTotalSleepTurns += 1;
-				if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
-					KDGameData.SleepTurns = 0;
-					if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
-						CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
+		if (KinkyDungeonInputQueue.length < 1) {
+			if (KDGameData.SleepTurns > 0) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					KDGameData.SleepTurns -= 1;
+					if (KinkyDungeonHostile())
+						KinkyDungeonTotalSleepTurns += 1;
+					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
+						KDGameData.SleepTurns = 0;
+						if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
+							CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
+						}
 					}
+					KDSendInput("tick", {delta: 1});
+					KinkyDungeonSleepTime = CommonTime() + 10;
 				}
-				KinkyDungeonAdvanceTime(1);
-				KinkyDungeonSleepTime = CommonTime() + 10;
-			}
-			if (KDGameData.SleepTurns == 0) {
-				KinkyDungeonChangeStamina(0);
-			}
-		} else if (KDGameData.PlaySelfTurns > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				KinkyDungeonAdvanceTime(1);
-				KDGameData.PlaySelfTurns -= 1;
-				KinkyDungeonSleepTime = CommonTime() + 230;
-			}
-			if (KDGameData.SleepTurns == 0) {
-				KinkyDungeonChangeStamina(0);
-			}
-		} else if (KinkyDungeonStatFreeze > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				KinkyDungeonStatFreeze -= 1;
-				KinkyDungeonAdvanceTime(1, false, true);
-				KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
-			}
-		} else if (KinkyDungeonSlowMoveTurns > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				KinkyDungeonSlowMoveTurns -= 1;
-				KinkyDungeonAdvanceTime(1, false, true);
-				KinkyDungeonSleepTime = CommonTime() + 200;
-			}
-		} else if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				if (KinkyDungeonFastMovePath.length > 0) {
-					let next = KinkyDungeonFastMovePath[0];
-					KinkyDungeonFastMovePath.splice(0, 1);
-					if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
-						KinkyDungeonMove({x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, 1, true);
-					else KinkyDungeonFastMovePath = [];
+				if (KDGameData.SleepTurns == 0) {
+					KinkyDungeonChangeStamina(0);
 				}
-				KinkyDungeonSleepTime = CommonTime() + 100;
-			}
-		} else if (KinkyDungeonFastStruggle && KinkyDungeonFastStruggleType && KinkyDungeonFastStruggleGroup) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				let result = KinkyDungeonStruggle(KinkyDungeonFastStruggleGroup, KinkyDungeonFastStruggleType);
-				if (result != "Fail" || !KinkyDungeonHasStamina(1.1)) {
-					KinkyDungeonFastStruggleType = "";
-					KinkyDungeonFastStruggleGroup = "";
+			} else if (KDGameData.PlaySelfTurns > 0) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					KDSendInput("tick", {delta: 1});
+					KDGameData.PlaySelfTurns -= 1;
+					KinkyDungeonSleepTime = CommonTime() + 230;
 				}
-				KinkyDungeonSleepTime = CommonTime() + 250;
-			}
-		} else if (KinkyDungeonAutoWait) {
-			if (CommonTime() > KinkyDungeonSleepTime) {
-				KinkyDungeonMove({x:0, y: 0, delta: 0}, 1, false);
-				KinkyDungeonSleepTime = CommonTime() + (KinkyDungeonFastWait ? 100 : 300);
-			}
+				if (KDGameData.SleepTurns == 0) {
+					KinkyDungeonChangeStamina(0);
+				}
+			} else if (KinkyDungeonStatFreeze > 0) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					KinkyDungeonStatFreeze -= 1;
+					KDSendInput("tick", {delta: 1, NoUpdate: false, NoMsgTick: true});
+					KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
+				}
+			} else if (KinkyDungeonSlowMoveTurns > 0) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					KinkyDungeonSlowMoveTurns -= 1;
+					KDSendInput("tick", {delta: 1, NoUpdate: false, NoMsgTick: true});
+					KinkyDungeonSleepTime = CommonTime() + 200;
+				}
+			} else if (KinkyDungeonFastMove && KinkyDungeonFastMovePath && KinkyDungeonFastMovePath.length > 0) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					if (KinkyDungeonFastMovePath.length > 0) {
+						let next = KinkyDungeonFastMovePath[0];
+						KinkyDungeonFastMovePath.splice(0, 1);
+						if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
+							KDSendInput("move", {dir: {x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, delta: 1, AllowInteract: true});
+						else KinkyDungeonFastMovePath = [];
+					}
+					KinkyDungeonSleepTime = CommonTime() + 100;
+				}
+			} else if (KinkyDungeonFastStruggle && KinkyDungeonFastStruggleType && KinkyDungeonFastStruggleGroup) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					let result = KDSendInput("struggle", {group: KinkyDungeonFastStruggleGroup, type: KinkyDungeonFastStruggleType});
+					if (result != "Fail" || !KinkyDungeonHasStamina(1.1)) {
+						KinkyDungeonFastStruggleType = "";
+						KinkyDungeonFastStruggleGroup = "";
+					}
+					KinkyDungeonSleepTime = CommonTime() + 250;
+				}
+			} else if (KinkyDungeonAutoWait) {
+				if (CommonTime() > KinkyDungeonSleepTime) {
+					KDSendInput("move", {dir: {x:0, y: 0, delta: 0}, delta: 1, AllowInteract: true});
+					KinkyDungeonSleepTime = CommonTime() + (KinkyDungeonFastWait ? 100 : 300);
+				}
+			} else KinkyDungeonSleepTime = CommonTime() + 100;
 		} else KinkyDungeonSleepTime = CommonTime() + 100;
 	} else if (KinkyDungeonState == "End") {
 		KinkyDungeonGameRunning = false;

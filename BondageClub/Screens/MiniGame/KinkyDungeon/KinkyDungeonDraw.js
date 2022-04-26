@@ -69,6 +69,8 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
+	KDProcessInputs();
+
 	if (KDRefresh) CharacterRefresh(KinkyDungeonPlayer);
 	KDNaked = false;
 	KDRefresh = false;
@@ -684,7 +686,9 @@ function KinkyDungeonSetTargetLocation() {
 }
 
 function KinkyDungeonSetMoveDirection() {
-	KinkyDungeonMoveDirection = KinkyDungeonGetDirection(
+
+	KDSendInput("setMoveDirection", {dir: KinkyDungeonGetDirection(
 		(MouseX - ((KinkyDungeonPlayerEntity.x - KinkyDungeonCamX)*KinkyDungeonGridSizeDisplay + canvasOffsetX + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay,
-		(MouseY - ((KinkyDungeonPlayerEntity.y - KinkyDungeonCamY)*KinkyDungeonGridSizeDisplay + canvasOffsetY + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay);
+		(MouseY - ((KinkyDungeonPlayerEntity.y - KinkyDungeonCamY)*KinkyDungeonGridSizeDisplay + canvasOffsetY + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay)});
+
 }
