@@ -270,29 +270,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (KinkyDungeonStatsChoice.get("Rigger") && KDHostile(Enemy) && (predata.type != "glue" || predata.type != "chain")) {
 			predata.dmg *= KDRiggerDmgBoost;
 		}
-		let boundPowerLevel = 0;
-		if (KinkyDungeonStatsChoice.get("BoundPower") && KDHostile(Enemy)) {
-			for (let inv of KinkyDungeonAllRestraint()) {
-				switch (KDRestraint(inv).Group) {
-					case "ItemArms": boundPowerLevel += 0.2; break;
-					case "ItemLegs": boundPowerLevel += 0.08; break;
-					case "ItemFeet": boundPowerLevel += 0.08; break;
-					case "ItemBoots": boundPowerLevel += 0.04; break;
-					case "ItemMouth": boundPowerLevel += 0.05; break;
-					case "ItemMouth2": boundPowerLevel += 0.05; break;
-					case "ItemMouth3": boundPowerLevel += 0.1; break;
-					case "ItemHead": boundPowerLevel += 0.1; break;
-					case "ItemHands": boundPowerLevel += 0.1; break;
-					case "ItemPelvis": boundPowerLevel += 0.05; break;
-					case "ItemTorso": boundPowerLevel += 0.05; break;
-					case "ItemBreast": boundPowerLevel += 0.05; break;
-					case "ItemNeck": boundPowerLevel += 0.05; break;
-				}
-			}
-			if (boundPowerLevel > 1) boundPowerLevel = 1;
-		}
 
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - (KDHostile(Enemy) ? KDBoundPowerLevel * KDBoundPowerMult : 0));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, predata.type + "DamageResist"));
 		let buffType = predata.type + "DamageBuff";

@@ -10,7 +10,7 @@ KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
 KinkyDungeon,"Kinky Dungeon v3.12"
-Intro,"You are a mage descending into an ancient underground city of magic."
+Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
@@ -132,7 +132,7 @@ KinkyDungeonStat39,"Conspicuous"
 KinkyDungeonStatDesc39,"Enemies detect you more easily."
 
 KinkyDungeonStat40,"Bound Power"
-KinkyDungeonStatDesc40,"Your damage increases based on the number of restraints worn, up to +40% when thoroughly bound."
+KinkyDungeonStatDesc40,"Your damage and evasion increases based on the number of restraints worn, up to +40% when thoroughly bound."
 KinkyDungeonStat41,"Kill Squad"
 KinkyDungeonStatDesc41,"Enemies see you through walls and at greater distance."
 

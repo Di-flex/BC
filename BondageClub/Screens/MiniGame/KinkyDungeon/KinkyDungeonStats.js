@@ -354,8 +354,39 @@ function KinkyDungeonCanUseWeapon(NoOverride, e) {
 }
 
 let KDBlindnessCap = 0;
+let KDBoundPowerLevel = 0;
 
 function KinkyDungeonUpdateStats(delta) {
+	KDBoundPowerLevel = 0;
+	if (KinkyDungeonStatsChoice.get("BoundPower")) {
+		for (let inv of KinkyDungeonAllRestraint()) {
+			switch (KDRestraint(inv).Group) {
+				case "ItemArms": KDBoundPowerLevel += 0.2; break;
+				case "ItemLegs": KDBoundPowerLevel += 0.08; break;
+				case "ItemFeet": KDBoundPowerLevel += 0.08; break;
+				case "ItemBoots": KDBoundPowerLevel += 0.04; break;
+				case "ItemMouth": KDBoundPowerLevel += 0.05; break;
+				case "ItemMouth2": KDBoundPowerLevel += 0.05; break;
+				case "ItemMouth3": KDBoundPowerLevel += 0.1; break;
+				case "ItemHead": KDBoundPowerLevel += 0.1; break;
+				case "ItemHands": KDBoundPowerLevel += 0.1; break;
+				case "ItemPelvis": KDBoundPowerLevel += 0.05; break;
+				case "ItemTorso": KDBoundPowerLevel += 0.05; break;
+				case "ItemBreast": KDBoundPowerLevel += 0.05; break;
+				case "ItemNeck": KDBoundPowerLevel += 0.05; break;
+			}
+		}
+		if (KDBoundPowerLevel > 1) KDBoundPowerLevel = 1;
+	}
+	if (KinkyDungeonStatsChoice.get("BoundPower")) {
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+			id:"BoundPower",
+			type: "Evasion",
+			duration: 1,
+			power: KDBoundPowerLevel * KDBoundPowerMult,
+		});
+	}
+
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
 
 	KDBlindnessCap = 3;

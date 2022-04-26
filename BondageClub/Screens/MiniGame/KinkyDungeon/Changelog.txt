@@ -792,6 +792,7 @@ Spell Balance:
 3.12
 - Reorganized perks menu
 - New perks: Quick Draw, Quick Scribe, Disorganized
+- Bound power buffed, now increases Evasion by the same amount
 
 TODO ValidationFindBlockCycles to prevent bugs
 
