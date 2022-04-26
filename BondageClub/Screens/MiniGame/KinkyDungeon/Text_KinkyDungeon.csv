@@ -9,7 +9,7 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v3.11"
+KinkyDungeon,"Kinky Dungeon v3.12"
 Intro,"You are a mage descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -108,12 +108,12 @@ KinkyDungeonStatDesc29,"Rope restraints are harder to escape from."
 
 KinkyDungeonStat30,"Slippery"
 KinkyDungeonStatDesc30,"Start with high Latex reputation, and all latex restraints are easier to escape from."
-KinkyDungeonStat31,"Doll"
+KinkyDungeonStat31,"Latex Doll"
 KinkyDungeonStatDesc31,"Latex restraints are harder to escape from."
 
 KinkyDungeonStat32,"Escapee"
 KinkyDungeonStatDesc32,"Start with high Leather reputation, and all leather restraints are easier to escape from."
-KinkyDungeonStat33,"Dragon Sympathizer"
+KinkyDungeonStat33,"Leather-Bound"
 KinkyDungeonStatDesc33,"Leather restraints are harder to escape from."
 
 KinkyDungeonStat34,"Slayer"
@@ -167,6 +167,14 @@ KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing ite
 
 KinkyDungeonStat54,"Well-Equipped"
 KinkyDungeonStatDesc54,"Restraints and traps that are limited by level now appear much earlier."
+
+KinkyDungeonStat55,"Quick-Draw"
+KinkyDungeonStatDesc55,"Switching weapons does not take a turn."
+KinkyDungeonStat56,"Quick-Scribe"
+KinkyDungeonStatDesc56,"Switching spells and casting from spellbook does not take a turn."
+
+KinkyDungeonStat57,"Disorganized"
+KinkyDungeonStatDesc57,"Switching weapons, learning/choosing spells, and casting from spellbook takes 3 turns."
 
 
 KinkyDungeonDifficulty,Choose game mode:
@@ -2999,7 +3007,7 @@ KinkyDungeonCrystalPunish0,"The crystals emit a powerful energy!"
 KinkyDungeonCrystalPunish1,"You feel your body overflow with energy..."
 KinkyDungeonCrystalPunish2,"The crystals react to your struggle attempts with a strange energy!"
 
-KinkyDungeonSpellCastFromBook,Cast Spell (1 turn delay)
+KinkyDungeonSpellCastFromBook,Cast Spell (XXX turn delay)
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
@@ -3755,3 +3763,10 @@ KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and
 KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam thadeals 30 electric damage."
 KinkyDungeonSpecialMoiraiScissors,"5% energy to enter a frenzy for 10 turns, attacking twice per turn."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit
+
+KDCategoryRestraints,Locks and Restraints
+KDCategoryCombat,General Combat
+KDCategoryKinky,Kinks and Preferences
+KDCategoryMagic,Wizardry and Sorcery
+KDCategoryEnemies,Devious Threats
+KDCategoryMap,World Generation

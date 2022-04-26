@@ -789,6 +789,10 @@ Spell Balance:
 - Buffed Truesight and Heartsense
 - Orgasm progrress will now progress automatically and your character's hands will wander when
 
+3.12
+- Reorganized perks menu
+- New perks: Quick Draw, Quick Scribe, Disorganized
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

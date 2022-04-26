@@ -653,7 +653,7 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Perks2") {
-		if (MouseIn(1650, 900, 300, 64)) {
+		if (MouseIn(1650, 920, 300, 64)) {
 			KinkyDungeonDrawState = "Restart";
 			return true;
 		}

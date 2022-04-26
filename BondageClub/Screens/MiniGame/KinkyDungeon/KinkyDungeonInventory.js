@@ -49,7 +49,11 @@ function KinkyDungeonHandleInventory() {
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
 					KDSetWeapon(weapon);
 					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-					KinkyDungeonAdvanceTime(1);
+					if (KinkyDungeonStatsChoice.has("Disorganized")) {
+						KinkyDungeonAdvanceTime(1);
+						KinkyDungeonSlowMoveTurns = 2;
+					} else if (!KinkyDungeonStatsChoice.has("QuickDraw"))
+						KinkyDungeonAdvanceTime(1);
 					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
 				} else if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
 					KDSetWeapon(null);
@@ -614,7 +618,12 @@ function KinkyDungeonhandleQuickInv() {
 				let weapon = item.name != "Knife" ? item.name : null;
 				KDSetWeapon(weapon);
 				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-				KinkyDungeonAdvanceTime(1);
+				if (KinkyDungeonStatsChoice.has("Disorganized")) {
+					KinkyDungeonAdvanceTime(1);
+					KinkyDungeonSlowMoveTurns = 2;
+				} else if (!KinkyDungeonStatsChoice.has("QuickDraw"))
+					KinkyDungeonAdvanceTime(1);
+
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 			//DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
