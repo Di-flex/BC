@@ -787,6 +787,7 @@ Spell Balance:
 - Added lesser pearly chests, which can contain gifts based on your goddess reputation, and also power crystals
 - New weapons: The Encaser and the Bondage Buster
 - Buffed Truesight and Heartsense
+- Orgasm progrress will now progress automatically and your character's hands will wander when
 
 TODO ValidationFindBlockCycles to prevent bugs
 
