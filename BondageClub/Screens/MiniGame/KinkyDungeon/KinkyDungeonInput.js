@@ -21,7 +21,7 @@ function KDProcessInput(type, data) {
 			KinkyDungeonAdvanceTime(data.delta, data.NoUpdate, data.NoMsgTick);
 			break;
 		case "tryCastSpell":
-			Result = KinkyDungeonCastSpell(data.tx, data.ty, KinkyDungeonFindSpell(data.spell, true), undefined, KinkyDungeonPlayerEntity);
+			Result = KinkyDungeonCastSpell(data.tx, data.ty, data.spell ? data.spell : KinkyDungeonFindSpell(data.spellname, true), undefined, KinkyDungeonPlayerEntity);
 			if (Result == "Cast" && KinkyDungeonTargetingSpell.sfx) {
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
 			}
@@ -31,6 +31,14 @@ function KDProcessInput(type, data) {
 			return Result;
 		case "struggle":
 			return KinkyDungeonStruggle(data.group, data.type);
+		case "toggleSpell":
+			KinkyDungeonSpellChoicesToggle[data.i] = !KinkyDungeonSpellChoicesToggle[data.i];
+			if (KinkyDungeonSpellChoicesToggle[data.i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[data.i]].costOnToggle) {
+				if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[data.i]]))) {
+					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[data.i]]));
+				} else KinkyDungeonSpellChoicesToggle[data.i] = false;
+			}
+			break;
 	}
 	return "";
 }

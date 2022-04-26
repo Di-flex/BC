@@ -2027,7 +2027,13 @@ function KinkyDungeonClickGame(Level) {
 					|| (KinkyDungeonStatsChoice.get("Conjurer") && KinkyDungeonTargetingSpell.school == "Conjure")
 					|| (KinkyDungeonStatsChoice.get("Magician") && KinkyDungeonTargetingSpell.school == "Illusion"))) {
 					if (KinkyDungeonSpellValid) {
-						KDSendInput("tryCastSpell", {tx: KinkyDungeonTargetX, ty: KinkyDungeonTargetY, spell: KinkyDungeonTargetingSpell.name});
+						let spell = KinkyDungeonFindSpell(KinkyDungeonTargetingSpell.name, true);
+						let spellname = undefined;
+						if (spell) {
+							spellname = spell.name;
+							spell = undefined;
+						} else spell = KinkyDungeonTargetingSpell;
+						KDSendInput("tryCastSpell", {tx: KinkyDungeonTargetX, ty: KinkyDungeonTargetY, spell: spell, spellname: spellname});
 
 						KinkyDungeonTargetingSpell = null;
 					}
