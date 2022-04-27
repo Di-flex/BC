@@ -583,77 +583,82 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }
 
-function KinkyDungeonUpdateBullets(delta) {
+function KinkyDungeonUpdateBullets(delta, Allied) {
 	if (delta > 0)
 		for (let b of KinkyDungeonBullets) {
-			if (b.bullet && b.bullet.dot) {
-				KinkyDungeonBulletDoT(b);
-			}
-			if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
-				let xx = b.bullet.cast.tx;
-				let yy = b.bullet.cast.ty;
-				if (!xx) xx = b.x;
-				if (!yy) yy = b.y;
-				KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+			if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
+				if (b.bullet && b.bullet.dot) {
+					KinkyDungeonBulletDoT(b);
+				}
+				if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
+					let xx = b.bullet.cast.tx;
+					let yy = b.bullet.cast.ty;
+					if (!xx) xx = b.x;
+					if (!yy) yy = b.y;
+					KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+				}
 			}
 		}
 
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
-		let d = delta;
-		let first = true;
-		let trailSquares = [];
 
-		while (d > 0.1) {
-			if (!first && delta > 0) {
-				let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
-				if (b.born >= 0) b.born -= 1;
+		if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
+			let d = delta;
+			let first = true;
+			let trailSquares = [];
 
-				let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
-				if (b.born < mod) {
-					b.xx += b.vx * dt;
-					b.yy += b.vy * dt;
-					b.time -= delta;
-				}
+			while (d > 0.1) {
+				if (!first && delta > 0) {
+					let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
+					if (b.born >= 0) b.born -= 1;
 
-				if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
-					&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
-					if (KinkyDungeonBulletTrail(b)) {
-						trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
+					let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
+					if (b.born < mod) {
+						b.xx += b.vx * dt;
+						b.yy += b.vy * dt;
+						b.time -= delta;
 					}
+
+					if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
+						&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
+						if (KinkyDungeonBulletTrail(b)) {
+							trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
+						}
+					}
+
+					b.x = Math.round(b.xx);
+					b.y = Math.round(b.yy);
+
+					d -= dt;
+				} else first = false;
+
+				let outOfRange = false;
+				let endTime = false;
+				if (b.bullet && b.bullet.origin) {
+					let dist = Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y));
+					if (dist > b.bullet.range) outOfRange = true;
+					if (dist >= b.bullet.range) endTime = true;
 				}
-
-				b.x = Math.round(b.xx);
-				b.y = Math.round(b.yy);
-
-				d -= dt;
-			} else first = false;
-
-			let outOfRange = false;
-			let endTime = false;
-			if (b.bullet && b.bullet.origin) {
-				let dist = Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y));
-				if (dist > b.bullet.range) outOfRange = true;
-				if (dist >= b.bullet.range) endTime = true;
-			}
-			let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
-			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
-				if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
-					d = 0;
-					KinkyDungeonBullets.splice(E, 1);
-					KinkyDungeonBulletsID[b.spriteID] = null;
-					E -= 1;
+				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
+				if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
+					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
+						d = 0;
+						KinkyDungeonBullets.splice(E, 1);
+						KinkyDungeonBulletsID[b.spriteID] = null;
+						E -= 1;
+					}
+					if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
+						KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
 				}
-				if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
-					KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
+				if (endTime) b.time = 0;
 			}
-			if (endTime) b.time = 0;
+			// A bullet can only damage an enemy in one location at a time
+			// Resets at the end of the bullet update!
+			// But only for piercing bullets. Non-piercing bullets just expire
+			if (!b.bullet.piercing && !b.bullet.noDoubleHit)
+				b.alreadyHit = undefined;
 		}
-		// A bullet can only damage an enemy in one location at a time
-		// Resets at the end of the bullet update!
-		// But only for piercing bullets. Non-piercing bullets just expire
-		if (!b.bullet.piercing && !b.bullet.noDoubleHit)
-			b.alreadyHit = undefined;
 	}
 }
 

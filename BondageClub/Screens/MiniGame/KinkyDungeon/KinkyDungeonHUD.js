@@ -501,36 +501,30 @@ function KinkyDungeonHandleHUD() {
 			KinkyDungeonSpellPress = 0;
 		}
 
-		// TODO convert to input
 		if (KinkyDungeonIsPlayer() && KinkyDungeonTargetTile) {
 			if (KinkyDungeonTargetTile.Type &&
 				((KinkyDungeonTargetTile.Type == "Lock" && KinkyDungeonTargetTile.Lock) || (KinkyDungeonTargetTile.Type == "Door" && KinkyDungeonTargetTile.Lock))) {
 				if (KinkyDungeonLockpicks > 0 && MouseIn(KDModalArea_x + 313, KDModalArea_y + 25, 112, 60)) {
+					// Done, converted to input
 					KDSendInput("pick", {targetTile: KinkyDungeonTargetTileLocation});
 					return true;
 				}
 
 				if (((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
 					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60)) {
+					// Done, converted to input
 					KDSendInput("unlock", {targetTile: KinkyDungeonTargetTileLocation});
 					return true;
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
+				// Done, converted to input
 				if (KinkyDungeonHandleShrine()) {
 					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 350, 60)) {
-					KinkyDungeonTargetTile = null;
-					let x = KinkyDungeonTargetTileLocation.split(',')[0];
-					let y = KinkyDungeonTargetTileLocation.split(',')[1];
-					KinkyDungeonMapSet(parseInt(x), parseInt(y), "D");
-					KinkyDungeonTargetTileLocation = "";
-					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorClose.ogg");
-					KinkyDungeonToggleAutoDoor = false;
-					KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonCloseDoorDone"), "white", 2);
-					KinkyDungeonAdvanceTime(1, true);
-					KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
+					// Done, converted to input
+					KDSendInput("closeDoor", {targetTile: KinkyDungeonTargetTileLocation});
 					return true;
 				}
 			}
@@ -639,10 +633,10 @@ function KinkyDungeonHandleHUD() {
 			return true;
 		}
 	} else if (KinkyDungeonDrawState == "Orb") {
-		// TODO convert to input
+		// Done, converted to input
 		return KinkyDungeonHandleOrb();
 	} else if (KinkyDungeonDrawState == "Heart") {
-		// TODO convert to input
+		// Done, converted to input
 		return KinkyDungeonHandleHeart();
 	} else if (KinkyDungeonDrawState == "Magic") {
 		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
@@ -650,19 +644,19 @@ function KinkyDungeonHandleHUD() {
 		else return KinkyDungeonHandleMagic();
 	} else if (KinkyDungeonDrawState == "MagicSpells") {
 		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
-		// TODO convert to input
+		// Nothing to convert
 		else return KinkyDungeonHandleMagicSpells();
 	} else if (KinkyDungeonDrawState == "Inventory") {
 		if (MouseIn(650, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
-		// TODO convert to input
+		// Done, converted to input
 		else return KinkyDungeonHandleInventory();
 	} else if (KinkyDungeonDrawState == "Reputation") {
 		if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
-		// TODO convert to input
+		// Done, converted to input
 		else return KinkyDungeonHandleReputation();
 	} else if (KinkyDungeonDrawState == "Lore") {
 		if (MouseIn(650, 925, 250, 60)) { KinkyDungeonDrawState = "Game"; return true;}
-		// TODO convert to input
+		// Done, converted to input
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Perks2") {
 		if (MouseIn(1650, 920, 300, 64)) {
@@ -710,10 +704,9 @@ function KinkyDungeonHandleHUD() {
 			KinkyDungeonFastWait = !KinkyDungeonFastWait;
 			return true;
 		}
-		// TODO convert to input
+		// Done, converted to input
 		if (KinkyDungeonIsPlayer() && MouseIn(975, 750, 550, 64) && KDGameData.PrisonerState != 'jail') {
-			KinkyDungeonDefeat();
-			KinkyDungeonChangeRep("Ghost", 4);
+			KDSendInput("defeat", {});
 			KinkyDungeonDrawState = "Game";
 			return true;
 		}
@@ -744,13 +737,12 @@ function KinkyDungeonHandleHUD() {
 			}
 			return true;
 		}
-		// TODO convert to input
+		// Done, converted to input
 		if (KinkyDungeonIsPlayer() && MouseIn(975, 850, 550, 64)) {
-			KinkyDungeonState = "Lose";
+			KDSendInput("lose", {});
 			//Player.KinkyDungeonSave = {};
 			//ServerAccountUpdate.QueueData({KinkyDungeonSave : Player.KinkyDungeonSave});
 			localStorage.setItem('KinkyDungeonSave', "");
-			MiniGameKinkyDungeonLevel = -1;
 			return true;
 		} else if (MouseIn(975, 550, 550, 64)) {
 			KinkyDungeonDrawState = "Game";

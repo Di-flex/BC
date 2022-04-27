@@ -144,71 +144,27 @@ function KinkyDungeonHandleReputation() {
 				}
 
 
+
 				if (KDRepSelectionMode == "Aid" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanAidMana(rep, value)) {
 					// Aid
-					KinkyDungeonChangeMana(KinkyDungeonAidManaAmount(rep, value));
-					KinkyDungeonChangeRep(rep, -KinkyDungeonAidManaCost(rep));
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAidManaMe"), "purple", 2);
-					KDSendStatus('goddess', rep, 'helpMana');
+					KDSendInput("aid", {rep: rep, value: value});
 					KinkyDungeonDrawState = "Game";
 					KDRepSelectionMode = "";
 				} else if (KDRepSelectionMode == "Rescue" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanRescue(rep, value)) {
 					// Rescue
-					KinkyDungeonRescued[rep] = true;
-
-					if (KDRandom() < 0.5 + value/100) {
-						KDSendStatus('goddess', rep, 'helpRescue');
-						KinkyDungeonChangeRep(rep, -10);
-						let allies = KinkyDungeonGetAllies();
-						// Tie up all non-allies
-						for (let e of KinkyDungeonEntities) {
-							if (e.Enemy.bound && !e.Enemy.tags.has("angel")) {
-								allies.push(e);
-								if (!e.boundLevel) e.boundLevel = e.Enemy.maxhp;
-								else e.boundLevel += e.Enemy.maxhp;
-								e.hp = 0.1;
-							}
-						}
-						KinkyDungeonEntities = allies;
-						KDGameData.PrisonerState = '';
-						KDGameData.KinkyDungeonJailGuard = 0;
-						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonRescueMe"), "purple", 10);
-						for (let T of KinkyDungeonTiles.values()) {
-							if (T.Lock) T.Lock = undefined;
-							if (T.Type == "Lock") T.Type = undefined;
-							if (T.Type == "Trap") T.Type = undefined;
-						}
-						KinkyDungeonDrawState = "Game";
-						KDGameData.RescueFlag = true;
-					} else {
-						KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNoRescue"), "purple", 10);
-						KinkyDungeonDrawState = "Game";
-						KDSendStatus('goddess', rep, 'helpNoRescue');
-					}
+					KDSendInput("rescue", {rep: rep, value: value});
+					KinkyDungeonDrawState = "Game";
 					KDRepSelectionMode = "";
 					return true;
 				} else if (KDRepSelectionMode == "Penance" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanPenance(rep, value)) {
 					// Penance
-					KDGameData.KinkyDungeonPenance = true;
-					KDGameData.KDPenanceMode = "";
-					KDGameData.KDPenanceStage = 0;
-					KDGameData.KDPenanceStageEnd = 0;
-					KDGameData.AngelCurrentRep = rep;
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPenanceHappen"), "purple", 4);
-					KDGameData.KinkyDungeonPenanceCostCurrent = KinkyDungeonPenanceCosts[rep] ? KinkyDungeonPenanceCosts[rep] : KinkyDungeonPenanceCostDefault;
-					if (KinkyDungeonGold >= KDGameData.KinkyDungeonPenanceCostCurrent) {
-						if (KinkyDungeonPenanceCosts[rep]) KinkyDungeonPenanceCosts[rep] += KinkyDungeonPenanceCostGrowth;
-						else KinkyDungeonPenanceCosts[rep] = KinkyDungeonPenanceCostDefault + KinkyDungeonPenanceCostGrowth;
-					}
+					KDSendInput("penance", {rep: rep, value: value});
 					KDRepSelectionMode = "";
 					KinkyDungeonDrawState = "Game";
-					KDSendStatus('goddess', rep, 'helpPenance');
 					return true;
 				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
-					// Penance
-					KDGameData.Champion = rep;
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonBecomeChampion").replace("GODDESS", TextGet("KinkyDungeonShrine" + rep)), "yellow", 1);
-					KDSendStatus('goddess', rep, 'helpChampion');
+					// Champion
+					KDSendInput("champion", {rep: rep, value: value});
 					return true;
 				}
 			}

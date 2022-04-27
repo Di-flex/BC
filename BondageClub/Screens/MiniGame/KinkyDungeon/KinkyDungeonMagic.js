@@ -1037,69 +1037,30 @@ function KinkyDungeonHandleMagic() {
 		for (let I = 0; I < KinkyDungeonSpellChoiceCount; I++) {
 			if (!KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
-					KinkyDungeonSpellChoices[I] = KinkyDungeonCurrentPage;
-					KinkyDungeonSpellChoicesToggle[I] = !KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].defaultOff;
-					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].costOnToggle) {
-						if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]]))) {
-							KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[I]]));
-						} else KinkyDungeonSpellChoicesToggle[I] = false;
-					}
+					// Set spell choice
+					KDSendInput("spellChoice", {I:I, CurrentSpell: KinkyDungeonCurrentPage});
+					if (KinkyDungeonTextMessageTime > 0)
+						KinkyDungeonDrawState = "Game";
 					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].cancelAutoMove) {
 						KinkyDungeonFastMove = false;
 						KinkyDungeonFastMoveSuppress = false;
 					}
-					if (KinkyDungeonStatsChoice.has("Disorganized")) {
-						KinkyDungeonAdvanceTime(1);
-						KinkyDungeonSlowMoveTurns = 2;
-					} else if (!KinkyDungeonStatsChoice.has("QuickScribe"))
-						KinkyDungeonAdvanceTime(1);
-					if (KinkyDungeonTextMessageTime > 0)
-						KinkyDungeonDrawState = "Game";
 					return true;
 				}
 			} else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].type == "passive") {
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
-					KinkyDungeonSpellChoices[I] = -1;
-					KinkyDungeonSpellChoicesToggle[I] = true;
+					KDSendInput("spellRemove", {I:I});
 					return true;
 				}
 			}
 		}
 		if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale * 0.5 - 200, canvasOffsetY_ui - 70 + 483*KinkyDungeonBookScale, 400, 60)) {
-			let spell = KinkyDungeonHandleSpellCast(KinkyDungeonSpells[KinkyDungeonCurrentPage]);
-			if (spell && !(KinkyDungeonSpells[KinkyDungeonCurrentPage].type == "passive") && !KinkyDungeonSpells[KinkyDungeonCurrentPage].passive) {
-				if (KinkyDungeonStatsChoice.has("Disorganized")) {
-					KinkyDungeonAdvanceTime(1);
-					KinkyDungeonSlowMoveTurns = 2;
-				} else if (!KinkyDungeonStatsChoice.has("QuickScribe"))
-					KinkyDungeonAdvanceTime(1);
-
-				KinkyDungeonTargetingSpell = KinkyDungeonSpells[KinkyDungeonCurrentPage];
-				KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellTarget" + KinkyDungeonTargetingSpell.name).replace("SpellArea", "" + Math.floor(KinkyDungeonTargetingSpell.aoe)), "white", 0.1, true);
-			}
+			KDSendInput("spellCastFromBook", {CurrentSpell: KinkyDungeonCurrentPage});
+			KinkyDungeonTargetingSpell = KinkyDungeonSpells[KinkyDungeonCurrentPage];
 			KinkyDungeonDrawState = "Game";
 		}
 	} else if (KinkyDungeonPreviewSpell && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125, 225, 60)) {
-		let cost = KinkyDungeonGetCost(KinkyDungeonPreviewSpell);
-		let spell = KinkyDungeonPreviewSpell;
-		if (KinkyDungeonCheckSpellSchool(spell)) {
-			if (KinkyDungeonSpellPoints >= cost) {
-				KinkyDungeonSpellPoints -= cost;
-				KinkyDungeonSpells.push(KinkyDungeonPreviewSpell);
-				KDSendStatus('learnspell', KinkyDungeonPreviewSpell.name);
-				KinkyDungeonSetMaxStats();
-				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
-				KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(KinkyDungeonPreviewSpell.name);
-				KinkyDungeonPreviewSpell = undefined;
-				if (KinkyDungeonStatsChoice.has("Disorganized")) {
-					KinkyDungeonAdvanceTime(1);
-					KinkyDungeonSlowMoveTurns = 2;
-				} else if (!KinkyDungeonStatsChoice.has("QuickScribe"))
-					KinkyDungeonAdvanceTime(1);
-				if (KinkyDungeonTextMessageTime > 0)
-					KinkyDungeonDrawState = "Game";
-			} else KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughPoints"), "orange", 1);
-		} else KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
+		KDSendInput("spellLearn", {SpellName: KinkyDungeonPreviewSpell.name});
 		return true;
 	}
 
