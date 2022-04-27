@@ -616,7 +616,7 @@ function KinkyDungeonhandleQuickInv() {
 					}
 				}
 				if (!equipped && newItem) {
-					if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem.name, events: item.item.events})) return true;
+					if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem ? currentItem.name : undefined, events: item.item.events})) return true;
 				}
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");

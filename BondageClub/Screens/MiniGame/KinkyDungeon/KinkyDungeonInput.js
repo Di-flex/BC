@@ -74,7 +74,7 @@ function KDProcessInput(type, data) {
 			KinkyDungeonSleepTime = CommonTime() + 200;
 			break;
 		case "equip":
-			success = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonRestraintsCache.get(data.name), 0, true, "", KinkyDungeonGetRestraintItem(data.Group) && !KinkyDungeonLinkableAndStricter(KDRestraint(data.currentItem), KinkyDungeonRestraintsCache.get(data.name)), false, data.events);
+			success = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonRestraintsCache.get(data.name), 0, true, "", KinkyDungeonGetRestraintItem(data.Group) && !KinkyDungeonLinkableAndStricter(KinkyDungeonRestraintsCache.get(data.currentItem), KinkyDungeonRestraintsCache.get(data.name)), false, data.events);
 			if (success) {
 				KDSendStatus('bound', data.name, "self");
 				loose = KinkyDungeonInventoryGetLoose(data.name);
@@ -155,7 +155,7 @@ function KDProcessInput(type, data) {
 			KinkyDungeonAdvanceTime(1, true);
 			KinkyDungeonTargetTile = null;
 			if (KinkyDungeonGold >= data.cost) {
-				KinkyDungeonPayShrine(type);
+				KinkyDungeonPayShrine(data.type);
 				KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
 				let x = KinkyDungeonTargetTileLocation.split(',')[0];
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
@@ -394,7 +394,26 @@ function KDProcessInput(type, data) {
 			} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
 			break;
 		}
-
+		case "dialogue": {
+			KDGameData.CurrentDialog = data.dialogue;
+			KDGameData.CurrentDialogStage = data.dialogueStage;
+			if (data.speaker)
+				KDGameData.CurrentDialogMsgSpeaker = data.speaker;
+			let dialogue = KDGetDialogue();
+			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+			if (data.click) {
+				if (dialogue.gagFunction && KDDialogueGagged()) {
+					dialogue.gagFunction();
+				} else if (dialogue.clickFunction) {
+					dialogue.clickFunction();
+				}
+			}
+			if (dialogue.exitDialogue) {
+				KDGameData.CurrentDialog = "";
+				KDGameData.CurrentDialogStage = "";
+			}
+			break;
+		}
 	}
 	return "";
 }

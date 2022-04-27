@@ -3774,3 +3774,16 @@ KDCategoryKinky,Kinks and Preferences
 KDCategoryMagic,Wizardry and Sorcery
 KDCategoryEnemies,Devious Threats
 KDCategoryMap,World Generation
+
+KDWeaponConfiscated,You hand over your weapon reluctantly...
+
+dLeave,Leave
+
+rGoodGirl,"(The SPEAKER smiles)|Good girl."
+rPunishment,"(The SPEAKER frowns)|Looks like you'll need to be punished. Get her!"
+
+rWeaponFound,"(The SPEAKER approaches you)|You're not supposed to be carrying a weapon.|Hand it over."
+dWeaponFoundAccept,"Yes, miss... (Currently held weapon will be lost)"
+dWeaponFoundAcceptGag,"Mmph... (Nod politely) (Currently held weapon will be lost)"
+dWeaponFoundDeny,"No, I refuse!"
+dWeaponFoundDenyGag,"Mmph! (Shake your head)"
