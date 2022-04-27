@@ -397,8 +397,14 @@ function KDProcessInput(type, data) {
 		case "dialogue": {
 			KDGameData.CurrentDialog = data.dialogue;
 			KDGameData.CurrentDialogStage = data.dialogueStage;
-			if (data.speaker)
+			if (data.speaker) {
+				let oldSpeaker = KDGameData.CurrentDialogMsgSpeaker;
 				KDGameData.CurrentDialogMsgSpeaker = data.speaker;
+				if (KDGameData.CurrentDialogMsgSpeaker != oldSpeaker)
+					KDGameData.CurrentDialogMsgPersonality = ""; // Reset when speaker changes
+			}
+			if (data.personality)
+				KDGameData.CurrentDialogMsgPersonality = data.personality;
 			let dialogue = KDGetDialogue();
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
 			if (data.click) {

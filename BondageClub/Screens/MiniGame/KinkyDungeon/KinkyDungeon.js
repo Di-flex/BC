@@ -109,6 +109,7 @@ let KDOptOut = false;
 * ConfirmAttack: boolean,
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
+* CurrentDialogMsgPersonality: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -185,6 +186,7 @@ let KDGameDataBase = {
 	CurrentDialogStage: "",
 	CurrentDialogMsg: "",
 	CurrentDialogMsgSpeaker: "",
+	CurrentDialogMsgPersonality: "",
 
 	ConfirmAttack: false,
 };
