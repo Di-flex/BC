@@ -10,8 +10,6 @@ interface item {
 	events?: KinkyDungeonEvent[],
 	/** Number of consumables in the inventory*/
 	quantity?: number,
-	/** Outfit data, if applicable*/
-	outfit?: any,
 	//looserestraint?: any, /** Loose restraint data, if applicable*/
 	//restraint?: any, /** Which restraint the item is associated with*/
 	/** Type of lock, Red, Blue, or Gold (potentially more in future)*/

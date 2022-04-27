@@ -439,7 +439,7 @@ function KinkyDungeonHandleHUD() {
 	let buttonWidth = 48;
 	if (KinkyDungeonDrawState == "Game") {
 		if (KDGameData.CurrentDialog) {
-			// TODO convert to input
+			// Done, converted to input
 			return KDHandleDialogue();
 		}
 
@@ -640,7 +640,7 @@ function KinkyDungeonHandleHUD() {
 		return KinkyDungeonHandleHeart();
 	} else if (KinkyDungeonDrawState == "Magic") {
 		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}
-		// TODO convert to input
+		// Done, converted to input
 		else return KinkyDungeonHandleMagic();
 	} else if (KinkyDungeonDrawState == "MagicSpells") {
 		if (MouseIn(1540, 925, 200, 60)) { KinkyDungeonDrawState = "Game"; return true;}

@@ -8,6 +8,10 @@ let KinkyDungeonOutfitsBase = [
 // For cacheing
 let KinkyDungeonOutfitCache = new Map();
 
+function KDOutfit(item) {
+	return KinkyDungeonOutfitCache.get(item.name);
+}
+
 function KinkyDungeonRefreshOutfitCache() {
 	KinkyDungeonOutfitCache = new Map();
 	for (let r of KinkyDungeonOutfitsBase) {
