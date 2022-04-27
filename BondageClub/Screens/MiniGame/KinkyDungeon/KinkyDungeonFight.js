@@ -188,7 +188,7 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
-	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
 	}
 
@@ -258,45 +258,24 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(predata.type)) {
 		predata.dmg *= 2;
 	}
-	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		predata.dmg *= KDStealthyDamageMult;
 	}
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type), attacker));
 	if (Damage && !miss) {
-		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
+		if (KinkyDungeonStatsChoice.get("Pacifist") && KDHostile(Enemy) && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
 			predata.dmg *= KDPacifistReduction;
 		}
-		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (predata.type != "glue" || predata.type != "chain")) {
+		if (KinkyDungeonStatsChoice.get("Rigger") && KDHostile(Enemy) && (predata.type != "glue" || predata.type != "chain")) {
 			predata.dmg *= KDRiggerDmgBoost;
 		}
-		let boundPowerLevel = 0;
-		if (KinkyDungeonStatsChoice.get("BoundPower") && !Enemy.Enemy.allied) {
-			for (let inv of KinkyDungeonAllRestraint()) {
-				switch (KDRestraint(inv).Group) {
-					case "ItemArms": boundPowerLevel += 0.2; break;
-					case "ItemLegs": boundPowerLevel += 0.08; break;
-					case "ItemFeet": boundPowerLevel += 0.08; break;
-					case "ItemBoots": boundPowerLevel += 0.04; break;
-					case "ItemMouth": boundPowerLevel += 0.05; break;
-					case "ItemMouth2": boundPowerLevel += 0.05; break;
-					case "ItemMouth3": boundPowerLevel += 0.1; break;
-					case "ItemHead": boundPowerLevel += 0.1; break;
-					case "ItemHands": boundPowerLevel += 0.1; break;
-					case "ItemPelvis": boundPowerLevel += 0.05; break;
-					case "ItemTorso": boundPowerLevel += 0.05; break;
-					case "ItemBreast": boundPowerLevel += 0.05; break;
-					case "ItemNeck": boundPowerLevel += 0.05; break;
-				}
-			}
-			if (boundPowerLevel > 1) boundPowerLevel = 1;
-		}
 
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - (KDHostile(Enemy) ? KDBoundPowerLevel * KDBoundPowerMult : 0));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, predata.type + "DamageResist"));
 		let buffType = predata.type + "DamageBuff";
-		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
+		let buffAmount = 1 + (KDHostile(Enemy) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
 		predata.dmg *= buffresist;
 
@@ -743,12 +722,12 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			if ((b.reflected
 				|| (!b.bullet.spell
 					|| (b.bullet.spell.enemySpell
-						&& !enemy.Enemy.allied && !(enemy.rage > 0)
+						&& KDHostile(enemy) && !(enemy.rage > 0)
 						&& (!b.bullet.damage
 							|| b.bullet.damage.type != "heal"))
 
 					|| (!b.bullet.spell.allySpell
-						&& enemy.Enemy.allied
+						&& KDAllied(enemy)
 						&& (!b.bullet.spell.enemySpell
 							|| (!b.bullet.damage
 								|| b.bullet.damage.type != "heal")))))
@@ -877,10 +856,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell
 							|| (!bullet.bullet.spell.enemySpell
-								&& (!enemy.Enemy.allied || enemy.rage > 0)
+								&& (KDHostile(enemy) || enemy.rage > 0)
 								&& bullet.bullet.damage.type != "heal")
 							|| (!bullet.bullet.spell.allySpell
-								&& (enemy.Enemy.allied || enemy.rage > 0)
+								&& (KDAllied(enemy) || enemy.rage > 0)
 								&& (!bullet.bullet.spell.enemySpell
 									|| bullet.bullet.damage.type != "heal"))))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
@@ -903,10 +882,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				if ((bullet.reflected ||
 					(!bullet.bullet.spell ||
 						(!bullet.bullet.spell.enemySpell
-							&& (!enemy.Enemy.allied || enemy.rage > 0)
+							&& (KDHostile(enemy) || enemy.rage > 0)
 							&& bullet.bullet.damage.type != "heal")
 						|| (!bullet.bullet.spell.allySpell
-							&& (enemy.Enemy.allied || enemy.rage > 0)
+							&& (KDAllied(enemy) || enemy.rage > 0)
 							&& (!bullet.bullet.spell.enemySpell
 								|| bullet.bullet.damage.type != "heal"))))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {

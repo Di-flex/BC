@@ -69,6 +69,8 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
+	KDProcessInputs();
+
 	if (KDRefresh) CharacterRefresh(KinkyDungeonPlayer);
 	KDNaked = false;
 	KDRefresh = false;
@@ -352,7 +354,7 @@ function KinkyDungeonDrawGame() {
 						if (KinkyDungeonTargetingSpell.noTargetEnemies && KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
 						if (KinkyDungeonTargetingSpell.noTargetAllies) {
 							let enemy = KinkyDungeonEnemyAt(KinkyDungeonTargetX, KinkyDungeonTargetY);
-							if (enemy && enemy.Enemy && enemy.Enemy.allied)
+							if (enemy && KDAllied(enemy))
 								KinkyDungeonSpellValid = false;
 						}
 						if (KinkyDungeonTargetingSpell.selfTargetOnly && (KinkyDungeonPlayerEntity.x != KinkyDungeonTargetX || KinkyDungeonPlayerEntity.y != KinkyDungeonTargetY)) KinkyDungeonSpellValid = false;
@@ -430,7 +432,7 @@ function KinkyDungeonDrawGame() {
 				MainCanvas.fillStyle = Grad;
 				MainCanvas.fillRect(0, 1000-h, 500, h);
 			}
-			if ((KinkyDungeonDrawState != "Game" || KinkyDungeonState != "Game") && ServerURL != "foobar")
+			if (ServerURL != "foobar")
 				DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 			DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
@@ -509,8 +511,12 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawInputs();
 			}
 
+			if (KDGameData.CurrentDialog) {
+				KDDrawDialogue();
+			}
 
 			KinkyDungeonDrawMessages();
+
 			// Draw the quick inventory
 			if (KinkyDungeonShowInventory) {
 				KinkyDungeonDrawQuickInv();
@@ -559,7 +565,7 @@ function KinkyDungeonDrawGame() {
 		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	} else if (KinkyDungeonDrawState == "Perks2") {
 		KinkyDungeonDrawPerks(true);
-		DrawButton(1650, 900, 300, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+		DrawButton(1650, 920, 300, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	}
 
 	if (KinkyDungeonStatFreeze > 0) {
@@ -680,7 +686,9 @@ function KinkyDungeonSetTargetLocation() {
 }
 
 function KinkyDungeonSetMoveDirection() {
-	KinkyDungeonMoveDirection = KinkyDungeonGetDirection(
+
+	KDSendInput("setMoveDirection", {dir: KinkyDungeonGetDirection(
 		(MouseX - ((KinkyDungeonPlayerEntity.x - KinkyDungeonCamX)*KinkyDungeonGridSizeDisplay + canvasOffsetX + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay,
-		(MouseY - ((KinkyDungeonPlayerEntity.y - KinkyDungeonCamY)*KinkyDungeonGridSizeDisplay + canvasOffsetY + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay);
+		(MouseY - ((KinkyDungeonPlayerEntity.y - KinkyDungeonCamY)*KinkyDungeonGridSizeDisplay + canvasOffsetY + KinkyDungeonGridSizeDisplay / 2))/KinkyDungeonGridSizeDisplay)});
+
 }

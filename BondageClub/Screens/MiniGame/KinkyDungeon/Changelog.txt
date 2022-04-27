@@ -787,6 +787,13 @@ Spell Balance:
 - Added lesser pearly chests, which can contain gifts based on your goddess reputation, and also power crystals
 - New weapons: The Encaser and the Bondage Buster
 - Buffed Truesight and Heartsense
+- Orgasm progrress will now progress automatically and your character's hands will wander when
+
+3.12
+- Reorganized perks menu
+- New perks: Quick Draw, Quick Scribe, Disorganized
+- Bound power buffed, now increases Evasion by the same amount
+- added a ? to indicate the player is close to being spotted
 
 TODO ValidationFindBlockCycles to prevent bugs
 

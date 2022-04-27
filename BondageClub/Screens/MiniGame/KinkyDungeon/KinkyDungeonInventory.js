@@ -41,20 +41,16 @@ function KinkyDungeonHandleInventory() {
 			let item = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter)[KinkyDungeonCurrentPageInventory];
 			if (!item || !item.name) return true;
 
-			KinkyDungeonAttemptConsumable(item.name, 1);
+			KDSendInput("consumable", {item: item.name, quantity: 1});
+			//KinkyDungeonAttemptConsumable(item.name, 1);
 		} else if (KinkyDungeonCurrentFilter == Weapon) {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
 			if (weapon && weapon != "knife") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
-					KDSetWeapon(weapon);
-					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-					KinkyDungeonAdvanceTime(1);
-					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
+					KDSendInput("switchWeapon", {weapon: weapon});
 				} else if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60) && equipped) {
-					KDSetWeapon(null);
-					KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-					KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonUnEquipWeapon").replace("WEAPONNAME", TextGet("KinkyDungeonInventoryItem" + weapon)), "white", 5);
+					KDSendInput("unequipWeapon", {weapon: weapon});
 				}
 			}
 		} else if (KinkyDungeonCurrentFilter == Outfit && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
@@ -64,9 +60,7 @@ function KinkyDungeonHandleInventory() {
 				let dress = toWear.dress;
 				if (dress == "JailUniform" && KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]])
 					dress = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].defeat_outfit;
-				KinkyDungeonSetDress(dress, outfit);
-				KinkyDungeonSlowMoveTurns = 3;
-				KinkyDungeonSleepTime = CommonTime() + 200;
+				KDSendInput("dress", {dress: dress, outfit: outfit});
 			}
 		} else if (KinkyDungeonCurrentFilter == LooseRestraint && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let equipped = false;
@@ -84,26 +78,8 @@ function KinkyDungeonHandleInventory() {
 				}
 			}
 			if (!equipped && newItem) {
-				let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem), false, filteredInventory[KinkyDungeonCurrentPageInventory].item.events);
-				if (success) {
-					KDSendStatus('bound', newItem.name, "self");
-					let loose = KinkyDungeonInventoryGetLoose(newItem.name);
-					let msg = "KinkyDungeonSelfBondage";
-					if (KDRestraint(loose).Group == "ItemVulvaPiercings" || KDRestraint(loose).Group == "ItemVulva" || KDRestraint(loose).Group == "ItemButt") {
-						if (KinkyDungeonIsChaste(false)) {
-							msg = "KinkyDungeonSelfBondagePlug";
-						}
-					} else if (KDRestraint(loose).Group == "Item") {
-						if (KinkyDungeonIsChaste(true)) {
-							msg = "KinkyDungeonSelfBondageNipple";
-						}
-					} else if (KDRestraint(loose).enchanted) {
-						msg = "KinkyDungeonSelfBondageEnchanted";
-					}
-					KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KDRestraint(loose).name)), "yellow", 1);
-					KinkyDungeonInventoryRemove(loose);
-					return true;
-				}
+				if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem.name, events: filteredInventory[KinkyDungeonCurrentPageInventory].item.events})) return true;
+
 			}
 		}
 
@@ -600,7 +576,8 @@ function KinkyDungeonhandleQuickInv() {
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(c, H, V, 6);
 			if (MouseIn(point.x, point.y + 30, H, V))
-				KinkyDungeonAttemptConsumable(item.name, 1);
+				//KinkyDungeonAttemptConsumable(item.name, 1);
+				KDSendInput("consumable", {item: item.name, quantity: 1});
 				//DrawRect(point.x, point.y + 30, H, V, "white");
 			//DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
 		}
@@ -612,9 +589,7 @@ function KinkyDungeonhandleQuickInv() {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				let weapon = item.name != "Knife" ? item.name : null;
-				KDSetWeapon(weapon);
-				KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
-				KinkyDungeonAdvanceTime(1);
+				KDSendInput("switchWeapon", {weapon: weapon});
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
 			//DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
@@ -641,26 +616,7 @@ function KinkyDungeonhandleQuickInv() {
 					}
 				}
 				if (!equipped && newItem) {
-					let success = KinkyDungeonAddRestraintIfWeaker(newItem, 0, true, "", currentItem && !KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem), false, item.item.events);
-					if (success) {
-						KDSendStatus('bound', newItem.name, "self");
-						let loose = KinkyDungeonInventoryGetLoose(newItem.name);
-						let msg = "KinkyDungeonSelfBondage";
-						if (KDRestraint(loose).Group == "ItemVulvaPiercings" || KDRestraint(loose).Group == "ItemVulva" || KDRestraint(loose).Group == "ItemButt") {
-							if (KinkyDungeonIsChaste(false)) {
-								msg = "KinkyDungeonSelfBondagePlug";
-							}
-						} else if (KDRestraint(loose).Group == "Item") {
-							if (KinkyDungeonIsChaste(true)) {
-								msg = "KinkyDungeonSelfBondageNipple";
-							}
-						} else if (KDRestraint(loose).enchanted) {
-							msg = "KinkyDungeonSelfBondageEnchanted";
-						}
-						KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KDRestraint(loose).name)), "yellow", 1);
-						KinkyDungeonInventoryRemove(loose);
-						return true;
-					}
+					if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem.name, events: item.item.events})) return true;
 				}
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");

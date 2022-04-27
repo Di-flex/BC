@@ -76,7 +76,7 @@ function KinkyDungeonUpdateBuffs(delta, endFloor) {
 				}
 				if (buff.enemies) {
 					for (let enemy of KinkyDungeonEntities) {
-						if ((!enemy.Enemy.allied || !buff.noAlly) && (enemy.Enemy.allied || !buff.onlyAlly) && buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
+						if ((KDHostile(enemy) || !buff.noAlly) && (KDAllied(enemy) || !buff.onlyAlly) && buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
 							KinkyDungeonApplyBuff(enemy.buffs, buff);
 						}
 					}
