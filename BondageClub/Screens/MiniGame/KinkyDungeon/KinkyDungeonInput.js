@@ -74,7 +74,7 @@ function KDProcessInput(type, data) {
 			KinkyDungeonSleepTime = CommonTime() + 200;
 			break;
 		case "equip":
-			success = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonRestraintsCache.get(data.name), 0, true, "", KinkyDungeonGetRestraintItem(data.Group) && !KinkyDungeonLinkableAndStricter(KDRestraint(data.currentItem), KinkyDungeonRestraintsCache.get(data.name)), false, data.events);
+			success = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonRestraintsCache.get(data.name), 0, true, "", KinkyDungeonGetRestraintItem(data.Group) && !KinkyDungeonLinkableAndStricter(KinkyDungeonRestraintsCache.get(data.currentItem), KinkyDungeonRestraintsCache.get(data.name)), false, data.events);
 			if (success) {
 				KDSendStatus('bound', data.name, "self");
 				loose = KinkyDungeonInventoryGetLoose(data.name);
