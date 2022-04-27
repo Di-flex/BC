@@ -2003,6 +2003,10 @@ function KinkyDungeonClickGame(Level) {
 
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
+	if (KDGameData.CurrentDialog) {
+		// Done, converted to input
+		return KDHandleDialogue();
+	}
 	if (KinkyDungeonControlsEnabled() && KinkyDungeonHandleHUD()) {
 		if (prevSpell) KinkyDungeonTargetingSpell = null;
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");

@@ -438,11 +438,6 @@ let KDModalArea = true;
 function KinkyDungeonHandleHUD() {
 	let buttonWidth = 48;
 	if (KinkyDungeonDrawState == "Game") {
-		if (KDGameData.CurrentDialog) {
-			// Done, converted to input
-			return KDHandleDialogue();
-		}
-
 		if (KinkyDungeonShowInventory) {
 			// Done, converted to input
 			KinkyDungeonhandleQuickInv();

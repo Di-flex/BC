@@ -703,17 +703,20 @@ type KinkyDungeonDress = {
 
 interface KinkyDialogue {
 	/** Function to play when clicked. If not specified, nothing happens. */
-	clickFunction?: () => {};
+	clickFunction?: () => void;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
-	gagFunction?: () => {};
+	gagFunction?: () => void;
+	/** Jumps to the specified dialogue when clicked, ignoring the response string*/
+	leadsTo?: string;
+	exitDialogue?: boolean;
 	/** The response the NPC will give when this dialogue is clicked. If response is "null", then it keeps the original, "" uses pregenerated
 	 * The string name will be "r" + response with a couple of enemy-specific variations
 	 */
-	response: string;
+	response?: string;
 	/** The option for you to select for this dialogue. "" means pregenerated, OK to put "" for top-level KinkyDialogues
 	 * The string name will be "d" + response
 	 */
-	text: string;
+	playertext?: string;
 	/** Whether or not this line has a gag-specific dialogue line */
 	gag?: boolean;
 	/** Threshold at which the player is considered gagged for this dialogue. Default is 0.01*/

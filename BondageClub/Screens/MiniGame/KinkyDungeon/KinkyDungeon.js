@@ -107,6 +107,8 @@ let KDOptOut = false;
 * CurrentDialogStage: string,
 * OrgasmNextStageTimer: number,
 * ConfirmAttack: boolean,
+* CurrentDialogMsg: string,
+* CurrentDialogMsgSpeaker: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -181,6 +183,8 @@ let KDGameDataBase = {
 
 	CurrentDialog: "",
 	CurrentDialogStage: "",
+	CurrentDialogMsg: "",
+	CurrentDialogMsgSpeaker: "",
 
 	ConfirmAttack: false,
 };

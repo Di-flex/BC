@@ -394,7 +394,26 @@ function KDProcessInput(type, data) {
 			} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
 			break;
 		}
-
+		case "dialogue": {
+			KDGameData.CurrentDialog = data.dialogue;
+			KDGameData.CurrentDialogStage = data.dialogueStage;
+			if (data.speaker)
+				KDGameData.CurrentDialogMsgSpeaker = data.speaker;
+			let dialogue = KDGetDialogue();
+			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+			if (data.click) {
+				if (dialogue.gagFunction && KDDialogueGagged()) {
+					dialogue.gagFunction();
+				} else if (dialogue.clickFunction) {
+					dialogue.clickFunction();
+				}
+			}
+			if (dialogue.exitDialogue) {
+				KDGameData.CurrentDialog = "";
+				KDGameData.CurrentDialogStage = "";
+			}
+			break;
+		}
 	}
 	return "";
 }
