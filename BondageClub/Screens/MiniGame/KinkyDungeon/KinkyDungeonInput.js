@@ -155,7 +155,7 @@ function KDProcessInput(type, data) {
 			KinkyDungeonAdvanceTime(1, true);
 			KinkyDungeonTargetTile = null;
 			if (KinkyDungeonGold >= data.cost) {
-				KinkyDungeonPayShrine(type);
+				KinkyDungeonPayShrine(data.type);
 				KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
 				let x = KinkyDungeonTargetTileLocation.split(',')[0];
 				let y = KinkyDungeonTargetTileLocation.split(',')[1];
