@@ -10,8 +10,6 @@ interface item {
 	events?: KinkyDungeonEvent[],
 	/** Number of consumables in the inventory*/
 	quantity?: number,
-	/** Outfit data, if applicable*/
-	outfit?: any,
 	//looserestraint?: any, /** Loose restraint data, if applicable*/
 	//restraint?: any, /** Which restraint the item is associated with*/
 	/** Type of lock, Red, Blue, or Gold (potentially more in future)*/
@@ -105,12 +103,16 @@ interface restraint {
 	weight: number,
 	/** Minimum floor for the restraint to be used by enemies */
 	minLevel: number,
+	/** Maximum level, wont be used at this or higher. Inclusive. */
+	maxLevel?: number,
 	/** Relative power level. Used to determine if the restraint will get overridden by a more powerful one */
 	power: number,
 	/** Copied to the events variable */
 	events?: KinkyDungeonEvent[],
+	/** The item is present on all floors */
+	allFloors?: boolean,
 	/** Determines the floors the restraint can appear on */
-	floors: Map<any, any>,
+	floors?: Map<any, any>,
 	escapeChance: {
 		Struggle?: number,
 		Cut?: number,
@@ -311,6 +313,8 @@ interface enemy {
 	terrainTags?: Record<string, number>,
 	/** */
 	floors?: Map<number, boolean>,
+	/** */
+	allFloors?: boolean,
 	/** */
 	noblockplayer?: boolean,
 	/** */
@@ -539,6 +543,17 @@ interface enemy {
 	spellWhileParole?: boolean,
 	/** This line is a suffic to the line they say when they want to play with you */
 	playLine?: string,
+	/** Blocks vision */
+	blockVision?: boolean,
+	/** Hit SFX for enemy special attack */
+	hitsfxSpecial?: string,
+	/** Effect when the enemy misses */
+	misssfx?: string,
+	/** The enemyeffect when player is hit */
+	effect?: any,
+	/** Cant cast spells while winding up an attack */
+	noSpellDuringAttack?: boolean,
+
 
 }
 
@@ -574,7 +589,13 @@ interface weapon {
 	events?: KinkyDungeonEvent[];
 	noHands?: boolean;
 	silent?: boolean;
-	special?: {type: string, spell?: string, requiresEnergy?: boolean, energyCost?: number};
+	special?: {
+		type: string,
+		spell?: string,
+		selfCast?: boolean,
+		requiresEnergy?: boolean,
+		energyCost?: number,
+		range?: number,};
 }
 
 interface KinkyDungeonEvent {
@@ -628,9 +649,14 @@ interface KinkyDungeonEvent {
 
 interface entity {
 	Enemy: enemy,
+	personality?: string,
+	patrolIndex?: number,
+	aggro?: number,
 	id?: number,
 	hp: number,
 	AI?: string,
+	moved?: boolean,
+	idle?: boolean,
 	summoned?: boolean,
 	boundLevel?: number,
 	lifetime?: number,
@@ -686,6 +712,46 @@ type KinkyDungeonDress = {
 	OverridePriority?: number;
 	Skirt?: boolean;
 }[]
+
+interface KinkyDialogue {
+	/** Function to play when clicked. If not specified, nothing happens. */
+	clickFunction?: () => void;
+	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
+	gagFunction?: () => void;
+	/** Will not appear unless function returns true */
+	prerequisiteFunction?: (gagged) => boolean;
+	/** Will appear greyed out unless true */
+	greyoutFunction?: (gagged) => boolean;
+	greyoutTooltip?: string;
+	/** List of personalities supported by this dialogue */
+	personalities?: string[];
+	/** Jumps to the specified dialogue when clicked, after setting the response string*/
+	leadsTo?: string;
+	leadsToStage?: string;
+	/** After leading to another dialogue, the response will NOT be updated */
+	dontTouchText?: boolean;
+	exitDialogue?: boolean;
+	/** The response the NPC will give when this dialogue is clicked. If response is "null", then it keeps the original, "" uses pregenerated
+	 * The string name will be "r" + response with a couple of enemy-specific variations
+	 */
+	response?: string;
+	/** The option for you to select for this dialogue. "" means pregenerated, OK to put "" for top-level KinkyDialogues
+	 * The string name will be "d" + response
+	 */
+	playertext?: string;
+	/** Whether or not this line has a gag-specific dialogue line */
+	gag?: boolean;
+	/** Threshold at which the player is considered gagged for this dialogue. Default is 0.01*/
+	gagThreshold?: number;
+	/** Whether or not this option appears while gagged */
+	gagEnabled?: boolean;
+	/** Whether or not this option appears while ungagged */
+	gagRequired?: boolean;
+	/** Options to display */
+	options?: Record<string, KinkyDialogue>;
+	/** Name of a dialogue to get extra options from. Merges them, preferring this dialogue's options if the name is the same */
+	extraOptions?: string;
+}
 
 interface KinkyDungeonSave {
 	level: number;

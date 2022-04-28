@@ -188,7 +188,7 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
-	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
 	}
 
@@ -258,45 +258,26 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (Enemy.freeze > 0 && Damage && KinkyDungeonMeleeDamageTypes.includes(predata.type)) {
 		predata.dmg *= 2;
 	}
-	if (!Enemy.Enemy.allied && KinkyDungeonStatsChoice.get("Stealthy")) {
+	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		predata.dmg *= KDStealthyDamageMult;
 	}
 
 	let miss = !(!Damage || !Damage.evadeable || KinkyDungeonEvasion(Enemy, (true && Spell), !KinkyDungeonMeleeDamageTypes.includes(predata.type), attacker));
 	if (Damage && !miss) {
-		if (KinkyDungeonStatsChoice.get("Pacifist") && !Enemy.Enemy.allied && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
+		if (KinkyDungeonStatsChoice.get("Pacifist") && KDHostile(Enemy) && Enemy.Enemy.bound && !KinkyDungeonTeaseDamageTypes.includes(predata.type) && predata.type != "glue" && predata.type != "chain") {
 			predata.dmg *= KDPacifistReduction;
 		}
-		if (KinkyDungeonStatsChoice.get("Rigger") && !Enemy.Enemy.allied && (predata.type != "glue" || predata.type != "chain")) {
+		if (KinkyDungeonStatsChoice.get("Rigger") && KDHostile(Enemy) && (predata.type != "glue" || predata.type != "chain")) {
 			predata.dmg *= KDRiggerDmgBoost;
 		}
-		let boundPowerLevel = 0;
-		if (KinkyDungeonStatsChoice.get("BoundPower") && !Enemy.Enemy.allied) {
-			for (let inv of KinkyDungeonAllRestraint()) {
-				switch (KDRestraint(inv).Group) {
-					case "ItemArms": boundPowerLevel += 0.2; break;
-					case "ItemLegs": boundPowerLevel += 0.08; break;
-					case "ItemFeet": boundPowerLevel += 0.08; break;
-					case "ItemBoots": boundPowerLevel += 0.04; break;
-					case "ItemMouth": boundPowerLevel += 0.05; break;
-					case "ItemMouth2": boundPowerLevel += 0.05; break;
-					case "ItemMouth3": boundPowerLevel += 0.1; break;
-					case "ItemHead": boundPowerLevel += 0.1; break;
-					case "ItemHands": boundPowerLevel += 0.1; break;
-					case "ItemPelvis": boundPowerLevel += 0.05; break;
-					case "ItemTorso": boundPowerLevel += 0.05; break;
-					case "ItemBreast": boundPowerLevel += 0.05; break;
-					case "ItemNeck": boundPowerLevel += 0.05; break;
-				}
-			}
-			if (boundPowerLevel > 1) boundPowerLevel = 1;
-		}
 
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - boundPowerLevel * KDBoundPowerMult);
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - (KDHostile(Enemy) ? KDBoundPowerLevel * KDBoundPowerMult : 0));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
+		let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, predata.type + "DamageResist"));
 		let buffType = predata.type + "DamageBuff";
-		let buffAmount = 1 + ((!Enemy.Enemy || !Enemy.Enemy.allied) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
+		let buffAmount = 1 + (KDHostile(Enemy) ? KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, buffType) : 0);
 		predata.dmg *= buffAmount;
+		predata.dmg *= buffresist;
 
 		if (predata.type == "electric" && KinkyDungeonMapGet(Enemy.x, Enemy.y) == 'w') {
 			predata.dmg *= 2;
@@ -436,6 +417,13 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistSlow == 1 || resistDamage == 1)
 				Enemy.slow = Math.max(Enemy.slow, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
 			else Enemy.slow = Math.max(Enemy.slow, time);
+		}
+		if ((resistDamage < 2) && (KinkyDungeonVulnerableDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
+			effect = true;
+			if (!Enemy.vulnerable) Enemy.vulnerable = 0;
+			if (resistDamage == 1)
+				Enemy.vulnerable = Math.max(Enemy.vulnerable, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
+			else Enemy.vulnerable = Math.max(Enemy.vulnerable, time);
 		}
 	}
 
@@ -595,77 +583,82 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }
 
-function KinkyDungeonUpdateBullets(delta) {
+function KinkyDungeonUpdateBullets(delta, Allied) {
 	if (delta > 0)
 		for (let b of KinkyDungeonBullets) {
-			if (b.bullet && b.bullet.dot) {
-				KinkyDungeonBulletDoT(b);
-			}
-			if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
-				let xx = b.bullet.cast.tx;
-				let yy = b.bullet.cast.ty;
-				if (!xx) xx = b.x;
-				if (!yy) yy = b.y;
-				KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+			if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
+				if (b.bullet && b.bullet.dot) {
+					KinkyDungeonBulletDoT(b);
+				}
+				if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
+					let xx = b.bullet.cast.tx;
+					let yy = b.bullet.cast.ty;
+					if (!xx) xx = b.x;
+					if (!yy) yy = b.y;
+					KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+				}
 			}
 		}
 
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
-		let d = delta;
-		let first = true;
-		let trailSquares = [];
 
-		while (d > 0.1) {
-			if (!first && delta > 0) {
-				let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
-				if (b.born >= 0) b.born -= 1;
+		if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
+			let d = delta;
+			let first = true;
+			let trailSquares = [];
 
-				let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
-				if (b.born < mod) {
-					b.xx += b.vx * dt;
-					b.yy += b.vy * dt;
-					b.time -= delta;
-				}
+			while (d > 0.1) {
+				if (!first && delta > 0) {
+					let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
+					if (b.born >= 0) b.born -= 1;
 
-				if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
-					&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
-					if (KinkyDungeonBulletTrail(b)) {
-						trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
+					let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
+					if (b.born < mod) {
+						b.xx += b.vx * dt;
+						b.yy += b.vy * dt;
+						b.time -= delta;
 					}
+
+					if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
+						&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
+						if (KinkyDungeonBulletTrail(b)) {
+							trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
+						}
+					}
+
+					b.x = Math.round(b.xx);
+					b.y = Math.round(b.yy);
+
+					d -= dt;
+				} else first = false;
+
+				let outOfRange = false;
+				let endTime = false;
+				if (b.bullet && b.bullet.origin) {
+					let dist = Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y));
+					if (dist > b.bullet.range) outOfRange = true;
+					if (dist >= b.bullet.range) endTime = true;
 				}
-
-				b.x = Math.round(b.xx);
-				b.y = Math.round(b.yy);
-
-				d -= dt;
-			} else first = false;
-
-			let outOfRange = false;
-			let endTime = false;
-			if (b.bullet && b.bullet.origin) {
-				let dist = Math.sqrt((b.bullet.origin.x - b.x) * (b.bullet.origin.x - b.x) + (b.bullet.origin.y - b.y) * (b.bullet.origin.y - b.y));
-				if (dist > b.bullet.range) outOfRange = true;
-				if (dist >= b.bullet.range) endTime = true;
-			}
-			let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
-			if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
-				if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
-					d = 0;
-					KinkyDungeonBullets.splice(E, 1);
-					KinkyDungeonBulletsID[b.spriteID] = null;
-					E -= 1;
+				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
+				if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
+					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
+						d = 0;
+						KinkyDungeonBullets.splice(E, 1);
+						KinkyDungeonBulletsID[b.spriteID] = null;
+						E -= 1;
+					}
+					if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
+						KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
 				}
-				if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
-					KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
+				if (endTime) b.time = 0;
 			}
-			if (endTime) b.time = 0;
+			// A bullet can only damage an enemy in one location at a time
+			// Resets at the end of the bullet update!
+			// But only for piercing bullets. Non-piercing bullets just expire
+			if (!b.bullet.piercing && !b.bullet.noDoubleHit)
+				b.alreadyHit = undefined;
 		}
-		// A bullet can only damage an enemy in one location at a time
-		// Resets at the end of the bullet update!
-		// But only for piercing bullets. Non-piercing bullets just expire
-		if (!b.bullet.piercing && !b.bullet.noDoubleHit)
-			b.alreadyHit = undefined;
 	}
 }
 
@@ -734,12 +727,12 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 			if ((b.reflected
 				|| (!b.bullet.spell
 					|| (b.bullet.spell.enemySpell
-						&& !enemy.Enemy.allied && !(enemy.rage > 0)
+						&& KDHostile(enemy) && !(enemy.rage > 0)
 						&& (!b.bullet.damage
 							|| b.bullet.damage.type != "heal"))
 
 					|| (!b.bullet.spell.allySpell
-						&& enemy.Enemy.allied
+						&& KDAllied(enemy)
 						&& (!b.bullet.spell.enemySpell
 							|| (!b.bullet.damage
 								|| b.bullet.damage.type != "heal")))))
@@ -868,10 +861,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell
 							|| (!bullet.bullet.spell.enemySpell
-								&& (!enemy.Enemy.allied || enemy.rage > 0)
+								&& (KDHostile(enemy) || enemy.rage > 0)
 								&& bullet.bullet.damage.type != "heal")
 							|| (!bullet.bullet.spell.allySpell
-								&& (enemy.Enemy.allied || enemy.rage > 0)
+								&& (KDAllied(enemy) || enemy.rage > 0)
 								&& (!bullet.bullet.spell.enemySpell
 									|| bullet.bullet.damage.type != "heal"))))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
@@ -894,10 +887,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				if ((bullet.reflected ||
 					(!bullet.bullet.spell ||
 						(!bullet.bullet.spell.enemySpell
-							&& (!enemy.Enemy.allied || enemy.rage > 0)
+							&& (KDHostile(enemy) || enemy.rage > 0)
 							&& bullet.bullet.damage.type != "heal")
 						|| (!bullet.bullet.spell.allySpell
-							&& (enemy.Enemy.allied || enemy.rage > 0)
+							&& (KDAllied(enemy) || enemy.rage > 0)
 							&& (!bullet.bullet.spell.enemySpell
 								|| bullet.bullet.damage.type != "heal"))))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {

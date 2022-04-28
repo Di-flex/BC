@@ -9,8 +9,8 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v3.11"
-Intro,"You are a mage descending into an ancient underground city of magic."
+KinkyDungeon,"Kinky Dungeon v3.2"
+Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
@@ -108,12 +108,12 @@ KinkyDungeonStatDesc29,"Rope restraints are harder to escape from."
 
 KinkyDungeonStat30,"Slippery"
 KinkyDungeonStatDesc30,"Start with high Latex reputation, and all latex restraints are easier to escape from."
-KinkyDungeonStat31,"Doll"
+KinkyDungeonStat31,"Latex Doll"
 KinkyDungeonStatDesc31,"Latex restraints are harder to escape from."
 
 KinkyDungeonStat32,"Escapee"
 KinkyDungeonStatDesc32,"Start with high Leather reputation, and all leather restraints are easier to escape from."
-KinkyDungeonStat33,"Dragon Sympathizer"
+KinkyDungeonStat33,"Leather-Bound"
 KinkyDungeonStatDesc33,"Leather restraints are harder to escape from."
 
 KinkyDungeonStat34,"Slayer"
@@ -132,7 +132,7 @@ KinkyDungeonStat39,"Conspicuous"
 KinkyDungeonStatDesc39,"Enemies detect you more easily."
 
 KinkyDungeonStat40,"Bound Power"
-KinkyDungeonStatDesc40,"Your damage increases based on the number of restraints worn, up to +40% when thoroughly bound."
+KinkyDungeonStatDesc40,"Your damage and evasion increases based on the number of restraints worn, up to +40% when thoroughly bound."
 KinkyDungeonStat41,"Kill Squad"
 KinkyDungeonStatDesc41,"Enemies see you through walls and at greater distance."
 
@@ -167,6 +167,14 @@ KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing ite
 
 KinkyDungeonStat54,"Well-Equipped"
 KinkyDungeonStatDesc54,"Restraints and traps that are limited by level now appear much earlier."
+
+KinkyDungeonStat55,"Quick-Draw"
+KinkyDungeonStatDesc55,"Switching weapons does not take a turn."
+KinkyDungeonStat56,"Quick-Scribe"
+KinkyDungeonStatDesc56,"Switching spells and casting from spellbook does not take a turn."
+
+KinkyDungeonStat57,"Disorganized"
+KinkyDungeonStatDesc57,"Switching weapons, learning/choosing spells, and casting from spellbook takes 3 turns."
 
 
 KinkyDungeonDifficulty,Choose game mode:
@@ -478,7 +486,7 @@ KinkyDungeonInventoryItemIceRuneDesc2,"Creates icicles around you for 5-8 turns.
 
 KinkyDungeonConsumableLessEffective,The potion was less effective due to your gag!
 
-KinkyDungeonInventoryItemElfCrystal,Water Crystal
+KinkyDungeonInventoryItemElfCrystal,Amulet of Grace
 KinkyDungeonInventoryItemElfCrystalUse,"You feel the restraints become loose on your skin!"
 KinkyDungeonInventoryItemElfCrystalDesc,"It glows with the power of sylvan grace."
 KinkyDungeonInventoryItemElfCrystalDesc2,"Makes you slippery for 10 turns, boosting all forms of struggling."
@@ -551,6 +559,15 @@ KinkyDungeonInventoryItemMagicSwordDesc2,"A sword that guides itself toward its 
 KinkyDungeonInventoryItemDragonslaver,Dragonslaver
 KinkyDungeonInventoryItemDragonslaverDesc,"A powerful weapon with an ancient mechanism that launches binding belts."
 KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% ancient energy to fire a line of belts that deal 40 chain damage and 4 extra binding."
+KinkyDungeonInventoryItemTheEncaser,Metamorphosis
+KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
+KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
+KinkyDungeonInventoryItemBondageBuster,Bondage Buster
+KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 30 electric damage and briefly stuns the first target hit."
+KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
+KinkyDungeonInventoryItemMoiraiScissors,Moirai's Scissors
+KinkyDungeonInventoryItemMoiraiScissorsDesc,"Can enter a frenzy for 10 turns to attack twice per turn."
+KinkyDungeonInventoryItemMoiraiScissorsDesc2,"Deals slashing damage. Consumes binding on a target, converting it to Soul damage at a 1:1 ratio."
 KinkyDungeonInventoryItemSlimethrower,Latex Projector
 KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to spray a '+' shaped pool of slime."
 KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
@@ -1623,6 +1640,12 @@ RestraintSlimeWalkersDesc2,"They will slow you down, but you can walk on slime w
 RestraintBasicCollar,Collar
 RestraintBasicCollarDesc,"A classy leather collar."
 RestraintBasicCollarDesc2,"Allows fitting of a leash."
+RestraintSteelCollar,Slave Collar
+RestraintSteelCollarDesc,"A high-security steel collar befitting of a slave."
+RestraintSteelCollarDesc2,"Allows fitting of a leash."
+RestraintMagicCollar,Enchanted Collar
+RestraintMagicCollarDesc,"A collar made with magically enchanted materials. It is difficult to cut off."
+RestraintMagicCollarDesc2,"Allows fitting of a leash."
 RestraintBasicLeash,Leash
 RestraintBasicLeashDesc,"A leash made from a strong material."
 RestraintBasicLeashDesc2,"Functions as a handle for moving unruly prisoners."
@@ -1862,7 +1885,10 @@ RestraintTrapBlindfoldDesc2,"You can still see through the gap around your nose.
 
 RestraintTrapBelt,Steel Chastity Belt
 RestraintTrapBeltDesc,"A cruel device used for locking magical vibrators in place."
-RestraintTrapBeltDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
+RestraintTrapBeltDesc2,"The shields will open up to accept new toys, but won't let them out..."
+RestraintTrapBeltProto,Prototype Belt
+RestraintTrapBeltProtoDesc,"A strange device built using unknown technology."
+RestraintTrapBeltProtoDesc2,"The lock is extremely advanced, and the ports at the bottom readily accept toys but won't let them out..."
 RestraintTrapBra,Steel Chastity Bra
 RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
@@ -1879,6 +1905,9 @@ RestraintMaidCBeltDesc2,"Made of hardened steel. The lock is high-security."
 RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
+RestraintTrapVibeProto,Prototype Egg
+RestraintTrapVibeProtoesc,"A teaser that periodically vibrates."
+RestraintTrapVibeProtoDesc2,"Also absorbs charge from your spells."
 RestraintTrapPlug,Happy Plug
 RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."
 RestraintTrapPlugDesc2,"It vibrates periodically and allows orgasms."
@@ -2429,6 +2458,7 @@ KinkyDungeonGroupItemBoots,Feet
 KinkyDungeonGroupItemDevices,Device
 
 ItemPickupGold,"You picked up XXX gold."
+ItemPickupAncientPowerSource,"You retrieve an ancient power crystal."
 ItemPickupHeart,"You pick up a magical amulet and use it to boost your stats."
 ItemPickupKnife,"You picked up a knife."
 ItemPickupKnives,"You found a bundle of discarded knives!"
@@ -2459,7 +2489,8 @@ ItemPickupStaffBind,"You pick up a staff of binding. You remember these from wiz
 ItemPickupStaffStorm,"You pick up a staff of the storm. It tingles."
 ItemPickupStaffFlame,"You pick up a staff of flames. It feels warm."
 ItemPickupStaffDoll,"You pick up a staff with a name on it: DOLLMAKER"
-ItemPickupStaffFrostbite,"You pick up a staff of frostbite. It feels cold to the touch."
+ItemPickupStaffFrostbite,"You pick up a staff of frostbite. It feels chilling to the touch."
+ItemPickupStaffPermafrost,"You pick up a staff of permafrost. Your hand feels numb just reaching for it."
 ItemPickupPickaxe,"You pick up a pickaxe."
 ItemPickupMagicSword,"You pick up an enchanted sword."
 ItemPickupMagicAxe,"You pick up an enchanted axe."
@@ -2478,6 +2509,9 @@ ItemPickupIceRune,"You picked up a stone trinket with a glowing blue sigil."
 ItemPickupBola,You pick up a bola.
 ItemPickupBomb,You pick up a bomb!
 ItemPickupDragonslaver,"You pick up Dragonslaver."
+ItemPickupTheEncaser,"You pick up the Encaser."
+ItemPickupBondageBuster,"You retrieve the Bondage Buster."
+ItemPickupMoiraiScissor,"You retrieve Moirai's scissors."
 
 
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
@@ -2803,7 +2837,7 @@ KinkyDungeonSpellDescriptionWillpower,"When enabled: Miscast chance is halved"
 KinkyDungeonSpellStrengthWillpower,You focus intently!
 
 KinkyDungeonSpellTrueSight,Truesight
-KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls.
+KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see through walls and increase accuracy by 40%.
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
@@ -2892,6 +2926,7 @@ KinkyDungeonSpellFeathers,Feather Explosion
 KinkyDungeonSpellSlime,Conjure Slime
 KinkyDungeonSpellSlimePuddle,Apprentice's Slime
 KinkyDungeonSpellWitchSlime,Witch's Slime
+KinkyDungeonSpellMiniSlime,Witch's Slime Ball
 KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that step inside and deal DamageDealt glue damage on a hit.
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
 KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius)
@@ -2916,8 +2951,12 @@ KinkyDungeonSpellEntangle,Raging Vines
 KinkyDungeonSpellSingleRibbon,Magic Ribbons
 KinkyDungeonSpellSingleBelt,Magic Belts
 KinkyDungeonSpellSlimethrower,Slime
+KinkyDungeonSpellSlimethrower2,Slime
 KinkyDungeonSpellCastSlimethrower,You project a pool of sticky slime!
+KinkyDungeonSpellBondageBustBeam,Bondage Buster
+KinkyDungeonSpellCastBondageBust,You charge up a beam and fire it!
 KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
+KinkyDungeonSpellCastSlimemForm,"The slime from your staff coats your body, granting you strange powers!"
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
@@ -2969,7 +3008,7 @@ KinkyDungeonCrystalPunish0,"The crystals emit a powerful energy!"
 KinkyDungeonCrystalPunish1,"You feel your body overflow with energy..."
 KinkyDungeonCrystalPunish2,"The crystals react to your struggle attempts with a strange energy!"
 
-KinkyDungeonSpellCastFromBook,Cast Spell (1 turn delay)
+KinkyDungeonSpellCastFromBook,Cast Spell (XXX turn delay)
 
 KinkyDungeonStartVibe,You feel your toys start to to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
@@ -3029,6 +3068,7 @@ KinkyDungeonBlindSelf,"You are blinded!"
 KinkyDungeonDamageSelf,"You took DamageDealt damage!"
 KinkyDungeonMagicRopeSelf,"Your own rope trap springs upon you!"
 KinkyDungeonSlime,"You get caught in sticky slime!"
+KinkyDungeonMiniSlime,"The slime ball sticks to you and slows you!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
 KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"
@@ -3391,6 +3431,9 @@ KinkyDungeonDeny10,"The toys deny you a chance to finish."
 
 KinkyDungeonChastityDeny,"You try to pleasure yourself, but your chastity belt prevents you!"
 KinkyDungeonPlaySelf,"You play with yourself..."
+KinkyDungeonPlaySelfAutomatic,"You let your hands wander for a moment..."
+KinkyDungeonPlaySelfAutomaticPurity,"Your instincts are getting the better of you..."
+KinkyDungeonOrgasmAutomatic,"Your body moves of its own accord..."
 KinkyDungeonPlaySelfVibeWand,"You play with yourself using the magic wand..."
 KinkyDungeonPlaySelfPurity,"You would never do such a thing."
 KinkyDungeonPlaySelfBound,"You try to rub your erogenous zones by squirming your legs..."
@@ -3405,7 +3448,7 @@ KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 
 KinkyDungeonGoldLockRemove,A golden lock fades into a blue lock on one of your restraints!
 
-KinkyDungeonConfirmAttack,Are you sure you want to attack?
+KDGameData.ConfirmAttack,Are you sure you want to attack?
 KinkyDungeonConfirmStairs,Are you sure you want to go to the next level? (Click self to confirm)
 
 KinkyDungeonSelfBondage,You shudder as you apply the RestraintName to yourself...
@@ -3716,5 +3759,53 @@ KinkyDungeonRemindJailChaseZombieOrb,"EnemyName: Intruder..."
 KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
-KinkyDungeonSpecialDragonslaver,Throw a line of belts for 40 chain damage and 4 binding
+KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
+KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
+KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam thadeals 30 electric damage."
+KinkyDungeonSpecialMoiraiScissors,"5% energy to enter a frenzy for 10 turns, attacking twice per turn."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit
+
+KDCategoryRestraints,Locks and Restraints
+KDCategoryCombat,General Combat
+KDCategoryKinky,Kinks and Preferences
+KDCategoryMagic,Wizardry and Sorcery
+KDCategoryEnemies,Devious Threats
+KDCategoryMap,World Generation
+
+KDWeaponConfiscated,You hand over your weapon reluctantly...
+
+dLeave,Leave
+dPause,(...)
+
+rDisbelief,"(The SPEAKER frowns)|Don't lie to me."
+rDisbeliefSub,"(The SPEAKER looks puzzled)|That doesn't seem right..."
+rDisbeliefDom,"(The SPEAKER chuckles)|What a cute lie."
+rDisbeliefRobot,"(The SPEAKER beeps)|Vital signs indicate dishonesty."
+
+rBluffed,"(The SPEAKER tilts her head)|Right, sorry."
+rBluffedSub,"(The SPEAKER blushes deeply)|I'm... I'm sorry! Please carry on..."
+rBluffedDom,"(The SPEAKER smiles)|Keep up the good work, girl."
+rBluffedRobot,"(The SPEAKER beeps)|Vital signs indicate honesty. Carry on."
+
+rGoodGirl,"(The SPEAKER smiles)|Good girl."
+rGoodGirlDom,"(The SPEAKER smiles)|That's a good girl."
+rGoodGirlSub,"(The SPEAKER smiles)|Thank you."
+rGoodGirlRobot,"(The SPEAKER beeps)|Thank you for complying."
+
+rPunishment,"(The SPEAKER frowns)|Looks like you'll need to be punished. Get her!"
+rPunishmentSub,"(The SPEAKER looks embarrased)|Then... then... uh... someone stop her!"
+rPunishmentDom,"(The SPEAKER grins)|Then allow me to personally show you the rules."
+rPunishmentRobot,"(The SPEAKER beeps)|Subject is resisting. Begin capture protocol."
+
+
+rWeaponFound,"(The SPEAKER approaches you)|You're not supposed to be carrying a weapon.|Hand it over."
+rWeaponFoundRobot,"(The SPEAKER approaches you)|Contraband detected. Initiating confiscation.|Please comply."
+dWeaponFoundAccept,"Yes, miss... (Currently held weapon will be lost)"
+dWeaponFoundAcceptGag,"Mmph... (Nod politely) (Currently held weapon will be lost)"
+dWeaponFoundDeny,"No, I refuse!"
+dWeaponFoundDenyGag,"Mmph! (Shake your head)"
+dWeaponFoundIllusion,"The Head Maid asked me to retrieve it."
+dWeaponFoundConjure,"My mistress needs it for a special spell."
+dWeaponFoundElements,"It is an offering to the goddess of Elements."
+dWeaponFoundRope,"It's just a prop for a costume."
+dWeaponFoundLeather,"Are you questioning me? I'm a dragonslayer."

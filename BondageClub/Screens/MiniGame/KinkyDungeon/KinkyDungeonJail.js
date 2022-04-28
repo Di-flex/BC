@@ -29,7 +29,7 @@ function KinkyDungeonLoseJailKeys(Taken) {
 function KinkyDungeonPlayerIsVisibleToJailers() {
 	let list = [];
 	for (let enemy of KinkyDungeonEntities) {
-		if (!enemy.Enemy.allied && !(enemy.rage > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
+		if (KDHostile(enemy) && !(enemy.rage > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 			if (KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y), enemy.Enemy.visionRadius, false, true)) {
 				list.push(enemy);
 			}
@@ -62,7 +62,7 @@ function KinkyDungeonCheckRelease() {
 /**
  *
  * @param {string} action
- * @param {{enemy?: enemy, x?: number, y?: number}} data
+ * @param {{enemy?: entity, x?: number, y?: number}} data
  */
 function KinkyDungeonAggroAction(action, data) {
 	let e = null;
@@ -647,6 +647,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 					if (guardPath[0].x === KinkyDungeonPlayerEntity.x && guardPath[0].y === KinkyDungeonPlayerEntity.y) {
 						// Swap the player and the guard
 						KinkyDungeonTargetTile = null;
+						KinkyDungeonTargetTileLocation = "";
 						KinkyDungeonPlayerEntity.x = KinkyDungeonJailGuard().x;
 						KinkyDungeonPlayerEntity.y = KinkyDungeonJailGuard().y;
 						KinkyDungeonJailGuard().x = guardPath[0].x;

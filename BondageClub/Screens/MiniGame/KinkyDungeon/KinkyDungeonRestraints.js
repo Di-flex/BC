@@ -459,6 +459,8 @@ function KinkyDungeonPickAttempt() {
 	let lock = KinkyDungeonTargetTile.Lock;
 	if (!KinkyDungeonTargetTile.pickProgress) KinkyDungeonTargetTile.pickProgress = 0;
 
+	if (!lock) return;
+
 	KinkyDungeonInterruptSleep();
 
 	if (lock.includes("Blue")) {
@@ -544,14 +546,14 @@ function KinkyDungeonUnlockAttempt(lock) {
 // Otherwise, just a normal struggle
 /**
  *
- * @param {any} struggleGroup
+ * @param {string} struggleGroup
  * @param {string} StruggleType
  * @returns
  */
 function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 
-	let restraint = KinkyDungeonGetRestraintItem(struggleGroup.group);
+	let restraint = KinkyDungeonGetRestraintItem(struggleGroup);
 	let failSuffix = "";
 	if (restraint && KDRestraint(restraint).failSuffix && KDRestraint(restraint).failSuffix[StruggleType]) {
 		failSuffix = KDRestraint(restraint).failSuffix[StruggleType];
@@ -583,7 +585,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		escapeChance: restraintEscapeChancePre,
 		origEscapeChance: restraintEscapeChancePre,
 		helpChance: helpChance,
-		strict: KinkyDungeonStrictness(true, struggleGroup.group),
+		strict: KinkyDungeonStrictness(true, struggleGroup),
 		hasEdge: KinkyDungeonHasHook(),
 		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
@@ -689,14 +691,14 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let armsBound = KinkyDungeonIsArmsBound(true);
 	if (StruggleType == "Remove" &&
 		(!handsBound && (KinkyDungeonNormalBlades > 0 || KinkyDungeonEnchantedBlades > 0 || KinkyDungeonLockpicks > 0)
-		|| (struggleGroup.group == "ItemHands" && KinkyDungeonCanTalk() && !armsBound))) {
+		|| (struggleGroup == "ItemHands" && KinkyDungeonCanTalk() && !armsBound))) {
 		data.escapeChance = Math.max(data.escapeChance, Math.min(1, data.escapeChance + 0.15));
 		data.origEscapeChance = Math.max(data.origEscapeChance, Math.min(1, data.origEscapeChance + 0.15));
 	}
 
 	// You can tug using unbound hands
 	if (StruggleType == "Struggle" &&
-		(!handsBound && !armsBound && struggleGroup.group != "ItemHands" && struggleGroup.group != "ItemArms")) {
+		(!handsBound && !armsBound && struggleGroup != "ItemHands" && struggleGroup != "ItemArms")) {
 		escapeSpeed *= 1.4;
 		data.escapeChance = Math.max(data.escapeChance, Math.min(1, data.escapeChance + 0.05));
 		data.origEscapeChance = Math.max(data.origEscapeChance, Math.min(1, data.origEscapeChance + 0.05));
@@ -739,11 +741,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Struggling is unaffected by having arms bound
 	let minAmount = 0.1 - Math.max(0, 0.01*KDRestraint(restraint).power);
 	if (StruggleType == "Remove" && !data.hasEdge) minAmount = 0;
-	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup.group != "ItemArms" && struggleGroup.group != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) data.escapeChance /= 1.5;
-	if (StruggleType != "Struggle" && struggleGroup.group != "ItemArms" && armsBound) data.escapeChance = Math.max(minAmount, data.escapeChance - 0.3);
+	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup != "ItemArms" && struggleGroup != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) data.escapeChance /= 1.5;
+	if (StruggleType != "Struggle" && struggleGroup != "ItemArms" && armsBound) data.escapeChance = Math.max(minAmount, data.escapeChance - 0.3);
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
-	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup.group != "ItemHands" && handsBound)
+	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup != "ItemHands" && handsBound)
 		data.escapeChance = (StruggleType == "Remove" && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
 	if (StruggleType == "Remove" && data.escapeChance == 0) {
@@ -787,7 +789,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && data.restraintEscapeChance > 0.01) data.escapeChance/= 5;
 
-	if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, struggleGroup.group)) data.escapeChance = 0;
+	if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, struggleGroup)) data.escapeChance = 0;
 
 	// Blue locks make it harder to escape an item
 	if (restraint.lock == "Blue" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) data.escapeChance = Math.max(0, data.escapeChance - 0.15);
@@ -795,7 +797,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Gold locks are extremely magical.
 	if (restraint.lock == "Gold" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) data.escapeChance = Math.max(0, data.escapeChance - 0.3);
 
-	if (StruggleType == "Cut" && struggleGroup.group != "ItemHands" && handsBound)
+	if (StruggleType == "Cut" && struggleGroup != "ItemHands" && handsBound)
 		data.escapeChance = data.escapeChance / 2;
 
 	// Struggling is affected by tightness
@@ -812,10 +814,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let belt = null;
 	let bra = null;
 
-	if (struggleGroup.group == "ItemVulva" || struggleGroup.group == "ItemVulvaPiercings" || struggleGroup.group == "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
+	if (struggleGroup == "ItemVulva" || struggleGroup == "ItemVulvaPiercings" || struggleGroup == "ItemButt") belt = KinkyDungeonGetRestraintItem("ItemPelvis");
 	if (belt && KDRestraint(belt) && KDRestraint(belt).chastity) data.escapeChance = 0.0;
 
-	if (struggleGroup.group == "ItemNipples" || struggleGroup.group == "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
+	if (struggleGroup == "ItemNipples" || struggleGroup == "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
 	if (bra && KDRestraint(bra) && KDRestraint(bra).chastity) data.escapeChance = 0.0;
 
 	if (data.escapeChance <= 0) {
@@ -1118,7 +1120,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			effLevel *= KDTightRestraintsMult;
 			effLevel += KDTightRestraintsMod;
 		}
-		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && restraint.floors.get(Index)) {
+		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && (!restraint.maxLevel || effLevel < restraint.maxLevel) && (restraint.allFloors || restraint.floors.get(Index))) {
 			let enabled = false;
 			let weight = 0;
 			if (enemy.tags.length) {
@@ -1217,6 +1219,8 @@ function KinkyDungeonUpdateRestraints(delta) {
 			}
 	}
 	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
+	if (KinkyDungeonStatsChoice.get("Unchained")) playerTags.set("Unchained", true);
+	if (KinkyDungeonStatsChoice.get("Damsel")) playerTags.set("Damsel", true);
 	return playerTags;
 }
 
