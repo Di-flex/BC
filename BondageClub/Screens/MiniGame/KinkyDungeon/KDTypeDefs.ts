@@ -744,7 +744,7 @@ interface KinkyDialogue {
 	/** Threshold at which the player is considered gagged for this dialogue. Default is 0.01*/
 	gagThreshold?: number;
 	/** Whether or not this option appears while gagged */
-	gagEnabled?: boolean;
+	gagDisabled?: boolean;
 	/** Whether or not this option appears while ungagged */
 	gagRequired?: boolean;
 	/** Options to display */
