@@ -1042,7 +1042,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	if (enemy.aware) chance += 0.1;
 	if (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.unarmed) {
 		chance += 0.25;
-		if (!event && KinkyDungeonPlayerDamage.name != "Knife" && playerDist < 2.9 && KDRandom() < 0.25 && !KDGameData.CurrentDialog && enemy.Enemy.playLine != "zombie") {
+		if (!event && KinkyDungeonPlayerDamage.name != "Knife" && playerDist < 1.5 && KDRandom() < 0.25 && !KDGameData.CurrentDialog && enemy.Enemy.playLine != "zombie") {
 			event = "WeaponFound";
 			eventchance = 0.25;
 		}

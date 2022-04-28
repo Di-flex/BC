@@ -28,13 +28,19 @@ let KDDialogue = {
 			"Illusion": {gagDisabled: true, playertext: "WeaponFoundIllusion", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
 				prerequisiteFunction: (gagged) => {return KinkyDungeonGoddessRep.Illusion >= 51;},
 				clickFunction: () => {
-					let diff = KDPersonalitySpread(40, 60, 80);
-					if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
-						KDGameData.CurrentDialogStage = "Bluff";
-						KDGameData.CurrentDialogMsg = "Bluffed";
-						KinkyDungeonChangeRep("Ghost", -2);
+					if (KDGameData.CurrentDialogMsgSpeaker == "MaidforceHead") {
+						KDGameData.CurrentDialogStage = "Deny";
+						KDGameData.CurrentDialogMsg = "HeadMaidExcuseMe";
+						KinkyDungeonStartChase(undefined, "Refusal");
+					} else {
+						let diff = KDPersonalitySpread(40, 60, 80);
+						if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
+							KDGameData.CurrentDialogStage = "Bluff";
+							KDGameData.CurrentDialogMsg = "Bluffed";
+							KinkyDungeonChangeRep("Ghost", -2);
+						}
+						KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 					}
-					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 			"Conjure": {gagDisabled: true, playertext: "WeaponFoundConjure", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
