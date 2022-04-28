@@ -939,7 +939,7 @@ const KDEventMapBullet = {
  * @param {*} data
  */
 function KinkyDungeonHandleBulletEvent(Event, e, b, data) {
-	if (Event === e.trigger && b.bullet) {
+	if (Event === e.trigger && b.bullet && KDEventMapBullet[Event] && KDEventMapBullet[Event][e.type]) {
 		KDEventMapBullet[Event][e.type](e, b, data);
 	}
 }
