@@ -2004,8 +2004,13 @@ function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
 	if (KDGameData.CurrentDialog) {
+		let result = KDHandleDialogue();
+		// @ts-ignore
+		CharacterRefresh = _CharacterRefresh;
+		// @ts-ignore
+		CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 		// Done, converted to input
-		return KDHandleDialogue();
+		return result;
 	}
 	if (KinkyDungeonControlsEnabled() && KinkyDungeonHandleHUD()) {
 		if (prevSpell) KinkyDungeonTargetingSpell = null;

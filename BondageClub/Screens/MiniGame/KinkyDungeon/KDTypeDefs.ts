@@ -713,6 +713,16 @@ type KinkyDungeonDress = {
 	Skirt?: boolean;
 }[]
 
+interface KinkyDialogueTrigger {
+	dialogue: string;
+	allowedPrisonStates?: string[];
+	blockDuringPlaytime?: boolean;
+	excludeTags?: string[];
+	playRequired?: boolean;
+	prerequisite: (enemy, dist) => boolean;
+	weight: (enemy, dist) => number;
+}
+
 interface KinkyDialogue {
 	/** Function to play when clicked. If not specified, nothing happens. */
 	clickFunction?: () => void;
@@ -784,6 +794,7 @@ interface KinkyDungeonSave {
 	spells: string[];
 	inventory: item[];
 	KDGameData: KDGameDataBase;
+	flags: Record<string, number>;
 	stats: {
 		picks: number;
 		keys: number;
