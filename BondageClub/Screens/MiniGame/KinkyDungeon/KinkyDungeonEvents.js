@@ -250,7 +250,8 @@ const KDEventMapInventory = {
 		},
 		"KittyPetSuitRemove":(e, item, data) => {
 			// remove kitty stuff
-			KinkyDungeonPlayer.Appearance= KinkyDungeonPlayer.Appearance.filter((v)=>{!(v.isKittyed)})
+			if (data.item === item)
+				KinkyDungeonPlayer.Appearance= KinkyDungeonPlayer.Appearance.filter((v)=>{!(v.isKittyed)})
 		}
 	},
 	"afterRemove": {
