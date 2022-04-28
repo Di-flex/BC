@@ -408,7 +408,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
-			if (!forceKill && Enemy.hp < 0) Enemy.hp = 0.51;
+			if (!forceKill && Enemy.hp < 0) {
+				KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDHelpless"), "white", 2);
+				Enemy.hp = 0.51;
+			}
 		}
 
 		if ((resistSlow < 2 && resistDamage < 2) && (KinkyDungeonSlowDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
@@ -447,6 +450,12 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.AI == "ambush" && Spell) {
 		Enemy.ambushtrigger = true;
+	}
+
+	if (miss) {
+		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDMissed"), "white", 2);
+	} else if (dmgDealt <= 0 && !miss) {
+		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDBlocked"), "white", 2);
 	}
 
 	KinkyDungeonAggro(Enemy, Spell, attacker);
