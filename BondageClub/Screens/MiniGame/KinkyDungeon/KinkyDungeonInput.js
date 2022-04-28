@@ -176,7 +176,7 @@ function KDProcessInput(type, data) {
 
 			KinkyDungeonAdvanceTime(1, true);
 
-			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
+			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[data.type] || KinkyDungeonGoddessRep[data.type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
 				let slimed = 0;
 				for (let inv of KinkyDungeonAllRestraint()) {
 					if (KDRestraint(inv).slimeLevel) {
@@ -188,19 +188,19 @@ function KDProcessInput(type, data) {
 				else KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonPoolDrink" + Math.min(2, KDGameData.PoolUses)), "#AAFFFF", 2);
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KDGameData.PoolUsesGrace -= 1;
-				KinkyDungeonChangeRep(type, -2 - slimed * 2);
-				KDSendStatus('goddess', type, 'shrineDrink');
+				KinkyDungeonChangeRep(data.type, -2 - slimed * 2);
+				KDSendStatus('goddess', data.type, 'shrineDrink');
 				KinkyDungeonAggroAction('shrine', {});
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
-				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
-				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
+				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + data.type)), "#AA0000", 3);
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + data.type)), "#AA0000", 3);
 
-				KinkyDungeonShrineAngerGods(type);
+				KinkyDungeonShrineAngerGods(data.type);
 				KDGameData.PoolUses = 10000;
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
-				KDSendStatus('goddess', type, 'shrineEnrage');
+				KDSendStatus('goddess', data.type, 'shrineEnrage');
 			}
 
 			KDGameData.PoolUses += 1;
