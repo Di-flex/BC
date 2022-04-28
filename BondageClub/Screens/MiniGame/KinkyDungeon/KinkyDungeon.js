@@ -418,6 +418,8 @@ let KinkyDungeonFastWait = true;
 let KinkyDungeonSexyMode = false;
 let KinkyDungeonSexyPiercing = false;
 let KinkyDungeonSexyPlug = false;
+let KDOldValue = "";
+let KDOriginalValue = "";
 
 function KinkyDungeonRun() {
 	let BG = "BrickWall";
@@ -511,8 +513,15 @@ function KinkyDungeonRun() {
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
 	} else if (KinkyDungeonState == "LoadOutfit") {
-		DrawButton(875, 750, 350, 64, TextGet("KinkyDungeonLoadConfirm"), "White", "");
+		DrawButton(875, 750, 350, 64, TextGet("LoadOutfit"), "White", "");
 		DrawButton(1275, 750, 350, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
+
+		let newValue = ElementValue("saveInputField");
+		if (newValue != KDOldValue) {
+			CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(ElementValue("saveInputField")));
+			CharacterRefresh(KinkyDungeonPlayer);
+			KDOldValue = newValue;
+		}
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
 	} else if (KinkyDungeonState == "Journey") {
@@ -1066,7 +1075,7 @@ function KinkyDungeonHandleClick() {
 			ElementRemove("saveInputField");
 			return true;
 		}
-	}else if (KinkyDungeonState == "LoadOutfit"){
+	} else if (KinkyDungeonState == "LoadOutfit"){
 		if (MouseIn(875, 750, 350, 64)) {
 			// Save outfit
 			let appearance = LZString.decompressFromBase64(ElementValue("saveInputField"));
@@ -1082,6 +1091,13 @@ function KinkyDungeonHandleClick() {
 			ElementRemove("saveInputField");
 			return true;
 		} else if (MouseIn(1275, 750, 350, 64)) {
+			// Restore the original outfit
+			if (KDOriginalValue) {
+				CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(KDOriginalValue));
+				CharacterRefresh(KinkyDungeonPlayer);
+			}
+
+
 			KinkyDungeonState = "Menu";
 			ElementRemove("saveInputField");
 			return true;
@@ -1131,6 +1147,8 @@ function KinkyDungeonHandleClick() {
 			return true;
 		} else if (MouseIn(590, 930, 150, 64)) {
 			KinkyDungeonState = "LoadOutfit";
+
+			KDOriginalValue = LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer));
 			CharacterReleaseTotal(KinkyDungeonPlayer);
 			ElementCreateTextArea("saveInputField");
 			ElementValue("saveInputField", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));

@@ -245,6 +245,7 @@ GameStart,Start New Game
 KinkyDungeonNewGamePlus,New Game+
 GameContinue,Continue Last Save
 LoadGame,Load From Code
+LoadOutfit,Save Outfit (overwrites!)
 GameReturnToMenu,Save Keybindings
 GameConfigKeys,Change Keybindings
 
