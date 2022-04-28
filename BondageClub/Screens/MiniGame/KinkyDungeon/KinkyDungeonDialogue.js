@@ -4,8 +4,9 @@
 let KDDialogue = {
 	"WeaponFound": {
 		response: "WeaponFound",
+		personalities: ["Robot"],
 		options: {
-			"Accept": {gag: true, playertext: "WeaponFoundAccept", response: "GoodGirl",
+			"Accept": {gag: true, playertext: "WeaponFoundAccept", response: "GoodGirl", personalities: ["Dom", "Sub", "Robot"],
 				clickFunction: () => {
 					KinkyDungeonSendTextMessage(10, TextGet("KDWeaponConfiscated"), "red", 2);
 					let weapon = KinkyDungeonPlayerDamage.name;
@@ -17,18 +18,44 @@ let KDDialogue = {
 					}
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Deny": {gag: true, playertext: "WeaponFoundDeny", response: "Punishment",
+			"Bluff": {playertext: "", response: "",
+				prerequisiteFunction: (gagged) => {return false;},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
+			"Deny": {gag: true, playertext: "WeaponFoundDeny", response: "Punishment", personalities: ["Dom", "Sub", "Robot"],
 				clickFunction: () => {KinkyDungeonStartChase(undefined, "Refusal");},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
+			"Illusion": {gag: true, playertext: "WeaponFoundIllusion", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
+				clickFunction: () => {
+					let diff = KDStrictPersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
+						80 :
+						(!KDLoosePersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
+						60 :
+						40);
+					if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
+						KDGameData.CurrentDialogStage = "Bluff";
+						KDGameData.CurrentDialogMsg = "Bluffed";
+					}
+					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
+				},
+				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 		}
 	}
 };
 
-let KDEnemyPersonalities = [
-	{name: "", weight: 10},
-	{name: "Dom", weight: 1},
-	{name: "Sub", weight: 3},
-];
+function KDBasicCheck(PositiveReps, NegativeReps) {
+	let value = 0;
+	for (let rep of PositiveReps) {
+		if (KinkyDungeonGoddessRep[rep] != undefined) value += 50 + KinkyDungeonGoddessRep[rep];
+	}
+	for (let rep of NegativeReps) {
+		if (KinkyDungeonGoddessRep[rep] != undefined) value -= 50 + KinkyDungeonGoddessRep[rep];
+	}
+	return value;
+}
+
+function KDDialogueApplyPersonality(allowed) {
+	if (allowed.includes(KDGameData.CurrentDialogMsgPersonality)) KDGameData.CurrentDialogMsg = KDGameData.CurrentDialogMsg + KDGameData.CurrentDialogMsgPersonality;
+}
 
 function KDGetDialogue() {
 	let dialogue = KDDialogue[KDGameData.CurrentDialog];
@@ -60,22 +87,29 @@ function KDDrawDialogue() {
 		let text = TextGet("r" + KDGameData.CurrentDialogMsg).split("|");
 		for (let i = 0; i < text.length; i++) {
 			DrawTextFit(text[i].replace("SPEAKER", TextGet("Name" + KDGameData.CurrentDialogMsgSpeaker)),
-				1000, 400 + 50 * i - 25 * text.length, 900, "white", "black");
+				1000, 300 + 50 * i - 25 * text.length, 900, "white", "black");
 		}
 
 		// Draw the options
 		if (dialogue.options) {
 			let entries = Object.entries(dialogue.options);
+			let II = 0;
 			for (let i = 0; i < entries.length; i++) {
-				let playertext = entries[i][1].playertext;
-				DrawButton(700, 550 + i * 80, 600, 60, TextGet("d" + playertext), "white");
+				if (!entries[i][1].prerequisiteFunction || entries[i][1].prerequisiteFunction(KDDialogueGagged())) {
+					let playertext = entries[i][1].playertext;
+					DrawButton(700, 450 + II * 60, 600, 50, TextGet("d" + playertext), KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
+					II += 1;
+				}
 			}
 		}
 	}
 }
 
-function KDStartDialog(Dialogue, Speaker, Click) {
-	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker});
+let KinkyDungeonDialogueTimer = 0;
+
+function KDStartDialog(Dialogue, Speaker, Click, Personality) {
+	KinkyDungeonDialogueTimer = CommonTime() + 1000;
+	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality});
 }
 
 function KDDialogueGagged() {
@@ -86,16 +120,20 @@ function KDDialogueGagged() {
 }
 
 function KDHandleDialogue() {
-	if (KDGameData.CurrentDialog) {
+	if (KDGameData.CurrentDialog && KinkyDungeonDialogueTimer < CommonTime()) {
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 
 		// Handle the options
 		if (dialogue.options) {
 			let entries = Object.entries(dialogue.options);
+			let II = 0;
 			for (let i = 0; i < entries.length; i++) {
-				if (MouseIn(700, 550 + i * 80, 600, 60)) {
-					KDSendInput("dialogue", {dialogue: KDGameData.CurrentDialog, dialogueStage: KDGameData.CurrentDialogStage + ((KDGameData.CurrentDialogStage) ? "_" : "") + entries[i][0], click: true});
+				if (!entries[i][1].prerequisiteFunction || entries[i][1].prerequisiteFunction(KDDialogueGagged())) {
+					if (MouseIn(700, 450 + II * 60, 600, 50)) {
+						KDSendInput("dialogue", {dialogue: KDGameData.CurrentDialog, dialogueStage: KDGameData.CurrentDialogStage + ((KDGameData.CurrentDialogStage) ? "_" : "") + entries[i][0], click: true});
+					}
+					II += 1;
 				}
 			}
 		}

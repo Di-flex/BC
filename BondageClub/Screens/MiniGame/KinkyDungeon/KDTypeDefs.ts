@@ -545,6 +545,15 @@ interface enemy {
 	playLine?: string,
 	/** Blocks vision */
 	blockVision?: boolean,
+	/** Hit SFX for enemy special attack */
+	hitsfxSpecial?: string,
+	/** Effect when the enemy misses */
+	misssfx?: string,
+	/** The enemyeffect when player is hit */
+	effect?: any,
+	/** Cant cast spells while winding up an attack */
+	noSpellDuringAttack?: boolean,
+
 
 }
 
@@ -640,6 +649,9 @@ interface KinkyDungeonEvent {
 
 interface entity {
 	Enemy: enemy,
+	personality?: string,
+	patrolIndex?: number,
+	aggro?: number,
 	id?: number,
 	hp: number,
 	AI?: string,
@@ -706,8 +718,18 @@ interface KinkyDialogue {
 	clickFunction?: () => void;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
 	gagFunction?: () => void;
-	/** Jumps to the specified dialogue when clicked, ignoring the response string*/
+	/** Will not appear unless function returns true */
+	prerequisiteFunction?: (gagged) => boolean;
+	/** Will appear greyed out unless true */
+	greyoutFunction?: (gagged) => boolean;
+	greyoutTooltip?: string;
+	/** List of personalities supported by this dialogue */
+	personalities?: string[];
+	/** Jumps to the specified dialogue when clicked, after setting the response string*/
 	leadsTo?: string;
+	leadsToStage?: string;
+	/** After leading to another dialogue, the response will NOT be updated */
+	dontTouchText?: boolean;
 	exitDialogue?: boolean;
 	/** The response the NPC will give when this dialogue is clicked. If response is "null", then it keeps the original, "" uses pregenerated
 	 * The string name will be "r" + response with a couple of enemy-specific variations

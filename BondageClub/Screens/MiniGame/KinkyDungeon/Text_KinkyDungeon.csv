@@ -3775,12 +3775,37 @@ KDCategoryMap,World Generation
 KDWeaponConfiscated,You hand over your weapon reluctantly...
 
 dLeave,Leave
+dPause,(...)
+
+rDisbelief,"(The SPEAKER frowns)|Don't lie to me."
+rDisbeliefSub,"(The SPEAKER looks puzzled)|That doesn't seem right..."
+rDisbeliefDom,"(The SPEAKER chuckles)|What a cute lie."
+rDisbeliefRobot,"(The SPEAKER beeps)|Vital signs indicate dishonesty."
+
+rBluffed,"(The SPEAKER tilts her head)|Right, sorry."
+rBluffedSub,"(The SPEAKER blushes deeply)|I'm... I'm sorry! Please carry on..."
+rBluffedDom,"(The SPEAKER smiles)|Keep up the good work, girl."
+rBluffedRobot,"(The SPEAKER beeps)|Vital signs indicate honesty. Carry on."
 
 rGoodGirl,"(The SPEAKER smiles)|Good girl."
+rGoodGirlDom,"(The SPEAKER smiles)|That's a good girl."
+rGoodGirlSub,"(The SPEAKER smiles)|Thank you."
+rGoodGirlRobot,"(The SPEAKER beeps)|Thank you for complying."
+
 rPunishment,"(The SPEAKER frowns)|Looks like you'll need to be punished. Get her!"
+rPunishmentSub,"(The SPEAKER looks embarrased)|Then... then... uh... someone stop her!"
+rPunishmentDom,"(The SPEAKER grins)|Then allow me to personally show you the rules."
+rPunishmentRobot,"(The SPEAKER beeps)|Subject is resisting. Begin capture protocol."
+
 
 rWeaponFound,"(The SPEAKER approaches you)|You're not supposed to be carrying a weapon.|Hand it over."
+rWeaponFoundRobot,"(The SPEAKER approaches you)|Contraband detected. Initiating confiscation.|Please comply."
 dWeaponFoundAccept,"Yes, miss... (Currently held weapon will be lost)"
 dWeaponFoundAcceptGag,"Mmph... (Nod politely) (Currently held weapon will be lost)"
 dWeaponFoundDeny,"No, I refuse!"
 dWeaponFoundDenyGag,"Mmph! (Shake your head)"
+dWeaponFoundIllusion,"The Head Maid asked me to retrieve it."
+dWeaponFoundConjure,"My mistress needs it for a special spell."
+dWeaponFoundElements,"It is an offering to the goddess of Elements."
+dWeaponFoundRope,"It's just a prop for a costume."
+dWeaponFoundLeather,"Are you questioning me? I'm a dragonslayer."

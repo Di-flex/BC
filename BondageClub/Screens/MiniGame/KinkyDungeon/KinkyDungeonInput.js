@@ -405,8 +405,12 @@ function KDProcessInput(type, data) {
 			}
 			if (data.personality)
 				KDGameData.CurrentDialogMsgPersonality = data.personality;
+
 			let dialogue = KDGetDialogue();
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+			if (dialogue.personalities) {
+				KDDialogueApplyPersonality(dialogue.personalities);
+			}
 			if (data.click) {
 				if (dialogue.gagFunction && KDDialogueGagged()) {
 					dialogue.gagFunction();
@@ -417,6 +421,21 @@ function KDProcessInput(type, data) {
 			if (dialogue.exitDialogue) {
 				KDGameData.CurrentDialog = "";
 				KDGameData.CurrentDialogStage = "";
+			} else {
+				let modded = false;
+				if (dialogue.leadsTo != undefined) {
+					KDGameData.CurrentDialog = dialogue.leadsTo;
+					KDGameData.CurrentDialogStage = "";
+					modded = true;
+				}
+				if (dialogue.leadsToStage != undefined) {
+					KDGameData.CurrentDialogStage = dialogue.leadsToStage;
+					modded = true;
+				}
+				if (modded && !dialogue.dontTouchText) {
+					dialogue = KDGetDialogue();
+					if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+				}
 			}
 			break;
 		}
