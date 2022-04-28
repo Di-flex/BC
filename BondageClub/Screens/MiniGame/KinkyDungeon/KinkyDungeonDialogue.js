@@ -1,47 +1,10 @@
 "use strict";
 
-/** @type {Record<string, KinkyDialogue>} */
-let KDDialogue = {
-	"WeaponFound": {
-		response: "WeaponFound",
-		personalities: ["Robot"],
-		options: {
-			"Accept": {gag: true, playertext: "WeaponFoundAccept", response: "GoodGirl", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {
-					KinkyDungeonSendTextMessage(10, TextGet("KDWeaponConfiscated"), "red", 2);
-					let weapon = KinkyDungeonPlayerDamage.name;
-					if (weapon && weapon != "Knife") {
-						KinkyDungeonChangeRep("Ghost", 3);
-						let item = KinkyDungeonInventoryGetWeapon(weapon);
-						KDSetWeapon(null);
-						KinkyDungeonAddLostItems([item], false);
-						KinkyDungeonInventoryRemove(item);
-					}
-				},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Bluff": {playertext: "", response: "",
-				prerequisiteFunction: (gagged) => {return false;},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Deny": {gag: true, playertext: "WeaponFoundDeny", response: "Punishment", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {KinkyDungeonStartChase(undefined, "Refusal");},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Illusion": {gagDisabled: true, playertext: "WeaponFoundIllusion", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {
-					let diff = KDStrictPersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
-						80 :
-						(!KDLoosePersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
-						60 :
-						40);
-					if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
-						KDGameData.CurrentDialogStage = "Bluff";
-						KDGameData.CurrentDialogMsg = "Bluffed";
-					}
-					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
-				},
-				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
-		}
-	}
-};
+function KDPersonalitySpread(Min, Avg, Max) {
+	return KDStrictPersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ? Max :
+		(!KDLoosePersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ? Avg :
+		Min);
+}
 
 function KDBasicCheck(PositiveReps, NegativeReps) {
 	let value = 0;
