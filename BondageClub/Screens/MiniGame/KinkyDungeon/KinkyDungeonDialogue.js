@@ -11,6 +11,7 @@ let KDDialogue = {
 					KinkyDungeonSendTextMessage(10, TextGet("KDWeaponConfiscated"), "red", 2);
 					let weapon = KinkyDungeonPlayerDamage.name;
 					if (weapon && weapon != "Knife") {
+						KinkyDungeonChangeRep("Ghost", 3);
 						let item = KinkyDungeonInventoryGetWeapon(weapon);
 						KDSetWeapon(null);
 						KinkyDungeonAddLostItems([item], false);
