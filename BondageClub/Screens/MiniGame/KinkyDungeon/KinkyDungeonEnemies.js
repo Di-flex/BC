@@ -1042,7 +1042,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	if (enemy.aware) chance += 0.1;
 	if (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.unarmed) {
 		chance += 0.25;
-		if (!event && KinkyDungeonPlayerDamage.name != "Knife" && playerDist < 2.9 && KDRandom() < 0.25 && !KDGameData.CurrentDialog) {
+		if (!event && KinkyDungeonPlayerDamage.name != "Knife" && playerDist < 2.9 && KDRandom() < 0.25 && !KDGameData.CurrentDialog && enemy.Enemy.playLine != "zombie") {
 			event = "WeaponFound";
 			eventchance = 0.25;
 		}
@@ -1055,7 +1055,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	}
 
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.1;
-	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && player.player && canSeePlayer && enemy.vp > sneakThreshold && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
+	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && player.player && canSeePlayer && (enemy.vp > sneakThreshold || enemy.aware) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
 		if (!enemy.personality) enemy.personality = KDGetPersonality(enemy);
 		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance) {
 			enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
