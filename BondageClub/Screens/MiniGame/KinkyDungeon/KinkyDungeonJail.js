@@ -62,7 +62,7 @@ function KinkyDungeonCheckRelease() {
 /**
  *
  * @param {string} action
- * @param {{enemy?: enemy, x?: number, y?: number}} data
+ * @param {{enemy?: entity, x?: number, y?: number}} data
  */
 function KinkyDungeonAggroAction(action, data) {
 	let e = null;

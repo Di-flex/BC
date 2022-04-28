@@ -239,6 +239,7 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			let Group = "";
 			if (item.type == Restraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
 			else if (item.type == LooseRestraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
+			if ((item.type == Restraint || item.type == LooseRestraint) && KDRestraint(item).AssetGroup) Group = KDRestraint(item).AssetGroup;
 			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
 			if (item.type == Restraint) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Asset}.png`});

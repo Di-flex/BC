@@ -176,7 +176,7 @@ function KDProcessInput(type, data) {
 
 			KinkyDungeonAdvanceTime(1, true);
 
-			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[type] || KinkyDungeonGoddessRep[type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
+			if ((KDRandom() > chance || KDGameData.PoolUsesGrace > 0) && (!KinkyDungeonGoddessRep[data.type] || KinkyDungeonGoddessRep[data.type] > -49.9 || KinkyDungeonStatsChoice.get("Blessed"))) {
 				let slimed = 0;
 				for (let inv of KinkyDungeonAllRestraint()) {
 					if (KDRestraint(inv).slimeLevel) {
@@ -188,19 +188,19 @@ function KDProcessInput(type, data) {
 				else KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonPoolDrink" + Math.min(2, KDGameData.PoolUses)), "#AAFFFF", 2);
 				KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 				if (chance > 0) KDGameData.PoolUsesGrace -= 1;
-				KinkyDungeonChangeRep(type, -2 - slimed * 2);
-				KDSendStatus('goddess', type, 'shrineDrink');
+				KinkyDungeonChangeRep(data.type, -2 - slimed * 2);
+				KDSendStatus('goddess', data.type, 'shrineDrink');
 				KinkyDungeonAggroAction('shrine', {});
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 			} else {
 				// You have angered the gods!
-				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
-				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + type)), "#AA0000", 3);
+				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + data.type)), "#AA0000", 3);
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPoolDrinkAnger").replace("TYPE", TextGet("KinkyDungeonShrine" + data.type)), "#AA0000", 3);
 
-				KinkyDungeonShrineAngerGods(type);
+				KinkyDungeonShrineAngerGods(data.type);
 				KDGameData.PoolUses = 10000;
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Damage.ogg");
-				KDSendStatus('goddess', type, 'shrineEnrage');
+				KDSendStatus('goddess', data.type, 'shrineEnrage');
 			}
 
 			KDGameData.PoolUses += 1;
@@ -397,10 +397,20 @@ function KDProcessInput(type, data) {
 		case "dialogue": {
 			KDGameData.CurrentDialog = data.dialogue;
 			KDGameData.CurrentDialogStage = data.dialogueStage;
-			if (data.speaker)
+			if (data.speaker) {
+				let oldSpeaker = KDGameData.CurrentDialogMsgSpeaker;
 				KDGameData.CurrentDialogMsgSpeaker = data.speaker;
+				if (KDGameData.CurrentDialogMsgSpeaker != oldSpeaker)
+					KDGameData.CurrentDialogMsgPersonality = ""; // Reset when speaker changes
+			}
+			if (data.personality)
+				KDGameData.CurrentDialogMsgPersonality = data.personality;
+
 			let dialogue = KDGetDialogue();
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+			if (dialogue.personalities) {
+				KDDialogueApplyPersonality(dialogue.personalities);
+			}
 			if (data.click) {
 				if (dialogue.gagFunction && KDDialogueGagged()) {
 					dialogue.gagFunction();
@@ -411,6 +421,21 @@ function KDProcessInput(type, data) {
 			if (dialogue.exitDialogue) {
 				KDGameData.CurrentDialog = "";
 				KDGameData.CurrentDialogStage = "";
+			} else {
+				let modded = false;
+				if (dialogue.leadsTo != undefined) {
+					KDGameData.CurrentDialog = dialogue.leadsTo;
+					KDGameData.CurrentDialogStage = "";
+					modded = true;
+				}
+				if (dialogue.leadsToStage != undefined) {
+					KDGameData.CurrentDialogStage = dialogue.leadsToStage;
+					modded = true;
+				}
+				if (modded && !dialogue.dontTouchText) {
+					dialogue = KDGetDialogue();
+					if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+				}
 			}
 			break;
 		}

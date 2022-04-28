@@ -795,6 +795,11 @@ Spell Balance:
 - Bound power buffed, now increases Evasion by the same amount
 - added a ? to indicate the player is close to being spotted
 
+3.2
+- Fixed the parole system which had been majorly bugged for like a week
+- Added a dialogue system and an occasional request to give up your weapon by NPCs
+- Can now save outfits
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

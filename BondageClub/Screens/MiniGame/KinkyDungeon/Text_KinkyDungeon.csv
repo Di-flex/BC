@@ -9,7 +9,8 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls"
 
-KinkyDungeon,"Kinky Dungeon v3.12"
+
+KinkyDungeon,"Kinky Dungeon v3.2"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -19,6 +20,10 @@ KinkyDungeonDrool,Enable Drool/Tears
 KinkyDungeonFullscreen,Enable Fullscreen
 KinkyDungeonGraphicsQuality,High Quality Animations
 KinkyDungeonFastWait,Wait Quickly
+
+KDHelpless,Helpless!
+KDMissed,Evaded!
+KDBlocked,Blocked!
 
 KinkyDungeonJourney,"Select a journey. This will determine the ordering of game areas."
 KinkyDungeonJourney0,"Standard: The intended experience"
@@ -185,8 +190,9 @@ KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start wi
 
 KinkyDungeonLog,Log
 
-KinkyDungeonDressPlayer,"Change Appearance"
-KinkyDungeonDressPlayerReset,"Reset Appearance"
+KinkyDungeonDressPlayer,"Change Outfit"
+KinkyDungeonDressPlayerReset,"Reset Outfit"
+KinkyDungeonDressPlayerImport,"Code"
 KinkyDungeonConfirm,Confirm Reset?
 
 KinkyDungeonSaveIntro0,"(Copy the code above and save it on your computer to load later)"
@@ -244,6 +250,7 @@ GameStart,Start New Game
 KinkyDungeonNewGamePlus,New Game+
 GameContinue,Continue Last Save
 LoadGame,Load From Code
+LoadOutfit,Save Outfit (overwrites!)
 GameReturnToMenu,Save Keybindings
 GameConfigKeys,Change Keybindings
 
@@ -3740,7 +3747,162 @@ KinkyDungeonRemindJailChaseAlchemistSpellItem,"EnemyName: That's dangerous!"
 KinkyDungeonRemindJailChaseAlchemistShrine,"EnemyName: Stop! That's scientific equipment!"
 KinkyDungeonRemindJailChaseAlchemistChest,"EnemyName: Don't touch my supplies!"
 KinkyDungeonRemindJailChaseAlchemistOrb,"EnemyName: That's off-limits!"
-KinkyDungeonRemindJailChaseAlchemistJailbreak,"EnemyName: You're not supposed to be here... ah well!"
+KinkyDungeonRemindJailChaseAlchemistJailbreak,"EnemyName: You're not supposed to be here!"
+
+KinkyDungeonRemindJailPlayDressmaker0,"EnemyName: You look just gorgeous, dear..."
+KinkyDungeonRemindJailPlayDressmaker1,"EnemyName: Why don't you try these on?"
+KinkyDungeonRemindJailPlayDressmaker2,"EnemyName: You'll make a fine addition to my collection!"
+KinkyDungeonRemindJailPlayDressmakerStruggle,"EnemyName: You'd be more elegant if you weren't moving around..."
+KinkyDungeonRemindJailPlayDressmakerFree,"EnemyName: We should put away those grasping hands of yours~"
+KinkyDungeonRemindJailPlayDressmakerLoot,"EnemyName: That belongs to someone else."
+KinkyDungeonRemindJailPlayDressmakerKey,"EnemyName: Oh no you don't, sweetie!"
+KinkyDungeonRemindJailChaseDressmakerAttack0,"EnemyName: Oof! Looks like you need to be taught a lesson!"
+KinkyDungeonRemindJailChaseDressmakerAttack1,"EnemyName: We better put away those hands of yours."
+KinkyDungeonRemindJailChaseDressmakerAttack2,"EnemyName: Why don't you just give up and pose for us~"
+KinkyDungeonRemindJailChaseDressmakerSpell0,"EnemyName: Oh my, that's dangerous!"
+KinkyDungeonRemindJailChaseDressmakerSpell1,"EnemyName: You're going to damage my dress!"
+KinkyDungeonRemindJailChaseDressmakerSpell2,"EnemyName: Keep those pretty hands to yourself, dear~"
+KinkyDungeonRemindJailChaseDressmakerSpellItem,"EnemyName: Where'd you find that, dear?"
+KinkyDungeonRemindJailChaseDressmakerShrine,"EnemyName: Silly girl, you should be looking to your mistress for guidance."
+KinkyDungeonRemindJailChaseDressmakerChest,"EnemyName: That's not yours, sweetie~"
+KinkyDungeonRemindJailChaseDressmakerOrb,"EnemyName: You shouldn't break things with such dainty hands~"
+KinkyDungeonRemindJailChaseDressmakerJailbreak,"EnemyName: I knew something was amiss!"
+
+KinkyDungeonRemindJailPlayTemplate0,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplate1,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplate2,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplateStruggle,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplateFree,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplateLoot,"EnemyName: "
+KinkyDungeonRemindJailPlayTemplateKey,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateAttack0,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateAttack1,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateAttack2,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateSpell0,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateSpell1,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateSpell2,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateSpellItem,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateShrine,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateChest,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateOrb,"EnemyName: "
+KinkyDungeonRemindJailChaseTemplateJailbreak,"EnemyName: "
+
+
+KinkyDungeonRemindJailPlayDomMaid0,"EnemyName: Look, a new recruit!"
+KinkyDungeonRemindJailPlayDomMaid1,"EnemyName: I'll teach you a thing or two!"
+KinkyDungeonRemindJailPlayDomMaid2,"EnemyName: Let's test your manners~"
+KinkyDungeonRemindJailPlayDomMaidStruggle,"The EnemyName giggles: Having fun there?"
+KinkyDungeonRemindJailPlayDomMaidFree,"EnemyName: You need to be taught some manners, maid."
+KinkyDungeonRemindJailPlayDomMaidLoot,"EnemyName: Good girl. I'll take that to the storage room."
+KinkyDungeonRemindJailPlayDomMaidKey,"EnemyName: I'll be taking those."
+KinkyDungeonRemindJailChaseDomMaidAttack0,"EnemyName: Oh, you're approaching me?"
+KinkyDungeonRemindJailChaseDomMaidAttack1,"EnemyName: You've gotten yourself into a big mess."
+KinkyDungeonRemindJailChaseDomMaidAttack2,"EnemyName: You're going to regret that."
+KinkyDungeonRemindJailChaseDomMaidSpell0,"EnemyName: A maid uses magic only when told!"
+KinkyDungeonRemindJailChaseDomMaidSpell1,"EnemyName: I look forward to plugging that mouth of yours."
+KinkyDungeonRemindJailChaseDomMaidSpell2,"EnemyName: How unruly... What a pain."
+KinkyDungeonRemindJailChaseDomMaidSpellItem,"EnemyName: Put that away!"
+KinkyDungeonRemindJailChaseDomMaidShrine,"EnemyName: That's off limits. You need to be punished!"
+KinkyDungeonRemindJailChaseDomMaidChest,"EnemyName: Thief! Get her!"
+KinkyDungeonRemindJailChaseDomMaidOrb,"EnemyName: Yikes! I'm calling backup!"
+KinkyDungeonRemindJailChaseDomMaidJailbreak,"EnemyName: Found you!"
+
+
+KinkyDungeonRemindJailPlaySubMaid0,"EnemyName: Miss, your uniform is dirty..."
+KinkyDungeonRemindJailPlaySubMaid1,"EnemyName: Why hello miss..."
+KinkyDungeonRemindJailPlaySubMaid2,"EnemyName: Let me fix your outfit..."
+KinkyDungeonRemindJailPlaySubMaidStruggle,"EnemyName: Hmm, do I need to tighten those?"
+KinkyDungeonRemindJailPlaySubMaidFree,"EnemyName: Umm, miss, you're supposed to report to the head maid..."
+KinkyDungeonRemindJailPlaySubMaidLoot,"EnemyName: Thanks for picking up."
+KinkyDungeonRemindJailPlaySubMaidKey,"EnemyName: I'll take those to the head maid!"
+KinkyDungeonRemindJailChaseSubMaidAttack0,"EnemyName: Ooof!"
+KinkyDungeonRemindJailChaseSubMaidAttack1,"EnemyName: Oh no!"
+KinkyDungeonRemindJailChaseSubMaidAttack2,"EnemyName: Stop it!"
+KinkyDungeonRemindJailChaseSubMaidSpell0,"EnemyName: Miss! You're not allowed to cast that!"
+KinkyDungeonRemindJailChaseSubMaidSpell1,"EnemyName: Miss, I have to report that!"
+KinkyDungeonRemindJailChaseSubMaidSpell2,"EnemyName: Magic!"
+KinkyDungeonRemindJailChaseSubMaidSpellItem,"EnemyName: Eeep!"
+KinkyDungeonRemindJailChaseSubMaidShrine,"EnemyName: Miss, that's reserved for the head maid!"
+KinkyDungeonRemindJailChaseSubMaidChest,"EnemyName: Thief! I'm reporting this!"
+KinkyDungeonRemindJailChaseSubMaidOrb,"EnemyName: Oh no! I have to report this!"
+KinkyDungeonRemindJailChaseSubMaidJailbreak,"EnemyName: Oh no!"
+
+
+KinkyDungeonRemindJailPlayHeadMaid0,"EnemyName: Come now, it's time for training."
+KinkyDungeonRemindJailPlayHeadMaid1,"EnemyName: Do you need to be punished?"
+KinkyDungeonRemindJailPlayHeadMaid2,"EnemyName: It's time for a test."
+KinkyDungeonRemindJailPlayHeadMaidStruggle,"EnemyName: You are making too much noise. A maid remains quiet until asked."
+KinkyDungeonRemindJailPlayHeadMaidFree,"EnemyName: You need to work on your ladylike manners."
+KinkyDungeonRemindJailPlayHeadMaidLoot,"EnemyName: Good girl, finding lost items."
+KinkyDungeonRemindJailPlayHeadMaidKey,"EnemyName: I do not give you permmission to leave."
+KinkyDungeonRemindJailChaseHeadMaidAttack0,"EnemyName: Do you know who I am?"
+KinkyDungeonRemindJailChaseHeadMaidAttack1,"EnemyName: You need to learn some manners!"
+KinkyDungeonRemindJailChaseHeadMaidAttack2,"EnemyName: How rude!"
+KinkyDungeonRemindJailChaseHeadMaidSpell0,"EnemyName: There is a more proper way to cast spells..."
+KinkyDungeonRemindJailChaseHeadMaidSpell1,"EnemyName: Perhaps you need to receive some gag training."
+KinkyDungeonRemindJailChaseHeadMaidSpell2,"EnemyName: You lack discipline, and self-control."
+KinkyDungeonRemindJailChaseHeadMaidSpellItem,"EnemyName: Do not use what belongs to others."
+KinkyDungeonRemindJailChaseHeadMaidShrine,"EnemyName: A good maid pleads only to her mistress."
+KinkyDungeonRemindJailChaseHeadMaidChest,"EnemyName: Do not take what is not yours."
+KinkyDungeonRemindJailChaseHeadMaidOrb,"EnemyName: I will personally attend to your act of disgrace."
+KinkyDungeonRemindJailChaseHeadMaidJailbreak,"EnemyName: An unruly pest."
+
+KinkyDungeonRemindJailPlayWitch0,"EnemyName: I must say, you've got me under your spell~"
+KinkyDungeonRemindJailPlayWitch1,"EnemyName: Why aren't you a pretty one..."
+KinkyDungeonRemindJailPlayWitch2,"EnemyName: I've got to kiss those tender lips of yours~"
+KinkyDungeonRemindJailPlayWitchStruggle,"EnemyName: Having fun, little lady?"
+KinkyDungeonRemindJailPlayWitchFree,"EnemyName: Look at you, pretty and free!"
+KinkyDungeonRemindJailPlayWitchLoot,"EnemyName: Must have misplaced it..."
+KinkyDungeonRemindJailPlayWitchKey,"EnemyName: Those are mine!"
+KinkyDungeonRemindJailChaseWitchAttack0,"EnemyName: That's not very nice!"
+KinkyDungeonRemindJailChaseWitchAttack1,"EnemyName: Curse you!"
+KinkyDungeonRemindJailChaseWitchAttack2,"EnemyName: I'll turn you into a newt!"
+KinkyDungeonRemindJailChaseWitchSpell0,"EnemyName: Oh, so you've got a spellbook. What's it written in, curse-ive?"
+KinkyDungeonRemindJailChaseWitchSpell1,"EnemyName: Snap, crackle, and pop!"
+KinkyDungeonRemindJailChaseWitchSpell2,"EnemyName: Looks like I need to seal that foul mouth of yours."
+KinkyDungeonRemindJailChaseWitchSpellItem,"EnemyName: I recognize that thing you're holding!"
+KinkyDungeonRemindJailChaseWitchShrine,"EnemyName: You'll be praying for freedom soon, my dear~"
+KinkyDungeonRemindJailChaseWitchChest,"EnemyName: Oh, breaking into my collection, are you?"
+KinkyDungeonRemindJailChaseWitchOrb,"EnemyName: Even I wouldn't do such a thing!"
+KinkyDungeonRemindJailChaseWitchJailbreak,"EnemyName: Witch way to the jail cell, you say?"
+
+KinkyDungeonRemindJailPlayApprentice0,"EnemyName: Mind if I play with you a bit?"
+KinkyDungeonRemindJailPlayApprentice1,"EnemyName: Oooh! My new friend!"
+KinkyDungeonRemindJailPlayApprentice2,"EnemyName: My mistress told me to give you a good time..."
+KinkyDungeonRemindJailPlayApprenticeStruggle,"EnemyName: Hehe, having fun?"
+KinkyDungeonRemindJailPlayApprenticeFree,"EnemyName: Hey, you're free to play, right~?"
+KinkyDungeonRemindJailPlayApprenticeLoot,"EnemyName: Hey, uh, give that back... (blushes)"
+KinkyDungeonRemindJailPlayApprenticeKey,"EnemyName: Um, you have to return those!"
+KinkyDungeonRemindJailChaseApprenticeAttack0,"EnemyName: Eeep!"
+KinkyDungeonRemindJailChaseApprenticeAttack1,"EnemyName: Help me!"
+KinkyDungeonRemindJailChaseApprenticeAttack2,"EnemyName: Somebody help!"
+KinkyDungeonRemindJailChaseApprenticeSpell0,"EnemyName: A battle of wits, huh?"
+KinkyDungeonRemindJailChaseApprenticeSpell1,"EnemyName: You underestimate my power!"
+KinkyDungeonRemindJailChaseApprenticeSpell2,"EnemyName: I'll show you true skill!"
+KinkyDungeonRemindJailChaseApprenticeSpellItem,"EnemyName: Please put that down..."
+KinkyDungeonRemindJailChaseApprenticeShrine,"EnemyName: Hey, I used to pray at that shrine..."
+KinkyDungeonRemindJailChaseApprenticeChest,"EnemyName: Hey, my mistress won't appreciate you taking those..."
+KinkyDungeonRemindJailChaseApprenticeOrb,"EnemyName: The horror!"
+KinkyDungeonRemindJailChaseApprenticeJailbreak,"EnemyName: You're supposed to be in jail!"
+
+KinkyDungeonRemindJailPlayNecromancer0,"EnemyName: I've got a bone to pick with you!"
+KinkyDungeonRemindJailPlayNecromancer1,"EnemyName: Hey bonehead! What's up?"
+KinkyDungeonRemindJailPlayNecromancer2,"EnemyName: Finally, something to toy with after working myself to the bone..."
+KinkyDungeonRemindJailPlayNecromancerStruggle,"EnemyName: I find your struggling quite humerus."
+KinkyDungeonRemindJailPlayNecromancerFree,"EnemyName: Looks like I get a bone-us!"
+KinkyDungeonRemindJailPlayNecromancerLoot,"EnemyName: You're getting under my skin..."
+KinkyDungeonRemindJailPlayNecromancerKey,"EnemyName: Thought you were making a marrow escape, eh?"
+KinkyDungeonRemindJailChaseNecromancerAttack0,"EnemyName: You numskull!"
+KinkyDungeonRemindJailChaseNecromancerAttack1,"EnemyName: You've got a lot of spine to fight me!"
+KinkyDungeonRemindJailChaseNecromancerAttack2,"EnemyName: You don't have a leg to stand on..."
+KinkyDungeonRemindJailChaseNecromancerSpell0,"EnemyName: Magic... I feel it in my bones..."
+KinkyDungeonRemindJailChaseNecromancerSpell1,"EnemyName: You've made a grave mistake!"
+KinkyDungeonRemindJailChaseNecromancerSpell2,"EnemyName: Your spells are pathetic, I'm cracking up~"
+KinkyDungeonRemindJailChaseNecromancerSpellItem,"EnemyName: You've made a bone-a fide mistake."
+KinkyDungeonRemindJailChaseNecromancerShrine,"EnemyName: Defiling the shrines... that's where I jaw the line!"
+KinkyDungeonRemindJailChaseNecromancerChest,"EnemyName: There's a skele-tonne of things in there and none of them are yours!"
+KinkyDungeonRemindJailChaseNecromancerOrb,"EnemyName: You are bad to the bone..."
+KinkyDungeonRemindJailChaseNecromancerJailbreak,"EnemyName: Looks like you're bone to be wild, eh?"
 
 KinkyDungeonRemindJailPlayZombieFree,"EnemyName: Cute... Girl..."
 KinkyDungeonRemindJailPlayZombieStruggle,"EnemyName: Helpless..."
@@ -3778,12 +3940,39 @@ KDCategoryMap,World Generation
 KDWeaponConfiscated,You hand over your weapon reluctantly...
 
 dLeave,Leave
+dPause,(...)
+
+rDisbelief,"(The SPEAKER frowns)|Don't lie to me."
+rDisbeliefSub,"(The SPEAKER looks puzzled)|That doesn't seem right..."
+rDisbeliefDom,"(The SPEAKER chuckles)|What a cute lie."
+rDisbeliefRobot,"(The SPEAKER beeps)|Vital signs indicate dishonesty."
+
+rHeadMaidExcuseMe,"(The SPEAKER furrows her brow)|...Excuse me?"
+
+rBluffed,"(The SPEAKER tilts her head)|Right, sorry."
+rBluffedSub,"(The SPEAKER blushes deeply)|I'm... I'm sorry! Please carry on..."
+rBluffedDom,"(The SPEAKER smiles)|Keep up the good work, girl."
+rBluffedRobot,"(The SPEAKER beeps)|Vital signs indicate honesty. Carry on."
 
 rGoodGirl,"(The SPEAKER smiles)|Good girl."
+rGoodGirlDom,"(The SPEAKER smiles)|That's a good girl."
+rGoodGirlSub,"(The SPEAKER smiles)|Thank you."
+rGoodGirlRobot,"(The SPEAKER beeps)|Thank you for complying."
+
 rPunishment,"(The SPEAKER frowns)|Looks like you'll need to be punished. Get her!"
+rPunishmentSub,"(The SPEAKER looks embarrased)|Then... then... uh... someone stop her!"
+rPunishmentDom,"(The SPEAKER grins)|Then allow me to personally show you the rules."
+rPunishmentRobot,"(The SPEAKER beeps)|Subject is resisting. Begin capture protocol."
+
 
 rWeaponFound,"(The SPEAKER approaches you)|You're not supposed to be carrying a weapon.|Hand it over."
+rWeaponFoundRobot,"(The SPEAKER approaches you)|Contraband detected. Initiating confiscation.|Please comply."
 dWeaponFoundAccept,"Yes, miss... (Currently held weapon will be lost)"
 dWeaponFoundAcceptGag,"Mmph... (Nod politely) (Currently held weapon will be lost)"
 dWeaponFoundDeny,"No, I refuse!"
 dWeaponFoundDenyGag,"Mmph! (Shake your head)"
+dWeaponFoundIllusion,"The Head Maid asked me to retrieve it."
+dWeaponFoundConjure,"My mistress needs it for a special spell."
+dWeaponFoundElements,"It is an offering to the goddess of Elements."
+dWeaponFoundRope,"It's just a prop for a costume."
+dWeaponFoundLeather,"Are you questioning me? I'm a dragonslayer."
