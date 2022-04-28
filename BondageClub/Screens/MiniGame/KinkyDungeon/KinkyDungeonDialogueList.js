@@ -32,6 +32,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
 						KDGameData.CurrentDialogStage = "Bluff";
 						KDGameData.CurrentDialogMsg = "Bluffed";
+						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
@@ -43,6 +44,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Conjure", "Ghost"], ["Prisoner"]) > diff) {
 						KDGameData.CurrentDialogStage = "Bluff";
 						KDGameData.CurrentDialogMsg = "Bluffed";
+						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
@@ -54,6 +56,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Elements", "Ghost"], ["Prisoner"]) > diff) {
 						KDGameData.CurrentDialogStage = "Bluff";
 						KDGameData.CurrentDialogMsg = "Bluffed";
+						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
@@ -65,6 +68,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Rope", "Ghost"], ["Prisoner"]) > diff) {
 						KDGameData.CurrentDialogStage = "Bluff";
 						KDGameData.CurrentDialogMsg = "Bluffed";
+						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
@@ -76,6 +80,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Leather", "Ghost"], ["Prisoner"]) > diff) {
 						KDGameData.CurrentDialogStage = "Bluff";
 						KDGameData.CurrentDialogMsg = "Bluffed";
+						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 				},
