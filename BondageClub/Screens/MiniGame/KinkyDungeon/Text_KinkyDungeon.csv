@@ -185,8 +185,9 @@ KinkyDungeonDifficulty2,"Kinky: No save codes, orbs give random spells, start wi
 
 KinkyDungeonLog,Log
 
-KinkyDungeonDressPlayer,"Change Appearance"
-KinkyDungeonDressPlayerReset,"Reset Appearance"
+KinkyDungeonDressPlayer,"Change Outfit"
+KinkyDungeonDressPlayerReset,"Reset Outfit"
+KinkyDungeonDressPlayerImport,"Code"
 KinkyDungeonConfirm,Confirm Reset?
 
 KinkyDungeonSaveIntro0,"(Copy the code above and save it on your computer to load later)"
