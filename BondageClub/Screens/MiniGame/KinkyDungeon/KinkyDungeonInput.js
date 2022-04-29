@@ -408,6 +408,7 @@ function KDProcessInput(type, data) {
 
 			let dialogue = KDGetDialogue();
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+			if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 			if (dialogue.personalities) {
 				KDDialogueApplyPersonality(dialogue.personalities);
 			}
@@ -435,6 +436,7 @@ function KDProcessInput(type, data) {
 				if (modded && !dialogue.dontTouchText) {
 					dialogue = KDGetDialogue();
 					if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+					if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 				}
 			}
 			break;

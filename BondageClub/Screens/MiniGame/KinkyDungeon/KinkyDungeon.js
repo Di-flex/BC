@@ -1087,7 +1087,6 @@ function KinkyDungeonHandleClick() {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
 				CharacterRefresh(KinkyDungeonPlayer);
 				localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
-				KinkyDungeonConfigAppearance = true;
 			}
 			// Return to menu
 			KinkyDungeonState = "Menu";
@@ -1585,6 +1584,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.seed = KinkyDungeonSeed;
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
+	save.flags = KinkyDungeonFlags;
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1647,6 +1647,7 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
 			KinkyDungeonEntities = [];
+			if (saveData.flags) KinkyDungeonFlags = saveData.flags;
 			MiniGameKinkyDungeonLevel = saveData.level;
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;

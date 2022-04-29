@@ -92,5 +92,46 @@ let KDDialogue = {
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 		}
-	}
+	},
+	"PrisonIntro": {
+		response: "Default",
+		options: {
+			"NewLife": {playertext: "Default", response: "Default",
+				options: {
+					"Pout": {playertext: "Default", response: "Default", options: {"Continue" : {playertext: "Continue", leadsToStage: "Rules"}}},
+					"Brat": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: () => {
+							KinkyDungeonChangeRep("Ghost", -10);
+							KinkyDungeonChangeRep("Prisoner", 10);
+						},
+						options: {"Continue" : {playertext: "Continue", leadsToStage: "Rules"}}},
+					"Sub": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: () => {
+							KinkyDungeonChangeRep("Ghost", 10);
+						},
+						options: {"Continue" : {playertext: "Continue", leadsToStage: "Rules"}}},
+				}
+			},
+			"Rules": {playertext: "Default", response: "Default",
+				options: {
+					"Pout": {playertext: "Default", response: "Default", options: {"Continue" : {playertext: "Continue", exitDialogue: true}}},
+					"Brat": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: () => {
+							KinkyDungeonChangeRep("Ghost", -10);
+							KinkyDungeonChangeRep("Prisoner", 10);
+						},
+						options: {"Continue" : {playertext: "Continue", exitDialogue: true}}},
+					"Sub": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: () => {
+							KinkyDungeonChangeRep("Ghost", 10);
+						},
+						options: {"Continue" : {playertext: "Continue", exitDialogue: true}}},
+				}
+			},
+		}
+	},
 };
+/*
+clickFunction: () => {
+	KinkyDungeonChangeRep("Ghost", 3);
+},*/
