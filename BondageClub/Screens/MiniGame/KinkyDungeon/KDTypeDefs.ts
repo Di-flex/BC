@@ -234,7 +234,7 @@ interface restraint {
 	/** Multiplies the escape chance */
 	escapeMult?: number,
 	/** Clothes for dressing */
-	alwaysDress?: any[],
+	alwaysDress?: overrideDisplayItem[],
 	/** The item always bypasses covering items, such as dresses and chastity belts */
 	bypass?: boolean,
 	/** The item can only be cut with magical implements */
@@ -265,6 +265,13 @@ interface restraint {
 	enchanted?: boolean,
 }
 
+interface overrideDisplayItem {
+	Item: string,
+	Group: string,
+	Color: string[]|string,
+	override?: boolean,
+	OverridePriority: number[]|number
+}
 
 interface enemy {
 	name: string,

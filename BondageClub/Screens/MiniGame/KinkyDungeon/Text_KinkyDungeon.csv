@@ -376,6 +376,8 @@ KinkyDungeonRarity10,Divine
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
 
+KinkyDungeonInventoryItemnull,Knife
+
 KinkyDungeonInventoryItemOutfitDefault,Wizard's Outfit
 KinkyDungeonInventoryItemOutfitDefaultDesc,Your favorite outfit for adventuring.
 KinkyDungeonInventoryItemOutfitDefaultDesc2,Your original outfit. No bonuses, no penalties.
@@ -1717,6 +1719,9 @@ RestraintKittyPawsDesc2,"They make it hard to manipulate anything at all, but ar
 RestraintKittySuit,Bast Suit
 RestraintKittySuitDesc,"Leather suit used on unruly initiates of the Bast cult."
 RestraintKittySuitDesc2,"It's nearly impossible to escape without help once locked inside."
+RestraintKittyPetSuit,Bast Petsuit
+RestraintKittyPetSuitDesc,"Enhanced suit used for select members of the Bast cult."
+RestraintKittyPetSuitDesc2,"It's nearly impossible to escape without help once locked inside."
 
 RestraintMysticDuctTapeHead,Blessed Wrappings (Head)
 RestraintMysticDuctTapeHeadDesc,"A band of magic embalming ribbon wrapped tight around your eyes."
@@ -3978,7 +3983,7 @@ dContinue,(Continue...)
 
 rPrisonIntro,"(The SPEAKER approaches you in your cell)|Well well, what do we have here? A new guest?|Perhaps I should give you a rundown of your new life~"
 
-rPrisonIntroNewLife,"(The SPEAKER chuckles)|Don't tell me you seriously think we're letting you go?|You broke the rules, ignored the warnings.|New new job is to make the people here happy."
+rPrisonIntroNewLife,"(The SPEAKER chuckles)|Don't tell me you seriously think we're letting you go?|You broke the rules, ignored the warnings.|Your new job is to make the people here happy."
 rPrisonIntroNewLife_Brat,"(The SPEAKER chuckles)|Hah, looks like you've got lots of training ahead of you.|Soon you'll have too much pleasure for your own good~"
 rPrisonIntroNewLife_Pout,"(The SPEAKER giggles)|Don't worry, you'll come to enjoy it soon enough."
 rPrisonIntroNewLife_Sub,"(The SPEAKER smiles)|Heh, looks like you'll be fitting right in."

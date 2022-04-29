@@ -99,6 +99,7 @@ function KinkyDungeonDressPlayer() {
 	// @ts-ignore
 	CharacterAppearanceBuildCanvas = () => {};
 
+	// if true, nakeds the player, then reclothes
 	if (KinkyDungeonCheckClothesLoss) {
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
 		if (!KDNaked)
@@ -108,7 +109,6 @@ function KinkyDungeonDressPlayer() {
 	}
 
 	for (let clothes of KinkyDungeonDresses[KinkyDungeonCurrentDress]) {
-
 		if (!clothes.Lost && KinkyDungeonCheckClothesLoss) {
 			if (clothes.Group == "Necklace") {
 				if (KinkyDungeonGetRestraintItem("ItemTorso") && KDRestraint(KinkyDungeonGetRestraintItem("ItemTorso")).harness) clothes.Lost = true;
@@ -295,9 +295,15 @@ function KinkyDungeonWearForcedClothes() {
 		if (KDRestraint(inv).alwaysDress) {
 			for (let dress of KDRestraint(inv).alwaysDress) {
 				if (dress.override || !dress.Group.includes("Item") || !InventoryGet(KinkyDungeonPlayer, dress.Group)) {
+					let canReplace = dress.override!==null && dress.override===true? true : !InventoryGet(KinkyDungeonPlayer, dress.Group)
+					if (!canReplace) {return;}
 					InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
+					let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
+
+					if (!item.Property) item.Property = {Attribute: [inv.name]};
+					else item.Property.Attribute.push(inv.name);
+
 					if (dress.OverridePriority) {
-						let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
 						if (item) {
 							if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
 							else item.Property.OverridePriority = dress.OverridePriority;
