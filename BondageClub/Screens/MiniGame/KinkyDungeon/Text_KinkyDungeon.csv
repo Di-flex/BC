@@ -3973,3 +3973,32 @@ dWeaponFoundConjure,"My mistress needs it for a special spell."
 dWeaponFoundElements,"It is an offering to the goddess of Elements."
 dWeaponFoundRope,"It's just a prop for a costume."
 dWeaponFoundLeather,"Are you questioning me? I'm a dragonslayer."
+
+dContinue,(Continue...)
+
+rPrisonIntro,"(The SPEAKER approaches you in your cell)|Well well, what do we have here? A new guest?|Perhaps I should give you a rundown of your new life~"
+
+rPrisonIntroNewLife,"(The SPEAKER chuckles)|Don't tell me you seriously think we're letting you go?|You broke the rules, ignored the warnings.|New new job is to make the people here happy."
+rPrisonIntroNewLife_Brat,"(The SPEAKER chuckles)|Hah, looks like you've got lots of training ahead of you.|Soon you'll have too much pleasure for your own good~"
+rPrisonIntroNewLife_Pout,"(The SPEAKER giggles)|Don't worry, you'll come to enjoy it soon enough."
+rPrisonIntroNewLife_Sub,"(The SPEAKER smiles)|Heh, looks like you'll be fitting right in."
+
+rPrisonIntroRules,"(The SPEAKER chuckles)|You're probably wondering what's in store for you.|It's simple: You behave and do as you're told.|Eventually you will get to roam around.|Don't you dare try to steal anything."
+rPrisonIntroRules_Brat,"(The SPEAKER chuckles)|Babe, you're going to be locked up for a looooong time."
+rPrisonIntroRules_Pout,"(The SPEAKER giggles and returns to her work)"
+rPrisonIntroRules_Sub,"(The SPEAKER smiles)|Wonderful. You'll be meeting your new friends soon!"
+
+dPrisonIntro_NewLife,"(New life?)"
+dPrisonIntro_Rules,"(Let her continue)"
+
+dPrisonIntroNewLife_Pout,"(Pout at her)"
+dPrisonIntroNewLife_Brat,"You can't make me do that!"
+dPrisonIntroNewLife_BratGag,"(Scream into your gag)"
+dPrisonIntroNewLife_Sub,"That sounds alright..."
+dPrisonIntroNewLife_SubGag,"(Moan into your gag and giggle)"
+
+dPrisonIntroRules_Pout,"(Glare at her)"
+dPrisonIntroRules_Brat,"Let me out this instant!"
+dPrisonIntroRules_BratGag,"(Scream into your gag uselessly)"
+dPrisonIntroRules_Sub,"I will be a good girl!"
+dPrisonIntroRules_SubGag,"(Giggle and wiggle your body)"

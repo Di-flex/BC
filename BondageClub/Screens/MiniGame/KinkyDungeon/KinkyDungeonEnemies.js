@@ -64,9 +64,9 @@ function KinkyDungeonSetFlag(Flag, Duration) {
 
 function KinkyDungeonUpdateFlags(delta) {
 	for (let f of Object.keys(KinkyDungeonFlags)) {
-		if (KinkyDungeonFlags[f] != 0) {
+		if (KinkyDungeonFlags[f] != -1) {
 			if (KinkyDungeonFlags[f] > 0) KinkyDungeonFlags[f] -= delta;
-			if (KinkyDungeonFlags[f] <= 0) KinkyDungeonFlags[f] = undefined;
+			if (KinkyDungeonFlags[f] <= 0 && KinkyDungeonFlags[f] != -1) KinkyDungeonFlags[f] = undefined;
 		}
 	}
 }

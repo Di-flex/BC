@@ -46,6 +46,7 @@ function KDDrawDialogue() {
 		let dialogue = KDGetDialogue();
 		// Now that we have the dialogue, we check if we have a message
 		if (dialogue.response && !KDGameData.CurrentDialogMsg) KDGameData.CurrentDialogMsg = dialogue.response;
+		if (KDGameData.CurrentDialogMsg == "Default") KDGameData.CurrentDialogMsg = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 
 		// Type the message
 		let text = TextGet("r" + KDGameData.CurrentDialogMsg).split("|");
@@ -64,6 +65,7 @@ function KDDrawDialogue() {
 					&& (!entries[i][1].gagRequired || gagged)
 					&& (!entries[i][1].gagDisabled || !gagged)) {
 					let playertext = entries[i][1].playertext;
+					if (playertext == "Default") playertext = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage + "_" + entries[i][0];
 					if (entries[i][1].gag && KDDialogueGagged()) playertext = playertext + "Gag";
 					DrawButton(700, 450 + II * 60, 600, 50, TextGet("d" + playertext), KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
 					II += 1;

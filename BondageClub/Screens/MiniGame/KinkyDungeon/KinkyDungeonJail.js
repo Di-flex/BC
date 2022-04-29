@@ -264,6 +264,10 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			x:xx, y:yy, gx: xx - 2, gy: yy, CurrentAction: "jailWander",
 			hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 
+		if (!KinkyDungeonFlags.JailIntro) {
+			KinkyDungeonFlags.JailIntro = -1;
+			KDStartDialog("PrisonIntro", guard.Enemy.name, true, "");
+		}
 
 		if (KinkyDungeonTiles.get((xx-1) + "," + yy) && KinkyDungeonTiles.get((xx-1) + "," + yy).Type == "Door") {
 			KinkyDungeonTiles.get((xx-1) + "," + yy).Lock = undefined;
