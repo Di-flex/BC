@@ -873,6 +873,9 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (enemy.fx && enemy.fy) {
 					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
+				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonHostile(enemy) && enemy.vp > 0.5) {
+					enemy.hostile = KDMaxAlertTimer;
+				}
 			}
 		}
 
