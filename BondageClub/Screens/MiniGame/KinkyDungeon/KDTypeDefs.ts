@@ -553,6 +553,8 @@ interface enemy {
 	effect?: any,
 	/** Cant cast spells while winding up an attack */
 	noSpellDuringAttack?: boolean,
+	/** Base faction of this enemy, overridden by the entity faction */
+	faction?: string,
 
 
 }
@@ -686,6 +688,8 @@ interface entity {
 	gxx?: number,
 	gyy?: number,
 	rage?: number,
+	faction?: string,
+	allied?: boolean,
 	bind?: number,
 	blind?: number,
 	slow?: number,
