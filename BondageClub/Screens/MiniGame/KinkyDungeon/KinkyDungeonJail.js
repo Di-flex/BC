@@ -160,8 +160,16 @@ function KinkyDungeonAggroAction(action, data) {
 	}
 }
 
-let KDLocalChaseTypes = ["Refusal"]
+/**
+ * @type {string[]}
+ */
+let KDLocalChaseTypes = ["Refusal"];
 
+/**
+ *
+ * @param {entity} enemy
+ * @param {string} Type
+ */
 function KinkyDungeonStartChase(enemy, Type) {
 	if (!enemy && !KDLocalChaseTypes.includes(Type)) {
 		if (KDGameData.PrisonerState == 'parole') {
@@ -191,6 +199,11 @@ function KinkyDungeonStartChase(enemy, Type) {
 	}
 }
 
+/**
+ *
+ * @param {entity} enemy
+ * @param {string} Type
+ */
 function KinkyDungeonPlayExcuse(enemy, Type) {
 	if (Type == "Free" && enemy && enemy.Enemy.noChaseUnrestrained) {
 		return;
@@ -208,8 +221,16 @@ function KinkyDungeonPlayExcuse(enemy, Type) {
 	}
 }
 
+/**
+ *
+ * @param {string} Group
+ * @returns {restraint}
+ */
 function KinkyDungeonGetJailRestraintForGroup(Group) {
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+	/**
+	 * @type {restraint}
+	 */
 	let cand = null;
 	let candLevel = 0;
 	for (let r of params.defeat_restraints) {
