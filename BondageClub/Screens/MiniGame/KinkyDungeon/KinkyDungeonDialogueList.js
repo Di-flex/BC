@@ -31,7 +31,7 @@ let KDDialogue = {
 					if (KDGameData.CurrentDialogMsgSpeaker == "MaidforceHead") {
 						KDGameData.CurrentDialogStage = "Deny";
 						KDGameData.CurrentDialogMsg = "HeadMaidExcuseMe";
-						KinkyDungeonStartChase(undefined, "Refusal");
+						KinkyDungeonStartChase(undefined, "Local");
 					} else {
 						let diff = KDPersonalitySpread(40, 60, 80);
 						if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {

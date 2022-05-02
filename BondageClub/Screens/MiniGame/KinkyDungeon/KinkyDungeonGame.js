@@ -171,6 +171,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonNewGame += 1;
 }
 function KinkyDungeonInitialize(Level, Load) {
+	KDInitFactions();
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -2218,7 +2219,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	}
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile() || KDAllied(Enemy))) {
+		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile(Enemy) || KDAllied(Enemy))) {
 			KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
 			KDGameData.ConfirmAttack = true;
 			noadvance = true;

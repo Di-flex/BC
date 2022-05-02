@@ -8,7 +8,7 @@
  * @returns {boolean}
  */
 function KDAllied(enemy) {
-	return !(enemy.rage > 0) && enemy.Enemy && enemy.Enemy.allied;
+	return !(enemy.rage > 0) && !(enemy.hostile > 0) && KDFactionAllied("Player", enemy);
 }
 
 /**
@@ -18,7 +18,8 @@ function KDAllied(enemy) {
  * @returns {boolean}
  */
 function KDHostile(enemy, enemy2) {
-	return (enemy.rage > 0) || (enemy.Enemy && ((!enemy2 && !KDAllied(enemy)) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), KDGetFaction(enemy2)))));
+	if (enemy == enemy2) return false;
+	return (enemy.rage > 0) || (!enemy2 && KDFactionHostile("Player", enemy) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), KDGetFaction(enemy2))));
 }
 
 /**
@@ -38,10 +39,13 @@ function KDGetFaction(enemy) {
 /**
  * Consults the faction table and decides if the two mentioned factions are hostile
  * @param {string} a - Faction 1
- * @param {string} b - Faction 2
+ * @param {string | entity} b - Faction 2
  * @returns {boolean}
  */
 function KDFactionHostile(a, b) {
+	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return true;
+	if (a == "Player" && !(typeof b === "string") && b.rage > 0) return true;
+	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return true;
 	if (a == "Player" && b == "Enemy") return true;
 	if (b == "Player" && a == "Enemy") return true;
@@ -51,10 +55,13 @@ function KDFactionHostile(a, b) {
 /**
  * Consults the faction table and decides if the two mentioned factions are allied
  * @param {string} a - Faction 1
- * @param {string} b - Faction 2
+ * @param {string | entity} b - Faction 2
  * @returns {boolean}
  */
 function KDFactionAllied(a, b) {
+	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return false;
+	if (!(typeof b === "string") && b.rage > 0) return false;
+	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;

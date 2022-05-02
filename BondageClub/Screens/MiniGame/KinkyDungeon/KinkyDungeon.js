@@ -110,9 +110,11 @@ let KDOptOut = false;
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
 * CurrentDialogMsgPersonality: string,
+* AlertTimer: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	AlertTimer: 0,
 	OrgasmNextStageTimer: 0,
 
 	PoolUses: 0,

@@ -688,6 +688,7 @@ interface entity {
 	gxx?: number,
 	gyy?: number,
 	rage?: number,
+	hostile?: number,
 	faction?: string,
 	allied?: boolean,
 	bind?: number,
