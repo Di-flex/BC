@@ -728,6 +728,180 @@ interface KinkyDialogueTrigger {
 	weight: (enemy, dist) => number;
 }
 
+interface spell {
+	name: string;
+	/** Whether the spell defaults to the Player faction */
+	allySpell?: boolean;
+	/** Whether the spell defaults to the Enemy faction */
+	enemySpell?: boolean;
+	/** Conjure, Illusion, Elements */
+	school?: string;
+	/** if the type is special, this is the special type */
+	special?: string;
+	/** Damage of the spell */
+	power?: number;
+	/** Damage type */
+	damage?: string;
+	/** size of sprite */
+	size?: number;
+	/** AoE */
+	aoe?: number;
+	/** bind */
+	bind?: number;
+	/** Bonus daMAGE TO BOUND TATRGETS */
+	boundBonus?: number;
+	/** outfit applied (special parameter) */
+	outfit?: string;
+	/** speed */
+	speed?: number;
+	knifecost?: number;
+	staminacost?: number;
+	manacost: number;
+	/** Verbal, arms, or legs */
+	components?: any[];
+	/** Spell level */
+	level: number;
+	/** Whether the spell is passive (like the summon count up) or active like the bolt or toggle spells*/
+	passive?: boolean;
+	/** costOnToggle */
+	costOnToggle?: boolean;
+	/** Type of the spell */
+	type: string;
+	/** Type of effect on hit */
+	onhit?: string;
+	/** Duration of the status effect applied */
+	time?: number;
+	/** For Inert spells, this is the lifetime of the main bullet */
+	delay?: number;
+	/** castRange */
+	castRange?: number;
+	/** Spell range */
+	range?: number;
+	/** lifetime of the Hit bullet created by the spell, not the bullet itself in the case of an "inert" bullet*/
+	lifetime?: number;
+	/** Specifically for the bullet lifetime, currently unused */
+	bulletLifetime?: number;
+	/** channel turns */
+	channel?: number;
+	/** Noise spell makes on cast */
+	noise?: number;
+	/** block */
+	block?: number;
+	/** played on cast */
+	sfx?: string;
+	/** Played on damage dealt */
+	hitsfx?: string;
+	/** Played on bullet impact */
+	landsfx?: string;
+	/** trailPower */
+	trailPower?: number;
+	/** trailHit */
+	trailHit?: string;
+	/** trailLifetime */
+	trailLifetime?: number;
+	/** trailTime */
+	trailTime?: number;
+	/** Random number to increase lifetime by */
+	lifetimeHitBonus?: number;
+	/** Random number to increase trail lifetime by */
+	trailLifetimeBonus?: number;
+	/** Playereffect of the trail */
+	trailPlayerEffect?: any;
+	/** trailChance */
+	trailChance?: number;
+	/** trailDamage */
+	trailDamage?: string;
+	/** trailspawnaoe */
+	trailspawnaoe?: number;
+	/** Casts a spell as a trail */
+	trailcast?: any;
+	/** trail */
+	trail?: string;
+	/** Spell points cost to buy */
+	spellPointCost?: number;
+	/** Whether the spell heals or not */
+	heal?: boolean;
+	/** Whether AI treats as a buff */
+	buff?: boolean;
+	/** Player can only cast spell on a creature or player */
+	mustTarget?: boolean;
+	/** Player cant target player */
+	noTargetPlayer?: boolean;
+	/** Only target walls */
+	WallsOnly?: boolean;
+	/** Spell can be dodged */
+	evadeable?: boolean;
+	/** Targeting location */
+	meleeOrigin?: boolean;
+	/** Cant hit the same enemy twice per turrn, impoprtant for piercing spells */
+	noDoubleHit?: boolean;
+	/** Doesnt do spellcast on the hit */
+	noCastOnHit?: boolean;
+	/** Casts a spellcast during the delay */
+	castDuringDelay?: boolean;
+	/** Casts spell */
+	spellcast?: any;
+	/** Casts spell on cast */
+	extraCast?: any;
+	/** spell cast on hit */
+	spellcasthit?: any;
+	/** List of buffs applied by the spell */
+	buffs?: any[];
+	/** Whether the spell is off by default */
+	defaultOff?: boolean;
+	/** List of events  applied by the spell */
+	events?: KinkyDungeonEvent[];
+	/** spell pierces */
+	piercing?: boolean;
+	/** spell pierces */
+	passthrough?: boolean;
+	/** Deals DoT */
+	dot?: boolean;
+	/** spell pierces */
+	noTerrainHit?: boolean;
+	/** spell pierces */
+	noEnemyCollision?: boolean;
+	/** trail pierces */
+	piercingTrail?: boolean;
+	/** nonVolatile */
+	nonVolatile?: boolean;
+	/** Cancels automove when cast */
+	cancelAutoMove?: boolean;
+	/** noTargetDark */
+	noTargetDark?: boolean;
+	/** selfTargetOnly */
+	selfTargetOnly?: boolean;
+	/** AI will only target creatures with this tag */
+	filterTags?: string[];
+	/** Whether or not sends a message on cast */
+	msg?: boolean;
+	/** Suppress summon message */
+	noSumMsg?: boolean;
+	/** Targeted like a bolt, showing the aim line */
+	projectileTargeting?: boolean;
+	/** CastInWalls */
+	CastInWalls?: boolean;
+	/** noTargetEnemies */
+	noTargetEnemies?: boolean;
+	/** Sets the enemy's specialCD shared between others */
+	specialCD?: number;
+	/** AI wont choose this as first choice */
+	noFirstChoice?: boolean;
+	/** Player effect */
+	playerEffect?: any;
+	/** Doesnt send cast message */
+	noCastMsg?: boolean;
+	/** Casts on self always */
+	selfcast?: boolean;
+	/** Cant miscast */
+	noMiscast?: boolean;
+	/** summon */
+	summon?: any[];
+	/** Spell does not show up in the spells scrreen until learned */
+	secret?: boolean;
+
+}
+
 interface KinkyDialogue {
 	/** Function to play when clicked. If not specified, nothing happens. */
 	clickFunction?: () => void;

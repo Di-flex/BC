@@ -717,6 +717,16 @@ function KinkyDungeonGetCost(Spell) {
 	return cost;
 }
 
+/**
+ *
+ * @param {number} targetX
+ * @param {number} targetY
+ * @param {spell} spell
+ * @param {*} enemy
+ * @param {*} player
+ * @param {*} bullet
+ * @returns {string}
+ */
 function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let entity = KinkyDungeonPlayerEntity;
 	let moveDirection = KinkyDungeonMoveDirection;
@@ -724,7 +734,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		miscastChance: KinkyDungeonMiscastChance,
 	};
 
-	let faction = "Enemy";
+	let faction = spell.allySpell ? "Player" : spell.enemySpell ? "Enemy" : "Player";
 	if (!enemy && !bullet && player) faction = "Player";
 	else if (enemy) {
 		let f = KDGetFaction(enemy);
@@ -845,7 +855,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			vx: moveDirection.x,vy: moveDirection.y, born: 1,
 			bullet: {faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events, aoe: spell.aoe,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
-				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}};
+				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}};
 		KinkyDungeonBulletHit(b, 1);
 	} else if (spell.type == "buff") {
 		let aoe = spell.aoe;
