@@ -1,47 +1,10 @@
 "use strict";
 
-/** @type {Record<string, KinkyDialogue>} */
-let KDDialogue = {
-	"WeaponFound": {
-		response: "WeaponFound",
-		personalities: ["Robot"],
-		options: {
-			"Accept": {gag: true, playertext: "WeaponFoundAccept", response: "GoodGirl", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {
-					KinkyDungeonSendTextMessage(10, TextGet("KDWeaponConfiscated"), "red", 2);
-					let weapon = KinkyDungeonPlayerDamage.name;
-					if (weapon && weapon != "Knife") {
-						KinkyDungeonChangeRep("Ghost", 3);
-						let item = KinkyDungeonInventoryGetWeapon(weapon);
-						KDSetWeapon(null);
-						KinkyDungeonAddLostItems([item], false);
-						KinkyDungeonInventoryRemove(item);
-					}
-				},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Bluff": {playertext: "", response: "",
-				prerequisiteFunction: (gagged) => {return false;},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Deny": {gag: true, playertext: "WeaponFoundDeny", response: "Punishment", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {KinkyDungeonStartChase(undefined, "Refusal");},
-				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
-			"Illusion": {gagDisabled: true, playertext: "WeaponFoundIllusion", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: () => {
-					let diff = KDStrictPersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
-						80 :
-						(!KDLoosePersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ?
-						60 :
-						40);
-					if (KDBasicCheck(["Illusion", "Ghost"], ["Prisoner"]) > diff) {
-						KDGameData.CurrentDialogStage = "Bluff";
-						KDGameData.CurrentDialogMsg = "Bluffed";
-					}
-					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
-				},
-				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
-		}
-	}
-};
+function KDPersonalitySpread(Min, Avg, Max) {
+	return KDStrictPersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ? Max :
+		(!KDLoosePersonalities.includes(KDGameData.CurrentDialogMsgPersonality) ? Avg :
+		Min);
+}
 
 function KDBasicCheck(PositiveReps, NegativeReps) {
 	let value = 0;
@@ -83,6 +46,7 @@ function KDDrawDialogue() {
 		let dialogue = KDGetDialogue();
 		// Now that we have the dialogue, we check if we have a message
 		if (dialogue.response && !KDGameData.CurrentDialogMsg) KDGameData.CurrentDialogMsg = dialogue.response;
+		if (KDGameData.CurrentDialogMsg == "Default") KDGameData.CurrentDialogMsg = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 
 		// Type the message
 		let text = TextGet("r" + KDGameData.CurrentDialogMsg).split("|");
@@ -101,6 +65,7 @@ function KDDrawDialogue() {
 					&& (!entries[i][1].gagRequired || gagged)
 					&& (!entries[i][1].gagDisabled || !gagged)) {
 					let playertext = entries[i][1].playertext;
+					if (playertext == "Default") playertext = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage + "_" + entries[i][0];
 					if (entries[i][1].gag && KDDialogueGagged()) playertext = playertext + "Gag";
 					DrawButton(700, 450 + II * 60, 600, 50, TextGet("d" + playertext), KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
 					II += 1;

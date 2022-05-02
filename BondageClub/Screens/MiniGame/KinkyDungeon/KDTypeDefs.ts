@@ -553,6 +553,8 @@ interface enemy {
 	effect?: any,
 	/** Cant cast spells while winding up an attack */
 	noSpellDuringAttack?: boolean,
+	/** Base faction of this enemy, overridden by the entity faction */
+	faction?: string,
 
 
 }
@@ -686,6 +688,9 @@ interface entity {
 	gxx?: number,
 	gyy?: number,
 	rage?: number,
+	hostile?: number,
+	faction?: string,
+	allied?: boolean,
 	bind?: number,
 	blind?: number,
 	slow?: number,
@@ -712,6 +717,16 @@ type KinkyDungeonDress = {
 	OverridePriority?: number;
 	Skirt?: boolean;
 }[]
+
+interface KinkyDialogueTrigger {
+	dialogue: string;
+	allowedPrisonStates?: string[];
+	blockDuringPlaytime?: boolean;
+	excludeTags?: string[];
+	playRequired?: boolean;
+	prerequisite: (enemy, dist) => boolean;
+	weight: (enemy, dist) => number;
+}
 
 interface KinkyDialogue {
 	/** Function to play when clicked. If not specified, nothing happens. */
@@ -784,6 +799,7 @@ interface KinkyDungeonSave {
 	spells: string[];
 	inventory: item[];
 	KDGameData: KDGameDataBase;
+	flags: Record<string, number>;
 	stats: {
 		picks: number;
 		keys: number;

@@ -110,9 +110,11 @@ let KDOptOut = false;
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
 * CurrentDialogMsgPersonality: string,
+* AlertTimer: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	AlertTimer: 0,
 	OrgasmNextStageTimer: 0,
 
 	PoolUses: 0,
@@ -1000,7 +1002,7 @@ function KinkyDungeonHandleClick() {
 			Y = Math.max(Y, Y_alt);
 			let height = KDPerksYPad + KDPerksButtonHeight*Math.max(c.buffs.length, c.debuffs.length);
 			if (Y + height > KDPerksMaxY) {
-				X += KDPerksButtonWidth*2 + KDPerksXPad;
+				X += (KDPerksButtonWidth + KDPerksButtonWidthPad)*2 + KDPerksXPad;
 				Y = KDPerksYStart;
 			}
 
@@ -1008,7 +1010,7 @@ function KinkyDungeonHandleClick() {
 			Y_alt = Y;
 			for (let stat of c.buffs.concat(c.debuffs)) {
 				let YY = stat[1].cost < 0 ? Y_alt : Y;
-				let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth : X;
+				let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth + KDPerksButtonWidthPad : X;
 
 				if (MouseIn(XX, YY, KDPerksButtonWidth, KDPerksButtonHeight)) {
 					if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
@@ -1019,8 +1021,8 @@ function KinkyDungeonHandleClick() {
 						localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
 					}
 				}
-				if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight;
-				else Y += KDPerksButtonHeight;
+				if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight + KDPerksButtonHeightPad;
+				else Y += KDPerksButtonHeight + KDPerksButtonHeightPad;
 			}
 		}
 
@@ -1084,7 +1086,6 @@ function KinkyDungeonHandleClick() {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
 				CharacterRefresh(KinkyDungeonPlayer);
 				localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
-				KinkyDungeonConfigAppearance = true;
 			}
 			// Return to menu
 			KinkyDungeonState = "Menu";
@@ -1384,7 +1385,7 @@ function KinkyDungeonExit() {
 
 	if (CurrentScreen == "ChatRoom" && KinkyDungeonState != "Menu" && KinkyDungeonState == "Lose") {
 		let Dictionary = [
-			{ Tag: "SourceCharacter", Text: Player.Name, MemberNumber: Player.MemberNumber },
+			{ Tag: "SourceCharacter", Text: CharacterNickname(Player), MemberNumber: Player.MemberNumber },
 			{ Tag: "KinkyDungeonLevel", Text: String(MiniGameKinkyDungeonLevel)},
 		];
 		// @ts-ignore
@@ -1582,6 +1583,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.seed = KinkyDungeonSeed;
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
+	save.flags = KinkyDungeonFlags;
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1644,6 +1646,7 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
 			KinkyDungeonEntities = [];
+			if (saveData.flags) KinkyDungeonFlags = saveData.flags;
 			MiniGameKinkyDungeonLevel = saveData.level;
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;
@@ -1787,8 +1790,10 @@ function sfc32(a, b, c, d) {
 	};
 }
 
-let KDPerksButtonWidth = 200;
-let KDPerksButtonHeight = 40;
+let KDPerksButtonWidth = 198;
+let KDPerksButtonWidthPad = 2;
+let KDPerksButtonHeight = 38;
+let KDPerksButtonHeightPad = 2;
 let KDPerksXPad = 50;
 let KDPerksYPad = 50;
 let KDPerksYStart = 220;
@@ -1811,7 +1816,7 @@ function KinkyDungeonDrawPerks(NonSelectable) {
 		Y = Math.max(Y, Y_alt);
 		let height = KDPerksYPad + KDPerksButtonHeight*Math.max(c.buffs.length, c.debuffs.length);
 		if (Y + height > KDPerksMaxY) {
-			X += KDPerksButtonWidth*2 + KDPerksXPad;
+			X += (KDPerksButtonWidth + KDPerksButtonWidthPad)*2 + KDPerksXPad;
 			Y = KDPerksYStart;
 		}
 
@@ -1823,7 +1828,7 @@ function KinkyDungeonDrawPerks(NonSelectable) {
 		MainCanvas.textAlign = "center";
 		for (let stat of c.buffs.concat(c.debuffs)) {
 			let YY = stat[1].cost < 0 ? Y_alt : Y;
-			let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth : X;
+			let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth + KDPerksButtonWidthPad : X;
 
 			let colorAvailable = NonSelectable ?
 			fadeColor :
@@ -1844,8 +1849,8 @@ function KinkyDungeonDrawPerks(NonSelectable) {
 				DrawTextFit(TextGet("KinkyDungeonStatCost").replace("AMOUNT", stat[1].cost + ""), 1250, 190, 1000, "white");
 				tooltip = true;
 			}
-			if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight;
-			else Y += KDPerksButtonHeight;
+			if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight + KDPerksButtonHeightPad;
+			else Y += KDPerksButtonHeight + KDPerksButtonHeightPad;
 		}
 	}
 	return tooltip;

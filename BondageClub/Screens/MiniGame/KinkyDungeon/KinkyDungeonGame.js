@@ -171,6 +171,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonNewGame += 1;
 }
 function KinkyDungeonInitialize(Level, Load) {
+	KDInitFactions();
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
@@ -2004,8 +2005,13 @@ function KinkyDungeonClickGame(Level) {
 	// First we handle buttons
 	let prevSpell = KinkyDungeonTargetingSpell;
 	if (KDGameData.CurrentDialog) {
+		let result = KDHandleDialogue();
+		// @ts-ignore
+		CharacterRefresh = _CharacterRefresh;
+		// @ts-ignore
+		CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 		// Done, converted to input
-		return KDHandleDialogue();
+		return result;
 	}
 	if (KinkyDungeonControlsEnabled() && KinkyDungeonHandleHUD()) {
 		if (prevSpell) KinkyDungeonTargetingSpell = null;
@@ -2213,7 +2219,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	}
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile() || KDAllied(Enemy))) {
+		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile(Enemy) || KDAllied(Enemy))) {
 			KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
 			KDGameData.ConfirmAttack = true;
 			noadvance = true;
@@ -2447,9 +2453,10 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	if (KinkyDungeonCurrentTick > 100000) KinkyDungeonCurrentTick = 0;
 	KinkyDungeonItemCheck(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, MiniGameKinkyDungeonLevel); //console.log("Item Check " + (performance.now() - now));
 	KinkyDungeonUpdateBuffs(delta);
+	KinkyDungeonUpdateEnemies(delta, true); //console.log("Enemy Check " + (performance.now() - now));
 	KinkyDungeonUpdateBullets(delta, true); //console.log("Bullets Check " + (performance.now() - now));
 	KinkyDungeonUpdateBulletsCollisions(delta); //console.log("Bullet Check " + (performance.now() - now));
-	KinkyDungeonUpdateEnemies(delta); //console.log("Enemy Check " + (performance.now() - now));
+	KinkyDungeonUpdateEnemies(delta, false); //console.log("Enemy Check " + (performance.now() - now));
 	KinkyDungeonUpdateBullets(delta); //console.log("Bullets Check " + (performance.now() - now));
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
 

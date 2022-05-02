@@ -507,7 +507,7 @@ const KDEventMapBuff = {
  * @param {*} data
  */
 function KinkyDungeonHandleBuffEvent(Event, e, buff, entity, data) {
-	if (Event === e.trigger) {
+	if (Event === e.trigger && KDEventMapBuff[Event] && KDEventMapBuff[Event][e.type]) {
 		KDEventMapBuff[Event][e.type](e, buff, entity, data);
 	}
 }
@@ -899,7 +899,7 @@ const KDEventMapWeapon = {
  * @param {*} data
  */
 function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
-	if (Event === e.trigger) {
+	if (Event === e.trigger && KDEventMapWeapon[Event] && KDEventMapWeapon[Event][e.type]) {
 		KDEventMapWeapon[Event][e.type](e, weapon, data);
 	}
 }
