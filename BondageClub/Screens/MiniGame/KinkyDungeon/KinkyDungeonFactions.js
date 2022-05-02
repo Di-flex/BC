@@ -31,8 +31,8 @@ function KDGetFaction(enemy) {
 	let E = enemy.Enemy;
 	if (enemy.rage > 0) return "Rage";
 	if (enemy.faction) return enemy.faction;
-	if (E.allied || enemy.allied) return "Player";
-	if (E.faction) return E.faction;
+	if ((E && E.allied) || enemy.allied) return "Player";
+	if (E && E.faction) return E.faction;
 	return "Enemy";
 }
 
