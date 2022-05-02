@@ -411,16 +411,7 @@ const KinkyDungeonRestraints = [
 			//{Item: "LeatherBreastBinder", Group: "Bra", Color: ['Default'], drawOver: true},
 			//{Item: "LeatherHarness", Group: "ItemTorso", Color: ['Default'], drawOver: true}
 		],
-		events:[
-			{trigger:"remove", type:"custom", function:()=>{
-				let itemProperties = InventoryGet(KinkyDungeonPlayer,"HairAccessory2").Property;
-				if (!itemProperties || !itemProperties.Attribute){return;}
-				if (itemProperties.Attribute.find((v)=>{v==="KittyPetSuit";}) !== null){
-					InventoryRemove(KinkyDungeonPlayer,"HairAccessory2",true);}
-				if (itemProperties.Attribute.find((v)=>{v==="KittyPetSuit";}) !== null){
-					InventoryRemove(KinkyDungeonPlayer,"TailStraps",true);}
-			}},
-		],
+		events:[],
 		helpChance: {"Remove": 0.01}, maxstamina: 0.15, enemyTags: {"kittyRestraints":0}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]},
 	//endregion
 

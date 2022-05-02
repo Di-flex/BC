@@ -799,6 +799,7 @@ Spell Balance:
 - Fixed the parole system which had been majorly bugged for like a week
 - Added a dialogue system and an occasional request to give up your weapon by NPCs
 - Can now save outfits
+- Enemies won't aggro the whole map when you aggro them unless you fail to kill one in time (30 turns)
 
 TODO ValidationFindBlockCycles to prevent bugs
 

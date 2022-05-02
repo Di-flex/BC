@@ -8,6 +8,9 @@ let KinkyDungeonOutfitsBase = [
 // For cacheing
 let KinkyDungeonOutfitCache = new Map();
 
+/**@type {{ears: boolean, tail: boolean}} True if protected*/
+let KDProtectedCosplay = {"ears": false, "tail": false}
+
 function KDOutfit(item) {
 	return KinkyDungeonOutfitCache.get(item.name);
 }
@@ -91,6 +94,9 @@ function KinkyDungeonSetDress(Dress, Outfit) {
 let KDNaked = false;
 let KDRefresh = false;
 
+/**
+ * It sets the player's appearance based on their stats.
+ */
 function KinkyDungeonDressPlayer() {
 	let _CharacterRefresh = CharacterRefresh;
 	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
@@ -102,8 +108,7 @@ function KinkyDungeonDressPlayer() {
 	// if true, nakeds the player, then reclothes
 	if (KinkyDungeonCheckClothesLoss) {
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
-		if (!KDNaked)
-			CharacterNaked(KinkyDungeonPlayer);
+		if (!KDNaked) KDCharacterNaked();
 		KDNaked = true;
 		KinkyDungeonUndress = 0;
 	}
@@ -290,20 +295,24 @@ function KinkyDungeonDressPlayer() {
 	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 }
 
+/**
+ * If the player is wearing a restraint that has a `alwaysDress` property, and the player is not wearing the item specified
+ * in the `alwaysDress` property, the player will be forced to wear the items.
+ */
 function KinkyDungeonWearForcedClothes() {
 	for (let inv of KinkyDungeonAllRestraint()) {
 		if (KDRestraint(inv).alwaysDress) {
-			for (let dress of KDRestraint(inv).alwaysDress) {
+			KDRestraint(inv).alwaysDress.forEach(dress=>{ // for .. of  loop has issues with iterations
 				if (dress.override || !dress.Group.includes("Item") || !InventoryGet(KinkyDungeonPlayer, dress.Group)) {
-					let canReplace = dress.override!==null && dress.override===true? true : !InventoryGet(KinkyDungeonPlayer, dress.Group)
-					if (!canReplace) {return;}
-					InventoryWear(KinkyDungeonPlayer, dress.Item, dress.Group);
-					let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
+					let canReplace = dress.override!==null && dress.override===true ? true : !InventoryGet(KinkyDungeonPlayer,dress.Group);
 
-					if (!item.Property) item.Property = {Attribute: [inv.name]};
-					else item.Property.Attribute.push(inv.name);
+					if (!canReplace) {return;}
+					if (dress.Group==="HairAccessory2" && KDProtectedCosplay.ears){return;}
+					if (dress.Group==="TailStraps" && KDProtectedCosplay.tail){return;}
+					KDInventoryWear(dress.Item, dress.Group, inv.name);
 
 					if (dress.OverridePriority) {
+						let item = InventoryGet(KinkyDungeonPlayer, dress.Group);
 						if (item) {
 							if (!item.Property) item.Property = {OverridePriority: dress.OverridePriority};
 							else item.Property.OverridePriority = dress.OverridePriority;
@@ -311,7 +320,7 @@ function KinkyDungeonWearForcedClothes() {
 					}
 					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
 				}
-			}
+			})
 		}
 	}
 }
@@ -323,4 +332,44 @@ function KinkyDungeonGetOutfit(Name) {
 		return outfit;
 	}
 	return null;
+}
+
+
+/**
+ * Makes the KinkyDungeonPlayer wear an item on a body area
+ * @param {string} AssetName - The name of the asset to wear
+ * @param {string} AssetGroup - The name of the asset group to wear
+ * @param {string} par - parent item
+ */
+function KDInventoryWear(AssetName, AssetGroup,par) {
+	const A = AssetGet(KinkyDungeonPlayer.AssetFamily, AssetGroup, AssetName);
+	if (!A) return;
+	CharacterAppearanceSetItem(KinkyDungeonPlayer, AssetGroup, A, A.DefaultColor,0,-1, false);
+	CharacterRefresh(KinkyDungeonPlayer, true);
+	InventoryExpressionTrigger(KinkyDungeonPlayer, InventoryGet(KinkyDungeonPlayer, AssetGroup));
+}
+
+function KDCharacterNaked() {
+	KDCharacterAppearanceNaked();
+	CharacterRefresh(KinkyDungeonPlayer);
+}
+
+/**
+ * Removes all items that can be removed, making the player naked. Checks for a blocking of CosPlayItem removal.
+ * @returns {void} - Nothing
+ */
+function KDCharacterAppearanceNaked() {
+	// For each item group (non default items only show at a 20% rate)
+	for (let A = KinkyDungeonPlayer.Appearance.length - 1; A >= 0; A--)
+		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.AllowNone &&
+			(KinkyDungeonPlayer.Appearance[A].Asset.Group.Category === "Appearance")){
+			// conditional filter
+			let f = !(KinkyDungeonPlayer.Appearance[A].Asset.Group.BodyCosplay && (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name === "HairAccessory2" && KDProtectedCosplay.ears || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name === "TailStraps" && KDProtectedCosplay.tail))
+			if (!f){continue;}
+			KinkyDungeonPlayer.Appearance.splice(A, 1);
+		}
+
+	// Loads the new character canvas
+	CharacterLoadCanvas(KinkyDungeonPlayer);
+
 }

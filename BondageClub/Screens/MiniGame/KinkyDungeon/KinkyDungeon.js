@@ -113,9 +113,11 @@ let KDOptOut = false;
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
 * CurrentDialogMsgPersonality: string,
+* AlertTimer: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	AlertTimer: 0,
 	OrgasmNextStageTimer: 0,
 
 	PoolUses: 0,
@@ -288,7 +290,6 @@ function KDistChebyshev(x, y) {
  * @returns {void} - Nothing
  */
 function KinkyDungeonLoad() {
-
 	KDCategories = [
 		{name: "Restraints", buffs: [], debuffs: [],},
 		{name: "Kinky", buffs: [], debuffs: [],},
@@ -322,7 +323,7 @@ function KinkyDungeonLoad() {
 	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
-		if (!KinkyDungeonPlayer) {
+		if (!KinkyDungeonPlayer) { // new game
 			KDrandomizeSeed(false);
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 			KinkyDungeonPlayer.Type = "simple";
@@ -349,6 +350,14 @@ function KinkyDungeonLoad() {
 			CharacterNaked(KinkyDungeonPlayer);
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
+			// init protected slots
+			KinkyDungeonPlayer.Appearance.forEach((v)=>{
+				if (v.Asset.Group.BodyCosplay){
+					if (v.Asset.Group.Name === "TailStraps"){KDProtectedCosplay.tail = true;}
+					else if (v.Asset.Group.Name === "HairAccessory2"){KDProtectedCosplay.ears = true;}
+				}
+			})
+
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
@@ -1585,6 +1594,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
 	save.flags = KinkyDungeonFlags;
+	save.isCosplay = KDProtectedCosplay
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1691,6 +1701,7 @@ function KinkyDungeonLoadGame(String) {
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
+			if (saveData.isCosplay) KDProtectedCosplay = saveData.isCosplay;
 
 			if (!KDGameData.AlreadyOpened) KDGameData.AlreadyOpened = [];
 
@@ -1701,8 +1712,7 @@ function KinkyDungeonLoadGame(String) {
 					if (restraint) {
 						KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
 						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
-						if (createdrestraint)
-							createdrestraint.lock = item.lock; // Lock if applicable
+						if (createdrestraint) createdrestraint.lock = item.lock; // Lock if applicable
 					}
 				}
 			}

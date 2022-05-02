@@ -35,6 +35,10 @@ let KDBlessedRewards = {
 	"Illusion": ["MagicAxe"],
 };
 
+/**
+ * Returns whether or not the player meets a requirement for a pearl reward chest
+ * @returns {boolean}
+ */
 function KDPearlRequirement() {
 	let has = false;
 	for (let rep of Object.entries(KinkyDungeonGoddessRep)) {
@@ -76,6 +80,11 @@ function KinkyDungeonInitReputation() {
 	if (KinkyDungeonStatsChoice.get("Dragon")) KinkyDungeonChangeRep("Leather", -10);
 }
 
+/**
+ *
+ * @param {number} Amount
+ * @returns {string}
+ */
 function KinkyDungeonRepName(Amount) {
 	let name = "";
 
@@ -89,6 +98,12 @@ function KinkyDungeonRepName(Amount) {
 	return TextGet("KinkyDungeonRepName" + name);
 }
 
+/**
+ *
+ * @param {string} Rep
+ * @param {number} Amount
+ * @returns {boolean}
+ */
 function KinkyDungeonChangeRep(Rep, Amount) {
 	if (KinkyDungeonGoddessRep[Rep] != undefined) {
 		let last = KinkyDungeonGoddessRep[Rep];
@@ -284,6 +299,11 @@ let KinkyDungeonPenanceRepBonusFail = 1;
 let KinkyDungeonPenanceCostGrowth = 50;
 let KinkyDungeonPenanceCostDefault = 200;
 
+/**
+ *
+ * @param {string} rep
+ * @returns {number}
+ */
 function KinkyDungeonPenanceCost(rep) {
 	if (KinkyDungeonGoddessRep[rep]) {
 		if (KinkyDungeonPenanceCosts[rep]) {
@@ -293,27 +313,59 @@ function KinkyDungeonPenanceCost(rep) {
 	return KinkyDungeonPenanceCostDefault;
 }
 
+/**
+ *
+ * @param {string} rep
+ * @param {number} value
+ * @returns {boolean}
+ */
 function KinkyDungeonCanPenance(rep, value) {
 	return value < 40 && !KDGameData.KinkyDungeonPenance && KinkyDungeonBullets.length < 1;
 }
 
+/**
+ *
+ * @param {string} rep
+ * @returns {number}
+ */
 function KinkyDungeonAidManaCost(rep) {
 	return 3;
 }
 
+/**
+ *
+ * @param {string} rep
+ * @param {number} value
+ * @returns {number}
+ */
 function KinkyDungeonAidManaAmount(rep, value) {
 	return 1 + Math.floor(19 * (value + 50) / 100);
 }
 
+/**
+ *
+ * @param {string} rep
+ * @param {number} value
+ * @returns {boolean}
+ */
 function KinkyDungeonCanAidMana(rep, value) {
 	return value > -30 && KinkyDungeonStatMana < KinkyDungeonStatManaMax;
 }
 
+/**
+ *
+ * @param {string} rep
+ * @param {number} value
+ * @returns {boolean}
+ */
 function KinkyDungeonCanRescue(rep, value) {
 	return (KDGameData.PrisonerState) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
 }
 
-
+/**
+ *
+ * @param {number} delta
+ */
 function KinkyDungeonUpdatePenance(delta) {
 	if (KDGameData.KinkyDungeonPenance) {
 		if (!KinkyDungeonAngel()) {
@@ -393,6 +445,11 @@ function KinkyDungeonUpdatePenance(delta) {
 
 }
 
+/**
+ *
+ * @param {number} x
+ * @param {number} y
+ */
 function KinkyDungeonCreateAngel(x, y) {
 	let point = KinkyDungeonGetNearbyPoint(x, y, true, undefined, true);
 	if (point) {

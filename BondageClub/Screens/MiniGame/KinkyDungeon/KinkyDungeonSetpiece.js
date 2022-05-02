@@ -13,7 +13,7 @@ let KDSetPieces = [
 
 let KDCountSetpiece = new Map();
 
-function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, height) {
+function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, spawnPoints, InJail, width, height) {
 	KDCountSetpiece = new Map();
 	let pieces = new Map();
 
@@ -39,7 +39,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, spawnPoints, InJail, width, h
 	let fails = 0;
 	while (count < pieceCount && fails < 4) {
 		let Piece = KinkyDungeonGetSetPiece(setpieces, pieces);
-		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, spawnPoints).Pass) {
+		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, spawnPoints).Pass) {
 			count += 1;
 			KDCountSetpiece.set(Piece, KDCountSetpiece.get(Piece) ? (KDCountSetpiece.get(Piece) + 1) : 1);
 		} else fails += 1;
@@ -71,7 +71,7 @@ function KinkyDungeonGetSetPiece(setpieces, pieces) {
 	}
 }
 
-function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints) {
+function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, shrinelist, spawnPoints) {
 	let radius = Piece.Radius;
 	let xPadStart = Piece.xPad || 5;
 	let yPadStart = Piece.yPad || 2;
@@ -141,14 +141,18 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
 			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
-			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'a');
+			shrinelist.push({x: cornerX + 2, y: cornerY + 2});
 			break;
 		case "PearlChest":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
-			KinkyDungeonMapSet(cornerX, cornerY , 'a');
-			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
-			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
-			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
+			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
+			else shrinelist.push({x: cornerX, y: cornerY});
+			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
+			else shrinelist.push({x: cornerX + radius - 1, y: cornerY});
+			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
+			else shrinelist.push({x: cornerX, y: cornerY + radius - 1});
+			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
+			else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1});
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
 			break;
@@ -186,7 +190,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, spawnPoints)
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
 			} else {
-				KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'a');
+				shrinelist.push({x: cornerX+2, y: cornerY+2});
 
 				let chance2 = 0.1;
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY});

@@ -171,12 +171,14 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonNewGame += 1;
 }
 function KinkyDungeonInitialize(Level, Load) {
+	KDInitFactions();
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
 
 	KinkyDungeonRefreshRestraintsCache();
 	KinkyDungeonRefreshOutfitCache();
 	//KinkyDungeonRefreshEnemyCache();
+	KinkyDungeonFlags = {};
 
 	KinkyDungeonDressSet();
 	if (KinkyDungeonConfigAppearance) {
@@ -333,6 +335,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 		//console.log(KDRandom());
 		let shrineTypes = [];
+		let shrinelist = [];
+		let chestlist = [];
 		let startTime = performance.now();
 		KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 		//console.log(KDRandom());
@@ -384,7 +388,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let allies = KinkyDungeonGetAllies();
 		KinkyDungeonEntities = allies;
 
-		KinkyDungeonPlaceSetPieces(traps, spawnPoints, false, width, height);
+		KinkyDungeonPlaceSetPieces(traps, chestlist, shrinelist, spawnPoints, false, width, height);
 
 		if (!testPlacement) {
 			KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
@@ -392,7 +396,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for shortcut creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
+			KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for chest creation`);
 				startTime = performance.now();
@@ -405,7 +409,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			for (let t of traps2) {
 				traps.push(t);
 			}
-			KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
+			KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for shrine creation`);
 				startTime = performance.now();
@@ -1130,11 +1134,13 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
 let KDRandomDisallowedNeighbors = "AasSHcCHDdOo"; // tiles that can't be neighboring a randomly selected point
 
-function KinkyDungeonPlaceChests(treasurechance, treasurecount, rubblechance, Floor, width, height) {
-	let chestlist = [];
+function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height) {
 
 	let chestPoints = new Map();
 
+	for (let s of chestlist) {
+		chestPoints.set(s.x + "," + s.y, true);
+	}
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
 		for (let Y = 1; Y < height; Y += 1)
@@ -1265,10 +1271,15 @@ function KinkyDungeonPlaceHeart(width, height, Floor) {
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonPlaceShrines(shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
-	let shrinelist = [];
+function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height) {
 	KinkyDungeonCommercePlaced = 0;
+
+
 	let shrinePoints = new Map();
+
+	for (let s of shrinelist) {
+		shrinePoints.set(s.x + "," + s.y, true);
+	}
 
 
 	// Populate the chests
@@ -2218,7 +2229,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	}
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile() || KDAllied(Enemy))) {
+		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile(Enemy) || KDAllied(Enemy))) {
 			KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
 			KDGameData.ConfirmAttack = true;
 			noadvance = true;
@@ -2452,9 +2463,10 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	if (KinkyDungeonCurrentTick > 100000) KinkyDungeonCurrentTick = 0;
 	KinkyDungeonItemCheck(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, MiniGameKinkyDungeonLevel); //console.log("Item Check " + (performance.now() - now));
 	KinkyDungeonUpdateBuffs(delta);
+	KinkyDungeonUpdateEnemies(delta, true); //console.log("Enemy Check " + (performance.now() - now));
 	KinkyDungeonUpdateBullets(delta, true); //console.log("Bullets Check " + (performance.now() - now));
 	KinkyDungeonUpdateBulletsCollisions(delta); //console.log("Bullet Check " + (performance.now() - now));
-	KinkyDungeonUpdateEnemies(delta); //console.log("Enemy Check " + (performance.now() - now));
+	KinkyDungeonUpdateEnemies(delta, false); //console.log("Enemy Check " + (performance.now() - now));
 	KinkyDungeonUpdateBullets(delta); //console.log("Bullets Check " + (performance.now() - now));
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
 
