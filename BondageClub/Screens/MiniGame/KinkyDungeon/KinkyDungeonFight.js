@@ -773,8 +773,10 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 				if (!type) type = summonType;
 				let count = sum.count ? sum.count : 1;
 				let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
-				if (count > 0)
-					created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget);
+				if (count > 0) {
+					let e = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget);
+					created += e;
+				}
 			}
 		}
 		if (!b.bullet.spell || !b.bullet.spell.noSumMsg) {
