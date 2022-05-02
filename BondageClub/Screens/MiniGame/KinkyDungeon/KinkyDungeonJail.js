@@ -66,7 +66,7 @@ function KinkyDungeonCheckRelease() {
 }
 
 /** Max turns for the alert timer until the whole map becomes hostile */
-let KDMaxAlertTimer = 30;
+let KDMaxAlertTimer = 14;
 
 /**
  *
