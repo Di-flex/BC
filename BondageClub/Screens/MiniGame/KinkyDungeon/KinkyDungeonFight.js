@@ -454,7 +454,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	if (miss) {
 		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDMissed"), "white", 2);
-	} else if (dmgDealt <= 0 && !miss) {
+	} else if (Damage && dmgDealt <= 0 && !miss) {
 		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDBlocked"), "white", 2);
 	}
 
@@ -805,8 +805,9 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
-			KinkyDungeonEntities.push({summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
-				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
+			let e = {summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
+				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime};
+			KinkyDungeonEntities.push(e);
 			created += 1;
 		} else C -= 1;
 		maxcounter += 1;
