@@ -41,7 +41,7 @@ function KDGetDialogue() {
 
 function KDDrawDialogue() {
 	DrawImageCanvas(KinkyDungeonRootDirectory + "DialogBackground.png", MainCanvas, 500, 250);
-	if (KDGameData.CurrentDialog) {
+	if (KDGameData.CurrentDialog && !(KinkyDungeonSlowMoveTurns > 0)) {
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 		// Now that we have the dialogue, we check if we have a message

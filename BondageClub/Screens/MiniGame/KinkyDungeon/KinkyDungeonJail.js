@@ -766,6 +766,7 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
+	KinkyDungeonUpdateLightGrid = true;
 	if (!KDGameData.TimesJailed) KDGameData.TimesJailed = 1;
 	else KDGameData.TimesJailed += 1;
 	KDGameData.JailTurns = 0;

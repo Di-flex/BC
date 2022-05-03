@@ -130,6 +130,8 @@ let KDDialogue = {
 			},
 		}
 	},
+
+	// TODO magic book dialogue in which you can read forward and there are traps
 };
 /*
 clickFunction: () => {

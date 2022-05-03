@@ -1,5 +1,8 @@
 "use strict";
+let KDDebugMode = false;
 let KDDebug = false;
+let KDDebugPerks = false;
+let KDDebugGold = false;
 
 let KinkyDungeonBackground = "BrickWall";
 let KinkyDungeonPlayer = null;

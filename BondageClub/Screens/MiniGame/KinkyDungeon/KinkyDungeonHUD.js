@@ -485,6 +485,12 @@ function KinkyDungeonHandleHUD() {
 
 		if ((ServerURL == "foobar" && MouseIn(1880, 82, 100, 50)) || (ServerURL != "foobar" && MouseIn(1750, 20, 100, 50))) {
 			KinkyDungeonDrawState = "Restart";
+			if (KDDebugMode) {
+				ElementCreateTextArea("DebugEnemy");
+				ElementValue("DebugEnemy", "Maidforce");
+				ElementCreateTextArea("DebugItem");
+				ElementValue("DebugItem", "EnchantedBelt");
+			}
 			return true;
 		}
 
@@ -654,11 +660,112 @@ function KinkyDungeonHandleHUD() {
 		// Done, converted to input
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Perks2") {
+		if (KDDebugPerks) {
+			let X = KDPerksXStart;
+			let Y = KDPerksYStart;
+			let Y_alt = KDPerksYStart;
+
+			for (let c of KDCategories) {
+
+				Y = Math.max(Y, Y_alt);
+				let height = KDPerksYPad + KDPerksButtonHeight*Math.max(c.buffs.length, c.debuffs.length);
+				if (Y + height > KDPerksMaxY) {
+					X += (KDPerksButtonWidth + KDPerksButtonWidthPad)*2 + KDPerksXPad;
+					Y = KDPerksYStart;
+				}
+
+				Y += KDPerksYPad;
+				Y_alt = Y;
+				for (let stat of c.buffs.concat(c.debuffs)) {
+					let YY = stat[1].cost < 0 ? Y_alt : Y;
+					let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth + KDPerksButtonWidthPad : X;
+
+					if (MouseIn(XX, YY, KDPerksButtonWidth, KDPerksButtonHeight)) {
+						if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
+							KinkyDungeonStatsChoice.set(stat[0], true);
+							localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
+						} else if (KinkyDungeonStatsChoice.get(stat[0])) {
+							KinkyDungeonStatsChoice.delete(stat[0]);
+							localStorage.setItem('KinkyDungeonStatsChoice', JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
+						}
+					}
+					if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight + KDPerksButtonHeightPad;
+					else Y += KDPerksButtonHeight + KDPerksButtonHeightPad;
+				}
+			}
+		}
+
+
 		if (MouseIn(1650, 920, 300, 64)) {
 			KinkyDungeonDrawState = "Restart";
+			if (KDDebugMode) {
+				ElementCreateTextArea("DebugEnemy");
+				ElementValue("DebugEnemy", "Maidforce");
+				ElementCreateTextArea("DebugItem");
+				ElementValue("DebugItem", "EnchantedBelt");
+			}
 			return true;
 		}
 	} else if (KinkyDungeonDrawState == "Restart") {
+		if (MouseIn(600, 20, 64, 64)) {
+			// Check URL to see if indev branch
+			const params = new URLSearchParams(window.location.search);
+			let branch = params.has('branch') ? params.get('branch') : "";
+			if (branch || ServerURL == 'https://bc-server-test.herokuapp.com/') {
+				KDDebugMode = !KDDebugMode;
+				ElementCreateTextArea("DebugEnemy");
+				ElementValue("DebugEnemy", "Maidforce");
+				ElementCreateTextArea("DebugItem");
+				ElementValue("DebugItem", "EnchantedBelt");
+				return true;
+			}
+		}
+		if (KDDebugMode) {
+			if (MouseIn(1100, 20, 64, 64)) {
+				KDDebug = !KDDebug;
+				return false;
+			} else
+			if (MouseIn(1100, 100, 64, 64)) {
+				KDDebugPerks = !KDDebugPerks;
+			} else
+			if (MouseIn(1100, 180, 64, 64)) {
+				if (KDDebugGold) {
+					KDDebugGold = false;
+					KinkyDungeonGold = 0;
+				} else {
+					KDDebugGold = true;
+					KinkyDungeonGold = 100000;
+				}
+			} else
+			if (MouseIn(1500, 100, 300, 64)) {
+				if (KinkyDungeonEnemies.find((element) => {return element.name == ElementValue("DebugEnemy");})) {
+					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, ElementValue("DebugEnemy"), 1, 1);
+				}
+			} else
+			if (MouseIn(1500, 260, 300, 64)) {
+				let item = null;
+				if (KinkyDungeonConsumables[ElementValue("DebugItem")]) KinkyDungeonChangeConsumable(KinkyDungeonConsumables[ElementValue("DebugItem")], 10);
+				else if (KinkyDungeonWeapons[ElementValue("DebugItem")]) KinkyDungeonInventoryAddWeapon(ElementValue("DebugItem"));
+				else if (KinkyDungeonGetRestraintByName(ElementValue("DebugItem"))) {
+					let restraint = KinkyDungeonGetRestraintByName(ElementValue("DebugItem"));
+					KinkyDungeonInventoryAdd({name: ElementValue("DebugItem"), type: LooseRestraint, events: restraint.events});
+				}
+
+				if (item)
+					KinkyDungeonInventoryAdd(item);
+			} else
+			if (MouseIn(1100, 260, 300, 64)) {
+				KinkyDungeonPlayerEntity.x = KinkyDungeonEndPosition.x;
+				KinkyDungeonPlayerEntity.y = KinkyDungeonEndPosition.y;
+				KDGameData.JailKey = true;
+				KinkyDungeonUpdateLightGrid = true;
+			}
+			ElementPosition("DebugEnemy", 1500, 20, 300, 64);
+			DrawButton(1500, 100, 300, 64, "Spawn enemy", "White", "");
+			ElementPosition("DebugItem", 1500, 180, 300, 64);
+			DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
+			DrawButton(1100, 260, 300, 64, "All weapons/restraints", "White", "");
+		}
 
 		if (MouseIn(1650, 900, 300, 64)) {
 			KinkyDungeonDrawState = "Perks2";
