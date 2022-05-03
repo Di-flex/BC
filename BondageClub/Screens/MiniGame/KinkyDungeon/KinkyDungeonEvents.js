@@ -244,10 +244,8 @@ const KDEventMapInventory = {
 				console.log("Deprecated function");
 				console.log(Event, e, item, data);
 				console.trace();
-				//KinkyDungeonUnLinkItem(item);
-				//Obsolete
 			}
-		}
+		},
 	},
 	"afterRemove": {
 		"replaceItem": (e, item, data) => {
@@ -477,7 +475,8 @@ const KDEventMapInventory = {
  */
 function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) {
 	if (Event === kinkyDungeonEvent.trigger) {
-		KDEventMapInventory[Event][kinkyDungeonEvent.type](kinkyDungeonEvent, item, data);
+		if (kinkyDungeonEvent.type==="custom") {kinkyDungeonEvent.function()}
+		else {KDEventMapInventory[Event][kinkyDungeonEvent.type](kinkyDungeonEvent, item, data);}
 	}
 }
 

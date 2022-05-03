@@ -1184,9 +1184,12 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 }
 
 /**
+ * "Return the first restraint item in the game that belongs to the given group."
  *
- * @param {string} group
- * @returns {item}
+ * The first line of the function is a comment. Comments are ignored by the game engine, but they're useful for explaining
+ * what the code does
+ * @param {string} group - The group of the restraint item you want to get.
+ * @returns {item} The item that matches the group.
  */
 function KinkyDungeonGetRestraintItem(group) {
 	for (let item of KinkyDungeonAllRestraint()) {
@@ -1598,13 +1601,13 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 }
 
 /**
- *
- * @param {string} Group
- * @param {boolean} [Keep]
- * @param {boolean} [Add]
- * @param {boolean} [NoEvent]
- * @param {boolean} [Shrine]
- * @returns {boolean}
+ * It removes a restraint from the player
+ * @param {string} Group - The group of the item to remove.
+ * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+ * @param {boolean} [Add] - If true, the item will be added to the player's inventory.
+ * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+ * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
+ * @returns {boolean} true if the item was removed, false if it was not.
  */
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	for (let i of KinkyDungeonAllRestraint()) {
@@ -1675,6 +1678,15 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	return false;
 }
 
+/**
+ * "Returns an array of all the shrine types that have at least one restraint item."
+ *
+ * The function takes one argument, `ShrineFilter`, which is an array of shrine types. If the argument is not provided, the
+ * function will return all shrine types. If the argument is provided, the function will only return shrine types that are
+ * in the argument
+ * @param ShrineFilter - An array of strings, each string being the name of a shrine.
+ * @returns An array of all the restraint types that can be used in the shrine.
+ */
 function KinkyDungeonRestraintTypes(ShrineFilter) {
 	let ret = [];
 
