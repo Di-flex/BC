@@ -1,5 +1,5 @@
 /** Kinky Dungeon Typedefs*/
-interface item {
+type item = {
 	/** Name of the item*/
 	name: string,
 	/** Type of the item*/
@@ -90,7 +90,7 @@ interface consumable {
 	useQuantity?: number,
 }
 
-interface restraint {
+type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
 	name: string,

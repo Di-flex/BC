@@ -69,7 +69,7 @@ let KDBondageLoverAmount = 1;
 let KinkyDungeonRestraintsCache = new Map();
 
 /**
- *
+ * gets a restraint
  * @param {item} item
  * @returns {restraint}
  */
@@ -1597,13 +1597,22 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 	return 0;
 }
 
+/**
+ *
+ * @param {string} Group
+ * @param {boolean} [Keep]
+ * @param {boolean} [Add]
+ * @param {boolean} [NoEvent]
+ * @param {boolean} [Shrine]
+ * @returns {boolean}
+ */
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 	for (let i of KinkyDungeonAllRestraint()) {
-		const item = KinkyDungeonRestraintsCache.get(i.name);
-		let AssetGroup = item && item.AssetGroup ? item.AssetGroup : Group;
-		if (item.Group == Group) {
+		const rest = KinkyDungeonRestraintsCache.get(i.name);
+		let AssetGroup = rest && rest.AssetGroup ? rest.AssetGroup : Group;
+		if (rest.Group == Group) {
 			if (!NoEvent)
-				KinkyDungeonSendEvent("remove", {item: item, add: Add, keep: Keep, shrine: Shrine});
+				KinkyDungeonSendEvent("remove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 
 			if (!KinkyDungeonCancelFlag && !Add) {
 				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(i, Keep);
@@ -1620,12 +1629,12 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 					}
 				}
 
-				if (KDRestraint(item).inventory && (Keep || KDRestraint(item).enchanted || KDRestraint(item).alwaysKeep) && !KinkyDungeonInventoryGetLoose(item.name)) {
-					if (KDRestraint(item).inventoryAs) {
-						let origRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).inventoryAs);
+				if (rest.inventory && (Keep || rest.enchanted || rest.alwaysKeep) && !KinkyDungeonInventoryGetLoose(rest.name)) {
+					if (rest.inventoryAs) {
+						let origRestraint = KinkyDungeonGetRestraintByName(rest.inventoryAs);
 						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
 							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events});
-					} else KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, events:item.events});
+					} else KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events});
 				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);
@@ -1638,17 +1647,17 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 				}
 
 
-				if (KDRestraint(item).Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KDRestraint(KinkyDungeonGetRestraintItem("ItemNeckRestraints")).inventory);
+				if (rest.Group == "ItemNeck" && KinkyDungeonGetRestraintItem("ItemNeckRestraints")) KinkyDungeonRemoveRestraint("ItemNeckRestraints", KDRestraint(KinkyDungeonGetRestraintItem("ItemNeckRestraints")).inventory);
 
 				if (!NoEvent) {
-					if (item.events) {
-						for (let e of item.events) {
+					if (rest.events) {
+						for (let e of rest.events) {
 							if (e.trigger == "afterRemove" && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
-								KinkyDungeonHandleInventoryEvent("afterRemove", e, item, {item: item, add: Add, keep: Keep, shrine: Shrine});
+								KinkyDungeonHandleInventoryEvent("afterRemove", e, rest, {item: rest, add: Add, keep: Keep, shrine: Shrine});
 							}
 						}
 					}
-					KinkyDungeonSendEvent("afterRemove", {item: item, add: Add, keep: Keep, shrine: Shrine});
+					KinkyDungeonSendEvent("afterRemove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 				}
 
 				KinkyDungeonCalculateSlowLevel();
