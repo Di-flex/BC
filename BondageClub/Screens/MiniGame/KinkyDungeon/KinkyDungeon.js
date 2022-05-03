@@ -353,12 +353,7 @@ function KinkyDungeonLoad() {
 			CharacterNaked(KinkyDungeonPlayer);
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
-			// init protected slots
-			for (let a of KinkyDungeonPlayer.Appearance) {
-				if (a.Asset.Group.BodyCosplay){
-					KDProtectedCosplay.push(a.Asset.Group.Name);
-				}
-			}
+			KDInitProtectedGroups();
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
@@ -534,6 +529,7 @@ function KinkyDungeonRun() {
 			CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(ElementValue("saveInputField")));
 			CharacterRefresh(KinkyDungeonPlayer);
 			KDOldValue = newValue;
+			KDInitProtectedGroups();
 		}
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
@@ -1096,6 +1092,7 @@ function KinkyDungeonHandleClick() {
 			if (appearance) {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
 				CharacterRefresh(KinkyDungeonPlayer);
+				KDInitProtectedGroups();
 				localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
 			}
 			// Return to menu
@@ -1107,6 +1104,7 @@ function KinkyDungeonHandleClick() {
 			if (KDOriginalValue) {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(KDOriginalValue));
 				CharacterRefresh(KinkyDungeonPlayer);
+				KDInitProtectedGroups();
 			}
 
 
@@ -1189,6 +1187,7 @@ function KinkyDungeonHandleClick() {
 				CharacterReleaseTotal(KinkyDungeonPlayer);
 				KinkyDungeonSetDress("Default", "OutfitDefault");
 				KinkyDungeonDressPlayer();
+				KDInitProtectedGroups();
 				KinkyDungeonConfigAppearance = true;
 				return true;
 			} else {

@@ -297,6 +297,21 @@ function KinkyDungeonDressPlayer() {
 }
 
 /**
+ * Initializes protected groups like ears and tail
+ */
+function KDInitProtectedGroups() {
+	KDProtectedCosplay = [];
+	// init protected slots
+	for (let a of KinkyDungeonPlayer.Appearance) {
+		if (a.Asset.Group.BodyCosplay){
+			KDProtectedCosplay.push(a.Asset.Group.Name);
+		}
+	}
+}
+
+
+
+/**
  * If the player is wearing a restraint that has a `alwaysDress` property, and the player is not wearing the item specified
  * in the `alwaysDress` property, the player will be forced to wear the items.
  */
