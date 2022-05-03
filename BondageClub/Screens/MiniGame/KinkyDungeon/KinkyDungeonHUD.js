@@ -738,8 +738,9 @@ function KinkyDungeonHandleHUD() {
 				}
 			} else
 			if (MouseIn(1500, 100, 300, 64)) {
-				if (KinkyDungeonEnemies.find((element) => {return element.name == ElementValue("DebugEnemy");})) {
-					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, ElementValue("DebugEnemy"), 1, 1);
+				let enemy = KinkyDungeonEnemies.find((element) => {return element.name.toLowerCase() == ElementValue("DebugEnemy").toLowerCase();});
+				if (enemy) {
+					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, enemy.name, 1, 1);
 				}
 			} else
 			if (MouseIn(1500, 260, 300, 64)) {
@@ -759,12 +760,10 @@ function KinkyDungeonHandleHUD() {
 				KinkyDungeonPlayerEntity.y = KinkyDungeonEndPosition.y;
 				KDGameData.JailKey = true;
 				KinkyDungeonUpdateLightGrid = true;
+			} else
+			if (MouseIn(1100, 320, 300, 64)) {
+				KDGameData.PrisonerState = 'parole';
 			}
-			ElementPosition("DebugEnemy", 1500, 20, 300, 64);
-			DrawButton(1500, 100, 300, 64, "Spawn enemy", "White", "");
-			ElementPosition("DebugItem", 1500, 180, 300, 64);
-			DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
-			DrawButton(1100, 260, 300, 64, "All weapons/restraints", "White", "");
 		}
 
 		if (MouseIn(1650, 900, 300, 64)) {
