@@ -474,9 +474,8 @@ const KDEventMapInventory = {
  * @param {*} data
  */
 function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) {
-	if (Event === kinkyDungeonEvent.trigger) {
-		if (kinkyDungeonEvent.type==="custom") {kinkyDungeonEvent.function()}
-		else {KDEventMapInventory[Event][kinkyDungeonEvent.type](kinkyDungeonEvent, item, data);}
+	if (Event === kinkyDungeonEvent.trigger && KDEventMapInventory[Event] && KDEventMapInventory[Event][kinkyDungeonEvent.type]) {
+		KDEventMapInventory[Event][kinkyDungeonEvent.type](kinkyDungeonEvent, item, data);
 	}
 }
 

@@ -577,8 +577,8 @@ function KinkyDungeonPickAttempt() {
 	KinkyDungeonInterruptSleep();
 
 	if (lock.includes("Blue")) {
-		if ((KinkyDungeonPlayer.IsBlind() < 1) || !lock.includes("Blue"))
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonPlayer.IsBlind() > 0) ? "Unknown" : lock) + "Key"), "orange", 2);
+		if ((KinkyDungeonBlindLevel < 1) || !lock.includes("Blue"))
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonBlindLevel > 0) ? "Unknown" : lock) + "Key"), "orange", 2);
 		else
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPickBlueLock"), "orange", 2);
 		Pass = "Fail";
@@ -980,8 +980,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Handle cases where you can't even attempt to unlock
 	if ((StruggleType == "Unlock" && !((restraint.lock == "Red" && KinkyDungeonRedKeys > 0) || (restraint.lock == "Blue" && KinkyDungeonBlueKeys > 0)))
 		|| (StruggleType == "Pick" && (restraint.lock == "Blue" || restraint.lock == "Gold"))) {
-		if (StruggleType == "Unlock" && ((KinkyDungeonPlayer.IsBlind() < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold"))))
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonPlayer.IsBlind() > 0) ? "Unknown" : restraint.lock) + "Key"), "orange", 2);
+		if (StruggleType == "Unlock" && ((KinkyDungeonBlindLevel < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold"))))
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonBlindLevel > 0) ? "Unknown" : restraint.lock) + "Key"), "orange", 2);
 		else
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPick" + restraint.lock + "Lock"), "orange", 2);
 	} else {
@@ -1185,9 +1185,6 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 /**
  * "Return the first restraint item in the game that belongs to the given group."
- *
- * The first line of the function is a comment. Comments are ignored by the game engine, but they're useful for explaining
- * what the code does
  * @param {string} group - The group of the restraint item you want to get.
  * @returns {item} The item that matches the group.
  */

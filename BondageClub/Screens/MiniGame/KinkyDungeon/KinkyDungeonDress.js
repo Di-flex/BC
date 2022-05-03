@@ -8,8 +8,8 @@ let KinkyDungeonOutfitsBase = [
 // For cacheing
 let KinkyDungeonOutfitCache = new Map();
 
-/**@type {{ears: boolean, tail: boolean}} True if protected*/
-let KDProtectedCosplay = {"ears": false, "tail": false}
+/**@type {string[]} Contains protected zones*/
+let KDProtectedCosplay = [];
 
 function KDOutfit(item) {
 	return KinkyDungeonOutfitCache.get(item.name);
@@ -107,6 +107,7 @@ function KinkyDungeonDressPlayer() {
 
 	// if true, nakeds the player, then reclothes
 	if (KinkyDungeonCheckClothesLoss) {
+		// @ts-ignore
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
 		if (!KDNaked) KDCharacterNaked();
 		KDNaked = true;
@@ -307,8 +308,7 @@ function KinkyDungeonWearForcedClothes() {
 					let canReplace = dress.override!==null && dress.override===true ? true : !InventoryGet(KinkyDungeonPlayer,dress.Group);
 
 					if (!canReplace) {return;}
-					if (dress.Group==="HairAccessory2" && KDProtectedCosplay.ears){return;}
-					if (dress.Group==="TailStraps" && KDProtectedCosplay.tail){return;}
+					if (KDProtectedCosplay.includes(dress.Group)){return;}
 					KDInventoryWear(dress.Item, dress.Group, inv.name);
 
 					if (dress.OverridePriority) {
@@ -318,9 +318,10 @@ function KinkyDungeonWearForcedClothes() {
 							else item.Property.OverridePriority = dress.OverridePriority;
 						}
 					}
+					// @ts-ignore
 					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
 				}
-			})
+			});
 		}
 	}
 }
@@ -364,12 +365,12 @@ function KDCharacterAppearanceNaked() {
 		if (KinkyDungeonPlayer.Appearance[A].Asset.Group.AllowNone &&
 			(KinkyDungeonPlayer.Appearance[A].Asset.Group.Category === "Appearance")){
 			// conditional filter
-			let f = !(KinkyDungeonPlayer.Appearance[A].Asset.Group.BodyCosplay && (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name === "HairAccessory2" && KDProtectedCosplay.ears || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name === "TailStraps" && KDProtectedCosplay.tail))
+			let f = !(KinkyDungeonPlayer.Appearance[A].Asset.Group.BodyCosplay
+				&& (KDProtectedCosplay.includes(KinkyDungeonPlayer.Appearance[A].Asset.Group.Name)));
 			if (!f){continue;}
 			KinkyDungeonPlayer.Appearance.splice(A, 1);
 		}
 
 	// Loads the new character canvas
 	CharacterLoadCanvas(KinkyDungeonPlayer);
-
 }

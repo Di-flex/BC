@@ -79,7 +79,7 @@ function KinkyDungeonDrawInputs() {
 
 			let color = "white";
 			let locktext = "";
-			if (KinkyDungeonPlayer.IsBlind() < 1) {
+			if (KinkyDungeonBlindLevel < 1) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
 				if (sg.lock == "Gold") {color = "#FFFF88"; locktext = TextGet("KinkyGoldLockAbr");}

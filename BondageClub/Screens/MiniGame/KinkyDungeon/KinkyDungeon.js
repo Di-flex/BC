@@ -354,13 +354,11 @@ function KinkyDungeonLoad() {
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
 			// init protected slots
-			KinkyDungeonPlayer.Appearance.forEach((v)=>{
-				if (v.Asset.Group.BodyCosplay){
-					if (v.Asset.Group.Name === "TailStraps"){KDProtectedCosplay.tail = true;}
-					else if (v.Asset.Group.Name === "HairAccessory2"){KDProtectedCosplay.ears = true;}
+			for (let a of KinkyDungeonPlayer.Appearance) {
+				if (a.Asset.Group.BodyCosplay){
+					KDProtectedCosplay.push(a.Asset.Group.Name);
 				}
-			})
-
+			}
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
@@ -1168,6 +1166,7 @@ function KinkyDungeonHandleClick() {
 			ElementValue("saveInputField", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
 			return true;
 		} else if (MouseIn(25, 930, 325, 64)) {
+			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
 			KinkyDungeonNewDress = true;
 			if (ServerURL == "foobar") {
@@ -1178,6 +1177,7 @@ function KinkyDungeonHandleClick() {
 			}
 			CharacterReleaseTotal(KinkyDungeonPlayer);
 			KinkyDungeonDressPlayer();
+			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: false, AllowFullWardrobeAccess: true};
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
 			KinkyDungeonConfigAppearance = true;
@@ -1597,7 +1597,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
 	save.flags = KinkyDungeonFlags;
-	save.isCosplay = KDProtectedCosplay
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1704,7 +1703,6 @@ function KinkyDungeonLoadGame(String) {
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
-			if (saveData.isCosplay) KDProtectedCosplay = saveData.isCosplay;
 
 			if (!KDGameData.AlreadyOpened) KDGameData.AlreadyOpened = [];
 

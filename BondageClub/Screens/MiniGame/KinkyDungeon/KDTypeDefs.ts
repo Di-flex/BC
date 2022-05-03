@@ -266,11 +266,16 @@ type restraint = {
 }
 
 interface overrideDisplayItem {
+	/** Bondage club asset */
 	Item: string,
+	/** Group */
 	Group: string,
+	/** Color */
 	Color: string[]|string,
+	/** Whether or not it overrides items already on */
 	override?: boolean,
-	OverridePriority: number[]|number
+	/** Used for overriding BC priority */
+	OverridePriority?: number[]|number,
 }
 
 interface enemy {
@@ -981,10 +986,6 @@ interface KinkyDungeonSave {
 	inventory: item[];
 	KDGameData: KDGameDataBase;
 	flags: Record<string, number>;
-	isCosplay: {
-		ears: boolean,
-		tail: boolean
-	}
 	stats: {
 		picks: number;
 		keys: number;
