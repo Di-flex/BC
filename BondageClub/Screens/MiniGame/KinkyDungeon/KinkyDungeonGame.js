@@ -178,6 +178,7 @@ function KinkyDungeonInitialize(Level, Load) {
 	KinkyDungeonRefreshRestraintsCache();
 	KinkyDungeonRefreshOutfitCache();
 	//KinkyDungeonRefreshEnemyCache();
+	KinkyDungeonFlags = {};
 
 	KinkyDungeonDressSet();
 	if (KinkyDungeonConfigAppearance) {

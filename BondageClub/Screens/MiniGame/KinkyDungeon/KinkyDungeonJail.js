@@ -56,8 +56,10 @@ function KinkyDungeonHostile(enemy) {
 
 function KinkyDungeonCheckRelease() {
 	let sub = KinkyDungeonGoddessRep.Ghost + 50;
+	let security = KinkyDungeonGoddessRep.Prisoner + 50;
 	if (sub == undefined || isNaN(sub)) sub = 0;
-	let turns = KDGameData.JailTurns;
+	if (security == undefined || isNaN(security)) security = 0;
+	let turns = KDGameData.JailTurns - security;
 	for (let i = 0; i < KDJailReleaseTurns.length; i++) {
 		let condition = KDJailReleaseTurns[i];
 		if (sub >= condition.minSub && turns >= condition.releaseTurns) return i;
