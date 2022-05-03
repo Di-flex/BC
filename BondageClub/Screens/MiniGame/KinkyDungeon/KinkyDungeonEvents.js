@@ -370,7 +370,17 @@ const KDEventMapInventory = {
 				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
 				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 			}
-		}
+		},
+		"Kittify": (e, item, data) => {
+			// get defeat, upgrade suit
+			KinkyDungeonRemoveRestraint("ItemArms",false,false,true,false);
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"), 15);
+			// leash if collared
+			let collared = InventoryGet(KinkyDungeonPlayer, "ItemNeck");
+			if(collared != null){
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"), 1, false, "Red");
+			}
+		},
 	},
 	"struggle": {
 		"crotchrope": (e, item, data) => {

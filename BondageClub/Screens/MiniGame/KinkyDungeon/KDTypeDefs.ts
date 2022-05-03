@@ -274,6 +274,8 @@ interface overrideDisplayItem {
 	Color: string[]|string,
 	/** Whether or not it overrides items already on */
 	override?: boolean,
+	/** Uses the player's hair color as the item color */
+	useHairColor?: boolean,
 	/** Used for overriding BC priority */
 	OverridePriority?: number[]|number,
 }

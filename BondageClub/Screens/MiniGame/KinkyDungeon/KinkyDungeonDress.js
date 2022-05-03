@@ -333,8 +333,10 @@ function KinkyDungeonWearForcedClothes() {
 							else item.Property.OverridePriority = dress.OverridePriority;
 						}
 					}
+					let color = dress.Color;
+					if (dress.useHairColor && InventoryGet(KinkyDungeonPlayer, "HairFront")) color = InventoryGet(KinkyDungeonPlayer, "HairFront").Color;
 					// @ts-ignore
-					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, dress.Color, dress.Group);
+					CharacterAppearanceSetColorForGroup(KinkyDungeonPlayer, color, dress.Group);
 				}
 			});
 		}

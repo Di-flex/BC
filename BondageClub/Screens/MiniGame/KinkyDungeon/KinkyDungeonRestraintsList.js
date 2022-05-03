@@ -390,28 +390,17 @@ const KinkyDungeonRestraints = [
 		maxstamina: 0.9, enemyTags: {"kittyRestraints":8}, playerTags: {}, minLevel: 6, allFloors: true, shrine: ["Leather", "Mittens"]},
 	{name: "KittySuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Red", bindarms: true, bindhands: true, power: 11, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
 		events:[
-			{trigger:"defeat",  type:"custom", function:()=>{
-					// get defeat, upgrade suit
-					KinkyDungeonRemoveRestraint("ItemArms",false,false,true,"");
-					KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"),15);
-					// leash if collared
-					let collared = InventoryGet(KinkyDungeonPlayer,"ItemNeck")
-					if(collared!=null){
-						KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"),1,false,"Red");
-					}
-				}
-			},
+			{trigger:"defeat",  type:"Kittify"},
 		],
 		helpChance: {"Remove": 0.1}, maxstamina: 0.15, enemyTags: {"kittyRestraints":3}, playerTags: {}, minLevel: 9, allFloors: true, shrine: ["Latex", "Straitjackets"]}, // Counts as a straitjacket for purpose of linking
 	// Only apply if already wearing KittySuit
 	{name: "KittyPetSuit", Asset: "BitchSuit", Color: "Default", Group: "ItemArms", DefaultLock: "Blue", bindarms: true, bindhands: true, blockfeet: true, power: 12, weight: 0, escapeChance: {"Struggle": -0.2, "Cut": 0.1, "Remove": -0.1, "Pick": 0.15},
 		alwaysDress: [
-			{Item: "KittenEars2", Group: "HairAccessory2", Color: ['Default'], override: false},
-			{Item: "TailStrap", Group: "TailStraps", Color: ['Default'], override: false},
+			{Item: "KittenEars2", Group: "HairAccessory2", Color: ['Default'], override: false, useHairColor: true,},
+			{Item: "TailStrap", Group: "TailStraps", Color: ['Default'], override: false, useHairColor: true,},
 			//{Item: "LeatherBreastBinder", Group: "Bra", Color: ['Default'], drawOver: true},
 			//{Item: "LeatherHarness", Group: "ItemTorso", Color: ['Default'], drawOver: true}
 		],
-		events:[],
 		helpChance: {"Remove": 0.01}, maxstamina: 0.15, enemyTags: {"kittyRestraints":0}, playerTags: {}, minLevel: 9, floors: KDMapInit([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]), shrine: ["Latex", "Straitjackets"]},
 	//endregion
 
