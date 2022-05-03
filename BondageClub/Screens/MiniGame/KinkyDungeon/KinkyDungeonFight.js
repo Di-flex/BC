@@ -525,7 +525,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 			disarm = true;
 		}
 	}
-	let evaded = KinkyDungeonEvasion(Enemy, KinkyDungeonPlayerEntity);
+	let evaded = KinkyDungeonEvasion(Enemy, undefined, undefined, KinkyDungeonPlayerEntity);
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	let predata = {
