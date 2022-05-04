@@ -723,10 +723,11 @@ function KinkyDungeonHandleHUD() {
 		if (KDDebugMode) {
 			if (MouseIn(1100, 20, 64, 64)) {
 				KDDebug = !KDDebug;
-				return false;
+				return true;
 			} else
 			if (MouseIn(1100, 100, 64, 64)) {
 				KDDebugPerks = !KDDebugPerks;
+				return true;
 			} else
 			if (MouseIn(1100, 180, 64, 64)) {
 				if (KDDebugGold) {
@@ -736,12 +737,14 @@ function KinkyDungeonHandleHUD() {
 					KDDebugGold = true;
 					KinkyDungeonGold = 100000;
 				}
+				return true;
 			} else
 			if (MouseIn(1500, 100, 300, 64)) {
 				let enemy = KinkyDungeonEnemies.find((element) => {return element.name.toLowerCase() == ElementValue("DebugEnemy").toLowerCase();});
 				if (enemy) {
 					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, enemy.name, 1, 1);
 				}
+				return true;
 			} else
 			if (MouseIn(1500, 260, 300, 64)) {
 				let item = null;
@@ -754,15 +757,18 @@ function KinkyDungeonHandleHUD() {
 
 				if (item)
 					KinkyDungeonInventoryAdd(item);
+				return true;
 			} else
 			if (MouseIn(1100, 260, 300, 64)) {
 				KinkyDungeonPlayerEntity.x = KinkyDungeonEndPosition.x;
 				KinkyDungeonPlayerEntity.y = KinkyDungeonEndPosition.y;
 				KDGameData.JailKey = true;
 				KinkyDungeonUpdateLightGrid = true;
+				return true;
 			} else
 			if (MouseIn(1100, 320, 300, 64)) {
 				KDGameData.PrisonerState = 'parole';
+				return true;
 			}
 		}
 

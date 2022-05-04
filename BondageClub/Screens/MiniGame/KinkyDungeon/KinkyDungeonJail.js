@@ -39,8 +39,13 @@ function KinkyDungeonPlayerIsVisibleToJailers() {
 	return null;
 }
 
-function KinkyDungeonCanPlay() {
-	return KDGameData.PrisonerState == 'parole';
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean}
+ */
+function KinkyDungeonCanPlay(enemy) {
+	return KDGameData.PrisonerState == 'parole' || (!KDHostile(enemy) && !KDAllied(enemy));
 }
 
 function KinkyDungeonCheckRelease() {
@@ -199,7 +204,7 @@ function KinkyDungeonPlayExcuse(enemy, Type) {
 	if (Type == "Free" && enemy && enemy.Enemy.noChaseUnrestrained) {
 		return;
 	}
-	if (KinkyDungeonCanPlay() && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
+	if (KinkyDungeonCanPlay(enemy) && !(enemy.playWithPlayer > 0) && enemy.aware && !(enemy.playWithPlayerCD > 0) && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 		enemy.playWithPlayer = 17;
 		enemy.playWithPlayerCD = enemy.playWithPlayer * 1.5;
 
@@ -802,7 +807,8 @@ function KinkyDungeonDefeat() {
 	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax;
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
-	let collar = KinkyDungeonGetRestraintItem("ItemNeck");	if (collar && KDRestraint(collar)) {
+	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
+	if (collar && KDRestraint(collar)) {
 		if (KDRestraint(collar).name == "DragonCollar") defeat_outfit = "Dragon";
 		if (KDRestraint(collar).name == "MaidCollar") defeat_outfit = "Maid";
 		if (KDRestraint(collar).name == "ExpCollar") defeat_outfit = "BlueSuitPrison";

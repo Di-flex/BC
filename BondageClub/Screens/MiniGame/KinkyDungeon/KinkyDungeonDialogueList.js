@@ -166,6 +166,9 @@ let KDDialogue = {
 	},
 	"OfferLatex": {
 		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonFlags.BondageOffer = 5;
+		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
@@ -246,6 +249,7 @@ let KDDialogue = {
 			if (KinkyDungeonGetRestraintsWithShrine("Rope").length > 0) {
 				KDGameData.CurrentDialogMsg = "OfferRopesExtra";
 			}
+			KinkyDungeonFlags.BondageOffer = 5;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -266,7 +270,7 @@ let KDDialogue = {
 					"No": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							let diff = 75;
-							if (KDBasicCheck(["Robot"], ["Ghost"]) <= diff) {
+							if (KDBasicCheck(["Rope"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
 								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
@@ -314,6 +318,100 @@ let KDDialogue = {
 									let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 									if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
 								}
+							}
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+				},
+			},
+		}
+	},
+	"OfferWolfgirl": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonFlags.WolfgirlOffer = 100;
+		},
+		options: {
+			"Yes": {gag: true, playertext: "Default", response: "Default",
+				options: {
+					"Yes": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", 2);
+							for (let i = 0; i < 3; i++) {
+								let r = KinkyDungeonGetRestraint({tags: ["wolfGear"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+							}
+							let outfit = {name: "Wolfgirl", type: Outfit};
+							if (!KinkyDungeonInventoryGet("Wolfgirl")) KinkyDungeonInventoryAdd(outfit);
+							if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
+							KinkyDungeonSlowMoveTurns = 3;
+							KinkyDungeonSleepTime = CommonTime() + 200;
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
+					"No": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							let diff = 35;
+							if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
+								KDGameData.CurrentDialogStage = "Force";
+								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
+								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+							}
+							KinkyDungeonChangeRep("Ghost", -1);
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
+				},
+			},
+			"No": {gag: true, playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					let diff = 45;
+					if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
+						KDGameData.CurrentDialogStage = "Force";
+						KDGameData.CurrentDialogMsg = "";
+						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+					}
+					KinkyDungeonChangeRep("Ghost", -1);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+			"Force": {gag: true, playertext: "Default", response: "Default",
+				prerequisiteFunction: (gagged) => {return false;},
+				options: {
+					"Yes": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", 2);
+							for (let i = 0; i < 3; i++) {
+								let r = KinkyDungeonGetRestraint({tags: ["wolfGear"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+							}
+							let outfit = {name: "Wolfgirl", type: Outfit};
+							if (!KinkyDungeonInventoryGet("Wolfgirl")) KinkyDungeonInventoryAdd(outfit);
+							if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
+							KinkyDungeonSlowMoveTurns = 3;
+							KinkyDungeonSleepTime = CommonTime() + 200;
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+					"No": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							let percent = KDGameData.CurrentDialogMsgValue.Percent;
+							KinkyDungeonChangeRep("Ghost", -1);
+							if (KDRandom() > percent) {
+								// Fail
+								KDGameData.CurrentDialogMsg = "OfferRopesForce_Failure";
+								for (let i = 0; i < 8; i++) {
+									let r = KinkyDungeonGetRestraint({tags: ["wolfGear", "wolfRestraints"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+									if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+								}
+								let outfit = {name: "Wolfgirl", type: Outfit};
+								if (!KinkyDungeonInventoryGet("Wolfgirl")) KinkyDungeonInventoryAdd(outfit);
+								if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+								KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
+								KinkyDungeonSlowMoveTurns = 3;
+								KinkyDungeonSleepTime = CommonTime() + 200;
 							}
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},

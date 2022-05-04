@@ -26,7 +26,7 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5&& !KinkyDungeonFlags.BondageOffer  && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 10;
@@ -40,7 +40,20 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+		},
+		weight: (enemy, dist) => {
+			return 10;
+		},
+	},
+	"OfferWolfgirl": {
+		dialogue: "OfferWolfgirl",
+		allowedPrisonStates: ["parole", ""],
+		requireTags: ["wolfgirl", "trainer"],
+		nonHostile: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5 && !KinkyDungeonFlags.WolfgirlOffer && KinkyDungeonCurrentDress != "Wolfgirl" && KDRandom() < 0.5);
 		},
 		weight: (enemy, dist) => {
 			return 10;

@@ -2,27 +2,57 @@
 
 let KinkyDungeonFactionRelations = {
 	"Player": {
+		Enemy: -1.0,
+		Prisoner: 0.1,
+
+		// Wild factions
+		KinkyConstruct: -0.9,
+		Slime: -1.0,
+		Beast: -0.6,
+
+		// Mainline factions
+		Nevermere: -0.4,
+		Alchemist: -0.3,
+		Elf: -0.25,
+		Elemental: -0.6,
+		AncientRobot: -0.7,
+		Dragon: -0.1,
+		Mushy: -0.65,
+		Witch: -0.8,
+		Maidforce: -0.45,
 	},
 	"Enemy": {
-		Player: -1.0,
 	},
 	"Prisoner": {
-		Player: 0.1,
 	},
 	"Jail": {
-
 	},
 	"Slime": {
 		Jail: -0.25,
-		Player: -1.0,
 	},
 	"Beast": {
 		Jail: -0.25,
-		Player: -0.6,
 	},
 	"KinkyConstruct": {
 		Jail: -0.25,
-		Player: -0.9,
+	},
+	"Nevermere": {
+	},
+	"Alchemist": {
+	},
+	"Elf": {
+	},
+	"Elemental": {
+	},
+	"AncientRobot": {
+	},
+	"Dragon": {
+	},
+	"Mushy": {
+	},
+	"Witch": {
+	},
+	"Maidforce": {
 	},
 };
 
@@ -65,8 +95,31 @@ function KDInitFactions() {
  */
 function KDSetFactionRelation(a, b, relation) {
 	if (KinkyDungeonFactionRelations[a])
-		KinkyDungeonFactionRelations[a][b] = relation;
+		KinkyDungeonFactionRelations[a][b] = Math.max(-1, Math.min(1, relation));
 	if (KinkyDungeonFactionRelations[b])
-		KinkyDungeonFactionRelations[b][a] = relation;
+		KinkyDungeonFactionRelations[b][a] = Math.max(-1, Math.min(1, relation));
+	KDInitFactions();
+}
+
+/**
+ * Changes faction relation and refreshes the map
+ * @param {string} a
+ * @param {string} b
+ * @param {number} amount
+ */
+function KDChangeFactionRelation(a, b, amount) {
+	if (KinkyDungeonFactionRelations[a]) {
+		if (!KinkyDungeonFactionRelations[a][b] && KinkyDungeonFactionRelations[b][a])
+			KinkyDungeonFactionRelations[a][b] = KinkyDungeonFactionRelations[b][a];
+		else if (!KinkyDungeonFactionRelations[a][b]) KinkyDungeonFactionRelations[a][b] = 0;
+		KinkyDungeonFactionRelations[a][b] = Math.max(-1, Math.min(1, KinkyDungeonFactionRelations[a][b] + amount));
+	}
+
+	if (KinkyDungeonFactionRelations[b]) {
+		if (!KinkyDungeonFactionRelations[b][a] && KinkyDungeonFactionRelations[a][b])
+			KinkyDungeonFactionRelations[b][a] = KinkyDungeonFactionRelations[a][b];
+		else if (!KinkyDungeonFactionRelations[b][a]) KinkyDungeonFactionRelations[b][a] = 0;
+		KinkyDungeonFactionRelations[b][a] = Math.max(-1, Math.min(1, KinkyDungeonFactionRelations[b][a] + amount));
+	}
 	KDInitFactions();
 }

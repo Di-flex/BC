@@ -735,8 +735,8 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		for (let enemy of KinkyDungeonEntities) {
 			if ((b.reflected
 				|| (!b.bullet.spell || !b.bullet.faction
-					|| (KDFactionHostile(b.bullet.faction, enemy) && (!b.bullet.damage || b.bullet.damage.type != "heal"))
-					|| (KDFactionAllied(b.bullet.faction, enemy) && (b.bullet.damage && b.bullet.damage.type == "heal"))
+					|| (!KDFactionAllied(b.bullet.faction, enemy) && (!b.bullet.damage || b.bullet.damage.type != "heal"))
+					|| (!KDFactionHostile(b.bullet.faction, enemy) && (b.bullet.damage && b.bullet.damage.type == "heal"))
 				))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
@@ -868,8 +868,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				for (let enemy of KinkyDungeonEntities) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell || !bullet.bullet.faction
-							|| (KDFactionHostile(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
-							|| (KDFactionAllied(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
+							|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
+							|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 						))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
 						if (bullet.bullet.damage.type == "heal") {
@@ -890,8 +890,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 			for (let enemy of KinkyDungeonEntities) {
 				if ((bullet.reflected
 					|| (!bullet.bullet.spell || !bullet.bullet.faction
-						|| (KDFactionHostile(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
-						|| (KDFactionAllied(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
+						|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
+						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {
 					if (bullet.bullet.damage.type == "heal") {

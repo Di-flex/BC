@@ -123,6 +123,34 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
 			KDRecentRepIndex += 1;
 		}
+		if (Rep == "Metal") {
+			KDChangeFactionRelation("Player", "Nevermere", (Amount > 0 ? 0.01 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "AncientRobot", (Amount > 0 ? 0.005 : 0.01) * Amount);
+		}
+		if (Rep == "Rope") {
+			KDChangeFactionRelation("Player", "KinkyConstruct", (Amount > 0 ? 0.005 : 0.005) * Amount);
+		}
+		if (Rep == "Elements") {
+			KDChangeFactionRelation("Player", "Elemental", (Amount > 0 ? 0.005 : 0.01) * Amount);
+		}
+		if (Rep == "Leather") {
+			KDChangeFactionRelation("Player", "Dragon", (Amount > 0 ? 0.005 : 0.01) * Amount);
+		}
+		if (Rep == "Latex") {
+			KDChangeFactionRelation("Player", "Alchemist", (Amount > 0 ? 0.0075 : 0.01) * Amount);
+		}
+		if (Rep == "Will") {
+			KDChangeFactionRelation("Player", "Elf", (Amount > 0 ? 0.075 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Mushy", (Amount > 0 ? 0.004 : 0.01)* Amount);
+			KDChangeFactionRelation("Player", "Beast", (Amount > 0 ? 0.06 : 0.005) * Amount);
+		}
+		if (Rep == "Conjure") {
+			KDChangeFactionRelation("Player", "Witch", (Amount > 0 ? 0.01 : 0.01) * Amount);
+		}
+		if (Rep == "Illusion") {
+			KDChangeFactionRelation("Player", "Maidforce", (Amount > 0 ? 0.007 : 0.01) * Amount);
+		}
+
 		if (KinkyDungeonGoddessRep[Rep] != last) return true;
 		return false;
 	}
