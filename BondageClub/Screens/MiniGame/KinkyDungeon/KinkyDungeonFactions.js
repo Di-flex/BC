@@ -6,7 +6,7 @@
  * @param {entity} [enemy]
  * @returns {boolean}
  */
- function KinkyDungeonAggressive(enemy) {
+function KinkyDungeonAggressive(enemy) {
 	if (enemy && enemy.hostile > 0) return true;
 	if (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase") return KDHostile(enemy);
 	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") < -0.1) return KDHostile(enemy);

@@ -4007,3 +4007,17 @@ dPrisonIntroRules_Brat,"Let me out this instant!"
 dPrisonIntroRules_BratGag,"(Scream into your gag uselessly)"
 dPrisonIntroRules_Sub,"I will be a good girl!"
 dPrisonIntroRules_SubGag,"(Giggle and wiggle your body)"
+
+
+
+rPrisonRepeat,"(The SPEAKER approaches you in your cell)|Back again, are we? Silly girl.|You know we don't take no for an answer."
+
+rPrisonRepeatSmile,"(The SPEAKER smiles back)|Oh, this is a game to you?|Then perhaps I should make it funner.|(She leaves and returns with some toys...)|Now hold still!"
+rPrisonRepeatSmile2,"(The SPEAKER smiles back)|I'm glad you're enjoying yourself.|However, your behavior is still unacceptable.|You need to learn some respect."
+rPrisonRepeatStruggle,"(The SPEAKER chuckles)|Looks like you're enjoying your restraints?|Let's make them tighter, shall we?"
+rPrisonRepeatPout,"(The SPEAKER shrugs)|Well, I hope you learn."
+
+dPrisonRepeat_Smile,"(Giggle and smile)"
+dPrisonRepeat_Smile2,"(Giggle and moan)"
+dPrisonRepeat_Struggle,"(Struggle in your bindings)"
+dPrisonRepeat_Pout,"(Pout and glare at her)"

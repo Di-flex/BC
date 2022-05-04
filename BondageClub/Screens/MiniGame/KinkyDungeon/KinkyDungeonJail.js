@@ -3,10 +3,10 @@
 let KinkyDungeonJailRemoveRestraintsTimerMin = 90;
 let KinkyDungeonJailedOnce = false;
 let KDJailReleaseTurns = [
-	{minSub: 0, releaseTurns: 200},
-	{minSub: 10, releaseTurns: 100},
-	{minSub: 40, releaseTurns: 30},
-	{minSub: 90, releaseTurns: 0},
+	{minSub: 0, releaseTurns: 250},
+	{minSub: 10, releaseTurns: 140},
+	{minSub: 40, releaseTurns: 80},
+	{minSub: 90, releaseTurns: 40},
 ];
 
 function KinkyDungeonLoseJailKeys(Taken) {
@@ -304,6 +304,9 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		if (!KinkyDungeonFlags.JailIntro) {
 			KinkyDungeonFlags.JailIntro = -1;
 			KDStartDialog("PrisonIntro", guard.Enemy.name, true, "");
+		} else if (KinkyDungeonFlags.JailRepeat) {
+			KinkyDungeonFlags.JailRepeat = 0;
+			KDStartDialog("PrisonRepeat", guard.Enemy.name, true, "");
 		}
 
 		if (KinkyDungeonTiles.get((xx-1) + "," + yy) && KinkyDungeonTiles.get((xx-1) + "," + yy).Type == "Door") {
@@ -755,6 +758,8 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
+	if (KinkyDungeonFlags.JailIntro)
+		KinkyDungeonFlags.JailRepeat = -1;
 	KinkyDungeonBlindLevel = 3;
 	KinkyDungeonUpdateLightGrid = true;
 	if (!KDGameData.TimesJailed) KDGameData.TimesJailed = 1;

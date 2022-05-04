@@ -130,6 +130,40 @@ let KDDialogue = {
 			},
 		}
 	},
+	"PrisonRepeat": {
+		response: "Default",
+		options: {
+			"Smile": {playertext: "Default", response: "Default",
+				prerequisiteFunction: (gagged) => {return !(KinkyDungeonGetRestraintItem("ItemVulva"));},
+				clickFunction: () => {
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), 0, true);
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapPlug2"), 0, true);
+					KinkyDungeonChangeRep("Ghost", 3);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+			"Smile2": {playertext: "Default", response: "Default",
+				prerequisiteFunction: (gagged) => {return KinkyDungeonGetRestraintItem("ItemVulva") != undefined;},
+				clickFunction: () => {
+					KinkyDungeonChangeRep("Ghost", 5);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+			"Struggle": {playertext: "Default", response: "Default",
+				prerequisiteFunction: (gagged) => {return KinkyDungeonGetRestraintItem("ItemArms") != undefined;},
+				clickFunction: () => {
+					KinkyDungeonChangeRep("Prisoner", 3);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+			"Pout": {playertext: "Default", response: "Default",
+				clickFunction: () => {
+					KinkyDungeonChangeRep("Ghost", -3);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+		}
+	},
 
 	// TODO magic book dialogue in which you can read forward and there are traps
 };

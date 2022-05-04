@@ -11,9 +11,9 @@ const KinkyDungeonRestraints = [
 	{name: "ScarfFeet", Asset: "DuctTape", Color: "#880022", Group: "ItemFeet", blockfeet: true, power: 0, weight: 0, escapeChance: {"Struggle": 0.5, "Cut": 0.9, "Remove": 0.2},
 		enemyTags: {"scarfRestraints":2}, playerTags: {"ItemFeetFull":2}, minLevel: 0, allFloors: true, shrine: ["Rope"]},
 	// Simple cloth stuff
-	{name: "ScarfGag", Asset: "ClothGag", gag: 0.3, Type: "OTN", Color: "#880022", Group: "ItemMouth3", power: 0.1, weight: 2, escapeChance: {"Struggle": 0.5, "Cut": 1.0, "Remove": 0.8},
+	{name: "ScarfGag", Asset: "ScarfGag", gag: 0.3, Type: "OTN", Color: "#880022", Group: "ItemMouth3", power: 0.1, weight: 2, escapeChance: {"Struggle": 0.5, "Cut": 1.0, "Remove": 0.8},
 		enemyTags: {"scarfRestraints":8, "ropeAuxiliary": 1}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Rope", "Gags"]},
-	{name: "ScarfBlindfold", Asset: "ClothBlindfold", Color: "#880022", Group: "ItemHead", power: 0.1, weight: 2, escapeChance: {"Struggle": 0.5, "Cut": 1.0, "Remove": 0.8},
+	{name: "ScarfBlindfold", Asset: "ScarfBlindfold", Color: "#880022", Group: "ItemHead", power: 0.1, weight: 2, escapeChance: {"Struggle": 0.5, "Cut": 1.0, "Remove": 0.8},
 		blindfold: 1, enemyTags: {"scarfRestraints":8, "ropeAuxiliary": 1}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Rope", "Blindfolds"]},
 
 
