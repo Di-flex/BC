@@ -173,11 +173,12 @@ let KDDialogue = {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Latex", 1);
-					let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -205,11 +206,12 @@ let KDDialogue = {
 			"No": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					let diff = 60;
-					let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 					if (KDBasicCheck(["Latex"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
@@ -252,11 +254,12 @@ let KDDialogue = {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Metal", 1);
-					let r = KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -284,11 +287,12 @@ let KDDialogue = {
 			"No": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					let diff = 60;
-					let r = KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 					if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
@@ -331,11 +335,12 @@ let KDDialogue = {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Leather", 1);
-					let r = KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -363,11 +368,12 @@ let KDDialogue = {
 			"No": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					let diff = 60;
-					let r = KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]).name;
-					KDGameData.CurrentDialogMsgData = {
-						"Data_r": r,
-						"RESTRAINT": TextGet("Restraint" + r),
-					};
+					let r = KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+					if (r)
+						KDGameData.CurrentDialogMsgData = {
+							"Data_r": r.name,
+							"RESTRAINT": TextGet("Restraint" + r.name),
+						};
 					if (KDBasicCheck(["Leather"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";

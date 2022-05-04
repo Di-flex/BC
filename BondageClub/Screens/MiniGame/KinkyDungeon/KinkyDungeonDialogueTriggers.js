@@ -40,7 +40,7 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5 && KinkyDungeonStatsChoice.has("arousalMode") && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal), Math.abs(KinkyDungeonGoddessRep.Elements), Math.abs(KinkyDungeonGoddessRep.Illusion), Math.abs(KinkyDungeonGoddessRep.Ghost));
