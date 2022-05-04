@@ -240,6 +240,87 @@ let KDDialogue = {
 			},
 		}
 	},
+	"OfferRopes": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			if (KinkyDungeonGetRestraintsWithShrine("Rope").length > 0) {
+				KDGameData.CurrentDialogMsg = "OfferRopesExtra";
+			}
+		},
+		options: {
+			"Yes": {gag: true, playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonChangeRep("Rope", 1);
+				},
+				options: {
+					"Yes": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", 2);
+							for (let i = 0; i < 3; i++) {
+								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+							}
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
+					"No": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							let diff = 75;
+							if (KDBasicCheck(["Robot"], ["Ghost"]) <= diff) {
+								KDGameData.CurrentDialogStage = "Force";
+								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
+								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+							}
+							KinkyDungeonChangeRep("Ghost", -1);
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
+				},
+			},
+			"No": {gag: true, playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					let diff = 60;
+					if (KDBasicCheck(["Rope"], ["Ghost"]) <= diff) {
+						KDGameData.CurrentDialogStage = "Force";
+						KDGameData.CurrentDialogMsg = "";
+						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+					}
+					KinkyDungeonChangeRep("Ghost", -1);
+				},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+			},
+			"Force": {gag: true, playertext: "Default", response: "Default",
+				prerequisiteFunction: (gagged) => {return false;},
+				options: {
+					"Yes": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", 2);
+							for (let i = 0; i < 3; i++) {
+								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+							}
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+					"No": {gag: true, playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							let percent = KDGameData.CurrentDialogMsgValue.Percent;
+							KinkyDungeonChangeRep("Ghost", -1);
+							if (KDRandom() > percent) {
+								// Fail
+								KDGameData.CurrentDialogMsg = "OfferRopesForce_Failure";
+								for (let i = 0; i < 5; i++) {
+									let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+									if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
+								}
+							}
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+				},
+			},
+		}
+	},
 	// TODO magic book dialogue in which you can read forward and there are traps
 };
 
