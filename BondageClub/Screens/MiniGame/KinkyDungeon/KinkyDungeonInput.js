@@ -403,20 +403,25 @@ function KDProcessInput(type, data) {
 				if (KDGameData.CurrentDialogMsgSpeaker != oldSpeaker)
 					KDGameData.CurrentDialogMsgPersonality = ""; // Reset when speaker changes
 			}
+			if (data.enemy) {
+				KDGameData.CurrentDialogMsgID = data.enemy.id;
+			}
 			if (data.personality)
 				KDGameData.CurrentDialogMsgPersonality = data.personality;
 
 			let dialogue = KDGetDialogue();
+			if (dialogue.data) KDGameData.CurrentDialogMsgData = dialogue.data;
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
 			if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 			if (dialogue.personalities) {
 				KDDialogueApplyPersonality(dialogue.personalities);
 			}
 			if (data.click) {
-				if (dialogue.gagFunction && KDDialogueGagged()) {
+				let gagged = KDDialogueGagged();
+				if (dialogue.gagFunction && gagged) {
 					dialogue.gagFunction();
 				} else if (dialogue.clickFunction) {
-					dialogue.clickFunction();
+					dialogue.clickFunction(gagged);
 				}
 			}
 			if (dialogue.exitDialogue) {

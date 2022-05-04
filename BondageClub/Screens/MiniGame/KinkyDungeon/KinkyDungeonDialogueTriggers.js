@@ -17,6 +17,20 @@ let KDDialogueTriggers = {
 		weight: (enemy, dist) => {
 			return KDStrictPersonalities.includes(enemy.personality) ? 10 : 1;
 		},
-	}
+	},
+	"OfferLatex": {
+		dialogue: "OfferLatex",
+		allowedPrisonStates: ["parole", ""],
+		allowedPersonalities: ["Sub"],
+		excludeTags: ["zombie", "skeleton", "robot"],
+		nonHostile: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5 && KDRandom() < 0.25);
+		},
+		weight: (enemy, dist) => {
+			return KDStrictPersonalities.includes(enemy.personality) ? 10 : 1;
+		},
+	},
 
 };

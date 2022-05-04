@@ -116,6 +116,9 @@ let KDOptOut = false;
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
 * CurrentDialogMsgPersonality: string,
+* CurrentDialogMsgID: number,
+* CurrentDialogMsgData: Record<string, string>,
+* CurrentDialogMsgValue: Record<string, number>,
 * AlertTimer: number,
 *}} KDGameDataBase
 */
@@ -195,6 +198,9 @@ let KDGameDataBase = {
 	CurrentDialogMsg: "",
 	CurrentDialogMsgSpeaker: "",
 	CurrentDialogMsgPersonality: "",
+	CurrentDialogMsgData: {},
+	CurrentDialogMsgValue: {},
+	CurrentDialogMsgID: -1,
 
 	ConfirmAttack: false,
 };

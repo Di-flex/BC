@@ -4021,3 +4021,28 @@ dPrisonRepeat_Smile,"(Giggle and smile)"
 dPrisonRepeat_Smile2,"(Giggle and moan)"
 dPrisonRepeat_Struggle,"(Struggle in your bindings)"
 dPrisonRepeat_Pout,"(Pout and glare at her)"
+
+
+rOfferLatex,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Are you a fan of latex by chance?"
+rOfferLatexYes,"(The SPEAKER blushes deeply)|Then would you like to try on this RESTRAINT?"
+rOfferLatexNo,"(The SPEAKER blushes)|Okay... sorry I asked."
+rOfferLatexForce,"(The SPEAKER grins and reaches for a RESTRAINT)|Well, too bad--"
+rOfferLatexForceYes,"(The SPEAKER grins)|I wasn't offering you a choice...|I was asking if you would LIKE it, hehe~"
+rOfferLatexForce_No,"(The SPEAKER frowns)|...You're fast!"
+rOfferLatexForce_Yes,"(The SPEAKER smiles)|That's right~"
+rOfferLatexForce_Failure,"(The SPEAKER restraints you and clicks a lock on)|There! Nice and tight!"
+
+dOfferLatex_Yes,"Why of course!"
+dOfferLatex_YesGag,"(Nod happily)"
+dOfferLatex_No,"Not really."
+dOfferLatex_NoGag,"(Shake your head)"
+
+dOfferLatexYes_Yes,"That sounds fun!"
+dOfferLatexYes_YesGag,"(Nod again)"
+dOfferLatexYes_No,"No, I don't want that!"
+dOfferLatexYes_NoGag,"(Shake your head)"
+
+dOfferLatexForce_Yes,"Okay, fine..."
+dOfferLatexForce_YesGag,"(Moan and giggle)"
+dOfferLatexForce_No,"Wait, what? (PERCENT chance to avoid)"
+dOfferLatexForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"

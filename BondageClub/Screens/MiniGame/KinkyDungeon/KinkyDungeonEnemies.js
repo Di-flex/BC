@@ -1064,11 +1064,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			chance += 0.5;
 		}
 	}
+	if (!enemy.personality) enemy.personality = KDGetPersonality(enemy);
 
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.1;
 	if (KinkyDungeonCanPlay() && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && !(enemy.hostile > 0) && player.player && canSeePlayer && (enemy.vp > sneakThreshold || enemy.aware) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
 		playAllowed = true;
-		if (!enemy.personality) enemy.personality = KDGetPersonality(enemy);
 		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance) {
 			enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
 			enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
@@ -1086,7 +1086,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			let weight = 0;
 			if ((!trigger.blockDuringPlaytime || enemy.playWithPlayer < 1)
 				&& (!trigger.playRequired || playAllowed)
-				&& (!trigger.allowedPrisonStates || trigger.allowedPrisonStates.includes(KDGameData.PrisonerState))) {
+				&& (!trigger.nonHostile || !KinkyDungeonAggressive(enemy))
+				&& (!trigger.allowedPrisonStates || trigger.allowedPrisonStates.includes(KDGameData.PrisonerState))
+				&& (!trigger.allowedPersonalities || trigger.allowedPersonalities.includes(enemy.personality))) {
 				if (trigger.excludeTags) {
 					let end = false;
 					for (let tt of trigger.excludeTags) {

@@ -78,7 +78,7 @@ function KinkyDungeonHandleInventory() {
 				}
 			}
 			if (!equipped && newItem) {
-				if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem.name, events: filteredInventory[KinkyDungeonCurrentPageInventory].item.events})) return true;
+				if (KDSendInput("equip", {name: newItem.name, group: newItem.Group, currentItem: currentItem ? currentItem.name : undefined, events: filteredInventory[KinkyDungeonCurrentPageInventory].item.events})) return true;
 
 			}
 		}

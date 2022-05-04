@@ -735,9 +735,13 @@ type KinkyDungeonDress = {
 interface KinkyDialogueTrigger {
 	dialogue: string;
 	allowedPrisonStates?: string[];
+	/** Only allows the following personalities to do it */
+	allowedPersonalities?: string[];
 	blockDuringPlaytime?: boolean;
 	excludeTags?: string[];
 	playRequired?: boolean;
+	/** Prevents this from happening if the target is hostile */
+	nonHostile?: boolean;
 	prerequisite: (enemy, dist) => boolean;
 	weight: (enemy, dist) => number;
 }
@@ -919,8 +923,10 @@ interface spell {
 }
 
 interface KinkyDialogue {
+	/** REPLACETEXT -> Replacement */
+	data?: Record<string, string>;
 	/** Function to play when clicked. If not specified, nothing happens. */
-	clickFunction?: () => void;
+	clickFunction?: (gagged) => void;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
 	gagFunction?: () => void;
 	/** Will not appear unless function returns true */
