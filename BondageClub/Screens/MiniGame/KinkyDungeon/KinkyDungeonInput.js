@@ -395,6 +395,9 @@ function KDProcessInput(type, data) {
 			break;
 		}
 		case "dialogue": {
+			if (!KDGameData.CurrentDialogMsgData) KDGameData.CurrentDialogMsgData = {};
+			if (!KDGameData.CurrentDialogMsgValue) KDGameData.CurrentDialogMsgValue = {};
+
 			KDGameData.CurrentDialog = data.dialogue;
 			KDGameData.CurrentDialogStage = data.dialogueStage;
 			if (data.speaker) {
@@ -404,7 +407,7 @@ function KDProcessInput(type, data) {
 					KDGameData.CurrentDialogMsgPersonality = ""; // Reset when speaker changes
 			}
 			if (data.enemy) {
-				KDGameData.CurrentDialogMsgID = data.enemy.id;
+				KDGameData.CurrentDialogMsgID = data.enemy;
 			}
 			if (data.personality)
 				KDGameData.CurrentDialogMsgPersonality = data.personality;

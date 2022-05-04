@@ -1925,10 +1925,10 @@ RestraintTrapBeltProtoDesc2,"The lock is extremely advanced, and the ports at th
 RestraintTrapBra,Steel Chastity Bra
 RestraintTrapBraDesc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBraDesc2,"It won't stop the dungeon's little curses, but will keep you from removing them."
-RestraintTrapBelt2,Cursed Chastity Belt
+RestraintTrapBelt2,Ornate Chastity Belt
 RestraintTrapBelt2Desc,"A cruel device used for locking magical vibrators in place."
 RestraintTrapBelt2Desc2,"The lock won't come off until the magic wears off in time..."
-RestraintTrapBra2,Cursed Chastity Bra
+RestraintTrapBra2,Ornate Chastity Bra
 RestraintTrapBra2Desc,"A cruel device used for locking magical massagers in place."
 RestraintTrapBra2Desc2,"The lock won't come off until the magic wears off in time..."
 
@@ -4069,6 +4069,63 @@ dOfferLatexForce_Yes,"Okay, fine..."
 dOfferLatexForce_YesGag,"(Moan and giggle)"
 dOfferLatexForce_No,"Wait, what? (PERCENT chance to avoid)"
 dOfferLatexForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
+
+
+rOfferChastity,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Can you help me out?"
+rOfferChastityYes,"(The SPEAKER blushes deeply)|I managed to unlock my RESTRAINT,|but my mistress expects me to wear it!|Do you mind wearing it instead?"
+rOfferChastityYes_Yes,"(The SPEAKER smiles)|Thank you so much, miss!|(The lock on the RESTRAINT starts glowing...)"
+rOfferChastityYes_No,"(The SPEAKER frowns)|I'm going to get in trouble..."
+rOfferChastityNo,"(The SPEAKER blushes)|Oh... okay."
+rOfferChastityForce,"(The SPEAKER frowns angrily)|Look, I know you're in trouble around here.|Just do me a favor. Please."
+rOfferChastityForceYes,"(The SPEAKER pleads with you)|My mistress is a magician!|She put a spell on it that tells her if it's locked.|Please, you have to hurry!"
+rOfferChastityForce_No,"(The SPEAKER sighs and wears it herself)|(The lock starts glowing brightly...)"
+rOfferChastityForce_Yes,"(The SPEAKER looks relieved)|Thank you so much miss!|I won't forget you!"
+rOfferChastityForce_Failure,"(As you turn around, the SPEAKER surprises you)|(You hear a click around your waist)|Hmmph! Serves you right!|(The lock seems to glow brightly...)"
+
+dOfferChastity_Yes,"I would love to help!"
+dOfferChastity_YesGag,"(Nod eagerly)"
+dOfferChastity_No,"Go find someone else."
+dOfferChastity_NoGag,"(Shake your head)"
+
+dOfferChastityYes_Yes,"That sounds like a tempting offer."
+dOfferChastityYes_YesGag,"(Nod again, excited)"
+dOfferChastityYes_No,"...What? Why would I need to wear it?"
+dOfferChastityYes_NoGag,"(Shake your head, puzzled)"
+
+dOfferChastityForce_Yes,"Fine. I'll do it because you asked."
+dOfferChastityForce_YesGag,"(Moan and nod slowly)"
+dOfferChastityForce_No,"I won't help you. Wear it yourself. (PERCENT chance to avoid)"
+dOfferChastityForce_NoGag,"(Shake your head) (PERCENT chance to avoid)"
+
+
+
+rOfferLeather,"(The SPEAKER walks up to you)|We don't get a lot of visitors.|I take it that you enjoy bondage?"
+rOfferLeatherYes,"(The SPEAKER tilts her head)|Well, I have a RESTRAINT lying around,|and I figured you'd enjoy it."
+rOfferLeatherYes_Yes,"(The SPEAKER smiles)|I'm glad you like it!"
+rOfferLeatherYes_No,"(The SPEAKER frowns)|I guess I'll have to find someone else to wear it."
+rOfferLeatherNo,"(The SPEAKER looks disappointed)|Oh well."
+rOfferLeatherForce,"(The SPEAKER grins and reaches toward you!)|Well, I think it'd look great on you!"
+rOfferLeatherForceYes,"(The SPEAKER grins)|You don't have a choice, dear~"
+rOfferLeatherForce_No,"(The SPEAKER frowns)|Darn it! Missed my chance."
+rOfferLeatherForce_Yes,"(The SPEAKER smiles)|Good, good~"
+rOfferLeatherForce_Failure,"(The SPEAKER restraints you and clicks a lock on)|There! Nice and tight!"
+
+dOfferLeather_Yes,"Why of course!"
+dOfferLeather_YesGag,"(Nod happily)"
+dOfferLeather_No,"Not really."
+dOfferLeather_NoGag,"(Shake your head)"
+
+dOfferLeatherYes_Yes,"That sounds fun!"
+dOfferLeatherYes_YesGag,"(Nod again)"
+dOfferLeatherYes_No,"No, I don't want that!"
+dOfferLeatherYes_NoGag,"(Shake your head)"
+
+dOfferLeatherForce_Yes,"Okay, fine..."
+dOfferLeatherForce_YesGag,"(Moan and giggle)"
+dOfferLeatherForce_No,"Wait, what? (PERCENT chance to avoid)"
+dOfferLeatherForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
 
 
 

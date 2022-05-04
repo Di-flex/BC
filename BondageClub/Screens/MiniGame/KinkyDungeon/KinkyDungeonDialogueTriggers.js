@@ -29,7 +29,21 @@ let KDDialogueTriggers = {
 			return (dist < 1.5&& !KinkyDungeonFlags.BondageOffer  && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 10;
+			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Latex), Math.abs(KinkyDungeonGoddessRep.Conjure));
+		},
+	},
+	"OfferChastity": {
+		dialogue: "OfferChastity",
+		allowedPrisonStates: ["parole", ""],
+		allowedPersonalities: ["Sub"],
+		excludeTags: ["zombie", "skeleton", "robot"],
+		nonHostile: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+		},
+		weight: (enemy, dist) => {
+			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal), Math.abs(KinkyDungeonGoddessRep.Elements), Math.abs(KinkyDungeonGoddessRep.Illusion), Math.abs(KinkyDungeonGoddessRep.Ghost));
 		},
 	},
 	"OfferRopes": {
@@ -43,7 +57,20 @@ let KDDialogueTriggers = {
 			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 10;
+			return 1 + 0.2 * Math.abs(KinkyDungeonGoddessRep.Rope);
+		},
+	},
+	"OfferLeather": {
+		dialogue: "OfferLeather",
+		allowedPrisonStates: ["parole", ""],
+		excludeTags: ["zombie", "skeleton", "robot"],
+		nonHostile: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+		},
+		weight: (enemy, dist) => {
+			return 1 + 0.1 * Math.abs(KinkyDungeonGoddessRep.Leather + 50);
 		},
 	},
 	"OfferWolfgirl": {

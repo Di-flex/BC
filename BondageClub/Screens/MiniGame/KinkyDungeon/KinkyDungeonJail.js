@@ -63,6 +63,7 @@ function KinkyDungeonCheckRelease() {
 
 /** Max turns for the alert timer until the whole map becomes hostile */
 let KDMaxAlertTimer = 14;
+let KDMaxAlertTimerAggro = 300;
 
 /**
  *
@@ -178,8 +179,8 @@ function KinkyDungeonStartChase(enemy, Type) {
 	} else if (KDLocalChaseTypes.includes(Type)) {
 		for (let e of KinkyDungeonEntities) {
 			if (KDHostile(e) && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
-				if (!e.hostile) e.hostile = KDMaxAlertTimer * 3;
-				else e.hostile = Math.max(KDMaxAlertTimer * 3, e.hostile);
+				if (!e.hostile) e.hostile = KDMaxAlertTimerAggro;
+				else e.hostile = Math.max(KDMaxAlertTimerAggro, e.hostile);
 			}
 		}
 	}
@@ -190,8 +191,8 @@ function KinkyDungeonStartChase(enemy, Type) {
 		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 3 : 5, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, (!KDGameData.PrisonerState));
 	}
 	if (enemy) {
-		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimer * 3;
-		else enemy.hostile = Math.max(KDMaxAlertTimer * 3, enemy.hostile);
+		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimerAggro;
+		else enemy.hostile = Math.max(KDMaxAlertTimerAggro, enemy.hostile);
 	}
 }
 
