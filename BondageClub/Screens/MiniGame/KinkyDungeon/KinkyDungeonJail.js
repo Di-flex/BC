@@ -43,17 +43,6 @@ function KinkyDungeonCanPlay() {
 	return KDGameData.PrisonerState == 'parole';
 }
 
-/**
- *
- * @param {entity} [enemy]
- * @returns {boolean}
- */
-function KinkyDungeonHostile(enemy) {
-	if (enemy && enemy.hostile > 0) return true;
-	if (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase") return KDHostile(enemy);
-	return false;
-}
-
 function KinkyDungeonCheckRelease() {
 	let sub = KinkyDungeonGoddessRep.Ghost + 50;
 	let security = KinkyDungeonGoddessRep.Prisoner + 50;

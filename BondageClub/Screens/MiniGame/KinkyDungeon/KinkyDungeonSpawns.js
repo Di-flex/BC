@@ -177,7 +177,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonStartPosition;
 		let spawnPlayerExclusionRadius = 11;
-		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (!KinkyDungeonHostile()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
+		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (!KinkyDungeonAggressive()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
 			if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchHuntersAmount - HunterAdjust) hunters = true;
 			if ((KinkyDungeonTotalSleepTurns > KinkyDungeonSearchEntranceAdjustAmount - EntranceAdjust && KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonEndPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonEndPosition.y) > spawnPlayerExclusionRadius && KDRandom() < 0.5)
 				|| KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) < spawnPlayerExclusionRadius) spawnLocation = KinkyDungeonEndPosition;

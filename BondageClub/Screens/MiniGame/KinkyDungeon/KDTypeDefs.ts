@@ -913,6 +913,8 @@ interface spell {
 	summon?: any[];
 	/** Spell does not show up in the spells scrreen until learned */
 	secret?: boolean;
+	/** Enemies summoned by this spell will have their default faction and not the caster's faction */
+	defaultFaction?: boolean;
 
 }
 

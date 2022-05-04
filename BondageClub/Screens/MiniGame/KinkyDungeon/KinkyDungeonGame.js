@@ -2229,7 +2229,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	}
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
-		if (!KDGameData.ConfirmAttack && (!KinkyDungeonHostile(Enemy) || KDAllied(Enemy))) {
+		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
 			KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
 			KDGameData.ConfirmAttack = true;
 			noadvance = true;

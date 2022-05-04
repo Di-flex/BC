@@ -607,7 +607,7 @@ function KinkyDungeonRun() {
 			if (KDGameData.SleepTurns > 0) {
 				if (CommonTime() > KinkyDungeonSleepTime) {
 					KDGameData.SleepTurns -= 1;
-					if (KinkyDungeonHostile())
+					if (KinkyDungeonAggressive())
 						KinkyDungeonTotalSleepTurns += 1;
 					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 						KDGameData.SleepTurns = 0;

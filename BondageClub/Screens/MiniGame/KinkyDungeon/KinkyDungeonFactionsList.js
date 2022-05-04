@@ -2,16 +2,36 @@
 
 let KinkyDungeonFactionRelations = {
 	"Player": {
-		"Enemy": -1.0,
-		"Prisoner": -1.0,
 	},
 	"Enemy": {
-
+		Player: -1.0,
 	},
 	"Prisoner": {
+		Player: 0.1,
+	},
+	"Jail": {
 
 	},
+	"Slime": {
+		Jail: -0.25,
+		Player: -1.0,
+	},
+	"Beast": {
+		Jail: -0.25,
+		Player: -0.6,
+	},
+	"KinkyConstruct": {
+		Jail: -0.25,
+		Player: -0.9,
+	},
 };
+
+function KDFactionRelation(a, b) {
+	if (KDFactionRelations.get(a) && KDFactionRelations.get(a).get(b)) {
+		return KDFactionRelations.get(a).get(b);
+	}
+	return 0.0;
+}
 
 /**
  * @type {Map<string, Map<string, number>>};
@@ -35,4 +55,18 @@ function KDInitFactions() {
 			KDFactionRelations.get(f2[0]).set(f1[0], f2[1]);
 		}
 	}
+}
+
+/**
+ * Sets faction relation and refreshes the map
+ * @param {string} a
+ * @param {string} b
+ * @param {number} relation
+ */
+function KDSetFactionRelation(a, b, relation) {
+	if (KinkyDungeonFactionRelations[a])
+		KinkyDungeonFactionRelations[a][b] = relation;
+	if (KinkyDungeonFactionRelations[b])
+		KinkyDungeonFactionRelations[b][a] = relation;
+	KDInitFactions();
 }
