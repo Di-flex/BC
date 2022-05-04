@@ -61,6 +61,7 @@ function KDFactionHostile(a, b) {
 	if (a == "Player" && b == "Enemy") return true;
 	if (b == "Player" && a == "Enemy") return true;
 	if (KDFactionRelation(a, b) <= -0.5) return true;
+	if (a == b) return false;
 	return false;
 }
 
@@ -78,6 +79,7 @@ function KDFactionAllied(a, b) {
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;
 	if (KDFactionRelation(a, b) >= 0.5) return true;
+	if (a == b) return true;
 	return false;
 }
 
