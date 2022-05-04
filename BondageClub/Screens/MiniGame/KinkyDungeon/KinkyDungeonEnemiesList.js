@@ -300,7 +300,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 6, maxhp: 14, minLevel:3, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"metalAnger": 3, "metalRage": 3}, shrines: ["Metal"], allFloors: true,
 		dropTable: []},
-	{name: "Wolfgirl", clusterWith: "wolfgirl", bound: "Wolfgirl", color: "#00EFAB", tags: KDMapInit(["leashing", "wolfgirl", "opendoors", "unflinching", "closedoors", "wolfRestraints", "melee", "elite", "miniboss", "unflinching", "glueweakness", "ticklesevereweakness", "slashweakness", "pierceweakness", "unflinching", "hunter"]), followRange: 1,
+	{name: "Wolfgirl", clusterWith: "wolfgirl", bound: "Wolfgirl", color: "#00EFAB", tags: KDMapInit(["leashing", "trainer", "wolfgirl", "opendoors", "unflinching", "closedoors", "wolfRestraints", "melee", "elite", "miniboss", "unflinching", "glueweakness", "ticklesevereweakness", "slashweakness", "pierceweakness", "unflinching", "hunter"]), followRange: 1,
 		summon: [
 			{enemy: "WolfgirlPet", range: 2, count: 1, chance: 0.7, strict: true},],
 		spells: ["RestrainingDevice"], minSpellRange: 1.5, spellCooldownMult: 1, spellCooldownMod: 1, AI: "hunt", visionRadius: 10, maxhp: 22, minLevel:5, weight:-6, movePoints: 2, disarm: 0.5,

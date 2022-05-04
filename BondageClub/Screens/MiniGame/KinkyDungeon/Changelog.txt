@@ -801,6 +801,7 @@ Spell Balance:
 - Can now save outfits
 - Enemies won't aggro the whole map when you aggro them unless you fail to kill one in time (14 turns)
 - Made it take longer to leave prison if you get caught
+- Added wolfgirl, maid, dragonheart, blue catsuit, and elven dresses as outfits
 
 TODO ValidationFindBlockCycles to prevent bugs
 

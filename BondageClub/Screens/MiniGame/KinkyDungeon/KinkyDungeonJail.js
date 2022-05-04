@@ -802,8 +802,7 @@ function KinkyDungeonDefeat() {
 	KDGameData.KinkyDungeonSpawnJailers = KDGameData.KinkyDungeonSpawnJailersMax;
 	let defeat_outfit = params.defeat_outfit;
 	// Handle special cases
-	let collar = KinkyDungeonGetRestraintItem("ItemNeck");
-	if (collar && KDRestraint(collar)) {
+	let collar = KinkyDungeonGetRestraintItem("ItemNeck");	if (collar && KDRestraint(collar)) {
 		if (KDRestraint(collar).name == "DragonCollar") defeat_outfit = "Dragon";
 		if (KDRestraint(collar).name == "MaidCollar") defeat_outfit = "Maid";
 		if (KDRestraint(collar).name == "ExpCollar") defeat_outfit = "BlueSuitPrison";
@@ -838,7 +837,10 @@ function KinkyDungeonDefeat() {
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}
-	if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventoryAdd({name: "JailUniform", type: Outfit});
+
+	if (defeat_outfit != params.defeat_outfit) {
+		if (!KinkyDungeonInventoryGet(defeat_outfit)) KinkyDungeonInventoryAdd({name: defeat_outfit, type: Outfit});
+	} else if (!KinkyDungeonInventoryGet("JailUniform")) KinkyDungeonInventoryAdd({name: "JailUniform", type: Outfit});
 
 	//KinkyDungeonChangeRep("Ghost", 1 + Math.round(KinkyDungeonSpawnJailers/2));
 	KinkyDungeonChangeRep("Prisoner", securityBoost); // Each time you get caught, security increases...

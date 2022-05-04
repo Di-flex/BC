@@ -46,5 +46,18 @@ let KDDialogueTriggers = {
 			return 10;
 		},
 	},
+	"OfferWolfgirl": {
+		dialogue: "OfferWolfgirl",
+		allowedPrisonStates: ["parole", ""],
+		requireTags: ["wolfgirl", "trainer"],
+		nonHostile: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5 && KinkyDungeonCurrentDress != "Wolfgirl" && KDRandom() < 0.5);
+		},
+		weight: (enemy, dist) => {
+			return 10;
+		},
+	},
 
 };

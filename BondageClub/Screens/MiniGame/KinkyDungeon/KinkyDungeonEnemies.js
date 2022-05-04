@@ -1089,17 +1089,25 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				&& (!trigger.nonHostile || !KinkyDungeonAggressive(enemy))
 				&& (!trigger.allowedPrisonStates || trigger.allowedPrisonStates.includes(KDGameData.PrisonerState))
 				&& (!trigger.allowedPersonalities || trigger.allowedPersonalities.includes(enemy.personality))) {
+				let end = false;
 				if (trigger.excludeTags) {
-					let end = false;
 					for (let tt of trigger.excludeTags) {
 						if (enemy.Enemy.tags.has(tt)) {
 							end = true;
 							break;
 						}
 					}
-					if (!end && (!trigger.prerequisite || trigger.prerequisite(enemy, playerDist))) {
-						weight =  trigger.weight(enemy, playerDist);
+				}
+				if (!end && trigger.requireTags) {
+					for (let tt of trigger.requireTags) {
+						if (!enemy.Enemy.tags.has(tt)) {
+							end = true;
+							break;
+						}
 					}
+				}
+				if (!end && (!trigger.prerequisite || trigger.prerequisite(enemy, playerDist))) {
+					weight =  trigger.weight(enemy, playerDist);
 				}
 			}
 			if (weight > 0) {
