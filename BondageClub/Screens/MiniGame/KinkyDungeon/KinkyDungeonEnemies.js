@@ -764,7 +764,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 					tickAlertTimerFactions.push(KDGetFaction(enemy));
 				}
-			} else if (KDHostile(enemy)) {
+			} else if (KinkyDungeonAggressive(enemy)) {
 				tickAlertTimer = true;
 				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 					tickAlertTimerFactions.push(KDGetFaction(enemy));

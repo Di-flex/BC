@@ -160,7 +160,7 @@ function KinkyDungeonAggroAction(action, data) {
 /**
  * @type {string[]}
  */
-let KDLocalChaseTypes = ["Refusal"];
+let KDLocalChaseTypes = ["Refusal", "Attack", "Spell", "SpellItem", "Shrine", "Orb", "Chest"];
 
 /**
  *
@@ -168,7 +168,7 @@ let KDLocalChaseTypes = ["Refusal"];
  * @param {string} Type
  */
 function KinkyDungeonStartChase(enemy, Type) {
-	if ((!enemy && !KDLocalChaseTypes.includes(Type)) || KDGameData.PrisonerState == 'jail') {
+	if ((!enemy && !KDLocalChaseTypes.includes(Type))) {
 		if (KDGameData.PrisonerState == 'parole') {
 			KinkyDungeonChangeRep("Ghost", -10);
 			KinkyDungeonChangeRep("Prisoner", 10);
@@ -178,7 +178,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 			KDGameData.PrisonerState = "chase";
 	} else if (KDLocalChaseTypes.includes(Type)) {
 		for (let e of KinkyDungeonEntities) {
-			if (KDHostile(e) && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
+			if (KDHostile(e) && KDFactionAllied(KDGetFaction(enemy), e) && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
 				if (!e.hostile) e.hostile = KDMaxAlertTimerAggro;
 				else e.hostile = Math.max(KDMaxAlertTimerAggro, e.hostile);
 			}
