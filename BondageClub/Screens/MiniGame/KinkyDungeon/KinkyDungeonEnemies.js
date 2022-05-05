@@ -764,6 +764,11 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 					tickAlertTimerFactions.push(KDGetFaction(enemy));
 				}
+			} else if (KDHostile(enemy)) {
+				tickAlertTimer = true;
+				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
+					tickAlertTimerFactions.push(KDGetFaction(enemy));
+				}
 			}
 			if (enemy.vulnerable > 0) enemy.vulnerable -= delta;
 			else enemy.vulnerable = 0;
@@ -895,6 +900,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (enemy.fx && enemy.fy) {
 					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
+			}
+			if (!KDAllied(enemy)) {
 				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
 						if (KDFactionAllied(f, enemy)) {
@@ -905,7 +912,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			}
 		}
 
-		if (tickAlertTimer) {
+		if (tickAlertTimer && KDGameData.PrisonerState == 'parole') {
 			if (KDGameData.AlertTimer < 3*KDMaxAlertTimer) KDGameData.AlertTimer += delta;
 		} else if (KDGameData.AlertTimer > 0) {
 			KDGameData.AlertTimer -= delta * 3;
