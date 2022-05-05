@@ -12,7 +12,11 @@ let KDDialogueTriggers = {
 		playRequired: true,
 		blockDuringPlaytime: false,
 		prerequisite: (enemy, dist) => {
-			return (KinkyDungeonPlayerDamage && !KinkyDungeonPlayerDamage.unarmed && KinkyDungeonPlayerDamage.name != "Knife" && dist < 1.5 && KDRandom() < 0.25);
+			return (KinkyDungeonPlayerDamage
+				&& !KinkyDungeonPlayerDamage.unarmed
+				&& KinkyDungeonPlayerDamage.name != "Knife"
+				&& dist < 1.5
+				&& KDRandom() < 0.25);
 		},
 		weight: (enemy, dist) => {
 			return KDStrictPersonalities.includes(enemy.personality) ? 10 : 1;
@@ -26,7 +30,11 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5&& !KinkyDungeonFlags.BondageOffer  && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5
+				&& !KinkyDungeonFlags.DangerFlag
+				&& !KinkyDungeonFlags.BondageOffer
+				&& KDRandom() < 0.25
+				&& KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Latex), Math.abs(KinkyDungeonGoddessRep.Conjure));
@@ -40,7 +48,12 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && KinkyDungeonStatsChoice.has("arousalMode") && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.25 && KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5
+				&& KinkyDungeonStatsChoice.has("arousalMode")
+				&& !KinkyDungeonFlags.DangerFlag
+				&& !KinkyDungeonFlags.BondageOffer
+				&& KDRandom() < 0.25
+				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal), Math.abs(KinkyDungeonGoddessRep.Elements), Math.abs(KinkyDungeonGoddessRep.Illusion), Math.abs(KinkyDungeonGoddessRep.Ghost));
@@ -54,7 +67,11 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5
+				&& !KinkyDungeonFlags.DangerFlag
+				&& !KinkyDungeonFlags.BondageOffer
+				&& KDRandom() < 0.5
+				&& KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 1 + 0.2 * Math.abs(KinkyDungeonGoddessRep.Rope);
@@ -67,7 +84,11 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && !KinkyDungeonFlags.BondageOffer && KDRandom() < 0.5 && KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+			return (dist < 1.5
+				&& !KinkyDungeonFlags.DangerFlag
+				&& !KinkyDungeonFlags.BondageOffer
+				&& KDRandom() < 0.5
+				&& KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
 			return 1 + 0.1 * Math.abs(KinkyDungeonGoddessRep.Leather + 50);
@@ -80,7 +101,11 @@ let KDDialogueTriggers = {
 		nonHostile: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5 && !KinkyDungeonFlags.WolfgirlOffer && KinkyDungeonCurrentDress != "Wolfgirl" && KDRandom() < 0.5);
+			return (dist < 1.5
+				&& !KinkyDungeonFlags.DangerFlag
+				&& !KinkyDungeonFlags.WolfgirlOffer
+				&& KinkyDungeonCurrentDress != "Wolfgirl"
+				&& KDRandom() < 0.5);
 		},
 		weight: (enemy, dist) => {
 			return 10;

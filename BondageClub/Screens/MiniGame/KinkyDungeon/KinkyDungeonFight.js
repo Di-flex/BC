@@ -805,7 +805,8 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(KDRandom() * slots.length)];
-		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
+		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y))
+			&& (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || (Enemy.noblockplayer && KDistChebyshev(x+slot.x - KinkyDungeonPlayerEntity.x, y+slot.y - KinkyDungeonPlayerEntity.y) < 1.5))
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
 			let e = {summoned: true, faction: faction, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,

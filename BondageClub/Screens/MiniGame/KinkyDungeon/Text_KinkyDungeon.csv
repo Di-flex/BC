@@ -552,7 +552,7 @@ KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
 KinkyDungeonInventoryItemFlail,Flail
 KinkyDungeonInventoryItemFlailDesc,"A ball on a chain. Very fast and hard to dodge."
-KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to adjacent targets. Deals crush damage."
+KinkyDungeonInventoryItemFlailDesc2,"Also deals 10 damage to targets next to you. Deals crush damage."
 KinkyDungeonInventoryItemSpear,Spear
 KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
 KinkyDungeonInventoryItemSpearDesc2,"Deals pierce damage to the target and one square behind it."
@@ -603,7 +603,7 @@ KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to sp
 KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
-KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies nearby. Slows for 3 turns."
+KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies next to you. Slows for 3 turns."
 KinkyDungeonInventoryItemPickaxe,Pickaxe
 KinkyDungeonInventoryItemPickaxeDesc,"Used for drilling holes in rock and armor."
 KinkyDungeonInventoryItemPickaxeDesc2,"Deals pierce damage. Reduces enemy armor by 15 for 6 turns."
@@ -621,7 +621,7 @@ KinkyDungeonInventoryItemIceBreakerDesc,"A frigid lightweight hammer with a spik
 KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 3x damage to frozen targets instead of 2x."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
-KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies near the target. Deals slash damage."
+KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. Deals slash damage."
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
@@ -4099,7 +4099,7 @@ rOfferChastityYes,"(The SPEAKER blushes deeply)|I managed to unlock my RESTRAINT
 rOfferChastityYes_Yes,"(The SPEAKER smiles)|Thank you so much, miss!|(The lock on the RESTRAINT starts glowing...)"
 rOfferChastityYes_No,"(The SPEAKER frowns)|I'm going to get in trouble..."
 rOfferChastityNo,"(The SPEAKER blushes)|Oh... okay."
-rOfferChastityForce,"(The SPEAKER frowns angrily)|Look, I know you're in trouble around here.|Just do me a favor. Please."
+rOfferChastityForce,"(The SPEAKER frowns angrily)|Look, I know you're in trouble around here.|Just do me a favor. Please.|I need you to wear this RESTRAINT."
 rOfferChastityForceYes,"(The SPEAKER pleads with you)|My mistress is a magician!|She put a spell on it that tells her if it's locked.|Please, you have to hurry!"
 rOfferChastityForce_No,"(The SPEAKER sighs and wears it herself)|(The lock starts glowing brightly...)"
 rOfferChastityForce_Yes,"(The SPEAKER looks relieved)|Thank you so much miss!|I won't forget you!"

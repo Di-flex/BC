@@ -1171,6 +1171,14 @@ function KinkyDungeonHandleClick() {
 			ElementValue("saveInputField", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
 			return true;
 		} else if (MouseIn(25, 930, 325, 64)) {
+			if (KinkyDungeonState == "Lose") {
+				KinkyDungeonState = "Menu";
+				let appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
+				if (appearance) {
+					CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
+					CharacterRefresh(KinkyDungeonPlayer);
+				}
+			}
 			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
 			KinkyDungeonNewDress = true;

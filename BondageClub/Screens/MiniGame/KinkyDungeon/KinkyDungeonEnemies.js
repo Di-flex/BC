@@ -759,15 +759,17 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
-			if (enemy.hostile > 0 && enemy.hostile < 9000 && KDGameData.PrisonerState == 'parole') {
-				tickAlertTimer = true;
-				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
-					tickAlertTimerFactions.push(KDGetFaction(enemy));
-				}
-			} else if (KinkyDungeonAggressive(enemy)) {
-				tickAlertTimer = true;
-				if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
-					tickAlertTimerFactions.push(KDGetFaction(enemy));
+			if (enemy.aware) {
+				if (enemy.hostile > 0 && enemy.hostile < 9000 && KDGameData.PrisonerState == 'parole') {
+					tickAlertTimer = true;
+					if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
+						tickAlertTimerFactions.push(KDGetFaction(enemy));
+					}
+				} else if (KinkyDungeonAggressive(enemy)) {
+					tickAlertTimer = true;
+					if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
+						tickAlertTimerFactions.push(KDGetFaction(enemy));
+					}
 				}
 			}
 			if (enemy.vulnerable > 0) enemy.vulnerable -= delta;

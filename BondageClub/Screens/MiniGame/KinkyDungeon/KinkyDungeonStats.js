@@ -832,31 +832,31 @@ function KinkyDungeonChastityMult() {
 }
 
 let KinkyDungeonStatsPresets = {
-	"Strong": {category: "Restraints", id: 0, cost: 2, block: "Weak"},
-	"Weak": {category: "Restraints", id: 1, cost: -1, block: "Strong"},
-	"Flexible": {category: "Restraints", id: 2, cost: 2, block: "Inflexible"},
-	"Inflexible": {category: "Restraints", id: 3, cost: -1, block: "Flexible"},
-	"Locksmith": {category: "Restraints", id: 4, cost: 2, block: "Clueless"},
-	"Clueless": {category: "Restraints", id: 5, cost: -1, block: "Locksmith"},
+	"Strong": {category: "Restraints", id: 0, cost: 2, block: ["Weak"]},
+	"Weak": {category: "Restraints", id: 1, cost: -1, block: ["Strong"]},
+	"Flexible": {category: "Restraints", id: 2, cost: 2, block: ["Inflexible"]},
+	"Inflexible": {category: "Restraints", id: 3, cost: -1, block: ["Flexible"]},
+	"Locksmith": {category: "Restraints", id: 4, cost: 2, block: ["Clueless"]},
+	"Clueless": {category: "Restraints", id: 5, cost: -1, block: ["Locksmith"]},
 	"HighSecurity": {category: "Restraints", id: 48, cost: -1},
 	"ShoddyKnives": {category: "Restraints", id: 49, cost: -1},
 	"SearchParty": {category: "Enemies", id: 51, cost: -1},
 	"NoWayOut": {category: "Restraints", id: 52, cost: -1},
 	"TightRestraints": {category: "Restraints", id: 54, cost: -1},
-	"Unchained": {category: "Kinky", id: 26, cost: 2, block: "Damsel"},
-	"Damsel": {category: "Kinky", id: 27, cost: -1, block: "Unchained"},
-	"Artist": {category: "Kinky", id: 28, cost: 2, block: "Bunny"},
-	"Bunny": {category: "Kinky", id: 29, cost: -1, block: "Artist"},
-	"Slippery": {category: "Kinky", id: 30, cost: 2, block: "Doll"},
-	"Doll": {category: "Kinky", id: 31, cost: -1, block: "Slippery"},
-	"Escapee": {category: "Kinky", id: 32, cost: 2, block: "Dragon"},
-	"Dragon": {category: "Kinky", id: 33, cost: -1, block: "Escapee"},
-	"Dodge": {category: "Combat", id: 18, cost: 3, block: "Distracted"},
-	"Distracted": {category: "Combat", id: 19, cost: -1, block: "Dodge"},
+	"Unchained": {category: "Kinky", id: 26, cost: 2, block: ["Damsel"]},
+	"Damsel": {category: "Kinky", id: 27, cost: -1, block: ["Unchained"]},
+	"Artist": {category: "Kinky", id: 28, cost: 2, block: ["Bunny"]},
+	"Bunny": {category: "Kinky", id: 29, cost: -1, block: ["Artist"]},
+	"Slippery": {category: "Kinky", id: 30, cost: 2, block: ["Doll"]},
+	"Doll": {category: "Kinky", id: 31, cost: -1, block: ["Slippery"]},
+	"Escapee": {category: "Kinky", id: 32, cost: 2, block: ["Dragon"]},
+	"Dragon": {category: "Kinky", id: 33, cost: -1, block: ["Escapee"]},
+	"Dodge": {category: "Combat", id: 18, cost: 3, block: ["Distracted"]},
+	"Distracted": {category: "Combat", id: 19, cost: -1, block: ["Dodge"]},
 	"Submissive": {category: "Kinky", id: 10, cost: 0},
 	"Wanted": {category: "Kinky", id: 11, cost: -1},
-	"QuickDraw": {category: "Combat", id: 55, cost: 2},
-	"Disorganized": {category: "Combat", id: 57, cost: -2},
+	"QuickDraw": {category: "Combat", id: 55, cost: 2, block: ["Disorganized"]},
+	"Disorganized": {category: "Combat", id: 57, cost: -2, block: ["QuickDraw", "QuickScribe"]},
 	"Rigger": {category: "Combat", id: 24, cost: 1},
 	"Pacifist": {category: "Combat", id: 25, cost: -2},
 	"Brawler": {category: "Combat", id: 20, cost: 1},
@@ -864,9 +864,9 @@ let KinkyDungeonStatsPresets = {
 	"HeelWalker": {category: "Combat", id: 53, cost: 1},
 	"BondageLover": {category: "Kinky", id: 15, cost: -1},
 	"BoundPower": {category: "Combat", id: 40, cost: 3},
-	"KillSquad": {category: "Enemies", id: 41, cost: -3, block: "Conspicuous"},
+	"KillSquad": {category: "Enemies", id: 41, cost: -3, block: ["Conspicuous"]},
 	"Stealthy": {category: "Enemies", id: 38, cost: 0},
-	"Conspicuous": {category: "Enemies", id: 39, cost: -1, block: "KillSquad"},
+	"Conspicuous": {category: "Enemies", id: 39, cost: -1, block: ["KillSquad"]},
 	"Supermarket": {category: "Map", id: 42, cost: 1},
 	"Oppression": {category: "Map", id: 50, cost: -1},
 	"PriceGouging": {category: "Map", id: 43, cost: -2},
@@ -882,7 +882,7 @@ let KinkyDungeonStatsPresets = {
 	"Studious": {category: "Magic", id: 12, cost: 1},
 	"Novice": {category: "Magic", id: 7, cost: -1},
 	"Meditation": {category: "Magic", id: 13, cost: 2},
-	"QuickScribe": {category: "Magic", id: 56, cost: 2},
+	"QuickScribe": {category: "Magic", id: 56, cost: 2, block: ["Disorganized"]},
 
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
@@ -909,7 +909,7 @@ function KinkyDungeonCanPickStat(Stat) {
 	if (stat.cost > 0 && KinkyDungeonGetStatPoints(KinkyDungeonStatsChoice) < stat.cost) return false;
 	for (let k of KinkyDungeonStatsChoice.keys()) {
 		if (KinkyDungeonStatsChoice.get(k)) {
-			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].block == Stat) {
+			if (KinkyDungeonStatsPresets[k] && KinkyDungeonStatsPresets[k].block && KinkyDungeonStatsPresets[k].block.includes(Stat)) {
 				return false;
 			}
 		}

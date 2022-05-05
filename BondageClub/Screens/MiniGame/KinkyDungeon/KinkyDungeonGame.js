@@ -2524,6 +2524,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	CharacterRefresh = _CharacterRefresh;
 	// @ts-ignore
 	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
+
+	if (KinkyDungeonInDanger()) KinkyDungeonFlags.DangerFlag = 3;
 }
 
 

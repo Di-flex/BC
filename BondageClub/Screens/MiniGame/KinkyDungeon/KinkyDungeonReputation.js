@@ -107,10 +107,10 @@ function KinkyDungeonRepNameFaction(Amount) {
 	let name = "";
 
 	if (Amount > 0.1) name = "Thankful";
-	if (Amount > 0.5) name = "Pleased";
+	if (Amount >= 0.5) name = "Pleased";
 	if (Amount > 0.9) name = "Blessed";
 	if (Amount < -0.1) name = "Angered";
-	if (Amount < -0.5) name = "Enraged";
+	if (Amount <= -0.5) name = "Enraged";
 	if (Amount < -0.9) name = "Cursed";
 
 	return TextGet("KinkyDungeonRepNameFaction" + name);
