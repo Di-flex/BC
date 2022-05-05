@@ -1,8 +1,14 @@
 "use strict";
 
+let KinkyDungeonFactionColors = {
+	"Jail": ["#8A120C"],
+	"Slime": ["#9B49BD"],
+};
+
 let KinkyDungeonFactionRelations = {
 	"Player": {
 		Enemy: -1.0,
+		Jail: -1.0,
 		Prisoner: 0.1,
 
 		// Wild factions
@@ -15,10 +21,12 @@ let KinkyDungeonFactionRelations = {
 		Alchemist: -0.3,
 		Elf: -0.25,
 		Elemental: -0.6,
+		Bandit: -0.7,
 		AncientRobot: -0.7,
 		Dragon: -0.1,
 		Mushy: -0.65,
 		Witch: -0.8,
+		Apprentice: -0.4,
 		Maidforce: -0.45,
 	},
 	"Enemy": {
@@ -42,6 +50,8 @@ let KinkyDungeonFactionRelations = {
 	},
 	"Elf": {
 	},
+	"Bandit": {
+	},
 	"Elemental": {
 	},
 	"AncientRobot": {
@@ -51,6 +61,9 @@ let KinkyDungeonFactionRelations = {
 	"Mushy": {
 	},
 	"Witch": {
+		"Apprentice": 1.0,
+	},
+	"Apprentice": {
 	},
 	"Maidforce": {
 	},

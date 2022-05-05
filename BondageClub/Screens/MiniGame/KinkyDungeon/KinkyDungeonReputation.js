@@ -135,6 +135,7 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		}
 		if (Rep == "Leather") {
 			KDChangeFactionRelation("Player", "Dragon", (Amount > 0 ? 0.005 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Bandit", (Amount > 0 ? 0.01 : 0.01) * Amount);
 		}
 		if (Rep == "Latex") {
 			KDChangeFactionRelation("Player", "Alchemist", (Amount > 0 ? 0.0075 : 0.01) * Amount);
@@ -145,7 +146,8 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 			KDChangeFactionRelation("Player", "Beast", (Amount > 0 ? 0.06 : 0.005) * Amount);
 		}
 		if (Rep == "Conjure") {
-			KDChangeFactionRelation("Player", "Witch", (Amount > 0 ? 0.01 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Witch", (Amount > 0 ? 0.005 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Apprentice", (Amount > 0 ? 0.01 : 0.01) * Amount);
 		}
 		if (Rep == "Illusion") {
 			KDChangeFactionRelation("Player", "Maidforce", (Amount > 0 ? 0.007 : 0.01) * Amount);

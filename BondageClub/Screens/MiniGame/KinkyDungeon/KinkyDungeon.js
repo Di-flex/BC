@@ -1717,7 +1717,7 @@ function KinkyDungeonLoadGame(String) {
 				if (item.type == Restraint) {
 					let restraint = KinkyDungeonGetRestraintByName(item.name);
 					if (restraint) {
-						KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
+						KinkyDungeonAddRestraint(restraint, 0, true, item.lock, undefined, undefined, undefined, undefined, item.faction); // Add the item
 						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
 						if (createdrestraint) createdrestraint.lock = item.lock; // Lock if applicable
 					}

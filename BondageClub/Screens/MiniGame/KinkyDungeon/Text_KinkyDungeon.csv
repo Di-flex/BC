@@ -1220,7 +1220,7 @@ AttackMushSick,"The giant mushroom gives you a crushing hug! (-DamageTaken SP)"
 NameJailer,Jailer
 KillJailer,"The jailer passes out and drops her possessions!"
 AttackJailerLock,"The jailer locks your restraints!"
-AttackJailerBind,"The jailer places some cuffs on you!"
+AttackJailerBind,"The jailer places some restraints on you! (+RestraintAdded)"
 AttackJailer,"The jailer plays with you, groping and rubbing your body!"
 
 KinkyDungeonJailerCheck,The guard checks your restraints to make sure they are secure.
@@ -1228,14 +1228,14 @@ KinkyDungeonJailerCheck,The guard checks your restraints to make sure they are s
 NameGuard,Guard
 KillGuard,"The guard passes out and drops her possessions!"
 AttackGuardLock,"The guard locks your restraints!"
-AttackGuardBind,"The guard places some cuffs on you!"
+AttackGuardBind,"The jailer places some restraints on you! (+RestraintAdded)"
 AttackGuardAddRestraints,"The guard places a NewRestraintName on you"
 AttackGuard,"The guard plays with you, groping and rubbing your body!"
 
 NameGuardHeavy,Armed Guard
 KillGuardHeavy,"The armed guard retreats, but drops a keyring!"
 AttackGuardHeavyLock,"The guard locks your restraints!"
-AttackGuardHeavyBind,"The guard shocks you and slaps on some cuffs!"
+AttackGuardHeavyBind,"The guard shocks you and slaps on some restraints! (+RestraintAdded)"
 AttackGuardHeavy,"The guard electrocutes you with her taser!!!"
 AttackGuardHeavyStun,"The guard electrocutes you with her taser!!!"
 

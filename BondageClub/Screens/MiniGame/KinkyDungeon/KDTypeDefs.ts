@@ -4,6 +4,8 @@ type item = {
 	name: string,
 	/** Type of the item*/
 	type?: string,
+	/** Faction of the applied item */
+	faction?: string,
 	/** Events associated with the item*/
 	//weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
 	//consumable?: any, /** Item consumable data, if applicable*/
@@ -30,6 +32,8 @@ type item = {
 	dynamicLink?: string[],
 	/** Stores linked item locks*/
 	oldLock?: string[],
+	/** Stores linked item factions*/
+	oldFaction?: string[],
 	/** Stores linked item tightness*/
 	oldTightness?: number[],
 	/** Stores linked item tightness*/
@@ -263,6 +267,8 @@ type restraint = {
 	enchantedDrain?: number,
 	/** Whether or not this is an Ancient item, prison respects it */
 	enchanted?: boolean,
+	/** Faction primary color index */
+	factionColor?: number[],
 }
 
 interface overrideDisplayItem {

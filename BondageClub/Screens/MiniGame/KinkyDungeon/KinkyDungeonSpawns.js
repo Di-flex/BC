@@ -60,6 +60,15 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Latex < -45) tags.push("slime");
 	if (KinkyDungeonGoddessRep.Rope < -45) tags.push("construct");
 
+	if (KinkyDungeonGoddessRep.Will >= 0) {tags.push("posWill");}
+	if (KinkyDungeonGoddessRep.Metal >= 0) tags.push("posMetal");
+	if (KinkyDungeonGoddessRep.Leather >= 0) tags.push("posLeather");
+	if (KinkyDungeonGoddessRep.Illusion >= 0) tags.push("posIllusion");
+	if (KinkyDungeonGoddessRep.Conjure >= 0) tags.push("posConjure");
+	if (KinkyDungeonGoddessRep.Elements >= 0) tags.push("posElements");
+	if (KinkyDungeonGoddessRep.Latex >= 0) tags.push("posLatex");
+	if (KinkyDungeonGoddessRep.Rope >= 0) tags.push("posRope");
+
 	if (security > 0) tags.push("jailbreak");
 	if (security > 40) tags.push("highsecurity");
 

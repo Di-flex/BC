@@ -123,18 +123,18 @@ const KinkyDungeonRestraints = [
 	//endregion
 
 	//region Latex
-	{inventory: true, name: "LatexStraitjacket", remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: "#6A94CC", Group: "ItemArms", bindarms: true, bindhands: true, power: 8, weight: 0, strictness: 0.2, escapeChance: {"Struggle": -0.12, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
-		maxstamina: 0.25, enemyTags: {"latexRestraintsHeavy" : 3}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Straitjackets"]},
-	{inventory: true, name: "LatexArmbinder", Asset: "SeamlessLatexArmbinder", strictness: 0.1, LinkableBy: ["Wrapping"], Color: "#6A94CC", Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
-		maxstamina: 0.35, enemyTags: {"latexRestraints" : 5}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Armbinders"]},
-	{inventory: true, name: "LatexLegbinder", Asset: "SeamlessLegBinder", LinkableBy: ["Hobbleskirts"], Color: "#6A94CC", Group: "ItemLegs", hobble: true, power: 7, weight: 0,  escapeChance: {"Struggle": -0.05, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
-		maxstamina: 0.6, enemyTags: {"latexRestraintsHeavy" : 6}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Legbinders"]},
-	{inventory: true, name: "LatexBoots", Asset: "HighThighBoots", Color: "#6A94CC", Group: "ItemBoots", hobble: true, power: 6, weight: 0, escapeChance: {"Struggle": -0.15, "Cut": 0.12, "Remove": 0.07, "Pick": 0.25},
-		enemyTags: {"latexRestraints" : 8, "latexBoots" : 3}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex"]},
-	{inventory: true, name: "LatexCorset", remove: ["Cloth"], Asset: "HeavyLatexCorset", strictness: 0.1, Color: "#5196EF", Group: "ItemTorso", harness: true, power: 8, weight: 0, escapeChance: {"Struggle": -0.05, "Cut": 0.2, "Remove": 0.15}, struggleMinSpeed: {"Remove": 0.05}, struggleMaxSpeed: {"Remove": 0.1},
-		failSuffix: {"Remove": "Corset"}, enemyTags: {"latexRestraints" : 6}, playerTags: {"ItemTorsoFull": -5}, minLevel: 0, allFloors: true, shrine: ["Latex", "Corsets", "HeavyCorsets"]},
-	{inventory: true, name: "LatexBallGag", Asset: "BallGag", gag: 0.75, Color: ["#4EA1FF", "Default"], Type: "Tight", Group: "ItemMouth", power: 7, weight: 0, escapeChance: {"Struggle": -0.05, "Cut": 0.04, "Remove": 0.4, "Pick": 0.25},
-		maxstamina: 0.8, enemyTags: {"latexRestraints" : 3, "latexGag" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Leather"]},
+	{inventory: true, name: "LatexStraitjacket", factionColor: [0, 1], remove: ["Bra"], Asset: "StraitLeotard", Modules: [0, 0, 0, 0], Color: ["#6A94CC", "#6A94CC"], Group: "ItemArms", bindarms: true, bindhands: true, power: 8, weight: 0, strictness: 0.2, escapeChance: {"Struggle": -0.12, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+		maxstamina: 0.25, enemyTags: {"latexRestraintsHeavy" : 3, "jailRestraints": 1}, playerTags: {"posLatex": -1, "latexRage": 4}, minLevel: 0, allFloors: true, shrine: ["Latex", "Straitjackets"]},
+	{inventory: true, name: "LatexArmbinder", factionColor: [0], Asset: "SeamlessLatexArmbinder", strictness: 0.1, LinkableBy: ["Wrapping"], Color: ["#6A94CC"], Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,  escapeChance: {"Struggle": 0.1, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+		maxstamina: 0.35, enemyTags: {"latexRestraints" : 5, "jailRestraints": 1}, playerTags: {"posLatex": -1, "latexAnger": 1, "latexRage": 1}, minLevel: 0, allFloors: true, shrine: ["Latex", "Armbinders"]},
+	{inventory: true, name: "LatexLegbinder", factionColor: [0], Asset: "SeamlessLegBinder", LinkableBy: ["Hobbleskirts"], Color: ["#6A94CC"], Group: "ItemLegs", hobble: true, power: 7, weight: 0,  escapeChance: {"Struggle": -0.05, "Cut": 0.15, "Remove": 0.1, "Pick": 0.35},
+		maxstamina: 0.6, enemyTags: {"latexRestraintsHeavy" : 6, "jailRestraints": 1}, playerTags: {"posLatex": -1, "latexAnger": 1, "latexRage": 2}, minLevel: 0, allFloors: true, shrine: ["Latex", "Legbinders"]},
+	{inventory: true, name: "LatexBoots", factionColor: [0], Asset: "HighThighBoots", Color: ["#6A94CC"], Group: "ItemBoots", hobble: true, power: 6, weight: 0, escapeChance: {"Struggle": -0.15, "Cut": 0.12, "Remove": 0.07, "Pick": 0.25},
+		enemyTags: {"latexRestraints" : 8, "latexBoots" : 3, "jailRestraints": 1}, playerTags: {"posLatex": -1, "latexAnger": 2, "latexRage": 2}, minLevel: 0, allFloors: true, shrine: ["Latex"]},
+	{inventory: true, name: "LatexCorset", factionColor: [0], remove: ["Cloth"], Asset: "HeavyLatexCorset", strictness: 0.1, Color: ["#5196EF"], Group: "ItemTorso", harness: true, power: 8, weight: 0, escapeChance: {"Struggle": -0.05, "Cut": 0.2, "Remove": 0.15}, struggleMinSpeed: {"Remove": 0.05}, struggleMaxSpeed: {"Remove": 0.1},
+		failSuffix: {"Remove": "Corset"}, enemyTags: {"latexRestraints" : 6, "jailRestraints": 1}, playerTags: {"ItemTorsoFull": -5, "posLatex": -1, "latexAnger": 2, "latexRage": 2}, minLevel: 0, allFloors: true, shrine: ["Latex", "Corsets", "HeavyCorsets"]},
+	{inventory: true, name: "LatexBallGag", factionColor: [0], Asset: "BallGag", gag: 0.75, Color: ["#4EA1FF", "Default"], Type: "Tight", Group: "ItemMouth", power: 7, weight: 0, escapeChance: {"Struggle": -0.05, "Cut": 0.04, "Remove": 0.4, "Pick": 0.25},
+		maxstamina: 0.8, enemyTags: {"latexRestraints" : 3, "latexGag" : 10, "jailRestraints": 1}, playerTags: {"posLatex": -1, "latexAnger": 2, "latexRage": 2}, minLevel: 0, allFloors: true, shrine: ["Latex", "Leather"]},
 	//endregion
 
 	//region Wolf

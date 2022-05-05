@@ -96,12 +96,12 @@ const KDEventMapInventory = {
 		},
 		"EnchantedAnkleCuffs2": (e, item, data) => {
 			KinkyDungeonRemoveRestraint(KDRestraint(item).Group);
-			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs"), 0, true);
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs"), 0, true, undefined, undefined, undefined, undefined, undefined, item.faction);
 		},
 		"EnchantedAnkleCuffs": (e, item, data) => {
 			if (KDGameData.AncientEnergyLevel <= 0.0000001) {
 				KinkyDungeonRemoveRestraint(KDRestraint(item).Group);
-				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs2"), 0, true);
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs2"), 0, true, undefined, undefined, undefined, undefined, undefined, item.faction);
 			}
 		},
 		"RegenMana": (e, item, data) => {
@@ -293,7 +293,7 @@ const KDEventMapInventory = {
 					if (item && KDRestraint(item).Link && (KDRandom() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
 						//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
-						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
 					}
 				}
 			}
@@ -367,18 +367,18 @@ const KDEventMapInventory = {
 		"linkItem": (e, item, data) => {
 			if (item && KDRestraint(item).Link && (KDRandom() < e.chance)) {
 				let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
-				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
 				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 			}
 		},
 		"Kittify": (e, item, data) => {
 			// get defeat, upgrade suit
 			KinkyDungeonRemoveRestraint("ItemArms",false,false,true,false);
-			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"), 15);
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"), 15, undefined, undefined, undefined, undefined, undefined, undefined, item.faction);
 			// leash if collared
 			let collared = InventoryGet(KinkyDungeonPlayer, "ItemNeck");
 			if(collared != null){
-				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"), 1, false, "Red");
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"), 1, false, "Red", undefined, undefined, undefined, undefined, item.faction);
 			}
 		},
 	},

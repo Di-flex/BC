@@ -1703,7 +1703,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				if (player.player) {
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					for (let r of restraintAdd) {
-						let bb =  KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined) * 2;
+						let bb =  KinkyDungeonAddRestraintIfWeaker(r, power, enemy.Enemy.bypass, enemy.Enemy.useLock ? enemy.Enemy.useLock : undefined, undefined, undefined, undefined, KDGetFaction(enemy)) * 2;
 						if (bb) {
 							KDSendStatus('bound', r.name, "enemy_" + enemy.Enemy.name);
 						}
