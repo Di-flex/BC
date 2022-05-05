@@ -1573,7 +1573,7 @@ KinkyDungeonShrineIllusion,"Illusions"
 KinkyDungeonShrineCommerce,"Commerce"
 KinkyDungeonShrineTooltip,"Shrine of "
 
-KinkyDungeonFactionNevermere,Nevermere Inc.
+KinkyDungeonFactionNevermere,Nevermere Trainers
 KinkyDungeonFactionBandit,Bandits
 KinkyDungeonFactionKinkyConstruct,Constructs
 KinkyDungeonFactionWitch,Witches' Coven
@@ -3380,8 +3380,8 @@ KinkyDungeonRepNameFaction,"Unaware"
 KinkyDungeonRepNameFactionAngered,"Annoyed"
 KinkyDungeonRepNameFactionEnraged,"Hostile"
 KinkyDungeonRepNameFactionCursed,"Wanted"
-KinkyDungeonRepNameFactionPleased,"Thankful"
-KinkyDungeonRepNameFactionBlessed,"Friendly"
+KinkyDungeonRepNameFactionPleased,"Known"
+KinkyDungeonRepNameFactionBlessed,"Favorable"
 KinkyDungeonRepNameFactionThankful,"Allied"
 
 KinkyDungeonTetherTooShort,"You run up against the TETHER pulling you back."

@@ -57,20 +57,26 @@ let KinkyDungeonFactionRelationsBase = {
 		Jail: -0.25,
 	},
 	"Nevermere": {
+		"Alchemist": 1.0,
 	},
 	"Alchemist": {
 	},
 	"Elf": {
+		"Mushy": 1.0,
 	},
 	"Bast": {
+		"Elf": -1.0,
 	},
 	"Bandit": {
 	},
 	"Elemental": {
+		"Witch": 1.0,
+		"Apprentice": 1.0,
 	},
 	"AncientRobot": {
 	},
 	"Dragon": {
+		"Jail": 1.0,
 	},
 	"Mushy": {
 	},
@@ -78,8 +84,15 @@ let KinkyDungeonFactionRelationsBase = {
 		"Apprentice": 1.0,
 	},
 	"Apprentice": {
+		"Jail": 1.0,
 	},
 	"Maidforce": {
+		"Alchemist": 1.0,
+		"Jail": 1.0,
+		"Nevermere": 1.0,
+		"Dragon": 1.0,
+		"Elf": 1.0,
+		"Apprentice": 1.0,
 	},
 };
 
