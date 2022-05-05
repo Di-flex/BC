@@ -5,6 +5,17 @@ let KinkyDungeonFactionColors = {
 	"Slime": ["#9B49BD"],
 };
 
+/** Hidden factions do not auto-rep change when you attack them */
+let KinkyDungeonHiddenFactions = [
+	"Player",
+	"Enemy",
+	"Jail",
+	"Prisoner",
+	"Beast",
+	"Slime",
+	"KinkyConstruct",
+];
+
 let KinkyDungeonFactionRelations = {
 	"Player": {
 		Enemy: -1.0,
