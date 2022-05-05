@@ -440,7 +440,7 @@ KinkyDungeonFullpower,"You are already full of ancient power."
 
 KinkyDungeonInventoryItemAncientPowerSourceSpent,Spent Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceSpentUse,"You touch the spent crystal and it siphons 100 gold from your bag!"
-KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail,"You touch the spent crystal and the gold in your bag tingles, but nothing happens."
+KinkyDungeonInventoryItemAncientPowerSourceSpentUseFail,"You are not sure how to charge this back up."
 KinkyDungeonInventoryItemAncientPowerSourceSpentDesc,"You're not sure how they charged these..."
 KinkyDungeonInventoryItemAncientPowerSourceSpentDesc2,"A mysterious device used by the old civilization, now depleted."
 
@@ -629,6 +629,15 @@ KinkyDungeonAccuracy,"Hit Chance: "
 KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 KinkyDungeonWeaponStamina,"SP Cost: "
+
+KinkyDungeonCharger,It appears to be a receptacle
+KinkyDungeonChargerPlaceCrystal,Place live ancient crystal
+KinkyDungeonChargerRemoveCrystal,Take the crystal
+KinkyDungeonChargerPlace,You place the crystal into the receptacle and it lights up!
+KinkyDungeonChargerRemove,You take the crystal from the receptacle and all goes dark.
+KinkyDungeonChargerCharge,Place spent ancient crystal
+KinkyDungeonChargerChargeSuccess,VALUE gold vanishes from your satchel as the receptacle explodes and your crystal is recharged!
+KinkyDungeonChargerChargeFailure,Nothing seems to happen
 
 KinkyDungeonTorsoGrab,The EnemyName grabs you by the RestraintName and keeps you in place!
 KinkyDungeonLeashGrab,The EnemyName grabs you and pulls you!!!
@@ -1554,6 +1563,7 @@ KinkyDungeonPayShrineBuff,"The goddess of SCHOOL appreciates your offering."
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
+KinkyDungeonObjectCharger,"It appears to be a receptacle for some kind of crystal."
 KinkyDungeonObjectLock,"That object is locked"
 KinkyDungeonObjectShrine,"A shrine to the goddess of TYPE. A pool of mana glimmers below."
 KinkyDungeonObjectShrineCommerce,"A shrine to the goddess of TYPE."
@@ -3548,7 +3558,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedMuzzle,"You claw at your face, but 
 
 RestraintEnchantedBallGag,Ancient Gag
 LootChestEnchantedBallGag,"You find a ball gag harness with a long rubbery plug instead of a ball, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedBallGagDesc2,"A gag that fills the mouth. When powered, regends mana, reduces miscast by 30%, and boosts damage to enemies that are stunned, frozen, bound, or slowed by 30%."
+RestraintEnchantedBallGagDesc2,"A gag that fills the mouth. When powered, regens mana, reduces miscast by 30%, and boosts damage to enemies that are stunned, frozen, bound, or slowed by 30%."
 RestraintEnchantedBallGagDesc,"'Gag of the Focused'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedBallGag,"You tug on the straps at your cheeks, but the straps are so tight the plug doesn't even move!"
 

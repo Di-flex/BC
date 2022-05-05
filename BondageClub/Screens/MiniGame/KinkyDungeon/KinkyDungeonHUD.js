@@ -206,6 +206,8 @@ function KinkyDungeonDrawInputs() {
 			KinkyDungeonDrawShrine();
 		} else if (KinkyDungeonTargetTile.Type == "Ghost") {
 			KinkyDungeonDrawGhost();
+		} else if (KinkyDungeonTargetTile.Type == "Charger") {
+			KinkyDungeonDrawCharger();
 		} else if (KinkyDungeonTargetTile.Type == "Door") {
 			if (KinkyDungeonTargetTile.Lock) {
 				let action = false;
@@ -520,6 +522,13 @@ function KinkyDungeonHandleHUD() {
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 				// Done, converted to input
 				if (KinkyDungeonHandleShrine()) {
+					return true;
+					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+				}
+			} else if (KinkyDungeonTargetTile.Type == "Charger") {
+				// Done, converted to input
+				if (KinkyDungeonHandleCharger()) {
+					return true;
 					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Door") {

@@ -13,7 +13,7 @@ let KDSetPieces = [
 
 let KDCountSetpiece = new Map();
 
-function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, spawnPoints, InJail, width, height) {
+function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, chargerlist, spawnPoints, InJail, width, height) {
 	KDCountSetpiece = new Map();
 	let pieces = new Map();
 
@@ -39,7 +39,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, spawnP
 	let fails = 0;
 	while (count < pieceCount && fails < 4) {
 		let Piece = KinkyDungeonGetSetPiece(setpieces, pieces);
-		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, spawnPoints).Pass) {
+		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints).Pass) {
 			count += 1;
 			KDCountSetpiece.set(Piece, KDCountSetpiece.get(Piece) ? (KDCountSetpiece.get(Piece) + 1) : 1);
 		} else fails += 1;
@@ -71,7 +71,7 @@ function KinkyDungeonGetSetPiece(setpieces, pieces) {
 	}
 }
 
-function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, shrinelist, spawnPoints) {
+function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints) {
 	let radius = Piece.Radius;
 	let xPadStart = Piece.xPad || 5;
 	let yPadStart = Piece.yPad || 2;

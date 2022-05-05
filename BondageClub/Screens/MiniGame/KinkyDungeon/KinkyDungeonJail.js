@@ -272,14 +272,14 @@ function KinkyDungeonInJail() {
 function KinkyDungeonPlaceJailKeys() {
 	let jailKeyList = [];
 
-	// Populate the lore
+	// Populate the key
 	for (let X = 1; X < KinkyDungeonGridWidth; X += 1)
 		for (let Y = 1; Y < KinkyDungeonGridHeight; Y += 1)
 			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))
 				&& KDistChebyshev(X - KinkyDungeonPlayerEntity.x, Y - KinkyDungeonPlayerEntity.y) > 15
 				&& KDistChebyshev(X - KinkyDungeonEndPosition.x, Y - KinkyDungeonEndPosition.y) > 15
 				&& (!KinkyDungeonShortcutPosition || KDistChebyshev(X - KinkyDungeonShortcutPosition.x, Y - KinkyDungeonShortcutPosition.y) > 15)
-				&& (!KinkyDungeonTiles[X + "," + Y] || !KinkyDungeonTiles[X + "," + Y].OffLimits))
+				&& (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits))
 				jailKeyList.push({x:X, y:Y});
 
 	while (jailKeyList.length > 0) {

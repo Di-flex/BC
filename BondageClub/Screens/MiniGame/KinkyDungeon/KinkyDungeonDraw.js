@@ -41,6 +41,9 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "w") sprite = "Floor";
 	else if (code == "]") sprite = "Floor";
 	else if (code == "[") sprite = "Floor";
+	else if (code == "=") sprite = "Brickwork";
+	else if (code == "+") sprite = "Brickwork";
+	else if (code == "-") sprite = "Brickwork";
 	return sprite;
 }
 
@@ -49,6 +52,9 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	if (code == "G") sprite = "Ghost";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "Y") sprite = "Rubble";
+	else if (code == "=") sprite = "ChargerCrystal";
+	else if (code == "+") sprite = "Charger";
+	else if (code == "-") sprite = "ChargerSpent";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
@@ -196,7 +202,16 @@ function KinkyDungeonDrawGame() {
 				// Get lighting grid
 				if (KinkyDungeonUpdateLightGrid) {
 					KinkyDungeonUpdateLightGrid = false;
-					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }], KDVisionUpdate);
+					let lights = [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }];
+					for (let t of KinkyDungeonTiles.keys()) {
+						let tile = KinkyDungeonTiles.get(t);
+						let x = parseInt(t.split(',')[0]);
+						let y = parseInt(t.split(',')[1]);
+						if (tile && tile.Light && x && y && KDistEuclidean(x - KinkyDungeonPlayerEntity.x, y - KinkyDungeonPlayerEntity.y) <= Math.max(tile.Light, KinkyDungeonGetVisionRadius())) {
+							lights.push({x: x, y:y, brightness: tile.Light });
+						}
+					}
+					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, lights, KDVisionUpdate);
 					KDVisionUpdate = 0;
 				}
 
