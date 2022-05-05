@@ -55,7 +55,8 @@ function KDGetFaction(enemy) {
  */
 function KDFactionHostile(a, b) {
 	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return true;
-	if (a == "Player" && !(typeof b === "string") && b.rage > 0) return true;
+	if (!(typeof b === "string") && b.rage > 0) return true;
+	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return false;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return true;
 	if (a == "Player" && b == "Enemy") return true;
@@ -74,6 +75,7 @@ function KDFactionHostile(a, b) {
 function KDFactionAllied(a, b) {
 	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return false;
 	if (!(typeof b === "string") && b.rage > 0) return false;
+	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return true;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;

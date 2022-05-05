@@ -825,6 +825,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					enemy.rage -= delta;
 				if (enemy.hostile > 0)
 					enemy.hostile -= delta;
+				if (enemy.allied > 0 && enemy.allied < 9000)
+					enemy.allied -= delta;
 				if (enemy.blind > 0)
 					enemy.blind -= delta;
 				if (enemy.playWithPlayer > 0)
@@ -919,7 +921,13 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			}
 		}
 
-		if (tickAlertTimer && KDGameData.PrisonerState == 'parole') {
+		let alertingFaction = false;
+		for (let f of tickAlertTimerFactions) {
+			if (KDFactionRelation("Jail", f) > -0.01) {
+				alertingFaction = true;
+			}
+		}
+		if (tickAlertTimer && KDGameData.PrisonerState == 'parole' && alertingFaction) {
 			if (KDGameData.AlertTimer < 3*KDMaxAlertTimer) KDGameData.AlertTimer += delta;
 		} else if (KDGameData.AlertTimer > 0) {
 			KDGameData.AlertTimer -= delta * 3;

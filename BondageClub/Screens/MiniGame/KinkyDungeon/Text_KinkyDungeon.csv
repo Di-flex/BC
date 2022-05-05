@@ -1953,7 +1953,7 @@ RestraintTrapVibe,Magic Egg
 RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
 RestraintTrapVibeProto,Prototype Egg
-RestraintTrapVibeProtoesc,"A teaser that periodically vibrates."
+RestraintTrapVibeProtoDesc,"A teaser that periodically vibrates."
 RestraintTrapVibeProtoDesc2,"Also absorbs charge from your spells."
 RestraintTrapPlug,Happy Plug
 RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."

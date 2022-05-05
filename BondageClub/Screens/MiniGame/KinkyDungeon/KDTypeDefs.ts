@@ -710,7 +710,7 @@ interface entity {
 	rage?: number,
 	hostile?: number,
 	faction?: string,
-	allied?: boolean,
+	allied?: number,
 	bind?: number,
 	blind?: number,
 	slow?: number,

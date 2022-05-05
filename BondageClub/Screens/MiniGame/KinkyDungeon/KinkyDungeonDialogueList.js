@@ -183,6 +183,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 						},
@@ -227,6 +228,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.004);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 						},
@@ -264,6 +266,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Gold");
 						},
@@ -308,12 +311,14 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Gold");
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 					"No": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDAllySpeaker(30);
 							let percent = KDGameData.CurrentDialogMsgValue.Percent;
 							if (KDRandom() > percent) {
 								// Fail
@@ -345,6 +350,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 						},
@@ -389,6 +395,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.004);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 						},
@@ -423,6 +430,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							for (let i = 0; i < 3; i++) {
 								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -464,6 +472,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.004);
 							KinkyDungeonChangeRep("Ghost", 2);
 							for (let i = 0; i < 3; i++) {
 								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -499,6 +508,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.1);
 							KinkyDungeonChangeRep("Ghost", 2);
 							for (let i = 0; i < 3; i++) {
 								let r = KinkyDungeonGetRestraint({tags: ["wolfGear"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -546,6 +556,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KDPleaseSpeaker(0.08);
 							KinkyDungeonChangeRep("Ghost", 2);
 							for (let i = 0; i < 3; i++) {
 								let r = KinkyDungeonGetRestraint({tags: ["wolfGear"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -595,6 +606,28 @@ let KDDialogue = {
 // Success chance for a basic dialogue
 function KDBasicDialogueSuccessChance(checkResult) {
 	return Math.max(0, Math.min(1.0, checkResult/100));
+}
+
+/**
+ *
+ * @param {number} Amount
+ */
+function KDPleaseSpeaker(Amount) {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		let faction = KDGetFaction(enemy);
+		if (!KinkyDungeonHiddenFactions.includes(faction))
+			KinkyDungeonChangeFactionRep(faction, Amount);
+	}
+}
+
+function KDAllySpeaker(Turns) {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		if (!(enemy.hostile > 0)) {
+			enemy.allied = Turns;
+		}
+	}
 }
 
 /*
