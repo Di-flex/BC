@@ -16,7 +16,7 @@ let KinkyDungeonHiddenFactions = [
 	"KinkyConstruct",
 ];
 
-let KinkyDungeonFactionRelations = {
+let KinkyDungeonFactionRelationsBase = {
 	"Player": {
 		Enemy: -1.0,
 		Jail: -1.0,
@@ -28,17 +28,18 @@ let KinkyDungeonFactionRelations = {
 		Beast: -0.6,
 
 		// Mainline factions
-		Nevermere: -0.4,
-		Alchemist: -0.3,
-		Elf: -0.25,
-		Elemental: -0.6,
 		Bandit: -0.7,
-		AncientRobot: -0.7,
-		Dragon: -0.1,
-		Mushy: -0.65,
 		Witch: -0.8,
-		Apprentice: -0.4,
-		Maidforce: -0.45,
+		Apprentice: 0.1,
+		Alchemist: -0.3,
+		Elemental: -0.6,
+		Dragon: 0.0,
+		Maidforce: -0.06,
+		Nevermere: -0.4,
+		Elf: -0.26,
+		Bast: -0.6,
+		Mushy: -0.64,
+		AncientRobot: -0.7,
 	},
 	"Enemy": {
 	},
@@ -61,6 +62,8 @@ let KinkyDungeonFactionRelations = {
 	},
 	"Elf": {
 	},
+	"Bast": {
+	},
 	"Bandit": {
 	},
 	"Elemental": {
@@ -80,6 +83,8 @@ let KinkyDungeonFactionRelations = {
 	},
 };
 
+let KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
+
 function KDFactionRelation(a, b) {
 	if (KDFactionRelations.get(a) && KDFactionRelations.get(a).get(b)) {
 		return KDFactionRelations.get(a).get(b);
@@ -92,7 +97,8 @@ function KDFactionRelation(a, b) {
  */
 let KDFactionRelations = new Map();
 
-function KDInitFactions() {
+function KDInitFactions(Reset) {
+	if (Reset) KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
 	KDFactionRelations = new Map();
 	// For each faction in faction relations we create all the maps
 	for (let f1 of Object.entries(KinkyDungeonFactionRelations)) {

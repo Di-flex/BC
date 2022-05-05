@@ -1573,6 +1573,20 @@ KinkyDungeonShrineIllusion,"Illusions"
 KinkyDungeonShrineCommerce,"Commerce"
 KinkyDungeonShrineTooltip,"Shrine of "
 
+KinkyDungeonFactionNevermere,Nevermere Inc.
+KinkyDungeonFactionBandit,Bandits
+KinkyDungeonFactionKinkyConstruct,Constructs
+KinkyDungeonFactionWitch,Witches' Coven
+KinkyDungeonFactionApprentice,School of Magic
+KinkyDungeonFactionAncientRobot,Old Guardians
+KinkyDungeonFactionElf,Cult of the Wild
+KinkyDungeonFactionBast,Cult of Bast
+KinkyDungeonFactionAlchemist,Alchemists
+KinkyDungeonFactionElemental,Elementals
+KinkyDungeonFactionDragon,Dragonheart Order
+KinkyDungeonFactionMaidforce,MaidForce
+KinkyDungeonFactionMushy,Fungal Kingdom
+
 KinkyDungeonShrineTooltipTrap,"You sense that the chest contains a trap and a lot of gold."
 KinkyDungeonShrineTooltipNoTrap,"You sense that the chest is safe to open."
 

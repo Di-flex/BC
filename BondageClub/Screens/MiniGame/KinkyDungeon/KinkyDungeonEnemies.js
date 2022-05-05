@@ -545,6 +545,22 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			for (let rep of Object.keys(enemy.Enemy.rep))
 				KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
 
+		if (enemy.hostile > 0 && !(enemy.lifetime < 9000)) {
+			let faction = KDGetFaction(enemy);
+			if (!KinkyDungeonHiddenFactions.includes(faction) && !KDFactionHostile("Player", faction)) {
+				if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
+					KinkyDungeonChangeFactionRep(faction, -0.04);
+				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
+					KinkyDungeonChangeFactionRep(faction, -0.02);
+				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite"))
+					KinkyDungeonChangeFactionRep(faction, -0.01);
+				if (enemy.Enemy && enemy.Enemy.tags && !enemy.Enemy.tags.has("minor"))
+					KinkyDungeonChangeFactionRep(faction, -0.004);
+				if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("minor") && KDRandom() < 0.33)
+					KinkyDungeonChangeFactionRep(faction, -0.004);
+			}
+		}
+
 		if (enemy.Enemy && enemy.Enemy.ondeath) {
 			for (let o of enemy.Enemy.ondeath) {
 				if (o.type == "summon") {
@@ -879,7 +895,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (enemy.fx && enemy.fy) {
 					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
-				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900)) {
+				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
 						if (KDFactionAllied(f, enemy)) {
 							enemy.hostile = KDMaxAlertTimer;
