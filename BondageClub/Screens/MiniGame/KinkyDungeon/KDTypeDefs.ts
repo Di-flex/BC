@@ -752,6 +752,8 @@ interface KinkyDialogueTrigger {
 	/** Require all of these tags */
 	requireTags?: string[];
 	playRequired?: boolean;
+	/** If any NPC is in combat in last 3 turns this wont happen */
+	noCombat?: boolean;
 	/** Prevents this from happening if the target is hostile */
 	nonHostile?: boolean;
 	prerequisite: (enemy: entity, dist: number) => boolean;

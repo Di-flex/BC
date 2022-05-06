@@ -1196,6 +1196,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			let weight = 0;
 			if ((!trigger.blockDuringPlaytime || enemy.playWithPlayer < 1)
 				&& (!trigger.playRequired || playAllowed)
+				&& (!trigger.noCombat || !KinkyDungeonFlags.NPCCombat)
 				&& (!trigger.nonHostile || !KinkyDungeonAggressive(enemy))
 				&& (!trigger.allowedPrisonStates || trigger.allowedPrisonStates.includes(KDGameData.PrisonerState))
 				&& (!trigger.allowedPersonalities || trigger.allowedPersonalities.includes(enemy.personality))) {
@@ -1857,6 +1858,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					};
 					KinkyDungeonSendEvent("beforeDamage", data);
 					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
+					KinkyDungeonFlags.NPCCombat = 3;
 
 					replace.push({keyword:"DamageTaken", value: data.damage});
 				} else { // if (KDRandom() <= playerEvasion)
@@ -1904,6 +1906,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						dmg += enemy.Enemy.fullBoundBonus; // Some enemies deal bonus damage if they cannot put a binding on you
 					}
 					happened += KinkyDungeonDamageEnemy(player, {type: enemy.Enemy.dmgType, damage: dmg}, false, true, undefined, undefined, enemy);
+					KinkyDungeonFlags.NPCCombat = 3;
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					if (happened > 0) {
 						let sfx = (hitsfx) ? hitsfx : "DealDamage";
@@ -2225,6 +2228,7 @@ function KinkyDungeonEnemyTryAttack(enemy, player, Tiles, delta, x, y, points, r
 	}
 
 	enemy.attackPoints += delta;
+	KinkyDungeonFlags.NPCCombat = 3;
 
 	if (enemy.attackPoints >= points) {
 		enemy.attackPoints = 0;
