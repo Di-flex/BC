@@ -1177,7 +1177,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	if (!enemy.personality) enemy.personality = KDGetPersonality(enemy);
 
 	if (playerDist < enemy.Enemy.visionRadius / 2) chance += 0.1;
-	if (KinkyDungeonCanPlay(enemy) && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && !(enemy.hostile > 0) && player.player && canSeePlayer && (enemy.vp > sneakThreshold || enemy.aware || (!KDHostile(enemy) && !KDAllied(enemy))) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
+	if (KinkyDungeonCanPlay(enemy) && !KinkyDungeonFlags.NPCCombat && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && !(enemy.hostile > 0) && player.player && canSeePlayer && (enemy.vp > sneakThreshold || enemy.aware || (!KDHostile(enemy) && !KDAllied(enemy))) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
 		playAllowed = true;
 		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance) {
 			enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
