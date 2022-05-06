@@ -29,15 +29,16 @@ let KinkyDungeonFactionRelationsBase = {
 
 		// Mainline factions
 		Bandit: -0.7,
-		Witch: -0.8,
-		Apprentice: 0.1,
-		Alchemist: -0.3,
-		Elemental: -0.6,
-		Dragon: 0.0,
-		Maidforce: -0.06,
+		Alchemist: -0.25,
 		Nevermere: -0.1,
-		Elf: -0.26,
+		Apprentice: 0.1,
+		Dressmaker: -0.45,
+		Witch: -0.8,
+		Elemental: -0.6,
+		Dragon: 0.1,
+		Maidforce: -0.06,
 		Bast: -0.6,
+		Elf: -0.26,
 		Mushy: -0.64,
 		AncientRobot: -0.45,
 	},
@@ -49,39 +50,99 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Slime": {
 		Jail: -0.25,
+
+		Bandit: -0.6,
+		Alchemist: -0.8,
+		Nevermere: -0.55,
+		Apprentice: -0.4,
+		Dressmaker: -0.4,
+		Witch: 0.4,
+		Elemental: -0.4,
+		Dragon: -1.0,
+		Maidforce: -1.0,
+		Bast: -0.1,
+		Elf: -0.1,
+		Mushy: 0.1,
+		AncientRobot: -1.0,
 	},
 	"Beast": {
 		Jail: -0.25,
+
+		Bandit: -0.4,
+		Alchemist: -0.4,
+		Nevermere: -0.4,
+		Apprentice: -0.4,
+		Dressmaker: -0.4,
+		Witch: -0.55,
+		Elemental: -0.4,
+		Dragon: -1.0,
+		Maidforce: -0.4,
+		Mushy: -0.4,
+		AncientRobot: -1.0,
 	},
 	"KinkyConstruct": {
 		Jail: -0.25,
 	},
 	"Nevermere": {
 		"Alchemist": 1.0,
+		"Elf": -1.0,
+		"Bast": -0.55,
+		"Mushy": -0.4,
+		"Bandit": 0.3,
+		"Witch": 0.15,
+		"Apprentice": 0.15,
 	},
 	"Alchemist": {
+		"Bandit": 0.15,
 	},
 	"Elf": {
 		"Mushy": 1.0,
+		"Beast": 1.0,
 	},
 	"Bast": {
 		"Elf": -1.0,
+		"Witch": -0.4,
+		"Beast": 0.4,
 	},
 	"Bandit": {
+		"Mushy": -0.6,
 	},
 	"Elemental": {
-		"Witch": 1.0,
+		"Witch": 0.4,
+		"Dressmaker": 0.15,
 		"Apprentice": 1.0,
+		"Bandit": -0.15,
+		"Elf": -0.5,
+		"Bast": -0.35,
+		"Dragon": -0.5,
+		"AncientRobot": -0.15,
 	},
 	"AncientRobot": {
+		"Bast": 0.4,
+		"Elf": -0.6,
+		"Maidforce": 0.4,
+		"Dragon": 0.4,
+		"Dressmaker": 0.4,
+		"Apprentice": 0.4,
 	},
 	"Dragon": {
 		"Jail": 1.0,
+		"Apprentice": 0.4,
+		"Bandit": -0.6,
+		"Witch": -0.4,
+		"Alchemist": -0.15,
+		"Beast": -1.0,
+		"Mushy": 0.1,
 	},
 	"Mushy": {
 	},
 	"Witch": {
 		"Apprentice": 1.0,
+		"Dressmaker": 0.35,
+	},
+	"Dressmaker": {
+		"Apprentice": 1.0,
+		"Nevermere": 0.6,
 	},
 	"Apprentice": {
 		"Jail": 1.0,
@@ -93,12 +154,15 @@ let KinkyDungeonFactionRelationsBase = {
 		"Dragon": 1.0,
 		"Elf": 1.0,
 		"Apprentice": 1.0,
+		"Bandit": -0.6,
+		"Witch": -0.4,
 	},
 };
 
 let KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
 
 function KDFactionRelation(a, b) {
+	if (a == b) return 1.0;
 	if (KDFactionRelations.get(a) && KDFactionRelations.get(a).get(b)) {
 		return KDFactionRelations.get(a).get(b);
 	}

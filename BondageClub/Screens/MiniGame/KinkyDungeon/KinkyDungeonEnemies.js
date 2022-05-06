@@ -550,19 +550,24 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			for (let rep of Object.keys(enemy.Enemy.rep))
 				KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
 
-		if (enemy.hostile > 0 && !(enemy.lifetime < 9000)) {
-			let faction = KDGetFaction(enemy);
-			if (!KinkyDungeonHiddenFactions.includes(faction) && !KDFactionHostile("Player", faction)) {
-				if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
-					KinkyDungeonChangeFactionRep(faction, -0.04);
-				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
-					KinkyDungeonChangeFactionRep(faction, -0.02);
-				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite"))
-					KinkyDungeonChangeFactionRep(faction, -0.01);
-				if (enemy.Enemy && enemy.Enemy.tags && !enemy.Enemy.tags.has("minor"))
-					KinkyDungeonChangeFactionRep(faction, -0.004);
-				if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("minor") && KDRandom() < 0.33)
-					KinkyDungeonChangeFactionRep(faction, -0.004);
+		if (!(enemy.lifetime < 9000)) {
+			if (enemy.playerdmg) {
+				let faction = KDGetFaction(enemy);
+				if (!KinkyDungeonHiddenFactions.includes(faction) && !KDFactionHostile("Player", faction)) {
+					if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
+						KinkyDungeonChangeFactionRep(faction, -0.04);
+					else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
+						KinkyDungeonChangeFactionRep(faction, -0.02);
+					else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite"))
+						KinkyDungeonChangeFactionRep(faction, -0.01);
+					if (enemy.Enemy && enemy.Enemy.tags && !enemy.Enemy.tags.has("minor"))
+						KinkyDungeonChangeFactionRep(faction, -0.004);
+					if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("minor") && KDRandom() < 0.33)
+						KinkyDungeonChangeFactionRep(faction, -0.004);
+				}
+			} else if (!enemy.summoned) {
+				if (!KDGameData.RespawnQueue) KDGameData.RespawnQueue = [];
+				KDGameData.RespawnQueue.push({enemy: enemy.Enemy.name, faction: KDGetFaction(enemy)});
 			}
 		}
 
@@ -578,6 +583,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 		}
 		if (!enemy.noDrop)
 			KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
+
 		return true;
 	}
 	return false;
@@ -927,7 +933,10 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			if (!KDAllied(enemy)) {
 				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
-						if (KDFactionAllied(f, enemy)) {
+						if (
+							KDFactionAllied(f, enemy)
+							|| (KDFactionRelation(f, enemy) >= 0.25 && KDFactionRelation("Player", enemy) <= -0.1)
+							|| (KDFactionRelation(f, enemy) >= 0.1 && KDFactionRelation("Player", enemy) <= -0.25)) {
 							enemy.hostile = KDMaxAlertTimer;
 						}
 					}

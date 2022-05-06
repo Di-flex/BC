@@ -120,6 +120,7 @@ let KDOptOut = false;
 * CurrentDialogMsgData: Record<string, string>,
 * CurrentDialogMsgValue: Record<string, number>,
 * AlertTimer: number,
+* RespawnQueue: {enemy: string, faction: string}[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -203,6 +204,7 @@ let KDGameDataBase = {
 	CurrentDialogMsgID: -1,
 
 	ConfirmAttack: false,
+	RespawnQueue: [],
 };
 /**
  * @type {KDGameDataBase}

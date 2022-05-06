@@ -680,6 +680,7 @@ interface entity {
 	hp: number,
 	AI?: string,
 	moved?: boolean,
+	playerdmg?: number,
 	idle?: boolean,
 	summoned?: boolean,
 	boundLevel?: number,

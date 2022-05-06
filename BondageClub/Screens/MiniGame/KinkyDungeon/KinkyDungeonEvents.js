@@ -500,7 +500,7 @@ const KDEventMapBuff = {
 				if (data.attacker.player) {
 					KinkyDungeonDealDamage({damage: e.power, type: e.damage, bind: e.bind, time: e.time});
 				} else {
-					KinkyDungeonDamageEnemy(data.attacker, {damage: e.power, type: e.damage, bind: e.bind, time: e.time}, false, true);
+					KinkyDungeonDamageEnemy(data.attacker, {damage: e.power, type: e.damage, bind: e.bind, time: e.time}, false, true, undefined, undefined, entity);
 				}
 			}
 		},
@@ -631,7 +631,7 @@ const KDEventMapSpell = {
 					damage: e.power,
 					time: e.time,
 					bind: e.bind
-				}, false, true, undefined, undefined, undefined);
+				}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 			}
 		},
 		"FloatingWeapon": (e, spell, data) => {
@@ -732,7 +732,7 @@ const KDEventMapWeapon = {
 						type: e.damage,
 						damage: e.power,
 						time: e.time
-					}, false, true, undefined, undefined, undefined);
+					}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 					trigger = true;
 				}
 			}
@@ -748,7 +748,7 @@ const KDEventMapWeapon = {
 						type: e.damage,
 						damage: e.power,
 						time: e.time
-					}, false, true, undefined, undefined, undefined);
+					}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 					trigger = true;
 				}
 			}
@@ -766,7 +766,7 @@ const KDEventMapWeapon = {
 						damage: e.power,
 						time: e.time,
 						bind: e.bind
-					}, false, true, undefined, undefined, undefined);
+					}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 				}
 			}
 		},
@@ -788,7 +788,7 @@ const KDEventMapWeapon = {
 								type: e.damage,
 								damage: e.power,
 								time: e.time
-							}, false, true, undefined, undefined, undefined);
+							}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 						}
 					}
 				}
@@ -816,7 +816,7 @@ const KDEventMapWeapon = {
 								KinkyDungeonDamageEnemy(enemy, {
 									type: e.damage,
 									damage: e.power
-								}, false, true, undefined, undefined, undefined);
+								}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 							}
 						}
 					}
@@ -865,7 +865,7 @@ const KDEventMapWeapon = {
 								damage: e.power,
 								time: e.time,
 								flags: ["EchoDamage"]
-							}, false, true, undefined, undefined, undefined);
+							}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 							trigger = true;
 						}
 					}
@@ -880,7 +880,7 @@ const KDEventMapWeapon = {
 		"Dollmaker": (e, weapon, data) => {
 			if (data.attacker && data.attacker.player && data.enemy && KDBoundEffects(data.enemy) > 3 && data.enemy.hp < 0.01) {
 				if (!e.chance || KDRandom() < e.chance) {
-					let Enemy = KinkyDungeonEnemies.find(element => element.name == "AllyDoll");
+					let Enemy = KinkyDungeonGetEnemyByName("AllyDoll");
 					KinkyDungeonEntities.push({
 						summoned: true,
 						rage: Enemy.summonRage ? 9999 : undefined,

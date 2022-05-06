@@ -171,6 +171,7 @@ function KinkyDungeonNewGamePlus() {
 	KinkyDungeonNewGame += 1;
 }
 function KinkyDungeonInitialize(Level, Load) {
+	KDGameData.RespawnQueue = [];
 	KDInitFactions(true);
 	CharacterReleaseTotal(KinkyDungeonPlayer);
 	Object.assign(KDGameData, KDGameDataBase);
