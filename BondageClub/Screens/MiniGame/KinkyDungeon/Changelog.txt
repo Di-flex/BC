@@ -802,6 +802,7 @@ Spell Balance:
 - Enemies won't aggro the whole map when you aggro them unless you fail to kill one in time (14 turns)
 - Made it take longer to leave prison if you get caught
 - Added wolfgirl, maid, dragonheart, blue catsuit, and elven dresses as outfits
+- New faction system! Enrage them by attacking and capturing their members, or please them though dialogue!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

@@ -95,6 +95,8 @@ function KDDrawDialogue() {
 let KinkyDungeonDialogueTimer = 0;
 
 function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
+	KinkyDungeonInterruptSleep();
+	KinkyDungeonAutoWait = false;
 	KinkyDungeonDialogueTimer = CommonTime() + 1000 + KinkyDungeonSlowMoveTurns * 200;
 	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});
 }

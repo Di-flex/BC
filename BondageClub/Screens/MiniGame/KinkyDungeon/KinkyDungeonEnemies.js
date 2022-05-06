@@ -946,6 +946,16 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 /**
  *
  * @param {entity} enemy
+ * @returns {string}
+ */
+function KDGetAI(enemy) {
+	if (enemy.AI) return enemy.AI;
+	else return enemy.Enemy.AI;
+}
+
+/**
+ *
+ * @param {entity} enemy
  * @param {*} player
  * @param {number} delta
  * @param {number} visionMod
@@ -1335,6 +1345,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 								let minDist = enemy.Enemy.cohesionRange ? enemy.Enemy.cohesionRange : visionRadius;
 								for (let e of KinkyDungeonEntities) {
 									if (e == enemy) continue;
+									if (['guard', 'ambush'].includes(KDGetAI(enemy))) continue;
 									if (enemy.Enemy.clusterWith && !e.Enemy.tags.has(enemy.Enemy.clusterWith)) continue;
 									let dist = KDistEuclidean(e.x - enemy.x, e.y - enemy.y);
 									if (dist < minDist) {
