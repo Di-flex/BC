@@ -753,8 +753,8 @@ interface KinkyDialogueTrigger {
 	playRequired?: boolean;
 	/** Prevents this from happening if the target is hostile */
 	nonHostile?: boolean;
-	prerequisite: (enemy, dist) => boolean;
-	weight: (enemy, dist) => number;
+	prerequisite: (enemy: entity, dist: number) => boolean;
+	weight: (enemy: entity, dist: number) => number;
 }
 
 interface spell {
@@ -937,13 +937,13 @@ interface KinkyDialogue {
 	/** REPLACETEXT -> Replacement */
 	data?: Record<string, string>;
 	/** Function to play when clicked. If not specified, nothing happens. */
-	clickFunction?: (gagged) => void;
+	clickFunction?: (gagged: boolean) => void;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
 	gagFunction?: () => void;
 	/** Will not appear unless function returns true */
-	prerequisiteFunction?: (gagged) => boolean;
+	prerequisiteFunction?: (gagged: boolean) => boolean;
 	/** Will appear greyed out unless true */
-	greyoutFunction?: (gagged) => boolean;
+	greyoutFunction?: (gagged: boolean) => boolean;
 	greyoutTooltip?: string;
 	/** List of personalities supported by this dialogue */
 	personalities?: string[];
