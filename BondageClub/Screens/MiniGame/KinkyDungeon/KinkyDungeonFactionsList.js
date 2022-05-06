@@ -35,11 +35,11 @@ let KinkyDungeonFactionRelationsBase = {
 		Elemental: -0.6,
 		Dragon: 0.0,
 		Maidforce: -0.06,
-		Nevermere: -0.4,
+		Nevermere: -0.1,
 		Elf: -0.26,
 		Bast: -0.6,
 		Mushy: -0.64,
-		AncientRobot: -0.7,
+		AncientRobot: -0.45,
 	},
 	"Enemy": {
 	},

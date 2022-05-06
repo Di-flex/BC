@@ -575,6 +575,8 @@ interface enemy {
 	noSpellDuringAttack?: boolean,
 	/** Base faction of this enemy, overridden by the entity faction */
 	faction?: string,
+	/** This enemy does not channel its spells */
+	noChannel?: boolean,
 
 
 }
