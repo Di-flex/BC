@@ -812,6 +812,7 @@ Spell Balance:
 
 3.3
 - Enemies will now fight each other!
+- Bolt cutters do bonus damage to floating locks :)
 
 TODO ValidationFindBlockCycles to prevent bugs
 

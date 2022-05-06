@@ -564,7 +564,7 @@ let KinkyDungeonEnemies = [
 	{name: "Cuffs", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignoreboundhands", "construct", "melee", "shackleRestraints", "minor", "chainresist", "meleeresist", "glueweakness", "iceweakness"]), ignorechance: 0.75, armor: 1, followRange: 1, AI: "hunt", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
 		visionRadius: 3, visionSummoned: 12, maxhp: 2, minLevel: 2, weight:4, movePoints: 1, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "charm", fullBoundBonus: 3,
 		terrainTags: {"increasingWeight":-1}, allFloors: true, shrines: ["Metal"]},
-	{name: "Lock", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignorenoSP", "construct", "melee", "chainRestraints", "minor", "chainresist", "meleeresist", "glueweakness", "iceweakness"]), difficulty: 0.2,
+	{name: "Lock", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignorenoSP", "lock", "construct", "melee", "chainRestraints", "minor", "chainresist", "meleeresist", "glueweakness", "iceweakness"]), difficulty: 0.2,
 		ignorechance: 0.75, armor: 1, followRange: 1, AI: "hunt", ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true, suicideOnLock: true,
 		visionRadius: 3, visionSummoned: 12, maxhp: 8, minLevel: 3, weight:3, movePoints: 2, attackPoints: 2, attack: "SuicideMeleeBindLock", attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":1, "lastthird":1}, allFloors: true, shrines: ["Metal"]},

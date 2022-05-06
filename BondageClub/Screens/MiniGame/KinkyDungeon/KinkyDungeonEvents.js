@@ -823,6 +823,18 @@ const KDEventMapWeapon = {
 				}
 			}
 		},
+		"DamageToTag": (e, weapon, data) => {
+			if (data.enemy && !data.miss && !data.disarm) {
+				if (data.enemy && data.enemy.Enemy.tags.has(e.requiredTag) && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
+					KinkyDungeonDamageEnemy(data.enemy, {
+						type: e.damage,
+						damage: e.power,
+						time: e.time,
+						bind: e.bind
+					}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
+				}
+			}
+		},
 		"Knockback": (e, weapon, data) => {
 			if (e.dist && data.enemy && data.targetX && data.targetY && !data.miss && !data.disarm) {
 				if (data.enemy.Enemy && !data.enemy.Enemy.tags.has("unflinching") && !data.enemy.Enemy.tags.has("stunresist") && !data.enemy.Enemy.tags.has("unstoppable")) {
