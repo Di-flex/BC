@@ -2863,7 +2863,7 @@ KinkyDungeonSpellShroud,Shroud
 KinkyDungeonSpellDarkShroud,Smoke Bomb
 KinkyDungeonSpellSleepGas,Sleep Gas
 KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radius)
-KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking
+KinkyDungeonSpellDescriptionShroud,Creates a cloud for Duration turns that buffs evasion for all creatures. You are temporarily invisible for 8 turns after leaving.
 KinkyDungeonSpellCastShroud,You exhale a misty shroud
 
 KinkyDungeonSpellInvisibility,Invisibility

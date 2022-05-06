@@ -813,6 +813,10 @@ Spell Balance:
 3.3
 - Enemies will now fight each other!
 - Bolt cutters do bonus damage to floating locks :)
+- Fixed water rune image
+- Smoke bomb and shroud now have a longer lasting stealth boost (8 turns)
+- Invisibility buffed to 14 turns
+- Nerfed ancient muzzle sneak boost
 
 TODO ValidationFindBlockCycles to prevent bugs
 

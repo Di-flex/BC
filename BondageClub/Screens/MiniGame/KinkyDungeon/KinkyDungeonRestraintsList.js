@@ -752,7 +752,7 @@ const KinkyDungeonRestraints = [
 		Group: "ItemMouth3", power: 25, weight: 0,
 		escapeChance: {"Struggle": -100, "Cut": -100, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, allFloors: true, shrine: [],
 		events: [
-			{trigger: "tick", type: "SneakBuff", power: 2, requireEnergy: true},
+			{trigger: "tick", type: "SneakBuff", power: 1.15, requireEnergy: true},
 			{trigger: "tick", type: "RegenMana", power: 1.0, requireEnergy: true, energyCost: 0.0025},
 			{trigger: "beforeDamageEnemy", type: "MultiplyDamageStealth", power: 2.5, requireEnergy: true, energyCost: 0.0015}
 		]},
