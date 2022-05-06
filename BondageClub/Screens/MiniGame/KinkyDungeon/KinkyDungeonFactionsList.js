@@ -228,8 +228,8 @@ function KDSetFactionRelation(a, b, relation) {
  * @param {number} amount
  */
 function KDChangeFactionRelation(a, b, amount) {
-	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = {};
-	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = {};
+	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelationsBase[a];
+	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelationsBase[b];
 
 	if (KinkyDungeonFactionRelations[a]) {
 		if (!KinkyDungeonFactionRelations[a][b] && KinkyDungeonFactionRelations[b][a])
