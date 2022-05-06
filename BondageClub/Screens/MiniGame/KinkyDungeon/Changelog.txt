@@ -819,6 +819,7 @@ Spell Balance:
 - Nerfed ancient muzzle sneak boost
 
 3.31
+- Buffs are now shown in the bottom right
 
 TODO ValidationFindBlockCycles to prevent bugs
 
