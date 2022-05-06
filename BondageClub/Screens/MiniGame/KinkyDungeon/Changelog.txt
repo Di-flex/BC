@@ -776,10 +776,10 @@ Spell Balance:
 - New system for being released after spending time in jail, enemies treat you as a prisoner and will play with you. You need to find a key to open the jail but it gets locked if enemies play with you
 - Removed multiplayer streaming in BC (too much bugs)
 - Stone Skin duration up to 50 turns from 40, mana cost 6 from 8
-- Added scrolling in consumable menu
-- Enemies can now take many kinds of items from the player
+- Added scrolling in consumable GameReturnToMenu
 
 3.11
+- Enemies can now take many kinds of items from the player
 - Refactored some events (Thanks Demopans)
 - Dragonslaver can now use the ranged attack separately
 - New weapon: Latex projector
