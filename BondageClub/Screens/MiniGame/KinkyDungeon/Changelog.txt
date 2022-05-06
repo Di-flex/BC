@@ -818,6 +818,8 @@ Spell Balance:
 - Invisibility buffed to 14 turns
 - Nerfed ancient muzzle sneak boost
 
+3.31
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
