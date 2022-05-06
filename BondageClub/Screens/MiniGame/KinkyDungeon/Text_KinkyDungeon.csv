@@ -1136,7 +1136,7 @@ AttackRibbons,"The ribbons wrap themselves around you! (-DamageTaken SP)"
 NameGag,Gravitating Gag
 KillGag,"The gag buckles itself in place and falls."
 AttackGagBind,"The gravitating gag wedges itself firmly in your mouth and buckles itself! (+RestraintAdded)"
-AttackGag,"The gravitating gag rubs itself against you! (-DamageTaken SP)"
+AttackGag,"The gravitating gag rubs itself against your gagged lips! (-DamageTaken SP)"
 
 NameCuffs,Seductive Shackles
 KillCuffs,"The shackles' chain breaks as they fall to the floor."
@@ -1161,7 +1161,7 @@ AttackLearnedRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameUnforseenRope,Unforseen Rope
 KillUnforseenRope,"The unforseen rope is gone... or is it?"
-AttackUnforseenRopeBind,"The unforseen rope wraps itself intricately around your body! (+RestraintAdded)"
+AttackUnforseenRopeBind,"The unforseen rope wraps itself clandestinely around your body! (+RestraintAdded)"
 AttackUnforseenRope,"The unforseen rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameMonsterRope,Monster Rope
