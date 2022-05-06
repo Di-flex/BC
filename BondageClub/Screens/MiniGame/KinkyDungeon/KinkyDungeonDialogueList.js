@@ -195,7 +195,7 @@ let KDDialogue = {
 							if (KDBasicCheck(["Latex"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferLatexForceYes";
-								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Latex"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Latex"], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
@@ -216,7 +216,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Latex"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
-						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Latex"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Latex"], ["Ghost"]));
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
@@ -278,7 +278,7 @@ let KDDialogue = {
 							if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferChastityForceYes";
-								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
@@ -299,7 +299,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
-						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
@@ -362,7 +362,7 @@ let KDDialogue = {
 							if (KDBasicCheck(["Leather"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferLeatherForceYes";
-								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Leather"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Leather"], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
@@ -383,7 +383,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Leather"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
-						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Leather"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Leather"], ["Ghost"]));
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
@@ -445,7 +445,7 @@ let KDDialogue = {
 							if (KDBasicCheck(["Rope"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
-								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
@@ -460,7 +460,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Rope"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
-						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Rope"], ["Ghost"]));
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
@@ -529,7 +529,7 @@ let KDDialogue = {
 							if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
 								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
-								KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
@@ -544,7 +544,7 @@ let KDDialogue = {
 					if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
 						KDGameData.CurrentDialogMsg = "";
-						KDGameData.CurrentDialogMsgValue.Percent = KDBasicDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+						KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
@@ -606,6 +606,12 @@ let KDDialogue = {
 // Success chance for a basic dialogue
 function KDBasicDialogueSuccessChance(checkResult) {
 	return Math.max(0, Math.min(1.0, checkResult/100));
+}
+
+// Success chance for a basic dialogue
+function KDAgilityDialogueSuccessChance(checkResult) {
+	let evasion = KinkyDungeonPlayerEvasion();
+	return Math.max(0, Math.min(1.0, (checkResult/100 + 0.2 * Math.max(0, 3 - KinkyDungeonSlowLevel)) * evasion));
 }
 
 /**

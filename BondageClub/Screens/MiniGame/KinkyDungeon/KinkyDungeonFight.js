@@ -186,6 +186,13 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 	}
 }
 
+function KinkyDungeonPlayerEvasion() {
+	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 1.0;
+	let val = playerEvasionMult * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"));
+
+	return val;
+}
+
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
 	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic, true);
 	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
