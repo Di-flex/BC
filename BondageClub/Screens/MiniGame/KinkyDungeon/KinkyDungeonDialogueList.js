@@ -261,6 +261,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData = {
 							"Data_r": r.name,
 							"RESTRAINT": TextGet("Restraint" + r.name),
+							"ChastityLock": MiniGameKinkyDungeonLevel + KDRandom()*3 > 3 ? (MiniGameKinkyDungeonLevel + KDRandom()*6 > 9 ? "Gold" : "Blue") : "Red",
 						};
 				},
 				options: {
@@ -268,9 +269,12 @@ let KDDialogue = {
 						clickFunction: (gagged) => {
 							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 2);
-							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Gold");
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
 						},
-						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+						options: {
+							"Leave": {playertext: "Leave", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock == "Red";}, exitDialogue: true},
+							"Observe": {playertext: "OfferChastityObserve", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock != "Red";}, leadsToStage: "Glow"},
+						},
 					},
 					"No": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
@@ -295,6 +299,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData = {
 							"Data_r": r.name,
 							"RESTRAINT": TextGet("Restraint" + r.name),
+							"ChastityLock": MiniGameKinkyDungeonLevel + KDRandom()*3 > 3 ? (MiniGameKinkyDungeonLevel + KDRandom()*6 > 9 ? "Gold" : "Blue") : "Red",
 						};
 					if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
 						KDGameData.CurrentDialogStage = "Force";
@@ -313,9 +318,13 @@ let KDDialogue = {
 						clickFunction: (gagged) => {
 							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 1);
-							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Gold");
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
 						},
-						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+						options: {
+							"Leave": {playertext: "Leave", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock == "Red";}, exitDialogue: true},
+							"Observe": {playertext: "OfferChastityObserve", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock != "Red";}, leadsToStage: "Glow"},
+						},
+					},
 					"No": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							KDAllySpeaker(30);
@@ -323,11 +332,16 @@ let KDDialogue = {
 							if (KDRandom() > percent) {
 								// Fail
 								KDGameData.CurrentDialogMsg = "OfferChastityForce_Failure";
-								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Gold");
+								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
 							}
 						},
-						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
 				},
+			},
+			"Glow": {playertext: "Default", response: "OfferChastityGlow",
+				prerequisiteFunction: (gagged) => {return false;},
+				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
 		}
 	},

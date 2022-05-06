@@ -31,7 +31,7 @@ function KDAllied(enemy) {
  */
 function KDHostile(enemy, enemy2) {
 	if (enemy == enemy2) return false;
-	return (enemy.rage > 0) || ((!enemy2 || KDGetFaction(enemy) == "Player") && KDFactionHostile("Player", enemy2) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), KDGetFaction(enemy2))));
+	return (enemy.rage > 0) || (!enemy2 && KDFactionHostile("Player", enemy) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), enemy2)));
 }
 
 /**
@@ -55,7 +55,7 @@ function KDGetFaction(enemy) {
  * @returns {boolean}
  */
 function KDFactionHostile(a, b) {
-	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return true;
+	if (a == "Player" && b && !(typeof b === "string") && b.hostile > 0) return true;
 	if (!(typeof b === "string") && b.rage > 0) return true;
 	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return false;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
@@ -74,7 +74,7 @@ function KDFactionHostile(a, b) {
  * @returns {boolean}
  */
 function KDFactionAllied(a, b) {
-	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return false;
+	if (a == "Player" && b && !(typeof b === "string") && b.hostile > 0) return false;
 	if (!(typeof b === "string") && b.rage > 0) return false;
 	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return true;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
