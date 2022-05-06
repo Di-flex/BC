@@ -77,6 +77,9 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 		let pdist = Math.sqrt((KinkyDungeonPlayerEntity.x - enemy.x)*(KinkyDungeonPlayerEntity.x - enemy.x)
 			+ (KinkyDungeonPlayerEntity.y - enemy.y)*(KinkyDungeonPlayerEntity.y - enemy.y));
 		let nearestVisible = undefined;
+
+		if (enemy.Enemy.focusPlayer && KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, false, false)) return KinkyDungeonPlayerEntity;
+
 		let nearestDistance = KDHostile(enemy) ? pdist - 0.1 : 100000;
 
 		for (let e of KinkyDungeonEntities) {
@@ -85,7 +88,15 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
 					+ (e.y - enemy.y)*(e.y - enemy.y));
-				if (dist <= nearestDistance) {
+				let pdist_enemy = KDGetFaction(enemy) == "Player" ? KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) : -1;
+				if (pdist_enemy > 0 && pdist_enemy < 1.5 && KDHostile(e)) KinkyDungeonSetFlag("AIHelpPlayer", 4);
+				if (pdist_enemy > 0 && KinkyDungeonFlags.get("AIHelpPlayer") && dist > 2.5) {
+					if (pdist_enemy > 2.5) dist += 2;
+					else dist = Math.max(1.01 + dist/4, dist/3);
+				}
+				if (dist <= nearestDistance && (pdist_enemy <= 0 ||
+					(KinkyDungeonLightGet(e.x, e.y) > 0 && (pdist_enemy < 8 || enemy.Enemy.followRange > 1))
+				)) {
 					if (KinkyDungeonCheckLOS(enemy, e, dist, visionRadius, true, true)) {
 						if (enemy.rage || !e.Enemy.lowpriority
 								|| !KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, true, true)
@@ -1038,7 +1049,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	let harmless = (KinkyDungeonPlayerDamage.dmg <= enemy.Enemy.armor || !KinkyDungeonHasStamina(1.1)) && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1;
 
 	// Check if the enemy ignores the player
-	if (player.player) {
+	if (player.player && !KDAllied(enemy)) {
 		if (enemy.Enemy.tags.has("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
 		if (enemy.Enemy.tags.has("ignoreharmless") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& harmless && (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
@@ -1289,15 +1300,29 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						break;
 					}
 				}
-		} else if ((AI == "guard" || AI == "patrol" || AI == "wander" || AI == "hunt" || (AI == "ambush" && enemy.ambushtrigger)) && ((enemy.Enemy.attackWhileMoving && enemy != KinkyDungeonLeashingEnemy()) || ignore || !(KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, enemy.attackPoints < 1 || !enemy.Enemy.projectileAttack, false) && enemy.aware) || kite)) {
+		} else if (
+			(AI == "guard" || AI == "patrol" || AI == "wander" || AI == "hunt" || (AI == "ambush" && enemy.ambushtrigger))
+			&& (
+				(enemy.Enemy.attackWhileMoving && enemy != KinkyDungeonLeashingEnemy())
+				|| ignore
+				|| !(KinkyDungeonCheckLOS(enemy, player, playerDist, followRange + 0.5, enemy.attackPoints < 1 || !enemy.Enemy.projectileAttack, false) && enemy.aware)
+				|| kite
+			)
+		) {
 			if (!enemy.gx) enemy.gx = enemy.x;
 			if (!enemy.gy) enemy.gy = enemy.y;
 
 			idle = true;
 			let patrolChange = false;
+			let followPlayer = (KDAllied(enemy) && player.player);
 
 			// try 12 times to find a moveable tile, with some random variance
-			if (AI != "wander" && !ignore && (enemy.aware || (KDAllied(enemy) && player.player && playerDist > 1.5)) && playerDist <= chaseRadius && (AI != "ambush" || enemy.ambushtrigger || enemy.gx != enemy.x || enemy.gy != enemy.y)) {
+			if (
+				AI != "wander"
+				&& !ignore
+				&& (enemy.aware || followPlayer)
+				&& playerDist <= chaseRadius
+				&& (AI != "ambush" || enemy.ambushtrigger || enemy.gx != enemy.x || enemy.gy != enemy.y)) {
 				//enemy.aware = true;
 
 				for (let T = 0; T < 12; T++) {
@@ -1353,7 +1378,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				}
 			} else if (Math.abs(enemy.x - enemy.gx) < 2 || Math.abs(enemy.y - enemy.gy) < 2) patrolChange = true;
 
-			if (AI == "patrol") {
+			if (AI == "patrol" && !followPlayer) {
 				let patrolChance = patrolChange ? 0.2 : 0.04;
 				if (!enemy.patrolIndex) enemy.patrolIndex = KinkyDungeonNearestPatrolPoint(enemy.x, enemy.y);
 				if (KinkyDungeonPatrolPoints[enemy.patrolIndex] && KDRandom() < patrolChance) {
@@ -1366,11 +1391,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				}
 
 			}
-			if (AI == "guard" && Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 && enemy.gxx && enemy.gyy) {
+			if (AI == "guard" && !followPlayer && Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 && enemy.gxx && enemy.gyy) {
 				enemy.gx = enemy.gxx;
 				enemy.gy = enemy.gyy;
 			}
-			if ((AI == "wander" || AI == "hunt") && enemy.movePoints < 1 && (!enemy.aware || !KinkyDungeonAggressive(enemy))) {
+			if ((AI == "wander" || AI == "hunt") && !followPlayer && enemy.movePoints < 1 && (!enemy.aware || !KinkyDungeonAggressive(enemy))) {
 				if (Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 || (!(enemy.vp > 0.05) && (!enemy.path || KDRandom() < 0.1))) {
 					let master = KinkyDungeonFindMaster(enemy).master;
 					if (KDRandom() < 0.1 && !master) {
