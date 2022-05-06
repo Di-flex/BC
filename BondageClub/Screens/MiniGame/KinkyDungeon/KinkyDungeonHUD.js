@@ -58,6 +58,10 @@ function KinkyDungeonDrawInputs() {
 			(KinkyDungeonGetEvasion() < KinkyDungeonPlayerDamage.chance * 0.99) ? "pink" :
 			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "black");
 	}
+	let evasion = KinkyDungeonPlayerEvasion();
+	if (evasion > 0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerEvasion") + Math.round(evasion * 100) + "%", 1640, 880, 200, "white", "black");
+	}
 
 	if (KDModalArea) {
 		//DrawRect(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height, "rgba(40, 40, 40, 0.3)");
