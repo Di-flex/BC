@@ -716,6 +716,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	let tickAlertTimer = false;
 	let tickAlertTimerFactions = [];
 	let visionMod = 1.0;
+	let defeat = false;
 
 	if (KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]]) {
 		if (KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].brightness) {
@@ -859,8 +860,11 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					for (let inv of KinkyDungeonAllConsumable()) {
 						playerItems.push(inv);
 					}
-
-					idle = KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems);
+					let ret = KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems);
+					idle = ret.idle;
+					if (ret.defeat) {
+						defeat = true;
+					}
 					if (enemy.items) {
 						let light = KinkyDungeonLightGet(enemy.x, enemy.y);
 						if (light == 0 && !enemy.aware && KDRandom() < 0.2) {
@@ -941,6 +945,10 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 		KinkyDungeonAlert = 0;
 	}
 
+	if (defeat) {
+		KinkyDungeonDefeat();
+	}
+
 }
 
 /**
@@ -960,9 +968,10 @@ function KDGetAI(enemy) {
  * @param {number} delta
  * @param {number} visionMod
  * @param {item[]} playerItems
- * @returns {boolean}
+ * @returns {{idle: boolean, defeat: boolean}}
  */
 function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
+	let defeat = false;
 	let idle = true;
 	let moved = false;
 	let ignore = false;
@@ -1662,7 +1671,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 							}
 						}
 						if (leashPos == nearestJail && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
-							KinkyDungeonDefeat();
+							defeat = true;
 							KDGameData.KinkyDungeonLeashedPlayer = 3 + ap * 2;
 							KDGameData.KinkyDungeonLeashingEnemy = enemy.id;
 						}
@@ -2010,7 +2019,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		enemy.specialCD = enemy.Enemy.specialCD;
 	}
 	if (enemy.specialCD > 0) enemy.usingSpecial = false;
-	return idle;
+	return {idle: idle, defeat: defeat};
 }
 
 // Unique ID for enemies, to prevent bullets from hitting them

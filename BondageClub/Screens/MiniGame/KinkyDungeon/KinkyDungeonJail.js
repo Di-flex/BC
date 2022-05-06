@@ -894,7 +894,7 @@ function KinkyDungeonDefeat() {
 				}
 
 			}
-			if (e.hostile < 1000) e.hostile = 0;
+			if (e.hostile < 9000) e.hostile = 0;
 			enemies.push(e);
 		}
 	}
