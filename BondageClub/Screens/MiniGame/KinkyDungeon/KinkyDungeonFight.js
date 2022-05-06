@@ -138,7 +138,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 let KinkyDungeonEvasionPityModifier = 0; // Current value
 let KinkyDungeonEvasionPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
 
-function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
+function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 	let flags = {
 		KDEvasionHands: true,
 		KDEvasionSight: true,
@@ -147,7 +147,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	};
 
 	if (!NoOverride)
-		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags});
+		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags, cost: cost});
 	let hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (KinkyDungeonStatsChoice.get("Clumsy")) hitChance *= KDClumsyAmount;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0,
@@ -186,8 +186,15 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 	}
 }
 
+function KinkyDungeonPlayerEvasion() {
+	let playerEvasionMult = KinkyDungeonStatsChoice.get("Dodge") && KinkyDungeonMiscastChance < 0.001 ? KDDodgeAmount : 1.0;
+	let val = playerEvasionMult * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Evasion"));
+
+	return val;
+}
+
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
-	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
+	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic, true);
 	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
 	}
@@ -454,7 +461,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 	if (miss) {
 		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDMissed"), "white", 2);
-	} else if (dmgDealt <= 0 && !miss) {
+	} else if (Damage && dmgDealt <= 0 && !miss) {
 		KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDBlocked"), "white", 2);
 	}
 
@@ -525,7 +532,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 			disarm = true;
 		}
 	}
-	let evaded = KinkyDungeonEvasion(Enemy, KinkyDungeonPlayerEntity);
+	let evaded = KinkyDungeonEvasion(Enemy, undefined, undefined, KinkyDungeonPlayerEntity);
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	let predata = {
@@ -735,8 +742,8 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		for (let enemy of KinkyDungeonEntities) {
 			if ((b.reflected
 				|| (!b.bullet.spell || !b.bullet.faction
-					|| (KDFactionHostile(b.bullet.faction, enemy) && (!b.bullet.damage || b.bullet.damage.type != "heal"))
-					|| (KDFactionAllied(b.bullet.faction, enemy) && (b.bullet.damage && b.bullet.damage.type == "heal"))
+					|| (!KDFactionAllied(b.bullet.faction, enemy) && (!b.bullet.damage || b.bullet.damage.type != "heal"))
+					|| (!KDFactionHostile(b.bullet.faction, enemy) && (b.bullet.damage && b.bullet.damage.type == "heal"))
 				))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
@@ -773,8 +780,13 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 				if (!type) type = summonType;
 				let count = sum.count ? sum.count : 1;
 				let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
-				if (count > 0)
-					created += KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget);
+				if (count > 0) {
+					let faction = (b.bullet.spell && b.bullet.spell.defaultFaction) ? undefined : b.bullet.faction;
+					if (b.bullet.spell && b.bullet.spell.enemySpell) faction = "Enemy";
+					else if (b.bullet.spell && b.bullet.spell.allySpell) faction = "Player";
+					let e = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget, faction);
+					created += e;
+				}
 			}
 		}
 		if (!b.bullet.spell || !b.bullet.spell.noSumMsg) {
@@ -785,7 +797,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 }
 
 
-function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden, goToTarget) {
+function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden, goToTarget, faction) {
 	let slots = [];
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
@@ -800,11 +812,13 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(KDRandom() * slots.length)];
-		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y)) && (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || Enemy.noblockplayer)
+		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y))
+			&& (KinkyDungeonNoEnemy(x+slot.x, y+slot.y, true) || (Enemy.noblockplayer && KDistChebyshev(x+slot.x - KinkyDungeonPlayerEntity.x, y+slot.y - KinkyDungeonPlayerEntity.y) < 1.5))
 			&& (!strict || KinkyDungeonCheckPath(x, y, x+slot.x, y+slot.y, false))
 			&& (!hidden || KinkyDungeonLightGet(x, y) < 1)) {
-			KinkyDungeonEntities.push({summoned: true, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
-				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime});
+			let e = {summoned: true, faction: faction, rage: Enemy.summonRage ? 9999 : undefined, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), gx: goToTarget ? KinkyDungeonTargetX : undefined, gy: goToTarget ? KinkyDungeonTargetY : undefined,
+				x:x+slot.x, y:y+slot.y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, lifetime: lifetime, maxlifetime: lifetime};
+			KinkyDungeonEntities.push(e);
 			created += 1;
 		} else C -= 1;
 		maxcounter += 1;
@@ -862,8 +876,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 				for (let enemy of KinkyDungeonEntities) {
 					if ((bullet.reflected
 						|| (!bullet.bullet.spell || !bullet.bullet.faction
-							|| (KDFactionHostile(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
-							|| (KDFactionAllied(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
+							|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
+							|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 						))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
 						if (bullet.bullet.damage.type == "heal") {
@@ -884,8 +898,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
 			for (let enemy of KinkyDungeonEntities) {
 				if ((bullet.reflected
 					|| (!bullet.bullet.spell || !bullet.bullet.faction
-						|| (KDFactionHostile(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
-						|| (KDFactionAllied(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
+						|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
+						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {
 					if (bullet.bullet.damage.type == "heal") {

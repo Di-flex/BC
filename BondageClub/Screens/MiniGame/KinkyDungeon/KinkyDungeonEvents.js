@@ -96,12 +96,12 @@ const KDEventMapInventory = {
 		},
 		"EnchantedAnkleCuffs2": (e, item, data) => {
 			KinkyDungeonRemoveRestraint(KDRestraint(item).Group);
-			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs"), 0, true);
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs"), 0, true, undefined, undefined, undefined, undefined, undefined, item.faction);
 		},
 		"EnchantedAnkleCuffs": (e, item, data) => {
 			if (KDGameData.AncientEnergyLevel <= 0.0000001) {
 				KinkyDungeonRemoveRestraint(KDRestraint(item).Group);
-				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs2"), 0, true);
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("EnchantedAnkleCuffs2"), 0, true, undefined, undefined, undefined, undefined, undefined, item.faction);
 			}
 		},
 		"RegenMana": (e, item, data) => {
@@ -244,10 +244,8 @@ const KDEventMapInventory = {
 				console.log("Deprecated function");
 				console.log(Event, e, item, data);
 				console.trace();
-				//KinkyDungeonUnLinkItem(item);
-				//Obsolete
 			}
-		}
+		},
 	},
 	"afterRemove": {
 		"replaceItem": (e, item, data) => {
@@ -295,7 +293,7 @@ const KDEventMapInventory = {
 					if (item && KDRestraint(item).Link && (KDRandom() < chance * subMult) && (!e.noLeash || KDGameData.KinkyDungeonLeashedPlayer < 1)) {
 						let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
 						//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
-						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
 					}
 				}
 			}
@@ -310,13 +308,13 @@ const KDEventMapInventory = {
 		"HandsFree": (e, item, data) => {
 			if (data.flags.KDEvasionHands) {
 				data.flags.KDEvasionHands = false;
-				if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				if (data.cost && e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
 		},
 		"BlindFighting": (e, item, data) => {
 			if (data.flags.KDEvasionSight) {
 				data.flags.KDEvasionSight = false;
-				if (e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				if (data.cost && e.energyCost && KinkyDungeonStatMana < KinkyDungeonStatManaMax - 0.01) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
 			}
 		}
 	},
@@ -369,10 +367,20 @@ const KDEventMapInventory = {
 		"linkItem": (e, item, data) => {
 			if (item && KDRestraint(item).Link && (KDRandom() < e.chance)) {
 				let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
-				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false);
+				KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
 				//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 			}
-		}
+		},
+		"Kittify": (e, item, data) => {
+			// get defeat, upgrade suit
+			KinkyDungeonRemoveRestraint("ItemArms",false,false,true,false);
+			KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("KittyPetSuit"), 15, undefined, undefined, undefined, undefined, undefined, undefined, item.faction);
+			// leash if collared
+			let collared = InventoryGet(KinkyDungeonPlayer, "ItemNeck");
+			if(collared != null){
+				KinkyDungeonAddRestraint(KinkyDungeonGetRestraintByName("BasicLeash"), 1, false, "Red", undefined, undefined, undefined, undefined, item.faction);
+			}
+		},
 	},
 	"struggle": {
 		"crotchrope": (e, item, data) => {
@@ -476,7 +484,7 @@ const KDEventMapInventory = {
  * @param {*} data
  */
 function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) {
-	if (Event === kinkyDungeonEvent.trigger) {
+	if (Event === kinkyDungeonEvent.trigger && KDEventMapInventory[Event] && KDEventMapInventory[Event][kinkyDungeonEvent.type]) {
 		KDEventMapInventory[Event][kinkyDungeonEvent.type](kinkyDungeonEvent, item, data);
 	}
 }

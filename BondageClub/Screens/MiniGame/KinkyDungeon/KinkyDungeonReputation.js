@@ -100,6 +100,44 @@ function KinkyDungeonRepName(Amount) {
 
 /**
  *
+ * @param {number} Amount
+ * @returns {string}
+ */
+function KinkyDungeonRepNameFaction(Amount) {
+	let name = "";
+
+	if (Amount > 0.1) name = "Thankful";
+	if (Amount >= 0.5) name = "Pleased";
+	if (Amount > 0.9) name = "Blessed";
+	if (Amount < -0.1) name = "Angered";
+	if (Amount <= -0.5) name = "Enraged";
+	if (Amount < -0.9) name = "Cursed";
+
+	return TextGet("KinkyDungeonRepNameFaction" + name);
+}
+
+/**
+ *
+ * @param {string} Rep
+ * @param {number} Amount
+ * @returns {boolean}
+ */
+function KinkyDungeonChangeFactionRep(Rep, Amount) {
+	let last = KDFactionRelation("Player", Rep);
+	KDChangeFactionRelation("Player", Rep, Amount);
+	let curr = KDFactionRelation("Player", Rep);
+
+	if (curr != last) {
+		let amount = Math.round((curr - last)*1000)/10;
+		KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonFaction" + Rep)} rep`, "white", 5, true);
+		KDRecentRepIndex += 1;
+	}
+
+	return false;
+}
+
+/**
+ *
  * @param {string} Rep
  * @param {number} Amount
  * @returns {boolean}
@@ -123,6 +161,36 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
 			KDRecentRepIndex += 1;
 		}
+		if (Rep == "Metal") {
+			KDChangeFactionRelation("Player", "Nevermere", (Amount > 0 ? 0.01 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "AncientRobot", (Amount > 0 ? 0.005 : 0.01) * Amount);
+		}
+		if (Rep == "Rope") {
+			KDChangeFactionRelation("Player", "KinkyConstruct", (Amount > 0 ? 0.005 : 0.005) * Amount);
+		}
+		if (Rep == "Elements") {
+			KDChangeFactionRelation("Player", "Elemental", (Amount > 0 ? 0.005 : 0.01) * Amount);
+		}
+		if (Rep == "Leather") {
+			KDChangeFactionRelation("Player", "Dragon", (Amount > 0 ? 0.005 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Bandit", (Amount > 0 ? 0.01 : 0.01) * Amount);
+		}
+		if (Rep == "Latex") {
+			KDChangeFactionRelation("Player", "Alchemist", (Amount > 0 ? 0.0075 : 0.01) * Amount);
+		}
+		if (Rep == "Will") {
+			KDChangeFactionRelation("Player", "Elf", (Amount > 0 ? 0.075 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Mushy", (Amount > 0 ? 0.004 : 0.01)* Amount);
+			KDChangeFactionRelation("Player", "Bast", (Amount > 0 ? 0.03 : 0.005) * Amount);
+		}
+		if (Rep == "Conjure") {
+			KDChangeFactionRelation("Player", "Witch", (Amount > 0 ? 0.005 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Apprentice", (Amount > 0 ? 0.015 : 0.015) * Amount);
+		}
+		if (Rep == "Illusion") {
+			KDChangeFactionRelation("Player", "Maidforce", (Amount > 0 ? 0.007 : 0.01) * Amount);
+		}
+
 		if (KinkyDungeonGoddessRep[Rep] != last) return true;
 		return false;
 	}
@@ -195,7 +263,6 @@ function KinkyDungeonHandleReputation() {
 
 function KinkyDungeonDrawReputation() {
 	let i = 0;
-	let maxY = 560;
 	let XX = 0;
 	let spacing = 60;
 	let yPad = 50;
@@ -204,10 +271,6 @@ function KinkyDungeonDrawReputation() {
 		let value = KinkyDungeonGoddessRep[rep];
 
 		if (rep) {
-			if (spacing * i > maxY) {
-				if (XX == 0) i = 0;
-				XX = 600;
-			}
 			let color = "#ffff00";
 			if (value < -10) {
 				if (value < -30) color = "#ff0000";
@@ -281,6 +344,54 @@ function KinkyDungeonDrawReputation() {
 
 				//DrawButton(canvasOffsetX_ui + 275 + XX + 690, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonPenance"), "white");
 			}
+
+			i++;
+		}
+
+	}
+	MainCanvas.textAlign = "center";
+
+	if (!KDRepSelectionMode) {
+		KinkyDungeonDrawFactionRep();
+	}
+}
+
+
+function KinkyDungeonDrawFactionRep() {
+	let i = 0;
+	let XX = 700;
+	let spacing = 50;
+	let yPad = 40;
+	let barSpacing = 325;
+	for (let e of Object.keys(KinkyDungeonFactionRelations.Player)) {
+		let rep = e;
+		MainCanvas.textAlign = "left";
+
+		if (rep && !KinkyDungeonHiddenFactions.includes(rep)) {
+			let value = KinkyDungeonFactionRelations.Player[rep];
+			let color = "#ffff00";
+			if (value <= -0.1) {
+				if (value <= -0.5) color = "#ff0000";
+				else color = "#ff8800";
+			} else if (value >= 0.1) {
+				if (value >= 0.5) color = "#00ff00";
+				else color = "#88ff00";
+			}
+			let suff = KinkyDungeonRepNameFaction(value);
+			DrawText(TextGet("KinkyDungeonFaction" + rep), canvasOffsetX_ui + XX, yPad + canvasOffsetY_ui + spacing * i, "white", "black");
+			if (suff) {
+				DrawTextFit(suff, 1+canvasOffsetX_ui + barSpacing + XX + 250, 1+yPad + canvasOffsetY_ui + spacing * i, 100, "black", "black");
+				DrawTextFit(suff, canvasOffsetX_ui + barSpacing + XX + 250, yPad + canvasOffsetY_ui + spacing * i, 100, "white", "black");
+			}
+			DrawProgressBar(canvasOffsetX_ui + barSpacing + XX, yPad + canvasOffsetY_ui + spacing * i - spacing/4, 200, spacing/2, 50 + value * 50, color, "#444444");
+
+			MainCanvas.textAlign = "center";
+			DrawText(" " + (Math.round(value * 50)+50) + " ", canvasOffsetX_ui + barSpacing + XX + 100+1,  1+yPad + canvasOffsetY_ui + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value * 50)+50) + " ", canvasOffsetX_ui + barSpacing + XX + 100-1,  1+yPad + canvasOffsetY_ui + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value * 50)+50) + " ", canvasOffsetX_ui + barSpacing + XX + 100+1,  3+yPad + canvasOffsetY_ui + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value * 50)+50) + " ", canvasOffsetX_ui + barSpacing + XX + 100-1,  3+yPad + canvasOffsetY_ui + spacing * i, "black", "black");
+			DrawText(" " + (Math.round(value * 50)+50) + " ", canvasOffsetX_ui + barSpacing + XX + 100,  2+yPad + canvasOffsetY_ui + spacing * i, "white", "black");
+
 
 			i++;
 		}

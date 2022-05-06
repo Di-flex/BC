@@ -1,7 +1,13 @@
 "use strict";
+let KDDebugMode = false;
 let KDDebug = false;
+let KDDebugPerks = false;
+let KDDebugGold = false;
 
 let KinkyDungeonBackground = "BrickWall";
+/**
+ * @type {Character}
+ */
 let KinkyDungeonPlayer = null;
 let KinkyDungeonState = "Consent";
 
@@ -110,6 +116,9 @@ let KDOptOut = false;
 * CurrentDialogMsg: string,
 * CurrentDialogMsgSpeaker: string,
 * CurrentDialogMsgPersonality: string,
+* CurrentDialogMsgID: number,
+* CurrentDialogMsgData: Record<string, string>,
+* CurrentDialogMsgValue: Record<string, number>,
 * AlertTimer: number,
 *}} KDGameDataBase
 */
@@ -189,6 +198,9 @@ let KDGameDataBase = {
 	CurrentDialogMsg: "",
 	CurrentDialogMsgSpeaker: "",
 	CurrentDialogMsgPersonality: "",
+	CurrentDialogMsgData: {},
+	CurrentDialogMsgValue: {},
+	CurrentDialogMsgID: -1,
 
 	ConfirmAttack: false,
 };
@@ -287,7 +299,6 @@ function KDistChebyshev(x, y) {
  * @returns {void} - Nothing
  */
 function KinkyDungeonLoad() {
-
 	KDCategories = [
 		{name: "Restraints", buffs: [], debuffs: [],},
 		{name: "Kinky", buffs: [], debuffs: [],},
@@ -321,7 +332,7 @@ function KinkyDungeonLoad() {
 	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};
 
 	if (!KinkyDungeonGameRunning) {
-		if (!KinkyDungeonPlayer) {
+		if (!KinkyDungeonPlayer) { // new game
 			KDrandomizeSeed(false);
 			KinkyDungeonPlayer = CharacterLoadNPC("NPC_Avatar");
 			KinkyDungeonPlayer.Type = "simple";
@@ -329,6 +340,7 @@ function KinkyDungeonLoad() {
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true, };
 			KinkyDungeonSound = localStorage.getItem("KinkyDungeonSound") != undefined ? localStorage.getItem("KinkyDungeonSound") == "True" : true;
 			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
+			KinkyDungeonDrool = localStorage.getItem("KinkyDungeonDrool") != undefined ? localStorage.getItem("KinkyDungeonDrool") == "True" : true;
 
 			KinkyDungeonSexyMode = localStorage.getItem("KinkyDungeonSexyMode") != undefined ? localStorage.getItem("KinkyDungeonSexyMode") == "True" : true;
 			KinkyDungeonSexyPiercing = localStorage.getItem("KinkyDungeonSexyPiercing") != undefined ? localStorage.getItem("KinkyDungeonSexyPiercing") == "True" : false;
@@ -348,6 +360,7 @@ function KinkyDungeonLoad() {
 			CharacterNaked(KinkyDungeonPlayer);
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
+			KDInitProtectedGroups();
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
@@ -523,6 +536,7 @@ function KinkyDungeonRun() {
 			CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(ElementValue("saveInputField")));
 			CharacterRefresh(KinkyDungeonPlayer);
 			KDOldValue = newValue;
+			KDInitProtectedGroups();
 		}
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
@@ -600,7 +614,7 @@ function KinkyDungeonRun() {
 			if (KDGameData.SleepTurns > 0) {
 				if (CommonTime() > KinkyDungeonSleepTime) {
 					KDGameData.SleepTurns -= 1;
-					if (KinkyDungeonHostile())
+					if (KinkyDungeonAggressive())
 						KinkyDungeonTotalSleepTurns += 1;
 					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 						KDGameData.SleepTurns = 0;
@@ -1085,6 +1099,7 @@ function KinkyDungeonHandleClick() {
 			if (appearance) {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
 				CharacterRefresh(KinkyDungeonPlayer);
+				KDInitProtectedGroups();
 				localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
 			}
 			// Return to menu
@@ -1096,6 +1111,7 @@ function KinkyDungeonHandleClick() {
 			if (KDOriginalValue) {
 				CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(KDOriginalValue));
 				CharacterRefresh(KinkyDungeonPlayer);
+				KDInitProtectedGroups();
 			}
 
 
@@ -1155,6 +1171,15 @@ function KinkyDungeonHandleClick() {
 			ElementValue("saveInputField", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
 			return true;
 		} else if (MouseIn(25, 930, 325, 64)) {
+			if (KinkyDungeonState == "Lose") {
+				KinkyDungeonState = "Menu";
+				let appearance = LZString.decompressFromBase64(localStorage.getItem("kinkydungeonappearance"));
+				if (appearance) {
+					CharacterAppearanceRestore(KinkyDungeonPlayer, appearance);
+					CharacterRefresh(KinkyDungeonPlayer);
+				}
+			}
+			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {AllowFullWardrobeAccess: true};
 			KinkyDungeonNewDress = true;
 			if (ServerURL == "foobar") {
@@ -1165,6 +1190,7 @@ function KinkyDungeonHandleClick() {
 			}
 			CharacterReleaseTotal(KinkyDungeonPlayer);
 			KinkyDungeonDressPlayer();
+			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: false, AllowFullWardrobeAccess: true};
 			CharacterAppearanceLoadCharacter(KinkyDungeonPlayer);
 			KinkyDungeonConfigAppearance = true;
@@ -1176,6 +1202,7 @@ function KinkyDungeonHandleClick() {
 				CharacterReleaseTotal(KinkyDungeonPlayer);
 				KinkyDungeonSetDress("Default", "OutfitDefault");
 				KinkyDungeonDressPlayer();
+				KDInitProtectedGroups();
 				KinkyDungeonConfigAppearance = true;
 				return true;
 			} else {
@@ -1698,10 +1725,9 @@ function KinkyDungeonLoadGame(String) {
 				if (item.type == Restraint) {
 					let restraint = KinkyDungeonGetRestraintByName(item.name);
 					if (restraint) {
-						KinkyDungeonAddRestraint(restraint, 0, true, item.lock); // Add the item
+						KinkyDungeonAddRestraint(restraint, 0, true, item.lock, undefined, undefined, undefined, undefined, item.faction); // Add the item
 						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
-						if (createdrestraint)
-							createdrestraint.lock = item.lock; // Lock if applicable
+						if (createdrestraint) createdrestraint.lock = item.lock; // Lock if applicable
 					}
 				}
 			}

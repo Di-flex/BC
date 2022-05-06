@@ -1,6 +1,17 @@
 "use strict";
 
 
+/**
+ * Determines if the enemy (which can be hostile) is aggressive, i.e. will pursue the player or ignore
+ * @param {entity} [enemy]
+ * @returns {boolean}
+ */
+function KinkyDungeonAggressive(enemy) {
+	if (enemy && enemy.hostile > 0) return true;
+	if (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase") return KDHostile(enemy);
+	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") < -0.1) return KDHostile(enemy);
+	return false;
+}
 
 /**
  * Returns whether or not the enemy is ALLIED, i.e it will follow the player
@@ -44,11 +55,14 @@ function KDGetFaction(enemy) {
  */
 function KDFactionHostile(a, b) {
 	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return true;
-	if (a == "Player" && !(typeof b === "string") && b.rage > 0) return true;
+	if (!(typeof b === "string") && b.rage > 0) return true;
+	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return false;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return true;
 	if (a == "Player" && b == "Enemy") return true;
 	if (b == "Player" && a == "Enemy") return true;
+	if (KDFactionRelation(a, b) <= -0.5) return true;
+	if (a == b) return false;
 	return false;
 }
 
@@ -61,10 +75,13 @@ function KDFactionHostile(a, b) {
 function KDFactionAllied(a, b) {
 	if (a == "Player" && !(typeof b === "string") && b.hostile > 0) return false;
 	if (!(typeof b === "string") && b.rage > 0) return false;
+	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return true;
 	if (!(typeof b === "string")) b = KDGetFaction(b);
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;
+	if (KDFactionRelation(a, b) >= 0.5) return true;
+	if (a == b) return true;
 	return false;
 }
 

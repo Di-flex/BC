@@ -799,7 +799,10 @@ Spell Balance:
 - Fixed the parole system which had been majorly bugged for like a week
 - Added a dialogue system and an occasional request to give up your weapon by NPCs
 - Can now save outfits
-- Enemies won't aggro the whole map when you aggro them unless you fail to kill one in time (30 turns)
+- Enemies won't aggro the whole map when you aggro them unless you fail to kill one in time (14 turns)
+- Made it take longer to leave prison if you get caught
+- Added wolfgirl, maid, dragonheart, blue catsuit, and elven dresses as outfits
+- New faction system! Enrage them by attacking and capturing their members, or please them though dialogue!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

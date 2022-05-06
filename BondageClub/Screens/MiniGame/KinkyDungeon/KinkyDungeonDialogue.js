@@ -41,7 +41,7 @@ function KDGetDialogue() {
 
 function KDDrawDialogue() {
 	DrawImageCanvas(KinkyDungeonRootDirectory + "DialogBackground.png", MainCanvas, 500, 250);
-	if (KDGameData.CurrentDialog) {
+	if (KDGameData.CurrentDialog && !(KinkyDungeonSlowMoveTurns > 0)) {
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 		// Now that we have the dialogue, we check if we have a message
@@ -51,7 +51,13 @@ function KDDrawDialogue() {
 		// Type the message
 		let text = TextGet("r" + KDGameData.CurrentDialogMsg).split("|");
 		for (let i = 0; i < text.length; i++) {
-			DrawTextFit(text[i].replace("SPEAKER", TextGet("Name" + KDGameData.CurrentDialogMsgSpeaker)),
+			let tt = text[i];
+			if (KDGameData.CurrentDialogMsgData) {
+				for (let d of Object.entries(KDGameData.CurrentDialogMsgData)) {
+					tt = tt.replace(d[0], d[1]);
+				}
+			}
+			DrawTextFit(tt.replace("SPEAKER", TextGet("Name" + KDGameData.CurrentDialogMsgSpeaker)),
 				1000, 300 + 50 * i - 25 * text.length, 900, "white", "black");
 		}
 
@@ -67,19 +73,32 @@ function KDDrawDialogue() {
 					let playertext = entries[i][1].playertext;
 					if (playertext == "Default") playertext = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage + "_" + entries[i][0];
 					if (entries[i][1].gag && KDDialogueGagged()) playertext = playertext + "Gag";
-					DrawButton(700, 450 + II * 60, 600, 50, TextGet("d" + playertext), KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
+
+					let tt = TextGet("d" + playertext);
+					if (KDGameData.CurrentDialogMsgData) {
+						for (let d of Object.entries(KDGameData.CurrentDialogMsgData)) {
+							tt = tt.replace(d[0], d[1]);
+						}
+					}
+					DrawButton(700, 450 + II * 60, 600, 50, tt, KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
 					II += 1;
 				}
 			}
 		}
+	} else if (!KDGameData.CurrentDialog) {
+		// Clear data
+		KDGameData.CurrentDialogMsgData = {};
+		KDGameData.CurrentDialogMsgValue = {};
 	}
 }
 
 let KinkyDungeonDialogueTimer = 0;
 
-function KDStartDialog(Dialogue, Speaker, Click, Personality) {
-	KinkyDungeonDialogueTimer = CommonTime() + 1000;
-	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality});
+function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
+	KinkyDungeonInterruptSleep();
+	KinkyDungeonAutoWait = false;
+	KinkyDungeonDialogueTimer = CommonTime() + 1000 + KinkyDungeonSlowMoveTurns * 200;
+	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});
 }
 
 function KDDialogueGagged() {
@@ -91,6 +110,7 @@ function KDDialogueGagged() {
 
 function KDHandleDialogue() {
 	if (KDGameData.CurrentDialog && KinkyDungeonDialogueTimer < CommonTime()) {
+		KinkyDungeonInterruptSleep();
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 

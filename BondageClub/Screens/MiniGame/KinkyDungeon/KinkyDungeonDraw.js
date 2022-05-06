@@ -41,6 +41,9 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "w") sprite = "Floor";
 	else if (code == "]") sprite = "Floor";
 	else if (code == "[") sprite = "Floor";
+	else if (code == "=") sprite = "Brickwork";
+	else if (code == "+") sprite = "Brickwork";
+	else if (code == "-") sprite = "Brickwork";
 	return sprite;
 }
 
@@ -49,6 +52,9 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	if (code == "G") sprite = "Ghost";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "Y") sprite = "Rubble";
+	else if (code == "=") sprite = "ChargerCrystal";
+	else if (code == "+") sprite = "Charger";
+	else if (code == "-") sprite = "ChargerSpent";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
@@ -196,7 +202,16 @@ function KinkyDungeonDrawGame() {
 				// Get lighting grid
 				if (KinkyDungeonUpdateLightGrid) {
 					KinkyDungeonUpdateLightGrid = false;
-					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }], KDVisionUpdate);
+					let lights = [ {x: KinkyDungeonPlayerEntity.x, y:KinkyDungeonPlayerEntity.y, brightness: KinkyDungeonGetVisionRadius() }];
+					for (let t of KinkyDungeonTiles.keys()) {
+						let tile = KinkyDungeonTiles.get(t);
+						let x = parseInt(t.split(',')[0]);
+						let y = parseInt(t.split(',')[1]);
+						if (tile && tile.Light && x && y && KDistEuclidean(x - KinkyDungeonPlayerEntity.x, y - KinkyDungeonPlayerEntity.y) <= Math.max(tile.Light, KinkyDungeonGetVisionRadius())) {
+							lights.push({x: x, y:y, brightness: tile.Light });
+						}
+					}
+					KinkyDungeonMakeLightMap(KinkyDungeonGridWidth, KinkyDungeonGridHeight, lights, KDVisionUpdate);
 					KDVisionUpdate = 0;
 				}
 
@@ -549,6 +564,26 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonDrawLore();
 	} else if (KinkyDungeonDrawState == "Restart") {
 		MainCanvas.textAlign = "left";
+		// Check URL to see if indev branch
+		const params = new URLSearchParams(window.location.search);
+		let branch = params.has('branch') ? params.get('branch') : "";
+		if (branch || ServerURL == 'https://bc-server-test.herokuapp.com/') {
+			DrawCheckbox(600, 20, 64, 64, "Debug Mode", KDDebugMode, false, "white");
+			if (KDDebugMode) {
+				DrawCheckbox(1100, 20, 64, 64, "Verbose Console", KDDebug, false, "white");
+				DrawCheckbox(1100, 100, 64, 64, "Changeable Perks", KDDebugPerks, false, "white");
+				DrawCheckbox(1100, 180, 64, 64, "Unlimited Gold", KDDebugGold, false, "white");
+				MainCanvas.textAlign = "center";
+				ElementPosition("DebugEnemy", 1650, 52, 300, 64);
+				DrawButton(1500, 100, 300, 64, "Spawn enemy", "White", "");
+				ElementPosition("DebugItem", 1650, 212, 300, 64);
+				DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
+				DrawButton(1100, 260, 300, 64, "Teleport to stairs", "White", "");
+				DrawButton(1100, 320, 300, 64, "Enter parole mode", "White", "");
+			}
+		}
+
+		MainCanvas.textAlign = "left";
 		DrawCheckbox(600, 100, 64, 64, TextGet("KinkyDungeonSound"), KinkyDungeonSound, false, "white");
 		DrawCheckbox(600, 180, 64, 64, TextGet("KinkyDungeonDrool"), KinkyDungeonDrool, false, "white");
 		DrawCheckbox(600, 260, 64, 64, TextGet("KinkyDungeonFullscreen"), KinkyDungeonFullscreen, false, "white");
@@ -564,7 +599,7 @@ function KinkyDungeonDrawGame() {
 		DrawButton(1650, 900, 300, 64, TextGet("KinkyDungeonCheckPerks"), "White", "");
 		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
 	} else if (KinkyDungeonDrawState == "Perks2") {
-		KinkyDungeonDrawPerks(true);
+		KinkyDungeonDrawPerks(!KDDebugPerks);
 		DrawButton(1650, 920, 300, 64, TextGet("KinkyDungeonLoadBack"), "White", "");
 	}
 
@@ -574,6 +609,11 @@ function KinkyDungeonDrawGame() {
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatDistraction * 100 / KinkyDungeonStatDistractionMax);
 	}
 
+
+	if ((!KDDebugMode && KinkyDungeonDrawState == "Restart") || (KDDebugMode && KinkyDungeonDrawState != "Restart")) {
+		ElementRemove("DebugEnemy");
+		ElementRemove("DebugItem");
+	}
 
 
 }

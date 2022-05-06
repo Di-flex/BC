@@ -1,9 +1,11 @@
 /** Kinky Dungeon Typedefs*/
-interface item {
+type item = {
 	/** Name of the item*/
 	name: string,
 	/** Type of the item*/
 	type?: string,
+	/** Faction of the applied item */
+	faction?: string,
 	/** Events associated with the item*/
 	//weapon?: KinkyDungeonWeapon, /** Item weapon data, if applicable*/
 	//consumable?: any, /** Item consumable data, if applicable*/
@@ -30,6 +32,8 @@ interface item {
 	dynamicLink?: string[],
 	/** Stores linked item locks*/
 	oldLock?: string[],
+	/** Stores linked item factions*/
+	oldFaction?: string[],
 	/** Stores linked item tightness*/
 	oldTightness?: number[],
 	/** Stores linked item tightness*/
@@ -90,7 +94,7 @@ interface consumable {
 	useQuantity?: number,
 }
 
-interface restraint {
+type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
 	name: string,
@@ -234,7 +238,7 @@ interface restraint {
 	/** Multiplies the escape chance */
 	escapeMult?: number,
 	/** Clothes for dressing */
-	alwaysDress?: any[],
+	alwaysDress?: overrideDisplayItem[],
 	/** The item always bypasses covering items, such as dresses and chastity belts */
 	bypass?: boolean,
 	/** The item can only be cut with magical implements */
@@ -263,8 +267,24 @@ interface restraint {
 	enchantedDrain?: number,
 	/** Whether or not this is an Ancient item, prison respects it */
 	enchanted?: boolean,
+	/** Faction primary color index */
+	factionColor?: number[],
 }
 
+interface overrideDisplayItem {
+	/** Bondage club asset */
+	Item: string,
+	/** Group */
+	Group: string,
+	/** Color */
+	Color: string[]|string,
+	/** Whether or not it overrides items already on */
+	override?: boolean,
+	/** Uses the player's hair color as the item color */
+	useHairColor?: boolean,
+	/** Used for overriding BC priority */
+	OverridePriority?: number[]|number,
+}
 
 interface enemy {
 	name: string,
@@ -690,7 +710,7 @@ interface entity {
 	rage?: number,
 	hostile?: number,
 	faction?: string,
-	allied?: boolean,
+	allied?: number,
 	bind?: number,
 	blind?: number,
 	slow?: number,
@@ -721,9 +741,16 @@ type KinkyDungeonDress = {
 interface KinkyDialogueTrigger {
 	dialogue: string;
 	allowedPrisonStates?: string[];
+	/** Only allows the following personalities to do it */
+	allowedPersonalities?: string[];
 	blockDuringPlaytime?: boolean;
+	/** Exclude if enemy has one of these tags */
 	excludeTags?: string[];
+	/** Require all of these tags */
+	requireTags?: string[];
 	playRequired?: boolean;
+	/** Prevents this from happening if the target is hostile */
+	nonHostile?: boolean;
 	prerequisite: (enemy, dist) => boolean;
 	weight: (enemy, dist) => number;
 }
@@ -899,12 +926,16 @@ interface spell {
 	summon?: any[];
 	/** Spell does not show up in the spells scrreen until learned */
 	secret?: boolean;
+	/** Enemies summoned by this spell will have their default faction and not the caster's faction */
+	defaultFaction?: boolean;
 
 }
 
 interface KinkyDialogue {
+	/** REPLACETEXT -> Replacement */
+	data?: Record<string, string>;
 	/** Function to play when clicked. If not specified, nothing happens. */
-	clickFunction?: () => void;
+	clickFunction?: (gagged) => void;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
 	gagFunction?: () => void;
 	/** Will not appear unless function returns true */

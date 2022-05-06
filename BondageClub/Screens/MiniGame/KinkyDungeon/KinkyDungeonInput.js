@@ -394,7 +394,55 @@ function KDProcessInput(type, data) {
 			} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
 			break;
 		}
+		case "chargerInteract":
+			if (data.action == "charge") {
+				if (KinkyDungeonInventoryGet("AncientPowerSourceSpent") && KinkyDungeonGold >= KDRechargeCost) {
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSourceSpent, -1);
+					KinkyDungeonAddGold(-KDRechargeCost);
+					KinkyDungeonAdvanceTime(1);
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerChargeSuccess").replace("VALUE", "" + KDRechargeCost), "yellow", 1);
+					let x = parseInt(data.targetTile.split(',')[0]);
+					let y = parseInt(data.targetTile.split(',')[1]);
+					if (x && y) {
+						KinkyDungeonTiles.delete(data.targetTile);
+						KinkyDungeonMapSet(x, y, '-');
+					}
+				} else {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerChargeFailure"), "orange", 1);
+				}
+			} else if (data.action == "place") {
+				tile = KinkyDungeonTiles.get(data.targetTile);
+				if (tile && tile.Type == "Charger" && KinkyDungeonInventoryGet("AncientPowerSource")) {
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, -1);
+					tile.Light = KDChargerLight;
+					KinkyDungeonAdvanceTime(1);
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerPlace"), "yellow", 1);
+					let x = parseInt(data.targetTile.split(',')[0]);
+					let y = parseInt(data.targetTile.split(',')[1]);
+					if (x && y) {
+						KinkyDungeonMapSet(x, y, '=');
+					}
+				}
+			} else if (data.action == "remove") {
+				tile = KinkyDungeonTiles.get(data.targetTile);
+				if (tile && tile.Type == "Charger" && tile.Light > 0) {
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
+					tile.Light = undefined;
+					KinkyDungeonAdvanceTime(1);
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerRemove"), "yellow", 1);
+					let x = parseInt(data.targetTile.split(',')[0]);
+					let y = parseInt(data.targetTile.split(',')[1]);
+					if (x && y) {
+						KinkyDungeonMapSet(x, y, '+');
+					}
+				}
+			}
+			break;
 		case "dialogue": {
+			if (!KDGameData.CurrentDialogMsgData) KDGameData.CurrentDialogMsgData = {};
+			if (!KDGameData.CurrentDialogMsgValue) KDGameData.CurrentDialogMsgValue = {};
+
 			KDGameData.CurrentDialog = data.dialogue;
 			KDGameData.CurrentDialogStage = data.dialogueStage;
 			if (data.speaker) {
@@ -403,20 +451,25 @@ function KDProcessInput(type, data) {
 				if (KDGameData.CurrentDialogMsgSpeaker != oldSpeaker)
 					KDGameData.CurrentDialogMsgPersonality = ""; // Reset when speaker changes
 			}
+			if (data.enemy) {
+				KDGameData.CurrentDialogMsgID = data.enemy;
+			}
 			if (data.personality)
 				KDGameData.CurrentDialogMsgPersonality = data.personality;
 
 			let dialogue = KDGetDialogue();
+			if (dialogue.data) KDGameData.CurrentDialogMsgData = dialogue.data;
 			if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
 			if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 			if (dialogue.personalities) {
 				KDDialogueApplyPersonality(dialogue.personalities);
 			}
 			if (data.click) {
-				if (dialogue.gagFunction && KDDialogueGagged()) {
+				let gagged = KDDialogueGagged();
+				if (dialogue.gagFunction && gagged) {
 					dialogue.gagFunction();
 				} else if (dialogue.clickFunction) {
-					dialogue.clickFunction();
+					dialogue.clickFunction(gagged);
 				}
 			}
 			if (dialogue.exitDialogue) {

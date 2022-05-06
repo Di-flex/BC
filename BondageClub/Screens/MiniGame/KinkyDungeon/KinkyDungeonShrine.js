@@ -377,6 +377,40 @@ function KinkyDungeonMakeGhostDecision() {
 	}
 }
 
+function KinkyDungeonDrawCharger() {
+	KDModalArea = true;
+	//DrawText(TextGet("KinkyDungeonCharger"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
+	if (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Light == KDChargerLight) {
+		DrawButton(KDModalArea_x + 25, KDModalArea_y + 25, 400, 60, TextGet("KinkyDungeonChargerRemoveCrystal"), "#white", "", "");
+	} else {
+		DrawButton(KDModalArea_x + 250, KDModalArea_y + 25, 200, 60, TextGet("KinkyDungeonChargerCharge"), KinkyDungeonInventoryGet("AncientPowerSourceSpent") ? "white" : "#888888", "", "");
+		DrawButton(KDModalArea_x + 25, KDModalArea_y + 25, 200, 60, TextGet("KinkyDungeonChargerPlaceCrystal"), KinkyDungeonInventoryGet("AncientPowerSource") ? "white" : "#888888", "", "");
+	}
+
+
+}
+
+let KDChargerLight = 5;
+
+function KinkyDungeonHandleCharger() {
+	if (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Light == KDChargerLight) {
+		if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 400, 60) && KinkyDungeonTargetTile) {
+			KDSendInput("chargerInteract", {action: "remove", targetTile: KinkyDungeonTargetTileLocation});
+			return true;
+		}
+	} else {
+		if (MouseIn(KDModalArea_x + 250, KDModalArea_y + 25, 200, 60)) {
+			KDSendInput("chargerInteract", {action: "charge", targetTile: KinkyDungeonTargetTileLocation});
+			return true;
+		} else if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 200, 60) && KinkyDungeonTargetTile) {
+			KDSendInput("chargerInteract", {action: "place", targetTile: KinkyDungeonTargetTileLocation});
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function KinkyDungeonShrineAngerGods(Type) {
 	if (Type == "Elements") {
 		KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapGag"), 0, true, KinkyDungeonGenerateLock(true));
