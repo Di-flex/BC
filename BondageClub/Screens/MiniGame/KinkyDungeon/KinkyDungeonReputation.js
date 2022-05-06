@@ -244,6 +244,7 @@ function KinkyDungeonHandleReputation() {
 					KDSendInput("penance", {rep: rep, value: value});
 					KDRepSelectionMode = "";
 					KinkyDungeonDrawState = "Game";
+					KDSendStatus('goddess', rep, 'helpPenance');
 					return true;
 				} else if (KDRepSelectionMode == "Champion" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
 					// Champion
