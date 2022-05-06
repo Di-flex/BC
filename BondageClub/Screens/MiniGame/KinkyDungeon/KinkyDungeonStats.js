@@ -222,6 +222,9 @@ function KinkyDungeonDealDamage(Damage) {
 	let type = Damage.type;
 	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
 	let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, type + "DamageResist"));
+	buffresist *= KinkyDungeonMeleeDamageTypes.includes(type) ?
+		KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
+		: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"));
 	let distractionTypesWeakNeg = ["pain"];
 	let distractionTypesWeak = ["grope"];
 	let distractionTypesStrong = ["tickle", "charm", "souldrain", "happygas"];

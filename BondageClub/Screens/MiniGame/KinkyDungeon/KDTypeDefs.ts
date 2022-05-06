@@ -577,6 +577,8 @@ interface enemy {
 	faction?: string,
 	/** This enemy does not channel its spells */
 	noChannel?: boolean,
+	/** Focuses player over summmons, ignores decoys */
+	focusPlayer?: boolean;
 
 
 }
@@ -680,6 +682,7 @@ interface entity {
 	hp: number,
 	AI?: string,
 	moved?: boolean,
+	playerdmg?: number,
 	idle?: boolean,
 	summoned?: boolean,
 	boundLevel?: number,
@@ -751,6 +754,8 @@ interface KinkyDialogueTrigger {
 	/** Require all of these tags */
 	requireTags?: string[];
 	playRequired?: boolean;
+	/** If any NPC is in combat in last 3 turns this wont happen */
+	noCombat?: boolean;
 	/** Prevents this from happening if the target is hostile */
 	nonHostile?: boolean;
 	prerequisite: (enemy: entity, dist: number) => boolean;
@@ -1006,7 +1011,7 @@ interface KinkyDungeonSave {
 	spells: string[];
 	inventory: item[];
 	KDGameData: KDGameDataBase;
-	flags: Record<string, number>;
+	flags: [string, number][];
 	stats: {
 		picks: number;
 		keys: number;

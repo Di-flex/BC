@@ -58,6 +58,39 @@ function KinkyDungeonDrawInputs() {
 			(KinkyDungeonGetEvasion() < KinkyDungeonPlayerDamage.chance * 0.99) ? "pink" :
 			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "black");
 	}
+	let i = 0;
+	let damageReduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
+	if (damageReduction > 0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerReduction") + Math.round(damageReduction*10)/10, 1640, 900 - i * 35, 200, "#73efe8", "black"); i++;
+	}
+	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
+	if (armor > 0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerArmor") + Math.round(armor*10)/10, 1640, 900 - i * 35, 200, "#fca570", "black"); i++;
+	}
+	let evasion = KinkyDungeonPlayerEvasion();
+	if (evasion != 1.0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerEvasion") + Math.round(Math.min(100, (1 - evasion) * 100)) + "%", 1640, 900 - i * 35, 200, "white", "black"); i++;
+	}
+	let visibility = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowDetection"));
+	if (visibility != 1.0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "black"); i++;
+	}
+	let sneak = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
+	if (sneak > 2.5) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerInvisible"), 1640, 900 - i * 35, 200, "#ceaaed", "black"); i++;
+	}
+	i = 0;
+
+	for (let dt of KinkyDungeonDamageTypes) {
+		let color = dt.color;
+		let type = dt.name;
+		let resist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, type + "DamageResist"));
+
+		if (resist != 1.0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerDamageResist").replace("DAMAGETYPE", TextGet("KinkyDungeonDamageType" + type)) + Math.round(resist * 100) + "%", 1440, 900 - i * 25, 150, color, "black"); i++;
+		}
+	}
+
 
 	if (KDModalArea) {
 		//DrawRect(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height, "rgba(40, 40, 40, 0.3)");
@@ -96,7 +129,7 @@ function KinkyDungeonDrawInputs() {
 			DrawTextFit(TextGet(GroupText) + locktext, x + ((!sg.left) ? ButtonWidth : 0), y-24, 230, color, "black");
 			MainCanvas.textAlign = "center";
 
-			let i = 1;
+			i = 1;
 			if (MouseIn(((!sg.left) ? (260) : 0), y-24, 230, (ButtonWidth + 46)) || KinkyDungeonDrawStruggle > 1) {
 				if (!KinkyDungeonDrawStruggleHover) {
 					KinkyDungeonDrawStruggleHover = true;
@@ -242,7 +275,7 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonReputation"), "White", "", "");
 	DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonMagic"), "White", "", "");
 
-	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
+	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);

@@ -810,6 +810,17 @@ Spell Balance:
 - Summoned gags deal less damage (35 from 50) but now stuns for a few turns and silences longer
 - Air Elementals no longer self-stun while casting their special attack
 
+3.3
+- Enemies will now fight each other!
+- Bolt cutters do bonus damage to floating locks :)
+- Fixed water rune image
+- Smoke bomb and shroud now have a longer lasting stealth boost (8 turns)
+- Invisibility buffed to 14 turns
+- Nerfed ancient muzzle sneak boost
+
+3.31
+- Buffs are now shown in the bottom right
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

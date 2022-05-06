@@ -10,6 +10,7 @@ let KDDialogueTriggers = {
 		allowedPrisonStates: ["parole"],
 		excludeTags: ["zombie", "skeleton"],
 		playRequired: true,
+		noCombat: true,
 		blockDuringPlaytime: false,
 		prerequisite: (enemy, dist) => {
 			return (KinkyDungeonPlayerDamage
@@ -29,11 +30,12 @@ let KDDialogueTriggers = {
 		allowedPersonalities: ["Sub"],
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
+		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -47,12 +49,13 @@ let KDDialogueTriggers = {
 		allowedPersonalities: ["Sub"],
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
+		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
 				&& KinkyDungeonStatsChoice.has("arousalMode")
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -66,11 +69,12 @@ let KDDialogueTriggers = {
 		allowedPersonalities: ["Dom"],
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
+		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -83,11 +87,12 @@ let KDDialogueTriggers = {
 		allowedPrisonStates: ["parole", ""],
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
+		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -100,11 +105,12 @@ let KDDialogueTriggers = {
 		allowedPrisonStates: ["parole", ""],
 		requireTags: ["wolfgirl", "trainer"],
 		nonHostile: true,
+		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.WolfgirlOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("WolfgirlOffer")
 				&& KinkyDungeonCurrentDress != "Wolfgirl"
 				&& KDRandom() < 0.5);
 		},
