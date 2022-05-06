@@ -52,7 +52,7 @@ KinkyDungeonStat5,"Clueless"
 KinkyDungeonStatDesc5,"You have no idea how to pick locks. Picking is 0.5x as fast and you can't pick most advanced locks."
 
 KinkyDungeonStat6,"Psychic"
-KinkyDungeonStatDesc6,"You no longer drop keys, can unlock yourself with bound hands, and don't need hands for items/potions."
+KinkyDungeonStatDesc6,"You no longer drop keys and picks, can unlock yourself with bound hands, and don't need hands for items/potions."
 KinkyDungeonStat7,"Novice"
 KinkyDungeonStatDesc7,"All spells above 1st level cost 2x as many spell points."
 

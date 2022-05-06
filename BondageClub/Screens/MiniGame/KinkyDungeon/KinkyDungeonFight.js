@@ -138,7 +138,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 let KinkyDungeonEvasionPityModifier = 0; // Current value
 let KinkyDungeonEvasionPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
 
-function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
+function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 	let flags = {
 		KDEvasionHands: true,
 		KDEvasionSight: true,
@@ -147,7 +147,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic) {
 	};
 
 	if (!NoOverride)
-		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags});
+		KinkyDungeonSendEvent("calcEvasion", {isSpell: IsSpell, isMagic: IsMagic, flags: flags, cost: cost});
 	let hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	if (KinkyDungeonStatsChoice.get("Clumsy")) hitChance *= KDClumsyAmount;
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0,
@@ -187,7 +187,7 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 }
 
 function KinkyDungeonEvasion(Enemy, IsSpell, IsMagic, Attacker) {
-	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic);
+	let hitChance = KinkyDungeonGetEvasion(Enemy, undefined, IsSpell, IsMagic, true);
 	if (KDHostile(Enemy) && KinkyDungeonStatsChoice.get("Stealthy")) {
 		hitChance *= KDStealthyEvaMult;
 	}
