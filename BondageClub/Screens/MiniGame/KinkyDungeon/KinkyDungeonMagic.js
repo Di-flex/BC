@@ -601,7 +601,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			effect = true;
 		} else if (playerEffect.name == "Chill") {
 			let standingTile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-			if (playerEffect.power > 0 && !KinkyDungeonFlags.chill) {
+			if (playerEffect.power > 0 && !KinkyDungeonFlags.get("chill")) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			}
 			if (standingTile == 'w') {

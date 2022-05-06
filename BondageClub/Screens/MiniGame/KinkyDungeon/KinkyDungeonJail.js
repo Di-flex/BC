@@ -307,11 +307,11 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			x:xx, y:yy, gx: xx - 2, gy: yy, CurrentAction: "jailWander",
 			hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 
-		if (!KinkyDungeonFlags.JailIntro) {
-			KinkyDungeonFlags.JailIntro = -1;
+		if (!KinkyDungeonFlags.get("JailIntro")) {
+			KinkyDungeonSetFlag("JailIntro", -1);
 			KDStartDialog("PrisonIntro", guard.Enemy.name, true, "");
-		} else if (KinkyDungeonFlags.JailRepeat) {
-			KinkyDungeonFlags.JailRepeat = 0;
+		} else if (KinkyDungeonFlags.get("JailRepeat")) {
+			KinkyDungeonSetFlag("JailRepeat",  0);
 			KDStartDialog("PrisonRepeat", guard.Enemy.name, true, "");
 		}
 
@@ -764,8 +764,8 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
-	if (KinkyDungeonFlags.JailIntro)
-		KinkyDungeonFlags.JailRepeat = -1;
+	if (KinkyDungeonFlags.get("JailIntro"))
+		KinkyDungeonSetFlag("JailRepeat", -1);
 	KinkyDungeonBlindLevel = 3;
 	KinkyDungeonUpdateLightGrid = true;
 	if (!KDGameData.TimesJailed) KDGameData.TimesJailed = 1;

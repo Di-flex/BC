@@ -179,7 +179,7 @@ function KinkyDungeonInitialize(Level, Load) {
 	KinkyDungeonRefreshRestraintsCache();
 	KinkyDungeonRefreshOutfitCache();
 	//KinkyDungeonRefreshEnemyCache();
-	KinkyDungeonFlags = {};
+	KinkyDungeonFlags = new Map();
 
 	KinkyDungeonDressSet();
 	if (KinkyDungeonConfigAppearance) {
@@ -2621,7 +2621,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	// @ts-ignore
 	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 
-	if (KinkyDungeonInDanger()) KinkyDungeonFlags.DangerFlag = 3;
+	if (KinkyDungeonInDanger()) KinkyDungeonSetFlag("DangerFlag",  3);
 }
 
 

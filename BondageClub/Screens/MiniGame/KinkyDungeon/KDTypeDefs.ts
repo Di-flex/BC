@@ -1009,7 +1009,7 @@ interface KinkyDungeonSave {
 	spells: string[];
 	inventory: item[];
 	KDGameData: KDGameDataBase;
-	flags: Record<string, number>;
+	flags: [string, number][];
 	stats: {
 		picks: number;
 		keys: number;

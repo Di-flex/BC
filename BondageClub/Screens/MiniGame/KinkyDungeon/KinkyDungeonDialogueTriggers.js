@@ -34,8 +34,8 @@ let KDDialogueTriggers = {
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -54,8 +54,8 @@ let KDDialogueTriggers = {
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
 				&& KinkyDungeonStatsChoice.has("arousalMode")
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -73,8 +73,8 @@ let KDDialogueTriggers = {
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -91,8 +91,8 @@ let KDDialogueTriggers = {
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.BondageOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -109,8 +109,8 @@ let KDDialogueTriggers = {
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
-				&& !KinkyDungeonFlags.DangerFlag
-				&& !KinkyDungeonFlags.WolfgirlOffer
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("WolfgirlOffer")
 				&& KinkyDungeonCurrentDress != "Wolfgirl"
 				&& KDRandom() < 0.5);
 		},
