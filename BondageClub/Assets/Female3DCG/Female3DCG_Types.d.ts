@@ -1,6 +1,6 @@
 interface AssetGroupDefinition {
 	Asset: (AssetDefinition | string)[];
-	Group: string;
+	Group: AssetGroupName;
 	ParentGroup?: string;
 	Category?: 'Appearance' | 'Item';
 	Default?: boolean;
@@ -126,7 +126,7 @@ interface AssetDefinition {
 	AllowColorize?: boolean;
 	AllowColorizeAll?: boolean;
 	AvailableLocations?: string[];
-	OverrideHeight?: { Height: number; Priority: number; HeightRatioProportion?: number };
+	OverrideHeight?: AssetOverrideHeight;
 	FreezeActivePose?: string[];
 	DrawLocks?: boolean;
 	AllowExpression?: string[];
@@ -158,7 +158,8 @@ interface AssetLayerDefinition {
 	Alpha?: AlphaDefinition[],
 	Left?: number;
 	Top?: number;
-	HideAs?: { Group: string, Asset: string };
+	HideAs?: { Group: string, Asset?: string };
+	FixedPosition?: boolean;
 	HasImage?: boolean;
 	Opacity?: number;
 	MinOpacity?: number;

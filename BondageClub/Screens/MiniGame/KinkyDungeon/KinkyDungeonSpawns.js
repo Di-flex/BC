@@ -60,6 +60,15 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Latex < -45) tags.push("slime");
 	if (KinkyDungeonGoddessRep.Rope < -45) tags.push("construct");
 
+	if (KinkyDungeonGoddessRep.Will >= 0) {tags.push("posWill");}
+	if (KinkyDungeonGoddessRep.Metal >= 0) tags.push("posMetal");
+	if (KinkyDungeonGoddessRep.Leather >= 0) tags.push("posLeather");
+	if (KinkyDungeonGoddessRep.Illusion >= 0) tags.push("posIllusion");
+	if (KinkyDungeonGoddessRep.Conjure >= 0) tags.push("posConjure");
+	if (KinkyDungeonGoddessRep.Elements >= 0) tags.push("posElements");
+	if (KinkyDungeonGoddessRep.Latex >= 0) tags.push("posLatex");
+	if (KinkyDungeonGoddessRep.Rope >= 0) tags.push("posRope");
+
 	if (security > 0) tags.push("jailbreak");
 	if (security > 40) tags.push("highsecurity");
 
@@ -100,7 +109,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags) {
 				}
 		}
 
-		if (effLevel >= enemy.minLevel && (overrideFloor || enemy.floors.get(Index)) && (KinkyDungeonGroundTiles.includes(Tile) || !enemy.tags.has("spawnFloorsOnly"))) {
+		if (effLevel >= enemy.minLevel && (overrideFloor || enemy.allFloors || !enemy.floors || enemy.floors.get(Index)) && (KinkyDungeonGroundTiles.includes(Tile) || !enemy.tags.has("spawnFloorsOnly"))) {
 			let rt = requireTags ? false : true;
 			if (requireTags)
 				for (let t of requireTags) {
@@ -177,7 +186,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 		let hunters = false;
 		let spawnLocation = KinkyDungeonStartPosition;
 		let spawnPlayerExclusionRadius = 11;
-		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (!KinkyDungeonHostile()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
+		if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchStartAmount - BaseAdjust && KinkyDungeonEntities.length < Math.min(100, (!KinkyDungeonAggressive()) ? (5 + effLevel/15) : (20 + effLevel/KDLevelsPerCheckpoint))) {
 			if (KinkyDungeonTotalSleepTurns > KinkyDungeonSearchHuntersAmount - HunterAdjust) hunters = true;
 			if ((KinkyDungeonTotalSleepTurns > KinkyDungeonSearchEntranceAdjustAmount - EntranceAdjust && KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonEndPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonEndPosition.y) > spawnPlayerExclusionRadius && KDRandom() < 0.5)
 				|| KDistChebyshev(KinkyDungeonPlayerEntity.x - KinkyDungeonStartPosition.x, KinkyDungeonPlayerEntity.y - KinkyDungeonStartPosition.y) < spawnPlayerExclusionRadius) spawnLocation = KinkyDungeonEndPosition;

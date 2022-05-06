@@ -160,10 +160,11 @@ function InventoryPrerequisiteMessage(C, Prerequisite) {
 		case "NoItemLegs": return (InventoryGet(C, "ItemLegs") != null) ? "MustFreeLegsFirst" : "";
 		case "NoItemHands": return (InventoryGet(C, "ItemHands") != null) ? "MustFreeHandsFirst" : "";
 		case "LegsOpen": return CharacterItemsHavePose(C, "LegsClosed") ? "LegsCannotOpen" : "";
+		case "CanCloseLegs": return !CharacterItemsHavePoseAvailable(C, "BodyLower", "LegsClosed") && !CharacterItemsHavePose(C, "Kneel") ? "LegsCannotClose" : "";
 		case "NotKneeling": return CharacterItemsHavePose(C, "Kneel") ? "MustStandUpFirst" : "";
 		case "CanKneel": return C.Effect.includes("BlockKneel") ? "MustBeAbleToKneel" : "";
 		case "NotMounted": return C.Effect.includes("Mounted") ? "CannotBeUsedWhenMounted" : "";
-		case "NotHorse": return C.Pose.includes("Horse") ? "CannotBeUsedWhenMounted" : "";
+		case "NotHorse": return InventoryIsItemInList(C, "ItemDevices", ["WoodenHorse"]) ? "CannotBeUsedWhenMounted" : "";
 		case "NotSuspended": return C.Pose.includes("Suspension") || C.Pose.includes("SuspensionHogtied") ? "RemoveSuspensionForItem" : "";
 		case "NotLifted": return C.Effect.includes("Lifted") ? "RemoveSuspensionForItem" : "";
 		case "NotReverseSuspended": return (C.Pose.indexOf("Suspension") >= 0) ? "RemoveSuspensionForItem" : "";
@@ -210,8 +211,10 @@ function InventoryPrerequisiteMessage(C, Prerequisite) {
 			|| !InventoryDoItemsExposeGroup(C, "ItemButt", ["ClothLower", "Panties"])
 		) ? "RemoveClothesForItem" : "";
 
-		// Items that require access to a character's mouth
+		// Items that require access to a certain character's zone 
 		case "AccessMouth": return C.IsMouthBlocked() ? "CannotBeUsedOverGag" : "";
+		case "HoodEmpty": return InventoryGet(C, "ItemHood") ? "CannotBeUsedOverMask" : "";
+		case "EyesEmpty": return InventoryGet(C, "ItemHead") ? "CannotBeUsedOverHood" : "";
 
 		// Some chastity belts have removable vulva shields. This checks for those for items that wish to add something externally.
 		case "VulvaNotBlockedByBelt": return InventoryDoItemsBlockGroup(C, "ItemVulva", ["ItemPelvis"])
@@ -226,12 +229,6 @@ function InventoryPrerequisiteMessage(C, Prerequisite) {
 		// For body parts that must be naked
 		case "NakedFeet": return InventoryHasItemInAnyGroup(C, ["ItemBoots", "Socks", "Shoes"]) ? "RemoveClothesForItem" : "";
 		case "NakedHands": return InventoryHasItemInAnyGroup(C, ["ItemHands", "Gloves"]) ? "RemoveClothesForItem" : "";
-
-		// Toe Tied
-		case "ToeTied": return InventoryIsItemInList(C, "ItemFeet", ["SpreaderMetal", "SpreaderVibratingDildoBar", "SpreaderDildoBar", "FloorShackles"])
-			|| InventoryIsItemInList(C, "ItemLegs", ["WoodenHorse"])
-			|| InventoryIsItemInList(C, "ItemDevices", ["OneBarPrison", "SaddleStand"])
-			? "LegsCannotClose" : "";
 
 		// Display Frame
 		case "DisplayFrame": return InventoryHasItemInAnyGroup(C, ["ItemArms", "ItemLegs", "ItemFeet", "ItemBoots"])
@@ -249,6 +246,9 @@ function InventoryPrerequisiteMessage(C, Prerequisite) {
 		// Layered Gags, prevent gags from being equipped over other gags they are incompatible with
 		case "GagUnique": return InventoryPrerequisiteConflictingGags(C, ["GagFlat", "GagCorset", "GagUnique"]);
 		case "GagCorset": return InventoryPrerequisiteConflictingGags(C, ["GagCorset"]);
+
+		// There's something in the mouth that's too large to allow that item on
+		case "NotProtrudingFromMouth": return C.Effect.includes("ProtrudingMouth") ? "CannotBeUsedOverGag" : "";
 
 		// Returns no message, indicating that all prerequisites are fine
 		default: return "";
