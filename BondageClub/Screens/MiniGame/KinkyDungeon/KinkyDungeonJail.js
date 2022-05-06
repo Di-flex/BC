@@ -662,7 +662,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 					let index = "0";
 					if (KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions < 1) {
 						index = "" + Math.floor(KDRandom() * 6);
-						KinkyDungeonChangeRep("Ghost", 2);
+						KinkyDungeonChangeRep("Ghost", 8);
 					}
 					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerGoodGirl" + index).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 3);
 				}
