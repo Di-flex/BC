@@ -4118,14 +4118,15 @@ dOfferLatexForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
 
 rOfferChastity,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Can you help me out?"
 rOfferChastityYes,"(The SPEAKER blushes deeply)|I managed to unlock my RESTRAINT,|but my mistress expects me to wear it!|Do you mind wearing it instead?"
-rOfferChastityYes_Yes,"(The SPEAKER smiles)|Thank you so much, miss!|(The lock on the RESTRAINT starts glowing...)"
+rOfferChastityYes_Yes,"(The SPEAKER smiles)|Thank you so much, miss!"
 rOfferChastityYes_No,"(The SPEAKER frowns)|I'm going to get in trouble..."
 rOfferChastityNo,"(The SPEAKER blushes)|Oh... okay."
 rOfferChastityForce,"(The SPEAKER frowns angrily)|Look, I know you're in trouble around here.|Just do me a favor. Please.|I need you to wear this RESTRAINT."
 rOfferChastityForceYes,"(The SPEAKER pleads with you)|My mistress is a magician!|She put a spell on it that tells her if it's locked.|Please, you have to hurry!"
 rOfferChastityForce_No,"(The SPEAKER sighs and wears it herself)|(The lock starts glowing brightly...)"
 rOfferChastityForce_Yes,"(The SPEAKER looks relieved)|Thank you so much miss!|I won't forget you!"
-rOfferChastityForce_Failure,"(As you turn around, the SPEAKER surprises you)|(You hear a click around your waist)|Hmmph! Serves you right!|(The lock seems to glow brightly...)"
+rOfferChastityForce_Failure,"(As you turn around, the SPEAKER surprises you)|(You hear a click around your waist)|Hmmph! Serves you right!|"
+rOfferChastityGlow,"(The lock on the RESTRAINT starts glowing...)"
 
 dOfferChastity_Yes,"I would love to help!"
 dOfferChastity_YesGag,"(Nod eagerly)"
@@ -4141,6 +4142,8 @@ dOfferChastityForce_Yes,"Fine. I'll do it because you asked."
 dOfferChastityForce_YesGag,"(Moan and nod slowly)"
 dOfferChastityForce_No,"I won't help you. Wear it yourself. (PERCENT chance to avoid)"
 dOfferChastityForce_NoGag,"(Shake your head) (PERCENT chance to avoid)"
+
+dOfferChastityObserve,"(Look at your belt...)"
 
 
 
