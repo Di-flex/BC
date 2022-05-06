@@ -632,11 +632,11 @@ KinkyDungeonWeaponAccuracy,"Accuracy: "
 KinkyDungeonWeaponStamina,"SP Cost: "
 
 KinkyDungeonCharger,It appears to be a receptacle
-KinkyDungeonChargerPlaceCrystal,Place live ancient crystal
+KinkyDungeonChargerPlaceCrystal,Place live crystal
 KinkyDungeonChargerRemoveCrystal,Take the crystal
 KinkyDungeonChargerPlace,You place the crystal into the receptacle and it lights up!
 KinkyDungeonChargerRemove,You take the crystal from the receptacle and all goes dark.
-KinkyDungeonChargerCharge,Place spent ancient crystal
+KinkyDungeonChargerCharge,Place spent crystal
 KinkyDungeonChargerChargeSuccess,VALUE gold vanishes from your satchel as the receptacle explodes and your crystal is recharged!
 KinkyDungeonChargerChargeFailure,Nothing seems to happen
 
@@ -1564,7 +1564,7 @@ KinkyDungeonPayShrineBuff,"The goddess of SCHOOL appreciates your offering."
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
-KinkyDungeonObjectCharger,"It appears to be a receptacle for some kind of crystal."
+KinkyDungeonObjectCharger,"It appears to be a receptacle for an ancient crystal."
 KinkyDungeonObjectLock,"That object is locked"
 KinkyDungeonObjectShrine,"A shrine to the goddess of TYPE. A pool of mana glimmers below."
 KinkyDungeonObjectShrineCommerce,"A shrine to the goddess of TYPE."
