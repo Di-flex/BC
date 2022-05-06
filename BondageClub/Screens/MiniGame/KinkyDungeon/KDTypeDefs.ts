@@ -577,6 +577,8 @@ interface enemy {
 	faction?: string,
 	/** This enemy does not channel its spells */
 	noChannel?: boolean,
+	/** Focuses player over summmons, ignores decoys */
+	focusPlayer?: boolean;
 
 
 }

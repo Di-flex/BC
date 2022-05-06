@@ -1675,7 +1675,7 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
 			KinkyDungeonEntities = [];
-			if (saveData.flags) KinkyDungeonFlags = new Map(saveData.flags);
+			if (saveData.flags && saveData.flags.length) KinkyDungeonFlags = new Map(saveData.flags);
 			MiniGameKinkyDungeonLevel = saveData.level;
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;
