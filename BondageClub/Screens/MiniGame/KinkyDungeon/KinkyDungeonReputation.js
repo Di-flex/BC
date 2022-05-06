@@ -167,6 +167,8 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		}
 		if (Rep == "Rope") {
 			KDChangeFactionRelation("Player", "KinkyConstruct", (Amount > 0 ? 0.005 : 0.005) * Amount);
+			KDChangeFactionRelation("Player", "Dressmmaker", (Amount > 0 ? 0.005 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Bountyhunter", (Amount > 0 ? 0.002 : 0.005) * Amount);
 		}
 		if (Rep == "Elements") {
 			KDChangeFactionRelation("Player", "Elemental", (Amount > 0 ? 0.005 : 0.01) * Amount);
@@ -186,9 +188,11 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		if (Rep == "Conjure") {
 			KDChangeFactionRelation("Player", "Witch", (Amount > 0 ? 0.005 : 0.01) * Amount);
 			KDChangeFactionRelation("Player", "Apprentice", (Amount > 0 ? 0.015 : 0.015) * Amount);
+			KDChangeFactionRelation("Player", "Dressmmaker", (Amount > 0 ? 0.005 : 0.01) * Amount);
 		}
 		if (Rep == "Illusion") {
 			KDChangeFactionRelation("Player", "Maidforce", (Amount > 0 ? 0.007 : 0.01) * Amount);
+			KDChangeFactionRelation("Player", "Bountyhunter", (Amount > 0 ? 0.002 : 0.005) * Amount);
 		}
 
 		if (KinkyDungeonGoddessRep[Rep] != last) return true;
@@ -360,9 +364,9 @@ function KinkyDungeonDrawReputation() {
 function KinkyDungeonDrawFactionRep() {
 	let i = 0;
 	let XX = 675;
-	let spacing = 45;
-	let yPad = 40;
-	let barSpacing = 350;
+	let spacing = 42;
+	let yPad = 38;
+	let barSpacing = 375;
 	let tooltip = "";
 
 	for (let e of Object.keys(KinkyDungeonFactionRelations.Player)) {
@@ -393,6 +397,7 @@ function KinkyDungeonDrawFactionRep() {
 			let suff = KinkyDungeonRepNameFaction(value);
 			let tcolor = "white";
 			switch (rep) {
+				case "Bountyhunter": tcolor ="#448844"; break;
 				case "Bandit": tcolor ="orange"; break;
 				case "Alchemist": tcolor ="lightgreen"; break;
 				case "Nevermere": tcolor ="teal"; break;

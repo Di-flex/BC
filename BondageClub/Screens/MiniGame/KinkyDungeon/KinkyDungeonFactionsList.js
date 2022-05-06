@@ -28,6 +28,7 @@ let KinkyDungeonFactionRelationsBase = {
 		Beast: -0.6,
 
 		// Mainline factions
+		Bountyhunter: -0.35,
 		Bandit: -0.7,
 		Alchemist: -0.25,
 		Nevermere: -0.1,
@@ -51,6 +52,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Slime": {
 		Jail: -0.25,
 
+		Bountyhunter: -0.5,
 		Bandit: -0.6,
 		Alchemist: -0.8,
 		Nevermere: -0.55,
@@ -68,6 +70,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Beast": {
 		Jail: -0.25,
 
+		Bountyhunter: -0.4,
 		Bandit: -0.4,
 		Alchemist: -0.4,
 		Nevermere: -0.4,
@@ -91,9 +94,19 @@ let KinkyDungeonFactionRelationsBase = {
 		"Bandit": 0.3,
 		"Witch": 0.15,
 		"Apprentice": 0.15,
+		"AncientRobot": -0.3,
 	},
 	"Alchemist": {
 		"Bandit": 0.15,
+	},
+	"Bountyhunter": {
+		"Jail": 0.8,
+		"Dragon": 0.15,
+		"Bandit": -0.4,
+		"Maidforce": -0.15,
+		"Witch": -0.4,
+		"Dressmaker": 0.4,
+		"Nevermere": 0.55,
 	},
 	"Elf": {
 		"Mushy": 1.0,
