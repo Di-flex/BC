@@ -95,7 +95,7 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 					else dist = Math.max(1.01 + dist/4, dist/3);
 				}
 				if (dist <= nearestDistance && (pdist_enemy <= 0 ||
-					(KinkyDungeonLightGet(e.x, e.y) > 0 && (pdist_enemy < 8 || enemy.Enemy.followRange > 1))
+					((KinkyDungeonLightGet(e.x, e.y) > 0 || pdist_enemy < 5) && (pdist_enemy < 8 || enemy.Enemy.followRange > 1))
 				)) {
 					if (KinkyDungeonCheckLOS(enemy, e, dist, visionRadius, true, true)) {
 						if (enemy.rage || !e.Enemy.lowpriority
