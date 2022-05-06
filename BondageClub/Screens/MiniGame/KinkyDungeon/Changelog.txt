@@ -820,6 +820,7 @@ Spell Balance:
 
 3.31
 - Buffs are now shown in the bottom right
+- Summon AI has been tweaked to be less suicidal and stick around the player more
 
 TODO ValidationFindBlockCycles to prevent bugs
 

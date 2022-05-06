@@ -31,7 +31,7 @@ function KDAllied(enemy) {
  */
 function KDHostile(enemy, enemy2) {
 	if (enemy == enemy2) return false;
-	return (enemy.rage > 0) || ((!enemy2 || KDGetFaction(enemy) == "Player") && KDFactionHostile("Player", enemy) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), KDGetFaction(enemy2))));
+	return (enemy.rage > 0) || ((!enemy2 || KDGetFaction(enemy) == "Player") && KDFactionHostile("Player", enemy2) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), KDGetFaction(enemy2))));
 }
 
 /**
@@ -43,7 +43,7 @@ function KDGetFaction(enemy) {
 	let E = enemy.Enemy;
 	if (enemy.rage > 0) return "Rage";
 	if (enemy.faction) return enemy.faction;
-	if ((E && E.allied) || enemy.allied) return "Player";
+	if ((E && E.allied) || (enemy.allied && !enemy.faction && !enemy.Enemy.faction)) return "Player";
 	if (E && E.faction) return E.faction;
 	return "Enemy";
 }
