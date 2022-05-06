@@ -803,6 +803,9 @@ Spell Balance:
 - Made it take longer to leave prison if you get caught
 - Added wolfgirl, maid, dragonheart, blue catsuit, and elven dresses as outfits
 - New faction system! Enrage them by attacking and capturing their members, or please them though dialogue!
+- Golem does less damage (45 from 60) and has reduced accuracy
+- Summoned gags deal less damage (35 from 50) but now stuns for a few turns and silences longer
+- Air Elementals no longer self-stun while casting their special attack
 
 TODO ValidationFindBlockCycles to prevent bugs
 

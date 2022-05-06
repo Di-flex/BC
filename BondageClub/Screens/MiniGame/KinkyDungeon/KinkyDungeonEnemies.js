@@ -754,14 +754,66 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 		KinkyDungeonUpdateFlags(delta);
 	}
 
+	// Loop 1
 	for (let enemy of KinkyDungeonEntities) {
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
 			let master = KinkyDungeonFindMaster(enemy).master;
 			if (master && enemy.aware) master.aware = true;
 			if (master && master.aware) enemy.aware = true;
 			if (enemy.Enemy.master && enemy.Enemy.master.dependent && !master) enemy.hp = -10000;
+
+			if (!enemy.castCooldown) enemy.castCooldown = 0;
+			if (enemy.castCooldown > 0) enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);
+			if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
+			if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
+
+			let bindLevel = KDBoundEffects(enemy);
+
+			if (enemy.Enemy.specialCharges && enemy.specialCharges <= 0) enemy.specialCD = 999;
+			if (enemy.specialCD > 0)
+				enemy.specialCD -= delta;
+			if (enemy.slow > 0)
+				enemy.slow -= delta;
+			if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
+				let mult = 1.0;
+				if (enemy.bind > 0) mult *= 0.4;
+				else if (enemy.slow > 0) mult *= 0.7;
+				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp * mult);
+			}
+			if (enemy.Enemy.rage) enemy.rage = 9999;
+			if (enemy.bind > 0)
+				enemy.bind -= delta;
+			if (enemy.rage > 0)
+				enemy.rage -= delta;
+			if (enemy.hostile > 0)
+				enemy.hostile -= delta;
+			if (enemy.allied > 0 && enemy.allied < 9000)
+				enemy.allied -= delta;
+			if (enemy.blind > 0)
+				enemy.blind -= delta;
+			if (enemy.playWithPlayer > 0)
+				enemy.playWithPlayer -= delta;
+			if (enemy.playWithPlayerCD > 0)
+				enemy.playWithPlayerCD -= delta;
+			if (enemy.silence > 0)
+				enemy.silence -= delta;
+			if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack")
+				enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
+			if (enemy.stun > 0 || enemy.freeze > 0) {
+				enemy.warningTiles = [];
+				enemy.disarmflag = 0;
+				if (enemy.stun > 0) enemy.stun -= delta;
+				if (enemy.freeze > 0) enemy.freeze -= delta;
+			} else if (enemy.channel > 0) {
+				enemy.warningTiles = [];
+				if (enemy.channel > 0) enemy.channel -= delta;
+			} else if (bindLevel > 3) {
+				if (enemy.Enemy.power && enemy.hp > enemy.Enemy.maxhp * 0.1)
+					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
+			}
 		}
 	}
+	// Loop 2
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
@@ -799,57 +851,15 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					KinkyDungeonHandleTraps(enemy.x, enemy.y);
 				}
 
-
-				if (!enemy.castCooldown) enemy.castCooldown = 0;
-				if (enemy.castCooldown > 0) enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);
-				if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
-				if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
-
 				let idle = true;
 				let bindLevel = KDBoundEffects(enemy);
 
-				if (enemy.Enemy.specialCharges && enemy.specialCharges <= 0) enemy.specialCD = 999;
-				if (enemy.specialCD > 0)
-					enemy.specialCD -= delta;
-				if (enemy.slow > 0)
-					enemy.slow -= delta;
-				if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
-					let mult = 1.0;
-					if (enemy.bind > 0) mult *= 0.4;
-					else if (enemy.slow > 0) mult *= 0.7;
-					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp * mult);
-				}
-				if (enemy.Enemy.rage) enemy.rage = 9999;
-				if (enemy.bind > 0)
-					enemy.bind -= delta;
-				if (enemy.rage > 0)
-					enemy.rage -= delta;
-				if (enemy.hostile > 0)
-					enemy.hostile -= delta;
-				if (enemy.allied > 0 && enemy.allied < 9000)
-					enemy.allied -= delta;
-				if (enemy.blind > 0)
-					enemy.blind -= delta;
-				if (enemy.playWithPlayer > 0)
-					enemy.playWithPlayer -= delta;
-				if (enemy.playWithPlayerCD > 0)
-					enemy.playWithPlayerCD -= delta;
-				if (enemy.silence > 0)
-					enemy.silence -= delta;
-				if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack")
-					enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
-				if (enemy.stun > 0 || enemy.freeze > 0) {
-					enemy.warningTiles = [];
-					enemy.disarmflag = 0;
-					if (enemy.stun > 0) enemy.stun -= delta;
-					if (enemy.freeze > 0) enemy.freeze -= delta;
-				} else if (enemy.channel > 0) {
-					enemy.warningTiles = [];
-					if (enemy.channel > 0) enemy.channel -= delta;
-				} else if (bindLevel > 3) {
-					if (enemy.Enemy.power && enemy.hp > enemy.Enemy.maxhp * 0.1)
-						enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
-				} else {
+				if (!(
+					enemy.stun > 0
+					|| enemy.freeze > 0
+					|| bindLevel > 3
+					|| enemy.channel > 0
+				)) {
 					let start = performance.now();
 
 					let playerItems = [];
@@ -1984,7 +1994,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		}
 
 		if (spell) {
-			if (spell.channel) enemy.channel = spell.channel;
+			if (spell.channel && !enemy.Enemy.noChannel) enemy.channel = spell.channel;
 			enemy.castCooldown = spell.manacost*enemy.Enemy.spellCooldownMult + enemy.Enemy.spellCooldownMod + 1;
 			if (spell.specialCD)
 				enemy.castCooldownSpecial = spell.specialCD;

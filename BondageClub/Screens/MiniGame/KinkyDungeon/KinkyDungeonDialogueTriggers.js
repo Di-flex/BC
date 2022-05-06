@@ -15,7 +15,7 @@ let KDDialogueTriggers = {
 			return (KinkyDungeonPlayerDamage
 				&& !KinkyDungeonPlayerDamage.unarmed
 				&& KinkyDungeonPlayerDamage.name != "Knife"
-				&& dist < 2.9
+				&& dist < 3.9
 				&& KDHostile(enemy)
 				&& KDRandom() < 0.25);
 		},
