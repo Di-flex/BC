@@ -167,7 +167,7 @@ let KDDialogue = {
 	"OfferLatex": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonFlags.BondageOffer = 5;
+			KinkyDungeonSetFlag("BondageOffer",  5);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -250,7 +250,7 @@ let KDDialogue = {
 	"OfferChastity": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonFlags.BondageOffer = 5;
+			KinkyDungeonSetFlag("BondageOffer",  5);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -334,7 +334,7 @@ let KDDialogue = {
 	"OfferLeather": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonFlags.BondageOffer = 5;
+			KinkyDungeonSetFlag("BondageOffer",  5);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -420,7 +420,7 @@ let KDDialogue = {
 			if (KinkyDungeonGetRestraintsWithShrine("Rope").length > 0) {
 				KDGameData.CurrentDialogMsg = "OfferRopesExtra";
 			}
-			KinkyDungeonFlags.BondageOffer = 5;
+			KinkyDungeonSetFlag("BondageOffer",  5);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -501,7 +501,7 @@ let KDDialogue = {
 	"OfferWolfgirl": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonFlags.WolfgirlOffer = 100;
+			KinkyDungeonSetFlag("WolfgirlOffer", 100);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",

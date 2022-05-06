@@ -10,7 +10,7 @@ KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 
-KinkyDungeon,"Kinky Dungeon v3.2"
+KinkyDungeon,"Kinky Dungeon v3.31"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -557,7 +557,7 @@ KinkyDungeonInventoryItemSpear,Spear
 KinkyDungeonInventoryItemSpearDesc,"Speak softly and carry a pointy stick."
 KinkyDungeonInventoryItemSpearDesc2,"Deals pierce damage to the target and one square behind it."
 KinkyDungeonInventoryItemBoltCutters,Bolt Cutters
-KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon."
+KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon, and also for cutting locks and chains."
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemKnifeDesc,"A go-to for travelers and adventurers."
@@ -625,17 +625,24 @@ KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. 
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
+KinkyDungeonPlayerEvasion,"Evasion: "
+KinkyDungeonPlayerVisibility,"Visibility: "
+KinkyDungeonPlayerArmor,"Armor: "
+KinkyDungeonPlayerSpellResist,"SpellResist: "
+KinkyDungeonPlayerSneak,"Invisible!"
+KinkyDungeonPlayerReduction,"Shield: "
+KinkyDungeonPlayerDamageResist,"DAMAGETYPE Mod: "
 
 KinkyDungeonWeaponDamage,"Damage: "
 KinkyDungeonWeaponAccuracy,"Accuracy: "
 KinkyDungeonWeaponStamina,"SP Cost: "
 
 KinkyDungeonCharger,It appears to be a receptacle
-KinkyDungeonChargerPlaceCrystal,Place live ancient crystal
+KinkyDungeonChargerPlaceCrystal,Place live crystal
 KinkyDungeonChargerRemoveCrystal,Take the crystal
 KinkyDungeonChargerPlace,You place the crystal into the receptacle and it lights up!
 KinkyDungeonChargerRemove,You take the crystal from the receptacle and all goes dark.
-KinkyDungeonChargerCharge,Place spent ancient crystal
+KinkyDungeonChargerCharge,Place spent crystal
 KinkyDungeonChargerChargeSuccess,VALUE gold vanishes from your satchel as the receptacle explodes and your crystal is recharged!
 KinkyDungeonChargerChargeFailure,Nothing seems to happen
 
@@ -1563,7 +1570,7 @@ KinkyDungeonPayShrineBuff,"The goddess of SCHOOL appreciates your offering."
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
-KinkyDungeonObjectCharger,"It appears to be a receptacle for some kind of crystal."
+KinkyDungeonObjectCharger,"It appears to be a receptacle for an ancient crystal."
 KinkyDungeonObjectLock,"That object is locked"
 KinkyDungeonObjectShrine,"A shrine to the goddess of TYPE. A pool of mana glimmers below."
 KinkyDungeonObjectShrineCommerce,"A shrine to the goddess of TYPE."
@@ -1583,7 +1590,12 @@ KinkyDungeonShrineIllusion,"Illusions"
 KinkyDungeonShrineCommerce,"Commerce"
 KinkyDungeonShrineTooltip,"Shrine of "
 
+KDAlliedWith,"Allies: "
+KDHostileWith,"Enemies: "
+
 KinkyDungeonFactionNevermere,Nevermere Trainers
+KinkyDungeonFactionDressmaker,DressUp Co.
+KinkyDungeonFactionBountyhunter,Bounty Hunters Guild
 KinkyDungeonFactionBandit,Bandits
 KinkyDungeonFactionKinkyConstruct,Constructs
 KinkyDungeonFactionWitch,Witches' Coven
@@ -2858,7 +2870,7 @@ KinkyDungeonSpellShroud,Shroud
 KinkyDungeonSpellDarkShroud,Smoke Bomb
 KinkyDungeonSpellSleepGas,Sleep Gas
 KinkyDungeonSpellTargetShroud,Select where to center the shroud (SpellArea radius)
-KinkyDungeonSpellDescriptionShroud,A shroud of darkness lasting Duration turns that buffs evasion for all creatures and buffs sneaking
+KinkyDungeonSpellDescriptionShroud,Creates a cloud for Duration turns that buffs evasion for all creatures. You are temporarily invisible for 8 turns after leaving.
 KinkyDungeonSpellCastShroud,You exhale a misty shroud
 
 KinkyDungeonSpellInvisibility,Invisibility

@@ -120,6 +120,7 @@ let KDOptOut = false;
 * CurrentDialogMsgData: Record<string, string>,
 * CurrentDialogMsgValue: Record<string, number>,
 * AlertTimer: number,
+* RespawnQueue: {enemy: string, faction: string}[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -203,6 +204,7 @@ let KDGameDataBase = {
 	CurrentDialogMsgID: -1,
 
 	ConfirmAttack: false,
+	RespawnQueue: [],
 };
 /**
  * @type {KDGameDataBase}
@@ -1610,7 +1612,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.seed = KinkyDungeonSeed;
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
-	save.flags = KinkyDungeonFlags;
+	save.flags = Array.from(KinkyDungeonFlags);
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1673,7 +1675,7 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
 			KinkyDungeonEntities = [];
-			if (saveData.flags) KinkyDungeonFlags = saveData.flags;
+			if (saveData.flags) KinkyDungeonFlags = new Map(saveData.flags);
 			MiniGameKinkyDungeonLevel = saveData.level;
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;

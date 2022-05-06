@@ -177,7 +177,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
 		if (Enemy.Enemy.name == "Angel") {
-			Enemy.Enemy = KinkyDungeonEnemies.find(element => element.name == "AngelHostile");
+			Enemy.Enemy = KinkyDungeonGetEnemyByName("AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
 		} else { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
@@ -235,6 +235,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	}
 
 	let predata = {
+		faction: "Enemy",
 		enemy: Enemy,
 		spell: Spell,
 		bullet: bullet,
@@ -247,6 +248,19 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
 		incomingDamage: Damage,
 	};
+
+	if (attacker) {
+		if (attacker.player) predata.faction = "Player";
+		else if (attacker.Enemy) predata.faction = KDGetFaction(attacker);
+	} else if (bullet) {
+		if (bullet.bullet.faction) predata.faction = bullet.bullet.faction;
+		else if (bullet.bullet.spell && bullet.bullet.spell.enemySpell) predata.faction = "Enemy";
+		else predata.faction = "Player";
+	} else if (Spell) {
+		if (Spell.enemySpell) predata.faction = "Enemy";
+		else predata.faction = "Player";
+	}
+
 	KinkyDungeonSendEvent("beforeDamageEnemy", predata);
 	if (!predata.dmg) predata.dmg = 0;
 	//let type = (Damage) ? Damage.type : "";
@@ -450,6 +464,12 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	if (resistDamage == -1) mod = "Strong";
 	if (resistDamage == -2) mod = "VeryStrong";
 	if (Damage && !mod && spellResist < 1 && !KinkyDungeonMeleeDamageTypes.includes(predata.type)) mod = "SpellResist";
+
+	if (predata.faction == "Player" && dmgDealt > 0) {
+		if (!Enemy.playerdmg) Enemy.playerdmg = 0;
+		Enemy.playerdmg += dmgDealt;
+	}
+
 	if (!NoMsg && (dmgDealt > 0 || !Spell || effect)) KinkyDungeonSendActionMessage(4, (Damage && dmgDealt > 0) ?
 		TextGet((Ranged) ? "PlayerRanged" + mod : "PlayerAttack" + mod).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)).replace("AttackName", atkname).replace("DamageDealt", "" + Math.round(dmgDealt * 10))
 		: TextGet("PlayerMiss" + ((Damage && !miss) ? "Armor" : "")).replace("TargetEnemy", TextGet("Name" + Enemy.Enemy.name)),
@@ -809,7 +829,7 @@ function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime,
 
 	let created = 0;
 	let maxcounter = 0;
-	let Enemy = KinkyDungeonEnemies.find(element => element.name == summonType);
+	let Enemy = KinkyDungeonGetEnemyByName(summonType);
 	for (let C = 0; C < count && KinkyDungeonEntities.length < 100 && maxcounter < count * 30; C++) {
 		let slot = slots[Math.floor(KDRandom() * slots.length)];
 		if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x+slot.x, y+slot.y))
