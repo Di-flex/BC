@@ -4020,7 +4020,7 @@ rPunishmentDom,"(The SPEAKER grins)|Then allow me to personally show you the rul
 rPunishmentRobot,"(The SPEAKER beeps)|Subject is resisting. Begin capture protocol."
 
 
-rWeaponFound,"(The SPEAKER approaches you)|You're not supposed to be carrying a weapon.|Hand it over."
+rWeaponFound,"(The SPEAKER calls at you)|You're not supposed to be carrying a weapon.|Hand it over."
 rWeaponFoundRobot,"(The SPEAKER approaches you)|Contraband detected. Initiating confiscation.|Please comply."
 dWeaponFoundAccept,"Yes, miss... (Currently held weapon will be lost)"
 dWeaponFoundAcceptGag,"Mmph... (Nod politely) (Currently held weapon will be lost)"
