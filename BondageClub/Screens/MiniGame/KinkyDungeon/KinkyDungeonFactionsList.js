@@ -175,6 +175,7 @@ let KinkyDungeonFactionRelationsBase = {
 let KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
 
 function KDFactionRelation(a, b) {
+	if (a == "Rage" || b == "Rage") return -1.0;
 	if (a == b) return 1.0;
 	if (KDFactionRelations.get(a) && KDFactionRelations.get(a).get(b)) {
 		return KDFactionRelations.get(a).get(b);
@@ -214,6 +215,7 @@ function KDInitFactions(Reset) {
  * @param {number} relation
  */
 function KDSetFactionRelation(a, b, relation) {
+	if (a == "Rage" || b == "Rage") return;
 	if (KinkyDungeonFactionRelations[a])
 		KinkyDungeonFactionRelations[a][b] = Math.max(-1, Math.min(1, relation));
 	if (KinkyDungeonFactionRelations[b])
@@ -228,6 +230,7 @@ function KDSetFactionRelation(a, b, relation) {
  * @param {number} amount
  */
 function KDChangeFactionRelation(a, b, amount) {
+	if (a == "Rage" || b == "Rage") return;
 	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelationsBase[a];
 	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelationsBase[b];
 
