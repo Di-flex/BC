@@ -85,7 +85,9 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
 					+ (e.y - enemy.y)*(e.y - enemy.y));
-				if (dist <= nearestDistance) {
+				if (dist <= nearestDistance && (KDGetFaction(enemy) != "Player" ||
+					(KinkyDungeonLightGet(e.x, e.y) > 0 && (KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) < 8 || enemy.Enemy.followRange > 1))
+				)) {
 					if (KinkyDungeonCheckLOS(enemy, e, dist, visionRadius, true, true)) {
 						if (enemy.rage || !e.Enemy.lowpriority
 								|| !KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, true, true)
