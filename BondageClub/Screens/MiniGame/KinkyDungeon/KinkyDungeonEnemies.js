@@ -1199,7 +1199,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		}
 	}
 
-	if (!KDGameData.CurrentDialog && playerDist <= KinkyDungeonMaxDialogueTriggerDist) {
+	if (!KDGameData.CurrentDialog && playerDist <= KinkyDungeonMaxDialogueTriggerDist && player.player) {
 		let WeightTotal = 0;
 		let Weights = [];
 		for (let e of Object.entries(KDDialogueTriggers)) {
