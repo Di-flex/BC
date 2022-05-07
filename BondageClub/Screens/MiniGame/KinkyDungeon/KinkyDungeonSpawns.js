@@ -151,8 +151,8 @@ function KinkyDungeonGetEnemyByName(name) {
 }
 
 function KinkyDungeonCallGuard(x, y, noTransgress, normalDrops) {
-	if (!noTransgress)
-		KinkyDungeonAggroAction('call', {});
+	//if (!noTransgress)
+	// KinkyDungeonAggroAction('call', {});
 	if (!KinkyDungeonJailGuard()) {
 		let Enemy = KinkyDungeonGetEnemyByName("Guard");
 		let guard = {summoned: true, noRep: true, noDrop: !normalDrops, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
