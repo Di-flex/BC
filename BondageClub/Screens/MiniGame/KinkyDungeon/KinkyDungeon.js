@@ -793,6 +793,7 @@ function KDSendStatus(type, data, data2) {
 			'restraint': (type == 'escape' || type == 'bound') ? data : undefined,
 			'method': type == 'escape' ? data2 : undefined,
 			'attacker': type == 'bound' ? data2 : undefined,
+			'prisonerstate': KDGameData.PrisonerState,
 		});
 		if (type == 'nextLevel' && KinkyDungeonDifficultyMode < 2) {
 			for (let s of KinkyDungeonSpells) {
