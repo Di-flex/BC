@@ -603,7 +603,7 @@ KinkyDungeonInventoryItemSlimethrowerDesc,"Deals crush damage. Can be used to sp
 KinkyDungeonInventoryItemSlimethrowerDesc2,"Drains 1.5% ancient energy to create a pool of slime that deals 35 glue damage per tile and slows enemies."
 KinkyDungeonInventoryItemMagicAxe,Enchanted Axe
 KinkyDungeonInventoryItemMagicAxeDesc,"Sick and vile, like the hearts of your enemies."
-KinkyDungeonInventoryItemMagicAxeDesc2,"Deals void damage to the target and 20 void damage to enemies next to you. Slows for 3 turns."
+KinkyDungeonInventoryItemMagicAxeDesc2,"Deals shadow damage to the target and 20 shadow damage to enemies next to you. Slows for 3 turns."
 KinkyDungeonInventoryItemPickaxe,Pickaxe
 KinkyDungeonInventoryItemPickaxeDesc,"Used for drilling holes in rock and armor."
 KinkyDungeonInventoryItemPickaxeDesc2,"Deals pierce damage. Reduces enemy armor by 15 for 6 turns."
@@ -3552,7 +3552,7 @@ KinkyDungeonCurseStruggleMistressKeyEnchantedBra,"You rub your hands along your 
 
 RestraintEnchantedHeels,Ancient Heels
 LootChestEnchantedHeels,"You find a set of glowing heels, glowing magnificently, along with a strange crystal next to it."
-RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 void damage on-hit with brief slow."
+RestraintEnchantedHeelsDesc2,"A pair of towering heels, enchanted with combat magic. When powered, they reduce slow level by 2, and deal 25 shadow damage on-hit with brief slow."
 RestraintEnchantedHeelsDesc,"'Shoes of the graceful'"
 KinkyDungeonCurseStruggleMistressKeyEnchantedHeels,"You can barely stand in these heels. They are rigid, metallic, and unbreakable, yet padded on the inside."
 
@@ -3629,7 +3629,7 @@ KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
 KinkyDungeonTooltipArmor,"Armor: AMOUNT"
 KinkyDungeonTooltipEvasion,"Base Chance to Hit: AMOUNT%"
 KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
-KinkyDungeonDamageTypecold,"Void"
+KinkyDungeonDamageTypecold,"Shadow"
 KinkyDungeonDamageTypefrost,"Ice"
 KinkyDungeonDamageTypeice,"Ice"
 KinkyDungeonDamageTypefire,"Fire"
@@ -4122,7 +4122,7 @@ rOfferChastityYes_Yes,"(The SPEAKER smiles)|Thank you so much, miss!"
 rOfferChastityYes_No,"(The SPEAKER frowns)|I'm going to get in trouble..."
 rOfferChastityNo,"(The SPEAKER blushes)|Oh... okay."
 rOfferChastityForce,"(The SPEAKER frowns angrily)|Look, I know you're in trouble around here.|Just do me a favor. Please.|I need you to wear this RESTRAINT."
-rOfferChastityForceYes,"(The SPEAKER pleads with you)|My mistress is a magician!|She put a spell on it that tells her if it's locked.|Please, you have to hurry!"
+rOfferChastityForceYes,"(The SPEAKER pleads with you)|My mistress is a magician!|She put a spell on it that senses if it's being worn.|Please, you have to hurry!"
 rOfferChastityForce_No,"(The SPEAKER sighs and wears it herself)|(The lock starts glowing brightly...)"
 rOfferChastityForce_Yes,"(The SPEAKER looks relieved)|Thank you so much miss!|I won't forget you!"
 rOfferChastityForce_Failure,"(As you turn around, the SPEAKER surprises you)|(You hear a click around your waist)|Hmmph! Serves you right!|"

@@ -56,7 +56,7 @@ let KinkyDungeonFactionRelationsBase = {
 		Bandit: -0.6,
 		Alchemist: -0.8,
 		Nevermere: -0.55,
-		Apprentice: -0.4,
+		Apprentice: -0.55,
 		Dressmaker: -0.4,
 		Witch: 0.4,
 		Elemental: -0.4,
@@ -85,6 +85,10 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"KinkyConstruct": {
 		Jail: -0.25,
+		Apprentice: -0.55,
+		Witch: 0.4,
+		Dressmaker: 0.4,
+		Dragon: -1.0,
 	},
 	"Nevermere": {
 		"Alchemist": 1.0,

@@ -64,7 +64,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						if (spell) {
 							KinkyDungeonCastSpell(x, y, spell, undefined, undefined, undefined);
 							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
-							msg = ""; // The spell will show a message on its own
+							msg = "KinkyDungeonSpellCast" + spell.name;
 							KinkyDungeonTiles.delete(x + "," + y);
 						}
 					}

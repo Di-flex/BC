@@ -326,6 +326,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let doorlockchance = MapParams.doorlockchance; // Max treasure chest count
 		//if (KinkyDungeonGoddessRep.Prisoner && KDGameData.KinkyDungeonSpawnJailers > 0) doorlockchance = doorlockchance + (KDGameData.KinkyDungeonSpawnJailers / KDGameData.KinkyDungeonSpawnJailersMax) * (1.0 - doorlockchance) * (KinkyDungeonGoddessRep.Prisoner + 50)/100;
 		let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
+		let minortrapChance = MapParams.minortrapChance ? MapParams.minortrapChance : trapChance/3;
 		let grateChance = MapParams.grateChance;
 		let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
 		let gasChance = (MapParams.gaschance && KDRandom() < MapParams.gaschance) ? (MapParams.gasdensity ? MapParams.gasdensity : 0) : 0;
@@ -429,7 +430,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for brickwork creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceTraps(traps, traptypes, Floor, width, height);
+			KinkyDungeonPlaceTraps(traps, traptypes, minortrapChance, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for trap creation`);
 				startTime = performance.now();
@@ -1143,6 +1144,8 @@ function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 }
 
 let KDRandomDisallowedNeighbors = "AasSHcCHDdOo+"; // tiles that can't be neighboring a randomly selected point
+let KDTrappableNeighbors = "DA+-"; // tiles that might have traps bordering them with a small chance
+let KDTrappableNeighborsLikely = "CO="; // tiles that might have traps bordering them with a big chance
 
 function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height) {
 
@@ -1568,19 +1571,40 @@ function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonPlaceTraps( traps, traptypes, Floor, width, height) {
+function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, Floor, width, height) {
+	for (let X = 1; X < width-1; X += 1)
+		for (let Y = 1; Y < height-1; Y += 1) {
+			let hosttile = KinkyDungeonMapGet(X, Y);
+			let chance = KDTrappableNeighbors.includes(hosttile) ? trapchance * trapchance : (KDTrappableNeighborsLikely.includes(hosttile) ? trapchance : 0);
+			// Check the 3x3 area
+			if (chance > 0) {
+				for (let XX = X-1; XX <= X+1; XX += 1)
+					for (let YY = Y-1; YY <= Y+1; YY += 1) {
+						let tile = KinkyDungeonMapGet(XX, YY);
+						if (KinkyDungeonGroundTiles.includes(tile)) {
+							if (KDRandom() < chance) {
+								traps.push({x: XX, y: YY});
+							}
+						}
+					}
+			}
+		}
 	for (let trap of traps) {
-		KinkyDungeonMapSet(trap.x, trap.y, 'T');
-		let t = KinkyDungeonGetTrap(traptypes, Floor, []);
-		KinkyDungeonTiles.set(trap.x + "," + trap.y, {
-			Type: "Trap",
-			Trap: t.Name,
-			Restraint: t.Restraint,
-			Enemy: t.Enemy,
-			Spell: t.Spell,
-			Power: t.Power,
-		});
+		if (KinkyDungeonMapGet(trap.x, trap.y) != 'T') {
+			KinkyDungeonMapSet(trap.x, trap.y, 'T');
+			let t = KinkyDungeonGetTrap(traptypes, Floor, []);
+			KinkyDungeonTiles.set(trap.x + "," + trap.y, {
+				Type: "Trap",
+				Trap: t.Name,
+				Restraint: t.Restraint,
+				Enemy: t.Enemy,
+				Spell: t.Spell,
+				Power: t.Power,
+			});
+		}
 	}
+
+
 }
 
 // @ts-ignore
