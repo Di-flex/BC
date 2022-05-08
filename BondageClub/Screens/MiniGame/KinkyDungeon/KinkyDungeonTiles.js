@@ -13,7 +13,6 @@ let KDMoveObjectFunctions = {
 		let chestType = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Loot ? KinkyDungeonTiles.get(moveX + "," +moveY).Loot : "chest";
 		let roll = KinkyDungeonTiles.get(moveX + "," +moveY) ? KinkyDungeonTiles.get(moveX + "," +moveY).Roll : KDRandom();
 		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType, roll, KinkyDungeonTiles.get(moveX + "," +moveY));
-		if (chestType == "chest") KinkyDungeonAddChest(1, MiniGameKinkyDungeonLevel);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 		KinkyDungeonMapSet(moveX, moveY, 'c');
 		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
@@ -106,6 +105,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				KinkyDungeonChangeRep("Prisoner", -1);
 
 			if (KinkyDungeonState != "End") {
+				KDGameData.HeartTaken = false;
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 				let saveData = KinkyDungeonSaveGame(true);
 				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && MiniGameKinkyDungeonCheckpoint < 11)) {

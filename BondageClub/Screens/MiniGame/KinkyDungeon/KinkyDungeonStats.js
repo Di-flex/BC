@@ -158,10 +158,7 @@ function KinkyDungeonDefaultStats(Load) {
 
 	KinkyDungeonSubmissiveMult = 0;
 
-	KinkyDungeonOrbsPlaced = [];
-	KinkyDungeonCachesPlaced = [];
-	KinkyDungeonHeartsPlaced = [];
-	KinkyDungeonChestsOpened = [];
+	KDGameData.HeartTaken = false;
 
 	KDSetWeapon(null);
 	KinkyDungeonSpellPoints = 3;

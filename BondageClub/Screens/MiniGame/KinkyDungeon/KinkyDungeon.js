@@ -121,6 +121,7 @@ let KDOptOut = false;
 * CurrentDialogMsgValue: Record<string, number>,
 * AlertTimer: number,
 * RespawnQueue: {enemy: string, faction: string}[],
+* HeartTaken: boolean,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -205,6 +206,7 @@ let KDGameDataBase = {
 
 	ConfirmAttack: false,
 	RespawnQueue: [],
+	HeartTaken: false,
 };
 /**
  * @type {KDGameDataBase}
@@ -1052,10 +1054,6 @@ function KinkyDungeonHandleClick() {
 		}
 	} else if (KinkyDungeonState == "Load"){
 		if (MouseIn(875, 750, 350, 64)) {
-			KinkyDungeonChestsOpened = [];
-			KinkyDungeonOrbsPlaced = [];
-			KinkyDungeonCachesPlaced = [];
-			KinkyDungeonHeartsPlaced = [];
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonInitialize(1, true);
@@ -1595,8 +1593,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.rep = KinkyDungeonGoddessRep;
 	save.costs = KinkyDungeonShrineCosts;
 	save.pcosts = KinkyDungeonPenanceCosts;
-	save.orbs = KinkyDungeonOrbsPlaced;
-	save.chests = KinkyDungeonChestsOpened;
 	save.dress = KinkyDungeonCurrentDress;
 	save.gold = KinkyDungeonGold;
 	save.points = KinkyDungeonSpellPoints;
@@ -1606,8 +1602,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.choices2 = KinkyDungeonSpellChoicesToggle;
 	save.buffs = KinkyDungeonPlayerBuffs;
 	save.lostitems = KinkyDungeonLostItems;
-	save.caches = KinkyDungeonCachesPlaced;
-	save.hearts = KinkyDungeonHeartsPlaced;
 	save.rescued = KinkyDungeonRescued;
 	save.aid = KinkyDungeonAid;
 	save.seed = KinkyDungeonSeed;
@@ -1681,10 +1675,6 @@ function KinkyDungeonLoadGame(String) {
 			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
 			KinkyDungeonShrineCosts = saveData.costs;
 			KinkyDungeonGoddessRep = saveData.rep;
-			KinkyDungeonOrbsPlaced = saveData.orbs;
-			if (saveData.caches != undefined) KinkyDungeonCachesPlaced = saveData.caches;
-			if (saveData.hearts != undefined) KinkyDungeonHeartsPlaced = saveData.hearts;
-			KinkyDungeonChestsOpened = saveData.chests;
 			KinkyDungeonCurrentDress = saveData.dress;
 			KDGameData.KinkyDungeonSpawnJailers = 0;
 			KDGameData.KinkyDungeonSpawnJailersMax = 0;

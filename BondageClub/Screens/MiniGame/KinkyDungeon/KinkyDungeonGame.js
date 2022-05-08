@@ -115,10 +115,6 @@ let KinkyDungeonEndPosition = {x: 1, y: 1};
 let KinkyDungeonShortcutPosition = null;
 let KinkyDungeonJailLeash = 3;
 let KinkyDungeonJailLeashX = 3;
-let KinkyDungeonOrbsPlaced = [];
-let KinkyDungeonCachesPlaced = [];
-let KinkyDungeonHeartsPlaced = [];
-let KinkyDungeonChestsOpened = [];
 
 let KinkyDungeonSaveInterval = 10;
 
@@ -142,13 +138,6 @@ function KinkyDungeonPlaySound(src) {
 	}
 }
 
-function KinkyDungeonAddChest(Amount, Floor) {
-	if (KinkyDungeonChestsOpened.length < Floor - 1) {
-		KinkyDungeonChestsOpened.push(0);
-	}
-	KinkyDungeonChestsOpened[Floor] += Amount;
-}
-
 function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
@@ -158,13 +147,6 @@ function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 function KinkyDungeonNewGamePlus() {
 	KDInitializeJourney(KDGameData.Journey);
 
-	let temp = [];
-	for (let o of KinkyDungeonOrbsPlaced) {
-		if (KDRandom() < 0.5) temp.push(o);
-	}
-	KinkyDungeonOrbsPlaced = temp;
-	KinkyDungeonCachesPlaced = [];
-	KinkyDungeonHeartsPlaced = [];
 	MiniGameKinkyDungeonLevel = 1;
 	KinkyDungeonSetCheckPoint(0, true);
 	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
@@ -443,7 +425,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for lore creation`);
 				startTime = performance.now();
 			}
-			if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9)) && !KinkyDungeonHeartsPlaced.includes(Floor))
+			if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9)))
 				KinkyDungeonPlaceHeart(width, height, Floor);
 			KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 			if (KDDebug) {
@@ -771,7 +753,6 @@ function KinkyDungeonCreateCache(spawnPoints, Floor, width, height) {
 	spawnPoints.push({x:cornerX-1, y:cornerY + Math.floor(radius/2)+1, required: ["cacheguard"], tags: ["bandit"], AI: "guard"});
 	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache", Roll: KDRandom()});
 	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", OffLimits: true, ReLock: true});
-	KinkyDungeonCachesPlaced.push(Floor);
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 1});
 }
 
@@ -1273,8 +1254,9 @@ function KinkyDungeonPlaceHeart(width, height, Floor) {
 
 	while (heartList.length > 0) {
 		let N = Math.floor(KDRandom()*heartList.length);
-		KinkyDungeonGroundItems.push({x:heartList[N].x, y:heartList[N].y, name: "Heart"});
-		KinkyDungeonHeartsPlaced.push(Floor);
+		if (!KDGameData.HeartTaken) {
+			KinkyDungeonGroundItems.push({x:heartList[N].x, y:heartList[N].y, name: "Heart"});
+		}
 		return true;
 	}
 
@@ -1371,12 +1353,9 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 				let tile = 'A';
 				if (type != "Orb" && shrineTypes.includes(type)) type = "";
 				if (type == "Orb") {
-					if (orbs < 2 || !KinkyDungeonOrbsPlaced.includes(Floor)) {
+					if (orbs < 2) {
 						tile = 'O';
 						orbs += 1;
-						// We removed orbsplaced due to the rework of the prison system
-						//if (orbs >= 2)
-						// KinkyDungeonOrbsPlaced.push(Floor);
 					} else tile = 'o';
 					if (KDAlreadyOpened(shrine.x, shrine.y)) {
 						tile = 'o';

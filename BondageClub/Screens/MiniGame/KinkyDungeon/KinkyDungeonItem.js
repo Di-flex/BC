@@ -146,6 +146,7 @@ function KinkyDungeonItemEvent(Item) {
 			KinkyDungeonDrawState = "Game";
 			KinkyDungeonChangeStamina(24);
 			KinkyDungeonChangeMana(24);
+			KDGameData.HeartTaken = true;
 		} else if (KinkyDungeonIsPlayer()) KinkyDungeonDrawState = "Heart";
 	} else if (Item.name == "Keyring") {
 		KDGameData.JailKey = true;
