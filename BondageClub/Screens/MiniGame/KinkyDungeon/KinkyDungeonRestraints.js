@@ -1050,7 +1050,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					}
 					if (StruggleType == "Cut" && KDRandom() < destroyChance) {
-						KinkyDungeonSendTextMessage(9, TextGet("KinkyDungeonStruggleCutDestroy"), "red", 2);
+						KinkyDungeonSendTextMessage(9, TextGet("KinkyDungeonStruggleCutDestroy").replace("TargetRestraint", TextGet("Restraint" + KDRestraint(restraint).name)), "red", 2);
 						destroy = true;
 					}
 					let trap = restraint.trap;
