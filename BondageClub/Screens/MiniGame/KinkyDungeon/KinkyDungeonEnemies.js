@@ -397,7 +397,8 @@ function KinkyDungeonBar(x, y, w, h, value, foreground = "#66FF66", background =
 	if (value < 0) value = 0;
 	if (value > 100) value = 100;
 	DrawRect(x + 2, y + 2, Math.floor((w - 4) * value / 100), h - 4, foreground);
-	DrawRect(Math.floor(x + 2 + (w - 4) * value / 100), y + 2, Math.floor((w - 4) * (100 - value) / 100), h - 4, background);
+	if (background != "none")
+		DrawRect(Math.floor(x + 2 + (w - 4) * value / 100), y + 2, Math.floor((w - 4) * (100 - value) / 100), h - 4, background);
 }
 
 function KDCanSeeEnemy(enemy, playerDist) {

@@ -492,16 +492,24 @@ function KinkyDungeonDrawGame() {
 				if (KinkyDungeonCurrentEscapingItem && KinkyDungeonLastTurnAction == "Struggle") {
 					let item = KinkyDungeonCurrentEscapingItem;
 					let value = 0;
+					let value2 = 0;
+					let color = "#ecebe7";
+					let color2 = "red";
 					if (KinkyDungeonCurrentEscapingMethod == "Struggle" && item.struggleProgress) {
 						value = item.struggleProgress;
 					} else if (KinkyDungeonCurrentEscapingMethod == "Pick" && item.pickProgress) {
 						value = item.pickProgress;
-					} else if (KinkyDungeonCurrentEscapingMethod == "Remove" && item.removeProgress) {
-						value = item.removeProgress;
-					} else if (KinkyDungeonCurrentEscapingMethod == "Cut" && item.cutProgress) {
-						value = item.cutProgress;
+						color = "#ceaaed";
+					} else if (KinkyDungeonCurrentEscapingMethod == "Remove" && item.struggleProgress) {
+						value = item.struggleProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Cut") {
+						if (item.struggleProgress)
+							value = item.struggleProgress;
+						if (item.cutProgress)
+							value2 = item.cutProgress;
 					} else if (KinkyDungeonCurrentEscapingMethod == "Unlock" && item.unlockProgress) {
 						value = item.unlockProgress;
+						color = "#d0ffea";
 					}
 					let xAdd = 0;
 					let yAdd = 0;
@@ -511,7 +519,11 @@ function KinkyDungeonDrawGame() {
 					}
 					if (value <= 1)
 						KinkyDungeonBar(canvasOffsetX + xAdd + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + yAdd + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 24,
-							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value), "#aaaaaa", "#000000");
+							KinkyDungeonGridSizeDisplay, 12, Math.max(7, Math.min(100, 100 * (value + value2))), color, "#000000");
+					if (value2 && value2 <= 1) {
+						KinkyDungeonBar(canvasOffsetX + xAdd + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + yAdd + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 24,
+							KinkyDungeonGridSizeDisplay, 12, Math.max(7, 100 * value2), color2, "none");
+					}
 				}
 
 				KinkyDungeonDrawTether(KinkyDungeonPlayerEntity, CamX+CamX_offset, CamY+CamY_offset);

@@ -682,6 +682,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let Pass = "Fail";
 	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType] != undefined ? KDRestraint(restraint).escapeChance[StruggleType] : 1.0;
 	let helpChance = (KDRestraint(restraint).helpChance != undefined && KDRestraint(restraint).helpChance[StruggleType] != undefined) ? KDRestraint(restraint).helpChance[StruggleType] : 0.0;
+	let limitChance = (KDRestraint(restraint).limitChance != undefined && KDRestraint(restraint).limitChance[StruggleType] != undefined) ? KDRestraint(restraint).limitChance[StruggleType] : 0.05;
 	if (KinkyDungeonHasGhostHelp() && helpChance) {
 		restraintEscapeChancePre = helpChance;
 	}
@@ -692,6 +693,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	 * escapeChance: number,
 	 * origEscapeChance: number,
 	 * helpChance: number,
+	 * limitChance: number,
 	 * strict: number,
 	 * hasEdge: boolean,
 	 * restraintEscapeChance: number,
@@ -702,6 +704,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		struggleType: StruggleType,
 		escapeChance: restraintEscapeChancePre,
 		origEscapeChance: restraintEscapeChancePre,
+		limitChance: limitChance,
 		helpChance: helpChance,
 		strict: KinkyDungeonStrictness(true, struggleGroup),
 		hasEdge: KinkyDungeonHasHook(),
@@ -716,7 +719,6 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	KinkyDungeonInterruptSleep();
 	if (StruggleType == "Unlock") data.cost = 0;
 	KinkyDungeonSendEvent("beforeStruggleCalc", data);
-	if (!restraint.removeProgress) restraint.removeProgress = 0;
 	if (!restraint.pickProgress) restraint.pickProgress = 0;
 	if (!restraint.struggleProgress) restraint.struggleProgress = 0;
 	if (!restraint.unlockProgress) restraint.unlockProgress = 0;
@@ -985,17 +987,48 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		else
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPick" + restraint.lock + "Lock"), "orange", 2);
 	} else {
+		// One last check: check limits
+
+		if (data.limitChance > 0) {
+			let limitProgress = restraint.struggleProgress ? (StruggleType == "Struggle" ? restraint.struggleProgress : (1.0 - restraint.struggleProgress))
+				: (StruggleType == "Struggle" ? 0 : 1);
+			let limitPenalty = limitProgress * data.limitChance;
+
+			if (limitPenalty > 0) {
+				data.escapeChance -= limitPenalty;
+				if (data.escapeChance <= 0) {
+					// Replace with frustrated moan later~
+					AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeon" + StruggleType + "Limit"), "red", 2);
+					KinkyDungeonLastAction = "Struggle";
+					KinkyDungeonSendEvent("struggle", {
+						restraint: restraint,
+						group: struggleGroup,
+						struggletype: StruggleType,
+						result: "Limit",
+					});
+					return "Limit";
+				}
+			}
+		}
 
 		// Main struggling block
 		if (!KinkyDungeonHasStamina(-data.cost, true)) {
 			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 			KinkyDungeonWaitMessage(true);
 		} else {
+			let destroy = false;
 			// Pass block
-			if (((StruggleType == "Cut" && restraint.cutProgress >= 1 - data.escapeChance)
+			let cutProgress = restraint.cutProgress;
+			let destroyChance = 1.0;
+			if (restraint.struggleProgress && restraint.struggleProgress > 0) {
+				cutProgress += restraint.struggleProgress;
+				destroyChance = restraint.cutProgress / cutProgress;
+			}
+			if (((StruggleType == "Cut" && cutProgress >= 1 - data.escapeChance)
 					|| (StruggleType == "Pick" && restraint.pickProgress >= 1 - data.escapeChance)
 					|| (StruggleType == "Unlock" && restraint.unlockProgress >= 1 - data.escapeChance)
-					|| (StruggleType == "Remove" && restraint.removeProgress >= 1 - data.escapeChance)
+					|| (StruggleType == "Remove" && restraint.struggleProgress >= 1 - data.escapeChance)
 					|| (restraint.struggleProgress >= 1 - data.escapeChance))
 				&& !(restraint.lock == "Blue" && StruggleType == "Pick")) {
 				Pass = "Success";
@@ -1016,9 +1049,13 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else if (StruggleType == "Remove") AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Unbuckle.ogg");
 						else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 					}
+					if (StruggleType == "Cut" && KDRandom() < destroyChance) {
+						KinkyDungeonSendTextMessage(9, TextGet("KinkyDungeonStruggleCutDestroy"), "red", 2);
+						destroy = true;
+					}
 					let trap = restraint.trap;
 					KDSendStatus('escape', restraint.name, StruggleType);
-					KinkyDungeonRemoveRestraint(KDRestraint(restraint).Group, StruggleType != "Cut");
+					KinkyDungeonRemoveRestraint(KDRestraint(restraint).Group, (StruggleType != "Cut") || !destroy);
 					if (trap) {
 						let summon = KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, trap, 1, 2.5);
 						if (summon) {
@@ -1066,7 +1103,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 							Pass = "Fail";
 						} else {
 							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Cut.ogg");
-							let mult = 1.0;
+							let mult = 0.4 + 0.6 * (data.escapeChance ? data.escapeChance : 0);
 							if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 							if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
 							restraint.cutProgress += escapeSpeed * mult * data.escapeChance * (0.3 + 0.2 * KDRandom() + 0.6 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
@@ -1086,7 +1123,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 					} else {
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Pick.ogg");
 						if (!restraint.pickProgress) restraint.pickProgress = 0;
-						let mult = 1.0;
+						let mult = 0.5 + 0.6 * (data.escapeChance ? data.escapeChance : 0);
 						if (KinkyDungeonStatsChoice.get("Locksmith")) mult *= KDLocksmithSpeedBonus;
 						if (KinkyDungeonStatsChoice.get("Clueless")) mult *= KDCluelessSpeedBonus;
 						restraint.pickProgress += escapeSpeed * mult * data.escapeChance * (0.5 + 1.0 * KDRandom());
@@ -1101,18 +1138,20 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 						else if (keytype == "Red") KinkyDungeonRedKeys -= 1;
 					} else {
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Pick.ogg");
-						let mult = 1.0;
+						let mult = 0.4 + 0.65 * (data.escapeChance ? data.escapeChance : 0);
 						if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 						if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
 						restraint.unlockProgress += escapeSpeed * mult * data.escapeChance * (0.75 + 0.5 * KDRandom());
 					}
 				} else if (StruggleType == "Remove") {
-					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");let mult = 1.0;
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+					let mult = 0.3 + 1.0 * (data.escapeChance ? data.escapeChance : 0);
 					if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 					if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
-					restraint.removeProgress += escapeSpeed * mult * data.escapeChance * (0.55 + 0.2 * KDRandom() + 0.35 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
+					restraint.struggleProgress += escapeSpeed * mult * data.escapeChance * (0.55 + 0.2 * KDRandom() + 0.35 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
 				} else if (StruggleType == "Struggle") {
-					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");let mult = 1.0;
+					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+					let mult = 1.25 - 0.75 * (restraint.struggleProgress ? restraint.struggleProgress : 0);
 					if (KinkyDungeonStatsChoice.get("Flexible")) mult *= KDFlexibleSpeedBonus;
 					if (KinkyDungeonStatsChoice.get("Inflexible")) mult *= KDInflexibleSpeedBonus;
 					restraint.struggleProgress += escapeSpeed * mult * data.escapeChance * (0.4 + 0.3 * KDRandom() + 0.4 * Math.max(0, (KinkyDungeonStatStamina)/KinkyDungeonStatStaminaMax));
@@ -1136,20 +1175,14 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			if (Pass != "Success") {
 				// Reduce the progress
 				if (StruggleType == "Struggle") {
-					restraint.pickProgress = Math.max(0, restraint.pickProgress * 0.7 - 0.01);
-					//restraint.removeProgress = Math.max(0, restraint.removeProgress * 0.9 - 0.01);
+					restraint.pickProgress = Math.max(0, restraint.pickProgress * 0.5 - 0.01);
 					restraint.unlockProgress = Math.max(0, restraint.unlockProgress * 0.5 - 0.01);
 				} else if (StruggleType == "Pick") {
-					//restraint.struggleProgress = Math.max(0, restraint.struggleProgress * 0.8 - 0.01);
-					//restraint.removeProgress = Math.max(0, restraint.removeProgress * 0.8 - 0.01);
 					restraint.unlockProgress = Math.max(0, restraint.unlockProgress * 0.5 - 0.01);
 				} else if (StruggleType == "Unlock") {
-					restraint.pickProgress = Math.max(0, restraint.pickProgress* 0.7 - 0.01);
-					//restraint.removeProgress = Math.max(0, restraint.removeProgress * 0.8 - 0.01);
-					restraint.struggleProgress = Math.max(0, restraint.struggleProgress * 0.8 - 0.01);
+					restraint.pickProgress = Math.max(0, restraint.pickProgress* 0.5 - 0.01);
 				} if (StruggleType == "Remove") {
-					restraint.pickProgress = Math.max(0, restraint.pickProgress* 0.7 - 0.01);
-					//restraint.struggleProgress = Math.max(0, restraint.struggleProgress * 0.7 - 0.01);
+					restraint.pickProgress = Math.max(0, restraint.pickProgress* 0.5 - 0.01);
 					restraint.unlockProgress = Math.max(0, restraint.unlockProgress * 0.5 - 0.01);
 				}
 

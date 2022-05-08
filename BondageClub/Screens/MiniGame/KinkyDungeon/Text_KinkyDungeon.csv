@@ -1423,14 +1423,22 @@ KinkyDungeonStruggleStruggleSuccess,"You manage to squeeze out of the TargetRest
 KinkyDungeonStrugglePickSuccess,"You pick the lock on the TargetRestraint!"
 KinkyDungeonAttemptPickSuccess,"You pick the lock on the TargetRestraint!"
 KinkyDungeonStruggleRemoveSuccess,"You free yourself from the TargetRestraint!"
-KinkyDungeonStruggleCutSuccess,"You cut the TargetRestraint off!"
+KinkyDungeonStruggleCutSuccess,"You damage the TargetRestraint enough to escape!"
+
+KinkyDungeonStruggleCutDestroy,"The TargetRestraint is destroyed by your attempts."
+
+KinkyDungeonStruggleLimit,"You've reached the limits of your strength. Maybe it's loose enough to remove..."
+KinkyDungeonRemoveLimit,"The item is too tight. You'll need to loosen it somehow first..."
+KinkyDungeonCutLimit,"The item is to tight to get your tool into position. You'll have to first make it looser."
+KinkyDungeonPickLimit,"You can't quite get your pick into position. Maybe if you loosened the item first..."
+KinkyDungeonLimitLimit,"You can't reach the lock. You'll have to loosen the item somehow first..."
 
 KinkyDungeonStruggleUnlockSuccessAroused,"You unlock the TargetRestraint and sigh with relief."
 KinkyDungeonStruggleStruggleSuccessAroused,"You give out a huge moan as you squeeze out of the TargetRestraint!"
 KinkyDungeonStrugglePickSuccessAroused,"You pick the lock on the TargetRestraint with a sigh of relief!"
 KinkyDungeonAttemptPickSuccessAroused,"You pick the lock on the TargetRestraint with a sigh of relief!"
 KinkyDungeonStruggleRemoveSuccessAroused,"Trembling, you free yourself from the TargetRestraint!"
-KinkyDungeonStruggleCutSuccessAroused,"You cut the TargetRestraint off in a frenzy!"
+KinkyDungeonStruggleCutSuccessAroused,"You damage the TargetRestraint enough to wiggle out!"
 
 KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
 KinkyDungeonStruggleStruggleImpossibleAroused,"You groan in frustration as you realize the item is too tight to escape."

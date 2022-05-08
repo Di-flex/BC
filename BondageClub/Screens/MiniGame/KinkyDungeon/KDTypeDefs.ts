@@ -49,8 +49,6 @@ type item = {
 	/** Escape progress tracking*/
 	struggleProgress?: number,
 	/** Escape progress tracking*/
-	removeProgress?: number,
-	/** Escape progress tracking*/
 	cutProgress?: number,
 	/** Escape progress tracking*/
 	unlockProgress?: number,
@@ -126,6 +124,14 @@ type restraint = {
 	},
 	/** Overrides escapeChance when you have a ghost helping*/
 	helpChance?: {
+		Struggle?: number,
+		Cut?: number,
+		Remove?: number
+		Pick?: number
+		Unlock?: number
+	},
+	/** Determines the penalty to the escape chance at the limit--full struggle progress when struggling, and 0 for cut/remove/unlock/pick*/
+	limitChance?: {
 		Struggle?: number,
 		Cut?: number,
 		Remove?: number
