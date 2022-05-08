@@ -823,6 +823,7 @@ Spell Balance:
 - Summon AI has been tweaked to be less suicidal and stick around the player more
 - There are now a lot more traps
 - Added indicator for jail/chase/parole modes
+- Reworked struggling. Struggle is now more effective at low progress, the others are more effective at high progress. Remove and Cut use the same bar as struggling
 
 TODO ValidationFindBlockCycles to prevent bugs
 

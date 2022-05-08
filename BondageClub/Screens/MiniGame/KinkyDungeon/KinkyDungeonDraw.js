@@ -495,13 +495,19 @@ function KinkyDungeonDrawGame() {
 					let value2 = 0;
 					let color = "#ecebe7";
 					let color2 = "red";
-					if (KinkyDungeonCurrentEscapingMethod == "Struggle" && item.struggleProgress) {
-						value = item.struggleProgress;
+					if (KinkyDungeonCurrentEscapingMethod == "Struggle") {
+						if (item.struggleProgress)
+							value = item.struggleProgress;
+						if (item.cutProgress)
+							value2 = item.cutProgress;
 					} else if (KinkyDungeonCurrentEscapingMethod == "Pick" && item.pickProgress) {
 						value = item.pickProgress;
 						color = "#ceaaed";
-					} else if (KinkyDungeonCurrentEscapingMethod == "Remove" && item.struggleProgress) {
-						value = item.struggleProgress;
+					} else if (KinkyDungeonCurrentEscapingMethod == "Remove") {
+						if (item.struggleProgress)
+							value = item.struggleProgress;
+						if (item.cutProgress)
+							value2 = item.cutProgress;
 					} else if (KinkyDungeonCurrentEscapingMethod == "Cut") {
 						if (item.struggleProgress)
 							value = item.struggleProgress;

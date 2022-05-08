@@ -1019,17 +1019,17 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		} else {
 			let destroy = false;
 			// Pass block
-			let cutProgress = restraint.cutProgress;
+			let progress = restraint.cutProgress;
 			let destroyChance = 1.0;
 			if (restraint.struggleProgress && restraint.struggleProgress > 0) {
-				cutProgress += restraint.struggleProgress;
-				destroyChance = restraint.cutProgress / cutProgress;
+				progress += restraint.struggleProgress;
+				destroyChance = restraint.cutProgress / progress;
 			}
-			if (((StruggleType == "Cut" && cutProgress >= 1 - data.escapeChance)
+			if (((StruggleType == "Cut" && progress >= 1 - data.escapeChance)
 					|| (StruggleType == "Pick" && restraint.pickProgress >= 1 - data.escapeChance)
 					|| (StruggleType == "Unlock" && restraint.unlockProgress >= 1 - data.escapeChance)
-					|| (StruggleType == "Remove" && restraint.struggleProgress >= 1 - data.escapeChance)
-					|| (restraint.struggleProgress >= 1 - data.escapeChance))
+					|| (StruggleType == "Remove" && progress >= 1 - data.escapeChance)
+					|| (progress >= 1 - data.escapeChance))
 				&& !(restraint.lock == "Blue" && StruggleType == "Pick")) {
 				Pass = "Success";
 				if (StruggleType == "Pick" || StruggleType == "Unlock") {
