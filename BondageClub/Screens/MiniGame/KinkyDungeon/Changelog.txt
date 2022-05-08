@@ -822,6 +822,7 @@ Spell Balance:
 - Buffs are now shown in the bottom right
 - Summon AI has been tweaked to be less suicidal and stick around the player more
 - There are now a lot more traps
+- Added indicator for jail/chase/parole modes
 
 TODO ValidationFindBlockCycles to prevent bugs
 
