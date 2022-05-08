@@ -83,7 +83,7 @@ function KinkyDungeonDrawGame() {
 
 	if (ServerURL == "foobar") {
 		MainCanvas.textAlign = "center";
-		DrawTextFit(TextGet("KinkyDungeon"), 1865, 50, 200, "white", "black");
+		DrawTextFit(TextGet("KinkyDungeon"), 1865, 50, 200, "white", "gray");
 		MainCanvas.textAlign = "center";
 	}
 
@@ -457,8 +457,8 @@ function KinkyDungeonDrawGame() {
 				1000+1, 42+1, "black", "black");
 			//DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500+1, 42+1, "black", "black");
 			DrawText(TextGet("CurrentLevel").replace("FLOORNUMBER", "" + MiniGameKinkyDungeonLevel).replace("DUNGEONNAME", TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint])),
-				1000, 42, "white", "black");
-			//DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "black");
+				1000, 42, "white", "gray");
+			//DrawText(TextGet("DungeonName" + KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]), 1500, 42, "white", "gray");
 
 			// Draw the stats
 			KinkyDungeonDrawStats(1750, 164, 230, KinkyDungeonStatBarHeight);
@@ -518,7 +518,7 @@ function KinkyDungeonDrawGame() {
 
 				if (tooltip) {
 					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, 1 + MouseX, 1 + MouseY - KinkyDungeonGridSizeDisplay/2, 200, "black", "black");
-					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, MouseX, MouseY - KinkyDungeonGridSizeDisplay/2, 200, "white", "black");
+					DrawTextFit(TextGet("KinkyDungeonShrineTooltip") + tooltip, MouseX, MouseY - KinkyDungeonGridSizeDisplay/2, 200, "white", "gray");
 				}
 			}
 
@@ -537,7 +537,7 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonDrawQuickInv();
 			}
 		} else {
-			DrawText(TextGet("KinkyDungeonLoading"), 1100, 500, "white", "black");
+			DrawText(TextGet("KinkyDungeonLoading"), 1100, 500, "white", "gray");
 			if (CommonTime() > KinkyDungeonGameDataNullTimerTime + KinkyDungeonGameDataNullTimer) {
 				ServerSend("ChatRoomChat", { Content: "RequestFullKinkyDungeonData", Type: "Hidden", Target: KinkyDungeonPlayerCharacter.MemberNumber });
 				KinkyDungeonGameDataNullTimerTime = CommonTime();
@@ -591,7 +591,7 @@ function KinkyDungeonDrawGame() {
 			DrawCheckbox(600, 340, 64, 64, TextGet("KinkyDungeonGraphicsQuality"), KinkyDungeonGraphicsQuality, false, "white");
 		DrawCheckbox(600, 650, 64, 64, TextGet("KinkyDungeonFastWait"), KinkyDungeonFastWait, false, "white");
 		MainCanvas.textAlign = "center";
-		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "black");
+		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "gray");
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
 		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
 		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.PrisonerState == 'jail') ? "Pink" : "White", "");
@@ -651,7 +651,7 @@ function KinkyDungeonDrawFloaters(CamX, CamY) {
 		let y = floater.override ? floater.y : canvasOffsetY + (floater.y - CamY)*KinkyDungeonGridSizeDisplay;
 		DrawText(floater.text,
 			x, y - floater.speed*floater.t,
-			floater.color, "black");
+			floater.color, "gray");
 		if (floater.t < floater.lifetime) newFloaters.push(floater);
 	}
 	KinkyDungeonFloaters = newFloaters;
@@ -668,11 +668,11 @@ function KinkyDungeonDrawMessages(NoLog) {
 	if (!KinkyDungeonMessageToggle || NoLog) {
 		if (KinkyDungeonTextMessageTime > 0) {
 			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2+1, 82+1, 1250, "black", "black");
-			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2, 82, 1250, KinkyDungeonTextMessageColor, "black");
+			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2, 82, 1250, KinkyDungeonTextMessageColor, "gray");
 		}
 		if (KinkyDungeonActionMessageTime > 0) {
 			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2+1, 132+1, 1250, "black", "black");
-			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2, 132, 1250, KinkyDungeonActionMessageColor, "black");
+			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2, 132, 1250, KinkyDungeonActionMessageColor, "gray");
 		}
 	} else {
 		let extra = 200;
