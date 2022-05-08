@@ -244,10 +244,8 @@ function KinkyDungeonDrawInputs() {
 				DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "gray");
 		} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 			KinkyDungeonDrawShrine();
-		} else if (KinkyDungeonTargetTile.Type == "Ghost") {
-			KinkyDungeonDrawGhost();
-		} else if (KinkyDungeonTargetTile.Type == "Charger") {
-			KinkyDungeonDrawCharger();
+		} else if (KDObjectDraw[KinkyDungeonTargetTile.Type]) {
+			KDObjectDraw[KinkyDungeonTargetTile.Type]();
 		} else if (KinkyDungeonTargetTile.Type == "Door") {
 			if (KinkyDungeonTargetTile.Lock) {
 				let action = false;
@@ -566,12 +564,8 @@ function KinkyDungeonHandleHUD() {
 					return true;
 					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 				}
-			} else if (KinkyDungeonTargetTile.Type == "Charger") {
-				// Done, converted to input
-				if (KinkyDungeonHandleCharger()) {
-					return true;
-					// if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
-				}
+			} else if (KDObjectHandle[KinkyDungeonTargetTile.Type]) {
+				return KDObjectHandle[KinkyDungeonTargetTile.Type]();
 			} else if (KinkyDungeonTargetTile.Type == "Door") {
 				if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 350, 60)) {
 					// Done, converted to input

@@ -52,7 +52,7 @@ let KinkyDungeonMapBrightness = 5;
 let KinkyDungeonGroundTiles = "023w][L";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
-let KinkyDungeonMovableTiles = "OCAGY+=" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests, orbs, shrines, chargers
+let KinkyDungeonMovableTiles = "OCAGY+=-" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests, orbs, shrines, chargers
 let KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "").replace("Y", "") + "OoAaCcBb+=-"; // Light does not pass thru doors or grates or shelves
 let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
 
@@ -481,6 +481,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 		// Set map brightness
 		KinkyDungeonMapBrightness = MapParams.brightness;
+		KinkyDungeonMakeGhostDecision();
 
 		if (KinkyDungeonNearestJailPoint(1, 1)) iterations = 100000;
 		else console.log("This map failed to generate a jail! Please screenshot and send your save code to Ada on deviantart or discord!");
@@ -2661,8 +2662,8 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 
 function KinkyDungeonTargetTileMsg() {
-	if (KinkyDungeonTargetTile.Type == "Ghost") {
-		KinkyDungeonGhostMessage();
+	if (KDObjectMessages[KinkyDungeonTargetTile.Type]) {
+		KDObjectMessages[KinkyDungeonTargetTile.Type]();
 	} else if (KinkyDungeonTargetTile.Lock) {
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Locked.ogg");
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObjectLock").replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1, false, true);

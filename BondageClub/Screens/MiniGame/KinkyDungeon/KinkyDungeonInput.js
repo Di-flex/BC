@@ -150,17 +150,17 @@ function KDProcessInput(type, data) {
 			break;
 		case "shrineUse":
 			tile = KinkyDungeonTiles.get(data.targetTile);
-			KinkyDungeonTargetTile = tile;
-			KinkyDungeonTargetTileLocation = data.targetTile;
+			//KinkyDungeonTargetTile = tile;
+			//KinkyDungeonTargetTileLocation = data.targetTile;
 			KinkyDungeonAdvanceTime(1, true);
-			KinkyDungeonTargetTile = null;
+			//KinkyDungeonTargetTile = null;
 			if (KinkyDungeonGold >= data.cost) {
 				KinkyDungeonPayShrine(data.type);
 				KinkyDungeonTiles.delete(KinkyDungeonTargetTileLocation);
-				let x = KinkyDungeonTargetTileLocation.split(',')[0];
-				let y = KinkyDungeonTargetTileLocation.split(',')[1];
+				let x =  data.targetTile.split(',')[0];
+				let y =  data.targetTile.split(',')[1];
 				KinkyDungeonMapSet(parseInt(x), parseInt(y), "a");
-				KinkyDungeonTargetTileLocation = "";
+				//KinkyDungeonTargetTileLocation = "";
 				KinkyDungeonAggroAction('shrine', {x: parseInt(x), y:parseInt(y)});
 				KDGameData.AlreadyOpened.push({x: parseInt(x), y: parseInt(y)});
 				KinkyDungeonUpdateStats(0);
@@ -408,8 +408,10 @@ function KDProcessInput(type, data) {
 						KinkyDungeonTiles.delete(data.targetTile);
 						KinkyDungeonMapSet(x, y, '-');
 					}
+					return "Pass";
 				} else {
 					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerChargeFailure"), "orange", 1);
+					return "Fail";
 				}
 			} else if (data.action == "place") {
 				tile = KinkyDungeonTiles.get(data.targetTile);

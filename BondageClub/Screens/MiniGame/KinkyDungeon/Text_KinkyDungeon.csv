@@ -1582,6 +1582,7 @@ KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transfo
 KinkyDungeonObject,"object"
 
 KinkyDungeonObjectCharger,"It appears to be a receptacle for an ancient crystal."
+KinkyDungeonObjectChargerDestroyed,"It's a pile of slag emitting a strange magic smoke..."
 KinkyDungeonObjectLock,"That object is locked"
 KinkyDungeonObjectShrine,"A shrine to the goddess of TYPE. A pool of mana glimmers below."
 KinkyDungeonObjectShrineCommerce,"A shrine to the goddess of TYPE."
