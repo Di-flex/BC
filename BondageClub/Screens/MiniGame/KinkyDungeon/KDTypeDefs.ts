@@ -1031,5 +1031,6 @@ interface KinkyDungeonSave {
 		npp: number;
 		diff: number;
 	};
+	faction: Record<string, Record<string, number>>;
 }
 

@@ -1608,6 +1608,7 @@ function KinkyDungeonGenerateSaveData() {
 	save.statchoice = Array.from(KinkyDungeonStatsChoice);
 	save.mapIndex = KinkyDungeonMapIndex;
 	save.flags = Array.from(KinkyDungeonFlags);
+	save.faction = KinkyDungeonFactionRelations;
 
 	let spells = [];
 	/**@type {item[]} */
@@ -1710,6 +1711,8 @@ function KinkyDungeonLoadGame(String) {
 			}
 			if (saveData.KDGameData != undefined) KDGameData = saveData.KDGameData;
 			if (saveData.statchoice != undefined) KinkyDungeonStatsChoice = new Map(saveData.statchoice);
+			if (saveData.faction != undefined) KinkyDungeonFactionRelations = saveData.faction;
+			KDInitFactions();
 
 			if (!KDGameData.AlreadyOpened) KDGameData.AlreadyOpened = [];
 
