@@ -256,6 +256,8 @@ function KinkyDungeonHandleShrine() {
 	} else {
 		if (cost > 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 325, 60)) {
 			KDSendInput("shrineUse", {type: type, cost: cost, targetTile: KinkyDungeonTargetTileLocation});
+			KinkyDungeonTargetTileLocation = "";
+			KinkyDungeonTargetTile = null;
 			return true;
 		} else if (KDGameData.PoolUses <= 1 / KinkyDungeonShrinePoolChancePerUse && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonPlayerTags.get("slime")) && ((cost == 0 && MouseIn(KDModalArea_x, KDModalArea_y + 25, 375, 60)) || MouseIn(KDModalArea_x + 350, KDModalArea_y + 25, 100, 60))) {
 			KDSendInput("shrineDrink", {type: type, targetTile: KinkyDungeonTargetTileLocation});
@@ -401,6 +403,8 @@ function KinkyDungeonHandleCharger() {
 	} else {
 		if (MouseIn(KDModalArea_x + 250, KDModalArea_y + 25, 200, 60)) {
 			KDSendInput("chargerInteract", {action: "charge", targetTile: KinkyDungeonTargetTileLocation});
+			KinkyDungeonTargetTile = null;
+			KinkyDungeonTargetTileLocation = "";
 			return true;
 		} else if (MouseIn(KDModalArea_x + 25, KDModalArea_y + 25, 200, 60) && KinkyDungeonTargetTile) {
 			KDSendInput("chargerInteract", {action: "place", targetTile: KinkyDungeonTargetTileLocation});
