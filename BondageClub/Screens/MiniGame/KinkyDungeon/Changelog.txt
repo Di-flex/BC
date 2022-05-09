@@ -827,6 +827,7 @@ Spell Balance:
 - Added logbook for viewing logs
 - Logs are now stored in browser localstorage instead of solely in BC
 - New interface for lore and inventory to make it easier to browse
+- Vibration rework!
 
 TODO ValidationFindBlockCycles to prevent bugs
 
