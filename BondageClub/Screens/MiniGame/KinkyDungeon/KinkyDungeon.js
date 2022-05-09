@@ -122,6 +122,10 @@ let KDOptOut = false;
 * AlertTimer: number,
 * RespawnQueue: {enemy: string, faction: string}[],
 * HeartTaken: boolean,
+* CurrentVibration: KinkyVibration,
+* Edged: boolean,
+* TimeSinceLastVibeStart: number,
+* TimeSinceLastVibeEnd: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -207,6 +211,11 @@ let KDGameDataBase = {
 	ConfirmAttack: false,
 	RespawnQueue: [],
 	HeartTaken: false,
+
+	CurrentVibration: null,
+	Edged: false,
+	TimeSinceLastVibeStart: 0,
+	TimeSinceLastVibeEnd: 0,
 };
 /**
  * @type {KDGameDataBase}
@@ -1665,8 +1674,6 @@ function KinkyDungeonLoadGame(String) {
 			&& saveData.inventory != undefined
 			&& saveData.costs != undefined
 			&& saveData.rep != undefined
-			&& saveData.orbs != undefined
-			&& saveData.chests != undefined
 			&& saveData.dress != undefined) {
 			KinkyDungeonEntities = [];
 			if (saveData.flags && saveData.flags.length) KinkyDungeonFlags = new Map(saveData.flags);

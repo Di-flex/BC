@@ -2559,7 +2559,6 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 		KinkyDungeonHandleTraps(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonTrapMoved);
 	}
 
-	KinkyDungeonHandleVibrators();
 	// Here we move enemies and such
 	KinkyDungeonUpdateLightGrid = true;
 	if (!NoMsgTick) {

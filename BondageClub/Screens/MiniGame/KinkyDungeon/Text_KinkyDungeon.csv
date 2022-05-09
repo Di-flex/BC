@@ -222,7 +222,7 @@ End3,"Better luck next time!"
 EndWin,"You have reached the end of the playable portion."
 EndWin2,"Come back later for new dungeons!"
 
-StatWeapon,"Weapon: "
+StatWeapon,""
 StatMiscastChance,"Miscast: Percent"
 StatDistraction,"DP: CURRENT/MAX"
 StatStamina,"SP: CURRENT/MAX"
@@ -639,6 +639,26 @@ KinkyDungeonPlayerSlow4,Crawling slowly!
 KinkyDungeonPlayerSlow3,Inching slowly!
 KinkyDungeonPlayerSlow2,Hopping slowly!
 KinkyDungeonPlayerSlow,Slowed!
+KinkyDungeonPlayerPlugged,"Plugged!"
+KinkyDungeonPlayerPluggedExtreme,"Filled!"
+KinkyDungeonPlayerDenied,"Denied!"
+KinkyDungeonPlayerVibrated0,"Teasing..."
+KinkyDungeonPlayerVibrated1,"Vibrating Gently!"
+KinkyDungeonPlayerVibrated2,"Vibrating!"
+KinkyDungeonPlayerVibrated3,"Vibrating Intensely!"
+KinkyDungeonPlayerVibrated4,"Vibrating Powerfully!"
+KinkyDungeonPlayerVibrated5,"Vibrating Torturously!"
+
+
+KinkyDungeonVibing0,You feel a gentle buzz...
+KinkyDungeonVibing1,Your toys tease you gently...
+KinkyDungeonVibing2,Your toys are vibrating.
+KinkyDungeonVibing3,Your toys are buzzing strongly!
+KinkyDungeonVibing4,Your toys vibrate intensely!
+KinkyDungeonVibing5,The vibration is torturous!
+
+KinkyDungeonPlayerEdged,"Edged!"
+KinkyDungeonPlayerStatisfied,"Statisfied..."
 
 
 KinkyDungeonWeaponDamage,"Damage: "
@@ -1995,7 +2015,7 @@ RestraintTrapVibeDesc,"An energetic little friend that likes to tease you."
 RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
 RestraintTrapVibeProto,Prototype Egg
 RestraintTrapVibeProtoDesc,"A teaser that periodically vibrates."
-RestraintTrapVibeProtoDesc2,"Also absorbs charge from your spells."
+RestraintTrapVibeProtoDesc2,"High efficiency mana conversion means longer tease duration."
 RestraintTrapPlug,Happy Plug
 RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."
 RestraintTrapPlugDesc2,"It vibrates periodically and allows orgasms."
@@ -3099,7 +3119,9 @@ KinkyDungeonCrystalPunish2,"The crystals react to your struggle attempts with a 
 
 KinkyDungeonSpellCastFromBook,Cast Spell (XXX turn delay)
 
-KinkyDungeonStartVibe,You feel your toys start to to buzz...
+KinkyDungeonEndVibeCease,You feel the vibrations leaving your body...
+KinkyDungeonStartVibe,You feel your toys start to buzz...
+KinkyDungeonStartVibeContinue,You your toys continue to buzz...
 KinkyDungeonStartVibeRemote,The EnemyName remotely causes your toys to to buzz!!!
 KinkyDungeonPlugged,You feel the plugs inside you while walking.
 KinkyDungeonVibing0,You feel a gentle buzz...

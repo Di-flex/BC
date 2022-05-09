@@ -2086,7 +2086,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		}
 	}
 	if (vibe || (enemy.Enemy.remote && playerDist < enemy.Enemy.remote)) {
-		KinkyDungeonChargeRemoteVibrators(enemy.Enemy.name, enemy.Enemy.remoteAmount ? enemy.Enemy.remoteAmount : 5, vibe, vibe);
+		KinkyDungeonSendEvent("remoteVibe", {enemy: enemy.Enemy.name, power: enemy.Enemy.remoteAmount ? enemy.Enemy.remoteAmount : 5, overcharge: vibe, noSound: vibe});
 	}
 	if (enemy.usingSpecial && (idle || (moved && !enemy.Enemy.attackWhileMoving)) && enemy.Enemy.specialCDonAttack) {
 		enemy.specialCD = enemy.Enemy.specialCD;

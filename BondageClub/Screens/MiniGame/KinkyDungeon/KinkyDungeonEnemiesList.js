@@ -218,7 +218,7 @@ let KinkyDungeonEnemies = [
 	{name: "Mimic", blockVisionWhileStationary: true, tags: KDMapInit(["removeDoorSpawn", "ignoreharmless", "ignorenoSP", "construct", "minor", "melee", "trap", "shackleGag", "crushweakness", "meleeresist", "fireweakness", "electricresist", "chainweakness"]),
 		evasion: -0.5, ignorechance: 1.0, armor: 0, followRange: 1, AI: "ambush", bypass: true, difficulty: 0.15,
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:2, weight:-1, movePoints: 1, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 2,
-		terrainTags: {"rubble": 70, "adjChest": 30, "passage": 14, "illusionRage": 2, "illusionAnger": 2}, allFloors: true, shrines: ["Illusion"],
+		terrainTags: {"rubble": 100, "adjChest": 15, "passage": 14, "illusionRage": 2, "illusionAnger": 2}, allFloors: true, shrines: ["Illusion"],
 		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 10, amountMax: 40, weight: 6}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
 	{name: "VinePlant", faction: "Elf", clusterWith: "plant", color: "#00FF00", blockVisionWhileStationary: true, tags: KDMapInit(["mimicBlock", "nature", "removeDoorSpawn", "ignorenoSP", "plant", "minor", "melee", "slashsevereweakness", "coldweakness", "firesevereweakness", "unarmedresist", "crushresist", "vineRestraints"]),

@@ -66,10 +66,6 @@ function KinkyDungeonDrawInputs() {
 	} else if (KDGameData.PrisonerState == 'chase') {
 		DrawTextFit(TextGet("KinkyDungeonPlayerChase"), 1640, 900 - i * 35, 200, "red", "gray"); i++;
 	}
-	let damageReduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
-	if (damageReduction > 0) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerReduction") + Math.round(damageReduction*10)/10, 1640, 900 - i * 35, 200, "#73efe8", "gray"); i++;
-	}
 	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
 	if (armor > 0) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerArmor") + Math.round(armor*10)/10, 1640, 900 - i * 35, 200, "#fca570", "gray"); i++;
@@ -78,13 +74,14 @@ function KinkyDungeonDrawInputs() {
 	if (evasion != 1.0) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerEvasion") + Math.round(Math.min(100, (1 - evasion) * 100)) + "%", 1640, 900 - i * 35, 200, "white", "gray"); i++;
 	}
-	let visibility = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowDetection"));
-	if (visibility != 1.0) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
-	}
 	let sneak = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 	if (sneak > 2.5) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerInvisible"), 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
+	} else {
+		let visibility = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowDetection"));
+		if (visibility != 1.0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
+		}
 	}
 	if (KinkyDungeonMovePoints < 0) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
@@ -97,6 +94,10 @@ function KinkyDungeonDrawInputs() {
 	}
 	i = 0;
 
+	let damageReduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
+	if (damageReduction > 0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerReduction") + Math.round(damageReduction*10)/10, 1440, 900 - i * 25, 150, "#73efe8", "gray"); i++;
+	}
 	for (let dt of KinkyDungeonDamageTypes) {
 		let color = dt.color;
 		let type = dt.name;
@@ -107,9 +108,25 @@ function KinkyDungeonDrawInputs() {
 		}
 	}
 
-
-	if (KDModalArea) {
-		//DrawRect(KDModalArea_x, KDModalArea_y, KDModalArea_width, KDModalArea_height, "rgba(40, 40, 40, 0.3)");
+	if (!KDModalArea) {
+		i = 0;
+		if (KinkyDungeonPlugCount > 0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerPlugged"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			if (KinkyDungeonPlugCount > 1) {
+				DrawTextFit(TextGet("KinkyDungeonPlayerPluggedExtreme"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			}
+		}
+		if (KinkyDungeonVibeLevel > 0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerVibrated" + Math.max(0, Math.min(Math.floor(KinkyDungeonVibeLevel), 5))), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+		}
+		if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerEdged"), 1190, 900 - i * 30, 250, "red", "gray"); i++;
+		} else if (KDGameData.OrgasmStamina > 0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerStatisfied"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+		}
+		if (KDGameData.CurrentVibration  && KDGameData.CurrentVibration.denyTimeLeft > 0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+		}
 	}
 
 	// Draw the struggle buttons if applicable

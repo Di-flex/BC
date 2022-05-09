@@ -516,10 +516,10 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 	let touchesPlayer = KinkyDungeonCheckLOS(KinkyDungeonJailGuard(), KinkyDungeonPlayerEntity, playerDist, 1.5, false, false);
 	if (touchesPlayer) {
 		if (KinkyDungeonJailGuard().CurrentAction === "jailTease") {
-			let playerHasVibrator = Array.from(KinkyDungeonAllRestraint()).some(i => KDRestraint(i).vibeType && KDRestraint(i).vibeType.includes("Charging"));
+			let playerHasVibrator = Array.from(KinkyDungeonAllRestraint()).some(i => KDRestraint(i).allowRemote);
 			if (playerHasVibrator) {
 				let extraCharge = Math.round(2 + level * KDRandom() * 0.2);
-				KinkyDungeonChargeRemoteVibrators(KinkyDungeonJailGuard().Enemy.name, extraCharge, true, false);
+				KinkyDungeonSendEvent("remoteVibe", {enemy: KinkyDungeonJailGuard().Enemy.name, power: extraCharge, overcharge: true, noSound: false});
 			} else if (KinkyDungeonJailGuard().Enemy.dmgType === "grope" || KinkyDungeonJailGuard().Enemy.dmgType === "tickle") {
 				KinkyDungeonDealDamage({damage: KinkyDungeonJailGuard().Enemy.power, type: KinkyDungeonJailGuard().Enemy.dmgType});
 				KinkyDungeonSendTextMessage(5, TextGet("Attack" + KinkyDungeonJailGuard().Enemy.name), "yellow", 3);

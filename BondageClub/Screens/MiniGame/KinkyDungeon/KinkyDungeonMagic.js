@@ -962,8 +962,6 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
 		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
-
-		KinkyDungeonChargeVibrators(KinkyDungeonGetManaCost(spell));
 		if (spell.channel) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);
 			KinkyDungeonSleepTime = CommonTime() + 200;
@@ -977,56 +975,6 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 
 	return "Cast";
 }
-
-function KinkyDungeonChargeVibrators(cost) {
-	if (cost > 0) {
-		for (let item of KinkyDungeonAllRestraint()) {
-			let vibe = KDRestraint(item);
-			if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
-				if (item.battery == 0) {
-					KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
-					if (!KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
-				}
-
-				item.battery = Math.min(vibe.maxbattery, item.battery + cost * 1.5);
-			}
-		}
-	}
-}
-
-function KinkyDungeonChargeRemoteVibrators(Name, Amount, Overcharge, noSound) {
-	for (let item of KinkyDungeonAllRestraint()) {
-		let vibe = KDRestraint(item);
-		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Charging")) {
-			if (item.battery == 0 || Overcharge) {
-				if (item.battery < Math.max(0.1, vibe.maxbattery - Amount)) {
-					if (!noSound) {
-						KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
-					}
-					let text = TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + Name));
-					if (!KinkyDungeonSendTextMessage(5, text, "#FFaadd", 2)) KinkyDungeonSendActionMessage(5, text, "#FFaadd", 2);
-				}
-				item.battery = Math.min(vibe.maxbattery, item.battery + Amount);
-			}
-		}
-	}
-}
-
-function KinkyDungeonHandleVibrators() {
-	for (let item of KinkyDungeonAllRestraint()) {
-		let vibe = KDRestraint(item);
-		if (vibe && vibe.maxbattery > 0 && vibe.vibeType.includes("Teaser") && item.battery == 0 && !(item.cooldown > 0) && KDRandom() * 100 < ( vibe.teaseRate ?  vibe.teaseRate : vibe.power)) {
-			if (item.battery == 0) {
-				KinkyDungeonPlaySound("Audio/VibrationTone4Long3.mp3");
-				if (!KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2)) KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibe"), "#FFaadd", 2);
-				item.cooldown = vibe.teaseCooldown;
-			}
-
-			item.battery = Math.min(vibe.maxbattery, item.battery + vibe.maxbattery * (0.3 + KDRandom() * 0.7));
-		}
-	}
-}
-
 
 function KinkyDungeonHandleMagic() {
 	//if (KinkyDungeonPlayer.CanInteract()) { // Allow turning pages
