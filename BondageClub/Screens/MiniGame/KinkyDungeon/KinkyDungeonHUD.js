@@ -711,7 +711,7 @@ function KinkyDungeonHandleHUD() {
 		// Done, converted to input
 		else return KinkyDungeonHandleInventory();
 	} else if (KinkyDungeonDrawState == "Logbook") {
-		if (MouseIn(650, 925, 365, 60)) { KinkyDungeonDrawState = "Game"; return true;}
+		if (MouseIn(650, 925, 565, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		// Done, converted to input
 		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Reputation") {
