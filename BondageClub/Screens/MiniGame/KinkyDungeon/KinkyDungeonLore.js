@@ -68,6 +68,14 @@ function KinkyDungeonNewLore() {
 			exploredLore.push(KinkyDungeonCurrentLore);
 			newLore.push(KinkyDungeonCurrentLore);
 
+			KinkyDungeonCurrentLoreTab = -1;
+			for (let i = 0; i < KinkyDungeonCheckpointLore.length; i++) {
+				if (KinkyDungeonCheckpointLore[i].includes(KinkyDungeonCurrentLore)) {
+					KinkyDungeonCurrentLoreTab = i;
+					break;
+				}
+			}
+
 			//ServerAccountUpdate.QueueData({ KinkyDungeonExploredLore: Player.KinkyDungeonExploredLore });
 		}
 		result = true;
@@ -118,7 +126,14 @@ function KinkyDungeonDrawLore() {
 	// Draw the tabs
 	let tabs = KinkyDungeonCheckpointLore;
 	for (i = -1; i < tabs.length; i++) {
-		DrawButton(1800, 100 + i * 42, 190, 40, KinkyDungeonCurrentLoreTabs.includes(i) ? TextGet("KinkyDungeonCheckpointLore" + i) : TextGet("KinkyDungeonCheckpointLoreUnknown"), i == KinkyDungeonCurrentLoreTab ? "white" : "#888888");
+		let newLore = false;
+		for (let ll of KinkyDungeonNewLoreList) {
+			if ((i == -1 && KinkyDungeonLore.includes(ll)) || (i >= 0 && KinkyDungeonCheckpointLore[i].includes(ll))) {
+				newLore = true;
+				break;
+			}
+		}
+		DrawButton(1800, 100 + i * 42, 190, 40, KinkyDungeonCurrentLoreTabs.includes(i) ? TextGet("KinkyDungeonCheckpointLore" + i) : TextGet("KinkyDungeonCheckpointLoreUnknown"), i == KinkyDungeonCurrentLoreTab ? "white" : (newLore ? "#cdcdcd" :"#888888"));
 	}
 
 	let numNotes = tabs.length * 3 - 6;
