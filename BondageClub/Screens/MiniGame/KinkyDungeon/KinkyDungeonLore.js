@@ -108,6 +108,11 @@ function KinkyDungeonDrawLore() {
 		DrawTextFit(lore[N],
 			canvasOffsetX_ui + 640*KinkyDungeonLoreScale/8, canvasOffsetY_ui - 100 + 483*KinkyDungeonLoreScale/6 + i * 40, 0.75 * 640*KinkyDungeonLoreScale, "black", "silver"); i++;}
 
+	if (KinkyDungeonNewLoreList.includes(KinkyDungeonCurrentLore)) {
+		KinkyDungeonNewLoreList.splice(KinkyDungeonNewLoreList.indexOf(KinkyDungeonCurrentLore), 1);
+		localStorage.setItem("kinkydungeonnewlore", JSON.stringify(KinkyDungeonNewLoreList));
+	}
+
 	MainCanvas.textAlign = "center";
 
 	// Draw the tabs
@@ -124,7 +129,7 @@ function KinkyDungeonDrawLore() {
 		let xx = i % 3;
 		if (i + KinkyDungeonCurrentLoreItemOffset < KinkyDungeonCurrentLoreItems.length) {
 			let loreNum = KinkyDungeonCurrentLoreItems[i + KinkyDungeonCurrentLoreItemOffset];
-			DrawButton(1450 + 100 * xx, 142 + (ii) * 42, 90, 40, "#" + loreNum, loreNum == KinkyDungeonCurrentLore ? "white" : "#888888");
+			DrawButton(1450 + 100 * xx, 142 + (ii) * 42, 90, 40, "#" + loreNum, loreNum == KinkyDungeonCurrentLore ? "white" : (KinkyDungeonNewLoreList.includes(loreNum) ? "#cdcdcd": "#888888"));
 		} else {
 			KinkyDungeonCurrentLoreItemOffset = 0;
 			break;
