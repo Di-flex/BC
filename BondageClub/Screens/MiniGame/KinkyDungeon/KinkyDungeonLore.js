@@ -138,7 +138,7 @@ function KinkyDungeonDrawLore() {
 
 	let numNotes = tabs.length * 3 - 6;
 	DrawButton(1550, 80, 90, 40, "", KinkyDungeonCurrentLoreItemOffset > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
-	DrawButton(1550, 860, 90, 40, "", numNotes + KinkyDungeonCurrentLoreItemOffset + 3 < KinkyDungeonCurrentLoreItems.length ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
+	DrawButton(1550, 860, 90, 40, "", numNotes + KinkyDungeonCurrentLoreItemOffset < KinkyDungeonCurrentLoreItems.length ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
 	for (i = 0; i < numNotes; i++) {
 		let ii = Math.floor(i / 3);
 		let xx = i % 3;
@@ -146,7 +146,8 @@ function KinkyDungeonDrawLore() {
 			let loreNum = KinkyDungeonCurrentLoreItems[i + KinkyDungeonCurrentLoreItemOffset];
 			DrawButton(1450 + 100 * xx, 142 + (ii) * 42, 90, 40, "#" + loreNum, loreNum == KinkyDungeonCurrentLore ? "white" : (KinkyDungeonNewLoreList.includes(loreNum) ? "#cdcdcd": "#888888"));
 		} else {
-			KinkyDungeonCurrentLoreItemOffset = 0;
+			if (i + KinkyDungeonCurrentLoreItemOffset > KinkyDungeonCurrentLoreItems.length + 3)
+				KinkyDungeonCurrentLoreItemOffset = 0;
 			break;
 		}
 	}
@@ -174,7 +175,7 @@ function KinkyDungeonHandleLore() {
 
 	let numNotes = tabs.length * 3 - 6;
 	if (MouseIn(1550, 80, 90, 40) && KinkyDungeonCurrentLoreItemOffset > 0) KinkyDungeonCurrentLoreItemOffset -= 3;
-	if (MouseIn(1550, 860, 90, 40) && numNotes + KinkyDungeonCurrentLoreItemOffset + 3 < KinkyDungeonCurrentLoreItems.length) KinkyDungeonCurrentLoreItemOffset += 3;
+	if (MouseIn(1550, 860, 90, 40) && numNotes + KinkyDungeonCurrentLoreItemOffset < KinkyDungeonCurrentLoreItems.length) KinkyDungeonCurrentLoreItemOffset += 3;
 	for (let i = 0; i < numNotes; i++) {
 		let ii = Math.floor(i / 3);
 		let xx = i % 3;

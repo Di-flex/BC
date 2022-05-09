@@ -14,7 +14,7 @@ var KinkyDungeonCurrentFilter = KinkyDungeonFilters[0];
 var KinkyDungeonCurrentPageInventory = 0;
 
 let KinkyDungeonShowInventory = false;
-
+let KinkyDungeonInventoryOffset = 0;
 
 function KinkyDungeonHandleInventory() {
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
@@ -30,11 +30,34 @@ function KinkyDungeonHandleInventory() {
 
 	for (let I = 0; I < KinkyDungeonFilters.length; I++)
 		if (KinkyDungeonFilterInventory(KinkyDungeonFilters[I]).length > 0 || I == 1)
-			if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 115 + I*65, 225, 60)) {
+			if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale - 20, canvasOffsetY_ui + 115 + I*65, 225, 60)) {
 				KinkyDungeonCurrentFilter = KinkyDungeonFilters[I];
 				KinkyDungeonCurrentPageInventory = 0;
 				return true;
 			}
+
+	if (filteredInventory.length > 0) {
+		if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 400, canvasOffsetY_ui, 90, 40) && KinkyDungeonInventoryOffset > 0) {
+			KinkyDungeonInventoryOffset -= 2;
+			return true;
+		}
+		if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 400, 480*KinkyDungeonBookScale + canvasOffsetY_ui - 15, 90, 40) && KinkyDungeonInventoryOffset + 24 < filteredInventory.length) {
+			KinkyDungeonInventoryOffset += 2;
+			return true;
+		}
+
+		for (let i = 0; i < 24; i++) {
+			let xx = i % 2;
+			let yy = Math.floor(i / 2);
+			let index = i + KinkyDungeonInventoryOffset;
+			if (filteredInventory[index] && filteredInventory[index].item) {
+				if (MouseIn(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40)) {
+					KinkyDungeonCurrentPageInventory = i;
+					return true;
+				}
+			}
+		}
+	}
 
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
 		if (KinkyDungeonCurrentFilter == Consumable && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
@@ -330,10 +353,32 @@ function KinkyDungeonDrawInventory() {
 			col = "#888888";
 		else if (KinkyDungeonFilters.indexOf(KinkyDungeonCurrentFilter) == I) KinkyDungeonCurrentFilter = KinkyDungeonFilters[defaultIndex];
 
-		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 115 + I*65, 225, 60, TextGet("KinkyDungeonCategoryFilter" + KinkyDungeonFilters[I]), (KinkyDungeonCurrentFilter == KinkyDungeonFilters[I]) ? "White" : col, "", "");
+		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale - 20, canvasOffsetY_ui + 115 + I*65, 225, 60, TextGet("KinkyDungeonCategoryFilter" + KinkyDungeonFilters[I]), (KinkyDungeonCurrentFilter == KinkyDungeonFilters[I]) ? "White" : col, "", "");
 	}
 
 	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
+
+	if (filteredInventory.length > 0) {
+		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 400, canvasOffsetY_ui, 90, 40, "", KinkyDungeonInventoryOffset > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
+		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 400, 480*KinkyDungeonBookScale + canvasOffsetY_ui - 15, 90, 40, "", (KinkyDungeonInventoryOffset + 24 < filteredInventory.length) ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
+
+		for (let i = 0; i < 24; i++) {
+			let xx = i % 2;
+			let yy = Math.floor(i / 2);
+			let index = i + KinkyDungeonInventoryOffset;
+			if (filteredInventory[index] && filteredInventory[index].item) {
+				let text = "KinkyDungeonInventoryItem" + filteredInventory[index].name;
+				if (filteredInventory[index].item.type == Restraint || filteredInventory[index].item.type == LooseRestraint)
+					text = "Restraint" + filteredInventory[i].name;
+				DrawButton(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40, TextGet(text), i == KinkyDungeonCurrentPageInventory ? "white" : "#888888");
+			} else {
+				if (i + KinkyDungeonInventoryOffset > filteredInventory.length + 2)
+					KinkyDungeonInventoryOffset = 0;
+				break;
+			}
+		}
+	}
+
 	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
 		if (KinkyDungeonCurrentFilter == Consumable)
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
