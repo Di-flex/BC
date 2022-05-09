@@ -256,6 +256,8 @@ GameConfigKeys,Change Keybindings
 
 KinkyDungeonLoadConfirm,"Load from code"
 KinkyDungeonLoadBack,"Back to main menu"
+KinkyDungeonClearAll,"Clear Perks"
+KinkyDungeonConfig,"Config "
 
 KinkyDungeonKeyUp,Up
 KinkyDungeonKeyDown,Down

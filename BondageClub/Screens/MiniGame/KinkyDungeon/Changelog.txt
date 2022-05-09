@@ -828,6 +828,7 @@ Spell Balance:
 - Logs are now stored in browser localstorage instead of solely in BC
 - New interface for lore and inventory to make it easier to browse
 - Vibration rework!
+- Added multiple configs for starting perks
 
 TODO ValidationFindBlockCycles to prevent bugs
 
