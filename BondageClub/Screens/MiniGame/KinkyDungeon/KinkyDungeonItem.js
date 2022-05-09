@@ -86,7 +86,7 @@ function KinkyDungeonItemEvent(Item) {
 		color = "yellow";
 		KinkyDungeonAddGold(Item.amount);
 	} else if (Item.name == "Lore") {
-		KinkyDungeonNewLore();
+		return KinkyDungeonNewLore();
 	} else if (Item.name == "Pick") {
 		priority = 2;
 		color = "lightgreen";

@@ -824,6 +824,8 @@ Spell Balance:
 - There are now a lot more traps
 - Added indicator for jail/chase/parole modes
 - Reworked struggling. Struggle is now more effective at low progress, the others are more effective at high progress. Remove and Cut use the same bar as struggling
+- Added logbook for viewing logs
+- Logs are now stored in browser localstorage instead of solely in BC
 
 TODO ValidationFindBlockCycles to prevent bugs
 

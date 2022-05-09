@@ -86,6 +86,15 @@ function KinkyDungeonDrawInputs() {
 	if (sneak > 2.5) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerInvisible"), 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 	}
+	if (KinkyDungeonMovePoints < 0) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+	} else if (KinkyDungeonSlowLevel >= 4) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSlow4"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+	} else if (KinkyDungeonSlowLevel == 3) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSlow3"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+	} else if (KinkyDungeonSlowLevel == 2) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSlow2"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+	}
 	i = 0;
 
 	for (let dt of KinkyDungeonDamageTypes) {
@@ -272,13 +281,16 @@ function KinkyDungeonDrawInputs() {
 				DrawButton(KDModalArea_x + 25, KDModalArea_y + 25, 250, 60, TextGet("KinkyDungeonCloseDoor"), "White");
 			}
 		}
-	} else {
-		DrawButton(1120, 935, 165, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
 	}
+
 
 	DrawButton(650, 925, 165, 60, TextGet("KinkyDungeonInventory"), "White", "", "");
 	DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonReputation"), "White", "", "");
 	DrawButton(1540, 925, 200, 60, TextGet("KinkyDungeonMagic"), "White", "", "");
+
+	let logtxt = KinkyDungeonNewLoreList.length > 0 ? TextGet("KinkyDungeonLogbookN").replace("N", KinkyDungeonNewLoreList.length): TextGet("KinkyDungeonLogbook");
+	DrawButton(1030, 935, 165, 50, logtxt, "white");
+	DrawButton(1220, 935, 295, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
 
 	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
@@ -506,8 +518,11 @@ function KinkyDungeonHandleHUD() {
 			KinkyDungeonSetTargetLocation();
 
 		if (MouseIn(650, 925, 165, 60)) { KinkyDungeonDrawState = "Inventory"; return true;}
-		else
-		if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Reputation"; return true;}
+		else if (MouseIn(1030, 935, 165, 50)) {
+			KinkyDungeonDrawState = "Logbook";
+			KinkyDungeonUpdateLore(localStorage.getItem("kinkydungeonexploredlore") ? JSON.parse(localStorage.getItem("kinkydungeonexploredlore")) : []);
+			return true;}
+		else if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Reputation"; return true;}
 		else
 		if (MouseIn(1540, 925, 200, 60)) {
 			KinkyDungeonDrawState = "MagicSpells";
@@ -574,7 +589,7 @@ function KinkyDungeonHandleHUD() {
 				}
 			}
 		} else {
-			if (MouseIn(1120, 935, 165, 50)) {
+			if (MouseIn(1220, 935, 295, 50)) {
 				KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor;
 				return true;
 			}
@@ -695,6 +710,10 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(650, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		// Done, converted to input
 		else return KinkyDungeonHandleInventory();
+	} else if (KinkyDungeonDrawState == "Logbook") {
+		if (MouseIn(650, 925, 365, 60)) { KinkyDungeonDrawState = "Game"; return true;}
+		// Done, converted to input
+		else return KinkyDungeonHandleLore();
 	} else if (KinkyDungeonDrawState == "Reputation") {
 		if (MouseIn(840, 925, 165, 60)) { KinkyDungeonDrawState = "Game"; return true;}
 		// Done, converted to input

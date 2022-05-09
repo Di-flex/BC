@@ -329,8 +329,6 @@ function KinkyDungeonLoad() {
 	KinkyDungeonGameKey.load();
 
 	if (!KinkyDungeonIsPlayer()) KinkyDungeonGameRunning = false;
-
-	if (!Player.KinkyDungeonExploredLore) Player.KinkyDungeonExploredLore = [];
 	// @ts-ignore
 	if (ServerURL != 'foobar' && KinkyDungeonState == 'Consent') KinkyDungeonState = "Menu";
 	//if (!Player.KinkyDungeonSave) Player.KinkyDungeonSave = {};

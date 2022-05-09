@@ -682,7 +682,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let Pass = "Fail";
 	let restraintEscapeChancePre = KDRestraint(restraint).escapeChance[StruggleType] != undefined ? KDRestraint(restraint).escapeChance[StruggleType] : 1.0;
 	let helpChance = (KDRestraint(restraint).helpChance != undefined && KDRestraint(restraint).helpChance[StruggleType] != undefined) ? KDRestraint(restraint).helpChance[StruggleType] : 0.0;
-	let limitChance = (KDRestraint(restraint).limitChance != undefined && KDRestraint(restraint).limitChance[StruggleType] != undefined) ? KDRestraint(restraint).limitChance[StruggleType] : 0.05;
+	let limitChance = (KDRestraint(restraint).limitChance != undefined && KDRestraint(restraint).limitChance[StruggleType] != undefined) ? KDRestraint(restraint).limitChance[StruggleType] :
+		((StruggleType == "Unlock" || StruggleType == "Pick") ? 0 : 0.05);
 	if (KinkyDungeonHasGhostHelp() && helpChance) {
 		restraintEscapeChancePre = helpChance;
 	}

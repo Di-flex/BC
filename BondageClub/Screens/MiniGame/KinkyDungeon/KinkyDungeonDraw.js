@@ -574,6 +574,9 @@ function KinkyDungeonDrawGame() {
 	} else if (KinkyDungeonDrawState == "Inventory") {
 		DrawButton(650, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawInventory();
+	} else if (KinkyDungeonDrawState == "Logbook") {
+		DrawButton(650, 925, 365, 60, TextGet("KinkyDungeonGame"), "White", "", "");
+		KinkyDungeonDrawLore();
 	} else if (KinkyDungeonDrawState == "Reputation") {
 		DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawReputation();
