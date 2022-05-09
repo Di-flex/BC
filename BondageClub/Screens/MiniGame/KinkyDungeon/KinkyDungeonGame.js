@@ -1197,10 +1197,20 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 	// Removed due to the way the jail system was reworked
 	let alreadyOpened = 0;//(KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
 	if (KinkyDungeonNewGame < 1) treasurecount -= alreadyOpened;
+	let list = [];
 	while (chestlist.length > 0) {
 		let N = Math.floor(KDRandom()*chestlist.length);
+		let chest = chestlist[N];
+		if (chest.priority) {
+			list.unshift(chest);
+		} else list.push(chest);
+
+		chestlist.splice(N, 1);
+	}
+	while (list.length > 0) {
+		let N = 0;
 		if (count < treasurecount) {
-			let chest = chestlist[N];
+			let chest = list[N];
 			KinkyDungeonMapSet(chest.x, chest.y, 'C');
 
 			// Add a lock on the chest! For testing purposes ATM
@@ -1218,12 +1228,12 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 			count += 1;
 		} else {
 
-			let chest = chestlist[N];
+			let chest = list[N];
 			if (KDRandom() < rubblechance) KinkyDungeonMapSet(chest.x, chest.y, 'R');
 			else KinkyDungeonMapSet(chest.x, chest.y, 'r');
 			if (KDAlreadyOpened(chest.x, chest.y)) KinkyDungeonMapSet(chest.x, chest.y, 'r');
 		}
-		chestlist.splice(N, 1);
+		list.splice(N, 1);
 	}
 }
 
@@ -1337,11 +1347,21 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 	// Truncate down to max chest count in a location-neutral way
 	let count = 0;
 	let orbs = 0;
+	let list = [];
 	while (shrinelist.length > 0) {
 		let N = Math.floor(KDRandom()*shrinelist.length);
+		let chest = shrinelist[N];
+		if (chest.priority) {
+			list.unshift(chest);
+		} else list.push(chest);
+
+		shrinelist.splice(N, 1);
+	}
+	while (list.length > 0) {
+		let N = 0;
 		if (count <= shrinecount) {
 
-			let shrine = shrinelist[N];
+			let shrine = list[N];
 			if (count == shrinecount && KDRandom() > shrinechance)
 				KinkyDungeonMapSet(shrine.x, shrine.y, 'a');
 			else {
@@ -1380,7 +1400,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 			count += 1;
 		}
 
-		shrinelist.splice(N, 1);
+		list.splice(N, 1);
 	}
 }
 
@@ -1450,11 +1470,20 @@ function KinkyDungeonPlaceChargers(chargerlist, chargerchance, litchargerchance,
 
 	// Truncate down to max chest count in a location-neutral way
 	let count = 0;
+	let list = [];
 	while (chargerlist.length > 0) {
 		let N = Math.floor(KDRandom()*chargerlist.length);
+		let chest = chargerlist[N];
+		if (chest.priority) {
+			list.unshift(chest);
+		} else list.push(chest);
+		chargerlist.splice(N, 1);
+	}
+	while (list.length > 0) {
+		let N = 0;
 		if (count <= chargercount) {
 
-			let charger = chargerlist[N];
+			let charger = list[N];
 			let tile = KDRandom() > chargerchance ? '-' : (KDRandom() < litchargerchance ? '=' : '+');
 
 			if (tile != '-') {
@@ -1466,7 +1495,7 @@ function KinkyDungeonPlaceChargers(chargerlist, chargerchance, litchargerchance,
 			count += (tile == '-' ? 0.4 : 1.0);
 		}
 
-		chargerlist.splice(N, 1);
+		list.splice(N, 1);
 	}
 }
 
