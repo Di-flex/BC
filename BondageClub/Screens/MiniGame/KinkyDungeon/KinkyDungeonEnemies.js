@@ -547,7 +547,8 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 			} else if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
-				KinkyDungeonSendActionMessage(4, TextGet("Kill"+enemy.Enemy.name), "orange", 2);
+				if (KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 10)
+					KinkyDungeonSendActionMessage(4, TextGet("Kill"+enemy.Enemy.name), "orange", 2);
 				KinkyDungeonKilledEnemy = null;
 			}
 		}
