@@ -490,9 +490,9 @@ KinkyDungeonInventoryItemPotionStaminaUse,You drink the stamina potion and feel 
 KinkyDungeonInventoryItemPotionStaminaDesc,"A potion brimming with heat and energy."
 KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more over 12 turns. Effect does not stack."
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
-KinkyDungeonInventoryItemPotionFrigidUse,"You chug the frigid, bitter concoction and feel chilled to the bone."
+KinkyDungeonInventoryItemPotionFrigidUse,"You chug the concoction and your senses numb, helping you concentrate."
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
-KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces distraction to 0 instantly."
+KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces distraction to 0 instantly and grants 0.8 Distraction decay for 50 turns."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
 KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
 KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs. Can be used without hands."

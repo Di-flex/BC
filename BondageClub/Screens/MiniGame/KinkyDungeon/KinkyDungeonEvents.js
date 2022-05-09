@@ -57,7 +57,7 @@ const KDEventMapInventory = {
 		"PeriodicDenial": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
 				if (!KDGameData.CurrentVibration && KDGameData.TimeSinceLastVibeEnd > e.cooldown) {
-					KinkyDungeonStartVibration(item.name, "tease", e.power, e.time, undefined, 12, undefined, undefined, undefined, false, 0.1, 1.0);
+					KinkyDungeonStartVibration(item.name, "deny", e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				} else {
 					KinkyDungeonAddVibeModifier(item.name, "tease", 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);

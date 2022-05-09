@@ -111,21 +111,21 @@ function KinkyDungeonDrawInputs() {
 	if (!KDModalArea) {
 		i = 0;
 		if (KinkyDungeonPlugCount > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerPlugged"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerPlugged"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
 			if (KinkyDungeonPlugCount > 1) {
-				DrawTextFit(TextGet("KinkyDungeonPlayerPluggedExtreme"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+				DrawTextFit(TextGet("KinkyDungeonPlayerPluggedExtreme"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
 			}
 		}
 		if (KinkyDungeonVibeLevel > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerVibrated" + Math.max(0, Math.min(Math.floor(KinkyDungeonVibeLevel), 5))), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerVibrated" + Math.max(0, Math.min(Math.floor(KinkyDungeonVibeLevel), 5))), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
 		}
 		if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerEdged"), 1190, 900 - i * 30, 250, "red", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerEdged"), 1190, 900 - i * 35, 250, "red", "gray"); i++;
 		} else if (KDGameData.OrgasmStamina > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerStatisfied"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerStatisfied"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
 		}
 		if (KDGameData.CurrentVibration  && KDGameData.CurrentVibration.denyTimeLeft > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1190, 900 - i * 30, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
 		}
 	}
 
