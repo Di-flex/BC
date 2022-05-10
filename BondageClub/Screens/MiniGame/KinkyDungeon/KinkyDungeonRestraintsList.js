@@ -188,7 +188,7 @@ const KinkyDungeonRestraints = [
 		maxstamina: 0.9, enemyTags: {"dressRestraints" : 10}, playerTags: {"ItemNipplesFull": 2}, minLevel: 0, allFloors: true, shrine: ["Latex", "Harnesses"]},
 
 	{inventory: true, arousalMode: true, name: "NippleClamps", Asset: "HeartPasties", Color: "Default", Group: "ItemNipples", power: 3, weight: 0,
-		escapeChance: {"Struggle": -10, "Cut": -0.05, "Remove": 0.5}, failSuffix: {"Struggle": "Clamps"},
+		escapeChance: {"Struggle": -10, "Cut": -0.05, "Remove": 0.5, "Pick": 0.25}, failSuffix: {"Struggle": "Clamps"},
 		maxstamina: 1.0, enemyTags: {"dressRestraints" : 4, "genericToys": 2, "maidRestraints": 1, "maidRestraintsLight": 1}, playerTags: {"NoVibes": -1000}, minLevel: 0, allFloors: true, shrine: ["Vibes"], linkedVibeTags: ["teaser", "piercings"],
 		allowRemote: true, events: [
 			{trigger:"playerCast",  type: "MagicallySensitive", chance: 0.5, power: 1, time: 30, edgeOnly: true},
