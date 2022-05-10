@@ -111,21 +111,35 @@ function KinkyDungeonDrawInputs() {
 	if (!KDModalArea) {
 		i = 0;
 		if (KinkyDungeonPlugCount > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerPlugged"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerPlugged"), 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 			if (KinkyDungeonPlugCount > 1) {
-				DrawTextFit(TextGet("KinkyDungeonPlayerPluggedExtreme"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
+				DrawTextFit(TextGet("KinkyDungeonPlayerPluggedExtreme"), 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 			}
 		}
 		if (KinkyDungeonVibeLevel > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerVibrated" + Math.max(0, Math.min(Math.floor(KinkyDungeonVibeLevel), 5))), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
+			let locations = KDSumVibeLocations();
+			let suff = "";
+			if (locations.length == 1 && locations[0] == "ItemVulva") {
+				suff = "";
+			} else {
+				let sum = "";
+				if (locations.length > 3)
+					sum = TextGet("KinkyDungeonPlayerVibratedLocationMultiple");
+				else for (let l of locations) {
+					if (sum) sum = sum + ", ";
+					sum = sum + TextGet("KinkyDungeonPlayerVibratedLocation" + l);
+				}
+				suff = ` (${sum})`;
+			}
+			DrawTextFit(TextGet("KinkyDungeonPlayerVibrated" + Math.max(0, Math.min(Math.floor(KinkyDungeonVibeLevel), 5))) + suff, 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 		}
 		if (KDGameData.OrgasmTurns > KinkyDungeonOrgasmTurnsCrave) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerEdged"), 1190, 900 - i * 35, 250, "red", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerEdged"), 1090, 900 - i * 35, 350, "red", "gray"); i++;
 		} else if (KDGameData.OrgasmStamina > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerStatisfied"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerStatisfied"), 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 		}
 		if (KDGameData.CurrentVibration  && KDGameData.CurrentVibration.denyTimeLeft > 0) {
-			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1190, 900 - i * 35, 250, "#ff8888", "gray"); i++;
+			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 		}
 	}
 

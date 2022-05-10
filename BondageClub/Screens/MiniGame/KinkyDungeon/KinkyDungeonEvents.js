@@ -49,7 +49,7 @@ const KDEventMapInventory = {
 		"PeriodicTeasing": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
 				if (!KDGameData.CurrentVibration && KDGameData.TimeSinceLastVibeEnd > e.cooldown) {
-					KinkyDungeonStartVibration(item.name, "tease", e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
+					KinkyDungeonStartVibration(item.name, "tease", KDGetVibeLocation(item), e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			}
@@ -57,10 +57,10 @@ const KDEventMapInventory = {
 		"PeriodicDenial": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
 				if (!KDGameData.CurrentVibration && KDGameData.TimeSinceLastVibeEnd > e.cooldown) {
-					KinkyDungeonStartVibration(item.name, "deny", e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
+					KinkyDungeonStartVibration(item.name, "deny", KDGetVibeLocation(item), e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				} else {
-					KinkyDungeonAddVibeModifier(item.name, "tease", 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);
+					KinkyDungeonAddVibeModifier(item.name, "tease", KDRestraint(item).Group, 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);
 				}
 			}
 		},
@@ -472,7 +472,7 @@ const KDEventMapInventory = {
 	"remoteVibe": {
 		"RemoveActivatedVibe": (e, item, data) => {
 			if (!KDGameData.CurrentVibration) {
-				KinkyDungeonStartVibration(item.name, "tease", e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
+				KinkyDungeonStartVibration(item.name, "tease", KDGetVibeLocation(item), e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonStartVibeRemote").replace("EnemyName", TextGet("Name" + data.enemy)), "pink", 2);
 				if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 			}
@@ -482,9 +482,9 @@ const KDEventMapInventory = {
 		"MagicallySensitive": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
 				if (!KDGameData.CurrentVibration) {
-					KinkyDungeonStartVibration(item.name, "tease", e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
+					KinkyDungeonStartVibration(item.name, "tease", KDGetVibeLocation(item), e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
 				} else {
-					KinkyDungeonAddVibeModifier(item.name, "reinforce", 1, e.time);
+					KinkyDungeonAddVibeModifier(item.name, "reinforce", KDRestraint(item).Group, 1, e.time);
 				}
 				if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 			}

@@ -1,5 +1,39 @@
 "use strict";
 
+function KDSumVibeLocations() {
+	if (KDGameData.CurrentVibration) {
+		let groups = [];
+		for (let g of KDGameData.CurrentVibration.location) {
+			groups.push(g);
+		}
+		for (let mod of KDGameData.CurrentVibration.VibeModifiers) {
+			if (!groups.includes(mod.location))
+				groups.push(mod.location);
+		}
+		return groups;
+	}
+	return [];
+}
+
+/** Gets a list of the groups that should be vibrating here. It is the item's group, plus any 'linked' vibrators */
+function KDGetVibeLocation(item) {
+	let restraint = KDRestraint(item);
+	let groups = [restraint.vibeLocation ? restraint.vibeLocation : restraint.Group];
+	if (restraint.linkedVibeTags) {
+		for (let tag of restraint.linkedVibeTags) {
+			for (let inv of KinkyDungeonAllRestraint()) {
+				let res = KDRestraint(inv);
+				if (res.linkedVibeTags && res.linkedVibeTags.includes(tag) && !groups.includes(res.vibeLocation ? res.vibeLocation : res.Group)) {
+					groups.push(res.vibeLocation ? res.vibeLocation : res.Group);
+				}
+			}
+		}
+	}
+
+	return groups;
+}
+
+
 /**
  * Starts a vibration, overriding
  * @param {string} source
@@ -17,13 +51,14 @@
  * @param {boolean} [tickEdgeAtMaxArousal ]
  * @param {VibeMod[]} [vibeMods ]
  */
-function KinkyDungeonStartVibration(source, name, intensity, duration, numLoops, denyTime, denialsLeft, edgeTime, edgeOnly, alwaysDeny, denialChance, denialChanceLikely, tickEdgeAtMaxArousal, vibeMods) {
+function KinkyDungeonStartVibration(source, name, locations, intensity, duration, numLoops, denyTime, denialsLeft, edgeTime, edgeOnly, alwaysDeny, denialChance, denialChanceLikely, tickEdgeAtMaxArousal, vibeMods) {
 	if (KDGameData.CurrentVibration) {
 		if (!KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonStartVibeContinue"), "#FFaadd", 2)) KinkyDungeonSendActionMessage(2, TextGet("KinkyDungeonStartVibeContinue"), "#FFaadd", 2);
 	}
 	KDGameData.CurrentVibration = {
 		source: source,
 		name: name,
+		location: locations,
 		intensity: intensity,
 		duration: duration,
 		durationLeft: duration,
@@ -44,7 +79,7 @@ function KinkyDungeonStartVibration(source, name, intensity, duration, numLoops,
 	KDGameData.TimeSinceLastVibeStart = 0;
 }
 
-function KinkyDungeonAddVibeModifier(source, name, intensityMod, duration, intensitySetpoint, edgeOnly, forceDeny, bypassDeny, bypassEdge, extendDuration, denyChanceMod, denyChanceLikelyMod) {
+function KinkyDungeonAddVibeModifier(source, name, location, intensityMod, duration, intensitySetpoint, edgeOnly, forceDeny, bypassDeny, bypassEdge, extendDuration, denyChanceMod, denyChanceLikelyMod) {
 	if (KDGameData.CurrentVibration) {
 		for (let mod of KDGameData.CurrentVibration.VibeModifiers) {
 			if (mod.name == name && mod.source == source) {
@@ -55,6 +90,7 @@ function KinkyDungeonAddVibeModifier(source, name, intensityMod, duration, inten
 		KDGameData.CurrentVibration.VibeModifiers.push({
 			source: source,
 			name: name,
+			location: location,
 			intensityMod: intensityMod,
 			duration: duration,
 			durationLeft: duration,

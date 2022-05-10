@@ -156,6 +156,9 @@ type restraint = {
 		Pick?: number
 		Unlock?: number
 	},
+	/** The vibrator will start vibing whenever another linked vibe starts */
+	linkedVibeTags?: string[],
+	vibeLocation?: string,
 	/** The item is a chastity belt */
 	chastity?: boolean,
 	/** The item is a chastity bra */
@@ -975,6 +978,8 @@ interface KinkyVibration {
 	/** Identification */
 	name: string,
 	intensity: number,
+	/** Location(s) of the vibration */
+	location: string[],
 
 	// Total duration
 	duration: number,
@@ -1017,6 +1022,8 @@ interface VibeMod {
 	source: string,
 	/** Identifier of the modifier */
 	name: string,
+	/** Location of the modifier */
+	location: string,
 	/** Duration of the vibe modifier */
 	duration: number,
 	durationLeft: number,
