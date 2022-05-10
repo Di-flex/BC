@@ -31,6 +31,7 @@ let KDDialogueTriggers = {
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
@@ -51,6 +52,7 @@ let KDDialogueTriggers = {
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
@@ -72,6 +74,7 @@ let KDDialogueTriggers = {
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
@@ -91,6 +94,7 @@ let KDDialogueTriggers = {
 		excludeTags: ["zombie", "skeleton", "robot"],
 		nonHostile: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5
@@ -110,6 +114,7 @@ let KDDialogueTriggers = {
 		requireTags: ["wolfgirl", "trainer"],
 		nonHostile: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5

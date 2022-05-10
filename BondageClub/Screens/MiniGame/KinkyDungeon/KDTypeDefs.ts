@@ -742,6 +742,7 @@ interface KinkyDialogueTrigger {
 	/** Only allows the following personalities to do it */
 	allowedPersonalities?: string[];
 	blockDuringPlaytime?: boolean;
+	noAlly?: boolean,
 	/** Exclude if enemy has one of these tags */
 	excludeTags?: string[];
 	/** Require all of these tags */

@@ -4,7 +4,7 @@
 /**
  * @type {{name: string, tags: string[], singletag: string[], chance: number}[]}
  */
- let KDShops = [];
+let KDShops = [];
 
 /** @type {Record<string, KinkyDialogue>} */
 let KDDialogue = {
@@ -707,7 +707,17 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 				return KinkyDungeonInventoryGet(item) != undefined;
 			},
 			clickFunction: (gagged) => {
-				KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet(item));
+				let itemInv = KinkyDungeonInventoryGet(item);
+				if (itemInv.type == Consumable)
+					KinkyDungeonChangeConsumable(KDConsumable(itemInv), -1);
+				else KinkyDungeonInventoryRemove(itemInv);
+				let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+					let faction = KDGetFaction(enemy);
+					if (!KinkyDungeonHiddenFactions.includes(faction)) {
+						KinkyDungeonChangeFactionRep(faction, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001);
+					}
+				}
 				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
 
 			},

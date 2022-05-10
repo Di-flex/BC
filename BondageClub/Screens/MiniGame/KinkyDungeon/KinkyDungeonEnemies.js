@@ -1197,7 +1197,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 
 	if (enemy.Enemy.projectileAttack && (!canShootPlayer || !KinkyDungeonCheckProjectileClearance(enemy.x, enemy.y, player.x, player.y))) followRange = 1;
 
-	if (!KinkyDungeonAggressive(enemy) && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && canSeePlayer && player.player
+	if (!KinkyDungeonAggressive(enemy) && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && canSeePlayer && player.player && !KDAllied(enemy)
 		&& (!KinkyDungeonJailGuard() || (KinkyDungeonJailGuard().CurrentAction !== "jailLeashTour" && (!KinkyDungeonPlayerInCell() || KinkyDungeonLastTurnAction == "Struggle" || KinkyDungeonLastAction == "Struggle")))) {
 		if (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail")) {
 			if (KinkyDungeonPlayer.CanInteract() && !KDEnemyHasFlag(enemy, "Shop")) KinkyDungeonAggroAction('unrestrained', {enemy: enemy});
@@ -1247,6 +1247,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			let trigger = e[1];
 			let weight = 0;
 			if ((!trigger.blockDuringPlaytime || enemy.playWithPlayer < 1 || !enemy.playWithPlayer)
+				&& (!trigger.noAlly || !KDAllied(enemy))
 				&& (!trigger.playRequired || playAllowed)
 				&& (!trigger.noCombat || !KinkyDungeonFlags.get("NPCCombat"))
 				&& (!trigger.nonHostile || !KinkyDungeonAggressive(enemy))
@@ -1323,7 +1324,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 
 	let kite = false;
 	let kiteChance = enemy.Enemy.kiteChance ? enemy.Enemy.kiteChance : 0.75;
-	if (canSeePlayer && KinkyDungeonAggressive(enemy) && enemy.Enemy && enemy.Enemy.kite && !enemy.usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (KDHostile(enemy) || !player.player)) {
+	if (canSeePlayer && (!player.player || KinkyDungeonAggressive(enemy)) && enemy.Enemy && enemy.Enemy.kite && !enemy.usingSpecial && (!player.player || KinkyDungeonHasStamina(1.1)) && (enemy.attackPoints <= 0 || enemy.Enemy.attackWhileMoving) && playerDist <= enemy.Enemy.kite && (KDHostile(enemy) || !player.player)) {
 		if (!enemy.Enemy.kiteOnlyWhenDisabled || !(KinkyDungeonStatBlind < 0 || KinkyDungeonStatBind > 0 || KinkyDungeonStatFreeze > 0 || KinkyDungeonSlowMoveTurns > 0 || KDGameData.SleepTurns > 0))
 			if (!enemy.Enemy.noKiteWhenHarmless || !harmless)
 				if (kiteChance >= 1 || KDRandom() < kiteChance)
@@ -2041,7 +2042,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	} else if (AI == "ambush" && ignore) enemy.ambushtrigger = false;
 
 
-	if ((KinkyDungeonAggressive(enemy) || (KDGameData.PrisonerState == 'parole' && enemy.Enemy.spellWhileParole)) && (!enemy.silence || enemy.silence < 1)
+	// Spell loop
+	if (((!player.player || (KinkyDungeonAggressive(enemy) || (KDGameData.PrisonerState == 'parole' && enemy.Enemy.spellWhileParole)))) && (!enemy.silence || enemy.silence < 1)
 		&& (!enemy.Enemy.noSpellDuringAttack || enemy.attackPoints < 1)
 		&& (!enemy.Enemy.noSpellsWhenHarmless || !harmless)
 		&& (!enemy.Enemy.noSpellsLowSP || KinkyDungeonHasStamina(1.1))
