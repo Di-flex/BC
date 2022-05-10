@@ -123,23 +123,31 @@ let KDDialogueTriggers = {
 			return 10;
 		},
 	},
-	"PotionSell": {
-		dialogue: "PotionSell",
+	"PotionSell": KDShopTrigger("PotionSell"),
+	"ElfCrystalSell": KDShopTrigger("ElfCrystalSell"),
+	"NinjaSell": KDShopTrigger("NinjaSell"),
+	"ScrollSell": KDShopTrigger("ScrollSell"),
+	"WolfgirlSell": KDShopTrigger("WolfgirlSell"),
+
+};
+
+function KDShopTrigger(name) {
+	return {
+		dialogue: name,
 		allowedPrisonStates: ["parole", ""],
 		nonHostile: true,
 		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 1.5
-				&& KDEnemyHasFlag(enemy, "PotionSell")
+			return (dist < 2.5
+				&& KDEnemyHasFlag(enemy, name)
 				&& !KDEnemyHasFlag(enemy, "NoShop"));
 		},
 		weight: (enemy, dist) => {
 			return 100;
 		},
-	},
-
-};
+	};
+}
 
 function KinkyDungeonGetShopForEnemy(enemy) {
 	let shoplist = [];

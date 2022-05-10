@@ -766,7 +766,7 @@ function KinkyDungeonTickFlagsEnemy(enemy, delta) {
 	if (enemy.flags) {
 		for (let f of Object.entries(enemy.flags)) {
 			if (f[1] == -1) continue;
-			if (f[1] > 0) f[1] = f[1] - delta;
+			if (f[1] > 0) enemy.flags[f[0]] = f[1] - delta;
 			if (f[1] <= 0) enemy.flags[f[0]] = undefined;
 		}
 	}
@@ -1246,7 +1246,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		for (let e of Object.entries(KDDialogueTriggers)) {
 			let trigger = e[1];
 			let weight = 0;
-			if ((!trigger.blockDuringPlaytime || enemy.playWithPlayer < 1)
+			if ((!trigger.blockDuringPlaytime || enemy.playWithPlayer < 1 || !enemy.playWithPlayer)
 				&& (!trigger.playRequired || playAllowed)
 				&& (!trigger.noCombat || !KinkyDungeonFlags.get("NPCCombat"))
 				&& (!trigger.nonHostile || !KinkyDungeonAggressive(enemy))
