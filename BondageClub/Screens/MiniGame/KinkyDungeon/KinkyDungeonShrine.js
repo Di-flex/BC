@@ -90,12 +90,12 @@ function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonShopItems.sort(function(a, b){return a.rarity-b.rarity;});
 }
 
-function KinkyDungeonItemCost(item) {
+function KinkyDungeonItemCost(item, noScale) {
 	if (item.cost != null) return item.cost;
 	if (item.rarity != null) {
 		let rarity = item.rarity;
 		if (item.costMod) rarity += item.costMod;
-		let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5)*(30 + 2 * rarity * rarity * 10)/5);
+		let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5 * (noScale ? 0 : 1))*(30 + 2 * rarity * rarity * 10)/5);
 		if (costt > 100) costt = 50 * Math.round(costt / 50);
 		if (KinkyDungeonStatsChoice.has("PriceGouging")) {
 			costt *= 5;

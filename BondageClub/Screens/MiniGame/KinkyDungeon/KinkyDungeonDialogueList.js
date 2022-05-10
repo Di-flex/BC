@@ -680,11 +680,11 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("Restraint" + item);
 					let power = KinkyDungeonGetRestraintByName(item).power;
 					if (!power || power < 1) power = 1;
-					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5)*(10 + 2 * Math.pow(power, 1.5))/5);
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = 5 * Math.round((10 + 2 * Math.pow(power, 1.5))/5);
 					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
 				} else {
 					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("KinkyDungeonInventoryItem" + item);
-					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = KinkyDungeonItemCost(KinkyDungeonFindConsumable(item) ? KinkyDungeonFindConsumable(item) : KinkyDungeonFindWeapon(item));
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = Math.round(KinkyDungeonItemCost(KinkyDungeonFindConsumable(item) ? KinkyDungeonFindConsumable(item) : KinkyDungeonFindWeapon(item), true) * 0.75);
 					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
 				}
 			}
