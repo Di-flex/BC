@@ -159,6 +159,7 @@ type restraint = {
 	/** The vibrator will start vibing whenever another linked vibe starts */
 	linkedVibeTags?: string[],
 	vibeLocation?: string,
+	showInQuickInv?: boolean,
 	/** The item is a chastity belt */
 	chastity?: boolean,
 	/** The item is a chastity bra */
