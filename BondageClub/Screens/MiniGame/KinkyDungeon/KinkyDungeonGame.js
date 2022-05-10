@@ -675,7 +675,13 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, Floor, width, heigh
 			}
 			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
-				KinkyDungeonEntities.push({Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, AI: AI});
+				let e = {Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, AI: AI};
+				KinkyDungeonEntities.push(e);
+				let shop = KinkyDungeonGetShopForEnemy(e);
+				if (shop) {
+					KinkyDungeonSetEnemyFlag(e, "Shop", -1);
+					KinkyDungeonSetEnemyFlag(e, shop, -1);
+				}
 				if (!spawnPoint && !currentCluster && Enemy.clusterWith) {
 					let clusterChance = 1.0; //1.1 + 0.9 * MiniGameKinkyDungeonLevel/KinkyDungeonMaxLevel;
 					if (Enemy.tags.has("boss")) clusterChance *= 0.4;

@@ -36,6 +36,7 @@ let KDDialogueTriggers = {
 			return (dist < 1.5
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -56,6 +57,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonStatsChoice.has("arousalMode")
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
 				&& KDRandom() < 0.25
 				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -75,6 +77,7 @@ let KDDialogueTriggers = {
 			return (dist < 1.5
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -93,6 +96,7 @@ let KDDialogueTriggers = {
 			return (dist < 1.5
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
 				&& KDRandom() < 0.5
 				&& KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
@@ -111,6 +115,7 @@ let KDDialogueTriggers = {
 			return (dist < 1.5
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("WolfgirlOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
 				&& KinkyDungeonCurrentDress != "Wolfgirl"
 				&& KDRandom() < 0.5);
 		},
@@ -118,5 +123,48 @@ let KDDialogueTriggers = {
 			return 10;
 		},
 	},
+	"PotionSell": {
+		dialogue: "PotionSell",
+		allowedPrisonStates: ["parole", ""],
+		nonHostile: true,
+		noCombat: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5
+				&& KDEnemyHasFlag(enemy, "PotionSell")
+				&& !KDEnemyHasFlag(enemy, "NoShop"));
+		},
+		weight: (enemy, dist) => {
+			return 100;
+		},
+	},
 
 };
+
+function KinkyDungeonGetShopForEnemy(enemy) {
+	let shoplist = [];
+	for (let s of KDShops) {
+		let end = false;
+		if (s.tags) {
+			for (let t of s.tags) {
+				if (!enemy.Enemy.tags.has(t)) {
+					end = true;
+					break;
+				}
+			}
+		}
+		let hasTag = !s.singletag;
+		if (!end && s.singletag) {
+			for (let t of s.singletag) {
+				if (enemy.Enemy.tags.has(t)) {
+					hasTag = true;
+					break;
+				}
+			}
+		}
+		if (!hasTag) end = true;
+		if (!end && (!s.chance || KDRandom() < s.chance)) shoplist.push(s.name);
+	}
+	if (shoplist.length > 0) return shoplist[Math.floor(KDRandom() * shoplist.length)];
+	return "";
+}

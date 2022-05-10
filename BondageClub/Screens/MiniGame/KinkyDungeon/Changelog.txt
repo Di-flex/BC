@@ -829,6 +829,7 @@ Spell Balance:
 - New interface for lore and inventory to make it easier to browse
 - Vibration rework!
 - Added multiple configs for starting perks
+- NPCs will now approach you looking to buy items
 
 TODO ValidationFindBlockCycles to prevent bugs
 

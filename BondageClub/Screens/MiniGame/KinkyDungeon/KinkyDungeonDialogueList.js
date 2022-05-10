@@ -1,5 +1,11 @@
 "use strict";
 
+
+/**
+ * @type {{name: string, tags: string[], singletag: string[], chance: number}[]}
+ */
+ let KDShops = [];
+
 /** @type {Record<string, KinkyDialogue>} */
 let KDDialogue = {
 	"WeaponFound": {
@@ -614,6 +620,11 @@ let KDDialogue = {
 			},
 		}
 	},
+	"PotionSell": KDShopDialogue("PotionSell", ["PotionMana", "PotionStamina", "PotionFrigid", "PotionInvisibility"], [], ["witch", "apprentice", "alchemist"], 0.25),
+	"ElfCrystalSell": KDShopDialogue("ElfCrystalSell", ["PotionMana", "ElfCrystal", "EarthRune", "WaterRune", "IceRune"], [], ["elf"], 0.4),
+	"ScrollSell": KDShopDialogue("ScrollSell", ["ScrollArms", "ScrollVerbal", "ScrollLegs", "ScrollPurity"], [], ["witch", "apprentice", "elf", "wizard"], 0.2),
+	"WolfgirlSell": KDShopDialogue("WolfgirlSell", ["MistressKey", "AncientPowerSource", "AncientPowerSourceSpent", "EnchantedGrinder"], [], ["trainer"], 0.35),
+	"NinjaSell": KDShopDialogue("NinjaSell", ["SmokeBomb", "Bola", "Bomb", "PotionInvisibility"], [], ["ninja", "bountyhunter"], 0.6),
 	// TODO magic book dialogue in which you can read forward and there are traps
 };
 
@@ -648,6 +659,63 @@ function KDAllySpeaker(Turns) {
 			enemy.allied = Turns;
 		}
 	}
+}
+
+
+let KDMaxSellItems = 6;
+function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
+	/**
+	 * @type {KinkyDialogue}
+	 */
+	let shop = {
+		response: "Default",
+		clickFunction: (gagged) => {
+			/*let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "Shop", 0);
+			}*/
+			for (let i = 0; i < items.length; i++) {
+				let item = items[i];
+				if (KinkyDungeonGetRestraintByName(item)) {
+					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("Restraint" + item);
+					let power = KinkyDungeonGetRestraintByName(item).power;
+					if (!power || power < 1) power = 1;
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5)*(10 + 2 * Math.pow(power, 1.5))/5);
+					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
+				} else {
+					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("KinkyDungeonInventoryItem" + item);
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = KinkyDungeonItemCost(KinkyDungeonFindConsumable(item) ? KinkyDungeonFindConsumable(item) : KinkyDungeonFindWeapon(item));
+					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
+				}
+			}
+		},
+		options: {},
+	};
+	shop.options.Leave = {playertext: "Leave", exitDialogue: true,
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 14);
+				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
+			}
+		},
+	};
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		shop.options["Item" + i] = {playertext: "ItemShop" + i, response: name + item,
+			prerequisiteFunction: (gagged) => {
+				return KinkyDungeonInventoryGet(item) != undefined;
+			},
+			clickFunction: (gagged) => {
+				KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet(item));
+				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
+
+			},
+			leadsToStage: "", dontTouchText: true,
+		};
+	}
+	KDShops.push({name: name, tags: requireTags, singletag: requireSingleTag, chance: chance});
+	return shop;
 }
 
 /*

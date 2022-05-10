@@ -669,6 +669,7 @@ interface entity {
 	Enemy: enemy,
 	personality?: string,
 	patrolIndex?: number,
+	flags?: Record<string, number>,
 	aggro?: number,
 	id?: number,
 	hp: number,
@@ -745,6 +746,8 @@ interface KinkyDialogueTrigger {
 	excludeTags?: string[];
 	/** Require all of these tags */
 	requireTags?: string[];
+	/** Require one of these tags */
+	requireTagsSingle?: string[];
 	playRequired?: boolean;
 	/** If any NPC is in combat in last 3 turns this wont happen */
 	noCombat?: boolean;
