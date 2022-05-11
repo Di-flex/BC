@@ -620,6 +620,48 @@ let KDDialogue = {
 			},
 		}
 	},
+	"AngelHelp": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonSetFlag("AngelHelp", 55);
+		},
+		options: {
+			"Knife": {
+				playertext: "Default", response: "AngelHelpKnife",
+				prerequisiteFunction: (gagged) => {
+					return !KinkyDungeonFlags.get("AngelHelped");
+				},
+				clickFunction: (gagged) => {
+					KinkyDungeonNormalBlades += 2;
+					KinkyDungeonSetFlag("AngelHelped", 5);
+				},
+				leadsToStage: "", dontTouchText: true,
+			},
+			"Pick": {
+				playertext: "Default", response: "AngelHelpPick",
+				prerequisiteFunction: (gagged) => {
+					return !KinkyDungeonFlags.get("AngelHelped");
+				},
+				clickFunction: (gagged) => {
+					KinkyDungeonLockpicks += 3;
+					KinkyDungeonSetFlag("AngelHelped", 5);
+				},
+				leadsToStage: "", dontTouchText: true,
+			},
+			"BlueKey": {
+				playertext: "Default", response: "AngelHelpBlueKey",
+				prerequisiteFunction: (gagged) => {
+					return !KinkyDungeonFlags.get("AngelHelped");
+				},
+				clickFunction: (gagged) => {
+					KinkyDungeonBlueKeys += 1;
+					KinkyDungeonSetFlag("AngelHelped", 5);
+				},
+				leadsToStage: "", dontTouchText: true,
+			},
+			"Leave": {playertext: "Leave", exitDialogue: true},
+		}
+	},
 	"PotionSell": KDShopDialogue("PotionSell", ["PotionMana", "PotionStamina", "PotionFrigid", "PotionInvisibility"], [], ["witch", "apprentice", "alchemist"], 0.4),
 	"ElfCrystalSell": KDShopDialogue("ElfCrystalSell", ["PotionMana", "ElfCrystal", "EarthRune", "WaterRune", "IceRune"], [], ["elf"], 0.6),
 	"ScrollSell": KDShopDialogue("ScrollSell", ["ScrollArms", "ScrollVerbal", "ScrollLegs", "ScrollPurity"], [], ["witch", "apprentice", "elf", "wizard"], 0.33),

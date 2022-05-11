@@ -1371,7 +1371,7 @@ KinkyDungeonGuardDisappear,The guard leaves and locks the cell behind her.
 
 
 KinkyDungeonLeashed,"You are grabbed and led to a prison..."
-KinkyDungeonLeashed2,"You may plead to a goddess for rescue in the Reputation screen."
+KinkyDungeonLeashed2,"Perhaps they may release you if you behave..."
 
 
 NameNecromancer,Necromancer
@@ -3395,8 +3395,12 @@ KinkyDungeonCurseUnlockMistressKey,"The item loosens and falls off, but you see 
 KinkyDungeonCurseInfoMistressKeyHave,"You have in your possession KeyAmount magical, ornate key(s). You might as well try..."
 KinkyDungeonCurseDescriptionMistressKey,"You have KeyAmount key(s) for this item."
 
+KinkyDungeonDrawAngelHelpful,"The angel helps you struggle and use items"
 KinkyDungeonDrawGhostHelpful,"The ghost helps you struggle and use items"
 KinkyDungeonDrawGhostUnhelpful,"The ghost is unhelpful"
+
+KinkyDungeonAngelGreet,"Angel: Greetings!"
+KinkyDungeonAngelHelpful,"Angel: Perhaps I can assist with those!"
 
 KinkyDungeonGhostGreet0,"Adventurer's Ghost: Well met, traveler!"
 KinkyDungeonGhostGreet1,"Adventurer's Ghost: Hello again, traveler (giggles)."
@@ -3538,11 +3542,11 @@ KinkyDungeonAidDescIllusion"For 3 rep the goddess "
 KinkyDungeonAidManaDesc,"The goddess will grant you MANALEVEL mana in exchange for AMOUNT rep"
 KinkyDungeonAidBondageDesc,"The goddess will enjoy seeing you struggle in her bonds (raises submissiveness)"
 
-KinkyDungeonRescueDesc,"The Goddess may decide to help you out of prison, in exchange for 10 rep"
+KinkyDungeonRescueDesc,"The Goddess may decide to send an angel to help you struggle, in exchange for 10 rep"
 
 KinkyDungeonPenanceDesc,"The Goddess will expect you to pay AMOUNT gold for +5 rep"
 
-KinkyDungeonRescueMe,"You hear ghastly noises and the muffled screams of kidnappings."
+KinkyDungeonRescueMe,"The Goddess hears your plea!"
 KinkyDungeonNoRescue,"The Goddess hears your plea but has decided not to care."
 KinkyDungeonAidManaMe,"The Goddess fills your mind with heavenly images as she channels energy through your veins."
 
@@ -4352,3 +4356,14 @@ dItemShop6,(Sell Item6 for ItemCost6 gp)
 dItemShop7,(Sell Item7 for ItemCost7 gp)
 dItemShop8,(Sell Item8 for ItemCost8 gp)
 dItemShop9,(Sell Item9 for ItemCost9 gp)
+
+rAngelHelp,"(The SPEAKER appears in a flash of light)|I come in the name of the Goddess.|I presume you need my aid?|(She will remain and help you with restraints for 50 turns)"
+rAngelHelpKnife,"(The SPEAKER gives you two knives)|Don't hurt yourself with these, okay?"
+rAngelHelpPick,"(The SPEAKER gives you three picks)|I don't know how you plan to use these..."
+rAngelHelpBlueKey,"(The SPEAKER reluctantly gives you a magic key)|Okay, these don't grow on trees..."
+
+dAngelHelp_Knife,(Ask for 2 knives)
+dAngelHelp_Pick,(Ask for 3 lockpicks)
+dAngelHelp_BlueKey,(Ask for a magic key)
+
+KinkyDungeonAngelNoSpace,There is no valid space next to you!

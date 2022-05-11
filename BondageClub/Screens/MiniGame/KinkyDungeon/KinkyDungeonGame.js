@@ -52,7 +52,7 @@ let KinkyDungeonMapBrightness = 5;
 let KinkyDungeonGroundTiles = "023w][L";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTg"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
-let KinkyDungeonMovableTiles = "OCAGY+=-" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests, orbs, shrines, chargers
+let KinkyDungeonMovableTiles = "OCAG$Y+=-" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests, orbs, shrines, chargers
 let KinkyDungeonTransparentObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", "").replace("Y", "") + "OoAaCcBb+=-"; // Light does not pass thru doors or grates or shelves
 let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D", "").replace("g", ""); // Light does not pass thru doors or grates
 
@@ -2590,7 +2590,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KDPlayerHitBy = [];
 
 	//if (KinkyDungeonMovePoints < 0 && KinkyDungeonStatBind < 1) KinkyDungeonMovePoints = 0;
-	KinkyDungeonUpdatePenance(delta);
+	KinkyDungeonUpdateAngel(delta);
 
 	KinkyDungeonUpdateTether(true, KinkyDungeonPlayerEntity);
 

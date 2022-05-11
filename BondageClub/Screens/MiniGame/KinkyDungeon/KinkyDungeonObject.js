@@ -5,6 +5,7 @@
  */
 let KDObjectMessages = {
 	"Ghost": () => KinkyDungeonGhostMessage(),
+	"Angel": () => KinkyDungeonAngelMessage(),
 };
 /**
  * @type {Record<string,() => boolean>}
@@ -17,12 +18,16 @@ let KDObjectHandle = {
  */
 let KDObjectDraw = {
 	"Ghost": () => KinkyDungeonDrawGhost(),
+	"Angel": () => KinkyDungeonDrawAngel(),
 	"Charger": () => KinkyDungeonDrawCharger(),
 };
 
 function KinkyDungeonDrawGhost() {
 	if (KinkyDungeonTargetTile.GhostDecision == 0) DrawText(TextGet("KinkyDungeonDrawGhostHelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 	else DrawText(TextGet("KinkyDungeonDrawGhostUnhelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
+}
+function KinkyDungeonDrawAngel() {
+	DrawText(TextGet("KinkyDungeonDrawAngelHelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 }
 
 function KinkyDungeonGhostMessage() {
@@ -42,6 +47,19 @@ function KinkyDungeonGhostMessage() {
 
 			msg = TextGet("KinkyDungeonGhostUnhelpful" + BoundType + KinkyDungeonTargetTile.GhostDecision);
 		}
+	}
+	if (msg) {
+		KinkyDungeonSendActionMessage(3, msg, "white", 3);
+	}
+}
+
+function KinkyDungeonAngelMessage() {
+	let restraints = KinkyDungeonAllRestraint();
+	let msg = "";
+	if (restraints.length == 0) {
+		msg = TextGet("KinkyDungeonAngelGreet");
+	} else {
+		msg = TextGet("KinkyDungeonAngelHelpful");
 	}
 	if (msg) {
 		KinkyDungeonSendActionMessage(3, msg, "white", 3);

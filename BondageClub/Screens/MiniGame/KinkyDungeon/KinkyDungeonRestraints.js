@@ -426,7 +426,14 @@ function KinkyDungeonGetKey(lock) {
  * @returns {boolean}
  */
 function KinkyDungeonHasGhostHelp() {
-	return (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1);
+	return (KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1)) || KinkyDungeonTargetTile.Type == "Angel");
+}
+/**
+ *
+ * @returns {boolean}
+ */
+function KinkyDungeonHasAngelHelp() {
+	return (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Type == "Angel");
 }
 
 /**
@@ -686,6 +693,9 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		((StruggleType == "Unlock" || StruggleType == "Pick") ? 0 : 0.05);
 	if (KinkyDungeonHasGhostHelp() && helpChance) {
 		restraintEscapeChancePre = helpChance;
+	}
+	if (KinkyDungeonHasAngelHelp()) {
+		restraintEscapeChancePre += 0.1;
 	}
 
 	/**

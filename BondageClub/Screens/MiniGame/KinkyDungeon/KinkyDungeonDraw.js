@@ -50,6 +50,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
 	if (code == "G") sprite = "Ghost";
+	if (code == "$") sprite = "Angel";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "Y") sprite = "Rubble";
 	else if (code == "=") sprite = "ChargerCrystal";

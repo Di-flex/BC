@@ -235,7 +235,7 @@ function KinkyDungeonHandleReputation() {
 				XX = 600;
 			}
 			if (KinkyDungeonShrineBaseCosts[rep]) {
-				if (KDRepSelectionMode == "" && KinkyDungeonInJail() && MouseIn(600, 800, 250, 50)) {
+				if (KDRepSelectionMode == "" && KinkyDungeonAllRestraint().length > 0 && MouseIn(600, 800, 250, 50)) {
 					KDRepSelectionMode = "Rescue";
 					return true;
 				} else if (KDRepSelectionMode == "" && MouseIn(1200, 800, 250, 50)) {
@@ -336,7 +336,7 @@ function KinkyDungeonDrawReputation() {
 			DrawText(" " + (Math.round(value)+50) + " ", canvasOffsetX_ui + 275 + XX + 100,  2+yPad + canvasOffsetY_ui + spacing * i, "white", "black");
 
 			if (KDRepSelectionMode == "") {
-				DrawButton(600, 800, 250, 50, TextGet("KinkyDungeonAskRescue"), KinkyDungeonInJail() ? "white" : "#999999");
+				DrawButton(600, 800, 250, 50, TextGet("KinkyDungeonAskRescue"), KinkyDungeonAllRestraint().length > 0 ? "white" : "#999999");
 				DrawButton(1200, 800, 250, 50, TextGet("KinkyDungeonAskPenance"), "white");
 				DrawButton(900, 800, 250, 50, TextGet("KinkyDungeonAskAid"), "white");
 				DrawButton(1500, 800, 250, 50, TextGet("KinkyDungeonAskChampion"), "white");
@@ -348,10 +348,10 @@ function KinkyDungeonDrawReputation() {
 				MainCanvas.textAlign = "center";
 				//DrawButton(canvasOffsetX_ui + 275 + XX + 400, yPad + canvasOffsetY_ui + spacing * i - 20, 100, 40, TextGet("KinkyDungeonAid"), value > 10 ? "white" : "pink");
 				if (KDRepSelectionMode == "Rescue") {
-					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonRescue"), (KinkyDungeonCanRescue(rep, value)) ? "white" : (KinkyDungeonInJail() && !KinkyDungeonRescued[rep] ? "pink" : "#999999"));
+					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonRescue"), (KinkyDungeonCanRescue(rep, value)) ? "white" : (KinkyDungeonAllRestraint().length > 0 && !KinkyDungeonRescued[rep] ? "pink" : "#999999"));
 					if (MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
-						DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 1100+1, 850+1, 1250, "black", "black");
-						DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 1100, 850, 1250, "white", "black");
+						DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 1100+1, 900+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonRescueDesc"), 1100, 900, 1250, "white", "black");
 						// Rescue
 					}
 				}
@@ -564,6 +564,19 @@ function KinkyDungeonCanAidMana(rep, value) {
 	return value > -30 && KinkyDungeonStatMana < KinkyDungeonStatManaMax;
 }
 
+function KinkyDungeonRescueTiles() {
+	let tiles = [];
+	for (let X = KinkyDungeonPlayerEntity.x - 1; X <= KinkyDungeonPlayerEntity.x + 1; X++)
+		for (let Y = KinkyDungeonPlayerEntity.y - 1; Y <= KinkyDungeonPlayerEntity.y + 1; Y++) {
+			if (X != 0 || Y != 0) {
+				if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && !KinkyDungeonEnemyAt(X, Y)) {
+					tiles.push({x:X, y:Y});
+				}
+			}
+		}
+	return tiles;
+}
+
 /**
  *
  * @param {string} rep
@@ -571,14 +584,26 @@ function KinkyDungeonCanAidMana(rep, value) {
  * @returns {boolean}
  */
 function KinkyDungeonCanRescue(rep, value) {
-	return (KDGameData.PrisonerState) && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonInJail();
+	return KinkyDungeonAllRestraint().length > 0 && value > KDRAGE && !KinkyDungeonRescued[rep] && KinkyDungeonRescueTiles().length > 0;
 }
 
 /**
  *
  * @param {number} delta
  */
-function KinkyDungeonUpdatePenance(delta) {
+function KinkyDungeonUpdateAngel(delta) {
+	if (KinkyDungeonFlags.get("AngelHelp") > 0 && KinkyDungeonFlags.get("AngelHelp") < 5) {
+		for (let t of KinkyDungeonTiles.entries()) {
+			if (t[1].Type == "Angel") {
+				let x = parseInt(t[0].split(',')[0]);
+				let y = parseInt(t[0].split(',')[1]);
+				if (x && y) {
+					KinkyDungeonTiles.delete(t[1].Type);
+					KinkyDungeonMapSet(x, y, '0');
+				}
+			}
+		}
+	}
 	if (KDGameData.KinkyDungeonPenance) {
 		if (!KinkyDungeonAngel()) {
 			KinkyDungeonCreateAngel(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
