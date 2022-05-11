@@ -426,7 +426,7 @@ function KinkyDungeonGetKey(lock) {
  * @returns {boolean}
  */
 function KinkyDungeonHasGhostHelp() {
-	return (KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1)) || KinkyDungeonTargetTile.Type == "Angel");
+	return (KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1) || KinkyDungeonTargetTile.Type == "Angel"));
 }
 /**
  *
