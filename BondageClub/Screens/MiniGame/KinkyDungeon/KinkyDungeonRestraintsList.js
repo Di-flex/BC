@@ -683,7 +683,7 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "CelestialRopeTorso", Asset: "NylonRopeHarness", Color: ["#aaaa67", "#aaaa67"], Group: "ItemTorso", power: 1, weight: 0, harness: true, escapeChance: {"Struggle": 0.1, "Cut": 0.3, "Remove": 0.1},
 		maxstamina: 0.9, enemyTags: {"celestialRopes":4}, playerTags: {"ItemTorsoFull":-3}, minLevel: 0, allFloors: true, shrine: ["Rope", "Ties"],
 		failSuffix: {"Remove": "MagicRope"}, events: [{trigger: "struggle", type: "celestialRopePunish"}]},
-	{inventory: true, name: "CelestialRopeCrotch", crotchrope: true, Asset: "NylonRope", Type: "OverPanties", OverridePriority: 26, Color: ["#aaaa67", "#aaaa67"], Group: "ItemPelvis", power: 1, weight: 0, harness: true,
+	{inventory: true, name: "CelestialRopeCrotch", crotchrope: true, Asset: "HempRope", Type: "OverPanties", OverridePriority: 26, Color: ["#aaaa67", "#aaaa67"], Group: "ItemPelvis", power: 1, weight: 0, harness: true,
 		maxstamina: 0.75, escapeChance: {"Struggle": 0.1, "Cut": 0.35, "Remove": 0.15}, enemyTags: {"celestialRopes":4}, playerTags: {"ItemPelvisFull":-3}, minLevel: 0, allFloors: true, shrine: ["Rope", "Ties"],
 		failSuffix: {"Remove": "MagicRope"}, events: [{trigger: "struggle", type: "celestialRopePunish"}, {trigger: "struggle", type: "crotchrope"}]},
 	//endregion
