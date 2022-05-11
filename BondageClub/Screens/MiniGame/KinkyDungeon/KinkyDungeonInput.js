@@ -308,6 +308,7 @@ function KDProcessInput(type, data) {
 						if (!e.boundLevel) e.boundLevel = e.Enemy.maxhp;
 						else e.boundLevel += e.Enemy.maxhp;
 						e.hp = 0.1;
+						e.rescue = true;
 					}
 				}
 				KinkyDungeonEntities = allies;

@@ -4,7 +4,7 @@ let KinkyDungeonJailRemoveRestraintsTimerMin = 90;
 let KinkyDungeonJailedOnce = false;
 let KDJailReleaseTurns = [
 	{minSub: 0, releaseTurns: 250},
-	{minSub: 10, releaseTurns: 140},
+	{minSub: 5, releaseTurns: 140},
 	{minSub: 40, releaseTurns: 80},
 	{minSub: 90, releaseTurns: 40},
 ];
@@ -391,7 +391,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			} else if (KDRandom() < 0.05 + securityLevel * 0.1 / 100) {
 				// Always a random chance to tease
 				KinkyDungeonJailGuard().CurrentAction = "jailTease";
-			} else if (KDRandom() < 0.08 && KDGameData.SleepTurns < 1 && KDGameData.KinkyDungeonJailTourTimer < 1 && KinkyDungeonStatStamina > 0.25*KinkyDungeonStatStaminaMax) {
+			} else if (KDRandom() < 0.08 && KDGameData.SleepTurns < 1 && KDGameData.KinkyDungeonJailTourTimer < 1 && KinkyDungeonStatStamina > 0.25*KinkyDungeonStatStaminaMax && KinkyDungeonGoddessRep.Ghost > 5) {
 				KinkyDungeonJailGuard().RemainingJailLeashTourWaypoints = 2 + Math.ceil(KDRandom() * 4);
 				KinkyDungeonJailGuard().CurrentAction = "jailLeashTour";
 				KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions = 0;

@@ -667,6 +667,7 @@ interface KinkyDungeonEvent {
 
 interface entity {
 	Enemy: enemy,
+	rescue?: boolean,
 	personality?: string,
 	patrolIndex?: number,
 	flags?: Record<string, number>,
