@@ -598,7 +598,7 @@ function KinkyDungeonUpdateAngel(delta) {
 				let x = parseInt(t[0].split(',')[0]);
 				let y = parseInt(t[0].split(',')[1]);
 				if (x && y) {
-					KinkyDungeonTiles.delete(t[1].Type);
+					KinkyDungeonTiles.delete(t[0]);
 					KinkyDungeonMapSet(x, y, '0');
 				}
 			}

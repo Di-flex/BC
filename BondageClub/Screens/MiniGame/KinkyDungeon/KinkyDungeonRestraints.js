@@ -1000,7 +1000,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	} else {
 		// One last check: check limits
 
-		if (data.limitChance > 0) {
+		if (data.limitChance > 0 && data.escapeChance > 0) {
 			let limitProgress = restraint.struggleProgress ? (StruggleType == "Struggle" ? restraint.struggleProgress : (1.0 - restraint.struggleProgress))
 				: (StruggleType == "Struggle" ? 0 : 1);
 			let limitPenalty = limitProgress * data.limitChance;
