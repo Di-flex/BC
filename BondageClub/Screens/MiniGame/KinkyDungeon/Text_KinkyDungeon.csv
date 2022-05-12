@@ -1216,17 +1216,17 @@ AttackWitchShock,"The witch slaps you playfully!"
 
 NameApprentice,Witch's Apprentice
 KillApprentice,"The apprentice runs off and cries in a corner."
-AttackApprenticeBind,"The apprentice clips a restraint around your neck!"
+AttackApprenticeBind,"The apprentice animates restraints to wrap around you!"
 AttackApprentice,"The apprentice slaps you playfully!"
 
 NameApprentice2,Summoner's Apprentice
 KillApprentice2,"The apprentice runs off and cries in a corner."
-AttackApprentice2Bind,"The apprentice clips a restraint around your neck!"
+AttackApprentice2Bind,"The apprentice summons a restraint onto you!"
 AttackApprentice2,"The apprentice slaps you playfully!"
 
 NameApprenticeSlime,Latex Apprentice
 KillApprenticeSlime,"The apprentice runs off and cries in a corner."
-AttackApprenticeSlimeBind,"The apprentice clips a restraint around your neck!"
+AttackApprenticeSlimeBind,"The apprentice attaches a sticky restraint!"
 AttackApprenticeSlime,"The apprentice slaps you playfully!"
 
 NameWitchChain,Chain Witch
