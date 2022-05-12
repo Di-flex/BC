@@ -9,6 +9,8 @@ let KinkyDungeonFactionColors = {
 	"Bountyhunter": ["#252525", "#bfbfbf"],
 	"AncientRobot": ["#444444", "#3def9c"],
 	"Mushy": ["#92c1e8", "#bfbfbf"],
+	"Apprentice": ["#686f99", "#ff5277"],
+	"Witch": ["#222222", "#8359b3"],
 };
 
 /** Hidden factions do not auto-rep change when you attack them */

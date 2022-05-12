@@ -765,8 +765,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 		for (let enemy of KinkyDungeonEntities) {
 			if ((b.reflected
 				|| (!b.bullet.spell || !b.bullet.faction
-					|| (!KDFactionAllied(b.bullet.faction, enemy) && (!b.bullet.damage || b.bullet.damage.type != "heal"))
-					|| (!KDFactionHostile(b.bullet.faction, enemy) && (b.bullet.damage && b.bullet.damage.type == "heal"))
+					|| (!KDFactionHostile(b.bullet.faction, enemy))
 				))
 				&& ((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && b.bullet.spell.aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < b.bullet.spell.aoe))) {
 				let origHP = enemy.hp;
@@ -805,8 +804,10 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 				let rad = (b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0;
 				if (count > 0) {
 					let faction = (b.bullet.spell && b.bullet.spell.defaultFaction) ? undefined : b.bullet.faction;
-					if (b.bullet.spell && b.bullet.spell.enemySpell) faction = "Enemy";
-					else if (b.bullet.spell && b.bullet.spell.allySpell) faction = "Player";
+					if (!faction && b.bullet.spell && b.bullet.spell.enemySpell) faction = "Enemy";
+					else if (!faction && b.bullet.spell && b.bullet.spell.allySpell) faction = "Player";
+
+					if (b.bullet.faction) faction = b.bullet.faction;
 					let e = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget, faction);
 					created += e;
 				}
