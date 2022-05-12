@@ -3,6 +3,12 @@
 let KinkyDungeonFactionColors = {
 	"Jail": ["#8A120C"],
 	"Slime": ["#9B49BD"],
+	"Dressmaker": ["#6B48E0", "#F8BD01"],
+	"Alchemist": ["#4c6885", "#7bef41"],
+	"Elf": ["#63ab3f", "#F8BD01"],
+	"Bountyhunter": ["#252525", "#bfbfbf"],
+	"AncientRobot": ["#444444", "#3def9c"],
+	"Mushy": ["#92c1e8", "#bfbfbf"],
 };
 
 /** Hidden factions do not auto-rep change when you attack them */

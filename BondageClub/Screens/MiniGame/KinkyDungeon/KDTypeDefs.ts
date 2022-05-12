@@ -255,8 +255,8 @@ type restraint = {
 	enchantedDrain?: number,
 	/** Whether or not this is an Ancient item, prison respects it */
 	enchanted?: boolean,
-	/** Faction primary color index */
-	factionColor?: number[],
+	/** Faction color index */
+	factionColor?: number[][],
 }
 
 interface overrideDisplayItem {
