@@ -725,6 +725,11 @@ KinkyDungeonAngelDefeated,"Angel: MMMMMPHH!!!"
 KinkyDungeonAngelUnlock,"(The angel looks puzzled and unlocks your divine restraints)"
 
 
+NameDoorLock,Mystic Lock
+KillDoorLock,"The mystic lock fades, allowing you to pass once more."
+KinkyDungeonSummonSingleDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
+KinkyDungeonTrapDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
+
 NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall

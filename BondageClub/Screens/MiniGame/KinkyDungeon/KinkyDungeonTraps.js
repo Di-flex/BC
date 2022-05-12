@@ -2,6 +2,34 @@
 
 let KinkyDungeonTrapMoved = false;
 
+function KinkyDungeonHandleStepOffTraps(x, y) {
+	let flags = {
+		AllowTraps: true,
+	};
+	let tile = KinkyDungeonTiles.get(x + "," + y);
+	if (tile && tile.StepOffTrap && (!KinkyDungeonJailGuard() || KinkyDungeonJailGuard().CurrentAction != "jailLeashTour")) {
+		KinkyDungeonSendEvent("beforeStepOffTrap", {x:x, y:y, tile: tile, flags: flags});
+		let msg = "";
+		let color = "red";
+
+		if (tile.StepOffTrap == "DoorLock" && KinkyDungeonNoEnemy(x, y)) {
+			let created = KinkyDungeonSummonEnemy(x, y, "DoorLock", 1, 0);
+			if (created > 0) {
+				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/MagicSlash.ogg");
+				msg = "Default";
+				KinkyDungeonTiles.delete(x + "," + y);
+			}
+		}
+
+		if (msg) {
+			if (msg == "Default")
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.StepOffTrap), color, 2);
+			else
+				KinkyDungeonSendTextMessage(10, msg, color, 2);
+		}
+	}
+
+}
 
 function KinkyDungeonHandleTraps(x, y, Moved) {
 	let flags = {

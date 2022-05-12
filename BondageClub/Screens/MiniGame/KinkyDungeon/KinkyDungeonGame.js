@@ -307,6 +307,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let doorlockchance = MapParams.doorlockchance; // Max treasure chest count
 		//if (KinkyDungeonGoddessRep.Prisoner && KDGameData.KinkyDungeonSpawnJailers > 0) doorlockchance = doorlockchance + (KDGameData.KinkyDungeonSpawnJailers / KDGameData.KinkyDungeonSpawnJailersMax) * (1.0 - doorlockchance) * (KinkyDungeonGoddessRep.Prisoner + 50)/100;
 		let trapChance = MapParams.trapchance; // Chance of a pathway being split between a trap and a door
+		let doorlocktrapchance = MapParams.doorlocktrapchance ? MapParams.doorlocktrapchance : MapParams.trapchance;
 		let minortrapChance = MapParams.minortrapChance ? MapParams.minortrapChance : trapChance/3;
 		let grateChance = MapParams.grateChance;
 		let floodChance = MapParams.floodchance ? MapParams.floodchance : 0;
@@ -411,7 +412,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for brickwork creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceTraps(traps, traptypes, minortrapChance, Floor, width, height);
+			KinkyDungeonPlaceTraps(traps, traptypes, minortrapChance, doorlocktrapchance, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for trap creation`);
 				startTime = performance.now();
@@ -1588,7 +1589,7 @@ function KinkyDungeonPlaceBrickwork( brickchance, Floor, width, height) {
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, Floor, width, height) {
+function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, doorlocktrapchance, Floor, width, height) {
 	for (let X = 1; X < width-1; X += 1)
 		for (let Y = 1; Y < height-1; Y += 1) {
 			let hosttile = KinkyDungeonMapGet(X, Y);
@@ -1608,16 +1609,23 @@ function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, Floor, width, hei
 		}
 	for (let trap of traps) {
 		if (KinkyDungeonMapGet(trap.x, trap.y) != 'T') {
-			KinkyDungeonMapSet(trap.x, trap.y, 'T');
-			let t = KinkyDungeonGetTrap(traptypes, Floor, []);
-			KinkyDungeonTiles.set(trap.x + "," + trap.y, {
-				Type: "Trap",
-				Trap: t.Name,
-				Restraint: t.Restraint,
-				Enemy: t.Enemy,
-				Spell: t.Spell,
-				Power: t.Power,
-			});
+			if ((KinkyDungeonMapGet(trap.x, trap.y) == 'D' || KinkyDungeonMapGet(trap.x, trap.y) == 'd') && KDRandom() < doorlocktrapchance) {
+				if (KinkyDungeonTiles.get(trap.x + "," + trap.y)) {
+					KinkyDungeonTiles.get(trap.x + "," + trap.y).StepOffTrap = "DoorLock";
+					KinkyDungeonTiles.get(trap.x + "," + trap.y).Lock = undefined;
+				}
+			} else {
+				KinkyDungeonMapSet(trap.x, trap.y, 'T');
+				let t = KinkyDungeonGetTrap(traptypes, Floor, []);
+				KinkyDungeonTiles.set(trap.x + "," + trap.y, {
+					Type: "Trap",
+					Trap: t.Name,
+					Restraint: t.Restraint,
+					Enemy: t.Enemy,
+					Spell: t.Spell,
+					Power: t.Power,
+				});
+			}
 		}
 	}
 
@@ -2550,12 +2558,17 @@ function KinkyDungeonWaitMessage(NoTime) {
 // Returns th number of turns that must elapse
 function KinkyDungeonMoveTo(moveX, moveY) {
 	//if (KinkyDungeonNoEnemy(moveX, moveY, true)) {
+	let stepOff = false;
+	let xx = KinkyDungeonPlayerEntity.x;
+	let yy = KinkyDungeonPlayerEntity.y;
 	if (KinkyDungeonPlayerEntity.x != moveX || KinkyDungeonPlayerEntity.y != moveY) {
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "move", 1);
+		stepOff = true;
 	}
 	KinkyDungeonPlayerEntity.x = moveX;
 	KinkyDungeonPlayerEntity.y = moveY;
 
+	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy);
 
 	KinkyDungeonMovePoints = 0;
 	return Math.max(1, KinkyDungeonSlowLevel);
