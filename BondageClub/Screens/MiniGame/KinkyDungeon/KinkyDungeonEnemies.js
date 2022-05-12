@@ -628,7 +628,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				}
 			}
 		}
-		if (!enemy.noDrop)
+		if (!enemy.noDrop && (enemy.playerdmg || !enemy.summoned))
 			KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
 
 		return true;

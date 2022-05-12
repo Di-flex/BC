@@ -1613,6 +1613,11 @@ function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, doorlocktrapchanc
 				if (KinkyDungeonTiles.get(trap.x + "," + trap.y)) {
 					KinkyDungeonTiles.get(trap.x + "," + trap.y).StepOffTrap = "DoorLock";
 					KinkyDungeonTiles.get(trap.x + "," + trap.y).Lock = undefined;
+					for (let item of KinkyDungeonGroundItems) {
+						if (item.x == trap.x && item.y == trap.y && item.name == "Gold") {
+							KinkyDungeonGroundItems.splice(KinkyDungeonGroundItems.indexOf(item), 1);
+						}
+					}
 				}
 			} else {
 				KinkyDungeonMapSet(trap.x, trap.y, 'T');

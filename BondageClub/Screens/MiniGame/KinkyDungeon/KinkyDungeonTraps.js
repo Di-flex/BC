@@ -17,6 +17,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 			if (created > 0) {
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/MagicSlash.ogg");
 				msg = "Default";
+				KinkyDungeonMakeNoise(12, x, y);
 				KinkyDungeonTiles.delete(x + "," + y);
 			}
 		}

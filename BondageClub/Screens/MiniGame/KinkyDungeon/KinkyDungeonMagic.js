@@ -718,6 +718,15 @@ function KinkyDungeonGetCost(Spell) {
 	return cost;
 }
 
+function KinkyDungeonMakeNoise(radius, noiseX, noiseY) {
+	for (let e of KinkyDungeonEntities) {
+		if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= radius) {
+			e.gx = noiseX;
+			e.gy = noiseY;
+		}
+	}
+}
+
 /**
  *
  * @param {number} targetX
@@ -929,12 +938,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (spell.noise) {
-		for (let e of KinkyDungeonEntities) {
-			if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= spell.noise) {
-				e.gx = noiseX;
-				e.gy = noiseY;
-			}
-		}
+		KinkyDungeonMakeNoise(spell.noise, noiseX, noiseY);
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player
