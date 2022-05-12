@@ -390,6 +390,10 @@ function KinkyDungeonDrawReputation() {
 
 	}
 	MainCanvas.textAlign = "center";
+
+	if (!KDRepSelectionMode) {
+		KinkyDungeonDrawFactionRep();
+	}
 }
 
 
