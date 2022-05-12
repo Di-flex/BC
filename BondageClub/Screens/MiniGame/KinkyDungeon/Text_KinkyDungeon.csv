@@ -182,6 +182,16 @@ KinkyDungeonStat57,"Disorganized"
 KinkyDungeonStatDesc57,"Switching weapons, learning/choosing spells, and casting from spellbook takes 3 turns."
 
 
+KinkyDungeonBuffSlimeForm,Slime Form
+KinkyDungeonBuffShroud2,"Shroud"
+KinkyDungeonBuffCamo,"Camoflage"
+KinkyDungeonBuffShadowBlade,"Darkblade"
+KinkyDungeonBuffInvisibility,"Invisibility"
+KinkyDungeonBuffLesserInvisibility,"Lesser Invisibility"
+KinkyDungeonBuffCutting,"FULL POWER"
+KinkyDungeonBuffSlippery,"Graceful"
+KinkyDungeonBuffIronBlood,"Iron Blood"
+
 KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
 KinkyDungeonDifficulty1,"Roguelike: No save codes, only autosave"
@@ -503,6 +513,10 @@ KinkyDungeonInventoryItemPotionInvisibility,Invisibility Potion
 KinkyDungeonInventoryItemPotionInvisibilityUse,You chug the concoction and see your body fading away.
 KinkyDungeonInventoryItemPotionInvisibilityDesc,"You feel liquid inside, but you can't see it!"
 KinkyDungeonInventoryItemPotionInvisibilityDesc2,"Casts Invisibility on yourself."
+KinkyDungeonInventoryItemEctoplasm,Ectoplasm
+KinkyDungeonInventoryItemEctoplasmUse,"Like a moisturizing cream, except it's made from coagulated souls."
+KinkyDungeonInventoryItemEctoplasmDesc,"Can be used without hands. Just apply directly to the forehead!"
+KinkyDungeonInventoryItemEctoplasmDesc2,"Makes you harder to see for 10 turns."
 KinkyDungeonInventoryItemEarthRune,Earth Rune
 KinkyDungeonInventoryItemEarthRuneUse,"You smash the rune in front of you, and glowing rocks rise from the earth."
 KinkyDungeonInventoryItemEarthRuneDesc,"It feels unsettling to look at."
@@ -1227,12 +1241,12 @@ AttackApprentice,"The apprentice slaps you playfully!"
 NameApprentice2,Summoner's Apprentice
 KillApprentice2,"The apprentice runs off and cries in a corner."
 AttackApprentice2Bind,"The apprentice summons a restraint onto you!"
-AttackApprentice2,"The apprentice slaps you playfully!"
+AttackApprentice2,"The apprentice tickles you playfully!"
 
 NameApprenticeSlime,Latex Apprentice
 KillApprenticeSlime,"The apprentice runs off and cries in a corner."
 AttackApprenticeSlimeBind,"The apprentice attaches a sticky restraint!"
-AttackApprenticeSlime,"The apprentice slaps you playfully!"
+AttackApprenticeSlime,"The apprentice caresses you playfully!"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
@@ -2596,6 +2610,7 @@ ItemPickupBlueKey,"You picked up a blue key."
 ItemPickupPotionHealth,"You picked up a willpower potion."
 ItemPickupPotionMana,"You picked up a glowing blue mana potion."
 ItemPickupPotionInvisibility,"You picked up an invisibility potion."
+ItemPickupEctoplasm,"You picked up a handful of ectoplasm."
 ItemPickupPotionStamina,"You picked up a green stamina potion."
 ItemPickupPotionFrigid,"You picked up a frigid white potion."
 ItemPickupLore,"You found a peculiar note on the ground and keep it in your journal."
@@ -2934,6 +2949,11 @@ KinkyDungeonSpellInvisibility,Invisibility
 KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
+
+KinkyDungeonSpellLesserInvisibility,Lesser Invisibility
+KinkyDungeonSpellTargetLesserInvisibility,Select which creature to buff
+KinkyDungeonSpellDescriptionLesserInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
+KinkyDungeonSpellCastLesserInvisibility,You become semitransparent!
 
 KinkyDungeonSpellCamo,Camouflage
 KinkyDungeonSpellTargetCamo,Select yourself
@@ -4320,7 +4340,7 @@ dOfferWolfgirlForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)
 
 
 
-rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion seller.|Give me your strongest potions!|I pay cash!"
+rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
 rPotionSellPotionMana,"(The SPEAKER smiles)|A spellcaster will have great use for this!"
 rPotionSellPotionStamina,"(The SPEAKER smiles)|Refreshing!"
 rPotionSellPotionFrigid,"(The SPEAKER smiles)|They say a bitter tea cures all ails..."

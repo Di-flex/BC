@@ -581,9 +581,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			}
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
-			KinkyDungeonSlowMoveTurns = 4;
-			KinkyDungeonSleepiness = 3;
-			KinkyDungeonAlert = 4;
+			KinkyDungeonSlowMoveTurns = 8;
+			KinkyDungeonStatBlind = 8;
+			KinkyDungeonSleepiness = 8;
+			KinkyDungeonAlert = 6;
 			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 4);

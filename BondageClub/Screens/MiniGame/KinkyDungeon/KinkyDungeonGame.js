@@ -2209,7 +2209,7 @@ function KinkyDungeonClickGame(Level) {
 	else if (KinkyDungeonControlsEnabled()) {
 		try {
 
-			if (KDModalArea) {
+			if (KDModalArea || KinkyDungeonTargetTile) {
 				KDModalArea = false;
 				KinkyDungeonTargetTile = null;
 				KinkyDungeonTargetTileLocation = "";

@@ -94,6 +94,8 @@ function KinkyDungeonDrawGame() {
 	if ((KinkyDungeonGameKey.keyPressed[9])) {
 		KinkyDungeonDrawState = "Game";
 		KinkyDungeonTargetingSpell = null;
+		KinkyDungeonTargetTile = null;
+		KinkyDungeonTargetTileLocation = "";
 		KinkyDungeonSpellPress = 0;
 		KDModalArea = false;
 		KinkyDungeonShowInventory = false;

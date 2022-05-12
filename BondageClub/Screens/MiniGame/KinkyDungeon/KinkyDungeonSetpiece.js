@@ -22,7 +22,8 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 	Object.assign(setpieces, Params.setpieces);
 	setpieces.push({Type: "GuaranteedCell", Weight: 100000});
 	setpieces.push({Type: "PearlChest", Weight: 100});
-	setpieces.push({Type: "LesserPearl", Weight: 10});
+	if (MiniGameKinkyDungeonLevel > 1)
+		setpieces.push({Type: "LesserPearl", Weight: 10});
 	for (let p of KDSetPieces) {
 		let prereqs = true;
 		if (prereqs && p.Prereqs) {
