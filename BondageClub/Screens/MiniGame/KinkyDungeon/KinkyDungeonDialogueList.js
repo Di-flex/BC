@@ -738,7 +738,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 14);
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 17);
 				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
 			}
 		},

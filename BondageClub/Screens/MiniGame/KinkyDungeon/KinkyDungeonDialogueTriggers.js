@@ -150,7 +150,8 @@ function KDShopTrigger(name) {
 		noCombat: true,
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
-			return (dist < 2.5
+			return (dist < 1.5
+				&& !(KDGameData.SleepTurns > 0)
 				&& KDEnemyHasFlag(enemy, name)
 				&& !KDEnemyHasFlag(enemy, "NoShop"));
 		},

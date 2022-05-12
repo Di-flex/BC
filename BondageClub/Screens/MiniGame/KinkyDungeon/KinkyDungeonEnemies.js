@@ -1488,7 +1488,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 								}
 							}
 							let newPoint = KinkyDungeonGetNearbyPoint(ex, ey, false);
-							if (newPoint && (KinkyDungeonAggressive(enemy) || !KinkyDungeonPointInCell(newPoint.x, newPoint.y))) {
+							if (newPoint && (KDGetFaction(enemy) != "Player" || !KinkyDungeonPointInCell(newPoint.x, newPoint.y))) {
 								enemy.gx = newPoint.x;
 								enemy.gy = newPoint.y;
 							}
