@@ -4371,6 +4371,11 @@ rNinjaSellBomb,"(The SPEAKER bows)|A bit dangerous, but I'll take it."
 rNinjaSellBola,"(The SPEAKER bows)|A tool of the trade."
 rNinjaSellPotionInvisibility,"(The SPEAKER bows)|A most valuable find."
 
+rGhostSell,"(The SPEAKER runs up to you)|Hello!|You wouldn't happen to have seen any ghosts lately?|I'm gathering evidence!"
+rGhostSellElfCrystal,"(The SPEAKER shakes your hand)|Ah! Ghosts love these!"
+rGhostSellEctoplasm,"(The SPEAKER smiles)|This looks like strong evidence for my investigation!"
+rGhostSellPotionInvisibility,"(The SPEAKER grins)|Woah! That's so cool!"
+
 dItemShop0,(Sell Item0 for ItemCost0 gp)
 dItemShop1,(Sell Item1 for ItemCost1 gp)
 dItemShop2,(Sell Item2 for ItemCost2 gp)

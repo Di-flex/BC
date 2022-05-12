@@ -137,6 +137,7 @@ let KDDialogueTriggers = {
 	"ElfCrystalSell": KDShopTrigger("ElfCrystalSell"),
 	"NinjaSell": KDShopTrigger("NinjaSell"),
 	"ScrollSell": KDShopTrigger("ScrollSell"),
+	"GhostSell": KDShopTrigger("GhostSell"),
 	"WolfgirlSell": KDShopTrigger("WolfgirlSell"),
 
 };
