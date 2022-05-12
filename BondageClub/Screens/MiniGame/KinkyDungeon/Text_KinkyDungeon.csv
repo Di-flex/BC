@@ -857,10 +857,15 @@ AttackElementalAirLock,"The air elemental slips a lock on!"
 AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 
-NameFastZombie,Ravenous Zombie
+NameFastZombie,Willful Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
 AttackFastZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackFastZombie,"The zombie gropes your body! (-DamageTaken SP)"
+
+NameNawashiZombie,Skillful Zombie
+KillNawashiZombie,"The zombie smiles as it collapses to the ground."
+AttackNawashiZombieBind,"The zombie swiftly ties you! (+RestraintAdded)"
+AttackNawashiZombie,"The zombie cuddles with your body! (-DamageTaken SP)"
 
 
 NameMageZombie,Mage Zombie
