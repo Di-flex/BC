@@ -739,6 +739,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	else if (enemy) {
 		let f = KDGetFaction(enemy);
 		if (f) faction = f;
+	} else if (bullet && bullet.bullet) {
+		let f = bullet.bullet.faction;
+		if (f) faction = f;
 	}
 
 	let gaggedMiscastFlag = false;

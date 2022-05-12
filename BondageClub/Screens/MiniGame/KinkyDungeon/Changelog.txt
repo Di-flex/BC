@@ -832,6 +832,9 @@ Spell Balance:
 - NPCs will now approach you looking to buy items
 - Rescue now grants you an angel to help you out instead
 
+3.32
+-
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
