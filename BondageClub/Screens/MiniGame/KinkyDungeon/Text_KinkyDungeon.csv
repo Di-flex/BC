@@ -401,9 +401,9 @@ KinkyDungeonInventoryItemDragon,Prisoner Uniform
 KinkyDungeonInventoryItemDragonDesc,The uniform of choice for girls captured by the dragonhearts.
 KinkyDungeonInventoryItemDragonDesc2,"Designed to make it hard to conceal weapons. No bonuses, no penalties."
 
-KinkyDungeonInventoryItemBlueSuit,Scientific Uniform
-KinkyDungeonInventoryItemBlueSuitDesc,An outfit designed to leave little to the imagination.
-KinkyDungeonInventoryItemBlueSuitDesc2,"No bonuses, no penalties."
+KinkyDungeonInventoryItemBlueSuitPrison,Scientific Uniform
+KinkyDungeonInventoryItemBlueSuitPrisonDesc,An outfit designed to leave little to the imagination.
+KinkyDungeonInventoryItemBlueSuitPrisonDesc2,"No bonuses, no penalties."
 
 KinkyDungeonInventoryItemElven,Elven Dress
 KinkyDungeonInventoryItemElvenDesc,A regal minidress worn by visitors to the forest.
