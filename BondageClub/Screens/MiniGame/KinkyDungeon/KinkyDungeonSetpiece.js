@@ -141,18 +141,18 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
 			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
-			shrinelist.push({x: cornerX + 2, y: cornerY + 2});
+			shrinelist.push({x: cornerX + 2, y: cornerY + 2, priority: true});
 			break;
 		case "PearlChest":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
-			else shrinelist.push({x: cornerX, y: cornerY});
+			else shrinelist.push({x: cornerX, y: cornerY, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
-			else shrinelist.push({x: cornerX + radius - 1, y: cornerY});
+			else shrinelist.push({x: cornerX + radius - 1, y: cornerY, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
-			else shrinelist.push({x: cornerX, y: cornerY + radius - 1});
+			else shrinelist.push({x: cornerX, y: cornerY + radius - 1, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
-			else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1});
+			else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1, priority: true});
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
 			break;
@@ -190,7 +190,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 2});
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + radius - 1, y: cornerY + 3});
 			} else {
-				shrinelist.push({x: cornerX+2, y: cornerY+2});
+				shrinelist.push({x: cornerX+2, y: cornerY+2, priority: true});
 
 				let chance2 = 0.1;
 				if (KDRandom() < chance2) trapLocations.push({x: cornerX + 1, y: cornerY});
