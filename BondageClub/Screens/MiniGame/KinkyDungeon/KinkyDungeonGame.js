@@ -226,7 +226,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		if (KDGameData.JailKey == undefined) {
 			KDGameData.JailKey = true;
 		}
-		if (!KDGameData.JailKey || (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail')) KinkyDungeonLoseJailKeys();
 
 		KDGameData.JailPoints = [];
 
@@ -464,6 +463,9 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		// Set map brightness
 		KinkyDungeonMapBrightness = MapParams.brightness;
 		KinkyDungeonMakeGhostDecision();
+
+		// Place the jail keys AFTER making the map!
+		if (!KDGameData.JailKey || (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail')) KinkyDungeonLoseJailKeys();
 
 		if (KinkyDungeonNearestJailPoint(1, 1)) iterations = 100000;
 		else console.log("This map failed to generate a jail! Please screenshot and send your save code to Ada on deviantart or discord!");

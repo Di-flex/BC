@@ -769,6 +769,7 @@ function KinkyDungeonPointInCell(x, y) {
 }
 
 function KinkyDungeonDefeat() {
+	KDGameData.KinkyDungeonLeashedPlayer = 0;
 	if (KinkyDungeonFlags.get("JailIntro"))
 		KinkyDungeonSetFlag("JailRepeat", -1);
 	KinkyDungeonBlindLevel = 3;
@@ -878,7 +879,7 @@ function KinkyDungeonDefeat() {
 	for (let X = 1; X < KinkyDungeonGridWidth - 1; X++)
 		for (let Y = 1; Y < KinkyDungeonGridHeight - 1; Y++) {
 			let tile = KinkyDungeonTiles.get(X + "," + Y);
-			if (tile && tile.Jail && tile.ReLock && KinkyDungeonMapGet(X, Y) == 'd') {
+			if (tile && tile.Jail && tile.ReLock && KinkyDungeonMapGet(X, Y) == 'd' || KinkyDungeonMapGet(X, Y) == 'D') {
 				KinkyDungeonMapSet(X, Y, 'D');
 				if (!tile.Lock)
 					tile.Lock = "Red";
