@@ -2398,9 +2398,24 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
-			KDGameData.ConfirmAttack = true;
-			noadvance = true;
+			if (KDEnemyHasFlag(Enemy, "Shop")) {
+				for (let shop of KDShops) {
+					if (KDEnemyHasFlag(Enemy, shop.name)) {
+						KDStartDialog(shop.name, Enemy.Enemy.name, true, Enemy.personality, Enemy);
+						break;
+					}
+				}
+				if (!KDGameData.CurrentDialog) {
+					KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
+					KDGameData.ConfirmAttack = true;
+					noadvance = true;
+				}
+			} else {
+				KinkyDungeonSendActionMessage(10, TextGet("KDGameData.ConfirmAttack"), "red", 1);
+				KDGameData.ConfirmAttack = true;
+				noadvance = true;
+			}
+
 		} else {
 			KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, boundBonus: KinkyDungeonPlayerDamage.boundBonus, tease: KinkyDungeonPlayerDamage.tease});
 			KinkyDungeonLastAction = "Attack";
@@ -2424,7 +2439,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer) && !Enemy.allied) {
+	if (Enemy && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer) && (!Enemy.allied || KDEnemyHasFlag(Enemy, "Shop"))) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
 		}

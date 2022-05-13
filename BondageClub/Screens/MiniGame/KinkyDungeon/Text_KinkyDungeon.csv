@@ -4346,12 +4346,14 @@ dOfferWolfgirlForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)
 
 
 rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
+rPotionSellAttack,"(The SPEAKER doesn't look surprised)|Okay, just let me set these down real quick..."
 rPotionSellPotionMana,"(The SPEAKER smiles)|A spellcaster will have great use for this!"
 rPotionSellPotionStamina,"(The SPEAKER smiles)|Refreshing!"
 rPotionSellPotionFrigid,"(The SPEAKER smiles)|They say a bitter tea cures all ails..."
 rPotionSellPotionInvisibility,"(The SPEAKER smiles)|An empty flask?|...Oh."
 
 rElfCrystalSell,"(The SPEAKER approaches you)|I greet you!|My throat is parched and I seek the bounties of nature.|Do you have what I seek?"
+rElfCrystalSellAttack,"(The SPEAKER doesn't look surprised)|Then let us have a battle of wits!"
 rElfCrystalSellPotionMana,"(The SPEAKER thanks you)|A kind offering! You have my thanks.
 rElfCrystalSellElfCrystal,"(The SPEAKER tilts her head)|...where did you get this?
 rElfCrystalSellEarthRune,"(The SPEAKER thanks you)|A fine trinket!|I will enjoy meditating upon it.
@@ -4359,28 +4361,36 @@ rElfCrystalSellWaterRune,"(The SPEAKER thanks you)|I sense its flowing essence.|
 rElfCrystalSellIceRune,"(The SPEAKER thanks you)|I can feel a great sadness emanating from it.|It calls for warmth."
 
 rScrollSell,"(The SPEAKER approaches you with an offer)|Hello!|I am searching for magical scrolls.|Would you happen to have any?"
+rScrollSellAttack,"(The SPEAKER doesn't look surprised)|Rude!"
 rScrollSellScrollArms,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollLegs,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollVerbal,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollPurity,"(The SPEAKER raises a brow)|Thank you! This one is rare!"
 
 rWolfgirlSell,"(The SPEAKER approaches you with an offer)|Hey girl~|You seem like the explorer type.|Happen to have any good finds?"
+rWolfgirlSellAttack,"(The SPEAKER frowns)|Well then."
 rWolfgirlSellMistressKey,"(The SPEAKER grins)|Are you willing to part with this?"
 rWolfgirlSellAncientPowerSource,"(The SPEAKER smiles)|Aha!|Fantastic."
 rWolfgirlSellAncientPowerSourceSpent,"(The SPEAKER frowns)|I'll take it, I guess..."
 rWolfgirlSellEnchantedGrinder,"(The SPEAKER smiles)|Oooh~!|I love technology!"
 
 rNinjaSell,"(The SPEAKER surprises you)|Greetings, traveler.|I am looking for tools to aid in my mission."
-rNinjaSellSmokeBomb,"(The SPEAKER bows)|Always prepared."
+rNinjaSellAttack,"(The SPEAKER doesn't look surprised)|That's how it is, then."
+rNinjaSellSmokeBomb,"(The SPEAKER bows)|Always be prepared."
 rNinjaSellBomb,"(The SPEAKER bows)|A bit dangerous, but I'll take it."
 rNinjaSellBola,"(The SPEAKER bows)|A tool of the trade."
 rNinjaSellPotionInvisibility,"(The SPEAKER bows)|A most valuable find."
 
 rGhostSell,"(The SPEAKER runs up to you)|Hello!|You wouldn't happen to have seen any ghosts lately?|I'm gathering evidence!"
+rGhostSellAttack,"(The SPEAKER gasps)|You wouldn't!"
 rGhostSellElfCrystal,"(The SPEAKER shakes your hand)|Ah! Ghosts love these!"
 rGhostSellEctoplasm,"(The SPEAKER smiles)|This looks like strong evidence for my investigation!"
 rGhostSellPotionInvisibility,"(The SPEAKER grins)|Woah! That's so cool!"
 
+dItemShopAttack,You're giving me everything you have.
+dItemShopAttackGag,(Flail threateningly at her)
+dItemShopAttack_Confirm,(Do it)
+dItemShopAttack_Leave,(Back off)
 dItemShop0,(Sell Item0 for ItemCost0 gp)
 dItemShop1,(Sell Item1 for ItemCost1 gp)
 dItemShop2,(Sell Item2 for ItemCost2 gp)

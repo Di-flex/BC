@@ -743,6 +743,25 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 			}
 		},
 	};
+	shop.options.Attack = {gag: true, playertext: "ItemShopAttack", response: "Default",
+		options: {
+			"Confirm": {playertext: "ItemShopAttack_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						enemy.hostile = 100;
+						if (!KinkyDungeonHiddenFactions.includes(KDGetFaction(enemy)))
+							KinkyDungeonChangeFactionRep(KDGetFaction(enemy), -0.06);
+					}
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: "ItemShopAttack_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
 		shop.options["Item" + i] = {playertext: "ItemShop" + i, response: name + item,

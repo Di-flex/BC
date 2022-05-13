@@ -106,6 +106,14 @@ function KDDrawDialogue() {
 
 let KinkyDungeonDialogueTimer = 0;
 
+/**
+ *
+ * @param {string} Dialogue
+ * @param {string} [Speaker]
+ * @param {boolean} [Click]
+ * @param {string} [Personality]
+ * @param {entity} [enemy]
+ */
 function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
 	KinkyDungeonInterruptSleep();
 	KinkyDungeonAutoWait = false;

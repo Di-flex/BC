@@ -259,7 +259,7 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 			&& KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
 			let bindLevel = KDBoundEffects(enemy);
 			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
-				if (!KinkyDungeonAggressive(enemy) && !KDAllied(enemy) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
+				if (!KinkyDungeonAggressive(enemy) && (!KDAllied(enemy) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((KDEnemyHasFlag(enemy, "Shop")) ? "Conditions/Shop.png" : "Conditions/Peace.png"),
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
@@ -628,8 +628,14 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				}
 			}
 		}
-		if (!enemy.noDrop && (enemy.playerdmg || !enemy.summoned))
+		if (!enemy.noDrop && (enemy.playerdmg || !enemy.summoned)) {
 			KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
+			if (KDEnemyHasFlag(enemy, "Shop")) {
+				let dropped = {x:enemy.x, y:enemy.y, name: "Gold", amount: 100};
+				KinkyDungeonGroundItems.push(dropped);
+			}
+
+		}
 
 		return true;
 	}
@@ -1240,7 +1246,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		}
 	}
 
-	if (!KDGameData.CurrentDialog && playerDist <= KinkyDungeonMaxDialogueTriggerDist && player.player) {
+	if (KinkyDungeonCanPutNewDialogue() && playerDist <= KinkyDungeonMaxDialogueTriggerDist && player.player) {
 		let WeightTotal = 0;
 		let Weights = [];
 		for (let e of Object.entries(KDDialogueTriggers)) {
