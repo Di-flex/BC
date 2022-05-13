@@ -1097,7 +1097,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	// Check if the enemy ignores the player
 	if (player.player && !KDAllied(enemy)) {
 		if (enemy.Enemy.tags.has("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
-		if (enemy.Enemy.tags.has("ignoreharmless") && (!enemy.warningTiles || enemy.warningTiles.length == 0)
+		if ((KDGetFaction(enemy) == "Ambush" || enemy.Enemy.tags.has("ignoreharmless")) && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& harmless && (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
 		if (enemy.Enemy.tags.has("ignoretiedup") && (!enemy.warningTiles || enemy.warningTiles.length == 0) && enemy.lifetime == undefined
 			&& !KinkyDungeonPlayer.CanInteract() && !KinkyDungeonCanTalk() && !KinkyDungeonPlayer.CanInteract() && KinkyDungeonSlowLevel > 1
@@ -1767,7 +1767,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				if (attack.includes("Vibe")) {
 					vibe = true;
 				}
-				if (player.player && playerDist < range + 0.5 && (KinkyDungeonAggressive(enemy) || attack.includes("Pull")) && (((!enemy.Enemy.noLeashUnlessExhausted || !KinkyDungeonHasStamina(1.1)) && enemy.Enemy.tags && enemy.Enemy.tags.has("leashing")) || attack.includes("Pull")) && (KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id)) {
+				if (player.player && playerDist < range + 0.5 && (KinkyDungeonAggressive(enemy) || attack.includes("Pull")) && (((!enemy.Enemy.noLeashUnlessExhausted || !KinkyDungeonHasStamina(1.1)) && enemy.Enemy.tags && enemy.Enemy.tags.has("leashing") && KDGetFaction(enemy) != "Ambush") || attack.includes("Pull")) && (KDGameData.KinkyDungeonLeashedPlayer < 1 || KDGameData.KinkyDungeonLeashingEnemy == enemy.id)) {
 					let wearingLeash = false;
 					if (!wearingLeash && !attack.includes("Pull"))
 						wearingLeash = KinkyDungeonIsWearingLeash();

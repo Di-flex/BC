@@ -145,7 +145,7 @@ function KinkyDungeonDrawInputs() {
 		i = 0;
 		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 			if (b.aura || b.labelcolor) {
-				DrawTextFit(TextGet("KinkyDungeonBuff" + b.id), 790, 900 - i * 35, 275, b.aura ? b.aura : b.labelcolor, "gray"); i++;
+				DrawTextFit(TextGet("KinkyDungeonBuff" + b.id) + ((b.duration && b.duration < 9000) ? `(${b.duration})` : ""), 790, 900 - i * 35, 275, b.aura ? b.aura : b.labelcolor, "gray"); i++;
 			}
 
 		}

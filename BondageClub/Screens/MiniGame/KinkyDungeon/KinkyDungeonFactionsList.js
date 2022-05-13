@@ -53,6 +53,10 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Enemy": {
 	},
+	"Ambush": {
+		Player: -1.0,
+		Jail: -0.25,
+	},
 	"Prisoner": {
 	},
 	"Jail": {
@@ -134,6 +138,7 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Elemental": {
 		"Witch": 0.4,
+		"KinkyConstruct": 0.7,
 		"Dressmaker": 0.15,
 		"Apprentice": 1.0,
 		"Bandit": -0.15,
