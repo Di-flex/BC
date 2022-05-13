@@ -426,8 +426,8 @@ function KinkyDungeonGetKey(lock) {
  * @returns {boolean}
  */
 function KinkyDungeonHasGhostHelp() {
-	return (KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1) || KinkyDungeonTargetTile.Type == "Angel")
-		|| KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return enemy.Enemy.bound && KDAllied(enemy)}));
+	return ((KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1) || KinkyDungeonTargetTile.Type == "Angel"))
+		|| KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && KDAllied(enemy);}));
 }
 /**
  *
