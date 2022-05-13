@@ -690,7 +690,7 @@ function KDAgilityDialogueSuccessChance(checkResult) {
 function KDPleaseSpeaker(Amount) {
 	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-		let faction = KDGetFaction(enemy);
+		let faction = KDGetFactionOriginal(enemy);
 		if (!KinkyDungeonHiddenFactions.includes(faction))
 			KinkyDungeonChangeFactionRep(faction, Amount);
 	}
@@ -751,8 +751,8 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						enemy.hostile = 100;
-						if (!KinkyDungeonHiddenFactions.includes(KDGetFaction(enemy)))
-							KinkyDungeonChangeFactionRep(KDGetFaction(enemy), -0.06);
+						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy)))
+							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
 					}
 				},
 				exitDialogue: true,
@@ -776,9 +776,9 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 				else KinkyDungeonInventoryRemove(itemInv);
 				let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-					let faction = KDGetFaction(enemy);
+					let faction = KDGetFactionOriginal(enemy);
 					if (!KinkyDungeonHiddenFactions.includes(faction)) {
-						KinkyDungeonChangeFactionRep(faction, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001);
+						KinkyDungeonChangeFactionRep(faction, Math.max(0.001, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001));
 					}
 				}
 				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);

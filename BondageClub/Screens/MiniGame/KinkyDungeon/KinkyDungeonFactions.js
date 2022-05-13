@@ -49,6 +49,18 @@ function KDGetFaction(enemy) {
 }
 
 /**
+ * Gets the faction of the enemy, returning "Player" if its an ally, or "Enemy" if no faction
+ * @param {entity} enemy
+ * @returns {string}
+ */
+function KDGetFactionOriginal(enemy) {
+	let E = enemy.Enemy;
+	if (enemy.faction) return enemy.faction;
+	if (E && E.faction) return E.faction;
+	return "Enemy";
+}
+
+/**
  * Consults the faction table and decides if the two mentioned factions are hostile
  * @param {string} a - Faction 1
  * @param {string | entity} b - Faction 2
