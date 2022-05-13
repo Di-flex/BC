@@ -527,11 +527,17 @@ function KinkyDungeonUpdateStats(delta) {
 	}
 	KinkyDungeonSubmissiveMult = KinkyDungeonCalculateSubmissiveMult();
 
-	if (!KDGameData.TimeSinceLastVibeEnd) KDGameData.TimeSinceLastVibeEnd = 0;
-	if (!KDGameData.TimeSinceLastVibeStart) KDGameData.TimeSinceLastVibeStart = 0;
+	if (!KDGameData.TimeSinceLastVibeEnd) KDGameData.TimeSinceLastVibeEnd = {};
+	if (!KDGameData.TimeSinceLastVibeStart) KDGameData.TimeSinceLastVibeStart = {};
 
-	KDGameData.TimeSinceLastVibeStart += delta;
-	KDGameData.TimeSinceLastVibeEnd += delta;
+	for (let type of Object.entries(KDGameData.TimeSinceLastVibeStart)) {
+		if (!KDGameData.TimeSinceLastVibeStart[type[0]]) KDGameData.TimeSinceLastVibeStart[type[0]] = 0;
+		else KDGameData.TimeSinceLastVibeStart[type[0]] += delta;
+	}
+	for (let type of Object.entries(KDGameData.TimeSinceLastVibeEnd)) {
+		if (!KDGameData.TimeSinceLastVibeEnd[type[0]]) KDGameData.TimeSinceLastVibeEnd[type[0]] = 0;
+		else KDGameData.TimeSinceLastVibeEnd[type[0]] += delta;
+	}
 }
 
 function KinkyDungeonCalculateMiscastChance() {

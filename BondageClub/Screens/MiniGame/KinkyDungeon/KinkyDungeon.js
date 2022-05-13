@@ -126,8 +126,8 @@ let KDOptOut = false;
 * HeartTaken: boolean,
 * CurrentVibration: KinkyVibration,
 * Edged: boolean,
-* TimeSinceLastVibeStart: number,
-* TimeSinceLastVibeEnd: number,
+* TimeSinceLastVibeStart: Record<string, number>,
+* TimeSinceLastVibeEnd: Record<string, number>,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -216,8 +216,8 @@ let KDGameDataBase = {
 
 	CurrentVibration: null,
 	Edged: false,
-	TimeSinceLastVibeStart: 0,
-	TimeSinceLastVibeEnd: 0,
+	TimeSinceLastVibeStart: {},
+	TimeSinceLastVibeEnd: {},
 };
 /**
  * @type {KDGameDataBase}

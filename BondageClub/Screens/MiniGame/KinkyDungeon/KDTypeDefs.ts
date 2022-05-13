@@ -632,7 +632,7 @@ interface KinkyDungeonEvent {
 	/** Vibe */
 	edgeOnly?: boolean;
 	/** Vibe */
-	cooldown?: number;
+	cooldown?: Record<string, number>;
 	/** A required enemy tag */
 	requiredTag?: string;
 	/** Type of struggle that this event triggers on */
