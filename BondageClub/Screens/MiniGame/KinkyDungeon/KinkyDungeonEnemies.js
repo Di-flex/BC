@@ -1231,7 +1231,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	if (KDEnemyHasFlag(enemy, "Shop")) chance = KDStrictPersonalities.includes(enemy.personality) ?  0.01 : 0;
 	if (KinkyDungeonCanPlay(enemy) && !KinkyDungeonFlags.get("NPCCombat") && !enemy.Enemy.alwaysHostile && !(enemy.rage > 0) && !(enemy.hostile > 0) && player.player && canSeePlayer && (enemy.vp > sneakThreshold || enemy.aware || (!KDHostile(enemy) && !KDAllied(enemy))) && (enemy.Enemy.tags.has("jailer") || enemy.Enemy.tags.has("jail") || enemy.Enemy.playLine) && !KinkyDungeonInJail()) {
 		playAllowed = true;
-		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance) {
+		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance && !KDAllied(enemy)) {
 			enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
 			enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
 			let index = Math.floor(Math.random() * 3);
