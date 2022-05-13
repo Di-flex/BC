@@ -778,7 +778,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 					let faction = KDGetFactionOriginal(enemy);
 					if (!KinkyDungeonHiddenFactions.includes(faction)) {
-						KinkyDungeonChangeFactionRep(faction, Math.max(0.001, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001));
+						KinkyDungeonChangeFactionRep(faction, Math.max(0.0001, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.00005));
 					}
 				}
 				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
