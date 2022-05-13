@@ -1044,9 +1044,19 @@ AttackAlkahestorBind,"The Alkahestor releases a vial of liquid that wraps around
 AttackAlkahestor,"The alkahestor shoves you! (-DamageTaken SP)"
 
 NameElementalLatex,Latex Elemental
-KillElementalLatex,"The lates elemental dissolves into ash."
+KillElementalLatex,"The latex elemental melts into sticky rubber."
 AttackElementalLatexBind,"The latex elemental molds itself into restraints! (+RestraintAdded)"
 AttackElementalLatex,"The latex elemental slaps you with its appendages! (-DamageTaken SP)"
+
+NameElementalRope,Rope Elemental
+KillElementalRope,"The rope elemental gets knotted and falls to the floor, inert."
+AttackElementalRopeBind,"The rope elemental's limbs lash out at you, wrapping themselves around your body! (+RestraintAdded)"
+AttackElementalRope,"The rope elemental squeezes you tightly! (-DamageTaken SP)"
+
+NameElementalLeather,Leather Elemental
+KillElementalLeather,"The leather elemental sits down and sulks."
+AttackElementalLeatherBind,"The leather elemental wraps her long extremities around your body! (+RestraintAdded)"
+AttackElementalLeather,"The leather elemental strikes you with her leather belts! (-DamageTaken SP)"
 
 NameSlimeEnthusiast,Slime Enthusiast
 KillSlimeEnthusiast,"The slime enthusiast screams and runs."

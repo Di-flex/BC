@@ -20,6 +20,19 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 				KinkyDungeonMakeNoise(12, x, y);
 				KinkyDungeonTiles.delete(x + "," + y);
 				KinkyDungeonMapSet(x, y, 'D');
+
+				let requireTags = ["doortrap"];
+
+				let tags = ["doortrap"];
+				KinkyDungeonAddTags(tags, MiniGameKinkyDungeonLevel);
+
+				for (let i = 0; i < 2 + Math.round(Math.min(2 + KDRandom() * 2, KinkyDungeonDifficulty/25) + Math.min(2 + KDRandom() * 2, 0.5*MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint)); i++) {
+					let Enemy = KinkyDungeonGetEnemy(
+						tags, MiniGameKinkyDungeonLevel,
+						KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
+						'0', requireTags);
+					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 6, true);
+				}
 			}
 		}
 
