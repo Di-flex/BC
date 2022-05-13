@@ -256,8 +256,8 @@ function KDSetFactionRelation(a, b, relation) {
  */
 function KDChangeFactionRelation(a, b, amount) {
 	if (a == "Rage" || b == "Rage") return;
-	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelationsBase[a];
-	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelationsBase[b];
+	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelations[a] || 0;
+	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelations[b] || 0;
 
 	if (KinkyDungeonFactionRelations[a]) {
 		if (!KinkyDungeonFactionRelations[a][b] && KinkyDungeonFactionRelations[b][a])
