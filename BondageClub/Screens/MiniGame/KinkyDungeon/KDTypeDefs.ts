@@ -567,7 +567,8 @@ interface enemy {
 	noChannel?: boolean,
 	/** Focuses player over summmons, ignores decoys */
 	focusPlayer?: boolean;
-
+	/** Cant be swapped by another enemy pathing */
+	noSwap?: boolean;
 
 }
 

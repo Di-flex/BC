@@ -808,6 +808,10 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, '2');
 
 		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold", Roll: KDRandom()});
+
+		// Trapped Door
+		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, 'd');
+		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + radius - 1), {Type: "Door", StepOffTrap: "DoorLock"});
 		KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 4});
 		if ( KDDebug) {
 			console.log("Created forbidden hall");

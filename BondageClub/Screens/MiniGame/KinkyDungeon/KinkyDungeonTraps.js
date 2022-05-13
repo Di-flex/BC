@@ -19,6 +19,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 				msg = "Default";
 				KinkyDungeonMakeNoise(12, x, y);
 				KinkyDungeonTiles.delete(x + "," + y);
+				KinkyDungeonMapSet(x, y, 'D');
 			}
 		}
 
