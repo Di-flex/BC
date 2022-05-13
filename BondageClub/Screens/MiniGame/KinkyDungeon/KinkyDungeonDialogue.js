@@ -6,6 +6,10 @@ function KDPersonalitySpread(Min, Avg, Max) {
 		Min);
 }
 
+function KinkyDungeonCanPutNewDialogue() {
+	return !KDGameData.CurrentDialog && !KinkyDungeonFlags.get("NoDialogue");
+}
+
 function KDBasicCheck(PositiveReps, NegativeReps) {
 	let value = 0;
 	for (let rep of PositiveReps) {
@@ -45,6 +49,7 @@ let KDOptionOffset = 0;
 function KDDrawDialogue() {
 	DrawImageCanvas(KinkyDungeonRootDirectory + "DialogBackground.png", MainCanvas, 500, 250);
 	if (KDGameData.CurrentDialog && !(KinkyDungeonSlowMoveTurns > 0)) {
+		KinkyDungeonDrawState = "Game";
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 		// Now that we have the dialogue, we check if we have a message
