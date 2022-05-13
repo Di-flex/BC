@@ -25,15 +25,20 @@ function KDProcessInput(type, data) {
 		case "tick":
 			KinkyDungeonAdvanceTime(data.delta, data.NoUpdate, data.NoMsgTick);
 			break;
-		case "tryCastSpell":
-			Result = KinkyDungeonCastSpell(data.tx, data.ty, data.spell ? data.spell : KinkyDungeonFindSpell(data.spellname, true), data.enemy, data.player, data.bullet);
-			if (Result == "Cast" && data.spell.sfx) {
-				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + data.spell.sfx + ".ogg");
+		case "tryCastSpell": {
+			let sp = data.spell ? data.spell : KinkyDungeonFindSpell(data.spellname, true);
+			if (sp) {
+				Result = KinkyDungeonCastSpell(data.tx, data.ty, sp, data.enemy, data.player, data.bullet);
+				if (Result == "Cast" && sp.sfx) {
+					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sp.sfx + ".ogg");
+				}
+				if (Result != "Fail")
+					KinkyDungeonAdvanceTime(1);
+				KinkyDungeonInterruptSleep();
+				return Result;
 			}
-			if (Result != "Fail")
-				KinkyDungeonAdvanceTime(1);
-			KinkyDungeonInterruptSleep();
-			return Result;
+			return "Fail";
+		}
 		case "struggle":
 			return KinkyDungeonStruggle(data.group, data.type);
 		case "struggleCurse":
