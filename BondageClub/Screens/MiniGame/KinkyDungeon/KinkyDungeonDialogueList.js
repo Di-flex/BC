@@ -257,6 +257,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("BondageOffer",  5);
+			KinkyDungeonSetFlag("ChastityOffer",  50);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",

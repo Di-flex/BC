@@ -61,8 +61,9 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonStatsChoice.has("arousalMode")
 				&& !KinkyDungeonFlags.get("DangerFlag")
 				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("ChastityOffer")
 				&& !KinkyDungeonFlags.get("NoTalk")
-				&& KDRandom() < 0.25
+				&& KDRandom() < 0.05
 				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {

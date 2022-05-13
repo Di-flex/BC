@@ -114,6 +114,7 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Alchemist": {
 		"Bandit": 0.15,
+		"AncientRobot": -0.55,
 	},
 	"Bountyhunter": {
 		"Jail": 0.8,
@@ -169,6 +170,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Witch": {
 		"Apprentice": 1.0,
 		"Dressmaker": 0.35,
+		"Elf": -1.0,
 	},
 	"Dressmaker": {
 		"Apprentice": 1.0,
@@ -176,6 +178,7 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Apprentice": {
 		"Jail": 1.0,
+		"Elf":  0.55,
 	},
 	"Maidforce": {
 		"Alchemist": 1.0,
