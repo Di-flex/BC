@@ -201,7 +201,12 @@ function KDFactionRelation(a, b) {
 let KDFactionRelations = new Map();
 
 function KDInitFactions(Reset) {
-	if (Reset) KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
+	if (Reset) {
+		KinkyDungeonFactionRelations = Object.assign({}, KinkyDungeonFactionRelationsBase);
+		for (let relation of Object.entries(KinkyDungeonFactionRelationsBase)) {
+			KinkyDungeonFactionRelations[relation[0]] = Object.assign({}, KinkyDungeonFactionRelationsBase[relation[0]]);
+		}
+	}
 	KDFactionRelations = new Map();
 	// For each faction in faction relations we create all the maps
 	for (let f1 of Object.entries(KinkyDungeonFactionRelations)) {

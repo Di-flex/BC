@@ -141,6 +141,14 @@ function KinkyDungeonDrawInputs() {
 		if (KDGameData.CurrentVibration  && KDGameData.CurrentVibration.denyTimeLeft > 0) {
 			DrawTextFit(TextGet("KinkyDungeonPlayerDenied"), 1090, 900 - i * 35, 350, "#ff8888", "gray"); i++;
 		}
+
+		i = 0;
+		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
+			if (b.aura) {
+				DrawTextFit(TextGet("KinkyDungeonBuff" + b.name), 790, 900 - i * 35, 275, b.aura, "gray"); i++;
+			}
+
+		}
 	}
 
 	// Draw the struggle buttons if applicable
