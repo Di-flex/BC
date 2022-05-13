@@ -270,7 +270,7 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			else if (item.type == Consumable) ret.push({name: KDConsumable(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${KDConsumable(item).name}.png`});
 			else if (item.type == Weapon) ret.push({name: KDWeapon(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${KDWeapon(item).name}.png`});
 			else if (item.type == Outfit) ret.push({name: KDOutfit(item) ? KDOutfit(item).name : "Prisoner", item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${KDOutfit(item).name}.png`});
-			else if (item && item.name) ret.push({name: item.name, item: item, preview: ``});
+			//else if (item && item.name) ret.push({name: item.name, item: item, preview: ``});
 		}
 
 	return ret;
