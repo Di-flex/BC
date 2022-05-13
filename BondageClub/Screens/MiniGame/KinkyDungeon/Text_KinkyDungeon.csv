@@ -859,7 +859,7 @@ AttackElementalAirLock,"The air elemental slips a lock on!"
 AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 
-NameFastZombie,Willful Zombie
+NameFastZombie,Angry Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
 AttackFastZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackFastZombie,"The zombie gropes your body! (-DamageTaken SP)"
