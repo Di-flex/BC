@@ -2529,6 +2529,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonLoot(MiniGameKinkyDungeonLevel, MiniGameKinkyDungeonCheckpoint, "rubble");
 
 							KinkyDungeonMapSet(moveX, moveY, 'r');
+							KinkyDungeonAggroAction('rubble', {});
 						}
 						KinkyDungeonTrapMoved = true;
 						//}

@@ -131,7 +131,7 @@ function KinkyDungeonAggroAction(action, data) {
 			break;
 
 		case 'struggle':
-			if (KDGameData.PrisonerState == "parole" && data.enemy)
+			if (data.enemy) // KDGameData.PrisonerState == "parole" &&
 				KinkyDungeonPlayExcuse(data.enemy, "Struggle");
 			break;
 
