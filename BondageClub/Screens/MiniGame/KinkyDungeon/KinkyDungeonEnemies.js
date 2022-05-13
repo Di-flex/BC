@@ -979,14 +979,14 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					enemy.warningTiles = [];
 				}
 
-				if (enemy.vp > 0 && !enemy.path) {
+				if (enemy.vp > 0 && (!enemy.path || enemy.path.length < 4)) {
 					let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;
 					if (enemy.vp > sneakThreshold * 2 && !enemy.aware) {
 						let sneak = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 						if (sneak > 0)
-							enemy.vp = Math.max(sneakThreshold * 2, enemy.vp - 0.5);
+							enemy.vp = Math.max(sneakThreshold + 1, Math.max(Math.min(enemy.vp, sneakThreshold), enemy.vp * 0.7 - 0.1));
 					}
-					enemy.vp = Math.max(0, enemy.vp - 0.05);
+					enemy.vp = Math.max(0, enemy.vp - 0.1);
 				}
 
 				// Delete the enemy
