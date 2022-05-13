@@ -369,8 +369,8 @@ function KinkyDungeonDrawInventory() {
 			if (filteredInventory[index] && filteredInventory[index].item) {
 				let text = "KinkyDungeonInventoryItem" + filteredInventory[index].name;
 				if (filteredInventory[index].item.type == Restraint || filteredInventory[index].item.type == LooseRestraint)
-					text = "Restraint" + filteredInventory[i].name;
-				DrawButton(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40, TextGet(text), i == KinkyDungeonCurrentPageInventory ? "white" : "#888888");
+					text = "Restraint" + filteredInventory[index].name;
+				DrawButton(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40, TextGet(text), index == KinkyDungeonCurrentPageInventory ? "white" : "#888888");
 			} else {
 				if (i + KinkyDungeonInventoryOffset > filteredInventory.length + 2)
 					KinkyDungeonInventoryOffset = 0;
