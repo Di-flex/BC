@@ -110,7 +110,7 @@ function KinkyDungeonAggroAction(action, data) {
 		case 'rubble':
 			e = KinkyDungeonPlayerIsVisibleToJailers();
 			if (e) {
-				KinkyDungeonPlayExcuse(data.enemy, "Loot");
+				KinkyDungeonPlayExcuse(e, "Loot");
 			}
 			break;
 
