@@ -27,8 +27,8 @@ function KDProcessInput(type, data) {
 			break;
 		case "tryCastSpell":
 			Result = KinkyDungeonCastSpell(data.tx, data.ty, data.spell ? data.spell : KinkyDungeonFindSpell(data.spellname, true), data.enemy, data.player, data.bullet);
-			if (Result == "Cast" && KinkyDungeonTargetingSpell.sfx) {
-				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonTargetingSpell.sfx + ".ogg");
+			if (Result == "Cast" && data.spell.sfx) {
+				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + data.spell.sfx + ".ogg");
 			}
 			if (Result != "Fail")
 				KinkyDungeonAdvanceTime(1);
