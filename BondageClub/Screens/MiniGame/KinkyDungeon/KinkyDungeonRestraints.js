@@ -748,7 +748,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		data.escapeChance += KDUnchainedBonus;
 	if (KinkyDungeonStatsChoice.get("Damsel") && KDRestraint(restraint).shrine && KDRestraint(restraint).shrine.includes("Metal")) {
 		data.escapeChance /= 1.5;
-		if (data.limitChance > 0 && data.limitChance < KDDamselBonus)
+		if (StruggleType != "Pick"  && StruggleType != "Unlock" && data.limitChance > 0 && data.limitChance < KDDamselBonus)
 			data.limitChance = KDDamselBonus;
 	}
 	if (KinkyDungeonStatsChoice.get("HighSecurity")) {
@@ -762,7 +762,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		data.escapeChance += KDArtistBonus;
 	if (KinkyDungeonStatsChoice.get("Bunny") && KDRestraint(restraint).shrine && KDRestraint(restraint).shrine.includes("Rope")) {
 		data.escapeChance /= 1.5;
-		if (data.limitChance > 0 && data.limitChance < KDBunnyBonus)
+		if (StruggleType != "Pick"  && StruggleType != "Unlock" && data.limitChance > 0 && data.limitChance < KDBunnyBonus)
 			data.limitChance = KDBunnyBonus;
 	}
 	if (KinkyDungeonStatsChoice.get("ShoddyKnives")) {
@@ -777,7 +777,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		data.escapeChance += KDSlipperyBonus;
 	else if (KinkyDungeonStatsChoice.get("Doll") && KDRestraint(restraint).shrine && KDRestraint(restraint).shrine.includes("Latex")) {
 		data.escapeChance /= 1.5;
-		if (data.limitChance > 0 && data.limitChance < KDDollBonus)
+		if (StruggleType != "Pick"  && StruggleType != "Unlock" && data.limitChance > 0 && data.limitChance < KDDollBonus)
 			data.limitChance = KDDollBonus;
 	}
 
@@ -785,7 +785,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		data.escapeChance += KDEscapeeBonus;
 	else if (KinkyDungeonStatsChoice.get("Dragon") && KDRestraint(restraint).shrine && KDRestraint(restraint).shrine.includes("Leather")) {
 		data.escapeChance /= 1.5;
-		if (data.limitChance > 0 && data.limitChance < KDDragonBonus)
+		if (StruggleType != "Pick"  && StruggleType != "Unlock" && data.limitChance > 0 && data.limitChance < KDDragonBonus)
 			data.limitChance = KDDragonBonus;
 	}
 
