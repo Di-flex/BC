@@ -257,6 +257,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("BondageOffer",  5);
+			KinkyDungeonSetFlag("ChastityOffer",  50);
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -662,11 +663,12 @@ let KDDialogue = {
 			"Leave": {playertext: "Leave", exitDialogue: true},
 		}
 	},
-	"PotionSell": KDShopDialogue("PotionSell", ["PotionMana", "PotionStamina", "PotionFrigid", "PotionInvisibility"], [], ["witch", "apprentice", "alchemist"], 0.4),
+	"PotionSell": KDShopDialogue("PotionSell", ["PotionMana", "PotionStamina", "PotionFrigid", "PotionInvisibility"], [], ["witch", "apprentice", "alchemist", "human", "dragon"], 0.4),
 	"ElfCrystalSell": KDShopDialogue("ElfCrystalSell", ["PotionMana", "ElfCrystal", "EarthRune", "WaterRune", "IceRune"], [], ["elf"], 0.6),
-	"ScrollSell": KDShopDialogue("ScrollSell", ["ScrollArms", "ScrollVerbal", "ScrollLegs", "ScrollPurity"], [], ["witch", "apprentice", "elf", "wizard"], 0.33),
-	"WolfgirlSell": KDShopDialogue("WolfgirlSell", ["MistressKey", "AncientPowerSource", "AncientPowerSourceSpent", "EnchantedGrinder"], [], ["trainer"], 0.4),
+	"ScrollSell": KDShopDialogue("ScrollSell", ["ScrollArms", "ScrollVerbal", "ScrollLegs", "ScrollPurity"], [], ["witch", "apprentice", "elf", "wizard", "dressmaker"], 0.33),
+	"WolfgirlSell": KDShopDialogue("WolfgirlSell", ["MistressKey", "AncientPowerSource", "AncientPowerSourceSpent", "EnchantedGrinder"], [], ["trainer", "alchemist", "human"], 0.4),
 	"NinjaSell": KDShopDialogue("NinjaSell", ["SmokeBomb", "Bola", "Bomb", "PotionInvisibility"], [], ["ninja", "bountyhunter"], 0.6),
+	"GhostSell": KDShopDialogue("GhostSell", ["Ectoplasm", "PotionInvisibility", "ElfCrystal"], [], ["alchemist", "witch", "apprentice", "dressmaker", "dragon"], 0.2),
 	// TODO magic book dialogue in which you can read forward and there are traps
 };
 
@@ -688,7 +690,7 @@ function KDAgilityDialogueSuccessChance(checkResult) {
 function KDPleaseSpeaker(Amount) {
 	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-		let faction = KDGetFaction(enemy);
+		let faction = KDGetFactionOriginal(enemy);
 		if (!KinkyDungeonHiddenFactions.includes(faction))
 			KinkyDungeonChangeFactionRep(faction, Amount);
 	}
@@ -737,11 +739,30 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 14);
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 17);
 				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
 			}
 		},
 	};
+	shop.options.Attack = {gag: true, playertext: "ItemShopAttack", response: "Default",
+		options: {
+			"Confirm": {playertext: "ItemShopAttack_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						enemy.hostile = 100;
+						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy)))
+							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+					}
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: "ItemShopAttack_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+
 	for (let i = 0; i < items.length; i++) {
 		let item = items[i];
 		shop.options["Item" + i] = {playertext: "ItemShop" + i, response: name + item,
@@ -755,9 +776,9 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 				else KinkyDungeonInventoryRemove(itemInv);
 				let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-					let faction = KDGetFaction(enemy);
+					let faction = KDGetFactionOriginal(enemy);
 					if (!KinkyDungeonHiddenFactions.includes(faction)) {
-						KinkyDungeonChangeFactionRep(faction, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001);
+						KinkyDungeonChangeFactionRep(faction, Math.max(0.0001, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.00005));
 					}
 				}
 				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
