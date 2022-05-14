@@ -48,16 +48,16 @@ const KDEventMapInventory = {
 	"tick": {
 		"PeriodicTeasing": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
-				if (!KDGameData.CurrentVibration && KDGameData.TimeSinceLastVibeEnd > e.cooldown) {
-					KinkyDungeonStartVibration(item.name, "tease", KDGetVibeLocation(item), e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
+				if (!KDGameData.CurrentVibration && KDIsVibeCD(e.cooldown)) {
+					KinkyDungeonStartVibration(item.name, "normal", KDGetVibeLocation(item), e.power, e.time, undefined, undefined, undefined, undefined, e.edgeOnly);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				}
 			}
 		},
 		"PeriodicDenial": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
-				if (!KDGameData.CurrentVibration && KDGameData.TimeSinceLastVibeEnd > e.cooldown) {
-					KinkyDungeonStartVibration(item.name, "deny", KDGetVibeLocation(item), e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
+				if (!KDGameData.CurrentVibration && KDIsVibeCD(e.cooldown)) {
+					KinkyDungeonStartVibration(item.name, "normal", KDGetVibeLocation(item), e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				} else {
 					KinkyDungeonAddVibeModifier(item.name, "tease", KDRestraint(item).Group, 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);

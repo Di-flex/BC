@@ -193,6 +193,7 @@ KinkyDungeonBuffLesserInvisibility,"Lesser Invisibility"
 KinkyDungeonBuffCutting,"FULL POWER"
 KinkyDungeonBuffSlippery,"Graceful"
 KinkyDungeonBuffIronBlood,"Iron Blood"
+KinkyDungeonBuffSleepy,Sleepy
 
 KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
@@ -2064,8 +2065,8 @@ RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
 RestraintTrapVibeProto,Prototype Egg
 RestraintTrapVibeProtoDesc,"A teaser that periodically vibrates."
 RestraintTrapVibeProtoDesc2,"High efficiency mana conversion means longer tease duration."
-RestraintTrapPlug,Happy Plug
-RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."
+RestraintTrapPlug,Vibrating Plug
+RestraintTrapPlugDesc,"A sizeable plug that makes you happy... a little too happy."
 RestraintTrapPlugDesc2,"It vibrates periodically and allows orgasms."
 RestraintTrapPlug2,Teaser Plug
 RestraintTrapPlug2Desc,"A sizeable plug that will tease you but never let you go..."

@@ -660,7 +660,7 @@ function KinkyDungeonDoPlayWithSelf() {
 	}
 	if (KinkyDungeonIsArmsBound()) amount = Math.max(0, Math.min(amount, OrigAmount - KinkyDungeonPlayWithSelfBoundPenalty));
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.playSelfBonus) amount += KinkyDungeonPlayerDamage.playSelfBonus;
-	KinkyDungeonChangeDistraction(amount);
+	KinkyDungeonChangeDistraction(amount * KinkyDungeonPlayWithSelfMult);
 	KinkyDungeonChangeStamina(KinkyDungeonPlayCost);
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.playSelfSound) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + KinkyDungeonPlayerDamage.playSelfSound + ".ogg");
 	if (KinkyDungeonPlayerDamage && KinkyDungeonPlayerDamage.playSelfMsg) {
@@ -702,6 +702,7 @@ let KinkyDungeonEdgeCost = -1;
 let KinkyDungeonPlayCost = -0.05;
 
 let KinkyDungeonOrgasmStunTime = 4;
+let KinkyDungeonPlayWithSelfMult = 0.25;
 
 function KinkyDungeonDoTryOrgasm() {
 	let amount = KinkyDungeonOrgasmVibeLevel * KinkyDungeonOrgasmVibeLevelMult;
