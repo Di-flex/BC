@@ -13,6 +13,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 		let color = "red";
 
 		if (tile.StepOffTrap == "DoorLock" && KinkyDungeonNoEnemy(x, y)) {
+			KinkyDungeonMapSet(x, y, 'D');
 			let spawned = 0;
 			let maxspawn = 2 + Math.round(Math.min(2 + KDRandom() * 2, KinkyDungeonDifficulty/25) + Math.min(2 + KDRandom() * 2, 0.5*MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint));
 			let requireTags = ["doortrap"];
@@ -34,6 +35,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 				}
 			}
 			if (spawned > 0) {
+				KinkyDungeonMapSet(x, y, 'd');
 				let created = KinkyDungeonSummonEnemy(x, y, "DoorLock", 1, 0);
 				if (created > 0) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/MagicSlash.ogg");
@@ -41,10 +43,9 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 					KinkyDungeonMakeNoise(12, x, y);
 					KinkyDungeonTiles.delete(x + "," + y);
 					KinkyDungeonMapSet(x, y, 'D');
-
-
 				}
-			}
+			} else
+				KinkyDungeonMapSet(x, y, 'd');
 		}
 
 		if (msg) {

@@ -624,7 +624,7 @@ let KinkyDungeonEnemies = [
 	{name: "ElementalLeather", faction: "Elemental", playLine: "Elemental", clusterWith: "elemental", bound: "Elemental", squeeze: true, color: "#9999a0",
 		tags: KDMapInit(["opendoors", "elemental", "melee", "chainresist", "crushresist", "leatherRestraints", "leatherRestraintsHeavy", "ballGagRestraints", "leashing", "search", "doortrap"]),
 		armor: 2, followRange: 1, AI: "hunt", kite: 1.5,
-		visionRadius: 6, maxhp: 12, minLevel:2, weight:-2, movePoints: 2, attackPoints: 3, attack: "MeleeWillBind", attackWidth: 1, attackRange: 2.9, tilesMinRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 4,
+		visionRadius: 6, maxhp: 12, minLevel:2, weight:-2, movePoints: 2, attackPoints: 3, attack: "MeleeWillBind", attackWidth: 1, attackRange: 2, tilesMinRange: 1, power: 4, dmgType: "pain", fullBoundBonus: 4, projectileTargeting: true,
 		terrainTags: {"secondhalf":2, "thirdhalf":1, "leatherAnger": 4, "leatherRage": 4, "temple": 4, "doortrap": 5}, allFloors: true, shrines: ["Leather", "Elements"],
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 10, noSummon: true}, {name: "EarthRune", weight: 2, noSummon: true}]},
 
