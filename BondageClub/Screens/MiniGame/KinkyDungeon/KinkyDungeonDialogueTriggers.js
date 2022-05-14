@@ -11,6 +11,7 @@ let KDDialogueTriggers = {
 		excludeTags: ["zombie", "skeleton"],
 		playRequired: true,
 		noCombat: true,
+		noAlly: true,
 		blockDuringPlaytime: false,
 		prerequisite: (enemy, dist) => {
 			return (KinkyDungeonPlayerDamage
