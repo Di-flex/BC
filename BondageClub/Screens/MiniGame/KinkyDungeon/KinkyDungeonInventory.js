@@ -52,7 +52,7 @@ function KinkyDungeonHandleInventory() {
 			let index = i + KinkyDungeonInventoryOffset;
 			if (filteredInventory[index] && filteredInventory[index].item) {
 				if (MouseIn(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40)) {
-					KinkyDungeonCurrentPageInventory = i;
+					KinkyDungeonCurrentPageInventory = index;
 					return true;
 				}
 			}

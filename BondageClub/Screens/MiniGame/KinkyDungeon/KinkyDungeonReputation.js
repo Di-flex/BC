@@ -49,7 +49,7 @@ let KDFactionGoddess = {
 		"Apprentice": 0.0015,
 		"Maidforce": 0.007,
 		"Bountyhunter": 0.002,
-		"Ghost": 0.005,
+		//"Ghost": 0.005,
 	},
 };
 
