@@ -840,6 +840,7 @@ Spell Balance:
 - New enemy: Leather Elemental, Rope Elemental
 - Allies now help you out of restraints
 
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
