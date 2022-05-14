@@ -581,9 +581,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			}
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
-			KinkyDungeonSlowMoveTurns = 4;
-			KinkyDungeonSleepiness = 3;
-			KinkyDungeonAlert = 4;
+			KinkyDungeonSlowMoveTurns = 8;
+			KinkyDungeonStatBlind = 8;
+			KinkyDungeonSleepiness = 8;
+			KinkyDungeonAlert = 6;
 			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 4);
@@ -717,6 +718,15 @@ function KinkyDungeonGetCost(Spell) {
 	return cost;
 }
 
+function KinkyDungeonMakeNoise(radius, noiseX, noiseY) {
+	for (let e of KinkyDungeonEntities) {
+		if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= radius) {
+			e.gx = noiseX;
+			e.gy = noiseY;
+		}
+	}
+}
+
 /**
  *
  * @param {number} targetX
@@ -738,6 +748,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (!enemy && !bullet && player) faction = "Player";
 	else if (enemy) {
 		let f = KDGetFaction(enemy);
+		if (f) faction = f;
+	} else if (bullet && bullet.bullet) {
+		let f = bullet.bullet.faction;
 		if (f) faction = f;
 	}
 
@@ -925,12 +938,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	if (spell.noise) {
-		for (let e of KinkyDungeonEntities) {
-			if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= spell.noise) {
-				e.gx = noiseX;
-				e.gy = noiseY;
-			}
-		}
+		KinkyDungeonMakeNoise(spell.noise, noiseX, noiseY);
 	}
 
 	if (!enemy && !bullet && player) { // Costs for the player

@@ -10,7 +10,7 @@ KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 
-KinkyDungeon,"Kinky Dungeon v3.31"
+KinkyDungeon,"Kinky Dungeon v3.32"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -181,6 +181,19 @@ KinkyDungeonStatDesc56,"Switching spells and casting from spellbook does not tak
 KinkyDungeonStat57,"Disorganized"
 KinkyDungeonStatDesc57,"Switching weapons, learning/choosing spells, and casting from spellbook takes 3 turns."
 
+
+KinkyDungeonBuffSlimeForm,Slime Form
+KinkyDungeonBuffShroud2,"Shroud"
+KinkyDungeonBuffCamo,"Camoflage"
+KinkyDungeonBuffStoneSkin,"Stone Skin"
+KinkyDungeonBuffShadowBlade,"Darkblade"
+KinkyDungeonBuffShield,"Protection"
+KinkyDungeonBuffInvisibility,"Invisibility"
+KinkyDungeonBuffLesserInvisibility,"Lesser Invisibility"
+KinkyDungeonBuffCutting,"FULL POWER"
+KinkyDungeonBuffSlippery,"Graceful"
+KinkyDungeonBuffIronBlood,"Iron Blood"
+KinkyDungeonBuffSleepy,Sleepy
 
 KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
@@ -503,6 +516,10 @@ KinkyDungeonInventoryItemPotionInvisibility,Invisibility Potion
 KinkyDungeonInventoryItemPotionInvisibilityUse,You chug the concoction and see your body fading away.
 KinkyDungeonInventoryItemPotionInvisibilityDesc,"You feel liquid inside, but you can't see it!"
 KinkyDungeonInventoryItemPotionInvisibilityDesc2,"Casts Invisibility on yourself."
+KinkyDungeonInventoryItemEctoplasm,Ectoplasm
+KinkyDungeonInventoryItemEctoplasmUse,"Like a moisturizing cream, except it's made from coagulated souls."
+KinkyDungeonInventoryItemEctoplasmDesc,"Can be used without hands. Just apply directly to the forehead!"
+KinkyDungeonInventoryItemEctoplasmDesc2,"Makes you harder to see for 10 turns."
 KinkyDungeonInventoryItemEarthRune,Earth Rune
 KinkyDungeonInventoryItemEarthRuneUse,"You smash the rune in front of you, and glowing rocks rise from the earth."
 KinkyDungeonInventoryItemEarthRuneDesc,"It feels unsettling to look at."
@@ -670,7 +687,7 @@ KinkyDungeonVibing4,Your toys vibrate intensely!
 KinkyDungeonVibing5,The vibration is torturous!
 
 KinkyDungeonPlayerEdged,"Edged!"
-KinkyDungeonPlayerStatisfied,"Statisfied..."
+KinkyDungeonPlayerStatisfied,"Satisfied~"
 
 
 KinkyDungeonWeaponDamage,"Damage: "
@@ -724,6 +741,11 @@ KinkyDungeonAngelDefeated,"Angel: MMMMMPHH!!!"
 
 KinkyDungeonAngelUnlock,"(The angel looks puzzled and unlocks your divine restraints)"
 
+
+NameDoorLock,Mystic Lock
+KillDoorLock,"The mystic lock fades, allowing you to pass once more."
+KinkyDungeonSummonSingleDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
+KinkyDungeonTrapDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
 
 NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
@@ -838,10 +860,15 @@ AttackElementalAirLock,"The air elemental slips a lock on!"
 AttackElementalAir,"The air elemental spanks you playfully! (-DamageTaken SP)"
 
 
-NameFastZombie,Ravenous Zombie
+NameFastZombie,Angry Zombie
 KillFastZombie,"The zombie screams and tumbles to the floor."
 AttackFastZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackFastZombie,"The zombie gropes your body! (-DamageTaken SP)"
+
+NameNawashiZombie,Skillful Zombie
+KillNawashiZombie,"The zombie smiles as it collapses to the ground."
+AttackNawashiZombieBind,"The zombie swiftly ties you! (+RestraintAdded)"
+AttackNawashiZombie,"The zombie cuddles with your body! (-DamageTaken SP)"
 
 
 NameMageZombie,Mage Zombie
@@ -1020,9 +1047,19 @@ AttackAlkahestorBind,"The Alkahestor releases a vial of liquid that wraps around
 AttackAlkahestor,"The alkahestor shoves you! (-DamageTaken SP)"
 
 NameElementalLatex,Latex Elemental
-KillElementalLatex,"The lates elemental dissolves into ash."
+KillElementalLatex,"The latex elemental melts into sticky rubber."
 AttackElementalLatexBind,"The latex elemental molds itself into restraints! (+RestraintAdded)"
 AttackElementalLatex,"The latex elemental slaps you with its appendages! (-DamageTaken SP)"
+
+NameElementalRope,Rope Elemental
+KillElementalRope,"The rope elemental gets knotted and falls to the floor, inert."
+AttackElementalRopeBind,"The rope elemental's limbs lash out at you, wrapping themselves around your body! (+RestraintAdded)"
+AttackElementalRope,"The rope elemental squeezes you tightly! (-DamageTaken SP)"
+
+NameElementalLeather,Leather Elemental
+KillElementalLeather,"The leather elemental sits down and sulks."
+AttackElementalLeatherBind,"The leather elemental wraps her long extremities around your body! (+RestraintAdded)"
+AttackElementalLeather,"The leather elemental strikes you with her leather belts! (-DamageTaken SP)"
 
 NameSlimeEnthusiast,Slime Enthusiast
 KillSlimeEnthusiast,"The slime enthusiast screams and runs."
@@ -1222,12 +1259,12 @@ AttackApprentice,"The apprentice slaps you playfully!"
 NameApprentice2,Summoner's Apprentice
 KillApprentice2,"The apprentice runs off and cries in a corner."
 AttackApprentice2Bind,"The apprentice summons a restraint onto you!"
-AttackApprentice2,"The apprentice slaps you playfully!"
+AttackApprentice2,"The apprentice tickles you playfully!"
 
 NameApprenticeSlime,Latex Apprentice
 KillApprenticeSlime,"The apprentice runs off and cries in a corner."
 AttackApprenticeSlimeBind,"The apprentice attaches a sticky restraint!"
-AttackApprenticeSlime,"The apprentice slaps you playfully!"
+AttackApprenticeSlime,"The apprentice caresses you playfully!"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
@@ -1375,7 +1412,7 @@ KinkyDungeonLeashed2,"Perhaps they may release you if you behave..."
 
 
 NameNecromancer,Necromancer
-KillNecromancer,"The necromancer perishes. Ironic that she couldn't save herself."
+KillNecromancer,"The necromancer faints. Ironic that she couldn't save herself."
 AttackNecromancerLock,"The necromancer locks all of your restraints!"
 AttackNecromancerBind,"The necromancer prepares you for transport!"
 AttackNecromancer,"The necromancer rubs your body sensually!"
@@ -2028,8 +2065,8 @@ RestraintTrapVibeDesc2,"It is charged by residual magic from your spells."
 RestraintTrapVibeProto,Prototype Egg
 RestraintTrapVibeProtoDesc,"A teaser that periodically vibrates."
 RestraintTrapVibeProtoDesc2,"High efficiency mana conversion means longer tease duration."
-RestraintTrapPlug,Happy Plug
-RestraintTrapPlugDesc,"A sizeable plug that makes you happy and lets you go over the edge."
+RestraintTrapPlug,Vibrating Plug
+RestraintTrapPlugDesc,"A sizeable plug that makes you happy... a little too happy."
 RestraintTrapPlugDesc2,"It vibrates periodically and allows orgasms."
 RestraintTrapPlug2,Teaser Plug
 RestraintTrapPlug2Desc,"A sizeable plug that will tease you but never let you go..."
@@ -2591,6 +2628,7 @@ ItemPickupBlueKey,"You picked up a blue key."
 ItemPickupPotionHealth,"You picked up a willpower potion."
 ItemPickupPotionMana,"You picked up a glowing blue mana potion."
 ItemPickupPotionInvisibility,"You picked up an invisibility potion."
+ItemPickupEctoplasm,"You picked up a handful of ectoplasm."
 ItemPickupPotionStamina,"You picked up a green stamina potion."
 ItemPickupPotionFrigid,"You picked up a frigid white potion."
 ItemPickupLore,"You found a peculiar note on the ground and keep it in your journal."
@@ -2929,6 +2967,11 @@ KinkyDungeonSpellInvisibility,Invisibility
 KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
+
+KinkyDungeonSpellLesserInvisibility,Lesser Invisibility
+KinkyDungeonSpellTargetLesserInvisibility,Select which creature to buff
+KinkyDungeonSpellDescriptionLesserInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
+KinkyDungeonSpellCastLesserInvisibility,You become semitransparent!
 
 KinkyDungeonSpellCamo,Camouflage
 KinkyDungeonSpellTargetCamo,Select yourself
@@ -3937,6 +3980,26 @@ KinkyDungeonRemindJailChaseTemplateOrb,"EnemyName: "
 KinkyDungeonRemindJailChaseTemplateJailbreak,"EnemyName: "
 
 
+KinkyDungeonRemindJailPlayElemental0,"EnemyName: What a beautiful one."
+KinkyDungeonRemindJailPlayElemental1,"EnemyName: I will take you back home~"
+KinkyDungeonRemindJailPlayElemental2,"EnemyName: You'd look great in my palace."
+KinkyDungeonRemindJailPlayElementalStruggle,"EnemyName: Are we having fun?"
+KinkyDungeonRemindJailPlayElementalFree,"EnemyName: Humans like you make for great toys."
+KinkyDungeonRemindJailPlayElementalLoot,"EnemyName: That won't help you."
+KinkyDungeonRemindJailPlayElementalKey,"EnemyName: You won't escape."
+KinkyDungeonRemindJailChaseElementalAttack0,"EnemyName: Such feeble attempts."
+KinkyDungeonRemindJailChaseElementalAttack1,"EnemyName: Humans are fun to play with."
+KinkyDungeonRemindJailChaseElementalAttack2,"EnemyName: Toying with me? I shall oblige!"
+KinkyDungeonRemindJailChaseElementalSpell0,"EnemyName: Cast your last pathetic spell, human."
+KinkyDungeonRemindJailChaseElementalSpell1,"EnemyName: Your magic is weak, human."
+KinkyDungeonRemindJailChaseElementalSpell2,"EnemyName: It tickles, hehe!"
+KinkyDungeonRemindJailChaseElementalSpellItem,"EnemyName: Look what humans need to match only a fraction of our power!"
+KinkyDungeonRemindJailChaseElementalShrine,"EnemyName: Our goddess doesn't need to listen to the likes of you!"
+KinkyDungeonRemindJailChaseElementalChest,"EnemyName: Keep your hands out of our possessions."
+KinkyDungeonRemindJailChaseElementalOrb,"EnemyName: Defiler! You will pay for your crimes!"
+KinkyDungeonRemindJailChaseElementalJailbreak,"EnemyName: A game of chase? Fun."
+
+
 KinkyDungeonRemindJailPlayDomMaid0,"EnemyName: Look, a new recruit!"
 KinkyDungeonRemindJailPlayDomMaid1,"EnemyName: I'll teach you a thing or two!"
 KinkyDungeonRemindJailPlayDomMaid2,"EnemyName: Let's test your manners~"
@@ -4315,13 +4378,15 @@ dOfferWolfgirlForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)
 
 
 
-rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion seller.|Give me your strongest potions!|I pay cash!"
+rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
+rPotionSellAttack,"(The SPEAKER doesn't look surprised)|Okay, just let me set these down real quick..."
 rPotionSellPotionMana,"(The SPEAKER smiles)|A spellcaster will have great use for this!"
 rPotionSellPotionStamina,"(The SPEAKER smiles)|Refreshing!"
 rPotionSellPotionFrigid,"(The SPEAKER smiles)|They say a bitter tea cures all ails..."
 rPotionSellPotionInvisibility,"(The SPEAKER smiles)|An empty flask?|...Oh."
 
 rElfCrystalSell,"(The SPEAKER approaches you)|I greet you!|My throat is parched and I seek the bounties of nature.|Do you have what I seek?"
+rElfCrystalSellAttack,"(The SPEAKER doesn't look surprised)|Then let us have a battle of wits!"
 rElfCrystalSellPotionMana,"(The SPEAKER thanks you)|A kind offering! You have my thanks.
 rElfCrystalSellElfCrystal,"(The SPEAKER tilts her head)|...where did you get this?
 rElfCrystalSellEarthRune,"(The SPEAKER thanks you)|A fine trinket!|I will enjoy meditating upon it.
@@ -4329,23 +4394,36 @@ rElfCrystalSellWaterRune,"(The SPEAKER thanks you)|I sense its flowing essence.|
 rElfCrystalSellIceRune,"(The SPEAKER thanks you)|I can feel a great sadness emanating from it.|It calls for warmth."
 
 rScrollSell,"(The SPEAKER approaches you with an offer)|Hello!|I am searching for magical scrolls.|Would you happen to have any?"
+rScrollSellAttack,"(The SPEAKER doesn't look surprised)|Rude!"
 rScrollSellScrollArms,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollLegs,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollVerbal,"(The SPEAKER smiles)|Thank you!"
 rScrollSellScrollPurity,"(The SPEAKER raises a brow)|Thank you! This one is rare!"
 
 rWolfgirlSell,"(The SPEAKER approaches you with an offer)|Hey girl~|You seem like the explorer type.|Happen to have any good finds?"
+rWolfgirlSellAttack,"(The SPEAKER frowns)|Well then."
 rWolfgirlSellMistressKey,"(The SPEAKER grins)|Are you willing to part with this?"
 rWolfgirlSellAncientPowerSource,"(The SPEAKER smiles)|Aha!|Fantastic."
 rWolfgirlSellAncientPowerSourceSpent,"(The SPEAKER frowns)|I'll take it, I guess..."
 rWolfgirlSellEnchantedGrinder,"(The SPEAKER smiles)|Oooh~!|I love technology!"
 
 rNinjaSell,"(The SPEAKER surprises you)|Greetings, traveler.|I am looking for tools to aid in my mission."
-rNinjaSellSmokeBomb,"(The SPEAKER bows)|Always prepared."
+rNinjaSellAttack,"(The SPEAKER doesn't look surprised)|That's how it is, then."
+rNinjaSellSmokeBomb,"(The SPEAKER bows)|Always be prepared."
 rNinjaSellBomb,"(The SPEAKER bows)|A bit dangerous, but I'll take it."
 rNinjaSellBola,"(The SPEAKER bows)|A tool of the trade."
 rNinjaSellPotionInvisibility,"(The SPEAKER bows)|A most valuable find."
 
+rGhostSell,"(The SPEAKER runs up to you)|Hello!|You wouldn't happen to have seen any ghosts lately?|I'm gathering evidence!"
+rGhostSellAttack,"(The SPEAKER gasps)|You wouldn't!"
+rGhostSellElfCrystal,"(The SPEAKER shakes your hand)|Ah! Ghosts love these!"
+rGhostSellEctoplasm,"(The SPEAKER smiles)|This looks like strong evidence for my investigation!"
+rGhostSellPotionInvisibility,"(The SPEAKER grins)|Woah! That's so cool!"
+
+dItemShopAttack,You're giving me everything you have.
+dItemShopAttackGag,(Flail threateningly at her)
+dItemShopAttack_Confirm,(Do it)
+dItemShopAttack_Leave,(Back off)
 dItemShop0,(Sell Item0 for ItemCost0 gp)
 dItemShop1,(Sell Item1 for ItemCost1 gp)
 dItemShop2,(Sell Item2 for ItemCost2 gp)

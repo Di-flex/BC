@@ -567,7 +567,8 @@ interface enemy {
 	noChannel?: boolean,
 	/** Focuses player over summmons, ignores decoys */
 	focusPlayer?: boolean;
-
+	/** Cant be swapped by another enemy pathing */
+	noSwap?: boolean;
 
 }
 
@@ -631,7 +632,7 @@ interface KinkyDungeonEvent {
 	/** Vibe */
 	edgeOnly?: boolean;
 	/** Vibe */
-	cooldown?: number;
+	cooldown?: Record<string, number>;
 	/** A required enemy tag */
 	requiredTag?: string;
 	/** Type of struggle that this event triggers on */
