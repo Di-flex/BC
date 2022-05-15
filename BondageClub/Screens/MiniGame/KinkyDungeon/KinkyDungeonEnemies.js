@@ -88,7 +88,9 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
 					+ (e.y - enemy.y)*(e.y - enemy.y));
-				let pdist_enemy = KDGetFaction(enemy) == "Player" ? KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) : -1;
+				let pdist_enemy = (KDGetFaction(enemy) == "Player" && !KDEnemyHasFlag(enemy, "NoFollow") && (enemy.Enemy.allied || (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase")))
+					? KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) :
+					-1;
 				if (pdist_enemy > 0 && pdist_enemy < 1.5 && KDHostile(e)) KinkyDungeonSetFlag("AIHelpPlayer", 4);
 				if (pdist_enemy > 0 && KinkyDungeonFlags.get("AIHelpPlayer") && dist > 2.5) {
 					if (pdist_enemy > 2.5) dist += 2;
@@ -755,7 +757,7 @@ function KinkyDungeonSetEnemyFlag(enemy, flag, duration) {
 	if (!enemy.flags) enemy.flags = {};
 	if (enemy.flags[flag]) {
 		if (duration == 0) {
-			enemy.flags[flag] = undefined;
+			delete enemy.flags[flag];// = undefined;
 			return;
 		}
 		if (enemy.flags[flag] == -1) return;
@@ -1372,7 +1374,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 
 			idle = true;
 			let patrolChange = false;
-			let followPlayer = (KDAllied(enemy) && player.player);
+			let followPlayer = (KDAllied(enemy) && player.player && !KDEnemyHasFlag(enemy, "NoFollow"));
 
 			// try 12 times to find a moveable tile, with some random variance
 			if (

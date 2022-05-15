@@ -429,6 +429,17 @@ function KinkyDungeonHasGhostHelp() {
 	return ((KinkyDungeonTargetTile && ((KinkyDungeonTargetTile.Type == "Ghost" && KinkyDungeonTargetTile.GhostDecision <= 1) || KinkyDungeonTargetTile.Type == "Angel"))
 		|| KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && KDAllied(enemy);}));
 }
+
+
+/**
+ *
+ * @returns {boolean}
+ */
+function KinkyDungeonHasAllyHelp() {
+	return (KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && KDAllied(enemy);}));
+}
+
+KinkyDungeonSetFlag("HelpMeFlag", 20);
 /**
  *
  * @returns {boolean}
@@ -474,7 +485,7 @@ function KinkyDungeonHasHook() {
 		}
 	}
 
-	return KinkyDungeonHasGhostHelp();
+	return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
 }
 
 /**
@@ -490,7 +501,7 @@ function KinkyDungeonIsHandsBound(ApplyGhost) {
 			break;
 		}
 	}
-	return (!ApplyGhost || !KinkyDungeonHasGhostHelp()) &&
+	return (!ApplyGhost || !(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp())) &&
 		blocked;
 }
 
@@ -507,7 +518,7 @@ function KinkyDungeonIsArmsBound(ApplyGhost) {
 			break;
 		}
 	}
-	return (!ApplyGhost || !KinkyDungeonHasGhostHelp()) &&
+	return (!ApplyGhost || !(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp())) &&
 		blocked;
 }
 
@@ -518,7 +529,7 @@ function KinkyDungeonIsArmsBound(ApplyGhost) {
  * @returns {number}
  */
 function KinkyDungeonStrictness(ApplyGhost, Group) {
-	if (ApplyGhost && KinkyDungeonHasGhostHelp()) return 0;
+	if (ApplyGhost && (KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp())) return 0;
 	let strictness = 0;
 	for (let inv of KinkyDungeonAllRestraint()) {
 		if (KDRestraint(inv).Group != Group && KDRestraint(inv).strictness && KDRestraint(inv).strictness > strictness)  {
@@ -695,8 +706,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let helpChance = (KDRestraint(restraint).helpChance != undefined && KDRestraint(restraint).helpChance[StruggleType] != undefined) ? KDRestraint(restraint).helpChance[StruggleType] : 0.0;
 	let limitChance = (KDRestraint(restraint).limitChance != undefined && KDRestraint(restraint).limitChance[StruggleType] != undefined) ? KDRestraint(restraint).limitChance[StruggleType] :
 		((StruggleType == "Unlock" || StruggleType == "Pick") ? 0 : 0.05);
-	if (KinkyDungeonHasGhostHelp() && helpChance) {
-		restraintEscapeChancePre = helpChance;
+	if (KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) {
+		KinkyDungeonSetFlag("HelpMeFlag", 8);
+		if (helpChance)
+			restraintEscapeChancePre = helpChance;
 	}
 	if (KinkyDungeonHasAngelHelp()) {
 		restraintEscapeChancePre += 0.1;
@@ -804,7 +817,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle")) data.escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle");
 	if (StruggleType == "Cut") {
 		if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting")) data.escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostCutting");
-		if (KinkyDungeonHasGhostHelp()) {
+		if (KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) {
 			let maxBonus = 0;
 			for (let inv of KinkyDungeonAllWeapon()) {
 				if (KDWeapon(inv).cutBonus > maxBonus) maxBonus = KDWeapon(inv).cutBonus;
@@ -880,7 +893,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Struggling is unaffected by having arms bound
 	let minAmount = 0.1 - Math.max(0, 0.01*KDRestraint(restraint).power);
 	if (StruggleType == "Remove" && !data.hasEdge) minAmount = 0;
-	if (!KinkyDungeonHasGhostHelp() && StruggleType != "Struggle" && (struggleGroup != "ItemArms" && struggleGroup != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) data.escapeChance /= 1.5;
+	if (!(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && StruggleType != "Struggle" && (struggleGroup != "ItemArms" && struggleGroup != "ItemHands" ) && !KinkyDungeonPlayer.CanInteract()) data.escapeChance /= 1.5;
 	if (StruggleType != "Struggle" && struggleGroup != "ItemArms" && armsBound) data.escapeChance = Math.max(minAmount, data.escapeChance - 0.3);
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
@@ -923,7 +936,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		return "NeedEdge";
 	}
 
-	if (!KinkyDungeonHasGhostHelp() && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) data.escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
+	if (!(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) data.escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
 
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && data.restraintEscapeChance > 0.01) data.escapeChance/= 5;
@@ -1180,7 +1193,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			// Aftermath
 			let suff = "";
 			if (Pass == "Fail" && data.escapeChance > 0 && data.origEscapeChance <= 0) {
-				if (KinkyDungeonHasGhostHelp() && data.helpChance) suff = "3";
+				if ((KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && data.helpChance) suff = "3";
 				else suff = "2";
 			} else if (Pass == "Fail") {
 				if (suff == "" && failSuffix) suff = failSuffix;
@@ -1216,7 +1229,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 					restraint.tightness = Math.max(0, restraint.tightness - tightness_reduction);
 				}
-			} else if (KinkyDungeonHasGhostHelp())
+			} else if (KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp())
 				KinkyDungeonChangeRep("Ghost", 1);
 		}
 

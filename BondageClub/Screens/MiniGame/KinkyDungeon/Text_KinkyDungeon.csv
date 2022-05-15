@@ -194,6 +194,7 @@ KinkyDungeonBuffCutting,"FULL POWER"
 KinkyDungeonBuffSlippery,"Graceful"
 KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
+KinkyDungeonBuffEvasion,Afterimage
 
 KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
@@ -4151,7 +4152,7 @@ KDCategoryMap,World Generation
 
 KDWeaponConfiscated,You hand over your weapon reluctantly...
 
-dLeave,Leave
+dLeave,(Leave)
 dPause,(...)
 
 rDisbelief,"(The SPEAKER frowns)|Don't lie to me."
@@ -4445,3 +4446,45 @@ dAngelHelp_Pick,(Ask for 3 lockpicks)
 dAngelHelp_BlueKey,(Ask for a magic key)
 
 KinkyDungeonAngelNoSpace,There is no valid space next to you!
+
+
+rGenericAlly,"(You approach the SPEAKER)"
+dGenericAllyAttack,"(Threaten)"
+rGenericAllyAttack,"(Really attack?)"
+dGenericAllyAttack_Confirm,"(Attack her)"
+dGenericAllyAttack_Leave,"(Never mind...)"
+rGenericAllyAttack_Leave,"(You decide not to)"
+
+dGenericAllyLetMePass,"(Walk past)"
+dGenericAllyLetMePass_Confirm,"(Walk past)"
+dGenericAllyLetMePass_Leave,"(Never mind...)"
+rGenericAllyLetMePass,"(Confirm? You will walk through her for a few turns)"
+rGenericAllyLetMePass_Leave,"(...)"
+
+dGenericAllyStopFollowingMe,"(Stop following me)"
+dGenericAllyStopFollowingMe_Confirm,"(Stop following me)"
+dGenericAllyStopFollowingMe_Leave,"(Never mind...)"
+rGenericAllyStopFollowingMe,"(Confirm? You will have to find the SPEAKER again.)"
+rGenericAllyStopFollowingMe_Leave,"(You decide you still need the help)"
+
+dGenericAllyFollowMe,"(Follow me)"
+dGenericAllyFollowMe_Confirm,"(Follow me)"
+dGenericAllyFollowMe_Leave,"(Never mind...)"
+rGenericAllyFollowMe,"(Confirm to make this ally follow you?)"
+rGenericAllyFollowMe_Leave,"(You decide you don't need the help)"
+
+dGenericAllyHelpMe,"(Ask her for help)"
+dGenericAllyHelpMe_Confirm,"(Ask her for help)"
+dGenericAllyHelpMe_Leave,"(Never mind...)"
+rGenericAllyHelpMe,"(Are you sure? She might see you as being submissive)"
+rGenericAllyHelpMe_Fail,"(The SPEAKER prefers you the way you are)"
+rGenericAllyHelpMe_Confirm,"(The SPEAKER will help you out of your restraints)"
+rGenericAllyHelpMe_Leave,"(You decide to deal with your problems yourself.)"
+dGenericAllyDontHelpMe,"(Stop receiving help)"
+rGenericAllyDontHelpMe,"(Confirm? You will have to ask again to get help.)"
+dGenericAllyDontHelpMe_Confirm,"(Stop receiving help)"
+dGenericAllyDontHelpMe_Leave,"(Never mind...)"
+rGenericAllyDontHelpMe_Confirm,"(The SPEAKER will no longer help you.)"
+rGenericAllyDontHelpMe_Leave,"(You sigh as you realize you really need her help.)"
+dGenericAllyShop,"(Offer some of your supplies)"
+dGenericAllyShopBuy,"(Check shop offerings)"
