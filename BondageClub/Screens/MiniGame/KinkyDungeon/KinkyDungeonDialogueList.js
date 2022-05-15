@@ -824,7 +824,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && !KinkyDungeonFlags.has("HelpMeFlag") && KinkyDungeonAllRestraint().length > 0;
+				return !KDHostile(enemy) && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && !KinkyDungeonFlags.has("HelpMeFlag") && KinkyDungeonAllRestraint().length > 0;
 			}
 			return false;
 		},
