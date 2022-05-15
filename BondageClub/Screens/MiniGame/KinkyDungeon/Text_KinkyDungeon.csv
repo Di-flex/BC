@@ -4151,7 +4151,7 @@ KDCategoryMap,World Generation
 
 KDWeaponConfiscated,You hand over your weapon reluctantly...
 
-dLeave,Leave
+dLeave,(Leave)
 dPause,(...)
 
 rDisbelief,"(The SPEAKER frowns)|Don't lie to me."
@@ -4454,15 +4454,36 @@ dGenericAllyAttack_Confirm,"(Attack her)"
 dGenericAllyAttack_Leave,"(Never mind...)"
 rGenericAllyAttack_Leave,"(You decide not to)"
 
+dGenericAllyLetMePass,"(Walk past)"
+dGenericAllyLetMePass_Confirm,"(Walk past)"
+dGenericAllyLetMePass_Leave,"(Never mind...)"
+rGenericAllyLetMePass,"(Confirm? You will walk through her for a few turns)"
+rGenericAllyLetMePass_Leave,"(...)"
+
+dGenericAllyStopFollowingMe,"(Make her stop following you)"
+dGenericAllyStopFollowingMe_Confirm,"(Make her stop following you)"
+dGenericAllyStopFollowingMe_Leave,"(Never mind...)"
+rGenericAllyStopFollowingMe,"(Confirm? You will have to find her to make her follow you again.)"
+rGenericAllyStopFollowingMe_Leave,"(You decide you still need her help)"
+
+dGenericAllyFollowMe,"(Make her stop following you)"
+dGenericAllyFollowMe_Confirm,"(Make her stop following you)"
+dGenericAllyFollowMe_Leave,"(Never mind...)"
+rGenericAllyFollowMe,"(Confirm? You will have to find her to make her follow you again.)"
+rGenericAllyFollowMe_Leave,"(You decide you still need her help)"
+
 dGenericAllyHelpMe,"(Ask her for help)"
 dGenericAllyHelpMe_Confirm,"(Ask her for help)"
 dGenericAllyHelpMe_Leave,"(Never mind...)"
 rGenericAllyHelpMe,"(Are you sure? She might see you as being submissive)"
+rGenericAllyHelpMe_Fail,"(The SPEAKER prefers you the way you are)"
+rGenericAllyHelpMe_Confirm,"(The SPEAKER will help you out of your restraints)"
 rGenericAllyHelpMe_Leave,"(You decide to deal with your problems yourself.)"
 dGenericAllyDontHelpMe,"(Stop receiving help)"
 rGenericAllyDontHelpMe,"(Confirm? You will have to ask again to get help.)"
 dGenericAllyDontHelpMe_Confirm,"(Stop receiving help)"
 dGenericAllyDontHelpMe_Leave,"(Never mind...)"
+rGenericAllyDontHelpMe_Confirm,"(The SPEAKER will no longer help you.)"
 rGenericAllyDontHelpMe_Leave,"(You sigh as you realize you really need her help.)"
 dGenericAllyShop,"(Offer some of your supplies)"
 dGenericAllyShopBuy,"(Check shop offerings)"
