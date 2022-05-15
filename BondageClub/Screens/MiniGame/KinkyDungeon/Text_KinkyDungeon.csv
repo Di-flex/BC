@@ -4445,3 +4445,24 @@ dAngelHelp_Pick,(Ask for 3 lockpicks)
 dAngelHelp_BlueKey,(Ask for a magic key)
 
 KinkyDungeonAngelNoSpace,There is no valid space next to you!
+
+
+rGenericAlly,"(You approach the SPEAKER)"
+dGenericAllyAttack,"(Threaten)"
+rGenericAllyAttack,"(Really attack?)"
+dGenericAllyAttack_Confirm,"(Attack her)"
+dGenericAllyAttack_Leave,"(Never mind...)"
+rGenericAllyAttack_Leave,"(You decide not to)"
+
+dGenericAllyHelpMe,"(Ask her for help)"
+dGenericAllyHelpMe_Confirm,"(Ask her for help)"
+dGenericAllyHelpMe_Leave,"(Never mind...)"
+rGenericAllyHelpMe,"(Are you sure? She might see you as being submissive)"
+rGenericAllyHelpMe_Leave,"(You decide to deal with your problems yourself.)"
+dGenericAllyDontHelpMe,"(Stop receiving help)"
+rGenericAllyDontHelpMe,"(Confirm? You will have to ask again to get help.)"
+dGenericAllyDontHelpMe_Confirm,"(Stop receiving help)"
+dGenericAllyDontHelpMe_Leave,"(Never mind...)"
+rGenericAllyDontHelpMe_Leave,"(You sigh as you realize you really need her help.)"
+dGenericAllyShop,"(Offer some of your supplies)"
+dGenericAllyShopBuy,"(Check shop offerings)"

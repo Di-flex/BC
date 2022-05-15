@@ -6,6 +6,11 @@
  */
 let KDShops = [];
 
+/**
+ * @type {{name: string, tags: string[], singletag: string[], excludeTags: string[], weight: number}[]}
+ */
+let KDAllyDialog = [];
+
 /** @type {Record<string, KinkyDialogue>} */
 let KDDialogue = {
 	"WeaponFound": {
@@ -670,6 +675,7 @@ let KDDialogue = {
 	"NinjaSell": KDShopDialogue("NinjaSell", ["SmokeBomb", "Bola", "Bomb", "PotionInvisibility"], [], ["ninja", "bountyhunter"], 0.6),
 	"GhostSell": KDShopDialogue("GhostSell", ["Ectoplasm", "PotionInvisibility", "ElfCrystal"], [], ["alchemist", "witch", "apprentice", "dressmaker", "dragon"], 0.2),
 	// TODO magic book dialogue in which you can read forward and there are traps
+	"GenericAlly": KDAllyDialogue("GenericAlly", [], [], [], 1),
 };
 
 // Success chance for a basic dialogue
@@ -705,6 +711,118 @@ function KDAllySpeaker(Turns) {
 	}
 }
 
+
+
+function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight) {
+	/**
+		 * @type {KinkyDialogue}
+		 */
+	let dialog = {
+		response: "Default",
+		clickFunction: (gagged) => {
+		},
+		options: {},
+	};
+	dialog.options.Leave = {playertext: "Leave", exitDialogue: true,
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 8);
+				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
+			}
+		},
+	};
+	dialog.options.Attack = {gag: true, playertext: name + "Attack", response: "Default",
+		options: {
+			"Confirm": {playertext: name + "Attack_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						enemy.hostile = 100;
+						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy))) {
+							KinkyDungeonChangeRep("Ghost", -5);
+							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+						}
+					}
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: name + "Attack_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+	dialog.options.HelpMe = {gag: true, playertext: name + "HelpMe", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return enemy.Enemy.bound && !KinkyDungeonFlags.has("HelpMeFlag");
+			}
+			return false;
+		},
+		options: {
+			"Confirm": {playertext: name + "HelpMe_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						KinkyDungeonChangeRep("Ghost", 3);
+						KinkyDungeonSetFlag("HelpMeFlag", 20);
+					}
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: name + "HelpMe_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+	dialog.options.DontHelpMe = {gag: true, playertext: name + "DontHelpMe", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return enemy.Enemy.bound && KinkyDungeonFlags.has("HelpMeFlag");
+			}
+			return false;
+		},
+		options: {
+			"Confirm": {playertext: name + "DontHelpMe_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						KinkyDungeonSetFlag("HelpMeFlag", 0);
+					}
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: name + "DontHelpMe_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+	dialog.options.Shop = {gag: true, playertext: name + "Shop", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return KDEnemyHasFlag(enemy, "Shop");
+			}
+			return false;
+		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				for (let shop of KDShops) {
+					if (KDEnemyHasFlag(enemy, shop.name)) {
+						KDStartDialog(shop.name, enemy.Enemy.name, true, enemy.personality, enemy);
+						break;
+					}
+				}
+			}
+		},
+		exitDialogue: true,
+	};
+	KDAllyDialog.push({name: name, tags: requireTags, singletag: requireSingleTag, excludeTags: excludeTags, weight: weight});
+	return dialog;
+}
 
 let KDMaxSellItems = 6;
 function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
@@ -751,6 +869,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						enemy.hostile = 100;
+						KinkyDungeonChangeRep("Ghost", -5);
 						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy)))
 							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
 					}

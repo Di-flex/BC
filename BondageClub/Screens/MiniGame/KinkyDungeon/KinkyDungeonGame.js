@@ -2402,7 +2402,9 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (KDEnemyHasFlag(Enemy, "Shop")) {
+			if (KDAllied(Enemy)) {
+				KDStartDialog("GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
+			} else if (KDEnemyHasFlag(Enemy, "Shop")) {
 				for (let shop of KDShops) {
 					if (KDEnemyHasFlag(Enemy, shop.name)) {
 						KDStartDialog(shop.name, Enemy.Enemy.name, true, Enemy.personality, Enemy);
