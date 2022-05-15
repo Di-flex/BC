@@ -481,32 +481,35 @@ function KDProcessInput(type, data) {
 			if (dialogue.personalities) {
 				KDDialogueApplyPersonality(dialogue.personalities);
 			}
+			let abort = false;
 			if (data.click) {
 				let gagged = KDDialogueGagged();
 				if (dialogue.gagFunction && gagged) {
-					dialogue.gagFunction();
+					abort = dialogue.gagFunction();
 				} else if (dialogue.clickFunction) {
-					dialogue.clickFunction(gagged);
+					abort = dialogue.clickFunction(gagged);
 				}
 			}
-			if (dialogue.exitDialogue) {
-				KDGameData.CurrentDialog = "";
-				KDGameData.CurrentDialogStage = "";
-			} else {
-				let modded = false;
-				if (dialogue.leadsTo != undefined) {
-					KDGameData.CurrentDialog = dialogue.leadsTo;
+			if (!abort) {
+				if (dialogue.exitDialogue) {
+					KDGameData.CurrentDialog = "";
 					KDGameData.CurrentDialogStage = "";
-					modded = true;
-				}
-				if (dialogue.leadsToStage != undefined) {
-					KDGameData.CurrentDialogStage = dialogue.leadsToStage;
-					modded = true;
-				}
-				if (modded && !dialogue.dontTouchText) {
-					dialogue = KDGetDialogue();
-					if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
-					if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
+				} else {
+					let modded = false;
+					if (dialogue.leadsTo != undefined) {
+						KDGameData.CurrentDialog = dialogue.leadsTo;
+						KDGameData.CurrentDialogStage = "";
+						modded = true;
+					}
+					if (dialogue.leadsToStage != undefined) {
+						KDGameData.CurrentDialogStage = dialogue.leadsToStage;
+						modded = true;
+					}
+					if (modded && !dialogue.dontTouchText) {
+						dialogue = KDGetDialogue();
+						if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
+						if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
+					}
 				}
 			}
 			break;
