@@ -15,7 +15,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 		if (tile.StepOffTrap == "DoorLock" && KinkyDungeonNoEnemy(x, y)) {
 			KinkyDungeonMapSet(x, y, 'D');
 			let spawned = 0;
-			let maxspawn = 2 + Math.round(Math.min(2 + KDRandom() * 2, KinkyDungeonDifficulty/25) + Math.min(2 + KDRandom() * 2, 0.5*MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint));
+			let maxspawn = 1 + Math.round(Math.min(2 + KDRandom() * 2, KinkyDungeonDifficulty/25) + Math.min(2 + KDRandom() * 2, 0.5*MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint));
 			let requireTags = ["doortrap"];
 
 			let tags = ["doortrap"];
@@ -28,7 +28,7 @@ function KinkyDungeonHandleStepOffTraps(x, y) {
 						KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
 						'0', requireTags, true);
 					if (Enemy) {
-						KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 6, true, undefined, undefined, true);
+						KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 6, true, undefined, undefined, true, true);
 						if (Enemy.tags.has("minor")) spawned += 0.4;
 						else spawned += 1;
 					}

@@ -72,10 +72,7 @@ function KDDrawDialogue() {
 		// Draw the options
 		if (dialogue.options) {
 			let entries = Object.entries(dialogue.options);
-			if (entries.length > KDMaxDialogue) {
-				DrawButton(1350, 450, 90, 40, "", KDOptionOffset > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
-				DrawButton(1350, 450 + (KDMaxDialogue - 1) * 60 + 10, 90, 40, "", KDOptionOffset + KDMaxDialogue < entries.length ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
-			}
+
 			let II = 0;
 			let gagged = KDDialogueGagged();
 			for (let i = KDOptionOffset; i < entries.length && i < KDOptionOffset + KDMaxDialogue; i++) {
@@ -95,6 +92,10 @@ function KDDrawDialogue() {
 					DrawButton(700, 450 + II * 60, 600, 50, tt, KinkyDungeonDialogueTimer < CommonTime() ? "white" : "#888888");
 					II += 1;
 				}
+			}
+			if (II >= KDMaxDialogue) {
+				DrawButton(1350, 450, 90, 40, "", KDOptionOffset > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
+				DrawButton(1350, 450 + (KDMaxDialogue - 1) * 60 + 10, 90, 40, "", KDOptionOffset + KDMaxDialogue < entries.length ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
 			}
 		}
 	} else if (!KDGameData.CurrentDialog) {
@@ -119,6 +120,7 @@ function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
 	KinkyDungeonAutoWait = false;
 	KinkyDungeonDialogueTimer = CommonTime() + 1000 + KinkyDungeonSlowMoveTurns * 200;
 	KDOptionOffset = 0;
+	KinkyDungeonDrawState = "Game";
 	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});
 }
 
@@ -138,15 +140,6 @@ function KDHandleDialogue() {
 		// Handle the options
 		if (dialogue.options) {
 			let entries = Object.entries(dialogue.options);
-			if (entries.length > KDMaxDialogue) {
-				if (MouseIn(1350, 450, 90, 40) && KDOptionOffset > 0) {
-					KDOptionOffset -= 1;
-					return true;
-				} else if (MouseIn(1350, 450 + (KDMaxDialogue - 1) * 60 + 10, 90, 40) && KDOptionOffset + KDMaxDialogue < entries.length) {
-					KDOptionOffset += 1;
-					return true;
-				}
-			}
 			let II = 0;
 			let gagged = KDDialogueGagged();
 			for (let i = KDOptionOffset; i < entries.length && i < KDOptionOffset + KDMaxDialogue; i++) {
@@ -159,6 +152,15 @@ function KDHandleDialogue() {
 						return true;
 					}
 					II += 1;
+				}
+			}
+			if (II >= KDMaxDialogue) {
+				if (MouseIn(1350, 450, 90, 40) && KDOptionOffset > 0) {
+					KDOptionOffset -= 1;
+					return true;
+				} else if (MouseIn(1350, 450 + (KDMaxDialogue - 1) * 60 + 10, 90, 40) && KDOptionOffset + KDMaxDialogue < entries.length) {
+					KDOptionOffset += 1;
+					return true;
 				}
 			}
 		}
