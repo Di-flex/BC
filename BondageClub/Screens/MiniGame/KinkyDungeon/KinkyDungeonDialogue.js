@@ -75,7 +75,7 @@ function KDDrawDialogue() {
 
 			let II = 0;
 			let gagged = KDDialogueGagged();
-			for (let i = KDOptionOffset; i < entries.length && i < KDOptionOffset + KDMaxDialogue; i++) {
+			for (let i = KDOptionOffset; i < entries.length && II < KDMaxDialogue; i++) {
 				if ((!entries[i][1].prerequisiteFunction || entries[i][1].prerequisiteFunction(gagged))
 					&& (!entries[i][1].gagRequired || gagged)
 					&& (!entries[i][1].gagDisabled || !gagged)) {
@@ -142,7 +142,7 @@ function KDHandleDialogue() {
 			let entries = Object.entries(dialogue.options);
 			let II = 0;
 			let gagged = KDDialogueGagged();
-			for (let i = KDOptionOffset; i < entries.length && i < KDOptionOffset + KDMaxDialogue; i++) {
+			for (let i = KDOptionOffset; i < entries.length && II < KDMaxDialogue; i++) {
 				if ((!entries[i][1].prerequisiteFunction || entries[i][1].prerequisiteFunction(gagged))
 					&& (!entries[i][1].gagRequired || gagged)
 					&& (!entries[i][1].gagDisabled || !gagged)) {

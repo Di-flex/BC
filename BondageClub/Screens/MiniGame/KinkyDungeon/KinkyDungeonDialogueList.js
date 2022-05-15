@@ -28,13 +28,14 @@ let KDDialogue = {
 						KinkyDungeonAddLostItems([item], false);
 						KinkyDungeonInventoryRemove(item);
 					}
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
 			"Bluff": {playertext: "", response: "",
 				prerequisiteFunction: (gagged) => {return false;},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
 			"Deny": {gag: true, playertext: "WeaponFoundDeny", response: "Punishment", personalities: ["Dom", "Sub", "Robot"],
-				clickFunction: (gagged) => {KinkyDungeonStartChase(undefined, "Refusal");},
+				clickFunction: (gagged) => {KinkyDungeonStartChase(undefined, "Refusal"); return false;},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}}},
 			"Illusion": {gagDisabled: true, playertext: "WeaponFoundIllusion", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
 				prerequisiteFunction: (gagged) => {return KinkyDungeonGoddessRep.Illusion >= 51;},
@@ -52,6 +53,7 @@ let KDDialogue = {
 						}
 						KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
 					}
+					return false;
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 			"Conjure": {gagDisabled: true, playertext: "WeaponFoundConjure", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
@@ -64,6 +66,7 @@ let KDDialogue = {
 						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
+					return false;
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 			"Elements": {gagDisabled: true, playertext: "WeaponFoundElements", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
@@ -76,6 +79,7 @@ let KDDialogue = {
 						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
+					return false;
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 			"Rope": {gagDisabled: true, playertext: "WeaponFoundRope", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
@@ -88,6 +92,7 @@ let KDDialogue = {
 						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
+					return false;
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 			"Leather": {gagDisabled: true, playertext: "WeaponFoundLeather", response: "Disbelief", personalities: ["Dom", "Sub", "Robot"],
@@ -100,6 +105,7 @@ let KDDialogue = {
 						KinkyDungeonChangeRep("Ghost", -2);
 					}
 					KDDialogueApplyPersonality(["Dom", "Sub", "Robot"]);
+					return false;
 				},
 				options: {"Back": {playertext: "Pause", leadsToStage: ""}}},
 		}
@@ -114,11 +120,13 @@ let KDDialogue = {
 						clickFunction: (gagged) => {
 							KinkyDungeonChangeRep("Ghost", -10);
 							KinkyDungeonChangeRep("Prisoner", 10);
+							return false;
 						},
 						options: {"Continue" : {playertext: "Continue", leadsToStage: "Rules"}}},
 					"Sub": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							KinkyDungeonChangeRep("Ghost", 10);
+							return false;
 						},
 						options: {"Continue" : {playertext: "Continue", leadsToStage: "Rules"}}},
 				}
@@ -130,11 +138,13 @@ let KDDialogue = {
 						clickFunction: (gagged) => {
 							KinkyDungeonChangeRep("Ghost", -10);
 							KinkyDungeonChangeRep("Prisoner", 10);
+							return false;
 						},
 						options: {"Continue" : {playertext: "Continue", exitDialogue: true}}},
 					"Sub": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							KinkyDungeonChangeRep("Ghost", 10);
+							return false;
 						},
 						options: {"Continue" : {playertext: "Continue", exitDialogue: true}}},
 				}
@@ -150,6 +160,7 @@ let KDDialogue = {
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapBelt"), 0, true);
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("TrapPlug2"), 0, true);
 					KinkyDungeonChangeRep("Ghost", 3);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -157,6 +168,7 @@ let KDDialogue = {
 				prerequisiteFunction: (gagged) => {return KinkyDungeonGetRestraintItem("ItemVulva") != undefined;},
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Ghost", 5);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -164,12 +176,14 @@ let KDDialogue = {
 				prerequisiteFunction: (gagged) => {return KinkyDungeonGetRestraintItem("ItemArms") != undefined;},
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Prisoner", 3);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
 			"Pout": {playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Ghost", -3);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -179,6 +193,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("BondageOffer",  5);
+			return false;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -190,6 +205,7 @@ let KDDialogue = {
 							"Data_r": r.name,
 							"RESTRAINT": TextGet("Restraint" + r.name),
 						};
+					return false;
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -197,6 +213,7 @@ let KDDialogue = {
 							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -210,6 +227,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -231,6 +249,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -242,6 +261,7 @@ let KDDialogue = {
 							KDPleaseSpeaker(0.004);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 					"No": {gag: true, playertext: "Default", response: "Default",
@@ -251,6 +271,7 @@ let KDDialogue = {
 								// Fail
 								KDGameData.CurrentDialogMsg = "OfferLatexForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+								return false;
 							}
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
@@ -263,6 +284,7 @@ let KDDialogue = {
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("BondageOffer",  5);
 			KinkyDungeonSetFlag("ChastityOffer",  50);
+			return false;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -275,6 +297,7 @@ let KDDialogue = {
 							"RESTRAINT": TextGet("Restraint" + r.name),
 							"ChastityLock": MiniGameKinkyDungeonLevel + KDRandom()*3 > 3 ? (MiniGameKinkyDungeonLevel + KDRandom()*6 > 9 ? "Gold" : "Blue") : "Red",
 						};
+					return false;
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -282,6 +305,7 @@ let KDDialogue = {
 							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
+							return false;
 						},
 						options: {
 							"Leave": {playertext: "Leave", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock == "Red";}, exitDialogue: true},
@@ -298,6 +322,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -320,6 +345,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -331,6 +357,7 @@ let KDDialogue = {
 							KDAllySpeaker(9999);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
+							return false;
 						},
 						options: {
 							"Leave": {playertext: "Leave", prerequisiteFunction: (gagged) => {return KDGameData.CurrentDialogMsgData.ChastityLock == "Red";}, exitDialogue: true},
@@ -346,6 +373,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsg = "OfferChastityForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -361,6 +389,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("BondageOffer",  5);
+			return false;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -372,6 +401,7 @@ let KDDialogue = {
 							"Data_r": r.name,
 							"RESTRAINT": TextGet("Restraint" + r.name),
 						};
+					return false;
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -379,6 +409,7 @@ let KDDialogue = {
 							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -392,6 +423,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -413,6 +445,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -424,6 +457,7 @@ let KDDialogue = {
 							KDPleaseSpeaker(0.004);
 							KinkyDungeonChangeRep("Ghost", 1);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 					"No": {gag: true, playertext: "Default", response: "Default",
@@ -434,6 +468,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsg = "OfferLeatherForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 				},
@@ -447,11 +482,13 @@ let KDDialogue = {
 				KDGameData.CurrentDialogMsg = "OfferRopesExtra";
 			}
 			KinkyDungeonSetFlag("BondageOffer",  5);
+			return false;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					KinkyDungeonChangeRep("Rope", 1);
+					return false;
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -462,6 +499,7 @@ let KDDialogue = {
 								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -475,6 +513,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -490,6 +529,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -504,6 +544,7 @@ let KDDialogue = {
 								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 								if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 					"No": {gag: true, playertext: "Default", response: "Default",
@@ -518,6 +559,7 @@ let KDDialogue = {
 									if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
 								}
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 				},
@@ -528,6 +570,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("WolfgirlOffer", 100);
+			return false;
 		},
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
@@ -546,6 +589,7 @@ let KDDialogue = {
 							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -559,6 +603,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 					},
@@ -574,6 +619,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
@@ -594,6 +640,7 @@ let KDDialogue = {
 							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 					"No": {gag: true, playertext: "Default", response: "Default",
@@ -620,6 +667,7 @@ let KDDialogue = {
 									KinkyDungeonChangeRep("Metal", -2);
 								}
 							}
+							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
 				},
@@ -630,6 +678,7 @@ let KDDialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("AngelHelp", 55);
+			return false;
 		},
 		options: {
 			"Knife": {
@@ -640,6 +689,7 @@ let KDDialogue = {
 				clickFunction: (gagged) => {
 					KinkyDungeonNormalBlades += 2;
 					KinkyDungeonSetFlag("AngelHelped", 5);
+					return false;
 				},
 				leadsToStage: "", dontTouchText: true,
 			},
@@ -651,6 +701,7 @@ let KDDialogue = {
 				clickFunction: (gagged) => {
 					KinkyDungeonLockpicks += 3;
 					KinkyDungeonSetFlag("AngelHelped", 5);
+					return false;
 				},
 				leadsToStage: "", dontTouchText: true,
 			},
@@ -662,6 +713,7 @@ let KDDialogue = {
 				clickFunction: (gagged) => {
 					KinkyDungeonBlueKeys += 1;
 					KinkyDungeonSetFlag("AngelHelped", 5);
+					return false;
 				},
 				leadsToStage: "", dontTouchText: true,
 			},
@@ -719,8 +771,6 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		 */
 	let dialog = {
 		response: "Default",
-		clickFunction: (gagged) => {
-		},
 		options: {},
 	};
 	dialog.options.Leave = {playertext: "Leave", exitDialogue: true,
@@ -729,6 +779,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 8);
 			}
+			return false;
 		},
 	};
 	dialog.options.Attack = {playertext: name + "Attack", response: "Default",
@@ -743,6 +794,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
 						}
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -771,6 +823,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 						}
 						KinkyDungeonSetFlag("LetMePass", 30);
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -794,6 +847,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 9999);
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -817,6 +871,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -847,6 +902,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 							KinkyDungeonChangeRep("Ghost", 1);
 						}
 					}
+					return false;
 				},
 				leadsToStage: "",
 				dontTouchText: true,
@@ -871,6 +927,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						KinkyDungeonSetFlag("HelpMeFlag", 0);
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -893,7 +950,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				for (let shop of KDShops) {
 					if (KDEnemyHasFlag(enemy, shop.name)) {
 						KDStartDialog(shop.name, enemy.Enemy.name, true, enemy.personality, enemy);
-						break;
+						return true;
 					}
 				}
 			}
@@ -930,6 +987,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
 				}
 			}
+			return false;
 		},
 		options: {},
 	};
@@ -940,6 +998,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 17);
 				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
 			}
+			return false;
 		},
 	};
 	shop.options.Attack = {gag: true, playertext: "ItemShopAttack", response: "Default",
@@ -953,6 +1012,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy)))
 							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
 					}
+					return false;
 				},
 				exitDialogue: true,
 			},
@@ -981,7 +1041,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 					}
 				}
 				KinkyDungeonAddGold(KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
-
+				return false;
 			},
 			leadsToStage: "", dontTouchText: true,
 		};
