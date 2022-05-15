@@ -98,8 +98,8 @@ let KinkyDungeonFactionRelationsBase = {
 	"KinkyConstruct": {
 		Jail: -0.25,
 		Apprentice: -0.55,
-		Witch: 0.4,
-		Dressmaker: 0.4,
+		Witch: 0.05,
+		Dressmaker: 0.05,
 		Dragon: -1.0,
 	},
 	"Nevermere": {
