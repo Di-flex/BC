@@ -120,6 +120,7 @@ function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
 	KinkyDungeonAutoWait = false;
 	KinkyDungeonDialogueTimer = CommonTime() + 1000 + KinkyDungeonSlowMoveTurns * 200;
 	KDOptionOffset = 0;
+	KinkyDungeonDrawState = "Game";
 	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});
 }
 
