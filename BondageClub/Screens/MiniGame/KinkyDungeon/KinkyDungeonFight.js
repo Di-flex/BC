@@ -716,7 +716,7 @@ function KinkyDungeonUpdateSingleBulletVisual(b, end) {
 		let visy = bb ? bb.visual_y : b.visual_y;
 		if (!visx) visx = b.xx;
 		if (!visy) visy = b.yy;
-		KinkyDungeonBulletsVisual.set(b.spriteID, {end: end, name: b.bullet.name, spriteID: b.spriteID, size: b.bullet.width, vx: b.vx, vy: b.vy, xx: b.xx, yy: b.yy, visual_x: visx, visual_y: visy, updated: true});
+		KinkyDungeonBulletsVisual.set(b.spriteID, {end: end, name: b.bullet.name, spriteID: b.spriteID, size: b.bullet.width ? b.bullet.width : 1, vx: b.vx, vy: b.vy, xx: b.xx, yy: b.yy, visual_x: visx, visual_y: visy, updated: true});
 	}
 }
 
