@@ -2616,7 +2616,10 @@ let KinkyDungeonLastTurnAction = "";
 let KDDrawUpdate = 0;
 let KDVisionUpdate = 0;
 
+let KDLastTick = 0;
+
 function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
+	KDLastTick = performance.now();
 	let _CharacterRefresh = CharacterRefresh;
 	let _CharacterAppearanceBuildCanvas = CharacterAppearanceBuildCanvas;
 	// @ts-ignore

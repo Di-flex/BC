@@ -9,7 +9,7 @@ let KinkyDungeonMissChancePerBlind = 0.15; // Max 3
 let KinkyDungeonMissChancePerSlow = 0.1; // Max 3
 let KinkyDungeonBullets = []; // Bullets on the game board
 /**
- * @type {Map<string, {end: boolean, name: string, size: number, spriteID: string, xx:number, yy:number, visual_x: number, visual_y: number, updated: boolean, vx: number, vy: number, scale: number}>}
+ * @type {Map<string, {end: boolean, name: string, size: number, spriteID: string, xx:number, yy:number, visual_x: number, visual_y: number, updated: boolean, vx: number, vy: number, scale: number, delay: number}>}
  */
 let KinkyDungeonBulletsVisual = new Map(); // Bullet sprites on the game board
 let KinkyDungeonBulletsID = {}; // Bullets on the game board
@@ -685,7 +685,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				}
 				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
 				let end = false;
-				if (!KinkyDungeonBulletsCheckCollision(b) || outOfTime || outOfRange) {
+				if (!KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d) || outOfTime || outOfRange) {
 					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
 						d = 0;
 						KinkyDungeonBullets.splice(E, 1);
@@ -694,7 +694,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						E -= 1;
 					}
 					if (!((outOfTime || outOfRange) && b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.nonVolatile) || (b.bullet.trail && b.bullet.spell.nonVolatileTrail))))
-						KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange);
+						KinkyDungeonBulletHit(b, 1.1, outOfTime, outOfRange, delta - d);
 				}
 				if (endTime) b.time = 0;
 				// Update the bullet's visual position
@@ -709,15 +709,16 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 	}
 }
 
-function KinkyDungeonUpdateSingleBulletVisual(b, end) {
+function KinkyDungeonUpdateSingleBulletVisual(b, end, delay) {
 	if (b.spriteID && !b.bullet.noSprite) {
 		let bb = KinkyDungeonBulletsVisual.get(b.spriteID);
 		let scale = bb ? bb.scale : 0;
+		let dd = bb ? bb.delay : delay;
 		let visx = bb ? bb.visual_x : b.visual_x;
 		let visy = bb ? bb.visual_y : b.visual_y;
 		if (!visx) visx = b.xx;
 		if (!visy) visy = b.yy;
-		KinkyDungeonBulletsVisual.set(b.spriteID, {end: end, name: b.bullet.name, spriteID: b.spriteID, size: b.bullet.width ? b.bullet.width : 1, vx: b.vx, vy: b.vy, xx: b.xx, yy: b.yy, visual_x: visx, visual_y: visy, updated: true, scale: scale});
+		KinkyDungeonBulletsVisual.set(b.spriteID, {end: end, name: b.bullet.name, spriteID: b.spriteID, size: b.bullet.width ? b.bullet.width : 1, vx: b.vx, vy: b.vy, xx: b.xx, yy: b.yy, visual_x: visx, visual_y: visy, updated: true, scale: scale, delay: dd});
 	}
 }
 
@@ -749,7 +750,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	}
 }
 
-function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
+function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
 
 	KinkyDungeonSendEvent("bulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
@@ -765,18 +766,18 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange) {
 	if (b.bullet.hit == "") {
 		let newB = {born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(), bullet:{faction: b.bullet.faction, lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
 		KinkyDungeonBullets.push(newB);
-		KinkyDungeonUpdateSingleBulletVisual(newB, false);
+		KinkyDungeonUpdateSingleBulletVisual(newB, false, d);
 	} else if (b.bullet.hit == "aoe") {
 		let newB = {secondary: true, born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(),
 			bullet:{faction: b.bullet.faction, spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, bind: b.bullet.spell.bind, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
 		KinkyDungeonBullets.push(newB);
-		KinkyDungeonUpdateSingleBulletVisual(newB, false);
+		KinkyDungeonUpdateSingleBulletVisual(newB, false, d);
 	} else if (b.bullet.hit == "instant") {
-		if (!KinkyDungeonBulletsCheckCollision(b, true, true)) {
+		if (!KinkyDungeonBulletsCheckCollision(b, true, true, d)) {
 			if (!(b.bullet.spell && b.bullet.spell.piercing)) {
 				KinkyDungeonBullets.splice(KinkyDungeonBullets.indexOf(b), 1);
 				KinkyDungeonBulletsID[b.spriteID] = null;
-				KinkyDungeonUpdateSingleBulletVisual(b, true);
+				KinkyDungeonUpdateSingleBulletVisual(b, true, d);
 			}
 		}
 		let newB = {born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(), bullet:{faction: b.bullet.faction, lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
@@ -932,7 +933,7 @@ function KinkyDungeonBulletTrail(b) {
 	return trail;
 }
 
-function KinkyDungeonBulletsCheckCollision(bullet, AoE, force) {
+function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	if (bullet.bullet.noEnemyCollision) return true;
@@ -1022,49 +1023,50 @@ function KinkyDungeonLaunchBullet(x, y, targetx, targety, speed, bullet, miscast
 
 function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	for (let bullet of KinkyDungeonBulletsVisual.values()) {
-		let sprite = bullet.name;
-		let spriteCanvas = KinkyDungeonBulletsID[bullet.spriteID];
-		if (!spriteCanvas) {
-			spriteCanvas = document.createElement("canvas");
-			spriteCanvas.width = bullet.size*KinkyDungeonSpriteSize;
-			spriteCanvas.height = bullet.size*KinkyDungeonSpriteSize;
-			KinkyDungeonBulletsID[bullet.spriteID] = spriteCanvas;
+		if (!bullet.delay || 0.01 * (performance.now() - KDLastTick) > bullet.delay) {
+			let sprite = bullet.name;
+			let spriteCanvas = KinkyDungeonBulletsID[bullet.spriteID];
+			if (!spriteCanvas) {
+				spriteCanvas = document.createElement("canvas");
+				spriteCanvas.width = bullet.size*KinkyDungeonSpriteSize;
+				spriteCanvas.height = bullet.size*KinkyDungeonSpriteSize;
+				KinkyDungeonBulletsID[bullet.spriteID] = spriteCanvas;
 
+			}
+
+			let Img = DrawGetImage(KinkyDungeonRootDirectory + "Bullets/" + sprite + ".png");
+
+			let spriteContext = spriteCanvas.getContext("2d");
+			let direction = (!bullet.vy && !bullet.vx) ? 0 : Math.atan2(bullet.vy, bullet.vx);
+
+			// Rotate the canvas m
+			spriteContext.translate(spriteCanvas.width/2, spriteCanvas.height/2);
+			spriteContext.rotate(direction);
+			spriteContext.translate(-spriteCanvas.width/2, -spriteCanvas.height/2);
+
+			// Draw the sprite
+			spriteContext.clearRect(0, 0, spriteCanvas.width, spriteCanvas.height);
+			spriteContext.drawImage(Img, 0, 0);
+
+			// Reset the transformation
+			spriteContext.setTransform(1, 0, 0, 1, 0, 0);
+
+			let dd = KinkyDungeonUpdateVisualPosition(bullet, KinkyDungeonDrawDelta);
+			let tx = bullet.visual_x;
+			let ty = bullet.visual_y;
+			let scale = bullet.scale != undefined ? bullet.scale : 1.0;
+
+			if (bullet.end && dd == 0 && (!bullet.scale || bullet.scale <= 0.0)) {
+				KinkyDungeonBulletsVisual.delete(bullet.spriteID);
+			} else if (bullet.xx >= CamX && bullet.yy >= CamY && bullet.xx < CamX + KinkyDungeonGridWidthDisplay && bullet.yy < CamY + KinkyDungeonGridHeightDisplay) {
+				KinkyDungeonContext.drawImage(spriteCanvas,
+					(tx - CamX + 0.5 - 0.5*scale*(bullet.size))*KinkyDungeonGridSizeDisplay,
+					(ty - CamY + 0.5 - 0.5*scale*(bullet.size))*KinkyDungeonGridSizeDisplay,
+					bullet.size*scale*KinkyDungeonGridSizeDisplay,
+					bullet.size*scale*KinkyDungeonGridSizeDisplay);
+			}
+			bullet.delay = undefined;
 		}
-
-		let Img = DrawGetImage(KinkyDungeonRootDirectory + "Bullets/" + sprite + ".png");
-
-		let spriteContext = spriteCanvas.getContext("2d");
-		let direction = (!bullet.vy && !bullet.vx) ? 0 : Math.atan2(bullet.vy, bullet.vx);
-
-		// Rotate the canvas m
-		spriteContext.translate(spriteCanvas.width/2, spriteCanvas.height/2);
-		spriteContext.rotate(direction);
-		spriteContext.translate(-spriteCanvas.width/2, -spriteCanvas.height/2);
-
-		// Draw the sprite
-		spriteContext.clearRect(0, 0, spriteCanvas.width, spriteCanvas.height);
-		spriteContext.drawImage(Img, 0, 0);
-
-		// Reset the transformation
-		spriteContext.setTransform(1, 0, 0, 1, 0, 0);
-
-		let dd = KinkyDungeonUpdateVisualPosition(bullet, KinkyDungeonDrawDelta);
-		let tx = bullet.visual_x;
-		let ty = bullet.visual_y;
-		let scale = bullet.scale != undefined ? bullet.scale : 1.0;
-
-		if (bullet.end && dd == 0 && (!bullet.scale || bullet.scale <= 0.0)) {
-			KinkyDungeonBulletsVisual.delete(bullet.spriteID);
-		} else if (bullet.xx >= CamX && bullet.yy >= CamY && bullet.xx < CamX + KinkyDungeonGridWidthDisplay && bullet.yy < CamY + KinkyDungeonGridHeightDisplay) {
-			KinkyDungeonContext.drawImage(spriteCanvas,
-				(tx - CamX + 0.5 - 0.5*scale*(bullet.size))*KinkyDungeonGridSizeDisplay,
-				(ty - CamY + 0.5 - 0.5*scale*(bullet.size))*KinkyDungeonGridSizeDisplay,
-				bullet.size*scale*KinkyDungeonGridSizeDisplay,
-				bullet.size*scale*KinkyDungeonGridSizeDisplay);
-		}
-
-
 	}
 }
 
