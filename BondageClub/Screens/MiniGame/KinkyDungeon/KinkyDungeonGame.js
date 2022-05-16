@@ -177,6 +177,9 @@ function KinkyDungeonInitialize(Level, Load) {
 		KinkyDungeonMapIndex.push(I);
 	}
 
+	KinkyDungeonEntities = [];
+	KinkyDungeonBullets = [];
+
 	KinkyDungeonTextMessage = "";
 	KinkyDungeonActionMessage = "";
 	MiniGameKinkyDungeonLevel = Level;

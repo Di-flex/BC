@@ -841,49 +841,115 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return KDAllied(enemy) && !KinkyDungeonFlags.has("NoFollow");
+				return KDAllied(enemy) && !KDEnemyHasFlag(enemy, "NoFollow");
 			}
 			return false;
 		},
-		options: {
-			"Confirm": {playertext: name + "StopFollowingMe_Confirm", response: "Default",
-				clickFunction: (gagged) => {
-					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
-					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 9999);
-					}
-					return false;
-				},
-				exitDialogue: true,
-			},
-			"Leave": {playertext: name + "StopFollowingMe_Leave", response: "Default",
-				leadsToStage: "",
-			},
-		}
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 9999);
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
 	};
 	dialog.options.FollowMe = {playertext: name + "FollowMe", response: "Default",
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return KDAllied(enemy) && KinkyDungeonFlags.has("NoFollow");
+				return KDAllied(enemy) && KDEnemyHasFlag(enemy, "NoFollow");
 			}
 			return false;
 		},
-		options: {
-			"Confirm": {playertext: name + "FollowMe_Confirm", response: "Default",
-				clickFunction: (gagged) => {
-					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
-					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
-					}
-					return false;
-				},
-				exitDialogue: true,
-			},
-			"Leave": {playertext: name + "FollowMe_Leave", response: "Default",
-				leadsToStage: "",
-			},
-		}
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				if (!KDEnemyHasFlag(enemy, "NoStay") && KDRandom() > (KinkyDungeonGoddessRep.Ghost + 50)/100 * 0.35) {
+					KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
+				} else {
+					KDGameData.CurrentDialogMsg = name + "StayHere_Fail";
+					KinkyDungeonSetEnemyFlag(enemy, "NoStay", 100);
+				}
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
+	};
+	dialog.options.DontStayHere = {playertext: name + "DontStayHere", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return !KDHostile(enemy) && KDEnemyHasFlag(enemy, "StayHere");
+			}
+			return false;
+		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "StayHere", 0);
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
+	};
+	dialog.options.StayHere = {playertext: name + "StayHere", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "StayHere");
+			}
+			return false;
+		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				if (!KDEnemyHasFlag(enemy, "NoStay") && KDRandom() > (KinkyDungeonGoddessRep.Ghost + 50)/100 * (KDAllied(enemy) ? 4.0 : 0.25)) {
+					KinkyDungeonSetEnemyFlag(enemy, "StayHere", -1);
+					enemy.gx = enemy.x;
+					enemy.gy = enemy.y;
+				} else {
+					KDGameData.CurrentDialogMsg = name + "StayHere_Fail";
+					KinkyDungeonSetEnemyFlag(enemy, "NoStay", 100);
+				}
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
+	};
+	dialog.options.Aggressive = {playertext: name + "Aggressive", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return !KDHostile(enemy) && KDEnemyHasFlag(enemy, "Defensive");
+			}
+			return false;
+		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "Defensive", 0);
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
+	};
+	dialog.options.Defensive = {playertext: name + "Defensive", response: "Default",
+		prerequisiteFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "Defensive");
+			}
+			return false;
+		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "Defensive", -1);
+			}
+			return false;
+		},
+		leadsToStage: "", dontTouchText: true,
 	};
 	dialog.options.HelpMe = {playertext: name + "HelpMe", response: "Default",
 		prerequisiteFunction: (gagged) => {
@@ -898,7 +964,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				clickFunction: (gagged) => {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						if (!KDEnemyHasFlag(enemy, "NoHelp") && KDRandom() > (KinkyDungeonGoddessRep.Ghost + 50)/100 * (KDAllied(enemy) ? 0.5 : 1.0)) {
+						if (!KDEnemyHasFlag(enemy, "NoHelp") && KDRandom() > (KinkyDungeonGoddessRep.Ghost + 50)/100 * (KDAllied(enemy) ? 2.0 : 1.0)) {
 							KinkyDungeonChangeRep("Ghost", 3);
 							KinkyDungeonSetFlag("HelpMeFlag", 20);
 						} else {
