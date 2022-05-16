@@ -2721,12 +2721,16 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonLastAction = "";
 	if (KDGameData.AncientEnergyLevel > 1) KDGameData.AncientEnergyLevel = 1;
 
+	KinkyDungeonUpdateBulletVisuals(delta);
+
 	// @ts-ignore
 	CharacterRefresh = _CharacterRefresh;
 	// @ts-ignore
 	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 
 	if (KinkyDungeonInDanger()) KinkyDungeonSetFlag("DangerFlag",  3);
+
+
 }
 
 

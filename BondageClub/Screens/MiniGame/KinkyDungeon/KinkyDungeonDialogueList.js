@@ -589,6 +589,7 @@ let KDDialogue = {
 							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
+							KinkyDungeonSetFlag("WolfgirlOffer", 100);
 							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
@@ -603,6 +604,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}
 							KinkyDungeonChangeRep("Ghost", -1);
+							KinkyDungeonSetFlag("WolfgirlOffer", 100);
 							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
@@ -619,6 +621,7 @@ let KDDialogue = {
 						KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 					}
 					KinkyDungeonChangeRep("Ghost", -1);
+					KinkyDungeonSetFlag("WolfgirlOffer", 100);
 					return false;
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
@@ -640,6 +643,7 @@ let KDDialogue = {
 							KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
+							KinkyDungeonSetFlag("WolfgirlOffer", 100);
 							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
@@ -667,6 +671,7 @@ let KDDialogue = {
 									KinkyDungeonChangeRep("Metal", -2);
 								}
 							}
+							KinkyDungeonSetFlag("WolfgirlOffer", 100);
 							return false;
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
@@ -777,7 +782,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 8);
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 9999);
 			}
 			return false;
 		},
@@ -995,7 +1000,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 17);
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 9999);
 				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
 			}
 			return false;

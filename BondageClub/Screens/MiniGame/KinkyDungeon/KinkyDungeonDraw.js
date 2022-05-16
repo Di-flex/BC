@@ -717,6 +717,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 	if (amount < 0 || !Entity.visual_x || !Entity.visual_y) {
 		Entity.visual_x = Entity.x;
 		Entity.visual_y = Entity.y;
+		return -1;
 	} else {
 		let speed = 100;
 		if (Entity.player && KinkyDungeonSlowLevel > 0 && KDGameData.KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
@@ -729,7 +730,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		if (dist > 5) {
 			value = 1;
 		}
-		if (dist == 0) return;
+		if (dist == 0) return dist;
 		// Increment
 		let weightx = Math.abs(Entity.visual_x - tx)/(dist);
 		let weighty = Math.abs(Entity.visual_y - ty)/(dist);
@@ -741,7 +742,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 
 		if (Entity.visual_y > ty) Entity.visual_y = Math.max(Entity.visual_y - value*weighty, ty);
 		else Entity.visual_y = Math.min(Entity.visual_y + value*weighty, ty);
-
+		return dist;
 		//console.log("x = " + Entity.visual_x + ", y = " + Entity.visual_y + ", tx = " + tx + ", ty = " + ty)
 	}
 }
