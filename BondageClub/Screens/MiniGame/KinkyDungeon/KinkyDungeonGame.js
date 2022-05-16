@@ -2406,7 +2406,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (!Enemy.playWithPlayer) { // KDAllied(Enemy)
+			if (!Enemy.playWithPlayer && (!Enemy.lifetime || Enemy.lifetime > 9999)) { // KDAllied(Enemy)
 				KDStartDialog("GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
 				noadvance = true;
 			}

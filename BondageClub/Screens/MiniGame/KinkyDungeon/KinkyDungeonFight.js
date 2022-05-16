@@ -710,7 +710,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 }
 
 function KinkyDungeonUpdateSingleBulletVisual(b, end) {
-	if (b.spriteID) {
+	if (b.spriteID && !b.bullet.noSprite) {
 		let bb = KinkyDungeonBulletsVisual.get(b.spriteID);
 		let visx = bb ? bb.visual_x : b.visual_x;
 		let visy = bb ? bb.visual_y : b.visual_y;

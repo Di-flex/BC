@@ -790,6 +790,7 @@ interface spell {
 	staminacost?: number;
 	manacost: number;
 	minRange?: number;
+	noSprite?: boolean;
 	/** Verbal, arms, or legs */
 	components?: any[];
 	/** Spell level */
