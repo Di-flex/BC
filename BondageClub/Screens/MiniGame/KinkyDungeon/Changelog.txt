@@ -839,6 +839,8 @@ Spell Balance:
 - Talking to shopkeepers now happens when you click on them, but you have an option to make them angry
 - New enemy: Leather Elemental, Rope Elemental
 - Allies now help you out of restraints
+- Reworked struggle system a little in order to make things less frustrating
+- Flexible now lets you use feet to hold consumables/keys/undo buckles/struggle
 
 
 TODO ValidationFindBlockCycles to prevent bugs

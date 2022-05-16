@@ -132,7 +132,7 @@ function KinkyDungeonShrineCost(type) {
 	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
 	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
-		return 100;
+		return KinkyDungeonGoddessRep[type] < 50 ? 100 : 0;
 
 	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10;
 }

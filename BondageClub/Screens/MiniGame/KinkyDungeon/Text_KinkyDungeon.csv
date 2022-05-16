@@ -42,7 +42,7 @@ KinkyDungeonStat1,"Helpless"
 KinkyDungeonStatDesc1,"You are physically weak. Struggling is much less effective."
 
 KinkyDungeonStat2,"Flexible"
-KinkyDungeonStatDesc2,"Slightly boosts the Remove and Unlock options when escaping, and escaping is 1.5x as fast except picking."
+KinkyDungeonStatDesc2,"Slightly boosts the Remove/Unlock option, escaping is 1.5x as fast except picking, and your feet can use items/buckles."
 KinkyDungeonStat3,"Inflexible"
 KinkyDungeonStatDesc3,"You get a penalty to the Remove and Unlock action, and escaping is 0.75x as fast."
 

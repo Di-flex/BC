@@ -507,6 +507,14 @@ function KinkyDungeonIsHandsBound(ApplyGhost) {
 
 /**
  *
+ * @returns {boolean}
+ */
+function KinkyDungeonCanUseFeet() {
+	return KinkyDungeonStatsChoice.get("Flexible") && KinkyDungeonSlowLevel < 1;
+}
+
+/**
+ *
  * @param {boolean} [ApplyGhost]
  * @returns {boolean}
  */
@@ -606,7 +614,7 @@ function KinkyDungeonPickAttempt() {
 		Pass = "Fail";
 	}
 
-	let handsBound = KinkyDungeonIsHandsBound();
+	let handsBound = KinkyDungeonIsHandsBound() && !KinkyDungeonCanUseFeet();
 	let armsBound = KinkyDungeonIsArmsBound();
 	let strict = KinkyDungeonStrictness(false, "ItemHands");
 	if (!strict) strict = 0;
@@ -651,7 +659,7 @@ function KinkyDungeonUnlockAttempt(lock) {
 
 	KinkyDungeonInterruptSleep();
 
-	let handsBound = KinkyDungeonIsHandsBound();
+	let handsBound = KinkyDungeonIsHandsBound() && !KinkyDungeonCanUseFeet();
 	let armsBound = KinkyDungeonIsArmsBound();
 	let strict = KinkyDungeonStrictness(false, "ItemHands");
 	if (!strict) strict = 0;
@@ -811,7 +819,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	let increasedAttempts = false;
 
-	let handsBound = KinkyDungeonIsHandsBound(true);
+	let handsBound = KinkyDungeonIsHandsBound(true) && !KinkyDungeonCanUseFeet();
 
 	// Bonuses go here. Buffs dont get added to orig escape chance, but
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle")) data.escapeChance += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "BoostStruggle");
