@@ -861,7 +861,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return KDAllied(enemy) && KDEnemyHasFlag(enemy, "NoFollow");
+				return KDAllied(enemy) && KDEnemyHasFlag(enemy, "NoFollow") && !KDEnemyHasFlag(enemy, "Shop");
 			}
 			return false;
 		},
@@ -900,7 +900,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "StayHere");
+				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "StayHere") && !KDEnemyHasFlag(enemy, "Shop");
 			}
 			return false;
 		},
@@ -941,7 +941,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "Defensive");
+				return !KDHostile(enemy) && !KDEnemyHasFlag(enemy, "Defensive") && !KDEnemyHasFlag(enemy, "Shop");
 			}
 			return false;
 		},
