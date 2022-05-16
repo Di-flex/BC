@@ -4,6 +4,7 @@ let KDSetPieces = [
 	{Name: "Bedroom", Radius: 4},
 	{Name: "Graveyard", Radius: 5},
 	{Name: "Altar", Radius: 5},
+	{Name: "FuukaAltar", Radius: 7, Max: 1},
 	{Name: "Storage", Radius: 5},
 	{Name: "QuadCell", Radius: 7},
 	{Name: "PearlChest", Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
@@ -19,11 +20,20 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	let setpieces = [];
-	Object.assign(setpieces, Params.setpieces);
-	setpieces.push({Type: "GuaranteedCell", Weight: 100000});
-	setpieces.push({Type: "PearlChest", Weight: 100});
-	if (MiniGameKinkyDungeonLevel > 1)
-		setpieces.push({Type: "LesserPearl", Weight: 10});
+	let boss = KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel);
+	if (!boss) {
+		Object.assign(setpieces, Params.setpieces);
+		setpieces.push({Type: "GuaranteedCell", Weight: 100000});
+		setpieces.push({Type: "PearlChest", Weight: 100});
+		if (MiniGameKinkyDungeonLevel > 1)
+			setpieces.push({Type: "LesserPearl", Weight: 10});
+	} else {
+		for (let s of Object.entries(boss.setpieces)) {
+			setpieces.push({Type: s[0], Weight: s[1]});
+		}
+	}
+
+	// Populate the map
 	for (let p of KDSetPieces) {
 		let prereqs = true;
 		if (prereqs && p.Prereqs) {
@@ -35,6 +45,7 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 		if (prereqs)
 			pieces.set(p.Name, p);
 	}
+
 	let pieceCount = width * height / 25;
 	let count = 0;
 	let fails = 0;
@@ -144,6 +155,24 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
 			shrinelist.push({x: cornerX + 2, y: cornerY + 2, priority: true});
 			break;
+		case "FuukaAltar": {
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
+			KinkyDungeonMapSet(cornerX + 1, cornerY + 1 , 'o');
+			KinkyDungeonMapSet(cornerX + radius - 2, cornerY + 1, 'o');
+			KinkyDungeonMapSet(cornerX + 1, cornerY + radius - 2, 'o');
+			KinkyDungeonMapSet(cornerX + radius - 2, cornerY + radius - 2, 'o');
+
+			KinkyDungeonMapSet(cornerX, cornerY + 3 , 'o');
+			KinkyDungeonMapSet(cornerX + 3, cornerY , 'o');
+			KinkyDungeonMapSet(cornerX + 3, cornerY + radius - 1 , 'o');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + 3 , 'o');
+
+			let Enemy = KinkyDungeonGetEnemyByName("Fuuka1");
+			let e = {tracking: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:cornerX + 3, y:cornerY + 3, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
+			KinkyDungeonEntities.push(e);
+			KDStageBoss = true;
+			break;
+		}
 		case "PearlChest":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');

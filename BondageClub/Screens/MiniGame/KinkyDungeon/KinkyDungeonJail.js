@@ -9,7 +9,7 @@ let KDJailReleaseTurns = [
 	{minSub: 90, releaseTurns: 40},
 ];
 
-function KinkyDungeonLoseJailKeys(Taken) {
+function KinkyDungeonLoseJailKeys(Taken, boss) {
 	if (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'chase') {
 		if (KDGameData.JailKey) {
 			if (Taken)
@@ -17,7 +17,10 @@ function KinkyDungeonLoseJailKeys(Taken) {
 			KDGameData.JailKey = false;
 		}
 	}
-	if (!KDGameData.JailKey) {
+	if (boss) {
+		KinkyDungeonGroundItems = KinkyDungeonGroundItems.filter((item) => {return item.name != "Keyring";});
+	}
+	if (!KDGameData.JailKey && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
 		let keyCount = KinkyDungeonGroundItems.filter((item) => {return item.name == "Keyring";}).length;
 		for (let i = 0; i < 2 - keyCount; i++) {
 			KinkyDungeonPlaceJailKeys();

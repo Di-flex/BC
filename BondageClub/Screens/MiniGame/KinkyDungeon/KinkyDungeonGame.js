@@ -207,6 +207,7 @@ function KinkyDungeonInitialize(Level, Load) {
 	// Set up the first level
 	//KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);
 }
+
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	for (let iterations = 0; iterations < 100; iterations++) {
@@ -259,8 +260,17 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			//console.log(KDRandom());
 		}
 
+		let boss = KinkyDungeonBossFloor(Floor);
+
 		let height = MapParams.min_height + 2*Math.floor(0.5*KDRandom() * (MapParams.max_height - MapParams.min_height));
 		let width = MapParams.min_width + 2*Math.floor(0.5*KDRandom() * (MapParams.max_width - MapParams.min_width));
+
+		KDStageBoss = true;
+		if (boss) {
+			KDStageBoss = false;
+			height = boss.height;
+			width = boss.width;
+		}
 
 		KinkyDungeonCanvas.width = KinkyDungeonCanvasPlayer.width*KinkyDungeonGridWidthDisplay;
 		KinkyDungeonGridHeight = height;
@@ -329,7 +339,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let chargerlist = [];
 		let chestlist = [];
 		let startTime = performance.now();
-		KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+		if (!boss)
+			KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+		else
+			KinkyDungeonCreateRoom(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 		//console.log(KDRandom());
 		if (KDDebug) {
 			console.log(`${performance.now() - startTime} ms for maze creation`);
@@ -360,20 +373,22 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			startTime = performance.now();
 		}
 
-		// We removed cachesplaced due to the rework of the prison system
-		if ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0)
-			KinkyDungeonCreateCache(spawnPoints, Floor, width, height);
-		if (KDDebug) {
-			console.log(`${performance.now() - startTime} ms for cache and cell creation`);
-			startTime = performance.now();
-		}
 		let createForbidden = KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1;
-		let traps = (createForbidden ? KinkyDungeonCreateForbidden(MiniGameKinkyDungeonLevel <= 1 ? 1.0 : greaterChance) : []);
-		if (KDDebug) {
-			console.log(`${performance.now() - startTime} ms for gold hall creation`);
-			startTime = performance.now();
+		let traps = [];
+		if (!boss) {
+			// We removed cachesplaced due to the rework of the prison system
+			if ((MiniGameKinkyDungeonLevel % 6) % cacheInterval == 0)
+				KinkyDungeonCreateCache(spawnPoints, Floor, width, height);
+			if (KDDebug) {
+				console.log(`${performance.now() - startTime} ms for cache and cell creation`);
+				startTime = performance.now();
+			}
+			traps = (createForbidden ? KinkyDungeonCreateForbidden(MiniGameKinkyDungeonLevel <= 1 ? 1.0 : greaterChance) : []);
+			if (KDDebug) {
+				console.log(`${performance.now() - startTime} ms for gold hall creation`);
+				startTime = performance.now();
+			}
 		}
-		//console.log(KDRandom());
 
 		// Create enemies first so we can spawn them in the set pieces if needed
 		let allies = KinkyDungeonGetAllies();
@@ -382,12 +397,14 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		KinkyDungeonPlaceSetPieces(traps, chestlist, shrinelist, chargerlist, spawnPoints, false, width, height);
 
 		if (!testPlacement) {
-			KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
+			if (!boss || boss.shortcut)
+				KinkyDungeonPlaceShortcut(KinkyDungeonGetShortcut(Floor), width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for shortcut creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
+			if (!boss || boss.chests)
+				KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height); // Place treasure chests inside dead ends
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for chest creation`);
 				startTime = performance.now();
@@ -400,12 +417,14 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			for (let t of traps2) {
 				traps.push(t);
 			}
-			KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
+			if (!boss || boss.shrines)
+				KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for shrine creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceChargers(chargerlist, chargerchance, litchargerchance, chargercount, Floor, width, height);
+			if (!boss || boss.chargers)
+				KinkyDungeonPlaceChargers(chargerlist, chargerchance, litchargerchance, chargercount, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for charger creation`);
 				startTime = performance.now();
@@ -430,7 +449,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			}
 			if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9)))
 				KinkyDungeonPlaceHeart(width, height, Floor);
-			KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
+			if (!boss || boss.specialtiles)
+				KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for special tile creation`);
 				startTime = performance.now();
@@ -444,7 +464,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			KinkyDungeonUpdateStats(0);
 
 			// Place enemies after player
-			KinkyDungeonPlaceEnemies(spawnPoints, false, MapParams.enemytags, Floor, width, height);
+			if (!boss || boss.enemies)
+				KinkyDungeonPlaceEnemies(spawnPoints, false, MapParams.enemytags, Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for enemy creation`);
 				startTime = performance.now();
@@ -469,12 +490,14 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		KinkyDungeonMakeGhostDecision();
 
 		// Place the jail keys AFTER making the map!
-		if (!KDGameData.JailKey || (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail')) KinkyDungeonLoseJailKeys();
+		if (!KDGameData.JailKey || (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail') || boss) KinkyDungeonLoseJailKeys(false, boss);
 
-		if (KinkyDungeonNearestJailPoint(1, 1)) iterations = 100000;
-		else console.log("This map failed to generate a jail! Please screenshot and send your save code to Ada on deviantart or discord!");
+		if (KinkyDungeonNearestJailPoint(1, 1) && (!boss || KDStageBoss)) iterations = 100000;
+		else console.log("This map failed to generate! Please screenshot and send your save code to Ada on deviantart or discord!");
 	}
 }
+
+let KDStageBoss = false;
 
 /**
  * Creates a list of all tiles accessible and not hidden by doors
@@ -2052,6 +2075,28 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 		}
 }
 
+
+function KinkyDungeonCreateRoom(VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+	// Variable setup
+
+	KinkyDungeonCreateRectangle(0, 0, width, height, true, false, false, false);
+
+	// Now we STRETCH the map
+	let KinkyDungeonOldGrid = KinkyDungeonGrid;
+	let w = KinkyDungeonGridWidth;
+	let h = KinkyDungeonGridHeight;
+	KinkyDungeonGridWidth = Math.floor(KinkyDungeonGridWidth*2);
+	KinkyDungeonGridHeight = Math.floor(KinkyDungeonGridHeight*2);
+	KinkyDungeonGrid = "";
+
+	// Generate the grid
+	for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+		for (let X = 0; X < KinkyDungeonGridWidth; X++)
+			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
+		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
+	}
+}
+
 function KinkyDungeonMazeWalls(Cell, Walls, WallsList) {
 	if (Walls[(Cell.x+1) + "," + Cell.y]) WallsList[(Cell.x+1) + "," + Cell.y] = {x:Cell.x+1, y:Cell.y};
 	if (Walls[(Cell.x-1) + "," + Cell.y]) WallsList[(Cell.x-1) + "," + Cell.y] = {x:Cell.x-1, y:Cell.y};
@@ -2453,14 +2498,15 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	if (Enemy && !KDEnemyHasFlag (Enemy, "passthrough") && (!Enemy.Enemy || !Enemy.Enemy.noblockplayer)) {
+	let allowPass = Enemy && !KDHostile(Enemy) && (KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
 		}
 	} else {
 		let MovableTiles = KinkyDungeonGetMovable();
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
-		if (MovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy && Enemy.allied) || (Enemy.Enemy && Enemy.Enemy.noblockplayer) || KDEnemyHasFlag (Enemy, "passthrough"))) { // If the player can move to an empy space or a door
+		if (MovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy && Enemy.allied) || allowPass)) { // If the player can move to an empy space or a door
 			KDGameData.ConfirmAttack = false;
 
 			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((KinkyDungeonToggleAutoDoor && moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true))
@@ -2485,9 +2531,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
 
 						if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
-							if (Enemy && (KDAllied(Enemy) || KDEnemyHasFlag (Enemy, "passthrough"))) {
+							if (Enemy && allowPass) {
 								Enemy.x = KinkyDungeonPlayerEntity.x;
 								Enemy.y = KinkyDungeonPlayerEntity.y;
+								if (KinkyDungeonFlags.has("Passthrough"))
+									KinkyDungeonSetFlag("Passthrough", 2);
 							}
 							newDelta = Math.max(newDelta, KinkyDungeonMoveTo(moveX, moveY));
 							KinkyDungeonLastAction = "Move";

@@ -128,6 +128,7 @@ let KDOptOut = false;
 * Edged: boolean,
 * TimeSinceLastVibeStart: Record<string, number>,
 * TimeSinceLastVibeEnd: Record<string, number>,
+* Favors: Record<string, number>,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
@@ -218,6 +219,8 @@ let KDGameDataBase = {
 	Edged: false,
 	TimeSinceLastVibeStart: {},
 	TimeSinceLastVibeEnd: {},
+
+	Favors: {},
 };
 /**
  * @type {KDGameDataBase}

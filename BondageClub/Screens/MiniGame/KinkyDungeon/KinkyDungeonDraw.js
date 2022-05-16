@@ -647,6 +647,9 @@ function KinkyDungeonDrawGame() {
 let KinkyDungeonFloaters = [];
 let KinkyDungeonLastFloaterTime = 0;
 
+let KDTimescale = 0.004;
+let KDBulletSpeed = 40;
+
 function KinkyDungeonSendFloater(Entity, Amount, Color, Time, LocationOverride, suff = "") {
 	if (Entity.x && Entity.y) {
 		let floater = {
@@ -722,6 +725,7 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		let speed = 100;
 		if (Entity.player && KinkyDungeonSlowLevel > 0 && KDGameData.KinkyDungeonLeashedPlayer < 2 && (KinkyDungeonFastMovePath.length < 1 || KinkyDungeonSlowLevel > 1)) speed = 100 + 80 * KinkyDungeonSlowLevel;
 		if (KDGameData.SleepTurns > 0) speed = 500;
+		if (Entity.scale) speed = KDBulletSpeed;
 		let value = amount/speed;// How many ms to complete a move
 		// xx is the true position of a bullet
 		let tx = (Entity.xx) ? Entity.xx : Entity.x;
@@ -731,11 +735,10 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 			value = 1;
 		}
 		if (Entity.scale != undefined) {
-			let timescale = 0.01;
 			if (dist > 0 || !Entity.end) {
-				Entity.scale = Math.min(1.0, Entity.scale + timescale*amount);
+				Entity.scale = Math.min(1.0, Entity.scale + KDTimescale*amount);
 			} else {
-				Entity.scale = Math.max(0.0, Entity.scale - timescale*amount);
+				Entity.scale = Math.max(0.0, Entity.scale - KDTimescale*amount);
 			}
 		}
 

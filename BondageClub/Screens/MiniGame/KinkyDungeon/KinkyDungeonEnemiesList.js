@@ -175,7 +175,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {}, shrines: [], allFloors: true,
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
 	{name: "Frog", faction: "Witch", clusterWith: "beast", color: "#00FF44", tags: KDMapInit(["summoned", "beast", "ranged", "pierceweakness", "electricsevereweakness"]), followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt",
-		pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3}, projectileAttack: true,
+		pullTowardSelf: true, pullDist: 3, master: {type: "Conjurer", range: 3}, projectileAttack: true, projectileTargeting: true,
 		visionRadius: 8, maxhp: 19, minLevel:0, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleePullWill", attackRange: 4, attackWidth: 1, power: 4, strictAttackLOS: true, dmgType: "tickle",
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "Conjurer", faction: "Witch", clusterWith: "construct", bound: "Conjurer", tags: KDMapInit(["leashing", "opendoors", "conjurer", "closedoors", "witch", "ranged", "boss", "elite", "unflinching", "dressRestraints", "latexRestraints", "handcuffer"]), followRange: 1, summon: [{enemy: "Frog", range: 2.5, count: 1, strict: true}],
@@ -381,7 +381,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 0, maxhp: 1, minLevel:0, weight:40, movePoints: 99999, attackPoints: 4, attack: "", attackWidth: 8, attackRange: 3, power: 6, dmgType: "souldrain",
 		terrainTags: {}, floors:KDMapInit([13]), shrines: ["Will"], ondeath: [{type: "spellOnSelf", spell: "Spores"}],},
 	{name: "Toad", faction: "Beast", clusterWith: "beast", color: "#00FF44", tags: KDMapInit(["ignorenoSP", "beast", "ranged", "pierceweakness", "electricsevereweakness"]), followLeashedOnly: true, armor: 1, followRange: 1, AI: "hunt",
-		pullTowardSelf: true, pullDist: 3, master: {type: "GiantMushroom", range: 3}, projectileAttack: true,
+		pullTowardSelf: true, pullDist: 3, master: {type: "GiantMushroom", range: 3}, projectileAttack: true, projectileTargeting: true,
 		visionRadius: 5, maxhp: 16, minLevel:0, weight:7, movePoints: 2, attackPoints: 3, attack: "MeleePullWill", attackRange: 5, attackWidth: 1, power: 4, strictAttackLOS: true, dmgType: "tickle",
 		terrainTags: {"increasingWeight":2, "secondhalf":3, }, floors:KDMapInit([13]), dropTable: [{name: "Nothing", weight: 12}, {name: "WaterRune", weight: 3}]},
 	{name: "Mushy", faction: "Mushy", clusterWith: "mushroom", color: "#4fa4b8", difficulty: 0.2,
@@ -721,5 +721,12 @@ let KinkyDungeonEnemies = [
 		keys: true, followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: 6, weight:-20, movePoints: 1, attackPoints: 2, evasion: -0.5, focusPlayer: true,
 		attack: "MeleeBindLockAllWillStun", attackWidth: 3, attackRange: 1, power: 12, dmgType: "electric", stunTime: 1,
 		terrainTags: {"jailer": 22, "increasingWeight": 1, "jailbreak": 28}, allFloors: true, dropTable: [{name: "RedKey", weight: 1}], rep: {"Prisoner": 1}},
+
+
+	// Bosses
+	{name: "Fuuka1", bound: "TalismanZombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "stageBoss", "jail"]), evasion: -1, armor: 0, followRange: 3, AI: "hunt",
+		spells: ["ZombieOrb", "ZombieBuff", "OrbHeal"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true,
+		visionRadius: 12, maxhp: 120, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "Keyring", weight: 10}]},
 
 ];

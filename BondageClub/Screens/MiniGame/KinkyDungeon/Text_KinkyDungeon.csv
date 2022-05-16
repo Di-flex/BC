@@ -4465,6 +4465,7 @@ rGenericAllyAttack_Leave,"(You decide not to)"
 
 dGenericAllyLetMePass,"(Walk past)"
 dGenericAllyLetMePass_Confirm,"(Walk past)"
+dGenericAllyLetMePass_ConfirmAll,"(Walk past multiple allies)"
 dGenericAllyLetMePass_Leave,"(Never mind...)"
 rGenericAllyLetMePass,"(Confirm? You will walk through her for a few turns)"
 rGenericAllyLetMePass_Leave,"(...)"

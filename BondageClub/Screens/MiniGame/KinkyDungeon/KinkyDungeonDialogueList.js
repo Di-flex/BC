@@ -847,6 +847,16 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				},
 				exitDialogue: true,
 			},
+			"ConfirmAll": {playertext: name + "LetMePass_ConfirmAll", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						KinkyDungeonSetFlag("Passthrough", 8);
+					}
+					return false;
+				},
+				exitDialogue: true,
+			},
 			"Leave": {playertext: name + "LetMePass_Leave", response: "Default",
 				leadsToStage: "",
 			},

@@ -589,12 +589,14 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 						amount = 0.01;
 					if (enemy.Enemy && enemy.Enemy.tags && !enemy.Enemy.tags.has("minor"))
 						amount = 0.004;
-					if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("minor") && KDRandom() < 0.33)
-						amount = 0.004;
+					if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("minor"))
+						amount = KDRandom() < 0.33 ? 0.004 : 0.001;
+
 				}
 				if (amount) {
 					KinkyDungeonChangeFactionRep(faction, -amount);
 
+					// For being near a faction
 					let boostfactions = [];
 					let hurtfactions = [];
 					for (let e of KinkyDungeonEntities) {
@@ -605,6 +607,8 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 								if (KDFactionRelation(faction, faction2) < -0.1 && !boostfactions.includes(faction2)) {
 									boostfactions.push(faction2);
 									KinkyDungeonChangeFactionRep(faction2, 0.5 * amount * -KDFactionRelation(faction, faction2));
+									// Add a favor
+									KDAddFavor(faction2, amount);
 								} else
 								if (KDFactionRelation(faction, faction2) > 0.1 && !hurtfactions.includes(faction2)) {
 									hurtfactions.push(faction2);
@@ -642,6 +646,45 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 		return true;
 	}
 	return false;
+}
+
+/**
+ *
+ * @param {entity} Enemy
+ * @returns {boolean} - If the NPC is eligible to use favors
+ */
+function KDFavorNPC(Enemy) {
+	// Only enemies which are not temporarily allied, or summoned by you, or specifically allied (like angels), are eligible to show up in dialogue
+	return Enemy && !Enemy.allied && !Enemy.Enemy.allied;
+}
+
+/**
+ *
+ * @param {entity} Enemy
+ * @returns {number} - Gets the favor with the enemy
+ */
+function KDGetFavor(Enemy) {
+	if (KDGameData.Favors)
+		return KDGameData.Favors[KDGetFactionOriginal(Enemy)] ? KDGameData.Favors[KDGetFactionOriginal(Enemy)] : 0;
+	return 0;
+}
+
+/**
+ *
+ * @param {entity} Enemy
+ * @param {number} Amount
+ */
+function KDChangeFavor(Enemy, Amount) {
+	KDModFavor(KDGetFactionOriginal(Enemy), Amount);
+}
+
+function KDAddFavor(Faction, Amount) {
+	KDModFavor(Faction, Math.abs(Amount));
+}
+function KDModFavor(Faction, Amount) {
+	if (!KDGameData.Favors) KDGameData.Favors = {};
+	if (!KDGameData.Favors[Faction]) KDGameData.Favors[Faction] = 0;
+	KDGameData.Favors[Faction] = Math.max(KDGameData.Favors[Faction] + Amount, 0);
 }
 
 function KinkyDungeonCheckLOS(enemy, player, distance, maxdistance, allowBlind, allowBars) {
