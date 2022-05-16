@@ -789,6 +789,7 @@ interface spell {
 	knifecost?: number;
 	staminacost?: number;
 	manacost: number;
+	minRange?: number;
 	/** Verbal, arms, or legs */
 	components?: any[];
 	/** Spell level */

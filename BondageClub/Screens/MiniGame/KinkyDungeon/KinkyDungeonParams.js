@@ -628,7 +628,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Will", Weight: 7},]
 	},
 	{//DungeonName12,-Magic Library-
-		"background" : "Cell",
+		"background" : "MagicSchoolLaboratory",
 		"openness" : 5,
 		"density" : 6,
 		"doodadchance" : 0.15,
@@ -706,7 +706,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Will", Weight: 7},]
 	},
 	{//DungeonName13,-Crystal Cave-
-		"background" : "ForestCave",
+		"background" : "MagicSchoolEscape",
 		"openness" : 6,
 		"density" : 2,
 		"doodadchance" : 0.15,

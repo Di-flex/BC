@@ -2139,8 +2139,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					spelltarget = enemy;
 				}
 			}
+			let minSpellRange = (spell && spell.minRange != undefined) ? spell.minRange : ((spell && (spell.selfcast || spell.buff || (spell.range && spell.range < 1.6))) ? 0 : 1.5);
 			if (spell && spell.heal && spelltarget.hp >= spelltarget.Enemy.maxhp) spell = null;
-			if (spell && !(!enemy.Enemy.minSpellRange || (playerDist > enemy.Enemy.minSpellRange))) spell = null;
+			if (spell && !(!minSpellRange || (playerDist > minSpellRange))) spell = null;
 			if (spell && !(!spell.minRange || (playerDist > spell.minRange))) spell = null;
 			if (spell) break;
 		}

@@ -202,10 +202,11 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			}
 		} else if (playerEffect.name == "MiniSlime") {
-			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") < 0.45) {
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") < 0.45 && KDRandom() < 0.33) {
 				KinkyDungeonMovePoints = -1;
-			}
-			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonMiniSlime"), "red", playerEffect.time);
+				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonMiniSlime2"), "red", 2);
+			} else
+				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonMiniSlime"), "red", 1);
 
 			if (spell.power > 0) {
 				effect = true;
@@ -819,8 +820,26 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			cast.ty = entity.y;
 		}
 		if (cast.directional) {
-			cast.mx = moveDirection.x;
-			cast.my = moveDirection.y;
+			if (cast.randomDirection) {
+				let slots = [];
+				for (let XX = -1; XX <= 1; XX++) {
+					for (let YY = -1; YY <= 1; YY++) {
+						if ((XX != 0 || YY != 0) && !KinkyDungeonNoEnemy(cast.tx + XX, cast.ty + YY, true) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(cast.tx + XX, cast.ty + YY))) slots.push({x:XX, y:YY});
+					}
+				}
+				if (slots.length > 0) {
+					let slot = slots[Math.floor(KDRandom() * slots.length)];
+					cast.mx = slot.x;
+					cast.my = slot.y;
+				} else {
+					cast.mx = moveDirection.x;
+					cast.my = moveDirection.y;
+				}
+			} else {
+				cast.mx = moveDirection.x;
+				cast.my = moveDirection.y;
+			}
+
 		}
 	}
 
