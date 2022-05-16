@@ -612,7 +612,12 @@ let KinkyDungeonEnemies = [
 	{name: "MonsterRope", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignoreharmless", "doortrap", "construct", "melee", "unstoppable", "ropeRestraints", "ropeRestraints2", "elite", "fireweakness", "slashweakness", "chainresist", "hunter"]), ignorechance: 0.75, followRange: 1, AI: "guard",
 		ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], disarm: 0.5,
 		visionRadius: 6, maxhp: 20, minLevel: 5, weight:0, movePoints: 3, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 3, attackRange: 1, power: 5, multiBind: 5, dmgType: "grope", fullBoundBonus: 15,
-		terrainTags: {"secondhalf":1, "lastthird":4, "increasingWeight":2}, allFloors: true, shrines: ["Rope"]},
+		terrainTags: {"secondhalf":1, "lastthird":4, "increasingWeight":2}, allFloors: true, shrines: ["Rope"],
+		ondeath: [
+			{type: "summon", enemy: "RopeSnake", range: 2.5, count: 3, strict: true},
+			{type: "summon", enemy: "LearnedRope", range: 2.5, count: 1, strict: true},
+		],
+	},
 
 	{name: "ElementalRope", faction: "Elemental", playLine: "Elemental", clusterWith: "elemental", bound: "Elemental", squeeze: true, color: "#ff8933",
 		tags: KDMapInit(["opendoors", "elemental", "slashweakness", "melee", "chainresist", "coldweakness", "pierceresist", "crushresist", "unarmedresist", "fireweakness", "ropeRestraints", "ropeRestraints2", "ballGagRestraints", "leashing", "search", "doortrap"]),
