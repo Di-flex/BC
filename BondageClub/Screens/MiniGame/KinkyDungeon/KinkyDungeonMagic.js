@@ -177,7 +177,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				}
 			}
 			if (!slimeWalker) {
-				if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+				if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") < 0.45) {
 					effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
 					if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
 					KinkyDungeonMovePoints = -1;
@@ -190,7 +190,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				}
 			}
 		} else if (playerEffect.name == "Slime") {
-			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") < 0.45) {
 				effect = KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("StickySlime")) > 0;
 				if (effect) KDSendStatus('bound', "StickySlime", "spell_" + spell.name);
 				KinkyDungeonMovePoints = -1;
@@ -202,7 +202,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			}
 		} else if (playerEffect.name == "MiniSlime") {
-			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") >= 0.45) {
+			if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "glueDamageResist") < 0.45) {
 				KinkyDungeonMovePoints = -1;
 			}
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonMiniSlime"), "red", playerEffect.time);
