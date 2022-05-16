@@ -683,6 +683,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, Floor, width, heigh
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				let e = {Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, AI: AI};
 				KinkyDungeonEntities.push(e);
+				KDEnemyHasFlag(e, "NoFollow");
 				let shop = KinkyDungeonGetShopForEnemy(e);
 				if (shop) {
 					KinkyDungeonSetEnemyFlag(e, "Shop", -1);

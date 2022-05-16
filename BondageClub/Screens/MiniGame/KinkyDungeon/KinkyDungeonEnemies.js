@@ -1399,7 +1399,6 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				if (KDEnemyHasFlag(enemy, "StayHere") || KDEnemyHasFlag(enemy, "Defensive")) dontFollow = true;
 				if (KDHostile(enemy)) {
 					KinkyDungeonSetEnemyFlag(enemy, "StayHere", 0);
-					KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
 					KinkyDungeonSetEnemyFlag(enemy, "Defensive", 0);
 				} else if (!KDAllied(enemy)) {
 					KinkyDungeonSetEnemyFlag(enemy, "Defensive", 0);
