@@ -819,6 +819,18 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 			}
 			return false;
 		},
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				if (KinkyDungeonFlags.has("LetMePass")) {
+					KinkyDungeonSetEnemyFlag(enemy, "passthrough", 8);
+					KDGameData.CurrentDialog = "";
+					KDGameData.CurrentDialogStage = "";
+					KinkyDungeonSetFlag("LetMePass", 30);
+				}
+			}
+			return false;
+		},
 		options: {
 			"Confirm": {playertext: name + "LetMePass_Confirm", response: "Default",
 				clickFunction: (gagged) => {
