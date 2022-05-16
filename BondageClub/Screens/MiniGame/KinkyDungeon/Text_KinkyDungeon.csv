@@ -1541,6 +1541,8 @@ KinkyDungeonStrugglePickStrict,"You try to start picking, but the lock is secure
 KinkyDungeonStrugglePickStrictAroused,"You whimper as you realize the lock is shielded by another strap."
 KinkyDungeonStruggleRemoveNeedEdge,"You wiggle uselessly. Maybe you need some kind of corner or edge..."
 KinkyDungeonStruggleRemoveNeedEdgeAroused,"You rub your body against the floor to no avail, and sigh."
+KinkyDungeonStruggleStruggleNeedEdge,"You contort your body but your bound hands have no leverage. Maybe you need a corner or edge..."
+KinkyDungeonStruggleStruggleNeedEdgeAroused,"You wiggle madly, trying to push against the restraint. You need more leverage..."
 KinkyDungeonStruggleRemoveImpossible,"The fastenings are tightly secured!"
 KinkyDungeonStruggleRemoveImpossibleAroused,"You roll around tryng to loosen the item to no avail."
 KinkyDungeonStruggleRemoveImpossible2,"The item tightens itself as you try to undo it!"

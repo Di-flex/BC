@@ -584,7 +584,7 @@ function KinkyDungeonHandleHUD() {
 				ElementCreateTextArea("DebugEnemy");
 				ElementValue("DebugEnemy", "Maidforce");
 				ElementCreateTextArea("DebugItem");
-				ElementValue("DebugItem", "EnchantedBelt");
+				ElementValue("DebugItem", "TrapArmbinder");
 			}
 			return true;
 		}
@@ -804,7 +804,7 @@ function KinkyDungeonHandleHUD() {
 				ElementCreateTextArea("DebugEnemy");
 				ElementValue("DebugEnemy", "Maidforce");
 				ElementCreateTextArea("DebugItem");
-				ElementValue("DebugItem", "EnchantedBelt");
+				ElementValue("DebugItem", "TrapArmbinder");
 			}
 			return true;
 		}
@@ -818,7 +818,7 @@ function KinkyDungeonHandleHUD() {
 				ElementCreateTextArea("DebugEnemy");
 				ElementValue("DebugEnemy", "Maidforce");
 				ElementCreateTextArea("DebugItem");
-				ElementValue("DebugItem", "EnchantedBelt");
+				ElementValue("DebugItem", "TrapArmbinder");
 				return true;
 			}
 		}

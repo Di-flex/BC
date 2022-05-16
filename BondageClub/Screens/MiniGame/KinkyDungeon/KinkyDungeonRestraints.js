@@ -859,6 +859,23 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Psychic doesnt modify original chance, so that you understand its the perk helping you
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.25);
 
+	let edgeBonus = 0.05;
+	if (StruggleType == "Struggle" && data.hasEdge) data.escapeChance += edgeBonus;
+
+	if ((StruggleType == "Struggle") && data.escapeChance <= edgeBonus) {
+		let typesuff = "";
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
+		KinkyDungeonLastAction = "Struggle";
+		KinkyDungeonSendEvent("struggle", {
+			restraint: restraint,
+			group: struggleGroup,
+			struggletype: StruggleType,
+			result: "NeedEdge",
+		});
+		return "NeedEdge";
+	}
 
 
 	if (data.escapeChance <= 0) {
@@ -898,9 +915,9 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup != "ItemHands" && handsBound)
-		data.escapeChance = (StruggleType == "Remove" && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
+		data.escapeChance = ((StruggleType == "Remove") && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
-	if (StruggleType == "Remove" && data.escapeChance == 0) {
+	if ((StruggleType == "Remove") && data.escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
@@ -931,9 +948,9 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 			restraint: restraint,
 			group: struggleGroup,
 			struggletype: StruggleType,
-			result: "NeedEdge",
+			result: "Strict",
 		});
-		return "NeedEdge";
+		return "Strict";
 	}
 
 	if (!(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && (StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove")) data.escapeChance /= 1.0 + KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax*KinkyDungeonDistractionUnlockSuccessMod;
@@ -1022,9 +1039,15 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		// One last check: check limits
 
 		if (data.limitChance > 0 && data.escapeChance > 0) {
-			let limitProgress = restraint.struggleProgress ? (StruggleType == "Struggle" ? restraint.struggleProgress : (1.0 - restraint.struggleProgress))
+			let threshold = 0.75;
+			if (data.limitChance > data.escapeChance) {
+				threshold = Math.min(threshold, 0.9*(data.escapeChance / data.limitChance));
+			}
+			let limitProgress = restraint.struggleProgress ? (StruggleType == "Struggle" ?
+				(restraint.struggleProgress < threshold ? threshold * restraint.struggleProgress : 1.0) :
+				Math.min(1, 1.15 - 1.15 * restraint.struggleProgress))
 				: (StruggleType == "Struggle" ? 0 : 1);
-			let limitPenalty = Math.max(0, limitProgress * data.limitChance);
+			let limitPenalty = Math.max(0, Math.min(1, limitProgress) * data.limitChance);
 
 			if (limitPenalty > 0) {
 				data.escapeChance -= limitPenalty;
