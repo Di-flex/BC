@@ -730,6 +730,15 @@ function KinkyDungeonUpdateVisualPosition(Entity, amount) {
 		if (dist > 5) {
 			value = 1;
 		}
+		if (Entity.scale != undefined) {
+			let timescale = 0.01;
+			if (dist > 0 || !Entity.end) {
+				Entity.scale = Math.min(1.0, Entity.scale + timescale*amount);
+			} else {
+				Entity.scale = Math.max(0.0, Entity.scale - timescale*amount);
+			}
+		}
+
 		if (dist == 0) return dist;
 		// Increment
 		let weightx = Math.abs(Entity.visual_x - tx)/(dist);
