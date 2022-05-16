@@ -724,8 +724,8 @@ let KinkyDungeonEnemies = [
 
 
 	// Bosses
-	{name: "Fuuka1", bound: "TalismanZombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "stageBoss", "jail"]), evasion: -1, armor: 0, followRange: 3, AI: "hunt",
-		spells: ["ZombieOrb", "ZombieBuff", "OrbHeal"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true,
+	{name: "Fuuka1", playLine: "Fuuka", bound: "TalismanZombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "ribbonRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]), armor: 0, followRange: 3, AI: "hunt",
+		spells: ["ZombieOrb"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true, accuracy: 0.7, multiBind: 3,
 		visionRadius: 12, maxhp: 120, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "Keyring", weight: 10}]},
 

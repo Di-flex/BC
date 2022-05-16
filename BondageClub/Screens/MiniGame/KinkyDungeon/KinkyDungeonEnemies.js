@@ -262,7 +262,7 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 			let bindLevel = KDBoundEffects(enemy);
 			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
 				if (!KinkyDungeonAggressive(enemy) && (!KDAllied(enemy) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
-					DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((KDEnemyHasFlag(enemy, "Shop")) ? "Conditions/Shop.png" : "Conditions/Peace.png"),
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((KDEnemyHasFlag(enemy, "Shop")) ? "Conditions/Shop.png" : (KDAllied(enemy) ? "Conditions/Heart.png" : "Conditions/Peace.png")),
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
@@ -543,22 +543,22 @@ function KinkyDungeonCapture(enemy) {
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
-		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy)) {
+		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy) && !enemy.Enemy.tags.has("nocapture")) {
 			if (enemy.items) {
 				for (let name of enemy.items) {
 					let item = {x:enemy.x, y:enemy.y, name: name};
 					KinkyDungeonGroundItems.push(item);
 				}
-			} else {
-				KinkyDungeonCapture(enemy);
 			}
+			KinkyDungeonCapture(enemy);
 		} else {
 			if (enemy.items) {
 				for (let name of enemy.items) {
 					let item = {x:enemy.x, y:enemy.y, name: name};
 					KinkyDungeonGroundItems.push(item);
 				}
-			} else if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
+			}
+			if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
 				if (KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 10)
 					KinkyDungeonSendActionMessage(4, TextGet("Kill"+enemy.Enemy.name), "orange", 2);
 				KinkyDungeonKilledEnemy = null;
