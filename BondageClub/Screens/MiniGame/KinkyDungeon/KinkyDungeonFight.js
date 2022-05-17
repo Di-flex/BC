@@ -645,6 +645,14 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
 					let xx = b.bullet.cast.tx;
 					let yy = b.bullet.cast.ty;
+					if (b.bullet.cast.spread) {
+						let xxx = xx + Math.round(-b.bullet.cast.spread + 2*b.bullet.cast.spread * KDRandom());
+						let yyy = yy + Math.round(-b.bullet.cast.spread + 2*b.bullet.cast.spread * KDRandom());
+						if (xxx != b.x || yyy != b.y || b.bullet.spell.type != 'bolt') {
+							xx = xxx;
+							yy = yyy;
+						}
+					}
 					if (!xx) xx = b.x;
 					if (!yy) yy = b.y;
 					KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
@@ -870,7 +878,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 					else if (!faction && b.bullet.spell && b.bullet.spell.allySpell) faction = "Player";
 
 					if (b.bullet.faction) faction = b.bullet.faction;
-					let e = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget, faction);
+					let e = KinkyDungeonSummonEnemy(b.x, b.y, summonType, count, rad, sum.strict, sum.time ? sum.time : undefined, sum.hidden, sum.goToTarget, faction, faction && KDFactionRelation("Player", faction) <= -0.5, sum.minRange);
 					created += e;
 				}
 			}
@@ -883,16 +891,17 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 }
 
 
-function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden, goToTarget, faction, hostile) {
+function KinkyDungeonSummonEnemy(x, y, summonType, count, rad, strict, lifetime, hidden, goToTarget, faction, hostile, minrad) {
 	let slots = [];
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
-			if (Math.sqrt(X*X+Y*Y) <= rad) {
+			if (Math.sqrt(X*X+Y*Y) <= rad && (!minrad || Math.sqrt(X*X+Y*Y) >= minrad)) {
 				if ((x + X > 0 && y + Y > 0 && x + X < KinkyDungeonGridWidth && y + Y < KinkyDungeonGridHeight))
 					slots.push({x:X, y:Y});
 			}
 		}
 
+	if (slots.length == 0) return 0;
 	let created = 0;
 	let maxcounter = 0;
 	let Enemy = KinkyDungeonGetEnemyByName(summonType);

@@ -779,20 +779,22 @@ function KinkyDungeonHandleHUD() {
 				Y += KDPerksYPad;
 				Y_alt = Y;
 				for (let stat of c.buffs.concat(c.debuffs)) {
-					let YY = stat[1].cost < 0 ? Y_alt : Y;
-					let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth + KDPerksButtonWidthPad : X;
+					if (!stat[1].locked || KDUnlockedPerks.includes(stat[0])) {
+						let YY = stat[1].cost < 0 ? Y_alt : Y;
+						let XX = stat[1].cost < 0 ? X + KDPerksButtonWidth + KDPerksButtonWidthPad : X;
 
-					if (MouseIn(XX, YY, KDPerksButtonWidth, KDPerksButtonHeight)) {
-						if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
-							KinkyDungeonStatsChoice.set(stat[0], true);
-							localStorage.setItem('KinkyDungeonStatsChoice' + KinkyDungeonPerksConfig, JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
-						} else if (KinkyDungeonStatsChoice.get(stat[0])) {
-							KinkyDungeonStatsChoice.delete(stat[0]);
-							localStorage.setItem('KinkyDungeonStatsChoice' + KinkyDungeonPerksConfig, JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
+						if (MouseIn(XX, YY, KDPerksButtonWidth, KDPerksButtonHeight)) {
+							if (!KinkyDungeonStatsChoice.get(stat[0]) && KinkyDungeonCanPickStat(stat[0])) {
+								KinkyDungeonStatsChoice.set(stat[0], true);
+								localStorage.setItem('KinkyDungeonStatsChoice' + KinkyDungeonPerksConfig, JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
+							} else if (KinkyDungeonStatsChoice.get(stat[0])) {
+								KinkyDungeonStatsChoice.delete(stat[0]);
+								localStorage.setItem('KinkyDungeonStatsChoice' + KinkyDungeonPerksConfig, JSON.stringify(Array.from(KinkyDungeonStatsChoice.keys())));
+							}
 						}
+						if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight + KDPerksButtonHeightPad;
+						else Y += KDPerksButtonHeight + KDPerksButtonHeightPad;
 					}
-					if (stat[1].cost < 0) Y_alt += KDPerksButtonHeight + KDPerksButtonHeightPad;
-					else Y += KDPerksButtonHeight + KDPerksButtonHeightPad;
 				}
 			}
 		}

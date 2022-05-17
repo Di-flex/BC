@@ -141,6 +141,8 @@ let KDDialogueTriggers = {
 	"ScrollSell": KDShopTrigger("ScrollSell"),
 	"GhostSell": KDShopTrigger("GhostSell"),
 	"WolfgirlSell": KDShopTrigger("WolfgirlSell"),
+	"Fuuka": KDBossTrigger("Fuuka", ["Fuuka1", "Fuuka2"]),
+	"FuukaLose": KDBossLose("FuukaLose", ["Fuuka1", "Fuuka2"]),
 
 };
 
@@ -156,6 +158,41 @@ function KDShopTrigger(name) {
 				&& !(KDGameData.SleepTurns > 0)
 				&& KDEnemyHasFlag(enemy, name)
 				&& !KDEnemyHasFlag(enemy, "NoShop"));
+		},
+		weight: (enemy, dist) => {
+			return 100;
+		},
+	};
+}
+
+/** Boss intro dialogue */
+function KDBossTrigger(name, enemyName) {
+	return {
+		dialogue: name,
+		nonHostile: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5
+				&& !(KDGameData.SleepTurns > 0)
+				&& enemyName.includes(enemy.Enemy.name)
+				&& !KinkyDungeonFlags.has("BossUnlocked")
+				&& !KinkyDungeonFlags.has("BossDialogue" + name));
+		},
+		weight: (enemy, dist) => {
+			return 100;
+		},
+	};
+}
+
+/** Lose to a boss */
+function KDBossLose(name, enemyName) {
+	return {
+		dialogue: name,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5
+				&& !(KDGameData.SleepTurns > 0)
+				&& enemyName.includes(enemy.Enemy.name)
+				&& !KinkyDungeonFlags.has("BossUnlocked")
+				&& !KinkyDungeonHasStamina(1.1));
 		},
 		weight: (enemy, dist) => {
 			return 100;

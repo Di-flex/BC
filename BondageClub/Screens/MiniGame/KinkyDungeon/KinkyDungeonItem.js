@@ -95,6 +95,12 @@ function KinkyDungeonItemEvent(Item) {
 		priority = 8;
 		color = "orange";
 		KinkyDungeonInventoryAddWeapon("MagicSword");
+	} else if (Item.name == "Scrolls") {
+		priority = 4;
+		color = "lightgreen";
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, 1);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, 1);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, 1);
 	} else if (Item.name == "Knife") {
 		priority = 2;
 		color = "lightgreen";

@@ -70,7 +70,7 @@ function KinkyDungeonHandleMoveToTile(toTile) {
 }
 
 function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
-	if (!KDGameData.JailKey) {
+	if (!KDGameData.JailKey && !KinkyDungeonFlags.has("BossUnlocked")) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonNeedJailKey"), "#ffffff", 1);
 	}
 	else {

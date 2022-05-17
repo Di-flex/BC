@@ -10,7 +10,7 @@ KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 
-KinkyDungeon,"Kinky Dungeon v3.32"
+KinkyDungeon,"Kinky Dungeon v3.33"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -180,6 +180,10 @@ KinkyDungeonStatDesc56,"Switching spells and casting from spellbook does not tak
 
 KinkyDungeonStat57,"Disorganized"
 KinkyDungeonStatDesc57,"Switching weapons, learning/choosing spells, and casting from spellbook takes 3 turns."
+
+
+KinkyDungeonStatFuukaCollar,"Fuuka's Pet"
+KinkyDungeonStatDescFuukaCollar,"Start with Fuuka's collar."
 
 
 KinkyDungeonBuffSlimeForm,Slime Form
@@ -866,6 +870,11 @@ KillFastZombie,"The zombie screams and tumbles to the floor."
 AttackFastZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackFastZombie,"The zombie gropes your body! (-DamageTaken SP)"
 
+NameSummonedZombie,Zombie
+KillSummonedZombie,"The zombie screams and tumbles to the floor."
+AttackSummonedZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
+AttackSummonedZombie,"The zombie gropes your body! (-DamageTaken SP)"
+
 NameNawashiZombie,Skillful Zombie
 KillNawashiZombie,"The zombie smiles as it collapses to the ground."
 AttackNawashiZombieBind,"The zombie swiftly ties you! (+RestraintAdded)"
@@ -1127,6 +1136,12 @@ KillGhost,"The ghost vanishes."
 AttackGhostBind,"The Ghost restrains you! (+RestraintAdded)"
 AttackGhost,"The Ghost tickles you! (-DamageTaken SP)"
 
+NameMikoGhost,Revenant
+KillMikoGhost,"The revenant pouts as it vanishes."
+AttackMikoGhostBind,"The revenant restrains you! (+RestraintAdded)"
+AttackMikoGhost,"The revenant squeezes your breasts! (-DamageTaken SP)"
+AttackMikoGhostSlow,"The revenant grabs you and caresses your tummy! (-DamageTaken SP)"
+
 NameGreaterSkeleton,Skeleton Warrior
 KillGreaterSkeleton,"The skeleton warrior collapses and falls into pieces."
 AttackGreaterSkeleton,"The Skeleton lands a wide, crippling blow! (-DamageTaken SP)"
@@ -1149,6 +1164,8 @@ AttackBramble,"The bramble snares you! (-DamageTaken SP)"
 
 KinkyDungeonSummonMultiRedSlime,The red liquid bubbles and several round slimes pop out!
 KinkyDungeonSummonSingleRedSlime,The red liquid bubbles and a round slime pops out!
+KinkyDungeonSummonSingleMikoGhost,A revenant appears!
+KinkyDungeonSummonMultiMikoGhost,Fuuka uses a talisman to call forth the spirits of her pets!
 
 KinkyDungeonSummonSingleLatexElemental,A pool of latex bubbles and a twisted elemental appears!
 
@@ -1729,6 +1746,15 @@ KinkyDungeonCategoryFiltermisc,Miscellaneous
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."
 RestraintBindingDressDesc2,"It is extremely strict but it is only fabric. The lacing is intricate and will take a long time to remove."
+
+RestraintMikoDress,Red Binding Dress
+RestraintMikoDressDesc,"A devious dress that forces the arms into an elbows-touching position."
+RestraintMikoDressDesc2,"It is extremely strict but it is only fabric. The lacing is intricate and will take a long time to remove."
+
+RestraintMikoCollar,Fuuka's Collar
+RestraintMikoCollarDesc,"A collar enchanted with ghastly energy."
+RestraintMikoCollarDesc2,"It seems to react with a pulse of energy whenever a nearby enemy is defeated."
+KDMikoCollarSummmon,"Your collar pulses, and a revenant appears to avenge the enemy you defeated!"
 
 RestraintDressBra,Dress Bustier
 RestraintDressBraDesc,"A deceptively cruel device, making it impossible to reach your nipples."
@@ -2676,6 +2702,7 @@ ItemPickupBondageBuster,"You retrieve the Bondage Buster."
 ItemPickupMoiraiScissor,"You retrieve Moirai's scissors."
 
 
+ItemPickupScrolls,"You pick up a bunch of scrolls!"
 ItemPickupScrollArms,"You pick up a Scroll of Sleight."
 ItemPickupScrollPurity,"You pick up a Scroll of Purity."
 ItemPickupScrollVerbal,"You pick up a Scroll of Speech."
@@ -3104,6 +3131,7 @@ KinkyDungeonSpellCastIceBreath,You breath out a chilling frost!
 KinkyDungeonSpellTargetIceBreath,Select where to put the icicles (SpellArea radius)
 
 KinkyDungeonSpellZombieOrb,Zombie Orb
+KinkyDungeonSpellZombieOrbMini,Lesser Zombie Orb
 KinkyDungeonSpellZombieOrbIce,Freezing Zombie Orb
 KinkyDungeonSpellMummyBolt,Mystic Bolt
 KinkyDungeonMysticShock,The mummy's bolt paralyzes you!
@@ -3156,6 +3184,7 @@ KinkyDungeonSpellSummonSkeleton,Summon Skeleton
 KinkyDungeonSpellSummonSkeletons,Mass Summon Skeleton
 KinkyDungeonSummonSingleSummonedSkeleton,A skeleton arises from bones on the floor!
 KinkyDungeonSummonMultiSummonedSkeleton,A gang of SummonCount skeletons forms around you!
+KinkyDungeonSummonMultiSummonedZombie,A gang of SummonCount zombies emerges from the floor!
 KinkyDungeonSummonMultiPlayerGag,A bunch of gags fly out from your satchel!
 
 KinkyDungeonSummonSingleTickleHand,A floating hand appears and cracks its knuckles!
@@ -3439,6 +3468,14 @@ KinkyDungeonLore-10,"(The note contains a magic spell you were taught never to c
 KinkyDungeonCurseInfo5Keys,"The item requires 5 keys and free hands to remove"
 KinkyDungeonCurseStruggle5Keys,"The item is extremely secure with five separate keyholes."
 KinkyDungeonCurseUnlock5Keys,"You insert your 5 keys into the lock and the item finally comes off."
+
+KinkyDungeonCurseInfoGhostLock,"The lock is protected by a revanent seal. You'll need 10 ectoplasm to disenchant it."
+KinkyDungeonCurseStruggleGhostLock,"Your fingers pass right through the collar. Pity your neck doesn't pass through it."
+KinkyDungeonCurseUnlockGhostLock,"You channel ghastly energy into the lock and break the seal!!!"
+
+KinkyDungeonCurseInfoShadowCurse,"The item seems to drain divine energy from shrines. Maybe that has something to do with it."
+KinkyDungeonCurseStruggleShadowCurse,"The collar is enchanted with multiple layers of magical seals."
+KinkyDungeonCurseUnlockShadowCurse,"The collar has absorbed enough energy and pops off!"
 
 KinkyDungeonUnusable,"That item cant be used."
 
@@ -4157,6 +4194,7 @@ KDCategoryKinky,Kinks and Preferences
 KDCategoryMagic,Wizardry and Sorcery
 KDCategoryEnemies,Devious Threats
 KDCategoryMap,World Generation
+KDCategoryBoss,Unlockable
 
 KDWeaponConfiscated,You hand over your weapon reluctantly...
 
@@ -4548,3 +4586,139 @@ KinkyDungeonRemindJailChaseFuukaShrine,"EnemyName: She won't help you!"
 KinkyDungeonRemindJailChaseFuukaChest,"EnemyName: Not yours!"
 KinkyDungeonRemindJailChaseFuukaOrb,"EnemyName: Oh, that's not going to help~"
 KinkyDungeonRemindJailChaseFuukaJailbreak,"EnemyName: Let's play a game!"
+
+rFuuka,"(You find a girl wearing an ornate dress)|(She glances at you)|And who might you be?"
+dFuuka_Aggressive,"I should be asking the same of you."
+dFuuka_AggressiveGag,"(Growl at her)"
+rFuukaAggressive,"(She smiles)|My name is Fuuka, with the letters for Wind and Song.|Are you going to introduce yourself?"
+dFuukaAggressive_Question,What kind of name is that?
+rFuukaAggressive_Question,"(SPEAKER frowns)|It means Windsong!|I bet yours isn't anywhere nearly as cool."
+rFuukaAggressive_Question_Brat,"(SPEAKER looks enraged)|Because names and meanings are different things!|My name uses the script from the Old Civilization!|You're just a poser!"
+dFuukaAggressive_Question_Brat,"Why not just call yourself Windsong?"
+dFuukaAggressive_Question_Brat_Proceed,"(...)"
+dFuukaAggressive_Question_Proceed,"(...)"
+dFuukaAggressive_Proceed,I am an adventurer.
+dFuukaAggressive_ProceedGag,Mmmmph.
+rFuukaAggressive_ProceedGag,"(SPEAKER blushes)|Ah, right then..."
+dFuukaAggressive_ProceedGag_Proceed,"(...)"
+rFuukaAggressive_Brat,"(SPEAKER giggles)|Very well. I don't really care who you are."
+dFuukaAggressive_Brat,I do not need to introduce myself.
+dFuukaAggressive_Brat_Proceed,"Neither do I."
+dFuukaAggressive_Brat_ProceedGag,"(...)"
+dFuukaAggressive_Brat_Proceed2,"(...)"
+dFuuka_Defensive,"I'm an adventurer. And who are you?"
+dFuuka_DefensiveGag,"Mmmmm... (Blush)"
+rFuukaDefensive,"(She grins)|My name is Fuuka, with the letters for Wind and Song.|The reincarnated ones call me Windsong,|they aren't very bright though."
+dFuukaDefensive_Question,Reincarnated ones?
+rFuukaDefensive_Question,"(SPEAKER tilts her head)|I believe the term is 'Zombie' in the common tongue."
+rFuukaDefensive_Question_Question,"(SPEAKER enjoys the discussion)|Normally, spirits pass on to the next life.|But with the right tricks, one can keep them here.|I plan to make them all proper bodies...|Eventually."
+dFuukaDefensive_Question_Question,"But... reincarnated?"
+dFuukaDefensive_Question_Question_Proceed,"(...)"
+dFuukaDefensive_Question_Proceed,"(...)"
+dFuukaDefensive_Proceed,I am an adventurer.
+dFuukaDefensive_ProceedGag,Mmmmph.
+rFuukaDefensive_ProceedGag,"(SPEAKER giggles)|Hehe... you sound interested."
+dFuukaDefensive_ProceedGag_Proceed,"(...)"
+rFuukaDefensive_Brat,"(SPEAKER frowns)|Never ask a woman about her age!"
+dFuukaDefensive_Brat,I take it you're the hag in charge?
+dFuukaDefensive_Brat_Proceed,"You are in charge, right?"
+dFuukaDefensive_Brat_ProceedGag,"(Giggle)"
+dFuukaDefensive_Brat_Proceed2,"(...)"
+dFuuka_Brat,"Don't mess with me, little girl."
+dFuuka_BratGag,"Mmpphgh? (Pout at her)"
+rFuukaBrat,"(She smirks)|So you're that kind of visitor, huh?"
+dFuukaBrat_Question,That's right. How powerful are you?
+rFuukaBrat_Question,"(She cracks her knuckles)|I have been practicing the resurrection arts for a thousand years."
+rFuukaBrat_Question_Question,"(She smiles)|All the zombies you seee in the Graveyard?|They are my pets, and I care for each and every one of them."
+dFuukaBrat_Question_Question,"What the heck are 'Resurrection Arts'?"
+dFuukaBrat_Question_Question_Proceed,"(...)"
+dFuukaBrat_Question_Proceed,"(...)"
+dFuukaBrat_Proceed,It's time for a true display of skill!
+dFuukaBrat_ProceedGag,Hmmph. (Look away)
+rFuukaBrat_ProceedGag,"(She grins)|We'll wipe that pout off your face soon enough..."
+dFuukaBrat_ProceedGag_Proceed,"(Shake your head)"
+rFuukaBrat_Brat,"(She frowns)|Well, you will soon."
+dFuukaBrat_Brat,Pfff. Never heard of it.
+dFuukaBrat_Brat_Proceed,"I bet I could do better."
+dFuukaBrat_Brat_ProceedGag,"(Giggle)"
+dFuukaBrat_Brat_Proceed2,"(...)"
+dFuuka_Dom,"Why does that matter to you?"
+dFuuka_DomGag,"(Stare at her silently, maintaining your posture)"
+rFuukaDom,"(She grins)|I am in charge of this place.|Everything that goes through here goes through me.|You may address me as Fuuka Windsong."
+dFuukaDom_Question,By what authority?
+rFuukaDom_Question,"(SPEAKER tilts her head)|Ummmm.... uh...|The Old Civilization! Of course!|I've been keeping their traditions for centuries."
+rFuukaDom_Question_Question,"(SPEAKER blushes)|Umm... That's because...|Oh shut up!"
+dFuukaDom_Question_Question,"You don't sound too confident."
+dFuukaDom_Question_Question_Proceed,"Who are you anyway?"
+dFuukaDom_Question_Proceed,"Who are you anyway?"
+dFuukaDom_Proceed,Fair enough. I am an adventurer.
+dFuukaDom_ProceedGag,Hmmph.
+rFuukaDom_ProceedGag,"(SPEAKER giggles)|Is that a challenge?"
+dFuukaDom_ProceedGag_Proceed,"(Nod calmly)"
+rFuukaDom_Brat,"(SPEAKER grins)|Is that a challenge?"
+dFuukaDom_Brat,We'll see about that.
+dFuukaDom_BratGag,Hmmph. (Scoff into your gag)
+dFuukaDom_Brat_Proceed,"It is indeed!"
+dFuukaDom_Brat_ProceedGag,"(Giggle)"
+dFuukaDom_Brat_Proceed2,"(...)"
+dFuuka_Sub,"I'm an adventurer, miss."
+dFuuka_SubGag,"Mmmpphh~ (Moan and wiggle seductively)"
+rFuukaSub,"(She grins)|Oh look at you!|I'm going to dress you up and make you my pet!|You can have all the scritches and snuggles you want!|My name's Fuuka!"
+dFuukaSub_Question,A pet? What kind?
+rFuukaSub_Question,"(SPEAKER hops up and down excitedly)|Oh I've got dresses!|And all sorts of fun gear!|Maybe even this huge gag for you to chew on!"
+rFuukaSub_Question_Question,"(SPEAKER grins)|Having second thoughts?"
+dFuukaSub_Question_Question,"That sounds... harsh."
+dFuukaSub_Question_Question_Proceed,"...Maybe"
+dFuukaSub_Question_Proceed,"Exciting!"
+dFuukaSub_Proceed,That sounds great. But who are you miss?
+dFuukaSub_ProceedGag,Mmmmph~
+rFuukaSub_ProceedGag,"(SPEAKER giggles)|Hehe... We will have so much fun~"
+dFuukaSub_ProceedGag_Proceed,"(...)"
+rFuukaSub_Brat,"(SPEAKER giggles)|You don't have to consent, dear~"
+dFuukaSub_Brat,I never said I consented to being a pet!
+dFuukaSub_BratGag,(Give her a puzzled look and shake your head)
+dFuukaSub_Brat_Proceed,"No way!"
+dFuukaSub_Brat_ProceedGag,"(Shake your head)"
+dFuukaSub_Brat_Proceed2,"(Sigh and shrug)"
+dFuuka_Attack,(Attack her without saying anything)
+
+rFuukaPostIntro,"(SPEAKER clears her throat)|I am the one tasked with keeping this graveyard pure and holy.|All who roam this place do so under my express permission.|But what of you? I do not remember striking a deal with you.|Are you here to challenge me?"
+dFuukaPostIntro_Brat,"I do what I want."
+dFuukaPostIntro_BratGag,"(Glare at her and scoff)"
+rFuukaPostIntro_Brat,"(SPEAKER makes a big grin)|I take that you wish to challenge me?|Very well!|Come at me!"
+dFuukaPostIntro_Dom,"You have no power over me"
+dFuukaPostIntro_DomGag,"Hmmph. (Stand proudly)"
+rFuukaPostIntro_Dom,"(SPEAKER smiles)|Then let us fight!|If I win, I will make you my pet.|If you win, I will let you pass."
+dFuukaPostIntro_Sub,"I don't want to fight, miss..."
+dFuukaPostIntro_SubGag,"Mmph! (Shake your head frantically)"
+rFuukaPostIntro_Sub,"(SPEAKER giggles)|Come now, I want to see how good you are!"
+dFuukaPostIntro_Normal,"Yes, I am here to fight you."
+dFuukaPostIntro_NormalGag,"(Nod)"
+rFuukaPostIntro_Normal,"(SPEAKER smiles)|Then what are we waiting for?"
+
+dFuukaFight_Fight1,"You're on!"
+dFuukaFight_Fight1Gag,"Hmmmph!"
+dFuukaFight_Fight2,"Let us duel!"
+dFuukaFight_Fight2Gag,"Mmmmmghh!"
+dFuukaFight_Fight3,"I suppose..."
+dFuukaFight_Fight3Gag,"Mmmmph..."
+
+rFuukaLose,"(SPEAKER smiles as she stands over you)|Well well. Look who won."
+rFuukaLoseAccept,"(SPEAKER nods)|Absolutely. Now allow me to make my conditions clear.|You will wear my collar from now on.|Then you will be allowed to go."
+rFuukaLoseDeny,"(SPEAKER giggles)|You're not in a position to resist.|Now then, let me make myself clear.|I will let you go... but only wearing my collar."
+dFuukaLose_Accept,"You beat me fair and square."
+dFuukaLose_AcceptGag,"Mmmph. (Submit)"
+dFuukaLose_Deny,"You cheated!"
+dFuukaLose_DenyGag,"Mmmph! (Struggle weakly)"
+dFuukaLose_Continue1,"(Sigh and accept your fate)"
+dFuukaLose_Continue2,"(Accept the collar eagerly)"
+dFuukaLose_Continue3,"(Accept the collar begrudgingly)"
+rFuukaLoseFinish,"(SPEAKER presents you with her collar...)|(She locks it around your neck)|You are free to go now, dear!"
+
+rFuukaStage2,"(SPEAKER puts up a wall of talismans to regain her strength)|I'm... I'm not finished yet!"
+
+rFuukaWin,"(SPEAKER is out of breath)|I... can't... believe... it...|She drops her keys..."
+rFuukaWinAccept,"(SPEAKER looks flabbergasted)|R-really? Okay... I'll give you a reward then..."
+dFuukaWin_Accept,"(Submit to her anyway)"
+rFuukaWinGag,"(SPEAKER resists but ultimately you force a gag into her mouth)|MMMMMPH!"
+dFuukaWin_Gag,"(Gag her)"

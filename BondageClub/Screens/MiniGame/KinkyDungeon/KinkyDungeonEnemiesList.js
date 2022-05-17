@@ -18,7 +18,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWill", attackRange: 1, attackWidth: 3, power: 1, dmgType: "slash",
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "AllyDoll", bound: "AllyDoll", color: "#9c2a70", tags: KDMapInit(["human", "player", "melee", "glueimmune", "ticklesevereweakness", "nohelp"]), allied: true, armor: 0, followRange: 1, AI: "hunt",
-		visionRadius: 20, playerBlindSight: 100, maxhp: 10, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 1, power: 4, dmgType: "glue", noCountLimit: true,
+		visionRadius: 20, playerBlindSight: 100, maxhp: 10, regen: 0.05, minLevel:0, weight:0, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackRange: 1, attackWidth: 1, power: 1.5, dmgType: "glue", noCountLimit: true,
 		terrainTags: {}, floors:KDMapInit([])},
 	{name: "PlayerGag", tags: KDMapInit(["construct", "player", "melee"]), noblockplayer: true, allied: true, armor: 0, followRange: 1, AI: "guard", accuracy: 1.5, noTargetSilenced: true,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 4, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "MeleeWillSilenceSuicideStun", silenceTime: 9, stunTime: 3, attackRange: 1, attackWidth: 1, power: 3.5, dmgType: "chain",
@@ -51,6 +51,9 @@ let KinkyDungeonEnemies = [
 		visionRadius: 2.5, maxhp: 8, minLevel:0, weight:14, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"increasingWeight":-1.5}, floors:KDMapInit([0]), dropTable: [], difficulty: 0.9},
 	{name: "FastZombie", bound: "Zombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["ignoreharmless", "zombie", "melee", "fireweakness", "ribbonRestraints", "meleeweakness"]), evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
+		visionRadius: 5, maxhp: 10, minLevel:1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
+		terrainTags: {"secondhalf":10, "lastthird":14}, floors:KDMapInit([0]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
+	{name: "SummonedZombie", bound: "Zombie", playLine: "Zombie", regen: -0.7, clusterWith: "zombie", tags: KDMapInit(["ignoreharmless", "zombie", "melee", "fireweakness", "ribbonRestraints", "meleeweakness"]), evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
 		visionRadius: 5, maxhp: 10, minLevel:1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":10, "lastthird":14}, floors:KDMapInit([0]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
 	{name: "MageZombie", bound: "MageZombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "fireweakness", "ribbonRestraints", "meleeweakness", "hunter", "jail"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 2, AI: "hunt",
@@ -541,8 +544,8 @@ let KinkyDungeonEnemies = [
 		summon: [
 			{enemy: "Pixie", range: 3, count: 2, chance: 1.0, strict: true},],
 		spells: ["EnemyFlash"],  spellCooldownMult: 1, spellCooldownMod: 14, castWhileMoving: true,
-		visionRadius: 6, blindSight: 7, maxhp: 1, evasion: 1.0, minLevel:0, weight:-2, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "charm",
-		terrainTags: {"willAnger": 4, "willRage": 3}, shrines: ["Will"], allFloors: true},
+		visionRadius: 6, blindSight: 7, maxhp: 1, evasion: 1.0, minLevel:0, weight:0.1, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "charm",
+		terrainTags: {"willAnger": 2, "willRage": 3}, shrines: ["Will"], allFloors: true},
 
 	{name: "ChaoticCrystal", clusterWith: "chaos", color: "#ff00aa", hitsfx: "DealDamage", tags: KDMapInit(["crystal", "chaos", "minor", "melee", "crushweakness"]),
 		evasion: -9, ignorechance: 1.0, armor: 0, followRange: 1, AI: "wander", sneakThreshold: 0.01,
@@ -724,9 +727,21 @@ let KinkyDungeonEnemies = [
 
 
 	// Bosses
-	{name: "Fuuka1", playLine: "Fuuka", bound: "TalismanZombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "ribbonRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]), armor: 0, followRange: 3, AI: "hunt",
-		spells: ["ZombieOrb"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true, accuracy: 0.7, multiBind: 3,
-		visionRadius: 12, maxhp: 120, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
-		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "Keyring", weight: 10}]},
+	{name: "Fuuka1", playLine: "Fuuka", bound: "TalismanZombie", faction: "Boss", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "mikoRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]),
+		armor: 0, followRange: 3, AI: "guard",
+		spells: ["ZombieOrb", "ManyOrbs", "SummonZombies"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true, accuracy: 0.7, noChannel: true,
+		visionRadius: 8, maxhp: 80, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "Scrolls", weight: 10}], ondeath: [{type: "dialogue", dialogue:"FuukaStage2", click: true}, {type: "summon", enemy: "Fuuka2", range: 2.5, count: 1, strict: true}]},
+	{name: "Fuuka2", playLine: "Fuuka", bound: "TalismanZombie", faction: "Enemy", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "mikoRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]),
+		armor: 0, followRange: 1, AI: "hunt",
+		spells: ["ZombieOrb", "ManyOrbs", "SummonMikoGhosts", "SummonZombies"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, projectileAttack: true, accuracy: 0.85, noChannel: true,
+		visionRadius: 12, maxhp: 45, minLevel:0, weight:-1000, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
+		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "BlueKey", weight: 10}], ondeath: [{type: "dialogue", dialogue:"FuukaWin", click: true}]},
+
+	{name: "MikoGhost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+		specialCD: 7, specialAttack: "Slow",
+		visionRadius: 30, blindSight: 30, evasion: 9.0, alwaysEvade: true, maxhp: 1, regen: -0.051, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 0,
+		terrainTags: {}, shrines: ["Illusion"], floors:KDMapInit([]),
+		dropTable: [{name: "Ectoplasm", weight: 1}]},
 
 ];

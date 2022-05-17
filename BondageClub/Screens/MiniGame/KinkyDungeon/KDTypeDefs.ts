@@ -1063,6 +1063,7 @@ interface KinkyDungeonSave {
 	dress: string;
 	gold: number;
 	points: number;
+	perks: string[];
 	levels: {
 		Elements: number;
 		Conjure: number;

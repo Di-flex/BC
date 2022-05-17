@@ -505,7 +505,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 		} else if (playerEffect.name == "CharmWraps") {
 			let added = [];
 			for (let i = 0; i < playerEffect.power; i++) {
-				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ribbonRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+				let restraintAdd = KinkyDungeonGetRestraint({tags: ["ribbonRestraintsLight"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 				if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
 					KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
 					added.push(restraintAdd);
@@ -808,7 +808,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	if (cast) {
 		Object.assign(cast, spell.spellcast);
 		if (cast.target == "target") {
-			if (tX == entity.x + moveDirection.x && tY == entity.y + moveDirection.y) {
+			if (tX == entity.x + moveDirection.x && tY == entity.y + moveDirection.y && !cast.noTargetMoveDir) {
 				cast.tx = tX + moveDirection.x;
 				cast.ty = tY + moveDirection.y;
 			} else {
@@ -824,13 +824,15 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				let slots = [];
 				for (let XX = -1; XX <= 1; XX++) {
 					for (let YY = -1; YY <= 1; YY++) {
-						if ((XX != 0 || YY != 0) && !KinkyDungeonNoEnemy(cast.tx + XX, cast.ty + YY, true) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(cast.tx + XX, cast.ty + YY))) slots.push({x:XX, y:YY});
+						if ((XX != 0 || YY != 0) && KinkyDungeonNoEnemy(entity.x + XX, entity.y + YY, true) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(entity.x + XX, entity.y + YY))) slots.push({x:XX, y:YY});
 					}
 				}
 				if (slots.length > 0) {
 					let slot = slots[Math.floor(KDRandom() * slots.length)];
 					cast.mx = slot.x;
 					cast.my = slot.y;
+					moveDirection.x = slot.x;
+					moveDirection.y = slot.y;
 				} else {
 					cast.mx = moveDirection.x;
 					cast.my = moveDirection.y;

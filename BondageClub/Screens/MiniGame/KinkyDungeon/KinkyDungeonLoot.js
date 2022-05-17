@@ -22,7 +22,14 @@ function KinkyDungeonAddLostItems(list, excludeBound) {
 		if (unique && (!excludeBound || item.type != Weapon || (KDWeapon(item).magic))) {
 			KinkyDungeonLostItems.push(item);
 			if (item.type == Consumable) {
-				item.quantity = Math.min(item.quantity, 3 + Math.floor(KDRandom() * 3));
+				item.quantity = Math.min(item.quantity, 10);
+			}
+		} else if (!unique && item.type == Consumable && item.quantity) {
+			for (let item2 of KinkyDungeonLostItems) {
+				if (item2.name == item.name) {
+					item2.quantity = Math.min(item2.quantity + item.quantity, 10);
+					break;
+				}
 			}
 		}
 	}

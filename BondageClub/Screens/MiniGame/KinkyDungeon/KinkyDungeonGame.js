@@ -270,7 +270,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			KDStageBoss = false;
 			height = boss.height;
 			width = boss.width;
+
+			KinkyDungeonSetFlag("BossDialogue" + boss.boss, 0);
 		}
+		KinkyDungeonSetFlag("BossUnlocked", 0);
 
 		KinkyDungeonCanvas.width = KinkyDungeonCanvasPlayer.width*KinkyDungeonGridWidthDisplay;
 		KinkyDungeonGridHeight = height;

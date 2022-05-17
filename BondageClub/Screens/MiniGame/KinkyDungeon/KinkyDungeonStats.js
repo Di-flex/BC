@@ -202,6 +202,8 @@ function KinkyDungeonDefaultStats(Load) {
 		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
 		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
 		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
+
+		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
 	}
 }
 
@@ -818,6 +820,7 @@ let KinkyDungeonStatsPresets = {
 	"Novice": {category: "Magic", id: 7, cost: -1},
 	"Meditation": {category: "Magic", id: 13, cost: 2},
 	"QuickScribe": {category: "Magic", id: 56, cost: 2, block: ["Disorganized"]},
+	"FuukaCollar": {category: "Boss", id: "FuukaCollar", cost: -3, locked: true},
 
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},

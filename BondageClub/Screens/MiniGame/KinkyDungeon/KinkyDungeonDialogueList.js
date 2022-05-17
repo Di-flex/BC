@@ -725,6 +725,453 @@ let KDDialogue = {
 			"Leave": {playertext: "Leave", exitDialogue: true},
 		}
 	},
+	"Fuuka": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				enemy.hostile = 9999;
+				enemy.AI = 'hunt';
+				KinkyDungeonSetFlag("BossDialogueFuuka", -1);
+			}
+			return false;
+		},
+		options: {
+			"Aggressive": { gag: true,
+				playertext: "Default", response: "Default",
+				options: {
+					"Question": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Brat": {
+								playertext: "Default", response: "Default",
+								options: {
+									"Proceed": {
+										playertext: "Default", response: "Default",
+										leadsToStage: "PostIntro",
+									}
+								}
+							},
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Proceed": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						leadsToStage: "PostIntro",
+					},
+					"ProceedGag": {gagRequired: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Brat": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {gag: true,
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+							"Proceed2": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+				}
+			},
+			"Defensive": { gag: true,
+				playertext: "Default", response: "Default",
+				options: {
+					"Question": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Question": {
+								playertext: "Default", response: "Default",
+								options: {
+									"Proceed": {
+										playertext: "Default", response: "Default",
+										leadsToStage: "PostIntro",
+									}
+								}
+							},
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Proceed": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						leadsToStage: "PostIntro",
+					},
+					"ProceedGag": {gagRequired: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Brat": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {gag: true,
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+							"Proceed2": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+				}
+			},
+			"Brat": { gag: true,
+				playertext: "Default", response: "Default",
+				options: {
+					"Question": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Question": {
+								playertext: "Default", response: "Default",
+								options: {
+									"Proceed": {
+										playertext: "Default", response: "Default",
+										leadsToStage: "PostIntro",
+									}
+								}
+							},
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Proceed": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						leadsToStage: "PostIntro",
+					},
+					"ProceedGag": {gagRequired: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Brat": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {gag: true,
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+							"Proceed2": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+				}
+			},
+			"Dom": { gag: true,
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonChangeRep("Ghost", -2);
+					return false;
+				},
+				options: {
+					"Question": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Question": {
+								playertext: "Default", response: "Default",
+								options: {
+									"Proceed": {
+										playertext: "Default", response: "Default",
+										leadsToStage: "PostIntro",
+									}
+								}
+							},
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Proceed": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						leadsToStage: "PostIntro",
+					},
+					"ProceedGag": {gagRequired: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Brat": {gag: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {gag: true,
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+							"Proceed2": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+				}
+			},
+			"Sub": { gag: true,
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonChangeRep("Ghost", 2);
+					return false;
+				},
+				options: {
+					"Question": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Question": {
+								playertext: "Default", response: "Default",
+								options: {
+									"Proceed": {
+										playertext: "Default", response: "Default",
+										leadsToStage: "PostIntro",
+									}
+								}
+							},
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Proceed": {gagDisabled: true,
+						playertext: "Default", response: "Default",
+						leadsToStage: "PostIntro",
+					},
+					"ProceedGag": {gagRequired: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+					"Brat": {gag: true,
+						playertext: "Default", response: "Default",
+						options: {
+							"Proceed": {gag: true,
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+							"Proceed2": {
+								playertext: "Default", response: "Default",
+								leadsToStage: "PostIntro",
+							},
+						}
+					},
+				}
+			},
+			"Attack": {playertext: "Default", exitDialogue: true},
+
+			"PostIntro": {
+				prerequisiteFunction: (gagged) => {return false;},
+				playertext: "Default", response: "Default",
+				options: {
+					"Brat": {gag: true,
+						playertext: "Default", response: "FuukaPostIntro_Brat",
+						leadsToStage: "Fight",
+					},
+					"Dom": {gag: true,
+						playertext: "Default", response: "FuukaPostIntro_Dom",
+						leadsToStage: "Fight",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", -2);
+							return false;
+						}
+					},
+					"Sub": {gag: true,
+						playertext: "Default", response: "FuukaPostIntro_Sub",
+						leadsToStage: "Fight",
+						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Ghost", 2);
+							return false;
+						}
+					},
+					"Normal": {gag: true,
+						playertext: "Default", response: "FuukaPostIntro_Normal",
+						leadsToStage: "Fight",
+					},
+				}
+			},
+			"Fight": {
+				prerequisiteFunction: (gagged) => {return false;},
+				playertext: "Default", dontTouchText: true,
+				options: {
+					"Fight1": {gag: true,
+						playertext: "Default", exitDialogue: true,
+					},
+					"Fight2": {gag: true,
+						playertext: "Default", exitDialogue: true,
+					},
+					"Fight3": {gag: true,
+						playertext: "Default", exitDialogue: true,
+					},
+				}
+			}
+		}
+	},
+	"FuukaLose": { // Player loses to Fuuka
+		response: "Default",
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				enemy.hostile = 0;
+				KinkyDungeonSetFlag("BossUnlocked", -1);
+			}
+			return false;
+		},
+		options: {
+			"Accept": { gag: true,
+				playertext: "Default", response: "Default",
+				options: {
+					"Continue1": {
+						playertext: "FuukaLose_Continue1", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+					"Continue2": {
+						playertext: "FuukaLose_Continue2", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+					"Continue3": {
+						playertext: "FuukaLose_Continue3", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+				}
+			},
+			"Deny": { gag: true,
+				playertext: "Default", response: "Default",
+				options: {
+					"Continue1": {
+						playertext: "FuukaLose_Continue1", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+					"Continue2": {
+						playertext: "FuukaLose_Continue2", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+					"Continue3": {
+						playertext: "FuukaLose_Continue3", response: "Default",
+						leadsToStage: "Finish",
+						clickFunction: (gagged) => {
+							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+							return false;
+						},
+					},
+				}
+			},
+			"Finish": {
+				prerequisiteFunction: (gagged) => {return false;},
+				playertext: "Default", response: "FuukaLoseFinish",
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			}
+		}
+	},
+	"FuukaStage2": { // Player defeats fuuka's first form
+		response: "Default",
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+		}
+	},
+	"FuukaWin": { // Player beats Fuuka
+		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonSetFlag("BossUnlocked", -1);
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Accept": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+					KinkyDungeonAddGold(1000);
+					if (KinkyDungeonIsPlayer()) {
+						KDUnlockPerk("FuukaCollar");
+					}
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"Gag": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonChangeFactionRep("Ghost", -5);
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
 	"PotionSell": KDShopDialogue("PotionSell", ["PotionMana", "PotionStamina", "PotionFrigid", "PotionInvisibility"], [], ["witch", "apprentice", "alchemist", "human", "dragon"], 0.4),
 	"ElfCrystalSell": KDShopDialogue("ElfCrystalSell", ["PotionMana", "ElfCrystal", "EarthRune", "WaterRune", "IceRune"], [], ["elf"], 0.6),
 	"ScrollSell": KDShopDialogue("ScrollSell", ["ScrollArms", "ScrollVerbal", "ScrollLegs", "ScrollPurity"], [], ["witch", "apprentice", "elf", "wizard", "dressmaker"], 0.33),

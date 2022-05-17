@@ -45,6 +45,16 @@ function KinkyDungeonResetEventVariablesTick(delta) {
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, item, *): void>>}
  */
 const KDEventMapInventory = {
+	"kill": {
+		"MikoGhost": (e, item, data) => {
+			if (!e.chance || KDRandom() < e.chance) {
+				if (data.enemy && data.enemy.lifetime == undefined && data.enemy.playerdmg) {
+					KinkyDungeonSummonEnemy(data.enemy.x, data.enemy.y, "MikoGhost", 1, 1.5, true);
+					KinkyDungeonSendTextMessage(5, TextGet("KDMikoCollarSummmon"), "purple", 2);
+				}
+			}
+		},
+	},
 	"tick": {
 		"PeriodicTeasing": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {

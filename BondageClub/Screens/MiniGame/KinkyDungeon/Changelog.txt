@@ -842,6 +842,9 @@ Spell Balance:
 - Reworked struggle system a little in order to make things less frustrating
 - Flexible now lets you use feet to hold consumables/keys/undo buckles/struggle
 
+3.33
+- New boss on floor 6!!!
+
 
 TODO ValidationFindBlockCycles to prevent bugs
 
