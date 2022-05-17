@@ -54,8 +54,8 @@ let KinkyDungeonEnemies = [
 		visionRadius: 5, maxhp: 10, minLevel:1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":10, "lastthird":14}, floors:KDMapInit([0]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
 	{name: "SummonedZombie", bound: "Zombie", playLine: "Zombie", regen: -0.7, clusterWith: "zombie", tags: KDMapInit(["ignoreharmless", "zombie", "melee", "fireweakness", "ribbonRestraints", "meleeweakness"]), evasion: -1, ignorechance: 0.33, armor: 1, followRange: 1, AI: "hunt",
-		visionRadius: 5, maxhp: 10, minLevel:1, weight:6, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
-		terrainTags: {"secondhalf":10, "lastthird":14}, floors:KDMapInit([0]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}]},
+		visionRadius: 5, maxhp: 10, minLevel:1, weight:-1000, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3,
+		terrainTags: {"secondhalf":10, "lastthird":14}, floors:KDMapInit([])},
 	{name: "MageZombie", bound: "MageZombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "fireweakness", "ribbonRestraints", "meleeweakness", "hunter", "jail"]), spellResist: 0.5, evasion: -1, armor: 0, followRange: 2, AI: "hunt",
 		spells: ["ZombieOrb", "ZombieOrbIce"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true, projectileAttack: true,
 		visionRadius: 6, maxhp: 13, minLevel:2, weight:10, movePoints: 3, attackPoints: 3, attack: "SpellMeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
@@ -741,7 +741,6 @@ let KinkyDungeonEnemies = [
 	{name: "MikoGhost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		specialCD: 7, specialAttack: "Slow",
 		visionRadius: 30, blindSight: 30, evasion: 9.0, alwaysEvade: true, maxhp: 1, regen: -0.051, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 0,
-		terrainTags: {}, shrines: ["Illusion"], floors:KDMapInit([]),
-		dropTable: [{name: "Ectoplasm", weight: 1}]},
+		terrainTags: {}, shrines: ["Illusion"], floors:KDMapInit([])},
 
 ];

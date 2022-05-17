@@ -48,7 +48,7 @@ const KDEventMapInventory = {
 	"kill": {
 		"MikoGhost": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
-				if (data.enemy && data.enemy.lifetime == undefined && data.enemy.playerdmg) {
+				if (data.enemy && data.enemy.lifetime == undefined && data.enemy.playerdmg && !data.enemy.Enemy.tags.has("ghost")) {
 					KinkyDungeonSummonEnemy(data.enemy.x, data.enemy.y, "MikoGhost", 1, 1.5, true);
 					KinkyDungeonSendTextMessage(5, TextGet("KDMikoCollarSummmon"), "purple", 2);
 				}
