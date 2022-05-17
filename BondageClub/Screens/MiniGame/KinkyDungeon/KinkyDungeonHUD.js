@@ -59,6 +59,9 @@ function KinkyDungeonDrawInputs() {
 			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "gray");
 	}
 	let i = 0;
+	if (!(KDGameData.JailKey || KinkyDungeonFlags.has("BossUnlocked"))) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerNoKeys"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	}
 	if (KDGameData.PrisonerState == 'jail') {
 		DrawTextFit(TextGet("KinkyDungeonPlayerJail"), 1640, 900 - i * 35, 200, "orange", "gray"); i++;
 	} else if (KDGameData.PrisonerState == 'parole') {

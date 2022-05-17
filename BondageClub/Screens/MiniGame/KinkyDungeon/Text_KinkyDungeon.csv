@@ -649,6 +649,7 @@ KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. 
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
+KinkyDungeonPlayerNoKeys,No Exit Keys
 KinkyDungeonPlayerEvasion,"Evasion: "
 KinkyDungeonPlayerVisibility,"Visibility: "
 KinkyDungeonPlayerArmor,"Armor: "
