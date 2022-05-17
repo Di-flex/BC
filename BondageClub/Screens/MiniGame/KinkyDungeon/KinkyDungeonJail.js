@@ -18,6 +18,7 @@ function KinkyDungeonLoseJailKeys(Taken, boss) {
 		}
 	}
 	if (boss) {
+		KDGameData.JailKey = false;
 		KinkyDungeonGroundItems = KinkyDungeonGroundItems.filter((item) => {return item.name != "Keyring";});
 	}
 	if (!KDGameData.JailKey && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
