@@ -844,6 +844,7 @@ Spell Balance:
 
 3.33
 - New boss on floor 6!!!
+- Vibrator SFX
 
 
 TODO ValidationFindBlockCycles to prevent bugs
