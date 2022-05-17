@@ -709,7 +709,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, Floor, width, heigh
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				let e = {Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, AI: AI};
 				KinkyDungeonEntities.push(e);
-				KDEnemyHasFlag(e, "NoFollow");
+				KinkyDungeonSetEnemyFlag(e, "NoFollow", -1);
 				let shop = KinkyDungeonGetShopForEnemy(e);
 				if (shop) {
 					KinkyDungeonSetEnemyFlag(e, "Shop", -1);
@@ -2454,7 +2454,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (!Enemy.playWithPlayer && (!Enemy.lifetime || Enemy.lifetime > 9999)) { // KDAllied(Enemy)
+			if (!Enemy.playWithPlayer && (!Enemy.lifetime || Enemy.lifetime > 9000)) { // KDAllied(Enemy)
 				KDStartDialog("GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
 				noadvance = true;
 			}

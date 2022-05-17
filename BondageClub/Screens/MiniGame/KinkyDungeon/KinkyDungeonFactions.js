@@ -43,7 +43,7 @@ function KDGetFaction(enemy) {
 	let E = enemy.Enemy;
 	if (enemy.rage > 0) return "Rage";
 	if (enemy.faction) return enemy.faction;
-	if ((E && E.allied) || (enemy.allied && !enemy.faction && !KDEnemyHasFlag(enemy, "Shop"))) return "Player";
+	if ((E && E.allied) || ((enemy.allied || (E && E.faction && KDFactionAllied("Player", E.faction) && !KDEnemyHasFlag(enemy, "NoFollow"))) && !enemy.faction && !KDEnemyHasFlag(enemy, "Shop"))) return "Player";
 	if (E && E.faction) return E.faction;
 	return "Enemy";
 }

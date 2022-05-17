@@ -25,6 +25,8 @@ KDHelpless,Helpless!
 KDMissed,Evaded!
 KDBlocked,Blocked!
 
+KDVibeVolume,Toy Volume:
+
 KinkyDungeonJourney,"Select a journey. This will determine the ordering of game areas."
 KinkyDungeonJourney0,"Standard: The intended experience"
 KinkyDungeonJourney1,"Random: A chaotic journey"
@@ -4519,14 +4521,14 @@ rGenericAllyStopFollowingMe_Fail,"(The SPEAKER refuses to follow your orders)"
 dGenericAllyFollowMe,"(Follow me)"
 dGenericAllyFollowMe_Confirm,"(Follow me)"
 dGenericAllyFollowMe_Leave,"(Never mind...)"
-rGenericAllyFollowMe,"(Confirm to make this ally follow you?)"
+rGenericAllyFollowMe,"(The SPEAKER starts following you)"
 rGenericAllyFollowMe_Leave,"(You decide you don't need the help)"
 rGenericAllyFollowMe_Fail,"(The SPEAKER refuses to follow your orders)"
 
 dGenericAllyStayHere,"(Stay here)"
 dGenericAllyStayHere_Confirm,"(Stay here)"
 dGenericAllyStayHere_Leave,"(Never mind...)"
-rGenericAllyStayHere,"(Confirm?)"
+rGenericAllyStayHere,"(The SPEAKER follows your orders)"
 rGenericAllyStayHere_Leave,"(...)"
 rGenericAllyStayHere_Fail,"(The SPEAKER refuses to follow your orders)"
 

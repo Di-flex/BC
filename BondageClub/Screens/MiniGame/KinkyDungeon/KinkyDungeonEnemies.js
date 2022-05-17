@@ -810,7 +810,7 @@ function KinkyDungeonSetEnemyFlag(enemy, flag, duration) {
 		}
 		if (enemy.flags[flag] == -1) return;
 		if (enemy.flags[flag] < duration) enemy.flags[flag] = duration;
-	} else enemy.flags[flag] = duration;
+	} else if (duration) enemy.flags[flag] = duration;
 }
 
 /**
@@ -823,7 +823,7 @@ function KinkyDungeonTickFlagsEnemy(enemy, delta) {
 		for (let f of Object.entries(enemy.flags)) {
 			if (f[1] == -1) continue;
 			if (f[1] > 0) enemy.flags[f[0]] = f[1] - delta;
-			if (f[1] <= 0) enemy.flags[f[0]] = undefined;
+			if (f[1] <= 0) delete enemy.flags[f[0]];
 		}
 	}
 }
@@ -1051,7 +1051,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (enemy.Enemy.regen) enemy.hp = Math.min(enemy.Enemy.maxhp, enemy.hp + enemy.Enemy.regen * delta);
 				if (enemy.Enemy.lifespan || enemy.lifetime != undefined) {
 					if (enemy.lifetime == undefined) enemy.lifetime = enemy.Enemy.lifespan;
-					enemy.lifetime -= delta;
+					if (enemy.lifetime <= 9000)
+						enemy.lifetime -= delta;
 					if (enemy.lifetime <= 0) enemy.hp = -10000;
 				}
 			}

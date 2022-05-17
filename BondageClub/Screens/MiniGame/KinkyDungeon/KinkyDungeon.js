@@ -382,6 +382,14 @@ function KinkyDungeonLoad() {
 			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
 			KinkyDungeonDrool = localStorage.getItem("KinkyDungeonDrool") != undefined ? localStorage.getItem("KinkyDungeonDrool") == "True" : true;
 
+			if (localStorage.getItem("KDVibeVolume")) {
+				let parsed = parseInt(localStorage.getItem("KDVibeVolume"));
+				if (parsed != undefined) {
+					KDVibeVolumeListIndex = parsed;
+					KDVibeVolume = KDVibeVolumeList[KDVibeVolumeListIndex];
+				}
+			}
+
 			KinkyDungeonSexyMode = localStorage.getItem("KinkyDungeonSexyMode") != undefined ? localStorage.getItem("KinkyDungeonSexyMode") == "True" : true;
 			KinkyDungeonSexyPiercing = localStorage.getItem("KinkyDungeonSexyPiercing") != undefined ? localStorage.getItem("KinkyDungeonSexyPiercing") == "True" : false;
 			KinkyDungeonSexyPlug = localStorage.getItem("KinkyDungeonSexyPlug") != undefined ? localStorage.getItem("KinkyDungeonSexyPlug") == "True" : false;
@@ -477,6 +485,7 @@ let KDOldValue = "";
 let KDOriginalValue = "";
 
 function KinkyDungeonRun() {
+	KDUpdateVibeSounds();
 	let BG = "BrickWall";
 	let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	if (params && params.background) BG = params.background;
