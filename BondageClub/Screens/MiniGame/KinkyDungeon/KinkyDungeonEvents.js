@@ -70,7 +70,7 @@ const KDEventMapInventory = {
 					KinkyDungeonStartVibration(item.name, "normal", KDGetVibeLocation(item), e.power, e.time, 3, 12, undefined, undefined, undefined, false, 0.1, 1.0);
 					if (e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
 				} else {
-					KinkyDungeonAddVibeModifier(item.name, "tease", KDRestraint(item).Group, 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);
+					KinkyDungeonAddVibeModifier(item.name, "tease", KDGetVibeLocation(item), 0, e.time, e.power, false, true, false, false, true, 0.1, 1.0);
 				}
 			}
 		},
