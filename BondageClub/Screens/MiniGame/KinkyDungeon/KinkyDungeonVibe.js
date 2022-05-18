@@ -43,8 +43,13 @@ let KDVibeVolumeListIndex = 0;
 let KDVibeVolumeList = [1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
 
 function KDStopAllVibeSounds(Exceptions) {
+	let EE = [];
+	if (Exceptions)
+		for (let e of Exceptions) {
+			EE.push(KDVibeSoundRedirect[e] ? KDVibeSoundRedirect[e] : e);
+		}
 	for (let loc of Object.entries(KDVibeSounds)) {
-		if (!Exceptions || !Exceptions.includes(loc[0])) {
+		if (!Exceptions || !EE.includes(loc[0])) {
 			if (!loc[1].update) {
 				let audio = loc[1];
 				if (audio.sound) audio.sound = "";
@@ -106,7 +111,7 @@ function KDUpdateVibeSounds() {
 	if (vibe && KinkyDungeonState == "Game") {
 		let globalVolume = KDVibeVolume * (KinkyDungeonDrawState == "Game" ? 1 : 0.5);
 		let locations = KDSumVibeLocations();
-		//KDStopAllVibeSounds(locations);
+		KDStopAllVibeSounds(locations);
 
 		for (let location of locations) {
 			let power = "Weak";
@@ -126,7 +131,7 @@ function KDUpdateVibeSounds() {
 			}
 			if (power != "Off") {
 				let sound = (KDVibeSoundRedirect[location] && KDVibeSound[KDVibeSoundRedirect[location]]) ? KDVibeSound[KDVibeSoundRedirect[location]] : "Vibe1";
-				KDUpdateVibeSound(KDVibeSoundRedirect[location] ? KDVibeSoundRedirect[location] : "ItemVulva", KinkyDungeonRootDirectory + `/Audio/${sound}_${power}.ogg`, globalVolume);
+				KDUpdateVibeSound(KDVibeSoundRedirect[location] ? KDVibeSoundRedirect[location] : "ItemVulva", KinkyDungeonRootDirectory + `Audio/${sound}_${power}.ogg`, globalVolume);
 			} else
 				KDUpdateVibeSound(KDVibeSoundRedirect[location] ? KDVibeSoundRedirect[location] : "ItemVulva", "", globalVolume);
 		}
