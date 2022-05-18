@@ -711,6 +711,7 @@ interface entity {
 	hostile?: number,
 	faction?: string,
 	allied?: number,
+	ceasefire?: number,
 	bind?: number,
 	blind?: number,
 	slow?: number,

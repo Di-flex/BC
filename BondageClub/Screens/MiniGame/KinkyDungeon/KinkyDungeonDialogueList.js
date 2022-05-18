@@ -1045,6 +1045,7 @@ let KDDialogue = {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 				enemy.hostile = 0;
+				enemy.ceasefire = 4;
 				KinkyDungeonSetFlag("BossUnlocked", -1);
 			}
 			return false;

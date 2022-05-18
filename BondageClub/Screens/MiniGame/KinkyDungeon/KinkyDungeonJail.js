@@ -185,6 +185,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 			if (KDHostile(e) && KDFactionAllied(KDGetFaction(enemy), e) && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
 				if (!e.hostile) e.hostile = KDMaxAlertTimerAggro;
 				else e.hostile = Math.max(KDMaxAlertTimerAggro, e.hostile);
+				e.ceasefire = undefined;
 			}
 		}
 	}
@@ -197,6 +198,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 	if (enemy) {
 		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimerAggro;
 		else enemy.hostile = Math.max(KDMaxAlertTimerAggro, enemy.hostile);
+		enemy.ceasefire = undefined;
 	}
 }
 

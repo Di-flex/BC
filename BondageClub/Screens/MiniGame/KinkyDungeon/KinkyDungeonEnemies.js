@@ -926,6 +926,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				enemy.hostile -= delta;
 			if (enemy.allied > 0 && enemy.allied < 9000)
 				enemy.allied -= delta;
+			if (enemy.ceasefire > 0 && enemy.ceasefire < 9000)
+				enemy.ceasefire -= delta;
 			if (enemy.blind > 0)
 				enemy.blind -= delta;
 			if (enemy.playWithPlayer > 0)
@@ -954,7 +956,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
-			if (enemy.aware && (enemy.lifetime == undefined || enemy.lifetime > 9000)) {
+			if (enemy.aware && (enemy.lifetime == undefined || enemy.lifetime > 9000) && !enemy.Enemy.tags.has("temporary")) {
 				if (enemy.hostile > 0 && enemy.hostile < 9000 && KDGameData.PrisonerState == 'parole') {
 					tickAlertTimer = true;
 					if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
@@ -1069,7 +1071,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
 			}
-			if (!KDAllied(enemy)) {
+			if (!KDAllied(enemy) && !(enemy.ceasefire > 0)) {
 				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
 						if (

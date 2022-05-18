@@ -31,7 +31,7 @@ function KDAllied(enemy) {
  */
 function KDHostile(enemy, enemy2) {
 	if (enemy == enemy2) return false;
-	return (enemy.rage > 0) || (!enemy2 && KDFactionHostile("Player", enemy) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), enemy2)));
+	return (enemy.rage > 0) || (!(!enemy2 && enemy.ceasefire > 0) && ((!enemy2 && KDFactionHostile("Player", enemy) || (enemy2 && KDFactionHostile(KDGetFaction(enemy), enemy2)))));
 }
 
 /**
