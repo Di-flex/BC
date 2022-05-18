@@ -72,7 +72,7 @@ function KDUpdateVibeSound(Location, Sound, Volume) {
 			// Stop the previous sound
 			KDVibeSounds[Location].Audio.pause();
 			KDVibeSounds[Location].Audio.currentTime = 0;
-			KDVibeSounds[Location].update = true;
+			//KDVibeSounds[Location].update = true;
 		}
 		if (Sound && !KDVibeSounds[Location].update) {
 			// Start the new sound
@@ -106,7 +106,7 @@ function KDUpdateVibeSounds() {
 	if (vibe && KinkyDungeonState == "Game") {
 		let globalVolume = KDVibeVolume * (KinkyDungeonDrawState == "Game" ? 1 : 0.5);
 		let locations = KDSumVibeLocations();
-		KDStopAllVibeSounds(locations);
+		//KDStopAllVibeSounds(locations);
 
 		for (let location of locations) {
 			let power = "Weak";
