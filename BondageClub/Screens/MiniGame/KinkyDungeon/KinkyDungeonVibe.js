@@ -89,7 +89,7 @@ function KDUpdateVibeSound(Location, Sound, Volume) {
 			if (ServerURL == 'foobar') {
 				audio.crossOrigin = "Anonymous";
 				// @ts-ignore
-				audio.src = remap(src);
+				audio.src = remap(Sound);
 			} else
 				audio.src = Sound;
 			audio.volume = Math.min(vol, 1);
