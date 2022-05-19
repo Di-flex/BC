@@ -2413,8 +2413,11 @@ function KinkyDungeonGameKeyDown() {
 function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe) {
 	if (text) {
 		if (!noPush)
-			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text) {
+				if (KDLogIndex > 0) KDLogIndex += 1;
 				KinkyDungeonMessageLog.push({text: text, color: color});
+			}
+
 		if ( priority >= KinkyDungeonTextMessagePriority || KinkyDungeonActionMessageTime < 0.5) {
 			KinkyDungeonTextMessageTime = time;
 			KinkyDungeonTextMessage = text;
@@ -2430,8 +2433,10 @@ function KinkyDungeonSendTextMessage(priority, text, color, time, noPush, noDupe
 function KinkyDungeonSendActionMessage(priority, text, color, time, noPush, noDupe) {
 	if (text) {
 		if (!noPush)
-			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text)
+			if (!noDupe || KinkyDungeonMessageLog.length == 0 || !KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1] || text != KinkyDungeonMessageLog[KinkyDungeonMessageLog.length-1].text){
+				if (KDLogIndex > 0) KDLogIndex += 1;
 				KinkyDungeonMessageLog.push({text: text, color: color});
+			}
 		if ( priority >= KinkyDungeonActionMessagePriority || KinkyDungeonActionMessageTime < 0.5) {
 			KinkyDungeonActionMessageTime = time;
 			KinkyDungeonActionMessage = text;

@@ -540,6 +540,7 @@ function KinkyDungeonHandleHUD() {
 		}
 		if (MouseIn(1750, 82, 100, 50)) {
 			KinkyDungeonMessageToggle = !KinkyDungeonMessageToggle;
+			KDLogIndex = 0;
 			return true;
 		} else if (KinkyDungeonMessageToggle) {
 			if (KinkyDungeonMessageLog.length > KDMaxLog) {
