@@ -480,13 +480,13 @@ KinkyDungeonInventoryItemMagicKnifeDesc,"A magical blade which can be hidden on 
 KinkyDungeonInventoryItemMagicKnifeDesc2,"Can cut enchanted ropes."
 KinkyDungeonInventoryItemBola,Bola
 KinkyDungeonInventoryItemBolaDesc,"A pair of weights attached to a rope. Can be thrown."
-KinkyDungeonInventoryItemBolaDesc2,"Deals 9 points of binding, 4 chain damage, and rooting a target for 4 turns."
+KinkyDungeonInventoryItemBolaDesc2,"Deals 9 points of binding, 40 chain damage, and rooting a target for 4 turns."
 KinkyDungeonInventoryItem3BolaDesc,"A pair of weights attached to a rope. Can be thrown."
-KinkyDungeonInventoryItem3BolaDesc2,"Deals 9 points of binding, 4 chain damage, and rooting a target for 4 turns."
+KinkyDungeonInventoryItem3BolaDesc2,"Deals 9 points of binding, 40 chain damage, and rooting a target for 4 turns."
 KinkyDungeonInventoryItemBomb,Bomb
-KinkyDungeonInventoryItemBombDesc,"After a 5 turn fuse, deals 10 fire damage in a 3x3 area."
+KinkyDungeonInventoryItemBombDesc,"After a 5 turn fuse, deals 100 fire damage in a 3x3 area."
 KinkyDungeonInventoryItemBombDesc2,"Not a toy!"
-KinkyDungeonInventoryItem3BombDesc,"After a 6 turn fuse, deals 10 fire damage in a 3x3 area."
+KinkyDungeonInventoryItem3BombDesc,"After a 6 turn fuse, deals 100 fire damage in a 3x3 area."
 KinkyDungeonInventoryItem3BombDesc2,"Not a toy!"
 KinkyDungeonInventoryItemBombUse,You light the fuse!
 KinkyDungeonInventoryItemPotionCollar,Potion Applicator
