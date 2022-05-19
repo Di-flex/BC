@@ -438,7 +438,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistStun == 2) {
 				efficiency *= 0.5;
 			}
-			if (predata.vulnerable) {
+			if (predata.vulnerable || Enemy.boundLevel > Enemy.Enemy.maxhp) {
 				efficiency *= 2;
 			}
 
