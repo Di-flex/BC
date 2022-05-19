@@ -541,7 +541,23 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(1750, 82, 100, 50)) {
 			KinkyDungeonMessageToggle = !KinkyDungeonMessageToggle;
 			return true;
-		} else if (KinkyDungeonIsPlayer() && MouseIn(1885, 900, 90, 90)) {
+		} else if (KinkyDungeonMessageToggle) {
+			if (KinkyDungeonMessageLog.length > KDMaxLog) {
+				if (MouseIn(500 + 1250/2 - 200, KDLogTopPad + KDLogHeight + 50, 90, 40)) {
+					if (KDLogIndex > 0)
+						KDLogIndex = Math.max(0, KDLogIndex - KDLogIndexInc);
+					return true;
+				} else if (MouseIn(500 + 1250/2 + 100, KDLogTopPad + KDLogHeight + 50, 90, 40)) {
+					if (KDLogIndex < KinkyDungeonMessageLog.length - KDMaxLog)
+						KDLogIndex = Math.min(Math.max(0, KinkyDungeonMessageLog.length - KDMaxLog), KDLogIndex + KDLogIndexInc);
+					return true;
+				}
+			}
+			if (MouseIn(500, KDLogTopPad, 1250, KDLogHeight + 175)) {
+				return true;
+			}
+		}
+		if (KinkyDungeonIsPlayer() && MouseIn(1885, 900, 90, 90)) {
 			if (!KinkyDungeonFastMoveSuppress)
 				KinkyDungeonFastMove = !KinkyDungeonFastMove;
 			KinkyDungeonFastMoveSuppress = false;

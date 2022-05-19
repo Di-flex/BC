@@ -845,6 +845,7 @@ Spell Balance:
 3.33
 - New boss on floor 6!!!
 - Vibrator SFX
+- Infinite log scrolling (sort of, caps at 100 logs worth of log)
 
 
 TODO ValidationFindBlockCycles to prevent bugs

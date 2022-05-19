@@ -697,6 +697,13 @@ function KinkyDungeonDrawFloaters(CamX, CamY) {
 
 let KinkyDungeonMessageToggle = false;
 let KinkyDungeonMessageLog = [];
+let KDLogDist = 50;
+let KDLogHeight = 700;
+let KDMaxLog = Math.floor(700/KDLogDist);
+let KDLogTopPad = 82;
+
+let KDLogIndex = 0;
+let KDLogIndexInc = 3;
 
 function KinkyDungeonDrawMessages(NoLog) {
 	if (!NoLog)
@@ -711,16 +718,41 @@ function KinkyDungeonDrawMessages(NoLog) {
 			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2, 132, 1250, KinkyDungeonActionMessageColor, "gray");
 		}
 	} else {
-		let extra = 200;
-		DrawRect(500, 82, 1250, KinkyDungeonCanvas.height/2 + extra, "#000000aa");
-		let Dist = 50;
-		for (let i = 0; i < KinkyDungeonMessageLog.length && i < Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist); i++) {
-			let log = KinkyDungeonMessageLog[KinkyDungeonMessageLog.length - 1 - i];
-			DrawTextFit(log.text, 500 + 1250/2, 82 + i * Dist + Dist/2, 1250, log.color, "white");
+		DrawRect(500, KDLogTopPad, 1250, KDLogHeight, "#000000aa");
+		for (let i = 0; i < KinkyDungeonMessageLog.length && i < KDMaxLog; i++) {
+			let log = KinkyDungeonMessageLog[Math.max(0, KinkyDungeonMessageLog.length - 1 - (i + KDLogIndex))];
+			let col = log.color;
+			DrawTextFit(log.text, 500 + 1250/2, 82 + i * KDLogDist + KDLogDist/2, 1250, col, "white");
 		}
-		if (KinkyDungeonMessageLog.length > Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist))
-			KinkyDungeonMessageLog.splice(0, Math.floor((KinkyDungeonCanvas.height/2 + extra)/Dist) - KinkyDungeonMessageLog.length);
+		if (KinkyDungeonMessageLog.length > KDMaxLog) {
+			DrawButton(500 + 1250/2 - 200, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+			DrawButton(500 + 1250/2 + 100, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+
+			if (KinkyDungeonMessageLog.length > KDMaxLog * 100) {
+				KinkyDungeonMessageLog.splice(0, KDMaxLog * 100 - KinkyDungeonMessageLog.length);
+			}
+		}
+
 	}
+}
+
+function KDhexToRGB(h) {
+	let r = "", g = "", b = "";
+
+	// 3 digits
+	if (h.length == 4) {
+		r = "#" + h[1] + h[1];
+		g = "#" + h[2] + h[2];
+		b = "#" + h[3] + h[3];
+
+		// 6 digits
+	} else if (h.length == 7) {
+		r = "#" + h[1] + h[2];
+		g = "#" + h[3] + h[4];
+		b = "#" + h[5] + h[6];
+	}
+
+	return {r:r, g:g, b:b};
 }
 
 function KinkyDungeonUpdateVisualPosition(Entity, amount) {
