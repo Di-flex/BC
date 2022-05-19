@@ -226,6 +226,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		KinkyDungeonTargetTileLocation = "";
 		KinkyDungeonGroundItems = []; // Clear items on the ground
 		KinkyDungeonBullets = []; // Clear all bullets
+		KDGameData.OfferFatigue = 0;
 
 		if (KDGameData.JailKey == undefined) {
 			KDGameData.JailKey = true;

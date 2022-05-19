@@ -105,6 +105,13 @@ function KDDrawDialogue() {
 	}
 }
 
+function KDIncreaseOfferFatigue(Amount) {
+	if (!KDGameData.OfferFatigue) {
+		KDGameData.OfferFatigue = 0;
+	}
+	KDGameData.OfferFatigue = Math.max(0, KDGameData.OfferFatigue + Amount);
+}
+
 let KinkyDungeonDialogueTimer = 0;
 
 /**

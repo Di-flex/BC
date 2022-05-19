@@ -114,27 +114,7 @@ let KDDialogueTriggers = {
 			return 1 + 0.1 * Math.abs(KinkyDungeonGoddessRep.Leather + 50);
 		},
 	},
-	"OfferWolfgirl": {
-		dialogue: "OfferWolfgirl",
-		allowedPrisonStates: ["parole", ""],
-		requireTags: ["wolfgirl", "trainer"],
-		playRequired: true,
-		nonHostile: true,
-		noCombat: true,
-		noAlly: true,
-		blockDuringPlaytime: true,
-		prerequisite: (enemy, dist) => {
-			return (dist < 1.5
-				&& !KinkyDungeonFlags.get("DangerFlag")
-				&& !KinkyDungeonFlags.get("WolfgirlOffer")
-				&& !KinkyDungeonFlags.get("NoTalk")
-				&& KinkyDungeonCurrentDress != "Wolfgirl"
-				&& KDRandom() < 0.5);
-		},
-		weight: (enemy, dist) => {
-			return 10;
-		},
-	},
+	"OfferWolfgirl": KDRecruitTrigger("OfferWolfgirl"),
 	"PotionSell": KDShopTrigger("PotionSell"),
 	"ElfCrystalSell": KDShopTrigger("ElfCrystalSell"),
 	"NinjaSell": KDShopTrigger("NinjaSell"),
@@ -163,6 +143,40 @@ function KDShopTrigger(name) {
 			return 100;
 		},
 	};
+}
+
+/**
+ *
+ * @param {string} name
+ * @returns {KinkyDialogueTrigger}
+ */
+function KDRecruitTrigger(name) {
+	let dialogue = KDRecruitDialog.find((e) => {return name == e.name;});
+	if (dialogue)
+		return {
+			dialogue: name,
+			allowedPrisonStates: ["parole", ""],
+			requireTags: dialogue.tags,
+			requireTagsSingle: dialogue.singletag,
+			excludeTags: dialogue.excludeTags,
+			playRequired: true,
+			nonHostile: true,
+			noCombat: true,
+			noAlly: true,
+			blockDuringPlaytime: true,
+			prerequisite: (enemy, dist) => {
+				return (dist < 1.5
+					&& !KinkyDungeonFlags.get("DangerFlag")
+					&& !KinkyDungeonFlags.get(name)
+					&& !KinkyDungeonFlags.get("NoTalk")
+					&& KinkyDungeonCurrentDress != dialogue.outfit
+					&& KDRandom() < dialogue.chance);
+			},
+			weight: (enemy, dist) => {
+				return 10;
+			},
+		};
+	return null;
 }
 
 /** Boss intro dialogue */

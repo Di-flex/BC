@@ -33,6 +33,7 @@ let KinkyDungeonFactionRelationsBase = {
 
 		// Wild factions
 		KinkyConstruct: -0.9,
+		Plant: -0.9,
 		Slime: -1.0,
 		Beast: -0.6,
 
@@ -104,6 +105,11 @@ let KinkyDungeonFactionRelationsBase = {
 		Witch: 0.4,
 		Dressmaker: 0.4,
 		Dragon: -1.0,
+	},
+	"Plant": {
+		Jail: -0.25,
+		Apprentice: -0.55,
+		Dragon: -0.55,
 	},
 	"Nevermere": {
 		"Alchemist": 1.0,
