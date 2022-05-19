@@ -417,6 +417,26 @@ function KDCanSeeEnemy(enemy, playerDist) {
 	return (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0));
 }
 
+/**
+ *
+ * @param {entity} enemy
+ * @returns {number}
+ */
+function KDGetEnemyStruggleRate(enemy) {
+	let level = KDBoundEffects(enemy);
+	let mult = 0.1;
+	if (enemy.bind > 0) mult *= 0.4;
+	else if (enemy.slow > 0) mult *= 0.7;
+	if (level > 3) mult *= 4; // Struggle faster when bound heavily, ironically
+	if (enemy.boundLevel > 0) {
+		mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
+	}
+	let amount = mult * enemy.Enemy.maxhp;
+	return amount;
+}
+
+let KDMaxBindingBars = 6;
+
 function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	let tooltip = false;
 	for (let enemy of KinkyDungeonEntities) {
@@ -425,19 +445,42 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 			&& KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
 			let xx = enemy.visual_x ? enemy.visual_x : enemy.x;
 			let yy = enemy.visual_y ? enemy.visual_y : enemy.y;
+			// Draw bars
 			if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
 				&& (KDAllied(enemy) || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp)))) {
-				if (enemy.lifetime != undefined && enemy.maxlifetime > 0 && enemy.maxlifetime < 999) {
-					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 12 - 15,
-						KinkyDungeonGridSizeDisplay, 12, enemy.lifetime / enemy.maxlifetime * 100, "#cccccc", "#000000");
+				let II = 0;
+				// Draw binding bars
+				let helpless = (enemy.hp < enemy.Enemy.maxhp * 0.1 && KDBoundEffects(enemy) >= 4);
+				if (enemy.boundLevel != undefined && enemy.boundLevel > 0) {
+					if (!helpless) {
+						let bindingBars = Math.ceil(enemy.boundLevel / enemy.Enemy.maxhp);
+						for (let i = 0; i < bindingBars; i++) {
+							if (i > 0) II++;
+							let mod = 0;
+							if (i == bindingBars - 1) {
+								mod = KDGetEnemyStruggleRate(enemy);
+								KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay + 12 - 15 - 12*II,
+									KinkyDungeonGridSizeDisplay, 12, Math.min(1, (enemy.boundLevel - i * enemy.Enemy.maxhp) / enemy.Enemy.maxhp) * 100, "#bd6a62", "#52333f");
+							}
+							KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay + 12 - 15 - 12*II,
+								KinkyDungeonGridSizeDisplay, 12, Math.min(1, (Math.max(0, enemy.boundLevel - mod - i * enemy.Enemy.maxhp)) / enemy.Enemy.maxhp) * 100, "#ffae70", i == bindingBars - 1 ? "none" : "#52333f");
+						}
+					} else {
+						// TODO draw a lock or some other icon
+					}
 				}
-				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 15,
-					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, KDAllied(enemy) ? "#00ff88" : "#ff0000", KDAllied(enemy) ? "#aa0000" : "#000000");
-				if (enemy.boundLevel != undefined && enemy.boundLevel > 0 && (enemy.hp > enemy.Enemy.maxhp * 0.1 || KDBoundEffects(enemy) < 4)) {
-					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay + 12 - 15,
-						KinkyDungeonGridSizeDisplay, 12, enemy.boundLevel / enemy.Enemy.maxhp * 100, "#ffae70", "#52333f");
+				// Draw HP bar
+				KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 15 - II * 12,
+					KinkyDungeonGridSizeDisplay, 12, enemy.hp / enemy.Enemy.maxhp * 100, KDAllied(enemy) ? "#00ff88" : "#ff0000", KDAllied(enemy) ? "#aa0000" : "#000000"); II++;
+				if (enemy.lifetime != undefined && enemy.maxlifetime > 0 && enemy.maxlifetime < 999) {
+					// Draw lifetime bar
+					KinkyDungeonBar(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - 12 - 15 - II * 12,
+						KinkyDungeonGridSizeDisplay, 12, enemy.lifetime / enemy.maxlifetime * 100, "#cccccc", "#000000"); II++;
 				}
 			}
+			// Draw thought bubbles (TODO)
+
+			// Draw status bubbles
 			if (KDCanSeeEnemy(enemy, playerDist)) {
 				if (!tooltip && (enemy.Enemy.AI != "ambush" || enemy.ambushtrigger) && MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
@@ -848,6 +891,7 @@ function KDBoundEffects(enemy) {
 	return 0;
 }
 
+
 function KinkyDungeonUpdateEnemies(delta, Allied) {
 	let tickAlertTimer = false;
 	let tickAlertTimerFactions = [];
@@ -903,19 +947,14 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
 			if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
 
-			let bindLevel = KDBoundEffects(enemy);
-
 			if (enemy.Enemy.specialCharges && enemy.specialCharges <= 0) enemy.specialCD = 999;
 			KinkyDungeonTickFlagsEnemy(enemy, delta);
 			if (enemy.specialCD > 0)
 				enemy.specialCD -= delta;
 			if (enemy.slow > 0)
 				enemy.slow -= delta;
-			if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1 || bindLevel < 4)) {
-				let mult = 1.0;
-				if (enemy.bind > 0) mult *= 0.4;
-				else if (enemy.slow > 0) mult *= 0.7;
-				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * enemy.hp / enemy.Enemy.maxhp * mult);
+			if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1)) {
+				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * KDGetEnemyStruggleRate(enemy));
 			}
 			if (enemy.Enemy.rage) enemy.rage = 9999;
 			if (enemy.bind > 0)
@@ -946,9 +985,6 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			} else if (enemy.channel > 0) {
 				enemy.warningTiles = [];
 				if (enemy.channel > 0) enemy.channel -= delta;
-			} else if (bindLevel > 3) {
-				if (enemy.Enemy.power && enemy.hp > enemy.Enemy.maxhp * 0.1)
-					enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * (enemy.Enemy.power));
 			}
 		}
 	}

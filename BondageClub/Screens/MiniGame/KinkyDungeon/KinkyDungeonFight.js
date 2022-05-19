@@ -438,6 +438,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			if (resistStun == 2) {
 				efficiency *= 0.5;
 			}
+			if (predata.vulnerable) {
+				efficiency *= 2;
+			}
 
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
 			if (!forceKill && Enemy.hp < 0) {

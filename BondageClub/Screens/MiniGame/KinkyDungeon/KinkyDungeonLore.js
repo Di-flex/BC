@@ -5,7 +5,7 @@ let KinkyDungeonCurrentLoreTab = -1;
 let KinkyDungeonCurrentLoreTabs = [-1];
 let KinkyDungeonCurrentLoreItems = [];
 let KinkyDungeonCurrentLoreItemOffset = 0;
-let KinkyDungeonLore = [0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18];
+let KinkyDungeonLore = [0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22];
 let KinkyDungeonCheckpointLore = [
 	/*0*/ [1, 19],
 	/*1*/ [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
