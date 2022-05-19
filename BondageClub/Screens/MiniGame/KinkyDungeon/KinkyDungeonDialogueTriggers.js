@@ -170,6 +170,7 @@ function KDRecruitTrigger(name) {
 					&& !KinkyDungeonFlags.get(name)
 					&& !KinkyDungeonFlags.get("NoTalk")
 					&& KinkyDungeonCurrentDress != dialogue.outfit
+					&& KDFactionRelation("Player", KDGetFactionOriginal(enemy)) > -0.1
 					&& KDRandom() < dialogue.chance);
 			},
 			weight: (enemy, dist) => {

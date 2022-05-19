@@ -275,10 +275,12 @@ let KDDialogue = {
 							let percent = KDGameData.CurrentDialogMsgValue.Percent;
 							if (KDRandom() > percent) {
 								// Fail
-								KDIncreaseOfferFatigue(10);
+								KDIncreaseOfferFatigue(-20);
 								KDGameData.CurrentDialogMsg = "OfferLatexForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 								return false;
+							} else {
+								KDIncreaseOfferFatigue(10);
 							}
 						},
 						options: {"Leave": {playertext: "Leave", exitDialogue: true}},},
@@ -377,9 +379,11 @@ let KDDialogue = {
 							let percent = KDGameData.CurrentDialogMsgValue.Percent;
 							if (KDRandom() > percent) {
 								// Fail
-								KDIncreaseOfferFatigue(10);
+								KDIncreaseOfferFatigue(-20);
 								KDGameData.CurrentDialogMsg = "OfferChastityForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
+							} else {
+								KDIncreaseOfferFatigue(10);
 							}
 							return false;
 						},
@@ -473,9 +477,11 @@ let KDDialogue = {
 							let percent = KDGameData.CurrentDialogMsgValue.Percent;
 							if (KDRandom() > percent) {
 								// Fail
-								KDIncreaseOfferFatigue(10);
+								KDIncreaseOfferFatigue(-20);
 								KDGameData.CurrentDialogMsg = "OfferLeatherForce_Failure";
 								KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+							} else {
+								KDIncreaseOfferFatigue(10);
 							}
 							return false;
 						},
@@ -562,12 +568,14 @@ let KDDialogue = {
 							KinkyDungeonChangeRep("Ghost", -1);
 							if (KDRandom() > percent) {
 								// Fail
-								KDIncreaseOfferFatigue(10);
+								KDIncreaseOfferFatigue(-20);
 								KDGameData.CurrentDialogMsg = "OfferRopesForce_Failure";
 								for (let i = 0; i < 5; i++) {
 									let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 									if (r) KinkyDungeonAddRestraintIfWeaker(r, 0, true);
 								}
+							} else {
+								KDIncreaseOfferFatigue(10);
 							}
 							return false;
 						},
@@ -576,7 +584,7 @@ let KDDialogue = {
 			},
 		}
 	},
-	"OfferWolfgirl": KDRecruitDialogue("OfferWolfgirl", "Wolfgirl", "Metal", ["wolfGear"], 5, ["wolfGear", "wolfRestraints"], 8, ["wolfgirl", "trainer"], undefined, undefined, 0.5),
+	"OfferWolfgirl": KDRecruitDialogue("OfferWolfgirl", "Nevermere", "Wolfgirl", "Metal", ["wolfGear"], 5, ["wolfGear", "wolfRestraints"], 8, ["wolfgirl", "trainer"], undefined, undefined, 0.5),
 	"AngelHelp": {
 		response: "Default",
 		clickFunction: (gagged) => {
@@ -1081,42 +1089,6 @@ let KDDialogue = {
 	"GenericAlly": KDAllyDialogue("GenericAlly", [], [], [], 1),
 };
 
-// Success chance for a basic dialogue
-function KDBasicDialogueSuccessChance(checkResult) {
-	return Math.max(0, Math.min(1.0, checkResult/100));
-}
-
-// Success chance for a basic dialogue
-function KDAgilityDialogueSuccessChance(checkResult) {
-	let evasion = KinkyDungeonPlayerEvasion();
-	return Math.max(0, Math.min(1.0, (checkResult/100 - (KDGameData.OfferFatigue ? KDGameData.OfferFatigue /100 : 0) + 0.2 * Math.max(0, 3 - KinkyDungeonSlowLevel)) * evasion));
-}
-
-/**
- *
- * @param {number} Amount
- */
-function KDPleaseSpeaker(Amount) {
-	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
-	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-		let faction = KDGetFactionOriginal(enemy);
-		if (!KinkyDungeonHiddenFactions.includes(faction))
-			KinkyDungeonChangeFactionRep(faction, Amount);
-	}
-}
-
-function KDAllySpeaker(Turns, Follow) {
-	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
-	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-		if (!(enemy.hostile > 0)) {
-			enemy.allied = Turns;
-			if (Follow) {
-				KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
-			}
-		}
-	}
-}
-
 
 
 function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight) {
@@ -1404,7 +1376,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 }
 
 // ["wolfGear", "wolfRestraints"]
-function KDRecruitDialogue(name, outfitName, goddess, restraints, restraintscount, restraintsAngry, restraintscountAngry, requireTags, requireSingleTag, excludeTags, chance) {
+function KDRecruitDialogue(name, faction, outfitName, goddess, restraints, restraintscount, restraintsAngry, restraintscountAngry, requireTags, requireSingleTag, excludeTags, chance) {
 	/**
 	 * @type {KinkyDialogue}
 	 */
@@ -1429,6 +1401,8 @@ function KDRecruitDialogue(name, outfitName, goddess, restraints, restraintscoun
 							if (!KinkyDungeonInventoryGet(outfitName)) KinkyDungeonInventoryAdd(outfit);
 							if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
 							KinkyDungeonSetDress(outfitName, outfitName);
+							KDChangeFactionRelation("Player", faction, 0.4, true);
+							KDChangeFactionRelation("Player", faction, -0.2);
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
 							KinkyDungeonSetFlag(name, 100);
@@ -1483,6 +1457,8 @@ function KDRecruitDialogue(name, outfitName, goddess, restraints, restraintscoun
 							if (!KinkyDungeonInventoryGet(outfitName)) KinkyDungeonInventoryAdd(outfit);
 							if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
 							KinkyDungeonSetDress(outfitName, outfitName);
+							KDChangeFactionRelation("Player", faction, 0.4, true);
+							KDChangeFactionRelation("Player", faction, -0.2);
 							KinkyDungeonSlowMoveTurns = 3;
 							KinkyDungeonSleepTime = CommonTime() + 200;
 							KinkyDungeonSetFlag(name, 100);
@@ -1495,7 +1471,7 @@ function KDRecruitDialogue(name, outfitName, goddess, restraints, restraintscoun
 							KinkyDungeonChangeRep("Ghost", -1);
 							if (KDRandom() > percent) {
 								// Fail
-								KDIncreaseOfferFatigue(10);
+								KDIncreaseOfferFatigue(-20);
 								KDGameData.CurrentDialogMsg = name + "Force_Failure";
 								for (let i = 0; i < restraintscountAngry; i++) {
 									let r = KinkyDungeonGetRestraint({tags: restraintsAngry}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -1508,6 +1484,7 @@ function KDRecruitDialogue(name, outfitName, goddess, restraints, restraintscoun
 								KinkyDungeonSlowMoveTurns = 3;
 								KinkyDungeonSleepTime = CommonTime() + 200;
 							} else {
+								KDIncreaseOfferFatigue(10);
 								let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 								if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 									enemy.hostile = 100;

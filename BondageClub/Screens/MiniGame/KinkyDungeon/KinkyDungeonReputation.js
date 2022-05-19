@@ -207,7 +207,8 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		KinkyDungeonGoddessRep[Rep] += Amount;
 		KinkyDungeonGoddessRep[Rep] = Math.min(maximum, Math.max(minimum, KinkyDungeonGoddessRep[Rep]));
 		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
-			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
+			let value = KinkyDungeonGoddessRep[Rep] - start;
+			let amount = Math.round((value)*10)/10;
 			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
 			KDRecentRepIndex += 1;
 		}

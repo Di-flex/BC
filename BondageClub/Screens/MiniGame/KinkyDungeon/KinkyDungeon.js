@@ -678,6 +678,8 @@ function KinkyDungeonRun() {
 							CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
 						}
 					}
+					// Decrease offer fatigue
+					KDIncreaseOfferFatigue(-1);
 					KDSendInput("tick", {delta: 1});
 					KinkyDungeonSleepTime = CommonTime() + 10;
 				}
