@@ -216,9 +216,11 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		if (KDFactionGoddess[Rep]) {
 			for (let f of Object.entries(KDFactionGoddess[Rep])) {
 				let mult = (Amount > 0 ? 1 : 2);
-				if (KDFactionRelation("Player", f[0]) > 0.1) mult *= 0.5;
-				if (KDFactionRelation("Player", f[0]) > 0.25) mult *= 0.5;
-				if (KDFactionRelation("Player", f[0]) > 0.5) mult *= 0.5;
+				if (Amount > 0) {
+					if (KDFactionRelation("Player", f[0]) > 0.5) mult *= 0;
+					else if (KDFactionRelation("Player", f[0]) > 0.25) mult *= 0.25;
+					else if (KDFactionRelation("Player", f[0]) > 0.1) mult *= 0.5;
+				}
 				KDChangeFactionRelation("Player", f[0], f[1] * mult * Amount);
 			}
 		}

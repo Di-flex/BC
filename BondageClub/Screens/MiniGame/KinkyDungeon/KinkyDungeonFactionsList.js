@@ -43,7 +43,7 @@ let KinkyDungeonFactionRelationsBase = {
 		Bandit: -0.7,
 		Alchemist: -0.25,
 		Nevermere: -0.1,
-		Apprentice: 0.1,
+		Apprentice: 0.2,
 		Dressmaker: -0.45,
 		Witch: -0.8,
 		Elemental: -0.6,
@@ -128,12 +128,12 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Bountyhunter": {
 		"Jail": 0.8,
-		"Dragon": 0.15,
+		"Dragon": 0.4,
 		"Bandit": -0.4,
 		"Maidforce": -0.15,
 		"Witch": -0.4,
-		"Dressmaker": 0.4,
-		"Nevermere": 0.55,
+		"Dressmaker": 0.5,
+		"Nevermere": 0.75,
 	},
 	"Elf": {
 		"Mushy": 1.0,
@@ -142,15 +142,15 @@ let KinkyDungeonFactionRelationsBase = {
 	"Bast": {
 		"Elf": -1.0,
 		"Witch": -0.4,
-		"Beast": 0.4,
+		"Beast": 0.55,
 	},
 	"Bandit": {
 		"Mushy": -0.6,
 	},
 	"Elemental": {
 		"Witch": 0.4,
-		"KinkyConstruct": 0.45,
-		"Dressmaker": 0.15,
+		"KinkyConstruct": 0.55,
+		"Dressmaker": 0.35,
 		"Apprentice": 1.0,
 		"Bandit": -0.15,
 		"Elf": -0.5,
@@ -159,12 +159,12 @@ let KinkyDungeonFactionRelationsBase = {
 		"AncientRobot": -0.15,
 	},
 	"AncientRobot": {
-		"Bast": 0.4,
+		"Bast": 0.55,
 		"Elf": -0.6,
-		"Maidforce": 0.4,
-		"Dragon": 0.4,
-		"Dressmaker": 0.4,
-		"Apprentice": 0.4,
+		"Maidforce": 0.55,
+		"Dragon": 0.45,
+		"Dressmaker": 0.55,
+		"Apprentice": 0.52,
 	},
 	"Dragon": {
 		"Jail": 1.0,
@@ -179,16 +179,16 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Witch": {
 		"Apprentice": 1.0,
-		"Dressmaker": 0.35,
+		"Dressmaker": 0.4,
 		"Elf": -1.0,
 	},
 	"Dressmaker": {
 		"Apprentice": 1.0,
-		"Nevermere": 0.6,
+		"Nevermere": 0.8,
 	},
 	"Apprentice": {
 		"Jail": 1.0,
-		"Elf":  0.55,
+		"Elf":  0.75,
 	},
 	"Maidforce": {
 		"Alchemist": 1.0,

@@ -93,7 +93,7 @@ function KDFactionAllied(a, b) {
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;
-	if (KDFactionRelation(a, b) >= 0.5) return true;
+	if (KDFactionRelation(a, b) >= 0.7) return true;
 	if (a == b) return true;
 	return false;
 }

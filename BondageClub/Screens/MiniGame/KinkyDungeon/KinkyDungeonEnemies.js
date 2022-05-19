@@ -653,7 +653,14 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 							if (!KinkyDungeonHiddenFactions.includes(faction2)) {
 								if (KDFactionRelation(faction, faction2) < -0.1 && !boostfactions.includes(faction2)) {
 									boostfactions.push(faction2);
-									KinkyDungeonChangeFactionRep(faction2, 0.5 * amount * -KDFactionRelation(faction, faction2));
+									let mult = 1.0;
+									if (amount > 0) {
+										if (KDFactionRelation("Player", faction2) > 0.5)
+											mult *= 0.05;
+										else if (KDFactionRelation("Player", faction2) > 0.25)
+											mult *= 0.5;
+									}
+									KinkyDungeonChangeFactionRep(faction2, 0.5 * amount * mult * -KDFactionRelation(faction, faction2));
 									// Add a favor
 									KDAddFavor(faction2, amount);
 								} else
@@ -1112,7 +1119,9 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
 						if (
-							KDFactionAllied(f, enemy)
+							(KDFactionAllied(f, enemy) && KDFactionRelation("Player", enemy) <= 0.9)
+							|| (KDFactionRelation(f, enemy) >= 0.51 && KDFactionRelation("Player", enemy) <= 0.4)
+							|| (KDFactionRelation(f, enemy) >= 0.39 && KDFactionRelation("Player", enemy) <= 0.25)
 							|| (KDFactionRelation(f, enemy) >= 0.25 && KDFactionRelation("Player", enemy) <= -0.1)
 							|| (KDFactionRelation(f, enemy) >= 0.1 && KDFactionRelation("Player", enemy) <= -0.25)) {
 							enemy.hostile = KDMaxAlertTimer;
