@@ -892,7 +892,7 @@ let KinkyDungeonGameFlag = false;
 function KDInitializeJourney(Journey) {
 	KinkyDungeonMapIndex = [];
 
-	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
+	for (let [I,v] of KinkyDungeonMapParams) {
 		let II = I;
 		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
 		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
@@ -1818,8 +1818,11 @@ function KDsetSeed(string) {
 	}
 }
 
-
-
+/**
+ * It takes a string and returns a function that returns a random number
+ * @param str - The string to hash.
+ * @returns A function that returns a random number.
+ */
 function xmur3(str) {
 	let h = 1779033703 ^ str.length;
 	for(let i = 0; i < str.length; i++) {
@@ -1832,6 +1835,14 @@ function xmur3(str) {
 	};
 }
 
+/**
+ * It takes four 32-bit integers and returns a function that returns a random number between 0 and 1
+ * @param a - The first parameter.
+ * @param b - 0x9e3779b9
+ * @param c - 0x9e3779b9
+ * @param d - The seed.
+ * @returns A function that returns a random number between 0 and 1.
+ */
 function sfc32(a, b, c, d) {
 	return function() {
 		a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;
