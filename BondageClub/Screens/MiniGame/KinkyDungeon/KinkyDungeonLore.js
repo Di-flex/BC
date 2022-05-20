@@ -1,34 +1,25 @@
 "use strict";
 
 let KinkyDungeonCurrentLore = -1;
+/**
+ * @type {any}
+ */
 let KinkyDungeonCurrentLoreTab = -1;
+/**
+ * @type {any[]}
+ */
 let KinkyDungeonCurrentLoreTabs = [-1];
 let KinkyDungeonCurrentLoreItems = [];
 let KinkyDungeonCurrentLoreItemOffset = 0;
 let KinkyDungeonLore = [0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22];
-let KinkyDungeonCheckpointLore = [
-	/*0*/ [1, 19],
-	/*1*/ [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
-	/*2*/ [201, 202, 203, 204, 205],
-	/*3*/ [],
-	/*4*/ [],
-	/*5*/ [],
-	/*6*/ [],
-	/*7*/ [],
-	/*8*/ [],
-	/*9*/ [],
-	/*10*/ [],
-	/*11*/ [9, 1100, 1101, 1102, 1103, 1104],
-	/*12*/ [],
-	/*14*/ [],
-	/*15*/ [],
-	/*16*/ [],
-	/*17*/ [],
-	/*18*/ [],
-	/*19*/ [],
-	/*20*/ [],
+let KinkyDungeonCheckpointLore = {
+	/*0*/ "grv": [1, 19],
+	/*1*/ "cat": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
+	/*2*/ "jng": [201, 202, 203, 204, 205],
 
-];
+	/*11*/ "tmb": [9, 1100, 1101, 1102, 1103, 1104],
+
+};
 let KinkyDungeonLoreScale = 1.5;
 let KinkyDungeonRepeatLoreChance = 0.4; // Chance you will find a duplicate piece of lore
 let KinkyDungeonGenericLoreChance = 0.33; // Chance you will find a generic note instead of a previous note
@@ -69,8 +60,8 @@ function KinkyDungeonNewLore() {
 			newLore.push(KinkyDungeonCurrentLore);
 
 			KinkyDungeonCurrentLoreTab = -1;
-			for (let i = 0; i < KinkyDungeonCheckpointLore.length; i++) {
-				if (KinkyDungeonCheckpointLore[i].includes(KinkyDungeonCurrentLore)) {
+			for (let i = 0; i < Object.keys(KinkyDungeonCheckpointLore).length; i++) {
+				if (Object.values(KinkyDungeonCheckpointLore)[i].includes(KinkyDungeonCurrentLore)) {
 					KinkyDungeonCurrentLoreTab = i;
 					break;
 				}
@@ -96,8 +87,8 @@ function KinkyDungeonNewLore() {
 function KinkyDungeonUpdateTabs(exploredLore) {
 	KinkyDungeonCurrentLoreTabs = [-1];
 	for (let lore of exploredLore) {
-		for (let i = 0; i < KinkyDungeonCheckpointLore.length; i++) {
-			if (KinkyDungeonCheckpointLore[i].includes(lore)) KinkyDungeonCurrentLoreTabs.push(i);
+		for (let i = 0; i < Object.keys(KinkyDungeonCheckpointLore).length; i++) {
+			if (Object.values(KinkyDungeonCheckpointLore)[i].includes(lore)) KinkyDungeonCurrentLoreTabs.push(Object.keys(KinkyDungeonCheckpointLore)[i]);
 		}
 	}
 }
@@ -124,16 +115,20 @@ function KinkyDungeonDrawLore() {
 	MainCanvas.textAlign = "center";
 
 	// Draw the tabs
-	let tabs = KinkyDungeonCheckpointLore;
+	let tabs = Object.values(KinkyDungeonCheckpointLore);
+	let tabNames = Object.keys(KinkyDungeonCheckpointLore);
 	for (i = -1; i < tabs.length; i++) {
 		let newLore = false;
 		for (let ll of KinkyDungeonNewLoreList) {
-			if ((i == -1 && KinkyDungeonLore.includes(ll)) || (i >= 0 && KinkyDungeonCheckpointLore[i].includes(ll))) {
+			if ((i == -1 && KinkyDungeonLore.includes(ll)) || (i >= 0 && tabNames[i].includes(ll))) {
 				newLore = true;
 				break;
 			}
 		}
-		DrawButton(1800, 100 + i * 42, 190, 40, KinkyDungeonCurrentLoreTabs.includes(i) ? TextGet("KinkyDungeonCheckpointLore" + i) : TextGet("KinkyDungeonCheckpointLoreUnknown"), i == KinkyDungeonCurrentLoreTab ? "white" : (newLore ? "#cdcdcd" :"#888888"));
+		if (i == -1)
+			DrawButton(1800, 100 + i * 42, 190, 40, TextGet("KinkyDungeonCheckpointLore-1"), tabNames[i] == KinkyDungeonCurrentLoreTab ? "white" : (newLore ? "#cdcdcd" :"#888888"));
+		else
+			DrawButton(1800, 100 + i * 42, 190, 40, KinkyDungeonCurrentLoreTabs.includes(tabNames[i]) ? TextGet("KinkyDungeonCheckpointLore" + tabNames[i]) : TextGet("KinkyDungeonCheckpointLoreUnknown"), tabNames[i] == KinkyDungeonCurrentLoreTab ? "white" : (newLore ? "#cdcdcd" :"#888888"));
 	}
 
 	let numNotes = tabs.length * 3 - 6;
@@ -165,10 +160,11 @@ function KinkyDungeonUpdateLore(exploredLore) {
 }
 
 function KinkyDungeonHandleLore() {
-	let tabs = KinkyDungeonCheckpointLore;
+	let tabs = Object.values(KinkyDungeonCheckpointLore);
+	let tabNames = Object.keys(KinkyDungeonCheckpointLore);
 	for (let i = -1; i < tabs.length; i++) {
-		if (MouseIn(1800, 100 + i * 42, 190, 40) && KinkyDungeonCurrentLoreTabs.includes(i)) {
-			KinkyDungeonCurrentLoreTab = i;
+		if (MouseIn(1800, 100 + i * 42, 190, 40) && (KinkyDungeonCurrentLoreTabs.includes(tabNames[i])) || i == -1) {
+			KinkyDungeonCurrentLoreTab = tabNames[i] ? tabNames[i] : -1;
 			KinkyDungeonUpdateLore(localStorage.getItem("kinkydungeonexploredlore") ? JSON.parse(localStorage.getItem("kinkydungeonexploredlore")) : []);
 		}
 	}

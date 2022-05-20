@@ -3394,10 +3394,10 @@ KinkyDungeonSpellChoice4, "Current Spell 5: "
 
 KinkyDungeonCheckpointLoreUnknown,???
 KinkyDungeonCheckpointLore-1,Unfiled
-KinkyDungeonCheckpointLore0,Graveyard
-KinkyDungeonCheckpointLore1,Catacombs
-KinkyDungeonCheckpointLore2,Jungle
-KinkyDungeonCheckpointLore3,Temple
+KinkyDungeonCheckpointLoregrv,Graveyard
+KinkyDungeonCheckpointLorecat,Catacombs
+KinkyDungeonCheckpointLorejng,Jungle
+KinkyDungeonCheckpointLoretmmp,Temple
 KinkyDungeonCheckpointLore4,Graveyard
 KinkyDungeonCheckpointLore5,Graveyard
 KinkyDungeonCheckpointLore6,Graveyard
@@ -3405,9 +3405,9 @@ KinkyDungeonCheckpointLore7,Graveyard
 KinkyDungeonCheckpointLore8,Graveyard
 KinkyDungeonCheckpointLore9,Graveyard
 KinkyDungeonCheckpointLore10,Mansion
-KinkyDungeonCheckpointLore11,Tombs
-KinkyDungeonCheckpointLore12,Library
-KinkyDungeonCheckpointLore13,Crystal Cave
+KinkyDungeonCheckpointLoretmb,Tombs
+KinkyDungeonCheckpointLorelib,Library
+KinkyDungeonCheckpointLorecry,Crystal Cave
 KinkyDungeonCheckpointLore14,Graveyard
 KinkyDungeonCheckpointLore15,Graveyard
 KinkyDungeonCheckpointLore16,Graveyard
