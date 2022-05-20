@@ -51,7 +51,7 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 			effLevel *= KDTightRestraintsMult;
 			effLevel += KDTightRestraintsMod;
 		}
-		if ((effLevel >= loot.minLevel || KinkyDungeonNewGame > 0) && loot.floors.get(Index)) {
+		if ((effLevel >= loot.minLevel || KinkyDungeonNewGame > 0) && (loot.allFloors || loot.floors.get(Index))) {
 			let prereqs = true;
 			if (loot.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) prereqs = false;
 
