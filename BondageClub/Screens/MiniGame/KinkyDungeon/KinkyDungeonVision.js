@@ -70,9 +70,11 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 	let brightestLight = 0;
 
 	for (let light of Lights) {
-		maxPass = Math.max(maxPass, light.brightness);
-		if (light.brightness > brightestLight) brightestLight = light.brightness;
-		KinkyDungeonLightSet(light.x, light.y, light.brightness);
+		if (light.brightness - KinkyDungeonBlindLevel > 0) {
+			maxPass = Math.max(maxPass, light.brightness - KinkyDungeonBlindLevel);
+			if (light.brightness > brightestLight) brightestLight = light.brightness - KinkyDungeonBlindLevel;
+			KinkyDungeonLightSet(light.x, light.y, light.brightness - KinkyDungeonBlindLevel);
+		}
 	}
 
 	let visionBlockers = {};
