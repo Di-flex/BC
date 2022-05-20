@@ -194,10 +194,54 @@ function KinkyDungeonDefaultStats(Load) {
 	// Initialize all the other systems
 	KinkyDungeonResetMagic();
 	KinkyDungeonInitializeDresses();
-	KinkyDungeonDressPlayer();
 	KinkyDungeonShrineInit();
 
 	if (!Load) {
+		if (KinkyDungeonStatsChoice.get("StartLatex")) {
+			for (let i = 0; i < 30; i++) {
+				let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, 12, "grv", true, "Red");
+				if (r)
+					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Red");
+			}
+			let outfit = {name: "BlueSuitPrison", type: Outfit};
+			if (!KinkyDungeonInventoryGet("BlueSuitPrison")) KinkyDungeonInventoryAdd(outfit);
+			if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+			KinkyDungeonSetDress("BlueSuitPrison", "BlueSuitPrison");
+		}
+		if (KinkyDungeonStatsChoice.get("StartMaid")) {
+			for (let i = 0; i < 30; i++) {
+				let r = KinkyDungeonGetRestraint({tags: ["maidRestraints", "maidVibeRestraints"]}, 12, "grv", true, "Purple");
+				if (r)
+					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Purple");
+			}
+			let outfit = {name: "Maid", type: Outfit};
+			if (!KinkyDungeonInventoryGet("Maid")) KinkyDungeonInventoryAdd(outfit);
+			if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+			KinkyDungeonSetDress("Maid", "Maid");
+		}
+		if (KinkyDungeonStatsChoice.get("StartWolfgirl")) {
+			for (let i = 0; i < 30; i++) {
+				let r = KinkyDungeonGetRestraint({tags: ["wolfGear", "wolfRestraints"]}, 12, "grv", true, "Red");
+				if (r)
+					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Red");
+			}
+			let outfit = {name: "Wolfgirl", type: Outfit};
+			if (!KinkyDungeonInventoryGet("Wolfgirl")) KinkyDungeonInventoryAdd(outfit);
+			if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+			KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
+		}
+		if (KinkyDungeonStatsChoice.get("StartObsidian")) {
+			for (let i = 0; i < 30; i++) {
+				let r = KinkyDungeonGetRestraint({tags: ["obsidianRestraints", "genericChastity", "genericToys"]}, 12, "grv", true, "Red");
+				if (r)
+					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Red");
+			}
+			let outfit = {name: "Obsidian", type: Outfit};
+			if (!KinkyDungeonInventoryGet("Obsidian")) KinkyDungeonInventoryAdd(outfit);
+			if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
+			KinkyDungeonSetDress("Obsidian", "Obsidian");
+		}
+
 		if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
 		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
 		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
@@ -205,6 +249,9 @@ function KinkyDungeonDefaultStats(Load) {
 
 		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
 	}
+
+	KinkyDungeonDressPlayer();
+	CharacterRefresh(KinkyDungeonPlayer);
 }
 
 function KinkyDungeonGetVisionRadius() {

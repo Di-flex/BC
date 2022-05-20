@@ -341,15 +341,7 @@ function KDistChebyshev(x, y) {
  * @returns {void} - Nothing
  */
 function KinkyDungeonLoad() {
-	KDCategories = [
-		{name: "Restraints", buffs: [], debuffs: [],},
-		{name: "Kinky", buffs: [], debuffs: [],},
-		{name: "Combat", buffs: [], debuffs: [],},
-		{name: "Magic", buffs: [], debuffs: [],},
-		{name: "Enemies", buffs: [], debuffs: [],},
-		{name: "Map", buffs: [], debuffs: [],},
-		{name: "Boss", buffs: [], debuffs: [],},
-	];
+	KDCategories = Object.assign([], KDCategoriesStart);
 
 	for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
 		for (let c of KDCategories) {

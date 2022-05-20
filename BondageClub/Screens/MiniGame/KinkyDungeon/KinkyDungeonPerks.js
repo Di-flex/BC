@@ -1,5 +1,16 @@
 "use strict";
 
+let KDCategoriesStart = [
+	{name: "Restraints", buffs: [], debuffs: [],},
+	{name: "Kinky", buffs: [], debuffs: [],},
+	{name: "Combat", buffs: [], debuffs: [],},
+	{name: "Magic", buffs: [], debuffs: [],},
+	{name: "Enemies", buffs: [], debuffs: [],},
+	{name: "Map", buffs: [], debuffs: [],},
+	{name: "Start", buffs: [], debuffs: [],},
+	{name: "Boss", buffs: [], debuffs: [],},
+];
+
 let KinkyDungeonStatsPresets = {
 	"Strong": {category: "Restraints", id: 0, cost: 2, block: ["Weak"]},
 	"Weak": {category: "Restraints", id: 1, cost: -1, block: ["Strong"]},
@@ -57,6 +68,11 @@ let KinkyDungeonStatsPresets = {
 	"UnstableMagic": {category: "Magic", id: "UnstableMagic", cost: 2},
 	"Vengeance": {category: "Enemies", id: "Vengeance", cost: -2},
 	"AbsoluteFocus": {category: "Magic", id: "AbsoluteFocus", cost: -1},
+
+	"StartMaid": {category: "Start", id: "StartMaid", cost: -1, outfit: "Maid", block: ["StartLatex", "StartWolfgirl", "StartObsidian"]},
+	"StartLatex": {category: "Start", id: "StartLatex", cost: -1, outfit: "BlueSuitPrison", block: ["StartMaid", "StartWolfgirl", "StartObsidian"]},
+	"StartWolfgirl": {category: "Start", id: "StartWolfgirl", cost: -1, outfit: "Wolfgirl", block: ["StartMaid", "StartLatex", "StartObsidian"]},
+	"StartObsidian": {category: "Start", id: "StartObsidian", cost: -1, outfit: "Obsidian", block: ["StartMaid", "StartLatex", "StartWolfgirl"]},
 
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},

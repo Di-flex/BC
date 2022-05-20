@@ -197,6 +197,15 @@ KinkyDungeonStatDescUnstableMagic,"Spells do up to 60% additional damage based o
 KinkyDungeonStatAbsoluteFocus,"Absolute Focus"
 KinkyDungeonStatDescAbsoluteFocus,"Miscast chance is doubled."
 
+KinkyDungeonStatStartMaid,"Maid Sweeper"
+KinkyDungeonStatDescStartMaid,"Start in a magically locked maid outfit."
+KinkyDungeonStatStartWolfgirl,"Trainee"
+KinkyDungeonStatDescStartWolfgirl,"Start in a uniform of a naughty wolfgirl."
+KinkyDungeonStatStartLatex,"Latex Mannequin"
+KinkyDungeonStatDescStartLatex,"Start bound in latex restraints."
+KinkyDungeonStatStartObsidian,"Iron Slave"
+KinkyDungeonStatDescStartObsidian,"Start in a full set of obsidian cuffs."
+
 
 KinkyDungeonBuffSlimeForm,Slime Form
 KinkyDungeonBuffShroud2,"Shroud"
@@ -4227,6 +4236,7 @@ KDCategoryKinky,Kinks and Preferences
 KDCategoryMagic,Wizardry and Sorcery
 KDCategoryEnemies,Devious Threats
 KDCategoryMap,World Generation
+KDCategoryStart,Starting Scenario
 KDCategoryBoss,Unlockable
 
 KDWeaponConfiscated,You hand over your weapon reluctantly...
