@@ -622,6 +622,10 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 			for (let rep of Object.keys(enemy.Enemy.rep))
 				KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
 
+		if (KinkyDungeonStatsChoice.has("Vengeance")) {
+			KinkyDungeonChangeDistraction(Math.max(0, Math.ceil(Math.pow(enemy.Enemy.maxhp, 0.7))));
+		}
+
 		if (!(enemy.lifetime < 9000)) {
 			if (enemy.playerdmg) {
 				let faction = KDGetFaction(enemy);

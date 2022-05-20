@@ -23,6 +23,8 @@ let KDStealthyDamageMult = 0.7;
 let KDStealthyEvaMult = 0.8;
 let KDStealthyEnemyCountMult = 1.7;
 let KDBoundPowerMult = 0.4;
+let KDBerserkerAmp = 0.4;
+let KDUnstableAmp = 0.6;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
 let KinkyDungeonMeleeDamageTypes = ["unarmed", "crush", "slash", "pierce", "grope", "pain", "chain", "tickle"];
@@ -297,8 +299,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		if (KinkyDungeonStatsChoice.get("Rigger") && KDHostile(Enemy) && (predata.type != "glue" || predata.type != "chain")) {
 			predata.dmg *= KDRiggerDmgBoost;
 		}
-
-		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - (KDHostile(Enemy) ? KDBoundPowerLevel * KDBoundPowerMult : 0));
+		let DamageAmpBonusPerks = KDBoundPowerLevel * KDBoundPowerMult
+		+ ((KinkyDungeonStatsChoice.get("BerserkerRage") && KinkyDungeonMeleeDamageTypes.includes(predata.type)) ? KDBerserkerAmp * KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax : 0)
+		+ ((KinkyDungeonStatsChoice.get("UnstableMagic") && Spell && !Spell.allySpell && !Spell.enemySpell) ? KDUnstableAmp * Math.min(1, Math.max(KinkyDungeonStatDistraction / KinkyDungeonStatDistractionMax, KinkyDungeonMiscastChance)) : 0);
+		let damageAmp = KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageAmp") - (KDHostile(Enemy) && (!attacker || attacker.player) ? (DamageAmpBonusPerks) : 0));
 		let buffreduction = KinkyDungeonGetBuffedStat(Enemy.buffs, "DamageReduction");
 		let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, predata.type + "DamageResist"));
 		buffresist *= KinkyDungeonMeleeDamageTypes.includes(predata.type) ?

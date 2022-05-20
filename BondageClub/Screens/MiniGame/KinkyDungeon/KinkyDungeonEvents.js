@@ -937,7 +937,7 @@ const KDEventMapWeapon = {
 	},
 	"afterDamageEnemy": {
 		"Dollmaker": (e, weapon, data) => {
-			if (data.attacker && data.attacker.player && data.enemy && KDBoundEffects(data.enemy) > 3 && data.enemy.hp < 0.01) {
+			if (data.attacker && data.attacker.player && data.enemy && KDBoundEffects(data.enemy) > 3 && data.enemy.hp < 0.01 && !data.enemy.Enemy.allied) {
 				if (!e.chance || KDRandom() < e.chance) {
 					let Enemy = KinkyDungeonGetEnemyByName("AllyDoll");
 					KinkyDungeonEntities.push({

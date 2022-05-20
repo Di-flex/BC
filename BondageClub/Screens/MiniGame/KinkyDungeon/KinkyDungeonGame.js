@@ -2486,6 +2486,9 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 			}
 
 		} else {
+			if (attackCost < 0 && KinkyDungeonStatsChoice.has("BerserkerRage")) {
+				KinkyDungeonChangeDistraction(0.7 - 0.5 * attackCost);
+			}
 			KinkyDungeonAttackEnemy(Enemy, {damage: KinkyDungeonPlayerDamage.dmg, type: KinkyDungeonPlayerDamage.type, bind: KinkyDungeonPlayerDamage.bind, boundBonus: KinkyDungeonPlayerDamage.boundBonus, tease: KinkyDungeonPlayerDamage.tease});
 			KinkyDungeonLastAction = "Attack";
 			KDGameData.ConfirmAttack = false;
