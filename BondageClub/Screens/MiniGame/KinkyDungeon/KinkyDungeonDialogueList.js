@@ -1067,7 +1067,7 @@ let KDDialogue = {
 			"Gag": {
 				playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-					KinkyDungeonChangeFactionRep("Ghost", -5);
+					KinkyDungeonChangeRep("Ghost", -5);
 					return false;
 				},
 				options: {
