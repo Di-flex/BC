@@ -848,6 +848,8 @@ Spell Balance:
 - Infinite log scrolling (sort of, caps at 100 logs worth of log)
 - Reworked binding a bit
 - Refactored the system for areas (like graveyard, etc) and for linked items. Let me know if you find bugs.
+- Traps have delay of 1 again, but now vary in location slightly
+- Traps now release smoke!
 
 
 TODO ValidationFindBlockCycles to prevent bugs

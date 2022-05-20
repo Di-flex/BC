@@ -197,7 +197,7 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		let playerDist = Math.max(Math.abs(enemy.x - KinkyDungeonPlayerEntity.x), Math.abs(enemy.y - KinkyDungeonPlayerEntity.y));
 		if (enemy.x >= CamX && enemy.y >= CamY && enemy.x < CamX + KinkyDungeonGridWidthDisplay && enemy.y < CamY + KinkyDungeonGridHeightDisplay
 			&& KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
-			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
+			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0 && playerDist > 1.5)) {
 				enemy.revealed = true;
 				if ((KinkyDungeonAggressive(enemy) || playerDist < 1.5)) {
 					if ((KDHostile(enemy) || enemy.rage) && KinkyDungeonLightGet(enemy.x, enemy.y) > 0 && KinkyDungeonFastMove &&

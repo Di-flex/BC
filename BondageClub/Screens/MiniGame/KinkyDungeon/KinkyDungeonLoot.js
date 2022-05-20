@@ -593,6 +593,9 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 		KinkyDungeonLostItems = [];
 	}
 	if (Loot.trap) {
+		if (!Loot.noSmoke) {
+			KDSmokePuff(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 2.9, 0.4);
+		}
 		KDSendStatus('bound', Loot.name, "chest");
 	}
 

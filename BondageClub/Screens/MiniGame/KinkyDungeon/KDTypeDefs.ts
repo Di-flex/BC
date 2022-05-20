@@ -859,6 +859,8 @@ interface spell {
 	time?: number;
 	/** For Inert spells, this is the lifetime of the main bullet */
 	delay?: number;
+	/** Random added onto delay */
+	delayRandom?: number;
 	/** castRange */
 	castRange?: number;
 	/** Spell range */

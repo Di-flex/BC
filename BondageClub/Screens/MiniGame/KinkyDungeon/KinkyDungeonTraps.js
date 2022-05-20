@@ -75,15 +75,30 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
 					KinkyDungeonTiles.delete(x + "," + y);
+					if (!tile.noSmoke) {
+						KDSmokePuff(x, y, 3.9, 0.5);
+					}
 				}
 			}
 			if (tile.Trap == "SpecificSpell") {
 				let spell = KinkyDungeonFindSpell(tile.Spell, true);
 				if (spell) {
-					KinkyDungeonCastSpell(x, y, spell, undefined, undefined, undefined);
+					let xx = 0;
+					let yy = 0;
+					if (!tile.noVary) {
+						for (let i = 0; i < 10; i++) {
+							xx = Math.floor(KDRandom() * 3 - 1);
+							yy = Math.floor(KDRandom() * 3 - 1);
+							if (xx != 0 || yy != 0) i = 1000;
+						}
+					}
+					KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = ""; // The spell will show a message on its own
 					KinkyDungeonTiles.delete(x + "," + y);
+					if (!tile.noSmoke) {
+						KDSmokePuff(x, y, 3.9, 0.5);
+					}
 				}
 			}
 			if (tile.Trap === "CustomSleepDart") {
@@ -256,4 +271,18 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 		}
 	}
 
+}
+
+
+function KDSmokePuff(x, y, radius, density) {
+	KinkyDungeonSendTextMessage(2, TextGet("KDSmokePuff"), "white", 2);
+	for (let X = x - Math.floor(radius); X <= x + Math.floor(radius); X++)
+		for (let Y = y - Math.floor(radius); Y <= y + Math.floor(radius); Y++) {
+			if ((!density || KDRandom() < density || (X == x && Y == Y)) && KDistEuclidean(X - x, Y - y) <= radius) {
+				let spell = KinkyDungeonFindSpell("SmokePuff", true);
+				if (spell) {
+					KinkyDungeonCastSpell(X, Y, spell, undefined, undefined, undefined);
+				}
+			}
+		}
 }

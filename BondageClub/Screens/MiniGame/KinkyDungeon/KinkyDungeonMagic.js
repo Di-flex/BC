@@ -875,9 +875,12 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		}
 		KinkyDungeonLaunchBullet(tX, tY,
 			moveDirection.x,moveDirection.y,
-			0, {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay, cast: cast, dot: spell.dot, events: spell.events,
+			0, {
+				noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay +
+					(spell.delayRandom ? Math.floor(KDRandom() * spell.delayRandom) : 0), cast: cast, dot: spell.dot, events: spell.events,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
-				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}, miscast);
+				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell
+			}, miscast);
 	}  else if (spell.type == "hit") {
 		let sz = spell.size;
 		if (!sz) sz = 1;
