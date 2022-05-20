@@ -259,6 +259,50 @@ type restraint = {
 	factionColor?: number[][],
 }
 
+type outfitKey = string
+
+type mapKey = string
+
+interface floorParams {
+	background : string,
+	openness : number, // Openness of rooms
+	density : number, // Density of tunnels (inverse of room spawn chance)
+	doodadchance : number,
+	barchance : number,
+	brightness : number,
+	chestcount : number,
+	shrinecount : number,
+	shrinechance : number,
+	ghostchance : number,
+	doorchance: number,
+	nodoorchance : number,
+	doorlockchance : number,
+	trapchance : number,
+	grateChance : number,
+	rubblechance : number,
+	brickchance : number,
+	cacheInterval : number,
+	forbiddenChance : number, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
+	forbiddenGreaterChance : number, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
+
+	setpieces: {Type: string, Weight: number}[],
+
+	shortcuts: {Level: number, checkpoint: number,chance:number}[	],
+	mainpath: {Level: number, checkpoint: number}[],
+
+	traps: {Name: string, Level: number, Power: number, Weight: number}[],
+
+	min_width : number,
+	max_width : number,
+	min_height : number,
+	max_height : number,
+
+	"enemytags": string[],
+	"defeat_restraints": {Name: string, Level: number}[	],
+	"defeat_outfit": outfitKey,
+	"shrines": {Type: string, Weight: number}[]
+}
+
 interface overrideDisplayItem {
 	/** Bondage club asset */
 	Item: string,
@@ -320,7 +364,7 @@ interface enemy {
 	/** */
 	terrainTags?: Record<string, number>,
 	/** */
-	floors?: Map<number, boolean>,
+	floors?: string[],
 	/** */
 	allFloors?: boolean,
 	/** */

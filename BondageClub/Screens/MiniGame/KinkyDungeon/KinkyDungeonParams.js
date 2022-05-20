@@ -1,7 +1,9 @@
 "use strict";
-let KinkyDungeonMapParams = [
-
-	{//DungeonName0,-Graveyard-
+/**
+ * @type {Record<mapKey,floorParams>}
+ */
+let KinkyDungeonMapParams = {
+	"grv":{//DungeonName0,-Graveyard-
 		"background" : "RainyForstPathNight",
 		"openness" : 3, // Openness of rooms
 		"density" : 3, // Density of tunnels (inverse of room spawn chance)
@@ -87,8 +89,7 @@ let KinkyDungeonMapParams = [
 
 
 	},
-
-	{// DungeonName1,-Catacombs-
+	"dun":{// DungeonName1,-Catacombs-
 		"background" : "Dungeon",
 		"openness" : 0,
 		"density" : 2,
@@ -180,8 +181,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Will", Weight: 7},]
 
 	},
-
-	{//DungeonName2,-Underground Jungle-
+	"jun":{//DungeonName2,-Underground Jungle-
 		"background" : "DeepForest",
 		"openness" : 1,
 		"density" : 1,
@@ -257,7 +257,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Rope", Weight: 5},
 			{Type: "Will", Weight: 5},]
 	},
-	{//DungeonName3,-Lost Temple-
+	"tpl":{//DungeonName3,-Lost Temple-
 		"background" : "SpookyForest",
 		"openness" : 2,
 		"density" : 2,
@@ -345,7 +345,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 1.5,
 	},
-	{//DungeonName4,-Fungal Caverns-
+	"fun":{//DungeonName4,-Fungal Caverns-
 		"openness" : 4,
 		"density" : 4,
 		"doodadchance" : 0.15,
@@ -372,7 +372,7 @@ let KinkyDungeonMapParams = [
 		"min_height" : 15,
 		"max_height" : 25,
 	},
-	{//DungeonName5,-The Bellows-
+	"blw":{//DungeonName5,-The Bellows-
 		"openness" : 1,
 		"density" : 1,
 		"doodadchance" : 0.05,
@@ -401,7 +401,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 2.0,
 	},
-	{//DungeonName6,-Underground Desert-
+	"des":{//DungeonName6,-Underground Desert-
 		"openness" : 4,
 		"density" : 2,
 		"doodadchance" : 0.13,
@@ -428,7 +428,7 @@ let KinkyDungeonMapParams = [
 		"min_height" : 17,
 		"max_height" : 25,
 	},
-	{//DungeonName7,-Kingdom of Ice-
+	"ice":{//DungeonName7,-Kingdom of Ice-
 		"openness" : 2,
 		"density" : 1,
 		"doodadchance" : 0.12,
@@ -456,7 +456,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 2.0,
 	},
-	{//DungeonName8,-Marble Halls-
+	"mar":{//DungeonName8,-Marble Halls-
 		"openness" : 4,
 		"density" : 1,
 		"doodadchance" : 0.12,
@@ -485,7 +485,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 1.5,
 	},
-	{//DungeonName9,-Ancient Laboratory-
+	"lab":{//DungeonName9,-Ancient Laboratory-
 		"openness" : 2,
 		"density" : 1,
 		"doodadchance" : 0.08,
@@ -514,7 +514,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 4.0,
 	},
-	{//DungeonName10,-The Mansion-
+	"man":{//DungeonName10,-The Mansion-
 		"openness" : 10,
 		"density" : 1,
 		"doodadchance" : 0.05,
@@ -543,7 +543,7 @@ let KinkyDungeonMapParams = [
 
 		"lockmult" : 0.0,
 	},
-	{//DungeonName11,-Ancient Tombs-
+	"tmb":{//DungeonName11,-Ancient Tombs-
 		"background" : "EgyptianTomb",
 		"openness" : 1,
 		"density" : 3,
@@ -627,7 +627,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Leather", Weight: 6},
 			{Type: "Will", Weight: 7},]
 	},
-	{//DungeonName12,-Magic Library-
+	"lib":{//DungeonName12,-Magic Library-
 		"background" : "Cell",
 		"openness" : 5,
 		"density" : 6,
@@ -705,7 +705,7 @@ let KinkyDungeonMapParams = [
 			{Type: "Leather", Weight: 6},
 			{Type: "Will", Weight: 7},]
 	},
-	{//DungeonName13,-Crystal Cave-
+	"frc":{//DungeonName13,-Crystal Cave-
 		"background" : "ForestCave",
 		"openness" : 6,
 		"density" : 2,
@@ -797,7 +797,4 @@ let KinkyDungeonMapParams = [
 			{Type: "Leather", Weight: 6},
 			{Type: "Will", Weight: 7},]
 	},
-
-
-
-];
+};

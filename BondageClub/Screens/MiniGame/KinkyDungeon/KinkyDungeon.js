@@ -290,7 +290,7 @@ function KinkyDungeonAngel() {
 
 /**
  *
- * @param list
+ * @param {any[]} list
  * @return {Map<any, any>}
  */
 function KDMapInit(list) {
