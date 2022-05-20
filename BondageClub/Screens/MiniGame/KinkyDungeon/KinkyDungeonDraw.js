@@ -127,13 +127,13 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonDrawState == "Game") {
 		let KinkyDungeonForceRender = "";
-		let KinkyDungeonForceRenderFloor = -1;
+		let KinkyDungeonForceRenderFloor = "";
 
 		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 			if (b && b.mushroom) {
 				//DrawImageCanvas(KinkyDungeonRootDirectory + "MushroomOverlay.png", KinkyDungeonContext, 0, 0);
 				KinkyDungeonForceRender = '2';
-				KinkyDungeonForceRenderFloor = 13;
+				KinkyDungeonForceRenderFloor = "cry";
 			}
 		}
 
@@ -172,9 +172,9 @@ function KinkyDungeonDrawGame() {
 								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 								sprite2 = null;
 							}
-							if (KinkyDungeonForceRenderFloor > -1) floor = KinkyDungeonForceRenderFloor;
+							if (KinkyDungeonForceRenderFloor != "") floor = KinkyDungeonForceRenderFloor;
 
-							DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor" + floor + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+							DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Floor_" + floor + "/" + sprite + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 								(-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset+R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 							if (sprite2)
 								DrawImageZoomCanvas(KinkyDungeonRootDirectory + "FloorGeneric/" + sprite2 + ".png", KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,

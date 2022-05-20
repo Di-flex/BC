@@ -3,11 +3,14 @@
 let KinkyDungeonGagMumbleChance = 0.02;
 let KinkyDungeonGagMumbleChancePerRestraint = 0.0025;
 
-let MiniGameKinkyDungeonCheckpoint = 0;
-let MiniGameKinkyDungeonShortcut = 0;
-let MiniGameKinkyDungeonMainPath = 0;
+let MiniGameKinkyDungeonCheckpoint = "grv";
+let MiniGameKinkyDungeonShortcut = "grv";
+let MiniGameKinkyDungeonMainPath = "grv";
 let MiniGameKinkyDungeonLevel = -1;
-let KinkyDungeonMapIndex = [];
+/**
+ * @type Record<string, string>
+ */
+let KinkyDungeonMapIndex = {};
 
 let KinkyDungeonLightGrid = [];
 let KinkyDungeonFogGrid = [];
@@ -141,7 +144,7 @@ function KinkyDungeonPlaySound(src) {
 function KinkyDungeonSetCheckPoint(Checkpoint, AutoSave, suppressCheckPoint) {
 	if (Checkpoint != undefined) MiniGameKinkyDungeonCheckpoint = Checkpoint;
 	else if (Math.floor(MiniGameKinkyDungeonLevel / 10) == MiniGameKinkyDungeonLevel / 10)
-		MiniGameKinkyDungeonCheckpoint = Math.floor(MiniGameKinkyDungeonLevel / 10);
+		MiniGameKinkyDungeonCheckpoint = KDDefaultJourney[Math.min(KDDefaultJourney.length - 1, Math.floor((MiniGameKinkyDungeonLevel) / KDLevelsPerCheckpoint))];
 }
 
 function KinkyDungeonNewGamePlus() {
@@ -172,9 +175,12 @@ function KinkyDungeonInitialize(Level, Load) {
 	KinkyDungeonDressPlayer();
 	KinkyDungeonDrawState = "Game";
 
-	KinkyDungeonMapIndex = [];
-	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
-		KinkyDungeonMapIndex.push(I);
+	KinkyDungeonMapIndex = {};
+	for (let map of KDDefaultJourney) {
+		KinkyDungeonMapIndex[map] = map;
+	}
+	for (let map of KDDefaultAlt) {
+		KinkyDungeonMapIndex[map] = map;
 	}
 
 	KinkyDungeonEntities = [];
@@ -184,12 +190,6 @@ function KinkyDungeonInitialize(Level, Load) {
 	KinkyDungeonActionMessage = "";
 	MiniGameKinkyDungeonLevel = Level;
 	KinkyDungeonSetCheckPoint();
-
-	KinkyDungeonMapIndex = [];
-
-	for (let I = 1; I < KinkyDungeonMapParams.length; I++) {
-		KinkyDungeonMapIndex.push(I);
-	}
 
 	KinkyDungeonContextPlayer = KinkyDungeonCanvasPlayer.getContext("2d");
 	KinkyDungeonCanvasPlayer.width = KinkyDungeonGridSizeDisplay;
@@ -451,7 +451,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for lore creation`);
 				startTime = performance.now();
 			}
-			if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && MiniGameKinkyDungeonCheckpoint > 9)))
+			if ((MiniGameKinkyDungeonLevel % 6 == 2 || MiniGameKinkyDungeonLevel % 6 == 4 || (MiniGameKinkyDungeonLevel % 6 == 5 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint))))
 				KinkyDungeonPlaceHeart(width, height, Floor);
 			if (!boss || boss.specialtiles)
 				KinkyDungeonPlaceSpecialTiles(gasChance, gasType, Floor, width, height);
@@ -1066,6 +1066,7 @@ function KinkyDungeonSkinArea(skin, X, Y, Radius, NoStairs) {
 	}
 }
 
+
 // @ts-ignore
 function KinkyDungeonGetMainPath(level) {
 	let params = KinkyDungeonMapParams[MiniGameKinkyDungeonCheckpoint];
@@ -1086,7 +1087,7 @@ function KinkyDungeonGetMainPath(level) {
 		}
 	}
 	if ((MiniGameKinkyDungeonLevel + 1) % 6 == 0) {
-		return Math.floor((MiniGameKinkyDungeonLevel + 1) / 10);
+		return KDDefaultJourney[Math.min(KDDefaultJourney.length - 1, Math.floor((MiniGameKinkyDungeonLevel + 1) / KDLevelsPerCheckpoint))];
 	}
 	return MiniGameKinkyDungeonCheckpoint;
 }
@@ -1110,7 +1111,7 @@ function KinkyDungeonGetShortcut(level) {
 			return path.checkpoint;
 		}
 	}
-	return 0;
+	return "grv";
 }
 
 function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
@@ -1858,7 +1859,7 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelC
 		for (let Y = 1; Y < height-1; Y += 1) {
 			if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < Chance)
 				KinkyDungeonMapSet(X, Y, 'X');
-			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance) {
+			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance && !KinkyDungeonTilesSkin.get(X + "," + Y)) {
 				KinkyDungeonMapSet(X, Y, 'Y');
 				if (KDAlreadyOpened(X, Y)) {
 					KinkyDungeonMapSet(X, Y, '1');

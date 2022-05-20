@@ -317,7 +317,7 @@ function KDLoadPerks(Perk) {
 
 /**
  *
- * @param list
+ * @param {any[]} list
  * @return {Map<any, any>}
  */
 function KDMapInit(list) {
@@ -930,14 +930,20 @@ function KinkyDungeonLoadStats() {
 let KinkyDungeonReplaceConfirm = 0;
 let KinkyDungeonGameFlag = false;
 
-function KDInitializeJourney(Journey) {
-	KinkyDungeonMapIndex = [];
+let KDDefaultJourney = ["grv", "cat", "jng", "tmp"];
+let KDDefaultAlt = ["tmb", "lib", "cry", "tmp"];
 
-	for (let I = 0; I < KinkyDungeonMapParams.length; I++) {
-		let II = I;
-		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
-		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
-		KinkyDungeonMapIndex.push(II);
+function KDInitializeJourney(Journey) {
+	/**
+	 * @type {Record<string, string}
+	 */
+	let newIndex = {};
+
+	for (let map of KDDefaultJourney) {
+		newIndex[map] = map;
+	}
+	for (let map of KDDefaultAlt) {
+		newIndex[map] = map;
 	}
 
 	if (Journey)
@@ -946,23 +952,33 @@ function KDInitializeJourney(Journey) {
 	if (KDGameData.Journey == "Random") {
 		/* Randomize array in-place using Durstenfeld shuffle algorithm */
 		// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-		for (let i = KinkyDungeonMapIndex.length - 1; i >= 0; i--) {
+		let randList = Array.from(Object.keys(newIndex));
+		for (let i = randList.length - 1; i >= 0; i--) {
 			let j = Math.floor(KDRandom() * (i + 1));
-			let temp = KinkyDungeonMapIndex[i];
-			KinkyDungeonMapIndex[i] = KinkyDungeonMapIndex[j];
-			KinkyDungeonMapIndex[j] = temp;
+			let temp = newIndex[i];
+			newIndex[i] = newIndex[j];
+			newIndex[j] = temp;
 		}
+		let ii = 0;
+		for (let index of Object.keys(newIndex)) {
+			newIndex[index] = randList[ii];
+			ii++;
+		}
+
 	} else if (KDGameData.Journey == "Harder") {
-		KinkyDungeonMapIndex = [11, 12, 13, 3, 15, 16, 17, 18, 19, 10, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+		for (let i = 0; i < KDDefaultJourney.length; i++) {
+			newIndex[KDDefaultAlt[i]] = newIndex[KDDefaultJourney[i]];
+			newIndex[KDDefaultJourney[i]] = newIndex[KDDefaultAlt[i]];
+		}
 	}
-	//KinkyDungeonMapIndex.unshift(0);
-	KinkyDungeonMapIndex.push(10);
+
+	KinkyDungeonMapIndex = newIndex;
 }
 
 function KinkyDungeonStartNewGame(Load) {
 	KinkyDungeonNewGame = 0;
 	KinkyDungeonInitialize(1, Load);
-	MiniGameKinkyDungeonCheckpoint = 0;
+	MiniGameKinkyDungeonCheckpoint = "grv";
 	if (Load) {
 		KinkyDungeonLoadGame();
 		KDSendEvent('loadGame');
@@ -1146,7 +1162,7 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonNewGame = 0;
 			KinkyDungeonDifficultyMode = 0;
 			KinkyDungeonInitialize(1, true);
-			MiniGameKinkyDungeonCheckpoint = 1;
+			MiniGameKinkyDungeonCheckpoint = "grv";
 			if (KinkyDungeonLoadGame(ElementValue("saveInputField"))) {
 				KDSendEvent('loadGame');
 				//KDInitializeJourney(KDJourney);
@@ -1751,7 +1767,9 @@ function KinkyDungeonLoadGame(String) {
 			KinkyDungeonEntities = [];
 			if (saveData.flags && saveData.flags.length) KinkyDungeonFlags = new Map(saveData.flags);
 			MiniGameKinkyDungeonLevel = saveData.level;
-			MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
+			if (Array.from(Object.keys(KinkyDungeonMapIndex)).includes(saveData.checkpoint))
+				MiniGameKinkyDungeonCheckpoint = saveData.checkpoint;
+			else MiniGameKinkyDungeonCheckpoint = "grv";
 			KinkyDungeonShrineCosts = saveData.costs;
 			KinkyDungeonGoddessRep = saveData.rep;
 			KinkyDungeonCurrentDress = saveData.dress;
@@ -1830,7 +1848,7 @@ function KinkyDungeonLoadGame(String) {
 			KDRefresh = true;
 			if (KDGameData.Journey)
 				KDJourney = KDGameData.Journey;
-			if (saveData.mapIndex) KinkyDungeonMapIndex = saveData.mapIndex;
+			if (saveData.mapIndex && !saveData.mapIndex.length) KinkyDungeonMapIndex = saveData.mapIndex;
 
 			if (String)
 				localStorage.setItem('KinkyDungeonSave', String);
@@ -1870,8 +1888,11 @@ function KDsetSeed(string) {
 	}
 }
 
-
-
+/**
+ * It takes a string and returns a function that returns a random number
+ * @param str - The string to hash.
+ * @returns A function that returns a random number.
+ */
 function xmur3(str) {
 	let h = 1779033703 ^ str.length;
 	for(let i = 0; i < str.length; i++) {
@@ -1884,6 +1905,14 @@ function xmur3(str) {
 	};
 }
 
+/**
+ * It takes four 32-bit integers and returns a function that returns a random number between 0 and 1
+ * @param a - The first parameter.
+ * @param b - 0x9e3779b9
+ * @param c - 0x9e3779b9
+ * @param d - The seed.
+ * @returns A function that returns a random number between 0 and 1.
+ */
 function sfc32(a, b, c, d) {
 	return function() {
 		a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0;

@@ -548,7 +548,7 @@ function KinkyDungeonStrictness(ApplyGhost, Group) {
 						if (KDRestraint(inv).strictness > strictness)
 							strictness = KDRestraint(inv).strictness;
 						if (inv.dynamicLink) {
-							for (let invLink of inv.dynamicLink) {
+							for (let invLink of KDDynamicLinkList(inv)) {
 								if (KDRestraint(invLink).strictness > strictness)
 									strictness = KDRestraint(invLink).strictness;
 							}
@@ -580,7 +580,7 @@ function KinkyDungeonGetStrictnessItems(Group) {
 							list.push(KDRestraint(inv).name);
 						// Add the items underneath it!!
 						if (inv.dynamicLink) {
-							for (let invLink of inv.dynamicLink) {
+							for (let invLink of KDDynamicLinkList(inv)) {
 								if (KDRestraint(invLink).strictness)
 									list.push(KDRestraint(invLink).name);
 							}
@@ -889,7 +889,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	let edgeBonus = 0.05;
 	if (StruggleType == "Struggle" && data.hasEdge) data.escapeChance += edgeBonus;
 
-	if ((StruggleType == "Struggle") && data.escapeChance <= edgeBonus) {
+	if ((StruggleType == "Struggle") && !data.hasEdge && data.escapeChance <= edgeBonus) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
@@ -944,7 +944,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup != "ItemHands" && handsBound)
 		data.escapeChance = ((StruggleType == "Remove") && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
-	if ((StruggleType == "Remove") && data.escapeChance == 0) {
+	if ((StruggleType == "Remove") && !data.hasEdge && data.escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
@@ -1409,7 +1409,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			(power <
 			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
 				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink))))
-			&& (!currentRestraint || !currentRestraint.dynamicLink || !currentRestraint.dynamicLink.some((item) => {return restraint.name == item.name;}))
+			&& (!currentRestraint || !currentRestraint.dynamicLink || !KDDynamicLinkList(currentRestraint).some((item) => {return restraint.name == item.name;}))
 			&& (Bypass || restraint.bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
 
 			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
@@ -1489,8 +1489,8 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 		let lockMult = item ? KinkyDungeonGetLockMult(item.lock) : 1;
 		let power = (item.lock ? KDRestraint(item).power * lockMult : KDRestraint(item).power);
 
-		if (item.dynamicLink && item.dynamicLink.length > 0 && !NoLink) {
-			let link = item.dynamicLink[item.dynamicLink.length - 1];
+		if (item.dynamicLink && !NoLink) {
+			let link = item.dynamicLink;
 			if (!KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link.name), KDRestraint(item))) {
 				let lock = link.lock;
 				let mult = lock ? KinkyDungeonGetLockMult(lock) : 1;
@@ -1505,29 +1505,13 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 /**
  * @param {restraint} oldRestraint
  * @param {restraint} newRestraint
- * @param {item[]} [dynamicLink]
+ * @param {item} [dynamicLink]
  * @param {string} [newLock]
  * @returns {boolean}
  */
 function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink, newLock) {
 	if (oldRestraint && newRestraint) {
-		//if ((!oldRestraint.strictness || newRestraint.strictness >= oldRestraint.strictness)
-		//&& (newRestraint.power >= oldRestraint.power - 1)) {
-		let power = 0;
-		if (dynamicLink) {
-			let link = dynamicLink[dynamicLink.length - 1];
-			if (link) {
-				let lock = link.lock;
-				let r = KinkyDungeonGetRestraintByName(link.name);
-				if (r) {
-					let p = KinkyDungeonGetLockMult(lock) * r.power;
-					if (p > power) power = p;
-				}
-			}
-		}
-		// Allow for a power multiplier, set to 20 currently for basically always cover
-		let linkable = KinkyDungeonIsLinkable(oldRestraint, newRestraint);
-		return KinkyDungeonGetLockMult(newLock) * newRestraint.power * (linkable ? 20 : 1) > power && linkable;
+		return KinkyDungeonIsLinkable(oldRestraint, newRestraint);
 		//}
 	}
 	return false;
@@ -1556,7 +1540,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
-	if (!r || (!r.dynamicLink || !r.dynamicLink.some((item) => {return restraint.name == item.name;})) && !KDRestraint(r).enchanted
+	if (!r || (!r.dynamicLink || !KDDynamicLinkList(r).some((item) => {return restraint.name == item.name;})) && !KDRestraint(r).enchanted
 		&& (
 			(power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (r && KDRestraint(r) && KinkyDungeonLinkableAndStricter(KDRestraint(r), restraint, r.dynamicLink))
@@ -1739,9 +1723,10 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
  * @param {boolean} [Add] - If true, the item will be added to the player's inventory.
  * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
  * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
+ * @param {boolean} [UnLink] - If the item is being removed as part of an unlinking process
  * @returns {boolean} true if the item was removed, false if it was not.
  */
-function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
+function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) {
 	for (let i of KinkyDungeonAllRestraint()) {
 		const rest = KinkyDungeonRestraintsCache.get(i.name);
 		let AssetGroup = rest && rest.AssetGroup ? rest.AssetGroup : Group;
@@ -1749,7 +1734,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine) {
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 
-			if (!KinkyDungeonCancelFlag && !Add) {
+			if (!KinkyDungeonCancelFlag && !Ad && !UnLink) {
 				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(i, Keep);
 			}
 
@@ -1846,17 +1831,10 @@ function KinkyDungeonRestraintTypes(ShrineFilter) {
  */
 function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, faction) {
 	if (newRestraint && oldItem && oldItem.type == Restraint) {
-		/**
-		 * @type {item[]}
-		 */
-		let dynamicLink = [];
-		if (oldItem.dynamicLink) dynamicLink = oldItem.dynamicLink;
-		let oldlink = oldItem;
-		dynamicLink.push(oldlink);
 		if (newRestraint) {
 			KinkyDungeonAddRestraint(newRestraint, tightness, true, Lock, Keep, true, undefined, undefined, faction);
 			let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
-			if (newItem) newItem.dynamicLink = dynamicLink;
+			if (newItem) newItem.dynamicLink = oldItem;
 			if (KDRestraint(oldItem).Link)
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.name), "red", 2);
 			return true;
@@ -1878,20 +1856,16 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 		 * @type {item}
 		 */
 		let UnLink = null;
-		let dynamic = false;
-		if (item.dynamicLink && item.dynamicLink.length > 0) {
-			UnLink = item.dynamicLink[item.dynamicLink.length - 1];
-			dynamic = true;
+		if (item.dynamicLink) {
+			UnLink = item.dynamicLink;
 		}
 		if (UnLink) {
 			let newRestraint = KinkyDungeonGetRestraintByName(UnLink.name);
 			if (newRestraint) {
-				if (item.dynamicLink && dynamic)
-					item.dynamicLink.splice(item.dynamicLink.length-1, 1);
 				KinkyDungeonAddRestraint(newRestraint, UnLink.tightness, true, UnLink.lock, Keep, undefined, undefined, undefined, UnLink.faction);
 				let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
-				if (res && KDRestraint(res) && item.dynamicLink && item.dynamicLink.length > 0) {
-					res.dynamicLink = item.dynamicLink;
+				if (res && KDRestraint(res)) {
+					res.dynamicLink = UnLink.dynamicLink;
 				}
 				if (KDRestraint(item).UnLink)
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.name), "lightgreen", 2);

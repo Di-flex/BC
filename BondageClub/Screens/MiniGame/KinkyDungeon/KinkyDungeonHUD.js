@@ -42,6 +42,18 @@ let KinkyDungeonFastStruggle = false;
 let KinkyDungeonFastStruggleType = "";
 let KinkyDungeonFastStruggleGroup = "";
 
+function KDDynamicLinkList(item) {
+	let ret = [];
+	if (item && item.dynamicLink) {
+		let link = item.dynamicLink;
+		while (link) {
+			ret.push(link);
+			link = link.dynamicLink;
+		}
+	}
+	return ret;
+}
+
 function KinkyDungeonDrawInputs() {
 
 	if (ServerURL == "foobar") DrawButton(1880, 82, 100, 50, TextGet("KinkyDungeonRestart"), "white");
@@ -218,7 +230,7 @@ function KinkyDungeonDrawInputs() {
 						let O = 1;
 						MainCanvas.textAlign = "left";
 						let drawn = false;
-						for (let d of item.dynamicLink) {
+						for (let d of KDDynamicLinkList(item)) {
 							if (KDRestraint(item) && (!KDRestraint(item).UnLink || d.name != KDRestraint(item).UnLink))
 							{
 								drawn = true;
