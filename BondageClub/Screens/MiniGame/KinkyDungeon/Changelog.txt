@@ -847,6 +847,7 @@ Spell Balance:
 - Vibrator SFX
 - Infinite log scrolling (sort of, caps at 100 logs worth of log)
 - Reworked binding a bit
+- Refactored the system for areas (like graveyard, etc) and for linked items. Let me know if you find bugs.
 
 
 TODO ValidationFindBlockCycles to prevent bugs

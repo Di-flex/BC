@@ -10,6 +10,7 @@ function KinkyDungeonItemDrop(x, y, dropTable, summoned) {
 			let weight = drop.weight;
 			dropWeights.push({drop: drop, weight: dropWeightTotal});
 			if (drop.ignoreInInventory && KinkyDungeonInventoryGet(drop.name)) weight = 0;
+			if (drop.chance && KDRandom() > drop.chance) weight = 0;
 			dropWeightTotal += weight;
 		}
 
