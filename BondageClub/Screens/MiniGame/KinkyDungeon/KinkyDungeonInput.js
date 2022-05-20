@@ -294,8 +294,8 @@ function KDProcessInput(type, data) {
 			KDSendStatus('goddess', data.rep, 'helpChampion');
 			break;
 		case "aid":
+			KinkyDungeonChangeRep(data.rep, -KinkyDungeonAidManaCost(data.rep, data.value));
 			KinkyDungeonChangeMana(KinkyDungeonAidManaAmount(data.rep, data.value));
-			KinkyDungeonChangeRep(data.rep, -KinkyDungeonAidManaCost(data.rep));
 			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAidManaMe"), "purple", 2);
 			KDSendStatus('goddess', data.rep, 'helpMana');
 			break;

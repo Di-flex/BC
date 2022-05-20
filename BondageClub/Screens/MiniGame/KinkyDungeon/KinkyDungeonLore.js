@@ -72,6 +72,9 @@ function KinkyDungeonNewLore() {
 			}
 
 			//ServerAccountUpdate.QueueData({ KinkyDungeonExploredLore: Player.KinkyDungeonExploredLore });
+		} else {
+			KinkyDungeonSendActionMessage(4, TextGet("ItemPickupLoreOld"), "gray", 2);
+			KinkyDungeonCurrentLore = -(1 + Math.floor(Math.random() * 10));
 		}
 		result = true;
 	} else {

@@ -53,7 +53,7 @@ let KinkyDungeonStatsPresets = {
 	"Meditation": {category: "Magic", id: 13, cost: 2},
 	"QuickScribe": {category: "Magic", id: 56, cost: 2, block: ["Disorganized"]},
 	"FuukaCollar": {category: "Boss", id: "FuukaCollar", cost: -3, locked: true},
-	"BerserkerRage": {category: "Combat", id: "BerserkerRage", cost: 1},
+	"BerserkerRage": {category: "Combat", id: "BerserkerRage", cost: 3},
 	"UnstableMagic": {category: "Magic", id: "UnstableMagic", cost: 2},
 	"Vengeance": {category: "Enemies", id: "Vengeance", cost: -2},
 	"AbsoluteFocus": {category: "Magic", id: "AbsoluteFocus", cost: -1},
