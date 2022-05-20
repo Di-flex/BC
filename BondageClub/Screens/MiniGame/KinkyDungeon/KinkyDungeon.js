@@ -935,7 +935,7 @@ let KDDefaultAlt = ["tmb", "lib", "cry", "tmp"];
 
 function KDInitializeJourney(Journey) {
 	/**
-	 * @type {Record<string, string}
+	 * @type {Record<string, string>}
 	 */
 	let newIndex = {};
 

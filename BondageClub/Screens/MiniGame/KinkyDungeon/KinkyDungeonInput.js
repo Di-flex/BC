@@ -335,11 +335,12 @@ function KDProcessInput(type, data) {
 					}
 					KDGameData.RescueFlag = true;
 				}
+				return "Rescue";
 			} else {
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNoRescue"), "purple", 10);
 				KDSendStatus('goddess', data.rep, 'helpNoRescue');
+				return "FailRescue";
 			}
-			break;
 		case "penance":
 			KDGameData.KinkyDungeonPenance = true;
 			KDGameData.KDPenanceMode = "";

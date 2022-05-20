@@ -269,9 +269,10 @@ function KinkyDungeonHandleReputation() {
 					KDRepSelectionMode = "";
 				} else if (KDRepSelectionMode == "Rescue" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanRescue(rep, value)) {
 					// Rescue
-					KDSendInput("rescue", {rep: rep, value: value});
-					KinkyDungeonDrawState = "Game";
-					KDRepSelectionMode = "";
+					if (KDSendInput("rescue", {rep: rep, value: value}) != "FailRescue") {
+						KinkyDungeonDrawState = "Game";
+						KDRepSelectionMode = "";
+					}
 					return true;
 				} else if (KDRepSelectionMode == "Penance" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanPenance(rep, value)) {
 					// Penance
@@ -296,6 +297,7 @@ function KinkyDungeonHandleReputation() {
 }
 
 function KinkyDungeonDrawReputation() {
+	KinkyDungeonDrawMessages(true);
 	let i = 0;
 	let XX = 0;
 	let spacing = 60;

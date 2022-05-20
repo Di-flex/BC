@@ -1611,7 +1611,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 			// Some confusing stuff here to prevent recursion. If Link = true this means we are in the middle of linking, we dont want to do that
 			if (!KinkyDungeonCancelFlag) {
-				KinkyDungeonRemoveRestraint(restraint.Group, Keep, Link);
+				KinkyDungeonRemoveRestraint(restraint.Group, Keep, Link, undefined, undefined, r && r.dynamicLink&& restraint.name == r.dynamicLink.name);
 
 				r = KinkyDungeonGetRestraintItem(restraint.Group);
 				KinkyDungeonCancelFlag = r != undefined;
@@ -1628,7 +1628,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 			// If we did not link an item (or unlink one) then we proceed as normal
 			if (!KinkyDungeonCancelFlag) {
-				KinkyDungeonRemoveRestraint(restraint.Group, Keep, false);
+				KinkyDungeonRemoveRestraint(restraint.Group, Keep, false, undefined, undefined, r && r.dynamicLink&& restraint.name == r.dynamicLink.name);
 				if (restraint.remove)
 					for (let remove of restraint.remove) {
 						InventoryRemove(KinkyDungeonPlayer, remove);
@@ -1734,7 +1734,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 
-			if (!KinkyDungeonCancelFlag && !Ad && !UnLink) {
+			if (!KinkyDungeonCancelFlag && !Add && !UnLink) {
 				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(i, Keep);
 			}
 
@@ -1835,6 +1835,9 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, fact
 			KinkyDungeonAddRestraint(newRestraint, tightness, true, Lock, Keep, true, undefined, undefined, faction);
 			let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
 			if (newItem) newItem.dynamicLink = oldItem;
+			if (newRestraint.UnLink && KDRestraint(oldItem).Link == newRestraint.name) {
+				oldItem.name = newRestraint.UnLink;
+			}
 			if (KDRestraint(oldItem).Link)
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.name), "red", 2);
 			return true;
@@ -1867,9 +1870,9 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 				if (res && KDRestraint(res)) {
 					res.dynamicLink = UnLink.dynamicLink;
 				}
-				if (KDRestraint(item).UnLink)
+				if (KDRestraint(item).UnLink) {
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.name), "lightgreen", 2);
-				else
+				} else
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink"), "lightgreen", 2);
 				return true;
 			}
