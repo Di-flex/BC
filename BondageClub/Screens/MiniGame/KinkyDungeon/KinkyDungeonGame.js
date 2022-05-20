@@ -152,7 +152,7 @@ function KinkyDungeonNewGamePlus() {
 
 	MiniGameKinkyDungeonLevel = 1;
 	KinkyDungeonSetCheckPoint(0, true);
-	KinkyDungeonCreateMap(KinkyDungeonMapParams[0], 1);
+	KinkyDungeonCreateMap(KinkyDungeonMapParams.grv, 1);
 	KinkyDungeonNewGame += 1;
 }
 function KinkyDungeonInitialize(Level, Load) {
