@@ -892,7 +892,7 @@ let KinkyDungeonGameFlag = false;
 function KDInitializeJourney(Journey) {
 	KinkyDungeonMapIndex = [];
 
-	KDMapKeys.forEach((v,I)=>{
+	KDMapKeys.forEach((v,I)=>{ // filtering now handled by KDMapKeys which should only have valid areas
 		let II = I;
 		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
 		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
