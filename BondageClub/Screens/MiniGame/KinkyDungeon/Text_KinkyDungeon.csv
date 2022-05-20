@@ -3022,7 +3022,7 @@ KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
 KinkyDungeonSpellCommandWord,Command Word
 KinkyDungeonSpellTargetCommandWord,Select which creature to unlock
-KinkyDungeonSpellDescriptionCommandWord,"Channel 4 turns. On yourself: Removes all purple locks. On a creature: Reduces the target's binding by 20 points."
+KinkyDungeonSpellDescriptionCommandWord,"On yourself: Removes all purple locks. On a creature: Reduces the target's binding by 20 points."
 KinkyDungeonSpellCastCommandWord,You speak a command word!
 
 KinkyDungeonSpellLesserInvisibility,Lesser Invisibility
