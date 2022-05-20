@@ -90,7 +90,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":1, "lastthird":2, "ropeAnger": 1, "ropeRage": 1}, shrines: ["Rope"], allFloors: true,
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Knife", weight: 4}, {name: "EnchKnife", weight: 1}]},
 
-	{name: "Maidforce", faction: "Maidforce", bound: "Maid", clusterWith: "maid", playLine: "SubMaid", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "handcuffer", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail", "search"]), blindSight: 3, followRange: 1, AI: "hunt",
+	{name: "Maidforce", faction: "Maidforce", bound: "Maid", clusterWith: "maid", playLine: "SubMaid", color: "#814BB7", tags: KDMapInit(["leashing", "submissive", "opendoors", "human", "maid", "melee", "ropeRestraints", "ropeRestraints2", "handcuffer", "maidVibeRestraintsLimited", "maidRestraintsLight", "jail", "search"]), blindSight: 3, followRange: 1, AI: "hunt",
 		stealth: 2, noReveal: true, bindOnKneelSpecial: true, bindOnKneel: true, hitsfx: "Tickle", useLock: "Red",
 		specialCD: 3, specialAttack: "Bind", specialCDonAttack: true,
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:-2, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
@@ -345,7 +345,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 8, maxhp: 24, minLevel:5, weight:-11, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 3.6, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":16, "lastthird":5, "miniboss": -20, "open": 10, "passage": -10, "increasingWeight":1}, shrines: ["Leather"], floors:KDMapInit(["jng", "cry"]),
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Pick", weight: 2}, {name: "Knife", weight: 2}, {name: "PotionStamina", weight: 2}, {name: "Bola", weight: 5}, {name: "Rope", weight: 100, ignoreInInventory: true},]},
-	{name: "BanditPet", faction: "Bandit", clusterWith: "human", playLine: "Gagged", bound: "BanditPet", tags: KDMapInit(["opendoors", "cacheguard", "closedoors", "leashing", "bandit", "melee", "minor", "ballGagRestraints", "ropeRestraints", "tickleweakness", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
+	{name: "BanditPet", faction: "Bandit", clusterWith: "human", playLine: "Gagged", bound: "BanditPet", tags: KDMapInit(["opendoors", "submissive", "cacheguard", "closedoors", "leashing", "bandit", "melee", "minor", "ballGagRestraints", "ropeRestraints", "tickleweakness", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		master: {type: "BanditChief", range: 2, loose: true, aggressive: true}, difficulty: 0.05,
 		visionRadius: 6, maxhp: 8, minLevel:0, weight:13, movePoints: 1, attackPoints: 3, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"thirdhalf":-1, "increasingWeight":-1}, shrines: ["Leather"], floors:KDMapInit(["jng", "cry"]),

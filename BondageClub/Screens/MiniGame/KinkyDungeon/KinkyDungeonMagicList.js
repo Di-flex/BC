@@ -21,6 +21,8 @@ let KinkyDungeonSpellsStart = [
 		events: [{type: "DropKnife", trigger: "bulletHit"},]},
 	{name: "Analyze", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: [], level:1, type:"special", special: "analyze", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
+	{name: "CommandWord", sfx: "Magic", school: "Any", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
+		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: "", channel: 4},
 ];
 /**
  * These spells occur in the menu and the player can learn them
@@ -39,7 +41,7 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["FlameBlade", "Strength"],
 		// Always on
-		["Knife", "Analyze"],
+		["Knife", "Analyze", "CommandWord"],
 	],
 
 	//Page 2: Conjuration
@@ -53,7 +55,7 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["FloatingWeapon"],
 		// Always on
-		["Knife", "Analyze"],
+		["Knife", "Analyze", "CommandWord"],
 	],
 
 	//Page 3: Illusion
@@ -67,7 +69,7 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["TrueSight", "EnemySense", "FleetFooted"],
 		// Always on
-		["Knife", "Analyze"],
+		["Knife", "Analyze", "CommandWord"],
 	],
 
 	//Page 4

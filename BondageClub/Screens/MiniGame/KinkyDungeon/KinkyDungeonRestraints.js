@@ -402,6 +402,25 @@ function KinkyDungeonPlayerGetLockableRestraints() {
 }
 
 /**
+ * @param {string[]} Locks
+ * @returns {item[]}
+ */
+function KinkyDungeonPlayerGetRestraintsWithLocks(Locks) {
+	/**
+	 * @type {item[]}
+	 */
+	let ret = [];
+
+	for (let item of KinkyDungeonAllRestraint()) {
+		if (item.lock && Locks.includes(item.lock)) {
+			ret.push(item);
+		}
+	}
+
+	return ret;
+}
+
+/**
  *
  * @param {string} lock
  */

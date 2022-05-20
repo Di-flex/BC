@@ -585,6 +585,7 @@ let KDDialogue = {
 		}
 	},
 	"OfferWolfgirl": KDRecruitDialogue("OfferWolfgirl", "Nevermere", "Wolfgirl", "Metal", ["wolfGear"], 5, ["wolfGear", "wolfRestraints"], 8, ["wolfgirl", "trainer"], undefined, undefined, 0.5),
+	"OfferMaid": KDRecruitDialogue("OfferMaid", "Maidforce", "Maid", "Illusion", ["maidVibeRestraints"], 5, ["maidRestraints"], 13, ["maid"], undefined, ["submissive"], 0.5),
 	"AngelHelp": {
 		response: "Default",
 		clickFunction: (gagged) => {
@@ -1415,7 +1416,7 @@ function KDRecruitDialogue(name, faction, outfitName, goddess, restraints, restr
 							let diff = 35;
 							if (KDBasicCheck([goddess], ["Ghost"]) <= diff) {
 								KDGameData.CurrentDialogStage = "Force";
-								KDGameData.CurrentDialogMsg = "OfferRopesForceYes";
+								KDGameData.CurrentDialogMsg = name + "ForceYes";
 								KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck([goddess], ["Ghost"]));
 								KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
 							}

@@ -74,13 +74,16 @@ let KinkyDungeonTargetTile = null;
 let KinkyDungeonTargetTileLocation = "";
 
 const KinkyDungeonBaseLockChance = 0.1;
-const KinkyDungeonScalingLockChance = 0.1; // Lock chance per 10 floors. Does not affect the guaranteed locked chest each level
+const KinkyDungeonScalingLockChance = 0.1; // Lock chance per 6 floors. Does not affect the guaranteed locked chest each level
 const KinkyDungeonBlueLockChance = -0.1;
-const KinkyDungeonBlueLockChanceScaling = 0.015;
+const KinkyDungeonBlueLockChanceScaling = 0.015; // per floor
 const KinkyDungeonBlueLockChanceScalingMax = 0.4;
 const KinkyDungeonGoldLockChance = -0.25; // Chance that a blue lock is replaced with a gold lock
-const KinkyDungeonGoldLockChanceScaling = 0.015;
+const KinkyDungeonGoldLockChanceScaling = 0.015; // per floor
 const KinkyDungeonGoldLockChanceScalingMax = 0.25;
+const KinkyDungeonPurpleLockChance = 0; // Chance that a red lock is replaced with a purple lock
+const KinkyDungeonPurpleLockChanceScaling = 0.02; // per floor
+const KinkyDungeonPurpleLockChanceScalingMax = 0.6;
 
 let KinkyDungeonCurrentMaxEnemies = 1;
 
@@ -1702,16 +1705,22 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 		// Now we get the amount failed by
 		// Default: red lock
 		let locktype = KDRandom();
+		let locktype2 = KDRandom();
 
 		let modifiers = "";
 
 		let BlueChance = Math.min(KinkyDungeonBlueLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonBlueLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * KinkyDungeonBlueLockChanceScalingMax);
+		let PurpleChance = Math.min(KinkyDungeonPurpleLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonPurpleLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * KinkyDungeonPurpleLockChanceScalingMax);
 
 		if (KinkyDungeonStatsChoice.get("HighSecurity")) {
 			BlueChance *= 1.5;
 			BlueChance += 0.05;
+			PurpleChance *= 1.5;
+			PurpleChance += 0.05;
 		}
-		if (locktype < BlueChance) {
+		if (locktype2 < PurpleChance && locktype2*PurpleChance > locktype*BlueChance) {
+			return "Purple" + modifiers;
+		} else if (locktype < BlueChance) {
 			let GoldChance = Math.min(KinkyDungeonGoldLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * level * KinkyDungeonGoldLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.9 : 1.0) * KinkyDungeonGoldLockChanceScalingMax);
 
 			if (AllowGold && KDRandom() < GoldChance) return "Gold" + modifiers;

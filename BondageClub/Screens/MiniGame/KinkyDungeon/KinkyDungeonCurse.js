@@ -20,7 +20,7 @@ function KinkyDungeonCurseStruggle(group, Curse) {
 function KinkyDungeonCurseAvailable(sg, Curse) {
 	if (Curse == "5Keys" && KinkyDungeonRedKeys >= 5) {
 		return true;
-	} else if (Curse == "GhostLock" && KinkyDungeonItemCount("Ectoplasm") >= 10) {
+	} else if (Curse == "GhostLock" && KinkyDungeonItemCount("Ectoplasm") >= 25) {
 		return true;
 	} else if (Curse == "MistressKey" && KinkyDungeonItemCount("MistressKey") > 0) {
 		return true;
@@ -32,7 +32,7 @@ function KinkyDungeonCurseUnlock(group, Curse) {
 	let unlock = true;
 	let keep = false;
 	if (Curse == "GhostLock") {
-		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, -1);
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.Ectoplasm, -25);
 	} else if (Curse == "5Keys") {
 		KinkyDungeonRedKeys -= 5;
 	} else if (Curse == "MistressKey") {

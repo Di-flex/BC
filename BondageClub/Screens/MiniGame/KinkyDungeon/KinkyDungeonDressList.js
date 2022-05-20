@@ -1,4 +1,16 @@
 "use strict";
+
+// Outfit resource, uncached
+let KinkyDungeonOutfitsBase = [
+	{name: "OutfitDefault", dress: "Default", shop: false, rarity: 1},
+	{name: "JailUniform", dress: "JailUniform", shop: false, rarity: 1},
+	{name: "Wolfgirl", dress: "Wolfgirl", shop: false, rarity: 2},
+	{name: "Maid", dress: "Maid", shop: false, rarity: 2},
+	{name: "Dragon", dress: "Dragon", shop: false, rarity: 2},
+	{name: "Elven", dress: "Elven", shop: false, rarity: 2},
+	{name: "BlueSuitPrison", dress: "BlueSuitPrison", shop: false, rarity: 2},
+];
+
 /**
  * List off all dresses items
  * @type {Object.<outfitKey,KinkyDungeonDress>}

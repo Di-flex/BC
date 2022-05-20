@@ -937,6 +937,27 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			}
 		} else if (spell.special == "dress") {
 			KinkyDungeonSetDress(spell.outfit);
+		} else if (spell.special == "CommandWord") {
+			let en = KinkyDungeonEnemyAt(targetX, targetY);
+			if (en) {
+				if (en.boundLevel > 0) {
+					if (KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
+						en.ceasefire = 50;
+					} else if (!KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
+						en.allied = 100;
+					}
+					en.boundLevel = Math.max(0, en.boundLevel);
+					return "Cast";
+				}
+				return "Fail";
+			} else if (KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"]).length > 0) {
+				for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"])) {
+					KinkyDungeonLock(r, "");
+				}
+				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonPurpleLockRemove"), "yellow", 2);
+				return "Cast";
+			}
+			return "Fail";
 		} else if (spell.special == "weaponAttack") {
 			KinkyDungeonTargetingSpellWeapon = null;
 			let en = KinkyDungeonEnemyAt(targetX, targetY);

@@ -1518,7 +1518,7 @@ KinkyDungeonStruggleUnlockNoGreenKey,"The green padlock only accepts green keys.
 KinkyDungeonStruggleUnlockNoYellowKey,"The yellow padlock requires a red and a green key."
 KinkyDungeonStruggleUnlockNoBlueKey,"The magical lock only accepts blue keys and can't be picked."
 KinkyDungeonStruggleUnlockNoGoldKey,"The magical lock is guarded with powerful magic. You'll have to wait for it to wear off..."
-KinkyDungeonStruggleUnlockNoPurpleKey,"This lock requires a magic spell to unlock. It doesn't have a keyhole."
+KinkyDungeonStruggleUnlockNoPurpleKey,"This lock requires a Command Word to unlock. It doesn't have a keyhole."
 KinkyDungeonStruggleUnlockNoUnknownKey,"You don't have a key for this lock."
 KinkyDungeonStruggleCantPickBlueLock,"The lock seems to be magical and rejects all picking attempts!"
 KinkyDungeonStruggleCantPickGoldLock,"The lock is definitely magical and forces your pick out!"
@@ -1663,6 +1663,7 @@ KinkyRedLockAbr,""
 KinkyGreenLockAbr,"(G)"
 KinkyBlueLockAbr,"(B)"
 KinkyGoldLockAbr,"(G)"
+KinkyPurpleLockAbr,"(P)"
 KinkyBlindLockAbr,"(?)"
 KinkyYellowLockAbr,"(Y)"
 
@@ -3019,6 +3020,11 @@ KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
+KinkyDungeonSpellCommandWord,Command Word
+KinkyDungeonSpellTargetCommandWord,Select which creature to unlock
+KinkyDungeonSpellDescriptionCommandWord,"Channel 4 turns. On yourself: Removes all purple locks. On a creature: Reduces the target's binding by 20 points."
+KinkyDungeonSpellCastCommandWord,You speak a command word!
+
 KinkyDungeonSpellLesserInvisibility,Lesser Invisibility
 KinkyDungeonSpellTargetLesserInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionLesserInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
@@ -3721,6 +3727,7 @@ KinkyDungeonPunishPlayerHarsh,Your RestraintName punishes you and warns you with
 KinkyDungeonAlertEnemies,Your RestraintName lets out an alert!
 
 KinkyDungeonGoldLockRemove,A golden lock fades into a blue lock on one of your restraints!
+KinkyDungeonPurpleLockRemove,Your command word is heard and the purple lock(s) click and fall off!
 
 KDGameData.ConfirmAttack,Are you sure you want to attack?
 KinkyDungeonConfirmStairs,Are you sure you want to go to the next level? (Click self to confirm)
@@ -4449,6 +4456,32 @@ dOfferWolfgirlForce_YesGag,"(Moan and nod)"
 dOfferWolfgirlForce_No,"Never! (PERCENT chance to avoid)"
 dOfferWolfgirlForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)"
 
+
+rOfferMaid,"(The SPEAKER does a short bow as she sees you)|Greetings.|You seem to possess qualities we can make use of.|I would be glad to offer you a position..."
+rOfferMaidYes,"(The SPEAKER smiles briefly before clearing her throat)|Fantastic!|I have your uniform right here..."
+rOfferMaidYes_Yes,"(The SPEAKER buckles you in, pulling the lacing extra-tight...)|(You hear the click of a few locks going on...)|Wonderful. Your first task is to clean up this floor.|Good luck."
+rOfferMaidYes_No,"(The SPEAKER tilts her head and shrugs)|We are always prepared..."
+rOfferMaidNo,"(The SPEAKER nods)|Fair enough."
+rOfferMaidForce,"(The SPEAKER grins and pulls out a skimpy dress)|Might I remind you that you have made quite a few... enemies?|It would be a shame if you ran into one of them..."
+rOfferMaidForceYes,"(The SPEAKER nods proudly)|We are willing to made some changes to our records~"
+rOfferMaidForce_No,"(The SPEAKER frowns)|You won't know what hit you."
+rOfferMaidForce_Yes,"(The SPEAKER smiles)|I'm glad you made the right decision.|Now, your first task will be to clean up this floor.|Good luck."
+rOfferMaidForce_Failure,"(The SPEAKER suddenly moves faster than you can react)|(You feel a foot pressing on your back as you are forced down)|(She puts a uniform on you and locks it tight...)|You'll require additional training, I suppose..."
+
+dOfferMaid_Yes,"This sounds like an interesting opportunity."
+dOfferMaid_YesGag,"(Nod excitedly)"
+dOfferMaid_No,"No thanks, I know what that entails..."
+dOfferMaid_NoGag,"(Shake your head)"
+
+dOfferMaidYes_Yes,"Gladly!"
+dOfferMaidYes_YesGag,"(Accept the contract)"
+dOfferMaidYes_No,"W-where did you get that uniform? (Refuse)"
+dOfferMaidYes_NoGag,"(Refuse the contract)"
+
+dOfferMaidForce_Yes,"Fine. I'll sign it..."
+dOfferMaidForce_YesGag,"(Moan and nod)"
+dOfferMaidForce_No,"Never! (PERCENT chance to avoid)"
+dOfferMaidForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)"
 
 
 rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
