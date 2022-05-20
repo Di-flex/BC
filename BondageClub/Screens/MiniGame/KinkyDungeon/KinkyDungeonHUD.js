@@ -170,10 +170,11 @@ function KinkyDungeonDrawInputs() {
 
 			let color = "white";
 			let locktext = "";
-			if (KinkyDungeonBlindLevel < 1) {
+			if (KinkyDungeonBlindLevel != 999) {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
 				if (sg.lock == "Gold") {color = "#FFFF88"; locktext = TextGet("KinkyGoldLockAbr");}
+				if (sg.lock == "Purple") {color = "#cc2f7b"; locktext = TextGet("KinkyPurpLockAbr");}
 			} else {
 				color = "#cccccc";
 				if (sg.lock) {
@@ -218,10 +219,10 @@ function KinkyDungeonDrawInputs() {
 						MainCanvas.textAlign = "left";
 						let drawn = false;
 						for (let d of item.dynamicLink) {
-							if (KDRestraint(item) && (!KDRestraint(item).UnLink || d != KDRestraint(item).UnLink))
+							if (KDRestraint(item) && (!KDRestraint(item).UnLink || d.name != KDRestraint(item).UnLink))
 							{
 								drawn = true;
-								let msg = TextGet("Restraint" + d);
+								let msg = TextGet("Restraint" + d.name);
 								DrawText(msg, 1 + 530, 1 + MY + O * 50, "gray", "gray");
 								DrawText(msg, 530, MY + O * 50, "white", "gray");
 								O++;

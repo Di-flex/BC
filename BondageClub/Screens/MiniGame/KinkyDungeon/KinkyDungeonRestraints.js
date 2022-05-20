@@ -86,7 +86,7 @@ const KinkyDungeonStrictnessTable = new Map([
 	["ItemMouth2", ["ItemHead", "ItemEars"]],
 	["ItemMouth3", ["ItemHead", "ItemEars"]],
 	["ItemNeck", ["ItemMouth", "ItemArms"]],
-	["ItemArms", ["ItemArms", "ItemHands"]],
+	["ItemArms", ["ItemHands"]],
 	["ItemTorso", ["ItemArms", "ItemLegs", "ItemPelvis", "ItemBreast"]],
 	["ItemLegs", ["ItemFeet", "ItemBoots"]],
 	["ItemFeet", ["ItemBoots"]],
@@ -540,12 +540,19 @@ function KinkyDungeonStrictness(ApplyGhost, Group) {
 	if (ApplyGhost && (KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp())) return 0;
 	let strictness = 0;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (KDRestraint(inv).Group != Group && KDRestraint(inv).strictness && KDRestraint(inv).strictness > strictness)  {
+		if (KDRestraint(inv).Group != Group && ((KDRestraint(inv).strictness && KDRestraint(inv).strictness > strictness) || inv.dynamicLink))  {
 			let strictGroups = KinkyDungeonStrictnessTable.get(KDRestraint(inv).Group);
 			if (strictGroups) {
 				for (let s of strictGroups) {
 					if (s == Group) {
-						strictness += KDRestraint(inv).strictness;
+						if (KDRestraint(inv).strictness > strictness)
+							strictness = KDRestraint(inv).strictness;
+						if (inv.dynamicLink) {
+							for (let invLink of inv.dynamicLink) {
+								if (KDRestraint(invLink).strictness > strictness)
+									strictness = KDRestraint(invLink).strictness;
+							}
+						}
 						break;
 					}
 				}
@@ -563,12 +570,21 @@ function KinkyDungeonStrictness(ApplyGhost, Group) {
 function KinkyDungeonGetStrictnessItems(Group) {
 	let list = [];
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (KDRestraint(inv).Group != Group && KDRestraint(inv).strictness)  {
+		if (KDRestraint(inv).Group != Group && (KDRestraint(inv).strictness || inv.dynamicLink))  {
 			let strictGroups = KinkyDungeonStrictnessTable.get(KDRestraint(inv).Group);
 			if (strictGroups) {
 				for (let s of strictGroups) {
 					if (s == Group) {
-						list.push(KDRestraint(inv).name);
+						// Add the top item
+						if (KDRestraint(inv).strictness)
+							list.push(KDRestraint(inv).name);
+						// Add the items underneath it!!
+						if (inv.dynamicLink) {
+							for (let invLink of inv.dynamicLink) {
+								if (KDRestraint(invLink).strictness)
+									list.push(KDRestraint(invLink).name);
+							}
+						}
 						break;
 					}
 				}
@@ -1039,10 +1055,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMaxSpeed && KDRestraint(restraint).struggleMaxSpeed[StruggleType] != undefined)
 		data.escapeChance = Math.min(data.escapeChance, KDRestraint(restraint).struggleMaxSpeed[StruggleType]);
 
-	// Handle cases where you can't even attempt to unlock
+	// Handle cases where you can't even attempt to unlock or pick
 	if ((StruggleType == "Unlock" && !((restraint.lock == "Red" && KinkyDungeonRedKeys > 0) || (restraint.lock == "Blue" && KinkyDungeonBlueKeys > 0)))
-		|| (StruggleType == "Pick" && (restraint.lock == "Blue" || restraint.lock == "Gold"))) {
-		if (StruggleType == "Unlock" && ((KinkyDungeonBlindLevel < 1) || !(restraint.lock.includes("Blue") || restraint.lock.includes("Gold"))))
+		|| (StruggleType == "Pick" && (restraint.lock == "Blue" || restraint.lock == "Purple" || restraint.lock == "Gold"))) {
+		if (StruggleType == "Unlock")
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleUnlockNo" + ((KinkyDungeonBlindLevel > 0) ? "Unknown" : restraint.lock) + "Key"), "orange", 2);
 		else
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggleCantPick" + restraint.lock + "Lock"), "orange", 2);
@@ -1096,7 +1112,8 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 					|| (StruggleType == "Unlock" && restraint.unlockProgress >= 1 - data.escapeChance)
 					|| (StruggleType == "Remove" && progress >= 1 - data.escapeChance)
 					|| (progress >= 1 - data.escapeChance))
-				&& !(restraint.lock == "Blue" && StruggleType == "Pick")) {
+				&& !(restraint.lock == "Blue" && StruggleType == "Pick")
+				&& !(restraint.lock == "Purple" && StruggleType == "Pick")) {
 				Pass = "Success";
 				if (StruggleType == "Pick" || StruggleType == "Unlock") {
 					if (StruggleType == "Unlock") {
@@ -1327,6 +1344,7 @@ function KinkyDungeonGetLockMult(Lock) {
 	if (Lock == "Red") return 2.0;
 	if (Lock == "Blue") return 3.0;
 	if (Lock == "Gold") return 3.25;
+	if (Lock == "Purple") return 2.5;
 
 	return 1;
 }
@@ -1390,8 +1408,8 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			&& (!currentRestraint || currentRestraint.type != Restraint ||
 			(power <
 			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
-				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink, currentRestraint.oldLock))))
-			&& (!currentRestraint || !currentRestraint.dynamicLink || !currentRestraint.dynamicLink.includes(restraint.name))
+				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink))))
+			&& (!currentRestraint || !currentRestraint.dynamicLink || !currentRestraint.dynamicLink.some((item) => {return restraint.name == item.name;}))
 			&& (Bypass || restraint.bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
 
 			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
@@ -1473,10 +1491,10 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 
 		if (item.dynamicLink && item.dynamicLink.length > 0 && !NoLink) {
 			let link = item.dynamicLink[item.dynamicLink.length - 1];
-			if (!KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link), KDRestraint(item))) {
-				let lock = (item.oldLock && item.oldLock.length > 0) ? item.oldLock[item.oldLock.length - 1] : "";
+			if (!KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link.name), KDRestraint(item))) {
+				let lock = link.lock;
 				let mult = lock ? KinkyDungeonGetLockMult(lock) : 1;
-				power = Math.max(power, KDRestraint({name: link}).power * mult);
+				power = Math.max(power, KDRestraint({name: link.name}).power * mult);
 			}
 		}
 		return power;
@@ -1487,31 +1505,30 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 /**
  * @param {restraint} oldRestraint
  * @param {restraint} newRestraint
- * @param {string[]} [dynamicLink]
- * @param {string[]} [oldLock]
+ * @param {item[]} [dynamicLink]
  * @param {string} [newLock]
  * @returns {boolean}
  */
-function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink, oldLock, newLock) {
+function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink, newLock) {
 	if (oldRestraint && newRestraint) {
-		if ((!oldRestraint.strictness || newRestraint.strictness >= oldRestraint.strictness)
-			&& (newRestraint.power >= oldRestraint.power - 1)) {
-			let power = 0;
-			if (dynamicLink && oldLock) {
-				let link = dynamicLink[dynamicLink.length - 1];
-				let lock = oldLock[oldLock.length - 1];
-				if (link) {
-					let r = KinkyDungeonGetRestraintByName(link);
-					if (r) {
-						let p = KinkyDungeonGetLockMult(lock) * r.power;
-						if (p > power) power = p;
-					}
+		//if ((!oldRestraint.strictness || newRestraint.strictness >= oldRestraint.strictness)
+		//&& (newRestraint.power >= oldRestraint.power - 1)) {
+		let power = 0;
+		if (dynamicLink) {
+			let link = dynamicLink[dynamicLink.length - 1];
+			if (link) {
+				let lock = link.lock;
+				let r = KinkyDungeonGetRestraintByName(link.name);
+				if (r) {
+					let p = KinkyDungeonGetLockMult(lock) * r.power;
+					if (p > power) power = p;
 				}
 			}
-			// Allow for a power multiplier, set to 20 currently for basically always cover
-			let linkable = KinkyDungeonIsLinkable(oldRestraint, newRestraint);
-			return KinkyDungeonGetLockMult(newLock) * newRestraint.power * (linkable ? 20 : 1) > power && linkable;
 		}
+		// Allow for a power multiplier, set to 20 currently for basically always cover
+		let linkable = KinkyDungeonIsLinkable(oldRestraint, newRestraint);
+		return KinkyDungeonGetLockMult(newLock) * newRestraint.power * (linkable ? 20 : 1) > power && linkable;
+		//}
 	}
 	return false;
 }
@@ -1539,9 +1556,11 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
-	if (!r || (!r.dynamicLink || !r.dynamicLink.includes(restraint.name)) && !KDRestraint(r).enchanted
-		&& ((power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
-			|| (r && KDRestraint(r) && KinkyDungeonLinkableAndStricter(KDRestraint(r), restraint, r.dynamicLink, r.oldLock)))) {
+	if (!r || (!r.dynamicLink || !r.dynamicLink.some((item) => {return restraint.name == item.name;})) && !KDRestraint(r).enchanted
+		&& (
+			(power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
+			|| (r && KDRestraint(r) && KinkyDungeonLinkableAndStricter(KDRestraint(r), restraint, r.dynamicLink))
+		)) {
 		let ret = KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, false, true, events, faction);
 		if (Trapped) {
 			let rest = KinkyDungeonGetRestraintItem(restraint.Group);
@@ -1827,34 +1846,17 @@ function KinkyDungeonRestraintTypes(ShrineFilter) {
  */
 function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, faction) {
 	if (newRestraint && oldItem && oldItem.type == Restraint) {
-		let oldLock = [];
-		let oldFaction = [];
-		let oldTightness = [];
+		/**
+		 * @type {item[]}
+		 */
 		let dynamicLink = [];
-		let oldEvents = [];
-		if (oldItem.oldLock) oldLock = oldItem.oldLock;
-		if (oldItem.oldFaction) oldFaction = oldItem.oldFaction;
-		if (oldItem.oldTightness) oldTightness = oldItem.oldTightness;
-		if (oldItem.oldEvents) oldEvents = oldItem.oldEvents;
 		if (oldItem.dynamicLink) dynamicLink = oldItem.dynamicLink;
-		let olock = oldItem.lock ? oldItem.lock : "";
-		let ofaction = oldItem.faction ? oldItem.faction : "";
-		let oldtight = oldItem.tightness ? oldItem.tightness : 0;
-		let oevents = oldItem.events ? oldItem.events : [];
-		let oldlink = oldItem.name;
-		oldLock.push(olock);
-		oldFaction.push(ofaction);
-		oldTightness.push(oldtight);
-		oldEvents.push(oevents);
+		let oldlink = oldItem;
 		dynamicLink.push(oldlink);
 		if (newRestraint) {
 			KinkyDungeonAddRestraint(newRestraint, tightness, true, Lock, Keep, true, undefined, undefined, faction);
 			let newItem = KinkyDungeonGetRestraintItem(newRestraint.Group);
-			if (newItem) newItem.oldLock = oldLock;
-			if (newItem) newItem.oldFaction = oldFaction;
-			if (newItem) newItem.oldTightness = oldTightness;
 			if (newItem) newItem.dynamicLink = dynamicLink;
-			if (newItem) newItem.oldEvents = oldEvents;
 			if (KDRestraint(oldItem).Link)
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.name), "red", 2);
 			return true;
@@ -1872,59 +1874,24 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, fact
 function KinkyDungeonUnLinkItem(item, Keep) {
 	//if (!data.add && !data.shrine)
 	if (item.type == Restraint) {
-		let UnLink = "";
+		/**
+		 * @type {item}
+		 */
+		let UnLink = null;
 		let dynamic = false;
 		if (item.dynamicLink && item.dynamicLink.length > 0) {
 			UnLink = item.dynamicLink[item.dynamicLink.length - 1];
 			dynamic = true;
 		}
 		if (UnLink) {
-			let newRestraint = KinkyDungeonGetRestraintByName(UnLink);
-			let oldLock = "";
-			let oldFaction = undefined;
-			let oldTightness = 0;
-			/** @type {KinkyDungeonEvent[]} */
-			let oldEvents = undefined;
-			if (item.oldLock && item.oldLock.length > 0) {
-				oldLock = item.oldLock[item.oldLock.length - 1];
-			}
-			if (item.oldFaction && item.oldFaction.length > 0) {
-				oldFaction = item.oldFaction[item.oldFaction.length - 1];
-			}
-			if (item.oldTightness && item.oldTightness.length > 0) {
-				oldTightness = item.oldTightness[item.oldTightness.length - 1];
-			}
-			if (item.oldEvents && item.oldEvents.length > 0) {
-				oldEvents = item.oldEvents[item.oldEvents.length - 1];
-			}
+			let newRestraint = KinkyDungeonGetRestraintByName(UnLink.name);
 			if (newRestraint) {
 				if (item.dynamicLink && dynamic)
 					item.dynamicLink.splice(item.dynamicLink.length-1, 1);
-				if (item.oldLock)
-					item.oldLock.splice(item.oldLock.length-1, 1);
-				if (item.oldFaction)
-					item.oldFaction.splice(item.oldFaction.length-1, 1);
-				if (item.oldTightness)
-					item.oldTightness.splice(item.oldTightness.length-1, 1);
-				if (item.oldEvents)
-					item.oldEvents.splice(item.oldEvents.length-1, 1);
-				KinkyDungeonAddRestraint(newRestraint, oldTightness, true, oldLock ? oldLock : "", Keep, undefined, undefined, undefined, oldFaction);
+				KinkyDungeonAddRestraint(newRestraint, UnLink.tightness, true, UnLink.lock, Keep, undefined, undefined, undefined, UnLink.faction);
 				let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
-				if (res && KDRestraint(res) && KDRestraint(res).name == newRestraint.name) res.events = oldEvents;
 				if (res && KDRestraint(res) && item.dynamicLink && item.dynamicLink.length > 0) {
 					res.dynamicLink = item.dynamicLink;
-				}
-				if (res && KDRestraint(res) && item.oldLock && item.oldLock.length > 0) {
-					res.oldLock = item.oldLock;
-				}
-				if (res && KDRestraint(res) && item.oldFaction && item.oldFaction.length > 0) {
-					res.oldFaction = item.oldFaction;
-				}
-				if (res && KDRestraint(res) && item.oldTightness && item.oldTightness.length > 0) {
-					res.oldTightness = item.oldTightness;
-				}
-				if (res && KDRestraint(res) && item.oldEvents && item.oldEvents.length > 0) {
-					res.oldEvents = item.oldEvents;
 				}
 				if (KDRestraint(item).UnLink)
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.name), "lightgreen", 2);

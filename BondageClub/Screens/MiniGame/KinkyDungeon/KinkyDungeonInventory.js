@@ -423,13 +423,15 @@ function KinkyDungeonDrawInventory() {
 
 function KinkyDungeonSendInventoryEvent(Event, data) {
 	for (let item of KinkyDungeonAllRestraint()) {
-		if (item.oldEvents)
-			for (let oldEvents of item.oldEvents) {
-				for (let e of oldEvents) {
-					if (e.inheritLinked && e.trigger === Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
-						KinkyDungeonHandleInventoryEvent(Event, e, item, data);
+		if (item.dynamicLink)
+			for (let d_item of item.dynamicLink) {
+				let oldEvents = d_item.events;
+				if (oldEvents)
+					for (let e of oldEvents) {
+						if (e.inheritLinked && e.trigger === Event && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
+							KinkyDungeonHandleInventoryEvent(Event, e, item, data);
+						}
 					}
-				}
 			}
 		if (item.events) {
 			for (let e of item.events) {

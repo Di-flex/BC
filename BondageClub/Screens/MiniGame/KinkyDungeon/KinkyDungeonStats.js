@@ -286,26 +286,26 @@ let KDOrigStamina = 36;
 let KDOrigMana = 36;
 let KDOrigDistraction = 36;
 
-function KinkyDungeonChangeDistraction(Amount) {
+function KinkyDungeonChangeDistraction(Amount, NoFloater) {
 	KinkyDungeonStatDistraction += Amount;
 	KinkyDungeonStatDistraction = Math.min(Math.max(0, KinkyDungeonStatDistraction), KinkyDungeonStatDistractionMax);
-	if (Math.abs(KDOrigDistraction - Math.floor(KinkyDungeonStatDistraction)) >= 0.99) {
+	if (!NoFloater && Math.abs(KDOrigDistraction - Math.floor(KinkyDungeonStatDistraction)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatDistraction) - KDOrigDistraction, "#ff00ff", undefined, undefined, " ap");
 		KDOrigDistraction = Math.floor(KinkyDungeonStatDistraction);
 	}
 }
-function KinkyDungeonChangeStamina(Amount) {
+function KinkyDungeonChangeStamina(Amount, NoFloater) {
 	KinkyDungeonStatStamina += Amount;
 	KinkyDungeonStatStamina = Math.min(Math.max(0, KinkyDungeonStatStamina), KinkyDungeonStatStaminaMax);
-	if (Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
+	if (!NoFloater && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66", undefined, undefined, " sp");
 		KDOrigStamina = Math.floor(KinkyDungeonStatStamina);
 	}
 }
-function KinkyDungeonChangeMana(Amount) {
+function KinkyDungeonChangeMana(Amount, NoFloater) {
 	KinkyDungeonStatMana += Amount;
 	KinkyDungeonStatMana = Math.min(Math.max(0, KinkyDungeonStatMana), KinkyDungeonStatManaMax);
-	if (Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
+	if (!NoFloater && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff", undefined, undefined, " mp");
 		KDOrigMana = Math.floor(KinkyDungeonStatMana);
 	}

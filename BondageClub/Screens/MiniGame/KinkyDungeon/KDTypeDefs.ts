@@ -28,16 +28,8 @@ type item = {
 	tetherLength?: number,
 	/** Used for Gold locks only, determines which floor the lock will release*/
 	lockTimer?: number,
-	/** Stores a list of restraint names for the linked item system*/
-	dynamicLink?: string[],
-	/** Stores linked item locks*/
-	oldLock?: string[],
-	/** Stores linked item factions*/
-	oldFaction?: string[],
-	/** Stores linked item tightness*/
-	oldTightness?: number[],
-	/** Stores linked item tightness*/
-	oldEvents?: KinkyDungeonEvent[][],
+	/** Stores a list of restraint items for the linked item system*/
+	dynamicLink?: item[],
 	/** Generic item data, able to be manipulated thru events*/
 	data?: Record<string, any>,
 	/** Escape progress tracking*/
