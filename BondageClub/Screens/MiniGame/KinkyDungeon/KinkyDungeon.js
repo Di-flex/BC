@@ -892,12 +892,12 @@ let KinkyDungeonGameFlag = false;
 function KDInitializeJourney(Journey) {
 	KinkyDungeonMapIndex = [];
 
-	for (let [I,v] of KinkyDungeonMapParams) {
+	KDMapKeys.forEach((v,I)=>{
 		let II = I;
 		if (II > 3 && II < 11) II = Math.floor(4*KDRandom());
 		else if (II > 13) II = 11 + Math.floor(2*KDRandom());
-		KinkyDungeonMapIndex.push(II);
-	}
+		KinkyDungeonMapIndex.push(KDMapKeys[II]);
+	});
 
 	if (Journey)
 		KDGameData.Journey = Journey;

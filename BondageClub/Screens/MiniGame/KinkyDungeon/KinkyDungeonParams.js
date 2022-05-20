@@ -2,7 +2,7 @@
 /**
  * @type {Record<mapKey,floorParams>}
  */
-let KinkyDungeonMapParams = {
+const KinkyDungeonMapParams = {
 	"grv":{//DungeonName0,-Graveyard-
 		"background" : "RainyForstPathNight",
 		"openness" : 3, // Openness of rooms
@@ -798,3 +798,7 @@ let KinkyDungeonMapParams = {
 			{Type: "Will", Weight: 7},]
 	},
 };
+/**
+ * @type {mapKey[]}
+ */
+const KDMapKeys = ["grv","dun","jun","tpl","tmb","lib","frc"]
