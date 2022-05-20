@@ -2508,7 +2508,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && !KDHostile(Enemy) && (KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && !KinkyDungeonAggressive(Enemy) && (KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
