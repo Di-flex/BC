@@ -31,7 +31,7 @@ function KinkyDungeonHandleStepOffTraps(x, y, moveX, moveY) {
 							KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
 							'0', requireTags, true);
 						if (Enemy) {
-							KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 6, true, undefined, undefined, true, undefined, true);
+							KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 6, true, undefined, undefined, true, undefined, true, 2.9);
 							if (Enemy.tags.has("minor")) spawned += 0.4;
 							else spawned += 1;
 						}
