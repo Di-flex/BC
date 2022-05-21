@@ -221,7 +221,7 @@ function KinkyDungeonDefaultStats(Load) {
 		}
 		if (KinkyDungeonStatsChoice.get("StartWolfgirl")) {
 			for (let i = 0; i < 30; i++) {
-				let r = KinkyDungeonGetRestraint({tags: ["wolfGear", "wolfRestraints"]}, 12, "grv", true, "Red");
+				let r = KinkyDungeonGetRestraint({tags: (i < 3 ? ["wolfCuffs"] : ["wolfGear", "wolfRestraints"])}, 12, "grv", true, "Red");
 				if (r)
 					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Red");
 			}
