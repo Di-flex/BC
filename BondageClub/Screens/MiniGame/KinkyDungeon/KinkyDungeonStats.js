@@ -634,7 +634,7 @@ function KinkyDungeonLegsBlocked() {
 
 function KinkyDungeonCalculateSlowLevel() {
 	KinkyDungeonSlowLevel = 0;
-	if (KinkyDungeonPlayer.IsMounted() || KinkyDungeonPlayer.Effect.indexOf("Tethered") >= 0 || KinkyDungeonPlayer.IsEnclose()) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
+	if (KinkyDungeonAllRestraint().some((r) => {return KDRestraint(r).immobile;})) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
 	else {
 		for (let inv of KinkyDungeonAllRestraint()) {
 			if ((KDRestraint(inv).blockfeet || KDRestraint(inv).hobble)) KinkyDungeonSlowLevel += 1;

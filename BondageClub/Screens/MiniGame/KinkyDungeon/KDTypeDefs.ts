@@ -233,6 +233,8 @@ type restraint = {
 	nonbinding?: boolean,
 	/** Instantly forces a high slow level, for stuff like slime */
 	freeze?: boolean,
+	/** Immobilizes the player */
+	immobile?: boolean,
 	/** The item CAN be trapped, which triggers when you struggle out */
 	trappable?: boolean,
 	/** The item can only be removed through a special condition known as a curse */

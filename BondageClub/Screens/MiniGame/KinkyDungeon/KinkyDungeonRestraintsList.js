@@ -343,12 +343,12 @@ const KinkyDungeonRestraints = [
 	// Slime, added by slime effects. Easy to struggle out, not debilitating, but slows you greatly
 	{removePrison: true, name: "StickySlime", Asset: "Web", Type: "Wrapped", Color: "#ff77ff", Group: "ItemArms", bindarms: true, bindhands: true, power: 0.1, weight: 1, freeze: true, escapeChance: {"Struggle": 10, "Cut": 10, "Remove": 10}, enemyTags: {"slime":100}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Slime"]},
 	// Barrel trap, always possible to struggle out but takes time
-	{removePrison: true, name: "BarrelTrap", Asset: "SmallWoodenBox", Color: "Default", Group: "ItemDevices", power: 2, weight: 1, freeze: true, alwaysStruggleable: true,
+	{removePrison: true, name: "BarrelTrap", Asset: "SmallWoodenBox", Color: "Default", Group: "ItemDevices", power: 2, weight: 1, immobile: true, alwaysStruggleable: true,
 		escapeChance: {"Struggle": 1.0, "Cut": 0.2, "Remove": 0.05, "Pick": -1.0, "Unlock": -1.0}, struggleMaxSpeed: {"Struggle": 0.05, "Cut": 0.03, "Remove": 0.05}, helpChance: {"Remove": 0.4, "Pick": 0.2, "Unlock": 1.0},
 		limitChance: {"Struggle": 0.01, "Cut": 0, "Remove": 0.01, "Pick": 0, "Unlock": 0},
 		enemyTags: {"barrel":100}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Furniture"], ignoreNear: true, ignoreSpells: true},
 	// Bed trap, always possible to struggle out but takes time
-	{removePrison: true, name: "BedTrap", Asset: "Bed", Color: ["#523629", "#4c6885", "#808284"], Group: "ItemDevices", power: 2, weight: 1, freeze: true, alwaysStruggleable: true,
+	{removePrison: true, name: "BedTrap", Asset: "Bed", Color: ["#523629", "#4c6885", "#808284"], Group: "ItemDevices", power: 2, weight: 1, immobile: true, alwaysStruggleable: true,
 		escapeChance: {"Struggle": 1.0, "Cut": 0.2, "Remove": 0.05, "Pick": -1.0, "Unlock": -1.0}, struggleMaxSpeed: {"Struggle": 0.05, "Cut": 0.03, "Remove": 0.05}, helpChance: {"Remove": 0.4, "Pick": 0.2, "Unlock": 1.0},
 		limitChance: {"Struggle": 0.01, "Cut": 0, "Remove": 0.01, "Pick": 0, "Unlock": 0},
 		alwaysDress: [

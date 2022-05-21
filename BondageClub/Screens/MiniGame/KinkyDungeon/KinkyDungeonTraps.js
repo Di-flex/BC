@@ -175,9 +175,9 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 			}
 			if (msg) {
 				if (msg == "Default")
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2);
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2 + KinkyDungeonSlowMoveTurns);
 				else
-					KinkyDungeonSendTextMessage(10, msg, color, 2);
+					KinkyDungeonSendTextMessage(10, msg, color, 2 + KinkyDungeonSlowMoveTurns);
 			}
 		}
 	}
