@@ -846,7 +846,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	}
 
 	let spellRange = spell.range * KinkyDungeonMultiplicativeStat(-KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "spellRange"));
-
+	let bulletfired = null;
+	let target = null;
 
 	if (spell.type == "bolt") {
 		let size = (spell.size) ? spell.size : 1;
@@ -866,6 +867,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}, miscast);
 		b.visual_x = entity.x;
 		b.visual_y = entity.y;
+		bulletfired = b;
 	} else if (spell.type == "inert" || spell.type == "dot") {
 		let sz = spell.size;
 		if (!sz) sz = 1;
@@ -873,7 +875,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 			tX = entity.x + moveDirection.x;
 			tY = entity.y + moveDirection.y;
 		}
-		KinkyDungeonLaunchBullet(tX, tY,
+		let b = KinkyDungeonLaunchBullet(tX, tY,
 			moveDirection.x,moveDirection.y,
 			0, {
 				noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay +
@@ -881,6 +883,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
 				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell
 			}, miscast);
+		bulletfired = b;
 	}  else if (spell.type == "hit") {
 		let sz = spell.size;
 		if (!sz) sz = 1;
@@ -894,6 +897,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit,
 				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}};
 		KinkyDungeonBulletHit(b, 1);
+		bulletfired = b;
 	} else if (spell.type == "buff") {
 		let aoe = spell.aoe;
 		let casted = false;
@@ -901,6 +905,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		if (Math.sqrt((KinkyDungeonPlayerEntity.x - targetX) * (KinkyDungeonPlayerEntity.x - targetX) + (KinkyDungeonPlayerEntity.y - targetY) * (KinkyDungeonPlayerEntity.y - targetY)) <= aoe) {
 			for (let buff of spell.buffs) {
 				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff);
+				if (KinkyDungeonPlayerEntity.x == targetX && KinkyDungeonPlayerEntity.y == targetY) target = KinkyDungeonPlayerEntity;
 				casted = true;
 			}
 		}
@@ -909,6 +914,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				for (let buff of spell.buffs) {
 					if (!e.buffs) e.buffs = [];
 					KinkyDungeonApplyBuff(e.buffs, buff);
+					if (e.x == targetX && e.y == targetY) target = e;
 					casted = true;
 				}
 			}
@@ -1006,7 +1012,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 		KDSendSpellCast(spell.name);
 
-		KinkyDungeonSendEvent("playerCast", {spell: spell, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
+		KinkyDungeonSendEvent("playerCast", {spell: spell, bulletfired: bulletfired, target: target, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags});
 
 		//let cost = spell.staminacost ? spell.staminacost : KinkyDungeonGetCost(spell.level);
 
@@ -1024,6 +1030,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				KinkyDungeonAlert = 3;//Math.max(spell.noise, KinkyDungeonAlert);
 		}
 		KinkyDungeonLastAction = "Spell";
+	} else {
+		KinkyDungeonSendEvent("spellCast", {spell: spell, bulletfired: bulletfired, target: target, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags,
+			enemy: enemy, bullet: bullet, player: player});
 	}
 
 	return "Cast";

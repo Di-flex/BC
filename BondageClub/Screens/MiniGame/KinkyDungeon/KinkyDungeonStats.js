@@ -233,8 +233,15 @@ function KinkyDungeonDefaultStats(Load) {
 		if (KinkyDungeonStatsChoice.get("StartObsidian")) {
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["obsidianRestraints", "genericChastity", "genericToys"]}, 12, "grv", true, "Red");
-				if (r)
+				if (r) {
 					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Purple");
+					let item = KinkyDungeonGetRestraintItem(r.Group);
+					if (item && KDRestraint(item).Link) {
+						let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
+						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
+						//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+					}
+				}
 			}
 			let outfit = {name: "Obsidian", type: Outfit};
 			if (!KinkyDungeonInventoryGet("Obsidian")) KinkyDungeonInventoryAdd(outfit);

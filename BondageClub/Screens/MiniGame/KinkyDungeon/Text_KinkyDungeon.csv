@@ -221,6 +221,9 @@ KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
 KinkyDungeonBuffEvasion,Afterimage
 
+
+KinkyDungeonBuffBondageBusterCharge,"Charging..."
+
 KinkyDungeonDifficulty,Choose game mode:
 KinkyDungeonDifficulty0,Beginner: Get a save code every 3 levels, autosave after each floor
 KinkyDungeonDifficulty1,"Roguelike: No save codes, only autosave"
@@ -639,7 +642,7 @@ KinkyDungeonInventoryItemTheEncaser,Metamorphosis
 KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
 KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
 KinkyDungeonInventoryItemBondageBuster,Bondage Buster
-KinkyDungeonInventoryItemBondageBusterDesc,"Can channel for 2 turns to fire a beam that deals 30 electric damage and briefly stuns the first target hit."
+KinkyDungeonInventoryItemBondageBusterDesc,"Can fire a beam (1 turn channel) that deals 15 electric damage, but charges when not fired, for up to 85 bonus damage over 10 turns."
 KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
 KinkyDungeonInventoryItemMoiraiScissors,Moirai's Scissors
 KinkyDungeonInventoryItemMoiraiScissorsDesc,"Can enter a frenzy for 10 turns to attack twice per turn."
@@ -4236,7 +4239,7 @@ KinkyDungeonRemindJailChaseZombieJailbreak,"EnemyName: Give... Hug..."
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
 KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
 KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
-KinkyDungeonSpecialBondageBuster,"1% energy to charge and fire a beam thadeals 30 electric damage."
+KinkyDungeonSpecialBondageBuster,"0.5% energy (+0.25% per charge) to channel and fire a beam that deals 15 + 8.5/charge electric damage."
 KinkyDungeonSpecialMoiraiScissors,"5% energy to enter a frenzy for 10 turns, attacking twice per turn."
 KinkyDungeonSpecialSlimethrower,Create a '+' shaped pool of slime that deals 35 glue damage per hit
 

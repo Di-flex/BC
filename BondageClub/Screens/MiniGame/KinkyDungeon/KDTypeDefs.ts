@@ -680,6 +680,7 @@ interface KinkyDungeonEvent {
 	buff?: any;
 	lock?: string;
 	msg?: string;
+	color?: string;
 	/** Vibe */
 	edgeOnly?: boolean;
 	/** Vibe */

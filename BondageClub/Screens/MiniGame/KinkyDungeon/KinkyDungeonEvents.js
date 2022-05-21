@@ -762,7 +762,37 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, weapon, *): void>>}
  */
 const KDEventMapWeapon = {
+	"spellCast": {
+		"BondageBustBoost": (e, weapon, data) => {
+			if (!e.chance || KDRandom() < e.chance) {
+				if (data.spell && data.spell.name == "BondageBustBeam" && data.bulletfired) {
+					if (data.bulletfired.bullet && data.bulletfired.bullet.damage) {
+						let dmgMult = e.power;
+						let charge = KinkyDungeonPlayerBuffs[weapon.name + "Charge"] ? KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration : 0;
+						data.bulletfired.bullet.damage.damage = data.bulletfired.bullet.damage.damage + dmgMult * charge;
+						KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration = 0;
+
+						if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost * charge);
+						if (e.sfx && charge > 9) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+					}
+				}
+
+			}
+		},
+	},
 	"tick": {
+		"Charge": (e, weapon, data) => {
+			if (KDGameData.AncientEnergyLevel > 0 && KinkyDungeonSlowMoveTurns < 1) {
+				let currentCharge = KinkyDungeonPlayerBuffs[weapon.name + "Charge"] ? KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration : 0;
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+					id: weapon.name + "Charge",
+					type: e.buffType,
+					aura: e.color,
+					power: 1,
+					duration: Math.min(e.power, currentCharge + 2),
+				});
+			}
+		},
 		"Buff": (e, weapon, data) => {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
 				id: weapon.name,

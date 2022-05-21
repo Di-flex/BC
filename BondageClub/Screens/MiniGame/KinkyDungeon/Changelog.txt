@@ -854,6 +854,7 @@ Spell Balance:
 - Lots of new perks
 - Goddesses now expect you to be wearing their uniform when you are their champion...
 - Shrines now remove the most powerful 3 restraints instead of all of them
+- Bondage buster now charges when held and deals up to 100 damage on a single shot after 10 turns of charging
 
 TODO ValidationFindBlockCycles to prevent bugs
 
