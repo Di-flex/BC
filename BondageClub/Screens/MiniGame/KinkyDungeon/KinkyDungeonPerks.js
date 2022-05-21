@@ -71,7 +71,7 @@ let KinkyDungeonStatsPresets = {
 
 	"StartMaid": {category: "Start", id: "StartMaid", cost: -2, outfit: "Maid", block: ["StartLatex", "StartWolfgirl", "StartObsidian"]},
 	"StartLatex": {category: "Start", id: "StartLatex", cost: -1, outfit: "BlueSuitPrison", block: ["StartMaid", "StartWolfgirl", "StartObsidian"]},
-	"StartWolfgirl": {category: "Start", id: "StartWolfgirl", cost: -1, outfit: "Wolfgirl", block: ["StartMaid", "StartLatex", "StartObsidian"]},
+	"StartWolfgirl": {category: "Start", id: "StartWolfgirl", cost: -2, outfit: "Wolfgirl", block: ["StartMaid", "StartLatex", "StartObsidian"]},
 	"StartObsidian": {category: "Start", id: "StartObsidian", cost: -2, outfit: "Obsidian", block: ["StartMaid", "StartLatex", "StartWolfgirl"]},
 
 

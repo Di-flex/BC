@@ -342,6 +342,10 @@ function KDistChebyshev(x, y) {
  */
 function KinkyDungeonLoad() {
 	KDCategories = Object.assign([], KDCategoriesStart);
+	for (let c of KDCategories) {
+		c.buffs = [];
+		c.debuffs = [];
+	}
 
 	for (let stat of Object.entries(KinkyDungeonStatsPresets)) {
 		for (let c of KDCategories) {
