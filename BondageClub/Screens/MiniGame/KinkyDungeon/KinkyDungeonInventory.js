@@ -267,7 +267,7 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 
 			if (item.type == Restraint){
 				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
-				else ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Asset}.png`});
+				else ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`});
 			}
 			else if (item.type == LooseRestraint && (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)){
 				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
