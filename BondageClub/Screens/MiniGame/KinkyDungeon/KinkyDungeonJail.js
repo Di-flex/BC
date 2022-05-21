@@ -594,7 +594,11 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				KDGameData.GuardApplyTime = 0;
 			} else if (newRestraint) {
-				KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonJailerStartAdding").replace("RestraintName", TextGet("Restraint" + newRestraint.name)), "yellow", 2);
+				KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonJailerStartAdding")
+					.replace("RestraintName", TextGet("Restraint" + newRestraint.name))
+					.replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)),
+				"yellow", 2);
+
 				KDGameData.GuardApplyTime += delta;
 			}
 		}
