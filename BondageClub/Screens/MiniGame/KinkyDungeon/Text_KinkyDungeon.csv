@@ -1827,7 +1827,7 @@ RestraintExpAnkleCuffs,Blacksteel Ankle Cuffs
 RestraintExpAnkleCuffsDesc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffsDesc2,"They are not coming off without the key."
 KinkyDungeonLinkExpAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintExpAnkleCuffs2,Linked Ankle Cuffs
+RestraintExpAnkleCuffs2,Linked Blacksteel Cuffs
 RestraintExpAnkleCuffs2Desc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffs2Desc2,"They are not coming off without the key."
 KinkyDungeonUnLinkExpAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2062,7 +2062,7 @@ RestraintMithrilAnkleCuffs,Mithril Ankle Cuffs
 RestraintMithrilAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonLinkMithrilAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintMithrilAnkleCuffs2,Linked Ankle Cuffs
+RestraintMithrilAnkleCuffs2,Linked Mithril Cuffs
 RestraintMithrilAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2270,7 +2270,7 @@ RestraintDragonAnkleCuffs,Dragonscale Cuffs
 RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonLinkDragonAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintDragonAnkleCuffs2,Linked Cuffs
+RestraintDragonAnkleCuffs2,Linked Scale Cuffs
 RestraintDragonAnkleCuffs2Desc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffs2Desc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonUnLinkDragonAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2342,7 +2342,7 @@ RestraintMaidAnkleCuffs,Steel Cuffs
 RestraintMaidAnkleCuffsDesc,"A pair of steel cuffs used by the Maidforce."
 RestraintMaidAnkleCuffsDesc2,"They are made of solid steel."
 KinkyDungeonLinkMaidAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintMaidAnkleCuffs2,Linked Cuffs
+RestraintMaidAnkleCuffs2,Linked Steel Cuffs
 RestraintMaidAnkleCuffs2Desc,"A pair of steel cuffs used by the Maidforce."
 RestraintMaidAnkleCuffs2Desc2,"They are made of solid steel."
 KinkyDungeonUnLinkMaidAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2391,7 +2391,7 @@ RestraintObsidianAnkleCuffs,Obsidian Ankle Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonLinkObsidianAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintObsidianAnkleCuffs2,Linked Ankle Cuffs
+RestraintObsidianAnkleCuffs2,Linked Obsidian Cuffs
 RestraintObsidianAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2426,7 +2426,7 @@ RestraintCrystalAnkleCuffs,Crystal Ankle Cuffs
 RestraintCrystalAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintCrystalAnkleCuffsDesc2,"It's made of a glowing, brittle material."
 KinkyDungeonLinkCrystalAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintCrystalAnkleCuffs2,Linked Ankle Cuffs
+RestraintCrystalAnkleCuffs2,Linked Crystal Cuffs
 RestraintCrystalAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintCrystalAnkleCuffs2Desc2,"It's made of a glowing, brittle material."
 KinkyDungeonUnLinkCrystalAnkleCuffs2,"The ankle cuff chain detaches!"
