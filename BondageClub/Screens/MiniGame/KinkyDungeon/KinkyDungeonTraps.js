@@ -74,7 +74,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 			let color = "red";
 			if (tile.Trap === "SpawnEnemies") {
 				let radius = tile.Power > 4 ? 4 : 2;
-				let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius);
+				let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius, true, undefined, undefined, true, "Enemy", true, 1.5);
 				if (created > 0) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
