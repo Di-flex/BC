@@ -58,7 +58,7 @@ let KinkyDungeonStatsPresets = {
 	"Conjurer": {category: "Magic", id: 35, cost: 5},
 	"LostTechnology": {category: "Map", id: 23, cost: -1},
 	"Blessed": {category: "Map", id: 8, cost: 3},
-	"Cursed": {category: "Enemies", id: 9, cost: -2},
+	"Cursed": {category: "Enemies", id: 9, cost: -3},
 	"Studious": {category: "Magic", id: 12, cost: 1},
 	"Novice": {category: "Magic", id: 7, cost: -1},
 	"Meditation": {category: "Magic", id: 13, cost: 2},
