@@ -238,7 +238,7 @@ function KinkyDungeonDefaultStats(Load) {
 					let item = KinkyDungeonGetRestraintItem(r.Group);
 					if (item && KDRestraint(item).Link) {
 						let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
-						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
+						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "Purple", false, undefined, undefined, undefined, item.faction);
 						//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
 					}
 				}
