@@ -851,6 +851,7 @@ Spell Balance:
 - Traps have delay of 1 again, but now vary in location slightly
 - Traps now release smoke!
 - Added purple locks, which require a command word to remove instead of a key
+- Lots of new perks
 
 
 TODO ValidationFindBlockCycles to prevent bugs

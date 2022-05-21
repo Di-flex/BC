@@ -154,7 +154,7 @@ function KinkyDungeonNewGamePlus() {
 	KDInitializeJourney(KDGameData.Journey);
 
 	MiniGameKinkyDungeonLevel = 1;
-	KinkyDungeonSetCheckPoint(0, true);
+	KinkyDungeonSetCheckPoint("grv", true);
 	KinkyDungeonCreateMap(KinkyDungeonMapParams.grv, 1);
 	KinkyDungeonNewGame += 1;
 }
