@@ -186,7 +186,7 @@ function KinkyDungeonDrawInputs() {
 				if (sg.lock == "Red") {color = "#ff8888"; locktext = TextGet("KinkyRedLockAbr");}
 				if (sg.lock == "Blue") {color = "#8888FF"; locktext = TextGet("KinkyBlueLockAbr");}
 				if (sg.lock == "Gold") {color = "#FFFF88"; locktext = TextGet("KinkyGoldLockAbr");}
-				if (sg.lock == "Purple") {color = "#cc2f7b"; locktext = TextGet("KinkyPurpLockAbr");}
+				if (sg.lock == "Purple") {color = "#cc2f7b"; locktext = TextGet("KinkyPurpleLockAbr");}
 			} else {
 				color = "#cccccc";
 				if (sg.lock) {

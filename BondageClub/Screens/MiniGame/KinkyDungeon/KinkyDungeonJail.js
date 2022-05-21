@@ -352,11 +352,12 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			// Determine if the jailer should change restraints
 			let missingJailUniform = KinkyDungeonMissingJailUniform();
 			let tooMuchRestraint = KinkyDungeonTooMuchRestraint();
+			let lockableRestraint = KinkyDungeonLockableItems();
 			let changeForFun = false;
 			let release = KinkyDungeonCheckRelease();
 
 			// Determine which action to take
-			if (release >= 0) {
+			if (release >= 0 && lockableRestraint.length == 0) {
 				KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonRemindJailRelease" + release).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 4);
 				KDGameData.PrisonerState = 'parole';
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
@@ -368,8 +369,19 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				}
 
 			}
-			else if (missingJailUniform.length > 0 || (tooMuchRestraint.length > 0 && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) || changeForFun) {
-				if (missingJailUniform.length > 0 || KDRandom() < 0.2) {
+			else if (lockableRestraint.length > 0 || missingJailUniform.length > 0 || (tooMuchRestraint.length > 0 && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) || changeForFun) {
+				if (lockableRestraint.length > 0) {
+					let group = "";
+					if (lockableRestraint.includes("ItemMouth3")) group = "ItemMouth3";
+					else if (lockableRestraint.includes("ItemMouth2")) group = "ItemMouth2";
+					else if (lockableRestraint.includes("ItemMouth")) group = "ItemMouth";
+					else group = lockableRestraint[Math.floor(lockableRestraint.length * KDRandom())];
+					if (group) {
+						KinkyDungeonJailGuard().CurrentAction = "jailLockRestraints";
+						KinkyDungeonJailGuard().CurrentRestraintSwapGroup = group;
+					}
+					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonJailerLock").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 2);
+				} else if (missingJailUniform.length > 0 || KDRandom() < 0.2) {
 					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1) && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) {
 						let group = "";
 						if (tooMuchRestraint.includes("ItemMouth3")) group = "ItemMouth3";
@@ -416,7 +428,10 @@ function KinkyDungeonHandleJailSpawns(delta) {
 		}
 
 		// Main jail cell loop
-		if (KinkyDungeonJailGuard().CurrentAction === "jailTease" || KinkyDungeonJailGuard().CurrentAction === "jailAddRestraints" || KinkyDungeonJailGuard().CurrentAction === "jailRemoveRestraints") {
+		if (KinkyDungeonJailGuard().CurrentAction === "jailTease"
+			|| KinkyDungeonJailGuard().CurrentAction === "jailAddRestraints"
+			|| KinkyDungeonJailGuard().CurrentAction === "jailRemoveRestraints"
+			|| KinkyDungeonJailGuard().CurrentAction === "jailLockRestraints") {
 			KinkyDungeonJailHandleCellActions(xx, yy, securityLevel, delta);
 		} else
 			KDGameData.GuardApplyTime = 0;
@@ -475,6 +490,23 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	}
 }
 
+function KinkyDungeonLockableItems() {
+	let LockableGroups = [];
+	for (let gr of KinkyDungeonStruggleGroupsBase) {
+		let g = gr;
+		if (gr == "ItemM") {
+			if (KinkyDungeonGetRestraintItem("ItemMouth2")) g = "ItemMouth3";
+			else if (KinkyDungeonGetRestraintItem("ItemMouth")) g = "ItemMouth2";
+			else g = "ItemMouth";
+		}
+		let currentItem = KinkyDungeonGetRestraintItem(g);
+		if (currentItem && !currentItem.lock && KinkyDungeonIsLockable(KDRestraint(currentItem))) {
+			LockableGroups.push(g);
+		}
+	}
+	return LockableGroups;
+}
+
 function KinkyDungeonMissingJailUniform() {
 	let MissingGroups = [];
 	for (let gr of KinkyDungeonStruggleGroupsBase) {
@@ -486,7 +518,11 @@ function KinkyDungeonMissingJailUniform() {
 		}
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
-		if (rest && (!currentItem || KinkyDungeonIsLinkable(KDRestraint(currentItem), rest)) && (KinkyDungeonStatsChoice.get("arousalMode") || !rest.arousalMode) && (KinkyDungeonStatsChoice.get("arousalModePlug") || rest.Group != "ItemButt") && (KinkyDungeonStatsChoice.get("arousalModePiercing") || !rest.piercing)) {
+		if (rest
+			&& (!currentItem || KinkyDungeonIsLinkable(KDRestraint(currentItem), rest))
+			&& (KinkyDungeonStatsChoice.get("arousalMode") || !rest.arousalMode)
+			&& (KinkyDungeonStatsChoice.get("arousalModePlug") || rest.Group != "ItemButt")
+			&& (KinkyDungeonStatsChoice.get("arousalModePiercing") || !rest.piercing)) {
 			MissingGroups.push(g);
 		}
 	}
@@ -504,9 +540,9 @@ function KinkyDungeonTooMuchRestraint() {
 	for (let g of Groups) {
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
-		let lockMult = 1;//currentItem ? Math.max(1, KinkyDungeonGetLockMult(currentItem.lock) - 1) : 0;
+		let lockMult = currentItem ? Math.max(1, KinkyDungeonGetLockMult(currentItem.lock) - 0.5) : (currentItem && KinkyDungeonIsLockable(KDRestraint(currentItem)) ? 0.4 : 1);
 		if (
-			(!rest && currentItem) // There shouldnt be one here
+			(!rest && currentItem && KDRestraint(currentItem).power * lockMult <= Math.max(10.1, rest ? rest.power : 10)) // There shouldnt be one here
 			|| (rest && currentItem && currentItem && rest.name != currentItem.name && (KDRestraint(currentItem).power < rest.power || KDRestraint(currentItem).power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
 			if (!currentItem || (!KDRestraint(currentItem).curse && !KDRestraint(currentItem).enchanted))
@@ -558,8 +594,38 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				KDGameData.GuardApplyTime = 0;
 			} else if (newRestraint) {
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerStartAdding").replace("RestraintName", TextGet("Restraint" + newRestraint.name)), "yellow", 2);
+				KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonJailerStartAdding").replace("RestraintName", TextGet("Restraint" + newRestraint.name)), "yellow", 2);
 				KDGameData.GuardApplyTime += delta;
+			}
+		}
+
+		if (KinkyDungeonJailGuard().CurrentAction === "jailLockRestraints") {
+			KDGameData.KinkyDungeonGuardTimer = Math.max(KDGameData.KinkyDungeonGuardTimer, 2);
+			let oldRestraintItem = KinkyDungeonGetRestraintItem(KinkyDungeonJailGuard().CurrentRestraintSwapGroup);
+			if (KDGameData.GuardApplyTime > applyTime) {
+				if (oldRestraintItem && !oldRestraintItem.lock && KinkyDungeonIsLockable(KDRestraint(oldRestraintItem))) {
+					let lock = KinkyDungeonGenerateLock(true, MiniGameKinkyDungeonLevel, false);
+					KinkyDungeonLock(oldRestraintItem, lock);
+					let msg = TextGet("KinkyDungeonJailerFinishLocking")
+						.replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name))
+						.replace("RestraintName", TextGet("Restraint"+oldRestraintItem.name))
+						.replace("LockType", TextGet("Kinky" + lock + "Lock"));
+					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
+				}
+				KinkyDungeonJailGuard().CurrentAction = "jailWander";
+				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;
+				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
+				KDGameData.GuardApplyTime = 0;
+			} else if (oldRestraintItem) {
+				KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonJailerStartLocking")
+					.replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name))
+					.replace("RestraintName", TextGet("Restraint" + oldRestraintItem.name)), "yellow", 2);
+				KDGameData.GuardApplyTime += delta;
+			} else {
+				KinkyDungeonJailGuard().CurrentAction = "jailWander";
+				KinkyDungeonJailGuard().gx = KinkyDungeonJailGuard().x;
+				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
+				KDGameData.GuardApplyTime = 0;
 			}
 		}
 
@@ -569,7 +635,8 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 			if (KDGameData.GuardApplyTime > applyTime) {
 				if (oldRestraintItem && KDRestraint(oldRestraintItem) && !KDRestraint(oldRestraintItem).noJailRemove) {
 					KinkyDungeonRemoveRestraint(KDRestraint(oldRestraintItem).Group, false, false, false);
-					let msg = TextGet("KinkyDungeonRemoveRestraints").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
+					let msg = TextGet("KinkyDungeonRemoveRestraints")
+						.replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 					//let msg = TextGet("Attack" + KinkyDungeonJailGuard().Enemy.name + "RemoveRestraints");
 					if (oldRestraintItem) msg = msg.replace("OldRestraintName", TextGet("Restraint"+oldRestraintItem.name));
 					KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
@@ -579,7 +646,9 @@ function KinkyDungeonJailHandleCellActions(xx, yy, level, delta) {
 				KinkyDungeonJailGuard().gy = KinkyDungeonJailGuard().y;
 				KDGameData.GuardApplyTime = 0;
 			} else if (oldRestraintItem) {
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerStartRemoving").replace("RestraintName", TextGet("Restraint" + oldRestraintItem.name)), "yellow", 2);
+				KinkyDungeonSendActionMessage(4, TextGet("KinkyDungeonJailerStartRemoving")
+					.replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name))
+					.replace("RestraintName", TextGet("Restraint" + oldRestraintItem.name)), "yellow", 2);
 				KDGameData.GuardApplyTime += delta;
 			} else {
 				KinkyDungeonJailGuard().CurrentAction = "jailWander";
@@ -785,7 +854,6 @@ function KinkyDungeonDefeat() {
 	KDGameData.JailTurns = 0;
 	KDGameData.PrisonerState = "jail";
 	KDGameData.AlertTimer = 0;
-	KinkyDungeonLoseJailKeys();
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	KDSendStatus('jailed');
 	KDSendEvent('jail');
@@ -868,6 +936,7 @@ function KinkyDungeonDefeat() {
 	KinkyDungeonDressPlayer();
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
 
+	KDGameData.JailKey = false;
 	KinkyDungeonSaveGame();
 
 	//if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
@@ -875,6 +944,9 @@ function KinkyDungeonDefeat() {
 	//} else {
 	KinkyDungeonPlayerEntity.x = nearestJail.x;
 	KinkyDungeonPlayerEntity.y = nearestJail.y;
+
+	KinkyDungeonLoseJailKeys();
+
 	let leash = KinkyDungeonGetRestraintItem("ItemNeckRestraints");
 	if (leash && (leash.tx || leash.ty)) {
 		leash.tx = undefined;
