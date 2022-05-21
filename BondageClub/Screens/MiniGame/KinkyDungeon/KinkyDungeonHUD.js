@@ -895,7 +895,14 @@ function KinkyDungeonHandleHUD() {
 				if (item)
 					KinkyDungeonInventoryAdd(item);
 				return true;
-			} else
+			}
+			if (MouseIn(1500, 320, 300, 64)) {
+				let saveData = KinkyDungeonSaveGame(true);
+				KinkyDungeonState = "Save";
+				ElementCreateTextArea("saveDataField");
+				ElementValue("saveDataField", saveData);
+				return true;
+			}
 			if (MouseIn(1100, 260, 300, 64)) {
 				KinkyDungeonPlayerEntity.x = KinkyDungeonEndPosition.x;
 				KinkyDungeonPlayerEntity.y = KinkyDungeonEndPosition.y;

@@ -605,6 +605,7 @@ function KinkyDungeonDrawGame() {
 				ElementPosition("DebugItem", 1650, 212, 300, 64);
 				DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
 				DrawButton(1100, 260, 300, 64, "Teleport to stairs", "White", "");
+				DrawButton(1500, 320, 300, 64, "Get save code", "White", "");
 				DrawButton(1100, 320, 300, 64, "Enter parole mode", "White", "");
 			}
 		}
