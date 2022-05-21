@@ -183,17 +183,15 @@ const KinkyDungeonRestraints = [
 			{Item: "CatsuitPanties", Group: "SuitLower", Color: ['#473488'], override: true}],
 		maxstamina: 0.5, enemyTags: {"dressRestraints" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Panties"]},
 
+	//region Fuuka's stuff
 	{inventory: true, curse: "GhostLock", name: "MikoCollar", Asset: "HighCollar", Color: ["#ffffff", "#AA2222"],Group: "ItemNeck", magic: true, power: 20, weight: 0, difficultyBonus: 10,
 		escapeChance: {"Struggle": -100, "Cut": -0.8, "Remove": -100}, enemyTags: {}, playerTags: {}, minLevel: 0, allFloors: true, shrine: [],
 		events: [{trigger: "kill", type: "MikoGhost"}],
 	},
-
 	// Generic stronger gag
 	{inventory: true, name: "MikoGag", Asset: "OTNPlugGag", Type: "Plug", gag: 1.0, Color: ["#ffffff", "#AA2222", "#ffffff"], Group: "ItemMouth", power: 9, weight: 2, DefaultLock: "Blue", magic: true,
 		escapeChance: {"Struggle": -0.1, "Cut": 0.2, "Remove": 0.15, "Pick": 0.07},
 		maxstamina: 0.6, enemyTags: {"mikoRestraints" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Leather", "Gags"]},
-
-
 	{inventory: true, name: "MikoDress", remove: ["Cloth", "Bra"], Type: "Strap", Asset: "LeatherArmbinder", strictness: 0.25, Color: ['#ffffff'], Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,
 		escapeChance: {"Struggle": -0.1, "Cut": 0.2, "Remove": -0.2, "Pick": 0.15}, helpChance: {"Struggle": -0.1, "Cut": 0.2, "Remove": 0.025},
 		limitChance: {"Struggle": 0.125, "Cut": 0.125, "Remove": 0.1, "Unlock": 0.5},
@@ -203,6 +201,7 @@ const KinkyDungeonRestraints = [
 			{Item: "LatexCorset1", Group: "Corset", Color: ['#ffffff'], override: true},
 			{Item: "CatsuitPanties", Group: "SuitLower", Color: ['#AA2222'], override: true}],
 		maxstamina: 0.5, enemyTags: {"mikoRestraints" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Panties"]},
+	//endregion
 
 	{inventory: true, name: "DressBra", Asset: "FuturisticBra2", Color: ['#6B48E0', '#F8BD01', '#6B48E0', '#6B48E0', '#F8BD01', '#6B48E0'], Group: "ItemBreast", chastitybra: true, power: 8, weight: -2,
 		escapeChance: {"Struggle": -0.5, "Cut": -0.05, "Remove": 0.4, "Pick": 0.15}, DefaultLock: "Red", bypass: true,
