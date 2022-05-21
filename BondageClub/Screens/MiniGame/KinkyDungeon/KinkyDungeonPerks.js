@@ -66,7 +66,7 @@ let KinkyDungeonStatsPresets = {
 	"FuukaCollar": {category: "Boss", id: "FuukaCollar", cost: -3, locked: true},
 	"BerserkerRage": {category: "Combat", id: "BerserkerRage", cost: 3},
 	"UnstableMagic": {category: "Magic", id: "UnstableMagic", cost: 2},
-	"Vengeance": {category: "Enemies", id: "Vengeance", cost: -2},
+	"Vengeance": {category: "Enemies", id: "Vengeance", cost: -1},
 	"AbsoluteFocus": {category: "Magic", id: "AbsoluteFocus", cost: -1},
 
 	"StartMaid": {category: "Start", id: "StartMaid", cost: -2, outfit: "Maid", block: ["StartLatex", "StartWolfgirl", "StartObsidian"]},
