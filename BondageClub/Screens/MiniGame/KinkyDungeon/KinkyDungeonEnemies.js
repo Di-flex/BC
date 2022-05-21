@@ -576,25 +576,24 @@ function KinkyDungeonCapture(enemy) {
 		if (KDGameData.ChampionCurrent < KDChampionMax) {
 			msg = "KinkyDungeonCaptureGoddess";
 			let disapproval = 0;
-			if (KinkyDungeonGoddessRep[KDGameData.Champion] > 10) {
-				// Is the player wearing something related to the goddess?
-				let uniform = ["Rope", "Leather", "Metal", "Latex"];
-				if (uniform.includes(KDGameData.Champion)) uniform = [KDGameData.Champion];
-				let restraints = [];
-				for (let u of uniform) {
-					for (let r of KinkyDungeonGetRestraintsWithShrine(u, true)) {
-						restraints.push(r);
-					}
+			// Is the player wearing something related to the goddess?
+			let uniform = ["Rope", "Leather", "Metal", "Latex"];
+			if (uniform.includes(KDGameData.Champion)) uniform = [KDGameData.Champion];
+			let restraints = [];
+			for (let u of uniform) {
+				for (let r of KinkyDungeonGetRestraintsWithShrine(u, true)) {
+					restraints.push(r);
 				}
-				let minAmount = 1;
-				if (KinkyDungeonGoddessRep[KDGameData.Champion] > 30) minAmount = 3;
-				if (restraints.length < minAmount) {
-					msg = "KinkyDungeonCaptureGoddess" + (minAmount == 1 ? "Low" : "None") + (uniform.includes(KDGameData.Champion) ? "Uniform" : "Restraint");
-					if (minAmount == 1)
-						disapproval = 1;
-					else
-						disapproval = 2;
-				}
+			}
+			let minAmount = 1;
+			if (KinkyDungeonGoddessRep[KDGameData.Champion] > 10) minAmount = 2;
+			if (KinkyDungeonGoddessRep[KDGameData.Champion] > 30) minAmount = 3;
+			if (restraints.length < minAmount) {
+				msg = "KinkyDungeonCaptureGoddess" + (minAmount == 1 ? "Low" : "None") + (uniform.includes(KDGameData.Champion) ? "Uniform" : "Restraint");
+				if (minAmount == 1)
+					disapproval = 1;
+				else
+					disapproval = 2;
 			}
 			if (disapproval == 0) {
 				KinkyDungeonChangeMana(3);

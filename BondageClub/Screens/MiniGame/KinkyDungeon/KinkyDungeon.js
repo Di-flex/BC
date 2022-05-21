@@ -947,9 +947,9 @@ function KDInitializeJourney(Journey) {
 		let randList = Array.from(Object.keys(newIndex));
 		for (let i = randList.length - 1; i >= 0; i--) {
 			let j = Math.floor(KDRandom() * (i + 1));
-			let temp = newIndex[i];
-			newIndex[i] = newIndex[j];
-			newIndex[j] = temp;
+			let temp = randList[i];
+			randList[i] = randList[j];
+			randList[j] = temp;
 		}
 		let ii = 0;
 		for (let index of Object.keys(newIndex)) {

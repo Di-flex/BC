@@ -1419,7 +1419,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 						playerTypes[Math.floor(KDRandom() * playerTypes.length)]
 						: KinkyDungeonGenerateShrine(Floor));
 				let tile = 'A';
-				if (type != "Orb" && shrineTypes.includes(type)) type = "";
+				if (type != "Orb" && shrineTypes.includes(type) && KDRandom() < 0.5) type = "";
 				if (type == "Orb") {
 					if (orbs < 2) {
 						tile = 'O';
