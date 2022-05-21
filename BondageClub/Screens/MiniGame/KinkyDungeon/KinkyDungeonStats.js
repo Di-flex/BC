@@ -461,7 +461,7 @@ function KinkyDungeonUpdateStats(delta) {
 				if (KinkyDungeonCanPlayWithSelf() && !KinkyDungeonInDanger()) {
 					if (!KinkyDungeonStatsChoice.get("Purity")) {
 						KinkyDungeonDoPlayWithSelf();
-						KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPlaySelfAutomatic"), "#FF5BE9", 5);
+						KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPlaySelfAutomatic" + (KinkyDungeonIsArmsBound() ? "Bound" : "")), "#FF5BE9", 5);
 					} else {
 						KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonPlaySelfAutomaticPurity"), "#FF5BE9", 5);
 					}
