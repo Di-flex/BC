@@ -23,7 +23,7 @@ let KDStealthyDamageMult = 0.7;
 let KDStealthyEvaMult = 0.8;
 let KDStealthyEnemyCountMult = 1.7;
 let KDBoundPowerMult = 0.4;
-let KDBerserkerAmp = 0.4;
+let KDBerserkerAmp = 0.3;
 let KDUnstableAmp = 0.6;
 
 let KinkyDungeonOpenObjects = KinkyDungeonTransparentObjects; // Objects bullets can pass thru
