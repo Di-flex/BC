@@ -2311,7 +2311,7 @@ function KinkyDungeonClickGame(Level) {
 							KinkyDungeonSleepTime = 100;
 						}
 					} else if (!KinkyDungeonFastMove || Math.max(Math.abs(KinkyDungeonTargetX - KinkyDungeonPlayerEntity.x), Math.abs(KinkyDungeonTargetY - KinkyDungeonPlayerEntity.y)) <= 1) {
-						KDSendInput("move", {dir: KinkyDungeonMoveDirection, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor});
+						KDSendInput("move", {dir: KinkyDungeonMoveDirection, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
 					}
 				}
 			}
@@ -2361,7 +2361,7 @@ function KinkyDungeonListenKeyMove() {
 
 		if (moveDirection) {
 			if (KinkyDungeonLastMoveTimerStart < performance.now() && KinkyDungeonLastMoveTimerStart > 0) {
-				KDSendInput("move", {dir: moveDirection, delta: 1, AllowInteract: KinkyDungeonLastMoveTimer == 0, AutoDoor: KinkyDungeonToggleAutoDoor});
+				KDSendInput("move", {dir: moveDirection, delta: 1, AllowInteract: KinkyDungeonLastMoveTimer == 0, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
 				KinkyDungeonLastMoveTimer = performance.now() + KinkyDungeonLastMoveTimerCooldown;
 			} else if (KinkyDungeonLastMoveTimerStart == 0) {
 				KinkyDungeonLastMoveTimerStart = performance.now()+ KinkyDungeonLastMoveTimerCooldownStart;
@@ -2408,7 +2408,7 @@ function KinkyDungeonGameKeyDown() {
 	*/
 
 	if (moveDirection) {
-		KDSendInput("move", {dir: moveDirection, delta: 1, AutoDoor: KinkyDungeonToggleAutoDoor});
+		KDSendInput("move", {dir: moveDirection, delta: 1, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
 	// @ts-ignore
 	} else if (KinkyDungeonKeySpell.includes(KinkyDungeonKeybindingCurrentKey)) {
 		// @ts-ignore
@@ -2520,7 +2520,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && !KinkyDungeonAggressive(Enemy) && (KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && (!KinkyDungeonAggressive(Enemy) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);

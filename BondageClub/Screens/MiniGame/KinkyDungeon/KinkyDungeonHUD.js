@@ -35,6 +35,7 @@ const KinkyDungeonLastChatTimeout = 10000;
 
 let KinkyDungeonStatBarHeight = 100;
 let KinkyDungeonToggleAutoDoor = false;
+let KinkyDungeonToggleAutoPass = false;
 
 let KinkyDungeonFastMove = true;
 let KinkyDungeonFastMovePath = [];
@@ -345,7 +346,8 @@ function KinkyDungeonDrawInputs() {
 
 	let logtxt = KinkyDungeonNewLoreList.length > 0 ? TextGet("KinkyDungeonLogbookN").replace("N", KinkyDungeonNewLoreList.length): TextGet("KinkyDungeonLogbook");
 	DrawButton(1030, 935, 165, 50, logtxt, "white");
-	DrawButton(1220, 935, 295, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
+	DrawButton(1370, 935, 150, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
+	DrawButton(1210, 935, 150, 50, TextGet("KinkyDungeonAutoPass" + (KinkyDungeonToggleAutoPass ? "On" : "Off")), KinkyDungeonToggleAutoPass ? "white" : "#AAAAAA");
 
 	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
@@ -661,8 +663,11 @@ function KinkyDungeonHandleHUD() {
 				}
 			}
 		} else {
-			if (MouseIn(1220, 935, 295, 50)) {
+			if (MouseIn(1380, 935, 145, 50)) {
 				KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor;
+				return true;
+			} else if (MouseIn(1210, 935, 145, 50)) {
+				KinkyDungeonToggleAutoPass = !KinkyDungeonToggleAutoPass;
 				return true;
 			}
 		}

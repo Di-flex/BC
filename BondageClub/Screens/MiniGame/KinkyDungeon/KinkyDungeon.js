@@ -705,7 +705,7 @@ function KinkyDungeonRun() {
 						let next = KinkyDungeonFastMovePath[0];
 						KinkyDungeonFastMovePath.splice(0, 1);
 						if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
-							KDSendInput("move", {dir: {x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor});
+							KDSendInput("move", {dir: {x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
 						else KinkyDungeonFastMovePath = [];
 					}
 					KinkyDungeonSleepTime = CommonTime() + 100;
@@ -721,7 +721,7 @@ function KinkyDungeonRun() {
 				}
 			} else if (KinkyDungeonAutoWait) {
 				if (CommonTime() > KinkyDungeonSleepTime) {
-					KDSendInput("move", {dir: {x:0, y: 0, delta: 0}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor});
+					KDSendInput("move", {dir: {x:0, y: 0, delta: 0}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
 					KinkyDungeonSleepTime = CommonTime() + (KinkyDungeonFastWait ? 100 : 300);
 				}
 			} else KinkyDungeonSleepTime = CommonTime() + 100;

@@ -17,6 +17,7 @@ function KDProcessInput(type, data) {
 	switch (type) {
 		case "move":
 			KinkyDungeonToggleAutoDoor = data.AutoDoor;
+			KinkyDungeonToggleAutoPass = data.AutoPass;
 			KinkyDungeonMove(data.dir, data.delta, data.AllowInteract);
 			break;
 		case "setMoveDirection":

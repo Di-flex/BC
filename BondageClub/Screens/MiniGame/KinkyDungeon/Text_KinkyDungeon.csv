@@ -1689,8 +1689,10 @@ KinkyDungeonDropGreenKey,"You drop the magic key due to your bound hands!"
 
 KinkyDungeonLogbook,Logbook
 KinkyDungeonLogbookN,Logbook (N)
-KinkyDungeonAutoDoorOn,"Closing a door..."
-KinkyDungeonAutoDoorOff,"Close a door"
+KinkyDungeonAutoPassOn,"Passing..."
+KinkyDungeonAutoPassOff,"Pass NPCs"
+KinkyDungeonAutoDoorOn,"Closing..."
+KinkyDungeonAutoDoorOff,"Close door"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonPickDoor,"Pick"
