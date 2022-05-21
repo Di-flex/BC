@@ -265,8 +265,14 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			if ((item.type == Restraint || item.type == LooseRestraint) && KDRestraint(item).AssetGroup) Group = KDRestraint(item).AssetGroup;
 			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
 
-			if (item.type == Restraint) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Asset}.png`});
-			else if (item.type == LooseRestraint && (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)) ret.push({name: KDRestraint(item).name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`});
+			if (item.type == Restraint){
+				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
+				else ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).AssetGroup ? KDRestraint(item).AssetGroup : KDRestraint(item).Asset}.png`});
+			}
+			else if (item.type == LooseRestraint && (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)){
+				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
+				else ret.push({name: KDRestraint(item).name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`});
+			}
 			else if (item.type == Consumable) ret.push({name: KDConsumable(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${KDConsumable(item).name}.png`});
 			else if (item.type == Weapon) ret.push({name: KDWeapon(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${KDWeapon(item).name}.png`});
 			else if (item.type == Outfit) ret.push({name: KDOutfit(item) ? KDOutfit(item).name : "Prisoner", item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${KDOutfit(item).name}.png`});
