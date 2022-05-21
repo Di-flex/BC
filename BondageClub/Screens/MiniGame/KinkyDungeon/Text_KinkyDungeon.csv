@@ -203,6 +203,9 @@ KinkyDungeonStatDescNowhere,"Beds and barrels have a 50% chance to be trapped."
 KinkyDungeonStatPrisoner,"Prisoner"
 KinkyDungeonStatDescPrisoner,"Start the game as a released prisoner wandering the halls."
 
+KinkyDungeonStatRusted,"Rusty Bolts"
+KinkyDungeonStatDescRusted,"Most traps have a 25% misfire chance."
+
 KinkyDungeonStatStartMaid,"Maid Sweeper"
 KinkyDungeonStatDescStartMaid,"Start in a magically locked maid outfit."
 KinkyDungeonStatStartWolfgirl,"Trainee"
@@ -1781,6 +1784,8 @@ KinkyDungeonCategoryFilterweapon,Weapons
 KinkyDungeonCategoryFilteroutfit,Outfits
 KinkyDungeonCategoryFilterlooserestraint,Restraints
 KinkyDungeonCategoryFiltermisc,Miscellaneous
+
+KDTrapMisfire,"You hear an ominous click, but nothing seems to happen. Looks like a misfire!"
 
 RestraintBarrelTrap,Barrel Trap
 RestraintBarrelTrapDesc,"A booby-trapped barrel with a spring-loaded lid designed to trap you inside!"

@@ -77,6 +77,8 @@ let KinkyDungeonStatsPresets = {
 	"Nowhere": {category: "Enemies", id: "Nowhere", cost: -1},
 	"Prisoner": {category: "Start", id: "Prisoner", cost: 0},
 
+	"Rusted": {category: "Map", id: "Rusted", cost: 1},
+
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},

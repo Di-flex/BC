@@ -2626,7 +2626,6 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonMapSet(moveX, moveY, 'r');
 							KinkyDungeonAggroAction('rubble', {});
 						}
-						KinkyDungeonTrapMoved = true;
 						//}
 					}
 
@@ -2673,6 +2672,7 @@ function KinkyDungeonWaitMessage(NoTime) {
 		KinkyDungeonStatStamina += KinkyDungeonStatStaminaRegenWait;
 
 	KinkyDungeonLastAction = "Wait";
+	KinkyDungeonTrapMoved = false;
 }
 
 // Returns th number of turns that must elapse
@@ -2684,6 +2684,9 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	if (KinkyDungeonPlayerEntity.x != moveX || KinkyDungeonPlayerEntity.y != moveY) {
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "move", 1);
 		stepOff = true;
+	}
+	if (xx != moveX || yy != moveY) {
+		KinkyDungeonTrapMoved = true;
 	}
 	KinkyDungeonPlayerEntity.x = moveX;
 	KinkyDungeonPlayerEntity.y = moveY;
