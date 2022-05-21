@@ -853,7 +853,7 @@ Spell Balance:
 - Added purple locks, which require a command word to remove instead of a key
 - Lots of new perks
 - Goddesses now expect you to be wearing their uniform when you are their champion...
-
+- Shrines now remove the most powerful 3 restraints instead of all of them
 
 TODO ValidationFindBlockCycles to prevent bugs
 

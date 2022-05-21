@@ -17,6 +17,7 @@ let KinkyDungeonShrineBaseCosts = {
 };
 
 let KinkyDungeonOrbAmount = 0;
+let KDShrineRemoveCount = 3;
 
 /**
  * Cost growth, overrides the default amount
@@ -119,7 +120,7 @@ function KinkyDungeonShrineCost(type) {
 		for (let r of rest) {
 			if (KDRestraint(r).power > maxPower) maxPower = KDRestraint(r).power;
 		}
-		mult = Math.sqrt(Math.max(1, rest.length));
+		mult = Math.sqrt(Math.max(1, Math.min(KDShrineRemoveCount, rest.length)));
 		mult *= Math.pow(Math.max(1, maxPower), 0.75);
 		noMult = true;
 	} else if (type == "Will") {
@@ -144,7 +145,7 @@ function KinkyDungeonPayShrine(type) {
 
 	// TODO shrine effects
 	if (KinkyDungeonShrineTypeRemove.includes(type)) {
-		rep = KinkyDungeonRemoveRestraintsWithShrine(type);
+		rep = KinkyDungeonRemoveRestraintsWithShrine(type, KDShrineRemoveCount);
 		KinkyDungeonChangeRep("Ghost", -rep);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
