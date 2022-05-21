@@ -830,7 +830,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 					if (KDRandom() < 0.65) {
 						trapLocations.push({x: X, y: Y});
 					} else if (X != cornerX + Math.floor(radius/2) && Y >= cornerY + 1) {
-						KinkyDungeonMapSet(X, Y, 'X');
+						KinkyDungeonMapSet(X, Y, '2');
 					}
 				}
 			}
@@ -845,7 +845,16 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 
 		// Trapped Door
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, 'd');
-		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + radius - 1), {Type: "Door", StepOffTrap: "DoorLock"});
+		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + radius - 1), {
+			Type: "Door",
+			StepOffTrap: "DoorLock",
+			SpawnMult: 0.5,
+			Lifetime: 12,
+			StepOffTiles: [
+				(cornerX + Math.floor(radius/2) - 1) + "," + (cornerY + radius - 2),
+				(cornerX + Math.floor(radius/2)) + "," + (cornerY + radius - 2),
+				(cornerX + Math.floor(radius/2)) + 1 + "," + (cornerY + radius - 2)
+			]});
 		KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 4});
 		if ( KDDebug) {
 			console.log("Created forbidden hall");
@@ -2679,7 +2688,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	KinkyDungeonPlayerEntity.x = moveX;
 	KinkyDungeonPlayerEntity.y = moveY;
 
-	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy);
+	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy, moveX, moveY);
 
 	KinkyDungeonMovePoints = 0;
 	return Math.max(1, KinkyDungeonSlowLevel);
