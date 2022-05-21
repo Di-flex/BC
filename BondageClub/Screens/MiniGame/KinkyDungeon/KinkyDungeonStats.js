@@ -234,7 +234,7 @@ function KinkyDungeonDefaultStats(Load) {
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["obsidianRestraints", "genericChastity", "genericToys"]}, 12, "grv", true, "Red");
 				if (r)
-					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Red");
+					KinkyDungeonAddRestraintIfWeaker(r, 0, true, "Purple");
 			}
 			let outfit = {name: "Obsidian", type: Outfit};
 			if (!KinkyDungeonInventoryGet("Obsidian")) KinkyDungeonInventoryAdd(outfit);

@@ -204,7 +204,7 @@ KinkyDungeonStatDescStartWolfgirl,"Start in a uniform of a naughty wolfgirl."
 KinkyDungeonStatStartLatex,"Latex Mannequin"
 KinkyDungeonStatDescStartLatex,"Start bound in latex restraints."
 KinkyDungeonStatStartObsidian,"Iron Slave"
-KinkyDungeonStatDescStartObsidian,"Start in a full set of obsidian cuffs."
+KinkyDungeonStatDescStartObsidian,"Start in a full set of magically locked obsidian cuffs."
 
 
 KinkyDungeonBuffSlimeForm,Slime Form
@@ -3661,7 +3661,7 @@ KinkyDungeonAskPenance,Offer Penance
 KinkyDungeonChampionCurrent,Current Champion
 KinkyDungeonChampionSwitch,Switch Champion
 
-KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 2 mana per enemy and grant +1 rep."
+KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 3 mana per enemy and grant +1 rep."
 KinkyDungeonBecomeChampion,"You are now the champion of the Goddess of GODDESS."
 
 KinkyDungeonAidDescRope,"For 3 rep the goddess will grant you slipperiness, boosting your struggling."
@@ -3894,6 +3894,10 @@ KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
 KinkyDungeonCaptureBasic,You capture the EnemyName.
 KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
+KinkyDungeonCaptureGoddessLowUniform,"You capture the EnemyName, but the goddess of GODDESS would prefer that you be in uniform."
+KinkyDungeonCaptureGoddessNoneUniform,"You capture the EnemyName, but the goddess of GODDESS demands that you wear restraints!"
+KinkyDungeonCaptureGoddessLowRestraint,"You capture the EnemyName, but the goddess of GODDESS would prefer that you wear some restraints."
+KinkyDungeonCaptureGoddessNoneRestraint,"You capture the EnemyName, but the goddess of GODDESS demands that you wear several restraints!"
 KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit for rewards this floor."
 
 KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!

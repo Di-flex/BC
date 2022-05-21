@@ -326,14 +326,14 @@ function KinkyDungeonLock(item, lock) {
  * @param {string} shrine
  * @returns {item[]}
  */
-function KinkyDungeonGetRestraintsWithShrine(shrine) {
+function KinkyDungeonGetRestraintsWithShrine(shrine, ignoreGold) {
 	/**
 	 * @type {item[]}
 	 */
 	let ret = [];
 
 	for (let item of KinkyDungeonAllRestraint()) {
-		if (KDRestraint(item).shrine && KDRestraint(item).shrine.includes(shrine) && item.lock != "Gold") {
+		if (KDRestraint(item).shrine && KDRestraint(item).shrine.includes(shrine) && (ignoreGold || item.lock != "Gold")) {
 			ret.push(item);
 		}
 	}
