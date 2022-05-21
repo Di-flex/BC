@@ -442,6 +442,12 @@ function KinkyDungeonLoad() {
 				if (InventoryGet(Player, "ItemMouth3"))
 					KinkyDungeonRestraintsLocked.push("ItemMouth3");
 			}
+			if (group == "ItemH") {
+				if (InventoryGet(Player, "ItemHood"))
+					KinkyDungeonRestraintsLocked.push("ItemHood");
+				if (InventoryGet(Player, "ItemHead"))
+					KinkyDungeonRestraintsLocked.push("ItemHead");
+			}
 
 			if (InventoryGet(Player, group))
 				KinkyDungeonRestraintsLocked.push(group);

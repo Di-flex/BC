@@ -499,6 +499,10 @@ function KinkyDungeonLockableItems() {
 			else if (KinkyDungeonGetRestraintItem("ItemMouth")) g = "ItemMouth2";
 			else g = "ItemMouth";
 		}
+		if (gr == "ItemH") {
+			if (KinkyDungeonGetRestraintItem("ItemHood")) g = "ItemHood";
+			else g = "ItemHead";
+		}
 		let currentItem = KinkyDungeonGetRestraintItem(g);
 		if (currentItem && !currentItem.lock && KinkyDungeonIsLockable(KDRestraint(currentItem))) {
 			LockableGroups.push(g);
@@ -516,6 +520,10 @@ function KinkyDungeonMissingJailUniform() {
 			else if (KinkyDungeonGetRestraintItem("ItemMouth")) g = "ItemMouth2";
 			else g = "ItemMouth";
 		}
+		if (gr == "ItemH") {
+			if (KinkyDungeonGetRestraintItem("ItemHood")) g = "ItemHood";
+			else g = "ItemHood";
+		}
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
 		if (rest
@@ -530,7 +538,7 @@ function KinkyDungeonMissingJailUniform() {
 }
 
 function KinkyDungeonTooMuchRestraint() {
-	let Groups = ["ItemArms", "ItemHands", "ItemHead", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemLegs", "ItemFeet", "ItemHands"];
+	let Groups = ["ItemArms", "ItemHands", "ItemHead", "ItemMouth", "ItemMouth2", "ItemMouth3", "ItemHood", "ItemLegs", "ItemFeet", "ItemHands"];
 
 	for (let g of KinkyDungeonStruggleGroupsBase) {
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);

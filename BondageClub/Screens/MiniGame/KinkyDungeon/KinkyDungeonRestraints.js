@@ -1008,7 +1008,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && data.restraintEscapeChance > 0.01) data.escapeChance/= 5;
 
-	if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, struggleGroup)) data.escapeChance = 0;
+	if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, struggleGroup) && !KDRestraint(restraint).alwaysStruggleable) data.escapeChance = 0;
 
 	// Blue locks make it harder to escape an item
 	if (restraint.lock == "Blue" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) data.escapeChance = Math.max(0, data.escapeChance - 0.15);
@@ -1477,6 +1477,9 @@ function KinkyDungeonUpdateRestraints(delta) {
 			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth")) playerTags.set("ItemMouth" + "Empty", true);
 			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth2")) playerTags.set("ItemMouth2" + "Empty", true);
 			if (!InventoryGet(KinkyDungeonPlayer, "ItemMouth3")) playerTags.set("ItemMouth3" + "Empty", true);
+		} else if (group == "ItemH") {
+			if (!InventoryGet(KinkyDungeonPlayer, "ItemHood")) playerTags.set("ItemHood" + "Empty", true);
+			if (!InventoryGet(KinkyDungeonPlayer, "ItemHead")) playerTags.set("ItemHead" + "Empty", true);
 		} else if (!InventoryGet(KinkyDungeonPlayer, group)) playerTags.set(group + "Empty", true);
 	}
 	for (let inv of KinkyDungeonAllRestraint()) {

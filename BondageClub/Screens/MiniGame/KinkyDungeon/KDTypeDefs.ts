@@ -83,6 +83,12 @@ interface consumable {
 type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
+	/** Enemies ignore you while you are wearing it */
+	ignoreNear?: boolean,
+	/** Enemies wont cast spells or ranged attacks while you are wearing it */
+	ignoreSpells?: boolean,
+	/** Can always struggle even if it's blocked */
+	alwaysStruggleable?: boolean,
 	name: string,
 	Group: string,
 	Asset: string,

@@ -197,6 +197,12 @@ KinkyDungeonStatDescUnstableMagic,"Spells do up to 60% additional damage based o
 KinkyDungeonStatAbsoluteFocus,"Absolute Focus"
 KinkyDungeonStatDescAbsoluteFocus,"Miscast chance is doubled."
 
+KinkyDungeonStatNowhere,"Nowhere is Safe"
+KinkyDungeonStatDescNowhere,"Beds and barrels have a 50% chance to be trapped."
+
+KinkyDungeonStatPrisoner,"Prisoner"
+KinkyDungeonStatDescPrisoner,"Start the game as a released prisoner wandering the halls."
+
 KinkyDungeonStatStartMaid,"Maid Sweeper"
 KinkyDungeonStatDescStartMaid,"Start in a magically locked maid outfit."
 KinkyDungeonStatStartWolfgirl,"Trainee"
@@ -1775,6 +1781,16 @@ KinkyDungeonCategoryFilterweapon,Weapons
 KinkyDungeonCategoryFilteroutfit,Outfits
 KinkyDungeonCategoryFilterlooserestraint,Restraints
 KinkyDungeonCategoryFiltermisc,Miscellaneous
+
+RestraintBarrelTrap,Barrel Trap
+RestraintBarrelTrapDesc,"A booby-trapped barrel with a spring-loaded lid designed to trap you inside!"
+RestraintBarrelTrapDesc2,"You can push the lid off with enough force..."
+KDBarrelTrap,"The lid of the barrel suddenly snaps shut as you hide inside!!!"
+
+RestraintBedTrap,Restraining Bed
+RestraintBedTrapDesc,"A bed with a booby trap designed to trap you on top of it!"
+RestraintBedTrapDesc2,"You have to get out somehow..."
+KDBedTrap,"Belts emerge from underneath the bed and wrap around you, strapping you down tightly!"
 
 RestraintBindingDress,Binding Dress
 RestraintBindingDressDesc,"A devious dress that forces the arms into an elbows-touching position."

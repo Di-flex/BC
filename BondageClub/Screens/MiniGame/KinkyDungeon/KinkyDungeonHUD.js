@@ -1,8 +1,8 @@
 "use strict";
 let KinkyDungeonStruggleGroups = [];
 let KinkyDungeonStruggleGroupsBase = [
-	"ItemHead",
-	"ItemHood",
+	"ItemH",
+	"ItemDevices",
 	"ItemM",
 	"ItemEars",
 	"ItemArms",
@@ -1042,6 +1042,10 @@ function KinkyDungeonUpdateStruggleGroups() {
 			else if (InventoryGet(KinkyDungeonPlayer, "ItemMouth2")) Group = "ItemMouth2";
 			else Group = "ItemMouth";
 		}
+		if (sg == "ItemH") {
+			if (InventoryGet(KinkyDungeonPlayer, "ItemHood")) Group = "ItemHood";
+			else Group = "ItemHead";
+		}
 
 		let restraint = KinkyDungeonGetRestraintItem(Group);
 
@@ -1057,7 +1061,7 @@ function KinkyDungeonUpdateStruggleGroups() {
 					magic:KDRestraint(restraint) ? KDRestraint(restraint).magic : undefined,
 					noCut:KDRestraint(restraint) && KDRestraint(restraint).escapeChance && !KDRestraint(restraint).escapeChance.Cut,
 					curse:KDRestraint(restraint)? KDRestraint(restraint).curse : undefined,
-					blocked: InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});
+					blocked: !KDRestraint(restraint).alwaysStruggleable && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});
 		}
 	}
 }

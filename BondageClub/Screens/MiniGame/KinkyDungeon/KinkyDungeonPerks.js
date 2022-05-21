@@ -74,6 +74,9 @@ let KinkyDungeonStatsPresets = {
 	"StartWolfgirl": {category: "Start", id: "StartWolfgirl", cost: -2, outfit: "Wolfgirl", block: ["StartMaid", "StartLatex", "StartObsidian"]},
 	"StartObsidian": {category: "Start", id: "StartObsidian", cost: -2, outfit: "Obsidian", block: ["StartMaid", "StartLatex", "StartWolfgirl"]},
 
+	"Nowhere": {category: "Enemies", id: "Nowhere", cost: -1},
+	"Prisoner": {category: "Start", id: "Prisoner", cost: 0},
+
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},

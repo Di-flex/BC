@@ -129,6 +129,13 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 				KinkyDungeonTiles.set("" + (cornerX) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true});
 			}
 			KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'B');
+			if (KinkyDungeonStatsChoice.has("Nowhere")) {
+				if (KDRandom() < 0.5)
+					KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 1), {
+						Type: "Trap",
+						Trap: "BedTrap",
+					});
+			}
 			if (KDRandom() < 0.15) spawnPoints.push({x:cornerX + 1, y:cornerY + 1, required: ["human"], AI: "guard"});
 			break;
 		case "Graveyard": {
@@ -314,6 +321,28 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 			KinkyDungeonMapSet(cornerX + 4, cornerY + 1, 'B');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 5, 'B');
 			KinkyDungeonMapSet(cornerX + 4, cornerY + 5, 'B');
+			if (KinkyDungeonStatsChoice.has("Nowhere")) {
+				if (KDRandom() < 0.5)
+					KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 1), {
+						Type: "Trap",
+						Trap: "BedTrap",
+					});
+				if (KDRandom() < 0.5)
+					KinkyDungeonTiles.set((cornerX + 4) + "," + (cornerY + 1), {
+						Type: "Trap",
+						Trap: "BedTrap",
+					});
+				if (KDRandom() < 0.5)
+					KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 5), {
+						Type: "Trap",
+						Trap: "BedTrap",
+					});
+				if (KDRandom() < 0.5)
+					KinkyDungeonTiles.set((cornerX + 4) + "," + (cornerY + 5), {
+						Type: "Trap",
+						Trap: "BedTrap",
+					});
+			}
 
 			KinkyDungeonMapSet(cornerX+1, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+1) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+1, cornerY+2) == 'D' ? "Red" : undefined});
 			KinkyDungeonMapSet(cornerX+5, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+5) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+5, cornerY+2) == 'D' ? "Red" : undefined});

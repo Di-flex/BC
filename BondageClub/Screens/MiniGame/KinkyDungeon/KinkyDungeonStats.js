@@ -255,6 +255,8 @@ function KinkyDungeonDefaultStats(Load) {
 		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
 
 		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+
+		if (KinkyDungeonStatsChoice.get("Prisoner")) KDGameData.PrisonerState = 'parole';
 	}
 
 	KinkyDungeonDressPlayer();
@@ -587,11 +589,11 @@ function KinkyDungeonUpdateStats(delta) {
 	if (!KDGameData.TimeSinceLastVibeStart) KDGameData.TimeSinceLastVibeStart = {};
 
 	for (let type of Object.entries(KDGameData.TimeSinceLastVibeStart)) {
-		if (!KDGameData.TimeSinceLastVibeStart[type[0]]) KDGameData.TimeSinceLastVibeStart[type[0]] = 0;
+		if (!KDGameData.TimeSinceLastVibeStart[type[0]]) KDGameData.TimeSinceLastVibeStart[type[0]] = 1;
 		else KDGameData.TimeSinceLastVibeStart[type[0]] += delta;
 	}
 	for (let type of Object.entries(KDGameData.TimeSinceLastVibeEnd)) {
-		if (!KDGameData.TimeSinceLastVibeEnd[type[0]]) KDGameData.TimeSinceLastVibeEnd[type[0]] = 0;
+		if (!KDGameData.TimeSinceLastVibeEnd[type[0]]) KDGameData.TimeSinceLastVibeEnd[type[0]] = 1;
 		else KDGameData.TimeSinceLastVibeEnd[type[0]] += delta;
 	}
 }

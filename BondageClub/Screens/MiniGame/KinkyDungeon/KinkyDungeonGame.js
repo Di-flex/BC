@@ -1905,6 +1905,12 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelC
 					|| (KDRandom() < barrelChance && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y+1) == '0' && KinkyDungeonMapGet(X+1, Y+1) == '0' && KinkyDungeonMapGet(X-1, Y+1) == '0')
 					|| (KDRandom() < barrelChance && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X+1, Y-1) == '0' && KinkyDungeonMapGet(X-1, Y-1) == '0'))) {
 				KinkyDungeonMapSet(X, Y, 'L');
+				if (KinkyDungeonStatsChoice.has("Nowhere") && KDRandom() < 0.5) {
+					KinkyDungeonTiles.set(X + "," + Y, {
+						Type: "Trap",
+						Trap: "BarrelTrap",
+					});
+				}
 			}
 		}
 }

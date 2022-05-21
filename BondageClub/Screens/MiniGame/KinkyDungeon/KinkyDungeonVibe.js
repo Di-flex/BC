@@ -23,6 +23,7 @@ let KDVibeSoundRedirect = {
 	"ItemButt": "ItemButt",
 	"ItemNipplesPiercings": "ItemNipples",
 	"ItemNipples": "ItemNipples",
+	"ItemPelvis": "ItemNipples",
 	"ItemBreast": "ItemNipples", // TODO add massager sound
 	"ItemBoots": "ItemNipples", // TODO add foot tickler sound
 };
