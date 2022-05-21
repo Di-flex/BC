@@ -69,10 +69,10 @@ let KinkyDungeonStatsPresets = {
 	"Vengeance": {category: "Enemies", id: "Vengeance", cost: -2},
 	"AbsoluteFocus": {category: "Magic", id: "AbsoluteFocus", cost: -1},
 
-	"StartMaid": {category: "Start", id: "StartMaid", cost: -1, outfit: "Maid", block: ["StartLatex", "StartWolfgirl", "StartObsidian"]},
+	"StartMaid": {category: "Start", id: "StartMaid", cost: -2, outfit: "Maid", block: ["StartLatex", "StartWolfgirl", "StartObsidian"]},
 	"StartLatex": {category: "Start", id: "StartLatex", cost: -1, outfit: "BlueSuitPrison", block: ["StartMaid", "StartWolfgirl", "StartObsidian"]},
 	"StartWolfgirl": {category: "Start", id: "StartWolfgirl", cost: -1, outfit: "Wolfgirl", block: ["StartMaid", "StartLatex", "StartObsidian"]},
-	"StartObsidian": {category: "Start", id: "StartObsidian", cost: -1, outfit: "Obsidian", block: ["StartMaid", "StartLatex", "StartWolfgirl"]},
+	"StartObsidian": {category: "Start", id: "StartObsidian", cost: -2, outfit: "Obsidian", block: ["StartMaid", "StartLatex", "StartWolfgirl"]},
 
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
