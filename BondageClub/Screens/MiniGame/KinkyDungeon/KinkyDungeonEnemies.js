@@ -455,7 +455,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 				if (enemy.boundLevel != undefined && enemy.boundLevel > 0) {
 					if (!helpless) {
 						let bindingBars = Math.ceil(enemy.boundLevel / enemy.Enemy.maxhp);
-						for (let i = 0; i < bindingBars; i++) {
+						for (let i = 0; i < bindingBars && i < KDMaxBindingBars; i++) {
 							if (i > 0) II++;
 							let mod = 0;
 							if (i == bindingBars - 1) {
