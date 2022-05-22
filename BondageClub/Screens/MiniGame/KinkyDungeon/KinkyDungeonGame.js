@@ -1875,9 +1875,10 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelChance, width, height) {
 	for (let X = 1; X < width-1; X += 1)
 		for (let Y = 1; Y < height-1; Y += 1) {
-			if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < Chance)
-				KinkyDungeonMapSet(X, Y, 'X');
-			else if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance && !KinkyDungeonTilesSkin.get(X + "," + Y)) {
+			//if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < Chance)
+			//KinkyDungeonMapSet(X, Y, 'X');
+			//else
+			if (KinkyDungeonMapGet(X, Y) == '1' && KDRandom() < wallRubblechance && !KinkyDungeonTilesSkin.get(X + "," + Y)) {
 				KinkyDungeonMapSet(X, Y, 'Y');
 				if (KDAlreadyOpened(X, Y)) {
 					KinkyDungeonMapSet(X, Y, '1');
@@ -1885,6 +1886,7 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelC
 			}
 
 		}
+	// Make it so you dont ever move through square corners
 	for (let X = 1; X < width - 1; X += 1)
 		for (let Y = 1; Y < height - 1; Y += 1) {
 			let tl = KinkyDungeonMapGet(X, Y);
@@ -2049,7 +2051,7 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 							// Avoid creating diagonals
 							if (((row_top[X+1] == '0' && row_bot[X+1] == '0') || row_mid[X+1] == '1')
 								&& ((row_top[X-1] == '0' && row_bot[X-1] == '0') || row_mid[X-1] == '1')) {
-								KinkyDungeonMapSet(X, Y, '1');
+								KinkyDungeonMapSet(X, Y, 'X');
 								X++;
 							}
 						}
