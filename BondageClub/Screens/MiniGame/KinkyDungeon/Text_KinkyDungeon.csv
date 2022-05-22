@@ -2854,7 +2854,7 @@ KinkyDungeonSpellDescriptionShadowSlash,"Slice the area in front of you, dealing
 KinkyDungeonSpellCastShadowSlash,You create a tear in space with your finger!
 KinkyDungeonSpellTargetShadowSlash,Choose aim direction
 
-KinkyDungeonSpellBlink,Portal
+KinkyDungeonSpellBlink,Portal Walk
 KinkyDungeonSpellDescriptionBlink,Teleport to a nearby location (including into darkness) after DelayTime turns.
 KinkyDungeonSpellCastBlink,You call upon a misty portal to transport you!
 KinkyDungeonSpellTargetBlink,Choose target location
@@ -2891,7 +2891,7 @@ KinkyDungeonSleepy,You are feeling drowsy...
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
-KinkyDungeonSpellShield,Protection
+KinkyDungeonSpellShield,Shield
 KinkyDungeonSpellDescriptionShield,"Gives a creature a magic shield, reducing incoming damage by 25 up to 3 times (5 for the player). Expires after 50 turns."
 KinkyDungeonSpellCastShield,You create a temporary shield!
 KinkyDungeonSpellTargetShield,Choose shielded creature
