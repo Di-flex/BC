@@ -878,7 +878,6 @@ function KinkyDungeonPassOut() {
 
 	KinkyDungeonSetDress("Bikini", "Bikini");
 	KinkyDungeonDressPlayer();
-	if (!KinkyDungeonInventoryGet("Bikini")) KinkyDungeonInventoryAdd({name: "Bikini", type: Outfit});
 
 	KinkyDungeonChangeStamina(-100);
 	KinkyDungeonChangeMana(-100);

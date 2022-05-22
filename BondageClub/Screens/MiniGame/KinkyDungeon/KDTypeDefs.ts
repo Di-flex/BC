@@ -112,48 +112,76 @@ type restraint = {
 	escapeChance: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
 	/** Overrides escapeChance when you have a ghost helping*/
 	helpChance?: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
 	/** Determines the penalty to the escape chance at the limit--full struggle progress when struggling, and 0 for cut/remove/unlock/pick*/
 	limitChance?: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
 	struggleMinSpeed?: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
 	struggleMaxSpeed?: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
 	/** Multiplier to struggle power */
 	struggleMult?: {
 		Struggle?: number,
 		Cut?: number,
-		Remove?: number
-		Pick?: number
-		Unlock?: number
+		Remove?: number,
+		Pick?: number,
+		Unlock?: number,
 	},
+
+	/** Sound when using an escape method*/
+	sfxEscape?: {
+		Struggle?: string,
+		Cut?: string,
+		Remove?: string,
+		Pick?: string,
+		Unlock?: string,
+		NoStamina?: string,
+		MagicCut?: string,
+		PickBreak?: string,
+		KnifeBreak?: string,
+		KnifeDrop?: string,
+		KeyDrop?: string,
+		PickDrop?: string,
+	},
+	sfxFinishEscape?: {
+		Struggle?: string,
+		Cut?: string,
+		Remove?: string,
+		Pick?: string,
+		Unlock?: string,
+		Destroy?: string,
+	}
+	/** Remove sound */
+	sfxRemove?: string,
+	/** Equip sound */
+	sfx?: string,
 	/** The vibrator will start vibing whenever another linked vibe starts */
 	linkedVibeTags?: string[],
 	vibeLocation?: string,
@@ -241,8 +269,6 @@ type restraint = {
 	curse?: string,
 	/** The extra difficulty the item adds to the global difficulty var */
 	difficultyBonus?: number,
-	/** Equip sound */
-	sfx?: string,
 	/** Whether or not the angels will take it off when you call them */
 	divine?: boolean,
 	/** If this is enabled, then you can spend ancient energy to use a potion at no reduction to potion effectiveness while gagged */
