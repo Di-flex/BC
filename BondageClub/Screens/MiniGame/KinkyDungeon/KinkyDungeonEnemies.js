@@ -432,7 +432,7 @@ function KDGetEnemyStruggleRate(enemy) {
 	if (enemy.boundLevel > 0) {
 		mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
 	}
-	let amount = mult * enemy.Enemy.maxhp;
+	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75);
 	return amount;
 }
 

@@ -660,8 +660,17 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 							yy = yyy;
 						}
 					}
-					if (!xx) xx = b.x;
-					if (!yy) yy = b.y;
+					if (b.bullet.spell.type != 'bolt') {
+						if (!xx) xx = b.x;
+						if (!yy) yy = b.y;
+					} else if (xx == b.x && yy == b.y) {
+						for (let i = 0; i < 10; i++) {
+							xx = b.x + Math.floor(KDRandom() * 3 - 1);
+							yy = b.y + Math.floor(KDRandom() * 3 - 1);
+							if (xx != b.x || yy != b.y) i = 1000;
+						}
+					}
+
 					KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
 				}
 			}
