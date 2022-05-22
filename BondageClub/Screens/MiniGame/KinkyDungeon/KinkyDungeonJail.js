@@ -10,17 +10,16 @@ let KDJailReleaseTurns = [
 ];
 
 function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
-	if (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'chase') {
-		if (KDGameData.JailKey) {
-			if (Taken) {
-				KinkyDungeonSendActionMessage(6, TextGet("KinkyDungeonRemoveJailKey"), "red", 3);
-				if (enemy) {
-					if (!enemy.items) enemy.items = [];
-					else enemy.items.push("Keyring");
-				}
+	// KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'chase'
+	if (KDGameData.JailKey) {
+		if (Taken) {
+			KinkyDungeonSendActionMessage(6, TextGet("KinkyDungeonRemoveJailKey"), "red", 3);
+			if (enemy) {
+				if (!enemy.items) enemy.items = [];
+				else enemy.items.push("Keyring");
 			}
-			KDGameData.JailKey = false;
 		}
+		KDGameData.JailKey = false;
 	}
 	if (boss) {
 		KDGameData.JailKey = false;

@@ -858,6 +858,7 @@ Spell Balance:
 - Added a perk which allows bed and barrel traps to appear
 - Some reworks to the vision system
 - Rope krakens now eventually teleport you to another place on the map
+- You always need the keys now
 
 TODO ValidationFindBlockCycles to prevent bugs
 

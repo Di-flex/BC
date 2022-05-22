@@ -203,7 +203,7 @@ let KDGameDataBase = {
 	PrisonerState: "",
 	TimesJailed: 0,
 	JailTurns: 0,
-	JailKey: true,
+	JailKey: false,
 
 	CurrentDialog: "",
 	CurrentDialogStage: "",

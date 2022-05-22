@@ -1562,7 +1562,8 @@ function KinkyDungeonRestraintPower(item, NoLink) {
 			if (!KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link.name), KDRestraint(item))) {
 				let lock = link.lock;
 				let mult = lock ? KinkyDungeonGetLockMult(lock) : 1;
-				power = Math.max(power, KDRestraint({name: link.name}).power * mult);
+				let pp = link ? (KDRestraint({name: link.name}).power) : 0;
+				power = Math.max(power, pp * mult);
 			}
 		}
 		return power;
@@ -1850,7 +1851,7 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 					KinkyDungeonSendEvent("afterRemove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 				}
 
-				let sfx = (rest && rest.sfx) ? rest.sfxRemove : "Struggle";
+				let sfx = (rest && rest.sfxRemove) ? rest.sfxRemove : "Struggle";
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
 
 				KinkyDungeonCalculateSlowLevel();
