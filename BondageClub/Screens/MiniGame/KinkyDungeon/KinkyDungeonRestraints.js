@@ -965,7 +965,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	// Covered hands makes it harder to unlock, and twice as hard to remove
 	if ((StruggleType == "Pick" || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup != "ItemHands" && handsBound)
-		data.escapeChance = ((StruggleType == "Remove") && data.hasEdge) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
+		data.escapeChance = ((StruggleType == "Remove" && data.hasEdge) || (StruggleType == "Pick" && KinkyDungeonStatsChoice.get("Psychic"))) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
 	if ((StruggleType == "Remove") && !data.hasEdge && data.escapeChance == 0) {
 		let typesuff = "";
