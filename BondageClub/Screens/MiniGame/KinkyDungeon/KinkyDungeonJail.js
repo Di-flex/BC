@@ -860,11 +860,57 @@ function KinkyDungeonPointInCell(x, y) {
 	//return (Math.abs(x - KinkyDungeonStartPosition.x) < KinkyDungeonJailLeashX - 1 && Math.abs(y - KinkyDungeonStartPosition.y) <= KinkyDungeonJailLeash);
 }
 
+function KinkyDungeonPassOut() {
+	KDGameData.KinkyDungeonLeashedPlayer = 0;
+	KinkyDungeonBlindLevel = 6;
+	KinkyDungeonStatBlind = 4;
+	KinkyDungeonUpdateLightGrid = true;
+	KDGameData.AlertTimer = 0;
+	KinkyDungeonSendEvent("passout", {});
+
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (KDRestraint(inv).removePrison) {
+			KinkyDungeonRemoveRestraint(KDRestraint(inv).Group, false);
+		}
+	}
+
+	KinkyDungeonStripInventory(false);
+
+	KinkyDungeonSetDress("Bikini", "Bikini");
+	KinkyDungeonDressPlayer();
+	if (!KinkyDungeonInventoryGet("Bikini")) KinkyDungeonInventoryAdd({name: "Bikini", type: Outfit});
+
+	KinkyDungeonChangeStamina(-100);
+	KinkyDungeonChangeMana(-100);
+	KinkyDungeonChangeDistraction(-100);
+
+	KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPassOut"), "#ff0000", 5);
+	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPassOut2"), "#ff0000", 5);
+
+
+	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
+
+	KDGameData.JailKey = false;
+	KinkyDungeonSaveGame();
+
+	//if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
+	// KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
+	//} else {
+	let point = KinkyDungeonGetRandomEnemyPoint(true, false, undefined);
+	if (point) {
+		KinkyDungeonPlayerEntity.x = point.x;
+		KinkyDungeonPlayerEntity.y = point.y;
+	}
+
+	KinkyDungeonLoseJailKeys();
+}
+
 function KinkyDungeonDefeat() {
 	KDGameData.KinkyDungeonLeashedPlayer = 0;
 	if (KinkyDungeonFlags.get("JailIntro"))
 		KinkyDungeonSetFlag("JailRepeat", -1);
 	KinkyDungeonBlindLevel = 3;
+	KinkyDungeonStatBlind = 3;
 	KinkyDungeonUpdateLightGrid = true;
 	if (!KDGameData.TimesJailed) KDGameData.TimesJailed = 1;
 	else KDGameData.TimesJailed += 1;
@@ -923,25 +969,7 @@ function KinkyDungeonDefeat() {
 		if (!r.Level || level >= r.Level)
 			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(r.Name), 0, true);
 	}
-	KinkyDungeonRedKeys = 0;
-	KinkyDungeonBlueKeys = 0;
-	KinkyDungeonLockpicks = Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks);
-	KinkyDungeonNormalBlades = 0;
-
-	let newInv = KinkyDungeonInventory.get(Restraint);
-	let HasBound = false;
-	let boundWeapons = [];
-	if (HasBound) {
-		// TODO add bound weapons here
-	}
-	KinkyDungeonAddLostItems(KinkyDungeonFullInventory(), HasBound);
-	KDInitInventory();
-	KinkyDungeonInventory.set(Restraint, newInv);
-	KinkyDungeonInventoryAddWeapon("Knife");
-	KDSetWeapon(null);
-	for (let b of boundWeapons) {
-		KinkyDungeonInventoryAddWeapon(b);
-	}
+	KinkyDungeonStripInventory(true);
 
 	if (defeat_outfit != params.defeat_outfit) {
 		if (!KinkyDungeonInventoryGet(defeat_outfit)) KinkyDungeonInventoryAdd({name: defeat_outfit, type: Outfit});
@@ -1001,4 +1029,27 @@ function KinkyDungeonDefeat() {
 		}
 	}
 	KinkyDungeonEntities = enemies;
+}
+
+
+function KinkyDungeonStripInventory(KeepPicks) {
+	KinkyDungeonRedKeys = 0;
+	KinkyDungeonBlueKeys = 0;
+	KinkyDungeonLockpicks = KeepPicks ? (Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks)) : 0;
+	KinkyDungeonNormalBlades = 0;
+
+	let newInv = KinkyDungeonInventory.get(Restraint);
+	let HasBound = false;
+	let boundWeapons = [];
+	if (HasBound) {
+		// TODO add bound weapons here
+	}
+	KinkyDungeonAddLostItems(KinkyDungeonFullInventory(), HasBound);
+	KDInitInventory();
+	KinkyDungeonInventory.set(Restraint, newInv);
+	KinkyDungeonInventoryAddWeapon("Knife");
+	KDSetWeapon(null);
+	for (let b of boundWeapons) {
+		KinkyDungeonInventoryAddWeapon(b);
+	}
 }

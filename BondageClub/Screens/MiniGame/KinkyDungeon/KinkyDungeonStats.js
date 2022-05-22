@@ -197,6 +197,17 @@ function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonShrineInit();
 
 	if (!Load) {
+
+		if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
+		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
+		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
+		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
+
+		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
+
+		if (KinkyDungeonStatsChoice.get("Prisoner")) KDGameData.PrisonerState = 'parole';
+
+
 		if (KinkyDungeonStatsChoice.get("StartLatex")) {
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, 12, "grv", true, "Red");
@@ -248,15 +259,6 @@ function KinkyDungeonDefaultStats(Load) {
 			if (KinkyDungeonInventoryGet("OutfitDefault")) KinkyDungeonInventoryRemove(KinkyDungeonInventoryGet("OutfitDefault"));
 			KinkyDungeonSetDress("Obsidian", "Obsidian");
 		}
-
-		if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
-		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
-		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
-		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
-
-		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
-
-		if (KinkyDungeonStatsChoice.get("Prisoner")) KDGameData.PrisonerState = 'parole';
 	}
 
 	KinkyDungeonDressPlayer();
@@ -448,7 +450,7 @@ function KinkyDungeonUpdateStats(delta) {
 
 	KinkyDungeonPlayers = [KinkyDungeonPlayerEntity];
 
-	KDBlindnessCap = 3;
+	KDBlindnessCap = 6;
 	KinkyDungeonSendEvent("calcStats", {});
 	// Initialize
 	KinkyDungeonCalculateVibeLevel(delta);
@@ -523,7 +525,7 @@ function KinkyDungeonUpdateStats(delta) {
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness")) blind = Math.max(0, blind + KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness"));
 	KinkyDungeonBlindLevel = Math.min(KDBlindnessCap, blind);
 	if (KinkyDungeonBlindLevel > 0 && KinkyDungeonStatsChoice.has("Unmasked")) KinkyDungeonBlindLevel += 1;
-	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 5);
+	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 6);
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
 	// Unarmed damage calc

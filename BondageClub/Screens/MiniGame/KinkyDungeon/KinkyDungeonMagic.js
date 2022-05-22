@@ -417,16 +417,35 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRopeEngulfDress"), "red", 3);
 					effect = true;
-				} else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-					KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+				} else {
+					//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 					let restraintAdd = KinkyDungeonGetRestraint({tags: ["ropeMagicHogtie"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power)) {
 						KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
 						KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonRopeEngulf"), "red", 2);
 						effect = true;
+					} else {
+						let buff1 = {id: "KrakenEngulf", type: "Blindness", duration: 8, power: 1.0, player: true, tags: []};
+						let buff2 = {id: "KrakenEngulf2", type: "Blindness", duration: 8, power: 2.0, player: true, tags: []};
+						let buff3 = {id: "KrakenEngulf3", type: "Blindness", duration: 8, power: 4.0, player: true, tags: []};
+						if (KinkyDungeonPlayerBuffs[buff3.id]) {
+							KinkyDungeonPassOut();
+						} else if (KinkyDungeonPlayerBuffs[buff2.id]) {
+							KinkyDungeonSendTextMessage(9, TextGet("KinkyDungeonRopeEngulfEnd3"), "red", 4);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff1);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff2);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff3);
+						}  else if (KinkyDungeonPlayerBuffs[buff1.id]) {
+							KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonRopeEngulfEnd2"), "red", 4);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff1);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff2);
+						} else {
+							KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonRopeEngulfEnd1"), "red", 4);
+							KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff1);
+						}
 					}
 
-					KinkyDungeonSetFlag("kraken", 20);
+					//KinkyDungeonSetFlag("kraken", 4);
 				}
 			}
 		} else if (playerEffect.name == "RopeEngulfWeak") {
