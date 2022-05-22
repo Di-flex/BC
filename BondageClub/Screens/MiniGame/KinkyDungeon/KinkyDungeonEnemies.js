@@ -2190,7 +2190,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						for (let R = 0; R < replace.length; R++)
 							text = text.replace(replace[R].keyword, "" + replace[R].value);
 					KinkyDungeonSendTextMessage(happened+priorityBonus, text, msgColor, 1);
-					KinkyDungeonLoseJailKeys(true, undefined, enemy);
+					if (!enemy.Enemy.tags.has("temporary"))
+						KinkyDungeonLoseJailKeys(true, undefined, enemy);
 				}
 			} else {
 				let sfx = (enemy.Enemy && enemy.Enemy.misssfx) ? enemy.Enemy.misssfx : "Miss";
