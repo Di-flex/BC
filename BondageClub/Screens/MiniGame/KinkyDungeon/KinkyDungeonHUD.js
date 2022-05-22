@@ -88,7 +88,7 @@ function KinkyDungeonDrawInputs() {
 	}
 	let sneak = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 	if (sneak > 2.5) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerInvisible"), 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
+		DrawTextFit(TextGet("KinkyDungeonPlayerSneak"), 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 	} else {
 		let visibility = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "SlowDetection"));
 		if (visibility != 1.0) {
