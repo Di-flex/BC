@@ -969,8 +969,8 @@ function KDInitializeJourney(Journey) {
 
 	} else if (KDGameData.Journey == "Harder") {
 		for (let i = 0; i < KDDefaultJourney.length; i++) {
-			newIndex[KDDefaultAlt[i]] = newIndex[KDDefaultJourney[i]];
-			newIndex[KDDefaultJourney[i]] = newIndex[KDDefaultAlt[i]];
+			newIndex[KDDefaultAlt[i]] = KDDefaultJourney[i];
+			newIndex[KDDefaultJourney[i]] = KDDefaultAlt[i];
 		}
 	}
 
