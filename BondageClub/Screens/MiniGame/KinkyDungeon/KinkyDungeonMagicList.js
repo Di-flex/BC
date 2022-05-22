@@ -210,7 +210,7 @@ let KinkyDungeonSpellListEnemies = [
 	// A puff of smoke
 	{name: "SmokePuff", school: "Illusion", manacost: 1, components: ["Verbal"], level:1, type:"inert", buffs: [
 		{id: "SmokePuff", type: "Evasion", power: 3.0, player: true, enemies: true, tags: ["darkness"], range: 0.5},
-		{id: "SmokePuff2", aura: "#444488", type: "Sneak", power: 3.0, player: true, duration: 1, enemies: true, tags: ["darkness"], range: 0.5}
+		{id: "SmokePuff2", type: "Sneak", power: 3.0, player: true, duration: 1, enemies: true, tags: ["darkness"], range: 0.5}
 	], onhit:"", time:5, aoe: 0.5, power: 0, delay: 2, delayRandom: 5, range: 4, size: 1, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 
 	{name: "LesserInvisibility", sfx: "MagicSlash", school: "Illusion", manacost: 0, components: ["Verbal"], mustTarget: true, level:3, type:"buff", buffs: [{id: "LesserInvisibility", aura: "#888888", type: "Sneak", duration: 10, power: 3, player: true, enemies: true, tags: ["invisibility"]}], onhit:"", time:10, power: 0, range: 1.5, size: 1, damage: ""},

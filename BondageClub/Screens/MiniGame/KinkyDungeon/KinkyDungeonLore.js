@@ -189,6 +189,9 @@ function KinkyDungeonHandleLore() {
 			if (tabNames[i + KinkyDungeonCurrentLoreTabOffset]) {
 				KinkyDungeonCurrentLoreTab = tabNames[i + KinkyDungeonCurrentLoreTabOffset];
 				KinkyDungeonUpdateLore(localStorage.getItem("kinkydungeonexploredlore") ? JSON.parse(localStorage.getItem("kinkydungeonexploredlore")) : []);
+			} else if (i == -1) {
+				KinkyDungeonCurrentLoreTab = -1;
+				KinkyDungeonUpdateLore(localStorage.getItem("kinkydungeonexploredlore") ? JSON.parse(localStorage.getItem("kinkydungeonexploredlore")) : []);
 			}
 		}
 	}
