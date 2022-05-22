@@ -863,7 +863,7 @@ function KinkyDungeonPointInCell(x, y) {
 function KinkyDungeonPassOut() {
 	KDGameData.KinkyDungeonLeashedPlayer = 0;
 	KinkyDungeonBlindLevel = 6;
-	KinkyDungeonStatBlind = 4;
+	KinkyDungeonStatBlind = 10;
 	KinkyDungeonUpdateLightGrid = true;
 	KDGameData.AlertTimer = 0;
 	KinkyDungeonSendEvent("passout", {});
@@ -884,8 +884,8 @@ function KinkyDungeonPassOut() {
 	KinkyDungeonChangeMana(-100);
 	KinkyDungeonChangeDistraction(-100);
 
-	KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPassOut"), "#ff0000", 5);
-	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPassOut2"), "#ff0000", 5);
+	KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonPassOut"), "#ff0000", 5);
+	KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonPassOut2"), "#ff0000", 5);
 
 
 	if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/StoneDoor_Close.ogg");
@@ -903,6 +903,7 @@ function KinkyDungeonPassOut() {
 	}
 
 	KinkyDungeonLoseJailKeys();
+	KinkyDungeonSlowMoveTurns = 10;
 }
 
 function KinkyDungeonDefeat() {

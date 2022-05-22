@@ -857,6 +857,7 @@ Spell Balance:
 - Bondage buster now charges when held and deals up to 100 damage on a single shot after 10 turns of charging
 - Added a perk which allows bed and barrel traps to appear
 - Some reworks to the vision system
+- Rope krakens now eventually teleport you to another place on the map
 
 TODO ValidationFindBlockCycles to prevent bugs
 
