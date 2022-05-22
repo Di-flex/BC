@@ -264,7 +264,7 @@ function KinkyDungeonDefaultStats(Load) {
 }
 
 function KinkyDungeonGetVisionRadius() {
-	return (KDGameData.SleepTurns > 2) ? 1 : (Math.max((KinkyDungeonDeaf || KinkyDungeonStatBlind > 0) ? 1 : (KinkyDungeonBlindLevel > 2) ? 2 : 3, Math.floor(KinkyDungeonMapBrightness*(1.0 - 0.25 * KinkyDungeonBlindLevel))));
+	return (KDGameData.SleepTurns > 2) ? 1 : (Math.max((KinkyDungeonDeaf || KinkyDungeonStatBlind > 0) ? 1 : 2, Math.round(KinkyDungeonMapBrightness-KinkyDungeonBlindLevel)));
 }
 
 function KinkyDungeonInterruptSleep() {
@@ -418,21 +418,22 @@ function KinkyDungeonUpdateStats(delta) {
 	KDBoundPowerLevel = 0;
 	if (KinkyDungeonStatsChoice.get("BoundPower")) {
 		for (let inv of KinkyDungeonAllRestraint()) {
-			switch (KDRestraint(inv).Group) {
-				case "ItemArms": KDBoundPowerLevel += 0.2; break;
-				case "ItemLegs": KDBoundPowerLevel += 0.08; break;
-				case "ItemFeet": KDBoundPowerLevel += 0.08; break;
-				case "ItemBoots": KDBoundPowerLevel += 0.04; break;
-				case "ItemMouth": KDBoundPowerLevel += 0.05; break;
-				case "ItemMouth2": KDBoundPowerLevel += 0.05; break;
-				case "ItemMouth3": KDBoundPowerLevel += 0.1; break;
-				case "ItemHead": KDBoundPowerLevel += 0.1; break;
-				case "ItemHands": KDBoundPowerLevel += 0.1; break;
-				case "ItemPelvis": KDBoundPowerLevel += 0.05; break;
-				case "ItemTorso": KDBoundPowerLevel += 0.05; break;
-				case "ItemBreast": KDBoundPowerLevel += 0.05; break;
-				case "ItemNeck": KDBoundPowerLevel += 0.05; break;
-			}
+			if (!KDRestraint(inv).nonbinding)
+				switch (KDRestraint(inv).Group) {
+					case "ItemArms": KDBoundPowerLevel += 0.2; break;
+					case "ItemLegs": KDBoundPowerLevel += 0.08; break;
+					case "ItemFeet": KDBoundPowerLevel += 0.08; break;
+					case "ItemBoots": KDBoundPowerLevel += 0.04; break;
+					case "ItemMouth": KDBoundPowerLevel += 0.05; break;
+					case "ItemMouth2": KDBoundPowerLevel += 0.05; break;
+					case "ItemMouth3": KDBoundPowerLevel += 0.1; break;
+					case "ItemHead": KDBoundPowerLevel += 0.1; break;
+					case "ItemHands": KDBoundPowerLevel += 0.1; break;
+					case "ItemPelvis": KDBoundPowerLevel += 0.05; break;
+					case "ItemTorso": KDBoundPowerLevel += 0.05; break;
+					case "ItemBreast": KDBoundPowerLevel += 0.05; break;
+					case "ItemNeck": KDBoundPowerLevel += 0.05; break;
+				}
 		}
 		if (KDBoundPowerLevel > 1) KDBoundPowerLevel = 1;
 	}
@@ -521,7 +522,8 @@ function KinkyDungeonUpdateStats(delta) {
 	let blind = Math.max(KinkyDungeonBlindLevelBase, KinkyDungeonGetBlindLevel());
 	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness")) blind = Math.max(0, blind + KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Blindness"));
 	KinkyDungeonBlindLevel = Math.min(KDBlindnessCap, blind);
-	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = 3;
+	if (KinkyDungeonBlindLevel > 0 && KinkyDungeonStatsChoice.has("Unmasked")) KinkyDungeonBlindLevel += 1;
+	if (KinkyDungeonStatBlind > 0) KinkyDungeonBlindLevel = Math.max(KinkyDungeonBlindLevel, 5);
 	KinkyDungeonDeaf = KinkyDungeonPlayer.IsDeaf();
 
 	// Unarmed damage calc
@@ -613,7 +615,7 @@ function KinkyDungeonCalculateMiscastChance() {
 function KinkyDungeonGetBlindLevel() {
 	let blindness = 0;
 	for (let inv of KinkyDungeonAllRestraint()) {
-		if (KDRestraint(inv).blindfold) blindness = Math.max(blindness + 1, KDRestraint(inv).blindfold);
+		if (KDRestraint(inv).blindfold) blindness = Math.max(Math.min(5, blindness + 1), KDRestraint(inv).blindfold);
 	}
 	return blindness ? blindness : 0;
 }

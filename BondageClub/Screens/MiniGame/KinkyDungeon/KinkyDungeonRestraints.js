@@ -1493,6 +1493,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 			}
 	}
 	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
+	if (KinkyDungeonStatsChoice.get("Unmasked")) playerTags.set("Unmasked", true);
 	if (KinkyDungeonStatsChoice.get("Unchained")) playerTags.set("Unchained", true);
 	if (KinkyDungeonStatsChoice.get("Damsel")) playerTags.set("Damsel", true);
 

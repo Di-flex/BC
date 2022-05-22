@@ -124,6 +124,9 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 						weightBonus += loot.goddessWeight * grep/50;
 					}
 				}
+				if (loot.playerTags)
+					for (let tag in loot.playerTags)
+						if (KinkyDungeonPlayerTags.get(tag)) weightBonus += loot.playerTags[tag];
 				if (Type == "chest") {
 					if (tile && tile.Special && loot.special) weightBonus += loot.special;
 					else if (tile && tile.Special) weightMult = 0;
