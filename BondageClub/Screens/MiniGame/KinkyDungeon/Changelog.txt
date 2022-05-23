@@ -866,6 +866,7 @@ Spell Balance:
 - Ice Shard damage to 40 from 30, duration to 4 turns from 6 turns
 - New spell: Freeze
 - New Toggle spell: Shatter
+- New spell: Ignite
 
 TODO ValidationFindBlockCycles to prevent bugs
 

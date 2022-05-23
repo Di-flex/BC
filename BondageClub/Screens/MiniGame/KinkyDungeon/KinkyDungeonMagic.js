@@ -103,7 +103,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 	if (!playerEffect.name) return;
 	let effect = false;
 	let sfx = spell.hitsfx;
-	if (!sfx) sfx = "Damage";
+	if (!sfx) sfx = (playerEffect.power && playerEffect.power < 2) ? "DamageWeak" : "Damage";
 	if (damage == "inert") return;
 	if (playerEffect.hitTag && !KDPlayerHitBy.includes(playerEffect.hitTag)) KDPlayerHitBy.push(playerEffect.hitTag);
 	else if (playerEffect.hitTag) return;
@@ -144,7 +144,11 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			let dmg = KinkyDungeonDealDamage({damage: Math.max((spell.aoepower) ? spell.aoepower : 0, spell.power), type: spell.damage});
 			KinkyDungeonSendTextMessage(Math.min(spell.power, 5), TextGet("KinkyDungeonDamageSelf").replace("DamageDealt", dmg), "red", 1);
 			if (dmg) effect = true;
-		} if (playerEffect.name == "DamageNoMsg") {
+		} else if (playerEffect.name == "Ignition") {
+			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			KinkyDungeonSendTextMessage(playerEffect.power * 2, TextGet("KinkyDungeonBuffIgniteDamage").replace("DamageDealt", dmg), "red", 1);
+			if (dmg) effect = true;
+		} else if (playerEffect.name == "DamageNoMsg") {
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			if (dmg) effect = true;
 		} else if (playerEffect.name == "Blind") {
@@ -790,6 +794,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		let f = bullet.bullet.faction;
 		if (f) faction = f;
 	}
+	if (spell.faction) faction = spell.faction;
 
 	let gaggedMiscastFlag = false;
 	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal") && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {

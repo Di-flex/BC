@@ -863,6 +863,8 @@ interface spell {
 	name: string;
 	/** Whether the spell defaults to the Player faction */
 	allySpell?: boolean;
+	/** Spell overrides the faction */
+	faction?: string;
 	/** Whether the spell defaults to the Enemy faction */
 	enemySpell?: boolean;
 	/** Conjure, Illusion, Elements */

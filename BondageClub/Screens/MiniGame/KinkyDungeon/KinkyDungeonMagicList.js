@@ -37,9 +37,9 @@ let KinkyDungeonLearnableSpells = [
 		// Arms
 		["Firebolt", "Icebolt", "StoneSkin", "Crackle", "Icicles", "Fireball", "LightningBolt"],
 		// Legs
-		["Shield", "BoulderLaunch", "GreaterShield", "Fissure", "Sleet"],
+		["Shield", "BoulderLaunch", "Ignite", "GreaterShield", "Fissure", "Sleet"],
 		// Passive
-		["FlameBlade", "Shatter", "Strength"],
+		["FlameBlade", "Strength", "Shatter"],
 		// Always on
 		["Knife", "Analyze", "CommandWord"],
 	],
@@ -124,8 +124,14 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			{type: "ElementalEffect", power: 2, damage: "crush", trigger: "playerAttack"},
 			{type: "ModifyStruggle", mult: 1.5, power: 0.2, StruggleType: "Struggle", trigger: "beforeStruggleCalc", msg: "KinkyDungeonSpellStrengthStruggle"},
 		]},
+		{name: "Ignite", sfx: "FireSpell", school: "Elements", manacost: 2, components: ["Legs"], mustTarget: true, noTargetEnemies: true, level:2, type:"buff",
+			buffs: [
+				{id: "Ignite", aura: "#ff8400", type: "SpellCastConstant", duration: 6, power: 10.0, player: true, enemies: true, spell: "Ignition", tags: ["offense"]},
+			],
+			onhit:"", time:6, power: 1.5, range: 2.9, size: 1, damage: ""},
+
 		// Passive spells
-		{name: "Shatter", tags: ["ice"], school: "Elements", manacost: 1, components: [], level:1, type:"passive", events: [{type: "Shatter", trigger: "enemyStatusEnd"}, {type: "Shatter", trigger: "kill"}]},
+		{name: "Shatter", tags: ["ice"], school: "Elements", manacost: 1, components: [], level:2, type:"passive", events: [{type: "Shatter", trigger: "enemyStatusEnd"}, {type: "Shatter", trigger: "kill"}]},
 
 	],
 	"Conjure": [
@@ -279,6 +285,7 @@ let KinkyDungeonSpellListEnemies = [
 	{allySpell: true, name: "HeelShadowStrike", sfx: "MagicSlash", school: "Illusion", manacost: 3, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 2.5, time: 4, delay: 1, range: 1.5, size: 1, aoe: 0.75, lifetime: 1, damage: "cold"},
 	{allySpell: true, name: "FlameStrike", sfx: "FireSpell", school: "Element", manacost: 6, components: [], level:1, type:"inert", onhit:"aoe", noTerrainHit: true, power: 3, delay: 1, range: 1.5, size: 3, aoe: 1.5, lifetime: 1, damage: "fire"},
 	{allySpell: true, name: "ShatterStrike", sfx: "MagicSlash", school: "Element", manacost: 0, components: [], level:1, type:"hit", onhit:"instant", noTerrainHit: true, power: 3.5, delay: 1, range: 1.5, size: 3, aoe: 1.5, lifetime: 1, damage: "ice"},
+	{name: "Ignition", faction: "Rage", school: "Element", manacost: 0, components: [], level:1, type:"hit", onhit:"instant", noTerrainHit: true, power: 1.5, delay: 1, range: 1.5, size: 3, aoe: 1.5, lifetime: 1, damage: "fire", playerEffect: {name: "Ignition", power: 1, damage: "fire"}},
 	{enemySpell: true, name: "ShadowStrike", sfx: "MagicSlash", school: "Illusion", manacost: 3, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 6, time: 2, delay: 1, range: 1.5, size: 1, aoe: 0.75, lifetime: 1, damage: "cold", playerEffect: {name: "ShadowStrike", damage: "cold", power: 4, count: 1}},
 
 	{name: "Icicle", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 3,  power: 3, delay: 0, range: 50, damage: "ice", speed: 2, playerEffect: {name: "Damage"}}, // Throws a blast of ice which stuns the target for 4 turns

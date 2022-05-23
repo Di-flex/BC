@@ -222,6 +222,9 @@ KinkyDungeonStatStartObsidian,"Iron Slave"
 KinkyDungeonStatDescStartObsidian,"Start in a full set of magically locked obsidian cuffs."
 
 
+KinkyDungeonBuffIgnite,Ignited!!!
+KinkyDungeonBuffIgniteDamage,The air around you is ablaze! (-DamageDealt SP)
+
 KinkyDungeonBuffSlimeForm,Slime Form
 KinkyDungeonBuffShroud2,"Shroud"
 KinkyDungeonBuffCamo,"Camoflage"
@@ -2892,6 +2895,12 @@ KinkyDungeonSpellTargetFreeze,Choose a target to freeze
 KinkyDungeonSpellShatter,Shatter
 KinkyDungeonSpellShatterStrike,Shatter
 KinkyDungeonSpellDescriptionShatter,When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets.
+
+KinkyDungeonSpellIgnition,Ignite
+KinkyDungeonSpellIgnite,Ignite
+KinkyDungeonSpellDescriptionIgnite,Ignite a target for Duration turns, dealing DamageDealt fire damage per turn to it and nearby targets.
+KinkyDungeonSpellCastIgnite,"You spin in a circle, inscribing flames with your feet!"
+KinkyDungeonSpellTargetIgnite,Choose a target to ignite
 
 KinkyDungeonSpellChainBolt,Binding Chain
 KinkyDungeonSpellMagicChain,Magic Chain
