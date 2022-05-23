@@ -572,7 +572,7 @@ function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
 	if (enemy.lifetime != undefined && enemy.lifetime < 999) {
 		msg = "KinkyDungeonCaptureBasic";
-	} else if (KDGameData.Champion && !enemy.rescue) {
+	} else if (KDGameData.Champion) {
 		if (KDGameData.ChampionCurrent < KDChampionMax) {
 			msg = "KinkyDungeonCaptureGoddess";
 			let disapproval = 0;
@@ -615,7 +615,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		KinkyDungeonEntities.splice(E, 1);
 		KinkyDungeonSendEvent("kill", {enemy: enemy});
-		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy) && !enemy.Enemy.tags.has("nocapture")) {
+		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy) && !enemy.Enemy.tags.has("nocapture") && enemy.playerdmg) {
 			if (enemy.items) {
 				for (let name of enemy.items) {
 					let item = {x:enemy.x, y:enemy.y, name: name};
