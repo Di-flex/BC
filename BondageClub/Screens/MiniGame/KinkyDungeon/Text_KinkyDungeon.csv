@@ -3460,6 +3460,7 @@ KinkyDungeonSpellChoice4, "Current Spell 5: "
 KinkyDungeonCheckpointLoreUnknown,???
 KinkyDungeonCheckpointLore-1,Unfiled
 KinkyDungeonCheckpointLoreSchool,Bondage Witchery
+KinkyDungeonCheckpointLoreEnemy,Enemy Notes
 KinkyDungeonCheckpointLoregrv,Graveyard
 KinkyDungeonCheckpointLorecat,Catacombs
 KinkyDungeonCheckpointLorejng,Jungle
@@ -3489,9 +3490,9 @@ KinkyDungeonLore3,"(Pg. 26 from Catherine Willows' journal) So the question is n
 KinkyDungeonLore4,"(The note starts with a drawing of a witch with many chains hanging from her body) She can block melee attacks with her chains. However, they conduct lightning and heat directly to her body, and I was able to take out her chains with bolt cutters."
 KinkyDungeonLore5,"(The note starts with a drawing of a witch with lightning crackling from her fingertips) Water will cause her to short-circuit. I can't seem to hit her with lightning, though. She always redirects it."
 KinkyDungeonLore6,"(The note starts with a drawing of a witch whose body is partly gelatinous) The slime is non-flammable and my attacks pass right through her body... Lightning and ice seem to be effective!"
-KinkyDungeonLore7,"(The note is from a famous escape artist) Many restraints are applied quite tightly by a skilled rigger. However, anything that isn't made of metal will loosen with enough effort. Just be sure that you give it a good effort and aren't tired, and eventually you will get out!"
-KinkyDungeonLore8,"(The note is from a famous escape artist) Anything can be unbuckled with enough patience. Having a finger extension such as a lockpick will help. Ultimately, though, what matters is that you have a calm state of mind, free from distraction and hopelessness. Stay resolute and you'll get there."
-KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed that the dungeon spirits are more active even after the regular inhabitants such as zombies or skeletons are cleared out. My hypothesis is that the spirits are too afraid to come out in the presence of a more powerful, embodied spirit."
+KinkyDungeonLore7,"(The note is from a famous escape artist) Many restraints are applied quite tightly by a skilled rigger. Even removing it will be tough without thrashing around a bit to loosen it."
+KinkyDungeonLore8,"(The note is from a famous escape artist) Anything can be unbuckled with enough patience. Having a finger extension such as a lockpick will help. Ultimately, though, what matters is that you have a calm state of mind, free from distraction and hopelessness."
+KinkyDungeonLore9,"(The note is from a famous cartographer) It has been observed that the dungeon spirits lurking in chests are more active even after the regular inhabitants such as zombies or skeletons are cleared out. My hypothesis is that the spirits are too afraid to come out in the presence of a more powerful, embodied spirit."
 KinkyDungeonLore10,"(A letter between bandit leaders) One of my subordinates has been reporting a girl bound in heavy leather restraints running around. I told her that this is normal, people keep all kinds of servants around here. But definitely keep an eye out for intruders! Don't let them fool you!"
 KinkyDungeonLore11,"(The note is a letter from the school of conjuration) We really would like to know... why did you summon a frog in the laboratory? People are wondering, you know. One of the student's projects got eaten."
 KinkyDungeonLore12,"(You find a carving on the floor, a half-finished magic circle of celestial conjuration. Perhaps a cleric wished to call forth an angel for guidance, before realizing there was a shrine a short walk away, where she could contact the heavens much more easily.)"

@@ -15,6 +15,7 @@ let KinkyDungeonCurrentLoreTabOffset = 0;
 let KinkyDungeonLore = [0, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22];
 let KinkyDungeonCheckpointLore = {
 	"School": [20, 21, 22],
+	"Enemy": [4, 5, 6, 19, 101, 102, 103, 104, 105, 106, 107, 108, 109, 111, 112, 1100, 1104, 201, 203],
 	/*0*/ "grv": [1, 19],
 	/*1*/ "cat": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 9,],
 	/*2*/ "jng": [201, 202, 203, 204, 205],
@@ -185,7 +186,7 @@ function KinkyDungeonHandleLore() {
 	let tabNames = Object.keys(KinkyDungeonCheckpointLore);
 	let numTabs = 20;
 	for (let i = -1; i + KinkyDungeonCurrentLoreTabOffset < tabs.length && i < numTabs; i++) {
-		if (MouseIn(1800, 142 + i * 42, 190, 40) && (KinkyDungeonCurrentLoreTabs.includes(tabNames[i + KinkyDungeonCurrentLoreTabOffset])) || i == -1) {
+		if (MouseIn(1800, 142 + i * 42, 190, 40) && (KinkyDungeonCurrentLoreTabs.includes(tabNames[i + KinkyDungeonCurrentLoreTabOffset]) || i == -1)) {
 			if (tabNames[i + KinkyDungeonCurrentLoreTabOffset]) {
 				KinkyDungeonCurrentLoreTab = tabNames[i + KinkyDungeonCurrentLoreTabOffset];
 				KinkyDungeonUpdateLore(localStorage.getItem("kinkydungeonexploredlore") ? JSON.parse(localStorage.getItem("kinkydungeonexploredlore")) : []);
