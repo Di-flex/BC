@@ -636,23 +636,26 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				KinkyDungeonKilledEnemy = null;
 			}
 		}
-		if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
-			KinkyDungeonChangeRep("Ghost", -5);
-		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
-			KinkyDungeonChangeRep("Ghost", -2);
-		else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite") && KDRandom() < 0.33)
-			KinkyDungeonChangeRep("Ghost", -1);
 
-		if (enemy.Enemy && enemy.Enemy.rep && !enemy.noRep)
-			for (let rep of Object.keys(enemy.Enemy.rep))
-				KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
-
-		if (KinkyDungeonStatsChoice.has("Vengeance")) {
-			KinkyDungeonChangeDistraction(Math.max(0, Math.ceil(Math.pow(enemy.Enemy.maxhp, 0.7))));
-		}
 
 		if (!(enemy.lifetime < 9000)) {
 			if (enemy.playerdmg) {
+				if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("boss"))
+					KinkyDungeonChangeRep("Ghost", -5);
+				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("miniboss"))
+					KinkyDungeonChangeRep("Ghost", -2);
+				else if (enemy.Enemy && enemy.Enemy.tags && enemy.Enemy.tags.has("elite") && KDRandom() < 0.33)
+					KinkyDungeonChangeRep("Ghost", -1);
+
+
+				if (enemy.Enemy && enemy.Enemy.rep && !enemy.noRep)
+					for (let rep of Object.keys(enemy.Enemy.rep))
+						KinkyDungeonChangeRep(rep, enemy.Enemy.rep[rep]);
+
+				if (KinkyDungeonStatsChoice.has("Vengeance")) {
+					KinkyDungeonChangeDistraction(Math.max(0, Math.ceil(Math.pow(enemy.Enemy.maxhp, 0.7))));
+				}
+
 				let faction = KDGetFaction(enemy);
 				let amount = 0;
 
