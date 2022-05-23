@@ -642,6 +642,17 @@ interface enemy {
 	hitsfxSpecial?: string,
 	/** Effect when the enemy misses */
 	misssfx?: string,
+	/** SFX on certain cues */
+	cueSfx?: {
+		/** When the enemy takes no damage from a melee attack */
+		Block?: string,
+		/** When the enemy takes no damage from a magic attack */
+		Resist?: string,
+		/** When the enemy takes damage in general */
+		Damage?: string,
+		/** When the player misses it */
+		Miss?: string,
+	},
 	/** The enemyeffect when player is hit */
 	effect?: any,
 	/** Cant cast spells while winding up an attack */

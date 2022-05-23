@@ -231,6 +231,11 @@ let KinkyDungeonEnemies = [
 
 	{name: "AnimatedArmor", blockVisionWhileStationary: true, tags: KDMapInit(["mimicBlock", "removeDoorSpawn", "ignoreharmless", "leashing", "construct", "minor", "melee", "shackleRestraints", "shackleGag", "slashresist", "crushweakness"]),
 		evasion: -0.5, ignorechance: 1.0, armor: 2, followRange: 1, AI: "ambush", difficulty: 0.05,
+		cueSfx: {
+			Block: "Clang",
+			Resist: "Clang",
+			Damage: "ArmorHit",
+		},
 		visionRadius: 100, ambushRadius: 1.9, blindSight: 100, maxhp: 20, minLevel:1, weight:0, movePoints: 2, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":4, "lastthird":7, "passage": 70, "adjChest": 58, "door": 50, "rubble": 15}, floors:KDMapInit(["cat"]), shrines: ["Metal"],
 		dropTable: [{name: "RedKey", weight: 2}, {name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "Sword", weight: 1, ignoreInInventory: true}]},
@@ -277,6 +282,11 @@ let KinkyDungeonEnemies = [
 
 	{name: "Drone", faction: "AncientRobot", clusterWith: "robot", playLine: "Robot", noChaseUnrestrained: true, color: "#ff3367", tags: KDMapInit(["ignoreharmless", "doortrap", "robot", "minor", "ranged", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushsevereweakness", "pierceweakness", "hitechCables", "cableGag", "jail", "search"]),
 		AI: "patrol", difficulty: 0.3,
+		cueSfx: {
+			Block: "Clang",
+			Resist: "SoftShield",
+			Damage: "RobotHit",
+		},
 		summon: [
 			{enemy: "Drone", range: 2, count: 2, chance: 0.7, strict: true},],
 		armor: 2, maxhp: 5, movePoints: 3,
@@ -289,6 +299,11 @@ let KinkyDungeonEnemies = [
 	{name: "CaptureBot", faction: "AncientRobot", clusterWith: "robot", playLine: "Robot", color: "#aaaaaa",
 		tags: KDMapInit(["leashing", "doortrap", "robot", "melee", "elite", "electricsevereweakness", "coldresist", "iceresist", "slashresist", "crushsevereweakness", "pierceweakness", "hitechCables", "cableGag", "controlHarness", "jail", "search"]),
 		AI: "patrol",
+		cueSfx: {
+			Block: "Clang",
+			Resist: "SoftShield",
+			Damage: "RobotHit",
+		},
 		summon: [
 			{enemy: "Drone", range: 2, count: 2, chance: 0.25, strict: true},],
 		armor: 2, maxhp: 10, movePoints: 2,
@@ -300,6 +315,11 @@ let KinkyDungeonEnemies = [
 		tags: KDMapInit(["leashing", "robot", "ranged", "miniboss", "electricsevereweakness", "unflinching", "coldresist", "iceresist", "slashresist", "crushsevereweakness", "pierceweakness", "autoTape", "cableGag", "controlHarness", "jail", "search"]),
 		AI: "guard", spellRdy: true, bypass: true,
 		spells: ["RobotBolt"], spellCooldownMult: 1, spellCooldownMod: 0, castWhileMoving: true,
+		cueSfx: {
+			Block: "Clang",
+			Resist: "SoftShield",
+			Damage: "RobotHit",
+		},
 		summon: [
 			{enemy: "Drone", range: 2, count: 2, chance: 0.25, strict: true},],
 		armor: 2, maxhp: 24, movePoints: 4,

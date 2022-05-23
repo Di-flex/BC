@@ -498,12 +498,23 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		Enemy.ambushtrigger = true;
 	}
 
-	if (miss) {
+	if (!Damage && predata.type != "inert" && dmgDealt <= 0) {
 		KDDamageQueue.push({floater: TextGet("KDMissed"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
+
+		if (KinkyDungeonSound && Enemy.Enemy.cueSfx && Enemy.Enemy.cueSfx.Miss) {
+			KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx.Miss + ".ogg");
+		}
 		//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDMissed"), "white", 2);
 	} else if (Damage && Damage.damage > 0 && predata.type != "inert" && dmgDealt <= 0 && !miss) {
 		KDDamageQueue.push({floater: TextGet("KDBlocked"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
+
+		let type = KinkyDungeonMeleeDamageTypes.includes(predata.type) ? "Block" : "Resist";
+		if (KinkyDungeonSound && Enemy.Enemy.cueSfx && Enemy.Enemy.cueSfx[type]) {
+			KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx[type] + ".ogg");
+		}
 		//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDBlocked"), "white", 2);
+	} else if (dmgDealt > 0 && KinkyDungeonSound && Enemy.Enemy.cueSfx && Enemy.Enemy.cueSfx.Damage) {
+		KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx.Damage + ".ogg");
 	}
 
 	KinkyDungeonAggro(Enemy, Spell, attacker);
