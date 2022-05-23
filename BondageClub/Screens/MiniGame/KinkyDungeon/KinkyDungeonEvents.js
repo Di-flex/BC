@@ -743,6 +743,22 @@ const KDEventMapSpell = {
 			}
 		},
 	},
+	"enemyStatusEnd": {
+		"Shatter": (e, spell, data) => {
+			if (data.enemy && data.status == "freeze" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.enemy.playerdmg && KDHostile(data.enemy) && KDistChebyshev(data.enemy.x - KinkyDungeonPlayerEntity.x, data.enemy.y - KinkyDungeonPlayerEntity.y) < 10) {
+				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("ShatterStrike", true), undefined, undefined, undefined);
+			}
+		}
+	},
+	"kill": {
+		"Shatter": (e, spell, data) => {
+			if (data.enemy && data.enemy.freeze > 0 && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.enemy.playerdmg && KDHostile(data.enemy) && KDistChebyshev(data.enemy.x - KinkyDungeonPlayerEntity.x, data.enemy.y - KinkyDungeonPlayerEntity.y) < 10) {
+				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("ShatterStrike", true), undefined, undefined, undefined);
+			}
+		}
+	},
 };
 
 /**

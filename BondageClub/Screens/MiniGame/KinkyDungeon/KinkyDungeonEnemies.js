@@ -983,48 +983,102 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			if (enemy.Enemy.master && enemy.Enemy.master.dependent && !master) enemy.hp = -10000;
 
 			if (!enemy.castCooldown) enemy.castCooldown = 0;
-			if (enemy.castCooldown > 0) enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);
+			if (enemy.castCooldown > 0) {
+				enemy.castCooldown = Math.max(0, enemy.castCooldown-delta);
+				if (enemy.castCooldown <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "specialCD"});
+			}
 			if (!enemy.castCooldownSpecial) enemy.castCooldownSpecial = 0;
-			if (enemy.castCooldownSpecial > 0) enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
+			if (enemy.castCooldownSpecial > 0) {
+				enemy.castCooldownSpecial = Math.max(0, enemy.castCooldownSpecial-delta);
+				if (enemy.castCooldownSpecial <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "castCooldownSpecial"});
+			}
 
 			if (enemy.Enemy.specialCharges && enemy.specialCharges <= 0) enemy.specialCD = 999;
 			KinkyDungeonTickFlagsEnemy(enemy, delta);
-			if (enemy.specialCD > 0)
+			if (enemy.specialCD > 0) {
 				enemy.specialCD -= delta;
-			if (enemy.slow > 0)
+				if (enemy.specialCD <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "specialCD"});
+			}
+			if (enemy.slow > 0) {
 				enemy.slow -= delta;
+				if (enemy.slow <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "slow"});
+			}
 			if (enemy.boundLevel > 0 && !(enemy.stun > 0 || enemy.freeze > 0) && (enemy.hp > enemy.Enemy.maxhp * 0.1)) {
 				enemy.boundLevel = Math.max(0, enemy.boundLevel - delta * KDGetEnemyStruggleRate(enemy));
+
+				if (enemy.boundLevel <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "boundLevel"});
 			}
 			if (enemy.Enemy.rage) enemy.rage = 9999;
-			if (enemy.bind > 0)
+			if (enemy.bind > 0) {
 				enemy.bind -= delta;
-			if (enemy.rage > 0)
+				if (enemy.bind <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "bind"});
+			}
+			if (enemy.rage > 0) {
 				enemy.rage -= delta;
-			if (enemy.hostile > 0)
+				if (enemy.rage <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "rage"});
+			}
+			if (enemy.hostile > 0) {
 				enemy.hostile -= delta;
-			if (enemy.allied > 0 && enemy.allied < 9000)
+				if (enemy.hostile <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "hostile"});
+			}
+			if (enemy.allied > 0 && enemy.allied < 9000) {
 				enemy.allied -= delta;
-			if (enemy.ceasefire > 0 && enemy.ceasefire < 9000)
+				if (enemy.allied <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "allied"});
+			}
+			if (enemy.ceasefire > 0 && enemy.ceasefire < 9000) {
 				enemy.ceasefire -= delta;
-			if (enemy.blind > 0)
+				if (enemy.ceasefire <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "ceasefire"});
+			}
+			if (enemy.blind > 0) {
 				enemy.blind -= delta;
-			if (enemy.playWithPlayer > 0)
+				if (enemy.blind <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "blind"});
+			}
+			if (enemy.playWithPlayer > 0) {
 				enemy.playWithPlayer -= delta;
-			if (enemy.playWithPlayerCD > 0)
+				if (enemy.playWithPlayer <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "playWithPlayer"});
+			}
+			if (enemy.playWithPlayerCD > 0) {
 				enemy.playWithPlayerCD -= delta;
-			if (enemy.silence > 0)
+				if (enemy.playWithPlayerCD <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "playWithPlayerCD"});
+			}
+			if (enemy.silence > 0) {
 				enemy.silence -= delta;
-			if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack")
+				if (enemy.silence <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "silence"});
+			}
+			if (enemy.disarmflag > 0 && enemy.Enemy.disarm && KinkyDungeonLastAction != "Attack") {
 				enemy.disarmflag = Math.max(0, enemy.disarmflag - enemy.Enemy.disarm);
+				if (enemy.disarmflag <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "disarmflag"});
+			}
 			if (enemy.stun > 0 || enemy.freeze > 0) {
 				enemy.warningTiles = [];
 				enemy.disarmflag = 0;
+				if (enemy.stun > 0 && enemy.stun <= delta)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "stun"});
+				if (enemy.freeze > 0 && enemy.freeze <= delta)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "freeze"});
 				if (enemy.stun > 0) enemy.stun -= delta;
 				if (enemy.freeze > 0) enemy.freeze -= delta;
 			} else if (enemy.channel > 0) {
 				enemy.warningTiles = [];
 				if (enemy.channel > 0) enemy.channel -= delta;
+
+				if (enemy.channel <= 0)
+					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "channel"});
 			}
 		}
 	}

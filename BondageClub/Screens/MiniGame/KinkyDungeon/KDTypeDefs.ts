@@ -859,6 +859,7 @@ interface KinkyDialogueTrigger {
 }
 
 interface spell {
+	tags?: string[];
 	name: string;
 	/** Whether the spell defaults to the Player faction */
 	allySpell?: boolean;
