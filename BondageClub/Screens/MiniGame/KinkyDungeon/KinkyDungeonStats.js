@@ -207,6 +207,20 @@ function KinkyDungeonDefaultStats(Load) {
 
 		if (KinkyDungeonStatsChoice.get("Prisoner")) KDGameData.PrisonerState = 'parole';
 
+		if (KinkyDungeonStatsChoice.get("Slayer")) {
+			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Firebolt"));
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+		}
+		if (KinkyDungeonStatsChoice.get("Conjurer")) {
+			KinkyDungeonSpells.push(KinkyDungeonFindSpell("ChainBolt"));
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+		}
+		if (KinkyDungeonStatsChoice.get("Magician")) {
+			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Dagger"));
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+		}
+
+
 
 		if (KinkyDungeonStatsChoice.get("StartLatex")) {
 			for (let i = 0; i < 30; i++) {

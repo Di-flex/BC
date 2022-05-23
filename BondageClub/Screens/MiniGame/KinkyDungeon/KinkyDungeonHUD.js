@@ -378,6 +378,9 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(1210, 935, 150, 50, TextGet("KinkyDungeonAutoPass" + (KinkyDungeonToggleAutoPass ? "On" : "Off")), KinkyDungeonToggleAutoPass ? "white" : "#AAAAAA");
 
 	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
+		let buttonWidth = 40;
+		DrawButton(1650 + (90 - buttonWidth), 180 + i*KinkyDungeonSpellChoiceOffset - buttonWidth, buttonWidth, buttonWidth, "", "#ffffff", KinkyDungeonRootDirectory + "ChangeSpell.png");
+
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);
@@ -385,7 +388,7 @@ function KinkyDungeonDrawInputs() {
 			if (spell.components && spell.components.length > 0) comp = " + " + components;
 
 			MainCanvas.textAlign = "right";
-			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1735, 160 + i*KinkyDungeonSpellChoiceOffset, 235, "white", "gray");
+			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1735 - buttonWidth, 160 + i*KinkyDungeonSpellChoiceOffset, 235 - buttonWidth, "white", "gray");
 			DrawTextFit(KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp, 1640, 200 + i*KinkyDungeonSpellChoiceOffset, 100, "#ccddFF", "gray");
 			MainCanvas.textAlign = "center";
 

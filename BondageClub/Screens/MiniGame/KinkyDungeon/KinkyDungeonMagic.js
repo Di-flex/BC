@@ -27,7 +27,7 @@ let KinkyDungeonSpellLevel = {
 	"Conjure":1,
 	"Illusion":1,
 };
-let KinkyDungeonSpellChoices = [0, 1];
+let KinkyDungeonSpellChoices = [0, 1, 2];
 let KinkyDungeonSpellChoicesToggle = [true, true];
 let KinkyDungeonSpellChoiceCount = 5;
 
@@ -70,7 +70,7 @@ function KinkyDungeonDisableSpell(Name) {
 let KinkyDungeonSpellPress = 0;
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [0, 1];
+	KinkyDungeonSpellChoices = [0, 1, 2];
 	KinkyDungeonSpellChoicesToggle = [true, true];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
@@ -682,25 +682,42 @@ function KinkyDungeonHandleSpellCast(spell) {
 	return null;
 }
 
+function KinkyDungeonClickSpell(i) {
+	let spell = null;
+	let clicked = false;
+	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
+			KDSendInput("toggleSpell", {i: i});
+			if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].cancelAutoMove) {
+				KinkyDungeonFastMove = false;
+				KinkyDungeonFastMoveSuppress = false;
+			}
+			KinkyDungeonSpellPress = 0;
+			clicked = true;
+		} else {
+			spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
+			clicked = true;
+		}
+	}
+	return {spell: spell, clicked: clicked};
+}
+
+let KDSwapSpell = -1;
+
 function KinkyDungeonHandleSpell() {
 	let spell = null;
 	let clicked = false;
 	for (let i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
-		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive
-			&& (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i])) {
-			if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
-				KDSendInput("toggleSpell", {i: i});
-				if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].cancelAutoMove) {
-					KinkyDungeonFastMove = false;
-					KinkyDungeonFastMoveSuppress = false;
-				}
-				KinkyDungeonSpellPress = 0;
-				clicked = true;
-				return true;
-			} else {
-				spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
-				clicked = true;
-			}
+		let buttonWidth = 40;
+		if (MouseIn(1650 + (90 - buttonWidth), 180 + i*KinkyDungeonSpellChoiceOffset - buttonWidth, buttonWidth, buttonWidth)) {
+			KinkyDungeonDrawState = "MagicSpells";
+			KDSwapSpell = i;
+			return true;
+		}
+		if (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
+			let result = KinkyDungeonClickSpell(i);
+			spell = result.spell;
+			clicked = result.clicked;
 		}
 	}
 	/*else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[1]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[1]].passive && (MouseIn(1230 + 1*KinkyDungeonSpellChoiceOffset, 895, 90, 90) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[1])) {
@@ -1057,6 +1074,17 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	return "Cast";
 }
 
+function KinkyDungeonClickSpellChoice(I, CurrentSpell) {
+	// Set spell choice
+	KDSendInput("spellChoice", {I:I, CurrentSpell: CurrentSpell});
+	if (KinkyDungeonTextMessageTime > 0)
+		KinkyDungeonDrawState = "Game";
+	if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].cancelAutoMove) {
+		KinkyDungeonFastMove = false;
+		KinkyDungeonFastMoveSuppress = false;
+	}
+}
+
 function KinkyDungeonHandleMagic() {
 	//if (KinkyDungeonPlayer.CanInteract()) { // Allow turning pages
 	if (KinkyDungeonCurrentPage > 0 && MouseIn(canvasOffsetX_ui + 100, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 250, 60)) {
@@ -1084,14 +1112,7 @@ function KinkyDungeonHandleMagic() {
 		for (let I = 0; I < KinkyDungeonSpellChoiceCount; I++) {
 			if (!KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125 + I*KinkyDungeonSpellOffset, 225, 60)) {
-					// Set spell choice
-					KDSendInput("spellChoice", {I:I, CurrentSpell: KinkyDungeonCurrentPage});
-					if (KinkyDungeonTextMessageTime > 0)
-						KinkyDungeonDrawState = "Game";
-					if (KinkyDungeonSpellChoicesToggle[I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].cancelAutoMove) {
-						KinkyDungeonFastMove = false;
-						KinkyDungeonFastMoveSuppress = false;
-					}
+					KinkyDungeonClickSpellChoice(I, KinkyDungeonCurrentPage);
 					return true;
 				}
 			} else if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].type == "passive") {
@@ -1216,11 +1237,16 @@ function KinkyDungeonDrawMagic() {
 	}*/
 	DrawButton(800, 925, 355, 60, TextGet("KinkyDungeonMagicSpells"), "White", "", "");
 
-	DrawText(TextGet("KinkyDungeonSpellsLevels")
-		.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
-		.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
-		.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
-		.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
+	if (KDSwapSpell != -1) {
+		DrawText(TextGet("KinkyDungeonMagicSpellsQuick"), canvasOffsetX_ui + 600, 900, "white", "black");
+	} else {
+		DrawText(TextGet("KinkyDungeonSpellsLevels")
+			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
+			.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
+			.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
+			.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
+	}
+
 }
 
 function KinkyDungeonListSpells(Mode) {
@@ -1240,7 +1266,7 @@ function KinkyDungeonListSpells(Mode) {
 		i = 0;
 		for (let sp of pg) {
 			let spell = KinkyDungeonFindSpell(sp, false);
-			if (spell) {
+			if (spell && (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)) {
 
 				XX = column * (buttonwidth + xpadding);
 				ii = i;// - column * Math.ceil(maxY / spacing);
@@ -1249,8 +1275,9 @@ function KinkyDungeonListSpells(Mode) {
 				let suff = "";
 
 				if (Mode == "Draw") {
-					let color = "#bbbbbb";
-					if (KinkyDungeonSpellIndex(spell.name) >= 0) {
+					let color = KDSwapSpell == -1 ? "#bbbbbb" : "#888888";
+					let index = KinkyDungeonSpellIndex(spell.name);
+					if (index >= 0 && (KDSwapSpell == -1 || !KinkyDungeonSpellChoices.includes(index))) {
 						color = "white";
 					} else if (KinkyDungeonSpellPoints < cost || !KinkyDungeonCheckSpellSchool(spell)) {
 						if (spell.school == "Elements") {color = "#aa8866"; suff = "-";}
@@ -1285,13 +1312,15 @@ function KinkyDungeonDrawMagicSpells() {
 	//DrawText(TextGet("KinkyDungeonSpellsPoints") + KinkyDungeonSpellPoints, 650, 900, "white", "black");
 
 	MainCanvas.textAlign = "center";
-
-	DrawText(TextGet("KinkyDungeonSpellsLevels")
-		.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
-		.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
-		.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
-		.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
-
+	if (KDSwapSpell != -1) {
+		DrawText(TextGet("KinkyDungeonMagicSpellsQuick"), canvasOffsetX_ui + 600, 900, "white", "black");
+	} else {
+		DrawText(TextGet("KinkyDungeonSpellsLevels")
+			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
+			.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
+			.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
+			.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
+	}
 	DrawButton(canvasOffsetX_ui + 0, canvasOffsetY_ui, 50, 50, TextGet("KinkyDungeonSpellsPageBackFast"), "White", "", "");
 	DrawButton(canvasOffsetX_ui + 1100, canvasOffsetY_ui, 50, 50, TextGet("KinkyDungeonSpellsPageNextFast"), "White", "", "");
 	DrawButton(canvasOffsetX_ui + 55, canvasOffsetY_ui, 245, 50, TextGet("KinkyDungeonSpellsPageBack"), "White", "", "");
@@ -1331,7 +1360,15 @@ function KinkyDungeonHandleMagicSpells() {
 
 	let spell = KinkyDungeonListSpells("Click");
 	if (spell) {
-		KinkyDungeonSetPreviewSpell(spell);
+		if (KDSwapSpell == -1) {
+			KinkyDungeonSetPreviewSpell(spell);
+		} else {
+			let index = KinkyDungeonSpellIndex(spell.name);
+			if (!KinkyDungeonSpellChoices.includes(index)) {
+				KinkyDungeonClickSpellChoice(KDSwapSpell, index);
+				KinkyDungeonDrawState = "Game";
+			}
+		}
 		return true;
 	}
 

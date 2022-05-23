@@ -125,6 +125,10 @@ function KinkyDungeonDrawGame() {
 	KinkyDungeonDrawDelta = CommonTime() - KinkyDungeonLastDraw;
 	KinkyDungeonLastDraw = CommonTime();
 
+	if (!(KinkyDungeonDrawState == "MagicSpells")) {
+		KDSwapSpell = -1;
+	}
+
 	if (KinkyDungeonDrawState == "Game") {
 		let KinkyDungeonForceRender = "";
 		let KinkyDungeonForceRenderFloor = "";
