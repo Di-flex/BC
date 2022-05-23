@@ -1544,7 +1544,7 @@ function KinkyDungeonPlaceChargers(chargerlist, chargerchance, litchargerchance,
 			let tile = KDRandom() > chargerchance ? '-' : (KDRandom() < litchargerchance ? '=' : '+');
 
 			if (tile != '-') {
-				KinkyDungeonTiles.set("" + charger.x + "," +charger.y, {Type: "Charger", Light: (tile == '=' ? 5 : undefined)});
+				KinkyDungeonTiles.set("" + charger.x + "," +charger.y, {Type: "Charger", Light: (tile == '=' ? KDChargerLight : undefined)});
 			}
 
 			KinkyDungeonMapSet(charger.x, charger.y, tile);

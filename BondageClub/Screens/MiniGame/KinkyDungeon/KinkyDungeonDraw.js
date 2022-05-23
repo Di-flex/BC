@@ -213,7 +213,7 @@ function KinkyDungeonDrawGame() {
 						let x = parseInt(t.split(',')[0]);
 						let y = parseInt(t.split(',')[1]);
 						if (tile && tile.Light && x && y && KDistEuclidean(x - KinkyDungeonPlayerEntity.x, y - KinkyDungeonPlayerEntity.y) <= 2 * Math.max(tile.Light, KinkyDungeonGetVisionRadius())) {
-							if (KinkyDungeonCheckPath(x, y, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, true, false, 3))
+							if (KinkyDungeonCheckPath(x, y, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, true, false, 2))
 								lights.push({x: x, y:y, brightness: tile.Light - KinkyDungeonBlindLevel });
 						}
 					}
