@@ -1238,7 +1238,7 @@ function KinkyDungeonDrawMagic() {
 	DrawButton(800, 925, 355, 60, TextGet("KinkyDungeonMagicSpells"), "White", "", "");
 
 	if (KDSwapSpell != -1) {
-		DrawText(TextGet("KinkyDungeonMagicSpellsQuick"), canvasOffsetX_ui + 600, 900, "white", "black");
+		DrawText(TextGet("KinkyDungeonMagicSpellsQuick").replace("SPELLNAME", TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]].name)), canvasOffsetX_ui + 600, 900, "white", "black");
 	} else {
 		DrawText(TextGet("KinkyDungeonSpellsLevels")
 			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
@@ -1313,7 +1313,7 @@ function KinkyDungeonDrawMagicSpells() {
 
 	MainCanvas.textAlign = "center";
 	if (KDSwapSpell != -1) {
-		DrawText(TextGet("KinkyDungeonMagicSpellsQuick"), canvasOffsetX_ui + 600, 900, "white", "black");
+		DrawText(TextGet("KinkyDungeonMagicSpellsQuick").replace("SPELLNAME", TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]].name)), canvasOffsetX_ui + 600, 900, "white", "black");
 	} else {
 		DrawText(TextGet("KinkyDungeonSpellsLevels")
 			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)

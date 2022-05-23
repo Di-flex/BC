@@ -859,6 +859,7 @@ Spell Balance:
 - Some reworks to the vision system
 - Rope krakens now eventually teleport you to another place on the map
 - You always need the keys now
+- Added QoL feature to easily swap spells
 
 TODO ValidationFindBlockCycles to prevent bugs
 
