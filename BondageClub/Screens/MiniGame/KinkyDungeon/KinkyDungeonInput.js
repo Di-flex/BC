@@ -136,6 +136,34 @@ function KDProcessInput(type, data) {
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			break;
+		case "commandunlock": {
+			tile = KinkyDungeonTiles.get(data.targetTile);
+			KinkyDungeonTargetTile = tile;
+			KinkyDungeonTargetTileLocation = data.targetTile;
+			KinkyDungeonAdvanceTime(1, true);
+			let spell = KinkyDungeonFindSpell("CommandWord", true);
+			let miscast = KinkyDungeonMiscastChance;
+			let gagTotal = KinkyDungeonGagTotal();
+			if (!(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {
+				miscast = miscast + Math.max(0, 1 - miscast) * Math.min(1, gagTotal);
+			}
+			if (KDRandom() > miscast) {
+				KinkyDungeonTargetTile.Lock = undefined;
+				if (KinkyDungeonTargetTile.Type == "Lock") delete KinkyDungeonTargetTile.Type;
+				KinkyDungeonTargetTile = null;
+				KinkyDungeonTargetTileLocation = "";
+				if (gagTotal) {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUseGagged"), "#aa44ff", 1);
+				} else {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUse"), "#aa44ff", 1);
+				}
+			} else {
+				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUseGaggedFail"), "#ff0000", 1);
+			}
+			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
+			break;
+		}
 		case "closeDoor":
 			tile = KinkyDungeonTiles.get(data.targetTile);
 			KinkyDungeonTargetTileLocation = data.targetTile;

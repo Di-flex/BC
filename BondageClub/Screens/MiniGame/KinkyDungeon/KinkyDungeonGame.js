@@ -2547,6 +2547,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 		let moveObject = KinkyDungeonMapGet(moveX, moveY);
 		if (MovableTiles.includes(moveObject) && (KinkyDungeonNoEnemy(moveX, moveY) || (Enemy && Enemy.allied) || allowPass)) { // If the player can move to an empy space or a door
 			KDGameData.ConfirmAttack = false;
+			let quick = false;
 
 			if (KinkyDungeonTiles.get("" + moveX + "," + moveY) && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type && ((KinkyDungeonToggleAutoDoor && moveObject == 'd' && KinkyDungeonTargetTile == null && KinkyDungeonNoEnemy(moveX, moveY, true))
 				|| (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Trap" && (KinkyDungeonTiles.get("" + moveX + "," + moveY).Type != "Door" || (KinkyDungeonTiles.get("" + moveX + "," + moveY).Lock && KinkyDungeonTiles.get("" + moveX + "," + moveY).Type == "Door"))))) {
@@ -2567,6 +2568,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						//if (KinkyDungeonHasStamina(0)) { // You can only move if your stamina is > 0
 						KinkyDungeonMovePoints = Math.min(Math.ceil(KinkyDungeonSlowLevel + 1), KinkyDungeonMovePoints + delta); // Can't store extra move points
 
+						if (KinkyDungeonFlags.has("Quickness") && KinkyDungeonSlowLevel < 9) {
+							KinkyDungeonMovePoints = 1;
+							quick = true;
+						}
+
 						if (KinkyDungeonStatBind) KinkyDungeonMovePoints = 0;
 
 						if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
@@ -2580,9 +2586,14 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 							KinkyDungeonLastAction = "Move";
 							moved = true;
 							if (KinkyDungeonSound) {
-								if (moveObject == 'w')
-									AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
-								else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+								if (quick) {
+									AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg");
+								} else {
+									if (moveObject == 'w')
+										AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/FootstepWater.ogg");
+									else AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+								}
+
 							}
 
 							if (moveObject == 'g') {
@@ -2604,6 +2615,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						else if (KinkyDungeonSlowLevel >= 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
 
 						let moveMult = Math.max(1, KinkyDungeonSlowLevel);
+						if (quick) moveMult = 1;
 						if (KinkyDungeonSlowLevel > 9) moveMult = 1;
 						if ((moveDirection.x != 0 || moveDirection.y != 0)) {
 							if (KinkyDungeonSlowLevel > 1 || (!KinkyDungeonStatsChoice.has("HeelWalker") && KinkyDungeonSlowLevel > 0)) {
@@ -2617,7 +2629,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 								if (KinkyDungeonStatPlugLevel == 0) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrotchRope"), "pink", 2);
 								KinkyDungeonStatDistraction += (KinkyDungeonCrotchRopeDistraction * moveMult);
 							}
-							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatDistraction -= KinkyDungeonStatDistractionRegen;
+							if (KinkyDungeonVibeLevel == 0 && KinkyDungeonStatPlugLevel > 0 && !KinkyDungeonHasCrotchRope) KinkyDungeonStatDistraction -= KinkyDungeonStatDistractionRegen * delta;
 						} else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) {
 							KinkyDungeonMovePoints = 0;
 							KinkyDungeonWaitMessage();
@@ -2637,11 +2649,11 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonInterruptSleep();
 				//for (let d = 0; d < newDelta; d++)
 				// KinkyDungeonAdvanceTime(1, false, d != 0); // was moveDirection.delta, but became too confusing
-				if (newDelta > 1 && newDelta < 10) {
+				if (newDelta > 1 && newDelta < 10 && !quick) {
 					KinkyDungeonSlowMoveTurns = newDelta -1;
 					KinkyDungeonSleepTime = CommonTime() + 200;
 				}
-				KinkyDungeonAdvanceTime(1);
+				KinkyDungeonAdvanceTime(quick ? 0 : 1);
 			} else {
 				KinkyDungeonWaitMessage();
 				KinkyDungeonAdvanceTime(1); // was moveDirection.delta, but became too confusing
@@ -2698,6 +2710,11 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy, moveX, moveY);
 
 	KinkyDungeonMovePoints = 0;
+	KinkyDungeonSetFlag("Quickness", 0);
+	if (KinkyDungeonStatsChoice.has("Quickness")) {
+		KinkyDungeonSetFlag("BlockQuicknessPerk", 4);
+	}
+	KinkyDungeonSetFlag("Quickness", 0);
 	return Math.max(1, KinkyDungeonSlowLevel);
 	//}
 	//return 0;
@@ -2828,6 +2845,13 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	CharacterAppearanceBuildCanvas = _CharacterAppearanceBuildCanvas;
 
 	if (KinkyDungeonInDanger()) KinkyDungeonSetFlag("DangerFlag",  3);
+	if (KinkyDungeonStatsChoice.has("Quickness") && !KinkyDungeonFlags.has("BlockQuicknessPerk")) {
+		KinkyDungeonSetFlag("Quickness", -1);
+	}
+
+	if (KinkyDungeonMovePoints < 0 || KinkyDungeonStatBlind) {
+		KinkyDungeonSetFlag("Quickness", 0);
+	}
 
 
 }

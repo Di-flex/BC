@@ -95,14 +95,18 @@ function KinkyDungeonDrawInputs() {
 			DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 		}
 	}
-	if (KinkyDungeonMovePoints < 0) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
-	} else if (KinkyDungeonSlowLevel >= 4) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerSlow4"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
-	} else if (KinkyDungeonSlowLevel == 3) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerSlow3"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
-	} else if (KinkyDungeonSlowLevel == 2) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerSlow2"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+	if (KinkyDungeonFlags.has("Quickness")) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerQuickness"), 1640, 900 - i * 35, 200, "#ffff00", "gray"); i++;
+	} else {
+		if (KinkyDungeonMovePoints < 0) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		} else if (KinkyDungeonSlowLevel >= 4) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerSlow4"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		} else if (KinkyDungeonSlowLevel == 3) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerSlow3"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		} else if (KinkyDungeonSlowLevel == 2) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerSlow2"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		}
 	}
 	i = 0;
 
@@ -294,9 +298,18 @@ function KinkyDungeonDrawInputs() {
 				KDModalArea = true;
 			}
 
-			if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
-				|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
-				DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
+			if (KinkyDungeonTargetTile.Lock.includes("Red") || KinkyDungeonTargetTile.Lock.includes("Blue")) {
+				DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"),
+				(KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
+				|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0) ? "White" : "#ff0000", "", "");
+				action = true;
+				KDModalArea = true;
+			}
+			if ((KinkyDungeonTargetTile.Lock.includes("Purple"))) {
+				let spell = KinkyDungeonFindSpell("CommandWord", true);
+				DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoorPurple"),
+				(KinkyDungeonStatMana >= KinkyDungeonGetManaCost(spell)) ? "White" : "#ff0000",
+				"", "");
 				action = true;
 				KDModalArea = true;
 			}
@@ -307,6 +320,8 @@ function KinkyDungeonDrawInputs() {
 				DrawText(TextGet("KinkyRedLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "gray");
 			else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
 				DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "gray");
+			else if (KinkyDungeonTargetTile.Lock.includes("Purple"))
+				DrawText(TextGet("KinkyPurpleLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "gray");
 		} else if (KinkyDungeonTargetTile.Type == "Shrine") {
 			KinkyDungeonDrawShrine();
 		} else if (KDObjectDraw[KinkyDungeonTargetTile.Type]) {
@@ -320,8 +335,19 @@ function KinkyDungeonDrawInputs() {
 					KDModalArea = true;
 				}
 
-				if ((KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0) || (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) {
-					DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"), "White", "", "");
+				if (KinkyDungeonTargetTile.Lock.includes("Red") || KinkyDungeonTargetTile.Lock.includes("Blue")) {
+					DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoor"),
+					(KinkyDungeonTargetTile.Lock.includes("Red") && KinkyDungeonRedKeys > 0)
+					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0) ? "White" : "#ff0000", "", "");
+					action = true;
+					KDModalArea = true;
+				}
+
+				if ((KinkyDungeonTargetTile.Lock.includes("Purple"))) {
+					let spell = KinkyDungeonFindSpell("CommandWord", true);
+					DrawButton(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60, TextGet("KinkyDungeonUnlockDoorPurple"),
+					(KinkyDungeonStatMana >= KinkyDungeonGetManaCost(spell)) ? "White" : "#ff0000",
+					"", "");
 					action = true;
 					KDModalArea = true;
 				}
@@ -332,6 +358,8 @@ function KinkyDungeonDrawInputs() {
 					DrawText(TextGet("KinkyRedLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "gray");
 				else if (KinkyDungeonTargetTile.Lock.includes("Blue"))
 					DrawText(TextGet("KinkyBlueLock"), KDModalArea_x + 25, KDModalArea_y + 50, "white", "gray");
+				else if (KinkyDungeonTargetTile.Lock.includes("Purple"))
+					DrawText(TextGet("KinkyPurpleLock"), KDModalArea_x + 50, KDModalArea_y + 50, "white", "gray");
 			} else {
 				KDModalArea = true;
 				DrawButton(KDModalArea_x + 25, KDModalArea_y + 25, 250, 60, TextGet("KinkyDungeonCloseDoor"), "White");
@@ -645,6 +673,11 @@ function KinkyDungeonHandleHUD() {
 					|| (KinkyDungeonTargetTile.Lock.includes("Blue") && KinkyDungeonBlueKeys > 0)) && MouseIn(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60)) {
 					// Done, converted to input
 					KDSendInput("unlock", {targetTile: KinkyDungeonTargetTileLocation});
+					return true;
+				}
+				if (((KinkyDungeonTargetTile.Lock.includes("Purple") && KinkyDungeonStatMana > KinkyDungeonGetManaCost(KinkyDungeonFindSpell("CommandWord", true)))) && MouseIn(KDModalArea_x + 175, KDModalArea_y + 25, 112, 60)) {
+					// Done, converted to input
+					KDSendInput("commandunlock", {targetTile: KinkyDungeonTargetTileLocation});
 					return true;
 				}
 			} else if (KinkyDungeonTargetTile.Type == "Shrine") {
