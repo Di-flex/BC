@@ -17,6 +17,7 @@ function KDProcessInput(type, data) {
 	switch (type) {
 		case "move":
 			KinkyDungeonToggleAutoDoor = data.AutoDoor;
+			KinkyDungeonToggleAutoPass = data.AutoPass;
 			KinkyDungeonMove(data.dir, data.delta, data.AllowInteract);
 			break;
 		case "setMoveDirection":
@@ -135,6 +136,34 @@ function KDProcessInput(type, data) {
 			}
 			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
 			break;
+		case "commandunlock": {
+			tile = KinkyDungeonTiles.get(data.targetTile);
+			KinkyDungeonTargetTile = tile;
+			KinkyDungeonTargetTileLocation = data.targetTile;
+			KinkyDungeonAdvanceTime(1, true);
+			let spell = KinkyDungeonFindSpell("CommandWord", true);
+			let miscast = KinkyDungeonMiscastChance;
+			let gagTotal = KinkyDungeonGagTotal();
+			if (!(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {
+				miscast = miscast + Math.max(0, 1 - miscast) * Math.min(1, gagTotal);
+			}
+			if (KDRandom() > miscast) {
+				KinkyDungeonTargetTile.Lock = undefined;
+				if (KinkyDungeonTargetTile.Type == "Lock") delete KinkyDungeonTargetTile.Type;
+				KinkyDungeonTargetTile = null;
+				KinkyDungeonTargetTileLocation = "";
+				if (gagTotal) {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUseGagged"), "#aa44ff", 1);
+				} else {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUse"), "#aa44ff", 1);
+				}
+			} else {
+				KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnlockDoorPurpleUseGaggedFail"), "#ff0000", 1);
+			}
+			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+			KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelay);
+			break;
+		}
 		case "closeDoor":
 			tile = KinkyDungeonTiles.get(data.targetTile);
 			KinkyDungeonTargetTileLocation = data.targetTile;
@@ -294,8 +323,8 @@ function KDProcessInput(type, data) {
 			KDSendStatus('goddess', data.rep, 'helpChampion');
 			break;
 		case "aid":
+			KinkyDungeonChangeRep(data.rep, -KinkyDungeonAidManaCost(data.rep, data.value));
 			KinkyDungeonChangeMana(KinkyDungeonAidManaAmount(data.rep, data.value));
-			KinkyDungeonChangeRep(data.rep, -KinkyDungeonAidManaCost(data.rep));
 			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAidManaMe"), "purple", 2);
 			KDSendStatus('goddess', data.rep, 'helpMana');
 			break;
@@ -335,11 +364,12 @@ function KDProcessInput(type, data) {
 					}
 					KDGameData.RescueFlag = true;
 				}
+				return "Rescue";
 			} else {
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNoRescue"), "purple", 10);
 				KDSendStatus('goddess', data.rep, 'helpNoRescue');
+				return "FailRescue";
 			}
-			break;
 		case "penance":
 			KDGameData.KinkyDungeonPenance = true;
 			KDGameData.KDPenanceMode = "";

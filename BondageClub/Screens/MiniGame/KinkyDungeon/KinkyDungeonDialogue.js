@@ -12,6 +12,8 @@ function KinkyDungeonCanPutNewDialogue() {
 
 function KDBasicCheck(PositiveReps, NegativeReps) {
 	let value = 0;
+	if (KinkyDungeonFlags.has("OfferRefused")) value -= 15;
+	if (KinkyDungeonFlags.has("OfferRefusedLight")) value -= 15;
 	for (let rep of PositiveReps) {
 		if (KinkyDungeonGoddessRep[rep] != undefined) value += 50 + KinkyDungeonGoddessRep[rep];
 	}
@@ -105,6 +107,55 @@ function KDDrawDialogue() {
 	}
 }
 
+function KDIncreaseOfferFatigue(Amount) {
+	if (!KDGameData.OfferFatigue) {
+		KDGameData.OfferFatigue = 0;
+	}
+	KDGameData.OfferFatigue = Math.max(0, KDGameData.OfferFatigue + Amount);
+
+	if (Amount > 0) KinkyDungeonSetFlag("OfferRefused", 10);
+	if (Amount > 0) KinkyDungeonSetFlag("OfferRefusedLight", 20);
+}
+
+
+
+/**
+ *
+ * @param {number} Amount
+ */
+function KDPleaseSpeaker(Amount) {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		let faction = KDGetFactionOriginal(enemy);
+		if (!KinkyDungeonHiddenFactions.includes(faction))
+			KinkyDungeonChangeFactionRep(faction, Amount);
+	}
+}
+
+function KDAllySpeaker(Turns, Follow) {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		if (!(enemy.hostile > 0)) {
+			enemy.allied = Turns;
+			if (Follow) {
+				KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
+			}
+		}
+	}
+}
+
+
+// Success chance for a basic dialogue
+function KDBasicDialogueSuccessChance(checkResult) {
+	return Math.max(0, Math.min(1.0, checkResult/100));
+}
+
+// Success chance for a basic dialogue
+function KDAgilityDialogueSuccessChance(checkResult) {
+	let evasion = KinkyDungeonPlayerEvasion();
+	return Math.max(0, Math.min(1.0, (checkResult/100 - (KDGameData.OfferFatigue ? KDGameData.OfferFatigue /100 : 0) + 0.2 * Math.max(0, 3 - KinkyDungeonSlowLevel)) * evasion));
+}
+
 let KinkyDungeonDialogueTimer = 0;
 
 /**
@@ -118,7 +169,7 @@ let KinkyDungeonDialogueTimer = 0;
 function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
 	KinkyDungeonInterruptSleep();
 	KinkyDungeonAutoWait = false;
-	KinkyDungeonDialogueTimer = CommonTime() + 1000 + KinkyDungeonSlowMoveTurns * 200;
+	KinkyDungeonDialogueTimer = CommonTime() + 700 + KinkyDungeonSlowMoveTurns * 200;
 	KDOptionOffset = 0;
 	KinkyDungeonDrawState = "Game";
 	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});

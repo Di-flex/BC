@@ -153,7 +153,7 @@ function KinkyDungeonUpdateFromData() {
 		if (KinkyDungeonGameData.meta.lv != null) {
 			MiniGameKinkyDungeonLevel = Math.round(KinkyDungeonGameData.meta.lv);
 			if (KinkyDungeonGameData.meta.cp)
-				KinkyDungeonSetCheckPoint(Math.round(KinkyDungeonGameData.meta.cp));
+				KinkyDungeonSetCheckPoint(KinkyDungeonGameData.meta.cp);
 			else KinkyDungeonSetCheckPoint();
 		}
 	}

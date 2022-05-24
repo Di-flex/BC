@@ -97,7 +97,7 @@ function KinkyDungeonDrawCharger() {
 
 }
 
-let KDChargerLight = 5;
+let KDChargerLight = 4;
 
 function KinkyDungeonHandleCharger() {
 	if (KinkyDungeonTargetTile && KinkyDungeonTargetTile.Light == KDChargerLight) {
