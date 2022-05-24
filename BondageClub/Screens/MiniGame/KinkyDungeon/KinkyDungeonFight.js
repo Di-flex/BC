@@ -234,8 +234,8 @@ function KinkyDungeonGetImmunity(tags, type, resist) {
 
 let KDDamageQueue = [];
 
-function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, attacker, Delay) {
-	if (bullet) {
+function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, attacker, Delay, noAlreadyHit) {
+	if (bullet && !noAlreadyHit) {
 		if (!bullet.alreadyHit) bullet.alreadyHit = [];
 		// A bullet can only damage an enemy once per turn
 		if (bullet.alreadyHit.includes(Enemy.id)) return 0;
@@ -255,6 +255,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		flags: (Damage) ? Damage.flags : undefined,
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
 		incomingDamage: Damage,
+		freezebroke: false,
 	};
 
 	if (attacker) {
@@ -379,6 +380,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(predata.type) || predata.type == "fire")) {
 				Enemy.freeze = 0;
+				predata.freezebroke = true;
 			}
 
 			if (Enemy.Enemy.tags && Enemy.Enemy.tags.has("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
@@ -588,6 +590,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	let dmg = Damage;
 	let buffdmg = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "AttackDmg");
 	let predata = {
+		enemy: Enemy,
 		evaded: evaded,
 		disarm: disarm,
 		eva: !disarm && evaded,
@@ -734,6 +737,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						d = 0;
 						KinkyDungeonBullets.splice(E, 1);
 						KinkyDungeonBulletsID[b.spriteID] = null;
+						KinkyDungeonSendEvent("bulletDestroy", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 						end = true;
 						E -= 1;
 					}
@@ -786,6 +790,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 					KinkyDungeonBullets.splice(E, 1);
 					KinkyDungeonBulletsID[b.spriteID] = null;
 					KinkyDungeonUpdateSingleBulletVisual(b, true);
+					KinkyDungeonSendEvent("bulletDestroy", {bullet: b, target: undefined, outOfRange:false, outOfTime: false});
 					E -= 1;
 				}
 				KinkyDungeonBulletHit(b, 1);
@@ -802,7 +807,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 		//KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");
 	}
 
-	KinkyDungeonSendEvent("bulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
+	KinkyDungeonSendEvent("beforeBulletHit", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 
 	if (b.bullet.cast && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && (!b.bullet.spell || !b.bullet.spell.noCastOnHit)) {
 		let xx = b.bullet.cast.tx;
@@ -827,6 +832,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 				KinkyDungeonBullets.splice(KinkyDungeonBullets.indexOf(b), 1);
 				KinkyDungeonBulletsID[b.spriteID] = null;
 				KinkyDungeonUpdateSingleBulletVisual(b, true, d);
+				KinkyDungeonSendEvent("bulletDestroy", {bullet: b, target: undefined, outOfRange:outOfRange, outOfTime: outOfTime});
 			}
 		}
 		let newB = {born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(), bullet:{faction: b.bullet.faction, lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
@@ -1006,6 +1012,7 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 							|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 						))
 							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
+						KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});
 						if (bullet.bullet.damage.type == "heal") {
 							let origHP = enemy.hp;
 							enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
@@ -1028,6 +1035,7 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
 						&& enemy.x == bullet.x && enemy.y == bullet.y) {
+					KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});
 					if (bullet.bullet.damage.type == "heal") {
 						let origHP = enemy.hp;
 						enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);

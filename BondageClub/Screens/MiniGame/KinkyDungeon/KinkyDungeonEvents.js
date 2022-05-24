@@ -664,6 +664,14 @@ const KDEventMapSpell = {
 			}
 		},
 	},
+	"beforePlayerAttack" : {
+		"Shatter": (e, spell, data) => {
+			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name == "IceBreaker") && data.enemy && data.enemy.freeze && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("ShatterStrike", true), undefined, undefined, undefined);
+			}
+		},
+	},
 	"playerAttack": {
 		"FlameBlade": (e, spell, data) => {
 			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name || KinkyDungeonStatsChoice.get("Brawler")) && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.targetX && data.targetY && (data.enemy && KDHostile(data.enemy))) {
@@ -1023,7 +1031,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
  */
 const KDEventMapBullet = {
-	"bulletHit": {
+	"beforeBulletHit": {
 		"DropKnife": (e, b, data) => {
 			let point = {x: b.x, y: b.y};
 			if (!KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y))) {
@@ -1042,7 +1050,19 @@ const KDEventMapBullet = {
 			}
 			KinkyDungeonDropItem({name: "Knife"}, point, KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(point.x, point.y)), true, true);
 		},
-	}
+	},
+	"bulletHitEnemy": {
+		"ElementalOnSlowOrBind": (e, b, data) => {
+			if (b && data.enemy && (data.enemy.slow || data.enemy.bind)) {
+				KinkyDungeonDamageEnemy(data.enemy, {
+					type: e.damage,
+					damage: e.power,
+					time: e.time,
+					bind: e.bind
+				}, true, (b.bullet.NoMsg || e.power == 0), b.bullet.spell, b, undefined, b.delay, true);
+			}
+		},
+	},
 };
 
 /**

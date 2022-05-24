@@ -358,6 +358,8 @@ ClimbDown,"You climb down the stairs. The passage closes behind you."
 ClimbDownFail,"You can't climb down until you get out of this leash..."
 ClimbDownShortcut,"You climb down and find yourself in a strange new place."
 
+KDNGPlus," plus XXX"
+
 DungeonNamegrv,Graveyard
 DungeonNamecat,Catacombs
 DungeonNamejng,Underground Jungle
@@ -697,7 +699,7 @@ KinkyDungeonInventoryItemMagicHammerDesc,"Made of a magical, resonant material."
 KinkyDungeonInventoryItemMagicHammerDesc2,"Deals crush damage and knocks the target back. Helps to bash open restraints while cutting."
 KinkyDungeonInventoryItemIceBreaker,IceBreaker
 KinkyDungeonInventoryItemIceBreakerDesc,"A frigid lightweight hammer with a spike on the end."
-KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 3x damage to frozen targets instead of 2x."
+KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 2.5x damage to frozen targets instead of 2x. Triggers Shatter."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. Deals slash damage."
@@ -2885,7 +2887,7 @@ KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 
 KinkyDungeonSpellIcebolt,Ice Shard
-KinkyDungeonSpellDescriptionIcebolt,A quick shard of ice that does DamageDealt damage and freezes for Duration turns.
+KinkyDungeonSpellDescriptionIcebolt,A shard of ice that does DamageDealt damage and slows for Duration turns. Freezes if already slowed.
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
@@ -3004,7 +3006,7 @@ KinkyDungeonSpellTargetCorona,Choose line direction
 
 KinkyDungeonSpellIcicles,Icicles
 KinkyDungeonSpellIcicle,Icicle
-KinkyDungeonSpellDescriptionIcicles,Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and freeze for 3 turns.
+KinkyDungeonSpellDescriptionIcicles,"Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and slow for 4 turns, freezing slowed targets for 3 turns."
 KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
 

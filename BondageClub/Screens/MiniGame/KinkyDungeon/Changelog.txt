@@ -868,7 +868,7 @@ Spell Balance:
 - New Toggle spell: Shatter
 - New spell: Ignite
 
-3.34.1 Bugfix
+3.34.1 Bugfix/QoL
 -Added ambushing enemies to ambush faction
 -Ambushing enemies should ignore the player once exhausted and tied
 -Bed and barrel trap should be removed on leash
@@ -878,7 +878,11 @@ Spell Balance:
 -Alchemist's pet is now more distinctively colored
 -Player can now pick up items inside walls and bars
 -Red border that blocks fast moving only happens if an enemy starts playing with you, or if an aggressive enemy is nearby. Also won't trigger on aggressive enemies unless they are within 6 units
-
+-Added new game plus counter
+-Icebreaker now triggers shatter
+-Ice shard now slows, but freezes if target is already slowed or bound
+-Ice shard mana cost from 6 to 4, Ice Shard damage from 40 to 35
+-Freeze mana cost to 3 from 2
 
 TODO ValidationFindBlockCycles to prevent bugs
 
