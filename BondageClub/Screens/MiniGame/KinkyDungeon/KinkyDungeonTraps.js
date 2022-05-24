@@ -31,7 +31,7 @@ function KinkyDungeonHandleStepOffTraps(x, y, moveX, moveY) {
 							KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
 							'0', requireTags, true);
 						if (Enemy) {
-							KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 7, true, undefined, undefined, true, undefined, true, 1.5);
+							KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, Enemy.name, 1, 7, true, undefined, undefined, true, "Ambush", true, 1.5);
 							if (Enemy.tags.has("minor")) spawned += 0.4;
 							else spawned += 1;
 						}
@@ -77,7 +77,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 			} else {
 				if (tile.Trap === "SpawnEnemies") {
 					let radius = tile.Power > 4 ? 4 : 2;
-					let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius, true, undefined, undefined, true, "Enemy", true, 1.5);
+					let created = KinkyDungeonSummonEnemy(x, y, tile.Enemy, tile.Power, radius, true, undefined, undefined, true, "Ambush", true, 1.5);
 					if (created > 0) {
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
