@@ -2658,9 +2658,15 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 				KinkyDungeonWaitMessage();
 				KinkyDungeonAdvanceTime(1); // was moveDirection.delta, but became too confusing
 			}
+		} else if (KinkyDungeonGroundItems.some((item) => {return item.x == moveX && item.y == moveY;})) {
+			// We can pick up items inside walls, in case an enemy drops it into bars
+			KinkyDungeonItemCheck(moveX, moveY, MiniGameKinkyDungeonLevel);
+			KinkyDungeonInterruptSleep();
+			KinkyDungeonAdvanceTime(1);
 		} else { // If we are blind we can bump into walls!
 			if (KinkyDungeonGetVisionRadius() <= 1) {
 				if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Footstep.ogg");
+				KinkyDungeonSendActionMessage(2, TextGet("KDWallBump"), "white", 2);
 				KinkyDungeonInterruptSleep();
 				KinkyDungeonAdvanceTime(1);
 			}

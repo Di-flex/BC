@@ -173,7 +173,7 @@ function KinkyDungeonItemEvent(Item) {
 function KinkyDungeonItemCheck(x, y, Index) {
 	for (let I = 0; I < KinkyDungeonGroundItems.length; I++) {
 		let item = KinkyDungeonGroundItems[I];
-		if (KinkyDungeonPlayerEntity.x == item.x && KinkyDungeonPlayerEntity.y == item.y) {
+		if (x == item.x && y == item.y) {
 			KinkyDungeonGroundItems.splice(I, 1);
 			I -= 1;
 			KinkyDungeonItemEvent(item);
