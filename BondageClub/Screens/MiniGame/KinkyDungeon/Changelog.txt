@@ -876,6 +876,8 @@ Spell Balance:
 -Limitchance is now 0 with any kind of help, even struggle
 -Only hostile NPCs can pickpocket the player
 -Alchemist's pet is now more distinctively colored
+-Player can now pick up items inside walls and bars
+-Red border that blocks fast moving only happens if an enemy starts playing with you, or if an aggressive enemy is nearby. Also won't trigger on aggressive enemies unless they are within 6 units
 
 
 TODO ValidationFindBlockCycles to prevent bugs
