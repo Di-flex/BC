@@ -994,6 +994,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 						en.allied = 100;
 					}
 					en.boundLevel = Math.max(0, en.boundLevel);
+					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 					return "Cast";
 				}
 				return "Fail";
@@ -1002,6 +1003,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 					KinkyDungeonLock(r, "");
 				}
 				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonPurpleLockRemove"), "yellow", 2);
+				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 				return "Cast";
 			}
 			return "Fail";

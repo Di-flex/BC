@@ -421,6 +421,7 @@ function KinkyDungeonGetMapShrines(Dict) {
 }
 
 function KinkyDungeonTakeOrb(Amount, X, Y) {
+	KinkyDungeonSetFlag("NoDialogue", 3);
 	KinkyDungeonDrawState = "Orb";
 	KinkyDungeonOrbAmount = Amount;
 	KDOrbX = X;

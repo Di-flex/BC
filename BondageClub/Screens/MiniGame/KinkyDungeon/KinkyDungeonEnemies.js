@@ -436,7 +436,7 @@ function KDGetEnemyStruggleRate(enemy) {
 	return amount;
 }
 
-let KDMaxBindingBars = 6;
+let KDMaxBindingBars = 3;
 
 function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	let tooltip = false;
@@ -448,7 +448,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 			let yy = enemy.visual_y ? enemy.visual_y : enemy.y;
 			// Draw bars
 			if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
-				&& (KDAllied(enemy) || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp)))) {
+				&& (KDAllied(enemy) || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp || enemy.boundLevel)))) {
 				let II = 0;
 				// Draw binding bars
 				let helpless = (enemy.hp < enemy.Enemy.maxhp * 0.1 && KDBoundEffects(enemy) >= 4);
@@ -2579,6 +2579,9 @@ function KinkyDungeonGetWarningTilesAdj() {
 }
 
 function KDCanPickpocket(enemy) {
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (KDRestraint(inv).enclose) return false;
+	}
 	return KDHostile(enemy);
 }
 
