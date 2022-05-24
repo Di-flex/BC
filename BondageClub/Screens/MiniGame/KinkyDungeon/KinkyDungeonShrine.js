@@ -17,6 +17,7 @@ let KinkyDungeonShrineBaseCosts = {
 };
 
 let KinkyDungeonOrbAmount = 0;
+let KDShrineRemoveCount = 3;
 
 /**
  * Cost growth, overrides the default amount
@@ -58,7 +59,7 @@ function KinkyDungeonShrineAvailable(type) {
 		else return false;
 	}
 	if (KinkyDungeonShrineTypeRemove.includes(type) && KinkyDungeonGetRestraintsWithShrine(type).length > 0) return true;
-	else if ((type == "Elements" || type == "Illusion" || type == "Conjure") && KinkyDungeonGetUnlearnedSpells(0, 5 + MiniGameKinkyDungeonCheckpoint, KinkyDungeonSpellList[type]).length > 0) return true;
+	else if ((type == "Elements" || type == "Illusion" || type == "Conjure")) return true;
 	else if (type == "Will" && (KinkyDungeonStatMana < KinkyDungeonStatManaMax || KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax)) return true;
 
 	return false;
@@ -90,14 +91,14 @@ function KinkyDungeonGenerateShop(Level) {
 	KinkyDungeonShopItems.sort(function(a, b){return a.rarity-b.rarity;});
 }
 
-function KinkyDungeonItemCost(item, noScale) {
+function KinkyDungeonItemCost(item, noScale, sell) {
 	if (item.cost != null) return item.cost;
 	if (item.rarity != null) {
 		let rarity = item.rarity;
 		if (item.costMod) rarity += item.costMod;
 		let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5 * (noScale ? 0 : 1))*(30 + 2 * rarity * rarity * 10)/5);
 		if (costt > 100) costt = 50 * Math.round(costt / 50);
-		if (KinkyDungeonStatsChoice.has("PriceGouging")) {
+		if (KinkyDungeonStatsChoice.has("PriceGouging") && !sell) {
 			costt *= 5;
 		}
 		return costt;
@@ -119,7 +120,7 @@ function KinkyDungeonShrineCost(type) {
 		for (let r of rest) {
 			if (KDRestraint(r).power > maxPower) maxPower = KDRestraint(r).power;
 		}
-		mult = Math.sqrt(Math.max(1, rest.length));
+		mult = Math.sqrt(Math.max(1, Math.min(KDShrineRemoveCount, rest.length)));
 		mult *= Math.pow(Math.max(1, maxPower), 0.75);
 		noMult = true;
 	} else if (type == "Will") {
@@ -132,7 +133,7 @@ function KinkyDungeonShrineCost(type) {
 	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
 	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
-		return 100;
+		return KinkyDungeonGoddessRep[type] < 50 ? 100 : 0;
 
 	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10;
 }
@@ -144,7 +145,7 @@ function KinkyDungeonPayShrine(type) {
 
 	// TODO shrine effects
 	if (KinkyDungeonShrineTypeRemove.includes(type)) {
-		rep = KinkyDungeonRemoveRestraintsWithShrine(type);
+		rep = KinkyDungeonRemoveRestraintsWithShrine(type, KDShrineRemoveCount);
 		KinkyDungeonChangeRep("Ghost", -rep);
 
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");

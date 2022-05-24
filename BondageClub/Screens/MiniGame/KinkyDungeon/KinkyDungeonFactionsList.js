@@ -15,6 +15,7 @@ let KinkyDungeonFactionColors = {
 
 /** Hidden factions do not auto-rep change when you attack them */
 let KinkyDungeonHiddenFactions = [
+	"Plant",
 	"Player",
 	"Enemy",
 	"Jail",
@@ -22,6 +23,7 @@ let KinkyDungeonHiddenFactions = [
 	"Beast",
 	"Slime",
 	"KinkyConstruct",
+	"Boss",
 ];
 
 let KinkyDungeonFactionRelationsBase = {
@@ -32,6 +34,7 @@ let KinkyDungeonFactionRelationsBase = {
 
 		// Wild factions
 		KinkyConstruct: -0.9,
+		Plant: -0.9,
 		Slime: -1.0,
 		Beast: -0.6,
 
@@ -40,7 +43,7 @@ let KinkyDungeonFactionRelationsBase = {
 		Bandit: -0.7,
 		Alchemist: -0.25,
 		Nevermere: -0.1,
-		Apprentice: 0.1,
+		Apprentice: 0.2,
 		Dressmaker: -0.45,
 		Witch: -0.8,
 		Elemental: -0.6,
@@ -52,6 +55,8 @@ let KinkyDungeonFactionRelationsBase = {
 		AncientRobot: -0.45,
 	},
 	"Enemy": {
+	},
+	"Boss": {
 	},
 	"Ambush": {
 		Player: -1.0,
@@ -102,6 +107,11 @@ let KinkyDungeonFactionRelationsBase = {
 		Dressmaker: 0.4,
 		Dragon: -1.0,
 	},
+	"Plant": {
+		Jail: -0.25,
+		Apprentice: -0.55,
+		Dragon: -0.55,
+	},
 	"Nevermere": {
 		"Alchemist": 1.0,
 		"Elf": -1.0,
@@ -118,12 +128,12 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Bountyhunter": {
 		"Jail": 0.8,
-		"Dragon": 0.15,
+		"Dragon": 0.4,
 		"Bandit": -0.4,
 		"Maidforce": -0.15,
 		"Witch": -0.4,
-		"Dressmaker": 0.4,
-		"Nevermere": 0.55,
+		"Dressmaker": 0.5,
+		"Nevermere": 0.75,
 	},
 	"Elf": {
 		"Mushy": 1.0,
@@ -132,15 +142,15 @@ let KinkyDungeonFactionRelationsBase = {
 	"Bast": {
 		"Elf": -1.0,
 		"Witch": -0.4,
-		"Beast": 0.4,
+		"Beast": 0.55,
 	},
 	"Bandit": {
 		"Mushy": -0.6,
 	},
 	"Elemental": {
 		"Witch": 0.4,
-		"KinkyConstruct": 0.45,
-		"Dressmaker": 0.15,
+		"KinkyConstruct": 0.55,
+		"Dressmaker": 0.35,
 		"Apprentice": 1.0,
 		"Bandit": -0.15,
 		"Elf": -0.5,
@@ -149,12 +159,12 @@ let KinkyDungeonFactionRelationsBase = {
 		"AncientRobot": -0.15,
 	},
 	"AncientRobot": {
-		"Bast": 0.4,
+		"Bast": 0.55,
 		"Elf": -0.6,
-		"Maidforce": 0.4,
-		"Dragon": 0.4,
-		"Dressmaker": 0.4,
-		"Apprentice": 0.4,
+		"Maidforce": 0.55,
+		"Dragon": 0.45,
+		"Dressmaker": 0.55,
+		"Apprentice": 0.52,
 	},
 	"Dragon": {
 		"Jail": 1.0,
@@ -169,16 +179,16 @@ let KinkyDungeonFactionRelationsBase = {
 	},
 	"Witch": {
 		"Apprentice": 1.0,
-		"Dressmaker": 0.35,
+		"Dressmaker": 0.4,
 		"Elf": -1.0,
 	},
 	"Dressmaker": {
 		"Apprentice": 1.0,
-		"Nevermere": 0.6,
+		"Nevermere": 0.8,
 	},
 	"Apprentice": {
 		"Jail": 1.0,
-		"Elf":  0.55,
+		"Elf":  0.75,
 	},
 	"Maidforce": {
 		"Alchemist": 1.0,
@@ -254,7 +264,7 @@ function KDSetFactionRelation(a, b, relation) {
  * @param {string} b
  * @param {number} amount
  */
-function KDChangeFactionRelation(a, b, amount) {
+function KDChangeFactionRelation(a, b, amount, AffectRivals) {
 	if (a == "Rage" || b == "Rage") return;
 	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelations[a] || 0;
 	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelations[b] || 0;
@@ -271,6 +281,15 @@ function KDChangeFactionRelation(a, b, amount) {
 			KinkyDungeonFactionRelations[b][a] = KinkyDungeonFactionRelations[a][b];
 		else if (!KinkyDungeonFactionRelations[b][a]) KinkyDungeonFactionRelations[b][a] = 0;
 		KinkyDungeonFactionRelations[b][a] = Math.max(-1, Math.min(1, KinkyDungeonFactionRelations[b][a] + amount));
+	}
+
+	if (AffectRivals && a == "Player") {
+		for (let faction of Object.keys(KinkyDungeonFactionRelations)) {
+			if (!KinkyDungeonHiddenFactions.includes(faction) && faction != a && faction != b) {
+				let relation = KDFactionRelation(b, faction);
+				KDChangeFactionRelation("Player", b, amount * relation);
+			}
+		}
 	}
 	KDInitFactions();
 }

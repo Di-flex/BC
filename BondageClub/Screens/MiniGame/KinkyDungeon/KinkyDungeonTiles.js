@@ -20,7 +20,7 @@ let KDMoveObjectFunctions = {
 		return true;
 	},
 	'Y': (moveX, moveY) => { // Open the chest
-		let chestType = MiniGameKinkyDungeonCheckpoint == 12 ? "shelf" : "rubble";
+		let chestType = MiniGameKinkyDungeonCheckpoint == "lib" ? "shelf" : "rubble";
 		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
 		KinkyDungeonMapSet(moveX, moveY, '1');
@@ -70,7 +70,7 @@ function KinkyDungeonHandleMoveToTile(toTile) {
 }
 
 function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
-	if (!KDGameData.JailKey) {
+	if (!KDGameData.JailKey && !KinkyDungeonFlags.has("BossUnlocked")) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonNeedJailKey"), "#ffffff", 1);
 	}
 	else {
@@ -84,7 +84,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			MiniGameKinkyDungeonLevel += 1;
 			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
 				MiniGameKinkyDungeonLevel = 1;
-				MiniGameKinkyDungeonMainPath = 0;
+				MiniGameKinkyDungeonMainPath = "grv";
 				KinkyDungeonState = "End";
 				MiniGameVictory = true;
 				suppressCheckPoint = true;
@@ -108,7 +108,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				KDGameData.HeartTaken = false;
 				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
 				let saveData = KinkyDungeonSaveGame(true);
-				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && MiniGameKinkyDungeonCheckpoint < 11)) {
+				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint))) {
 					KDGameData.KinkyDungeonSpawnJailers = 0;
 					KDGameData.KinkyDungeonSpawnJailersMax = 0;
 					if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {

@@ -156,9 +156,9 @@ function KinkyDungeonRepName(Amount) {
 function KinkyDungeonRepNameFaction(Amount) {
 	let name = "";
 
-	if (Amount > 0.1) name = "Thankful";
-	if (Amount >= 0.5) name = "Pleased";
-	if (Amount > 0.9) name = "Blessed";
+	if (Amount > 0.25) name = "Thankful";
+	if (Amount >= 0.4) name = "Pleased";
+	if (Amount > 0.7) name = "Blessed";
 	if (Amount < -0.1) name = "Angered";
 	if (Amount <= -0.5) name = "Enraged";
 	if (Amount < -0.9) name = "Cursed";
@@ -207,14 +207,21 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 		KinkyDungeonGoddessRep[Rep] += Amount;
 		KinkyDungeonGoddessRep[Rep] = Math.min(maximum, Math.max(minimum, KinkyDungeonGoddessRep[Rep]));
 		if (Math.abs(KinkyDungeonGoddessRep[Rep] - start) > 0.1) {
-			let amount = Math.round((KinkyDungeonGoddessRep[Rep] - start)*10)/10;
+			let value = KinkyDungeonGoddessRep[Rep] - start;
+			let amount = Math.round((value)*10)/10;
 			KinkyDungeonSendFloater({x: 1100, y: 800 - KDRecentRepIndex * 40}, `${amount > 0 ? '+' : ''}${amount}% ${TextGet("KinkyDungeonShrine" + Rep)} rep`, "white", 5, true);
 			KDRecentRepIndex += 1;
 		}
 
 		if (KDFactionGoddess[Rep]) {
 			for (let f of Object.entries(KDFactionGoddess[Rep])) {
-				KDChangeFactionRelation("Player", f[0], (Amount > 0 ? f[1] : f[1]*2) * Amount);
+				let mult = (Amount > 0 ? 1 : 2);
+				if (Amount > 0) {
+					if (KDFactionRelation("Player", f[0]) > 0.5) mult *= 0;
+					else if (KDFactionRelation("Player", f[0]) > 0.25) mult *= 0.25;
+					else if (KDFactionRelation("Player", f[0]) > 0.1) mult *= 0.5;
+				}
+				KDChangeFactionRelation("Player", f[0], f[1] * mult * Amount);
 			}
 		}
 
@@ -262,9 +269,10 @@ function KinkyDungeonHandleReputation() {
 					KDRepSelectionMode = "";
 				} else if (KDRepSelectionMode == "Rescue" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanRescue(rep, value)) {
 					// Rescue
-					KDSendInput("rescue", {rep: rep, value: value});
-					KinkyDungeonDrawState = "Game";
-					KDRepSelectionMode = "";
+					if (KDSendInput("rescue", {rep: rep, value: value}) != "FailRescue") {
+						KinkyDungeonDrawState = "Game";
+						KDRepSelectionMode = "";
+					}
 					return true;
 				} else if (KDRepSelectionMode == "Penance" && MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40) && KinkyDungeonCanPenance(rep, value)) {
 					// Penance
@@ -289,6 +297,7 @@ function KinkyDungeonHandleReputation() {
 }
 
 function KinkyDungeonDrawReputation() {
+	KinkyDungeonDrawMessages(true);
 	let i = 0;
 	let XX = 0;
 	let spacing = 60;
@@ -370,8 +379,8 @@ function KinkyDungeonDrawReputation() {
 				if (KDRepSelectionMode == "Aid") {
 					DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
 					if (MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
-						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100+1, 900+1, 1250, "black", "black");
-						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100, 900, 1250, "white", "black");
+						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep, value)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100+1, 900+1, 1250, "black", "black");
+						DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep, value)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100, 900, 1250, "white", "black");
 						// Rescue
 					}
 				}
@@ -544,8 +553,9 @@ function KinkyDungeonCanPenance(rep, value) {
  * @param {string} rep
  * @returns {number}
  */
-function KinkyDungeonAidManaCost(rep) {
-	return 3;
+function KinkyDungeonAidManaCost(rep, value) {
+	let percent = (value + 50)/100;
+	return Math.ceil((1 - KinkyDungeonStatMana/KinkyDungeonStatManaMax) * 15 * Math.max(0.3, Math.min(1, 1.3 - percent)));
 }
 
 /**
@@ -555,7 +565,7 @@ function KinkyDungeonAidManaCost(rep) {
  * @returns {number}
  */
 function KinkyDungeonAidManaAmount(rep, value) {
-	return 1 + Math.floor(19 * (value + 50) / 100);
+	return KinkyDungeonStatManaMax - KinkyDungeonStatMana;//1 + Math.floor(19 * (value + 50) / 100);
 }
 
 /**
