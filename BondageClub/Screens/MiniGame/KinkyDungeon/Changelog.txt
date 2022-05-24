@@ -868,6 +868,16 @@ Spell Balance:
 - New Toggle spell: Shatter
 - New spell: Ignite
 
+3.34.1 Bugfix
+-Added ambushing enemies to ambush faction
+-Ambushing enemies should ignore the player once exhausted and tied
+-Bed and barrel trap should be removed on leash
+-Bed and barrel trap now make noise to attract enemies
+-Limitchance is now 0 with any kind of help, even struggle
+-Only hostile NPCs can pickpocket the player
+-Alchemist's pet is now more distinctively colored
+
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

@@ -244,6 +244,8 @@ type restraint = {
 	DefaultLock?: string,
 	Link?: string,
 	UnLink?: string,
+	/** Removes when the player is leashed */
+	removeOnLeash?: boolean,
 	/** Default tether length */
 	tether?: number,
 	leash?: boolean,

@@ -10,7 +10,7 @@ KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 
-KinkyDungeon,"Kinky Dungeon v3.34"
+KinkyDungeon,"Kinky Dungeon v3.34.1"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -1069,7 +1069,7 @@ KillAlchemist,"The alchemist screams and runs."
 AttackAlchemistBind,"The Alchemist restrains you! (+RestraintAdded)"
 AttackAlchemist,"The alchemist hugs you in a rubbery embrace! (-DamageTaken SP)"
 
-NameAlchemistPet,Wolfgirl
+NameAlchemistPet,Alchemist's Pet
 KillAlchemistPet,"The wolfgirl escapes!"
 AttackAlchemistPetDash,"The wolfgirl lunges at you with a powerful kick!"
 AttackAlchemistPetStun,"The wolfgirl lunges at you with a powerful kick!"

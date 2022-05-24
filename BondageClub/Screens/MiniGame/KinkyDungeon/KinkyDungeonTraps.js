@@ -113,12 +113,14 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KDBarrelTrap");
 					KinkyDungeonTiles.delete(x + "," + y);
+					KinkyDungeonMakeNoise(10, x, y);
 				}
 				if (tile.Trap == "BedTrap") {
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BedTrap"), 0, true);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KDBedTrap");
 					KinkyDungeonTiles.delete(x + "," + y);
+					KinkyDungeonMakeNoise(10, x, y);
 				}
 				if (tile.Trap === "CustomSleepDart") {
 					let spell = KinkyDungeonFindSpell("TrapSleepDart", true);
