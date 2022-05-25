@@ -2722,7 +2722,6 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	if (KinkyDungeonStatsChoice.has("Quickness")) {
 		KinkyDungeonSetFlag("BlockQuicknessPerk", 4);
 	}
-	KinkyDungeonSetFlag("Quickness", 0);
 	return Math.max(1, KinkyDungeonSlowLevel);
 	//}
 	//return 0;

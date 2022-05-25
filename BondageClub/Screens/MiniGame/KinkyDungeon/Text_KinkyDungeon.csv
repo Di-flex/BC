@@ -728,6 +728,8 @@ KinkyDungeonPlayerSlow4,Crawling slowly!
 KinkyDungeonPlayerSlow3,Inching slowly!
 KinkyDungeonPlayerSlow2,Hopping slowly!
 KinkyDungeonPlayerSlow,Slowed!
+KinkyDungeonPlayerImmobile,Immobile!
+KinkyDungeonPlayerEnclose,Enclosed!
 KinkyDungeonPlayerPlugged,"Plugged!"
 KinkyDungeonPlayerPluggedExtreme,"Filled!"
 KinkyDungeonPlayerDenied,"Denied!"

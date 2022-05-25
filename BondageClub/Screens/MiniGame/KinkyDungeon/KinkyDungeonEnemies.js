@@ -42,6 +42,9 @@ let KinkyDungeonFlags = new Map();
 function KinkyDungeonSetFlag(Flag, Duration) {
 	if (!KinkyDungeonFlags.get(Flag) || Duration <= 0 || (KinkyDungeonFlags.get(Flag) > 0 && KinkyDungeonFlags.get(Flag) < Duration)) {
 		KinkyDungeonFlags.set(Flag, Duration);
+		if (Duration == 0) {
+			KinkyDungeonFlags.delete(Flag);
+		}
 	}
 }
 

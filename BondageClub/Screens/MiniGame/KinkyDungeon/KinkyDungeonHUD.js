@@ -106,7 +106,9 @@ function KinkyDungeonDrawInputs() {
 	if (KinkyDungeonFlags.has("Quickness")) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerQuickness"), 1640, 900 - i * 35, 200, "#ffff00", "gray"); i++;
 	} else {
-		if (KinkyDungeonMovePoints < 0) {
+		if (KinkyDungeonSlowLevel >= 9) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerImmobile"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		} else if (KinkyDungeonMovePoints < 0) {
 			DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
 		} else if (KinkyDungeonSlowLevel >= 4) {
 			DrawTextFit(TextGet("KinkyDungeonPlayerSlow4"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
