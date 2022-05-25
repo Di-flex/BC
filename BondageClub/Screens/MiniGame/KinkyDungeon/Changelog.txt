@@ -894,6 +894,7 @@ Spell Balance:
 -Fix golems aggro sometimes
 -Fix scroll dialogue tags missing
 -New Game Plus is harder~
+-Use the inventory view for quick inventory for a unified experience (and showing damage/accuracy/etc)
 
 TODO ValidationFindBlockCycles to prevent bugs
 
