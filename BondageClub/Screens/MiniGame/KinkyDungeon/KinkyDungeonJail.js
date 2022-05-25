@@ -199,7 +199,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 		let index = (Type == "Attack" || Type == "Spell") ? ("" + Math.floor(Math.random() * 3)) : "";
 		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 3 : 5, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, (!KDGameData.PrisonerState));
 	}
-	if (enemy) {
+	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") > -0.1) {
 		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimerAggro;
 		else enemy.hostile = Math.max(KDMaxAlertTimerAggro, enemy.hostile);
 		enemy.ceasefire = undefined;
