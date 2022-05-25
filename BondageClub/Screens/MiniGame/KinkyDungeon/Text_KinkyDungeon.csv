@@ -3973,8 +3973,8 @@ KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
 KinkyDungeonCaptureBasic,You capture the EnemyName.
 KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
-KinkyDungeonCaptureGoddessLowUniform,"You capture the EnemyName, but the goddess of GODDESS would prefer that you be in uniform."
-KinkyDungeonCaptureGoddessNoneUniform,"You capture the EnemyName, but the goddess of GODDESS demands that you wear restraints!"
+KinkyDungeonCaptureGoddessLowUniform,"You capture the EnemyName, but the goddess of GODDESS would prefer that you be in uniform (wear her restraint)."
+KinkyDungeonCaptureGoddessNoneUniform,"You capture the EnemyName, but the goddess of GODDESS demands that you wear several restraints!"
 KinkyDungeonCaptureGoddessLowRestraint,"You capture the EnemyName, but the goddess of GODDESS would prefer that you wear some restraints."
 KinkyDungeonCaptureGoddessNoneRestraint,"You capture the EnemyName, but the goddess of GODDESS demands that you wear several restraints!"
 KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit for rewards this floor."
