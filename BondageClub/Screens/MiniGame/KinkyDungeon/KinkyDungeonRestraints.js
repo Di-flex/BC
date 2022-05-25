@@ -513,11 +513,41 @@ function KinkyDungeonHasHook() {
 
 /**
  *
+ * @param {string} Group - Group
+ * @param {boolean} [External] - By enemies or by player?
+ * @returns {boolean}
+ */
+function KDGroupBlocked(Group, External) {
+	let belt = KinkyDungeonGetRestraintItem("ItemPelvis");
+
+	if (belt && KDRestraint(belt) && KDRestraint(belt).chastity && ["ItemVulva", "ItemVulvaPiercings", "ItemButt"].includes(Group)) return true;
+
+	let bra = KinkyDungeonGetRestraintItem("ItemPelvis");
+
+	if (bra && KDRestraint(bra) && KDRestraint(bra).chastitybra && ["ItemNipples", "ItemNipplesPiercings"].includes(Group)) return true;
+
+	let hood = KinkyDungeonGetRestraintItem("ItemHood");
+
+	if (hood && KDRestraint(hood) && KDRestraint(hood).gag && Group.includes("ItemM")) return true;
+
+	let mask = KinkyDungeonGetRestraintItem("ItemHead");
+
+	if (mask && KDRestraint(mask) && KDRestraint(mask).gag && Group.includes("ItemM")) return true;
+
+	return false;
+	//let device = null;
+
+	//if (device && KDRestraint(device) && KDRestraint(device).enclose) return true;
+
+}
+
+/**
+ *
  * @param {boolean} [ApplyGhost]
  * @returns {boolean}
  */
 function KinkyDungeonIsHandsBound(ApplyGhost) {
-	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemHands");
+	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemHands"), "Block", true) || KDGroupBlocked("ItemHands");
 	for (let inv of KinkyDungeonAllRestraint()) {
 		if (KDRestraint(inv).bindhands) {
 			blocked = true;
@@ -542,7 +572,7 @@ function KinkyDungeonCanUseFeet() {
  * @returns {boolean}
  */
 function KinkyDungeonIsArmsBound(ApplyGhost) {
-	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, "ItemArms");
+	let blocked = InventoryItemHasEffect(InventoryGet(KinkyDungeonPlayer, "ItemArms"), "Block", true) || KDGroupBlocked("ItemArms");
 	for (let inv of KinkyDungeonAllRestraint()) {
 		if (KDRestraint(inv).bindarms) {
 			blocked = true;
@@ -1006,7 +1036,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	// Items which require a knife are much harder to cut without one
 	if (StruggleType == "Cut" && KinkyDungeonNormalBlades <= 0 && KinkyDungeonEnchantedBlades <= 0 && data.restraintEscapeChance > 0.01) data.escapeChance/= 5;
 
-	if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, struggleGroup) && !KDRestraint(restraint).alwaysStruggleable) data.escapeChance = 0;
+	if (KDGroupBlocked(struggleGroup) && !KDRestraint(restraint).alwaysStruggleable) data.escapeChance = 0;
 
 	// Blue locks make it harder to escape an item
 	if (restraint.lock == "Blue" && (StruggleType == "Cut" || StruggleType == "Remove" || StruggleType == "Struggle")) data.escapeChance = Math.max(0, data.escapeChance - 0.15);
@@ -1035,7 +1065,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	if (belt && KDRestraint(belt) && KDRestraint(belt).chastity) data.escapeChance = 0.0;
 
 	if (struggleGroup == "ItemNipples" || struggleGroup == "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
-	if (bra && KDRestraint(bra) && KDRestraint(bra).chastity) data.escapeChance = 0.0;
+	if (bra && KDRestraint(bra) && KDRestraint(bra).chastitybra) data.escapeChance = 0.0;
 
 	if (data.escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
@@ -1475,7 +1505,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
 				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink))))
 			&& (!currentRestraint || !currentRestraint.dynamicLink || !KDDynamicLinkList(currentRestraint).some((item) => {return restraint.name == item.name;}))
-			&& (Bypass || restraint.bypass || !InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group))) {
+			&& (Bypass || restraint.bypass || !KDGroupBlocked(restraint.Group, true))) {
 
 			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
 			let weight = r.w;
@@ -1508,7 +1538,7 @@ function KinkyDungeonUpdateRestraints(delta) {
 		if (KinkyDungeonPlayer.Appearance[G].Asset) {
 			let group = KinkyDungeonPlayer.Appearance[G].Asset.Group;
 			if (group) {
-				if (InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, group.Name)) playerTags.set(group.Name + "Blocked", true);
+				if (KDGroupBlocked(group.Name)) playerTags.set(group.Name + "Blocked", true);
 				if (InventoryGet(KinkyDungeonPlayer, group.Name)) playerTags.set(group.Name + "Full", true);
 			}
 		}
@@ -1669,7 +1699,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 	let tight = (Tightness) ? Tightness : 0;
 	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
 	if (restraint) {
-		if (!InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, restraint.Group) || Bypass) {
+		if (!KDGroupBlocked(restraint.Group, true) || Bypass) {
 			KinkyDungeonEvasionPityModifier = 0;
 			let r = KinkyDungeonGetRestraintItem(restraint.Group);
 			let linkable = (!Link && r && KinkyDungeonIsLinkable(KDRestraint(r), restraint));

@@ -248,6 +248,8 @@ type restraint = {
 	removeOnLeash?: boolean,
 	/** player is enclosed */
 	enclose?: boolean,
+	/** ignore the player if player is 0 stamina and the enemy is non leashing */
+	ignoreIfNotLeash?: boolean,
 	/** Default tether length */
 	tether?: number,
 	leash?: boolean,

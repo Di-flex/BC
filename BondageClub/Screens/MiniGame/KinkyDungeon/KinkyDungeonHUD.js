@@ -1105,7 +1105,7 @@ function KinkyDungeonUpdateStruggleGroups() {
 					magic:KDRestraint(restraint) ? KDRestraint(restraint).magic : undefined,
 					noCut:KDRestraint(restraint) && KDRestraint(restraint).escapeChance && !KDRestraint(restraint).escapeChance.Cut,
 					curse:KDRestraint(restraint)? KDRestraint(restraint).curse : undefined,
-					blocked: !KDRestraint(restraint).alwaysStruggleable && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});
+					blocked: !KDRestraint(restraint).alwaysStruggleable && KDGroupBlocked(Group)});
 		}
 	}
 }
