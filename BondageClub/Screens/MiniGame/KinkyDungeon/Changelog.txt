@@ -884,6 +884,18 @@ Spell Balance:
 -Ice shard mana cost from 6 to 4, Ice Shard damage from 40 to 35
 -Freeze mana cost to 3 from 2
 
+3.34.2 Bugfix
+-Allied mobs get removed as soon as you threaten them
+-Binding bars should appear on enemies even at max health
+-Cant get pickpocketed inside a barrel
+-Fixed a crash with mithril ankle cuffs
+-Command word now costs mana
+-Fix orb softlock
+-Fix golems aggro sometimes
+-Fix scroll dialogue tags missing
+-New Game Plus is harder~
+-Use the inventory view for quick inventory for a unified experience (and showing damage/accuracy/etc)
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

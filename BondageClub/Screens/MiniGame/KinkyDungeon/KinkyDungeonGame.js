@@ -1723,9 +1723,10 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 		let locktype2 = KDRandom();
 
 		let modifiers = "";
-
-		let BlueChance = Math.min(KinkyDungeonBlueLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonBlueLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * KinkyDungeonBlueLockChanceScalingMax);
-		let PurpleChance = Math.min(KinkyDungeonPurpleLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonPurpleLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * KinkyDungeonPurpleLockChanceScalingMax);
+		let bmax = KinkyDungeonBlueLockChanceScalingMax + Math.min(0.25, KinkyDungeonDifficulty * 0.002);
+		let pmax = KinkyDungeonPurpleLockChanceScalingMax + Math.min(0.8, KinkyDungeonDifficulty * 0.004);
+		let BlueChance = Math.min(KinkyDungeonBlueLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonBlueLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * bmax);
+		let PurpleChance = Math.min(KinkyDungeonPurpleLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.5 : 1.0) * level * KinkyDungeonPurpleLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * pmax);
 
 		if (KinkyDungeonStatsChoice.get("HighSecurity")) {
 			BlueChance *= 1.5;
@@ -1736,7 +1737,8 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 		if (locktype2 < PurpleChance && locktype2*PurpleChance > locktype*BlueChance) {
 			return "Purple" + modifiers;
 		} else if (locktype < BlueChance) {
-			let GoldChance = Math.min(KinkyDungeonGoldLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * level * KinkyDungeonGoldLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.9 : 1.0) * KinkyDungeonGoldLockChanceScalingMax);
+			let max = KinkyDungeonGoldLockChanceScalingMax + Math.min(0.4, KinkyDungeonDifficulty * 0.001);
+			let GoldChance = Math.min(KinkyDungeonGoldLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * level * KinkyDungeonGoldLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.9 : 1.0) * max);
 
 			if (AllowGold && KDRandom() < GoldChance) return "Gold" + modifiers;
 			return "Blue" + modifiers;
@@ -2487,7 +2489,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (!Enemy.playWithPlayer && (!Enemy.lifetime || Enemy.lifetime > 9000)) { // KDAllied(Enemy)
+			if (!Enemy.lifetime || Enemy.lifetime > 9000) { // KDAllied(Enemy)
 				KDStartDialog("GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
 				noadvance = true;
 			}
@@ -2537,7 +2539,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && (!KinkyDungeonAggressive(Enemy) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
@@ -2615,6 +2617,10 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						else if (KinkyDungeonSlowLevel >= 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
 
 						let moveMult = Math.max(1, KinkyDungeonSlowLevel);
+
+						if (KinkyDungeonStatsChoice.has("Quickness")) {
+							KinkyDungeonSetFlag("BlockQuicknessPerk", 3 + moveMult);
+						}
 						if (quick) moveMult = 1;
 						if (KinkyDungeonSlowLevel > 9) moveMult = 1;
 						if ((moveDirection.x != 0 || moveDirection.y != 0)) {
@@ -2720,7 +2726,6 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	if (KinkyDungeonStatsChoice.has("Quickness")) {
 		KinkyDungeonSetFlag("BlockQuicknessPerk", 4);
 	}
-	KinkyDungeonSetFlag("Quickness", 0);
 	return Math.max(1, KinkyDungeonSlowLevel);
 	//}
 	//return 0;

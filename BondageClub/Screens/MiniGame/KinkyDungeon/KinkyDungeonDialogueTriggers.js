@@ -132,6 +132,7 @@ function KDShopTrigger(name) {
 		allowedPrisonStates: ["parole", ""],
 		nonHostile: true,
 		noCombat: true,
+		excludeTags: ["noshop"],
 		blockDuringPlaytime: true,
 		prerequisite: (enemy, dist) => {
 			return (dist < 1.5

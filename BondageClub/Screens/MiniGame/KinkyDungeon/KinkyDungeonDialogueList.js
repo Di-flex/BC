@@ -1115,10 +1115,14 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				clickFunction: (gagged) => {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						enemy.hostile = 100;
-						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy))) {
-							KinkyDungeonChangeRep("Ghost", -5);
-							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+						if (!enemy.Enemy.allied) {
+							enemy.hostile = 100;
+							if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy))) {
+								KinkyDungeonChangeRep("Ghost", -5);
+								KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+							}
+						} else {
+							enemy.hp = 0;
 						}
 					}
 					return false;

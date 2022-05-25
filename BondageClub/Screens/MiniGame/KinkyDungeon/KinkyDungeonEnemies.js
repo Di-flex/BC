@@ -42,6 +42,9 @@ let KinkyDungeonFlags = new Map();
 function KinkyDungeonSetFlag(Flag, Duration) {
 	if (!KinkyDungeonFlags.get(Flag) || Duration <= 0 || (KinkyDungeonFlags.get(Flag) > 0 && KinkyDungeonFlags.get(Flag) < Duration)) {
 		KinkyDungeonFlags.set(Flag, Duration);
+		if (Duration == 0) {
+			KinkyDungeonFlags.delete(Flag);
+		}
 	}
 }
 
@@ -436,7 +439,7 @@ function KDGetEnemyStruggleRate(enemy) {
 	return amount;
 }
 
-let KDMaxBindingBars = 6;
+let KDMaxBindingBars = 3;
 
 function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	let tooltip = false;
@@ -448,7 +451,7 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 			let yy = enemy.visual_y ? enemy.visual_y : enemy.y;
 			// Draw bars
 			if ((!enemy.Enemy.stealth || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)
-				&& (KDAllied(enemy) || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp)))) {
+				&& (KDAllied(enemy) || ((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp || enemy.boundLevel)))) {
 				let II = 0;
 				// Draw binding bars
 				let helpless = (enemy.hp < enemy.Enemy.maxhp * 0.1 && KDBoundEffects(enemy) >= 4);
@@ -948,7 +951,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 		let KinkyDungeonSummons = 0;
 		for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
 			let enemy = KinkyDungeonEntities[i];
-			if (KDAllied(enemy) && enemy.summoned && !enemy.Enemy.noCountLimit && (!enemy.lifetime || enemy.lifetime > 999)) {
+			if (KDAllied(enemy) && enemy.summoned && enemy.Enemy.allied && !enemy.Enemy.noCountLimit && (!enemy.lifetime || enemy.lifetime > 999)) {
 				KinkyDungeonSummons += 1;
 				if (KinkyDungeonSummons > KinkyDungeonSummonCount) {
 					enemy.hp -= Math.max(0.1 * enemy.hp) + 1;
@@ -1201,15 +1204,16 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				}
 			}
+			// Alert enemies if youve aggroed one
 			if (!KDAllied(enemy) && !(enemy.ceasefire > 0)) {
 				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
-						if (
+						if ((KDGetFaction(enemy) != "Player") && (
 							(KDFactionAllied(f, enemy) && KDFactionRelation("Player", enemy) <= 0.9)
 							|| (KDFactionRelation(f, enemy) >= 0.51 && KDFactionRelation("Player", enemy) <= 0.4)
 							|| (KDFactionRelation(f, enemy) >= 0.39 && KDFactionRelation("Player", enemy) <= 0.25)
 							|| (KDFactionRelation(f, enemy) >= 0.25 && KDFactionRelation("Player", enemy) <= -0.1)
-							|| (KDFactionRelation(f, enemy) >= 0.1 && KDFactionRelation("Player", enemy) <= -0.25)) {
+							|| (KDFactionRelation(f, enemy) >= 0.1 && KDFactionRelation("Player", enemy) <= -0.25))) {
 							enemy.hostile = KDMaxAlertTimer;
 						}
 					}
@@ -1292,6 +1296,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 	// Check if the enemy ignores the player
 	if (player.player && !KDAllied(enemy)) {
 		if (playerDist < 1.5 && KinkyDungeonAllRestraint().some((r) => {return KDRestraint(r).ignoreNear;})) ignore = true;
+		if (!leashing && !KinkyDungeonHasStamina(1.1) && KinkyDungeonAllRestraint().some((r) => {return KDRestraint(r).ignoreIfNotLeash;})) ignore = true;
+
 		if (enemy.Enemy.tags.has("ignorenoSP") && !KinkyDungeonHasStamina(1.1)) ignore = true;
 		if ((KDGetFaction(enemy) == "Ambush" || enemy.Enemy.tags.has("ignoreharmless")) && (!enemy.warningTiles || enemy.warningTiles.length == 0)
 			&& harmless && (!enemy.Enemy.ignorechance || KDRandom() < enemy.Enemy.ignorechance || !KinkyDungeonHasStamina(1.1))) ignore = true;
@@ -2579,6 +2585,9 @@ function KinkyDungeonGetWarningTilesAdj() {
 }
 
 function KDCanPickpocket(enemy) {
+	for (let inv of KinkyDungeonAllRestraint()) {
+		if (KDRestraint(inv).enclose) return false;
+	}
 	return KDHostile(enemy);
 }
 

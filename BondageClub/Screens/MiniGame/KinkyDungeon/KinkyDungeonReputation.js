@@ -13,7 +13,7 @@ let KDFactionGoddess = {
 		"KinkyConstruct": 0.005,
 		"Dressmaker": 0.005,
 		"Bountyhunter": 0.002,
-		"Bast": 0.001,
+		"Bast": 0.0025,
 	},
 	"Elements": {
 		"Witch": 0.003,
@@ -33,9 +33,9 @@ let KDFactionGoddess = {
 		"Elemental": 0.001,
 	},
 	"Will": {
-		"Elf": 0.025,
+		"Elf": 0.005,
 		"Mushy": 0.0035,
-		"Bast": 0.025,
+		"Bast": 0.005,
 		"Apprentice": 0.001,
 	},
 	"Conjure": {
@@ -215,11 +215,13 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 
 		if (KDFactionGoddess[Rep]) {
 			for (let f of Object.entries(KDFactionGoddess[Rep])) {
-				let mult = (Amount > 0 ? 1 : 2);
+				let mult = (Amount > 0 ? 1 : 1);
 				if (Amount > 0) {
-					if (KDFactionRelation("Player", f[0]) > 0.5) mult *= 0;
-					else if (KDFactionRelation("Player", f[0]) > 0.25) mult *= 0.25;
-					else if (KDFactionRelation("Player", f[0]) > 0.1) mult *= 0.5;
+					if (KDFactionRelation("Player", f[0]) <= -0.25) mult *= 0.25;
+					else if (KDFactionRelation("Player", f[0]) <= -0.1) mult *= 0.5;
+					else if (KDFactionRelation("Player", f[0]) >= 0.5) mult *= 0;
+					else if (KDFactionRelation("Player", f[0]) >= 0.25) mult *= 0.25;
+					else if (KDFactionRelation("Player", f[0]) >= 0.1) mult *= 0.5;
 				}
 				KDChangeFactionRelation("Player", f[0], f[1] * mult * Amount);
 			}

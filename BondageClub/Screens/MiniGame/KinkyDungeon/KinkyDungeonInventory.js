@@ -59,7 +59,7 @@ function KinkyDungeonHandleInventory() {
 		}
 	}
 
-	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
+	if (KinkyDungeonDrawInventorySelected(filteredInventory[KinkyDungeonCurrentPageInventory])) {
 		if (KinkyDungeonCurrentFilter == Consumable && MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60)) {
 			let item = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter)[KinkyDungeonCurrentPageInventory];
 			if (!item || !item.name) return true;
@@ -254,29 +254,38 @@ function KinkyDungeonAllWeapon() {
 }
 return null;*/
 
+function KDGetItemPreview(item) {
+	let ret = null;
+	let Group = "";
+	if (item.type == Restraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
+	else if (item.type == LooseRestraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
+	if ((item.type == Restraint || item.type == LooseRestraint) && KDRestraint(item).AssetGroup) Group = KDRestraint(item).AssetGroup;
+	if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
+
+	if (item.type == Restraint){
+		if (KDRestraint(item).AssetGroup) ret = {name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`};
+		else ret = {name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`};
+	}
+	else if (item.type == LooseRestraint){
+		if (KDRestraint(item).AssetGroup) ret = {name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`};
+		else ret = {name: KDRestraint(item).name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`};
+	}
+	else if (item.type == Consumable) ret = {name: KDConsumable(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${KDConsumable(item).name}.png`};
+	else if (item.type == Weapon) ret = {name: KDWeapon(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${KDWeapon(item).name}.png`};
+	else if (item.type == Outfit) ret = {name: KDOutfit(item) ? KDOutfit(item).name : "Prisoner", item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${KDOutfit(item).name}.png`};
+	//else if (item && item.name) ret.push({name: item.name, item: item, preview: ``});
+	return ret;
+}
+
 function KinkyDungeonFilterInventory(Filter, enchanted) {
 	let ret = [];
 	let category = KinkyDungeonInventory.get(Filter);
 	if (category)
 		for (let item of category.values()) {
-			let Group = "";
-			if (item.type == Restraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
-			else if (item.type == LooseRestraint && KDRestraint(item).Group) Group = KDRestraint(item).Group;
-			if ((item.type == Restraint || item.type == LooseRestraint) && KDRestraint(item).AssetGroup) Group = KDRestraint(item).AssetGroup;
-			if (Group == "ItemMouth2" || Group == "ItemMouth3") Group = "ItemMouth";
+			let preview = KDGetItemPreview(item);
+			if (preview && (item.type != LooseRestraint || (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)))
+				ret.push(preview);
 
-			if (item.type == Restraint){
-				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
-				else ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`});
-			}
-			else if (item.type == LooseRestraint && (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)){
-				if (KDRestraint(item).AssetGroup) ret.push({name: item.name, item: item, preview: `Assets/Female3DCG/${KDRestraint(item).AssetGroup}/Preview/${KDRestraint(item).Asset}.png`});
-				else ret.push({name: KDRestraint(item).name, item: item, preview: `Assets/Female3DCG/${Group}/Preview/${KDRestraint(item).Asset}.png`});
-			}
-			else if (item.type == Consumable) ret.push({name: KDConsumable(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Consumables/${KDConsumable(item).name}.png`});
-			else if (item.type == Weapon) ret.push({name: KDWeapon(item).name, item: item, preview: `Screens/MiniGame/KinkyDungeon/Weapons/${KDWeapon(item).name}.png`});
-			else if (item.type == Outfit) ret.push({name: KDOutfit(item) ? KDOutfit(item).name : "Prisoner", item: item, preview: `Screens/MiniGame/KinkyDungeon/Outfits/${KDOutfit(item).name}.png`});
-			//else if (item && item.name) ret.push({name: item.name, item: item, preview: ``});
 		}
 
 	return ret;
@@ -284,13 +293,14 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 
 /**
  *
- * @param {{name: any, item: item, preview: string}[]} List
+ * @param {{name: any, item: item, preview: string}} item
+ * @param {boolean} [noscroll]
  * @returns {boolean}
  */
-function KinkyDungeonDrawInventorySelected(List) {
-	KinkyDungeonDrawMessages(true);
-
-	let item = List[KinkyDungeonCurrentPageInventory];
+function KinkyDungeonDrawInventorySelected(item, noscroll) {
+	if (!noscroll) {
+		DrawImageZoomCanvas(KinkyDungeonRootDirectory + "MagicBook.png", MainCanvas, 0, 0, 640, 483, canvasOffsetX_ui, canvasOffsetY_ui, 640*KinkyDungeonBookScale, 483*KinkyDungeonBookScale, false);
+	}
 	if (!item) return false;
 	let name = item.name;
 	let prefix = "KinkyDungeonInventoryItem";
@@ -344,8 +354,7 @@ function KinkyDungeonDrawInventorySelected(List) {
 
 
 function KinkyDungeonDrawInventory() {
-	DrawImageZoomCanvas(KinkyDungeonRootDirectory + "MagicBook.png", MainCanvas, 0, 0, 640, 483, canvasOffsetX_ui, canvasOffsetY_ui, 640*KinkyDungeonBookScale, 483*KinkyDungeonBookScale, false);
-
+	KinkyDungeonDrawMessages(true);
 
 
 	if (KinkyDungeonCurrentPageInventory >= KinkyDungeonInventoryLength()) KinkyDungeonCurrentPageInventory = 0;
@@ -385,7 +394,7 @@ function KinkyDungeonDrawInventory() {
 		}
 	}
 
-	if (KinkyDungeonDrawInventorySelected(filteredInventory)) {
+	if (KinkyDungeonDrawInventorySelected(filteredInventory[KinkyDungeonCurrentPageInventory])) {
 		if (KinkyDungeonCurrentFilter == Consumable)
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
 		if (KinkyDungeonCurrentFilter == Weapon && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Knife") {
@@ -509,16 +518,13 @@ function KinkyDungeonDrawQuickInv() {
 	}
 
 
-	let ToolTipX = 600;
-
-
 	for (let c = 0; c < consumables.length; c++) {
 		let item = consumables[c];
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(c, H, V, 6);
 			if (MouseIn(point.x, point.y + 30, H, V)) {
 				DrawRect(point.x, point.y + 30, H, V, "white");
-				MainCanvas.textAlign = "left";
+				/*MainCanvas.textAlign = "left";
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, point.y+1 + 30 + V/2, "black");
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, point.y + 30 + V/2, "white");
 
@@ -526,7 +532,8 @@ function KinkyDungeonDrawQuickInv() {
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, point.y + 30 + 50 + V/2, 1000, "white");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, point.y+1 + 30 + 100 + V/2, 1000, "black");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, point.y + 30 + 100 + V/2, 1000, "white");
-				MainCanvas.textAlign = "center";
+				MainCanvas.textAlign = "center";*/
+				KinkyDungeonDrawInventorySelected(item);
 			}
 			DrawImageEx(item.preview, point.x, point.y + 30, {Width: 80, Height: 80});
 
@@ -543,7 +550,7 @@ function KinkyDungeonDrawQuickInv() {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
-				MainCanvas.textAlign = "left";
+				/*MainCanvas.textAlign = "left";
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100+1, "black");
 				DrawText(TextGet("KinkyDungeonInventoryItem" + item.name), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-100, "white");
 
@@ -551,7 +558,9 @@ function KinkyDungeonDrawQuickInv() {
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)-50, 1000, "white");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2)+1, 1000, "black");
 				DrawTextFit(TextGet("KinkyDungeonInventoryItem" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Wheight + point.y + V/2), 1000, "white");
-				MainCanvas.textAlign = "center";
+				MainCanvas.textAlign = "center";*/
+
+				KinkyDungeonDrawInventorySelected(item);
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Wheight + point.y, {Width: 80, Height: 80});
 		}
@@ -563,7 +572,7 @@ function KinkyDungeonDrawQuickInv() {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Rheight + point.y, H, V)) {
 				DrawRect(point.x, 1000 - V - Rheight + point.y, H, V, "white");
-				MainCanvas.textAlign = "left";
+				/*MainCanvas.textAlign = "left";
 				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100 + 1, "black");
 				DrawText(TextGet("Restraint" + item.name), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-100, "white");
 
@@ -571,7 +580,8 @@ function KinkyDungeonDrawQuickInv() {
 				DrawTextFit(TextGet("Restraint" + item.name + "Desc"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)-50, 1000, "white");
 				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2)+1, 1000, "black");
 				DrawTextFit(TextGet("Restraint" + item.name + "Desc2"), ToolTipX, Math.min(800, 1000 - V - Rheight + point.y + V/2), 1000, "white");
-				MainCanvas.textAlign = "center";
+				MainCanvas.textAlign = "center";*/
+				KinkyDungeonDrawInventorySelected(item);
 			}
 			DrawImageEx(item.preview, point.x, 1000 - V - Rheight + point.y, {Width: 80, Height: 80});
 		}

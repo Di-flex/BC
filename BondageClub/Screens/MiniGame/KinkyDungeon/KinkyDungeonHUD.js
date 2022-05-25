@@ -95,10 +95,20 @@ function KinkyDungeonDrawInputs() {
 			DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 		}
 	}
+	let help = KinkyDungeonHasAllyHelp() || KinkyDungeonHasGhostHelp();
+	let hook = KinkyDungeonHasHook();
+	if (help) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerHelp"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+
+	} else if (hook) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerHook"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	}
 	if (KinkyDungeonFlags.has("Quickness")) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerQuickness"), 1640, 900 - i * 35, 200, "#ffff00", "gray"); i++;
 	} else {
-		if (KinkyDungeonMovePoints < 0) {
+		if (KinkyDungeonSlowLevel >= 9) {
+			DrawTextFit(TextGet("KinkyDungeonPlayerImmobile"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
+		} else if (KinkyDungeonMovePoints < 0) {
 			DrawTextFit(TextGet("KinkyDungeonPlayerSlow"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
 		} else if (KinkyDungeonSlowLevel >= 4) {
 			DrawTextFit(TextGet("KinkyDungeonPlayerSlow4"), 1640, 900 - i * 35, 200, "#e27285", "gray"); i++;
@@ -1097,7 +1107,7 @@ function KinkyDungeonUpdateStruggleGroups() {
 					magic:KDRestraint(restraint) ? KDRestraint(restraint).magic : undefined,
 					noCut:KDRestraint(restraint) && KDRestraint(restraint).escapeChance && !KDRestraint(restraint).escapeChance.Cut,
 					curse:KDRestraint(restraint)? KDRestraint(restraint).curse : undefined,
-					blocked: !KDRestraint(restraint).alwaysStruggleable && InventoryGroupIsBlockedForCharacter(KinkyDungeonPlayer, Group)});
+					blocked: !KDRestraint(restraint).alwaysStruggleable && KDGroupBlocked(Group)});
 		}
 	}
 }
