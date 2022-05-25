@@ -95,7 +95,7 @@ function KinkyDungeonDrawInputs() {
 			DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 		}
 	}
-	let help = KinkyDungeonHasAllyHelp() || KinkyDungeonHasAngelHelp();
+	let help = KinkyDungeonHasAllyHelp() || KinkyDungeonHasGhostHelp();
 	let hook = KinkyDungeonHasHook();
 	if (help) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerHelp"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
