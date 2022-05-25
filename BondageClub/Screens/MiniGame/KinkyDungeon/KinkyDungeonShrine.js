@@ -113,7 +113,7 @@ function KinkyDungeonShrineCost(type) {
 
 	if (type == "Commerce" && KinkyDungeonShopIndex < KinkyDungeonShopItems.length) {
 		let item = KinkyDungeonShopItems[KinkyDungeonShopIndex];
-		return KinkyDungeonItemCost(item);
+		return KinkyDungeonItemCost(item) * (1 + 0.01 * KinkyDungeonDifficulty);
 	} else if (KinkyDungeonShrineTypeRemove.includes(type)) {
 		let rest = KinkyDungeonGetRestraintsWithShrine(type);
 		let maxPower = 1;
@@ -127,15 +127,15 @@ function KinkyDungeonShrineCost(type) {
 		let value = 0;
 		value += 100 * (1 - KinkyDungeonStatStamina/KinkyDungeonStatStaminaMax);
 		value += 100 * (1 - KinkyDungeonStatMana/KinkyDungeonStatManaMax);
-		return Math.round(value/10)*10;
+		return Math.round(value/10)*10 * (1 + 0.01 * KinkyDungeonDifficulty);
 	}
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
 	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
-		return KinkyDungeonGoddessRep[type] < 50 ? 100 : 0;
+		return KinkyDungeonGoddessRep[type] < 50 ? 100 * (1 + 0.01 * KinkyDungeonDifficulty) : 0;
 
-	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10;
+	return Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10 * (1 + 0.01 * KinkyDungeonDifficulty);
 }
 
 function KinkyDungeonPayShrine(type) {

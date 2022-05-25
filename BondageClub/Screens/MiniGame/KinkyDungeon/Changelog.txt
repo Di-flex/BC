@@ -893,6 +893,7 @@ Spell Balance:
 -Fix orb softlock
 -Fix golems aggro sometimes
 -Fix scroll dialogue tags missing
+-New Game Plus is harder~
 
 TODO ValidationFindBlockCycles to prevent bugs
 
