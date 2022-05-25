@@ -301,7 +301,7 @@ const KDEventMapInventory = {
 	},
 	"hit": {
 		"linkItem": (e, item, data) => {
-			if ((data.attack && data.attack.includes("Bind") && !data.attack.includes("Suicide"))) {
+			if ((data.attack && data.attack.includes("Bind") && (!data.enemy || data.enemy.Enemy.bound) && !data.attack.includes("Suicide"))) {
 				let added = false;
 				if (data.restraintsAdded) {
 					for (let r of data.restraintsAdded) {

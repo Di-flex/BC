@@ -3,14 +3,14 @@ KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
 KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895"
+KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 
-KinkyDungeon,"Kinky Dungeon v3.34.1"
+KinkyDungeon,"Kinky Dungeon v3.34.2"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -240,6 +240,10 @@ KinkyDungeonBuffSlippery,"Graceful"
 KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
 KinkyDungeonBuffEvasion,Afterimage
+
+KinkyDungeonBuffScrollVerbal,Verbal spells allowed!
+KinkyDungeonBuffScrollArms,Arm spells allowed!
+KinkyDungeonBuffScrollLegs,Leg spells allowed!
 
 KinkyDungeonRopeEngulfEnd1,"The ropes squeeze you tighter and tighter..."
 KinkyDungeonRopeEngulfEnd2,"Your body sinks deeper into a sea of bindings..."
@@ -707,6 +711,8 @@ KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
 KinkyDungeonPlayerNoKeys,No Exit Keys
+KinkyDungeonPlayerHelp,"Receiving Help..."
+KinkyDungeonPlayerHook,"Found an edge!"
 KinkyDungeonPlayerEvasion,"Evasion: "
 KinkyDungeonPlayerVisibility,"Visibility: "
 KinkyDungeonPlayerArmor,"Armor: "
@@ -722,6 +728,8 @@ KinkyDungeonPlayerSlow4,Crawling slowly!
 KinkyDungeonPlayerSlow3,Inching slowly!
 KinkyDungeonPlayerSlow2,Hopping slowly!
 KinkyDungeonPlayerSlow,Slowed!
+KinkyDungeonPlayerImmobile,Immobile!
+KinkyDungeonPlayerEnclose,Enclosed!
 KinkyDungeonPlayerPlugged,"Plugged!"
 KinkyDungeonPlayerPluggedExtreme,"Filled!"
 KinkyDungeonPlayerDenied,"Denied!"
@@ -3443,6 +3451,7 @@ KinkyDungeonReputation,"Reputation"
 KinkyDungeonMagic,"Spells"
 KinkyDungeonMagicSpells,"Learn New Spells"
 KinkyDungeonMagicSpellsQuick,"Click a spell to replace SPELLNAME with."
+KinkyDungeonSpellNone,"(Empty slot)"
 KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
@@ -3969,8 +3978,8 @@ KinkyDungeonOrbSpell,The orb contains knowledge of SPELL.
 KinkyDungeonCapture,You capture the EnemyName. You can become a champion in the Reputation screen.
 KinkyDungeonCaptureBasic,You capture the EnemyName.
 KinkyDungeonCaptureGoddess,You capture the EnemyName in the name of the goddess of GODDESS.
-KinkyDungeonCaptureGoddessLowUniform,"You capture the EnemyName, but the goddess of GODDESS would prefer that you be in uniform."
-KinkyDungeonCaptureGoddessNoneUniform,"You capture the EnemyName, but the goddess of GODDESS demands that you wear restraints!"
+KinkyDungeonCaptureGoddessLowUniform,"You capture the EnemyName, but the goddess of GODDESS would prefer that you be in uniform (wear her restraint)."
+KinkyDungeonCaptureGoddessNoneUniform,"You capture the EnemyName, but the goddess of GODDESS demands that you wear several restraints!"
 KinkyDungeonCaptureGoddessLowRestraint,"You capture the EnemyName, but the goddess of GODDESS would prefer that you wear some restraints."
 KinkyDungeonCaptureGoddessNoneRestraint,"You capture the EnemyName, but the goddess of GODDESS demands that you wear several restraints!"
 KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit for rewards this floor."
