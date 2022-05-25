@@ -186,7 +186,7 @@ function KinkyDungeonAggro(Enemy, Spell, Attacker) {
 			Enemy.Enemy = KinkyDungeonGetEnemyByName("AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
-		} else if (Enemy && !Enemy.enemy.allied) { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
+		} else if (Enemy && !Enemy.Enemy.allied) { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
 			KinkyDungeonAggroAction('attack', {enemy: Enemy});
 		}
 	}
