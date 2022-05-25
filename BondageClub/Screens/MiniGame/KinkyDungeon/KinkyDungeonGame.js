@@ -2617,6 +2617,10 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 						else if (KinkyDungeonSlowLevel >= 10) KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCantMove" + plugLevel).replace("plugs", dict).replace("(s)", dicts), "red", 2, true);
 
 						let moveMult = Math.max(1, KinkyDungeonSlowLevel);
+
+						if (KinkyDungeonStatsChoice.has("Quickness")) {
+							KinkyDungeonSetFlag("BlockQuicknessPerk", 3 + moveMult);
+						}
 						if (quick) moveMult = 1;
 						if (KinkyDungeonSlowLevel > 9) moveMult = 1;
 						if ((moveDirection.x != 0 || moveDirection.y != 0)) {

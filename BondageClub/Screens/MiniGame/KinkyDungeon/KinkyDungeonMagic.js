@@ -1320,7 +1320,13 @@ function KinkyDungeonDrawMagicSpells() {
 
 	MainCanvas.textAlign = "center";
 	if (KDSwapSpell != -1) {
-		DrawText(TextGet("KinkyDungeonMagicSpellsQuick").replace("SPELLNAME", TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]].name)), canvasOffsetX_ui + 600, 900, "white", "black");
+		DrawText(TextGet(
+			"KinkyDungeonMagicSpellsQuick").replace(
+			"SPELLNAME",
+				(KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]]) ?
+				TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]].name)
+				: TextGet("KinkyDungeonSpellNone")),
+		canvasOffsetX_ui + 600, 900, "white", "black");
 	} else {
 		DrawText(TextGet("KinkyDungeonSpellsLevels")
 			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)

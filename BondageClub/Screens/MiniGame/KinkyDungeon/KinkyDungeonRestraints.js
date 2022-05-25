@@ -488,7 +488,7 @@ function KinkyDungeonIsWearingLeash() {
  *
  * @returns {boolean}
  */
-function KinkyDungeonHasHook() {
+function KinkyDungeonHasHook(Message) {
 	for (let X = KinkyDungeonPlayerEntity.x - 1; X <= KinkyDungeonPlayerEntity.x + 1; X++) {
 		for (let Y = KinkyDungeonPlayerEntity.y - 1; Y <= KinkyDungeonPlayerEntity.y + 1; Y++) {
 			let tile = KinkyDungeonMapGet(X, Y);
@@ -502,7 +502,7 @@ function KinkyDungeonHasHook() {
 				|| tile == 'o'
 				|| tile == 'B') {
 				return true;
-			} else if (tile == 'C') {
+			} else if (tile == 'C' && Message) {
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNeedOpenChest"), "red", 1);
 			}
 		}
@@ -813,7 +813,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		limitChance: limitChance,
 		helpChance: helpChance,
 		strict: KinkyDungeonStrictness(true, struggleGroup),
-		hasEdge: KinkyDungeonHasHook(),
+		hasEdge: KinkyDungeonHasHook(true),
 		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
 	};
