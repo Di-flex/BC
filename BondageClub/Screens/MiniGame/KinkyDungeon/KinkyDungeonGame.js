@@ -2489,7 +2489,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (!Enemy.playWithPlayer && (!Enemy.lifetime || Enemy.lifetime > 9000)) { // KDAllied(Enemy)
+			if (!Enemy.lifetime || Enemy.lifetime > 9000) { // KDAllied(Enemy)
 				KDStartDialog("GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
 				noadvance = true;
 			}
@@ -2539,7 +2539,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && (!KinkyDungeonAggressive(Enemy) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
