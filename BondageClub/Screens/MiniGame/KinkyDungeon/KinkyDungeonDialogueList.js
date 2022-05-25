@@ -1213,7 +1213,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				if (!KDEnemyHasFlag(enemy, "NoStay") && (KDRandom() < (KinkyDungeonGoddessRep.Ghost + 50)/100 * 0.35 || enemy.Enemy.allied)) {
+				if (!KDEnemyHasFlag(enemy, "NoStay") && (KDRandom() < (70 - KinkyDungeonGoddessRep.Ghost)/100 * 0.35 * KDEnemyHelpfulness(enemy) || enemy.Enemy.allied)) {
 					KinkyDungeonSetEnemyFlag(enemy, "NoFollow", 0);
 				} else {
 					KDGameData.CurrentDialogMsg = name + "StayHere_Fail";
@@ -1252,7 +1252,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		clickFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				if (!KDEnemyHasFlag(enemy, "NoStay") && (KDRandom() < (KinkyDungeonGoddessRep.Ghost + 50)/100 * (KDAllied(enemy) ? 4.0 : 0.25) || enemy.Enemy.allied)) {
+				if (!KDEnemyHasFlag(enemy, "NoStay") && (KDRandom() < (50 - KinkyDungeonGoddessRep.Ghost)/100 * KDEnemyHelpfulness(enemy) * (KDAllied(enemy) ? 4.0 : 0.25) || enemy.Enemy.allied)) {
 					KinkyDungeonSetEnemyFlag(enemy, "StayHere", -1);
 					enemy.gx = enemy.x;
 					enemy.gy = enemy.y;
@@ -1597,6 +1597,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 	KDShops.push({name: name, tags: requireTags, singletag: requireSingleTag, chance: chance});
 	return shop;
 }
+
 
 /*
 
