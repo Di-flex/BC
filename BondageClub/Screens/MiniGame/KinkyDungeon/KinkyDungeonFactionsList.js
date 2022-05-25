@@ -24,6 +24,7 @@ let KinkyDungeonHiddenFactions = [
 	"Slime",
 	"KinkyConstruct",
 	"Boss",
+	"Ambush",
 ];
 
 let KinkyDungeonFactionRelationsBase = {
