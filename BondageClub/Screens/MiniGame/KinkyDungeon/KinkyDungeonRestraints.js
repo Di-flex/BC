@@ -1096,12 +1096,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	if (KDRestraint(restraint) && KDRestraint(restraint).escapeMult != undefined) data.escapeChance *= KDRestraint(restraint).escapeMult;
 
+	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMult && KDRestraint(restraint).struggleMult[StruggleType] != undefined)
+		data.escapeChance *= KDRestraint(restraint).struggleMult[StruggleType];
 
 	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMinSpeed && KDRestraint(restraint).struggleMinSpeed[StruggleType] != undefined)
 		data.escapeChance = Math.max(data.escapeChance, KDRestraint(restraint).struggleMinSpeed[StruggleType]);
-
-	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMult && KDRestraint(restraint).struggleMult[StruggleType] != undefined)
-		data.escapeChance *= KDRestraint(restraint).struggleMult[StruggleType];
 
 	if (KDRestraint(restraint) && KDRestraint(restraint).struggleMaxSpeed && KDRestraint(restraint).struggleMaxSpeed[StruggleType] != undefined)
 		data.escapeChance = Math.min(data.escapeChance, KDRestraint(restraint).struggleMaxSpeed[StruggleType]);
