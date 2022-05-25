@@ -867,12 +867,6 @@ function KinkyDungeonPassOut() {
 	KDGameData.AlertTimer = 0;
 	KinkyDungeonSendEvent("passout", {});
 
-	for (let inv of KinkyDungeonAllRestraint()) {
-		if (KDRestraint(inv).removePrison) {
-			KinkyDungeonRemoveRestraint(KDRestraint(inv).Group, false);
-		}
-	}
-
 	KinkyDungeonStripInventory(false);
 
 	KinkyDungeonSetDress("Bikini", "Bikini");
