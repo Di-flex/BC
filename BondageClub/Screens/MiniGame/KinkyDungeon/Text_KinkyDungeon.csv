@@ -241,6 +241,10 @@ KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
 KinkyDungeonBuffEvasion,Afterimage
 
+KinkyDungeonBuffScrollVerbal,Verbal spells allowed!
+KinkyDungeonBuffScrollArms,Arm spells allowed!
+KinkyDungeonBuffScrollLegs,Leg spells allowed!
+
 KinkyDungeonRopeEngulfEnd1,"The ropes squeeze you tighter and tighter..."
 KinkyDungeonRopeEngulfEnd2,"Your body sinks deeper into a sea of bindings..."
 KinkyDungeonRopeEngulfEnd3,"You struggle to breath as you are buried alive in squirming ropes..."
