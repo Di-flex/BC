@@ -711,6 +711,8 @@ KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
 KinkyDungeonPlayerNoKeys,No Exit Keys
+KinkyDungeonPlayerHelp,"Receiving Help..."
+KinkyDungeonPlayerHook,"Found an edge!"
 KinkyDungeonPlayerEvasion,"Evasion: "
 KinkyDungeonPlayerVisibility,"Visibility: "
 KinkyDungeonPlayerArmor,"Armor: "

@@ -95,6 +95,14 @@ function KinkyDungeonDrawInputs() {
 			DrawTextFit(TextGet("KinkyDungeonPlayerVisibility") + Math.round(visibility * 100) + "%", 1640, 900 - i * 35, 200, "#ceaaed", "gray"); i++;
 		}
 	}
+	let help = KinkyDungeonHasAllyHelp() || KinkyDungeonHasAngelHelp();
+	let hook = KinkyDungeonHasHook();
+	if (help) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerHelp"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+
+	} else if (hook) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerHook"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	}
 	if (KinkyDungeonFlags.has("Quickness")) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerQuickness"), 1640, 900 - i * 35, 200, "#ffff00", "gray"); i++;
 	} else {
