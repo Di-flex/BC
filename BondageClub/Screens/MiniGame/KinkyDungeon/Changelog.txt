@@ -911,6 +911,8 @@ Spell Balance:
 
 3.34.4 Bugfix/QoL
 - New perk: Bound Crusader, which shifts the binding requirement for being a champion into the new perk
+- Kiting enemies should now occasionally stop to attack
+- Mystic locks are impassable
 
 TODO ValidationFindBlockCycles to prevent bugs
 

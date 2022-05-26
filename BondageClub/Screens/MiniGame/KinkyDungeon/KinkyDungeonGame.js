@@ -1128,7 +1128,7 @@ function KinkyDungeonGetShortcut(level) {
 
 function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
-	if (checkpoint > 0) {
+	if (checkpoint != MiniGameKinkyDungeonCheckpoint) {
 
 		// Ending stairs are not.
 		let placed = false;
@@ -2539,7 +2539,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1 && Enemy.boundLevel > Enemy.Enemy.maxhp)) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && !Enemy.Enemy.immobile && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1 && Enemy.boundLevel > Enemy.Enemy.maxhp)) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);
