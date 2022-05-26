@@ -21,7 +21,7 @@ let KinkyDungeonWeapons = {
 
 	"Dragonslaver": {name: "Dragonslaver", dmg: 4, chance: 1.25, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "LightSwing",
 		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}],
-		special: {type: "hitorspell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075, range: 3.9}},
+		special: {type: "hitorspell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075, range: 2.99}},
 	"BondageBuster": {name: "BondageBuster", dmg: 1, chance: 1.0, staminacost: 0.3,  type: "tickle", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.2, sfx: "Shock",
 		events: [
 			{type: "ElementalEffect", trigger: "playerAttack", power: 0, time: 6, damage: "tickle"},

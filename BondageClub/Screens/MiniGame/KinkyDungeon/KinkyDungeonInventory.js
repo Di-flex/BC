@@ -588,7 +588,7 @@ function KinkyDungeonDrawQuickInv() {
 	}
 }
 
-function KinkyDungeonhandleQuickInv() {
+function KinkyDungeonhandleQuickInv(NoUse) {
 
 
 	let H = 80;
@@ -632,6 +632,8 @@ function KinkyDungeonhandleQuickInv() {
 			return true;
 		}
 	}
+
+	if (NoUse) return false;
 
 	KinkyDungeonShowInventory = false;
 
