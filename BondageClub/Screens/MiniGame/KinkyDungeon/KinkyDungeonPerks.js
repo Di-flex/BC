@@ -82,6 +82,8 @@ let KinkyDungeonStatsPresets = {
 
 	"Quickness": {category: "Combat", id: "Quickness", cost: 2},
 
+	"BoundCrusader": {category: "Kinky", id: "BoundCrusader", cost: -1},
+
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},
 	//"Deprived": {id: 45, cost: 0, block: "Purity", distractionMode: true},

@@ -153,7 +153,8 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 							&& KinkyDungeonCheckPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, X, Y)) {
 							KinkyDungeonFogGrid[X + Y*(width)] = Math.max(KinkyDungeonFogGrid[X + Y*(width)], 3);
 						}
-						if (distE < (KinkyDungeonDeaf ? 1.5 : 2.3) && KinkyDungeonLightGrid[X + Y*(width)] == 0) {
+						if (distE < (KinkyDungeonDeaf ? 1.5 : 2.3) && KinkyDungeonLightGrid[X + Y*(width)] == 0
+							&& KinkyDungeonCheckPath(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, X, Y)) {
 							KinkyDungeonLightGrid[X + Y*(width)] = 1;
 						}
 					}

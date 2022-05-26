@@ -430,7 +430,7 @@ function KinkyDungeonTakeOrb(Amount, X, Y) {
 function KinkyDungeonDrawOrb() {
 
 	MainCanvas.textAlign = "center";
-	DrawText(TextGet("KinkyDungeonOrbIntro" + ((KinkyDungeonDifficultyMode == 2 || KinkyDungeonDifficultyMode == 3) ? "Kinky" : "")), 1250, 200, "white", "silver");
+	DrawText(TextGet("KinkyDungeonOrbIntro" + (KinkyDungeonStatsChoice.get("randomMode") ? "Kinky" : "")), 1250, 200, "white", "silver");
 	DrawText(TextGet("KinkyDungeonOrbIntro2"), 1250, 250, "white", "silver");
 	let i = 0;
 	let maxY = 560;
@@ -502,7 +502,7 @@ function KinkyDungeonHandleOrb() {
 				KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, "OrbGuardian", 3 + Math.floor(Math.sqrt(1 + MiniGameKinkyDungeonLevel)), 10, false, 30);
 			}
 			KinkyDungeonChangeRep(shrine, Amount * -9);
-			if (KinkyDungeonDifficultyMode == 2 || KinkyDungeonDifficultyMode == 3) {
+			if (KinkyDungeonStatsChoice.get("randomMode")) {
 				let spell = null;
 				let spellList = [];
 				let maxSpellLevel = 4;
