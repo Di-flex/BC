@@ -199,6 +199,9 @@ KinkyDungeonStatDescUnstableMagic,"Spells do up to 60% additional damage based o
 KinkyDungeonStatAbsoluteFocus,"Absolute Focus"
 KinkyDungeonStatDescAbsoluteFocus,"Miscast chance is doubled."
 
+KinkyDungeonStatBoundCrusader,"Bound Crusader"
+KinkyDungeonStatDescBoundCrusader,"Goddesses will expect you to wear their restraints as their champion."
+
 KinkyDungeonStatNowhere,"Nowhere is Safe"
 KinkyDungeonStatDescNowhere,"Beds and barrels have a 50% chance to be trapped."
 
