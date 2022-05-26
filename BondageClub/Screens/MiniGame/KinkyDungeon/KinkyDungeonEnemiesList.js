@@ -328,7 +328,7 @@ let KinkyDungeonEnemies = [
 		minLevel:10, weight:-106, terrainTags: {"thirdhalf":1, "increasingWeight":0.5, "open": 100, "metalAnger": 44, "metalRage": 13, "miniboss": -35}, shrines: ["Metal"], allFloors: true,
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10, noSummon: true}]},
 
-	{name: "AlchemistPet", faction: "Alchemist", clusterWith: "alchemist", bound: "WolfgirlPet", color: "#007C59", tags: KDMapInit(["opendoors", "noshop", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "slashweakness", "pierceweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
+	{name: "AlchemistPet", faction: "Alchemist", clusterWith: "alchemist", bound: "AlchemistPet", color: "#007C59", tags: KDMapInit(["opendoors", "noshop", "ignorenoSP", "alchemist", "ranged", "glueweakness", "ticklesevereweakness", "slashweakness", "pierceweakness", "search"]), ignorechance: 0, armor: 0, followRange: 2, AI: "hunt",
 		master: {type: "Alchemist", range: 2, loose: true, aggressive: true}, sneakThreshold: 1, blindSight: 2, projectileAttack: true, strictAttackLOS: true, dashOnMiss: true,
 		specialCD: 11, specialAttack: "DashStun", specialRemove: "Will", specialCDonAttack: true, specialAttackPoints: 2, specialRange: 4, specialMinrange: 1.5, specialsfx: "HeavySwing", stunTime: 4, stunOnSpecialCD: 4,
 		visionRadius: 6, maxhp: 14, minLevel:3, weight:0, movePoints: 1, attackPoints: 2, attack: "MeleeWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 2,
