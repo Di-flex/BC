@@ -1464,22 +1464,22 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			effLevel += KDTightRestraintsMod;
 		}
 		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && (!restraint.maxLevel || effLevel < restraint.maxLevel) && (restraint.allFloors || restraint.floors.get(Index))) {
-			let enabled = false;
-			let weight = 0;
-			if (enemy.tags.length) {
-				for (let t of enemy.tags)
-					if (restraint.enemyTags[t] != undefined) {
-						weight += restraint.enemyTags[t];
-						enabled = true;
-					}
-			} else {
-				for (let t of enemy.tags.keys())
-					if (restraint.enemyTags[t] != undefined) {
-						weight += restraint.enemyTags[t];
-						enabled = true;
-					}
-			}
 			if (!restraint.arousalMode || arousalMode) {
+				let enabled = false;
+				let weight = 0;
+				if (enemy.tags.length) {
+					for (let t of enemy.tags)
+						if (restraint.enemyTags[t] != undefined) {
+							weight += restraint.enemyTags[t];
+							enabled = true;
+						}
+				} else {
+					for (let t of enemy.tags.keys())
+						if (restraint.enemyTags[t] != undefined) {
+							weight += restraint.enemyTags[t];
+							enabled = true;
+						}
+				}
 				if (enabled) {
 					cache.push({r: restraint, w:weight});
 				}

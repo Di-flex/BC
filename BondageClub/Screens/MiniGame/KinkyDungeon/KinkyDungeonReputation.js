@@ -219,9 +219,10 @@ function KinkyDungeonChangeRep(Rep, Amount) {
 				if (Amount > 0) {
 					if (KDFactionRelation("Player", f[0]) <= -0.25) mult *= 0.25;
 					else if (KDFactionRelation("Player", f[0]) <= -0.1) mult *= 0.5;
-					else if (KDFactionRelation("Player", f[0]) >= 0.5) mult *= 0;
-					else if (KDFactionRelation("Player", f[0]) >= 0.25) mult *= 0.25;
-					else if (KDFactionRelation("Player", f[0]) >= 0.1) mult *= 0.5;
+					else if (KDFactionRelation("Player", f[0]) >= 0.55) mult *= 0;
+					else if (KDFactionRelation("Player", f[0]) >= 0.35) mult *= 0.25;
+					else if (KDFactionRelation("Player", f[0]) >= 0.25) mult *= 0.5;
+					else if (KDFactionRelation("Player", f[0]) >= 0.1) mult *= 0.75;
 				}
 				KDChangeFactionRelation("Player", f[0], f[1] * mult * Amount);
 			}
