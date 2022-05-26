@@ -670,7 +670,7 @@ interface enemy {
 	/** Focuses player over summmons, ignores decoys */
 	focusPlayer?: boolean;
 	/** Cant be swapped by another enemy pathing */
-	noSwap?: boolean;
+	immobile?: boolean;
 
 }
 
