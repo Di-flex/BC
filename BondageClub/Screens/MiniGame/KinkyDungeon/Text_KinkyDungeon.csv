@@ -3990,12 +3990,25 @@ KinkyDungeonBarrel,You hide inside the container...
 
 KinkyDungeonRemoveLowLevelRope,"Many ropes emerge around you, removing weaker ropes from your body and binding enemies!"
 
-KinkyDungeonSexyMode0,Distracted Mode
-KinkyDungeonSexyMode1,Aroused Mode
+KinkyDungeonSexyMode0,Distracted
+KinkyDungeonSexyMode1,Aroused
 KinkyDungeonSexyModeDesc0,"Removes all chastity belts, vibrating restraints, plugs, and removes the option to play with yourself."
 KinkyDungeonSexyModeDesc1,"Includes all that good stuff."
 KinkyDungeonSexyPlugs,Allow Rear Plugs
 KinkyDungeonSexyPiercings,Allow Piercings
+
+KinkyDungeonRandomMode0,Empirical Formulae
+KinkyDungeonRandomMode1,Divine Providence
+KinkyDungeonRandomModeDesc0,Break orbs. Get points. Buy spells. It's that simple.
+KinkyDungeonRandomModeDesc1,Break orbs and pray you get something good.
+
+KinkyDungeonSaveMode0,Recordkeeper
+KinkyDungeonSaveMode1,Who needs a map?
+KinkyDungeonSaveModeDesc0,Grants you a save code every 3 floors you can write down elsewhere.
+KinkyDungeonSaveModeDesc1,No save codes. You are in it to win it.
+
+KinkyDungeonStartGame,Start Playing
+KinkyDungeonStartGameDesc,"Lock your settings in, nice and tight."
 
 KinkyDungeonConsent,"This game engages in safe and consensual analytics."
 KinkyDungeonConsent2,"It sends data about spell choices, levels reached, etc, to help balance and improve the game."

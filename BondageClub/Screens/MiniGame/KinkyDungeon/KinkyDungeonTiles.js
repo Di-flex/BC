@@ -111,7 +111,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint))) {
 					KDGameData.KinkyDungeonSpawnJailers = 0;
 					KDGameData.KinkyDungeonSpawnJailersMax = 0;
-					if ((KinkyDungeonDifficultyMode == 0 || KinkyDungeonDifficultyMode == 3) && !suppressCheckPoint) {
+					if ((!KinkyDungeonStatsChoice.get("saveMode")) && !suppressCheckPoint) {
 						KinkyDungeonState = "Save";
 						ElementCreateTextArea("saveDataField");
 						ElementValue("saveDataField", saveData);

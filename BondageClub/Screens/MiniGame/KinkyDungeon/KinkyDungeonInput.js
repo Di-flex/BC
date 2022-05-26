@@ -256,7 +256,7 @@ function KDProcessInput(type, data) {
 				KinkyDungeonChangeRep(data.shrine, data.Amount * -10);
 
 				KDSendStatus('goddess', data.shrine, 'takeOrb');
-				if (KinkyDungeonDifficultyMode == 2 || KinkyDungeonDifficultyMode == 3) {
+				if (KinkyDungeonStatsChoice.get("randomMode")) {
 					let spell = null;
 					let spellList = [];
 					let maxSpellLevel = 4;
