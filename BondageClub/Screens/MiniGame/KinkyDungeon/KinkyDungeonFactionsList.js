@@ -48,8 +48,8 @@ let KinkyDungeonFactionRelationsBase = {
 		Dressmaker: -0.45,
 		Witch: -0.8,
 		Elemental: -0.6,
-		Dragon: 0.1,
-		Maidforce: -0.06,
+		Dragon: 0.0,
+		Maidforce: -0.05,
 		Bast: -0.6,
 		Elf: -0.26,
 		Mushy: -0.64,
@@ -192,12 +192,13 @@ let KinkyDungeonFactionRelationsBase = {
 		"Elf":  0.75,
 	},
 	"Maidforce": {
-		"Alchemist": 1.0,
-		"Jail": 1.0,
-		"Nevermere": 1.0,
-		"Dragon": 1.0,
-		"Elf": 1.0,
-		"Apprentice": 1.0,
+		"Alchemist": 0.55,
+		"Jail": 0.55,
+		"Nevermere": 0.55,
+		"Dragon": 0.55,
+		"Elf": 0.55,
+		"Bast": 0.2,
+		"Apprentice": 0.55,
 		"Bandit": -0.6,
 		"Witch": -0.4,
 	},
@@ -288,7 +289,7 @@ function KDChangeFactionRelation(a, b, amount, AffectRivals) {
 		for (let faction of Object.keys(KinkyDungeonFactionRelations)) {
 			if (!KinkyDungeonHiddenFactions.includes(faction) && faction != a && faction != b) {
 				let relation = KDFactionRelation(b, faction);
-				KDChangeFactionRelation("Player", b, amount * relation);
+				KDChangeFactionRelation("Player", faction, amount * relation);
 			}
 		}
 	}

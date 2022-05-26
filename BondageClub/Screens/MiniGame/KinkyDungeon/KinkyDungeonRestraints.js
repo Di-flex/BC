@@ -1453,6 +1453,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
 
+	let arousalMode = KinkyDungeonStatsChoice.get("arousalMode");
 	//if (!cache || !enemy.name) {
 	cache = [];
 	let start2 = performance.now();
@@ -1463,23 +1464,25 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			effLevel += KDTightRestraintsMod;
 		}
 		if ((effLevel >= restraint.minLevel || KinkyDungeonNewGame > 0) && (!restraint.maxLevel || effLevel < restraint.maxLevel) && (restraint.allFloors || restraint.floors.get(Index))) {
-			let enabled = false;
-			let weight = 0;
-			if (enemy.tags.length) {
-				for (let t of enemy.tags)
-					if (restraint.enemyTags[t] != undefined) {
-						weight += restraint.enemyTags[t];
-						enabled = true;
-					}
-			} else {
-				for (let t of enemy.tags.keys())
-					if (restraint.enemyTags[t] != undefined) {
-						weight += restraint.enemyTags[t];
-						enabled = true;
-					}
-			}
-			if (enabled) {
-				cache.push({r: restraint, w:weight});
+			if (!restraint.arousalMode || arousalMode) {
+				let enabled = false;
+				let weight = 0;
+				if (enemy.tags.length) {
+					for (let t of enemy.tags)
+						if (restraint.enemyTags[t] != undefined) {
+							weight += restraint.enemyTags[t];
+							enabled = true;
+						}
+				} else {
+					for (let t of enemy.tags.keys())
+						if (restraint.enemyTags[t] != undefined) {
+							weight += restraint.enemyTags[t];
+							enabled = true;
+						}
+				}
+				if (enabled) {
+					cache.push({r: restraint, w:weight});
+				}
 			}
 		}
 	}

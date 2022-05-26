@@ -117,7 +117,11 @@ function KDIncreaseOfferFatigue(Amount) {
 	if (Amount > 0) KinkyDungeonSetFlag("OfferRefusedLight", 20);
 }
 
-
+function KDEnemyHelpfulness(enemy) {
+	if (!enemy.personality) return 1.0;
+	if (KDStrictPersonalities.includes(enemy.personality)) return 0.33;
+	if (KDLoosePersonalities.includes(enemy.personality)) return 1.75;
+}
 
 /**
  *
@@ -187,6 +191,9 @@ function KDHandleDialogue() {
 		KinkyDungeonInterruptSleep();
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
+
+		if (dialogue.shop)
+			KinkyDungeonhandleQuickInv(true);
 
 		// Handle the options
 		if (dialogue.options) {
