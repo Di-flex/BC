@@ -323,6 +323,19 @@ function KinkyDungeonDrawInventorySelected(item, noscroll) {
 			DrawText(
 			restraint.escapeChance ? (item.item.lock ? (TextGet("KinkyLocked") + " " + TextGet("Kinky" + item.item.lock + "LockType")) : TextGet("KinkyUnlocked"))
 			: (restraint.escapeChance.Pick != null ? TextGet("KinkyLockable") : TextGet("KinkyNonLockable")), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 370, "black", "silver");
+
+			let goddesses = "";
+			if (restraint.shrine)
+				for (let shrine of restraint.shrine) {
+					if (KinkyDungeonGoddessRep[shrine] != undefined) {
+						if (goddesses) {
+							goddesses = goddesses + ", ";
+						}
+						goddesses = goddesses + TextGet("KinkyDungeonShrine" + shrine);
+					}
+				}
+			if (goddesses)
+				DrawTextFit("Goddess: " + goddesses, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 425, 300, "black", "silver");
 		} else if (item.item.type == Consumable) {
 			let consumable = KDConsumable(item.item);
 			DrawText(TextGet("KinkyDungeonConsumableQuantity") + item.item.quantity, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 330, "black", "silver");
