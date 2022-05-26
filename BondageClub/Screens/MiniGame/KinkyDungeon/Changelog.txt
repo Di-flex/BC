@@ -907,6 +907,7 @@ Spell Balance:
 - Reduced minimum range on many spells (like monolith beam)
 - You can pass helpless NPCs but not bound NPCs that are not helpless
 - Only one commerce shrine will appear per level
+- Fixed enemies getting aggroed by you if they friendly fire each other
 
 TODO ValidationFindBlockCycles to prevent bugs
 

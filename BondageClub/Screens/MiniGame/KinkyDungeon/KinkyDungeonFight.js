@@ -180,13 +180,13 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 	return hitChance;
 }
 
-function KinkyDungeonAggro(Enemy, Spell, Attacker) {
-	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
+function KinkyDungeonAggro(Enemy, Spell, Attacker, Faction) {
+	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && (!Faction || Faction == "Player") && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
 		if (Enemy.Enemy.name == "Angel") {
 			Enemy.Enemy = KinkyDungeonGetEnemyByName("AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonAngelAggro"), "yellow", 2);
-		} else if (Enemy && !Enemy.Enemy.allied) { // if (Enemy.Enemy.tags && (Enemy.Enemy.tags.has("jailer") || Enemy.Enemy.tags.has("jail")))
+		} else if (Enemy && !Enemy.Enemy.allied) {
 			KinkyDungeonAggroAction('attack', {enemy: Enemy});
 		}
 	}
@@ -519,7 +519,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx.Damage + ".ogg");
 	}
 
-	KinkyDungeonAggro(Enemy, Spell, attacker);
+	KinkyDungeonAggro(Enemy, Spell, attacker, predata.faction);
 
 	if (predata.dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
