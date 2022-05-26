@@ -896,6 +896,18 @@ Spell Balance:
 -New Game Plus is harder~
 -Use the inventory view for quick inventory for a unified experience (and showing damage/accuracy/etc)
 
+3.34.3 Bugfix/QoL
+- Starting perks now grant additional rep with their respective faction/goddess
+- Maid start now gives -3 points instead of -2
+- Fix bug with faction relationss growing way too quickly
+- Fix maid start being easy in distracted mode
+- Dragonslaver range reduced to 2.99 from 3.9
+- Shop dialogues now show the quick inventory
+- Shatter description fixed
+- Reduced minimum range on many spells (like monolith beam)
+- You can pass helpless NPCs but not bound NPCs that are not helpless
+- Only one commerce shrine will appear per level
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

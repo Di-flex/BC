@@ -223,6 +223,7 @@ function KinkyDungeonDefaultStats(Load) {
 
 
 		if (KinkyDungeonStatsChoice.get("StartLatex")) {
+			KinkyDungeonChangeRep("Latex", 10);
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, 12, "grv", true, "Red");
 				if (r)
@@ -234,6 +235,7 @@ function KinkyDungeonDefaultStats(Load) {
 			KinkyDungeonSetDress("BlueSuitPrison", "BlueSuitPrison");
 		}
 		if (KinkyDungeonStatsChoice.get("StartMaid")) {
+			KDChangeFactionRelation("Player", "Maidforce", 0.2 - KDFactionRelation("Player", "Maidforce"), true);
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["maidRestraints", "maidVibeRestraints"]}, 12, "grv", true, "Purple");
 				if (r)
@@ -245,6 +247,7 @@ function KinkyDungeonDefaultStats(Load) {
 			KinkyDungeonSetDress("Maid", "Maid");
 		}
 		if (KinkyDungeonStatsChoice.get("StartWolfgirl")) {
+			KDChangeFactionRelation("Player", "Nevermere", 0.2 - KDFactionRelation("Player", "Nevermere"), true);
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: (i < 3 ? ["wolfCuffs"] : ["wolfGear", "wolfRestraints"])}, 12, "grv", true, "Red");
 				if (r)
@@ -256,6 +259,7 @@ function KinkyDungeonDefaultStats(Load) {
 			KinkyDungeonSetDress("Wolfgirl", "Wolfgirl");
 		}
 		if (KinkyDungeonStatsChoice.get("StartObsidian")) {
+			KDChangeFactionRelation("Player", "Elemental", 0.2 - KDFactionRelation("Player", "Elemental"), true);
 			for (let i = 0; i < 30; i++) {
 				let r = KinkyDungeonGetRestraint({tags: ["obsidianRestraints", "genericChastity", "genericToys"]}, 12, "grv", true, "Red");
 				if (r) {

@@ -1453,6 +1453,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 
 	if (KinkyDungeonSlowLevel > 0) staminaPercent = staminaPercent * (0.5 + 0.5 * Math.min(1, Math.max(0, 1 - KinkyDungeonSlowLevel/3)));
 
+	let arousalMode = KinkyDungeonStatsChoice.get("arousalMode");
 	//if (!cache || !enemy.name) {
 	cache = [];
 	let start2 = performance.now();
@@ -1478,8 +1479,10 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 						enabled = true;
 					}
 			}
-			if (enabled) {
-				cache.push({r: restraint, w:weight});
+			if (!restraint.arousalMode || arousalMode) {
+				if (enabled) {
+					cache.push({r: restraint, w:weight});
+				}
 			}
 		}
 	}

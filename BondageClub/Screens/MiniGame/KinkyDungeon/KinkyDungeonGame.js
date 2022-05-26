@@ -1428,7 +1428,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 						playerTypes[Math.floor(KDRandom() * playerTypes.length)]
 						: KinkyDungeonGenerateShrine(Floor));
 				let tile = 'A';
-				if (type != "Orb" && shrineTypes.includes(type) && KDRandom() < 0.5) type = "";
+				if (type != "Orb" && shrineTypes.includes(type) && (KDRandom() < 0.5 || type == "Commerce")) type = "";
 				if (type == "Orb") {
 					if (orbs < 2) {
 						tile = 'O';
@@ -2539,7 +2539,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 	let moveY = moveDirection.y + KinkyDungeonPlayerEntity.y;
 	let moved = false;
 	let Enemy = KinkyDungeonEnemyAt(moveX, moveY);
-	let allowPass = Enemy && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || Enemy.boundLevel > Enemy.Enemy.maxhp) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
+	let allowPass = Enemy && ((!KinkyDungeonAggressive(Enemy) && !Enemy.playWithPlayer) || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1 && Enemy.boundLevel > Enemy.Enemy.maxhp)) && (KinkyDungeonToggleAutoPass || KDEnemyHasFlag (Enemy, "passthrough") || (KinkyDungeonFlags.has("Passthrough")) || Enemy.Enemy.noblockplayer);
 	if (Enemy && !allowPass) {
 		if (AllowInteract) {
 			KinkyDungeonLaunchAttack(Enemy);

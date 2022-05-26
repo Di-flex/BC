@@ -192,6 +192,9 @@ function KDHandleDialogue() {
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 
+		if (dialogue.shop)
+			KinkyDungeonhandleQuickInv(true);
+
 		// Handle the options
 		if (dialogue.options) {
 			let entries = Object.entries(dialogue.options);
