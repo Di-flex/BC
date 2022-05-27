@@ -299,10 +299,10 @@ function KinkyDungeonDealDamage(Damage) {
 	buffresist *= KinkyDungeonMeleeDamageTypes.includes(type) ?
 		KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
 		: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"));
-	let distractionTypesWeakNeg = ["pain"];
+	let distractionTypesWeakNeg = ["pain", "acid"];
 	let distractionTypesWeak = ["grope"];
 	let distractionTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
-	let staminaTypesWeak = ["electric", "tickle", "drain"];
+	let staminaTypesWeak = ["electric", "tickle", "drain", "acid"];
 	let staminaTypesStrong = ["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"];
 	let manaTypesWeak = ["electric", "poison", "souldrain"];
 	let manaTypesString = ["drain"];

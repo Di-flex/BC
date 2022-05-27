@@ -34,7 +34,7 @@ let KinkyDungeonStunDamageTypes = ["fire", "electric", "stun"];
 let KinkyDungeonBindDamageTypes = ["chain", "glue"];
 let KinkyDungeonFreezeDamageTypes = ["ice"];
 let KinkyDungeonSlowDamageTypes = ["crush", "slash", "pierce", "frost", "cold", "poison"];
-let KinkyDungeonVulnerableDamageTypes = ["tickle"];
+let KinkyDungeonVulnerableDamageTypes = ["tickle", "acid"];
 
 // Weapons
 let KinkyDungeonPlayerWeapon = null;

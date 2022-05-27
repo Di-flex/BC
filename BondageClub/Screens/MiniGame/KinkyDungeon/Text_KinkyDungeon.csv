@@ -211,6 +211,9 @@ KinkyDungeonStatDescQuickness,"Grants Quickness after not moving for 4 turns. Qu
 KinkyDungeonStatDominant,"Dominant"
 KinkyDungeonStatDescDominant,"They're trapped here with you. Ghosts are more helpful, and you can bind enemies that confront you about bondage."
 
+KinkyDungeonStatTrespasser,"Trespasser"
+KinkyDungeonStatDescTrespasser,"You lose reputation with the goddesses every time you advance a floor."
+
 KinkyDungeonStatPrisoner,"Prisoner"
 KinkyDungeonStatDescPrisoner,"Start the game as a released prisoner wandering the halls."
 
@@ -1751,9 +1754,9 @@ KinkyDungeonAutoDoorOff,"Close door"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonUnlockDoorPurple,Command
-KinkyDungeonUnlockDoorPurpleUse,You utter a command word and release the door!
-KinkyDungeonUnlockDoorPurpleUseGagged,You mumble a command word but the door opens!
-KinkyDungeonUnlockDoorPurpleUseGaggedFail,"You mumble a command word, but the lock on the door stays put!"
+KinkyDungeonUnlockDoorPurpleUse,You utter a command word and release the lock!
+KinkyDungeonUnlockDoorPurpleUseGagged,You mumble a command word but the lock opens!
+KinkyDungeonUnlockDoorPurpleUseGaggedFail,"You mumble a command word, but the lock stays put!"
 KinkyDungeonPickDoor,"Pick"
 KinkyDungeonLockedDoor,"(No way to open)"
 KinkyDungeonLockedShrine,"(She cannot help you)"
@@ -3940,6 +3943,7 @@ KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
 KinkyDungeonTooltipArmor,"Armor: AMOUNT"
 KinkyDungeonTooltipEvasion,"Base Chance to Hit: AMOUNT%"
 KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
+KinkyDungeonDamageTypeacid,"Caustic"
 KinkyDungeonDamageTypecold,"Shadow"
 KinkyDungeonDamageTypefrost,"Ice"
 KinkyDungeonDamageTypeice,"Ice"
