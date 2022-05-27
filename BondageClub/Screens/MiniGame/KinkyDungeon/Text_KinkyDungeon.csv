@@ -1029,6 +1029,8 @@ AttackDragonCrystalBind,"The Crystal Dragonheart apprehends you! (+RestraintAdde
 AttackDragonCrystal,"The Crystal Dragonheart squeezes you in a big hug! (-DamageTaken SP)"
 
 KinkyDungeonSummonMultiChaoticCrystal,Many crystals rise up out of the ground!
+KinkyDungeonSummonSingleChaoticCrystal,A crystal rises up out of the ground!
+
 
 
 NameStatue,Statue
@@ -3055,6 +3057,8 @@ KinkyDungeonSpellSpellChoiceUp1,Expert Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp1,Gives you an additional spell choice slot
 KinkyDungeonSpellSpellChoiceUp2,Master Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp2,Gives you an additional spell choice slot
+KinkyDungeonSpellSpellChoiceUp3,Legendary Wizard
+KinkyDungeonSpellDescriptionSpellChoiceUp3,Gives you an additional spell choice slot
 
 KinkyDungeonSpellSummonUp1,Expert Summoner
 KinkyDungeonSpellDescriptionSummonUp1,Increases the permanent summon cap by +1 (from 2 to 3)

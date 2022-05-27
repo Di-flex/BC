@@ -917,6 +917,10 @@ Spell Balance:
 - Your summons will aggro enemies
 - Fix rear/piercing button toggles being unclickable
 
+3.35 Feature Update
+- Escape buttons are now in the same order on both sides (this took surprisingly more effort to program than expected)
+- Added icons for all spells and increased the max number of spell slots from 5 to 7
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

@@ -208,15 +208,15 @@ function KinkyDungeonDefaultStats(Load) {
 
 		if (KinkyDungeonStatsChoice.get("Slayer")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Firebolt"));
-			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
 		}
 		if (KinkyDungeonStatsChoice.get("Conjurer")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("ChainBolt"));
-			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
 		}
 		if (KinkyDungeonStatsChoice.get("Magician")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Dagger"));
-			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
 		}
 
 
@@ -404,15 +404,15 @@ function KinkyDungeonSetMaxStats() {
 	KinkyDungeonStatStaminaMax = 36;
 	KinkyDungeonStatDistractionMax = 36;
 	KinkyDungeonStatManaMax = 36;
-	KinkyDungeonSpellChoiceCount = 3;
+	KinkyDungeonSpellChoiceCount = 4;
 	KinkyDungeonSummonCount = 2;
 	let distractionRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
 		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 6;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
-		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2") KinkyDungeonSpellChoiceCount += 1;
-		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 1;
+		if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2" || s.name == "SpellChoiceUp3") KinkyDungeonSpellChoiceCount += 1;
+		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 2;
 		if (s.name == "APUp1" || s.name == "APUp2" || s.name == "APUp3") {
 			KinkyDungeonStatDistractionMax += 12;
 			distractionRate += KinkyDungeonStatDistractionRegenPerUpgrade;
