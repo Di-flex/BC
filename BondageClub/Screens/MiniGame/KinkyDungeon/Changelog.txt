@@ -923,6 +923,7 @@ Spell Balance:
 - New perk: Trespasser
 - New bound sprites by Song!
 - Jail shouldn't take off as many different types of restraints anymore
+- Added machine-translated chinese...
 
 TODO ValidationFindBlockCycles to prevent bugs
 
