@@ -914,6 +914,8 @@ Spell Balance:
 - Kiting enemies should now occasionally stop to attack
 - Mystic locks are impassable
 - Added dominant and bound crusader traits
+- Your summons will aggro enemies
+- Fix rear/piercing button toggles being unclickable
 
 TODO ValidationFindBlockCycles to prevent bugs
 
