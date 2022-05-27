@@ -2880,3 +2880,35 @@ function KinkyDungeonTargetTileMsg() {
 		KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonObject" + KinkyDungeonTargetTile.Type + suff).replace("TYPE", TextGet("KinkyDungeonShrine" + KinkyDungeonTargetTile.Name)), "white", 1);
 	}
 }
+
+/**
+ * Sets an item in the character appearance
+ * @param {Character} C - The character whose appearance should be changed
+ * @param {string} Group - The name of the corresponding groupr for the item
+ * @param {Asset|null} ItemAsset - The asset collection of the item to be changed
+ * @param {string|string[]} NewColor - The new color (as "#xxyyzz" hex value) for that item
+ * @param {number} [DifficultyFactor=0] - The difficulty, on top of the base asset difficulty, that should be assigned
+ * to the item
+ * @param {number} [ItemMemberNumber=-1] - The member number of the player adding the item - defaults to -1
+ * @param {boolean} [Refresh=true] - Determines, wether the character should be redrawn after the item change
+ * @returns {Item} - the item itself
+ */
+function KDAddAppearance(C, Group, ItemAsset, NewColor, DifficultyFactor, ItemMemberNumber, Refresh) {
+	DifficultyFactor = 0;
+
+	// Unlike the stock function, we do NOT remove the previous one
+
+	// Add the new item to the character appearance
+	if (ItemAsset != null) {
+		/** @type {Item} */
+		const NA = {
+			Asset: ItemAsset,
+			Difficulty: parseInt((ItemAsset.Difficulty == null) ? 0 : ItemAsset.Difficulty) + parseInt(DifficultyFactor),
+			Color: NewColor,
+			Property: ItemAsset.CharacterRestricted ? {ItemMemberNumber: ItemMemberNumber == null ? -1 : ItemMemberNumber} : undefined
+		};
+		C.Appearance.push(NA);
+		return NA;
+	}
+	return null;
+}

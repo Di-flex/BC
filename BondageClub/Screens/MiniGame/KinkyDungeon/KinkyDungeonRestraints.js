@@ -1812,6 +1812,8 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 		KinkyDungeonCalculateSlowLevel();
 		KinkyDungeonCheckClothesLoss = true; // We signal it is OK to check whether the player should get undressed due to restraints
+
+		KinkyDungeonDressPlayer();
 		KinkyDungeonMultiplayerInventoryFlag = true; // Signal that we can send the inventory now
 		KinkyDungeonSleepTime = 0;
 		KinkyDungeonUpdateStruggleGroups();

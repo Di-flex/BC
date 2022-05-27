@@ -83,6 +83,8 @@ interface consumable {
 type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
+	/** This item can be rendered when linked */
+	renderWhenLinked?: string[];
 	/** Enemies ignore you while you are wearing it */
 	ignoreNear?: boolean,
 	/** Enemies wont cast spells or ranged attacks while you are wearing it */

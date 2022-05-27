@@ -78,7 +78,9 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 function KinkyDungeonDrawGame() {
 	KDProcessInputs();
 
-	if (KDRefresh) CharacterRefresh(KinkyDungeonPlayer);
+	if (KDRefresh) {
+		CharacterRefresh(KinkyDungeonPlayer);
+	}
 	KDNaked = false;
 	KDRefresh = false;
 

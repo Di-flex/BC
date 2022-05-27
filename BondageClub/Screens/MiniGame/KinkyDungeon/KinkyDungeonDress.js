@@ -104,6 +104,34 @@ function KinkyDungeonDressPlayer() {
 	try {
 		// if true, nakeds the player, then reclothes
 		if (KinkyDungeonCheckClothesLoss) {
+			// We refresh all the restraints
+
+			// First we remove all restraints
+			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
+				let asset = KinkyDungeonPlayer.Appearance[A].Asset;
+				if (asset.IsRestraint) {
+					KinkyDungeonPlayer.Appearance.splice(A, 1);
+					A -= 1;
+				}
+			}
+
+			// Next we revisit all the player's restraints
+			for (let inv of KinkyDungeonAllRestraint()) {
+				let renderTypes = KDRestraint(inv).shrine;
+				KDApplyItem(inv);
+				if (inv.dynamicLink) {
+					let link = inv.dynamicLink;
+					for (let I = 0; I < 30; I++) {
+						if (KDRestraint(link).renderWhenLinked.some((element) => {return renderTypes.includes(element);}))
+							KDApplyItem(link);
+						if (link.dynamicLink) {
+							link = link.dynamicLink;
+						} else I = 1000;
+					}
+				}
+			}
+
+
 			// @ts-ignore
 			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
 			if (!KDNaked) KDCharacterNaked();
@@ -389,4 +417,34 @@ function KDCharacterAppearanceNaked() {
 
 	// Loads the new character canvas
 	CharacterLoadCanvas(KinkyDungeonPlayer);
+}
+
+
+function KDApplyItem(inv) {
+	let restraint = KDRestraint(inv);
+	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
+	let faction = inv.faction ? inv.faction : "";
+
+	let color = (typeof restraint.Color === "string") ? [restraint.Color] : restraint.Color;
+	if (restraint.factionColor && faction && KinkyDungeonFactionColors[faction]) {
+		for (let i = 0; i < restraint.factionColor.length; i++) {
+			for (let n of restraint.factionColor[i]) {
+				color[n] = KinkyDungeonFactionColors[faction][i]; // 0 is the primary color
+			}
+		}
+	}
+
+	let placed = KDAddAppearance(KinkyDungeonPlayer, AssetGroup, AssetGet("3DCGFemale", AssetGroup, restraint.Asset), color);
+
+	if (placed) {
+		placed.Property = {Type: restraint.Type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
+		if (restraint.Modules) {
+			let data = ModularItemDataLookup[AssetGroup + restraint.Asset];
+			let asset = data.asset;
+			let modules = data.modules;
+			// @ts-ignore
+			placed.Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
+			placed.Property.LockedBy = inv.lock ? "MetalPadlock" : undefined;
+		}
+	}
 }
