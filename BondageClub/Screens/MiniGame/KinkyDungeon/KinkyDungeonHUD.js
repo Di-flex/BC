@@ -561,6 +561,7 @@ function KinkyDungeonActivateWeaponSpell(instant) {
 }
 
 function KinkyDungeonRangedAttack() {
+	if (!KinkyDungeonPlayerDamage.special) return;
 	if (KinkyDungeonPlayerDamage.special.type == "spell" || KinkyDungeonPlayerDamage.special.type == "hitorspell") {
 		if (KinkyDungeonPlayerDamage.special.type == "hitorspell") {
 			KinkyDungeonTargetingSpell = {name: "WeaponAttack", components: [], level:1, type:"special", special: "weaponAttackOrSpell", noMiscast: true,

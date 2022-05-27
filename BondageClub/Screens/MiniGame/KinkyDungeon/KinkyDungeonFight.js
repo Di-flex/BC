@@ -181,7 +181,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 }
 
 function KinkyDungeonAggro(Enemy, Spell, Attacker, Faction) {
-	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && (!Faction || Faction == "Player") && !(Enemy.rage > 0) && (!Attacker || Attacker.player)) {
+	if (Enemy && Enemy.Enemy && (!Spell || !Spell.enemySpell) && (!Faction || Faction == "Player") && !(Enemy.rage > 0) && (!Attacker || Attacker.player || Attacker.Enemy.allied)) {
 		if (Enemy.Enemy.name == "Angel") {
 			Enemy.Enemy = KinkyDungeonGetEnemyByName("AngelHostile");
 			if (KDGameData.KDPenanceStage < 4)
@@ -678,10 +678,14 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						if (!xx) xx = b.x;
 						if (!yy) yy = b.y;
 					} else if (xx == b.x && yy == b.y) {
-						for (let i = 0; i < 10; i++) {
+						for (let i = 0; i < 20; i++) {
 							xx = b.x + Math.floor(KDRandom() * 3 - 1);
 							yy = b.y + Math.floor(KDRandom() * 3 - 1);
 							if (xx != b.x || yy != b.y) i = 1000;
+							else if (i > 19) {
+								xx = b.x + 1;
+								yy = b.y + 0;
+							}
 						}
 					}
 

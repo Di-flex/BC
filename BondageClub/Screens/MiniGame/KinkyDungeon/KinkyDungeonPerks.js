@@ -47,8 +47,9 @@ let KinkyDungeonStatsPresets = {
 	"KillSquad": {category: "Enemies", id: 41, cost: -3, block: ["Conspicuous"]},
 	"Stealthy": {category: "Enemies", id: 38, cost: 0},
 	"Conspicuous": {category: "Enemies", id: 39, cost: -1, block: ["KillSquad"]},
+	"Dominant": {category: "Map", id: "Dominant", cost: 2, block: ["Oppression"]},
+	"Oppression": {category: "Map", id: 50, cost: -1, block: ["Dominant"]},
 	"Supermarket": {category: "Map", id: 42, cost: 1},
-	"Oppression": {category: "Map", id: 50, cost: -1},
 	"PriceGouging": {category: "Map", id: 43, cost: -2},
 	"Psychic": {category: "Restraints", id: 6, cost: 4},
 	"Slayer": {category: "Magic", id: 34, cost: 5},
@@ -83,6 +84,8 @@ let KinkyDungeonStatsPresets = {
 	"Quickness": {category: "Combat", id: "Quickness", cost: 2},
 
 	"BoundCrusader": {category: "Kinky", id: "BoundCrusader", cost: -1},
+
+
 
 
 	//"FreeSpirit": {id: 44, cost: 0, block: "Unchaste", distractionMode: true},

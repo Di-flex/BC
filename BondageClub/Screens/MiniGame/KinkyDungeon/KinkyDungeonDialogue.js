@@ -148,6 +148,15 @@ function KDAllySpeaker(Turns, Follow) {
 	}
 }
 
+function KDAggroSpeaker(Turns) {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		if (!(enemy.hostile > 0)) {
+			enemy.hostile = Turns;
+		} else enemy.hostile = Math.max(enemy.hostile, Turns);
+	}
+}
+
 
 // Success chance for a basic dialogue
 function KDBasicDialogueSuccessChance(checkResult) {
@@ -158,6 +167,13 @@ function KDBasicDialogueSuccessChance(checkResult) {
 function KDAgilityDialogueSuccessChance(checkResult) {
 	let evasion = KinkyDungeonPlayerEvasion();
 	return Math.max(0, Math.min(1.0, (checkResult/100 - (KDGameData.OfferFatigue ? KDGameData.OfferFatigue /100 : 0) + 0.2 * Math.max(0, 3 - KinkyDungeonSlowLevel)) * evasion));
+}
+
+// Success chance for an offensive dialogue
+function KDOffensiveDialogueSuccessChance(checkResult) {
+	let accuracy = KinkyDungeonGetEvasion();
+	return Math.max(0, Math.min(1.0, (checkResult/100 - (KDGameData.OfferFatigue ? KDGameData.OfferFatigue / 100 : 0)
+		- 0.15 + 0.3 * Math.max(0, 3 - KinkyDungeonSlowLevel)) * accuracy));
 }
 
 let KinkyDungeonDialogueTimer = 0;

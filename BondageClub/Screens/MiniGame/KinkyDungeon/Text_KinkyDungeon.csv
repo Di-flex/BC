@@ -208,6 +208,9 @@ KinkyDungeonStatDescNowhere,"Beds and barrels have a 50% chance to be trapped."
 KinkyDungeonStatQuickness,"Quickness"
 KinkyDungeonStatDescQuickness,"Grants Quickness after not moving for 4 turns. Quickness lets you move 1 space without ticking the clock."
 
+KinkyDungeonStatDominant,"Dominant"
+KinkyDungeonStatDescDominant,"They're trapped here with you. Ghosts are more helpful, and you can bind enemies that confront you about bondage."
+
 KinkyDungeonStatPrisoner,"Prisoner"
 KinkyDungeonStatDescPrisoner,"Start the game as a released prisoner wandering the halls."
 
@@ -4430,6 +4433,11 @@ dPrisonRepeat_Smile2,"(Giggle and moan)"
 dPrisonRepeat_Struggle,"(Struggle in your bindings)"
 dPrisonRepeat_Pout,"(Pout and glare at her)"
 
+
+dOfferDominant,"Why don't you wear it instead? (OFFPERC chance, may aggro)"
+dOfferDominantGag,"(Point to her instead) (OFFPERC chance, may aggro)"
+rOfferDominantFailure,"(The SPEAKER resists and defends herself!)"
+rOfferDominantSuccess,"(The SPEAKER blushes and accepts)"
 
 rOfferLatex,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Are you a fan of latex by chance?"
 rOfferLatexYes,"(The SPEAKER blushes deeply)|Then would you like to try on this RESTRAINT?"

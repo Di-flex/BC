@@ -290,6 +290,17 @@ const KDEventMapInventory = {
 					if (KDRestraint(inv).shrine && (KDRestraint(inv).shrine.includes("Armbinders") || KDRestraint(inv).shrine.includes("Boxbinders"))) {
 						armbinder = true;
 						break;
+					} else if (inv.dynamicLink) {
+						let link = inv.dynamicLink;
+						// Recursion thru to make sure we have an armbinder buried in there... somewhere
+						for (let i = 0; i < 10; i++) {
+							if (KDRestraint(link.dynamicLink).shrine && (KDRestraint(link.dynamicLink).shrine.includes("Armbinders") || KDRestraint(link.dynamicLink).shrine.includes("Boxbinders"))) {
+								armbinder = true;
+								break;
+							}
+							if (link.dynamicLink) link = link.dynamicLink;
+							else i = 10;
+						}
 					}
 				}
 				if (!armbinder) {

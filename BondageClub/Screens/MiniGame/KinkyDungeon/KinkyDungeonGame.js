@@ -1128,7 +1128,7 @@ function KinkyDungeonGetShortcut(level) {
 
 function KinkyDungeonPlaceShortcut(checkpoint, width, height) {
 
-	if (checkpoint != MiniGameKinkyDungeonCheckpoint) {
+	if (checkpoint != "grv") {
 
 		// Ending stairs are not.
 		let placed = false;
