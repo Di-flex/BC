@@ -493,6 +493,8 @@ let KinkyDungeonSexyPlug = false;
 let KDOldValue = "";
 let KDOriginalValue = "";
 
+let KDRestart = false;
+
 function KinkyDungeonRun() {
 	KDUpdateVibeSounds();
 	let BG = "BrickWall";
@@ -572,6 +574,10 @@ function KinkyDungeonRun() {
 		DrawButton(1700, 930, 150, 64, TextGet("KinkyDungeonPatrons"), "White", "");
 		DrawButton(850, 930, 375, 64, TextGet("KinkyDungeonDeviantart"), "White", "");
 		DrawButton(1275, 930, 375, 64, TextGet("KinkyDungeonPatreon"), "#ffeecc", "");
+
+		DrawButton(1700, 850, 280, 64, TextGet(localStorage.getItem("BondageClubLanguage") ? "English" : "Chinese"), "White", "");
+		if (KDRestart)
+			DrawText(TextGet(localStorage.getItem("BondageClubLanguage") ? "RestartNeededCN" : "RestartNeeded"), 1840, 800, "white", "silver");
 	} else if (KinkyDungeonState == "Consent") {
 		MainCanvas.textAlign = "center";
 		// Draw temp start screen
@@ -1272,6 +1278,14 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(600, 100, 64, 64)) {
 			KinkyDungeonSound = !KinkyDungeonSound;
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
+		}
+
+		if (MouseIn(1700, 850, 280, 64)) {
+			if (localStorage.getItem("BondageClubLanguage")) {
+				localStorage.setItem("BondageClubLanguage", "");
+			} else localStorage.setItem("BondageClubLanguage", "CN");
+			KDRestart = true;
+			return true;
 		}
 		if (MouseIn(600, 260, 64, 64)) {
 			KinkyDungeonFullscreen = !KinkyDungeonFullscreen;

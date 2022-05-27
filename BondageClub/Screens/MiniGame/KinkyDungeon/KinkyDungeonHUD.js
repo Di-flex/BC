@@ -417,7 +417,7 @@ function KinkyDungeonDrawInputs() {
 			}
 			DrawButton(1700 - buttonPad, 140 + i*KinkyDungeonSpellChoiceOffset, 76, 76, "", "rgba(0, 0, 0, 0)", KinkyDungeonRootDirectory + "Spells/" + spell.name + ".png", "");
 
-			let cost = KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp;
+			//let cost = KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp;
 			DrawTextFit(comp, 1700 - buttonPad / 2, 200 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#ccddFF", "gray");
 		}
 	}

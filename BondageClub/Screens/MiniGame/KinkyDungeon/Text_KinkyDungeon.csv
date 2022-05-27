@@ -9,6 +9,12 @@ KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
+Language,Language
+English,English
+Chinese,Chinese
+
+RestartNeeded,"Restart required!"
+RestartNeededCN,"需要重启！"
 
 KinkyDungeon,"Kinky Dungeon v3.34.2"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
@@ -210,6 +216,9 @@ KinkyDungeonStatDescQuickness,"Grants Quickness after not moving for 4 turns. Qu
 
 KinkyDungeonStatDominant,"Dominant"
 KinkyDungeonStatDescDominant,"They're trapped here with you. Ghosts are more helpful, and you can bind enemies that confront you about bondage."
+
+KinkyDungeonStatTrespasser,"Trespasser"
+KinkyDungeonStatDescTrespasser,"You lose reputation with the goddesses every time you advance a floor."
 
 KinkyDungeonStatPrisoner,"Prisoner"
 KinkyDungeonStatDescPrisoner,"Start the game as a released prisoner wandering the halls."
@@ -1751,9 +1760,9 @@ KinkyDungeonAutoDoorOff,"Close door"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonUnlockDoorPurple,Command
-KinkyDungeonUnlockDoorPurpleUse,You utter a command word and release the door!
-KinkyDungeonUnlockDoorPurpleUseGagged,You mumble a command word but the door opens!
-KinkyDungeonUnlockDoorPurpleUseGaggedFail,"You mumble a command word, but the lock on the door stays put!"
+KinkyDungeonUnlockDoorPurpleUse,You utter a command word and release the lock!
+KinkyDungeonUnlockDoorPurpleUseGagged,You mumble a command word but the lock opens!
+KinkyDungeonUnlockDoorPurpleUseGaggedFail,"You mumble a command word, but the lock stays put!"
 KinkyDungeonPickDoor,"Pick"
 KinkyDungeonLockedDoor,"(No way to open)"
 KinkyDungeonLockedShrine,"(She cannot help you)"
@@ -3940,6 +3949,7 @@ KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
 KinkyDungeonTooltipArmor,"Armor: AMOUNT"
 KinkyDungeonTooltipEvasion,"Base Chance to Hit: AMOUNT%"
 KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
+KinkyDungeonDamageTypeacid,"Caustic"
 KinkyDungeonDamageTypecold,"Shadow"
 KinkyDungeonDamageTypefrost,"Ice"
 KinkyDungeonDamageTypeice,"Ice"

@@ -1176,9 +1176,13 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					let end = performance.now();
 					if (KDDebug)
 						console.log(`Took ${end - start} milliseconds to run loop for enemy ${enemy.Enemy.name}`);
+				} else {
+					// These happen when an enemy is disabled
+					enemy.disarmflag = 0;
 				}
 
 				if (idle) {
+					// These happen when an enemy is disabled or not doing anything
 					enemy.movePoints = 0;
 					enemy.attackPoints = 0;
 					enemy.warningTiles = [];
