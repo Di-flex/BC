@@ -915,6 +915,9 @@ Spell Balance:
 - Mystic locks are impassable
 - Added dominant and bound crusader traits
 
+3.35 Feature Update
+- Escape buttons are now in the same order on both sides (this took surprisingly more effort to program than expected)
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
