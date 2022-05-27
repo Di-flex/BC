@@ -1106,11 +1106,11 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonSaveMode = true;
 			localStorage.setItem("KinkyDungeonSaveMode", KinkyDungeonSaveMode ? "True" : "False");
 			return true;
-		} else if (MouseIn(1500, 320, 64, 64) && KinkyDungeonSexyMode) {
+		} else if (MouseIn(1500, 420, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPlug = !KinkyDungeonSexyPlug;
 			localStorage.setItem("KinkyDungeonSexyPlug", KinkyDungeonSexyPlug ? "True" : "False");
 			return true;
-		} else if (MouseIn(1500, 400, 64, 64) && KinkyDungeonSexyMode) {
+		} else if (MouseIn(1500, 500, 64, 64) && KinkyDungeonSexyMode) {
 			KinkyDungeonSexyPiercing = !KinkyDungeonSexyPiercing;
 			localStorage.setItem("KinkyDungeonSexyPiercing", KinkyDungeonSexyPiercing ? "True" : "False");
 			return true;
