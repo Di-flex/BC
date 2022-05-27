@@ -1684,6 +1684,20 @@ KinkyDungeonStruggleRemoveImpossibleCorsetAroused,"You sigh as you can't find an
 KinkyDungeonStruggleRemoveImpossibleBoundCorset,"The laces are tied tight!"
 KinkyDungeonStruggleRemoveImpossibleBoundCorsetAroused,"You hopelessly try to untie the lacing but it's just too tight!"
 
+KinkyDungeonStruggleRemoveFailSlime,"You grasp at the slime, trying to peel it off..."
+KinkyDungeonStruggleRemoveFailSlimeAroused,"You wiggle madly as you try to peel off the slime!"
+KinkyDungeonStruggleRemoveImpossibleSlime,"The slime reforms as you scoop it away!"
+KinkyDungeonStruggleRemoveImpossibleSlimeAroused,"You can't get the slime off at all!"
+KinkyDungeonStruggleRemoveImpossibleBoundSlime,"The slime is too fast at reforming!"
+KinkyDungeonStruggleRemoveImpossibleBoundSlimeAroused,"The slime reforms too quickly as you try to squirm it off..."
+
+KinkyDungeonStruggleRemoveFailSlimeHard,"You grasp around, looking for a seam..."
+KinkyDungeonStruggleRemoveFailSlimeHardAroused,"You wiggle and squeeze yourself in various places, looking for a lead..."
+KinkyDungeonStruggleRemoveImpossibleHardSlime,"The rubber encases you in a solid layer!"
+KinkyDungeonStruggleRemoveImpossibleHardSlimeAroused,"Try as you might, the rubber hugs you completely without any seams!"
+KinkyDungeonStruggleRemoveImpossibleHardBoundSlime,"The rubber is too tight to get any traction..."
+KinkyDungeonStruggleRemoveImpossibleHardBoundSlimeAroused,"The rubber squeezes your body too tightly to get any sort of ply..."
+
 KinkyDungeonStruggleRemoveFailTape,"You start peeling off the wrapping..."
 KinkyDungeonStruggleRemoveFailTapeAroused,"You scratch at the wrapping furiously..."
 KinkyDungeonStruggleRemoveImpossibleTape,"The material clings to your skin too tightly!"
