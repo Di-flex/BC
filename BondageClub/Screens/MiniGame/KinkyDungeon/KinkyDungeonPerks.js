@@ -85,6 +85,8 @@ let KinkyDungeonStatsPresets = {
 
 	"BoundCrusader": {category: "Kinky", id: "BoundCrusader", cost: -1},
 
+	"Trespasser": {category: "Map", id: "Trespasser", cost: -2},
+
 
 
 

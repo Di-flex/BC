@@ -82,6 +82,18 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			MiniGameVictory = false;
 
 			MiniGameKinkyDungeonLevel += 1;
+			if (KinkyDungeonStatsChoice.get("Trespasser")) {
+				KinkyDungeonChangeRep("Rope", -1);
+				KinkyDungeonChangeRep("Metal", -1);
+				KinkyDungeonChangeRep("Leather", -1);
+				KinkyDungeonChangeRep("Latex", -1);
+				KinkyDungeonChangeRep("Will", -1);
+				KinkyDungeonChangeRep("Elements", -1);
+				KinkyDungeonChangeRep("Conjure", -1);
+				KinkyDungeonChangeRep("Illusion", -1);
+			}
+
+
 			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
 				MiniGameKinkyDungeonLevel = 1;
 				MiniGameKinkyDungeonMainPath = "grv";

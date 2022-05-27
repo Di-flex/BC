@@ -920,6 +920,10 @@ Spell Balance:
 3.35 Feature Update
 - Escape buttons are now in the same order on both sides (this took surprisingly more effort to program than expected)
 - Added icons for all spells and increased the max number of spell slots from 5 to 7
+- New perk: Trespasser
+- New bound sprites by Song!
+- Jail shouldn't take off as many different types of restraints anymore
+- Added machine-translated chinese...
 
 TODO ValidationFindBlockCycles to prevent bugs
 
