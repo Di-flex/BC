@@ -396,20 +396,29 @@ function KinkyDungeonDrawInputs() {
 
 	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		let buttonWidth = 40;
-		DrawButton(1650 + (90 - buttonWidth), 180 + i*KinkyDungeonSpellChoiceOffset - buttonWidth, buttonWidth, buttonWidth, "", "#ffffff", KinkyDungeonRootDirectory + "ChangeSpell.png");
+		let buttonPad = 80;
+		DrawButton(1650 + (90 - buttonWidth), 140 + i*KinkyDungeonSpellChoiceOffset, buttonWidth, buttonWidth, "", "#ffffff", KinkyDungeonRootDirectory + "ChangeSpell.png");
 
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);
 			let comp = "";
-			if (spell.components && spell.components.length > 0) comp = " + " + components;
+			if (spell.components && spell.components.length > 0) comp = components;
+			DrawTextFit(KinkyDungeonGetManaCost(spell), 1650 + (90 - buttonWidth/2), 140 + i*KinkyDungeonSpellChoiceOffset + buttonWidth*1.5, buttonWidth, "#ccddFF", "gray");
 
 			MainCanvas.textAlign = "right";
-			DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1735 - buttonWidth, 160 + i*KinkyDungeonSpellChoiceOffset, 235 - buttonWidth, "white", "gray");
-			DrawTextFit(KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp, 1640, 200 + i*KinkyDungeonSpellChoiceOffset, 100, "#ccddFF", "gray");
+			if (MouseIn(1700 - buttonPad, 140 + i*KinkyDungeonSpellChoiceOffset, 76, 76))
+				DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1700 - buttonPad - 30, 140 + buttonPad/2 + i*KinkyDungeonSpellChoiceOffset, 300, "white", "gray");
+
 			MainCanvas.textAlign = "center";
 
-			DrawButton(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60, "", KinkyDungeonSpellChoicesToggle[i] ? "White" : "#aaaaaa", KinkyDungeonRootDirectory + "Spell" + (i+1) + ".png", "");
+			if (spell.type == "passive" && KinkyDungeonSpellChoicesToggle[i]) {
+				DrawRect(1700 - buttonPad - 4, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "White");
+			}
+			DrawButton(1700 - buttonPad, 140 + i*KinkyDungeonSpellChoiceOffset, 76, 76, "", "rgba(0, 0, 0, 0)", KinkyDungeonRootDirectory + "Spells/" + spell.name + ".png", "");
+
+			let cost = KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp;
+			DrawTextFit(comp, 1700 - buttonPad / 2, 200 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#ccddFF", "gray");
 		}
 	}
 	KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelayPing);
