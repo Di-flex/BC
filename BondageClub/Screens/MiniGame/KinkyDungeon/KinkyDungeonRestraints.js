@@ -1458,7 +1458,7 @@ function KinkyDungeonGetLockMult(Lock) {
 	if (Lock == "Red") return 2.0;
 	if (Lock == "Blue") return 3.0;
 	if (Lock == "Gold") return 3.25;
-	if (Lock == "Purple") return 2.5;
+	if (Lock == "Purple") return 2.1;
 
 	return 1;
 }

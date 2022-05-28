@@ -513,6 +513,12 @@ const KDEventMapInventory = {
 				KinkyDungeonSendTextMessage(10, TextGet("KDElbowCuffsBlock" + Math.floor(KDRandom() * 3)), "red", 2);
 			}
 		},
+		"wristCuffsBlock": (e, item, data) => {
+			if (data.restraint && item != data.restraint && !(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && KDRestraint(data.restraint).shrine.includes("ArmCuffsBase")) {
+				data.escapePenalty += e.power ? e.power : 0.075;
+				KinkyDungeonSendTextMessage(5, TextGet("KDWristCuffsBlock" + Math.floor(KDRandom() * 3)), "red", 2);
+			}
+		},
 	},
 	"playerAttack": {
 		"ShadowHeel": (e, item, data) => {

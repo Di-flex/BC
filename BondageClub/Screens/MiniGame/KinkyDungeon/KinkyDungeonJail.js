@@ -894,6 +894,12 @@ function KinkyDungeonPassOut() {
 		KinkyDungeonPlayerEntity.y = point.y;
 	}
 
+	for (let e of  KinkyDungeonEntities) {
+		if (e.hostile < 9000) e.hostile = 0;
+		if (e.vp > 0) e.vp = 0;
+		if (e.aware) e.aware = false;
+	}
+
 	KinkyDungeonLoseJailKeys();
 	KinkyDungeonSlowMoveTurns = 10;
 }

@@ -84,7 +84,10 @@ function KDDynamicLinkListSurface(item) {
 	for (let tuple of stack) {
 		let inv = tuple.item;
 		let host = tuple.host;
-		if ((KDRestraint(host).accessible) || (KDRestraint(inv).renderWhenLinked && KDRestraint(item).shrine && KDRestraint(inv).renderWhenLinked.some((link) => {return KDRestraint(item).shrine.includes(link);}))) {
+		if (
+			(!KDRestraint(host).inaccessible)
+			&& ((KDRestraint(host).accessible) || (KDRestraint(inv).renderWhenLinked && KDRestraint(item).shrine && KDRestraint(inv).renderWhenLinked.some((link) => {return KDRestraint(item).shrine.includes(link);})))
+		) {
 			ret.push(inv);
 		}
 	}
