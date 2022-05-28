@@ -97,7 +97,11 @@ function KDProcessInput(type, data) {
 					msg = "KinkyDungeonSelfBondageEnchanted";
 				}
 				KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KDRestraint(loose).name)), "yellow", 1);
-				KinkyDungeonInventoryRemove(loose);
+				if (!(loose.quantity > 1)) {
+					KinkyDungeonInventoryRemove(loose);
+				} else {
+					loose.quantity -= 1;
+				}
 				return msg;
 			}
 			break;

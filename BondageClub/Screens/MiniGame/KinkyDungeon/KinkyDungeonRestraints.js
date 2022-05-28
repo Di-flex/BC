@@ -1506,7 +1506,10 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			(power <
 			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
 				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink))))
-			&& (!currentRestraint || !currentRestraint.dynamicLink || !KDDynamicLinkList(currentRestraint).some((item) => {return restraint.name == item.name;}))
+			&& (!currentRestraint || (!currentRestraint.dynamicLink ||
+				(restraint.linkCategory && KDLinkCategorySize(currentRestraint, restraint.linkCategory) + KDLinkSize(restraint) <= 1.0)
+				|| (!restraint.linkCategory && !KDDynamicLinkList(currentRestraint, true).some((item) => {return restraint.name == item.name;}))
+			))
 			&& (Bypass || restraint.bypass || !KDGroupBlocked(restraint.Group, true))) {
 
 			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
@@ -1650,12 +1653,15 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
-	if (!r || (!r.dynamicLink || !KDDynamicLinkList(r).some((item) => {return restraint.name == item.name;})) && !KDRestraint(r).enchanted
+	if (!r || (!r.dynamicLink ||
+			(restraint.linkCategory && KDLinkCategorySize(r, restraint.linkCategory) + KDLinkSize(restraint) <= 1.0)
+			|| (!restraint.linkCategory && !KDDynamicLinkList(r, true).some((item) => {return restraint.name == item.name;}))
+	) && !KDRestraint(r).enchanted
 		&& (
 			(power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (linkableCurrent)
 		)) {
-		let ret = KinkyDungeonAddRestraint(restraint, Tightness + Math.round(0.1 * KinkyDungeonDifficulty), Bypass, Lock, Keep, false, true, events, faction);
+		let ret = KinkyDungeonAddRestraint(restraint, Tightness + Math.round(0.1 * KinkyDungeonDifficulty), Bypass, Lock, Keep, false, !linkableCurrent, events, faction);
 		if (Trapped) {
 			let rest = KinkyDungeonGetRestraintItem(restraint.Group);
 			if (rest && KDRestraint(rest) && KDRestraint(rest).trappable && !rest.trap) {
@@ -1812,6 +1818,8 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 		KinkyDungeonCalculateSlowLevel();
 		KinkyDungeonCheckClothesLoss = true; // We signal it is OK to check whether the player should get undressed due to restraints
+
+		KinkyDungeonDressPlayer();
 		KinkyDungeonMultiplayerInventoryFlag = true; // Signal that we can send the inventory now
 		KinkyDungeonSleepTime = 0;
 		KinkyDungeonUpdateStruggleGroups();
@@ -1864,8 +1872,9 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 				if (rest.inventory && (Keep || rest.enchanted || rest.alwaysKeep) && !KinkyDungeonInventoryGetLoose(rest.name)) {
 					if (rest.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(rest.inventoryAs);
-						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
-							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events});
+						if (!KinkyDungeonInventoryGetLoose(origRestraint.name)) {
+							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events, quantity: 1});
+						} else KinkyDungeonInventoryGetLoose(origRestraint.name).quantity += 1;
 					} else KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events});
 				}
 

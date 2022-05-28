@@ -43,8 +43,15 @@ let KinkyDungeonFastStruggle = false;
 let KinkyDungeonFastStruggleType = "";
 let KinkyDungeonFastStruggleGroup = "";
 
-function KDDynamicLinkList(item) {
+/**
+ *
+ * @param {item} item
+ * @param {boolean} [includeItem]
+ * @returns {item[]}
+ */
+function KDDynamicLinkList(item, includeItem) {
 	let ret = [];
+	if (includeItem) ret.push(item);
 	if (item && item.dynamicLink) {
 		let link = item.dynamicLink;
 		while (link) {
@@ -53,6 +60,41 @@ function KDDynamicLinkList(item) {
 		}
 	}
 	return ret;
+}
+
+/**
+ *
+ * @param {restraint} restraint
+ * @returns {number}
+ */
+function KDLinkSize(restraint) {
+	return restraint.linkSize ? restraint.linkSize : 1;
+}
+
+/**
+ *
+ * @param {item} item
+ * @param {string} linkCategory
+ * @returns {number}
+ */
+function KDLinkCategorySize(item, linkCategory) {
+	let total = 0;
+	// First we get the whole stack
+	let stack = [item];
+	if (item && item.dynamicLink) {
+		let link = item.dynamicLink;
+		while (link) {
+			stack.push(link);
+			link = link.dynamicLink;
+		}
+	}
+	// Now that we have the stack we sum things up
+	for (let inv of stack) {
+		if (KDRestraint(inv).linkCategory == linkCategory) {
+			total += KDLinkSize(KDRestraint(inv));
+		}
+	}
+	return total;
 }
 
 function KinkyDungeonDrawInputs() {
@@ -964,7 +1006,7 @@ function KinkyDungeonHandleHUD() {
 				else if (KinkyDungeonWeapons[ElementValue("DebugItem")]) KinkyDungeonInventoryAddWeapon(ElementValue("DebugItem"));
 				else if (KinkyDungeonGetRestraintByName(ElementValue("DebugItem"))) {
 					let restraint = KinkyDungeonGetRestraintByName(ElementValue("DebugItem"));
-					KinkyDungeonInventoryAdd({name: ElementValue("DebugItem"), type: LooseRestraint, events: restraint.events});
+					KinkyDungeonInventoryAdd({name: ElementValue("DebugItem"), type: LooseRestraint, events: restraint.events, quantity: 10});
 				}
 
 				if (item)

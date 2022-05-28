@@ -449,6 +449,9 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
+			if (predata.vulnerable && efficiency * (predata.bind ? predata.bind : predata.dmg) > 0.01 && Enemy.boundLevel < Enemy.Enemy.maxhp * 0.6) {
+				Enemy.boundLevel += Enemy.Enemy.maxhp * 0.2;
+			}
 			if (!forceKill && Enemy.hp < 0) {
 				KDDamageQueue.push({floater: TextGet("KDHelpless"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
 				//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDHelpless"), "white", 2);
