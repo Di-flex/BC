@@ -104,7 +104,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 		} else break;
 	}
 	if (i > 9990) {
-		console.log("Error generating " + Piece.Name);
+		console.log("Could not place " + Piece.Name);
 		return {Pass: false, Traps: trapLocations};
 	}
 

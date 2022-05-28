@@ -587,14 +587,21 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 
 let KDChampionMax = 25;
 
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean} Whether or not it was a Champion capture
+ */
 function KinkyDungeonCapture(enemy) {
 	let msg = "KinkyDungeonCapture";
+	let goddessCapture = false;
 	if (enemy.lifetime != undefined && enemy.lifetime < 999) {
 		msg = "KinkyDungeonCaptureBasic";
 	} else if (KDGameData.Champion) {
 		if (KDGameData.ChampionCurrent < KDChampionMax) {
 			msg = "KinkyDungeonCaptureGoddess";
 			let disapproval = 0;
+			goddessCapture = true;
 			// Is the player wearing something related to the goddess?
 			if (KinkyDungeonStatsChoice.has("BoundCrusader")) {
 				let uniform = ["Rope", "Leather", "Metal", "Latex"];
@@ -617,22 +624,24 @@ function KinkyDungeonCapture(enemy) {
 				}
 			}
 			if (disapproval == 0) {
-				KinkyDungeonChangeMana(3);
+				KinkyDungeonChangeMana(2);
 				KinkyDungeonChangeRep(KDGameData.Champion, 1);
 				KDGameData.ChampionCurrent += 1;
 			} else if (disapproval == 1) {
-				KinkyDungeonChangeMana(2);
+				KinkyDungeonChangeMana(1);
 				KDGameData.ChampionCurrent += 1;
-			}
+			} else goddessCapture = false;
 		} else msg = "KinkyDungeonCaptureMax";
 	} else msg = "KinkyDungeonCaptureBasic";
 
 	KinkyDungeonSendEvent("capture", {enemy: enemy});
 	KinkyDungeonSendActionMessage(6, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
+	return goddessCapture;
 }
 
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
+		let noRepHit = false;
 		KinkyDungeonEntities.splice(E, 1);
 		KinkyDungeonSendEvent("kill", {enemy: enemy});
 		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy) && !enemy.Enemy.tags.has("nocapture") && enemy.playerdmg) {
@@ -642,7 +651,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 					KinkyDungeonGroundItems.push(item);
 				}
 			}
-			KinkyDungeonCapture(enemy);
+			if (!KinkyDungeonCapture(enemy)) noRepHit = true;
 		} else {
 			if (enemy.items) {
 				for (let name of enemy.items) {
@@ -692,7 +701,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 						amount = KDRandom() < 0.33 ? 0.004 : 0.001;
 
 				}
-				if (amount) {
+				if (amount && !noRepHit) {
 					KinkyDungeonChangeFactionRep(faction, -amount);
 
 					// For being near a faction
@@ -742,18 +751,29 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				}
 			}
 		}
-		if (!enemy.noDrop && (enemy.playerdmg || !enemy.summoned)) {
-			KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
-			if (KDEnemyHasFlag(enemy, "Shop")) {
-				let dropped = {x:enemy.x, y:enemy.y, name: "Gold", amount: 100};
-				KinkyDungeonGroundItems.push(dropped);
-			}
-
-		}
+		KDDropItems(enemy);
 
 		return true;
+	} else if (!enemy.droppedItems && KDHelpless(enemy)) {
+		KDDropItems(enemy);
 	}
 	return false;
+}
+
+/**
+ *
+ * @param {entity} enemy
+ */
+function KDDropItems(enemy) {
+	if (!enemy.noDrop && (enemy.playerdmg || !enemy.summoned) && !enemy.droppedItems) {
+		KinkyDungeonItemDrop(enemy.x, enemy.y, enemy.Enemy.dropTable, enemy.summoned);
+		enemy.droppedItems = true;
+		if (KDEnemyHasFlag(enemy, "Shop")) {
+			let dropped = {x:enemy.x, y:enemy.y, name: "Gold", amount: 100};
+			KinkyDungeonGroundItems.push(dropped);
+		}
+
+	}
 }
 
 /**

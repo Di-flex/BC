@@ -785,6 +785,8 @@ interface entity {
 	personality?: string,
 	patrolIndex?: number,
 	flags?: Record<string, number>,
+	noDrop?: boolean,
+	droppedItems?: boolean,
 	aggro?: number,
 	id?: number,
 	hp: number,
