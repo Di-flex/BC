@@ -928,6 +928,8 @@ Spell Balance:
 - Equipped layered items now show in the inventory under 'Equipped'
 - +20% max hp binding when binding a vulnerable target
 - Can now remove some layered items underneath by pressing a button to cycle through
+- Rope now costs 0.25 stamina from 0.5
+- Feather now costs 0.25 stamina from 0.1
 
 TODO ValidationFindBlockCycles to prevent bugs
 
