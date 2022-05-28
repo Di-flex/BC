@@ -623,8 +623,7 @@ function KinkyDungeonCapture(enemy) {
 	} else msg = "KinkyDungeonCaptureBasic";
 
 	KinkyDungeonSendEvent("capture", {enemy: enemy});
-	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
-		KinkyDungeonSendTextMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
+	KinkyDungeonSendActionMessage(6, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
 }
 
 function KinkyDungeonEnemyCheckHP(enemy, E) {
