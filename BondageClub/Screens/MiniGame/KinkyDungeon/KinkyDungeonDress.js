@@ -458,5 +458,8 @@ function KDApplyItem(inv) {
 			placed.Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
 			placed.Property.LockedBy = inv.lock ? "MetalPadlock" : undefined;
 		}
+		if (restraint.OverridePriority) {
+			placed.Property.OverridePriority = restraint.OverridePriority;
+		}
 	}
 }

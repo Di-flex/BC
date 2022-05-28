@@ -41,10 +41,18 @@ function KDProcessInput(type, data) {
 			return "Fail";
 		}
 		case "struggle":
-			return KinkyDungeonStruggle(data.group, data.type);
-		case "struggleCurse":
-			KinkyDungeonCurseStruggle(data.group, data.curse);
+			return KinkyDungeonStruggle(data.group, data.type, data.index);
+		case "struggleCurse": {
+			let item = KinkyDungeonGetRestraintItem(data.group);
+			if (data.index) {
+				let surfaceItems = KDDynamicLinkListSurface(item);
+				if (surfaceItems[data.index])
+					item = surfaceItems[data.index];
+				else console.log("Error! Please report the item combination and screenshot to Ada!");
+			}
+			KinkyDungeonCurseStruggle(item, data.curse);
 			break;
+		}
 		case "curseUnlock":
 			KinkyDungeonCurseUnlock(data.group, data.curse);
 			break;
