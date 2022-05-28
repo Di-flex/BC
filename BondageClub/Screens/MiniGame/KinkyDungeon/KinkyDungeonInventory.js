@@ -285,6 +285,17 @@ function KinkyDungeonFilterInventory(Filter, enchanted) {
 			let preview = KDGetItemPreview(item);
 			if (preview && (item.type != LooseRestraint || (!enchanted || KDRestraint(item).enchanted || KDRestraint(item).showInQuickInv)))
 				ret.push(preview);
+			if (item.dynamicLink) {
+				let link = item.dynamicLink;
+				for (let I = 0; I < 30; I++) {
+					preview = KDGetItemPreview(link);
+					if (preview && (link.type == Restraint))
+						ret.push(preview);
+					if (link.dynamicLink) {
+						link = link.dynamicLink;
+					} else I = 1000;
+				}
+			}
 
 		}
 

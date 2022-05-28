@@ -122,7 +122,7 @@ function KinkyDungeonDressPlayer() {
 				if (inv.dynamicLink) {
 					let link = inv.dynamicLink;
 					for (let I = 0; I < 30; I++) {
-						if (KDRestraint(link).renderWhenLinked.some((element) => {return renderTypes.includes(element);}))
+						if (KDRestraint(link).renderWhenLinked && KDRestraint(link).renderWhenLinked.some((element) => {return renderTypes.includes(element);}))
 							KDApplyItem(link);
 						if (link.dynamicLink) {
 							link = link.dynamicLink;
