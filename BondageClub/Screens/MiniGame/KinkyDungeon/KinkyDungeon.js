@@ -1867,6 +1867,7 @@ function KinkyDungeonLoadGame(String) {
 						KinkyDungeonAddRestraint(restraint, 0, true, item.lock, undefined, undefined, undefined, undefined, item.faction); // Add the item
 						let createdrestraint = KinkyDungeonGetRestraintItem(restraint.Group);
 						if (createdrestraint) createdrestraint.lock = item.lock; // Lock if applicable
+						if (createdrestraint) createdrestraint.events = item.events; // events if applicable
 					}
 				}
 			}

@@ -1855,6 +1855,10 @@ KinkyDungeonCategoryFilteroutfit,Outfits
 KinkyDungeonCategoryFilterlooserestraint,Restraints
 KinkyDungeonCategoryFiltermisc,Miscellaneous
 
+KDElbowCuffsBlock0,"You can't reach the cuffs on your elbows, the chain is too short..."
+KDElbowCuffsBlock1,"You contort your arms trying to reach the cuffs on your elbows, to no avail..."
+KDElbowCuffsBlock2,"Your elbows are kept together by the elbow cuffs, and you can't reach them."
+
 KDTrapMisfire,"You hear an ominous click, but nothing seems to happen. Looks like a misfire!"
 
 RestraintBarrelTrap,Barrel Trap
@@ -2172,6 +2176,7 @@ RestraintTrapArmbinderHarness,Leather Armbinder Harness
 RestraintTrapArmbinderHarnessDesc,"Leather belts securing your armbinder tightly."
 RestraintTrapArmbinderHarnessDesc2,"It's quite tight and secured by lockable buckles on your sides."
 KinkyDungeonRemoveArmbinderHarness,The armbinder harness comes off with the armbinder.
+KinkyDungeonRemoveCuffs,The cuff chains come off with the cuffs.
 RestraintTrapCuffs,Handcuffs
 RestraintTrapCuffsDesc,"A pair of steel cuffs locked securely around your wrists."
 RestraintTrapCuffsDesc2,"The lock doesn't seem very complicated."

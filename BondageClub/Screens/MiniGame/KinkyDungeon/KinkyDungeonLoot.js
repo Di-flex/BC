@@ -337,12 +337,12 @@ function KinkyDungeonLootEvent(Loot, Floor, Replacemsg, Lock) {
 	}
 	else if (Loot.name == "EnchantedBelt"||Loot.name == "EnchantedBra"||Loot.name == "EnchantedHeels"||Loot.name == "EnchantedAnkleCuffs"||Loot.name == "EnchantedMuzzle"||Loot.name == "EnchantedBlindfold"||Loot.name == "EnchantedMittens"||Loot.name == "EnchantedBallGag"||Loot.name == "EnchantedArmbinder") {
 		let restraint = KinkyDungeonGetRestraintByName(Loot.name);
-		KinkyDungeonInventoryAdd({name: Loot.name, type: LooseRestraint, events: restraint.events});
+		KinkyDungeonInventoryAdd({name: Loot.name, type: LooseRestraint, events: Object.assign([], restraint.events)});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	}
 	else if (Loot.name == "PotionCollar") {
 		let restraint = KinkyDungeonGetRestraintByName("PotionCollar");
-		KinkyDungeonInventoryAdd({name: Loot.name, type: LooseRestraint, events: restraint.events});
+		KinkyDungeonInventoryAdd({name: Loot.name, type: LooseRestraint, events: Object.assign([], restraint.events)});
 		KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 	}
 	else if (Loot.name == "weapon_boltcutters") {
