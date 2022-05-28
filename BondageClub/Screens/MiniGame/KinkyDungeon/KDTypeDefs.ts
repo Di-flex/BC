@@ -83,6 +83,14 @@ interface consumable {
 type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
+	/** This item lets you access linked items under it */
+	accessible?: boolean,
+	/** This item can be rendered when linked */
+	renderWhenLinked?: string[];
+	/** Stacking category, used to determine if you can have multiple of these items in a stack */
+	linkCategory?: string;
+	/** Stacking size, can't exceed 1 */
+	linkSize?: number;
 	/** Enemies ignore you while you are wearing it */
 	ignoreNear?: boolean,
 	/** Enemies wont cast spells or ranged attacks while you are wearing it */

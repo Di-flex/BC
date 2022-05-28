@@ -41,10 +41,18 @@ function KDProcessInput(type, data) {
 			return "Fail";
 		}
 		case "struggle":
-			return KinkyDungeonStruggle(data.group, data.type);
-		case "struggleCurse":
-			KinkyDungeonCurseStruggle(data.group, data.curse);
+			return KinkyDungeonStruggle(data.group, data.type, data.index);
+		case "struggleCurse": {
+			let item = KinkyDungeonGetRestraintItem(data.group);
+			if (data.index) {
+				let surfaceItems = KDDynamicLinkListSurface(item);
+				if (surfaceItems[data.index])
+					item = surfaceItems[data.index];
+				else console.log("Error! Please report the item combination and screenshot to Ada!");
+			}
+			KinkyDungeonCurseStruggle(item, data.curse);
 			break;
+		}
 		case "curseUnlock":
 			KinkyDungeonCurseUnlock(data.group, data.curse);
 			break;
@@ -97,7 +105,11 @@ function KDProcessInput(type, data) {
 					msg = "KinkyDungeonSelfBondageEnchanted";
 				}
 				KinkyDungeonSendTextMessage(10, TextGet(msg).replace("RestraintName", TextGet("Restraint" + KDRestraint(loose).name)), "yellow", 1);
-				KinkyDungeonInventoryRemove(loose);
+				if (!(loose.quantity > 1)) {
+					KinkyDungeonInventoryRemove(loose);
+				} else {
+					loose.quantity -= 1;
+				}
 				return msg;
 			}
 			break;
@@ -245,7 +257,8 @@ function KDProcessInput(type, data) {
 			KinkyDungeonChangeRep("Ghost", 4);
 			break;
 		case "lose":
-			KinkyDungeonState = "Lose";
+			KinkyDungeonState = "Menu";
+			KDLose = true;
 			MiniGameKinkyDungeonLevel = -1;
 			break;
 		case "orb":

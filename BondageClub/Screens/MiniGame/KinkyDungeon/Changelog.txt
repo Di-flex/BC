@@ -924,6 +924,10 @@ Spell Balance:
 - New bound sprites by Song!
 - Jail shouldn't take off as many different types of restraints anymore
 - Added machine-translated chinese...
+- Layered restraints will now still render underneath!!!
+- Equipped layered items now show in the inventory under 'Equipped'
+- +20% max hp binding when binding a vulnerable target
+- Can now remove some layered items underneath by pressing a button to cycle through
 
 TODO ValidationFindBlockCycles to prevent bugs
 

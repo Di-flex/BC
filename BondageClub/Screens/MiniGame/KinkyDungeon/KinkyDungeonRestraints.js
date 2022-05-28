@@ -767,10 +767,17 @@ function KinkyDungeonUnlockAttempt(lock) {
  * @param {string} StruggleType
  * @returns {string}
  */
-function KinkyDungeonStruggle(struggleGroup, StruggleType) {
-
-
+function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	let restraint = KinkyDungeonGetRestraintItem(struggleGroup);
+	let host = restraint;
+	if (index) {
+		let surfaceItems = KDDynamicLinkListSurface(restraint);
+		if (surfaceItems[index]) {
+			host = surfaceItems[index - 1];
+			restraint = surfaceItems[index];
+		}
+		else console.log("Error! Please report the item combination and screenshot to Ada!");
+	}
 	let failSuffix = "";
 	if (restraint && KDRestraint(restraint).failSuffix && KDRestraint(restraint).failSuffix[StruggleType]) {
 		failSuffix = KDRestraint(restraint).failSuffix[StruggleType];
@@ -795,6 +802,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	/**
 	 * @type {{
+	 * restraint: item,
 	 * struggleType: string,
 	 * escapeChance: number,
 	 * origEscapeChance: number,
@@ -804,9 +812,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 	 * hasEdge: boolean,
 	 * restraintEscapeChance: number,
 	 * cost: number,
+	 * escapePenalty: number,
 	 * }}
 	 */
 	let data = {
+		restraint: restraint,
 		struggleType: StruggleType,
 		escapeChance: restraintEscapeChancePre,
 		origEscapeChance: restraintEscapeChancePre,
@@ -816,6 +826,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 		hasEdge: KinkyDungeonHasHook(true),
 		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
+		escapePenalty: 0,
 	};
 
 	if (StruggleType == "Cut") data.cost = KinkyDungeonStatStaminaCostTool;
@@ -1058,6 +1069,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.15);
 
+	if (data.escapePenalty > 0) {
+		data.escapeChance = Math.max(0, data.escapeChance - data.escapePenalty);
+	}
+
 	let belt = null;
 	let bra = null;
 
@@ -1066,6 +1081,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 
 	if (struggleGroup == "ItemNipples" || struggleGroup == "ItemNipplesPiercings") bra = KinkyDungeonGetRestraintItem("ItemBreast");
 	if (bra && KDRestraint(bra) && KDRestraint(bra).chastitybra) data.escapeChance = 0.0;
+
 
 	if (data.escapeChance <= 0) {
 		if (!restraint.attempts) restraint.attempts = 0;
@@ -1207,7 +1223,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType) {
 								+ ".ogg");
 						}
 					}
-					KinkyDungeonRemoveRestraint(KDRestraint(restraint).Group, (StruggleType != "Cut") || !destroy);
+					if (index) {
+						KinkyDungeonRemoveDynamicRestraint(host, (StruggleType != "Cut") || !destroy, false);
+					} else {
+						KinkyDungeonRemoveRestraint(KDRestraint(restraint).Group, (StruggleType != "Cut") || !destroy);
+					}
 					if (trap) {
 						let summon = KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, trap, 1, 2.5);
 						if (summon) {
@@ -1506,7 +1526,10 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 			(power <
 			(((Lock || restraint.DefaultLock) && KinkyDungeonIsLockable(restraint)) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power)
 				|| (currentRestraint && KDRestraint(currentRestraint) && KinkyDungeonLinkableAndStricter(KDRestraint(currentRestraint), restraint, currentRestraint.dynamicLink))))
-			&& (!currentRestraint || !currentRestraint.dynamicLink || !KDDynamicLinkList(currentRestraint).some((item) => {return restraint.name == item.name;}))
+			&& (!currentRestraint || (!currentRestraint.dynamicLink ||
+				(restraint.linkCategory && KDLinkCategorySize(currentRestraint, restraint.linkCategory) + KDLinkSize(restraint) <= 1.0)
+				|| (!restraint.linkCategory && !KDDynamicLinkList(currentRestraint, true).some((item) => {return restraint.name == item.name;}))
+			))
 			&& (Bypass || restraint.bypass || !KDGroupBlocked(restraint.Group, true))) {
 
 			restraintWeights.push({restraint: restraint, weight: restraintWeightTotal});
@@ -1650,12 +1673,15 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return 0;
 	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return 0;
-	if (!r || (!r.dynamicLink || !KDDynamicLinkList(r).some((item) => {return restraint.name == item.name;})) && !KDRestraint(r).enchanted
+	if (!r || (!r.dynamicLink ||
+			(restraint.linkCategory && KDLinkCategorySize(r, restraint.linkCategory) + KDLinkSize(restraint) <= 1.0)
+			|| (!restraint.linkCategory && !KDDynamicLinkList(r, true).some((item) => {return restraint.name == item.name;}))
+	) && !KDRestraint(r).enchanted
 		&& (
 			(power < ((newLock) ? restraint.power * KinkyDungeonGetLockMult(newLock) : restraint.power))
 			|| (linkableCurrent)
 		)) {
-		let ret = KinkyDungeonAddRestraint(restraint, Tightness + Math.round(0.1 * KinkyDungeonDifficulty), Bypass, Lock, Keep, false, true, events, faction);
+		let ret = KinkyDungeonAddRestraint(restraint, Tightness + Math.round(0.1 * KinkyDungeonDifficulty), Bypass, Lock, Keep, false, !linkableCurrent, events, faction);
 		if (Trapped) {
 			let rest = KinkyDungeonGetRestraintItem(restraint.Group);
 			if (rest && KDRestraint(rest) && KDRestraint(rest).trappable && !rest.trap) {
@@ -1705,6 +1731,7 @@ let KinkyDungeonCancelFlag = false;
  * @returns
  */
 function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems, events, faction) {
+	KDStruggleGroupLinkIndex = {};
 	let start = performance.now();
 	let tight = (Tightness) ? Tightness : 0;
 	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
@@ -1792,7 +1819,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 						// @ts-ignore
 						CharacterAppearanceSetColorForGroup(Player, color, AssetGroup);
 				}
-				let item = {name: restraint.name, type: Restraint, events:events ? events : restraint.events, tightness: tight, lock: "", faction: faction};
+				let item = {name: restraint.name, type: Restraint, events:events ? events : Object.assign([], restraint.events), tightness: tight, lock: "", faction: faction};
 				KinkyDungeonInventoryAdd(item);
 
 				if (Lock) KinkyDungeonLock(item, Lock);
@@ -1812,6 +1839,8 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 
 		KinkyDungeonCalculateSlowLevel();
 		KinkyDungeonCheckClothesLoss = true; // We signal it is OK to check whether the player should get undressed due to restraints
+
+		KinkyDungeonDressPlayer();
 		KinkyDungeonMultiplayerInventoryFlag = true; // Signal that we can send the inventory now
 		KinkyDungeonSleepTime = 0;
 		KinkyDungeonUpdateStruggleGroups();
@@ -1832,22 +1861,23 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
  * It removes a restraint from the player
  * @param {string} Group - The group of the item to remove.
  * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
- * @param {boolean} [Add] - If true, the item will be added to the player's inventory.
+ * @param {boolean} [Add] - If true, this is part of the process of adding another item and should not trigger infinite recursion
  * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
  * @param {boolean} [Shrine] - If the item is being removed from a shrine, this is true.
  * @param {boolean} [UnLink] - If the item is being removed as part of an unlinking process
  * @returns {boolean} true if the item was removed, false if it was not.
  */
 function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) {
-	for (let i of KinkyDungeonAllRestraint()) {
-		const rest = KinkyDungeonRestraintsCache.get(i.name);
-		let AssetGroup = rest && rest.AssetGroup ? rest.AssetGroup : Group;
+	KDStruggleGroupLinkIndex = {};
+	for (let item of KinkyDungeonAllRestraint()) {
+		const rest = KinkyDungeonRestraintsCache.get(item.name);
 		if (rest.Group == Group) {
+			let AssetGroup = rest && rest.AssetGroup ? rest.AssetGroup : Group;
 			if (!NoEvent)
 				KinkyDungeonSendEvent("remove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 
 			if (!KinkyDungeonCancelFlag && !Add && !UnLink) {
-				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(i, Keep);
+				KinkyDungeonCancelFlag = KinkyDungeonUnLinkItem(item, Keep);
 			}
 
 			if (!KinkyDungeonCancelFlag) {
@@ -1861,12 +1891,24 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 					}
 				}
 
-				if (rest.inventory && (Keep || rest.enchanted || rest.alwaysKeep) && !KinkyDungeonInventoryGetLoose(rest.name)) {
+				if (rest.inventory && (Keep || rest.enchanted || rest.alwaysKeep)) {
 					if (rest.inventoryAs) {
 						let origRestraint = KinkyDungeonGetRestraintByName(rest.inventoryAs);
-						if (!KinkyDungeonInventoryGetLoose(origRestraint.name))
-							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events});
-					} else KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events});
+						if (!KinkyDungeonInventoryGetLoose(origRestraint.name)) {
+							KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events, quantity: 1});
+						} else {
+							if (!KinkyDungeonInventoryGetLoose(origRestraint.name).quantity) KinkyDungeonInventoryGetLoose(origRestraint.name).quantity = 0;
+							KinkyDungeonInventoryGetLoose(origRestraint.name).quantity += 1;
+						}
+					} else {
+						if (!KinkyDungeonInventoryGetLoose(rest.name)) {
+							KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events, quantity: 1});
+						} else {
+							if (!KinkyDungeonInventoryGetLoose(rest.name).quantity) KinkyDungeonInventoryGetLoose(rest.name).quantity = 0;
+							KinkyDungeonInventoryGetLoose(rest.name).quantity += 1;
+						}
+
+					}
 				}
 
 				InventoryRemove(KinkyDungeonPlayer, AssetGroup);
@@ -1884,12 +1926,12 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 				if (!NoEvent) {
 					if (rest.events) {
 						for (let e of rest.events) {
-							if (e.trigger == "afterRemove" && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
-								KinkyDungeonHandleInventoryEvent("afterRemove", e, rest, {item: rest, add: Add, keep: Keep, shrine: Shrine});
+							if (e.trigger == "postRemoval" && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
+								KinkyDungeonHandleInventoryEvent("postRemoval", e, rest, {item: rest, add: Add, keep: Keep, shrine: Shrine});
 							}
 						}
 					}
-					KinkyDungeonSendEvent("afterRemove", {item: rest, add: Add, keep: Keep, shrine: Shrine});
+					KinkyDungeonSendEvent("postRemoval", {item: rest, add: Add, keep: Keep, shrine: Shrine});
 				}
 
 				let sfx = (rest && rest.sfxRemove) ? rest.sfxRemove : "Struggle";
@@ -1906,6 +1948,60 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 			KinkyDungeonCancelFlag = false;
 			return true;
 		}
+	}
+	return false;
+}
+
+/**
+ * It removes the item's dynamic link
+ * @param {item} hostItem - The group of the item to remove.
+ * @param {boolean} [Keep] - If true, the item will be kept in the player's inventory.
+ * @param {boolean} [NoEvent] - If true, the item will not trigger any events.
+ * @returns {boolean} true if the item was removed, false if it was not.
+ */
+function KinkyDungeonRemoveDynamicRestraint(hostItem, Keep, NoEvent) {
+	let item = hostItem.dynamicLink;
+	if (item) {
+		const rest = KDRestraint(item);
+		if (!NoEvent)
+			KinkyDungeonSendEvent("remove", {item: rest, keep: Keep, shrine: false, dynamic: true});
+
+		if (!KinkyDungeonCancelFlag) {
+			if (rest.inventory && (Keep || rest.enchanted || rest.alwaysKeep) && !KinkyDungeonInventoryGetLoose(rest.name)) {
+				if (rest.inventoryAs) {
+					let origRestraint = KinkyDungeonGetRestraintByName(rest.inventoryAs);
+					if (!KinkyDungeonInventoryGetLoose(origRestraint.name)) {
+						KinkyDungeonInventoryAdd({name: origRestraint.name, type: LooseRestraint, events:origRestraint.events, quantity: 1});
+					} else KinkyDungeonInventoryGetLoose(origRestraint.name).quantity += 1;
+				} else KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events});
+			}
+
+			// Remove the item itself by unlinking it from the chain
+			hostItem.dynamicLink = item.dynamicLink;
+
+			if (!NoEvent) {
+				if (rest.events) {
+					for (let e of rest.events) {
+						if (e.trigger == "postRemoval" && (!e.requireEnergy || ((!e.energyCost && KDGameData.AncientEnergyLevel > 0) || (e.energyCost && KDGameData.AncientEnergyLevel > e.energyCost)))) {
+							KinkyDungeonHandleInventoryEvent("postRemoval", e, rest, {item: rest, keep: Keep, shrine: false, dynamic: true});
+						}
+					}
+				}
+				KinkyDungeonSendEvent("postRemoval", {item: rest, keep: Keep, shrine: false, dynamic: true});
+			}
+
+			let sfx = (rest && rest.sfxRemove) ? rest.sfxRemove : "Struggle";
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg");
+
+			KinkyDungeonCalculateSlowLevel();
+			KinkyDungeonCheckClothesLoss = true;
+			KinkyDungeonDressPlayer();
+
+			KinkyDungeonMultiplayerInventoryFlag = true;
+			KinkyDungeonUpdateStruggleGroups();
+		}
+		KinkyDungeonCancelFlag = false;
+		return true;
 	}
 	return false;
 }
@@ -1952,6 +2048,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, fact
 			if (newItem) newItem.dynamicLink = oldItem;
 			if (newRestraint.UnLink && KDRestraint(oldItem).Link == newRestraint.name) {
 				oldItem.name = newRestraint.UnLink;
+				oldItem.events = Object.assign([], KDRestraint(oldItem).events);
 			}
 			if (KDRestraint(oldItem).Link)
 				KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonLink" + oldItem.name), "red", 2);
@@ -1967,7 +2064,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, fact
  * @param {boolean} Keep
  * @returns
  */
-function KinkyDungeonUnLinkItem(item, Keep) {
+function KinkyDungeonUnLinkItem(item, Keep, dynamic) {
 	//if (!data.add && !data.shrine)
 	if (item.type == Restraint) {
 		/**
@@ -1985,6 +2082,8 @@ function KinkyDungeonUnLinkItem(item, Keep) {
 				if (res && KDRestraint(res)) {
 					res.dynamicLink = UnLink.dynamicLink;
 				}
+
+				KinkyDungeonSendEvent("postRemoval", {item: null, keep: Keep, shrine: false, dynamic: true});
 				if (KDRestraint(item).UnLink) {
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonUnLink" + item.name), "lightgreen", 2);
 				} else

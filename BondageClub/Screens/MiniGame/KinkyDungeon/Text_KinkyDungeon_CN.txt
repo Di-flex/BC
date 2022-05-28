@@ -526,7 +526,7 @@ Back to main menu
 返回主菜单
 Clear Perks
 清除特权
-Config 
+Config
 配置
 Up
 向上
@@ -568,15 +568,15 @@ Floor FLOORNUMBER: DUNGEONNAME
 楼层 FLOORNUMBER: DUNGEONNAME
 
 
-Lockpicks: 
+Lockpicks:
 开锁器：
-Keys: 
+Keys:
 键：
-Magic Keys: 
+Magic Keys:
 魔术键：
-Knife: 
+Knife:
 刀：
-Mag. Knife: 
+Mag. Knife:
 麦格。刀：
 You climb down to the next level
 你爬到一个新的水平
@@ -714,7 +714,7 @@ You find a snow-like potion that's cold to the touch.
 你会发现一种摸起来很冷的雪状药水。
 You find a medley of potions.
 你会发现一堆药水。
-Rarity: 
+Rarity:
 稀有度：
 Lesser
 较小的
@@ -1206,7 +1206,7 @@ Knife
 刀
 Unarmed
 徒手
-Hit Chance: 
+Hit Chance:
 命中几率：
 No Exit Keys
 没有退出键
@@ -1214,21 +1214,21 @@ Receiving Help...
 正在接受帮助...
 Found an edge!
 找到了优势！
-Evasion: 
+Evasion:
 逃避：
-Visibility: 
+Visibility:
 能见度：
-Armor: 
+Armor:
 盔甲：
-SpellResist: 
+SpellResist:
 法术抗性：
 Invisible!
 无形的！
 Quickness!!!
 速度！！！
-Shield: 
+Shield:
 盾：
-DAMAGETYPE Mod: 
+DAMAGETYPE Mod:
 DAMAGETYPE 模组：
 Released from Jail
 出狱
@@ -1300,11 +1300,11 @@ Edged!
 边缘！
 Satisfied~
 满意~
-Damage: 
+Damage:
 损害：
-Accuracy: 
+Accuracy:
 准确性：
-SP Cost: 
+SP Cost:
 SP费用：
 It appears to be a receptacle
 它似乎是一个容器
@@ -2822,7 +2822,7 @@ Non-Lockable
 不可锁定
 Unlocked
 解锁
-Lock Type: 
+Lock Type:
 锁类型：
 Red
 红色的
@@ -2968,11 +2968,11 @@ Illusions
 幻觉
 Commerce
 商业
-Shrine of 
+Shrine of
 神社
-Allies: 
+Allies:
 盟国：
-Enemies: 
+Enemies:
 敌人：
 Nevermere Trainers
 Nevermere 运动鞋
@@ -4830,7 +4830,7 @@ A book about conjuration
 一本关于咒术的书
 A book of manipulative spells
 一本操纵咒语的书
-Components: 
+Components:
 组件：
 Verbal
 口头
@@ -5888,7 +5888,7 @@ Perks II
 特权二
 Perks III
 特权三
-pg. 
+pg.
 pg。
 Next Page
 下一页
@@ -5904,7 +5904,7 @@ You need a higher level in SCHOOL magic to learn this spell.
 您需要更高级别的 SCHOOL 魔法才能学习此法术。
 You need more spell points.
 你需要更多的法术点数。
-School: 
+School:
 学校：
 Elements
 元素
@@ -5916,13 +5916,13 @@ Any School
 任何学校
 Learn Spell
 学习拼写
-Spell Points: 
+Spell Points:
 法术点数：
-Level: 
+Level:
 等级：
-Spell Point Cost: 
+Spell Point Cost:
 法术点消耗：
- Mana Cost: 
+ Mana Cost:
 法力消耗：
 Remove Spell 1
 移除法术 1
@@ -5944,15 +5944,15 @@ Replace Spell 4
 替换法术 4
 Replace Spell 5
 替换法术 5
- Current Spell 1: 
+ Current Spell 1:
 当前法术1：
- Current Spell 2: 
+ Current Spell 2:
 当前法术2：
- Current Spell 3: 
+ Current Spell 3:
 当前法术3：
- Current Spell 4: 
+ Current Spell 4:
 当前法术4：
- Current Spell 5: 
+ Current Spell 5:
 当前法术 5：
 ???
 ？？？
@@ -6378,7 +6378,7 @@ For 3 rep the goddess will grant you slipperiness, boosting your struggling.
 对于 3 rep 女神将授予您滑，促进您的挣扎。
 For 3 rep the goddess will grant you a key.
 3次代表女神会给你一把钥匙。
-For 3 rep the goddess will grant you 
+For 3 rep the goddess will grant you
 对于 3 rep 女神将授予你
 For 3 rep the goddess
 对于 3 rep 女神
@@ -7068,41 +7068,41 @@ EnemyName: You shouldn't break things with such dainty hands~
 EnemyName：你不应该用这么精致的手来破坏东西~
 EnemyName: I knew something was amiss!
 EnemyName：我知道有些不对劲！
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
-EnemyName: 
+EnemyName:
 敌人名称：
 EnemyName: What a beautiful one.
 EnemyName：多么美丽的一个。
