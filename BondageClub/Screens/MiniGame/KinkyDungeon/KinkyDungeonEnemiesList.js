@@ -716,7 +716,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4}, floors:KDMapInit(["cry"]), shrines: [],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 
-	{name: "Dressmaker", clusterWith: "construct", bound: "Dressmaker", playLine: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "conjurer", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter", "dressRestraints", "magicRibbons"]),
+	{name: "Dressmaker", clusterWith: "construct", bound: "Dressmaker", playLine: "Dressmaker", faction: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "conjurer", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter", "dressRestraints", "magicRibbons"]),
 		followLeashedOnly: true, kite: 1.5, kiteChance: 0.3, followRange: 4, castWhileMoving: true, spells: ["Ribbons", "Ribbons", "Ribbons", "RibbonBurst"], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", visionRadius: 7, maxhp: 13, minLevel:7, weight:-6, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
 		attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3, focusPlayer: true,

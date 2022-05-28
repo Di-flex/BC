@@ -83,6 +83,8 @@ interface consumable {
 type restraint = {
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
+	/** This item lets you access linked items under it */
+	accessible?: boolean,
 	/** This item can be rendered when linked */
 	renderWhenLinked?: string[];
 	/** Stacking category, used to determine if you can have multiple of these items in a stack */
