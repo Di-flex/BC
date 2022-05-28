@@ -72,6 +72,10 @@ function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
 	return p;
 }
 
+function KDHelpless(enemy) {
+	return enemy.hp <= enemy.Enemy.maxhp * 0.1 && KDBoundEffects(enemy) > 3;
+}
+
 function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 	if (enemy && enemy.Enemy && !visionRadius) {
 		visionRadius = enemy.Enemy.visionRadius;
@@ -87,6 +91,7 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 
 		for (let e of KinkyDungeonEntities) {
 			if (e == enemy) continue;
+			if (KDHelpless(e)) continue;
 			if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
 			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
@@ -2447,6 +2452,7 @@ function KinkyDungeonCanSwapWith(e, Enemy) {
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.ethereal && e && e.Enemy && !e.Enemy.ethereal) return false; // Ethereal enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.squeeze && e && e.Enemy && !e.Enemy.squeeze) return false; // Squeeze enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy == KinkyDungeonLeashingEnemy()) return true;
+	if (KDBoundEffects(e) > 3) return true;
 	if (!e.Enemy.tags || (e.Enemy.tags.has("minor") && !Enemy.Enemy.tags.has("minor")))
 		return true;
 	else if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && Enemy.Enemy.tags.has("elite")) {

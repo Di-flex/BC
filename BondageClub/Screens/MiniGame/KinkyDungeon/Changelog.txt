@@ -930,6 +930,7 @@ Spell Balance:
 - Can now remove some layered items underneath by pressing a button to cycle through
 - Rope now costs 0.25 stamina from 0.5
 - Feather now costs 0.25 stamina from 0.1
+- Helpless enemies now need to be captured personally
 
 TODO ValidationFindBlockCycles to prevent bugs
 
