@@ -1855,6 +1855,10 @@ KinkyDungeonCategoryFilteroutfit,Outfits
 KinkyDungeonCategoryFilterlooserestraint,Restraints
 KinkyDungeonCategoryFiltermisc,Miscellaneous
 
+KDElbowCuffsBlock0,"You can't reach the cuffs on your elbows, the chain is too short..."
+KDElbowCuffsBlock1,"You contort your arms trying to reach the cuffs on your elbows, to no avail..."
+KDElbowCuffsBlock2,"Your elbows are kept together by the elbow cuffs, and you can't reach them."
+
 KDTrapMisfire,"You hear an ominous click, but nothing seems to happen. Looks like a misfire!"
 
 RestraintBarrelTrap,Barrel Trap
@@ -1918,7 +1922,7 @@ RestraintExpAnkleCuffs,Blacksteel Ankle Cuffs
 RestraintExpAnkleCuffsDesc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffsDesc2,"They are not coming off without the key."
 KinkyDungeonLinkExpAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintExpAnkleCuffs2,Linked Blacksteel Cuffs
+RestraintExpAnkleCuffs2,Cuffs Chain
 RestraintExpAnkleCuffs2Desc,"Highly durable cuffs that can withstand even powerful acid."
 RestraintExpAnkleCuffs2Desc2,"They are not coming off without the key."
 KinkyDungeonUnLinkExpAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2129,18 +2133,18 @@ RestraintMithrilArmCuffsDesc,"A pair of cuffs that make it easy to restrain you.
 RestraintMithrilArmCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonLinkMithrilArmCuffs,"The enemy attaches your wrist cuffs together!"
 
-RestraintMithrilArmCuffs2,Linked Mithril Cuffs
+RestraintMithrilArmCuffs2,Cuffs Wrist Chain
 RestraintMithrilArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintMithrilArmCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkMithrilArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
-RestraintMithrilArmCuffs3,Linked Mithril Cuffs
+RestraintMithrilArmCuffs3,Cuffs Wrist Chain
 RestraintMithrilArmCuffs3Desc,"A full set of cuffs keeping your arms in a strict elbow tie!"
 RestraintMithrilArmCuffs3Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
-RestraintMithrilArmCuffs4,Mithril Elbow Cuffs
+RestraintMithrilArmCuffs4,Elbow Cuffs Chain
 RestraintMithrilArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
 RestraintMithrilArmCuffs4Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilArmCuffs4,"Your elbows detatch!"
@@ -2153,7 +2157,7 @@ RestraintMithrilAnkleCuffs,Mithril Ankle Cuffs
 RestraintMithrilAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffsDesc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonLinkMithrilAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintMithrilAnkleCuffs2,Linked Mithril Cuffs
+RestraintMithrilAnkleCuffs2,Cuffs Chain
 RestraintMithrilAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintMithrilAnkleCuffs2Desc2,"They feel like they aren't even there, but the material is rigid and unyielding."
 KinkyDungeonUnLinkMithrilAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2172,6 +2176,7 @@ RestraintTrapArmbinderHarness,Leather Armbinder Harness
 RestraintTrapArmbinderHarnessDesc,"Leather belts securing your armbinder tightly."
 RestraintTrapArmbinderHarnessDesc2,"It's quite tight and secured by lockable buckles on your sides."
 KinkyDungeonRemoveArmbinderHarness,The armbinder harness comes off with the armbinder.
+KinkyDungeonRemoveCuffs,The cuff chains come off with the cuffs.
 RestraintTrapCuffs,Handcuffs
 RestraintTrapCuffsDesc,"A pair of steel cuffs locked securely around your wrists."
 RestraintTrapCuffsDesc2,"The lock doesn't seem very complicated."
@@ -2361,7 +2366,7 @@ RestraintDragonAnkleCuffs,Dragonscale Cuffs
 RestraintDragonAnkleCuffsDesc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffsDesc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonLinkDragonAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintDragonAnkleCuffs2,Linked Scale Cuffs
+RestraintDragonAnkleCuffs2,Cuffs Chain
 RestraintDragonAnkleCuffs2Desc,"A pair of chained cuffs made of dragonscale. They slow your stride."
 RestraintDragonAnkleCuffs2Desc2,"It's made from hard-to-cut dragonscale!!!"
 KinkyDungeonUnLinkDragonAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2383,41 +2388,41 @@ RestraintLeatherArmCuffsDesc,"A pair of leather cuffs that make it easy to restr
 RestraintLeatherArmCuffsDesc2,"They're made of tough cowhide."
 KinkyDungeonLinkLeatherArmCuffs,"The enemy attaches your wrist cuffs together!"
 
-RestraintLeatherArmCuffs2,Linked Cuffs
+RestraintLeatherArmCuffs2,Cuffs Wrist Chain
 RestraintLeatherArmCuffs2Desc,"A pair of leather cuffs keeping your arms behind your back."
 RestraintLeatherArmCuffs2Desc2,"They're made of tough cowhide."
 KinkyDungeonUnLinkLeatherArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkLeatherArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
-RestraintLeatherArmCuffs3,Linked Cuffs
+RestraintLeatherArmCuffs3,Cuffs Wrist Chain
 RestraintLeatherArmCuffs3Desc,"A full set of leather cuffs keeping your arms in a strict elbow tie!"
 RestraintLeatherArmCuffs3Desc2,"They're made of tough cowhide."
 KinkyDungeonUnLinkLeatherArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
-RestraintLeatherArmCuffs4,Elbow Cuffs
+RestraintLeatherArmCuffs4,Cuffs Elbow Chain
 RestraintLeatherArmCuffs4Desc,"A pair of leather cuffs keeping your elbows locked together!."
 RestraintLeatherArmCuffs4Desc2,"They're made of tough cowhide."
 KinkyDungeonUnLinkLeatherArmCuffs4,"Your elbows detatch!"
 KinkyDungeonLinkLeatherArmCuffs4,"The enemy attaches your wrist cuffs back together!"
 
 
-RestraintScaleArmCuffs,Scale Cuffs
+RestraintScaleArmCuffs,Dragonscale Cuffs
 RestraintScaleArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
 RestraintScaleArmCuffsDesc2,"They're made of dragonscale."
 KinkyDungeonLinkScaleArmCuffs,"The enemy attaches your wrist cuffs together!"
 
-RestraintScaleArmCuffs2,Linked Scale Cuffs
+RestraintScaleArmCuffs2,Cuffs Wrist Chain
 RestraintScaleArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintScaleArmCuffs2Desc2,"They're made of dragonscale."
 KinkyDungeonUnLinkScaleArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkScaleArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
-RestraintScaleArmCuffs3,Linked Scale Cuffs
+RestraintScaleArmCuffs3,Cuffs Wrist Chain
 RestraintScaleArmCuffs3Desc,"A full set of cuffs keeping your arms in a strict elbow tie!"
 RestraintScaleArmCuffs3Desc2,"They're made of dragonscale."
 KinkyDungeonUnLinkScaleArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
-RestraintScaleArmCuffs4,Scale Elbow Cuffs
+RestraintScaleArmCuffs4,Cuffs Elbow Chain
 RestraintScaleArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
 RestraintScaleArmCuffs4Desc2,"They're made of dragonscale."
 KinkyDungeonUnLinkScaleArmCuffs4,"Your elbows detatch!"
@@ -2458,18 +2463,18 @@ RestraintObsidianArmCuffsDesc,"A pair of cuffs that make it easy to restrain you
 RestraintObsidianArmCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonLinkObsidianArmCuffs,"The enemy attaches your wrist cuffs together!"
 
-RestraintObsidianArmCuffs2,Linked Obsidian Cuffs
+RestraintObsidianArmCuffs2,Cuffs Wrist Chain
 RestraintObsidianArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintObsidianArmCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkObsidianArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
-RestraintObsidianArmCuffs3,Linked Obsidian Cuffs
+RestraintObsidianArmCuffs3,Cuffs Wrist Chain
 RestraintObsidianArmCuffs3Desc,"A full set of cuffs keeping your arms in a strict elbow tie!"
 RestraintObsidianArmCuffs3Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
-RestraintObsidianArmCuffs4,Obsidian Elbow Cuffs
+RestraintObsidianArmCuffs4,Cuffs Elbow Chain
 RestraintObsidianArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
 RestraintObsidianArmCuffs4Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianArmCuffs4,"Your elbows detatch!"
@@ -2482,7 +2487,7 @@ RestraintObsidianAnkleCuffs,Obsidian Ankle Cuffs
 RestraintObsidianAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffsDesc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonLinkObsidianAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintObsidianAnkleCuffs2,Linked Obsidian Cuffs
+RestraintObsidianAnkleCuffs2,Cuffs Chain
 RestraintObsidianAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintObsidianAnkleCuffs2Desc2,"It's made of a dark, glistening volcanic metal."
 KinkyDungeonUnLinkObsidianAnkleCuffs2,"The ankle cuff chain detaches!"
@@ -2493,18 +2498,18 @@ RestraintCrystalArmCuffsDesc,"A pair of cuffs that make it easy to restrain you.
 RestraintCrystalArmCuffsDesc2,"It's made of a glowing, brittle material."
 KinkyDungeonLinkCrystalArmCuffs,"The enemy attaches your wrist cuffs together!"
 
-RestraintCrystalArmCuffs2,Linked Crystal Cuffs
+RestraintCrystalArmCuffs2,Cuffs Wrist Chain
 RestraintCrystalArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintCrystalArmCuffs2Desc2,"It's made of a glowing, brittle material."
 KinkyDungeonUnLinkCrystalArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkCrystalArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
-RestraintCrystalArmCuffs3,Linked Crystal Cuffs
+RestraintCrystalArmCuffs3,Cuffs Wrist Chain
 RestraintCrystalArmCuffs3Desc,"A full set of cuffs keeping your arms in a strict elbow tie!"
 RestraintCrystalArmCuffs3Desc2,"It's made of a glowing, brittle material."
 KinkyDungeonUnLinkCrystalArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
-RestraintCrystalArmCuffs4,Crystal Elbow Cuffs
+RestraintCrystalArmCuffs4,Cuffs Elbow Chain
 RestraintCrystalArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
 RestraintCrystalArmCuffs4Desc2,"It's made of a glowing, brittle material."
 KinkyDungeonUnLinkCrystalArmCuffs4,"Your elbows detatch!"
@@ -2517,7 +2522,7 @@ RestraintCrystalAnkleCuffs,Crystal Ankle Cuffs
 RestraintCrystalAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintCrystalAnkleCuffsDesc2,"It's made of a glowing, brittle material."
 KinkyDungeonLinkCrystalAnkleCuffs,"The enemy attaches your ankle cuffs together!"
-RestraintCrystalAnkleCuffs2,Linked Crystal Cuffs
+RestraintCrystalAnkleCuffs2,Cuffs Chain
 RestraintCrystalAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintCrystalAnkleCuffs2Desc2,"It's made of a glowing, brittle material."
 KinkyDungeonUnLinkCrystalAnkleCuffs2,"The ankle cuff chain detaches!"
