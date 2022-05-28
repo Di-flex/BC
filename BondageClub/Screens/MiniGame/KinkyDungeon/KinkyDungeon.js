@@ -412,6 +412,7 @@ function KinkyDungeonLoad() {
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
 			KDInitProtectedGroups();
+			CharacterRefresh(KinkyDungeonPlayer);
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
@@ -1261,11 +1262,29 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(975, 720, 450, 64)) {
 			KinkyDungeonState = "Menu";
 			KDSendEvent('optin');
+
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonDressSet();
+			CharacterNaked(KinkyDungeonPlayer);
+			KinkyDungeonInitializeDresses();
+			KinkyDungeonDressPlayer();
+			KDInitProtectedGroups();
+			CharacterRefresh(KinkyDungeonPlayer);
+
 			return true;
 		} else if (MouseIn(975, 820, 450, 64)) {
 			KDSendEvent('optout');
 			KDOptOut = true;
 			KinkyDungeonState = "Menu";
+
+			CharacterReleaseTotal(KinkyDungeonPlayer);
+			KinkyDungeonDressSet();
+			CharacterNaked(KinkyDungeonPlayer);
+			KinkyDungeonInitializeDresses();
+			KinkyDungeonDressPlayer();
+			KDInitProtectedGroups();
+			CharacterRefresh(KinkyDungeonPlayer);
+
 			return true;
 		}
 	} else if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
