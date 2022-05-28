@@ -412,6 +412,7 @@ function KinkyDungeonLoad() {
 			KinkyDungeonInitializeDresses();
 			KinkyDungeonDressPlayer();
 			KDInitProtectedGroups();
+			CharacterRefresh(KinkyDungeonPlayer);
 		}
 
 		if (localStorage.getItem("KinkyDungeonKeybindings") && JSON.parse(localStorage.getItem("KinkyDungeonKeybindings"))) {
