@@ -102,6 +102,11 @@ function KinkyDungeonDressPlayer() {
 	CharacterAppearanceBuildCanvas = () => {};
 
 	try {
+
+		// @ts-ignore
+		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
+		if (!KDNaked) KDCharacterNaked();
+
 		// if true, nakeds the player, then reclothes
 		if (KinkyDungeonCheckClothesLoss) {
 			// We refresh all the restraints
@@ -109,7 +114,7 @@ function KinkyDungeonDressPlayer() {
 			// First we remove all restraints
 			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
 				let asset = KinkyDungeonPlayer.Appearance[A].Asset;
-				if (asset.IsRestraint) {
+				if (asset.Group.Name.startsWith("Item")) {
 					KinkyDungeonPlayer.Appearance.splice(A, 1);
 					A -= 1;
 				}
@@ -131,10 +136,6 @@ function KinkyDungeonDressPlayer() {
 				}
 			}
 
-
-			// @ts-ignore
-			KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
-			if (!KDNaked) KDCharacterNaked();
 			KDNaked = true;
 			KinkyDungeonUndress = 0;
 		}
@@ -434,10 +435,21 @@ function KDApplyItem(inv) {
 		}
 	}
 
+	let already = InventoryGet(KinkyDungeonPlayer, AssetGroup);
+
 	let placed = KDAddAppearance(KinkyDungeonPlayer, AssetGroup, AssetGet("3DCGFemale", AssetGroup, restraint.Asset), color);
 
 	if (placed) {
 		placed.Property = {Type: restraint.Type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
+		if (!already && restraint.Type) {
+			KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
+			let options = window["Inventory" + ((AssetGroup.includes("ItemMouth")) ? "ItemMouth" : AssetGroup) + restraint.Asset + "Options"];
+			if (!options) options = TypedItemDataLookup[`${AssetGroup}${restraint.Asset}`].options; // Try again
+			const option = options.find(o => o.Name === restraint.Type);
+			ExtendedItemSetType(KinkyDungeonPlayer, options, option);
+			KinkyDungeonPlayer.FocusGroup = null;
+		}
+
 		if (restraint.Modules) {
 			let data = ModularItemDataLookup[AssetGroup + restraint.Asset];
 			let asset = data.asset;

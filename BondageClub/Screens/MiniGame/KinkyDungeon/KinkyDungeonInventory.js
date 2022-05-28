@@ -95,7 +95,10 @@ function KinkyDungeonHandleInventory() {
 				newItem = KDRestraint(filteredInventory[KinkyDungeonCurrentPageInventory].item);
 				if (newItem) {
 					currentItem = KinkyDungeonGetRestraintItem(newItem.Group);
-					if (!currentItem || KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem)) {
+					if (!currentItem
+						|| (KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem) &&
+							((newItem.linkCategory && KDLinkCategorySize(currentItem, newItem.linkCategory) + KDLinkSize(newItem) <= 1.0)
+							|| (!newItem.linkCategory && !KDDynamicLinkList(currentItem, true).some((item) => {return newItem.name == item.name;}))))) {
 						equipped = false;
 					} else equipped = true;
 				}
@@ -410,7 +413,11 @@ function KinkyDungeonDrawInventory() {
 				let text = "KinkyDungeonInventoryItem" + filteredInventory[index].name;
 				if (filteredInventory[index].item.type == Restraint || filteredInventory[index].item.type == LooseRestraint)
 					text = "Restraint" + filteredInventory[index].name;
-				DrawButton(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40, TextGet(text), index == KinkyDungeonCurrentPageInventory ? "white" : "#888888");
+				let suff = "";
+				if (filteredInventory[index].item.quantity) {
+					suff = " x" + filteredInventory[index].item.quantity;
+				}
+				DrawButton(canvasOffsetX_ui + xx * 200 + 640*KinkyDungeonBookScale + 250, canvasOffsetY_ui + 50 + 45 * yy, 195, 40, TextGet(text) + suff, index == KinkyDungeonCurrentPageInventory ? "white" : "#888888");
 			} else {
 				if (i + KinkyDungeonInventoryOffset > filteredInventory.length + 2)
 					KinkyDungeonInventoryOffset = 0;
@@ -442,7 +449,10 @@ function KinkyDungeonDrawInventory() {
 				let newItem = KDRestraint(filteredInventory[KinkyDungeonCurrentPageInventory].item);
 				if (newItem) {
 					let currentItem = KinkyDungeonGetRestraintItem(newItem.Group);
-					if (!currentItem || KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem)) {
+					if (!currentItem
+						|| (KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem) &&
+							((newItem.linkCategory && KDLinkCategorySize(currentItem, newItem.linkCategory) + KDLinkSize(newItem) <= 1.0)
+							|| (!newItem.linkCategory && !KDDynamicLinkList(currentItem, true).some((item) => {return newItem.name == item.name;}))))) {
 						equipped = false;
 					} else equipped = true;
 				}
@@ -701,7 +711,10 @@ function KinkyDungeonhandleQuickInv(NoUse) {
 					newItem = KDRestraint(item.item);
 					if (newItem) {
 						currentItem = KinkyDungeonGetRestraintItem(newItem.Group);
-						if (!currentItem || KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem)) {
+						if (!currentItem
+							|| (KinkyDungeonLinkableAndStricter(KDRestraint(currentItem), newItem) &&
+								((newItem.linkCategory && KDLinkCategorySize(currentItem, newItem.linkCategory) + KDLinkSize(newItem) <= 1.0)
+								|| (!newItem.linkCategory && !KDDynamicLinkList(currentItem, true).some((ii) => {return newItem.name == ii.name;}))))) {
 							equipped = false;
 						} else equipped = true;
 					}
