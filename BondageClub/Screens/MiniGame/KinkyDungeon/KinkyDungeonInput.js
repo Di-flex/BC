@@ -257,7 +257,8 @@ function KDProcessInput(type, data) {
 			KinkyDungeonChangeRep("Ghost", 4);
 			break;
 		case "lose":
-			KinkyDungeonState = "Lose";
+			KinkyDungeonState = "Menu";
+			KDLose = true;
 			MiniGameKinkyDungeonLevel = -1;
 			break;
 		case "orb":
