@@ -925,6 +925,7 @@ Spell Balance:
 - Jail shouldn't take off as many different types of restraints anymore
 - Added machine-translated chinese...
 - Layered restraints will now still render underneath!!!
+- Equipped layered items now show in the inventory under 'Equipped'
 - +20% max hp binding when binding a vulnerable target
 
 TODO ValidationFindBlockCycles to prevent bugs
