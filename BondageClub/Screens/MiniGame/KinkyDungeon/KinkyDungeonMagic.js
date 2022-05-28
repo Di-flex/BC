@@ -146,7 +146,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (dmg) effect = true;
 		} else if (playerEffect.name == "Ignition") {
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
-			KinkyDungeonSendTextMessage(playerEffect.power * 2, TextGet("KinkyDungeonBuffIgniteDamage").replace("DamageDealt", dmg), "red", 1);
+			KinkyDungeonSendTextMessage(playerEffect.power, TextGet("KinkyDungeonBuffIgniteDamage").replace("DamageDealt", dmg), "red", 1);
 			if (dmg) effect = true;
 		} else if (playerEffect.name == "DamageNoMsg") {
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
