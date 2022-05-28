@@ -2941,9 +2941,9 @@ KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals D
 
 KinkyDungeonSpellIgnition,Ignite
 KinkyDungeonSpellIgnite,Ignite
-KinkyDungeonSpellDescriptionIgnite,Ignite a target for Duration turns, dealing DamageDealt fire damage per turn to it and nearby targets.
+KinkyDungeonSpellDescriptionIgnite,"Ignite a friendly target for Duration turns, dealing DamageDealt fire damage per turn to it and nearby targets."
 KinkyDungeonSpellCastIgnite,"You spin in a circle, inscribing flames with your feet!"
-KinkyDungeonSpellTargetIgnite,Choose a target to ignite
+KinkyDungeonSpellTargetIgnite,Choose a friendly target to ignite
 
 KinkyDungeonSpellChainBolt,Binding Chain
 KinkyDungeonSpellMagicChain,Magic Chain
