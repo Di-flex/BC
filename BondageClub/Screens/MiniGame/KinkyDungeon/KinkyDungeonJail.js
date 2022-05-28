@@ -554,8 +554,8 @@ function KinkyDungeonTooMuchRestraint() {
 		let currentItem = KinkyDungeonGetRestraintItem(g);
 		let lockMult = currentItem ? Math.max(1, KinkyDungeonGetLockMult(currentItem.lock) - 0.5) : (currentItem && KinkyDungeonIsLockable(KDRestraint(currentItem)) ? 0.4 : 1);
 		if (
-			(!rest && currentItem && KDRestraint(currentItem).power * lockMult <= Math.max(10.1, rest ? rest.power : 10)) // There shouldnt be one here
-			|| (rest && currentItem && currentItem && rest.name != currentItem.name && (KDRestraint(currentItem).power < rest.power || KDRestraint(currentItem).power * lockMult <= Math.max(10.1, rest ? rest.power : 10))) // Wrong item equipped
+			(!rest && currentItem && KDRestraint(currentItem).power * lockMult <= Math.max(4.1, rest ? rest.power : 4)) // There shouldnt be one here
+			|| (rest && currentItem && currentItem && rest.name != currentItem.name && (KDRestraint(currentItem).power < rest.power || KDRestraint(currentItem).power * lockMult <= Math.max(4.1, rest ? rest.power : 10))) // Wrong item equipped
 		) {
 			if (!currentItem || (!KDRestraint(currentItem).curse && !KDRestraint(currentItem).enchanted))
 				RemoveGroups.push(g);
@@ -892,6 +892,12 @@ function KinkyDungeonPassOut() {
 	if (point) {
 		KinkyDungeonPlayerEntity.x = point.x;
 		KinkyDungeonPlayerEntity.y = point.y;
+	}
+
+	for (let e of  KinkyDungeonEntities) {
+		if (e.hostile < 9000) e.hostile = 0;
+		if (e.vp > 0) e.vp = 0;
+		if (e.aware) e.aware = false;
 	}
 
 	KinkyDungeonLoseJailKeys();

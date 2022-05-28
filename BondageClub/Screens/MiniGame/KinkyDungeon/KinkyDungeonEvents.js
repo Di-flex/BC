@@ -275,7 +275,7 @@ const KDEventMapInventory = {
 			}
 		},
 	},
-	"afterRemove": {
+	"postRemoval": {
 		"replaceItem": (e, item, data) => {
 			if (data.item === item && !data.add && !data.shrine && e.list) {
 				for (let restraint of e.list) {
@@ -283,8 +283,60 @@ const KDEventMapInventory = {
 				}
 			}
 		},
+		"RequireBaseArmCuffs": (e, item, data) => {
+			if (data.item !== item && KDRestraint(item).Group) {
+				let cuffsbase = false;
+				for (let inv of KinkyDungeonAllRestraint()) {
+					if (KDRestraint(inv).shrine && (KDRestraint(inv).shrine.includes("ArmCuffsBase"))) {
+						cuffsbase = true;
+						break;
+					} else if (inv.dynamicLink) {
+						let link = inv.dynamicLink;
+						// Recursion thru to make sure we have an armbinder buried in there... somewhere
+						for (let i = 0; i < 20; i++) {
+							if (link.dynamicLink && KDRestraint(link.dynamicLink).shrine && (KDRestraint(link.dynamicLink).shrine.includes("ArmCuffsBase"))) {
+								cuffsbase = true;
+								break;
+							}
+							if (link.dynamicLink) link = link.dynamicLink;
+							else i = 200;
+						}
+					}
+				}
+				if (!cuffsbase) {
+					KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false);
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveCuffs"), "lightgreen", 2);
+				}
+			}
+		},
+		"RequireBaseAnkleCuffs": (e, item, data) => {
+			if (data.item !== item && KDRestraint(item).Group) {
+				let cuffsbase = false;
+				for (let inv of KinkyDungeonAllRestraint()) {
+					if (KDRestraint(inv).shrine && (KDRestraint(inv).shrine.includes("AnkleCuffsBase"))) {
+						cuffsbase = true;
+						break;
+					} else if (inv.dynamicLink) {
+						let link = inv.dynamicLink;
+						// Recursion thru to make sure we have an armbinder buried in there... somewhere
+						for (let i = 0; i < 20; i++) {
+							if (link.dynamicLink && KDRestraint(link.dynamicLink).shrine && (KDRestraint(link.dynamicLink).shrine.includes("AnkleCuffsBase"))) {
+								cuffsbase = true;
+								break;
+							}
+							if (link.dynamicLink) link = link.dynamicLink;
+							else i = 200;
+						}
+					}
+				}
+				if (!cuffsbase) {
+					KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false);
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveCuffs"), "lightgreen", 2);
+				}
+			}
+		},
 		"armbinderHarness": (e, item, data) => {
-			if (data.item !== item && item.type === Restraint && KDRestraint(item).Group) {
+			if (data.item !== item && KDRestraint(item).Group) {
 				let armbinder = false;
 				for (let inv of KinkyDungeonAllRestraint()) {
 					if (KDRestraint(inv).shrine && (KDRestraint(inv).shrine.includes("Armbinders") || KDRestraint(inv).shrine.includes("Boxbinders"))) {
@@ -294,7 +346,7 @@ const KDEventMapInventory = {
 						let link = inv.dynamicLink;
 						// Recursion thru to make sure we have an armbinder buried in there... somewhere
 						for (let i = 0; i < 10; i++) {
-							if (KDRestraint(link.dynamicLink).shrine && (KDRestraint(link.dynamicLink).shrine.includes("Armbinders") || KDRestraint(link.dynamicLink).shrine.includes("Boxbinders"))) {
+							if (link.dynamicLink && KDRestraint(link.dynamicLink).shrine && (KDRestraint(link.dynamicLink).shrine.includes("Armbinders") || KDRestraint(link.dynamicLink).shrine.includes("Boxbinders"))) {
 								armbinder = true;
 								break;
 							}
@@ -304,7 +356,7 @@ const KDEventMapInventory = {
 					}
 				}
 				if (!armbinder) {
-					KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, true);
+					KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false);
 					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemoveArmbinderHarness"), "lightgreen", 2);
 				}
 			}
@@ -452,7 +504,21 @@ const KDEventMapInventory = {
 				KinkyDungeonChangeDistraction(1);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 			}
-		}
+		},
+	},
+	"beforeStruggleCalc": {
+		"elbowCuffsBlock": (e, item, data) => {
+			if (data.restraint && item != data.restraint && !(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && KDRestraint(data.restraint).shrine.includes("ArmCuffsBase")) {
+				data.escapePenalty += e.power ? e.power : 1.0;
+				KinkyDungeonSendTextMessage(10, TextGet("KDElbowCuffsBlock" + Math.floor(KDRandom() * 3)), "red", 2);
+			}
+		},
+		"wristCuffsBlock": (e, item, data) => {
+			if (data.restraint && item != data.restraint && !(KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && KDRestraint(data.restraint).shrine.includes("ArmCuffsBase")) {
+				data.escapePenalty += e.power ? e.power : 0.075;
+				KinkyDungeonSendTextMessage(5, TextGet("KDWristCuffsBlock" + Math.floor(KDRandom() * 3)), "red", 2);
+			}
+		},
 	},
 	"playerAttack": {
 		"ShadowHeel": (e, item, data) => {

@@ -72,6 +72,10 @@ function KinkyDungeonGetPatrolPoint(index, radius, Tiles) {
 	return p;
 }
 
+function KDHelpless(enemy) {
+	return enemy.hp <= enemy.Enemy.maxhp * 0.1 && KDBoundEffects(enemy) > 3;
+}
+
 function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 	if (enemy && enemy.Enemy && !visionRadius) {
 		visionRadius = enemy.Enemy.visionRadius;
@@ -87,6 +91,7 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 
 		for (let e of KinkyDungeonEntities) {
 			if (e == enemy) continue;
+			if (KDHelpless(e)) continue;
 			if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
 			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
 				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
@@ -430,12 +435,12 @@ function KDGetEnemyStruggleRate(enemy) {
 	let mult = 0.1;
 	if (enemy.bind > 0) mult *= 0.4;
 	else if (enemy.slow > 0) mult *= 0.7;
-	if (level > 3) mult *= 4; // Struggle faster when bound heavily, ironically
+	if (level > 3) mult *= 4; // Struggle faster when bound heavily, because they're using all their energy to try to escape
 	if (enemy.vulnerable > 0 || enemy.attackPoints > 0) mult *= 0.5;
 	if (enemy.boundLevel > 0) {
 		mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
 	}
-	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75);
+	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75); // Lower health enemies struggle slower
 	return amount;
 }
 
@@ -623,8 +628,7 @@ function KinkyDungeonCapture(enemy) {
 	} else msg = "KinkyDungeonCaptureBasic";
 
 	KinkyDungeonSendEvent("capture", {enemy: enemy});
-	if (!KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2))
-		KinkyDungeonSendTextMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
+	KinkyDungeonSendActionMessage(6, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)).replace("GODDESS", TextGet("KinkyDungeonShrine" + KDGameData.Champion)), "lightgreen", 2);
 }
 
 function KinkyDungeonEnemyCheckHP(enemy, E) {
@@ -1176,9 +1180,13 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					let end = performance.now();
 					if (KDDebug)
 						console.log(`Took ${end - start} milliseconds to run loop for enemy ${enemy.Enemy.name}`);
+				} else {
+					// These happen when an enemy is disabled
+					enemy.disarmflag = 0;
 				}
 
 				if (idle) {
+					// These happen when an enemy is disabled or not doing anything
 					enemy.movePoints = 0;
 					enemy.attackPoints = 0;
 					enemy.warningTiles = [];
@@ -2444,6 +2452,7 @@ function KinkyDungeonCanSwapWith(e, Enemy) {
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.ethereal && e && e.Enemy && !e.Enemy.ethereal) return false; // Ethereal enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.squeeze && e && e.Enemy && !e.Enemy.squeeze) return false; // Squeeze enemies NEVER have seniority, this can teleport other enemies into walls
 	if (Enemy == KinkyDungeonLeashingEnemy()) return true;
+	if (KDBoundEffects(e) > 3) return true;
 	if (!e.Enemy.tags || (e.Enemy.tags.has("minor") && !Enemy.Enemy.tags.has("minor")))
 		return true;
 	else if (Enemy && Enemy.Enemy && Enemy.Enemy.tags && Enemy.Enemy.tags.has("elite")) {
