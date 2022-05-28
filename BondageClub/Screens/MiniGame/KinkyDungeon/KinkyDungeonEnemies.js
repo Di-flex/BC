@@ -430,12 +430,12 @@ function KDGetEnemyStruggleRate(enemy) {
 	let mult = 0.1;
 	if (enemy.bind > 0) mult *= 0.4;
 	else if (enemy.slow > 0) mult *= 0.7;
-	if (level > 3) mult *= 4; // Struggle faster when bound heavily, ironically
+	if (level > 3) mult *= 4; // Struggle faster when bound heavily, because they're using all their energy to try to escape
 	if (enemy.vulnerable > 0 || enemy.attackPoints > 0) mult *= 0.5;
 	if (enemy.boundLevel > 0) {
 		mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
 	}
-	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75);
+	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75); // Lower health enemies struggle slower
 	return amount;
 }
 
