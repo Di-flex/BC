@@ -647,15 +647,15 @@ function KinkyDungeonRun() {
 			return true;
 		}, true, 1075, 780, 350, 64, TextGet("GameConfigKeys"), "White", "");
 
-		DrawButton(25, 930, 325, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
-		DrawButton(360, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
-		DrawButton(590, 930, 150, 64, TextGet("KinkyDungeonDressPlayerImport"), "White", "");
-		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonCredits"), "White", "");
-		DrawButton(1700, 930, 150, 64, TextGet("KinkyDungeonPatrons"), "White", "");
-		DrawButton(850, 930, 375, 64, TextGet("KinkyDungeonDeviantart"), "White", "");
-		DrawButton(1275, 930, 375, 64, TextGet("KinkyDungeonPatreon"), "#ffeecc", "");
+		DrawButton(25, 942, 325, 50, TextGet("KinkyDungeonDressPlayer"), "White", "");
+		DrawButton(360, 942, 220, 50, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
+		DrawButton(590, 942, 150, 50, TextGet("KinkyDungeonDressPlayerImport"), "White", "");
+		DrawButton(1870, 942, 110, 50, TextGet("KinkyDungeonCredits"), "White", "");
+		DrawButton(1700, 942, 150, 50, TextGet("KinkyDungeonPatrons"), "White", "");
+		DrawButton(850, 942, 375, 50, TextGet("KinkyDungeonDeviantart"), "White", "");
+		DrawButton(1275, 942, 375, 50, TextGet("KinkyDungeonPatreon"), "#ffeecc", "");
 
-		DrawButton(1700, 850, 280, 64, TextGet(localStorage.getItem("BondageClubLanguage") ? "English" : "Chinese"), "White", "");
+		DrawButton(1700, 874, 280, 50, TextGet(localStorage.getItem("BondageClubLanguage") ? "English" : "Chinese"), "White", "");
 		if (KDRestart)
 			DrawText(TextGet(localStorage.getItem("BondageClubLanguage") ? "RestartNeededCN" : "RestartNeeded"), 1840, 800, "white", "silver");
 	} else if (KinkyDungeonState == "Consent") {
@@ -1528,7 +1528,7 @@ function KinkyDungeonHandleClick() {
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
 		}
 
-		if (MouseIn(1700, 850, 280, 64)) {
+		if (MouseIn(1700, 874, 280, 50)) {
 			if (localStorage.getItem("BondageClubLanguage")) {
 				localStorage.setItem("BondageClubLanguage", "");
 			} else localStorage.setItem("BondageClubLanguage", "CN");
