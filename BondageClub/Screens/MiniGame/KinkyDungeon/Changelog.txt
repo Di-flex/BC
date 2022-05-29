@@ -934,6 +934,7 @@ Spell Balance:
 
 3.4 Feature Update
 - Many new keybindings!
+- Tying enemies no longer slows attack speed, only move speed
 - Features more diverse map generation!
 
 

@@ -2240,26 +2240,28 @@ function KinkyDungeonGameKeyDown() {
 		// @ts-ignore
 		KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
 		KinkyDungeonRangedAttack();
-	} else if (KinkyDungeonKeyMenu.includes(KinkyDungeonKeybindingCurrentKey)) {
-		switch (KinkyDungeonKeybindingCurrentKey) {
-			// QuikInv, Inventory, Reputation, Magic, Log
-			case KinkyDungeonKeyMenu[0]: KinkyDungeonShowInventory = !KinkyDungeonShowInventory; break;
-			case KinkyDungeonKeyMenu[1]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Inventory" ? "Game" : "Inventory"; break;
-			case KinkyDungeonKeyMenu[2]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Reputation" ? "Game" : "Reputation"; break;
-			case KinkyDungeonKeyMenu[3]: KinkyDungeonDrawState = KinkyDungeonDrawState == "MagicSpells" ? "Game" : "MagicSpells"; break;
-			case KinkyDungeonKeyMenu[4]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Logbook" ? "Game" : "Logbook"; break;
+	} else if (KinkyDungeonDrawState != "Restart" && KinkyDungeonDrawState != "Keybindings" && KinkyDungeonDrawState != "Perks2") {
+		if (KinkyDungeonKeyMenu.includes(KinkyDungeonKeybindingCurrentKey)) {
+			switch (KinkyDungeonKeybindingCurrentKey) {
+				// QuikInv, Inventory, Reputation, Magic, Log
+				case KinkyDungeonKeyMenu[0]: KinkyDungeonShowInventory = !KinkyDungeonShowInventory; break;
+				case KinkyDungeonKeyMenu[1]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Inventory" ? "Game" : "Inventory"; break;
+				case KinkyDungeonKeyMenu[2]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Reputation" ? "Game" : "Reputation"; break;
+				case KinkyDungeonKeyMenu[3]: KinkyDungeonDrawState = KinkyDungeonDrawState == "MagicSpells" ? "Game" : "MagicSpells"; break;
+				case KinkyDungeonKeyMenu[4]: KinkyDungeonDrawState = KinkyDungeonDrawState == "Logbook" ? "Game" : "Logbook"; break;
+			}
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+		} else if (KinkyDungeonKeyToggle.includes(KinkyDungeonKeybindingCurrentKey)) {
+			switch (KinkyDungeonKeybindingCurrentKey) {
+				// Log, Passing, Door, Auto Struggle, Auto Pathfind
+				case KinkyDungeonKeyToggle[0]: KinkyDungeonMessageToggle = !KinkyDungeonMessageToggle; break;
+				case KinkyDungeonKeyToggle[1]: KinkyDungeonToggleAutoPass = !KinkyDungeonToggleAutoPass; break;
+				case KinkyDungeonKeyToggle[2]: KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor; break;
+				case KinkyDungeonKeyToggle[3]: KinkyDungeonFastStruggle = !KinkyDungeonFastStruggle; break;
+				case KinkyDungeonKeyToggle[4]: KinkyDungeonFastMove = !KinkyDungeonFastMove; break;
+			}
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		}
-		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
-	} else if (KinkyDungeonKeyToggle.includes(KinkyDungeonKeybindingCurrentKey)) {
-		switch (KinkyDungeonKeybindingCurrentKey) {
-			// Log, Passing, Door, Auto Struggle, Auto Pathfind
-			case KinkyDungeonKeyToggle[0]: KinkyDungeonMessageToggle = !KinkyDungeonMessageToggle; break;
-			case KinkyDungeonKeyToggle[1]: KinkyDungeonToggleAutoPass = !KinkyDungeonToggleAutoPass; break;
-			case KinkyDungeonKeyToggle[2]: KinkyDungeonToggleAutoDoor = !KinkyDungeonToggleAutoDoor; break;
-			case KinkyDungeonKeyToggle[3]: KinkyDungeonFastStruggle = !KinkyDungeonFastStruggle; break;
-			case KinkyDungeonKeyToggle[4]: KinkyDungeonFastMove = !KinkyDungeonFastMove; break;
-		}
-		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 	}
 }
 

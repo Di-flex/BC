@@ -378,9 +378,10 @@ function KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX, CamY
 				let tx = enemy.x + t.x;
 				let ty = enemy.y + t.y;
 				let special = enemy.usingSpecial ? "Special" : "";
-				let attackMult = Math.max(0, KDBoundEffects(enemy) - 1);
-				if ((!enemy.usingSpecial && enemy.Enemy.attackPoints > enemy.attackPoints + attackMult + 1.5) || (enemy.usingSpecial && enemy.Enemy.specialAttackPoints > enemy.attackPoints + 1.5 )) {
-					special = "Basic";
+				let attackMult = 0;//Math.max(0, KDBoundEffects(enemy) - 1);
+				let attackPoints = enemy.attackPoints + attackMult + 1.5;
+				if (((!enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : enemy.Enemy.attackPoints) > attackPoints) {
+					special = special + "Basic";
 				}
 				//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
 				if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay && !(tx == enemy.x && ty == enemy.y)) {
@@ -1800,7 +1801,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		let dir = KinkyDungeonGetDirection(player.x - enemy.x, player.y - enemy.y);
 
 		let moveMult = KDBoundEffects(enemy);
-		let attackMult = Math.max(0, KDBoundEffects(enemy) - 1);
+		let attackMult = 0;//Math.max(0, KDBoundEffects(enemy) - 1);
 		let attackTiles = enemy.warningTiles ? enemy.warningTiles : [dir];
 		let ap = (KinkyDungeonMovePoints < 0 && !KinkyDungeonHasStamina(1.1) && KDGameData.KinkyDungeonLeashingEnemy == enemy.id) ? enemy.Enemy.movePoints+moveMult+1 : enemy.Enemy.attackPoints + attackMult;
 		if (!KinkyDungeonEnemyTryAttack(enemy, player, attackTiles, delta, enemy.x + dir.x, enemy.y + dir.y, (enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : ap, undefined, undefined, enemy.usingSpecial, refreshWarningTiles, attack, MovableTiles)) {
