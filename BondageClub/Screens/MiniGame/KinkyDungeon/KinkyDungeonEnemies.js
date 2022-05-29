@@ -739,7 +739,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 						}
 					}
 				}
-			} else if (!enemy.summoned) {
+			} else if (!enemy.summoned && !enemy.Enemy.immobile && !enemy.Enemy.tags.has("temporary")) {
 				if (!KDGameData.RespawnQueue) KDGameData.RespawnQueue = [];
 				KDGameData.RespawnQueue.push({enemy: enemy.Enemy.name, faction: KDGetFaction(enemy)});
 			}

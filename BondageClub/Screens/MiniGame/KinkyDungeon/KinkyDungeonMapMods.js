@@ -53,6 +53,27 @@ let KDMapMods = {
 		},
 		altRoom: "",
 	},
+	"Wolf": {
+		name: "Wolf",
+		roomType: "",
+		weight: 70,
+		tags: ["wolfgirl"],
+		bonusTags: {
+			"wolfgirl": {bonus: 9, mult: 1.5},
+			"trainer": {bonus: 7, mult: 0.75},
+		},
+		altRoom: "",
+	},
+	"Robot": {
+		name: "Robot",
+		roomType: "",
+		weight: 35,
+		tags: ["robot"],
+		bonusTags: {
+			"robot": {bonus: 10, mult: 2},
+		},
+		altRoom: "",
+	},
 	"Plant": {
 		name: "Plant",
 		roomType: "",
