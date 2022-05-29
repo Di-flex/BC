@@ -20,15 +20,15 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	let setpieces = [];
-	let boss = KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel);
-	if (!boss) {
+	let alt = !KDGameData.RoomType ? KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) : KinkyDungeonAltFloor(KDGameData.RoomType);
+	if (!alt) {
 		Object.assign(setpieces, Params.setpieces);
 		setpieces.push({Type: "GuaranteedCell", Weight: 100000});
 		setpieces.push({Type: "PearlChest", Weight: 100});
 		if (MiniGameKinkyDungeonLevel > 1)
 			setpieces.push({Type: "LesserPearl", Weight: 10});
 	} else {
-		for (let s of Object.entries(boss.setpieces)) {
+		for (let s of Object.entries(alt.setpieces)) {
 			setpieces.push({Type: s[0], Weight: s[1]});
 		}
 	}
@@ -177,7 +177,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 			let Enemy = KinkyDungeonGetEnemyByName("Fuuka1");
 			let e = {tracking: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:cornerX + 3, y:cornerY + 3, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 			KinkyDungeonEntities.push(e);
-			KDStageBoss = true;
+			KDStageBossGenerated = true;
 			break;
 		}
 		case "PearlChest":

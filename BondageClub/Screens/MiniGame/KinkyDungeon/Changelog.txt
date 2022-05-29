@@ -932,6 +932,11 @@ Spell Balance:
 - Feather now costs 0.25 stamina from 0.1
 - Helpless enemies now need to be captured personally
 
+3.4 Feature Update
+- Many new keybindings!
+- Features more diverse map generation!
+
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

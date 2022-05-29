@@ -25,7 +25,7 @@ function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 		KDGameData.JailKey = false;
 		KinkyDungeonGroundItems = KinkyDungeonGroundItems.filter((item) => {return item.name != "Keyring";});
 	}
-	if (!KDGameData.JailKey && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
+	if (!KDGameData.JailKey && (!KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) || !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel).bossroom)) {
 		let keyCount = KinkyDungeonGroundItems.filter((item) => {return item.name == "Keyring";}).length;
 		for (let i = 0; i < 2 - keyCount; i++) {
 			KinkyDungeonPlaceJailKeys();
@@ -306,6 +306,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 	if (KinkyDungeonInJail()) KDGameData.JailRemoveRestraintsTimer += delta;
 
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+
+	if (!nearestJail) return;
 
 	let xx = nearestJail.x + KinkyDungeonJailLeashX;
 	let yy = nearestJail.y;
@@ -917,6 +919,9 @@ function KinkyDungeonDefeat() {
 	KDGameData.PrisonerState = "jail";
 	KDGameData.AlertTimer = 0;
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+	if (!nearestJail) {
+		nearestJail = KinkyDungeonStartPosition;
+	}
 	KDSendStatus('jailed');
 	KDSendEvent('jail');
 	KDGameData.WarningLevel = 0;

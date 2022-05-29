@@ -339,6 +339,7 @@ GameContinue,Continue Last Save
 LoadGame,Load From Code
 LoadOutfit,Save Outfit (overwrites!)
 GameReturnToMenu,Save Keybindings
+GameReturnToMenu2,Cancel Changes
 GameConfigKeys,Change Keybindings
 
 KinkyDungeonLoadConfirm,"Load from code"
@@ -359,9 +360,25 @@ KinkyDungeonKeySpell2,Spell 2
 KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
+KinkyDungeonKeySpell6,Spell 6
+KinkyDungeonKeySpell7,Spell 7
 KinkyDungeonKeySpellWeapon,Ranged Attack
 KinkyDungeonKeyWait,Wait
 KinkyDungeonKeySkip,Cancel/Return
+KinkyDungeonKeyEnter,Enter
+
+KinkyDungeonKeyMsgLog,Message Log
+KinkyDungeonKeyDoor,Close Door
+KinkyDungeonKeyPass,Pass thru allies
+KinkyDungeonKeyAStruggle,Auto-Struggle
+KinkyDungeonKeyAPathfind,Auto-Pathfind
+
+KinkyDungeonKeyQInventory,Quick Inventory
+KinkyDungeonKeyInventory,Inventory
+KinkyDungeonKeyReputation,Reputation
+KinkyDungeonKeyMagic,Spell List
+KinkyDungeonKeyLog,Logbook
+
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 

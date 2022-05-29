@@ -2076,12 +2076,12 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 								if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
 							}
 						}
-						if (leashPos == nearestJail && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
+						if (nearestJail && leashPos == nearestJail && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
 							defeat = true;
 							KDGameData.KinkyDungeonLeashedPlayer = 3 + ap * 2;
 							KDGameData.KinkyDungeonLeashingEnemy = enemy.id;
 						}
-						else if (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5) {
+						else if (leashPos && (Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) > 1.5 || Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) > 1.5)) {
 							if (!KinkyDungeonHasStamina(1.1)) KinkyDungeonMovePoints = -2;
 							// Leash pullback
 							if (playerDist < 1.5) {

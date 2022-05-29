@@ -95,10 +95,11 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonListenKeyMove();
 	if ((KinkyDungeonGameKey.keyPressed[9])) {
 		KinkyDungeonDrawState = "Game";
+		KinkyDungeonMessageToggle = false;
 		KinkyDungeonTargetingSpell = null;
 		KinkyDungeonTargetTile = null;
 		KinkyDungeonTargetTileLocation = "";
-		KinkyDungeonSpellPress = 0;
+		KinkyDungeonSpellPress = "";
 		KDModalArea = false;
 		KinkyDungeonShowInventory = false;
 		KDRepSelectionMode = "";

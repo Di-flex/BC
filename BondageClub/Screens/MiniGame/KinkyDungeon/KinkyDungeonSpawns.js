@@ -176,7 +176,7 @@ let KinkyDungeonSearchEntranceAdjustAmount = 130;
 let KinkyDungeonSearchEntranceChaseAmount = 160;
 
 function KinkyDungeonHandleWanderingSpawns(delta) {
-	if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) return;
+	if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel).spawns) return;
 	let effLevel = MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty;
 	let HunterAdjust = KinkyDungeonDifficulty;
 	let EntranceAdjust = KinkyDungeonDifficulty/2;
