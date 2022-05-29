@@ -718,7 +718,7 @@ function KinkyDungeonHandleSpell() {
 			KDSwapSpell = i;
 			return true;
 		}
-		if (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
+		if (MouseInKD("SpellCast" + i) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
 			let result = KinkyDungeonClickSpell(i);
 			spell = result.spell;
 			clicked = result.clicked;

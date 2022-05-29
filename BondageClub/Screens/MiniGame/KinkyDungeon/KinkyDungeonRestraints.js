@@ -459,7 +459,7 @@ function KinkyDungeonHasGhostHelp() {
  * @returns {boolean}
  */
 function KinkyDungeonHasAllyHelp() {
-	return (KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && KDAllied(enemy);}));
+	return (KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return KDEnemyHasFlag(enemy, "HelpMe") && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp");}));
 }
 
 KinkyDungeonSetFlag("HelpMeFlag", 20);

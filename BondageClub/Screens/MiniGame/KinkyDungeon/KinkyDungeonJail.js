@@ -901,6 +901,7 @@ function KinkyDungeonPassOut() {
 		if (e.hostile < 9000) e.hostile = 0;
 		if (e.vp > 0) e.vp = 0;
 		if (e.aware) e.aware = false;
+		KDExpireFlags(e);
 	}
 
 	KinkyDungeonLoseJailKeys();
@@ -1030,6 +1031,7 @@ function KinkyDungeonDefeat() {
 
 			}
 			if (e.hostile < 9000) e.hostile = 0;
+			KDExpireFlags(e);
 			enemies.push(e);
 		}
 	}
@@ -1056,5 +1058,13 @@ function KinkyDungeonStripInventory(KeepPicks) {
 	KDSetWeapon(null);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
+	}
+}
+
+function KDExpireFlags(enemy) {
+	if (enemy.flags) {
+		for (let f of Object.entries(enemy.flags)) {
+			if (f[1] > 0 && f[1] < 9000) enemy.flags[f[0]] = 0;
+		}
 	}
 }

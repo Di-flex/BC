@@ -69,8 +69,12 @@ function KinkyDungeonHandleMoveToTile(toTile) {
 	}
 }
 
+function KDCanEscape() {
+	return KDGameData.JailKey || KinkyDungeonFlags.has("BossUnlocked");
+}
+
 function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
-	if (!KDGameData.JailKey && !KinkyDungeonFlags.has("BossUnlocked")) {
+	if (!KDCanEscape()) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonNeedJailKey"), "#ffffff", 1);
 	}
 	else {

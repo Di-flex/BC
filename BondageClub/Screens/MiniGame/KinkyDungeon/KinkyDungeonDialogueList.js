@@ -1510,7 +1510,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return !KDHostile(enemy) && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && !KinkyDungeonFlags.has("HelpMeFlag") && KinkyDungeonAllRestraint().length > 0;
+				return !KDHostile(enemy) && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && !KDEnemyHasFlag(enemy, "NoHelp") && !KDEnemyHasFlag(enemy, "HelpMe") && KinkyDungeonAllRestraint().length > 0;
 			}
 			return false;
 		},
@@ -1519,12 +1519,12 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				clickFunction: (gagged) => {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						if (!KDEnemyHasFlag(enemy, "NoHelp") && KDRandom() < (KinkyDungeonGoddessRep.Ghost + 50)/100 * (KDAllied(enemy) ? 2.0 : 1.0)) {
+						if (!KDEnemyHasFlag(enemy, "NoHelp") && KDRandom() < (75 - KinkyDungeonGoddessRep.Ghost)/100 * (KDAllied(enemy) ? 2.0 : 1.0)) {
 							KinkyDungeonChangeRep("Ghost", 3);
-							KinkyDungeonSetFlag("HelpMeFlag", 20);
+							KinkyDungeonSetEnemyFlag(enemy, "HelpMe", 20);
 						} else {
 							KDGameData.CurrentDialogMsg = name + "HelpMe_Fail";
-							KinkyDungeonSetEnemyFlag(enemy, "NoHelp", -1);
+							KinkyDungeonSetEnemyFlag(enemy, "NoHelp", 100);
 							KinkyDungeonChangeRep("Ghost", 1);
 						}
 					}

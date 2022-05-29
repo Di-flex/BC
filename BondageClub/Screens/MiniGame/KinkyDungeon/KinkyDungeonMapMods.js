@@ -38,7 +38,7 @@ let KDMapMods = {
 		weight: 50,
 		tags: ["witch", "elemental", "dragon"],
 		bonusTags: {
-			"dragon": {bonus: 7},
+			"dragon": {bonus: 7, mult: 1.25},
 		},
 		altRoom: "",
 	},
@@ -48,7 +48,8 @@ let KDMapMods = {
 		weight: 50,
 		tags: ["witch", "apprentice", "skeleton"],
 		bonusTags: {
-			"witch": {bonus: 3},
+			"witch": {bonus: 3, mult: 1.2},
+			"apprentice": {bonus: 3, mult: 1.4},
 		},
 		altRoom: "",
 	},

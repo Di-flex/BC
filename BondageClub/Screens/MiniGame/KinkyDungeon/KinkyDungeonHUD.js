@@ -146,7 +146,7 @@ function KinkyDungeonDrawInputs() {
 			(KinkyDungeonGetEvasion() > KinkyDungeonPlayerDamage.chance * 1.01) ? "lightgreen" : "white", "gray");
 	}
 	let i = 0;
-	if (!(KDGameData.JailKey || KinkyDungeonFlags.has("BossUnlocked"))) {
+	if (!KDCanEscape()) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerNoKeys"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
 	}
 	if (KDGameData.PrisonerState == 'jail') {
@@ -516,22 +516,50 @@ function KinkyDungeonDrawInputs() {
 			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
 			let components = KinkyDungeonGetCompList(spell);
 			let comp = "";
-			if (spell.components && spell.components.length > 0) comp = components;
-			DrawTextFit(KinkyDungeonGetManaCost(spell), 1650 + (90 - buttonWidth/2), 140 + i*KinkyDungeonSpellChoiceOffset + buttonWidth*1.5, buttonWidth, "#ccddFF", "gray");
 
-			MainCanvas.textAlign = "right";
-			if (MouseIn(1700 - buttonPad, 140 + i*KinkyDungeonSpellChoiceOffset, 76, 76))
-				DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1700 - buttonPad - 30, 140 + buttonPad/2 + i*KinkyDungeonSpellChoiceOffset, 300, "white", "gray");
+			let buttonDim = {
+				x: 1700 - buttonPad,
+				y: 140 + i*KinkyDungeonSpellChoiceOffset,
+				w: 76,
+				h: 76
+			};
+
+			if (spell.components && spell.components.length > 0) comp = components;
+			// Render MP cost
+			let cost = KinkyDungeonGetManaCost(spell) + "m";
+			DrawTextFit(cost, 1650 + (89 - buttonWidth/2), 140 + i*KinkyDungeonSpellChoiceOffset + buttonWidth*1.4, buttonWidth * 0.35 * Math.min(3, cost.length), "#ccddFF", "gray");
 
 			MainCanvas.textAlign = "center";
 
 			if (spell.type == "passive" && KinkyDungeonSpellChoicesToggle[i]) {
 				DrawRect(1700 - buttonPad - 4, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "White");
 			}
-			DrawButton(1700 - buttonPad, 140 + i*KinkyDungeonSpellChoiceOffset, 76, 76, "", "rgba(0, 0, 0, 0)", KinkyDungeonRootDirectory + "Spells/" + spell.name + ".png", "");
+			DrawButtonKD("SpellCast" + i, true, buttonDim.x, buttonDim.y, buttonDim.w, buttonDim.h, "", "rgba(0, 0, 0, 0)", KinkyDungeonRootDirectory + "Spells/" + spell.name + ".png", "");
+			if ((KinkyDungeoCheckComponents(spell).length > 0 || (spell.components.includes("Verbal") && KinkyDungeonGagTotal() > 0 && !spell.noMiscast))) {
+				let sp = "SpellFail";
+				if (spell.components.includes("Verbal") && KinkyDungeonGagTotal() < 1) {
+					sp = "SpellFailPartial";
+				}
+				DrawImage(KinkyDungeonRootDirectory + "Spells/" + sp + ".png", buttonDim.x + 2, buttonDim.y + 2);
+			}
+
+			if (MouseIn(buttonDim.x, buttonDim.y, buttonDim.w, buttonDim.h)) {
+				MainCanvas.textAlign = "right";
+				DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1700 - buttonPad - 30, 140 + buttonPad/2 + i*KinkyDungeonSpellChoiceOffset, 300, "white", "gray");
+				MainCanvas.textAlign = "center";
+				DrawTextFit(comp, 1700 - 2 + 1 - buttonPad / 2, 200 + 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
+				DrawTextFit(comp, 1700 - 2 - 1 - buttonPad / 2, 200 + 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
+				DrawTextFit(comp, 1700 - 2 + 1 - buttonPad / 2, 200 - 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
+				DrawTextFit(comp, 1700 - 2 - 1 - buttonPad / 2, 200 - 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
+				DrawTextFit(comp, 1700 - 2 - buttonPad / 2, 200 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#ffffff", "black");
+			}
+			// Render number
+			DrawTextFit((i+1) + "", buttonDim.x + 11, buttonDim.y + 14, 10, "#000000", "black");
+			DrawTextFit((i+1) + "", buttonDim.x + 9, buttonDim.y + 14, 10, "#000000", "black");
+			DrawTextFit((i+1) + "", buttonDim.x + 10, buttonDim.y + 13, 10, "#ffffff", "black");
+
 
 			//let cost = KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp;
-			DrawTextFit(comp, 1700 - buttonPad / 2, 200 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#ccddFF", "gray");
 		}
 	}
 	KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelayPing);
