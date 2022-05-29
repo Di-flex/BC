@@ -227,6 +227,28 @@ function KinkyDungeonInventoryGetOutfit(Name) {
 function KinkyDungeonAllRestraint() {
 	return KinkyDungeonInventory.get(Restraint) ? Array.from(KinkyDungeonInventory.get(Restraint).values()) : [];
 }
+
+
+/**
+ * Returns list of tuples of restraints, including dynamics and their hosts
+ * @return {{item: item, host: item}[]}
+ */
+function KinkyDungeonAllRestraintDynamic() {
+	let ret = [];
+	for (let inv of KinkyDungeonAllRestraint()) {
+		ret.push({item: inv, host: null});
+		if (inv.dynamicLink) {
+			let link = inv.dynamicLink;
+			let host = inv;
+			while (link) {
+				ret.push({item: link, host: host});
+				link = link.dynamicLink;
+			}
+		}
+	}
+	return ret;
+}
+
 /**
  * Returns list
  * @return {item[]}
