@@ -21,7 +21,7 @@ Intro,"You are an adventurer descending into an ancient underground city of magi
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
-Intro4BC,"(Check out the latest standalone version at the deviantart link below!)"
+Intro4BC,"(Check out the latest standalone version at the News and Updates link below!)"
 KinkyDungeonSound,Enable Sounds
 KinkyDungeonDrool,Enable Drool/Tears
 KinkyDungeonFullscreen,Enable Fullscreen
@@ -4063,13 +4063,13 @@ KinkyDungeonSexyModeDesc1,"Includes all that good stuff."
 KinkyDungeonSexyPlugs,Allow Rear Plugs
 KinkyDungeonSexyPiercings,Allow Piercings
 
-KinkyDungeonRandomMode0,Empirical Formulae
-KinkyDungeonRandomMode1,Divine Providence
+KinkyDungeonRandomMode0,Choose Spells
+KinkyDungeonRandomMode1,Random Spells
 KinkyDungeonRandomModeDesc0,Break orbs. Get points. Buy spells. It's that simple.
 KinkyDungeonRandomModeDesc1,Break orbs and pray you get something good.
 
-KinkyDungeonSaveMode0,Recordkeeper
-KinkyDungeonSaveMode1,Who needs a map?
+KinkyDungeonSaveMode0,Save Codes
+KinkyDungeonSaveMode1,Roguelike
 KinkyDungeonSaveModeDesc0,Grants you a save code every 3 floors you can write down elsewhere.
 KinkyDungeonSaveModeDesc1,No save codes. You are in it to win it.
 

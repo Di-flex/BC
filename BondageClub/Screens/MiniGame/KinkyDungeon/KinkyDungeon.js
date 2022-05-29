@@ -604,24 +604,46 @@ function KinkyDungeonRun() {
 		MainCanvas.textAlign = "center";
 		// Draw temp start screen
 		if (KDLose) {
-			DrawText(TextGet("End"), 1250, 400, "white", "silver");
-			DrawText(TextGet("End2"), 1250, 500, "white", "silver");
-			DrawText(TextGet("End3"), 1250, 600, "white", "silver");
+			DrawText(TextGet("End"), 1250, 250, "white", "silver");
+			DrawText(TextGet("End2"), 1250, 310, "white", "silver");
+			DrawText(TextGet("End3"), 1250, 470, "white", "silver");
 		} else {
-			DrawText(TextGet("KinkyDungeon"), 1250, 300, "white", "silver");
-			DrawText(TextGet("Intro"), 1250, 400, "white", "silver");
-			DrawText(TextGet("Intro2"), 1250, 500, "white", "silver");
-			DrawText(TextGet("Intro3"), 1250, 600, "white", "silver");
-			DrawText(TextGet("Intro4" + (ServerURL == 'foobar' ? "" : "BC")), 1250, 700, "white", "silver");
+			DrawText(TextGet("KinkyDungeon"), 1250, 200, "white", "silver");
+			DrawText(TextGet("Intro"), 1250, 260, "white", "silver");
+			DrawText(TextGet("Intro2"), 1250, 320, "white", "silver");
+			DrawText(TextGet("Intro3"), 1250, 380, "white", "silver");
+			DrawText(TextGet("Intro4" + (ServerURL == 'foobar' ? "" : "BC")), 1250, 440, "white", "silver");
 		}
 
 		if (ArcadeDeviousChallenge && KinkyDungeonDeviousDungeonAvailable() && ServerURL != "foobar")
 			DrawText(TextGet("DeviousChallenge"), 1250, 925, "white", "silver");
 
-		DrawButton(875, 750, 350, 64, TextGet("GameContinue"), localStorage.getItem('KinkyDungeonSave') ? "White" : "pink", "");
-		DrawButton(875, 820, 350, 64, TextGet("GameStart"), "White", "");
-		DrawButton(1275, 820, 350, 64, TextGet("LoadGame"), "White", "");
-		DrawButton(1275, 750, 350, 64, TextGet("GameConfigKeys"), "White", "");
+
+		DrawButtonKDEx("GameContinue", () => {
+			KinkyDungeonStartNewGame(true);
+			return true;
+		}, true, 1075, 540, 350, 64, TextGet("GameContinue"), localStorage.getItem('KinkyDungeonSave') ? "White" : "pink", "");
+		DrawButtonKDEx("GameStart", () => {
+			KinkyDungeonState = "Journey";
+			KinkyDungeonLoadStats();
+			return true;
+		}, true, 1075, 620, 350, 64, TextGet("GameStart"), "White", "");
+		DrawButtonKDEx("LoadGame", () => {
+			KinkyDungeonState = "Load";
+			ElementCreateTextArea("saveInputField");
+			return true;
+		}, true, 1075, 700, 350, 64, TextGet("LoadGame"), "White", "");
+		DrawButtonKDEx("GameConfigKeys", () => {
+			KinkyDungeonState = "Keybindings";
+
+			if (!KinkyDungeonKeybindings)
+				KDSetDefaultKeybindings();
+			else {
+				KinkyDungeonKeybindingsTemp = {};
+				Object.assign(KinkyDungeonKeybindingsTemp, KinkyDungeonKeybindings);
+			}
+			return true;
+		}, true, 1075, 780, 350, 64, TextGet("GameConfigKeys"), "White", "");
 
 		DrawButton(25, 930, 325, 64, TextGet("KinkyDungeonDressPlayer"), "White", "");
 		DrawButton(360, 930, 220, 64, TextGet((KinkyDungeonReplaceConfirm > 0 ) ? "KinkyDungeonConfirm" : "KinkyDungeonDressPlayerReset"), "White", "");
@@ -1495,6 +1517,7 @@ function KinkyDungeonHandleClick() {
 			return true;
 		}
 	} else if (KinkyDungeonState == "Menu" || KinkyDungeonState == "Lose") {
+
 		if (MouseIn(600, 100, 64, 64)) {
 			KinkyDungeonSound = !KinkyDungeonSound;
 			localStorage.setItem("KinkyDungeonSound", KinkyDungeonSound ? "True" : "False");
@@ -1511,20 +1534,9 @@ function KinkyDungeonHandleClick() {
 			KinkyDungeonFullscreen = !KinkyDungeonFullscreen;
 			localStorage.setItem("KinkyDungeonFullscreen", KinkyDungeonFullscreen ? "True" : "False");
 		}
-		if ((MouseIn(875, 750, 350, 64) && (localStorage.getItem('KinkyDungeonSave') || KinkyDungeonState == "Lose")) || MouseIn(875, 820, 350, 64)) {
-			if (!MouseIn(875, 820, 350, 64)) {
-				KinkyDungeonStartNewGame(true);
-			} else {
-				KinkyDungeonState = "Journey";
-				KinkyDungeonLoadStats();
-			}
 
-			return false;
-		} else if (MouseIn(1275, 820, 350, 64)) {
-			KinkyDungeonState = "Load";
-			ElementCreateTextArea("saveInputField");
-			return true;
-		} else if (MouseIn(590, 930, 150, 64)) {
+
+		if (MouseIn(590, 930, 150, 64)) {
 			KinkyDungeonState = "LoadOutfit";
 
 			KDOriginalValue = LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer));
@@ -1588,17 +1600,6 @@ function KinkyDungeonHandleClick() {
 			let url = 'https://www.patreon.com/ada18980';
 			KDSendEvent('patreon');
 			window.open(url, '_blank');
-			return true;
-		}
-		if (MouseIn(1275, 750, 350, 64)) {
-			KinkyDungeonState = "Keybindings";
-
-			if (!KinkyDungeonKeybindings)
-				KDSetDefaultKeybindings();
-			else {
-				KinkyDungeonKeybindingsTemp = {};
-				Object.assign(KinkyDungeonKeybindingsTemp, KinkyDungeonKeybindings);
-			}
 			return true;
 		}
 	} else if (KinkyDungeonState == "Save") {
