@@ -11,6 +11,7 @@ let KDJailReleaseTurns = [
 
 function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 	// KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'chase'
+	if (KinkyDungeonFlags.has("BossUnlocked")) return;
 	if (KDGameData.JailKey) {
 		if (Taken) {
 			KinkyDungeonSendActionMessage(7, TextGet("KinkyDungeonRemoveJailKey"), "red", 3);
@@ -25,7 +26,7 @@ function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 		KDGameData.JailKey = false;
 		KinkyDungeonGroundItems = KinkyDungeonGroundItems.filter((item) => {return item.name != "Keyring";});
 	}
-	if (!KDGameData.JailKey && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
+	if (!KDGameData.JailKey && (!KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) || !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel).bossroom)) {
 		let keyCount = KinkyDungeonGroundItems.filter((item) => {return item.name == "Keyring";}).length;
 		for (let i = 0; i < 2 - keyCount; i++) {
 			KinkyDungeonPlaceJailKeys();
@@ -307,6 +308,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 
+	if (!nearestJail) return;
+
 	let xx = nearestJail.x + KinkyDungeonJailLeashX;
 	let yy = nearestJail.y;
 	let playerInCell = (Math.abs(KinkyDungeonPlayerEntity.x - nearestJail.x) < KinkyDungeonJailLeashX - 1 && Math.abs(KinkyDungeonPlayerEntity.y - nearestJail.y) <= KinkyDungeonJailLeash);
@@ -531,7 +534,7 @@ function KinkyDungeonMissingJailUniform() {
 		let rest = KinkyDungeonGetJailRestraintForGroup(g);
 		let currentItem = KinkyDungeonGetRestraintItem(g);
 		if (rest
-			&& (!currentItem || KinkyDungeonIsLinkable(KDRestraint(currentItem), rest))
+			&& (!currentItem || (KinkyDungeonIsLinkable(KDRestraint(currentItem), rest) && (!currentItem.dynamicLink || !KDDynamicLinkList(currentItem, true).some((item) => {return rest.name == item.name;}))))
 			&& (KinkyDungeonStatsChoice.get("arousalMode") || !rest.arousalMode)
 			&& (KinkyDungeonStatsChoice.get("arousalModePlug") || rest.Group != "ItemButt")
 			&& (KinkyDungeonStatsChoice.get("arousalModePiercing") || !rest.piercing)) {
@@ -917,6 +920,9 @@ function KinkyDungeonDefeat() {
 	KDGameData.PrisonerState = "jail";
 	KDGameData.AlertTimer = 0;
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+	if (!nearestJail) {
+		nearestJail = KinkyDungeonStartPosition;
+	}
 	KDSendStatus('jailed');
 	KDSendEvent('jail');
 	KDGameData.WarningLevel = 0;

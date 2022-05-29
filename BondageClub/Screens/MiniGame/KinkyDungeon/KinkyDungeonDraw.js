@@ -49,7 +49,12 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 
 function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
-	if (code == "G") sprite = "Ghost";
+	if (code == "G") {
+		sprite = "Ghost";
+		if (KinkyDungeonTiles.get(x + "," + y).Msg) {
+			sprite = "GhostImportant";
+		}
+	}
 	if (code == "$") sprite = "Angel";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "Y") sprite = "Rubble";
@@ -95,10 +100,11 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonListenKeyMove();
 	if ((KinkyDungeonGameKey.keyPressed[9])) {
 		KinkyDungeonDrawState = "Game";
+		KinkyDungeonMessageToggle = false;
 		KinkyDungeonTargetingSpell = null;
 		KinkyDungeonTargetTile = null;
 		KinkyDungeonTargetTileLocation = "";
-		KinkyDungeonSpellPress = 0;
+		KinkyDungeonSpellPress = "";
 		KDModalArea = false;
 		KinkyDungeonShowInventory = false;
 		KDRepSelectionMode = "";

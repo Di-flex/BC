@@ -797,10 +797,10 @@ function KinkyDungeonHandleHUD() {
 
 		// Done, converted to input
 		if (!KinkyDungeonTargetingSpell) {
-			KinkyDungeonSpellPress = 0;
+			KinkyDungeonSpellPress = "";
 			if (KinkyDungeonHandleSpell()) return true;
 		} else {
-			KinkyDungeonSpellPress = 0;
+			KinkyDungeonSpellPress = "";
 		}
 
 		if (KinkyDungeonIsPlayer() && KinkyDungeonTargetTile) {
@@ -1174,24 +1174,7 @@ function KinkyDungeonHandleHUD() {
 		if (MouseIn(1075, 450, 350, 64)) {
 			KinkyDungeonState = "Keybindings";
 			if (!KinkyDungeonKeybindings)
-				KinkyDungeonKeybindingsTemp = {
-					Down: 115,
-					DownLeft: 122,
-					DownRight: 99,
-					Left: 97,
-					Right: 100,
-					Spell1: 49,
-					Spell2: 50,
-					Spell3: 51,
-					Spell4: 52,
-					Spell5: 53,
-					SpellWeapon: 54,
-					Up: 119,
-					UpLeft: 113,
-					UpRight: 101,
-					Wait: 120,
-					Skip: 13,
-				};
+				KDSetDefaultKeybindings();
 			else {
 				KinkyDungeonKeybindingsTemp = {};
 				Object.assign(KinkyDungeonKeybindingsTemp, KinkyDungeonKeybindings);

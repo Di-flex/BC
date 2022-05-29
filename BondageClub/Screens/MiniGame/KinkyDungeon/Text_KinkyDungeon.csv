@@ -21,7 +21,7 @@ Intro,"You are an adventurer descending into an ancient underground city of magi
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
 Intro4,"(This game does not contain spiders or any carnivorous creatures/plants)"
-Intro4BC,"(Check out the latest standalone version at the deviantart link below!)"
+Intro4BC,"(Check out the latest standalone version at the News and Updates link below!)"
 KinkyDungeonSound,Enable Sounds
 KinkyDungeonDrool,Enable Drool/Tears
 KinkyDungeonFullscreen,Enable Fullscreen
@@ -339,6 +339,7 @@ GameContinue,Continue Last Save
 LoadGame,Load From Code
 LoadOutfit,Save Outfit (overwrites!)
 GameReturnToMenu,Save Keybindings
+GameReturnToMenu2,Cancel Changes
 GameConfigKeys,Change Keybindings
 
 KinkyDungeonLoadConfirm,"Load from code"
@@ -359,9 +360,25 @@ KinkyDungeonKeySpell2,Spell 2
 KinkyDungeonKeySpell3,Spell 3
 KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
+KinkyDungeonKeySpell6,Spell 6
+KinkyDungeonKeySpell7,Spell 7
 KinkyDungeonKeySpellWeapon,Ranged Attack
 KinkyDungeonKeyWait,Wait
 KinkyDungeonKeySkip,Cancel/Return
+KinkyDungeonKeyEnter,Enter
+
+KinkyDungeonKeyMsgLog,Message Log
+KinkyDungeonKeyDoor,Close Door
+KinkyDungeonKeyPass,Pass thru allies
+KinkyDungeonKeyAStruggle,Auto-Struggle
+KinkyDungeonKeyAPathfind,Auto-Pathfind
+
+KinkyDungeonKeyQInventory,Quick Inventory
+KinkyDungeonKeyInventory,Inventory
+KinkyDungeonKeyReputation,Reputation
+KinkyDungeonKeyMagic,Spell List
+KinkyDungeonKeyLog,Logbook
+
 KinkyDungeonCurrentPress,"Current Key Pressed"
 KinkyDungeonCurrentPressInfo,"Press a key, then press a button to set that key"
 
@@ -483,9 +500,13 @@ KinkyDungeonInventoryItemWolfgirl,Wolfgirl Suit
 KinkyDungeonInventoryItemWolfgirlDesc,An advanced suit designed for sport, breathable and also warm.
 KinkyDungeonInventoryItemWolfgirlDesc2,"No bonuses, no penalties."
 
-KinkyDungeonInventoryItemMaid,Maid Outfit
+KinkyDungeonInventoryItemMaid,Maid Uniform
 KinkyDungeonInventoryItemMaidDesc,An elegant dress meant to denote a maid's status.
-KinkyDungeonInventoryItemMaidDesc2,"No bonuses, no penalties."
+KinkyDungeonInventoryItemMaidDesc2,"Massively increases accuracy against slime mold."
+
+KinkyDungeonInventoryItemMaidUniform,Maid Uniform
+KinkyDungeonInventoryItemMaidUniformDesc,An elegant dress meant to denote a maid's status.
+KinkyDungeonInventoryItemMaidUniformDesc2,"Massively increases accuracy against slime mold."
 
 KinkyDungeonInventoryItemDragon,Prisoner Uniform
 KinkyDungeonInventoryItemDragonDesc,The uniform of choice for girls captured by the dragonhearts.
@@ -725,7 +746,7 @@ KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. 
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
-KinkyDungeonPlayerNoKeys,No Exit Keys
+KinkyDungeonPlayerNoKeys,Find the exit!
 KinkyDungeonPlayerHelp,"Receiving Help..."
 KinkyDungeonPlayerHook,"Found an edge!"
 KinkyDungeonPlayerEvasion,"Evasion: "
@@ -857,6 +878,8 @@ KillMonolith,"The crystal fades from the monolith."
 
 NameOrbGuardian,Orb Guardian
 KillOrbGuardian,"The Orb Guardian dissolves into sand and bone dust."
+
+
 
 KinkyDungeonSummonMultiOrbGuardian,You feel like you have made a grave mistake.
 
@@ -1262,6 +1285,17 @@ NameRedSlime,Red Slime
 KillRedSlime,"The red slime bounces away."
 AttackRedSlime,"The red slime bounces off you! (-DamageTaken SP)"
 AttackRedSlimeBind,"The slime shoves itself into your mouth! (+RestraintAdded)"
+
+NameSlimeMold,Slime Mold
+KillSlimeMold,"The slime mold explodes into small puffs."
+AttackSlimeMold,"The slime mold is sticky and gross! (-DamageTaken SP)"
+AttackSlimeMoldBind,"The slime mold attaches itself to your body! (+RestraintAdded)"
+
+NameSlimeMoldSpawner,Slime Mold Nest
+KillSlimeMoldSpawner,"The slime mold nest erupts into a shower of black particles!"
+
+KinkyDungeonSummonMultiSlimeMold,Many small pieces of slime mold break off!
+KinkyDungeonSummonSingleSlimeMold,A mobile cyst emerges from the slime mold nest!
 
 NameSmallSlime,Slime
 KillSmallSlime,"The slime melts into a puddle."
@@ -2628,6 +2662,49 @@ RestraintHardSlimeHead,Rubber (Head)
 RestraintHardSlimeHeadDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
 
+
+
+
+RestraintProtoSlimeBoots,Proto-Slime (Feet)
+RestraintProtoSlimeBootsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeFeet,Proto-Slime (Ankles)
+RestraintProtoSlimeFeetDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeFeetDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeLegs,Proto-Slime (Legs)
+RestraintProtoSlimeLegsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeLegsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeArms,Proto-Slime (Arms)
+RestraintProtoSlimeArmsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeArmsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeHands,Proto-Slime (Hands)
+RestraintProtoSlimeHandsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeHead,Proto-Slime (Head)
+RestraintProtoSlimeHeadDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
+
+RestraintHardProtoSlimeBoots,Proto-Rubber (Feet)
+RestraintHardProtoSlimeBootsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeBootsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeFeet,Proto-Rubber (Ankles)
+RestraintHardProtoSlimeFeetDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeFeetDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeLegs,Proto-Rubber (Legs)
+RestraintHardProtoSlimeLegsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeLegsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeArms,Proto-Rubber (Arms)
+RestraintHardProtoSlimeArmsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeArmsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeHands,Proto-Rubber (Hands)
+RestraintHardProtoSlimeHandsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeHead,Proto-Rubber (Head)
+RestraintHardProtoSlimeHeadDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+
+
+
 RestraintDuctTapeHands,Tape Mittens
 RestraintDuctTapeHandsDesc,"Sticky tape that holds your hands into a fist!"
 RestraintDuctTapeHandsDesc2,"It's tough to get out of without some kind of grip!"
@@ -3792,7 +3869,7 @@ KinkyDungeonAskPenance,Offer Penance
 KinkyDungeonChampionCurrent,Current Champion
 KinkyDungeonChampionSwitch,Switch Champion
 
-KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 3 mana per enemy and grant +1 rep."
+KinkyDungeonChampionDesc,"Become the champion of this goddess. Capturing bound enemies will restore 2 mana per enemy and grant +1 rep."
 KinkyDungeonBecomeChampion,"You are now the champion of the Goddess of GODDESS."
 
 KinkyDungeonAidDescRope,"For 3 rep the goddess will grant you slipperiness, boosting your struggling."
@@ -4046,13 +4123,13 @@ KinkyDungeonSexyModeDesc1,"Includes all that good stuff."
 KinkyDungeonSexyPlugs,Allow Rear Plugs
 KinkyDungeonSexyPiercings,Allow Piercings
 
-KinkyDungeonRandomMode0,Empirical Formulae
-KinkyDungeonRandomMode1,Divine Providence
+KinkyDungeonRandomMode0,Choose Spells
+KinkyDungeonRandomMode1,Random Spells
 KinkyDungeonRandomModeDesc0,Break orbs. Get points. Buy spells. It's that simple.
 KinkyDungeonRandomModeDesc1,Break orbs and pray you get something good.
 
-KinkyDungeonSaveMode0,Recordkeeper
-KinkyDungeonSaveMode1,Who needs a map?
+KinkyDungeonSaveMode0,Save Codes
+KinkyDungeonSaveMode1,Roguelike
 KinkyDungeonSaveModeDesc0,Grants you a save code every 3 floors you can write down elsewhere.
 KinkyDungeonSaveModeDesc1,No save codes. You are in it to win it.
 
@@ -4950,3 +5027,23 @@ rFuukaWinAccept,"(SPEAKER looks flabbergasted)|R-really? Okay... I'll give you a
 dFuukaWin_Accept,"(Submit to her anyway)"
 rFuukaWinGag,"(SPEAKER resists but ultimately you force a gag into her mouth)|MMMMMPH!"
 dFuukaWin_Gag,"(Gag her)"
+
+
+rGhostInfo,"(This ghost had something to say,|but it appears you've run into a bug instead)|Please report this to Ada18980 on deviantart!"
+
+dGhostInfo_Continue,"(Continue)"
+dGhostInfo_Snark,"(Make a smug face as you walk past)"
+dGhostInfo_Nice,"Thank you!"
+dGhostInfo_NiceGag,"Mmmph!"
+dGhostInfo_Brash,"I don't need your advice, strange ghostly person."
+dGhostInfo_BrashGag,"(Glare at her)"
+
+
+rMapModNone,"The next floor is a normal floor."
+rMapModMold,"This floor is suffering from a slime mold infestation.|Maids have been deployed to deal with the problem.|They could use a hand."
+rMapModBandit,"This floor is being ransacked by bandits.|They are armed and dangerous.|But I hear there's a bounty on their heads?"
+rMapModDragon,"A cave dragon was captured in the next floor.|It's brimming with elemental magic,|and there are a lot of interested parties!"
+rMapModWitch,"The witches told me to keep you out.|I'm not exactly capable of doing that,|so feel free to do as you please."
+rMapModPlant,"The next floor is overgrown.|I'd watch your feet if I were you."
+rMapModSlime,"Slimes, slimes EVERYWHERE!|Fortunately there's a slime-harvesting|operation going on."
+rMapModBoss,"This is totally a normal floor.|No doubt about it."

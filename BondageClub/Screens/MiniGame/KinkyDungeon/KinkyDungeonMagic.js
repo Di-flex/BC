@@ -67,7 +67,7 @@ function KinkyDungeonDisableSpell(Name) {
 	}
 }
 
-let KinkyDungeonSpellPress = 0;
+let KinkyDungeonSpellPress = "";
 
 function KinkyDungeonResetMagic() {
 	KinkyDungeonSpellChoices = [0, 1, 2];
@@ -76,7 +76,7 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonSpells = [];
 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
 	KinkyDungeonMysticSeals = 1.3;
-	KinkyDungeonSpellPress = 0;
+	KinkyDungeonSpellPress = "";
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
@@ -696,7 +696,7 @@ function KinkyDungeonClickSpell(i) {
 				KinkyDungeonFastMove = false;
 				KinkyDungeonFastMoveSuppress = false;
 			}
-			KinkyDungeonSpellPress = 0;
+			KinkyDungeonSpellPress = "";
 			clicked = true;
 		} else {
 			spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);

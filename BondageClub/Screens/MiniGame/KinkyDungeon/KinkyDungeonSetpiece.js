@@ -1,34 +1,34 @@
 "use strict";
 
 let KDSetPieces = [
-	{Name: "Bedroom", Radius: 4},
-	{Name: "Graveyard", Radius: 5},
-	{Name: "Altar", Radius: 5},
-	{Name: "FuukaAltar", Radius: 7, Max: 1},
-	{Name: "Storage", Radius: 5},
-	{Name: "QuadCell", Radius: 7},
-	{Name: "PearlChest", Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
-	{Name: "LesserPearl", Radius: 5, Chance: 0.5, Max: 1},
-	{Name: "GuaranteedCell", Radius: 5, Max: 1},
+	{Name: "Bedroom", tags: ["decorative", "urban"], Radius: 4},
+	{Name: "Graveyard", tags: ["decorative", "temple"], Radius: 5},
+	{Name: "Altar", tags: ["shrine", "temple"], Radius: 5},
+	{Name: "FuukaAltar", tags: ["boss", "temple"], Radius: 7, Max: 1},
+	{Name: "Storage", tags: ["loot", "urban"], Radius: 5},
+	{Name: "QuadCell", tags: ["decorative", "urban"], Radius: 7},
+	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
+	{Name: "LesserPearl", tags: ["loot", "pearl"], Radius: 5, Chance: 0.5, Max: 1},
+	{Name: "GuaranteedCell", tags: ["jail", "urban"], Radius: 5, Max: 1, xPad: 2},
 ];
 
 let KDCountSetpiece = new Map();
 
-function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, chargerlist, spawnPoints, InJail, width, height) {
+function KinkyDungeonPlaceSetPieces(POI, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints, InJail, width, height) {
 	KDCountSetpiece = new Map();
 	let pieces = new Map();
 
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 	let setpieces = [];
-	let boss = KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel);
-	if (!boss) {
+	let alt = !KDGameData.RoomType ? KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) : KinkyDungeonAltFloor(KDGameData.RoomType);
+	if (!alt) {
 		Object.assign(setpieces, Params.setpieces);
 		setpieces.push({Type: "GuaranteedCell", Weight: 100000});
 		setpieces.push({Type: "PearlChest", Weight: 100});
 		if (MiniGameKinkyDungeonLevel > 1)
 			setpieces.push({Type: "LesserPearl", Weight: 10});
 	} else {
-		for (let s of Object.entries(boss.setpieces)) {
+		for (let s of Object.entries(alt.setpieces)) {
 			setpieces.push({Type: s[0], Weight: s[1]});
 		}
 	}
@@ -50,8 +50,8 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 	let count = 0;
 	let fails = 0;
 	while (count < pieceCount && fails < 4) {
-		let Piece = KinkyDungeonGetSetPiece(setpieces, pieces);
-		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints).Pass) {
+		let Piece = KinkyDungeonGetSetPiece(POI, setpieces, pieces);
+		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(POI, pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints).Pass) {
 			count += 1;
 			KDCountSetpiece.set(Piece, KDCountSetpiece.get(Piece) ? (KDCountSetpiece.get(Piece) + 1) : 1);
 		} else fails += 1;
@@ -59,14 +59,42 @@ function KinkyDungeonPlaceSetPieces(trapLocations, chestlist, shrinelist, charge
 
 }
 
-function KinkyDungeonGetSetPiece(setpieces, pieces) {
+function KDGetFavoredSetpieces(POI, setpieces) {
+	let pieces = [];
+	for (let p of POI) {
+		if (p.used) continue;
+		for (let f of p.favor) {
+			if (!pieces.includes(f)) {
+				pieces.push(f);
+			}
+		}
+	}
+	return setpieces.filter((p) => {return pieces.includes(p.Name);});
+}
+function KDGetFavoringSetpieces(Name, tags, POI) {
+	let pois = [];
+	for (let p of POI) {
+		if (p.used) continue;
+		if (p.favor.includes(Name)) {
+			pois.push(p);
+		} else if (p.requireTags.length == 0 || p.requireTags.some((tag) => {return tags.includes(tag);})) {
+			pois.push(p);
+		}
+	}
 
-	if (setpieces) {
+	return pois[Math.floor(KDRandom() * pois.length)];
+}
+
+function KinkyDungeonGetSetPiece(POI, setpieces, pieces) {
+	let setpieces2 = KDGetFavoredSetpieces(POI, setpieces);
+	if (setpieces2.length < 1 || KDRandom() < 0.1) setpieces2 = setpieces;
+
+	if (setpieces2) {
 
 		let pieceWeightTotal = 0;
 		let pieceWeights = [];
 
-		for (let piece of setpieces) {
+		for (let piece of setpieces2) {
 			if (pieces.has(piece.Type) && (!pieces.get(piece.Type).Max || !(KDCountSetpiece.get(piece.Type) >= pieces.get(piece.Type).Max))) {
 				pieceWeights.push({piece: piece, weight: pieceWeightTotal});
 				pieceWeightTotal += piece.Weight;
@@ -83,7 +111,7 @@ function KinkyDungeonGetSetPiece(setpieces, pieces) {
 	}
 }
 
-function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints) {
+function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints) {
 	let radius = Piece.Radius;
 	let xPadStart = Piece.xPad || 5;
 	let yPadStart = Piece.yPad || 2;
@@ -92,21 +120,38 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 	if (InJail) {
 		xPadStart = Math.max(xPadStart, KinkyDungeonJailLeashX + 2);
 	}
-	let ypos = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
 	let cornerX =  Math.ceil(xPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridWidth - xPadStart - xPadEnd - radius - 1));
-	let cornerY = ypos;
+	let cornerY = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
+
+	let favoringPOI = KDGetFavoringSetpieces(Piece.Name, Piece.tags ? Piece.tags : ["decorative"], POI);
+	if (favoringPOI) {
+		cornerX = favoringPOI.x - Math.floor(Piece.Radius / 2);
+		cornerY = favoringPOI.y - Math.floor(Piece.Radius / 2);
+	}
+
 	let i = 0;
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2) - 1, cornerY + Math.floor(radius/2));
-		if (specialDist <= 3) {
+		if (specialDist <= 3 || !(cornerX > Math.ceil(xPadStart) && cornerX < KinkyDungeonGridWidth - radius - xPadEnd && cornerY > Math.ceil(yPadStart) && cornerY < KinkyDungeonGridHeight - radius - yPadEnd)) {
 			cornerY = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
 			cornerX = Math.ceil(xPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
+
+			if (i < 10 || i % 3 == 0) {
+				favoringPOI = KDGetFavoringSetpieces(Piece.Name, Piece.tags ? Piece.tags : ["decorative"], POI);
+				if (favoringPOI) {
+					cornerX = favoringPOI.x - Math.floor(Piece.Radius / 2);
+					cornerY = favoringPOI.y - Math.floor(Piece.Radius / 2);
+				}
+			}
 		} else break;
 	}
 	if (i > 9990) {
-		console.log("Error generating " + Piece.Name);
+		console.log("Could not place " + Piece.Name);
 		return {Pass: false, Traps: trapLocations};
 	}
+
+	if (favoringPOI)
+		favoringPOI.used = true;
 
 	switch (Piece.Name) {
 		case "Bedroom":
@@ -177,7 +222,7 @@ function KinkyDungeonGenerateSetpiece(Piece, InJail, trapLocations, chestlist, s
 			let Enemy = KinkyDungeonGetEnemyByName("Fuuka1");
 			let e = {tracking: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:cornerX + 3, y:cornerY + 3, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 			KinkyDungeonEntities.push(e);
-			KDStageBoss = true;
+			KDStageBossGenerated = true;
 			break;
 		}
 		case "PearlChest":

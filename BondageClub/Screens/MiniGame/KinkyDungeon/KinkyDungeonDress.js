@@ -463,3 +463,15 @@ function KDApplyItem(inv) {
 		}
 	}
 }
+
+
+function KinkyDungeonSendOutfitEvent(Event, data) {
+	let outfit = KDOutfit({name: KinkyDungeonCurrentDress});
+	if (outfit && outfit.events) {
+		for (let e of outfit.events) {
+			if (e.trigger == Event) {
+				KinkyDungeonHandleOutfitEvent(Event, e, outfit, data);
+			}
+		}
+	}
+}

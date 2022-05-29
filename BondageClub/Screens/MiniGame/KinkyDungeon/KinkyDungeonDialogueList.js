@@ -19,6 +19,15 @@ let KDAllyDialog = [];
 
 /** @type {Record<string, KinkyDialogue>} */
 let KDDialogue = {
+	"GhostInfo": {
+		response: "Default",
+		options: {
+			"Continue" : {playertext: "Default", exitDialogue: true},
+			"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			"Snark" : {playertext: "Default", exitDialogue: true},
+			"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+		},
+	},
 	"WeaponFound": {
 		response: "WeaponFound",
 		personalities: ["Robot"],
@@ -204,7 +213,6 @@ let KDDialogue = {
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-					KinkyDungeonChangeRep("Latex", 1);
 					let r = KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (r) {
 						KDGameData.CurrentDialogMsgData = {
@@ -213,7 +221,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Latex"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -223,6 +231,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Latex", 1);
 							KDPleaseSpeaker(0.005);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
@@ -284,7 +293,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Latex"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -365,7 +374,6 @@ let KDDialogue = {
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-					KinkyDungeonChangeRep("Metal", 1);
 					let r = KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (r) {
 						KDGameData.CurrentDialogMsgData = {
@@ -375,7 +383,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Metal"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -385,6 +393,7 @@ let KDDialogue = {
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
+							KinkyDungeonChangeRep("Metal", 1);
 							KDAllySpeaker(9999, true);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, KDGameData.CurrentDialogMsgData.ChastityLock);
@@ -450,7 +459,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Metal"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -539,7 +548,6 @@ let KDDialogue = {
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-					KinkyDungeonChangeRep("Leather", 1);
 					let r = KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
 					if (r) {
 						KDGameData.CurrentDialogMsgData = {
@@ -548,7 +556,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Leather"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -559,6 +567,7 @@ let KDDialogue = {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							KDPleaseSpeaker(0.005);
+							KinkyDungeonChangeRep("Leather", 1);
 							KinkyDungeonChangeRep("Ghost", 2);
 							KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
 							return false;
@@ -619,7 +628,7 @@ let KDDialogue = {
 						};
 
 						KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Leather"], [])
-							- (KDDialogueGagged() ? 40 : 20)
+							- (KDDialogueGagged() ? 60 : 40)
 							- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 							- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 						KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -702,13 +711,13 @@ let KDDialogue = {
 		options: {
 			"Yes": {gag: true, playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-					KinkyDungeonChangeRep("Rope", 1);
 					return false;
 				},
 				options: {
 					"Yes": {gag: true, playertext: "Default", response: "Default",
 						clickFunction: (gagged) => {
 							KDPleaseSpeaker(0.005);
+							KinkyDungeonChangeRep("Rope", 1);
 							KinkyDungeonChangeRep("Ghost", 2);
 							for (let i = 0; i < 3; i++) {
 								let r = KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -717,7 +726,7 @@ let KDDialogue = {
 							KDGameData.CurrentDialogMsgData = {
 							};
 							KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Rope"], [])
-								- (KDDialogueGagged() ? 40 : 20)
+								- (KDDialogueGagged() ? 60 : 40)
 								- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 								- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 							KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
@@ -779,7 +788,7 @@ let KDDialogue = {
 					}
 
 					KDGameData.CurrentDialogMsgValue.PercentOff = KDOffensiveDialogueSuccessChance(KDBasicCheck(["Rope"], [])
-						- (KDDialogueGagged() ? 40 : 20)
+						- (KDDialogueGagged() ? 60 : 40)
 						- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
 						- KDPersonalitySpread(-25, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 35));
 					KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;

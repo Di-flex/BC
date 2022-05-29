@@ -80,29 +80,56 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				DialogSetReputation("Gaming", KinkyDungeonRep);
 			}
 			MiniGameVictory = false;
-
-			MiniGameKinkyDungeonLevel += 1;
-			if (KinkyDungeonStatsChoice.get("Trespasser")) {
-				KinkyDungeonChangeRep("Rope", -1);
-				KinkyDungeonChangeRep("Metal", -1);
-				KinkyDungeonChangeRep("Leather", -1);
-				KinkyDungeonChangeRep("Latex", -1);
-				KinkyDungeonChangeRep("Will", -1);
-				KinkyDungeonChangeRep("Elements", -1);
-				KinkyDungeonChangeRep("Conjure", -1);
-				KinkyDungeonChangeRep("Illusion", -1);
-			}
-
-
-			if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
-				MiniGameKinkyDungeonLevel = 1;
-				MiniGameKinkyDungeonMainPath = "grv";
-				KinkyDungeonState = "End";
-				MiniGameVictory = true;
-				suppressCheckPoint = true;
-			}
-
+			let roomType = "";
 			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
+
+			// We increment the save, etc, after the tunnel
+			if (KDGameData.RoomType == "Tunnel") {
+				MiniGameKinkyDungeonLevel += 1;
+				if (KinkyDungeonStatsChoice.get("Trespasser")) {
+					KinkyDungeonChangeRep("Rope", -1);
+					KinkyDungeonChangeRep("Metal", -1);
+					KinkyDungeonChangeRep("Leather", -1);
+					KinkyDungeonChangeRep("Latex", -1);
+					KinkyDungeonChangeRep("Will", -1);
+					KinkyDungeonChangeRep("Elements", -1);
+					KinkyDungeonChangeRep("Conjure", -1);
+					KinkyDungeonChangeRep("Illusion", -1);
+				}
+
+
+				if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
+					roomType = ""; // We let the boss spawn naturally
+				} else {
+					roomType = ""; // TODO add more room types
+				}
+
+				if (MiniGameKinkyDungeonLevel >= KinkyDungeonMaxLevel) {
+					MiniGameKinkyDungeonLevel = 1;
+					MiniGameKinkyDungeonMainPath = "grv";
+					KinkyDungeonState = "End";
+					MiniGameVictory = true;
+					suppressCheckPoint = true;
+				}
+			} else {
+				roomType = "Tunnel"; // We do a tunnel every other room
+
+				// Reduce security level when entering a new area
+				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)
+					KinkyDungeonChangeRep("Prisoner", -5);
+				else // Otherwise it's just a little bit
+					KinkyDungeonChangeRep("Prisoner", -1);
+			}
+
+			KDGameData.RoomType = roomType;
+			if (KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y)) {
+				let MapMod = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).MapMod;
+				if (MapMod) {
+					KDGameData.MapMod = MapMod;
+				} else KDGameData.MapMod = "";
+			}
+
+
 			if (toTile == 's') {
 				KinkyDungeonSendActionMessage(10, TextGet("ClimbDown"), "#ffffff", 1);
 				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonMainPath, true, suppressCheckPoint);
@@ -110,19 +137,12 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				KinkyDungeonSendActionMessage(10, TextGet("ClimbDownShortcut"), "#ffffff", 1);
 				KinkyDungeonSetCheckPoint(MiniGameKinkyDungeonShortcut, true, suppressCheckPoint);
 			}
-			// Reduce security level when entering a new area
-			if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)
-				KinkyDungeonChangeRep("Prisoner", -5);
-			else // Otherwise it's just a little bit
-				KinkyDungeonChangeRep("Prisoner", -1);
 
 			if (KinkyDungeonState != "End") {
 				KDGameData.HeartTaken = false;
-				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel);
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, undefined, undefined);
 				let saveData = KinkyDungeonSaveGame(true);
-				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint || (Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint))) {
-					KDGameData.KinkyDungeonSpawnJailers = 0;
-					KDGameData.KinkyDungeonSpawnJailersMax = 0;
+				if (KDGameData.RoomType == "Tunnel" && Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint)) {
 					if ((!KinkyDungeonStatsChoice.get("saveMode")) && !suppressCheckPoint) {
 						KinkyDungeonState = "Save";
 						ElementCreateTextArea("saveDataField");

@@ -484,6 +484,8 @@ interface enemy {
 	damage?: string,
 	/** Rep changes on death */
 	rep?: Record<string, number>,
+	/** Rep changes on death */
+	factionrep?: Record<string, number>;
 	/** When generating clusters of enemies, the clustering units must have this tag*/
 	clusterWith?: string,
 	/** Chance to ignore the player if the enemy has an ignore tag like ignorenoSP */
@@ -681,6 +683,8 @@ interface enemy {
 	focusPlayer?: boolean;
 	/** Cant be swapped by another enemy pathing */
 	immobile?: boolean;
+	/** Stops casting spells after there are this many enemies */
+	enemyCountSpellLimit?: number;
 
 }
 
@@ -728,6 +732,7 @@ interface weapon {
 interface KinkyDungeonEvent {
 	type: string;
 	trigger: string;
+	restraint?: string;
 	sfx?: string;
 	power?: number;
 	bind?: number;
@@ -785,6 +790,8 @@ interface entity {
 	personality?: string,
 	patrolIndex?: number,
 	flags?: Record<string, number>,
+	noDrop?: boolean,
+	droppedItems?: boolean,
 	aggro?: number,
 	id?: number,
 	hp: number,

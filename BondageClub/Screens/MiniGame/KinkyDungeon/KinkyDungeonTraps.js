@@ -83,7 +83,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
 						KinkyDungeonTiles.delete(x + "," + y);
 						if (!tile.noSmoke) {
-							KDSmokePuff(x, y, 3.9, 0.5);
+							KDSmokePuff(x, y, 1.9, 0.5);
 						}
 					}
 				}
@@ -104,7 +104,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						msg = ""; // The spell will show a message on its own
 						KinkyDungeonTiles.delete(x + "," + y);
 						if (!tile.noSmoke) {
-							KDSmokePuff(x, y, 3.9, 0.5);
+							KDSmokePuff(x, y, 1.9, 0.5);
 						}
 					}
 				}
