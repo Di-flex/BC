@@ -49,7 +49,12 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 
 function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
-	if (code == "G") sprite = "Ghost";
+	if (code == "G") {
+		sprite = "Ghost";
+		if (KinkyDungeonTiles.get(x + "," + y).Msg) {
+			sprite = "GhostImportant";
+		}
+	}
 	if (code == "$") sprite = "Angel";
 	else if (code == "R") sprite = "Rubble";
 	else if (code == "Y") sprite = "Rubble";

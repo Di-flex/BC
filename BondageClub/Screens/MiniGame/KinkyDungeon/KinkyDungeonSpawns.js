@@ -76,7 +76,7 @@ function KinkyDungeonAddTags(tags, Floor) {
 }
 
 
-function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHostile) {
+function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHostile, bonusTags) {
 	let enemyWeightTotal = 0;
 	let enemyWeights = [];
 
@@ -108,6 +108,13 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHost
 					weightMulti *= 1.25;
 				}
 		}
+		if (bonusTags)
+			for (let t of Object.entries(bonusTags)) {
+				if (enemy.tags.has(t[0])) {
+					weightBonus += t[1].bonus;
+					weightMulti *= t[1].mult;
+				}
+			}
 
 		if (effLevel >= enemy.minLevel && (!requireHostile || !enemy.faction || KDFactionRelation("Player", enemy.faction) <= -0.5) && (overrideFloor || enemy.allFloors || !enemy.floors || enemy.floors.get(Index)) && (KinkyDungeonGroundTiles.includes(Tile) || !enemy.tags.has("spawnFloorsOnly"))) {
 			let rt = requireTags ? false : true;

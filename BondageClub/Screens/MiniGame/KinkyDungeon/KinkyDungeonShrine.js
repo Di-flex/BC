@@ -209,6 +209,8 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonLockpicks += 2;
 				} else if (item.name == "4Lockpick") {
 					KinkyDungeonLockpicks += 4;
+				} else if (item.name == "MaidUniform") {
+					KinkyDungeonInventoryAddOutfit("Maid");
 				} else if (item.consumable) {
 					KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.consumable], item.quantity);
 				}

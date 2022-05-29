@@ -936,7 +936,7 @@ Spell Balance:
 - Many new keybindings!
 - Tying enemies no longer slows attack speed, only move speed
 - Features more diverse map generation!
-
+- Improved (?) Chinese translation!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

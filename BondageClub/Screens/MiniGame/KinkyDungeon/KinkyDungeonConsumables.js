@@ -52,7 +52,8 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];
 		s.shoptype = "Basic";
-		Table.push(s);
+		if (!s.ignoreInventory || !KinkyDungeonInventoryGet(s.ignoreInventory))
+			Table.push(s);
 	}
 	// @ts-ignore
 	Shopable = Object.entries(KinkyDungneonShopRestraints).filter(([k, v]) => (v.shop));

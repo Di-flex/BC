@@ -119,6 +119,10 @@ function KinkyDungeonInventoryAddWeapon(Name) {
 		KinkyDungeonInventoryAdd({name:Name, type:Weapon, events: Object.assign([], KinkyDungeonWeapons[Name].events)});
 }
 
+function KinkyDungeonInventoryAddOutfit(Name) {
+	if (!KinkyDungeonInventoryGetOutfit(Name) && KinkyDungeonOutfitCache.has(Name))
+		KinkyDungeonInventoryAdd({name:Name, type:Outfit});
+}
 /**
  *
  * @param item {item}

@@ -177,10 +177,12 @@ let KDOptOut = false;
 * OfferFatigue: number,
 * Favors: Record<string, number>,
 * RoomType: string,
+* MapMod: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
 	RoomType: "",
+	MapMod: "",
 
 	AlertTimer: 0,
 	OrgasmNextStageTimer: 0,

@@ -19,6 +19,7 @@ function KinkyDungeonSendEvent(Event, data) {
 	KinkyDungeonSendInventoryEvent(Event, data);
 	KinkyDungeonSendBulletEvent(Event, data.bullet, data);
 	KinkyDungeonSendBuffEvent(Event, data);
+	KinkyDungeonSendOutfitEvent(Event, data);
 }
 /** Called during initialization */
 function KinkyDungeonResetEventVariables() {
@@ -213,7 +214,7 @@ const KDEventMapInventory = {
 							}
 							if (!slime2) potentialSlimeParts.push({
 								group: KinkyDungeonSlimeParts[index - 1].group,
-								restraint: KinkyDungeonSlimeParts[index - 1].restraint,
+								restraint: (e.restraint ? e.restraint : "") + KinkyDungeonSlimeParts[index - 1].restraint,
 								level: slime.level
 							});
 						}
@@ -224,7 +225,7 @@ const KDEventMapInventory = {
 							}
 							if (!slime3) potentialSlimeParts.push({
 								group: KinkyDungeonSlimeParts[index + 1].group,
-								restraint: KinkyDungeonSlimeParts[index + 1].restraint,
+								restraint: (e.restraint ? e.restraint : "") + KinkyDungeonSlimeParts[index + 1].restraint,
 								level: slime.level
 							});
 						}
@@ -645,6 +646,31 @@ function KinkyDungeonHandleBuffEvent(Event, e, buff, entity, data) {
 	}
 }
 
+
+/**
+ * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
+ */
+const KDEventMapOutfit = {
+	"calcEvasion": {
+		"AccuracyBuff": (e, outfit, data) => {
+			if (data.enemy && data.enemy.Enemy && data.enemy.Enemy.tags.has(e.requiredTag)) {
+				data.hitmult *= e.power;
+			}
+		},
+	}
+};
+
+/**
+ *
+ * @param {string} Event
+ * @param {any} outfit
+ * @param {*} data
+ */
+function KinkyDungeonHandleOutfitEvent(Event, e, outfit, data) {
+	if (Event === e.trigger && KDEventMapOutfit[Event] && KDEventMapOutfit[Event][e.type]) {
+		KDEventMapOutfit[Event][e.type](e, outfit, data);
+	}
+}
 
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}

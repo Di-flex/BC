@@ -19,6 +19,15 @@ let KDAllyDialog = [];
 
 /** @type {Record<string, KinkyDialogue>} */
 let KDDialogue = {
+	"GhostInfo": {
+		response: "Default",
+		options: {
+			"Continue" : {playertext: "Default", exitDialogue: true},
+			"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			"Snark" : {playertext: "Default", exitDialogue: true},
+			"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+		},
+	},
 	"WeaponFound": {
 		response: "WeaponFound",
 		personalities: ["Robot"],

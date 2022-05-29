@@ -122,6 +122,12 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			}
 
 			KDGameData.RoomType = roomType;
+			if (KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y)) {
+				let MapMod = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).MapMod;
+				if (MapMod) {
+					KDGameData.MapMod = MapMod;
+				} else KDGameData.MapMod = "";
+			}
 
 
 			if (toTile == 's') {
@@ -134,7 +140,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 
 			if (KinkyDungeonState != "End") {
 				KDGameData.HeartTaken = false;
-				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, undefined, undefined, roomType);
+				KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]], MiniGameKinkyDungeonLevel, undefined, undefined);
 				let saveData = KinkyDungeonSaveGame(true);
 				if (KDGameData.RoomType == "Tunnel" && Math.floor(MiniGameKinkyDungeonLevel / 3) == MiniGameKinkyDungeonLevel / 3 && KDDefaultJourney.includes(MiniGameKinkyDungeonCheckpoint)) {
 					if ((!KinkyDungeonStatsChoice.get("saveMode")) && !suppressCheckPoint) {

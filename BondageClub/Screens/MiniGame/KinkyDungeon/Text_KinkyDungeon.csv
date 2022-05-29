@@ -500,9 +500,13 @@ KinkyDungeonInventoryItemWolfgirl,Wolfgirl Suit
 KinkyDungeonInventoryItemWolfgirlDesc,An advanced suit designed for sport, breathable and also warm.
 KinkyDungeonInventoryItemWolfgirlDesc2,"No bonuses, no penalties."
 
-KinkyDungeonInventoryItemMaid,Maid Outfit
+KinkyDungeonInventoryItemMaid,Maid Uniform
 KinkyDungeonInventoryItemMaidDesc,An elegant dress meant to denote a maid's status.
-KinkyDungeonInventoryItemMaidDesc2,"No bonuses, no penalties."
+KinkyDungeonInventoryItemMaidDesc2,"Massively increases accuracy against slime mold."
+
+KinkyDungeonInventoryItemMaidUniform,Maid Uniform
+KinkyDungeonInventoryItemMaidUniformDesc,An elegant dress meant to denote a maid's status.
+KinkyDungeonInventoryItemMaidUniformDesc2,"Massively increases accuracy against slime mold."
 
 KinkyDungeonInventoryItemDragon,Prisoner Uniform
 KinkyDungeonInventoryItemDragonDesc,The uniform of choice for girls captured by the dragonhearts.
@@ -874,6 +878,8 @@ KillMonolith,"The crystal fades from the monolith."
 
 NameOrbGuardian,Orb Guardian
 KillOrbGuardian,"The Orb Guardian dissolves into sand and bone dust."
+
+
 
 KinkyDungeonSummonMultiOrbGuardian,You feel like you have made a grave mistake.
 
@@ -1279,6 +1285,17 @@ NameRedSlime,Red Slime
 KillRedSlime,"The red slime bounces away."
 AttackRedSlime,"The red slime bounces off you! (-DamageTaken SP)"
 AttackRedSlimeBind,"The slime shoves itself into your mouth! (+RestraintAdded)"
+
+NameSlimeMold,Slime Mold
+KillSlimeMold,"The slime mold explodes into small puffs."
+AttackSlimeMold,"The slime mold is sticky and gross! (-DamageTaken SP)"
+AttackSlimeMoldBind,"The slime mold attaches itself to your body! (+RestraintAdded)"
+
+NameSlimeMoldSpawner,Slime Mold Nest
+KillSlimeMoldSpawner,"The slime mold nest erupts into a shower of black particles!"
+
+KinkyDungeonSummonMultiSlimeMold,Many small pieces of slime mold break off!
+KinkyDungeonSummonSingleSlimeMold,A mobile cyst emerges from the slime mold nest!
 
 NameSmallSlime,Slime
 KillSmallSlime,"The slime melts into a puddle."
@@ -2644,6 +2661,49 @@ RestraintHardSlimeHandsDesc2,"There's no struggling out now, but since it's soli
 RestraintHardSlimeHead,Rubber (Head)
 RestraintHardSlimeHeadDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+
+
+
+
+RestraintProtoSlimeBoots,Proto-Slime (Feet)
+RestraintProtoSlimeBootsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeBootsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeFeet,Proto-Slime (Ankles)
+RestraintProtoSlimeFeetDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeFeetDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeLegs,Proto-Slime (Legs)
+RestraintProtoSlimeLegsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeLegsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeArms,Proto-Slime (Arms)
+RestraintProtoSlimeArmsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeArmsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeHands,Proto-Slime (Hands)
+RestraintProtoSlimeHandsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeHead,Proto-Slime (Head)
+RestraintProtoSlimeHeadDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
+
+RestraintHardProtoSlimeBoots,Proto-Rubber (Feet)
+RestraintHardProtoSlimeBootsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeBootsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeFeet,Proto-Rubber (Ankles)
+RestraintHardProtoSlimeFeetDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeFeetDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeLegs,Proto-Rubber (Legs)
+RestraintHardProtoSlimeLegsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeLegsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeArms,Proto-Rubber (Arms)
+RestraintHardProtoSlimeArmsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeArmsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeHands,Proto-Rubber (Hands)
+RestraintHardProtoSlimeHandsDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeHead,Proto-Rubber (Head)
+RestraintHardProtoSlimeHeadDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+
+
 
 RestraintDuctTapeHands,Tape Mittens
 RestraintDuctTapeHandsDesc,"Sticky tape that holds your hands into a fist!"
@@ -4967,3 +5027,23 @@ rFuukaWinAccept,"(SPEAKER looks flabbergasted)|R-really? Okay... I'll give you a
 dFuukaWin_Accept,"(Submit to her anyway)"
 rFuukaWinGag,"(SPEAKER resists but ultimately you force a gag into her mouth)|MMMMMPH!"
 dFuukaWin_Gag,"(Gag her)"
+
+
+rGhostInfo,"(This ghost had something to say,|but it appears you've run into a bug instead)|Please report this to Ada18980 on deviantart!"
+
+dGhostInfo_Continue,"(Continue)"
+dGhostInfo_Snark,"(Make a smug face as you walk past)"
+dGhostInfo_Nice,"Thank you!"
+dGhostInfo_NiceGag,"Mmmph!"
+dGhostInfo_Brash,"I don't need your advice, strange ghostly person."
+dGhostInfo_BrashGag,"(Glare at her)"
+
+
+rMapModNone,"The next floor is a normal floor."
+rMapModMold,"This floor is suffering from a slime mold infestation.|Maids have been deployed to deal with the problem.|They could use a hand."
+rMapModBandit,"This floor is being ransacked by bandits.|They are armed and dangerous.|But I hear there's a bounty on their heads?"
+rMapModDragon,"A cave dragon was captured in the next floor.|It's brimming with elemental magic,|and there are a lot of interested parties!"
+rMapModWitch,"The witches told me to keep you out.|I'm not exactly capable of doing that,|so feel free to do as you please."
+rMapModPlant,"The next floor is overgrown.|I'd watch your feet if I were you."
+rMapModSlime,"Slimes, slimes EVERYWHERE!|Fortunately there's a slime-harvesting|operation going on."
+rMapModBoss,"This is totally a normal floor.|No doubt about it."

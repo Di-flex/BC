@@ -5,13 +5,15 @@ let alts = {
 		name: "Tunnel",
 		bossroom: false,
 		width: 11,
-		height: 11,
+		height: 12,
 		setpieces: {
+			"GuaranteedCell": 1000,
 		},
 		genType: "Tunnel",
 		spawns: false,
 		chests: false,
 		shrines: true,
+		orbs: 0,
 		chargers: true,
 		heart: false,
 		specialtiles: true,
@@ -19,6 +21,7 @@ let alts = {
 		enemies: false,
 		nojail: true,
 		nokeys: true,
+		nostairs: true,
 	}
 };
 
@@ -28,22 +31,22 @@ function KinkyDungeonAltFloor(Type) {
 
 
 let KinkyDungeonCreateMapGenType = {
-	"Room": (VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
-		KinkyDungeonCreateRoom(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	"Room": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateRoom(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 	},
-	"Tunnel": (VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
-		KinkyDungeonCreateTunnel(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	"Tunnel": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 	},
-	"Chamber": (VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
-		KinkyDungeonCreateMaze(VisitedRooms, width, height, 2, 1.5, 8, floodChance);
+	"Chamber": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, 2, 1.5, 8, floodChance);
 	},
-	"Maze": (VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
-		KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	"Maze": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 	},
 };
 
 
-function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+function KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
 	// Variable setup
 
 	let Walls = {};
@@ -132,6 +135,21 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 							delete Walls[XX + "," + YY];
 						}
 				}
+			}
+		}
+
+	// We add POI's at dead ends
+	for (let X = 1; X < KinkyDungeonGridWidth; X += 1)
+		for (let Y = 1; Y < KinkyDungeonGridWidth; Y += 1) {
+			let nearwalls = 0;
+			for (let XX = X - 1; XX <= X + 1; XX += 1)
+				for (let YY = Y - 1; YY <= Y + 1; YY += 1) {
+					if (KinkyDungeonMapGet(XX, YY) == '1') {
+						nearwalls += 1;
+					}
+				}
+			if (nearwalls == 7) {
+				POI.push({x: X*2, y: Y*2, requireTags: [], favor: [], used: false});
 			}
 		}
 
@@ -224,7 +242,7 @@ function KinkyDungeonCreateMaze(VisitedRooms, width, height, openness, density, 
 }
 
 
-function KinkyDungeonCreateRoom(VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+function KinkyDungeonCreateRoom(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
 	// Variable setup
 
 	KinkyDungeonCreateRectangle(0, 0, width, height, true, false, false, false);
@@ -245,7 +263,7 @@ function KinkyDungeonCreateRoom(VisitedRooms, width, height, openness, density, 
 	}
 }
 
-function KinkyDungeonCreateTunnel(VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
 	// Variable setup
 
 	KinkyDungeonCreateRectangle(0, 0, width, height, true, true, false, false);
@@ -253,8 +271,9 @@ function KinkyDungeonCreateTunnel(VisitedRooms, width, height, openness, density
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y - 1, 2, 2, false, false, false, false);
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, width - 2, 1, false, false, false, false);
 
-	let b1 = 3 + Math.floor(KDRandom() * (width-6));
-	let b2 = 3 + Math.floor(KDRandom() * (width-6));
+	// Create the two branching hallways
+	let b1 = 5 + Math.floor(KDRandom() * (width-7));
+	let b2 = 6 + Math.floor(KDRandom() * (width-6));
 
 	let y1 = VisitedRooms[0].y > 4 ? 1 : VisitedRooms[0].y;
 	let h1 = VisitedRooms[0].y > 4 ? Math.abs(y1 - VisitedRooms[0].y) : height - VisitedRooms[0].y - 1;
@@ -268,8 +287,14 @@ function KinkyDungeonCreateTunnel(VisitedRooms, width, height, openness, density
 	}
 
 	KinkyDungeonCreateRectangle(b1, y1, 1, h1, false, false, false, false);
-
 	KinkyDungeonCreateRectangle(b2, y2, 1, h2, false, false, false, false);
+
+	// Add the prison
+	let py = (VisitedRooms[0].y < height - 5 ? height - 3 : 3);
+	POI.push({x: 2*VisitedRooms[0].x + 4, y: 2*py, requireTags: [], favor: ["GuaranteedCell"], used: false});
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), b2-2, 1, false, false, false, false);
+	KinkyDungeonCreateRectangle(b2, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
 
 
 	// Now we STRETCH the map
@@ -286,4 +311,31 @@ function KinkyDungeonCreateTunnel(VisitedRooms, width, height, openness, density
 			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
 		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
 	}
+
+	// Place the exit stairs
+
+	let boss = KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel + 1);
+	let mods = !boss ? KDGetMapGenList(3, KDMapMods) : ["None", "None", "None"];
+	if (!boss) {
+		let exit1 = mods[0].name;
+		KinkyDungeonMapSet(b1*2, VisitedRooms[0].y > 4 ? 2 : height*2 - 3, 's');
+		KinkyDungeonMapSet(b1*2 + 1, VisitedRooms[0].y > 4 ? 2 : height*2 - 3, 'G');
+		KinkyDungeonTiles.set("" + (b1*2) + "," + (VisitedRooms[0].y > 4 ? 2 : height*2 - 3), {MapMod: exit1});
+		KinkyDungeonTiles.set("" + (b1*2 + 1) + "," + (VisitedRooms[0].y > 4 ? 2 : height*2 - 3), {Type: "Ghost", Msg: "MapMod" + exit1});
+
+		let exit2 = mods[1].name;
+		KinkyDungeonMapSet(b2*2 + 1, VisitedRooms[0].y < height - 4 ? height*2 - 3 : 2, 's');
+		KinkyDungeonMapSet(b2*2, VisitedRooms[0].y < height - 4 ? height*2 - 3 : 2, 'G');
+		KinkyDungeonTiles.set("" + (b2*2 + 1) + "," + (VisitedRooms[0].y < height - 4 ? height*2 - 3 : 2), {MapMod: exit2});
+		KinkyDungeonTiles.set("" + (b2*2) + "," + (VisitedRooms[0].y < height - 4 ? height*2 - 3 : 2), {Type: "Ghost", Msg: "MapMod" + exit2});
+	}
+
+	let exit3 = boss ? "Boss" : mods[2].name;
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2, 's');
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2 + 1, 'G');
+	if (!boss)
+		KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2), {MapMod: exit3});
+	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "MapMod" + exit3});
+
+	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
 }
