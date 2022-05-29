@@ -677,10 +677,13 @@ function KinkyDungeonRun() {
 
 		let newValue = ElementValue("saveInputField");
 		if (newValue != KDOldValue) {
-			CharacterAppearanceRestore(KinkyDungeonPlayer, LZString.decompressFromBase64(ElementValue("saveInputField")));
-			CharacterRefresh(KinkyDungeonPlayer);
-			KDOldValue = newValue;
-			KDInitProtectedGroups();
+			let decompressed = LZString.decompressFromBase64(ElementValue("saveInputField"));
+			if (decompressed) {
+				CharacterAppearanceRestore(KinkyDungeonPlayer, decompressed);
+				CharacterRefresh(KinkyDungeonPlayer);
+				KDOldValue = newValue;
+				KDInitProtectedGroups();
+			}
 		}
 
 		ElementPosition("saveInputField", 1250, 550, 1000, 230);
