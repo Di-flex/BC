@@ -4,10 +4,9 @@ let alts = {
 	"Tunnel": {
 		name: "Tunnel",
 		bossroom: false,
-		width: 11,
-		height: 12,
+		width: 8,
+		height: 8,
 		setpieces: {
-			"GuaranteedCell": 1000,
 		},
 		genType: "Tunnel",
 		spawns: false,
@@ -272,8 +271,8 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, width - 2, 1, false, false, false, false);
 
 	// Create the two branching hallways
-	let b1 = 5 + Math.floor(KDRandom() * (width-7));
-	let b2 = 6 + Math.floor(KDRandom() * (width-6));
+	let b1 = 3 + Math.floor(KDRandom() * (width-7));
+	let b2 = 4 + Math.floor(KDRandom() * (width-6));
 
 	let y1 = VisitedRooms[0].y > 4 ? 1 : VisitedRooms[0].y;
 	let h1 = VisitedRooms[0].y > 4 ? Math.abs(y1 - VisitedRooms[0].y) : height - VisitedRooms[0].y - 1;
@@ -289,12 +288,13 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 	KinkyDungeonCreateRectangle(b1, y1, 1, h1, false, false, false, false);
 	KinkyDungeonCreateRectangle(b2, y2, 1, h2, false, false, false, false);
 
+	/*
 	// Add the prison
 	let py = (VisitedRooms[0].y < height - 5 ? height - 3 : 3);
 	POI.push({x: 2*VisitedRooms[0].x + 4, y: 2*py, requireTags: [], favor: ["GuaranteedCell"], used: false});
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), b2-2, 1, false, false, false, false);
-	KinkyDungeonCreateRectangle(b2, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
+	KinkyDungeonCreateRectangle(b2, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);*/
 
 
 	// Now we STRETCH the map

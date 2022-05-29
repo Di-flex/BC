@@ -1384,34 +1384,34 @@ AttackMonsterRope,"The magic rope wriggles into your outfit! (-DamageTaken SP)"
 
 NameWitchShock,Shock Witch
 KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind a keyring."
-AttackWitchShockBind,"The witch clips a restraint around your neck!"
-AttackWitchShock,"The witch slaps you playfully!"
+AttackWitchShockBind,"The witch restraints you! (+RestraintAdded)"
+AttackWitchShock,"The witch slaps you playfully! (-DamageTaken SP)"
 
 NameApprentice,Witch's Apprentice
 KillApprentice,"The apprentice runs off and cries in a corner."
-AttackApprenticeBind,"The apprentice animates restraints to wrap around you!"
-AttackApprentice,"The apprentice slaps you playfully!"
+AttackApprenticeBind,"The apprentice animates restraints to wrap around you! (+RestraintAdded)"
+AttackApprentice,"The apprentice slaps you playfully! (-DamageTaken SP)"
 
 NameApprentice2,Summoner's Apprentice
 KillApprentice2,"The apprentice runs off and cries in a corner."
-AttackApprentice2Bind,"The apprentice summons a restraint onto you!"
-AttackApprentice2,"The apprentice tickles you playfully!"
+AttackApprentice2Bind,"The apprentice summons a restraint onto you! (+RestraintAdded)"
+AttackApprentice2,"The apprentice tickles you playfully! (-DamageTaken SP)"
 
 NameApprenticeSlime,Latex Apprentice
 KillApprenticeSlime,"The apprentice runs off and cries in a corner."
-AttackApprenticeSlimeBind,"The apprentice attaches a sticky restraint!"
-AttackApprenticeSlime,"The apprentice caresses you playfully!"
+AttackApprenticeSlimeBind,"The apprentice attaches a sticky restraint! (+RestraintAdded)"
+AttackApprenticeSlime,"The apprentice caresses you playfully! (-DamageTaken SP)"
 
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
-AttackWitchChainBind,"The witch clips a restraint around your neck!"
-AttackWitchChain,"The chain witch tugs sensually at your restraints!"
+AttackWitchChainBind,"The witch clips a restraint around your neck! (+RestraintAdded)"
+AttackWitchChain,"The chain witch tugs sensually at your restraints! (-DamageTaken SP)"
 
 NameWitchSlime,Slime Witch
 KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behind a keyring."
-AttackWitchSlimeBind,"The witch clips a restraint around your neck!"
-AttackWitchSlime,"The witch squeezes your body playfully!"
+AttackWitchSlimeBind,"The witch touches her with her sticky grasp! (+RestraintAdded)"
+AttackWitchSlime,"The witch squeezes your body playfully! (-DamageTaken SP)"
 
 NameHighWizard,'High' Wizard
 KillHighWizard,"The wizard falls asleep."

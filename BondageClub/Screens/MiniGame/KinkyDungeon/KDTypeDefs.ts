@@ -486,6 +486,8 @@ interface enemy {
 	rep?: Record<string, number>,
 	/** Rep changes on death */
 	factionrep?: Record<string, number>;
+	/** Chance to generate as a guard instead */
+	guardChance?: number;
 	/** When generating clusters of enemies, the clustering units must have this tag*/
 	clusterWith?: string,
 	/** Chance to ignore the player if the enemy has an ignore tag like ignorenoSP */

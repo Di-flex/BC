@@ -336,14 +336,16 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 			KinkyDungeonMapSet(cornerX+3, cornerY+3 , KDRandom() < 0.5 ? 'L' : (KDRandom() < 0.5 ? 'c' : 'C'));
 			if (KinkyDungeonMapGet(cornerX+3, cornerY+3) == 'C')
 				KinkyDungeonTiles.set((cornerX + 3) + "," + (cornerY + 3), {Loot: "storage", Roll: KDRandom()});
-			if (KDRandom() < 0.33) {
+			if (KDRandom() < 0.5) {
 				if (KDRandom() < 0.75)
 					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["beast"], AI: "guard"});
-				else
+				else if (KDRandom() < 0.5)
 					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["human"], AI: "guard"});
+				else
+					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["mold", "spawner"], tags: ["mold"], AI: "guard"});
 			}
 			break;
-		case "QuadCell":
+		case "QuadCell": {
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
 			for (let X = cornerX; X < cornerX + radius; X++) {
 				KinkyDungeonMapSet(X, cornerY , '1');
@@ -389,11 +391,29 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 					});
 			}
 
-			KinkyDungeonMapSet(cornerX+1, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+1) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+1, cornerY+2) == 'D' ? "Red" : undefined});
-			KinkyDungeonMapSet(cornerX+5, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+5) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+5, cornerY+2) == 'D' ? "Red" : undefined});
-			KinkyDungeonMapSet(cornerX+1, cornerY+4, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+1) + "," + (cornerY + 4), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+1, cornerY+4) == 'D' ? "Red" : undefined});
-			KinkyDungeonMapSet(cornerX+5, cornerY+4, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+5) + "," + (cornerY + 4), {Type: "Door", NoTrap: true, OffLimits: true, Lock: KinkyDungeonMapGet(cornerX+5, cornerY+4) == 'D' ? "Red" : undefined});
+			let l = KinkyDungeonMapGet(cornerX+1, cornerY+2) == 'D' ? "Red" : undefined;
+			KinkyDungeonMapSet(cornerX+1, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+1) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: l});
+			if (l && KDRandom() < 0.5)
+				spawnPoints.push({x:cornerX + 1, y:cornerY + 2, required: ["human"], AI: "guard"});
+
+			l = KinkyDungeonMapGet(cornerX+5, cornerY+2) == 'D' ? "Red" : undefined;
+			KinkyDungeonMapSet(cornerX+5, cornerY+2, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+5) + "," + (cornerY + 2), {Type: "Door", NoTrap: true, OffLimits: true, Lock: l});
+			if (l && KDRandom() < 0.5)
+				spawnPoints.push({x:cornerX + 5, y:cornerY + 2, required: ["human"], AI: "guard"});
+
+			l = KinkyDungeonMapGet(cornerX+1, cornerY+4) == 'D' ? "Red" : undefined;
+			KinkyDungeonMapSet(cornerX+1, cornerY+4, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+1) + "," + (cornerY + 4), {Type: "Door", NoTrap: true, OffLimits: true, Lock: l});
+			if (l && KDRandom() < 0.5)
+				spawnPoints.push({x:cornerX + 1, y:cornerY + 4, required: ["human"], AI: "guard"});
+
+			l = KinkyDungeonMapGet(cornerX+5, cornerY+4) == 'D' ? "Red" : undefined;
+			KinkyDungeonMapSet(cornerX+5, cornerY+4, KDRandom() < 0.75 ? 'D' : 'd'); KinkyDungeonTiles.set("" + (cornerX+5) + "," + (cornerY + 4), {Type: "Door", NoTrap: true, OffLimits: true, Lock: l});
+			if (l && KDRandom() < 0.5)
+				spawnPoints.push({x:cornerX + 5, y:cornerY + 4, required: ["human"], AI: "guard"});
+
+
 			break;
+		}
 	}
 
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 4});

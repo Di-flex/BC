@@ -663,10 +663,29 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 	let spawns = [];
 	for (let sp of spawnPoints) spawns.push(sp);
 
+	let enemyPoints = [];
+
+	// Create a quasirandom distribution
+	// This is to get the enemies more spread out
+	// Higher dd = more spread out
+	let dd = 2.5;
+	for (let X = 1; X < width - 1.01 - dd; X += dd)
+		for (let Y = 1; Y < width - 1.01 - dd; Y += dd) {
+			enemyPoints.push({x: X + Math.round(KDRandom() * dd), y: Y + Math.round(KDRandom() * dd)});
+		}
+
 	// Create this number of enemies
 	while (count < enemyCount && tries < 1000) {
-		let X = 1 + Math.floor(KDRandom()*(width - 1));
-		let Y = 1 + Math.floor(KDRandom()*(height - 1));
+
+		let pointIndex = Math.floor(KDRandom() * enemyPoints.length);
+		let point = enemyPoints[pointIndex];
+		let X = point ? point.x : (1 + Math.floor(KDRandom()*(width - 1)));
+		let Y = point ? point.y : (1 + Math.floor(KDRandom()*(height - 1)));
+
+		if (point) {
+			enemyPoints.splice(pointIndex);
+		}
+
 		let required = undefined;
 		let spawnPoint = false;
 		let AI = undefined;
@@ -696,10 +715,11 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 			}
 		}
 
-		let playerDist = 6;
+		let playerDist = 5;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
-		if ((spawnPoint && KinkyDungeonNoEnemy(X, Y, true)) || ((!KinkyDungeonTiles.get("" + X + "," + Y) || !KinkyDungeonTiles.get("" + X + "," + Y).OffLimits) && Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && (!InJail || X > KinkyDungeonJailLeashX + 3) && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
+		if ((spawnPoint && KinkyDungeonNoEnemy(X, Y, true)) || ((!KinkyDungeonTiles.get("" + X + "," + Y) || !KinkyDungeonTiles.get("" + X + "," + Y).OffLimits)
+			&& Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
 			&& KinkyDungeonNoEnemy(X, Y, true) && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits))) {
 
 			if (KDGameData.KinkyDungeonSpawnJailers > 0 && jailerCount < KDGameData.KinkyDungeonSpawnJailersMax) tags.push("jailer");
@@ -732,7 +752,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 				tags.push(t);
 			}
 
-			if (count < enemyCount * 0.15 && !spawnPoint) {
+			if (count < enemyCount * 0.5 && count % 3 == 0 && !spawnPoint) {
 				if (!required) required = ["minor"];
 				else required.push("minor");
 			}
@@ -758,6 +778,9 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 							count: 1,
 						};
 				} else if (currentCluster) currentCluster.count += 1;
+				if (!currentCluster && Enemy.guardChance && KDRandom() < Enemy.guardChance) {
+					e.AI = "guard";
+				}
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
 				if (Enemy.difficulty) count += Enemy.difficulty;
 				if (Enemy.tags.has("minor")) count += 0.2; else count += currentCluster ? 0.75 : 1.0; // Minor enemies count as 1/5th of an enemy

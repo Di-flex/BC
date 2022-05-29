@@ -152,7 +152,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Bountyhunter": {
 		"Jail": 0.8,
 		"Dragon": 0.4,
-		"Bandit": -0.4,
+		"Bandit": -0.55,
 		"Maidforce": -0.15,
 		"Witch": -0.4,
 		"Dressmaker": 0.5,
