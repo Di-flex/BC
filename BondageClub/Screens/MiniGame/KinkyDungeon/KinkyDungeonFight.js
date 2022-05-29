@@ -462,7 +462,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 			}
 		}
 
-		if (!forceKill && (Enemy.hp < 0 || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1 && KDBoundEffects(Enemy) > 3))) {
+		if (!forceKill && KDBoundEffects(Enemy) > 3 && (Enemy.hp < 0 || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1))) {
 			KDDamageQueue.push({floater: TextGet("KDHelpless"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
 			//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDHelpless"), "white", 2);
 			Enemy.hp = 0.51;
