@@ -1008,6 +1008,12 @@ KillNawashi,"The rope artist frowns and walks away, looking defeated."
 AttackNawashiBind,"The rope artist performs an intricate technique! (+RestraintAdded)"
 AttackNawashi,"The rope artist smiles and tickles your feet! (-DamageTaken SP)"
 
+NameDeputy,Deputy
+KillDeputy,"The Deputy surrenders her donuts."
+AttackDeputyBind,"The Deputy slaps on some cuffs! (+RestraintAdded)"
+AttackDeputyStun,"The Deputy tases you! (Stunned!)"
+AttackDeputy,"The Deputy conducts a strip search! (-DamageTaken SP)"
+
 NameNinja,Ninja Warrior
 KillNinja,"The warrior retreats into the shadows."
 AttackNinjaBind,"The warrior uses a traditional binding technique (+RestraintAdded)"
@@ -2427,6 +2433,18 @@ RestraintDragonMuzzleGagDesc2,"It's made from hard-to-cut dragonscale!!!"
 RestraintDragonCollar,Dragon Collar
 RestraintDragonCollarDesc,"A collar owned by the Dragonhearts, an order of dragonslayers."
 RestraintDragonCollarDesc2,"It's made from hard-to-cut dragonscale!!!"
+
+RestraintSteelArmCuffs,Steel Cuffs
+RestraintSteelArmCuffsDesc,"A pair of steel cuffs that make it easy to restrain you."
+RestraintSteelArmCuffsDesc2,"They're made of shining steel."
+KinkyDungeonLinkSteelArmCuffs,"The enemy attaches your wrist cuffs together!"
+
+RestraintSteelArmCuffs2,Steel Wrist Chain
+RestraintSteelArmCuffs2Desc,"A pair of steel cuffs keeping your arms behind your back."
+RestraintSteelArmCuffs2Desc2,"They're made of shining steel."
+KinkyDungeonUnLinkSteelArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkSteelArmCuffs2,"The enemy attaches your elbow cuffs together!"
+
 
 RestraintLeatherArmCuffs,Leather Cuffs
 RestraintLeatherArmCuffsDesc,"A pair of leather cuffs that make it easy to restrain you."
