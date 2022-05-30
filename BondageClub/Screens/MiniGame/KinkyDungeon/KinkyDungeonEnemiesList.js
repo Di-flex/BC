@@ -383,8 +383,14 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":10, "thirdhalf":1}, shrines: ["Leather", "Metal"], floors:KDMapInit(["jng", "cry"]),
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Pick", weight: 1}, {name: "PotionStamina", weight: 1}]},
 
-	{name: "SlimeMold", clusterWith: "mold", faction: "Mold", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "doortrap", "mold", "minor", "melee", "moldRestraints", "fireweakness", "glueresist"]), squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt",  sneakThreshold: 1,
-		visionRadius: 5, maxhp: 1, minLevel: 0, weight:-15, movePoints: 2, attackPoints: 2, attack: "MeleeBindSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
+	{name: "SlimeMold", clusterWith: "mold", faction: "Mold", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "doortrap", "mold", "minor", "melee", "moldRestraints", "fireweakness", "glueresist"]),
+		squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt",  sneakThreshold: 1,
+		visionRadius: 5, maxhp: 1, minLevel: 0, weight:-15, movePoints: 2, attackPoints: 2, attack: "MeleeBindWillSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
+		terrainTags: {"increasingWeight":-2, "mold": 25}, allFloors: true, shrines: ["Latex"]},
+	{name: "SlimeMoldLeaper", clusterWith: "mold", faction: "Mold", color: "#FF00FF", tags: KDMapInit(["ignoretiedup", "doortrap", "mold", "minor", "melee", "moldRestraints", "fireweakness", "glueresist"]),
+		squeeze: true, ignorechance: 0.75, followRange: 1, AI: "hunt",  sneakThreshold: 1,
+		specialCD: 5, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, specialsfx: "Miss",
+		visionRadius: 9, maxhp: 1, minLevel: 4, weight:-5, movePoints: 2, attackPoints: 2, attack: "MeleeBindWillSuicide", suicideOnAdd: true, attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 5,
 		terrainTags: {"increasingWeight":-2, "mold": 25}, allFloors: true, shrines: ["Latex"]},
 
 	{name: "SlimeMoldSpawner", clusterWith: "mold", faction: "Mold", color: "#FF00FF", tags: KDMapInit(["mold", "spawner", "melee", "moldRestraints", "meleeresist", "fireweakness", "glueresist"]),

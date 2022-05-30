@@ -1292,6 +1292,12 @@ KillSlimeMold,"The slime mold explodes into small puffs."
 AttackSlimeMold,"The slime mold is sticky and gross! (-DamageTaken SP)"
 AttackSlimeMoldBind,"The slime mold attaches itself to your body! (+RestraintAdded)"
 
+NameSlimeMoldLeaper,Mold Puff
+KillSlimeMoldLeaper,"The mold puff explodes into small puffs."
+AttackSlimeMoldLeaper,"The mold puff is sticky and gross! (-DamageTaken SP)"
+AttackSlimeMoldLeaperDash,"The mold puff leaps through the air!"
+AttackSlimeMoldLeaperBind,"The mold puff attaches itself to your body! (+RestraintAdded)"
+
 NameSlimeMoldSpawner,Slime Mold Nest
 KillSlimeMoldSpawner,"The slime mold nest erupts into a shower of black particles!"
 

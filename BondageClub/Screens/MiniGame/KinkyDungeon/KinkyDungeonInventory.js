@@ -347,8 +347,9 @@ function KinkyDungeonDrawInventorySelected(item, noscroll) {
 	if (item.item.type == Restraint || item.item.type == LooseRestraint) prefix = "Restraint";
 
 	DrawTextFit(TextGet(prefix + name), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5, 300, "black", "silver");
-	let textSplit = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc"), 17).split('\n');
-	let textSplit2 = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc2"), 17).split('\n');
+	let wrapAmount = TranslationLanguage == 'CN' ? 8 : 17;
+	let textSplit = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc"), wrapAmount).split('\n');
+	let textSplit2 = KinkyDungeonWordWrap(TextGet(prefix + name + "Desc2"), wrapAmount).split('\n');
 
 
 	let showpreview =  (item.preview && !MouseIn(canvasOffsetX_ui, canvasOffsetY_ui, 840, 583));

@@ -306,8 +306,9 @@ function KinkyDungeonDrawShrine() {
 				DrawTextFit(TextGet("KinkyDungeonCommerceCost").replace("ItemCost", "" + KinkyDungeonItemCost(l)), KDModalArea_x + 300, KDModalArea_y + 65 - ii * 50, 100, KinkyDungeonShopItems[KinkyDungeonShopIndex].name == l.name ? "white" : "#aaaaaa", "silver");
 				ii++;
 			}
-			let textSplit = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), 40).split('\n');
-			let textSplit2 = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name +  "Desc2"), 40).split('\n');
+			let wrapAmount = TranslationLanguage == 'CN' ? 15 : 40;
+			let textSplit = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), wrapAmount).split('\n');
+			let textSplit2 = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name +  "Desc2"), wrapAmount).split('\n');
 			let i = 0;
 			for (let N = 0; N < textSplit.length; N++) {
 				DrawTextFit(textSplit[N],

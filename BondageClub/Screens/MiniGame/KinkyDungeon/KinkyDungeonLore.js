@@ -109,7 +109,8 @@ function KinkyDungeonDrawLore() {
 	// Draw the current note
 	MainCanvas.textAlign = "left";
 
-	let lore = KinkyDungeonWordWrap(TextGet("KinkyDungeonLore" + KinkyDungeonCurrentLore), 45).split('\n');
+	let wrapAmount = TranslationLanguage == 'CN' ? 19 : 45;
+	let lore = KinkyDungeonWordWrap(TextGet("KinkyDungeonLore" + KinkyDungeonCurrentLore), wrapAmount).split('\n');
 	let i = 0;
 	for (let N = 0; N < lore.length; N++) {
 		DrawTextFit(lore[N],
