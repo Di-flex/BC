@@ -292,13 +292,18 @@ function KinkyDungeonInterruptSleep() {
 }
 
 function KinkyDungeonDealDamage(Damage) {
-	let dmg = Damage.damage;
-	let type = Damage.type;
-	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor"));
-	let buffresist = KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, type + "DamageResist"));
-	buffresist *= KinkyDungeonMeleeDamageTypes.includes(type) ?
-		KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
-		: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"));
+	let data = {
+		dmg: Damage.damage,
+		type: Damage.type,
+		armor: Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor")),
+		buffresist: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, Damage.type + "DamageResist"))
+			* (KinkyDungeonMeleeDamageTypes.includes(Damage.type) ?
+			KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
+			: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"))),
+	};
+
+	KinkyDungeonSendEvent("playerTakeDamage", data);
+
 	let distractionTypesWeakNeg = ["pain", "acid"];
 	let distractionTypesWeak = ["grope"];
 	let distractionTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
@@ -307,7 +312,7 @@ function KinkyDungeonDealDamage(Damage) {
 	let manaTypesWeak = ["electric", "poison", "souldrain"];
 	let manaTypesString = ["drain"];
 
-	dmg *= buffresist;
+	data.dmg *= data.buffresist;
 
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
 		staminaTypesWeak.splice(staminaTypesWeak.indexOf("electric"), 1);
@@ -316,45 +321,47 @@ function KinkyDungeonDealDamage(Damage) {
 		manaTypesString.push("electric");
 	}
 
-	if (armor) dmg = Math.max(0, dmg - armor);
+	if (data.armor) data.dmg = Math.max(0, data.dmg - data.armor);
 
-	if (dmg > 0) {
+	if (data.dmg > 0) {
 		let buffreduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
-		if (buffreduction && dmg > 0) {
-			dmg = Math.max(dmg - buffreduction, 0);
+		if (buffreduction && data.dmg > 0) {
+			data.dmg = Math.max(data.dmg - buffreduction, 0);
 			KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "damageTaken", 1);
 			KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
 		}
 	}
 
 
-	if (distractionTypesWeak.includes(type)) {
-		KinkyDungeonChangeDistraction(Math.ceil(dmg/2));
+	if (distractionTypesWeak.includes(data.type)) {
+		KinkyDungeonChangeDistraction(Math.ceil(data.dmg/2));
 	}
-	if (distractionTypesWeakNeg.includes(type)) {
-		KinkyDungeonChangeDistraction(Math.ceil(-dmg/2));
+	if (distractionTypesWeakNeg.includes(data.type)) {
+		KinkyDungeonChangeDistraction(Math.ceil(-data.dmg/2));
 	}
-	if (distractionTypesStrong.includes(type)) {
-		KinkyDungeonChangeDistraction(dmg);
+	if (distractionTypesStrong.includes(data.type)) {
+		KinkyDungeonChangeDistraction(data.dmg);
 	}
-	if (staminaTypesStrong.includes(type)) {
-		KinkyDungeonChangeStamina(-dmg);
-	} else if (staminaTypesWeak.includes(type)) {
-		KinkyDungeonChangeStamina(-Math.ceil(dmg/2));
+	if (staminaTypesStrong.includes(data.type)) {
+		KinkyDungeonChangeStamina(-data.dmg);
+	} else if (staminaTypesWeak.includes(data.type)) {
+		KinkyDungeonChangeStamina(-Math.ceil(data.dmg/2));
 	}
-	if (manaTypesString.includes(type)) {
-		KinkyDungeonChangeMana(-dmg);
-	} else if (manaTypesWeak.includes(type)) {
-		KinkyDungeonChangeMana(-Math.ceil(dmg/2));
+	if (manaTypesString.includes(data.type)) {
+		KinkyDungeonChangeMana(-data.dmg);
+	} else if (manaTypesWeak.includes(data.type)) {
+		KinkyDungeonChangeMana(-Math.ceil(data.dmg/2));
 	}
 	KinkyDungeonInterruptSleep();
 
-	if (KinkyDungeonStatFreeze > 0 && KinkyDungeonMeleeDamageTypes.includes(type)) {
-		KinkyDungeonChangeStamina(-dmg);
+	if (KinkyDungeonStatFreeze > 0 && KinkyDungeonMeleeDamageTypes.includes(data.type)) {
+		KinkyDungeonChangeStamina(-data.dmg);
 		KinkyDungeonStatFreeze = 0;
 	}
 
-	return dmg;
+
+
+	return data.dmg;
 }
 
 let KDOrigStamina = 36;

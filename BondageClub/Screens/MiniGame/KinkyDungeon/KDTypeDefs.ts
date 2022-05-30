@@ -422,6 +422,8 @@ interface enemy {
 	terrainTags?: Record<string, number>,
 	/** */
 	floors?: Map<string, boolean>,
+	/** Enemy events */
+	events?: KinkyDungeonEvent[];
 	/** */
 	allFloors?: boolean,
 	/** */

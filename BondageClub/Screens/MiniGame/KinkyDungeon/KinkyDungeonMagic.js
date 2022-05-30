@@ -818,7 +818,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let noiseX = targetX;
 	let noiseY = targetY;
 
-	if (enemy) {
+	if (enemy && player) {
 		entity = enemy;
 		moveDirection = KinkyDungeonGetDirection(player.x - entity.x, player.y - entity.y);
 		flags.miscastChance = 0;

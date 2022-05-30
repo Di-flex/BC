@@ -2787,3 +2787,15 @@ function KDDash(enemy, player, MovableTiles) {
 	}
 	return {happened: happened, Dash: Dash};
 }
+
+function KinkyDungeonSendEnemyEvent(Event, data) {
+	for (let enemy of KinkyDungeonEntities) {
+		if (enemy.Enemy.events) {
+			for (let e of enemy.Enemy.events) {
+				if (e.trigger === Event) {
+					KinkyDungeonHandleEnemyEvent(Event, e, enemy, data);
+				}
+			}
+		}
+	}
+}

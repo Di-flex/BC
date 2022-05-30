@@ -938,6 +938,7 @@ Spell Balance:
 - Features more diverse map generation!
 - Improved (?) Chinese translation!
 - New enemy: Deputy
+- New enemy: Magnet witch
 
 TODO ValidationFindBlockCycles to prevent bugs
 

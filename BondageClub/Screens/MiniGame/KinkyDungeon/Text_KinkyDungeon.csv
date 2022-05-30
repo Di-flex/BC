@@ -1400,6 +1400,11 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch restraints you! (+RestraintAdded)"
 AttackWitchShock,"The witch slaps you playfully! (-DamageTaken SP)"
 
+NameWitchMagnet,Magnet Witch
+KillWitchMagnet,"The witch is pulled away by an unseen force."
+AttackWitchMagnetBind,"The witch's restraints fly out and attach themselves to you! (+RestraintAdded)"
+AttackWitchMagnet,"The witch grabs you and rubs you playfully! (-DamageTaken SP)"
+
 NameApprentice,Witch's Apprentice
 KillApprentice,"The apprentice runs off and cries in a corner."
 AttackApprenticeBind,"The apprentice animates restraints to wrap around you! (+RestraintAdded)"
@@ -2444,6 +2449,27 @@ RestraintSteelArmCuffs2Desc,"A pair of steel cuffs keeping your arms behind your
 RestraintSteelArmCuffs2Desc2,"They're made of shining steel."
 KinkyDungeonUnLinkSteelArmCuffs2,"Your cuffs detatch!"
 KinkyDungeonLinkSteelArmCuffs2,"The enemy attaches your elbow cuffs together!"
+
+
+RestraintMagneticArmCuffs,Magnetic Cuffs
+RestraintMagneticArmCuffsDesc,"A pair of bulky cuffs with coils visible on the inside..."
+RestraintMagneticArmCuffsDesc2,"They have no visible attachment points..."
+KinkyDungeonLinkMagneticArmCuffs,"The electric damage causes your cuffs to attach together!"
+
+RestraintMagneticArmCuffs2,Magnetic Link
+RestraintMagneticArmCuffs2Desc,"The magnetic cuffs are rigidly attached!"
+RestraintMagneticArmCuffs2Desc2,"They won't budge! There's a button to release them but it's hard to reach..."
+KinkyDungeonUnLinkMagneticArmCuffs2,"Your cuffs detatch!"
+
+RestraintMagneticAnkleCuffs,Magnetic Ankle Cuffs
+RestraintMagneticAnkleCuffsDesc,"A pair of bulky leg irons with coils visible on the inside."
+RestraintMagneticAnkleCuffsDesc2,"They have no visible attachment points..."
+KinkyDungeonLinkMagneticAnkleCuffs,"The electric damage causes your ankle cuffs to snap together!"
+
+RestraintMagneticAnkleCuffs2,Magnetic Link
+RestraintMagneticAnkleCuffs2Desc,"The magnetic cuffs are rigidly attached!"
+RestraintMagneticAnkleCuffs2Desc2,"They won't budge! There's a button to release them but it's hard to reach..."
+KinkyDungeonUnLinkMagneticAnkleCuffs2,"Your ankle cuffs detatch!"
 
 
 RestraintLeatherArmCuffs,Leather Cuffs

@@ -1108,7 +1108,7 @@ function KinkyDungeonLaunchBullet(x, y, targetx, targety, speed, bullet, miscast
 function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 	for (let damage of KDDamageQueue) {
 		if (!damage.Delay || KDTimescale * (performance.now() - KDLastTick) > damage.Delay) {
-			if (damage.sfx && KinkyDungeonSound) AudioPlayInstantSound(damage.sfx);
+			if (damage.sfx && KinkyDungeonSound) KinkyDungeonPlaySound(damage.sfx);
 
 			if (damage.floater) {
 				KinkyDungeonSendFloater(damage.Entity, damage.floater, damage.Color, damage.Time);
