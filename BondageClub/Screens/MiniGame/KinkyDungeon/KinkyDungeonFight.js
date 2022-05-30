@@ -820,7 +820,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 
 function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 	if (b.bullet.hit && b.bullet.spell && b.bullet.spell.landsfx) {
-		if (KinkyDungeonSound) {
+		if (KinkyDungeonSound && KinkyDungeonLightGet(b.x, b.y) > 0) {
 			KDDamageQueue.push({sfx: KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg"});
 		}
 		//KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + b.bullet.spell.landsfx + ".ogg");

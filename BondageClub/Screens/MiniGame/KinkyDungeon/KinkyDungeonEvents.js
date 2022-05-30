@@ -1212,7 +1212,7 @@ function KinkyDungeonHandleBulletEvent(Event, e, b, data) {
 const KDEventMapEnemy = {
 	"afterEnemyTick": {
 		"electrifyLocal": (e, enemy, data) => {
-			if (data.delta && (enemy.aware || enemy.vp > 0.5) && (data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy))) {
+			if (data.delta && (enemy.aware || enemy.vp > 0.5) && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {
 				if (!e.chance || KDRandom() < e.chance) {
 					let count = e.power ? e.power : 1;
 					let rad = e.aoe ? e.aoe : 1.5;
