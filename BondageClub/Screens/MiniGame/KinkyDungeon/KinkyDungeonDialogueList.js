@@ -26,9 +26,9 @@ let KDDialogue = {
 				clickFunction: (gagged) => {
 					KinkyDungeonTargetTile = null;
 					KinkyDungeonTargetTileLocation = "";
-					return true;
-				} ,
-				playertext: "Default", exitDialogue: true
+					return false;
+				},
+				playertext: "Default", exitDialogue: true,
 			},
 			//"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
 			//"Snark" : {playertext: "Default", exitDialogue: true},

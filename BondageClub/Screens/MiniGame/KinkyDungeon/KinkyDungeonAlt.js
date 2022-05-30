@@ -26,7 +26,7 @@ let alts = {
 	"JourneyFloor": {
 		name: "JourneyFloor",
 		bossroom: false,
-		width: 12,
+		width: 10,
 		height: 8,
 		setpieces: {
 		},
@@ -388,7 +388,7 @@ function KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openne
 	KinkyDungeonCreateRectangle(0, 0, width, height, true, true, false, false);
 
 	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y - 1, 2, 2, false, false, false, false);
-	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, width - 2, 1, false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, 6, 1, false, false, false, false);
 
 	// Create a branching room for journeys
 	let b1 = 4;
@@ -420,10 +420,10 @@ function KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openne
 	}
 
 	// Normal end stairs
-	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2, 's');
-	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2 + 1, 'G');
-	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2), {Journey: undefined});
-	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "JourneyNone"});
+	KinkyDungeonMapSet(b1*2 + 5, VisitedRooms[0].y*2, 's');
+	KinkyDungeonMapSet(b1*2 + 5, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (b1*2 + 5) + "," + (VisitedRooms[0].y*2), {Journey: undefined});
+	KinkyDungeonTiles.set("" + (b1*2 + 5) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "JourneyNone"});
 
 	// Tutorial end stairs
 	//KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 2, 's');

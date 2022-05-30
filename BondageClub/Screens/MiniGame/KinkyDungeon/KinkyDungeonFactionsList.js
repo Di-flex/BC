@@ -290,6 +290,9 @@ function KDInitFactions(Reset) {
 		for (let f2 of Object.entries(f1[1])) {
 			// Set mutual opinions
 			fmap.set(f2[0], f2[1]);
+			if (!KDFactionRelations.get(f2[0])) {
+				console.log("Could not find faction " + f2[0]);
+			}
 			KDFactionRelations.get(f2[0]).set(f1[0], f2[1]);
 		}
 	}

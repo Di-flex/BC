@@ -1393,7 +1393,7 @@ function KinkyDungeonHandleClick() {
 			localStorage.setItem("KinkyDungeonSexyPiercing", KinkyDungeonSexyPiercing ? "True" : "False");
 			return true;
 		}
-		KDUpdatePlugSettings()
+		KDUpdatePlugSettings();
 		if (MouseIn(1075, 850, 350, 64)) {
 			KinkyDungeonState = "Menu";
 			return true;
