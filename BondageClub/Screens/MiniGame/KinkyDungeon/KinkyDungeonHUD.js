@@ -375,7 +375,7 @@ function KinkyDungeonDrawInputs() {
 			MainCanvas.textAlign = "center";
 
 			if (drawLayers) {
-				DrawButton(x + 240 - ButtonWidth, y - ButtonWidth/2 - 24, 48, 48, "", drawLayers == 2 ? "White" : "#888888", KinkyDungeonRootDirectory + "Layers.png", "");
+				DrawButtonKD("surfaceItems"+sg.group, drawLayers == 2, x + (sg.left ? 240 - ButtonWidth : 12), y - ButtonWidth/2 - 20, 48, 48, "", drawLayers == 2 ? "White" : "#888888", KinkyDungeonRootDirectory + "Layers.png", "");
 			}
 
 			i = 0;
@@ -891,7 +891,7 @@ function KinkyDungeonHandleHUD() {
 				let item = KinkyDungeonGetRestraintItem(sg.group);
 				let surfaceItems = KDDynamicLinkListSurface(item);
 
-				if (surfaceItems.length > 1 && MouseIn(x + 240 - ButtonWidth, y - ButtonWidth/2 - 24, 48, 48)) {
+				if (surfaceItems.length > 1 && MouseInKD("surfaceItems"+sg.group)) {
 					if (!KDStruggleGroupLinkIndex[sg.group]) KDStruggleGroupLinkIndex[sg.group] = 1;
 					else KDStruggleGroupLinkIndex[sg.group] = KDStruggleGroupLinkIndex[sg.group] + 1;
 				}
