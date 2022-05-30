@@ -274,6 +274,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let altRoom = KDGameData.RoomType;
 		let altType = altRoom ? KinkyDungeonAltFloor((mapMod && mapMod.altRoom) ? mapMod.altRoom : altRoom) : KinkyDungeonBossFloor(Floor);
 
+		if (altType && altType.nokeys) {
+			KDGameData.KeysNeeded = false;
+		} else KDGameData.KeysNeeded = true;
+
 		let height = MapParams.min_height + 2*Math.floor(0.5*KDRandom() * (MapParams.max_height - MapParams.min_height));
 		let width = MapParams.min_width + 2*Math.floor(0.5*KDRandom() * (MapParams.max_width - MapParams.min_width));
 
@@ -444,7 +448,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			let orbcount = 2;
 			if (altType && altType.orbs != undefined) orbcount = altType.orbs;
 			if (!altType || altType.shrines)
-				KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, orbcount, Floor, width, height);
+				KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, orbcount, (altType && altType.noShrineTypes) ? altType.noShrineTypes : [], Floor, width, height);
 			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for shrine creation`);
 				startTime = performance.now();
@@ -1387,7 +1391,7 @@ function KinkyDungeonPlaceHeart(width, height, Floor) {
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, orbcount, Floor, width, height) {
+function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinecount, shrinefilter, ghostchance, orbcount, filterTypes, Floor, width, height) {
 	KinkyDungeonCommercePlaced = 0;
 
 
@@ -1479,7 +1483,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 				let type = shrineTypes.length < orbcount ? "Orb"
 					: (shrineTypes.length == orbcount && playerTypes.length > 0 ?
 						playerTypes[Math.floor(KDRandom() * playerTypes.length)]
-						: KinkyDungeonGenerateShrine(Floor));
+						: KinkyDungeonGenerateShrine(Floor, filterTypes));
 				let tile = 'A';
 				if (type != "Orb" && shrineTypes.includes(type) && (KDRandom() < 0.5 || type == "Commerce")) type = "";
 				if (type == "Orb") {
@@ -1614,7 +1618,7 @@ let KinkyDungeonCommercePlaced = 0;
 // @ts-ignore
 // @ts-ignore
 // @ts-ignore
-function KinkyDungeonGenerateShrine(Floor) {
+function KinkyDungeonGenerateShrine(Floor, filterTypes) {
 	let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
 	if (Params.shrines) {
@@ -1624,10 +1628,13 @@ function KinkyDungeonGenerateShrine(Floor) {
 
 		for (let shrine of Params.shrines) {
 			shrineWeights.push({shrine: shrine, weight: shrineWeightTotal});
-			shrineWeightTotal += shrine.Weight;
-			if (KinkyDungeonStatsChoice.has("Supermarket")) {
-				shrineWeightTotal += shrine.Weight; // Double weight of shop shrines
+			if (!filterTypes || !filterTypes.includes(shrine.Type)) {
+				shrineWeightTotal += shrine.Weight;
+				if (shrine.Type == "Commerce" && KinkyDungeonStatsChoice.has("Supermarket")) {
+					shrineWeightTotal += 15; // Increase weight of shop shrines
+				}
 			}
+
 		}
 
 		let selection = KDRandom() * shrineWeightTotal;

@@ -21,6 +21,7 @@ let alts = {
 		nojail: true,
 		nokeys: true,
 		nostairs: true,
+		noShrineTypes: ["Commerce", "Will"],
 	}
 };
 
@@ -311,6 +312,14 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
 		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
 	}
+
+	// Place a shop and a restoration shrine
+
+	KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 + 1, 'A');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Shrine", Name: "Will"});
+
+	KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 2, 'A');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 2), {Type: "Shrine", Name: "Commerce"});
 
 	// Place the exit stairs
 

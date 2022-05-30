@@ -78,7 +78,7 @@ const KinkyDungeonMapParams = {
 		"shrines": [
 			//{Type: "Charms", Weight: 5},
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -171,7 +171,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Dungeon",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -248,7 +248,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 5},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -335,7 +335,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 5},
-			{Type: "Commerce", Weight: 12},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -421,7 +421,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Egyptian",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -499,7 +499,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Prisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -591,7 +591,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Prisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},

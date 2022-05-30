@@ -75,9 +75,9 @@ function KinkyDungeonGenerateShop(Level) {
 	let items_high = 0;
 	let itemCount = 8 + Math.floor(KDRandom() * 3);
 	if (KinkyDungeonStatsChoice.has("Supermarket")) {
-		items_mid = -2;
-		items_high = -2;
-		itemCount += 5;
+		items_mid = -1;
+		items_high = -1;
+		itemCount += 2;
 	}
 	for (let I = itemCount; I > 0; I--) {
 		let Rarity = 0;

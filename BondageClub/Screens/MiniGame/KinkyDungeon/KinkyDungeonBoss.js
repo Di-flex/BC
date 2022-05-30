@@ -20,6 +20,8 @@ let bosses = {
 		specialtiles: true,
 		shortcut: false,
 		enemies: false,
+		nokeys: true,
+		nojail: false,
 	}
 };
 

@@ -109,6 +109,7 @@ let KDOptOut = false;
 
 /**
 *  @typedef {{
+* KeysNeeded: boolean,
 * PoolUses: number,
 * PoolUsesGrace: number,
 * JailRemoveRestraintsTimer: number;
@@ -181,6 +182,7 @@ let KDOptOut = false;
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	KeysNeeded: false,
 	RoomType: "",
 	MapMod: "",
 

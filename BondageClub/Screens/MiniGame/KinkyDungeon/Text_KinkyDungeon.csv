@@ -153,7 +153,7 @@ KinkyDungeonStat41,"Kill Squad"
 KinkyDungeonStatDesc41,"Enemies see you through walls and at greater distance."
 
 KinkyDungeonStat42,"Supermarket"
-KinkyDungeonStatDesc42,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStatDesc42,"Commerce shrines can appear in levels and have slightly more items."
 KinkyDungeonStat43,"Price Gouging"
 KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
 
@@ -163,7 +163,7 @@ KinkyDungeonStat45,"Deprived"
 KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain distraction while chaste."
 
 KinkyDungeonStat46,"Supermarket"
-KinkyDungeonStatDesc46,"Commerce shrines are more commmon, and the shop contains 5 more items than usual."
+KinkyDungeonStatDesc46,"Commerce shrines can appear in levels and have slightly more items."
 KinkyDungeonStat47,"Price Gouging"
 KinkyDungeonStatDesc47,"Items are 5x as expensive in the shop."
 
@@ -746,7 +746,8 @@ KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. 
 KinkyDungeonNoWeaponKnife,Knife
 KinkyDungeonNoWeapon,Unarmed
 KinkyDungeonAccuracy,"Hit Chance: "
-KinkyDungeonPlayerNoKeys,Find the exit!
+KinkyDungeonPlayerNoKeys,Find the keys..
+KinkyDungeonPlayerYesKeys,Find the exit!
 KinkyDungeonPlayerHelp,"Receiving Help..."
 KinkyDungeonPlayerHook,"Found an edge!"
 KinkyDungeonPlayerEvasion,"Evasion: "

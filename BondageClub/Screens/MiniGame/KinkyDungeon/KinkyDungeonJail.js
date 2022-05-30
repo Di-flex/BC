@@ -26,10 +26,13 @@ function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 		KDGameData.JailKey = false;
 		KinkyDungeonGroundItems = KinkyDungeonGroundItems.filter((item) => {return item.name != "Keyring";});
 	}
-	if (!KDGameData.JailKey && (!KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) || !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel).bossroom)) {
-		let keyCount = KinkyDungeonGroundItems.filter((item) => {return item.name == "Keyring";}).length;
-		for (let i = 0; i < 2 - keyCount; i++) {
-			KinkyDungeonPlaceJailKeys();
+	if (!KDGameData.JailKey) {
+		let altRoom = KinkyDungeonAltFloor(KDGameData.RoomType);
+		if ((!altRoom || !altRoom.nokeys) && (!KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel) || !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel).nokeys)) {
+			let keyCount = KinkyDungeonGroundItems.filter((item) => {return item.name == "Keyring";}).length;
+			for (let i = 0; i < 2 - keyCount; i++) {
+				KinkyDungeonPlaceJailKeys();
+			}
 		}
 	}
 
