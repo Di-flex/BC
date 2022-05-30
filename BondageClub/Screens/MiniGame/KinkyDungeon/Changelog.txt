@@ -937,6 +937,7 @@ Spell Balance:
 - Tying enemies no longer slows attack speed, only move speed
 - Features more diverse map generation!
 - Improved (?) Chinese translation!
+- New enemy: Deputy
 
 TODO ValidationFindBlockCycles to prevent bugs
 

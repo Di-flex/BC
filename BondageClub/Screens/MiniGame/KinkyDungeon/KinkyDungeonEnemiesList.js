@@ -81,7 +81,7 @@ let KinkyDungeonEnemies = [
 	{name: "Deputy", color: "#1451f1", faction: "Bountyhunter", bound: "Ninja", clusterWith: "human", tags: KDMapInit(["leashing", "opendoors", "human", "bountyhunter", "handcuffer", "steelCuffs", "police", "melee", "search", "jail", "jailer"]), followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true,
 		stunTime: 5, specialCD: 11, specialCharges: 4, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, strictAttackLOS: true, specialWidth: 2, specialAttackPoints: 4, specialRange: 5, specialMinrange: 1.5, //specialFollow: 3,
 		visionRadius: 8, maxhp: 12, minLevel:4, weight:4, movePoints: 1, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"secondhalf":3, "lastthird":7, "leatherAnger": 2, "metalAnger": 2}, shrines: ["Leather", "Metal"], floors:KDMapInit(["cat", "tmb", "tmp", "cry"]),
+		terrainTags: {"secondhalf":3, "lastthird":7, "leatherAnger": 2, "metalAnger": 2}, shrines: ["Leather", "Metal"], floors:KDMapInit(["grv", "jng", "lib", "cry"]),
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 10, weight: 10}, {name: "RedKey", weight: 1}]},
 	{name: "NinjaStalker", faction: "Bountyhunter", bound: "NinjaStalker", clusterWith: "human", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "ninja", "human", "bountyhunter", "melee", "ropeRestraints", "ropeRestraints2", "unarmedresist", "slashresist", "glueweakness", "chainweakness", "search"]), blindSight: 5, followRange: 1, AI: "ambush", stealth: 1, noReveal: true,
 		ambushRadius: 1.9, wanderTillSees: true, visionRadius: 7, maxhp: 12, minLevel:4, weight:4, movePoints: 1, attackPoints: 3, focusPlayer: true,
