@@ -86,9 +86,10 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 			MiniGameVictory = false;
 			let roomType = "";
 			let currCheckpoint = MiniGameKinkyDungeonCheckpoint;
+			let altRoom = KinkyDungeonAltFloor(KDGameData.RoomType);
 
 			// We increment the save, etc, after the tunnel
-			if (KDGameData.RoomType == "Tunnel") {
+			if (KDGameData.RoomType == "Tunnel" || (altRoom && altRoom.skiptunnel)) {
 				MiniGameKinkyDungeonLevel += 1;
 				if (KinkyDungeonStatsChoice.get("Trespasser")) {
 					KinkyDungeonChangeRep("Rope", -1);
@@ -131,6 +132,11 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				if (MapMod) {
 					KDGameData.MapMod = MapMod;
 				} else KDGameData.MapMod = "";
+				let Journey = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).Journey;
+				if (Journey) {
+					KDGameData.Journey = Journey;
+					KDInitializeJourney(KDGameData.Journey);
+				}
 			}
 
 

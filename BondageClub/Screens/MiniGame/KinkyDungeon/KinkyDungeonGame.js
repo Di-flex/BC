@@ -365,6 +365,9 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		// MAP GENERATION
 
 		let VisitedRooms = [];
+
+		KinkyDungeonStartPosition = {x: 2, y: startpos * 2};
+
 		KinkyDungeonMapSet(1, startpos, '1', VisitedRooms);
 
 		let POI = [];
@@ -378,14 +381,12 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		}
 		width = KinkyDungeonGridWidth;
 		height = KinkyDungeonGridHeight;
-		startpos *= 2;
 
 		KinkyDungeonResetFog();
 
 		// Place the player!
-		KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: 2, y:startpos, player:true};
+		KinkyDungeonPlayerEntity = {MemberNumber:Player.MemberNumber, x: KinkyDungeonStartPosition.x, y:KinkyDungeonStartPosition.y, player:true};
 
-		KinkyDungeonStartPosition = {x: 2, y: startpos};
 
 		let spawnPoints = [];
 
@@ -395,7 +396,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			console.log(`${performance.now() - startTime} ms for doodad creation`);
 			startTime = performance.now();
 		}
-		KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), startpos, width, height, altType && altType.nostairs); // Place the start and end locations
+		KinkyDungeonPlaceStairs(KinkyDungeonGetMainPath(Floor), KinkyDungeonStartPosition.y, width, height, altType && altType.nostairs); // Place the start and end locations
 		if (KDDebug) {
 			console.log(`${performance.now() - startTime} ms for stair creation`);
 			startTime = performance.now();
@@ -473,7 +474,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				console.log(`${performance.now() - startTime} ms for patrol point creation`);
 				startTime = performance.now();
 			}
-			KinkyDungeonPlaceLore(width, height);if (KDDebug) {
+
+			if ((!altType || !altType.nolore))
+				KinkyDungeonPlaceLore(width, height);
+			if (KDDebug) {
 				console.log(`${performance.now() - startTime} ms for lore creation`);
 				startTime = performance.now();
 			}

@@ -22,10 +22,17 @@ let KDDialogue = {
 	"GhostInfo": {
 		response: "Default",
 		options: {
-			"Continue" : {playertext: "Default", exitDialogue: true},
-			"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
-			"Snark" : {playertext: "Default", exitDialogue: true},
-			"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+			"Continue" : {
+				clickFunction: (gagged) => {
+					KinkyDungeonTargetTile = null;
+					KinkyDungeonTargetTileLocation = "";
+					return true;
+				} ,
+				playertext: "Default", exitDialogue: true
+			},
+			//"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			//"Snark" : {playertext: "Default", exitDialogue: true},
+			//"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
 		},
 	},
 	"WeaponFound": {

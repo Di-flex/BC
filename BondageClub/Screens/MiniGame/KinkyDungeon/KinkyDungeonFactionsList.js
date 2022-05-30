@@ -57,6 +57,34 @@ let KinkyDungeonFactionRelationsBase = {
 		Elf: -0.26,
 		Mushy: -0.64,
 		AncientRobot: -0.45,
+
+		// Special factions
+		Angel: 0.1,
+		Demon: -0.25,
+	},
+	"Angel": {
+		Demon: -1.0,
+		Elemental: 0.15,
+		Dragon: 0.05,
+		AncientRobot: -0.25,
+		Nevermere: -0.1,
+	},
+	"Demon": {
+		Elf: -1.0,
+		Bast: -1.0,
+		Witch: 0.25,
+
+		Bountyhunter: -0.5,
+		Bandit: -0.5,
+		Alchemist: -0.5,
+		Nevermere: -0.5,
+		Apprentice: -0.5,
+		Dressmaker: -0.5,
+		Elemental: -0.1,
+		Dragon: -1.0,
+		Maidforce: -0.5,
+		Mushy: -0.5,
+		AncientRobot: -0.45,
 	},
 	"Enemy": {
 	},
@@ -290,8 +318,8 @@ function KDSetFactionRelation(a, b, relation) {
  */
 function KDChangeFactionRelation(a, b, amount, AffectRivals) {
 	if (a == "Rage" || b == "Rage") return;
-	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelations[a] || 0;
-	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelations[b] || 0;
+	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelationsBase[a] || 0;
+	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelationsBase[b] || 0;
 
 	if (KinkyDungeonFactionRelations[a]) {
 		if (!KinkyDungeonFactionRelations[a][b] && KinkyDungeonFactionRelations[b][a])

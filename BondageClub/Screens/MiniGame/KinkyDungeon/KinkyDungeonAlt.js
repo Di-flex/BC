@@ -22,8 +22,33 @@ let alts = {
 		nokeys: true,
 		nostairs: true,
 		noShrineTypes: ["Commerce", "Will"],
-	}
+	},
+	"JourneyFloor": {
+		name: "JourneyFloor",
+		bossroom: false,
+		width: 12,
+		height: 8,
+		setpieces: {
+		},
+		genType: "JourneyFloor",
+		spawns: false,
+		chests: false,
+		shrines: false,
+		orbs: 0,
+		chargers: false,
+		heart: false,
+		specialtiles: false,
+		shortcut: false,
+		enemies: false,
+		nojail: true,
+		nokeys: true,
+		nolore: true,
+		nostairs: true,
+		skiptunnel: true, // Skip the ending tunnel
+	},
 };
+
+let KDJourneyList = ["Random", "Harder"];
 
 function KinkyDungeonAltFloor(Type) {
 	return alts[Type];
@@ -33,6 +58,9 @@ function KinkyDungeonAltFloor(Type) {
 let KinkyDungeonCreateMapGenType = {
 	"Room": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
 		KinkyDungeonCreateRoom(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	},
+	"JourneyFloor": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 	},
 	"Tunnel": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
 		KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
@@ -345,6 +373,77 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 	if (!boss)
 		KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2), {MapMod: exit3});
 	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "MapMod" + exit3});
+
+	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
+}
+
+
+function KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+	// Variable setup
+
+	KinkyDungeonStartPosition = {x: 2, y: height};
+	VisitedRooms[0].x = 1;
+	VisitedRooms[0].y = Math.floor(height/2);
+
+	KinkyDungeonCreateRectangle(0, 0, width, height, true, true, false, false);
+
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y - 1, 2, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, width - 2, 1, false, false, false, false);
+
+	// Create a branching room for journeys
+	let b1 = 4;
+	KinkyDungeonCreateRectangle(b1, VisitedRooms[0].y - 3, width - b1, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(b1, VisitedRooms[0].y - 3, 1, 3, false, false, false, false);
+
+	/*
+	// Add the prison
+	let py = (VisitedRooms[0].y < height - 5 ? height - 3 : 3);
+	POI.push({x: 2*VisitedRooms[0].x + 4, y: 2*py, requireTags: [], favor: ["GuaranteedCell"], used: false});
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), b2-2, 1, false, false, false, false);
+	KinkyDungeonCreateRectangle(b2, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);*/
+
+
+	// Now we STRETCH the map
+	let KinkyDungeonOldGrid = KinkyDungeonGrid;
+	let w = KinkyDungeonGridWidth;
+	let h = KinkyDungeonGridHeight;
+	KinkyDungeonGridWidth = Math.floor(KinkyDungeonGridWidth*2);
+	KinkyDungeonGridHeight = Math.floor(KinkyDungeonGridHeight*2);
+	KinkyDungeonGrid = "";
+
+	// Generate the grid
+	for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+		for (let X = 0; X < KinkyDungeonGridWidth; X++)
+			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
+		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
+	}
+
+	// Normal end stairs
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2, 's');
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2), {Journey: undefined});
+	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "JourneyNone"});
+
+	// Tutorial end stairs
+	//KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 2, 's');
+	KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 1, 'G');
+	//KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 2), {Journey: undefined});
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 1), {Type: "Ghost", Msg: "JourneyTutorial"});
+
+	// Place journey stairs
+	let x = b1 * 2;
+	let i = 0;
+	while (x < width*2-2) {
+		if (KDJourneyList[i]) {
+			KinkyDungeonMapSet(x, VisitedRooms[0].y*2 - 6, 's');
+			KinkyDungeonMapSet(x, VisitedRooms[0].y*2 - 5, 'G');
+			KinkyDungeonTiles.set("" + (x) + "," + (VisitedRooms[0].y*2 - 6), {Journey: KDJourneyList[i]});
+			KinkyDungeonTiles.set("" + (x) + "," + (VisitedRooms[0].y*2 - 5), {Type: "Ghost", Msg: "Journey" + KDJourneyList[i]});
+		}
+		i++;
+		x += 2;
+	}
 
 	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
 }

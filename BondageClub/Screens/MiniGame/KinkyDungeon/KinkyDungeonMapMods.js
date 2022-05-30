@@ -59,8 +59,8 @@ let KDMapMods = {
 		weight: 70,
 		tags: ["wolfgirl"],
 		bonusTags: {
-			"wolfgirl": {bonus: 9, mult: 1.5},
-			"trainer": {bonus: 7, mult: 0.75},
+			"wolfgirl": {bonus: 11, mult: 1.5},
+			"trainer": {bonus: 11, mult: 0.75},
 		},
 		altRoom: "",
 	},

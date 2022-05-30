@@ -42,7 +42,8 @@ KinkyDungeonJourney1,"Random: A chaotic journey"
 KinkyDungeonJourney2,"Harder: A more difficult journey"
 
 KinkyDungeonStats,"Select your character's background. You cannot change these in the future."
-KinkyDungeonStartGame,"Confirm and start playing!"
+KinkyDungeonStartGameAdv,"Advanced start (choose perks)"
+KinkyDungeonStartGameQuick,"Confirm and start playing!"
 
 KinkyDungeonStatCost,"Point Cost: AMOUNT"
 KinkyDungeonStatPoints,"Points Available: AMOUNT"
@@ -1745,10 +1746,10 @@ KinkyDungeonStruggleRemoveImpossibleBoundSlimeAroused,"The slime reforms too qui
 
 KinkyDungeonStruggleRemoveFailSlimeHard,"You grasp around, looking for a seam..."
 KinkyDungeonStruggleRemoveFailSlimeHardAroused,"You wiggle and squeeze yourself in various places, looking for a lead..."
-KinkyDungeonStruggleRemoveImpossibleHardSlime,"The rubber encases you in a solid layer!"
-KinkyDungeonStruggleRemoveImpossibleHardSlimeAroused,"Try as you might, the rubber hugs you completely without any seams!"
-KinkyDungeonStruggleRemoveImpossibleHardBoundSlime,"The rubber is too tight to get any traction..."
-KinkyDungeonStruggleRemoveImpossibleHardBoundSlimeAroused,"The rubber squeezes your body too tightly to get any sort of ply..."
+KinkyDungeonStruggleRemoveImpossibleSlimeHard,"The rubber encases you in a solid layer!"
+KinkyDungeonStruggleRemoveImpossibleSlimeHardAroused,"Try as you might, the rubber hugs you completely without any seams!"
+KinkyDungeonStruggleRemoveImpossibleBoundSlimeHard,"The rubber is too tight to get any traction..."
+KinkyDungeonStruggleRemoveImpossibleBoundSlimeHardAroused,"The rubber squeezes your body too tightly to get any sort of ply..."
 
 KinkyDungeonStruggleRemoveFailTape,"You start peeling off the wrapping..."
 KinkyDungeonStruggleRemoveFailTapeAroused,"You scratch at the wrapping furiously..."
@@ -1880,6 +1881,9 @@ KinkyDungeonFactionElemental,Elementals
 KinkyDungeonFactionDragon,Dragonheart Order
 KinkyDungeonFactionMaidforce,MaidForce
 KinkyDungeonFactionMushy,Fungal Kingdom
+
+KinkyDungeonFactionAngel,Angels
+KinkyDungeonFactionDemon,Demons
 
 KinkyDungeonShrineTooltipTrap,"You sense that the chest contains a trap and a lot of gold."
 KinkyDungeonShrineTooltipNoTrap,"You sense that the chest is safe to open."
@@ -4186,6 +4190,7 @@ KinkyDungeonSaveModeDesc1,No save codes. You are in it to win it.
 
 KinkyDungeonStartGame,Start Playing
 KinkyDungeonStartGameDesc,"Lock your settings in, nice and tight."
+KinkyDungeonStartGameDescAdc,"Choose some perks to spice up your run."
 
 KinkyDungeonConsent,"This game engages in safe and consensual analytics."
 KinkyDungeonConsent2,"It sends data about spell choices, levels reached, etc, to help balance and improve the game."
@@ -5100,3 +5105,9 @@ rMapModSlime,"Slimes, slimes EVERYWHERE!|Fortunately there's a slime-harvesting|
 rMapModWolf,"The trainers are taking their wolfgirls out for a walk.|I'd steer clear.|Unless you want to become one of their pets~"
 rMapModRobot,"Rumor has it that one of the cyber-dolls escaped.|Their handlers are looking for her.|They're catching every young girl they can find!"
 rMapModBoss,"This is totally a normal floor.|No doubt about it."
+
+rJourneyNone,"This is the normal entrance to the dungeon.|The tutorial is at the beginning of the hall."
+rJourneyHarder,"This is the entrance to the ancient tombs.|It's harder than the normal entrance."
+rJourneyRandom,"This part of the dungeon has been altered by the goddess of chaos.|The order of zones you'll go through is totally random."
+
+rJourneyTutorial,"I'm sorry! There's supposed to be a tutorial here!|It's a work in progress.|Please come back next time miss!"
