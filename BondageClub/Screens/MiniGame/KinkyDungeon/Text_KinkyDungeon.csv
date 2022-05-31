@@ -3603,7 +3603,7 @@ KinkyDungeonSpellTrapCableWeak,Cable Trap
 KinkyDungeonSpellTrapSlimeWeak,Slime Trap
 KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
 KinkyDungeonSpellTrapLustCloud,Gas Trap
-KinkyDungeonSpellTrapSPCloud,Gas Trap
+KinkyDungeonSpellTrapSCloud,Gas Trap
 KinkyDungeonSpellTrapSleepDart,Sleep Dart
 KinkyDungeonSpellSleepDart,Sleep Dart
 
@@ -3618,7 +3618,7 @@ KinkyDungeonSpellCastTrapCableWeak,"high-tech cables come out from the floor!"
 KinkyDungeonSpellCastTrapSlimeWeak,"Slimes pours out from the walls and ceiling!"
 KinkyDungeonSpellCastTrapMagicChainsWeak,"Ethereal chains appear all around you!"
 KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of green gas rises around you!"
-KinkyDungeonSpellCastTrapSPCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
+KinkyDungeonSpellCastTrapSCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
 KinkyDungeonTrapBindingsCharmWeak,"The charms stick themselves all over your body!"
 KinkyDungeonTrapBindingsRibbons,"The ribbons tie themselves tightly around your body and won't let go!"
 KinkyDungeonTrapBindingsShackleWeak,"Shackles close themselves over your limbs!"
@@ -4184,6 +4184,7 @@ KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and em
 KinkyDungeonBarrel,You hide inside the container...
 KinkyDungeonScrap,It's a crumpled piece of scrap metal with a sharp edge.
 KinkyDungeonScrapUse,You use the scrap to try and cut the item.
+KinkyDungeonScrapObjectUse,You rub the item against the broken object's sharp edges...
 KinkyDungeonHookHigh,A hook hangs at shoulder height.
 KinkyDungeonHookHighFail,You can't reach that with the hook!
 KinkyDungeonHookLow,There's a hook on the wall.
@@ -5129,7 +5130,7 @@ rJourneyNone,"This is the normal entrance to the dungeon.|The tutorial is at the
 rJourneyHarder,"This is the entrance to the ancient tombs.|It's harder than the normal entrance."
 rJourneyRandom,"This part of the dungeon has been altered by the goddess of chaos.|The order of zones you'll go through is totally random."
 
-rJourneyTutorial,"I'm sorry! There's supposed to be a tutorial here!|It's a work in progress.|Please come back next time miss!"
+rJourneyTutorial,"These are the stairs to the tutorial hall."
 
 rTutorialCongrats,"Congratulations! You've completed the tutorial!|Now get in there and stay out of trouble~"
 

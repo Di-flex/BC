@@ -548,21 +548,21 @@ function KinkyDungeonCreateTutorial(POI, VisitedRooms, width, height, openness, 
 		Type: "Trap",
 		Trap: "SpecificSpell",
 		noVary: true,
-		Spell: "TrapSPCloud",
+		Spell: "TrapSCloud",
 	});
 	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 3, VisitedRooms[0].y*2, 'T');
 	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 3) + "," + (VisitedRooms[0].y*2), {
 		Type: "Trap",
 		Trap: "SpecificSpell",
 		noVary: true,
-		Spell: "TrapSPCloud",
+		Spell: "TrapSCloud",
 	});
 	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 3, VisitedRooms[0].y*2 + 1, 'T');
 	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 3) + "," + (VisitedRooms[0].y*2 + 1), {
 		Type: "Trap",
 		Trap: "SpecificSpell",
 		noVary: true,
-		Spell: "TrapSPCloud",
+		Spell: "TrapSCloud",
 	});
 	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
 	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_sp1"});

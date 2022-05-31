@@ -528,6 +528,16 @@ function KinkyDungeonGetAffinity(Message, affinity) {
 			KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonScrapUse"), "lightgreen", 2);
 			return true;
 		}
+		for (let X = KinkyDungeonPlayerEntity.x - 1; X <= KinkyDungeonPlayerEntity.x + 1; X++) {
+			for (let Y = KinkyDungeonPlayerEntity.y - 1; Y <= KinkyDungeonPlayerEntity.y + 1; Y++) {
+				let tile2 = KinkyDungeonMapGet(X, Y);
+				if (tile2 == '-'
+					|| tile == 'a') {
+					KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonScrapObjectUse"), "lightgreen", 2);
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
