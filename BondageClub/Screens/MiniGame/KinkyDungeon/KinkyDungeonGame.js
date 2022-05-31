@@ -52,7 +52,7 @@ let KinkyDungeonTerrain = [];
 
 let KinkyDungeonMapBrightness = 5;
 
-let KinkyDungeonGroundTiles = "023w][?,";
+let KinkyDungeonGroundTiles = "023w][?,/";
 let KinkyDungeonMovableTilesEnemy = KinkyDungeonGroundTiles + "HBSsRrdTgL"; // Objects which can be moved into: floors, debris, open doors, staircases
 let KinkyDungeonMovableTilesSmartEnemy = "D" + KinkyDungeonMovableTilesEnemy; //Smart enemies can open doors as well
 let KinkyDungeonMovableTiles = "OCAG$Y+=-" + KinkyDungeonMovableTilesSmartEnemy; // Player can open chests, orbs, shrines, chargers
@@ -271,6 +271,11 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			mapMod = KDMapMods[KDGameData.MapMod];
 		}
 
+
+		// Create enemies first so we can spawn them in the set pieces if needed
+		let allies = KinkyDungeonGetAllies();
+		KinkyDungeonEntities = allies;
+
 		let altRoom = KDGameData.RoomType;
 		let altType = altRoom ? KinkyDungeonAltFloor((mapMod && mapMod.altRoom) ? mapMod.altRoom : altRoom) : KinkyDungeonBossFloor(Floor);
 
@@ -420,10 +425,6 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 				startTime = performance.now();
 			}
 		}
-
-		// Create enemies first so we can spawn them in the set pieces if needed
-		let allies = KinkyDungeonGetAllies();
-		KinkyDungeonEntities = allies;
 
 		KinkyDungeonPlaceSetPieces(POI, traps, chestlist, shrinelist, chargerlist, spawnPoints, false, width, height);
 
@@ -1350,9 +1351,12 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 		} else {
 
 			let chest = list[N];
-			if (KDRandom() < rubblechance) KinkyDungeonMapSet(chest.x, chest.y, 'R');
+			if (KDRandom() < rubblechance) {
+				KinkyDungeonMapSet(chest.x, chest.y, 'R');
+				if (KDAlreadyOpened(chest.x, chest.y)) KinkyDungeonMapSet(chest.x, chest.y, 'r');
+			} else if (Math.pow(KDRandom(), 2) < rubblechance - 0.01) KinkyDungeonMapSet(chest.x, chest.y, '/');
 			else KinkyDungeonMapSet(chest.x, chest.y, 'r');
-			if (KDAlreadyOpened(chest.x, chest.y)) KinkyDungeonMapSet(chest.x, chest.y, 'r');
+
 		}
 		list.splice(N, 1);
 	}
@@ -1991,11 +1995,11 @@ function KinkyDungeonReplaceDoodads(Chance, barchance, wallRubblechance, barrelC
 					|| (KDRandom() < barrelChance && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y+1) == '0' && KinkyDungeonMapGet(X+1, Y+1) == '0' && KinkyDungeonMapGet(X-1, Y+1) == '0')
 					|| (KDRandom() < barrelChance && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X+1, Y-1) == '0' && KinkyDungeonMapGet(X-1, Y-1) == '0'))) {
 				KinkyDungeonMapSet(X, Y, 'L'); // Barrel
-			} else if ((KDRandom() < wallhookchance*2 && KinkyDungeonMapGet(X-2, Y) == '1' && KinkyDungeonMapGet(X+2, Y) == '1' && KinkyDungeonMapGet(X, Y-2) == '1' && KinkyDungeonMapGet(X, Y+2) == '1')
+			} else if ((KinkyDungeonMapGet(X, Y) == '2' || KinkyDungeonMapGet(X, Y) == '0') && ((KDRandom() < wallhookchance*2 && KinkyDungeonMapGet(X-2, Y) == '1' && KinkyDungeonMapGet(X+2, Y) == '1' && KinkyDungeonMapGet(X, Y-2) == '1' && KinkyDungeonMapGet(X, Y+2) == '1')
 				|| (KDRandom() < wallhookchance && KinkyDungeonMapGet(X-1, Y) == '1' && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X+1, Y) == '0' && KinkyDungeonMapGet(X+1, Y-1) == '0' && KinkyDungeonMapGet(X+1, Y+1) == '0')
 				|| (KDRandom() < wallhookchance && KinkyDungeonMapGet(X+1, Y) == '1' && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X-1, Y) == '0' && KinkyDungeonMapGet(X-1, Y-1) == '0' && KinkyDungeonMapGet(X-1, Y+1) == '0')
 				|| (KDRandom() < wallhookchance && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y+1) == '0' && KinkyDungeonMapGet(X+1, Y+1) == '0' && KinkyDungeonMapGet(X-1, Y+1) == '0')
-				|| (KDRandom() < wallhookchance && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X+1, Y-1) == '0' && KinkyDungeonMapGet(X-1, Y-1) == '0')) {
+				|| (KDRandom() < wallhookchance && KinkyDungeonMapGet(X, Y+1) == '1' && KinkyDungeonMapGet(X, Y-1) == '1' && KinkyDungeonMapGet(X, Y-1) == '0' && KinkyDungeonMapGet(X+1, Y-1) == '0' && KinkyDungeonMapGet(X-1, Y-1) == '0'))) {
 				KinkyDungeonMapSet(X, Y, ','); // Wall hook
 			} else if (KDRandom() < ceilinghookchance && (KinkyDungeonMapGet(X, Y) == '2' || KinkyDungeonMapGet(X, Y) == '0' &&
 				(KinkyDungeonMapGet(X-1, Y) != '1'

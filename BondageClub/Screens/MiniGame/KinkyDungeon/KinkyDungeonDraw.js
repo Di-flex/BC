@@ -13,6 +13,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "4") sprite = "Wall";
 	else if (code == "L") sprite = "Barrel";
 	else if (code == "?") sprite = "Floor";
+	else if (code == "/") sprite = "RubbleLooted";
 	else if (code == ",") sprite = "Floor";
 	else if (code == "D") {
 		sprite = "Door";
@@ -60,6 +61,7 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	}
 	if (code == "$") sprite = "Angel";
 	else if (code == "R") sprite = "Rubble";
+	else if (code == "/") sprite = "Scrap";
 	else if (code == "Y") sprite = "Rubble";
 	else if (code == "=") sprite = "ChargerCrystal";
 	else if (code == "+") sprite = "Charger";

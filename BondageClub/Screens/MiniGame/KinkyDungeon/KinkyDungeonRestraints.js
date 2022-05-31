@@ -495,7 +495,7 @@ function KinkyDungeonGetAffinity(Message, affinity) {
 		let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 		if (tile == '?') {
 			if (KinkyDungeonCanStand()) return true;
-			else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHookHighFail"), "red", 1);
+			else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHookHighFail"), "red", 2);
 		} else if (tile == ',') return true;
 		return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
 	} else if (affinity == "Edge") {
@@ -513,7 +513,7 @@ function KinkyDungeonGetAffinity(Message, affinity) {
 					|| tile == 'B') {
 					return true;
 				} else if (tile == 'C' && Message) {
-					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNeedOpenChest"), "red", 1);
+					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNeedOpenChest"), "red", 2);
 				}
 			}
 		}
@@ -523,6 +523,11 @@ function KinkyDungeonGetAffinity(Message, affinity) {
 	} else if (affinity == "Sharp") {
 		if (((KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp()) && KinkyDungeonAllWeapon().some((inv) => {return KDWeapon(inv).light && KDWeapon(inv).cutBonus != undefined;})) || KinkyDungeonWeaponCanCut(true)) return true;
 		if (KinkyDungeonAllWeapon().some((inv) => {return KDWeapon(inv).light && KDWeapon(inv).cutBonus != undefined;}) && (!KinkyDungeonIsArmsBound() || KinkyDungeonStatsChoice.has("Psychic") || KinkyDungeonWallCrackAndKnife(false))) return true;
+		let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+		if (tile == '/') {
+			KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonScrapUse"), "lightgreen", 2);
+			return true;
+		}
 		return false;
 	}
 	return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
@@ -1116,14 +1121,17 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 			if (KinkyDungeonWallCrackAndKnife(true)) {
 				data.escapeChance *= 0.92;
 			} else if (!KinkyDungeonIsArmsBound(true)) {
-				data.escapeChance *= 0.6;
+				data.escapeChance *= 0.7;
 			} else if (KinkyDungeonStatsChoice.get("Psychic")) {
+				data.escapeChance *= 0.55;
+			} else if (data.hasAffinity) {
 				data.escapeChance *= 0.4;
 			} else {
 				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNeedGrip"), "red", 2);
 				data.escapeChance *= 0.0;
 			}
-		} else data.escapeChance *= 0.3;
+		} else if (data.hasAffinity) data.escapeChance *= 0.4;
+		else data.escapeChance = 0;
 
 		data.escapeChance = Math.max(0, data.escapeChance - 0.05);
 

@@ -637,5 +637,19 @@ function KinkyDungeonCreateTutorial(POI, VisitedRooms, width, height, openness, 
 
 	// END
 
+
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 4, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 4) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial4"});
+
+	DialogueCreateEnemy(width*2 - 7, VisitedRooms[0].y*2, "FastZombie").AI = "guard";
+	DialogueCreateEnemy(width*2 - 5, VisitedRooms[0].y*2 + 1, "FastZombie").AI = "guard";
+	DialogueCreateEnemy(width*2 - 3, VisitedRooms[0].y*2, "FastZombie").AI = "guard";
+	DialogueCreateEnemy(width*2 - 3, VisitedRooms[0].y*2 + 1, "BlindZombie").AI = "guard";
+
+	KinkyDungeonMapSet(width*2 - 5, VisitedRooms[0].y*2, 'C');
+	KinkyDungeonTiles.set("" + (width*2 - 5) + "," + (VisitedRooms[0].y*2), {Loot: "silver", Roll: KDRandom()});
+	KinkyDungeonMapSet(width*2 - 6, VisitedRooms[0].y*2, 'C');
+	KinkyDungeonTiles.set("" + (width*2 - 6) + "," + (VisitedRooms[0].y*2), {Loot: "chest", Roll: KDRandom()});
+
 	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
 }

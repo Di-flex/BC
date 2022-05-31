@@ -57,6 +57,8 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookHigh"), "lightgreen", 1);
 	} else if (tile == ",") { // Low hook
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookLow"), "lightgreen", 1);
+	} else if (tile == "/") { // Low hook
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonScrap"), "lightgreen", 1);
 	}
 }
 

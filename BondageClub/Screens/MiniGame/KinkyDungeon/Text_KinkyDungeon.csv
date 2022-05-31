@@ -4182,6 +4182,8 @@ KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit fo
 KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!
 
 KinkyDungeonBarrel,You hide inside the container...
+KinkyDungeonScrap,It's a crumpled piece of scrap metal with a sharp edge.
+KinkyDungeonScrapUse,You use the scrap to try and cut the item.
 KinkyDungeonHookHigh,A hook hangs at shoulder height.
 KinkyDungeonHookHighFail,You can't reach that with the hook!
 KinkyDungeonHookLow,There's a hook on the wall.
@@ -5153,3 +5155,4 @@ rTutorial3_1,"That wasn't so hard, was it?|Now then, there's a treasure chest ov
 rTutorial3_2,"Yikes, looks like you're in a bind!|No worries, though. There's a key to those cuffs over there.|Simply hover over the cuffs item test on the left side.|Then, click the lock icon to remove the lock.|Finally, click the buckle to remove the cuffs."
 rTutorial3_3,"I think we all know what's in the next chest.|It's important to understand the different ways you can escape.|You can struggle, which costs the most stamina|but makes other struggle methods faster.|You can cut, which requires a knife in hand.|You can remove, which represents untying or unbuckling."
 rTutorial3_4,"Ouch, that looked tight...|Sometimes you won't be able to struggle out of things.|You'll have to find some other way to take it off..."
+rTutorial4,"There's a few zombies up ahead.|Fight your way through and claim the treasure!"
