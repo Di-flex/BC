@@ -708,8 +708,11 @@ function KinkyDungeonRun() {
 			KinkyDungeonStartNewGame();
 			return true;
 		}, true, 875, 650, 750, 64, TextGet("KinkyDungeonStartGameQuick"), "White", "");
-		DrawButtonKDEx("startGame", () => {KinkyDungeonState = "Stats"; return true;}, true,
-			875, 720, 750, 64, TextGet("KinkyDungeonStartGameAdv"), "White", "");
+		DrawButtonKDEx("startGame", () => {
+			KinkyDungeonState = "Stats";
+			KDUpdatePlugSettings();
+			return true;
+		}, true, 875, 720, 750, 64, TextGet("KinkyDungeonStartGameAdv"), "White", "");
 
 
 
