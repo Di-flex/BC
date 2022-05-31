@@ -317,7 +317,7 @@ interface floorParams {
 	background : string,
 	openness : number, // Openness of rooms
 	density : number, // Density of tunnels (inverse of room spawn chance)
-	doodadchance : number,
+	crackchance : number,
 	barchance : number,
 	brightness : number,
 	chestcount : number,

@@ -496,7 +496,7 @@ function KinkyDungeonGetAffinity(Message, affinity) {
 		if (tile == '?') {
 			if (KinkyDungeonCanStand()) return true;
 			else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHookHighFail"), "red", 2);
-		} else if (tile == ',') return true;
+		} else if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - 1) == ',') return true;
 		return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
 	} else if (affinity == "Edge") {
 		for (let X = KinkyDungeonPlayerEntity.x - 1; X <= KinkyDungeonPlayerEntity.x + 1; X++) {
@@ -548,7 +548,7 @@ function KinkyDungeonWallCrackAndKnife(Message) {
 		for (let Y = KinkyDungeonPlayerEntity.y - 1; Y <= KinkyDungeonPlayerEntity.y + 1; Y++) {
 			if (X == KinkyDungeonPlayerEntity.x || Y == KinkyDungeonPlayerEntity.y) {
 				let tile = KinkyDungeonMapGet(X, Y);
-				if (tile == '4') {
+				if (tile == '4' || tile == '\\') {
 					if (!KinkyDungeonIsArmsBound(true) || KinkyDungeonCanStand()) {
 						if (Message) {
 							if (!KinkyDungeonIsArmsBound(true))

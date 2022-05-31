@@ -3,14 +3,45 @@
 
 let KDRecentRepIndex = 0;
 
+function KDWallVert(x, y) {
+	let tileUp = KinkyDungeonMapGet(x, y);
+	let tileBelow = KinkyDungeonMapGet(x, y + 1);
+	if (
+		( // These are the tiles that get replaced
+			tileUp == '1'
+			|| tileUp == '4'
+		) && ( // These are the tiles that trigger a replacement
+			tileBelow == '1'
+			|| tileBelow == '4'
+			|| tileBelow == 'd'
+			|| tileBelow == 'D'
+			|| tileBelow == ','
+		))
+		return true;
+
+	return false;
+}
+
 function KinkyDungeonGetSprite(code, x, y, Fog) {
 	let sprite = "Floor";
-	if (code == "1") sprite = "Wall";
+	if (code == "1") {
+		if (KDWallVert(x, y))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
+	//else if (code == "|") sprite = "WallVert";
+	//else if (code == "\\") sprite = "WallVert";
 	else if (code == "2") sprite = "Brickwork";
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
-	else if (code == "4") sprite = "Wall";
+	else if (code == "4") {
+		if (KDWallVert(x, y))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
 	else if (code == "L") sprite = "Barrel";
 	else if (code == "?") sprite = "Floor";
 	else if (code == "/") sprite = "RubbleLooted";
@@ -68,8 +99,24 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	else if (code == "-") sprite = "ChargerSpent";
 	else if (code == "B") sprite = "Bed";
 	else if (code == "?") sprite = "HookHigh";
-	else if (code == "4") sprite = "Crack";
-	else if (code == ",") sprite = "HookLow";
+	else if (code == "4") {
+		let left = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x - 1, y));
+		let right = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x + 1, y));
+		let up = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x, y - 1));
+		let down = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x, y + 1));
+		if (down) {
+			sprite = "Crack";
+		} else if (up) {
+			sprite = "CrackHoriz";
+		} else if (left && right) {
+			sprite = "CrackVert";
+		} else if (left) {
+			sprite = "CrackLeft";
+		} else if (right) {
+			sprite = "CrackRight";
+		} else
+			sprite = "CrackNone";
+	} else if (code == ",") sprite = "HookLow";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
 	else if (code == "]") sprite = "HappyGas";
