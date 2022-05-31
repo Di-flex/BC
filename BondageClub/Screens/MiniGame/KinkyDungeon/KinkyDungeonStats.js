@@ -92,10 +92,6 @@ let KinkyDungeonLockpicks = 0;
 // Monsters are not dextrous enough to steal keys from your satchel, although they may spill your satchel on a nearby tile
 let KinkyDungeonRedKeys = 0;
 let KinkyDungeonBlueKeys = 0;
-// Regular blades are used to cut soft restraints. Enchanted blades turn into regular blades after one use, and can cut magic items
-// Some items are trapped with a curse, which will destroy the knife when cut, but otherwise still freeing you
-let KinkyDungeonNormalBlades = 1;
-let KinkyDungeonEnchantedBlades = 0;
 
 let KinkyDungeonHasCrotchRope = false;
 
@@ -146,8 +142,6 @@ function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonLockpicks = 1;
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
-	KinkyDungeonNormalBlades = 1;
-	KinkyDungeonEnchantedBlades = 0;
 
 	KDOrigStamina = 36;
 	KDOrigMana = 36;
@@ -185,6 +179,7 @@ function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionMana, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionStamina, 1);
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
+	KinkyDungeonInventoryAddWeapon("Unarmed");
 	KinkyDungeonInventoryAddWeapon("Knife");
 	KinkyDungeonPlayerTags = new Map();
 
@@ -200,7 +195,6 @@ function KinkyDungeonDefaultStats(Load) {
 		if (KinkyDungeonStatsChoice.get("Submissive")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BasicCollar"), 0, true, "Red");
 		if (KinkyDungeonStatsChoice.get("Pacifist")) KinkyDungeonInventoryAddWeapon("Rope");
 		if (KinkyDungeonStatsChoice.get("Unchained")) KinkyDungeonRedKeys += 1;
-		if (KinkyDungeonStatsChoice.get("Artist")) KinkyDungeonNormalBlades += 1;
 
 		if (KinkyDungeonStatsChoice.get("FuukaCollar")) KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("MikoCollar"), 0, true);
 
@@ -208,15 +202,21 @@ function KinkyDungeonDefaultStats(Load) {
 
 		if (KinkyDungeonStatsChoice.get("Slayer")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Firebolt"));
-			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
 		}
 		if (KinkyDungeonStatsChoice.get("Conjurer")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("ChainBolt"));
-			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
 		}
 		if (KinkyDungeonStatsChoice.get("Magician")) {
 			KinkyDungeonSpells.push(KinkyDungeonFindSpell("Dagger"));
-			KinkyDungeonSpellChoices[3] = KinkyDungeonSpells.length - 1;
+			KinkyDungeonSpellChoices[0] = KinkyDungeonSpells.length - 1;
+		}
+
+		if (KinkyDungeonStatsChoice.get("Brawler")) {
+			KinkyDungeonInventoryAddWeapon("Knife");
+			KDSetWeapon("Knife");
+			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 		}
 
 
@@ -661,6 +661,10 @@ function KinkyDungeonLegsBlocked() {
 	return false;
 }
 
+function KinkyDungeonCanStand() {
+	return !KinkyDungeonPlayer.Pose.includes("Kneel");
+}
+
 function KinkyDungeonCalculateSlowLevel() {
 	KinkyDungeonSlowLevel = 0;
 	if (KinkyDungeonAllRestraint().some((r) => {return KDRestraint(r).immobile;})) {KinkyDungeonSlowLevel += 100; KinkyDungeonMovePoints = -1;}
@@ -674,7 +678,7 @@ function KinkyDungeonCalculateSlowLevel() {
 				break;
 			}
 		}
-		if (KinkyDungeonStatStamina < 0.5 || KinkyDungeonPlayer.Pose.includes("Kneel")) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
+		if (KinkyDungeonStatStamina < 0.5 || !KinkyDungeonCanStand()) KinkyDungeonSlowLevel = Math.max(3, KinkyDungeonSlowLevel + 1);
 		if (KinkyDungeonPlayer.Pose.includes("Hogtied")) KinkyDungeonSlowLevel = Math.max(4, KinkyDungeonSlowLevel + 1);
 		for (let inv of KinkyDungeonAllRestraint()) {
 			if (KDRestraint(inv).freeze) KinkyDungeonSlowLevel = Math.max(2, KinkyDungeonSlowLevel);

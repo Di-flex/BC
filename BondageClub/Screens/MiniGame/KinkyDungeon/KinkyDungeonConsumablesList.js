@@ -33,10 +33,8 @@ let KinkyDungneonBasic = {
 	"BlueKey" : {name: "BlueKey", rarity: 2, costMod: 2, shop: true},
 	"Lockpick" : {name: "Lockpick", rarity: 0, shop: true},
 	//"4Lockpick" : {name: "4Lockpick", rarity: 1, shop: true},
-	"Knife" : {name: "Knife", rarity: 0, shop: true},
 	"3Bola" : {name: "3Bola", consumable: "Bola", quantity: 3, rarity: 0, shop: true},
 	"3Bomb" : {name: "3Bomb", consumable: "Bomb", quantity: 3, rarity: 1, shop: true},
-	"MagicKnife" : {name: "MagicKnife", rarity: 4, shop: true},
 	"MaidUniform" : {name: "MaidUniform", rarity: 2, shop: true, ignoreInventory: "Maid"},
 	//"PotionCollar" : {name: "PotionCollar", rarity: 2, shop: true},
 };

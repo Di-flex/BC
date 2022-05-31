@@ -1182,7 +1182,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 
 					let playerItems = [];
 					for (let inv of KinkyDungeonAllWeapon()) {
-						if (inv.name != "Knife")
+						if (inv.name != "Unarmed")
 							playerItems.push(inv);
 					}
 					for (let inv of KinkyDungeonAllConsumable()) {
@@ -2012,11 +2012,6 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						if (item) {
 							KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStealItem").replace("ITEMSTOLEN", TextGet("KinkyDungeonInventoryItem" + item.name)), "yellow", 2);
 						}
-					} else if (KinkyDungeonNormalBlades > 0 && (KinkyDungeonLockpicks == 0 || KDRandom() < 0.5)) {
-						KinkyDungeonNormalBlades -= 1;
-						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealKnife"), "yellow", 2);
-						if (!enemy.items) enemy.items = ["Knife"];
-						enemy.items.push("Knife");
 					} else if (KinkyDungeonLockpicks > 0 && KDRandom() < 0.5) {
 						KinkyDungeonLockpicks -= 1;
 						KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonStealPick"), "yellow", 2);

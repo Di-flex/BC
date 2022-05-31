@@ -81,6 +81,14 @@ interface consumable {
 }
 
 type restraint = {
+	/** Affinity type: Hook, Edge, or Sharp, Sticky, defaults are Hook (struggle), Sharp (Cut), Edge (Pick), Sticky (Unlock), and none (Pick)*/
+	affinity?: {
+		Struggle?: string,
+		Cut?: string,
+		Remove?: string,
+		Pick?: string,
+		Unlock?: string,
+	},
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
 	/** This item lets you access linked items under it */
@@ -708,6 +716,7 @@ interface weapon {
 	chance: number;
 	type: string;
 	bind?: number;
+	light?: boolean;
 	boundBonus?: number;
 	tease?: boolean;
 	rarity: number;
@@ -1221,8 +1230,6 @@ interface KinkyDungeonSave {
 		picks: number;
 		keys: number;
 		bkeys: number;
-		knife: number;
-		eknife: number;
 		mana: number;
 		stamina: number;
 		distraction: number;

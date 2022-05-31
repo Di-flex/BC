@@ -10,7 +10,10 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
+	else if (code == "4") sprite = "Wall";
 	else if (code == "L") sprite = "Barrel";
+	else if (code == "?") sprite = "Floor";
+	else if (code == ",") sprite = "Floor";
 	else if (code == "D") {
 		sprite = "Door";
 		if (Fog) {
@@ -51,7 +54,7 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	let sprite = "";
 	if (code == "G") {
 		sprite = "Ghost";
-		if (KinkyDungeonTiles.get(x + "," + y).Msg) {
+		if (KinkyDungeonTiles.get(x + "," + y).Msg || KinkyDungeonTiles.get(x + "," + y).Dialogue) {
 			sprite = "GhostImportant";
 		}
 	}
@@ -62,6 +65,9 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 	else if (code == "+") sprite = "Charger";
 	else if (code == "-") sprite = "ChargerSpent";
 	else if (code == "B") sprite = "Bed";
+	else if (code == "?") sprite = "HookHigh";
+	else if (code == "4") sprite = "Crack";
+	else if (code == ",") sprite = "HookLow";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
 	else if (code == "]") sprite = "HappyGas";
@@ -600,7 +606,7 @@ function KinkyDungeonDrawGame() {
 		DrawButton(650, 925, 565, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawLore();
 	} else if (KinkyDungeonDrawState == "Reputation") {
-		DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
+		DrawButton(820, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawReputation();
 	} else if (KinkyDungeonDrawState == "Lore") {
 		DrawButton(650, 925, 250, 60, TextGet("KinkyDungeonGame"), "White", "", "");

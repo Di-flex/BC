@@ -108,15 +108,23 @@ function KinkyDungeonItemEvent(Item) {
 	} else if (Item.name == "Knife") {
 		priority = 2;
 		color = "lightgreen";
-		KinkyDungeonNormalBlades += 1;
+		KinkyDungeonInventoryAddWeapon("Knife");
 	} else if (Item.name == "Knives") {
 		priority = 3;
 		color = "lightgreen";
-		KinkyDungeonNormalBlades += 3;
+		KinkyDungeonInventoryAddWeapon("Knife");
+		if (!KinkyDungeonPlayerDamage || KinkyDungeonPlayerDamage.unarmed) {
+			KDSetWeapon("Knife");
+			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+		}
 	} else if (Item.name == "EnchKnife") {
 		priority = 2;
 		color = "lightgreen";
-		KinkyDungeonEnchantedBlades += 1;
+		KinkyDungeonInventoryAddWeapon("EnchKnife");
+		if (!KinkyDungeonPlayerDamage || KinkyDungeonPlayerDamage.unarmed) {
+			KDSetWeapon("EnchKnife");
+			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
+		}
 	} else if (Item.name == "RedKey") {
 		priority = 2;
 		color = "lightgreen";

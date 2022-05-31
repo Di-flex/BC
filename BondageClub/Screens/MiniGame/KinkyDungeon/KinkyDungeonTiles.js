@@ -53,6 +53,10 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "barrel3", type: "Sneak", duration: 1, power: 1.95, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["Sneak", "darkness", "move", "cast"]});
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "barrel2", type: "SlowLevel", duration: 1, power: 1, player: true, enemies: true, endSleep: true, maxCount: 1, tags: ["Slow", "move", "cast"]});
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonBarrel"), "lightgreen", 1);
+	} else if (tile == "?") { // High hook
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookHigh"), "lightgreen", 1);
+	} else if (tile == ",") { // Low hook
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookLow"), "lightgreen", 1);
 	}
 }
 
@@ -90,18 +94,8 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 
 			// We increment the save, etc, after the tunnel
 			if (KDGameData.RoomType == "Tunnel" || (altRoom && altRoom.skiptunnel)) {
-				MiniGameKinkyDungeonLevel += 1;
-				if (KinkyDungeonStatsChoice.get("Trespasser")) {
-					KinkyDungeonChangeRep("Rope", -1);
-					KinkyDungeonChangeRep("Metal", -1);
-					KinkyDungeonChangeRep("Leather", -1);
-					KinkyDungeonChangeRep("Latex", -1);
-					KinkyDungeonChangeRep("Will", -1);
-					KinkyDungeonChangeRep("Elements", -1);
-					KinkyDungeonChangeRep("Conjure", -1);
-					KinkyDungeonChangeRep("Illusion", -1);
-				}
 
+				MiniGameKinkyDungeonLevel += 1;
 
 				if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
 					roomType = ""; // We let the boss spawn naturally
@@ -124,6 +118,17 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 					KinkyDungeonChangeRep("Prisoner", -5);
 				else // Otherwise it's just a little bit
 					KinkyDungeonChangeRep("Prisoner", -1);
+
+				if (KinkyDungeonStatsChoice.get("Trespasser")) {
+					KinkyDungeonChangeRep("Rope", -1);
+					KinkyDungeonChangeRep("Metal", -1);
+					KinkyDungeonChangeRep("Leather", -1);
+					KinkyDungeonChangeRep("Latex", -1);
+					KinkyDungeonChangeRep("Will", -1);
+					KinkyDungeonChangeRep("Elements", -1);
+					KinkyDungeonChangeRep("Conjure", -1);
+					KinkyDungeonChangeRep("Illusion", -1);
+				}
 			}
 
 			KDGameData.RoomType = roomType;
@@ -136,6 +141,10 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				if (Journey) {
 					KDGameData.Journey = Journey;
 					KDInitializeJourney(KDGameData.Journey);
+				}
+				let RoomType = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).RoomType;
+				if (RoomType) {
+					KDGameData.RoomType = RoomType;
 				}
 			}
 

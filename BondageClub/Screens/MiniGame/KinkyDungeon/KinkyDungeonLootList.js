@@ -3,7 +3,7 @@ let KinkyDungeonLootTable = {
 	"rubble": [
 		{name: "nothing", minLevel: 0, weight:9, message:"LootRubbleFail", messageColor:"#aaaaaa", messageTime: 2, allFloors: true},
 		{name: "smallgold", minLevel: 0, weight:22, message:"LootRubbleSmallGold", messageColor:"yellow", messageTime: 3, allFloors: true},
-		{name: "knife", minLevel: 0, weight:3, message:"LootRubbleKnife", messageColor:"lightgreen", messageTime: 3, allFloors: true, prerequisites: ["fewknife"],},
+		{name: "knife", minLevel: 0, weight:3, message:"LootRubbleKnife", messageColor:"lightgreen", messageTime: 3, allFloors: true, noweapon: ["Knife"]},
 		{name: "pick", minLevel: 0, weight:2, message:"LootRubbleLockpick", messageColor:"lightgreen", messageTime: 3, allFloors: true, prerequisites: ["fewpick"],},
 		{name: "redkey", key: true, minLevel: 1, weight:1, message:"LootRubbleRedKey", messageColor:"lightgreen", messageTime: 3, allFloors: true},
 		//{name: "greenkey", minLevel: 2, weight:2, message:"LootRubbleGreenKey", messageColor:"lightgreen", messageTime: 3, allFloors: true},
@@ -43,6 +43,12 @@ let KinkyDungeonLootTable = {
 	],
 	"blue": [
 		{name: "spell_points", magic: true, minLevel: 0, weight:1, message:"LootChestSpellPoints", messageColor:"lightblue", messageTime: 3, allFloors: true}, // lowlevel is spell levels 1-7
+	],
+	"tutorial1": [
+		{name: "trap_cuffs", minLevel: 1, weight:1, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, allFloors: true, prerequisites: ["Group_ItemArms"], power: 2},
+	],
+	"tutorial2": [
+		{name: "trap_armbinder", minLevel: 1, weight:1, message:"LootChestTrapMagic", messageColor:"red", messageTime: 3, allFloors: true, prerequisites: ["Group_ItemArms"], power: 6},
 	],
 	"chest": [
 		{name: "bluekey", redspecial: 8.5, key: true, minLevel: 3, weight:0.65, message:"LootChestBlueKey", messageColor:"lightgreen", messageTime: 3, allFloors: true},

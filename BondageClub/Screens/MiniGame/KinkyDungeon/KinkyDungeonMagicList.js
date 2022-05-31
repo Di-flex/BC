@@ -17,12 +17,12 @@
  * These are starting spells
  */
 let KinkyDungeonSpellsStart = [
-	{name: "Knife", sfx: "Miss", hitsfx: "LightSwing", school: "Elements", manacost: 0, components: ["Arms"], noMiscast: true, knifecost: 1, staminacost: 1, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, evadeable: true, damage: "pierce", speed: 2, playerEffect: {name: "Damage"},
-		events: [{type: "DropKnife", trigger: "beforeBulletHit"},]},
 	{name: "Analyze", sfx: "MagicSlash", school: "Illusion", manacost: 5, components: [], level:1, type:"special", special: "analyze", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
 	{name: "CommandWord", sfx: "Magic", school: "Any", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
+	{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:1, type:"passive",
+		events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", msg: "KinkyDungeonFleetFootedIgnoreTrapFail", chance: 0.35}]},
 ];
 /**
  * These spells occur in the menu and the player can learn them
@@ -41,7 +41,7 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["FlameBlade", "Strength", "Shatter"],
 		// Always on
-		["Knife", "Analyze", "CommandWord"],
+		["Knife", "Analyze", "CommandWord", "FleetFooted"],
 	],
 
 	//Page 2: Conjuration
@@ -55,7 +55,7 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["FloatingWeapon"],
 		// Always on
-		["Knife", "Analyze", "CommandWord"],
+		["Knife", "Analyze", "CommandWord", "FleetFooted"],
 	],
 
 	//Page 3: Illusion
@@ -67,9 +67,9 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Evasion", "Decoy", "Camo"],
 		// Passive
-		["TrueSight", "EnemySense", "FleetFooted"],
+		["TrueSight", "EnemySense"],
 		// Always on
-		["Knife", "Analyze", "CommandWord"],
+		["Knife", "Analyze", "CommandWord", "FleetFooted"],
 	],
 
 	//Page 4
@@ -210,8 +210,6 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			{type: "AccuracyBuff", trigger: "tick", power: 0.4},
 		]},
 		{name: "EnemySense", school: "Illusion", manacost: 2, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 12, distStealth: 6}]},
-		{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:2, type:"passive",
-			events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", chance: 0.25}]},
 		{name: "Evasion", sfx: "Fwoosh", school: "Illusion", manacost: 5, components: ["Legs"], mustTarget: true, level:1, type:"buff",
 			buffs: [
 				{id: "Evasion", type: "Evasion", labelcolor: "#a288b6", duration: 25, power: 3.0, player: true, enemies: true, maxCount: 5, tags: ["defense", "incomingHit"]},
@@ -449,5 +447,6 @@ let KinkyDungeonSpellListEnemies = [
 	{enemySpell: true, name: "TrapMagicChainsWeak", sfx: "Struggle", manacost: 4, components: [], level:1, type:"inert", onhit:"aoe", passthrough: true, noTerrainHit: true, time: 5, delay: 1, power: 3, range: 2, size: 3, aoe: 1.5, lifetime: 1, damage: "chain", playerEffect: {name: "TrapBindings", text: "KinkyDungeonTrapBindingsMagicChainsWeak", tags: ["chainRestraintsMagic"], count: 3}},
 	{enemySpell: true, name: "TrapSleepDart", sfx: "Gunfire", manacost: 1, components: [], level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 4, time: 0, delay: 0, range: 50, damage: "pain", speed: 2, playerEffect: {name: "TrapSleepDart", power: 5}},
 	{enemySpell: true, name: "TrapLustCloud", sfx: "Freeze", manacost: 1, components: [], level:1, type:"inert", onhit:"aoe", passthrough: true, noTerrainHit: true, time: 5, delay: 1, power: 3, range: 2, size: 3, aoe: 1.5, lifetime: 1, damage: "glue", playerEffect: {name: "TrapLustCloud", damage: "happygas", power: 30 }},
+	{enemySpell: true, name: "TrapSPCloud", sfx: "Freeze", manacost: 1, components: [], level:1, type:"inert", onhit:"aoe", passthrough: true, noTerrainHit: true, time: 5, delay: 1, power: 3, range: 2, size: 3, aoe: 1.5, lifetime: 1, damage: "glue", playerEffect: {name: "TrapSPCloud", damage: "pain", power: 72 }},
 	{enemySpell: true, name: "SleepDart", sfx: "Miss", manacost: 1, components: [], level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 4, time: 0, delay: 0, range: 50, damage: "pain", speed: 1, playerEffect: {name: "TrapSleepDart", power: 5}},
 ];

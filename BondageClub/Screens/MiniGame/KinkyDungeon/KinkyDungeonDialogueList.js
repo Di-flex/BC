@@ -35,6 +35,60 @@ let KDDialogue = {
 			//"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
 		},
 	},
+	"Tutorial1": {
+		response: "Default",
+		options: {
+			"Continue" : {
+				clickFunction: (gagged) => {
+					KinkyDungeonTargetTile = null;
+					KinkyDungeonTargetTileLocation = "";
+					let zombie = DialogueCreateEnemy(KinkyDungeonStartPosition.x + 7, 3, "FastZombie");
+					zombie.AI = "guard";
+					zombie.gxx = KinkyDungeonStartPosition.x + 8;
+					zombie.gyy = KinkyDungeonGridHeight - 2;
+					return false;
+				},
+				playertext: "GhostInfo_Continue", exitDialogue: true,
+			},
+			//"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			//"Snark" : {playertext: "Default", exitDialogue: true},
+			//"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+		},
+	},
+	"Tutorial2_mp3": {
+		response: "Default",
+		options: {
+			"Continue" : {
+				clickFunction: (gagged) => {
+					KinkyDungeonTargetTile = null;
+					KinkyDungeonTargetTileLocation = "";
+					DialogueCreateEnemy(KinkyDungeonStartPosition.x + 22, 3, "FastZombie");
+					return false;
+				},
+				playertext: "GhostInfo_Continue", exitDialogue: true,
+			},
+			//"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			//"Snark" : {playertext: "Default", exitDialogue: true},
+			//"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+		},
+	},
+	"Tutorial2_dp2": {
+		response: "Default",
+		options: {
+			"Continue" : {
+				clickFunction: (gagged) => {
+					KinkyDungeonTargetTile = null;
+					KinkyDungeonTargetTileLocation = "";
+					DialogueCreateEnemy(KinkyDungeonStartPosition.x + 32, 4, "FastZombie");
+					return false;
+				},
+				playertext: "GhostInfo_Continue", exitDialogue: true,
+			},
+			//"Nice" : {gag: true, playertext: "Default", exitDialogue: true},
+			//"Snark" : {playertext: "Default", exitDialogue: true},
+			//"Brash" : {gag: true, playertext: "Default", exitDialogue: true},
+		},
+	},
 	"WeaponFound": {
 		response: "WeaponFound",
 		personalities: ["Robot"],
@@ -43,7 +97,7 @@ let KDDialogue = {
 				clickFunction: (gagged) => {
 					KinkyDungeonSendTextMessage(10, TextGet("KDWeaponConfiscated"), "red", 2);
 					let weapon = KinkyDungeonPlayerDamage.name;
-					if (weapon && weapon != "Knife") {
+					if (weapon && weapon != "Unarmed") {
 						KinkyDungeonChangeRep("Ghost", 3);
 						let item = KinkyDungeonInventoryGetWeapon(weapon);
 						KDSetWeapon(null);
@@ -810,10 +864,10 @@ let KDDialogue = {
 			"Knife": {
 				playertext: "Default", response: "AngelHelpKnife",
 				prerequisiteFunction: (gagged) => {
-					return !KinkyDungeonFlags.get("AngelHelped");
+					return !KinkyDungeonFlags.get("AngelHelped") && !KinkyDungeonInventoryGet("Knife");
 				},
 				clickFunction: (gagged) => {
-					KinkyDungeonNormalBlades += 2;
+					KinkyDungeonInventoryAddWeapon("Knife");
 					KinkyDungeonSetFlag("AngelHelped", 5);
 					return false;
 				},

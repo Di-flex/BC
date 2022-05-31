@@ -1046,7 +1046,6 @@ function KinkyDungeonStripInventory(KeepPicks) {
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 	KinkyDungeonLockpicks = KeepPicks ? (Math.min(Math.max(0, Math.round(3 * (1 - (KinkyDungeonGoddessRep.Prisoner + 50)/100))), KinkyDungeonLockpicks)) : 0;
-	KinkyDungeonNormalBlades = 0;
 
 	let newInv = KinkyDungeonInventory.get(Restraint);
 	let HasBound = false;
@@ -1057,7 +1056,7 @@ function KinkyDungeonStripInventory(KeepPicks) {
 	KinkyDungeonAddLostItems(KinkyDungeonFullInventory(), HasBound);
 	KDInitInventory();
 	KinkyDungeonInventory.set(Restraint, newInv);
-	KinkyDungeonInventoryAddWeapon("Knife");
+	KinkyDungeonInventoryAddWeapon("Unarmed");
 	KDSetWeapon(null);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);

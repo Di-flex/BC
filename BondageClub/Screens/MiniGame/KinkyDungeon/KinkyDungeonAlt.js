@@ -46,6 +46,29 @@ let alts = {
 		nostairs: true,
 		skiptunnel: true, // Skip the ending tunnel
 	},
+	"Tutorial": {
+		name: "Tutorial",
+		bossroom: false,
+		width: 30,
+		height: 7,
+		setpieces: {
+		},
+		genType: "Tutorial",
+		spawns: false,
+		chests: false,
+		shrines: false,
+		orbs: 0,
+		chargers: false,
+		heart: false,
+		specialtiles: false,
+		shortcut: false,
+		enemies: false,
+		nojail: true,
+		nokeys: true,
+		nolore: true,
+		nostairs: true,
+		notraps: true,
+	},
 };
 
 let KDJourneyList = ["Random", "Harder"];
@@ -61,6 +84,9 @@ let KinkyDungeonCreateMapGenType = {
 	},
 	"JourneyFloor": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
 		KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	},
+	"Tutorial": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateTutorial(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 	},
 	"Tunnel": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
 		KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
@@ -426,9 +452,9 @@ function KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openne
 	KinkyDungeonTiles.set("" + (b1*2 + 5) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "JourneyNone"});
 
 	// Tutorial end stairs
-	//KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 2, 's');
+	KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 2, 's');
 	KinkyDungeonMapSet(VisitedRooms[0].x*2 + 3, VisitedRooms[0].y*2 - 1, 'G');
-	//KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 2), {Journey: undefined});
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 2), {RoomType: "Tutorial"});
 	KinkyDungeonTiles.set("" + (VisitedRooms[0].x*2 + 3) + "," + (VisitedRooms[0].y*2 - 1), {Type: "Ghost", Msg: "JourneyTutorial"});
 
 	// Place journey stairs
@@ -444,6 +470,172 @@ function KinkyDungeonCreateJourneyFloor(POI, VisitedRooms, width, height, openne
 		i++;
 		x += 2;
 	}
+
+	KinkyDungeonEndPosition = {x: b1*2 + 5, y: VisitedRooms[0].y*2};
+}
+
+
+function KinkyDungeonCreateTutorial(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) {
+	// Variable setup
+
+	KinkyDungeonStartPosition = {x: 2, y: height};
+	VisitedRooms[0].x = 1;
+	VisitedRooms[0].y = Math.floor(height/2);
+
+	KinkyDungeonCreateRectangle(0, 0, width, height, true, true, false, false);
+
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y - 1, 2, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, VisitedRooms[0].y, width, 1, false, false, false, false);
+
+
+	/*
+	// Add the prison
+	let py = (VisitedRooms[0].y < height - 5 ? height - 3 : 3);
+	POI.push({x: 2*VisitedRooms[0].x + 4, y: 2*py, requireTags: [], favor: ["GuaranteedCell"], used: false});
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);
+	KinkyDungeonCreateRectangle(VisitedRooms[0].x, Math.min(py, VisitedRooms[0].y), b2-2, 1, false, false, false, false);
+	KinkyDungeonCreateRectangle(b2, Math.min(py, VisitedRooms[0].y), 1, Math.abs(VisitedRooms[0].y - py), false, false, false, false);*/
+
+
+	// Now we STRETCH the map
+	let KinkyDungeonOldGrid = KinkyDungeonGrid;
+	let w = KinkyDungeonGridWidth;
+	let h = KinkyDungeonGridHeight;
+	KinkyDungeonGridWidth = Math.floor(KinkyDungeonGridWidth*2);
+	KinkyDungeonGridHeight = Math.floor(KinkyDungeonGridHeight*2);
+	KinkyDungeonGrid = "";
+
+	// Generate the grid
+	for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+		for (let X = 0; X < KinkyDungeonGridWidth; X++)
+			KinkyDungeonGrid = KinkyDungeonGrid + KinkyDungeonOldGrid[Math.floor(X * w / KinkyDungeonGridWidth) + Math.floor(Y * h / KinkyDungeonGridHeight)*(w+1)];
+		KinkyDungeonGrid = KinkyDungeonGrid + '\n';
+	}
+
+	// Normal end stairs
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2, 's');
+	KinkyDungeonMapSet(width*2 - 2, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "TutorialCongrats"});
+
+	// Tutorial start
+	KinkyDungeonMapSet(VisitedRooms[0].x + 3, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x + 3) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial0"});
+
+	// Barrels
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + 7, 3, 2, height*2, false, false, false, false);
+	KinkyDungeonMapSet(VisitedRooms[0].x + 7, VisitedRooms[0].y*2, 'L');
+	KinkyDungeonMapSet(VisitedRooms[0].x + 7, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x + 7) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Dialogue: "Tutorial1"});
+
+	// Stats
+	KinkyDungeonMapSet(VisitedRooms[0].x + 11, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x + 11) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2"});
+
+	// SP
+	let xx = 13;
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx + 4, 3, 2, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx + 4, 3, 1, 5, false, false, false, false);
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 4, 5, 'd');
+	KinkyDungeonTiles.set((KinkyDungeonStartPosition.x + xx + 4) + "," + 5, {
+		Type: "Door",
+	});
+
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 2, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 1, 5, false, false, false, false);
+	KinkyDungeonGroundItems.push({x:KinkyDungeonStartPosition.x + xx, y:4, name: "PotionStamina"});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 1, 5, 'T');
+	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 1) + "," + 5, {
+		Type: "Trap",
+		Trap: "SpecificSpell",
+		noVary: true,
+		Spell: "TrapSPCloud",
+	});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 3, VisitedRooms[0].y*2, 'T');
+	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 3) + "," + (VisitedRooms[0].y*2), {
+		Type: "Trap",
+		Trap: "SpecificSpell",
+		noVary: true,
+		Spell: "TrapSPCloud",
+	});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 3, VisitedRooms[0].y*2 + 1, 'T');
+	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 3) + "," + (VisitedRooms[0].y*2 + 1), {
+		Type: "Trap",
+		Trap: "SpecificSpell",
+		noVary: true,
+		Spell: "TrapSPCloud",
+	});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_sp1"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 1, 3, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 1) + "," + (3), {Type: "Ghost", Msg: "Tutorial2_sp2"});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 4, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (VisitedRooms[0].x + xx + 4) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_sp3"});
+
+
+	// MP
+	xx = 22;
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 2, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 1, 5, false, false, false, false);
+	KinkyDungeonGroundItems.push({x:KinkyDungeonStartPosition.x + xx, y:4, name: "PotionMana"});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 1, 5, 'd');
+	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 1) + "," + 5, {
+		Type: "Door",
+	});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 5, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 5) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_mp1"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 3, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 3) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_mp2"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Dialogue: "Tutorial2_mp3"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 2, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_mp4"});
+
+
+	// DP
+	xx = 28;
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 7, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 1, 5, false, false, false, false);
+	KinkyDungeonGroundItems.push({x:KinkyDungeonStartPosition.x + xx, y:4, name: "PotionFrigid"});
+	KinkyDungeonMapSet(VisitedRooms[0].x + xx + 1, 5, 'T');
+	KinkyDungeonTiles.set((VisitedRooms[0].x + xx + 1) + "," + 5, {
+		Type: "Trap",
+		Trap: "SpecificSpell",
+		noVary: true,
+		Spell: "TrapLustCloud",
+	});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial2_dp1"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 1, 3, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 1) + "," + (3), {Type: "Ghost", Dialogue: "Tutorial2_dp2"});
+
+
+	// Struggle
+	xx = 36;
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 5, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 1, 5, false, false, false, false);
+	KinkyDungeonGroundItems.push({x:KinkyDungeonStartPosition.x + xx + 4, y:4, name: "RedKey"});
+
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial3_1"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 4, 3, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 4) + "," + (3), {Type: "Ghost", Msg: "Tutorial3_2"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 1, 3, 'C');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 1) + "," + (3), {Loot: "tutorial1", Roll: KDRandom()});
+
+	// Struggle
+	xx = 43;
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 5, 2, false, false, false, false);
+	KinkyDungeonCreateRectangle(KinkyDungeonStartPosition.x + xx, 3, 1, 5, false, false, false, false);
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 4, 4, '?');
+
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx - 1, VisitedRooms[0].y*2 + 1, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx - 1) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "Tutorial3_3"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx + 4, 3, 'G');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx + 4) + "," + (3), {Type: "Ghost", Msg: "Tutorial3_4"});
+	KinkyDungeonMapSet(KinkyDungeonStartPosition.x + xx, 3, 'C');
+	KinkyDungeonTiles.set("" + (KinkyDungeonStartPosition.x + xx) + "," + (3), {Loot: "tutorial2", Roll: KDRandom()});
+
+	// END
 
 	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
 }

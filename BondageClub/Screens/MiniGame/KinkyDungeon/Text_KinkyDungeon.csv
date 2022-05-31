@@ -232,7 +232,7 @@ KinkyDungeonStatDescUnmasked,"Hoods and full-face covering masks do not appear, 
 
 KinkyDungeonStatStartMaid,"Maid Sweeper"
 KinkyDungeonStatDescStartMaid,"Start in a magically locked maid outfit."
-KinkyDungeonStatStartWolfgirl,"Trainee"
+KinkyDungeonStatStartWolfgirl,"Wolf Trainee"
 KinkyDungeonStatDescStartWolfgirl,"Start in a uniform of a naughty wolfgirl."
 KinkyDungeonStatStartLatex,"Latex Mannequin"
 KinkyDungeonStatDescStartLatex,"Start bound in latex restraints."
@@ -486,7 +486,7 @@ KinkyDungeonRarity10,Divine
 KinkyDungeonConsumableQuantity,Quantity:
 KinkyDungeonConsume,Use Item (Consumes 1)
 
-KinkyDungeonInventoryItemnull,Knife
+KinkyDungeonInventoryItemnull,way of the fist
 
 KinkyDungeonInventoryItemOutfitDefault,Wizard's Outfit
 KinkyDungeonInventoryItemOutfitDefaultDesc,Your favorite outfit for adventuring.
@@ -571,9 +571,9 @@ KinkyDungeonInventoryItemBlueKeyDesc2,"Can be used to unlock a blue lock."
 KinkyDungeonInventoryItemMagicKey,Magic Key
 KinkyDungeonInventoryItemMagicKeyDesc,"A magical key with the power to open blue locks."
 KinkyDungeonInventoryItemMagicKeyDesc2,"Blue locks can't be otherwise picked."
-KinkyDungeonInventoryItemMagicKnife,Magic Knife
-KinkyDungeonInventoryItemMagicKnifeDesc,"A magical blade which can be hidden on your body."
-KinkyDungeonInventoryItemMagicKnifeDesc2,"Can cut enchanted ropes."
+KinkyDungeonInventoryItemEnchKnife,Magic Knife
+KinkyDungeonInventoryItemEnchKnifeDesc,"A magical blade, suitable against ghosts."
+KinkyDungeonInventoryItemEnchKnifeDesc2,"Deals shadow damage. Can cut enchanted ropes."
 KinkyDungeonInventoryItemBola,Bola
 KinkyDungeonInventoryItemBolaDesc,"A pair of weights attached to a rope. Can be thrown."
 KinkyDungeonInventoryItemBolaDesc2,"Deals 9 points of binding, 40 chain damage, and rooting a target for 4 turns."
@@ -683,7 +683,10 @@ KinkyDungeonInventoryItemBoltCuttersDesc,"A cutting tool useful as a bludgeon, a
 KinkyDungeonInventoryItemBoltCuttersDesc2,"Also assists in cutting restraints when equipped."
 KinkyDungeonInventoryItemKnife,Knife
 KinkyDungeonInventoryItemKnifeDesc,"A go-to for travelers and adventurers."
-KinkyDungeonInventoryItemKnifeDesc2,"When you don't have any knives, your attacks deal 20 damage instead, halved if feet are bound."
+KinkyDungeonInventoryItemKnifeDesc2,"Deals slashing damage."
+KinkyDungeonInventoryItemUnarmed,Unarmed
+KinkyDungeonInventoryItemUnarmedDesc,"Fight with your hands and feet."
+KinkyDungeonInventoryItemUnarmedDesc2,"Deals unarmed damage."
 KinkyDungeonInventoryItemSword,Sword
 KinkyDungeonInventoryItemSwordDesc,"The blade is strong, its edge sharp."
 KinkyDungeonInventoryItemSwordDesc2,"A fast and accurate weapon that deals slash damage."
@@ -1671,6 +1674,11 @@ KinkyDungeonAttemptPickSuccessAroused,"You pick the lock on the TargetRestraint 
 KinkyDungeonStruggleRemoveSuccessAroused,"Trembling, you free yourself from the TargetRestraint!"
 KinkyDungeonStruggleCutSuccessAroused,"You damage the TargetRestraint enough to wiggle out!"
 
+KinkyDungeonUseCrack,You stick the knife into a crack in the wall!
+KinkyDungeonUseCrackLegs,You use your feet to place the knife into a crack!
+KinkyDungeonNeedCrack,"You glare at the crack in the wall as you realize you couldn't maneuver the knife if you tried."
+KinkyDungeonNeedGrip,You can't hold your knife like this...
+
 KinkyDungeonStruggleStruggleImpossible,"The item is too secure to struggle out."
 KinkyDungeonStruggleStruggleImpossibleAroused,"You groan in frustration as you realize the item is too tight to escape."
 KinkyDungeonStruggleStruggleImpossible2,"The item tightens itself as you try to squeeze out!"
@@ -1824,6 +1832,8 @@ KinkyDungeonAutoPassOn,"Passing..."
 KinkyDungeonAutoPassOff,"Pass NPCs"
 KinkyDungeonAutoDoorOn,"Closing..."
 KinkyDungeonAutoDoorOff,"Close door"
+KinkyDungeonAutoSprintOn,"Sprinting!!!"
+KinkyDungeonAutoSprintOff,"Sprint!"
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonUnlockDoorPurple,Command
@@ -3330,11 +3340,12 @@ KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies throug
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
 KinkyDungeonSpellDescriptionFloatingWeapon,"When enabled: While hands are bound, you can still use weapons, but attacks cost mana."
 
-KinkyDungeonSpellFleetFooted,Cat's Grace
-KinkyDungeonSpellDescriptionFleetFooted,"When enabled and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), and 2 mana (total) to ignore a temporary slow effect."
-KinkyDungeonFleetFootedIgnoreTrap,"Your graceful footsteps avoid setting off a trap!"
-KinkyDungeonFleetFootedIgnoreSlow,"You recover gracefully from the slowdown!"
-KinkyDungeonFleetFooted,"You walk gracefully with reduced effect from bindings."
+KinkyDungeonSpellFleetFooted,Levitate
+KinkyDungeonSpellDescriptionFleetFooted,"When enabled and above 0 stamina: Drain 0.5 MP per step to reduce slow level by 1 (if above 1), or 2 mana to ignore a temporary slow effect."
+KinkyDungeonFleetFootedIgnoreTrap,"You levitate over the trap!"
+KinkyDungeonFleetFootedIgnoreTrapFail,"You snag a tripwire while floating!"
+KinkyDungeonFleetFootedIgnoreSlow,"You levitate forward despite being slowed!"
+KinkyDungeonFleetFooted,"You hover with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
@@ -3592,6 +3603,7 @@ KinkyDungeonSpellTrapCableWeak,Cable Trap
 KinkyDungeonSpellTrapSlimeWeak,Slime Trap
 KinkyDungeonSpellTrapMagicChainsWeak,Chain Trap
 KinkyDungeonSpellTrapLustCloud,Gas Trap
+KinkyDungeonSpellTrapSPCloud,Gas Trap
 KinkyDungeonSpellTrapSleepDart,Sleep Dart
 KinkyDungeonSpellSleepDart,Sleep Dart
 
@@ -3605,7 +3617,8 @@ KinkyDungeonSpellCastTrapLeatherWeak,"Leather restraints start appearing around 
 KinkyDungeonSpellCastTrapCableWeak,"high-tech cables come out from the floor!"
 KinkyDungeonSpellCastTrapSlimeWeak,"Slimes pours out from the walls and ceiling!"
 KinkyDungeonSpellCastTrapMagicChainsWeak,"Ethereal chains appear all around you!"
-KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
+KinkyDungeonSpellCastTrapLustCloud,"You hear the sound of glass breaking, and a cloud of green gas rises around you!"
+KinkyDungeonSpellCastTrapSPCloud,"You hear the sound of glass breaking, and a cloud of pink gas rises around you!"
 KinkyDungeonTrapBindingsCharmWeak,"The charms stick themselves all over your body!"
 KinkyDungeonTrapBindingsRibbons,"The ribbons tie themselves tightly around your body and won't let go!"
 KinkyDungeonTrapBindingsShackleWeak,"Shackles close themselves over your limbs!"
@@ -3619,6 +3632,7 @@ KinkyDungeonTrapBindingsMagicChainsWeak,"The magic chains wrap themselves around
 KinkyDungeonTrapBindingsDress,"Your clothes are getting ripped away!"
 KinkyDungeonTrapSleepDart,"You feel a prick as a small dart hits you, and you start feeling drowsy..."
 KinkyDungeonTrapLustCloud,"You breathe in the gas, and a wave of pleasure hits your whole body."
+KinkyDungeonTrapSPCloud,"You breathe in the gas, and feel lethargic..."
 
 KinkyDungeonInventory,"Inventory"
 KinkyDungeonReputation,"Reputation"
@@ -4168,6 +4182,9 @@ KinkyDungeonCaptureMax,"You capture the EnemyName, but have reached the limit fo
 KinkyDungeonSummonTrapMonster,The spirit inside the restraint is vengeful and emerges to wreak havoc on the world!
 
 KinkyDungeonBarrel,You hide inside the container...
+KinkyDungeonHookHigh,A hook hangs at shoulder height.
+KinkyDungeonHookHighFail,You can't reach that with the hook!
+KinkyDungeonHookLow,There's a hook on the wall.
 
 KinkyDungeonRemoveLowLevelRope,"Many ropes emerge around you, removing weaker ropes from your body and binding enemies!"
 
@@ -5111,3 +5128,28 @@ rJourneyHarder,"This is the entrance to the ancient tombs.|It's harder than the 
 rJourneyRandom,"This part of the dungeon has been altered by the goddess of chaos.|The order of zones you'll go through is totally random."
 
 rJourneyTutorial,"I'm sorry! There's supposed to be a tutorial here!|It's a work in progress.|Please come back next time miss!"
+
+rTutorialCongrats,"Congratulations! You've completed the tutorial!|Now get in there and stay out of trouble~"
+
+rTutorial0,"Welcome to the dungeon!|Don't panic, this is a turn-based game,|and nothing will happen until you move.|On your left you'll see your character,|displayed with all of the bondage they don't have.|Don't worry, you'll find some soon!"
+
+rTutorial1,"You might be wondering what all these barrels are for.|Don't worry, they're, uh, totally safe!|When you are inside one you can click on yourself to wait.|Enemies have a hard time seeing you inside a barrel,|so you can wait until they pass by you."
+
+rTutorial2,"On the right you'll see your stats and spells slots.|Your DP, SP, and MP are displayed there, we'll get into what these do.|Below that you'll see your current consumable items,|your gold, and your currently equipped weapon.|Below that, two icons allow you to toggle automatic escape and movement modes."
+rTutorial2_sp1,"Your SP, or Stamina, is your most important resource.|Without it, you can do nothing but crawl helplessly.|There is a stamina potion on the floor up there. Go get it!"
+rTutorial2_sp2,"Oh no! That trap wiped out all your stamina!|Fortunately you have a stamina potion.|You can drink it by clicking the '+' icon next to your SP bar.|You can also go into your Inventory in the bottom bar.|There is also a quick-inventory icon (backpack)."
+rTutorial2_sp3,"Another trap! Fortunately, you can sleep to regain stamina.|Just don't do this while there are enemies around.|When you sleep, the map will advance very quickly.|You can protect yourself by clicking the Close Door button in the bottom bar.|Close yourself in a room and sleep."
+
+rTutorial2_mp1,"Your MP, or Mana, used used to cast spells.|In order to cast spells though, you need to learn one.|Click the Spells button in the bottom right.|Then click on Firebolt, learn it, then assign it to slot 1.|This will replace the Knife spell."
+rTutorial2_mp2,"On the right you'll see your stats and spells slots.|You can click on a spell slot or hit 1-4 on your keyboard to cast a spell|then click on the map for where you want to aim it.|The small wrench icon above them will let you|swap them out for another spell from your spellbook."
+rTutorial2_mp3,"There's a zombie over there!|Fortunately zombies are weak to fire.|Firebolt has a very long range,|so simply cast firebolt and click on the zombie.|Repeat until it is dead."
+rTutorial2_mp4,"Mana potions restore your mana fully."
+
+rTutorial2_dp1,"Your DP, or Distraction, is a measure of...|How much you are enjoying things.|These sorts of thoughts cloud your mind,|so spellcasting is more difficult when you are distracted.|Go grab the potion over there."
+rTutorial2_dp2,"Did you like that?|Anyway, there's a zombie over there. You should drink that potion.|It will clear your mind so you can cast again.|Hurry, or it will get you!"
+
+
+rTutorial3_1,"That wasn't so hard, was it?|Now then, there's a treasure chest over here. Why don't you open it?"
+rTutorial3_2,"Yikes, looks like you're in a bind!|No worries, though. There's a key to those cuffs over there.|Simply hover over the cuffs item test on the left side.|Then, click the lock icon to remove the lock.|Finally, click the buckle to remove the cuffs."
+rTutorial3_3,"I think we all know what's in the next chest.|It's important to understand the different ways you can escape.|You can struggle, which costs the most stamina|but makes other struggle methods faster.|You can cut, which requires a knife in hand.|You can remove, which represents untying or unbuckling."
+rTutorial3_4,"Ouch, that looked tight...|Sometimes you won't be able to struggle out of things.|You'll have to find some other way to take it off..."

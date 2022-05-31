@@ -16,7 +16,7 @@ let KDDialogueTriggers = {
 		prerequisite: (enemy, dist) => {
 			return (KinkyDungeonPlayerDamage
 				&& !KinkyDungeonPlayerDamage.unarmed
-				&& KinkyDungeonPlayerDamage.name != "Knife"
+				&& KinkyDungeonPlayerDamage.name != "Unarmed"
 				&& dist < 3.9
 				&& KDHostile(enemy)
 				&& KDRandom() < 0.25);

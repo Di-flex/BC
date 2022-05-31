@@ -762,6 +762,8 @@ const KDEventMapSpell = {
 					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 					data.flags.AllowTraps = false;
 					KinkyDungeonSendTextMessage(7, TextGet("KinkyDungeonFleetFootedIgnoreTrap"), "lightgreen", 2);
+				} else {
+					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonFleetFootedIgnoreTrapFail"), "lightgreen", 2);
 				}
 			}
 		},

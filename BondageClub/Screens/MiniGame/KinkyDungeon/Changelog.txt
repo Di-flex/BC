@@ -939,6 +939,8 @@ Spell Balance:
 - Improved (?) Chinese translation!
 - New enemy: Deputy
 - New enemy: Magnet witch
+- Added tutorial
+- Revamped struggle system a bit... there's a few more tools to get out now...
 
 TODO ValidationFindBlockCycles to prevent bugs
 

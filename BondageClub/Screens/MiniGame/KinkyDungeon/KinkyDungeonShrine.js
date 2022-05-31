@@ -199,10 +199,6 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonRedKeys += 1;
 				} else if (item.name == "BlueKey") {
 					KinkyDungeonBlueKeys += 1;
-				} else if (item.name == "Knife") {
-					KinkyDungeonNormalBlades += 1;
-				}else if (item.name == "MagicKnife") {
-					KinkyDungeonEnchantedBlades += 1;
 				} else if (item.name == "Lockpick") {
 					KinkyDungeonLockpicks += 1;
 				} else if (item.name == "2Lockpick") {

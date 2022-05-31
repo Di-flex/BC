@@ -82,11 +82,14 @@ function KinkyDungeonFindWeapon(Name) {
 	return undefined;
 }
 
-function KinkyDungeonWeaponCanCut(RequireInteract) {
-	if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon].cutBonus > 0 && (!RequireInteract || KinkyDungeonPlayer.CanInteract())) return true;
+function KinkyDungeonWeaponCanCut(RequireInteract, MagicOnly) {
+	if (KinkyDungeonPlayerWeapon
+		&& KinkyDungeonWeapons[KinkyDungeonPlayerWeapon].cutBonus != undefined
+		&& (!MagicOnly || KinkyDungeonWeapons[KinkyDungeonPlayerWeapon].magic != undefined)
+		&& (!RequireInteract || !KinkyDungeonIsHandsBound())) return true;
 	if (KinkyDungeonPlayerBuffs) {
 		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
-			if (b && b.tags && b.tags.includes("allowCut")) return true;
+			if (b && b.tags && (b.tags.includes("allowCutMagic") || (!MagicOnly && b.tags.includes("allowCut")))) return true;
 		}
 	}
 	return false;
@@ -110,13 +113,8 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	KinkyDungeonPlayerDamage = {};
 	let weapon = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 	if (weapon && weapon.noHands) HandsFree = true;
-	if (!HandsFree || ((KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades < 1 || KinkyDungeonStatsChoice.get("Brawler")) && !KinkyDungeonPlayerWeapon)) {
+	if (!HandsFree || (KinkyDungeonStatsChoice.get("Brawler") && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
-		if (!NoOverride)
-			KDSetWeapon(null);
-	}
-	else if (KinkyDungeonNormalBlades + KinkyDungeonEnchantedBlades >= 1 && !KinkyDungeonPlayerWeapon) {
-		damage = KinkyDungeonWeapons.Knife;
 		if (!NoOverride)
 			KDSetWeapon(null);
 	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {

@@ -27,7 +27,7 @@ let KinkyDungeonSpellLevel = {
 	"Conjure":1,
 	"Illusion":1,
 };
-let KinkyDungeonSpellChoices = [0, 1, 2];
+let KinkyDungeonSpellChoices = [0, 1, 2, 3];
 let KinkyDungeonSpellChoicesToggle = [true, true];
 let KinkyDungeonSpellChoiceCount = 5;
 
@@ -70,7 +70,7 @@ function KinkyDungeonDisableSpell(Name) {
 let KinkyDungeonSpellPress = "";
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [0, 1, 2];
+	KinkyDungeonSpellChoices = [0, 1, 2, 3];
 	KinkyDungeonSpellChoicesToggle = [true, true];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
@@ -616,6 +616,12 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			}
 			effect = true;
+		} else if (playerEffect.name == "TrapSPCloud") {
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSPCloud"), "yellow", 4);
+			if (playerEffect.power > 0) {
+				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			}
+			effect = true;
 		} else if (playerEffect.name == "Freeze") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonFreeze"), "red", playerEffect.time);
 			if (playerEffect.power > 0) {
@@ -675,7 +681,6 @@ function KinkyDungeonHandleSpellCast(spell) {
 		|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion")
 	)) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
-			&& (!spell.knifecost || KinkyDungeonNormalBlades >= spell.knifecost)
 			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
 			return spell;
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
@@ -1062,7 +1067,6 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "cast", 1);
 		KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
-		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
 		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
 		if (spell.channel) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);

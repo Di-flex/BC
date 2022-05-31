@@ -68,7 +68,7 @@ function KinkyDungeonHandleInventory() {
 			//KinkyDungeonAttemptConsumable(item.name, 1);
 		} else if (KinkyDungeonCurrentFilter == Weapon) {
 			let weapon = ((filteredInventory[KinkyDungeonCurrentPageInventory] != null) ? filteredInventory[KinkyDungeonCurrentPageInventory].name : null);
-			if (weapon && weapon != "knife") {
+			if (weapon && weapon != "Unarmed") {
 				let equipped = weapon == KinkyDungeonPlayerWeapon;
 				if (MouseIn(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60) && !equipped) {
 					KDSendInput("switchWeapon", {weapon: weapon});
@@ -456,7 +456,7 @@ function KinkyDungeonDrawInventory() {
 	if (KinkyDungeonDrawInventorySelected(filteredInventory[KinkyDungeonCurrentPageInventory])) {
 		if (KinkyDungeonCurrentFilter == Consumable)
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet("KinkyDungeonConsume"), "White", "", "");
-		if (KinkyDungeonCurrentFilter == Weapon && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Knife") {
+		if (KinkyDungeonCurrentFilter == Weapon && filteredInventory[KinkyDungeonCurrentPageInventory].name != "Unarmed") {
 			let equipped = filteredInventory[KinkyDungeonCurrentPageInventory] && filteredInventory[KinkyDungeonCurrentPageInventory].name == KinkyDungeonPlayerWeapon;
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale, 350, 60, TextGet(equipped ? "KinkyDungeonEquipped" : "KinkyDungeonEquip"), equipped ? "grey" : "White", "", "");
 			if (equipped) DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 25, canvasOffsetY_ui + 483*KinkyDungeonBookScale + 70, 350, 60, TextGet("KinkyDungeonUnEquip"), "White", "", "");
@@ -716,7 +716,7 @@ function KinkyDungeonhandleQuickInv(NoUse) {
 		if (item.preview) {
 			let point = KinkyDungeonQuickGrid(w, H, V, 6);
 			if (MouseIn(point.x, 1000 - V - Wheight + point.y, H, V)) {
-				let weapon = item.name != "Knife" ? item.name : null;
+				let weapon = item.name != "Unarmed" ? item.name : null;
 				KDSendInput("switchWeapon", {weapon: weapon});
 			}
 			//DrawRect(point.x, 1000 - V - Wheight + point.y, H, V, "white");
