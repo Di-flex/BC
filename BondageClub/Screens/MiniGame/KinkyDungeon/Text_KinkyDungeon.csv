@@ -183,7 +183,7 @@ KinkyDungeonStat53,"Graceful Walk"
 KinkyDungeonStatDesc53,"You don't lose stamina when walking with one slowing item, unless it binds your legs together."
 
 KinkyDungeonStat54,"Well-Equipped"
-KinkyDungeonStatDesc54,"Restraints and traps that are limited by level now appear much earlier."
+KinkyDungeonStatDesc54,"Restraints and traps that are limited by level appear sooner, and enemies will stack many restraints."
 
 KinkyDungeonStat55,"Quick-Draw"
 KinkyDungeonStatDesc55,"Switching weapons does not take a turn."
@@ -430,8 +430,8 @@ LootRubbleBlueKey,"You find a blue key, glowing with magic"
 LootBola,"You find a bola, crafted by bandits"
 LootBomb,"You find some unexploded ordnance."
 
-LootBookshelfKey,"You find a key on the shelf!"
-LootBookshelfScroll,"You find a useful scroll in between the books!"
+LootBookshelfKey,"You find a key lying atop an open tome!"
+LootBookshelfScroll,"You find a useful scroll wedged between some treatises!"
 LootBookshelfTrap,"You find a glowing book, which magically binds you as soon as you open it!"
 
 LootChestMistressKey,You find a golden key surrounded by strange golden crystals.

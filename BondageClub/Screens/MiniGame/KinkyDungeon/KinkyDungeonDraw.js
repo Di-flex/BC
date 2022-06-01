@@ -45,7 +45,12 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "L") sprite = "Barrel";
 	else if (code == "?") sprite = "Floor";
 	else if (code == "/") sprite = "RubbleLooted";
-	else if (code == ",") sprite = "Floor";
+	else if (code == ",") {
+		if (KDWallVert(x, y))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
 	else if (code == "D") {
 		sprite = "Door";
 		if (Fog) {
@@ -62,7 +67,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 			KinkyDungeonTilesMemory.set(x + "," + y, "DoorOpen");
 		}
 	} else if (code == "R") sprite = "RubbleLooted";
-	else if (code == "Y") sprite = "Wall";
+	else if (code == "Y") sprite = "Doodad";
 	else if (code == "T") {if (KinkyDungeonBlindLevel > 0) sprite = "Floor"; else sprite = "Trap";}
 	else if (code == "r") sprite = "RubbleLooted";
 	else if (code == "g") sprite = "Grate";

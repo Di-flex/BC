@@ -83,11 +83,11 @@ interface consumable {
 type restraint = {
 	/** Affinity type: Hook, Edge, or Sharp, Sticky, defaults are Hook (struggle), Sharp (Cut), Edge (Pick), Sticky (Unlock), and none (Pick)*/
 	affinity?: {
-		Struggle?: string,
-		Cut?: string,
-		Remove?: string,
-		Pick?: string,
-		Unlock?: string,
+		Struggle?: string[],
+		Cut?: string[],
+		Remove?: string[],
+		Pick?: string[],
+		Unlock?: string[],
 	},
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
