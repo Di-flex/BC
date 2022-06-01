@@ -490,11 +490,21 @@ function KinkyDungeonIsWearingLeash() {
  * @param {string} affinity
  * @returns {boolean}
  */
-function KinkyDungeonGetAffinity(Message, affinity) {
+function KinkyDungeonGetAffinity(Message, affinity, group) {
 	if (affinity == "Hook") {
 		let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 		if (tile == '?') {
-			if (KinkyDungeonCanStand()) return true;
+			if (KinkyDungeonCanStand() && (!group || (
+				group.startsWith("ItemM")
+				|| group == "ItemArms"
+				|| (group == "ItemHands" || !KinkyDungeonIsArmsBound())
+				|| group == "ItemEars"
+				|| group == "ItemHood"
+				|| group == "ItemHead"
+				|| group == "ItemNeck"
+				|| group == "ItemNeckAccessories"
+				|| group == "ItemNeckRestraints"
+			))) return true;
 			else KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonHookHighFail"), "red", 2);
 		} else if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - 1) == ',') return true;
 		return KinkyDungeonHasGhostHelp() || KinkyDungeonHasAllyHelp();
@@ -882,6 +892,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	 * @type {{
 	 * restraint: item,
 	 * struggleType: string,
+	 * struggleGroup: string,
 	 * escapeChance: number,
 	 * origEscapeChance: number,
 	 * helpChance: number,
@@ -898,13 +909,14 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	let data = {
 		restraint: restraint,
 		struggleType: StruggleType,
+		struggleGroup: struggleGroup,
 		escapeChance: restraintEscapeChancePre,
 		origEscapeChance: restraintEscapeChancePre,
 		limitChance: limitChance,
 		helpChance: helpChance,
 		affinity: affinity,
 		strict: KinkyDungeonStrictness(true, struggleGroup),
-		hasAffinity: KinkyDungeonGetAffinity(true, affinity),
+		hasAffinity: KinkyDungeonGetAffinity(true, affinity, struggleGroup),
 		restraintEscapeChance: KDRestraint(restraint).escapeChance[StruggleType],
 		cost: KinkyDungeonStatStaminaCostStruggle,
 		escapePenalty: 0,

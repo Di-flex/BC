@@ -3,29 +3,33 @@
 
 let KDRecentRepIndex = 0;
 
-function KDWallVert(x, y) {
-	let tileUp = KinkyDungeonMapGet(x, y);
+let KDWallReplacers = "14,";
+
+/**
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} noDoorReplace
+ * @returns {boolean}
+ */
+function KDWallVert(x, y, noDoorReplace) {
+	//let tileUp = KinkyDungeonMapGet(x, y);
 	let tileBelow = KinkyDungeonMapGet(x, y + 1);
 	if (
-		( // These are the tiles that get replaced
-			tileUp == '1'
-			|| tileUp == '4'
-		) && ( // These are the tiles that trigger a replacement
-			tileBelow == '1'
-			|| tileBelow == '4'
-			|| tileBelow == 'd'
-			|| tileBelow == 'D'
-			|| tileBelow == ','
-		))
+		// These are the tiles that trigger a replacement
+		KDWallReplacers.includes(tileBelow)
+		|| (!noDoorReplace && (tileBelow == 'd'
+			|| tileBelow == 'D'))
+	)
 		return true;
 
 	return false;
 }
 
-function KinkyDungeonGetSprite(code, x, y, Fog) {
+function KinkyDungeonGetSprite(code, x, y, Fog, noDoorReplace) {
 	let sprite = "Floor";
 	if (code == "1") {
-		if (KDWallVert(x, y))
+		if (KDWallVert(x, y, noDoorReplace))
 			sprite = "WallVert";
 		else
 			sprite = "Wall";
@@ -37,7 +41,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
 	else if (code == "4") {
-		if (KDWallVert(x, y))
+		if (KDWallVert(x, y, noDoorReplace))
 			sprite = "WallVert";
 		else
 			sprite = "Wall";
@@ -46,7 +50,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	else if (code == "?") sprite = "Floor";
 	else if (code == "/") sprite = "RubbleLooted";
 	else if (code == ",") {
-		if (KDWallVert(x, y))
+		if (KDWallVert(x, y, noDoorReplace))
 			sprite = "WallVert";
 		else
 			sprite = "Wall";
@@ -87,7 +91,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	return sprite;
 }
 
-function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
+function KinkyDungeonGetSpriteOverlay(code, x, y, Fog, noDoorReplace) {
 	let sprite = "";
 	if (code == "G") {
 		sprite = "Ghost";
@@ -229,6 +233,10 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonContext.fillStyle = "rgba(0,0,0.0,1.0)";
 				KinkyDungeonContext.fillRect(0, 0, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height);
 				KinkyDungeonContext.fill();
+				let noDoorReplace = false;
+				let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+				if (params.noDoorReplace)
+					noDoorReplace = true;
 				// Draw the grid and tiles
 				let rows = KinkyDungeonGrid.split('\n');
 				for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
@@ -236,12 +244,12 @@ function KinkyDungeonDrawGame() {
 						let RY = R+CamY;
 						let RX = X+CamX;
 						if (RY >= 0 && RY < KinkyDungeonGridHeight && RX >= 0 && RX < KinkyDungeonGridWidth) {
-							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
-							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noDoorReplace);
+							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noDoorReplace);
 							let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonMapIndex[KinkyDungeonTilesSkin.get(RX + "," + RY).skin] : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
 
 							if (KinkyDungeonForceRender) {
-								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noDoorReplace);
 								sprite2 = null;
 							}
 							if (KinkyDungeonForceRenderFloor != "") floor = KinkyDungeonForceRenderFloor;

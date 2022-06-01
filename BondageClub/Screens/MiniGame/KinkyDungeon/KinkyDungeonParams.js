@@ -432,6 +432,7 @@ const KinkyDungeonMapParams = {
 	},
 	"lib":{//DungeonName12,-Magic Library-
 		"background" : "MagicSchoolLaboratory",
+		noDoorReplace: true,
 		"openness" : 5,
 		"density" : 6,
 		"crackchance" : 0.0,

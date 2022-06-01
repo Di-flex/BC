@@ -705,7 +705,7 @@ let KinkyDungeonEnemies = [
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", guardChance: 0.2, visionRadius: 5, maxhp: 8, minLevel:2, weight:6, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":3, "lastthird":3, "increasingWeight": -1}, allFloors: true, shrines: ["Conjure"],
 		dropTable: [{name: "RedKey", weight: 1}, {name: "Nothing", weight: 29}]},
-	{name: "ApprenticeSlime", faction: "Apprentice", color: "#FF00FF", bound: "Apprentice3", playLine: "Apprentice", tags: KDMapInit(["leashing", "opendoors", "binding", "human", "conjurer", "latexRestraints", "closedoors", "apprentice", "ranged", "glueweakness", "chainweakness", "tickleweakness", "search"]), followRange: 2,
+	{name: "ApprenticeSlime", faction: "Apprentice", color: "#FF00FF", bound: "ApprenticeSlime", playLine: "Apprentice", tags: KDMapInit(["leashing", "opendoors", "binding", "human", "conjurer", "latexRestraints", "closedoors", "apprentice", "ranged", "glueweakness", "chainweakness", "tickleweakness", "search"]), followRange: 2,
 		castWhileMoving: true, spells: ["SlimePuddle", "ManySlimes"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 0.9, cohesion: 1.0, followLeashedOnly: true,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", guardChance: 0.2, visionRadius: 5, maxhp: 8, minLevel:2, weight:6, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 1,
 		terrainTags: {"secondhalf":3, "lastthird":3, "increasingWeight": -1}, allFloors: true, shrines: ["Latex"],
