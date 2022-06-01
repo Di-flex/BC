@@ -183,6 +183,7 @@ const KinkyDungeonMapParams = {
 	},
 	"jng":{//DungeonName2,-Underground Jungle-
 		"background" : "DeepForest",
+		noReplace: "b",
 		"openness" : 1,
 		"density" : 1,
 		"crackchance" : 0.15,
@@ -432,7 +433,7 @@ const KinkyDungeonMapParams = {
 	},
 	"lib":{//DungeonName12,-Magic Library-
 		"background" : "MagicSchoolLaboratory",
-		noDoorReplace: true,
+		noReplace: "Ddb",
 		"openness" : 5,
 		"density" : 6,
 		"crackchance" : 0.0,

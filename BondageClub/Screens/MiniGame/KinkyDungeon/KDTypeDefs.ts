@@ -317,8 +317,8 @@ interface floorParams {
 	background : string,
 	openness : number, // Openness of rooms
 	density : number, // Density of tunnels (inverse of room spawn chance)
-	/** Doors wont alter wall tiles in this tileset */
-	noDoorReplace?: boolean,
+	/** These tiles wont alter wall tiles in this tileset */
+	noReplace?: string,
 	crackchance : number,
 	barchance : number,
 	brightness : number,
