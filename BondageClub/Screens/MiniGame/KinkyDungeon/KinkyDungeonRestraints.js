@@ -1667,16 +1667,17 @@ function KinkyDungeonUpdateRestraints(delta) {
  *
  * @param {item} item
  * @param {boolean} [NoLink]
+ * @param {restraint} [toLink]
  * @returns
  */
-function KinkyDungeonRestraintPower(item, NoLink) {
+function KinkyDungeonRestraintPower(item, NoLink, toLink) {
 	if (item && item.type == Restraint) {
 		let lockMult = item ? KinkyDungeonGetLockMult(item.lock) : 1;
 		let power = (item.lock ? KDRestraint(item).power * lockMult : KDRestraint(item).power);
 
 		if (item.dynamicLink && !NoLink) {
 			let link = item.dynamicLink;
-			if (!KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link.name), KDRestraint(item))) {
+			if (!toLink || !KinkyDungeonIsLinkable(KinkyDungeonGetRestraintByName(link.name), toLink)) {
 				let lock = link.lock;
 				let mult = lock ? KinkyDungeonGetLockMult(lock) : 1;
 				let pp = link ? (KDRestraint({name: link.name}).power) : 0;
@@ -1737,13 +1738,13 @@ function KDCanAddRestraint(restraint, Bypass, Lock, NoStack) {
 
 
 	let r = KinkyDungeonGetRestraintItem(restraint.Group);
-	let power = KinkyDungeonRestraintPower(r);
+	let power = KinkyDungeonRestraintPower(r, false, restraint);
 	let linkableCurrent = r && KDRestraint(r) && KinkyDungeonLinkableAndStricter(KDRestraint(r), restraint, r.dynamicLink);
 
 	// We raise the power if the current item cannot be linked, but the item underneath also cannot be linked
 	if (r && r.dynamicLink) {
 		let linkableUnder = KinkyDungeonLinkableAndStricter(KDRestraint(r.dynamicLink), restraint);
-		if (!linkableUnder && !linkableCurrent) power = Math.max(power, KinkyDungeonRestraintPower(r.dynamicLink));
+		if (!linkableUnder && !linkableCurrent) power = Math.max(power, KinkyDungeonRestraintPower(r.dynamicLink, false, restraint));
 	}
 
 	let newLock = (Lock && KinkyDungeonIsLockable(restraint)) ? Lock : restraint.DefaultLock;
