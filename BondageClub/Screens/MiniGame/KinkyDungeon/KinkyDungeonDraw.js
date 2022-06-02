@@ -233,6 +233,16 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonContext.fillRect(0, 0, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height);
 				KinkyDungeonContext.fill();
 				let noReplace = "";
+				let noReplace_skin = {};
+				for (let tile of KinkyDungeonTilesSkin.values()) {
+					if (tile.skin && noReplace_skin[tile.skin] != undefined) {
+						let paramskin = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+						if (paramskin.noReplace)
+							noReplace_skin[tile.skin] = paramskin.noReplace;
+						else noReplace_skin[tile.skin] = "";
+					}
+				}
+
 				let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 				if (params.noReplace)
 					noReplace = params.noReplace;
@@ -243,12 +253,13 @@ function KinkyDungeonDrawGame() {
 						let RY = R+CamY;
 						let RX = X+CamX;
 						if (RY >= 0 && RY < KinkyDungeonGridHeight && RX >= 0 && RX < KinkyDungeonGridWidth) {
-							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noReplace);
-							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noReplace);
 							let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonMapIndex[KinkyDungeonTilesSkin.get(RX + "," + RY).skin] : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
 
+							let nR = KinkyDungeonTilesSkin.get(RX + "," + RY) ? noReplace : noReplace_skin[floor];
+							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
+							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
 							if (KinkyDungeonForceRender) {
-								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0, noReplace);
+								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
 								sprite2 = null;
 							}
 							if (KinkyDungeonForceRenderFloor != "") floor = KinkyDungeonForceRenderFloor;
