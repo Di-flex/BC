@@ -123,7 +123,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 
 	Object.assign(KinkyDungeonPlayerDamage, damage);
 
-	if (!KinkyDungeonPlayer.CanInteract() && flags.KDDamageHands) {
+	if (!KinkyDungeonPlayer.CanInteract() && flags.KDDamageHands && (!weapon || !weapon.noHands)) {
 		KinkyDungeonPlayerDamage.chance /= 2;
 	}
 	if (KinkyDungeonSlowLevel > 1 && !KinkyDungeonPlayerDamage.name) {
@@ -132,7 +132,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (KinkyDungeonStatsChoice.get("Brawler") && !KinkyDungeonPlayerDamage.name) {
 		KinkyDungeonPlayerDamage.dmg += KDBrawlerAmount;
 	}
-	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && flags.KDDamageHands) {
+	if ((KinkyDungeonPlayer.Pose.includes("Hogtied") || KinkyDungeonPlayer.Pose.includes("Kneel")) && flags.KDDamageHands && (!weapon || !weapon.noHands)) {
 		KinkyDungeonPlayerDamage.chance /= 1.5;
 	}
 
