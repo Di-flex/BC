@@ -1446,14 +1446,17 @@ function KinkyDungeonHandleClick() {
 		if (MouseIn(330, 930, 140, 54)) {
 			KinkyDungeonPerksConfig = "1";
 			KinkyDungeonLoadStats();
+			KDUpdatePlugSettings();
 			return true;
 		} else if (MouseIn(480, 930, 140, 54)) {
 			KinkyDungeonPerksConfig = "2";
 			KinkyDungeonLoadStats();
+			KDUpdatePlugSettings();
 			return true;
 		} else if (MouseIn(630, 930, 140, 54)) {
 			KinkyDungeonPerksConfig = "3";
 			KinkyDungeonLoadStats();
+			KDUpdatePlugSettings();
 			return true;
 		}
 
