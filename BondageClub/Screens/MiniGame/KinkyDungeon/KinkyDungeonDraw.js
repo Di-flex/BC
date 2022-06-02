@@ -264,10 +264,10 @@ function KinkyDungeonDrawGame() {
 								if (KinkyDungeonTiles.get(RX + "," + RY)) {
 									if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Illusion") color = "#8154FF";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Conjure") color = "#D4AAFF";
-									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Elements") color = "#FF5D00";
+									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Elements") color = "#FF0000";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Latex") color = "#2667FF";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Leather") color = "#442E1E";
-									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Metal") color = "#808080";
+									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Metal") color = "#222222";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Rope") color = "#7C4926";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Will") color = "#23FF44";
 								}
