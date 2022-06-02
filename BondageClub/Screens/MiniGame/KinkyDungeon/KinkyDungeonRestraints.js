@@ -1763,7 +1763,7 @@ function KDCanAddRestraint(restraint, Bypass, Lock, NoStack) {
 	if (restraint.shrine && restraint.shrine.includes("Vibes") && KinkyDungeonPlayerTags.get("NoVibes")) return false;
 	if (restraint.arousalMode && !KinkyDungeonStatsChoice.get("arousalMode")) return false;
 	if (!r || (!r.dynamicLink ||
-			(!NoStack && restraint.linkCategory && KDLinkCategorySize(r, restraint.linkCategory) + KDLinkSize(restraint) <= 1.0)
+			(restraint.linkCategory && KDLinkCategorySize(r, restraint.linkCategory) + KDLinkSize(restraint) <= (NoStack ? 0.1 : 1.0))
 			|| (!restraint.linkCategory && !KDDynamicLinkList(r, true).some((item) => {return restraint.name == item.name;}))
 	) && !KDRestraint(r).enchanted
 		&& (
