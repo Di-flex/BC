@@ -1603,7 +1603,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 		prerequisiteFunction: (gagged) => {
 			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-				return enemy.Enemy.bound && KinkyDungeonFlags.has("HelpMeFlag");
+				return enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp") && KDEnemyHasFlag(enemy, "NoHelp") && KDEnemyHasFlag(enemy, "HelpMe") && KinkyDungeonAllRestraint().length > 0;
 			}
 			return false;
 		},
@@ -1612,7 +1612,7 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 				clickFunction: (gagged) => {
 					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
-						KinkyDungeonSetFlag("HelpMeFlag", 0);
+						KinkyDungeonSetEnemyFlag(enemy, "HelpMe", 0);
 					}
 					return false;
 				},
