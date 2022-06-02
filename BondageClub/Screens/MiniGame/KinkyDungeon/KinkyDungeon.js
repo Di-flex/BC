@@ -1439,6 +1439,7 @@ function KinkyDungeonHandleClick() {
 
 		if (MouseIn(100, 920, 190, 64)) {
 			KinkyDungeonStatsChoice = new Map();
+			KDUpdatePlugSettings();
 			return true;
 		}
 
