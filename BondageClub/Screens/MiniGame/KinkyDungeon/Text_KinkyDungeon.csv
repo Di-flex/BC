@@ -5144,7 +5144,7 @@ rTutorial2_sp1,"Your SP, or Stamina, is your most important resource.|Without it
 rTutorial2_sp2,"Oh no! That trap wiped out all your stamina!|Fortunately you have a stamina potion.|You can drink it by clicking the '+' icon next to your SP bar.|You can also go into your Inventory in the bottom bar.|There is also a quick-inventory icon (backpack)."
 rTutorial2_sp3,"Another trap! Fortunately, you can sleep to regain stamina.|Just don't do this while there are enemies around.|When you sleep, the map will advance very quickly.|You can protect yourself by clicking the Close Door button in the bottom bar.|Close yourself in a room and sleep."
 
-rTutorial2_mp1,"Your MP, or Mana, used used to cast spells.|In order to cast spells though, you need to learn one.|Click the Spells button in the bottom right.|Then click on Firebolt, learn it, then assign it to slot 1.|This will replace the Knife spell."
+rTutorial2_mp1,"Your MP, or Mana, used used to cast spells.|In order to cast spells though, you need to learn one.|Click the Spells button in the bottom right.|Then click on Firebolt, learn it, then assign it to slot 1."
 rTutorial2_mp2,"On the right you'll see your stats and spells slots.|You can click on a spell slot or hit 1-4 on your keyboard to cast a spell|then click on the map for where you want to aim it.|The small wrench icon above them will let you|swap them out for another spell from your spellbook."
 rTutorial2_mp3,"There's a zombie over there!|Fortunately zombies are weak to fire.|Firebolt has a very long range,|so simply cast firebolt and click on the zombie.|Repeat until it is dead."
 rTutorial2_mp4,"Mana potions restore your mana fully."

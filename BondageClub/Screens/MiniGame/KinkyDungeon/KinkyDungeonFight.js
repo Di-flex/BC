@@ -532,7 +532,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx.Damage + ".ogg");
 	}
 
-	KinkyDungeonAggro(Enemy, Spell, attacker, predata.faction);
+	if (predata.type != "heal" && predata.type != "inert" && (!Spell || !Spell.allySpell) && (!bullet || !bullet.spell || !bullet.spell.allySpell))
+		KinkyDungeonAggro(Enemy, Spell, attacker, predata.faction);
 
 	if (predata.dmg > 0)
 		KinkyDungeonTickBuffTag(Enemy.buffs, "takeDamage", 1);
@@ -889,6 +890,8 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 				//KDDamageQueue.push({floater: `+${Math.round((enemy.hp - origHP) * 10)}`, Entity: enemy, Color: "#ffaa00", Time: 3});
 				if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0)
 					KinkyDungeonSendFloater(enemy, `+${Math.round((enemy.hp - origHP) * 10)}`, "#ffaa00", 3);
+				if (b.bullet.faction == "Player")
+					KDHealRepChange(enemy, enemy.hp - origHP);
 			}
 		}
 	} else if (b.bullet.hit == "cast" && b.bullet.spell && b.bullet.spell.spellcasthit) {
@@ -1036,6 +1039,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 							enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
 							if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0)
 								KinkyDungeonSendFloater(enemy, `+${Math.round((enemy.hp - origHP) * 10)}`, "#ffaa00", 3);
+							if (bullet.bullet.faction == "Player")
+								KDHealRepChange(enemy, enemy.hp - origHP);
 						} else if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0)
 							KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, nomsg, bullet.bullet.spell, bullet, undefined, d);
 						nomsg = true;
@@ -1060,6 +1065,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 						enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
 						if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0)
 							KinkyDungeonSendFloater(enemy, `+${Math.round((enemy.hp - origHP) * 10)}`, "#ffaa00", 3);
+						if (bullet.bullet.faction == "Player")
+							KDHealRepChange(enemy, enemy.hp - origHP);
 					} else if (KinkyDungeonLightGet(enemy.x, enemy.y) > 0)
 						KinkyDungeonDamageEnemy(enemy, bullet.bullet.damage, true, bullet.bullet.NoMsg, bullet.bullet.spell, bullet, undefined, d);
 
@@ -1181,4 +1188,29 @@ function KinkyDungeonSendBulletEvent(Event, b, data) {
 				KinkyDungeonHandleBulletEvent(Event, e, b, data);
 			}
 		}
+}
+
+
+function KDHealRepChange(enemy, amount) {
+	// De-aggro an enemy if you heal them to full
+	if (enemy.hostile && amount > 0) {
+		if (enemy.hp >= enemy.Enemy.maxhp - 0.5) {
+			enemy.hostile = 0;
+		}
+	} else if ((!enemy.allied || enemy.allied <= 400) && amount > 0) {
+		// Befriend enemies if you save them
+		if (enemy.hp <= 0.25 * enemy.Enemy.maxhp && enemy.allied <= 400) {
+			enemy.allied = 400;
+		} else if (enemy.allied < 15) enemy.allied = 15;
+	}
+	// Raise rep based on amount
+	let amountRep = amount * 0.001;
+	if (KDHostile(enemy)) amountRep *= 0.5;
+	else if (KDFactionRelation("Player", KDGetFactionOriginal(enemy)) > 0.45) amountRep *= 0;
+	else if (KDFactionRelation("Player", KDGetFactionOriginal(enemy)) > 0.35) amountRep *= 0.25;
+	else if (KDFactionRelation("Player", KDGetFactionOriginal(enemy)) > 0.25) amountRep *= 0.5;
+	if (amountRep > 0 && !KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy))) {
+		if (amountRep > 0.01) amountRep = 0.01;
+		KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), amountRep);
+	}
 }

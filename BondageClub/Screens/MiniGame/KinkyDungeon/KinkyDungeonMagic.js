@@ -27,7 +27,7 @@ let KinkyDungeonSpellLevel = {
 	"Conjure":1,
 	"Illusion":1,
 };
-let KinkyDungeonSpellChoices = [0, 1, 2, 3];
+let KinkyDungeonSpellChoices = [0, 1, 2];
 let KinkyDungeonSpellChoicesToggle = [true, true];
 let KinkyDungeonSpellChoiceCount = 5;
 
@@ -70,7 +70,7 @@ function KinkyDungeonDisableSpell(Name) {
 let KinkyDungeonSpellPress = "";
 
 function KinkyDungeonResetMagic() {
-	KinkyDungeonSpellChoices = [0, 1, 2, 3];
+	KinkyDungeonSpellChoices = [0, 1, 2];
 	KinkyDungeonSpellChoicesToggle = [true, true];
 	KinkyDungeonSpellChoiceCount = 3;
 	KinkyDungeonSpells = [];
@@ -1044,7 +1044,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		if (KinkyDungeonTargetingSpellItem) {
 			KinkyDungeonChangeConsumable(KinkyDungeonTargetingSpellItem, -(KinkyDungeonTargetingSpellItem.useQuantity ? KinkyDungeonTargetingSpellItem.useQuantity : 1));
 			KinkyDungeonTargetingSpellItem = null;
-			KinkyDungeonAggroAction('item', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('item', {});
 		} else if (KinkyDungeonTargetingSpellWeapon) {
 			let special = KinkyDungeonPlayerDamage ? KinkyDungeonPlayerDamage.special : null;
 			if (special) {
@@ -1053,9 +1054,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				if (energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
 			}
 			KinkyDungeonTargetingSpellItem = null;
-			KinkyDungeonAggroAction('item', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('item', {});
 		} else {
-			KinkyDungeonAggroAction('magic', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('magic', {});
 		}
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 		KDSendSpellCast(spell.name);

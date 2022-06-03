@@ -320,6 +320,7 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 		// Setup variables
 		let startpos = 1 + 2*Math.floor(KDRandom()*0.5 * (height - 2));
+		if (startpos < 3) startpos = 3; // ...
 		if (startpos % 2 != 1) startpos += 1; // startpos MUST be odd
 
 

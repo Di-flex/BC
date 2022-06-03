@@ -942,6 +942,7 @@ Spell Balance:
 - Added tutorial
 - Revamped struggle system a bit... there's a few more tools to get out now...
 - A mini visual rework!
+- Healing people can befriend them and raises rep
 
 TODO ValidationFindBlockCycles to prevent bugs
 

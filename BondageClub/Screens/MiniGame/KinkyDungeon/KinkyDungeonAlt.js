@@ -21,6 +21,7 @@ let alts = {
 		nojail: true,
 		nokeys: true,
 		nostairs: true,
+		notraps: true,
 		noShrineTypes: ["Commerce", "Will"],
 	},
 	"JourneyFloor": {
@@ -44,6 +45,7 @@ let alts = {
 		nokeys: true,
 		nolore: true,
 		nostairs: true,
+		notraps: true,
 		skiptunnel: true, // Skip the ending tunnel
 	},
 	"Tutorial": {

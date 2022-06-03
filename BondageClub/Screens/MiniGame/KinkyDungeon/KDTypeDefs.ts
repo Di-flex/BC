@@ -899,6 +899,8 @@ interface KinkyDialogueTrigger {
 interface spell {
 	tags?: string[];
 	name: string;
+	/** This spell wont trigger an aggro action */
+	noAggro?: boolean;
 	/** Whether the spell defaults to the Player faction */
 	allySpell?: boolean;
 	/** Spell overrides the faction */
