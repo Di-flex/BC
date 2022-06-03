@@ -2704,6 +2704,9 @@ RestraintSlimeArmsDesc2,"It is an organic material that reforms around every cut
 RestraintSlimeHands,Slime (Hands)
 RestraintSlimeHandsDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintSlimeMouth,Slime (Mouth)
+RestraintSlimeMouthDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
+RestraintSlimeMouthDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintSlimeHead,Slime (Head)
 RestraintSlimeHeadDesc,"Sticky slime that adheres to your body. It reacts negatively to mana..."
 RestraintSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
@@ -2723,6 +2726,9 @@ RestraintHardSlimeArmsDesc2,"There's no struggling out now, but since it's solid
 RestraintHardSlimeHands,Rubber (Hands)
 RestraintHardSlimeHandsDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardSlimeMouth,Rubber (Mouth)
+RestraintHardSlimeMouthDesc,"Sticky rubber that has fused itself into a shell around your body."
+RestraintHardSlimeMouthDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
 RestraintHardSlimeHead,Rubber (Head)
 RestraintHardSlimeHeadDesc,"Sticky rubber that has fused itself into a shell around your body."
 RestraintHardSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
@@ -2745,6 +2751,9 @@ RestraintProtoSlimeArmsDesc2,"It is an organic material that reforms around ever
 RestraintProtoSlimeHands,Proto-Slime (Hands)
 RestraintProtoSlimeHandsDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
 RestraintProtoSlimeHandsDesc2,"It is an organic material that reforms around every cut you make!"
+RestraintProtoSlimeMouth,Proto-Slime (Mouth)
+RestraintProtoSlimeMouthDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
+RestraintProtoSlimeMouthDesc2,"It is an organic material that reforms around every cut you make!"
 RestraintProtoSlimeHead,Proto-Slime (Head)
 RestraintProtoSlimeHeadDesc,"It seems to be a precursor to the slimes everyone is familiar with?"
 RestraintProtoSlimeHeadDesc2,"It is an organic material that reforms around every cut you make!"
@@ -2764,6 +2773,9 @@ RestraintHardProtoSlimeArmsDesc2,"There's no struggling out now, but since it's 
 RestraintHardProtoSlimeHands,Proto-Rubber (Hands)
 RestraintHardProtoSlimeHandsDesc,"Sticky slime that has fused itself into a shell around your body."
 RestraintHardProtoSlimeHandsDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
+RestraintHardProtoSlimeMouth,Proto-Rubber (Mouth)
+RestraintHardProtoSlimeMouthDesc,"Sticky slime that has fused itself into a shell around your body."
+RestraintHardProtoSlimeMouthDesc2,"There's no struggling out now, but since it's solid it may be cuttable."
 RestraintHardProtoSlimeHead,Proto-Rubber (Head)
 RestraintHardProtoSlimeHeadDesc,"Sticky slime that has fused itself into a shell around your body."
 RestraintHardProtoSlimeHeadDesc2,"There's no struggling out now, but since it's solid it may be cuttable."

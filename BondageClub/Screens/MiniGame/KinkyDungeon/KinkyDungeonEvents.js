@@ -4,7 +4,8 @@ let KinkyDungeonSlimeLevel = 0;
 let KinkyDungeonSlimeLevelStart = 0;
 let KinkyDungeonAttackTwiceFlag = false;
 let KinkyDungeonSlimeParts = [
-	{group: "ItemHead", restraint: "SlimeHead"},
+	{group: "ItemHead", restraint: "SlimeHead", noUnmasked: true},
+	{group: "ItemMouth3", restraint: "SlimeMouth"},
 	{group: "ItemArms", restraint: "SlimeArms"},
 	{group: "ItemHands", restraint: "SlimeHands"},
 	{group: "ItemLegs", restraint: "SlimeLegs"},
@@ -220,7 +221,7 @@ const KDEventMapInventory = {
 								slime2 = s;
 								break;
 							}
-							if (!slime2) potentialSlimeParts.push({
+							if (!slime2 && (!KinkyDungeonStatsChoice.has("Unmasked") || !KinkyDungeonSlimeParts[index - 1].noUnmasked)) potentialSlimeParts.push({
 								group: KinkyDungeonSlimeParts[index - 1].group,
 								restraint: (e.restraint ? e.restraint : "") + KinkyDungeonSlimeParts[index - 1].restraint,
 								level: slime.level
@@ -231,7 +232,7 @@ const KDEventMapInventory = {
 								slime3 = s;
 								break;
 							}
-							if (!slime3) potentialSlimeParts.push({
+							if (!slime3 && (!KinkyDungeonStatsChoice.has("Unmasked") || !KinkyDungeonSlimeParts[index + 1].noUnmasked)) potentialSlimeParts.push({
 								group: KinkyDungeonSlimeParts[index + 1].group,
 								restraint: (e.restraint ? e.restraint : "") + KinkyDungeonSlimeParts[index + 1].restraint,
 								level: slime.level
