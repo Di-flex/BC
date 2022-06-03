@@ -265,6 +265,7 @@ let KDDialogue = {
 			},
 		}
 	},
+	"OfferDress": KDYesNoSingle("OfferDress", ["Rope"], ["Ghost"], ["bindingDress"], [0, 60, 0, 75], [-25, 0, 15, 40]),
 	"OfferLatex": KDYesNoTemplate(
 		(refused) => { // Setup function. This is run when you click Yes or No in the start of the dialogue
 			// This is the restraint that the dialogue offers to add. It's selected from a set of tags. You can change the tags to change the restraint
@@ -1944,6 +1945,111 @@ function KDYesNoTemplate(setupFunction, yesFunction, noFunction, domFunction) {
 
 
 	return dialogue;
+}
+
+/**
+ *
+ * @param {string} name
+ * @param {string[]} goddess
+ * @param {string[]} antigoddess
+ * @param {string[]} restraint
+ * @param {number[]} diffSpread
+ * @param {number[]} OffdiffSpread
+ * @returns {KinkyDialogue}
+ */
+function KDYesNoSingle(name, goddess, antigoddess, restraint, diffSpread, OffdiffSpread) {
+	return KDYesNoTemplate(
+		(refused) => { // Setup function. This is run when you click Yes or No in the start of the dialogue
+			// This is the restraint that the dialogue offers to add. It's selected from a set of tags. You can change the tags to change the restraint
+			let r = KinkyDungeonGetRestraint({tags: restraint}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+			if (r) {
+				KDGameData.CurrentDialogMsgData = {
+					"Data_r": r.name,
+					"RESTRAINT": TextGet("Restraint" + r.name),
+				};
+
+				// Percent chance your dominant action ("Why don't you wear it instead?") succeeds
+				// Based on a difficulty that is the sum of four lines
+				// Dominant perk should help with this
+				KDGameData.CurrentDialogMsgValue.PercentOff =
+					KDOffensiveDialogueSuccessChance(KDBasicCheck(goddess, [])
+					- (KDDialogueGagged() ? 60 : 40)
+					- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
+					- KDPersonalitySpread(OffdiffSpread[0], OffdiffSpread[1], KinkyDungeonStatsChoice.has("Dominant") ? OffdiffSpread[3] : OffdiffSpread[2]));
+				// Set the string to replace in the UI
+				KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
+			}
+
+			// If the player hits No first, this happens
+			if (refused) {
+				// Set up the difficulty of the check
+				// This check basically determines if we switch to the Force stage where the speaker tries to force you
+				let diff = KinkyDungeonStatsChoice.has("Dominant") ? diffSpread[1] : diffSpread[0];
+				// Failure condition
+				if (KDBasicCheck(goddess, antigoddess) <= diff) {
+					KDGameData.CurrentDialogStage = "Force";
+					KDGameData.CurrentDialogMsg = name + "ForceYes"; // This is different from OfferLatexForce_Yes, it's a more reluctant dialogue...
+					// Set up percentage chance to resist
+					KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(goddess, antigoddess));
+					KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+				}
+				KinkyDungeonChangeRep(antigoddess[0], -1); // Reduce submission because of refusal
+			}
+			return false;
+		},(refused) => { // Yes function. This happens if the user submits willingly
+			KinkyDungeonChangeRep(goddess[0], 1);
+			KDPleaseSpeaker(refused ? 0.004 : 0.005); // Less reputation if you refused
+			KinkyDungeonChangeRep(antigoddess[0], refused ? 1 : 2); // Less submission if you refused
+			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+			return false;
+		},(refused) => { // No function. This happens when the user refuses.
+			// The first half is basically the same as the setup function, but only if the user did not refuse the first yes/no
+			if (!refused) {
+				// This check basically determines if we switch to the Force stage where the speaker tries to force you
+				let diff = KinkyDungeonStatsChoice.has("Dominant") ? diffSpread[3] : diffSpread[2]; // Slightly harder because we refused
+				// Failure condition
+				if (KDBasicCheck(goddess, antigoddess) <= diff) {
+					KDGameData.CurrentDialogStage = "Force";
+					KDGameData.CurrentDialogMsg = "";
+					// Set up percentage chance to resist
+					KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(goddess, antigoddess));
+					KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+				}
+				KinkyDungeonChangeRep(antigoddess[0], -1);
+			} else { // If the user refuses we use the already generated success chance and calculate the result
+				let percent = KDGameData.CurrentDialogMsgValue.Percent;
+				if (KDRandom() > percent) { // We failed! You get tied tight
+					KDIncreaseOfferFatigue(-20);
+					KDGameData.CurrentDialogMsg = name + "Force_Failure";
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+				} else {
+					KDIncreaseOfferFatigue(10);
+				}
+			}
+			return false;
+		},(refused) => { // Dom function. This is what happens when you try the dominant option
+			// We use the already generated percent chance
+			let percent = KDGameData.CurrentDialogMsgValue.PercentOff;
+			if (KDRandom() > percent) {
+				// If we fail, we aggro the enemy
+				KDIncreaseOfferFatigue(-20);
+				KDGameData.CurrentDialogMsg = "OfferDominantFailure";
+				KDAggroSpeaker(10);
+			} else {
+				// If we succeed, we get the speaker enemy and bind them
+				KDIncreaseOfferFatigue(10);
+				let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+					enemy.playWithPlayer = 0;
+					enemy.playWithPlayerCD = 999;
+					let amount = 10;
+					if (!enemy.boundLevel) enemy.boundLevel = amount;
+					else enemy.boundLevel += amount;
+				}
+				KinkyDungeonChangeRep(antigoddess[0], -4); // Reduce submission because dom
+			}
+			return false;
+		});
 }
 
 

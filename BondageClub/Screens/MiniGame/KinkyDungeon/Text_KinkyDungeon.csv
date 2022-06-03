@@ -4648,6 +4648,36 @@ dOfferDominantGag,"(Point to her instead) (OFFPERC chance, may aggro)"
 rOfferDominantFailure,"(The SPEAKER resists and defends herself!)"
 rOfferDominantSuccess,"(The SPEAKER blushes and accepts)"
 
+
+
+rOfferDress,"(The SPEAKER looks at you curiously)|Oh, you'd be perfect!|Would you please model my latest design?"
+rOfferDressYes,"(The SPEAKER holds up a restrictive outfit)|This RESTRAINT might be a tight fit|so hold still while I lace it~"
+rOfferDressYes_Yes,"(The SPEAKER giggles)|It looks even better than I thought!|Thank you girl~"
+rOfferDressYes_No,"(The SPEAKER sighs and moves away)|Such a shame..."
+rOfferDressNo,"(The SPEAKER looks disappointed)|Guess I'll find someone else then..."
+rOfferDressForce,"(The SPEAKER pouts)|But I just have to see how you look in it!"
+rOfferDressForceYes,"(The SPEAKER smiles)|Maybe you'll change your mind when it's on~"
+rOfferDressForce_No,"(The SPEAKER grumbles)|...fine, but you'd look cute~"
+rOfferDressForce_Yes,"(The SPEAKER looks bemused)|Changed your mind?|It does look good on you though~"
+rOfferDressForce_Failure,"(The SPEAKER snaps her fingers)|(You feel the RESTRAINT magically appear on you)|Aha! Wonderful! You can go now~"
+
+dOfferDress_Yes,"Yes please!"
+dOfferDress_YesGag,"(Nod enthusiastically)"
+dOfferDress_No,"I don't have time for this."
+dOfferDress_NoGag,"(Shake your head)"
+
+dOfferDressYes_Yes,"Of course miss."
+dOfferDressYes_YesGag,"(Nod again)"
+dOfferDressYes_No,"Actually, I'd rather not."
+dOfferDressYes_NoGag,"(Shake your head)"
+
+dOfferDressForce_Yes,"Fine, I guess."
+dOfferDressForce_YesGag,"(Giggle and nod)"
+dOfferDressForce_No,"Wait! That's too much! (PERCENT chance to avoid)"
+dOfferDressForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
+
+
 rOfferLatex,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Are you a fan of latex by chance?"
 rOfferLatexYes,"(The SPEAKER blushes deeply)|Then would you like to try on this RESTRAINT?"
 rOfferLatexYes_Yes,"(The SPEAKER smiles)|You look so good in that!"
