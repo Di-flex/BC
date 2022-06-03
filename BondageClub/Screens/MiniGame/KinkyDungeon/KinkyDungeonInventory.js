@@ -411,8 +411,9 @@ function KinkyDungeonDrawInventorySelected(item, noscroll) {
 function KinkyDungeonDrawInventory() {
 	KinkyDungeonDrawMessages(true);
 
+	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
 
-	if (KinkyDungeonCurrentPageInventory >= KinkyDungeonInventoryLength()) KinkyDungeonCurrentPageInventory = 0;
+	if (KinkyDungeonCurrentPageInventory >= filteredInventory.length) KinkyDungeonCurrentPageInventory = 0;
 
 	let defaultIndex = 0;
 	if (KinkyDungeonFilterInventory(KinkyDungeonFilters[0]).length == 0) defaultIndex = 1;
@@ -426,7 +427,6 @@ function KinkyDungeonDrawInventory() {
 		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale - 20, canvasOffsetY_ui + 115 + I*65, 225, 60, TextGet("KinkyDungeonCategoryFilter" + KinkyDungeonFilters[I]), (KinkyDungeonCurrentFilter == KinkyDungeonFilters[I]) ? "White" : col, "", "");
 	}
 
-	let filteredInventory = KinkyDungeonFilterInventory(KinkyDungeonCurrentFilter);
 
 	if (filteredInventory.length > 0) {
 		DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 400, canvasOffsetY_ui, 90, 40, "", KinkyDungeonInventoryOffset > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
