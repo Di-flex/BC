@@ -691,17 +691,57 @@ function KinkyDungeonDrawGame() {
 		if (branch || ServerURL == 'https://bc-server-test.herokuapp.com/') {
 			DrawCheckbox(600, 20, 64, 64, "Debug Mode", KDDebugMode, false, "white");
 			if (KDDebugMode) {
+				let dd = 30;
+				let i = 0;
+				for (let r of KinkyDungeonRestraints) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 0, 15 + i * dd, 200, "white", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of Object.values(KinkyDungeonConsumables)) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 200, 15 + i * dd, 200, "lightblue", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of KinkyDungeonEnemies) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugEnemy"))) {
+						DrawTextFit(r.name, 400, 15 + i * dd, 200, "red", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of Object.values(KinkyDungeonWeapons)) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 1800, 15 + i * dd, 200, "orange", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of KinkyDungeonOutfitsBase) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 900, 15 + i * dd, 200, "lightgreen", "black");
+						i++;
+					}
+				}
+
 				DrawCheckbox(1100, 20, 64, 64, "Verbose Console", KDDebug, false, "white");
 				DrawCheckbox(1100, 100, 64, 64, "Changeable Perks", KDDebugPerks, false, "white");
 				DrawCheckbox(1100, 180, 64, 64, "Unlimited Gold", KDDebugGold, false, "white");
 				MainCanvas.textAlign = "center";
 				ElementPosition("DebugEnemy", 1650, 52, 300, 64);
-				DrawButton(1500, 100, 300, 64, "Spawn enemy", "White", "");
+				DrawButton(1500, 100, 100, 64, "Enemy", "White", "");
+				DrawButton(1600, 100, 100, 64, "Ally", "White", "");
+				DrawButton(1700, 100, 100, 64, "Shop", "White", "");
 				ElementPosition("DebugItem", 1650, 212, 300, 64);
 				DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
 				DrawButton(1100, 260, 300, 64, "Teleport to stairs", "White", "");
 				DrawButton(1500, 320, 300, 64, "Get save code", "White", "");
 				DrawButton(1100, 320, 300, 64, "Enter parole mode", "White", "");
+
 			}
 		}
 

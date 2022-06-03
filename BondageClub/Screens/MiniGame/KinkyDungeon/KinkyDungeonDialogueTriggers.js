@@ -216,7 +216,7 @@ function KDBossLose(name, enemyName) {
 	};
 }
 
-function KinkyDungeonGetShopForEnemy(enemy) {
+function KinkyDungeonGetShopForEnemy(enemy, guaranteed) {
 	let shoplist = [];
 	for (let s of KDShops) {
 		let end = false;
@@ -238,7 +238,7 @@ function KinkyDungeonGetShopForEnemy(enemy) {
 			}
 		}
 		if (!hasTag) end = true;
-		if (!end && (!s.chance || KDRandom() < s.chance)) shoplist.push(s.name);
+		if (!end && (guaranteed || !s.chance || KDRandom() < s.chance)) shoplist.push(s.name);
 	}
 	if (shoplist.length > 0) return shoplist[Math.floor(KDRandom() * shoplist.length)];
 	return "";

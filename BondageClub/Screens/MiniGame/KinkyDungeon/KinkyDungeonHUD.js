@@ -1101,10 +1101,31 @@ function KinkyDungeonHandleHUD() {
 				}
 				return true;
 			} else
-			if (MouseIn(1500, 100, 300, 64)) {
+			if (MouseIn(1500, 100, 100, 64)) {
 				let enemy = KinkyDungeonEnemies.find((element) => {return element.name.toLowerCase() == ElementValue("DebugEnemy").toLowerCase();});
 				if (enemy) {
-					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, enemy.name, 1, 1);
+					KinkyDungeonSummonEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, enemy.name, 1.5, 1.5);
+				}
+				return true;
+			}else
+			if (MouseIn(1600, 100, 100, 64)) {
+				let enemy = KinkyDungeonEnemies.find((element) => {return element.name.toLowerCase() == ElementValue("DebugEnemy").toLowerCase();});
+				if (enemy) {
+					let e = DialogueCreateEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, enemy.name);
+					e.allied = 9999;
+				}
+				return true;
+			}else
+			if (MouseIn(1700, 100, 100, 64)) {
+				let enemy = KinkyDungeonEnemies.find((element) => {return element.name.toLowerCase() == ElementValue("DebugEnemy").toLowerCase();});
+				if (enemy) {
+					let e = DialogueCreateEnemy(KinkyDungeonPlayerEntity.x -1, KinkyDungeonPlayerEntity.y, enemy.name);
+					e.ceasefire = 1000;
+					let shop = KinkyDungeonGetShopForEnemy(e, true);
+					if (shop) {
+						KinkyDungeonSetEnemyFlag(e, "Shop", -1);
+						KinkyDungeonSetEnemyFlag(e, shop, -1);
+					}
 				}
 				return true;
 			} else
@@ -1115,6 +1136,8 @@ function KinkyDungeonHandleHUD() {
 				else if (KinkyDungeonGetRestraintByName(ElementValue("DebugItem"))) {
 					let restraint = KinkyDungeonGetRestraintByName(ElementValue("DebugItem"));
 					KinkyDungeonInventoryAdd({name: ElementValue("DebugItem"), type: LooseRestraint, events: restraint.events, quantity: 10});
+				} else if (KinkyDungeonOutfitsBase[ElementValue("DebugItem")]) {
+					KinkyDungeonInventoryAdd({name: KinkyDungeonOutfitsBase[ElementValue("DebugItem")], type: Outfit});
 				}
 
 				if (item)
