@@ -945,7 +945,7 @@ Spell Balance:
 - Healing people can befriend them and raises rep
 - Changes to distraction system
 - Made bullets easier to dodge, and added warnings
-- Golem HP reduced from 30 to 16
+- Golem HP reduced from 300 to 180
 - Golem now has 40% magic resist
 - Golem armor increased to 25 from 20
 
