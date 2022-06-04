@@ -691,7 +691,7 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 						KinkyDungeonChangeFactionRep(rep, enemy.Enemy.factionrep[rep]);
 
 				if (KinkyDungeonStatsChoice.has("Vengeance")) {
-					KinkyDungeonChangeDistraction(Math.max(0, Math.ceil(Math.pow(enemy.Enemy.maxhp, 0.7))));
+					KinkyDungeonChangeDistraction(Math.max(0, Math.ceil(Math.pow(enemy.Enemy.maxhp, 0.7))), false, 0.75);
 				}
 
 				let faction = KDGetFaction(enemy);

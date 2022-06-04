@@ -1986,7 +1986,7 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
 				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
 				if (saveData.stats.distraction != undefined) KinkyDungeonStatDistraction = saveData.stats.distraction;
-				if (saveData.stats.distractionlower != undefined) KinkyDungeonStatDistractionLower = saveData.stats.distractionlowwer;
+				if (saveData.stats.distractionlower != undefined) KinkyDungeonStatDistractionLower = saveData.stats.distractionlower;
 				if (saveData.stats.wep != undefined) KDSetWeapon(saveData.stats.wep);
 				if (saveData.stats.npp != undefined) KinkyDungeonNewGame = saveData.stats.npp;
 

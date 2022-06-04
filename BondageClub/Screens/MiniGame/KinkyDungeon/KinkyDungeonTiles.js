@@ -43,7 +43,7 @@ let KDMoveObjectFunctions = {
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
-		KinkyDungeonChangeDistraction(3 * delta);
+		KinkyDungeonChangeDistraction(3 * delta, false, 0.5);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
 	} else if (tile == "[") { // Happy Gas!
 		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);
