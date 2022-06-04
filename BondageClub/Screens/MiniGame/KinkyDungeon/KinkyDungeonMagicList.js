@@ -383,9 +383,9 @@ let KinkyDungeonSpellListEnemies = [
 		spellcast: {spell: "MiniSlime", target: "target", directional:true, randomDirection: true, noTargetMoveDir: true, spread: 1, offset: false}, channel: 3},
 
 	// Bandit trader
-	{enemySpell: true, name: "PoisonDagger", minRange: 1.5, sfx: "Miss", manacost: 3, castRange: 6, components: ["Arms"], level:1, speed: 1,
+	{enemySpell: true, name: "PoisonDagger", minRange: 1.5, sfx: "Miss", manacost: 2, castRange: 6, components: ["Arms"], level:1, speed: 1,
 		type:"bolt", projectileTargeting:true, onhit:"", power: 4, delay: 0, range: 50, damage: "poison", playerEffect: {name: "PoisonDagger", power: 4, type: "poison", time: 8},},
-	{enemySpell: true, name: "LustBomb", minRange: 0, sfx: "Miss", school: "Illusion", manacost: 3, specialCD: 12, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 1, range: 4, size: 3, aoe: 1.5, lifetime: 1, damage: "happygas", playerEffect: {name: "LustBomb", damage: "happygas", power: 12 }},
+	{enemySpell: true, name: "LustBomb", minRange: 0, sfx: "Miss", school: "Illusion", manacost: 2, specialCD: 12, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", time: 5, delay: 1, power: 6, range: 4, size: 3, aoe: 1.5, lifetime: 1, damage: "happygas", playerEffect: {name: "LustBomb", damage: "happygas", power: 24 }},
 
 
 	// Shockwitch spells

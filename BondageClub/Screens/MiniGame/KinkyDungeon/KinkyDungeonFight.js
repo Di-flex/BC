@@ -1191,12 +1191,12 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 		//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
 		if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay) {
 			if (t.color)
-				DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColorBasic.png", KinkyDungeonContext,
+				DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColorSpecialBasic.png", KinkyDungeonContext,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
 					t.color, true, []);
 			else
-				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "WarningBasic.png",
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "WarningSpecialBasic.png",
 					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
