@@ -176,6 +176,7 @@ function KinkyDungeonPayShrine(type) {
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 		KinkyDungeonStatDistraction = 0;
+		KinkyDungeonStatDistractionLower = 0;
 		KinkyDungeonChangeStamina(0);
 		KinkyDungeonChangeMana(0);
 		KinkyDungeonChangeDistraction(0);

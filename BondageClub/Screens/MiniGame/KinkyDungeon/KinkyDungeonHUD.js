@@ -583,6 +583,11 @@ function KinkyDungeonDrawProgress(x, y, amount, totalIcons, maxWidth, sprite) {
 	}
 }
 
+function KinkyDungeonCanSleep() {
+	if (KDGameData.CurrentVibration) return false;
+	else return true;
+}
+
 function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	// Draw labels
 	let buttonWidth = 48;
@@ -622,23 +627,44 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	KinkyDungeonDrawProgress(x, y + heightPerBar*2.5, KinkyDungeonStatMana/maxVisual, Math.floor(KinkyDungeonStatManaMax/12), width, "Mana");
 
 	let sleepColor = "#444444";
+	let playColor = "#444444";
 
 	if (KinkyDungeonCanTryOrgasm()) {
-		sleepColor = "#FF5BE9";
+		playColor = "#FF5BE9";
 	} else if (KinkyDungeonCanPlayWithSelf()) {
-		if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * KinkyDungeonDistractionSleepDeprivationThreshold) sleepColor = "#FFD8F9";
-		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.5) sleepColor = "#FFB5F5";
-		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.75) sleepColor = "#FF87EF";
-		else sleepColor = "#FF5BE9";
-	} else {
+		if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * KinkyDungeonDistractionSleepDeprivationThreshold) playColor = "#FFD8F9";
+		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.5) playColor = "#FFB5F5";
+		else if (KinkyDungeonStatDistraction < KinkyDungeonStatDistractionMax * 0.75) playColor = "#FF87EF";
+		else playColor = "#FF5BE9";
+	} else playColor = "#777777";
+	if (KinkyDungeonCanSleep()) {
 		if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.25) sleepColor = "#ffffff";
 		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.5) sleepColor = "#bbbbbb";
 		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax * 0.75) sleepColor = "#999999";
 		else if (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax) sleepColor = "#777777";
 	}
-	DrawButton(x, y+3*heightPerBar, 240, 50, KinkyDungeonCanTryOrgasm() ? TextGet("KinkyDungeonTryOrgasm") : (KinkyDungeonCanPlayWithSelf() ? TextGet("KinkyDungeonPlayWithSelf") : TextGet("KinkyDungeonSleep")), sleepColor);
+	DrawButtonKDEx("PlayButton", (bdata) => {
+		if (KinkyDungeonCanTryOrgasm()) {
+			// Done, converted to input
+			KDSendInput("tryOrgasm", {});
+		} else if (KinkyDungeonCanPlayWithSelf()) {
+			// Done, converted to input
+			KDSendInput("tryPlay", {});
+		} else {
+			KinkyDungeonSendActionMessage(10, TextGet("KDNotFeeling"), "red", 1);
+		}
+		return true;
+	}, true, x, y+3*heightPerBar, 240, 50, KinkyDungeonCanTryOrgasm() ? TextGet("KinkyDungeonTryOrgasm") : TextGet("KinkyDungeonPlayWithSelf"), playColor);
+	DrawButtonKDEx("SleepButton", (bdata) => {
+		if (KinkyDungeonCanSleep()) {
+			KDSendInput("sleep", {});
+		} else {
+			KinkyDungeonSendActionMessage(10, TextGet("KDCantSleep"), "red", 1);
+		}
+		return true;
+	}, true, x, y+3.7*heightPerBar, 240, 50, TextGet("KinkyDungeonSleep"), sleepColor);
 
-	let i = 3.5;
+	let i = 4.2;
 	MainCanvas.textAlign = "left";
 	DrawImageEx(KinkyDungeonRootDirectory + "Items/Gold.png", x + width/4 - 40, y + 40 - 40 + i * heightPerBar, {Width: 80, Height: 80});
 	DrawText(TextGet("CurrentGold") + KinkyDungeonGold, x + width/4 + 40, y + 40 + i * heightPerBar, "white", "gray"); i+= 0.75;
@@ -660,34 +686,15 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	DrawText("" + KinkyDungeonRedKeys, x+80+80, y + 25 + i * heightPerBar, "white", "gray");
 	if (MouseIn(x+80, y + 40 - 40 + i * heightPerBar, 80, 80)) DrawText(TextGet("KinkyDungeonInventoryItemRedKey"), MouseX - 10, MouseY, "white", "gray");
 
-	//DrawImageEx(KinkyDungeonRootDirectory + "Items/Knife.png", x+160, y + 40 - 40 + i * heightPerBar, {Width: 80, Height: 80});
-	//DrawText("" + KinkyDungeonNormalBlades, x+80+160, y + 25 + i * heightPerBar, "white", "gray");
-	//if (MouseIn(x+160, y + 40 - 40 + i * heightPerBar, 80, 80)) DrawText(TextGet("KinkyDungeonInventoryItemKnife"), MouseX - 10, MouseY, "white", "gray");
-
-	if (KinkyDungeonItemCount("MistressKey") > 0) {
-		DrawImageEx(KinkyDungeonRootDirectory + "Items/MistressKey.png", x, y + 80 + 40 - 40 + i * heightPerBar, {Width: 80, Height: 80});
-		DrawText("" + KinkyDungeonItemCount("MistressKey"), x+80, y + 80 + 25 + i * heightPerBar, "white", "gray");
-		if (MouseIn(x, y + 80 + 40 - 40 + i * heightPerBar, 80, 80)) DrawText(TextGet("KinkyDungeonInventoryItemMistressKey"), MouseX - 10, MouseY, "white", "gray");
-	}
-
 	if (KinkyDungeonBlueKeys > 0) {
-		DrawImageEx(KinkyDungeonRootDirectory + "Items/BlueKey.png", x+80, y + 80 + 40 - 40 + i * heightPerBar, {Width: 80, Height: 80});
-		DrawText("" + KinkyDungeonBlueKeys, x+80+80, y + 80 + 25 + i * heightPerBar, "white", "gray");
-		if (MouseIn(x+80, y + 80 + 40 - 40 + i * heightPerBar, 80, 80)) DrawText(TextGet("KinkyDungeonInventoryItemMagicKey"), MouseX - 10, MouseY, "white", "gray");
+		DrawImageEx(KinkyDungeonRootDirectory + "Items/BlueKey.png", x+160, y + 40 - 40 + i * heightPerBar, {Width: 80, Height: 80});
+		DrawText("" + KinkyDungeonBlueKeys, x+80+160, y + 25 + i * heightPerBar, "white", "gray");
+		if (MouseIn(x+160, y + 40 - 40 + i * heightPerBar, 80, 80)) DrawText(TextGet("KinkyDungeonInventoryItemMagicKey"), MouseX - 10, MouseY, "white", "gray");
 	}
 
 	MainCanvas.textAlign = "center";
 
-	DrawTextFit(TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%"), x+width/2 + 15, y + 160 + 25 + i * heightPerBar, width - 15, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "gray");
-
-
-	/*
-	DrawText(TextGet("CurrentLockpicks") + KinkyDungeonLockpicks, x+width/2, y + 25 + i * heightPerBar, "white", "gray"); i+= 0.5;
-	DrawText(TextGet("CurrentKnife") + KinkyDungeonNormalBlades, x+width/2, y + 25 + i * heightPerBar, "white", "gray"); i+= 0.5;
-
-	if (KinkyDungeonEnchantedBlades > 0) {DrawText(TextGet("CurrentKnifeMagic") + KinkyDungeonEnchantedBlades, x+width/2, y + 25 + i * heightPerBar, "white", "gray"); i+= 0.5;}
-	if (KinkyDungeonRedKeys > 0) {DrawText(TextGet("CurrentKeyRed") + KinkyDungeonRedKeys, x+width/2, y + 25 + i * heightPerBar, "white", "gray"); i+= 0.5;}
-	if (KinkyDungeonBlueKeys > 0) {DrawText(TextGet("CurrentKeyBlue") + KinkyDungeonBlueKeys, x+width/2, y + 25 + i * heightPerBar, "white", "gray"); i+= 0.5;}*/
+	DrawTextFit(TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%"), x+width/2 + 15, y + 80 + 25 + i * heightPerBar, width - 15, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "gray");
 }
 
 function KinkyDungeonActivateWeaponSpell(instant) {
@@ -976,19 +983,6 @@ function KinkyDungeonHandleHUD() {
 		} else if (MouseIn(xxx, yyy + 0 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
 		else if (MouseIn(xxx, yyy + 1 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
 		else if (MouseIn(xxx, yyy + 2 * KinkyDungeonStatBarHeight, buttonWidth, buttonWidth)) return true;
-		else if (MouseIn(xxx, yyy + 3 * KinkyDungeonStatBarHeight, 240, 50) && KinkyDungeonControlsEnabled()) {
-			if (KinkyDungeonCanTryOrgasm()) {
-				// Done, converted to input
-				KDSendInput("tryOrgasm", {});
-			} else if (KinkyDungeonCanPlayWithSelf()) {
-				// Done, converted to input
-				KDSendInput("tryPlay", {});
-			} else {
-				// Done, converted to input
-				KDSendInput("sleep", {});
-			}
-			return true;
-		}
 	} else if (KinkyDungeonDrawState == "Orb") {
 		// Done, converted to input
 		return KinkyDungeonHandleOrb();

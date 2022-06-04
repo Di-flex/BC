@@ -27,6 +27,24 @@ function KinkyDungeonAddTags(tags, Floor) {
 	if (KinkyDungeonGoddessRep.Will < KDANGER) angeredGoddesses.push({tag: "willAnger", type: "rope"});
 	if (KinkyDungeonGoddessRep.Will < KDRAGE) angeredGoddesses.push({tag: "willRage", type: "rope"});
 
+	for (let pair of KDFactionRelations.get("Player").entries()) {
+		if (pair[1] > 0.5) {
+			tags.push(pair[0] + "Friendly");
+		} else if (pair[1] < -0.5) {
+			tags.push(pair[0] + "Enemy");
+		}
+		if (pair[1] > 0.75) {
+			tags.push(pair[0] + "Allied");
+		} else if (pair[1] < -0.75) {
+			tags.push(pair[0] + "Wanted");
+		}
+		if (pair[1] > 0.9) {
+			tags.push(pair[0] + "Loved");
+		} else if (pair[1] < -0.9) {
+			tags.push(pair[0] + "Hated");
+		}
+	}
+
 	if (angeredGoddesses.length > 0) {
 		let rage = false;
 		for (let a of angeredGoddesses) {
@@ -311,4 +329,50 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 		}
 		// Only increment the timer when not in jail
 	} else if (!(KDGameData.PrisonerState == 'jail')) KinkyDungeonSearchTimer += delta;
+
+	// Trigger when there is no hunter timer or is 0
+	if (!(KDGameData.HunterTimer > 0)) {
+		// If undefined we set it so that it starts ticking down
+		if (KDGameData.HunterTimer == undefined) KDGameData.HunterTimer = HunterPulse;
+		else {
+			// If defined and 0 then we check if hunters are still alive, spawn if not,
+			if (!KDGameData.Hunters) KDGameData.Hunters = [];
+			let hunters = KDGameData.Hunters.map((id) => {return KinkyDungeonFindID(id);});
+
+			let spawnLocation = {x: KinkyDungeonStartPosition.x, y: KinkyDungeonStartPosition.y};
+
+			if (hunters.length > 0 || KDistChebyshev(spawnLocation.x - KinkyDungeonPlayerEntity.x, spawnLocation.y - KinkyDungeonPlayerEntity.y) < 10) {
+				// Hunters still exist, or player is too close, simple pulse
+				KDGameData.HunterTimer = Math.max(KDGameData.HunterTimer, HunterPulse);
+			} else {
+				// Hunters are dead, we spawn more
+				/**
+				 * @type {entity[]}
+				 */
+				let eToSpawn = [];
+				KDGameData.Hunters = [];
+
+				// Determine enemies to spawn
+
+				// Spawn them
+				for (let e of eToSpawn) {
+					let point = KinkyDungeonGetNearbyPoint(spawnLocation.x, spawnLocation.y, true);
+					if (point) {
+						e.x = point.x;
+						e.y = point.y;
+						KinkyDungeonEntities.push(e);
+						KDGameData.Hunters.push(e.id);
+					}
+				}
+			}
+
+		}
+	}
+	// Decrement the hunter timer
+	if (KDGameData.HunterTimer > 0) KDGameData.HunterTimer = Math.max(0, KDGameData.HunterTimer - delta);
 }
+
+/** The defauilt interval between hunter checks */
+let HunterPulse = 25;
+/** Cooldown for hunter spawns */
+let HunterSpawnTimer = 120;

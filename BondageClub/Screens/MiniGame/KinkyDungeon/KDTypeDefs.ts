@@ -65,6 +65,7 @@ interface consumable {
 	mp_gradual?: number,
 	sp_gradual?: number,
 	ap_gradual?: number,
+	arousalRatio?: number,
 	scaleWithMaxMP?: boolean,
 	scaleWithMaxSP?: boolean,
 	duration?: number,
@@ -1237,6 +1238,7 @@ interface KinkyDungeonSave {
 		mana: number;
 		stamina: number;
 		distraction: number;
+		distractionlower: number;
 		wep: any;
 		npp: number;
 		diff: number;

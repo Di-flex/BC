@@ -88,11 +88,6 @@ KinkyDungeonStatDesc14,"-50% stamina drain from being at high arousal."
 KinkyDungeonStat15,"Bondage Lover"
 KinkyDungeonStatDesc15,"Attempting to escape arouses you."
 
-KinkyDungeonStat16,"Purity"
-KinkyDungeonStatDesc16,"You cannot play with yourself, but gain a flat 0.25 distraction decay per turn."
-KinkyDungeonStat17,"Unchaste"
-KinkyDungeonStatDesc17,"Your distraction decay is 0.25x while wearing a chastity belt instead of 0.5x."
-
 KinkyDungeonStat18,"Focused Dodge"
 KinkyDungeonStatDesc18,"While your miscast chance is 0%, your base evasion is 25% (multiplicative)."
 KinkyDungeonStat19,"Distracted"
@@ -157,11 +152,6 @@ KinkyDungeonStat42,"Supermarket"
 KinkyDungeonStatDesc42,"Commerce shrines can appear in levels and have slightly more items."
 KinkyDungeonStat43,"Price Gouging"
 KinkyDungeonStatDesc43,"Items are 5x as expensive in the shop."
-
-KinkyDungeonStat44,"Free Spirit"
-KinkyDungeonStatDesc44,"Most chastity belts can be struggled out of, but distraction decay is heavily reduced."
-KinkyDungeonStat45,"Deprived"
-KinkyDungeonStatDesc45,"Vibrators no longer appear, but you gain distraction while chaste."
 
 KinkyDungeonStat46,"Supermarket"
 KinkyDungeonStatDesc46,"Commerce shrines can appear in levels and have slightly more items."
@@ -610,7 +600,7 @@ KinkyDungeonInventoryItemPotionStaminaDesc2,"Restores 33% stamina and 67% more o
 KinkyDungeonInventoryItemPotionFrigid,Frigid Potion
 KinkyDungeonInventoryItemPotionFrigidUse,"You chug the concoction and your senses numb, helping you concentrate."
 KinkyDungeonInventoryItemPotionFrigidDesc,"A freezing cold bottle with a bitter scent."
-KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces distraction to 0 instantly and grants 0.8 Distraction decay for 50 turns."
+KinkyDungeonInventoryItemPotionFrigidDesc2,"Reduces distraction by 100% instantly and grants 0.8 Distraction decay for 50 turns."
 KinkyDungeonInventoryItemSmokeBomb,Smoke Bomb
 KinkyDungeonInventoryItemSmokeBombUse,You toss the smoke bomb and it explodes in your location!
 KinkyDungeonInventoryItemSmokeBombDesc,"A type of pyrotechnic often employed by saboteurs. Can be used without hands."
@@ -4163,7 +4153,7 @@ KinkyDungeonDamageTypeunstoppable,"Unstoppable"
 KinkyDungeonDamageTypeunflinching,"Unflinching"
 
 KinkyDungeonHeartIntro,"You found a heart amulet! Choose one of the following stats to improve:"
-KinkyDungeonHeartIntro1,"Distraction: Increases max distraction by +12 and decay by 0.05/turn."
+KinkyDungeonHeartIntro1,"Distraction: Increases max distraction by +12 and decay by +33%/turn."
 KinkyDungeonHeartIntro2,"Stamina: Increases max stamina by +6."
 KinkyDungeonHeartIntro3,"Mana: Increases max mana by +12."
 
@@ -5200,3 +5190,6 @@ rTutorial3_2,"Yikes, looks like you're in a bind!|No worries, though. There's a 
 rTutorial3_3,"I think we all know what's in the next chest.|It's important to understand the different ways you can escape.|You can struggle, which costs the most stamina|but makes other struggle methods faster.|You can cut, which requires a knife in hand.|You can remove, which represents untying or unbuckling."
 rTutorial3_4,"Ouch, that looked tight...|Sometimes you won't be able to struggle out of things.|You'll have to find some other way to take it off..."
 rTutorial4,"There's a few zombies up ahead.|Fight your way through and claim the treasure!"
+
+KDNotFeeling,You're not feeling it...
+KDCantSleep,"You close your eyes but the vibrations keep you from dozing off..."

@@ -120,7 +120,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		}
 		if (Consumable.mp_instant) KinkyDungeonChangeMana(Consumable.mp_instant * Manamulti * gagMult);
 		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant * multi * gagMult);
-		if (Consumable.ap_instant) KinkyDungeonChangeDistraction(Consumable.ap_instant * gagMult);
+		if (Consumable.ap_instant) KinkyDungeonChangeDistraction(Consumable.ap_instant * gagMult, false, Consumable.arousalRatio ? Consumable.arousalRatio : 0);
 
 		KinkyDungeonCalculateMiscastChance();
 

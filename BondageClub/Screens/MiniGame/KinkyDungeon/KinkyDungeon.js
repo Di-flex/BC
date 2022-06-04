@@ -179,12 +179,17 @@ let KDOptOut = false;
 * Favors: Record<string, number>,
 * RoomType: string,
 * MapMod: string,
+* HunterTimer: number,
+* Hunters: number[],
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
 	KeysNeeded: false,
 	RoomType: "",
 	MapMod: "",
+
+	HunterTimer: 0,
+	Hunters: [],
 
 	AlertTimer: 0,
 	OrgasmNextStageTimer: 0,
@@ -792,7 +797,7 @@ function KinkyDungeonRun() {
 					KDGameData.SleepTurns -= 1;
 					if (KinkyDungeonAggressive())
 						KinkyDungeonTotalSleepTurns += 1;
-					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
+					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax && KinkyDungeonStatDistractionLower <= 0)  {
 						KDGameData.SleepTurns = 0;
 						if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 							CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);
@@ -1918,6 +1923,7 @@ function KinkyDungeonGenerateSaveData() {
 		mana: KinkyDungeonStatMana,
 		stamina: KinkyDungeonStatStamina,
 		distraction: KinkyDungeonStatDistraction,
+		distractionlower: KinkyDungeonStatDistractionLower,
 		wep: KinkyDungeonPlayerWeapon,
 		npp: KinkyDungeonNewGame,
 		diff: KinkyDungeonStatsChoice.get("randomMode"),
@@ -1980,6 +1986,7 @@ function KinkyDungeonLoadGame(String) {
 				if (saveData.stats.mana != undefined) KinkyDungeonStatMana = saveData.stats.mana;
 				if (saveData.stats.stamina != undefined) KinkyDungeonStatStamina = saveData.stats.stamina;
 				if (saveData.stats.distraction != undefined) KinkyDungeonStatDistraction = saveData.stats.distraction;
+				if (saveData.stats.distractionlower != undefined) KinkyDungeonStatDistractionLower = saveData.stats.distractionlowwer;
 				if (saveData.stats.wep != undefined) KDSetWeapon(saveData.stats.wep);
 				if (saveData.stats.npp != undefined) KinkyDungeonNewGame = saveData.stats.npp;
 
