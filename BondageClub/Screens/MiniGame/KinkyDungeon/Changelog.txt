@@ -944,6 +944,7 @@ Spell Balance:
 - A mini visual rework!
 - Healing people can befriend them and raises rep
 - Changes to distraction system
+- Made bullets easier to dodge, and added warnings
 
 TODO ValidationFindBlockCycles to prevent bugs
 
