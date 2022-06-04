@@ -3,6 +3,8 @@
 
 let KDRecentRepIndex = 0;
 
+let ShowBoringness = false;
+
 let KDWallReplacers = "14,dDb";
 
 /**
@@ -438,6 +440,28 @@ function KinkyDungeonDrawGame() {
 
 						KinkyDungeonContext.fillRect((-CamX_offset + X)*KinkyDungeonGridSizeDisplay, (-CamY_offset + R)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
 						KinkyDungeonContext.fill();
+					}
+				}
+				if (ShowBoringness) {
+					let maxBoringness = Math.max(...KinkyDungeonBoringness);
+					for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
+						for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
+
+							let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight-1));
+							let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth-1));
+
+							if (KinkyDungeonBoringGet(RX, RY) && RY == R+CamY && RX == X+CamX) {
+								KinkyDungeonContext.beginPath();
+								KinkyDungeonContext.lineWidth = 3;
+								KinkyDungeonContext.strokeStyle = "rgba(255,0,0," + Math.max(0, (KinkyDungeonBoringGet(RX, RY) / maxBoringness)) + ")";
+
+								KinkyDungeonContext.rect(
+									(-CamX_offset + X)*KinkyDungeonGridSizeDisplay,
+									(-CamY_offset + R)*KinkyDungeonGridSizeDisplay,
+									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
+								KinkyDungeonContext.stroke();
+							}
+						}
 					}
 				}
 

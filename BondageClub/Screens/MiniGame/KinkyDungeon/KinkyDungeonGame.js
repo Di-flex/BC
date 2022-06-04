@@ -12,6 +12,11 @@ let MiniGameKinkyDungeonLevel = -1;
  */
 let KinkyDungeonMapIndex = {};
 
+/**
+ * @type {number[]}
+ */
+let KinkyDungeonBoringness = [];
+
 let KinkyDungeonLightGrid = [];
 let KinkyDungeonFogGrid = [];
 let KinkyDungeonUpdateLightGrid = true;
@@ -213,6 +218,37 @@ function KinkyDungeonInitialize(Level, Load) {
 	//KinkyDungeonCreateMap(KinkyDungeonMapParams[KinkyDungeonMapIndex[0]], 0);
 }
 
+function KDCreateBoringness() {
+	// Initialize boringness array
+	KinkyDungeonBoringness = [];
+	for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+		for (let Y = 0; Y < KinkyDungeonGridHeight; Y++)
+			KinkyDungeonBoringness.push(0); // 0 = no boringness
+	}
+
+	// First we find shortest path to exit
+	let path = KinkyDungeonFindPath(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, false, false, true, KinkyDungeonMovableTilesSmartEnemy, false, false, false);
+
+	let pathLength = path.length;
+
+	// Now we find the path to the start/end of every INDIVIDUAL tile
+	// Boringness = delta between (startLength + endLength) and (pathLength)
+	for (let X = 0; X < KinkyDungeonGridWidth; X++) {
+		for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
+			if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))) {
+				let startLength = KinkyDungeonFindPath(X, Y, KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, false, false, true, KinkyDungeonMovableTilesSmartEnemy, false, false, false);
+				if (startLength) {
+					let endLength = KinkyDungeonFindPath(X, Y, KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, false, false, true, KinkyDungeonMovableTilesSmartEnemy, false, false, false);
+					if (endLength) {
+						let delta = Math.abs((startLength.length + endLength.length) - pathLength);
+						KinkyDungeonBoringSet(X, Y, delta);
+					}
+				}
+			}
+		}
+	}
+}
+
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	for (let iterations = 0; iterations < 100; iterations++) {
@@ -410,6 +446,11 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			startTime = performance.now();
 		}
 
+
+		// Now we create the boringness matrix
+		KDCreateBoringness();
+
+
 		let createForbidden = KDRandom() < forbiddenChance || MiniGameKinkyDungeonLevel <= 1;
 		let traps = [];
 		if (!altType) {
@@ -428,6 +469,9 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		}
 
 		KinkyDungeonPlaceSetPieces(POI, traps, chestlist, shrinelist, chargerlist, spawnPoints, false, width, height);
+
+		// Recreate boringness
+		KDCreateBoringness();
 
 		if (!testPlacement) {
 			if (!altType || altType.shortcut)
@@ -450,6 +494,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			for (let t of traps2) {
 				traps.push(t);
 			}
+			// Recreate boringness
+			KDCreateBoringness();
 			let orbcount = 2;
 			if (altType && altType.orbs != undefined) orbcount = altType.orbs;
 			if (!altType || altType.shrines)
@@ -696,6 +742,11 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 		let point = enemyPoints[pointIndex];
 		let X = point ? point.x : (1 + Math.floor(KDRandom()*(width - 1)));
 		let Y = point ? point.y : (1 + Math.floor(KDRandom()*(height - 1)));
+
+		if (point && KinkyDungeonBoringGet(X, Y) > 0 && KDRandom() < 0.75) {
+			continue;
+			// Most enemies will be placed in non boring regions
+		}
 
 		if (point) {
 			enemyPoints.splice(pointIndex);
@@ -1254,6 +1305,8 @@ let KDRandomDisallowedNeighbors = "AasSHcCHDdOo+"; // tiles that can't be neighb
 let KDTrappableNeighbors = "DA+-"; // tiles that might have traps bordering them with a small chance
 let KDTrappableNeighborsLikely = "CO="; // tiles that might have traps bordering them with a big chance
 
+let KDMinBoringness = 0; // Minimum boringness for treasure spawn
+
 function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubblechance, Floor, width, height) {
 
 	let chestPoints = new Map();
@@ -1263,7 +1316,7 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 	}
 	// Populate the chests
 	for (let X = 1; X < width; X += 1)
-		for (let Y = 1; Y < height; Y += 1)
+		for (let Y = 1; Y < height; Y += 1) {
 			if (KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && KDistChebyshev(X - KinkyDungeonStartPosition.x, Y - KinkyDungeonStartPosition.y) > 10 &&
 			(!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
 				// Check the 3x3 area
@@ -1308,11 +1361,12 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
-						chestlist.push({x:X, y:Y});
+						chestlist.push({x:X, y:Y, boringness: KinkyDungeonBoringGet(X, Y)});
 						chestPoints.set(X + "," + Y, true);
 					}
 				}
 			}
+		}
 
 	// Truncate down to max chest count in a location-neutral way
 	let count = 0;
@@ -1323,15 +1377,29 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 	let alreadyOpened = 0;//(KinkyDungeonChestsOpened.length > Floor) ? KinkyDungeonChestsOpened[Floor] : 0;
 	if (KinkyDungeonNewGame < 1) treasurecount -= alreadyOpened;
 	let list = [];
+	let maxBoringness = Math.max(...KinkyDungeonBoringness);
 	while (chestlist.length > 0) {
 		let N = Math.floor(KDRandom()*chestlist.length);
 		let chest = chestlist[N];
+		if (!chest.boringness) chest.boringness = KinkyDungeonBoringGet(chest.x, chest.y);
+		if (chest.boringness > 0)
+			chest.boringness = chest.boringness + (0.05 + 0.1 * KDRandom()) * maxBoringness;
+		else
+			chest.boringness = chest.boringness + 0.05 * KDRandom() * maxBoringness;
 		if (chest.priority) {
 			list.unshift(chest);
 		} else list.push(chest);
 
 		chestlist.splice(N, 1);
 	}
+	list.sort((a, b) => {
+		let boringa = a.boringness ? a.boringness : 0;
+		let boringb = b.boringness ? b.boringness : 0;
+		if (boringa.priority) boringa += 1000;
+		if (boringb.priority) boringb += 1000;
+		return boringb - boringa;
+
+	});
 	while (list.length > 0) {
 		let N = 0;
 		if (count < treasurecount) {
@@ -1463,7 +1531,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X-1, Y+1))
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X, Y+1))
 						&& !KDRandomDisallowedNeighbors.includes(KinkyDungeonMapGet(X+1, Y+1))) {
-						shrinelist.push({x:X, y:Y});
+						shrinelist.push({x:X, y:Y, boringness: KinkyDungeonBoringGet(X, Y)});
 						shrinePoints.set(X + "," + Y, true);
 					}
 				}
@@ -1476,15 +1544,29 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 	let count = 0;
 	let orbs = 0;
 	let list = [];
+	let maxBoringness = Math.max(...KinkyDungeonBoringness);
 	while (shrinelist.length > 0) {
 		let N = Math.floor(KDRandom()*shrinelist.length);
 		let chest = shrinelist[N];
+		if (!chest.boringness) chest.boringness = KinkyDungeonBoringGet(chest.x, chest.y);
+		if (chest.boringness > 0)
+			chest.boringness = chest.boringness + (0.05 + 0.1 * KDRandom()) * maxBoringness;
+		else
+			chest.boringness = chest.boringness + 0.05 * KDRandom() * maxBoringness;
 		if (chest.priority) {
 			list.unshift(chest);
 		} else list.push(chest);
 
 		shrinelist.splice(N, 1);
 	}
+	list.sort((a, b) => {
+		let boringa = a.boringness ? a.boringness : 0;
+		let boringb = b.boringness ? b.boringness : 0;
+		if (boringa.priority) boringa += 1000;
+		if (boringb.priority) boringb += 1000;
+		return boringb - boringa;
+
+	});
 	while (list.length > 0) {
 		let N = 0;
 		if (count <= shrinecount) {
@@ -1523,6 +1605,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 				} else tile = 'a';
 
 				KinkyDungeonMapSet(shrine.x, shrine.y, tile);
+				console.log(`Placed ${type} in boringness ${KinkyDungeonBoringGet(shrine.x, shrine.y)}, prioritized? ${shrine.priority}`);
 			}
 
 			count += 1;
@@ -2077,6 +2160,19 @@ function KinkyDungeonMapSetForce(X, Y, SetTo, VisitedRooms) {
 		VisitedRooms.push({x: X, y: Y});
 	return true;
 
+}
+
+
+function KinkyDungeonBoringGet(X, Y) {
+	return KinkyDungeonBoringness[X + Y*(KinkyDungeonGridWidth)];
+}
+
+function KinkyDungeonBoringSet(X, Y, SetTo) {
+	if (X >= 0 && X <= KinkyDungeonGridWidth-1 && Y >= 0 && Y <= KinkyDungeonGridHeight-1) {
+		KinkyDungeonBoringness[X + Y*(KinkyDungeonGridWidth)] = SetTo;
+		return true;
+	}
+	return false;
 }
 
 function KinkyDungeonMapGet(X, Y) {
