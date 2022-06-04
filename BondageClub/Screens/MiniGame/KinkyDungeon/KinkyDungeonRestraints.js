@@ -1049,6 +1049,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	if ((StruggleType == "Struggle") && !data.hasAffinity && data.escapeChance <= edgeBonus) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+		if (affinity != "Hook" && KinkyDungeonGetAffinity(false, "Hook", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Sticky" && KinkyDungeonGetAffinity(false, "Sticky", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Edge" && KinkyDungeonGetAffinity(false, "Edge", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Sharp" && KinkyDungeonGetAffinity(false, "Sharp", struggleGroup)) typesuff = "Wrong";
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";
@@ -1104,6 +1108,10 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	if ((StruggleType == "Remove") && !data.hasAffinity && data.escapeChance == 0) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
+		if (affinity != "Hook" && KinkyDungeonGetAffinity(false, "Hook", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Sticky" && KinkyDungeonGetAffinity(false, "Sticky", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Edge" && KinkyDungeonGetAffinity(false, "Edge", struggleGroup)) typesuff = "Wrong";
+		else if (affinity != "Sharp" && KinkyDungeonGetAffinity(false, "Sharp", struggleGroup)) typesuff = "Wrong";
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonStruggle" + StruggleType + "NeedEdge" + typesuff), "red", 2);
 		KinkyDungeonLastAction = "Struggle";

@@ -353,6 +353,13 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "lastthird":5, "miniboss": -10, "metalAnger": 9, "metalRage": 5}, allFloors: true, shrines: ["Metal"],
 		dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "EscortDrone", weight: 0.25, ignoreInInventory: true}, {name: "RedKey", weight: 9}]},
 
+
+	{name: "BanditGuard", faction: "Bandit", clusterWith: "bandit", playLine: "Bandit", bound: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "cacheguard", "bandit", "minor", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
+		master: {type: "BanditChief", range: 2, loose: true, aggressive: true},
+		spells: ["BanditBola"], spellCooldownMult: 1, spellCooldownMod: 6, noSpellLeashing: true, difficulty: 0.6,
+		visionRadius: 7, maxhp: 11, minLevel:9, weight:-3, movePoints: 1, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"thirdhalf":-4, "BanditEnemy": 10, "BanditWanted": 10, "BanditHated": 5}, shrines: ["Leather"], allFloors: true,
+		dropTable: [{name: "Gold", amountMin: 5, amountMax: 20, weight: 24}, {name: "Bola", weight: 7}, {name: "Rope", weight: 100.5, ignoreInInventory: true},]},
 	{name: "Miner", faction: "Bandit", clusterWith: "human", playLine: "Bandit", bound: "Miner", tags: KDMapInit(["opendoors", "closedoors", "leashing", "human", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["MinerBomb"], spellCooldownMult: 1, spellCooldownMod: 3, noSpellLeashing: true,
 		visionRadius: 5, maxhp: 11, minLevel:0, weight:12, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 3, dmgType: "pain", fullBoundBonus: 1,
@@ -361,14 +368,15 @@ let KinkyDungeonEnemies = [
 	{name: "Bandit", faction: "Bandit", clusterWith: "bandit", playLine: "Bandit", bound: "Bandit", tags: KDMapInit(["opendoors", "closedoors", "leashing", "cacheguard", "bandit", "minor", "melee", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["BanditBola"], spellCooldownMult: 1, spellCooldownMod: 8, noSpellLeashing: true, difficulty: 0.5,
 		visionRadius: 6, maxhp: 9, minLevel:0, weight:23, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,
-		terrainTags: {"thirdhalf":-4, "increasingWeight":-1}, shrines: ["Leather"], floors:KDMapInit(["jng", "cry"]),
+		terrainTags: {"thirdhalf":-4, "increasingWeight":-1, "BanditEnemy": -7, "BanditWanted": -6, "BanditHated": -5}, shrines: ["Leather"], floors:KDMapInit(["jng", "cry"]),
 		dropTable: [{name: "Gold", amountMin: 5, amountMax: 15, weight: 24}, {name: "Bola", weight: 5}, {name: "Rope", weight: 3.5, ignoreInInventory: true},]},
-	{name: "BanditChief", faction: "Bandit", clusterWith: "bandit", playLine: "Bandit", bound: "BanditChief", tags: KDMapInit(["opendoors", "cacheguard", "closedoors", "leashing", "bandit", "miniboss", "melee", "unflinching", "ballGagRestraints", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "hunter"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
+	{name: "BanditChief", faction: "Bandit", clusterWith: "bandit", playLine: "Bandit", bound: "BanditChief", tags: KDMapInit(["opendoors", "cacheguard", "closedoors", "leashing", "bandit", "miniboss", "banditleader", "melee", "unflinching", "ballGagRestraints", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "clothRestraints", "chainweakness", "glueweakness", "jail", "hunter"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		summon: [
 			{enemy: "BanditPet", range: 3, count: 2, chance: 1.0, strict: true},],
 		spells: ["BanditBola"], spellCooldownMult: 1, spellCooldownMod: 4, noSpellLeashing: true,
-		visionRadius: 8, maxhp: 24, minLevel:5, weight:-11, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 3.6, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		visionRadius: 8, maxhp: 24, minLevel:0, weight:-11, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 3.6, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
 		terrainTags: {"secondhalf":16, "lastthird":5, "miniboss": -20, "open": 10, "passage": -10, "increasingWeight":1}, shrines: ["Leather"], floors:KDMapInit(["jng", "cry"]),
+		factionrep: {"Maidforce": 0.005},
 		dropTable: [{name: "Gold", amountMin: 20, amountMax: 30, weight: 10}, {name: "Pick", weight: 2}, {name: "Knife", ignoreInInventory: true, weight: 2}, {name: "PotionStamina", weight: 2}, {name: "Bola", weight: 5}, {name: "Rope", weight: 100, ignoreInInventory: true},]},
 	{name: "BanditPet", faction: "Bandit", clusterWith: "human", playLine: "Gagged", bound: "BanditPet", tags: KDMapInit(["opendoors", "submissive", "noshop", "cacheguard", "closedoors", "leashing", "bandit", "melee", "minor", "ballGagRestraints", "ropeRestraints", "tickleweakness", "chainweakness", "glueweakness", "jail", "search"]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
 		master: {type: "BanditChief", range: 2, loose: true, aggressive: true}, difficulty: 0.05,
@@ -634,7 +642,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 3, visionSummoned: 12, maxhp: 4, minLevel: 3, weight:0, movePoints: 2, attackPoints: 2, attack: "SuicideMeleeBindLock", attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {"secondhalf":1, "lastthird":1, "doortrap": 5}, allFloors: true, shrines: ["Metal"]},
 	{name: "Feathers", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignorenoSP", "construct", "melee", "chainRestraints", "minor", "firesevereweakness", "meleeresist", "doortrap"]), ignorechance: 0.75, armor: -1, followRange: 1, AI: "hunt",  ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
-		visionRadius: 5, visionSummoned: 12, maxhp: 3, minLevel: 0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 1, dmgType: "tickle", ondeath: [{type: "spellOnSelf", spell: "Feathers"}],
+		visionRadius: 5, visionSummoned: 12, maxhp: 3, minLevel: 0, weight:-2, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, tilesMinRange: 1, attackRange: 1, power: 2, dmgType: "tickle", ondeath: [{type: "spellOnSelf", spell: "Feathers"}],
 		terrainTags: {"secondhalf":2, "lastthird":-1, "increasingLevel": -1.5, "doortrap": 8}, allFloors: true, shrines: [], difficulty: 0.7, hitsfx: "Tickle",},
 	{name: "Scarves", faction: "KinkyConstruct", clusterWith: "construct", tags: KDMapInit(["ignoreharmless", "construct", "melee", "scarfRestraints", "minor", "firesevereweakness", "slashweakness", "meleeresist", "doortrap"]), ignorechance: 0.75, armor: 0, followRange: 1, AI: "hunt",  ignoreflag: ["ropesnake"], failAttackflag: ["ropesnake"], squeeze: true,
 		visionRadius: 3, visionSummoned: 12, maxhp: 1, minLevel: 0, weight:1, movePoints: 1, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "tickle", fullBoundBonus: 2,
@@ -776,6 +784,23 @@ let KinkyDungeonEnemies = [
 		keys: true, followRange: 1, AI: "guard", visionRadius: 7, maxhp: 12, minLevel: 6, weight:-20, movePoints: 1, attackPoints: 2, evasion: -0.5, focusPlayer: true,
 		attack: "MeleeBindLockAllWillStun", attackWidth: 3, attackRange: 1, power: 12, dmgType: "electric", stunTime: 1,
 		terrainTags: {"jailer": 22, "increasingWeight": 1, "jailbreak": 28}, allFloors: true, dropTable: [{name: "RedKey", weight: 1}], rep: {"Prisoner": 1}},
+
+
+	// Minibosses
+	{name: "BanditMerchant", faction: "Bandit", clusterWith: "bandit", playLine: "Bandit", bound: "BanditChief",
+		tags: KDMapInit([
+			"opendoors", "cacheguard", "closedoors", "leashing", "bandit", "banditleader",
+			"miniboss", "melee", "ranged", "caster", "elite",
+			"ballGagRestraints", "banditMagicRestraints","leatherRestraints", "leatherRestraintsHeavy", "chainweakness", "glueweakness", "jail", "hunter"
+		]), cohesion: 0.9, armor: 0, followRange: 1, AI: "hunt",
+		spells: ["PoisonDagger", "LustBomb"], spellCooldownMult: 1, spellCooldownMod: 0, noSpellLeashing: true,
+		summon: [
+			{enemy: "BanditGuard", range: 3, count: 4, chance: 1.0, strict: true},],
+		visionRadius: 8, maxhp: 30, minLevel:3, weight:-20, movePoints: 2, attackPoints: 3, attack: "SpellMeleeBindWill", attackWidth: 3.6, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 2,
+		terrainTags: {"miniboss": -20, "open": 10, "increasingWeight":1, "BanditEnemy": 11, "BanditWanted": 3, "BanditHated": 4}, shrines: ["Leather"], allFloors: true,
+		factionrep: {"Bountyhunter": 0.02},
+		dropTable: [{name: "Gold", amountMin: 80, amountMax: 100, weight: 10}, {name: "Knife", ignoreInInventory: true, weight: 2}, {name: "PotionStamina", weight: 4}, {name: "PotionMana", weight: 4}, {name: "PotionFrigid", weight: 4}, ]},
+
 
 
 	// Bosses

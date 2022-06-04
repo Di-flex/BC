@@ -26,9 +26,10 @@ let KDMapMods = {
 		name: "Bandit",
 		roomType: "",
 		weight: 50,
-		tags: ["bandit", "bountyhunter", "dragon"],
+		tags: ["bandit", "banditleader", "bountyhunter", "dragon"],
 		bonusTags: {
 			"bandit": {bonus: 4, mult: 2.5},
+			"banditleader": {bonus: 40, mult: 0.3},
 		},
 		altRoom: "",
 	},
