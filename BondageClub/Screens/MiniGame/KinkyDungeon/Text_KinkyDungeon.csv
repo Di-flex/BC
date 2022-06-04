@@ -1197,9 +1197,9 @@ KillBandit,"The bandit collapses."
 AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
 AttackBandit,"The bandit caresses your restrained body! (-DamageTaken SP)"
 
-NameBanditMerchant,Bandit Trader
-KillBanditMerchant,"The bandit trader flees, leaving her goods behind."
-AttackBanditMerchantBind,"The bandit trader uses some high-quality restraints on you! (+RestraintAdded)"
+NameBanditMerchant,Shady Dealer
+KillBanditMerchant,"The bandit dealer flees, leaving her goods behind."
+AttackBanditMerchantBind,"The bandit dealer uses some high-quality restraints on you! (+RestraintAdded)"
 AttackBanditMerchant,"The bandit kisses and gropes your body! (-DamageTaken SP)"
 KDPoisonDagger,"That dagger was laced with something..."
 KinkyDungeonBuffPoisonDagger,"Poisoned!!!"
