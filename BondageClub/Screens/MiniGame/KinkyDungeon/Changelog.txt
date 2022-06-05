@@ -951,6 +951,7 @@ Spell Balance:
 - Binding chain binding reduced to 7 from 10
 - Forbidden Rope damage reduced to 30 from 50
 - New spell: Lockdown (melee range, enemy struggles slower for 8 turns, 1 mana)
+- Wall mana cost reduced to 3 from 6
 
 TODO ValidationFindBlockCycles to prevent bugs
 
