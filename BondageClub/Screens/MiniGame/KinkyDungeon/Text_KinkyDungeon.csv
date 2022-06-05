@@ -1412,6 +1412,12 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch restraints you! (+RestraintAdded)"
 AttackWitchShock,"The witch slaps you playfully! (-DamageTaken SP)"
 
+
+NameWitchRope,Rope Witch
+KillWitchRope,"The rope witch retreats as her animated ropes chase her."
+AttackWitchRopeBind,"The witch restraints you! (+RestraintAdded)"
+AttackWitchRope,"The witch slaps you playfully! (-DamageTaken SP)"
+
 NameWitchMagnet,Magnet Witch
 KillWitchMagnet,"The witch is pulled away by an unseen force."
 AttackWitchMagnetBind,"The witch's restraints fly out and attach themselves to you! (+RestraintAdded)"
@@ -3643,6 +3649,7 @@ KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body and slows you down!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
+KinkyDungeonSpellWitchRope,"Rope"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
 KinkyDungeonSpellRopeEngulfWeak,"Rope Strike"
 KinkyDungeonSpellVineEngulf,"Animated Vines"

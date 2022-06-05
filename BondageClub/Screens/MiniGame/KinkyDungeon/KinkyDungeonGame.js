@@ -55,6 +55,8 @@ let KinkyDungeonContextPlayer = null;
 let KinkyDungeonEntities = [];
 let KinkyDungeonTerrain = [];
 
+let KinkyDungeonPOI = [];
+
 let KinkyDungeonMapBrightness = 5;
 
 let KinkyDungeonGroundTiles = "023w][?/";
@@ -414,7 +416,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 		KinkyDungeonMapSet(1, startpos, '1', VisitedRooms);
 
-		let POI = [];
+		KinkyDungeonPOI = [];
+		let POI = KinkyDungeonPOI;
 
 		KinkyDungeonCreateMapGenType[genType](POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
 
@@ -910,7 +913,7 @@ function KinkyDungeonCreateCache(spawnPoints, Floor, width, height) {
 	KinkyDungeonMapSet(cornerX, cornerY + Math.floor(radius/2), 'D');
 	spawnPoints.push({x:cornerX-1, y:cornerY + Math.floor(radius/2)-1, required: ["cacheguard"], tags: ["bandit"], AI: "guard"});
 	spawnPoints.push({x:cornerX-1, y:cornerY + Math.floor(radius/2)+1, required: ["cacheguard"], tags: ["bandit"], AI: "guard"});
-	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache", Roll: KDRandom()});
+	KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "cache", Faction: "Bandit", Roll: KDRandom()});
 	KinkyDungeonTiles.set(cornerX + "," + (cornerY + Math.floor(radius/2)), {Type: "Door", Lock: "Red", OffLimits: true, ReLock: true});
 	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 1});
 }
@@ -957,7 +960,7 @@ function KinkyDungeonCreateForbidden(greaterChance, Floor, width, height) {
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2) - 1, cornerY + radius - 1, '1');
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, '2');
 
-		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold", Roll: KDRandom()});
+		KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "gold", Faction: "AncientRobot", Roll: KDRandom()});
 
 		// Trapped Door
 		KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + radius - 1, 'd');
@@ -1395,11 +1398,12 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 	list.sort((a, b) => {
 		let boringa = a.boringness ? a.boringness : 0;
 		let boringb = b.boringness ? b.boringness : 0;
-		if (boringa.priority) boringa += 1000;
-		if (boringb.priority) boringb += 1000;
+		if (a.priority) boringa += 1000;
+		if (b.priority) boringb += 1000;
 		return boringb - boringa;
 
 	});
+	let silverchest = 0;
 	while (list.length > 0) {
 		let N = 0;
 		if (count < treasurecount) {
@@ -1408,11 +1412,13 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 
 			// Add a lock on the chest! For testing purposes ATM
 			let lock = KinkyDungeonGenerateLock((extra && count == 0) ? true : false, Floor);
-			if (count == 0 || count >= treasurecount - alreadyOpened) {
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom()});
+			if (chest.Loot) lock = chest.Lock;
+			if (silverchest == 0 && !chest.Loot) {
+				silverchest += 1;
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom(), NoTrap: chest.NoTrap, });
 			} else if (lock) {
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : "chest", Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
-			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "chest", Roll: KDRandom()});
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {NoTrap: chest.NoTrap, Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : (chest.Loot ? chest.Loot : "chest"), Faction: chest.Faction, Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
+			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: chest.Loot ? chest.Loot : "chest", Faction: chest.Faction, Roll: KDRandom(), NoTrap: chest.NoTrap,});
 
 			if (KDAlreadyOpened(chest.x, chest.y)) {
 				KinkyDungeonMapSet(chest.x, chest.y, 'c');
@@ -1562,8 +1568,8 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 	list.sort((a, b) => {
 		let boringa = a.boringness ? a.boringness : 0;
 		let boringb = b.boringness ? b.boringness : 0;
-		if (boringa.priority) boringa += 1000;
-		if (boringb.priority) boringb += 1000;
+		if (a.priority) boringa += 1000;
+		if (b.priority) boringb += 1000;
 		return boringb - boringa;
 
 	});
@@ -1605,7 +1611,7 @@ function KinkyDungeonPlaceShrines(shrinelist, shrinechance, shrineTypes, shrinec
 				} else tile = 'a';
 
 				KinkyDungeonMapSet(shrine.x, shrine.y, tile);
-				console.log(`Placed ${type} in boringness ${KinkyDungeonBoringGet(shrine.x, shrine.y)}, prioritized? ${shrine.priority}`);
+				//console.log(`Placed ${type} in boringness ${KinkyDungeonBoringGet(shrine.x, shrine.y)}, prioritized? ${shrine.priority}`);
 			}
 
 			count += 1;

@@ -206,7 +206,7 @@ function KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, openness, dens
 					}
 				}
 			if (nearwalls == 7) {
-				POI.push({x: X*2, y: Y*2, requireTags: [], favor: [], used: false});
+				POI.push({x: X*2, y: Y*2, requireTags: ["endpoint"], favor: [], used: false});
 			}
 		}
 

@@ -38,6 +38,43 @@ function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 
 }
 
+function KinkyDungeonAggroChestFaction(faction) {
+	let list = [];
+	let list2 = [];
+	for (let enemy of KinkyDungeonEntities) {
+		let enemyfaction = KDGetFaction(enemy);
+		if ((enemyfaction == faction || KDFactionRelation(enemyfaction, faction) > 0.4)) {
+			let dist = KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y);
+			if (KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, dist, enemy.Enemy.visionRadius, false, true)) {
+				list.push(enemy);
+			}
+		} else if (enemyfaction == "Player" && KDGetFactionOriginal(enemy) == faction) {
+			let dist = KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y);
+			if (KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, dist, enemy.Enemy.visionRadius, false, true)) {
+				list2.push(enemy);
+			}
+		}
+	}
+	if (faction) {
+		let amount = 0.04;
+		if (list.length > 0) {
+			for (let e of list) {
+				if (!e.allied) {
+					e.hostile = 400;
+				}
+			}
+
+			KinkyDungeonChangeFactionRep(faction, -amount);
+			return true;
+		} else if (list2.length > 0) {
+			KinkyDungeonChangeFactionRep(faction, -amount);
+			return false;
+		}
+	}
+
+	return false;
+}
+
 function KinkyDungeonPlayerIsVisibleToJailers() {
 	let list = [];
 	for (let enemy of KinkyDungeonEntities) {
@@ -80,7 +117,7 @@ let KDMaxAlertTimerAggro = 300;
 /**
  *
  * @param {string} action
- * @param {{enemy?: entity, x?: number, y?: number}} data
+ * @param {{enemy?: entity, x?: number, y?: number, faction?: string}} data
  */
 function KinkyDungeonAggroAction(action, data) {
 	let e = null;
@@ -116,6 +153,8 @@ function KinkyDungeonAggroAction(action, data) {
 			if (e) {
 				KinkyDungeonStartChase(e, "Chest");
 			}
+			if (data.faction)
+				KinkyDungeonAggroChestFaction(data.faction);
 			break;
 
 		// Chests ALWAYS make the enemy angry
