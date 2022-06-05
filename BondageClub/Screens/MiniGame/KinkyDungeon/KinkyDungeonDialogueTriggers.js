@@ -239,6 +239,7 @@ function KDBossLose(name, enemyName) {
 }
 
 function KinkyDungeonGetShopForEnemy(enemy, guaranteed) {
+	if (enemy.Enemy.tags.has("noshop")) return "";
 	let shoplist = [];
 	for (let s of KDShops) {
 		let end = false;

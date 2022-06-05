@@ -473,7 +473,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 
 	if (!skip)
 		KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2)});
-	else
+	else if (favoringPOI)
 		favoringPOI.used = false;
 
 	if ( KDDebug) {
