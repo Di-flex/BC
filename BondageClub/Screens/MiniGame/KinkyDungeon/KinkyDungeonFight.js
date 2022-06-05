@@ -718,6 +718,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 		if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
 			let d = delta;
 			let first = true;
+			let justBorn = false;
 			let trailSquares = [];
 			let startx = b.x;
 			let starty = b.y;
@@ -726,7 +727,10 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 			while (d > 0.1) {
 				if (!first && delta > 0) {
 					let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
-					if (b.born >= 0) b.born -= 1;
+					if (b.born >= 0) {
+						b.born -= 1;
+						justBorn = true;
+					}
 
 					let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
 					if (b.born < mod) {
@@ -757,7 +761,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				}
 				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
 				end = false;
-				let checkCollision = b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
+				let checkCollision = justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
 				if ((checkCollision && !KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d)) || outOfTime || outOfRange) {
 					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
 						d = 0;

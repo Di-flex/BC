@@ -247,6 +247,9 @@ KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
 KinkyDungeonBuffEvasion,Afterimage
 
+KinkyDungeonBuffLockdown,"Can't Struggle!!!"
+KinkyDungeonBuffLockdownTry,"You struggle against your bonds, but a magical force resists!"
+
 KinkyDungeonBuffScrollVerbal,Verbal spells allowed!
 KinkyDungeonBuffScrollArms,Arm spells allowed!
 KinkyDungeonBuffScrollLegs,Leg spells allowed!
@@ -3352,6 +3355,11 @@ KinkyDungeonSpellInvisibility,Invisibility
 KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
+
+KinkyDungeonSpellLockdown,Lockdown
+KinkyDungeonSpellTargetLockdown,Select which creature to lock
+KinkyDungeonSpellDescriptionLockdown,"Locks down a target in melee range, slowing move/attack/struggle speed for Duration turns"
+KinkyDungeonSpellCastLockdown,"You say a command word, and magical locks bind your target!"
 
 KinkyDungeonSpellCommandWord,Command Word
 KinkyDungeonSpellTargetCommandWord,Select which creature to unlock
