@@ -901,6 +901,50 @@ let KDDialogue = {
 			"Leave": {playertext: "Leave", exitDialogue: true},
 		}
 	},
+	"PrisonerBandit": { // Player beats Fuuka
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					if (KDDialogueEnemy()) {
+						let e = KDDialogueEnemy();
+						KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+						let created = DialogueCreateEnemy(e.x, e.y, "Bandit");
+						created.allied = 9999;
+						if (KDFactionRelation("Player", "Bandit") < -0.5) {
+							for (let enemy of KinkyDungeonEntities) {
+								if (enemy.Enemy.tags.has("bandit")) {
+									if (enemy.hostile && enemy.hostile < 9000) {
+										enemy.hostile = 0;
+									}
+									enemy.ceasefire = 300;
+								}
+							}
+						}
+						if (KDFactionRelation("Player", "Bandit") < 0.25)
+							KinkyDungeonChangeFactionRep("Bandit", 0.015);
+						else
+							KinkyDungeonChangeFactionRep("Bandit", 0.005);
+					}
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
 	"Fuuka": {
 		response: "Default",
 		clickFunction: (gagged) => {

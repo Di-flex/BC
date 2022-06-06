@@ -3,6 +3,11 @@
  * @type {enemy[]}
  */
 let KinkyDungeonEnemies = [
+	// Prisoners
+	{name: "PrisonerBandit", tags: KDMapInit(["prisoner", "bandit", "human", "peaceful"]), faction: "Prisoner", immobile: true, lowpriority: true, evasion: -100, armor: 0, followRange: 100, AI: "wander", regen: 0.1,
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "PrisonerBandit",
+		terrainTags: {}, floors:KDMapInit([])},
+
 	// Door lock, trap
 	{name: "DoorLock", tags: KDMapInit(["construct", "melee", "noknockback", "unstoppable"]), immobile: true, lowpriority: true, spellResist: 1.5, evasion: -100, armor: 3, followRange: 100, AI: "wander", regen: -1.0,
 		visionRadius: 0, maxhp: 30, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,

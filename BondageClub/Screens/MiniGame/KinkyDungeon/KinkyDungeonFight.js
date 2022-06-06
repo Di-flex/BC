@@ -779,7 +779,10 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				KinkyDungeonUpdateSingleBulletVisual(b, end);
 			}
 			if (!end) {
-				let show = KDFactionRelation("Player", b.bullet.faction) < 0.5;
+				let show = KDFactionRelation("Player", b.bullet.faction) < 0.5 && (
+					(b.bullet.hit == "lingering" || (b.bullet.spell && b.bullet.name == b.bullet.spell.name && (b.bullet.spell.onhit == "aoe" || b.bullet.spell.onhit == "dot")))
+					|| (b.lifetime > 0 && b.bullet.damage && b.bullet.damage.type && b.bullet.damage.type != "heal" && b.bullet.damage.type != "inert")
+				);
 				let bxx = b.xx;
 				let byy = b.yy;
 				let bx = b.x;
@@ -822,7 +825,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 					if (outOfTime || outOfRange) {
 						d = 0;
 					} else if (checkCollision) {
-						let rad = b.bullet.aoe ? b.bullet.aoe : ((b.bullet.spell && b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0);
+						let rad = b.bullet.aoe ? b.bullet.aoe : ((b.bullet.spell && b.bullet.spell.aoe && b.bullet.name == b.bullet.spell.name) ? b.bullet.spell.aoe : 0);
 						for (let xx = bx - Math.floor(rad); xx <= bx + Math.ceil(rad); xx++) {
 							for (let yy = by - Math.floor(rad); yy <= by + Math.ceil(rad); yy++) {
 								if (KDistEuclidean(bx - xx, by - yy) <= rad) {

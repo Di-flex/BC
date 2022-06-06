@@ -16,7 +16,7 @@ Chinese,Chinese
 RestartNeeded,"Restart required!"
 RestartNeededCN,"需要重启！"
 
-KinkyDungeon,"Kinky Dungeon v3.34"
+KinkyDungeon,"Kinky Dungeon v3.41"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -982,7 +982,7 @@ KillSummonedZombie,"The zombie screams and tumbles to the floor."
 AttackSummonedZombieBind,"The zombie swiftly wraps you in charms! (+RestraintAdded)"
 AttackSummonedZombie,"The zombie gropes your body! (-DamageTaken SP)"
 
-NameNawashiZombie,Skillful Zombie
+NameNawashiZombie,Artistic Zombie
 KillNawashiZombie,"The zombie smiles as it collapses to the ground."
 AttackNawashiZombieBind,"The zombie swiftly ties you! (+RestraintAdded)"
 AttackNawashiZombie,"The zombie cuddles with your body! (-DamageTaken SP)"
@@ -1198,6 +1198,9 @@ AttackMiner,"The miner pins you with the haft of her pickaxe! (-DamageTaken SP)"
 
 KinkyDungeonSpellCastMinerBomb,You hear a fuse going off...
 KinkyDungeonSpellMinerBomb,Miner Bomb
+
+NamePrisonerBandit,Bandit
+KillPrisonerBandit,"The bandit cries. You should feel bad."
 
 NameBandit,Bandit
 KillBandit,"The bandit collapses."
@@ -5316,3 +5319,7 @@ rTutorial4,"There's a few zombies up ahead.|Fight your way through and claim the
 
 KDNotFeeling,You're not feeling it...
 KDCantSleep,"You close your eyes but the vibrations keep you from dozing off..."
+
+rPrisonerBandit,"(A SPEAKER lies hogtied in front of you)|(She looks at you with pleading eyes,)|(and mumbles incoherently through her gag)"
+rPrisonerBanditHelp,"(SPEAKER looks grateful)|Thank you so much miss!|I owe you everything."
+dPrisonerBandit_Help,Untie her

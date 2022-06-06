@@ -229,7 +229,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Mushy": {
 	},
 	"Witch": {
-		"Apprentice": 1.0,
+		"Apprentice": 0.55,
 		"Dressmaker": 0.4,
 		"Elf": -1.0,
 	},

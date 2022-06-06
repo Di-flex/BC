@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * @type {Record<string, MapMod>}
+ */
 let KDMapMods = {
 	"None": {
 		name: "None",
@@ -7,6 +10,9 @@ let KDMapMods = {
 		weight: 100,
 		tags: [],
 		bonusTags: {},
+		bonussetpieces: [
+			{Type: "BanditPrison", Weight: 12},
+		],
 		altRoom: "",
 	},
 	"Mold": {
@@ -41,6 +47,9 @@ let KDMapMods = {
 		bonusTags: {
 			"dragon": {bonus: 7, mult: 1.25},
 		},
+		bonussetpieces: [
+			{Type: "BanditPrison", Weight: 8},
+		],
 		altRoom: "",
 	},
 	"Witch": {
