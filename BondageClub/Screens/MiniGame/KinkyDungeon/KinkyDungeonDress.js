@@ -422,44 +422,65 @@ function KDCharacterAppearanceNaked() {
 
 
 function KDApplyItem(inv) {
-	let restraint = KDRestraint(inv);
-	let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
-	let faction = inv.faction ? inv.faction : "";
+	let _ChatRoomCharacterUpdate = ChatRoomCharacterUpdate;
+	// @ts-ignore
+	ChatRoomCharacterUpdate = () => {};
+	try {
+		let restraint = KDRestraint(inv);
+		let AssetGroup = restraint.AssetGroup ? restraint.AssetGroup : restraint.Group;
+		let faction = inv.faction ? inv.faction : "";
 
-	let color = (typeof restraint.Color === "string") ? [restraint.Color] : restraint.Color;
-	if (restraint.factionColor && faction && KinkyDungeonFactionColors[faction]) {
-		for (let i = 0; i < restraint.factionColor.length; i++) {
-			for (let n of restraint.factionColor[i]) {
-				color[n] = KinkyDungeonFactionColors[faction][i]; // 0 is the primary color
+		let color = (typeof restraint.Color === "string") ? [restraint.Color] : restraint.Color;
+		if (restraint.factionColor && faction && KinkyDungeonFactionColors[faction]) {
+			for (let i = 0; i < restraint.factionColor.length; i++) {
+				for (let n of restraint.factionColor[i]) {
+					color[n] = KinkyDungeonFactionColors[faction][i]; // 0 is the primary color
+				}
 			}
 		}
+
+		let already = InventoryGet(KinkyDungeonPlayer, AssetGroup);
+
+		let placed = KDAddAppearance(KinkyDungeonPlayer, AssetGroup, AssetGet("3DCGFemale", AssetGroup, restraint.Asset), color);
+
+		if (placed) {
+			placed.Property = {Type: restraint.Type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
+			if (!already && restraint.Type) {
+				KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
+				let options = window["Inventory" + ((AssetGroup.includes("ItemMouth")) ? "ItemMouth" : AssetGroup) + restraint.Asset + "Options"];
+				if (!options) options = TypedItemDataLookup[`${AssetGroup}${restraint.Asset}`].options; // Try again
+				const option = options.find(o => o.Name === restraint.Type);
+				ExtendedItemSetType(KinkyDungeonPlayer, options, option);
+				KinkyDungeonPlayer.FocusGroup = null;
+			}
+
+			if (restraint.Modules) {
+				let data = ModularItemDataLookup[AssetGroup + restraint.Asset];
+				let asset = data.asset;
+				let modules = data.modules;
+				// @ts-ignore
+				placed.Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
+				placed.Property.LockedBy = inv.lock ? "MetalPadlock" : undefined;
+			}
+			if (restraint.OverridePriority) {
+				placed.Property.OverridePriority = restraint.OverridePriority;
+			}
+		}
+	} finally {
+		// @ts-ignore
+		ChatRoomCharacterUpdate = _ChatRoomCharacterUpdate;
 	}
 
-	let already = InventoryGet(KinkyDungeonPlayer, AssetGroup);
+}
 
-	let placed = KDAddAppearance(KinkyDungeonPlayer, AssetGroup, AssetGet("3DCGFemale", AssetGroup, restraint.Asset), color);
 
-	if (placed) {
-		placed.Property = {Type: restraint.Type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
-		if (!already && restraint.Type) {
-			KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
-			let options = window["Inventory" + ((AssetGroup.includes("ItemMouth")) ? "ItemMouth" : AssetGroup) + restraint.Asset + "Options"];
-			if (!options) options = TypedItemDataLookup[`${AssetGroup}${restraint.Asset}`].options; // Try again
-			const option = options.find(o => o.Name === restraint.Type);
-			ExtendedItemSetType(KinkyDungeonPlayer, options, option);
-			KinkyDungeonPlayer.FocusGroup = null;
-		}
-
-		if (restraint.Modules) {
-			let data = ModularItemDataLookup[AssetGroup + restraint.Asset];
-			let asset = data.asset;
-			let modules = data.modules;
-			// @ts-ignore
-			placed.Property = ModularItemMergeModuleValues({ asset, modules }, restraint.Modules);
-			placed.Property.LockedBy = inv.lock ? "MetalPadlock" : undefined;
-		}
-		if (restraint.OverridePriority) {
-			placed.Property.OverridePriority = restraint.OverridePriority;
+function KinkyDungeonSendOutfitEvent(Event, data) {
+	let outfit = KDOutfit({name: KinkyDungeonCurrentDress});
+	if (outfit && outfit.events) {
+		for (let e of outfit.events) {
+			if (e.trigger == Event) {
+				KinkyDungeonHandleOutfitEvent(Event, e, outfit, data);
+			}
 		}
 	}
 }

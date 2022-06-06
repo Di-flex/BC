@@ -52,7 +52,8 @@ function KinkyDungeonGetShopItem(Level, Rarity, Shop) {
 	for (let S = 0; S < Shopable.length; S++) {
 		let s = Shopable[S][1];
 		s.shoptype = "Basic";
-		Table.push(s);
+		if (!s.ignoreInventory || !KinkyDungeonInventoryGet(s.ignoreInventory))
+			Table.push(s);
 	}
 	// @ts-ignore
 	Shopable = Object.entries(KinkyDungneonShopRestraints).filter(([k, v]) => (v.shop));
@@ -119,7 +120,7 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		}
 		if (Consumable.mp_instant) KinkyDungeonChangeMana(Consumable.mp_instant * Manamulti * gagMult);
 		if (Consumable.sp_instant) KinkyDungeonChangeStamina(Consumable.sp_instant * multi * gagMult);
-		if (Consumable.ap_instant) KinkyDungeonChangeDistraction(Consumable.ap_instant * gagMult);
+		if (Consumable.ap_instant) KinkyDungeonChangeDistraction(Consumable.ap_instant * gagMult, false, Consumable.arousalRatio ? Consumable.arousalRatio : 0);
 
 		KinkyDungeonCalculateMiscastChance();
 

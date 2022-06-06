@@ -78,6 +78,8 @@ let KinkyDungeonStatsPresets = {
 	"Nowhere": {category: "Enemies", id: "Nowhere", cost: -1},
 	"Prisoner": {category: "Start", id: "Prisoner", cost: 0},
 
+	"Panic": {category: "Map", id: "Panic", cost: -1},
+
 	"Rusted": {category: "Map", id: "Rusted", cost: 1},
 	"Unmasked": {category: "Kinky", id: "Unmasked", cost: 0},
 

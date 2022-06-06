@@ -49,7 +49,7 @@ let KDMaxDialogue = 7;
 let KDOptionOffset = 0;
 
 function KDDrawDialogue() {
-	DrawImageCanvas(KinkyDungeonRootDirectory + "DialogBackground.png", MainCanvas, 500, 250);
+	DrawImageCanvas(KinkyDungeonRootDirectory + "DialogBackground.png", MainCanvas, 500, 0);
 	if (KDGameData.CurrentDialog && !(KinkyDungeonSlowMoveTurns > 0)) {
 		KinkyDungeonDrawState = "Game";
 		// Get the current dialogue and traverse down the tree
@@ -191,6 +191,7 @@ function KDStartDialog(Dialogue, Speaker, Click, Personality, enemy) {
 	KinkyDungeonAutoWait = false;
 	KinkyDungeonDialogueTimer = CommonTime() + 700 + KinkyDungeonSlowMoveTurns * 200;
 	KDOptionOffset = 0;
+	KinkyDungeonFastMovePath = [];
 	KinkyDungeonDrawState = "Game";
 	KDSendInput("dialogue", {dialogue: Dialogue, dialogueStage: "", click: Click, speaker: Speaker, personality: Personality, enemy: enemy ? enemy.id : undefined});
 }
@@ -241,4 +242,14 @@ function KDHandleDialogue() {
 	}
 
 	return false;
+}
+
+
+function DialogueCreateEnemy(x, y, Name) {
+	let Enemy = KinkyDungeonGetEnemyByName(Name);
+	let e = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
+		x:x, y:y,
+		hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
+	KinkyDungeonEntities.push(e);
+	return e;
 }

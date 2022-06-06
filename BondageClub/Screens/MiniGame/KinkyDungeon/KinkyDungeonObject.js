@@ -23,6 +23,7 @@ let KDObjectDraw = {
 };
 
 function KinkyDungeonDrawGhost() {
+	if (KDGameData.CurrentDialog) return;
 	if (KinkyDungeonTargetTile.GhostDecision == 0) DrawText(TextGet("KinkyDungeonDrawGhostHelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 	else DrawText(TextGet("KinkyDungeonDrawGhostUnhelpful"), KDModalArea_x + 200, KDModalArea_y + 50, "white", "silver");
 }
@@ -31,6 +32,20 @@ function KinkyDungeonDrawAngel() {
 }
 
 function KinkyDungeonGhostMessage() {
+
+	if (KinkyDungeonTargetTile.Dialogue) {
+		KDStartDialog(KinkyDungeonTargetTile.Dialogue, "Ghost", true, "", undefined);
+		if (KinkyDungeonTargetTile.Msg && KDGameData.CurrentDialog) {
+			KDGameData.CurrentDialogMsg = KinkyDungeonTargetTile.Msg;
+		}
+		return;
+	} else if (KinkyDungeonTargetTile.Msg) {
+		KDStartDialog("GhostInfo", "Ghost", true, "", undefined);
+		if (KDGameData.CurrentDialog) {
+			KDGameData.CurrentDialogMsg = KinkyDungeonTargetTile.Msg;
+		}
+		return;
+	}
 	let restraints = KinkyDungeonAllRestraint();
 	let msg = "";
 	if (restraints.length == 0) {
@@ -120,3 +135,4 @@ function KinkyDungeonHandleCharger() {
 
 	return false;
 }
+

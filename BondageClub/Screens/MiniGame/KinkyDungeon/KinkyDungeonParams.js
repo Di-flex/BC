@@ -7,7 +7,7 @@ const KinkyDungeonMapParams = {
 		"background" : "RainyForstPathNight",
 		"openness" : 3, // Openness of rooms
 		"density" : 3, // Density of tunnels (inverse of room spawn chance)
-		"doodadchance" : 0.16,
+		"crackchance" : 0.07,
 		"barchance" : 0.2,
 		"brightness" : 7,
 		"chestcount" : 3,
@@ -27,10 +27,12 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Bedroom", Weight: 3},
-			{Type: "Graveyard", Weight: 9},
-			{Type: "Altar", Weight: 6},
-			{Type: "QuadCell", Weight: 4},
-			{Type: "Storage", Weight: 7},
+			{Type: "Graveyard", Weight: 6},
+			{Type: "Altar", Weight: 3},
+			{Type: "SmallAltar", Weight: 18},
+			{Type: "GuardedChest", Weight: 30},
+			{Type: "QuadCell", Weight: 3},
+			{Type: "Storage", Weight: 5},
 		],
 
 		"shortcuts": [
@@ -78,7 +80,7 @@ const KinkyDungeonMapParams = {
 		"shrines": [
 			//{Type: "Charms", Weight: 5},
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -93,7 +95,7 @@ const KinkyDungeonMapParams = {
 		"background" : "Dungeon",
 		"openness" : 0,
 		"density" : 2,
-		"doodadchance" : 0.11,
+		"crackchance" : 0.09,
 		"barchance" : 0.2,
 		"brightness" : 4,
 		"chestcount" : 4,
@@ -117,8 +119,10 @@ const KinkyDungeonMapParams = {
 		"setpieces": [
 			{Type: "Bedroom", Weight: 2},
 			{Type: "Altar", Weight: 3},
-			{Type: "QuadCell", Weight: 10},
-			{Type: "Storage", Weight: 7},
+			{Type: "QuadCell", Weight: 8},
+			{Type: "Storage", Weight: 5},
+			{Type: "SmallAltar", Weight: 18},
+			{Type: "GuardedChest", Weight: 30},
 		],
 
 		"shortcuts": [
@@ -171,7 +175,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Dungeon",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -183,9 +187,10 @@ const KinkyDungeonMapParams = {
 	},
 	"jng":{//DungeonName2,-Underground Jungle-
 		"background" : "DeepForest",
+		noReplace: "b",
 		"openness" : 1,
 		"density" : 1,
-		"doodadchance" : 0.12,
+		"crackchance" : 0.15,
 		"barchance" : 0.05,
 		"brightness" : 6,
 		"chestcount" : 5,
@@ -202,6 +207,12 @@ const KinkyDungeonMapParams = {
 		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
+		],
 
 		"shortcuts": [
 			{Level: 13, checkpoint: "cry", chance: 1.0},
@@ -248,7 +259,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 5},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -261,7 +272,7 @@ const KinkyDungeonMapParams = {
 		"background" : "SpookyForest",
 		"openness" : 2,
 		"density" : 2,
-		"doodadchance" : 0.13,
+		"crackchance" : 0.05,
 		"barchance" : 0.1,
 		"brightness" : 3,
 		"chestcount" : 4,
@@ -289,6 +300,8 @@ const KinkyDungeonMapParams = {
 		"setpieces": [
 			{Type: "Bedroom", Weight: 1},
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 		],
 
 		"shortcuts": [
@@ -335,7 +348,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "LatexPrisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 5},
-			{Type: "Commerce", Weight: 12},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -350,7 +363,7 @@ const KinkyDungeonMapParams = {
 		"background" : "EgyptianTomb",
 		"openness" : 1,
 		"density" : 3,
-		"doodadchance" : 0.25,
+		"crackchance" : 0.06,
 		"barchance" : 0.05,
 		"brightness" : 3,
 		"chestcount" : 8,
@@ -374,6 +387,8 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 			{Type: "Storage", Weight: 7},
 		],
 
@@ -421,7 +436,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Egyptian",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -432,9 +447,10 @@ const KinkyDungeonMapParams = {
 	},
 	"lib":{//DungeonName12,-Magic Library-
 		"background" : "MagicSchoolLaboratory",
+		noReplace: "Ddb",
 		"openness" : 5,
 		"density" : 6,
-		"doodadchance" : 0.15,
+		"crackchance" : 0.0,
 		"wallRubblechance" : 0.035,
 		"barchance" : 0.1,
 		"brightness" : 6,
@@ -499,7 +515,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Prisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -512,7 +528,7 @@ const KinkyDungeonMapParams = {
 		"background" : "MagicSchoolEscape",
 		"openness" : 6,
 		"density" : 2,
-		"doodadchance" : 0.15,
+		"crackchance" : 0.11,
 		"barchance" : 0.03,
 		"brightness" : 5,
 		"chargerchance": 1.0,
@@ -542,6 +558,8 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 			{Type: "Storage", Weight: 2},
 		],
 
@@ -591,7 +609,7 @@ const KinkyDungeonMapParams = {
 		"defeat_outfit": "Prisoner",
 		"shrines": [
 			{Type: "Latex", Weight: 3},
-			{Type: "Commerce", Weight: 14},
+			{Type: "Commerce", Weight: 0},
 			{Type: "Elements", Weight: 5},
 			{Type: "Conjure", Weight: 5},
 			{Type: "Illusion", Weight: 5},
@@ -606,7 +624,7 @@ const KinkyDungeonMapParams = {
 /*"fun":{//DungeonName4,-Fungal Caverns-
 		"openness" : 4,
 		"density" : 4,
-		"doodadchance" : 0.15,
+		"crackchance" : 0.15,
 		"barchance" : 0.15,
 		"brightness" : 7,
 		"chestcount" : 5,
@@ -633,7 +651,7 @@ const KinkyDungeonMapParams = {
 	"blw":{//DungeonName5,-The Bellows-
 		"openness" : 1,
 		"density" : 1,
-		"doodadchance" : 0.05,
+		"crackchance" : 0.05,
 		"barchance" : 0.03,
 		"brightness" : 8,
 		"chestcount" : 6,
@@ -662,7 +680,7 @@ const KinkyDungeonMapParams = {
 	"des":{//DungeonName6,-Underground Desert-
 		"openness" : 4,
 		"density" : 2,
-		"doodadchance" : 0.13,
+		"crackchance" : 0.13,
 		"barchance" : 0.03,
 		"brightness" : 5,
 		"chestcount" : 4,
@@ -689,7 +707,7 @@ const KinkyDungeonMapParams = {
 	"ice":{//DungeonName7,-Kingdom of Ice-
 		"openness" : 2,
 		"density" : 1,
-		"doodadchance" : 0.12,
+		"crackchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 4,
 		"chestcount" : 4,
@@ -717,7 +735,7 @@ const KinkyDungeonMapParams = {
 	"mar":{//DungeonName8,-Marble Halls-
 		"openness" : 4,
 		"density" : 1,
-		"doodadchance" : 0.12,
+		"crackchance" : 0.12,
 		"barchance" : 0.03,
 		"brightness" : 8,
 		"chestcount" : 8,
@@ -746,7 +764,7 @@ const KinkyDungeonMapParams = {
 	"lab":{//DungeonName9,-Ancient Laboratory-
 		"openness" : 2,
 		"density" : 1,
-		"doodadchance" : 0.08,
+		"crackchance" : 0.08,
 		"barchance" : 0.03,
 		"brightness" : 4,
 		"chestcount" : 10,
@@ -775,7 +793,7 @@ const KinkyDungeonMapParams = {
 	"man":{//DungeonName10,-The Mansion-
 		"openness" : 10,
 		"density" : 1,
-		"doodadchance" : 0.05,
+		"crackchance" : 0.05,
 		"barchance" : 0.03,
 		"brightness" : 100,
 		"chestcount" : 0,

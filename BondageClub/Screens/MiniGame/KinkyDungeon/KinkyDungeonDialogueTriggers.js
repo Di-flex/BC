@@ -16,13 +16,35 @@ let KDDialogueTriggers = {
 		prerequisite: (enemy, dist) => {
 			return (KinkyDungeonPlayerDamage
 				&& !KinkyDungeonPlayerDamage.unarmed
-				&& KinkyDungeonPlayerDamage.name != "Knife"
+				&& KinkyDungeonPlayerDamage.name != "Unarmed"
 				&& dist < 3.9
 				&& KDHostile(enemy)
 				&& KDRandom() < 0.25);
 		},
 		weight: (enemy, dist) => {
 			return KDStrictPersonalities.includes(enemy.personality) ? 10 : 1;
+		},
+	},
+	"OfferDress": {
+		dialogue: "OfferDress",
+		allowedPrisonStates: ["parole", ""],
+		allowedPersonalities: ["Sub"],
+		excludeTags: ["zombie", "skeleton", "robot"],
+		playRequired: true,
+		nonHostile: true,
+		noCombat: true,
+		noAlly: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5
+				&& !KinkyDungeonFlags.get("DangerFlag")
+				&& !KinkyDungeonFlags.get("BondageOffer")
+				&& !KinkyDungeonFlags.get("NoTalk")
+				&& KDRandom() < 0.25
+				&& KinkyDungeonGetRestraint({tags: ["bindingDress"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+		},
+		weight: (enemy, dist) => {
+			return 1 + 0.8 * Math.max(Math.abs(KinkyDungeonGoddessRep.Latex)/100, Math.abs(KinkyDungeonGoddessRep.Conjure)/100);
 		},
 	},
 	"OfferLatex": {
@@ -44,7 +66,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonGetRestraint({tags: ["latexRestraints", "latexRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Latex), Math.abs(KinkyDungeonGoddessRep.Conjure));
+			return 1 + 0.4 * Math.max(Math.abs(KinkyDungeonGoddessRep.Latex)/100, Math.abs(KinkyDungeonGoddessRep.Conjure)/100);
 		},
 	},
 	"OfferChastity": {
@@ -68,7 +90,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonGetRestraint({tags: ["genericChastity"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 1 + 0.2 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal), Math.abs(KinkyDungeonGoddessRep.Elements), Math.abs(KinkyDungeonGoddessRep.Illusion), Math.abs(KinkyDungeonGoddessRep.Ghost));
+			return 1 + 0.8 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal)/100, Math.abs(KinkyDungeonGoddessRep.Elements)/100, Math.abs(KinkyDungeonGoddessRep.Illusion)/100, Math.abs(KinkyDungeonGoddessRep.Ghost)/100);
 		},
 	},
 	"OfferRopes": {
@@ -90,7 +112,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonGetRestraint({tags: ["ropeRestraints", "ropeRestraints", "ropeRestraintsWrist"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 1 + 0.2 * Math.abs(KinkyDungeonGoddessRep.Rope);
+			return 1 + 0.4 * Math.abs(KinkyDungeonGoddessRep.Rope + 50)/100;
 		},
 	},
 	"OfferLeather": {
@@ -111,7 +133,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonGetRestraint({tags: ["leatherRestraintsHeavy"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 1 + 0.1 * Math.abs(KinkyDungeonGoddessRep.Leather + 50);
+			return 1 + 0.5 * Math.abs(KinkyDungeonGoddessRep.Leather + 50)/100;
 		},
 	},
 	"OfferWolfgirl": KDRecruitTrigger("OfferWolfgirl"),
@@ -216,7 +238,8 @@ function KDBossLose(name, enemyName) {
 	};
 }
 
-function KinkyDungeonGetShopForEnemy(enemy) {
+function KinkyDungeonGetShopForEnemy(enemy, guaranteed) {
+	if (enemy.Enemy.tags.has("noshop")) return "";
 	let shoplist = [];
 	for (let s of KDShops) {
 		let end = false;
@@ -238,7 +261,7 @@ function KinkyDungeonGetShopForEnemy(enemy) {
 			}
 		}
 		if (!hasTag) end = true;
-		if (!end && (!s.chance || KDRandom() < s.chance)) shoplist.push(s.name);
+		if (!end && (guaranteed || !s.chance || KDRandom() < s.chance)) shoplist.push(s.name);
 	}
 	if (shoplist.length > 0) return shoplist[Math.floor(KDRandom() * shoplist.length)];
 	return "";

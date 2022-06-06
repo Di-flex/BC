@@ -67,7 +67,7 @@ function KinkyDungeonDisableSpell(Name) {
 	}
 }
 
-let KinkyDungeonSpellPress = 0;
+let KinkyDungeonSpellPress = "";
 
 function KinkyDungeonResetMagic() {
 	KinkyDungeonSpellChoices = [0, 1, 2];
@@ -76,7 +76,7 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonSpells = [];
 	Object.assign(KinkyDungeonSpells, KinkyDungeonSpellsStart); // Copy the dictionary
 	KinkyDungeonMysticSeals = 1.3;
-	KinkyDungeonSpellPress = 0;
+	KinkyDungeonSpellPress = "";
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
@@ -239,9 +239,9 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
 				KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
-			} else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-			}
+			}// else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+			//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			//}
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
@@ -252,9 +252,9 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
 				KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
-			} else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-			}
+			}//else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+			//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			//}
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalBind"), "red", 3);
@@ -324,10 +324,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSpores"), "#a583ff", 2);
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			effect = true;
-		} else if (playerEffect.name == "SporesHappy") {
-			KinkyDungeonChangeDistraction(playerEffect.distraction);
-			KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonSporesHappy"), "#ff5277", 2);
-			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
+		} else if (playerEffect.name == "PoisonDagger") {
+			KinkyDungeonSendTextMessage(6, TextGet("KDPoisonDagger"), "#green", 2);
+			KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "PoisonDagger", aura: "#22ff44", type: "Sleepiness", power: 1, duration: playerEffect.time, player: true, enemies: false, tags: ["sleep"], range: 1.5});
 			effect = true;
 		} else if (playerEffect.name == "SporesSick") {
 			KinkyDungeonSleepiness += 2;
@@ -596,9 +596,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapBindingsDress"), "red", 3);
 					effect = true;
-				} else if (!playerEffect.noGuard && KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-					KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 				}
+				// else if (!playerEffect.noGuard && KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+				//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+				//}
 				if (playerEffect.power > 0 && playerEffect.damage) {
 					KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 				}
@@ -610,8 +611,20 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			KinkyDungeonSleepiness = 8;
 			KinkyDungeonAlert = 6;
 			effect = true;
+		} else if (playerEffect.name == "LustBomb") {
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonLustBomb"), "pink", 4);
+			if (playerEffect.power > 0) {
+				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			}
+			effect = true;
 		} else if (playerEffect.name == "TrapLustCloud") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapLustCloud"), "yellow", 4);
+			if (playerEffect.power > 0) {
+				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
+			}
+			effect = true;
+		} else if (playerEffect.name == "TrapSPCloud") {
+			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSPCloud"), "yellow", 4);
 			if (playerEffect.power > 0) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 			}
@@ -675,7 +688,6 @@ function KinkyDungeonHandleSpellCast(spell) {
 		|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion")
 	)) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
-			&& (!spell.knifecost || KinkyDungeonNormalBlades >= spell.knifecost)
 			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
 			return spell;
 		else KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonNoMana"), "red", 1);
@@ -696,7 +708,7 @@ function KinkyDungeonClickSpell(i) {
 				KinkyDungeonFastMove = false;
 				KinkyDungeonFastMoveSuppress = false;
 			}
-			KinkyDungeonSpellPress = 0;
+			KinkyDungeonSpellPress = "";
 			clicked = true;
 		} else {
 			spell = KinkyDungeonHandleSpellChoice(KinkyDungeonSpellChoices[i]);
@@ -718,7 +730,7 @@ function KinkyDungeonHandleSpell() {
 			KDSwapSpell = i;
 			return true;
 		}
-		if (MouseIn(1650, 180 + i*KinkyDungeonSpellChoiceOffset, 90, 60) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
+		if (MouseInKD("SpellCast" + i) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
 			let result = KinkyDungeonClickSpell(i);
 			spell = result.spell;
 			clicked = result.clicked;
@@ -818,7 +830,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 	let noiseX = targetX;
 	let noiseY = targetY;
 
-	if (enemy) {
+	if (enemy && player) {
 		entity = enemy;
 		moveDirection = KinkyDungeonGetDirection(player.x - entity.x, player.y - entity.y);
 		flags.miscastChance = 0;
@@ -1039,7 +1051,8 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		if (KinkyDungeonTargetingSpellItem) {
 			KinkyDungeonChangeConsumable(KinkyDungeonTargetingSpellItem, -(KinkyDungeonTargetingSpellItem.useQuantity ? KinkyDungeonTargetingSpellItem.useQuantity : 1));
 			KinkyDungeonTargetingSpellItem = null;
-			KinkyDungeonAggroAction('item', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('item', {});
 		} else if (KinkyDungeonTargetingSpellWeapon) {
 			let special = KinkyDungeonPlayerDamage ? KinkyDungeonPlayerDamage.special : null;
 			if (special) {
@@ -1048,9 +1061,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 				if (energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - energyCost);
 			}
 			KinkyDungeonTargetingSpellItem = null;
-			KinkyDungeonAggroAction('item', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('item', {});
 		} else {
-			KinkyDungeonAggroAction('magic', {});
+			if (!spell.noAggro)
+				KinkyDungeonAggroAction('magic', {});
 		}
 		KinkyDungeonSendActionMessage(3, TextGet("KinkyDungeonSpellCast"+spell.name), "#88AAFF", 2 + (spell.channel ? spell.channel - 1 : 0));
 		KDSendSpellCast(spell.name);
@@ -1062,7 +1077,6 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet) {
 		//KinkyDungeonStatWillpowerExhaustion += spell.exhaustion + 1;
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "cast", 1);
 		KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
-		if (spell.knifecost) KinkyDungeonNormalBlades -= spell.knifecost;
 		if (spell.staminacost) KinkyDungeonChangeStamina(-spell.staminacost);
 		if (spell.channel) {
 			KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, spell.channel);

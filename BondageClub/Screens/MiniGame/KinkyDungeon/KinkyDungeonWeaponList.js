@@ -4,7 +4,9 @@
  * @type {Record<string, weapon>}
  */
 let KinkyDungeonWeapons = {
-	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
+	"Unarmed": {name: "Unarmed", dmg: 2, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
+	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "slash", unarmed: false, rarity: 1, cutBonus: 0.05, shop: true, sfx: "Unarmed", light: true},
+	"EnchKnife": {name: "EnchKnife", dmg: 3.0, chance: 0.9, type: "cold", unarmed: false, rarity: 1, cutBonus: 0.05, magic: true, shop: true, sfx: "Unarmed", light: true},
 	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
 	"Flamberge": {name: "Flamberge", dmg: 2.0, chance: 1.0, staminacost: 1.25, type: "slash", unarmed: false, rarity: 3, shop: true, cutBonus: 0.15, sfx: "FireSpell",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 2.0, damage: "fire"}]},

@@ -75,9 +75,9 @@ function KinkyDungeonGenerateShop(Level) {
 	let items_high = 0;
 	let itemCount = 8 + Math.floor(KDRandom() * 3);
 	if (KinkyDungeonStatsChoice.has("Supermarket")) {
-		items_mid = -2;
-		items_high = -2;
-		itemCount += 5;
+		items_mid = -1;
+		items_high = -1;
+		itemCount += 2;
 	}
 	for (let I = itemCount; I > 0; I--) {
 		let Rarity = 0;
@@ -176,6 +176,7 @@ function KinkyDungeonPayShrine(type) {
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
 		KinkyDungeonStatMana = KinkyDungeonStatManaMax;
 		KinkyDungeonStatDistraction = 0;
+		KinkyDungeonStatDistractionLower = 0;
 		KinkyDungeonChangeStamina(0);
 		KinkyDungeonChangeMana(0);
 		KinkyDungeonChangeDistraction(0);
@@ -199,16 +200,14 @@ function KinkyDungeonPayShrine(type) {
 					KinkyDungeonRedKeys += 1;
 				} else if (item.name == "BlueKey") {
 					KinkyDungeonBlueKeys += 1;
-				} else if (item.name == "Knife") {
-					KinkyDungeonNormalBlades += 1;
-				}else if (item.name == "MagicKnife") {
-					KinkyDungeonEnchantedBlades += 1;
 				} else if (item.name == "Lockpick") {
 					KinkyDungeonLockpicks += 1;
 				} else if (item.name == "2Lockpick") {
 					KinkyDungeonLockpicks += 2;
 				} else if (item.name == "4Lockpick") {
 					KinkyDungeonLockpicks += 4;
+				} else if (item.name == "MaidUniform") {
+					KinkyDungeonInventoryAddOutfit("Maid");
 				} else if (item.consumable) {
 					KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.consumable], item.quantity);
 				}
@@ -304,8 +303,9 @@ function KinkyDungeonDrawShrine() {
 				DrawTextFit(TextGet("KinkyDungeonCommerceCost").replace("ItemCost", "" + KinkyDungeonItemCost(l)), KDModalArea_x + 300, KDModalArea_y + 65 - ii * 50, 100, KinkyDungeonShopItems[KinkyDungeonShopIndex].name == l.name ? "white" : "#aaaaaa", "silver");
 				ii++;
 			}
-			let textSplit = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), 40).split('\n');
-			let textSplit2 = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name +  "Desc2"), 40).split('\n');
+			let wrapAmount = TranslationLanguage == 'CN' ? 15 : 40;
+			let textSplit = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name + "Desc"), wrapAmount).split('\n');
+			let textSplit2 = KinkyDungeonWordWrap(TextGet("KinkyDungeonInventoryItem" + KinkyDungeonShopItems[KinkyDungeonShopIndex].name +  "Desc2"), wrapAmount).split('\n');
 			let i = 0;
 			for (let N = 0; N < textSplit.length; N++) {
 				DrawTextFit(textSplit[N],
