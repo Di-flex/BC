@@ -388,6 +388,8 @@ interface overrideDisplayItem {
 
 interface enemy {
 	name: string,
+	/** Special dialogue played when clicked on instead of standard ally dialogue */
+	specialdialogue?: string,
 	/** Tags, used for determining weaknesses, spawning, restraints applied, and rank*/
 	tags: Map<string, boolean>,
 	/** Spell resist, formula is spell damage taken = 1 / (1 + spell resist) */
@@ -836,6 +838,8 @@ interface entity {
 	items?: string[],
 	x: number,
 	y: number,
+	lastx?: number,
+	lasty?: number,
 	fx?: number,
 	fy?: number,
 	path?: {x: number, y: number}[],
@@ -1246,3 +1250,15 @@ interface KinkyDungeonSave {
 	faction: Record<string, Record<string, number>>;
 }
 
+
+
+type MapMod = {
+	name: string,
+	roomType: string,
+	weight: number,
+	tags: string[],
+	tagsOverride?: string[],
+	bonusTags: Record<string, {bonus: number, mult: number}>,
+	bonussetpieces?: {Type: string, Weight: number}[],
+	altRoom: string,
+}

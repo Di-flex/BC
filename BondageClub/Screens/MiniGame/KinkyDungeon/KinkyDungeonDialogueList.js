@@ -2378,6 +2378,36 @@ let KDDialogue = {
 			"Leave": {playertext: "Leave", exitDialogue: true},
 		}
 	},
+	"PrisonerBandit": { // Player beats Fuuka
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					if (KDDialogueEnemy()) {
+						let e = KDDialogueEnemy();
+						KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+						let created = DialogueCreateEnemy(e.x, e.y, "Bandit");
+						created.allied = 9999;
+					}
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
 	"Fuuka": {
 		response: "Default",
 		clickFunction: (gagged) => {

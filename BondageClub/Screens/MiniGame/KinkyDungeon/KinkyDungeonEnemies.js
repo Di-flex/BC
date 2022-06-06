@@ -2116,12 +2116,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 											enemySwap.y = KinkyDungeonPlayerEntity.y;
 											enemySwap.warningTiles = [];
 										}
-										KinkyDungeonPlayerEntity.x = enemy.x;
-										KinkyDungeonPlayerEntity.y = enemy.y;
+
+										KDMovePlayer(enemy.x, enemy.y, false);
 										KinkyDungeonTargetTile = null;
 										KinkyDungeonTargetTileLocation = "";
-										enemy.x = leashPoint.x;
-										enemy.y = leashPoint.y;
+										KDMoveEntity(enemy, leashPoint.x, leashPoint.y, true);
 										hitsfx = "Struggle";
 										for (let inv of KinkyDungeonAllRestraint()) {
 											if (KDRestraint(inv).removeOnLeash) {
@@ -2786,8 +2785,7 @@ function KDDash(enemy, player, MovableTiles) {
 		}
 		if (tile && (tile.x != player.x || tile.y != player.y) && (tile.x != KinkyDungeonPlayerEntity.x || tile.y != KinkyDungeonPlayerEntity.y) && MovableTiles.includes(KinkyDungeonMapGet(tile.x, tile.y))) {
 			Dash = true;
-			enemy.x = tile.x;
-			enemy.y = tile.y;
+			KDMoveEntity(enemy, tile.x, tile.y, true);
 			enemy.path = undefined;
 			happened += 1;
 			if (enemy.usingSpecial && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Dash")) {
@@ -2808,4 +2806,18 @@ function KinkyDungeonSendEnemyEvent(Event, data) {
 			}
 		}
 	}
+}
+
+/**
+ * Moves an entity
+ * @param {entity} enemy
+ * @param {number} x
+ * @param {number} y
+ * @param {boolean} willing
+ */
+function KDMoveEntity(enemy, x, y, willing) {
+	enemy.lastx = enemy.x;
+	enemy.lasty = enemy.y;
+	enemy.x = x;
+	enemy.y = y;
 }

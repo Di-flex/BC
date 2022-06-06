@@ -718,7 +718,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 		if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
 			let d = delta;
 			let first = true;
-			//let justBorn = false;
+			let justBorn = false;
 			let trailSquares = [];
 			let startx = b.x;
 			let starty = b.y;
@@ -729,7 +729,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 					let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
 					if (b.born >= 0) {
 						b.born -= 1;
-						//justBorn = true;
+						justBorn = true;
 					}
 
 					let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
@@ -761,7 +761,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				}
 				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
 				end = false;
-				let checkCollision = true;//justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
+				let checkCollision = justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
 				if ((checkCollision && !KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d)) || outOfTime || outOfRange) {
 					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
 						d = 0;
@@ -778,7 +778,8 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				// Update the bullet's visual position
 				KinkyDungeonUpdateSingleBulletVisual(b, end);
 			}
-			if (!end && KDFactionRelation("Player", b.bullet.faction) < 0.5) {
+			if (!end) {
+				let show = KDFactionRelation("Player", b.bullet.faction) < 0.5;
 				let bxx = b.xx;
 				let byy = b.yy;
 				let bx = b.x;
@@ -790,6 +791,8 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				first = true;
 				startx = bx;
 				starty = by;
+
+				b.warnings = [];
 
 				while (d > 0.1) {
 					if (!first && delta > 0) {
@@ -822,8 +825,12 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						let rad = b.bullet.aoe ? b.bullet.aoe : ((b.bullet.spell && b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0);
 						for (let xx = bx - Math.floor(rad); xx <= bx + Math.ceil(rad); xx++) {
 							for (let yy = by - Math.floor(rad); yy <= by + Math.ceil(rad); yy++) {
-								if (KDistEuclidean(bx - xx, by - yy) <= rad && !KDBulletWarnings.some((w) => {return w.x == xx && w.y == yy;})) {
-									KDBulletWarnings.push({x: xx, y: yy, color:b.bullet.spell ? (b.bullet.spell.color ? b.bullet.spell.color : "#ff0000") : "#ff0000"});
+								if (KDistEuclidean(bx - xx, by - yy) <= rad) {
+									if (show && !KDBulletWarnings.some((w) => {return w.x == xx && w.y == yy;}))
+										KDBulletWarnings.push({x: xx, y: yy, color:b.bullet.spell ? (b.bullet.spell.color ? b.bullet.spell.color : "#ff0000") : "#ff0000"});
+									if (!b.warnings.includes(xx + "," + yy)) {
+										b.warnings.push(xx + "," + yy);
+									}
 								}
 							}
 						}
@@ -869,7 +876,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
 		if ((!Catchup && !b.secondary) || (Catchup && b.secondary)) {
-			if ((b.bullet.faction == "Player" || (!b.vx && !b.vy) || b.bullet.aoe || (KDistEuclidean(b.vx, b.vy) < 0.9)) && !KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
+			if (!KinkyDungeonBulletsCheckCollision(b, b.time >= 0, undefined, undefined, !(b.bullet.faction == "Player" || (!b.vx && !b.vy) || b.bullet.aoe || (KDistEuclidean(b.vx, b.vy) < 0.9)))) { // (b.bullet.faction == "Player" || (!b.vx && !b.vy) || b.bullet.aoe || (KDistEuclidean(b.vx, b.vy) < 0.9)) &&
 				if (!(b.bullet.spell && b.bullet.spell.piercing)) {
 					KinkyDungeonBullets.splice(E, 1);
 					KinkyDungeonBulletsID[b.spriteID] = null;
@@ -1078,7 +1085,7 @@ function KinkyDungeonBulletTrail(b) {
 	return trail;
 }
 
-function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
+function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	if (bullet.bullet.noEnemyCollision) return true;
@@ -1114,7 +1121,9 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 				}
 			}
 		} else {
-			if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && KinkyDungeonPlayerEntity.x == bullet.x && KinkyDungeonPlayerEntity.y == bullet.y) {
+			if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect)
+				&& KinkyDungeonPlayerEntity.x == bullet.x && KinkyDungeonPlayerEntity.y == bullet.y
+				&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(KinkyDungeonPlayerEntity.lastx + "," + KinkyDungeonPlayerEntity.lasty)))) {
 				KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.playerEffect ? bullet.bullet.playerEffect : bullet.bullet.spell.playerEffect, bullet.bullet.spell);
 				return false;
 			}
@@ -1124,7 +1133,8 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d) {
 						|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
 						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
-						&& enemy.x == bullet.x && enemy.y == bullet.y) {
+						&& (enemy.x == bullet.x && enemy.y == bullet.y)
+						&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(enemy.lastx + "," + enemy.lasty)))) {
 					KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});
 					if (bullet.bullet.damage.type == "heal") {
 						let origHP = enemy.hp;

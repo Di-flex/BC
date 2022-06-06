@@ -210,15 +210,13 @@ function KinkyDungeonUpdateTether(Msg, Entity, xTo, yTo) {
 									}
 								}
 								if (slot2) {
-									enemy.x = slot2.x;
-									enemy.y = slot2.y;
+									KDMoveEntity(enemy, slot2.x, slot2.y, false);
 								} else {
-									enemy.x = Entity.x;
-									enemy.y = Entity.y;
+									KDMoveEntity(enemy, Entity.x, Entity.y, false);
 								}
 							}
-							Entity.x = slot.x;
-							Entity.y = slot.y;
+
+							KDMoveEntity(Entity, slot.x, slot.y, false);
 							KinkyDungeonInterruptSleep();
 							if (Msg) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonTetherPull").replace("TETHER", TextGet("Restraint" + inv.name)), "red", 2, true);
 						}
