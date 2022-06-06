@@ -1086,8 +1086,7 @@ const KDEventMapWeapon = {
 					let newY = data.targetY + Math.round(e.dist * (data.targetY - KinkyDungeonPlayerEntity.y));
 					if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY)) && KinkyDungeonNoEnemy(newX, newY, true)
 						&& (e.dist == 1 || KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
-						data.enemy.x = newX;
-						data.enemy.y = newY;
+						KDMoveEntity(data.enemy, newX, newY, false);
 					}
 				}
 			}

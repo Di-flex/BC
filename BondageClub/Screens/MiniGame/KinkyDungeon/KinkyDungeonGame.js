@@ -575,8 +575,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 			// We move the player to the jail after generating one
 			let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			if (nearestJail) {
-				KinkyDungeonPlayerEntity.x = nearestJail.x;
-				KinkyDungeonPlayerEntity.y = nearestJail.y;
+
+				KDMovePlayer(nearestJail.x, nearestJail.y, false);
 			}
 		}
 
@@ -694,8 +694,7 @@ function KinkyDungeonGetAllies() {
 	let temp = [];
 	for (let e of KinkyDungeonEntities) {
 		if (e.Enemy && e.Enemy.keepLevel) {
-			e.x = KinkyDungeonStartPosition.x;
-			e.y = KinkyDungeonStartPosition.y;
+			KDMoveEntity(e, KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, false);
 			e.visual_x = KinkyDungeonStartPosition.x;
 			e.visual_y = KinkyDungeonStartPosition.y;
 			temp.push(e);
@@ -2634,8 +2633,7 @@ function KinkyDungeonMove(moveDirection, delta, AllowInteract) {
 
 						if (KinkyDungeonMovePoints >= 1) {// Math.max(1, KinkyDungeonSlowLevel) // You need more move points than your slow level, unless your slow level is 1
 							if (Enemy && allowPass) {
-								Enemy.x = KinkyDungeonPlayerEntity.x;
-								Enemy.y = KinkyDungeonPlayerEntity.y;
+								KDMoveEntity(Enemy, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, true);
 								if (KinkyDungeonFlags.has("Passthrough"))
 									KinkyDungeonSetFlag("Passthrough", 2);
 							}
@@ -2762,6 +2760,13 @@ function KinkyDungeonWaitMessage(NoTime) {
 	KinkyDungeonTrapMoved = false;
 }
 
+function KDMovePlayer(moveX, moveY, willing) {
+	KinkyDungeonPlayerEntity.lastx = KinkyDungeonPlayerEntity.x;
+	KinkyDungeonPlayerEntity.lasty = KinkyDungeonPlayerEntity.y;
+	KinkyDungeonPlayerEntity.x = moveX;
+	KinkyDungeonPlayerEntity.y = moveY;
+}
+
 // Returns th number of turns that must elapse
 function KinkyDungeonMoveTo(moveX, moveY) {
 	//if (KinkyDungeonNoEnemy(moveX, moveY, true)) {
@@ -2775,8 +2780,7 @@ function KinkyDungeonMoveTo(moveX, moveY) {
 	if (xx != moveX || yy != moveY) {
 		KinkyDungeonTrapMoved = true;
 	}
-	KinkyDungeonPlayerEntity.x = moveX;
-	KinkyDungeonPlayerEntity.y = moveY;
+	KDMovePlayer(moveX, moveY, true);
 
 	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy, moveX, moveY);
 

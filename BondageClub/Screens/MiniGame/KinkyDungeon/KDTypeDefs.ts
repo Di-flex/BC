@@ -836,6 +836,8 @@ interface entity {
 	items?: string[],
 	x: number,
 	y: number,
+	lastx?: number,
+	lasty?: number,
 	fx?: number,
 	fy?: number,
 	path?: {x: number, y: number}[],
