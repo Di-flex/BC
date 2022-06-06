@@ -652,26 +652,30 @@ function KinkyDungeonCapture(enemy) {
 	return goddessCapture;
 }
 
+/**
+ *
+ * @param {entity} enemy
+ */
+function KDDropStolenItems(enemy) {
+	if (enemy.items) {
+		for (let name of enemy.items) {
+			let item = {x:enemy.x, y:enemy.y, name: name};
+			KinkyDungeonGroundItems.push(item);
+		}
+		enemy.items = [];
+	}
+}
+
 function KinkyDungeonEnemyCheckHP(enemy, E) {
 	if (enemy.hp <= 0) {
 		let noRepHit = false;
 		KinkyDungeonEntities.splice(E, 1);
 		KinkyDungeonSendEvent("kill", {enemy: enemy});
 		if (KDBoundEffects(enemy) > 3 && enemy.boundLevel > 0 && KDHostile(enemy) && !enemy.Enemy.tags.has("nocapture") && enemy.playerdmg) {
-			if (enemy.items) {
-				for (let name of enemy.items) {
-					let item = {x:enemy.x, y:enemy.y, name: name};
-					KinkyDungeonGroundItems.push(item);
-				}
-			}
+			KDDropStolenItems(enemy);
 			if (!KinkyDungeonCapture(enemy)) noRepHit = true;
 		} else {
-			if (enemy.items) {
-				for (let name of enemy.items) {
-					let item = {x:enemy.x, y:enemy.y, name: name};
-					KinkyDungeonGroundItems.push(item);
-				}
-			}
+			KDDropStolenItems(enemy);
 			if (enemy == KinkyDungeonKilledEnemy && Math.max(3, enemy.Enemy.maxhp/4) >= KinkyDungeonActionMessagePriority) {
 				if (KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 10)
 					KinkyDungeonSendActionMessage(4, TextGet("Kill"+enemy.Enemy.name), "orange", 2, undefined, undefined, enemy);
@@ -772,8 +776,10 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 		KDDropItems(enemy);
 
 		return true;
-	} else if (!enemy.droppedItems && KDHelpless(enemy)) {
-		KDDropItems(enemy);
+	} else if (KDHelpless(enemy)) {
+		KDDropStolenItems(enemy);
+		if (!enemy.droppedItems)
+			KDDropItems(enemy);
 	}
 	return false;
 }
@@ -973,8 +979,33 @@ let KinkyDungeonDamageTaken = false;
 let KinkyDungeonTorsoGrabCD = 0;
 let KinkyDungeonHuntDownPlayer = false;
 
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean}
+ */
 function KinkyDungeonHasStatus(enemy) {
-	return enemy && (enemy.bind > 0 || enemy.slow > 0 || enemy.stun > 0 || enemy.freeze > 0 || enemy.silence > 0 || enemy.slow > 0 || KDBoundEffects(enemy));
+	return enemy && (enemy.bind > 0 || enemy.slow > 0 || enemy.stun > 0 || enemy.freeze > 0 || enemy.silence > 0 || enemy.slow > 0 || KDBoundEffects(enemy) > 0);
+}
+
+
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean}
+ */
+function KinkyDungeonIsDisabled(enemy) {
+	return enemy && (enemy.stun > 0 || enemy.freeze > 0 || KDBoundEffects(enemy) > 3);
+}
+
+
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean}
+ */
+ function KinkyDungeonCanCastSpells(enemy) {
+	return enemy && (KinkyDungeonIsDisabled(enemy) || enemy.silence > 0);
 }
 
 function KDBoundEffects(enemy) {
