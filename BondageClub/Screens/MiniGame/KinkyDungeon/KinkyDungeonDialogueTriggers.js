@@ -442,7 +442,7 @@ let KDDialogueTriggers = {
 		dialogue: "OfferScarf",
 		allowedPrisonStates: ["parole", ""],
 		allowedPersonalities: ["Dom", "Sub"],
-        requireTagsSingle: ["scarfRestraints","ropeAuxiliary","ropeRestraints2"],
+        requireTagsSingle: ["scarfRestraints","ropeAuxiliary"],
 		excludeTags: ["zombie", "skeleton", "robot"],
 		playRequired: true,
 		nonHostile: true,
@@ -528,7 +528,7 @@ let KDDialogueTriggers = {
 				&& KinkyDungeonGetRestraint({tags: ["iceRestraints"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
 		},
 		weight: (enemy, dist) => {
-			return 1 + 0.8 * Math.max(Math.abs(KinkyDungeonGoddessRep.Elements)/100, Math.abs(KinkyDungeonGoddessRep.Ghost)/100);
+			return 0.5 + 0.1 * Math.max(Math.abs(KinkyDungeonGoddessRep.Elements)/100, Math.abs(KinkyDungeonGoddessRep.Ghost)/100);
 		},
 	},
 	"OfferLatex": {

@@ -5135,7 +5135,7 @@ rOfferComfyForce_Yes,"(The RESTRAINT is buckled firmly in place)|See? Good, huh?
 rOfferComfyForce_Failure,"(The SPEAKER ignores you)|(The RESTRAINT is buckled firmly in place)|(A wave of comfort passes over you)"
 
 dOfferComfy_Yes,"(Approach)"
-dOfferComfy_YesGag(Approach)"
+dOfferComfy_YesGag,"(Approach)"
 dOfferComfy_No,"(Keep your distance)"
 dOfferComfy_NoGag,"(Keep your distance)"
 
