@@ -42,6 +42,7 @@ function KinkyDungeonAggroChestFaction(faction) {
 	let list = [];
 	let list2 = [];
 	for (let enemy of KinkyDungeonEntities) {
+		if (enemy.Enemy.tags.has("peaceful")) continue;
 		let enemyfaction = KDGetFaction(enemy);
 		if ((enemyfaction == faction || KDFactionRelation(enemyfaction, faction) > 0.4)) {
 			let dist = KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y);
@@ -229,7 +230,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 			KDGameData.PrisonerState = "chase";
 	} else if (KDLocalChaseTypes.includes(Type)) {
 		for (let e of KinkyDungeonEntities) {
-			if (KDHostile(e) && KDFactionAllied(KDGetFaction(enemy), e) && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
+			if (KDHostile(e) && KDFactionAllied(KDGetFaction(enemy), e) && !enemy.Enemy.tags.has("peaceful") && KinkyDungeonCheckLOS(e, KinkyDungeonPlayerEntity, 7, 8, false, false)) {
 				if (!e.hostile) e.hostile = KDMaxAlertTimerAggro;
 				else e.hostile = Math.max(KDMaxAlertTimerAggro, e.hostile);
 				e.ceasefire = undefined;
@@ -242,7 +243,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 		let index = (Type == "Attack" || Type == "Spell") ? ("" + Math.floor(Math.random() * 3)) : "";
 		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 3 : 5, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, (!KDGameData.PrisonerState));
 	}
-	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") > -0.1) {
+	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") > -0.1 && !enemy.Enemy.tags.has("peaceful")) {
 		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimerAggro;
 		else enemy.hostile = Math.max(KDMaxAlertTimerAggro, enemy.hostile);
 		enemy.ceasefire = undefined;

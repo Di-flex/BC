@@ -919,6 +919,20 @@ let KDDialogue = {
 						KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
 						let created = DialogueCreateEnemy(e.x, e.y, "Bandit");
 						created.allied = 9999;
+						if (KDFactionRelation("Player", "Bandit") < -0.5) {
+							for (let enemy of KinkyDungeonEntities) {
+								if (enemy.Enemy.tags.has("bandit")) {
+									if (enemy.hostile && enemy.hostile < 9000) {
+										enemy.hostile = 0;
+									}
+									enemy.ceasefire = 300;
+								}
+							}
+						}
+						if (KDFactionRelation("Player", "Bandit") < 0.25)
+							KinkyDungeonChangeFactionRep("Bandit", 0.015);
+						else
+							KinkyDungeonChangeFactionRep("Bandit", 0.005);
 					}
 					return false;
 				},

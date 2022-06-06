@@ -1004,7 +1004,7 @@ function KinkyDungeonIsDisabled(enemy) {
  * @param {entity} enemy
  * @returns {boolean}
  */
- function KinkyDungeonCanCastSpells(enemy) {
+function KinkyDungeonCanCastSpells(enemy) {
 	return enemy && (KinkyDungeonIsDisabled(enemy) || enemy.silence > 0);
 }
 
@@ -1175,15 +1175,15 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
-			if (enemy.aware && (enemy.lifetime == undefined || enemy.lifetime > 9000) && !enemy.Enemy.tags.has("temporary")) {
+			if (enemy.aware && (enemy.lifetime == undefined || enemy.lifetime > 9000) && !enemy.Enemy.tags.has("temporary") && !enemy.Enemy.tags.has("peaceful")) {
 				if (enemy.hostile > 0 && enemy.hostile < 9000 && KDGameData.PrisonerState == 'parole') {
 					tickAlertTimer = true;
-					if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
+					if (KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y) < 9 && !tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 						tickAlertTimerFactions.push(KDGetFaction(enemy));
 					}
 				} else if (KinkyDungeonAggressive(enemy)) {
 					tickAlertTimer = true;
-					if (!tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
+					if (KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y) < 9 && !tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 						tickAlertTimerFactions.push(KDGetFaction(enemy));
 					}
 				}
@@ -1296,7 +1296,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			}
 			// Alert enemies if youve aggroed one
 			if (!KDAllied(enemy) && !(enemy.ceasefire > 0)) {
-				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
+				if (!(enemy.hostile > 0) && tickAlertTimer && !KinkyDungeonAggressive(enemy) && !enemy.Enemy.tags.has("peaceful") && (enemy.vp > 0.5 || enemy.lifetime < 900 || (!KDHostile(enemy) && KDistChebyshev(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < 7))) {
 					for (let f of tickAlertTimerFactions) {
 						if ((KDGetFaction(enemy) != "Player") && (
 							(KDFactionAllied(f, enemy) && KDFactionRelation("Player", enemy) <= 0.9)
