@@ -905,6 +905,8 @@ interface KinkyDialogueTrigger {
 
 interface spell {
 	tags?: string[];
+	/** Color of the spell and bullet warningsd */
+	color?: string,
 	name: string;
 	/** This spell wont trigger an aggro action */
 	noAggro?: boolean;

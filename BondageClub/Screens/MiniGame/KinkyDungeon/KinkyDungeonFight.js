@@ -781,7 +781,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 			if (!end) {
 				let show = KDFactionRelation("Player", b.bullet.faction) < 0.5 && (
 					(b.bullet.hit == "lingering" || (b.bullet.spell && b.bullet.name == b.bullet.spell.name && (b.bullet.spell.onhit == "aoe" || b.bullet.spell.onhit == "dot")))
-					|| (b.lifetime > 0 && b.bullet.damage && b.bullet.damage.type && b.bullet.damage.type != "heal" && b.bullet.damage.type != "inert")
+					|| ((b.lifetime > 0 || b.lifetime == undefined) && b.bullet.damage && b.bullet.damage.type && b.bullet.damage.type != "heal" && b.bullet.damage.type != "inert")
 				);
 				let bxx = b.xx;
 				let byy = b.yy;
