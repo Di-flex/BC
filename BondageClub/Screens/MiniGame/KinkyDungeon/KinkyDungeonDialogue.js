@@ -245,6 +245,13 @@ function KDHandleDialogue() {
 }
 
 
+/**
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {string} Name
+ * @returns {entity}
+ */
 function DialogueCreateEnemy(x, y, Name) {
 	let Enemy = KinkyDungeonGetEnemyByName(Name);
 	let e = {summoned: true, Enemy: Enemy, id: KinkyDungeonGetEnemyID(),
@@ -252,4 +259,16 @@ function DialogueCreateEnemy(x, y, Name) {
 		hp: (Enemy && Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0};
 	KinkyDungeonEntities.push(e);
 	return e;
+}
+
+/**
+ *
+ * @returns {entity}
+ */
+function KDDialogueEnemy() {
+	let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+	if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+		return enemy;
+	}
+	return null;
 }

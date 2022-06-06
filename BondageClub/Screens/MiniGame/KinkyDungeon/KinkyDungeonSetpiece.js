@@ -10,6 +10,7 @@ let KDSetPieces = [
 	{Name: "FuukaAltar", tags: ["boss", "temple"], Radius: 7, Max: 1},
 	{Name: "Storage", tags: ["loot", "urban"], Radius: 5},
 	{Name: "GuardedChest", tags: ["loot", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
+	{Name: "BanditPrison", tags: ["rep", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "QuadCell", tags: ["decorative", "urban"], Radius: 7},
 	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "LesserPearl", tags: ["loot", "pearl"], Radius: 5, Chance: 0.5, Max: 1},
@@ -34,6 +35,15 @@ function KinkyDungeonPlaceSetPieces(POI, trapLocations, chestlist, shrinelist, c
 	} else {
 		for (let s of Object.entries(alt.setpieces)) {
 			setpieces.push({Type: s[0], Weight: s[1]});
+		}
+	}
+
+	if (KDGameData.MapMod) {
+		let mapmod = KDMapMods[KDGameData.MapMod];
+		if (mapmod && mapmod.bonussetpieces) {
+			for (let s of mapmod.bonussetpieces) {
+				setpieces.push(s);
+			}
 		}
 	}
 
@@ -398,6 +408,22 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				spawnPoints.push({x:cornerX+2, y:cornerY, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
 				spawnPoints.push({x:cornerX, y:cornerY+2, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
 				spawnPoints.push({x:cornerX+2, y:cornerY+2, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
+			}
+			break;
+		}
+		case "BanditPrison": {
+			if (KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3) skip = true;
+			else {
+				// Hollow out a 2x2 area for the chest
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, false);
+				// Place the chest
+				DialogueCreateEnemy(cornerX+1, cornerY+1, "PrisonerBandit");
+				//spawnPoints.push({x:cornerX, y:cornerY, required:["prisoner"], tags: ["bandit"], priority: true});
+				// Place the guards
+				spawnPoints.push({x:cornerX, y:cornerY, required:["bountyhunter"], tags: ["human"], AI: "guard"});
+				spawnPoints.push({x:cornerX+2, y:cornerY, required:["bountyhunter"], tags: ["human"], AI: "guard"});
+				spawnPoints.push({x:cornerX, y:cornerY+2, required:["bountyhunter"], tags: ["human"], AI: "guard"});
+				spawnPoints.push({x:cornerX+2, y:cornerY+2, required:["bountyhunter"], tags: ["human"], AI: "guard"});
 			}
 			break;
 		}

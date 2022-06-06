@@ -953,6 +953,8 @@ Spell Balance:
 - New spell: Lockdown (melee range, enemy struggles slower for 8 turns, 1 mana)
 - Wall mana cost reduced to 3 from 6
 
+3.41
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
