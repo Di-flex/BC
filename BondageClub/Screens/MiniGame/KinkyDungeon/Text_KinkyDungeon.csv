@@ -1448,7 +1448,7 @@ AttackApprenticeSlime,"The apprentice caresses you playfully! (-DamageTaken SP)"
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
-AttackWitchChainBind,"The witch clips a restraint around your neck! (+RestraintAdded)"
+AttackWitchChainBind,"The witch's bindings wrap themselves around you! (+RestraintAdded)"
 AttackWitchChain,"The chain witch tugs sensually at your restraints! (-DamageTaken SP)"
 
 NameWitchSlime,Slime Witch
