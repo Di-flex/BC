@@ -367,7 +367,8 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 			}
 			break;
 		case "GuardedChest": {
-			if ((!favoringPOI && KDRandom() < 0.7) || KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3) skip = true;
+			let chests = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].chestcount ? KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]].chestcount : 6;
+			if ((!favoringPOI && KDRandom() < 0.7) || KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3 || chestlist.length >= chests) skip = true;
 			else {
 				// Hollow out a 2x2 area for the chest
 				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, false);

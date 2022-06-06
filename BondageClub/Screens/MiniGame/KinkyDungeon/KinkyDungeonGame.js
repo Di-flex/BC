@@ -713,7 +713,6 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 
 	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (KinkyDungeonStatsChoice.get("Stealthy")) enemyCount = Math.round(enemyCount * KDStealthyEnemyCountMult);
-	if (InJail) enemyCount = Math.floor(enemyCount/2);
 	let count = 0;
 	let tries = 0;
 	let miniboss = false;
@@ -724,7 +723,10 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 	let currentCluster = null;
 
 	let spawns = [];
-	for (let sp of spawnPoints) spawns.push(sp);
+	for (let sp of spawnPoints) {
+		spawns.push(sp);
+		enemyCount += 1;
+	}
 
 	let enemyPoints = [];
 
