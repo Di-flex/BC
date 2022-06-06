@@ -558,7 +558,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":3, "thirdhalf":4}, shrines: ["Will"], floors:KDMapInit(["jng"]),
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 12}, {name: "EarthRune", weight: 4}, {name: "PotionStamina", weight: 1}]},
 
-	{name: "ElfRanger", faction: "Elf", clusterWith: "nature", bound: "ElfRanger", color: "#67ff44", tags: KDMapInit(["opendoors", "leashing", "nature", "elf", "ranged", "elite", "mythrilRope", "pierceweakness", "iceweakness", "chainresist", "hunter"]), cohesion: 0.0,
+	{name: "ElfRanger", faction: "Elf", clusterWith: "nature", bound: "ElfRanger", color: "#67ff44", tags: KDMapInit(["opendoors", "leashing", "nature", "elf", "ranged", "elite", "mithrilRope", "pierceweakness", "iceweakness", "chainresist", "hunter"]), cohesion: 0.0,
 		followLeashedOnly: true, ignorechance: 0, armor: 0, followRange: 3, AI: "hunt",  stealth: 3, focusPlayer: true,
 		spells: ["ElfArrow"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, castWhileMoving: true, kite: 1.5, projectileAttack: true,
 		visionRadius: 9, maxhp: 12, minLevel:12, weight:-1, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, tilesMinRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 2,

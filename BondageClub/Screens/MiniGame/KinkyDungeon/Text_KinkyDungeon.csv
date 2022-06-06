@@ -4727,6 +4727,510 @@ dOfferDressForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
 
 
 
+rOfferArmor,"(The SPEAKER swings an imaginary sword around)|En guar- Oh, you're unarmored!|Do you want to borrow some of mine?"
+rOfferArmorYes,"(The SPEAKER holds up a RESTRAINT)|I found this near an old suit of armor.|I think it's a helmet or something..."
+rOfferArmorYes_Yes,"(The SPEAKER winks and locks it on)|I feel much safer already~"
+rOfferArmorYes_No,"(The SPEAKER pouts)|Aww, spoilsport!|(She returns to fighting her imaginary enemies)"
+rOfferArmorNo,"(The SPEAKER shrugs)|Your loss~"
+rOfferArmorForce,"(The SPEAKER giggles)|Close enough, right?|Come on, there's enemies to fight!"
+rOfferArmorForceYes,"(The SPEAKER grins deviously)|So? It might help...|(The SPEAKER dives at you suddenly!)"
+rOfferArmorForce_No,"(The SPEAKER trips over the floor)|AHHHHH!|Maybe I need more protection..."
+rOfferArmorForce_Yes,"(The SPEAKER locks it in place quickly)|There, all set for battle now!|(The SPEAKER giggles, cheekily winking at you)"
+rOfferArmorForce_Failure,"(The SPEAKER tightly fastens the muzzle on)|Safe and secure~|(You whimper as the SPEAKER spanks you goodbye)"
+
+dOfferArmor_Yes,"Extra defense can't hurt..."
+dOfferArmor_YesGag,"(Nod cautiously)"
+dOfferArmor_No,"I'm safe enough."
+dOfferArmor_NoGag,"(Shake your head)"
+
+dOfferArmorYes_Yes,"A gag? Sounds fun~"
+dOfferArmorYes_YesGag,"(Nod eagerly)"
+dOfferArmorYes_No,"That's not a helmet!"
+dOfferArmorYes_NoGag,"(Shake your head)"
+
+dOfferArmorForce_Yes,"Well, it might..."
+dOfferArmorForce_YesGag,"(Giggle and nod)"
+dOfferArmorForce_No,"(Dodge her lunge) (PERCENT chance to avoid)"
+dOfferArmorForce_NoGag,"(Dodge her lunge) (PERCENT chance to avoid)"
+
+
+
+rOfferIce,"(A smirking SPEAKER bumps into you)|So, you're with us now, huh?|I think you need a welcome gift."
+rOfferIceYes,"Mmhmm, a gift~|(The SPEAKER leans forward to whisper in your ear)|Is it cold in here, or is it just you?"
+rOfferIceYes_Yes,"(You shiver as everything gets colder)|(RESTRAINT forms around you!)|(The SPEAKER blows you a kiss and giggles)"
+rOfferIceYes_No,"(The SPEAKER thinks for a moment)|I really wanted to try this too...|(Sighing, the SPEAKER walks away)"
+rOfferIceNo,"(The SPEAKER scowls)|How boring."
+rOfferIceForce,"(The SPEAKER thinks for a moment)|Well, I want to try this anyway~|(You feel the temperature drop suddenly)"
+rOfferIceForceYes,"(The SPEAKER laughs at your protest)|It's so much fun though~|(You feel the temperature drop suddenly)"
+rOfferIceForce_No,"(The temperature returns to normal)|(The SPEAKER seems surprised)|Hmm, that wasn't meant to happen."
+rOfferIceForce_Yes,"(RESTRAINT solidifies on you as the SPEAKER grins)|It worked! I did it!|Thanks for your, uh, help~"
+rOfferIceForce_Failure,"(RESTRAINT solidifies on you as the SPEAKER smiles)|Yes! Finally! How's that feel?|(The SPEAKER admires your restraints)"
+
+dOfferIce_Yes,"A gift?"
+dOfferIce_YesGag,"(Nod warily)"
+dOfferIce_No,"No thanks."
+dOfferIce_NoGag,"(Shake your head)"
+
+dOfferIceYes_Yes,"Umm... just me?"
+dOfferIceYes_YesGag,"(Nod again)"
+dOfferIceYes_No,"Wait, don't make it colder!"
+dOfferIceYes_NoGag,"(Shake your head)"
+
+dOfferIceForce_Yes,"(Shiver and watch as the ice covers you)"
+dOfferIceForce_YesGag,"(Mutely whimper as the ice covers you)"
+dOfferIceForce_No,"Ah! T-That's freezing! (PERCENT chance to avoid)"
+dOfferIceForce_NoGag,"(Wriggle to warm up) (PERCENT chance to avoid)"
+
+
+
+rOfferAutoTape,"(A robotic SPEAKER approaches)|QUERY: Good girl detected:|Restraint desired?"
+rOfferAutoTapeYes,"(The SPEAKER beeps and whirrs)|SPEAKER will add RESTRAINT.|Acceptable?"
+rOfferAutoTapeYes_Yes,"(The SPEAKER spins around you, releasing tape)|RESTRAINT dispensed.|Have a nice day."
+rOfferAutoTapeYes_No,"(The SPEAKER buzzes)|Understood. Proceding back to duty."
+rOfferAutoTapeNo,"(The SPEAKER clicks and beeps)|Rejection noted.|SPEAKER will return to patrol."
+rOfferAutoTapeForce,"ERROR: Acceptance expected.|STATEMENT: SPEAKER will add RESTRAINT."
+rOfferAutoTapeForceYes,"(The SPEAKER buzzes)|ERROR: Contradiction in answer.|STATEMENT: SPEAKER will add RESTRAINT."
+rOfferAutoTapeForce_No,"(The SPEAKER makes a whirring noise)|ERROR: SPEAKER out of tape.|Returning to routine."
+rOfferAutoTapeForce_Yes,"(The SPEAKER spins around you, releasing tape)|RESTRAINT dispensed.|Have a nice day."
+rOfferAutoTapeForce_Failure,"(The SPEAKER spins around you, releasing tape)|RESTRAINT dispensed.|Have a nice day."
+
+dOfferAutoTape_Yes,"Uh, affirmative?"
+dOfferAutoTape_YesGag,"(Nod)"
+dOfferAutoTape_No,"Negative."
+dOfferAutoTape_NoGag,"(Shake your head)"
+
+dOfferAutoTapeYes_Yes,"Very acceptable!"
+dOfferAutoTapeYes_YesGag,"(Nod again)"
+dOfferAutoTapeYes_No,"No, I don't want that."
+dOfferAutoTapeYes_NoGag,"(Shake your head)"
+
+dOfferAutoTapeForce_Yes,"If you have to..."
+dOfferAutoTapeForce_YesGag,"(Giggle and nod)"
+dOfferAutoTapeForce_No,"Go away robot! (PERCENT chance to avoid)"
+dOfferAutoTapeForce_NoGag,"(Shake your head rapidly) (PERCENT chance to avoid)"
+dOfferAutoTapeForce_NoGag,"(Shake your head rapidly) (PERCENT chance to avoid)"
+
+
+
+rOfferHiTechCables,"(A robotic SPEAKER approaches)|QUERY: Good girl detected:|Restraint desired?"
+rOfferHiTechCablesYes,"(The SPEAKER beeps and whirrs)|SPEAKER will add RESTRAINT.|Acceptable?"
+rOfferHiTechCablesYes_Yes,"(The SPEAKER shoots cables at you)|RESTRAINT dispensed.|Have a nice day."
+rOfferHiTechCablesYes_No,"(The SPEAKER buzzes)|Understood. Proceding back to duty."
+rOfferHiTechCablesNo,"(The SPEAKER clicks and beeps)|Rejection noted.|SPEAKER will return to patrol."
+rOfferHiTechCablesForce,"ERROR: Acceptance expected.|STATEMENT: SPEAKER will add RESTRAINT."
+rOfferHiTechCablesForceYes,"(The SPEAKER buzzes)|ERROR: Contradiction in answer.|STATEMENT: SPEAKER will add RESTRAINT."
+rOfferHiTechCablesForce_No,"(The SPEAKER makes a whirring noise)|ERROR: SPEAKER cable jammed.|Returning to routine."
+rOfferHiTechCablesForce_Yes,"(The SPEAKER shoots cables at you)|RESTRAINT dispensed.|Have a nice day."
+rOfferHiTechCablesForce_Failure,"(The SPEAKER shoots cables at you)|RESTRAINT dispensed.|Have a nice day."
+
+dOfferHiTechCables_Yes,"Uh, affirmative?"
+dOfferHiTechCables_YesGag,"(Nod)"
+dOfferHiTechCables_No,"Negative."
+dOfferHiTechCables_NoGag,"(Shake your head)"
+
+dOfferHiTechCablesYes_Yes,"Very acceptable!"
+dOfferHiTechCablesYes_YesGag,"(Nod again)"
+dOfferHiTechCablesYes_No,"No, I don't want that."
+dOfferHiTechCablesYes_NoGag,"(Shake your head)"
+
+dOfferHiTechCablesForce_Yes,"If you have to..."
+dOfferHiTechCablesForce_YesGag,"(Giggle and nod)"
+dOfferHiTechCablesForce_No,"Go away robot! (PERCENT chance to avoid)"
+
+
+
+rOfferScarf,"(A happy SPEAKER looks at you)|Hey there cutie~|Want to try some scarf bondage?"
+rOfferScarfYes,"(The SPEAKER holds up some scarves)|If you want to try, I've got a few here.|I could give you a RESTRAINT?"
+rOfferScarfYes_Yes,"(The SPEAKER smiles gently at you as she ties)|I love the silky feeling~|(The SPEAKER tightens all her knots)"
+rOfferScarfYes_No,"(The SPEAKER looks away and nods)|Well... maybe next time."
+rOfferScarfNo,"(The SPEAKER shuffles awkwardly)|Oh... well...|Come back if you change your mind~"
+rOfferScarfForce,"(The SPEAKER frowns)|Too bad, I want to tie someone!"
+rOfferScarfForceYes,"(The SPEAKER scowls)|Hey, don't back out!|I promise I'll make it comfortable!"
+rOfferScarfForce_No,"(The SPEAKER sighs and nods)|Okay, sorry.|It would've been soft though~"
+rOfferScarfForce_Yes,"(The SPEAKER beams a smile)|Yay, thank you!|Feels nice, right?"
+rOfferScarfForce_Failure,"(The SPEAKER drops her scarves)|Aww, really?|I'll go find someone else then..."
+
+dOfferScarf_Yes,"Sounds good!"
+dOfferScarf_YesGag,"(Nod quickly)"
+dOfferScarf_No,"Not really."
+dOfferScarf_NoGag,"(Shake your head)"
+
+dOfferScarfYes_Yes,"Please do!"
+dOfferScarfYes_YesGag,"(Nod and giggle)"
+dOfferScarfYes_No,"Not right now."
+dOfferScarfYes_NoGag,"(Shake your head)"
+
+dOfferScarfForce_Yes,"Well... sure then."
+dOfferScarfForce_YesGag,"(Giggle and moan)"
+dOfferScarfForce_No,"Hey! Stop! (PERCENT chance to avoid)"
+dOfferScarfForce_NoGag,"(Shake your head and whine) (PERCENT chance to avoid)"
+
+
+
+rOfferSlime,"(A messy looking SPEAKER turns to you)|Hmm, curious. Very curious.|Can you help me with an experiment?"
+rOfferSlimeYes,"(The SPEAKER pulls out a flask)|I isolated some slime, but it's inert.|Would you let me spill some on you?"
+rOfferSlimeYes_Yes,"(The SPEAKER tips out the entire flask)|Aha! It's growing again! Fascinating.|(Sticky RESTRAINT clings to you)"
+rOfferSlimeYes_No,"(The SPEAKER tuts disapprovingly)|Not one for chemistry, eh?"
+rOfferSlimeNo,"(The SPEAKER sighs)|So hard to find good help out here..."
+rOfferSlimeForce,"Ah, but it'll be quick!|(The SPEAKER begins tipping the flask)|See? It's already moving toward you!"
+rOfferSlimeForceYes,"(The SPEAKER glares at you)|You've got no sense of adventure!|For science!"
+rOfferSlimeForce_No,"(The SPEAKER tosses the slime on you)|(The slime flops off limply)|Ah. Back to the drawing board."
+rOfferSlimeForce_Yes,"(The SPEAKER pours the slime onto you)|That's the spirit girl!|(Sticky RESTRAINT clings to you)"
+rOfferSlimeForce_Failure,"(The SPEAKER tosses the slime on you)|Ha, look, it's alive!|(Sticky RESTRAINT clings to you)"
+
+dOfferSlime_Yes,"Sure."
+dOfferSlime_YesGag,"(Nod slowly)"
+dOfferSlime_No,"Absolutely not."
+dOfferSlime_NoGag,"(Shake your head)"
+
+dOfferSlimeYes_Yes,"On me? Sounds fun~"
+dOfferSlimeYes_YesGag,"(Nod again)"
+dOfferSlimeYes_No,"Nope. Not doing that."
+dOfferSlimeYes_NoGag,"(Shake your head)"
+
+dOfferSlimeForce_Yes,"Okay, for science..."
+dOfferSlimeForce_YesGag,"(Giggle and nod)"
+dOfferSlimeForce_No,"Ah! Don't you dare! (PERCENT chance to avoid)"
+dOfferSlimeForce_NoGag,"(Shake your head and whimper) (PERCENT chance to avoid)"
+
+
+
+rOfferWolfRestraint,"(A SPEAKER whispers to you)|Ever wonder how wolfgirls feel?|Or why they're so obedient?"
+rOfferWolfRestraintYes,"(The SPEAKER grins)|I've got a RESTRAINT here~|Wanna give it a try?"
+rOfferWolfRestraintYes_Yes,"(The SPEAKER puts on the RESTRAINT)|Perfect. Better behave now~|(The SPEAKER pats your butt)"
+rOfferWolfRestraintYes_No,"(The SPEAKER rolls her eyes)|You've seen wolfgirls, right?|Ah, whatever, go have fun~"
+rOfferWolfRestraintNo,"(The SPEAKER nods glumly)|Not a fan?|Shame, I am~"
+rOfferWolfRestraintForce,"(The SPEAKER looks at you deviously)|You're going to wear this RESTRAINT,|if you want to or not~"
+rOfferWolfRestraintForceYes,"(The SPEAKER grabs you quickly)|Oh, it's very strict~|And great for being trained..."
+rOfferWolfRestraintForce_No,"(The SPEAKER sulks)|Have it your way then."
+rOfferWolfRestraintForce_Yes,"(The SPEAKER adds the RESTRAINT)|(You feel her tighten everything before locking it)|Good girl~"
+rOfferWolfRestraintForce_Failure,"(The SPEAKER pushes you to the ground)|I'll make it extra tight for you~|(The RESTRAINT locks tightly onto you)"
+
+dOfferWolfRestraint_Yes,"Maybe a little~"
+dOfferWolfRestraint_YesGag,"(Nod excitedly)"
+dOfferWolfRestraint_No,"Don't know, don't care."
+dOfferWolfRestraint_NoGag,"(Shake your head)"
+
+dOfferWolfRestraintYes_Yes,"Yes! So much!"
+dOfferWolfRestraintYes_YesGag,"(Nod quickly)"
+dOfferWolfRestraintYes_No,"That looks too strict!"
+dOfferWolfRestraintYes_NoGag,"(Shake your head)"
+
+dOfferWolfRestraintForce_Yes,"I- Well- O-Okay~"
+dOfferWolfRestraintForce_YesGag,"(Moan and squirm)"
+dOfferWolfRestraintForce_No,"I don't want to get stuck! (PERCENT chance to avoid)"
+dOfferWolfRestraintForce_NoGag,"(Shake your head worriedly) (PERCENT chance to avoid)"
+
+
+
+rOfferMithril,"(A SPEAKER gracefully gestures to you)|So good to see a friendly face~|Care to see some elven goods?"
+rOfferMithrilYes,"(The SPEAKER holds up a RESTRAINT)|These are some of our strictest.|Want to try?"
+rOfferMithrilYes_Yes,"(The SPEAKER smiles sweetly)|Such a good girl~|(The RESTRAINT locks with a loud click)"
+rOfferMithrilYes_No,"(The SPEAKER sagely nods)|As you wish~"
+rOfferMithrilNo,"(The SPEAKER frowns briefly)|I understand~"
+rOfferMithrilForce,"(The SPEAKER shifts her weight back)|I'm afraid I must insist.|(She's gripping a RESTRAINT)|(The SPEAKER dives towards you!)"
+rOfferMithrilForceYes,"(The SPEAKER leans closer)|Then you can test their escapability!|(The SPEAKER dives towards you!)"
+rOfferMithrilForce_No,"(The SPEAKER rolls past harmlessly)|Oh! So fast~"
+rOfferMithrilForce_Yes,"(The SPEAKER snaps the RESTRAINT on)|There, much better.|Now squirm for me cutie~"
+rOfferMithrilForce_Failure,"(The SPEAKER trips you over)|(Before you can move, the RESTRAINT closes firmly)|Strict, isn't it?~"
+
+dOfferMithril_Yes,"Of course!"
+dOfferMithril_YesGag,"(Nod happily)"
+dOfferMithril_No,"No, thanks."
+dOfferMithril_NoGag,"(Shake your head)"
+
+dOfferMithrilYes_Yes,"Pretty please~"
+dOfferMithrilYes_YesGag,"(Nod eagerly)"
+dOfferMithrilYes_No,"Not really."
+dOfferMithrilYes_NoGag,"(Shake your head)"
+
+dOfferMithrilForce_Yes,"."
+dOfferMithrilForce_YesGag,"(Moan and giggle)"
+dOfferMithrilForce_No,"Stop! (PERCENT chance to avoid)"
+dOfferMithrilForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
+
+
+rOfferMithrilRope,"(A SPEAKER plays with silvery rope)|Hmm, I need to get better with this.|Can I practice on you?"
+rOfferMithrilRopeYes,"(The SPEAKER grins happily)|Thank you girl~|I'll tie with RESTRAINT then~"
+rOfferMithrilRopeYes_Yes,"(The SPEAKER binds you tightly)|(The rope is tight, and she's clearly and expert.)|Mmm, not too bad~"
+rOfferMithrilRopeYes_No,"(The SPEAKER pouts indignantly)|Why say yes then?!|(The SPEAKER walks off grumbling)"
+rOfferMithrilRopeNo,"(The SPEAKER sighs)|Very well then~"
+rOfferMithrilRopeForce,"(The SPEAKER smirks)|Ooh, a chance to practice against resistance~|I can't pass that up!"
+rOfferMithrilRopeForceYes,"(The SPEAKER pouts indignantly)|Oh no, you don't get out that easy.|You said you'd help!"
+rOfferMithrilRopeForce_No,"(The SPEAKER can't keep the knots tight)|(Eventually, she gives up)|S-Stupid human..."
+rOfferMithrilRopeForce_Yes,"(The SPEAKER strictly ties you up)|(You can feel she's done this many times)|(She smirks at you as she departs)"
+rOfferMithrilRopeForce_Failure,"(The SPEAKER strictly ties you up)|(There's no slack anywhere!)|(She makes a face at you as she leaves)"
+
+dOfferMithrilRope_Yes,"Any time~"
+dOfferMithrilRope_YesGag,"(Nod excitedly)"
+dOfferMithrilRope_No,"I'd rather you didn't."
+dOfferMithrilRope_NoGag,"(Shake your head)"
+
+dOfferMithrilRopeYes_Yes,"Sounds great!"
+dOfferMithrilRopeYes_YesGag,"(Nod again)"
+dOfferMithrilRopeYes_No,"Actually, I don't want that."
+dOfferMithrilRopeYes_NoGag,"(Shake your head)"
+
+dOfferMithrilRopeForce_Yes,"I'll play along then~"
+dOfferMithrilRopeForce_YesGag,"(Moan and squirm)"
+dOfferMithrilRopeForce_No,"(Struggle against her) (PERCENT chance to avoid)"
+dOfferMithrilRopeForce_NoGag,"(Struggle against her) (PERCENT chance to avoid)"
+
+
+
+rOfferHighSec,"(The SPEAKER quickly motions to you)|Hey! Over here!| I got something to show you!"
+rOfferHighSecYes,"(The SPEAKER giggles)|You'll be wearing this~|(A RESTRAINT is in her hands)"
+rOfferHighSecYes_Yes,"(The SPEAKER looks surprised)|Oh, uh, sure!|(They quickly add the RESTRAINT)"
+rOfferHighSecYes_No,"(The SPEAKER grins sneakily)|I thought you might say that~|But- ahh!|(They drop the item and you slip away)"
+rOfferHighSecNo,"(The SPEAKER looks angry)|Hey! HEY! I'm talking to-|Ah, forget it."
+rOfferHighSecForce,"(The SPEAKER follows you)|Not so fast there~|(You see a RESTRAINT in her hand)"
+rOfferHighSecForceYes,"(The SPEAKER grins sneakily)|I thought you might say that~|But it wasn't a choice..."
+rOfferHighSecForce_No,"(The SPEAKER fumbles with the RESTRAINT)|C-Come open you stupid-|(You quickly walk away)"
+rOfferHighSecForce_Yes,"(The SPEAKER adds the RESTRAINT)|Good luck with that one~|(She sounds like she's gloating...)"
+rOfferHighSecForce_Failure,"(The SPEAKER roughly forces you down)|(Pushing your head down, the RESTRAINT slides on)|(The SPEAKER tugs your hair, then walks away)"
+
+dOfferHighSec_Yes,"(Walk over, curiously)"
+dOfferHighSec_YesGag,"(Walk over, curiously)"
+dOfferHighSec_No,"(Don't approach)."
+dOfferHighSec_NoGag,"(Don't approach)"
+
+dOfferHighSecYes_Yes,"Sure!"
+dOfferHighSecYes_YesGag,"(Nod eagerly)"
+dOfferHighSecYes_No,"W-What? No way!"
+dOfferHighSecYes_NoGag,"(Shake your head)"
+
+dOfferHighSecForce_Yes,"(Let her add the restraint)"
+dOfferHighSecForce_YesGag,"(Moan and nod)"
+dOfferHighSecForce_No,"Stop! (PERCENT chance to avoid)"
+dOfferHighSecForce_NoGag,"(Shake your head and groan) (PERCENT chance to avoid)"
+
+
+
+rOfferKitty,"(The SPEAKER walks over)|You'd make a cute catgirl~|Want help becoming one?"
+rOfferKittyYes,"(The SPEAKER grins)|Here, I've got this RESTRAINT.|That'll help!"
+rOfferKittyYes_Yes,"(The SPEAKER gleefully comes closer)|(The RESTRAINT fits snugly)|So adorable!"
+rOfferKittyYes_No,"(The SPEAKER nods disappointed)|Fair enough~"
+rOfferKittyNo,"(The SPEAKER sighs)|Maybe another time~"
+rOfferKittyForce,"(The SPEAKER giggles)|Let's see if you can get away then~|(You see a RESTRAINT in her hand)"
+rOfferKittyForceYes,"(The SPEAKER titters)|It's going on, kitty~"
+rOfferKittyForce_No,"(The SPEAKER whimpers and drops it)|Owwww!|I hit my knee!"
+rOfferKittyForce_Yes,"(The SPEAKER wiggles happily)|Oh, you're so cute!|Enjoy it~"
+rOfferKittyForce_Failure,"(The SPEAKER traps you)|(You feel the RESTRAINT being forced on)|Meow~"
+
+dOfferKitty_Yes,"Sure!"
+dOfferKitty_YesGag,"(Nod excitedly)"
+dOfferKitty_No,"No, not today."
+dOfferKitty_NoGag,"(Shake your head)"
+
+dOfferKittyYes_Yes,"Yay!"
+dOfferKittyYes_YesGag,"(Nod quickly)"
+dOfferKittyYes_No,"Not like that!"
+dOfferKittyYes_NoGag,"(Shake your head)"
+
+dOfferKittyForce_Yes,"Y-Yes miss~"
+dOfferKittyForce_YesGag,"(Moan and squirm)"
+dOfferKittyForce_No,"(Duck out the way) (PERCENT chance to avoid)"
+dOfferKittyForce_NoGag,"(Duck out the way) (PERCENT chance to avoid)"
+
+
+
+rOfferShackles,"(A SPEAKER winks at you)|You look like a girl who likes feeling|like a prisoner, am I right?"
+rOfferShacklesYes,"(The SPEAKER nods happily)|I knew it! Well, it's your lucky day.|I've got some RESTRAINTS for you~"
+rOfferShacklesYes_Yes,"(The SPEAKER spins you around)|(You hear the cold metal click shut)|Nice and submissive~"
+rOfferShacklesYes_No,"(The SPEAKER shrugs)|It's not for everyone, I guess~"
+rOfferShacklesNo,"(The SPEAKER frowns)|Really?|I was so sure..."
+rOfferShacklesForce,"(The SPEAKER giggles)|I'm gonna make you one anyway~|(You see a RESTRAINT in her hand)"
+rOfferShacklesForceYes,"(The SPEAKER grins maliciously)|I like seeing prisoners though~|And you're right here..."
+rOfferShacklesForce_No,"(The SPEAKER gulps)|M-Maybe I won't then!"
+rOfferShacklesForce_Yes,"(The SPEAKER adds the RESTRAINT)|You're blushing dear~|She doth protest too much?"
+rOfferShacklesForce_Failure,"(The SPEAKER)||"
+
+dOfferShackles_Yes,"Maybe a bit~"
+dOfferShackles_YesGag,"(Nod eagerly)"
+dOfferShackles_No,"Not at all."
+dOfferShackles_NoGag,"(Shake your head)"
+
+dOfferShacklesYes_Yes,"(Wiggle excitedly)"
+dOfferShacklesYes_YesGag,"(Wiggle excitedly)"
+dOfferShacklesYes_No,"Not like that."
+dOfferShacklesYes_NoGag,"(Shake your head)"
+
+dOfferShacklesForce_Yes,"O-Okay..."
+dOfferShacklesForce_YesGag,"(Moan and shiver)"
+dOfferShacklesForce_No,"Don't even try. (PERCENT chance to avoid)"
+dOfferShacklesForce_NoGag,"(Shake your head and groan) (PERCENT chance to avoid)"
+
+
+
+rOfferComfy,"(A SPEAKER is looking at something)|So comfy... but how?|Hey, you! Come see this!"
+rOfferComfyYes,"(The SPEAKER holds up a RESTRAINT)|It's so soft, but so strict~|Want to give it a try?"
+rOfferComfyYes_Yes,"(The SPEAKER quickly fastens it on)|(A wave of comfort passes over you)|(The SPEAKER looks on enviously)"
+rOfferComfyYes_No,"(The SPEAKER shrugs)|Eh, alright then."
+rOfferComfyNo,"(The SPEAKER shrugs)|Up to you."
+rOfferComfyForce,"(The SPEAKER approaches)|Hey, see this RESTRAINT?|I'm going to put it on you~"
+rOfferComfyForceYes,"(The SPEAKER frowns)|But it's so comfy!|Here, look, I'll show you..."
+rOfferComfyForce_No,"(The SPEAKER looks startled)|Oh! Uh, I guess you're right..."
+rOfferComfyForce_Yes,"(The RESTRAINT is buckled firmly in place)|See? Good, huh?|(You sink into the comforting feeling)"
+rOfferComfyForce_Failure,"(The SPEAKER ignores you)|(The RESTRAINT is buckled firmly in place)|(A wave of comfort passes over you)"
+
+dOfferComfy_Yes,"(Approach)"
+dOfferComfy_YesGag(Approach)"
+dOfferComfy_No,"(Keep your distance)"
+dOfferComfy_NoGag,"(Keep your distance)"
+
+dOfferComfyYes_Yes,"Yes please!"
+dOfferComfyYes_YesGag,"(Nod happily)"
+dOfferComfyYes_No,"Nope."
+dOfferComfyYes_NoGag,"(Shake your head)"
+
+dOfferComfyForce_Yes,"It does look comfortable~"
+dOfferComfyForce_YesGag,"(Squirm and bow your head)"
+dOfferComfyForce_No,"It looks too strict! (PERCENT chance to avoid)"
+dOfferComfyForce_NoGag,"(Shake your head rapidly) (PERCENT chance to avoid)"
+
+
+
+rOfferDragon,"(The SPEAKER brushes past hurriedly)|Careful girl!|Else I'll lock you away~"
+rOfferDragonYes,"(The SPEAKER looks at you intrigued)|Aren't you something...|How about wearing this RESTRAINT?"
+rOfferDragonYes_Yes,"(The SPEAKER grins and locks it on)|Maybe I should bump into you more~"
+rOfferDragonYes_No,"(The SPEAKER rolls her eyes)|Run along then girl~"
+rOfferDragonNo,"(The SPEAKER nods)|Didn't think so~|Oh, and, uh, sorry for the bump."
+rOfferDragonForce,"(The SPEAKER frowns)|I think I should.|You'll just bother someone else.|(She holds up a RESTRAINT)"
+rOfferDragonForceYes,"(The SPEAKER shakes her head)|You don't get off that lightly.|These are going on."
+rOfferDragonForce_No,"(The SPEAKER sighs)|I'll let you off then.|Oh, and, uh, sorry for the bump."
+rOfferDragonForce_Yes,"(The SPEAKER adds the RESTRAINT)|(As she's locking it, she giggles)|You're really cute actually~"
+rOfferDragonForce_Failure,"(The SPEAKER stumbles and grimaces)|Ugh! Fine, you can go then.|D-Didn't want to see you tied anyway..."
+
+dOfferDragon_Yes,"That doesn't sound bad..."
+dOfferDragon_YesGag,"(Giggle into your gag)"
+dOfferDragon_No,"That won't be necessary."
+dOfferDragon_NoGag,"(Shake your head)"
+
+dOfferDragonYes_Yes,"I'd love to!"
+dOfferDragonYes_YesGag,"(Nod quickly)"
+dOfferDragonYes_No,"Not right now."
+dOfferDragonYes_NoGag,"(Shake your head)"
+
+dOfferDragonForce_Yes,"M-Maybe you should then~"
+dOfferDragonForce_YesGag,"(Giggle and moan)"
+dOfferDragonForce_No,"You ran into me! (PERCENT chance to avoid)"
+dOfferDragonForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
+
+
+rOfferMaidRestraint,"(A SPEAKER gives you a small curtsy)|Good day.|Care to try part of our uniform?"
+rOfferMaidRestraintYes,"(The SPEAKER looks content)|We can offer you this RESTRAINT.|It's a snug fit..."
+rOfferMaidRestraintYes_Yes,"(The SPEAKER buckles it strictly)|All maids wear this at sometime.|You'd fit right in!"
+rOfferMaidRestraintYes_No,"(The SPEAKER frowns for a second)|Ah, I see.|As you were then."
+rOfferMaidRestraintNo,"(The SPEAKER nods)|We hope to see you again nonetheless."
+rOfferMaidRestraintForce,"(The SPEAKER has a twinkle in her eye)|We will offer you this RESTRAINT.|You should accept."
+rOfferMaidRestraintForceYes,"(The SPEAKER glares)|We urge you to reconsider."
+rOfferMaidRestraintForce_No,"(The SPEAKER pulls an odd smile)|Very well."
+rOfferMaidRestraintForce_Yes,"(The SPEAKER smugly nods)|(With surprising speed, the RESTRAINT locks in place)|Excellent, a good fit."
+rOfferMaidRestraintForce_Failure,"(The SPEAKER covers your hand with her mouth)|Shush, no more bad decisions.|(You feel her buckle the restraint strictly)"
+
+dOfferMaidRestraint_Yes,"Yes please!"
+dOfferMaidRestraint_YesGag,"(Nod eagerly)"
+dOfferMaidRestraint_No,"No, thank you."
+dOfferMaidRestraint_NoGag,"(Shake your head)"
+
+dOfferMaidRestraintYes_Yes,"I accept~"
+dOfferMaidRestraintYes_YesGag,"(Nod again)"
+dOfferMaidRestraintYes_No,"No, thanks."
+dOfferMaidRestraintYes_NoGag,"(Shake your head)"
+
+dOfferMaidRestraintForce_Yes,"I-I accept..."
+dOfferMaidRestraintForce_YesGag,"(Moan and nod slowly)"
+dOfferMaidRestraintForce_No,"No way! (PERCENT chance to avoid)"
+dOfferMaidRestraintForce_NoGag,"(Shake your head and whimper) (PERCENT chance to avoid)"
+
+
+
+rOfferObsidian,"(The SPEAKER looks at you inquisitively)|(Wordlessly, they motion at your body)|(They seem to be asking about restraints)"
+rOfferObsidianYes,"(The SPEAKER nods understandingly)|(RESTRAINT appears in their hand)|(They tilt their head at you)"
+rOfferObsidianYes_Yes,"(The SPEAKER spins around you)|(You feel the oddly cold restraint lock in place)|(The SPEAKER nods and moves away)"
+rOfferObsidianYes_No,"(The SPEAKER stares at you)|(They put away the RESTRAINT and leave)"
+rOfferObsidianNo,"(The SPEAKER leaves you alone)"
+rOfferObsidianForce,"(The SPEAKER tilts their head)|(RESTRAINT appears in their hand)|(They come closer)"
+rOfferObsidianForceYes,"(The SPEAKER seems to frown)|(RESTRAINT appears in their hand)|(They rapidly approach)"
+rOfferObsidianForce_No,"(The SPEAKER stares at you)|(They put away the RESTRAINT and leave)"
+rOfferObsidianForce_Yes,"(The SPEAKER holds you in place)|(You hear the oddly cold material locking)|(They nod at you)"
+rOfferObsidianForce_Failure,"(The SPEAKER firmly grabs you)|(The RESTRAINT locks onto your body tightly)|(The oddly cold material makes you shiver)"
+
+dOfferObsidian_Yes,"Y-Yes?"
+dOfferObsidian_YesGag,"(Nod back)"
+dOfferObsidian_No,"No thank you."
+dOfferObsidian_NoGag,"(Shake your head)"
+
+dOfferObsidianYes_Yes,"(Smile and prepare yourself)"
+dOfferObsidianYes_YesGag,"(Nod and prepare yourself)"
+dOfferObsidianYes_No,"No, not that."
+dOfferObsidianYes_NoGag,"(Shake your head)"
+
+dOfferObsidianForce_Yes,"W-Whoa! S-Sure..."
+dOfferObsidianForce_YesGag,"(Moan and nod)"
+dOfferObsidianForce_No,"Stop! (PERCENT chance to avoid)"
+dOfferObsidianForce_NoGag,"(Shake your head and whine) (PERCENT chance to avoid)"
+
+
+
+rOfferVine,"(A SPEAKER giggles and calls to you)|Hey there~|Fancy seeing some nature?~"
+rOfferVineYes,"(The SPEAKER motions with her hands)|(Vines rise from the floor and twirl)|These will bind you nicely..."
+rOfferVineYes_Yes,"(The SPEAKER grins and motions again)|(The plants wrap around you quickly)|(You wriggle against the RESTRAINT)"
+rOfferVineYes_No,"(The SPEAKER pouts)|Aww..."
+rOfferVineNo,"(The SPEAKER frowns)|Not even a little?"
+rOfferVineForce,"(The SPEAKER giggles again)|(Vines begin to move around your feet)|Hold still dear~"
+rOfferVineForceYes,"(The SPEAKER smirks)|That wasn't a question~"
+rOfferVineForce_No,"(The SPEAKER sighs and nods)|(The vines retreat from you)|Fiiine, you can go~"
+rOfferVineForce_Yes,"(The vines move much faster)|(You feel the RESTRAINT as you squirm)|A gift, from me~"
+rOfferVineForce_Failure,"(The SPEAKER giggles loudly)|(The vines catch up and pin you down)|(When they let go, you're left with a RESTRAINT)"
+
+dOfferVine_Yes,"Always!"
+dOfferVine_YesGag,"(Nod eagerly)"
+dOfferVine_No,"Not right now."
+dOfferVine_NoGag,"(Shake your head)"
+
+dOfferVineYes_Yes,"That sounds exciting!"
+dOfferVineYes_YesGag,"(Nod happily)"
+dOfferVineYes_No,"Wait, not like this!"
+dOfferVineYes_NoGag,"(Shake your head)"
+
+dOfferVineForce_Yes,"W-Well- o-okay..."
+dOfferVineForce_YesGag,"(Moan and squirm)"
+dOfferVineForce_No,"Don't! (PERCENT chance to avoid)"
+dOfferVineForce_NoGag,"(Shake your head) (PERCENT chance to avoid)"
+
+
+
+rOfferChain,"(A SPEAKER approaches)|Nothing quite beats a strong metal|chain, right?"
+rOfferChainYes,"(The SPEAKER nods happily)|Exactly!|Want one for yourself?"
+rOfferChainYes_Yes,"(The SPEAKER clicks her fingers)|(Chain magically wraps around you)|(RESTRAINT settles in place)"
+rOfferChainYes_No,"(The SPEAKER sighs)|Ah well."
+rOfferChainNo,"(The SPEAKER frowns sadly)|But they make the best noise!"
+rOfferChainForce,"(The SPEAKER grins)|See how you feel when|you're wearing one!"
+rOfferChainForceYes,"(The SPEAKER rolls her eyes)|Tough luck then~|You're getting one!"
+rOfferChainForce_No,"(The SPEAKER sighs)|Maybe another time then."
+rOfferChainForce_Yes,"(The SPEAKER clicks her fingers)|(RESTRAINT wraps onto you)|(You shiver as the cold metal touches you)"
+rOfferChainForce_Failure,"(The SPEAKER grins as chains fly towards you)|(RESTRAINT ties you before you can react)|Enjoy, cutie~"
+
+dOfferChain_Yes,"I love chains!"
+dOfferChain_YesGag,"(Nod happily)"
+dOfferChain_No,"Plenty beats it."
+dOfferChain_NoGag,"(Shake your head)"
+
+dOfferChainYes_Yes,"Absolutely~"
+dOfferChainYes_YesGag,"(Nod again)"
+dOfferChainYes_No,"Not really."
+dOfferChainYes_NoGag,"(Shake your head)"
+
+dOfferChainForce_Yes,"I-If I have to..."
+dOfferChainForce_YesGag,"(Moan and squirm)"
+dOfferChainForce_No,"Ah! Cold! (PERCENT chance to avoid)"
+dOfferChainForce_NoGag,"(Shake your head and moan) (PERCENT chance to avoid)"
+
+
+
 rOfferLatex,"(The SPEAKER nervously walks up to you)|Excuse me miss...|Are you a fan of latex by chance?"
 rOfferLatexYes,"(The SPEAKER blushes deeply)|Then would you like to try on this RESTRAINT?"
 rOfferLatexYes_Yes,"(The SPEAKER smiles)|You look so good in that!"
