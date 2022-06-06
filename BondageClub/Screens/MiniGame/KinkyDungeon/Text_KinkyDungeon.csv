@@ -857,6 +857,11 @@ KillDoorLock,"The mystic lock fades, allowing you to pass once more."
 KinkyDungeonSummonSingleDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
 KinkyDungeonTrapDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
 
+NameChainWall,Metal Shield
+KillChainWall,"The shield falls to the floor."
+KinkyDungeonSummonSingleChainWall,"A metal shield blocks your way!"
+KinkyDungeonSummonMultiChainWall,"Several metal shields block your way!"
+
 NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall
@@ -1450,6 +1455,12 @@ KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behi
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
 AttackWitchChainBind,"The witch's bindings wrap themselves around you! (+RestraintAdded)"
 AttackWitchChain,"The chain witch tugs sensually at your restraints! (-DamageTaken SP)"
+
+NameWitchMetal,Metal Witch
+KillWitchMetal,"The metal witch vanishes into a pile of metal dust, leaving behind a keyring."
+AttackWitchMetalLock,"The metal witch locks all of your restraints!"
+AttackWitchMetalBind,"The metal's bindings wrap themselves around you! (+RestraintAdded)"
+AttackWitchMetal,"The metal witch tugs sensually at your restraints! (-DamageTaken SP)"
 
 NameWitchSlime,Slime Witch
 KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behind a keyring."

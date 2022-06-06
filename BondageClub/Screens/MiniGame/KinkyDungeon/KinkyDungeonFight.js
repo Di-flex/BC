@@ -682,15 +682,16 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				if (b.bullet.cast && b.bullet.spell && b.bullet.spell.castDuringDelay && (!b.bullet.cast.chance || KDRandom() < b.bullet.cast.chance) && b.time > 1) {
 					let xx = b.bullet.cast.tx;
 					let yy = b.bullet.cast.ty;
+					let castingSpell = KinkyDungeonFindSpell(b.bullet.cast.spell, true);
 					if (b.bullet.cast.spread) {
 						let xxx = xx + Math.round(-b.bullet.cast.spread + 2*b.bullet.cast.spread * KDRandom());
 						let yyy = yy + Math.round(-b.bullet.cast.spread + 2*b.bullet.cast.spread * KDRandom());
-						if (xxx != b.x || yyy != b.y || b.bullet.spell.type != 'bolt') {
+						if (xxx != b.x || yyy != b.y || castingSpell.type != 'bolt') {
 							xx = xxx;
 							yy = yyy;
 						}
 					}
-					if (b.bullet.spell.type != 'bolt') {
+					if (castingSpell.type != 'bolt') {
 						if (!xx) xx = b.x;
 						if (!yy) yy = b.y;
 					} else if (xx == b.x && yy == b.y) {
@@ -705,7 +706,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						}
 					}
 
-					KinkyDungeonCastSpell(xx, yy, KinkyDungeonFindSpell(b.bullet.cast.spell, true), undefined, undefined, b);
+					KinkyDungeonCastSpell(xx, yy, castingSpell, undefined, undefined, b);
 				}
 			}
 		}
