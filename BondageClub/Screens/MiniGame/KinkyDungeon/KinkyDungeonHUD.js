@@ -1146,8 +1146,8 @@ function KinkyDungeonHandleHUD() {
 				return true;
 			}
 			if (MouseIn(1100, 260, 300, 64)) {
-				KinkyDungeonPlayerEntity.x = KinkyDungeonEndPosition.x;
-				KinkyDungeonPlayerEntity.y = KinkyDungeonEndPosition.y;
+
+				KDMovePlayer(KinkyDungeonEndPosition.x, KinkyDungeonEndPosition.y, false);
 				KDGameData.JailKey = true;
 				KinkyDungeonUpdateLightGrid = true;
 				return true;
@@ -1205,7 +1205,7 @@ function KinkyDungeonHandleHUD() {
 			return true;
 		}
 		// Done, converted to input
-		if (KinkyDungeonIsPlayer() && MouseIn(975, 750, 550, 64) && KDGameData.PrisonerState != 'jail') {
+		if (KinkyDungeonIsPlayer() && MouseIn(975, 750, 550, 64) && KDGameData.PrisonerState != 'jail' && KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y)) {
 			KDSendInput("defeat", {});
 			KinkyDungeonDrawState = "Game";
 			return true;

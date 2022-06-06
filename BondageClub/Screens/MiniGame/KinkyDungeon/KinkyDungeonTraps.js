@@ -52,6 +52,9 @@ function KinkyDungeonHandleStepOffTraps(x, y, moveX, moveY) {
 			}
 
 			if (msg) {
+				KinkyDungeonSendActionMessage(10, "KDPanic", "red", 3);
+				KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 2);
+
 				if (msg == "Default")
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.StepOffTrap), color, 2);
 				else
@@ -176,6 +179,9 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 				}
 			}
 			if (msg) {
+				KinkyDungeonSendActionMessage(10, "KDPanic", "red", 3);
+				KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 2);
+
 				if (msg == "Default")
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2 + KinkyDungeonSlowMoveTurns);
 				else

@@ -126,6 +126,7 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				}
 			} else {
 				roomType = "Tunnel"; // We do a tunnel every other room
+				KDGameData.MapMod = ""; // Reset the map mod
 
 				// Reduce security level when entering a new area
 				if (MiniGameKinkyDungeonCheckpoint != currCheckpoint)

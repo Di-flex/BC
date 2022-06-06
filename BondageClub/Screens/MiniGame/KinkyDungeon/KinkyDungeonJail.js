@@ -745,8 +745,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 			let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			let point = KinkyDungeonGetNearbyPoint(nearestJail.x, nearestJail.y, true, undefined, true);
 			if (point) {
-				KinkyDungeonPlayerEntity.x = point.x;
-				KinkyDungeonPlayerEntity.y = point.y;
+				KDMovePlayer(point.x, point.y, false);
 			}
 		}
 		let enemy = KinkyDungeonEnemyAt(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
@@ -839,15 +838,13 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 						// Swap the player and the guard
 						KinkyDungeonTargetTile = null;
 						KinkyDungeonTargetTileLocation = "";
-						KinkyDungeonPlayerEntity.x = KinkyDungeonJailGuard().x;
-						KinkyDungeonPlayerEntity.y = KinkyDungeonJailGuard().y;
+						KDMovePlayer(KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().y, false);
 						KinkyDungeonJailGuard().x = guardPath[0].x;
 						KinkyDungeonJailGuard().y = guardPath[0].y;
 					}
 					let enemy = KinkyDungeonEnemyAt(guardPath[0].x, guardPath[0].y);
 					if (enemy) {
-						enemy.x = KinkyDungeonJailGuard().x;
-						enemy.y = KinkyDungeonJailGuard().y;
+						KDMoveEntity(enemy, KinkyDungeonJailGuard().x, KinkyDungeonJailGuard().y, true);
 						KinkyDungeonJailGuard().x = guardPath[0].x;
 						KinkyDungeonJailGuard().y = guardPath[0].y;
 					}
@@ -939,8 +936,7 @@ function KinkyDungeonPassOut() {
 	//} else {
 	let point = KinkyDungeonGetRandomEnemyPoint(true, false, undefined);
 	if (point) {
-		KinkyDungeonPlayerEntity.x = point.x;
-		KinkyDungeonPlayerEntity.y = point.y;
+		KDMovePlayer(point.x, point.y, false);
 	}
 
 	for (let e of  KinkyDungeonEntities) {
@@ -1039,8 +1035,8 @@ function KinkyDungeonDefeat() {
 	//if (KinkyDungeonMapGet(nearestJail.x, nearestJail.y) != "B") {
 	// KinkyDungeonCreateMap(params, MiniGameKinkyDungeonLevel);
 	//} else {
-	KinkyDungeonPlayerEntity.x = nearestJail.x;
-	KinkyDungeonPlayerEntity.y = nearestJail.y;
+
+	KDMovePlayer(nearestJail.x, nearestJail.y, false);
 
 	KinkyDungeonLoseJailKeys();
 
