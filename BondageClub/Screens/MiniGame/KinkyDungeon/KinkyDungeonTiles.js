@@ -25,7 +25,7 @@ let KDMoveObjectFunctions = {
 		let chestType = MiniGameKinkyDungeonCheckpoint == "lib" ? "shelf" : "rubble";
 		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Coins.ogg");
-		KinkyDungeonMapSet(moveX, moveY, '1');
+		KinkyDungeonMapSet(moveX, moveY, 'X');
 		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
 		return true;
 	},
