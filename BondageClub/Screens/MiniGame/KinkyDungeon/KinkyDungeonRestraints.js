@@ -1668,10 +1668,19 @@ function KinkyDungeonUpdateRestraints(delta) {
 			for (let tag of KDRestraint(inv).addTag) {
 				if (!playerTags.get(tag)) playerTags.set(tag, true);
 			}
-		if (KDRestraint(inv).shrine)
+		if (KDRestraint(inv).shrine) {
 			for (let tag of KDRestraint(inv).shrine) {
 				if (!playerTags.get(tag)) playerTags.set(tag, true);
 			}
+			let link = inv.dynamicLink;
+			while (link) {
+				for (let tag of KDRestraint(link).shrine) {
+					if (!playerTags.get(tag)) playerTags.set(tag, true);
+				}
+				link = link.dynamicLink;
+			}
+		}
+
 	}
 	if (KinkyDungeonStatsChoice.get("Deprived")) playerTags.set("NoVibes", true);
 	if (KinkyDungeonStatsChoice.get("Unmasked")) playerTags.set("Unmasked", true);

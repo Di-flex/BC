@@ -98,6 +98,8 @@ type restraint = {
 	inaccessible?: boolean,
 	/** This item can be rendered when linked */
 	renderWhenLinked?: string[];
+	/** When the mentioned items are rendered, changes the type */
+	changeRenderType?: Record<string, string>;
 	/** Stacking category, used to determine if you can have multiple of these items in a stack */
 	linkCategory?: string;
 	/** Stacking size, can't exceed 1 */
