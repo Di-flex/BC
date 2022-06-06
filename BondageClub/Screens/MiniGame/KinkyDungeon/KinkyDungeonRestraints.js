@@ -1046,6 +1046,11 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	let edgeBonus = 0.12;
 	if (StruggleType == "Struggle" && data.hasAffinity) data.escapeChance += edgeBonus;
 
+	if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Lockdown")) {
+		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonBuffLockdownTry"), "red", 1);
+		data.escapeChance -= KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Lockdown") * 0.1;
+	}
+
 	if ((StruggleType == "Struggle") && !data.hasAffinity && data.escapeChance <= edgeBonus) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
@@ -1089,7 +1094,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(data.cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount, false, 0.5);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -1226,7 +1231,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 				result: "Impossible",
 			});
 			KinkyDungeonChangeStamina(data.cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount, false, 0.5);
 			KinkyDungeonAdvanceTime(1);
 			return "Impossible";
 		}
@@ -1457,7 +1462,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 			KinkyDungeonSendActionMessage(9, TextGet("KinkyDungeonStruggle" + StruggleType + Pass + suff).replace("TargetRestraint", TextGet("Restraint" + KDRestraint(restraint).name)), (Pass == "Success") ? "lightgreen" : "red", 2);
 
 			KinkyDungeonChangeStamina(data.cost);
-			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount);
+			if (KinkyDungeonStatsChoice.get("BondageLover")) KinkyDungeonChangeDistraction(KDBondageLoverAmount, false, 0.5);
 
 			if (Pass != "Success") {
 				// Reduce the progress

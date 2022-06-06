@@ -11,12 +11,14 @@ let KDMoveObjectFunctions = {
 	},
 	'C': (moveX, moveY) => { // Open the chest
 		let chestType = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Loot ? KinkyDungeonTiles.get(moveX + "," +moveY).Loot : "chest";
+		let faction = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Faction ? KinkyDungeonTiles.get(moveX + "," +moveY).Faction : undefined;
+		let noTrap = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).NoTrap ? KinkyDungeonTiles.get(moveX + "," +moveY).NoTrap : false;
 		let roll = KinkyDungeonTiles.get(moveX + "," +moveY) ? KinkyDungeonTiles.get(moveX + "," +moveY).Roll : KDRandom();
-		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType, roll, KinkyDungeonTiles.get(moveX + "," +moveY));
+		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType, roll, KinkyDungeonTiles.get(moveX + "," +moveY), undefined, noTrap);
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
 		KinkyDungeonMapSet(moveX, moveY, 'c');
 		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
-		KinkyDungeonAggroAction('chest', {});
+		KinkyDungeonAggroAction('chest', {faction: faction});
 		return true;
 	},
 	'Y': (moveX, moveY) => { // Open the chest
@@ -43,7 +45,7 @@ let KDMoveObjectFunctions = {
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
-		KinkyDungeonChangeDistraction(3 * delta);
+		KinkyDungeonChangeDistraction(3 * delta, false, 0.5);
 		KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonHappyGas"), "pink", 1);
 	} else if (tile == "[") { // Happy Gas!
 		KinkyDungeonSleepiness = Math.max(KinkyDungeonSleepiness + 2, 5);

@@ -40,7 +40,7 @@ function KinkyDungeonAddLostItems(list, excludeBound) {
 let KinkyDungeonSpecialLoot = false;
 let KinkyDungeonLockedLoot = false;
 
-function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
+function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly, noTrap) {
 	let lootWeightTotal = 0;
 	let lootWeights = [];
 
@@ -139,6 +139,8 @@ function KinkyDungeonLoot(Level, Index, Type, roll, tile, returnOnly) {
 					for (let e of KinkyDungeonEntities) {if (!e.summoned) nonSumEnemies++;}
 					weightMult *= Math.max(0, 1 - 0.5*nonSumEnemies/KinkyDungeonCurrentMaxEnemies);
 				}
+				if (loot.trap && noTrap)
+					weightMult = 0;
 
 				lootWeights.push({loot: loot, weight: lootWeightTotal});
 				lootWeightTotal += Math.max(0, (loot.weight + weightBonus) * weightMult);

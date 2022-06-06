@@ -7,6 +7,7 @@ let alts = {
 		width: 8,
 		height: 8,
 		setpieces: {
+			"PearlChest": 100,
 		},
 		genType: "Tunnel",
 		spawns: false,
@@ -205,7 +206,7 @@ function KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, openness, dens
 					}
 				}
 			if (nearwalls == 7) {
-				POI.push({x: X*2, y: Y*2, requireTags: [], favor: [], used: false});
+				POI.push({x: X*2, y: Y*2, requireTags: ["endpoint"], favor: [], used: false});
 			}
 		}
 
@@ -344,6 +345,8 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 
 	KinkyDungeonCreateRectangle(b1, y1, 1, h1, false, false, false, false);
 	KinkyDungeonCreateRectangle(b2, y2, 1, h2, false, false, false, false);
+
+	POI.push({x: VisitedRooms[0].x*2 + 7, y: VisitedRooms[0].y*2, requireTags: [], favor: ["PearlChest"], used: false});
 
 	/*
 	// Add the prison

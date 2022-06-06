@@ -239,9 +239,9 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
 				KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
-			} else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-			}
+			}// else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+			//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			//}
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
@@ -252,9 +252,9 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 			if (restraintAdd) {
 				KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power);
 				KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
-			} else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-				KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
-			}
+			}//else if (KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+			//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			//}
 			KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage});
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalBind"), "red", 3);
@@ -596,9 +596,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell) {
 					KinkyDungeonDressPlayer();
 					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapBindingsDress"), "red", 3);
 					effect = true;
-				} else if (!playerEffect.noGuard && KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
-					KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 				}
+				// else if (!playerEffect.noGuard && KDGameData.PrisonerState != 'jail' && KDGameData.PrisonerState != 'parole') {
+				//KinkyDungeonCallGuard(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+				//}
 				if (playerEffect.power > 0 && playerEffect.damage) {
 					KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage});
 				}

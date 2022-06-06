@@ -186,7 +186,7 @@ const KDEventMapInventory = {
 			if (!data.delta) return;
 			if (e.power) {
 				KinkyDungeonChangeMana(e.power);
-				KinkyDungeonChangeDistraction(-e.power * 3);
+				KinkyDungeonChangeDistraction(-e.power * 3, false, 0.1);
 				KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrystalDrain"), "lightblue", 2);
 			}
 		},
@@ -501,7 +501,7 @@ const KDEventMapInventory = {
 	"struggle": {
 		"crotchrope": (e, item, data) => {
 			if (data.restraint && data.restraint.type === Restraint && KDRestraint(data.restraint).crotchrope && data.struggletype === "Struggle" && data.struggletype === "Remove") {
-				KinkyDungeonChangeDistraction(1);
+				KinkyDungeonChangeDistraction(1, false, 0.5);
 				KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrotchRope").replace("RestraintName", TextGet("Restraint" + data.restraint.name)), "pink", 3);
 			}
 		},
@@ -525,7 +525,7 @@ const KDEventMapInventory = {
 		},
 		"crystalPunish": (e, item, data) => {
 			if (data.restraint && item === data.restraint) {
-				KinkyDungeonChangeDistraction(1);
+				KinkyDungeonChangeDistraction(1, false, 0.1);
 				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonCrystalPunish" + Math.floor(KDRandom() * 3)), "red", 2);
 			}
 		},

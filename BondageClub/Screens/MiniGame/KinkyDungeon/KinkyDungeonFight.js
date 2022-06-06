@@ -670,6 +670,8 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 }
 
+let KDBulletWarnings = [];
+
 function KinkyDungeonUpdateBullets(delta, Allied) {
 	if (delta > 0)
 		for (let b of KinkyDungeonBullets) {
@@ -707,19 +709,28 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				}
 			}
 		}
-
+	if (Allied) {
+		KDBulletWarnings = [];
+	}
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
 
 		if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
 			let d = delta;
 			let first = true;
+			//let justBorn = false;
 			let trailSquares = [];
+			let startx = b.x;
+			let starty = b.y;
+			let end = false;
 
 			while (d > 0.1) {
 				if (!first && delta > 0) {
 					let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
-					if (b.born >= 0) b.born -= 1;
+					if (b.born >= 0) {
+						b.born -= 1;
+						//justBorn = true;
+					}
 
 					let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
 					if (b.born < mod) {
@@ -749,8 +760,9 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 					if (dist >= b.bullet.range) endTime = true;
 				}
 				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
-				let end = false;
-				if (!KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d) || outOfTime || outOfRange) {
+				end = false;
+				let checkCollision = true;//justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
+				if ((checkCollision && !KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d)) || outOfTime || outOfRange) {
 					if (!(b.bullet.spell && ((!b.bullet.trail && b.bullet.spell.piercing) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
 						d = 0;
 						KinkyDungeonBullets.splice(E, 1);
@@ -766,6 +778,60 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				// Update the bullet's visual position
 				KinkyDungeonUpdateSingleBulletVisual(b, end);
 			}
+			if (!end && KDFactionRelation("Player", b.bullet.faction) < 0.5) {
+				let bxx = b.xx;
+				let byy = b.yy;
+				let bx = b.x;
+				let by = b.y;
+				let btime = b.time;
+				let bborn = b.born;
+				// Lookforward
+				d = delta;
+				first = true;
+				startx = bx;
+				starty = by;
+
+				while (d > 0.1) {
+					if (!first && delta > 0) {
+						let dt = (d - Math.max(0, d - 1))/Math.sqrt(Math.max(1, b.vx*b.vx+b.vy*b.vy));
+						if (bborn >= 0) bborn -= 1;
+
+						let mod = (b.spell && b.spell.speed == 1) ? 1 : 0;
+						if (bborn < mod) {
+							bxx += b.vx * dt;
+							byy += b.vy * dt;
+							btime -= delta;
+						}
+
+						bx = Math.round(bxx);
+						by = Math.round(byy);
+
+						d -= dt;
+					} else first = false;
+
+					let outOfRange = false;
+					if (b.bullet && b.bullet.origin) {
+						let dist = Math.sqrt((b.bullet.origin.x - bx) * (b.bullet.origin.x - bx) + (b.bullet.origin.y - by) * (b.bullet.origin.y - by));
+						if (dist > b.bullet.range) outOfRange = true;
+					}
+					let outOfTime = (b.bullet.lifetime != 0 && btime <= 0.001);
+					let checkCollision = bx != startx || by != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9) || b.bullet.aoe; // Check collision for bullets only once they leave their square or if they are slower than one
+					if (outOfTime || outOfRange) {
+						d = 0;
+					} else if (checkCollision) {
+						let rad = b.bullet.aoe ? b.bullet.aoe : ((b.bullet.spell && b.bullet.spell.aoe) ? b.bullet.spell.aoe : 0);
+						for (let xx = bx - Math.floor(rad); xx <= bx + Math.ceil(rad); xx++) {
+							for (let yy = by - Math.floor(rad); yy <= by + Math.ceil(rad); yy++) {
+								if (KDistEuclidean(bx - xx, by - yy) <= rad && !KDBulletWarnings.some((w) => {return w.x == xx && w.y == yy;})) {
+									KDBulletWarnings.push({x: xx, y: yy, color:b.bullet.spell ? (b.bullet.spell.color ? b.bullet.spell.color : "#ff0000") : "#ff0000"});
+								}
+							}
+						}
+					}
+				}
+			}
+
+
 			// A bullet can only damage an enemy in one location at a time
 			// Resets at the end of the bullet update!
 			// But only for piercing bullets. Non-piercing bullets just expire
@@ -803,7 +869,7 @@ function KinkyDungeonUpdateBulletsCollisions(delta, Catchup) {
 	for (let E = 0; E < KinkyDungeonBullets.length; E++) {
 		let b = KinkyDungeonBullets[E];
 		if ((!Catchup && !b.secondary) || (Catchup && b.secondary)) {
-			if (!KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
+			if ((b.bullet.faction == "Player" || (!b.vx && !b.vy) || b.bullet.aoe || (KDistEuclidean(b.vx, b.vy) < 0.9)) && !KinkyDungeonBulletsCheckCollision(b, b.time >= 0)) {
 				if (!(b.bullet.spell && b.bullet.spell.piercing)) {
 					KinkyDungeonBullets.splice(E, 1);
 					KinkyDungeonBulletsID[b.spriteID] = null;
@@ -1120,6 +1186,24 @@ function KinkyDungeonDrawFight(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 			}
 
 			KDDamageQueue.splice(KDDamageQueue.indexOf(damage), 1);
+		}
+	}
+
+	for (let t of KDBulletWarnings) {
+		let tx = t.x;
+		let ty = t.y;
+		//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
+		if (tx >= CamX && ty >= CamY && tx < CamX + KinkyDungeonGridWidthDisplay && ty < CamY + KinkyDungeonGridHeightDisplay) {
+			if (t.color)
+				DrawImageCanvasColorize(KinkyDungeonRootDirectory + "WarningColorSpecialBasic.png", KinkyDungeonContext,
+					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+					KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
+					t.color, true, []);
+			else
+				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "WarningSpecialBasic.png",
+					KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+					(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
+					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 		}
 	}
 

@@ -247,6 +247,9 @@ KinkyDungeonBuffIronBlood,"Iron Blood"
 KinkyDungeonBuffSleepy,Sleepy
 KinkyDungeonBuffEvasion,Afterimage
 
+KinkyDungeonBuffLockdown,"Can't Struggle!!!"
+KinkyDungeonBuffLockdownTry,"You struggle against your bonds, but a magical force resists!"
+
 KinkyDungeonBuffScrollVerbal,Verbal spells allowed!
 KinkyDungeonBuffScrollArms,Arm spells allowed!
 KinkyDungeonBuffScrollLegs,Leg spells allowed!
@@ -1197,9 +1200,9 @@ KillBandit,"The bandit collapses."
 AttackBanditBind,"The bandit restrains you! (+RestraintAdded)"
 AttackBandit,"The bandit caresses your restrained body! (-DamageTaken SP)"
 
-NameBanditMerchant,Bandit Trader
-KillBanditMerchant,"The bandit trader flees, leaving her goods behind."
-AttackBanditMerchantBind,"The bandit trader uses some high-quality restraints on you! (+RestraintAdded)"
+NameBanditMerchant,Shady Dealer
+KillBanditMerchant,"The bandit dealer flees, leaving her goods behind."
+AttackBanditMerchantBind,"The bandit dealer uses some high-quality restraints on you! (+RestraintAdded)"
 AttackBanditMerchant,"The bandit kisses and gropes your body! (-DamageTaken SP)"
 KDPoisonDagger,"That dagger was laced with something..."
 KinkyDungeonBuffPoisonDagger,"Poisoned!!!"
@@ -1409,6 +1412,12 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch restraints you! (+RestraintAdded)"
 AttackWitchShock,"The witch slaps you playfully! (-DamageTaken SP)"
 
+
+NameWitchRope,Rope Witch
+KillWitchRope,"The rope witch retreats as her animated ropes chase her."
+AttackWitchRopeBind,"The witch restraints you! (+RestraintAdded)"
+AttackWitchRope,"The witch slaps you playfully! (-DamageTaken SP)"
+
 NameWitchMagnet,Magnet Witch
 KillWitchMagnet,"The witch is pulled away by an unseen force."
 AttackWitchMagnetBind,"The witch's restraints fly out and attach themselves to you! (+RestraintAdded)"
@@ -1445,6 +1454,11 @@ KillHighWizard,"The wizard falls asleep."
 AttackHighWizardBind,"The wizard clips a restraint around your neck!"
 AttackHighWizard,"The wizard laughs maniacally as she tickles you!"
 
+NameFungal,FunGal
+KillFungal,"The fun-gal retreats into the ground."
+AttackFungalBind,"The fun-gal clips a restraint around your neck!"
+AttackFungal,"The fun-gal rubs your chest with her long, slender fingers!"
+KinkyDungeonSpellCrystalPuff,Crystal Glyph
 
 
 NameDressmaker,Dressmaker
@@ -3353,6 +3367,11 @@ KinkyDungeonSpellTargetInvisibility,Select which creature to buff
 KinkyDungeonSpellDescriptionInvisibility,Make the targeted creature invisible, increasing stealth for Duration turns
 KinkyDungeonSpellCastInvisibility,You snap your fingers!
 
+KinkyDungeonSpellLockdown,Lockdown
+KinkyDungeonSpellTargetLockdown,Select which creature to lock
+KinkyDungeonSpellDescriptionLockdown,"Locks down a target in melee range, slowing move/attack/struggle speed for Duration turns"
+KinkyDungeonSpellCastLockdown,"You say a command word, and magical locks bind your target!"
+
 KinkyDungeonSpellCommandWord,Command Word
 KinkyDungeonSpellTargetCommandWord,Select which creature to unlock
 KinkyDungeonSpellDescriptionCommandWord,"On yourself: Removes all purple locks. On a creature: Reduces the target's binding by 20 points."
@@ -3631,10 +3650,11 @@ KinkyDungeonMiniSlime,"The slime ball sticks to you!"
 KinkyDungeonMiniSlime2,"The slime ball sticks to you and slows you!"
 KinkyDungeonShock,"You feel a powerful sensation run through your body!"
 KinkyDungeonCoronaShock,"Beams of light wrap around your body and feel warm on your skin!"
-KinkyDungeonCrystalBind,"Crystals begin to form around your limbs and trap you!"
+KinkyDungeonCrystalBind,"Crystals begin to form around your limbs!"
 KinkyDungeonSingleChain,"A magic chain secures itself around your body!"
 KinkyDungeonSingleRope,"A rope wraps itself around your body and slows you down!"
 KinkyDungeonSlowedBySpell,"The spell hits you and slows you down!"
+KinkyDungeonSpellWitchRope,"Rope"
 KinkyDungeonSpellRopeEngulf,"Rope Tendrils"
 KinkyDungeonSpellRopeEngulfWeak,"Rope Strike"
 KinkyDungeonSpellVineEngulf,"Animated Vines"
@@ -4435,6 +4455,46 @@ KinkyDungeonRemindJailChaseTemplateShrine,"EnemyName: "
 KinkyDungeonRemindJailChaseTemplateChest,"EnemyName: "
 KinkyDungeonRemindJailChaseTemplateOrb,"EnemyName: "
 KinkyDungeonRemindJailChaseTemplateJailbreak,"EnemyName: "
+
+
+KinkyDungeonRemindJailPlayMushy0,"EnemyName: Girl!"
+KinkyDungeonRemindJailPlayMushy1,"EnemyName: Wear this!"
+KinkyDungeonRemindJailPlayMushy2,"EnemyName: Come here!"
+KinkyDungeonRemindJailPlayMushyStruggle,"EnemyName: Girl struggling!"
+KinkyDungeonRemindJailPlayMushyFree,"EnemyName: Need tighten!"
+KinkyDungeonRemindJailPlayMushyLoot,"EnemyName: Confiscate!"
+KinkyDungeonRemindJailPlayMushyKey,"EnemyName: Confiscate!!"
+KinkyDungeonRemindJailChaseMushyAttack0,"EnemyName: Intruder! Alert!"
+KinkyDungeonRemindJailChaseMushyAttack1,"EnemyName: Fight girl!"
+KinkyDungeonRemindJailChaseMushyAttack2,"EnemyName: Fight!"
+KinkyDungeonRemindJailChaseMushySpell0,"EnemyName: Magic!"
+KinkyDungeonRemindJailChaseMushySpell1,"EnemyName: Wizard!"
+KinkyDungeonRemindJailChaseMushySpell2,"EnemyName: Forbidden!"
+KinkyDungeonRemindJailChaseMushySpellItem,"EnemyName: Forbidden!"
+KinkyDungeonRemindJailChaseMushyShrine,"EnemyName: Defiler!"
+KinkyDungeonRemindJailChaseMushyChest,"EnemyName: Confiscate!!!"
+KinkyDungeonRemindJailChaseMushyOrb,"EnemyName: Defiler!!!"
+KinkyDungeonRemindJailChaseMushyJailbreak,"EnemyName: Intruder escape!"
+
+
+KinkyDungeonRemindJailPlayFungal0,"EnemyName: Come here, surface-dweller. I have things for you."
+KinkyDungeonRemindJailPlayFungal1,"EnemyName: You should improve yourself. Come here."
+KinkyDungeonRemindJailPlayFungal2,"EnemyName: You must learn our ways."
+KinkyDungeonRemindJailPlayFungalStruggle,"EnemyName: Looks like you need guidance."
+KinkyDungeonRemindJailPlayFungalFree,"EnemyName: You need to learn your place."
+KinkyDungeonRemindJailPlayFungalLoot,"EnemyName: Do not take what is not yours."
+KinkyDungeonRemindJailPlayFungalKey,"EnemyName: You will not escape."
+KinkyDungeonRemindJailChaseFungalAttack0,"EnemyName: Our ways are ancient!"
+KinkyDungeonRemindJailChaseFungalAttack1,"EnemyName: Your weapons are toys to us!"
+KinkyDungeonRemindJailChaseFungalAttack2,"EnemyName: So naive, surface-dweller."
+KinkyDungeonRemindJailChaseFungalSpell0,"EnemyName: Our magic is older than your gods!"
+KinkyDungeonRemindJailChaseFungalSpell1,"EnemyName: You should learn our ways instead, surface-dweller."
+KinkyDungeonRemindJailChaseFungalSpell2,"EnemyName: You have much learning to do."
+KinkyDungeonRemindJailChaseFungalSpellItem,"EnemyName: You are playing with child's toys!"
+KinkyDungeonRemindJailChaseFungalShrine,"EnemyName: Do not plead to your gods."
+KinkyDungeonRemindJailChaseFungalChest,"EnemyName: Give that back, surface-dweller!"
+KinkyDungeonRemindJailChaseFungalOrb,"EnemyName: Your gods offend us."
+KinkyDungeonRemindJailChaseFungalJailbreak,"EnemyName: You will not escape, surface-dweller!"
 
 
 KinkyDungeonRemindJailPlayElemental0,"EnemyName: What a beautiful one."

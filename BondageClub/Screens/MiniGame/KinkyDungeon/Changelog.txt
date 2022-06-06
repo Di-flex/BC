@@ -944,6 +944,14 @@ Spell Balance:
 - A mini visual rework!
 - Healing people can befriend them and raises rep
 - Changes to distraction system
+- Made bullets easier to dodge, and added warnings
+- Golem HP reduced from 300 to 180
+- Golem now has 40% magic resist
+- Golem armor increased to 25 from 20
+- Binding chain binding reduced to 7 from 10
+- Forbidden Rope damage reduced to 30 from 50
+- New spell: Lockdown (melee range, enemy struggles slower for 8 turns, 1 mana)
+- Wall mana cost reduced to 3 from 6
 
 TODO ValidationFindBlockCycles to prevent bugs
 

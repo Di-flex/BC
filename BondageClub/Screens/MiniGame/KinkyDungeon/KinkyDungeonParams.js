@@ -27,10 +27,12 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Bedroom", Weight: 3},
-			{Type: "Graveyard", Weight: 9},
-			{Type: "Altar", Weight: 6},
-			{Type: "QuadCell", Weight: 4},
-			{Type: "Storage", Weight: 7},
+			{Type: "Graveyard", Weight: 6},
+			{Type: "Altar", Weight: 3},
+			{Type: "SmallAltar", Weight: 18},
+			{Type: "GuardedChest", Weight: 30},
+			{Type: "QuadCell", Weight: 3},
+			{Type: "Storage", Weight: 5},
 		],
 
 		"shortcuts": [
@@ -117,8 +119,10 @@ const KinkyDungeonMapParams = {
 		"setpieces": [
 			{Type: "Bedroom", Weight: 2},
 			{Type: "Altar", Weight: 3},
-			{Type: "QuadCell", Weight: 10},
-			{Type: "Storage", Weight: 7},
+			{Type: "QuadCell", Weight: 8},
+			{Type: "Storage", Weight: 5},
+			{Type: "SmallAltar", Weight: 18},
+			{Type: "GuardedChest", Weight: 30},
 		],
 
 		"shortcuts": [
@@ -203,6 +207,12 @@ const KinkyDungeonMapParams = {
 		"cacheInterval" : 1,
 		"forbiddenChance" : 0.72,
 		"forbiddenGreaterChance" : 0.33,
+
+		"setpieces": [
+			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
+		],
 
 		"shortcuts": [
 			{Level: 13, checkpoint: "cry", chance: 1.0},
@@ -290,6 +300,8 @@ const KinkyDungeonMapParams = {
 		"setpieces": [
 			{Type: "Bedroom", Weight: 1},
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 		],
 
 		"shortcuts": [
@@ -375,6 +387,8 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 			{Type: "Storage", Weight: 7},
 		],
 
@@ -544,6 +558,8 @@ const KinkyDungeonMapParams = {
 
 		"setpieces": [
 			{Type: "Altar", Weight: 6},
+			{Type: "SmallAltar", Weight: 20},
+			{Type: "GuardedChest", Weight: 30},
 			{Type: "Storage", Weight: 2},
 		],
 

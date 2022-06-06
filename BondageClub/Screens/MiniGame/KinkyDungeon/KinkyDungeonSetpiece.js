@@ -1,13 +1,17 @@
 "use strict";
 
+let KDSetpieceAttempts = 10;
+
 let KDSetPieces = [
 	{Name: "Bedroom", tags: ["decorative", "urban"], Radius: 4},
 	{Name: "Graveyard", tags: ["decorative", "temple"], Radius: 5},
 	{Name: "Altar", tags: ["shrine", "temple"], Radius: 5},
+	{Name: "SmallAltar", tags: ["shrine", "temple", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "FuukaAltar", tags: ["boss", "temple"], Radius: 7, Max: 1},
 	{Name: "Storage", tags: ["loot", "urban"], Radius: 5},
+	{Name: "GuardedChest", tags: ["loot", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "QuadCell", tags: ["decorative", "urban"], Radius: 7},
-	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1},
+	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "LesserPearl", tags: ["loot", "pearl"], Radius: 5, Chance: 0.5, Max: 1},
 	{Name: "GuaranteedCell", tags: ["jail", "urban"], Radius: 5, Max: 1, xPad: 2},
 ];
@@ -24,7 +28,7 @@ function KinkyDungeonPlaceSetPieces(POI, trapLocations, chestlist, shrinelist, c
 	if (!alt) {
 		Object.assign(setpieces, Params.setpieces);
 		setpieces.push({Type: "GuaranteedCell", Weight: 100000});
-		setpieces.push({Type: "PearlChest", Weight: 100});
+		//setpieces.push({Type: "PearlChest", Weight: 100});
 		if (MiniGameKinkyDungeonLevel > 1)
 			setpieces.push({Type: "LesserPearl", Weight: 10});
 	} else {
@@ -49,7 +53,7 @@ function KinkyDungeonPlaceSetPieces(POI, trapLocations, chestlist, shrinelist, c
 	let pieceCount = width * height / 25;
 	let count = 0;
 	let fails = 0;
-	while (count < pieceCount && fails < 4) {
+	while (count < pieceCount && fails < KDSetpieceAttempts) {
 		let Piece = KinkyDungeonGetSetPiece(POI, setpieces, pieces);
 		if (Piece && pieces.get(Piece) && KinkyDungeonGenerateSetpiece(POI, pieces.get(Piece), InJail, trapLocations, chestlist, shrinelist, chargerlist, spawnPoints).Pass) {
 			count += 1;
@@ -132,7 +136,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 	let i = 0;
 	for (i = 0; i < 10000; i++) {
 		let specialDist = KinkyDungeonGetClosestSpecialAreaDist(cornerX + Math.floor(radius/2) - 1, cornerY + Math.floor(radius/2));
-		if (specialDist <= 3 || !(cornerX > Math.ceil(xPadStart) && cornerX < KinkyDungeonGridWidth - radius - xPadEnd && cornerY > Math.ceil(yPadStart) && cornerY < KinkyDungeonGridHeight - radius - yPadEnd)) {
+		if (specialDist <= 4 || !(cornerX > Math.ceil(xPadStart) && cornerX < KinkyDungeonGridWidth - radius - xPadEnd && cornerY > Math.ceil(yPadStart) && cornerY < KinkyDungeonGridHeight - radius - yPadEnd)) {
 			cornerY = Math.ceil(yPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridHeight - yPadStart - yPadEnd - radius - 1));
 			cornerX = Math.ceil(xPadStart) + Math.floor(KDRandom() * (KinkyDungeonGridWidth - xPadStart - radius - 1));
 
@@ -152,6 +156,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 
 	if (favoringPOI)
 		favoringPOI.used = true;
+	let skip = false;
 
 	switch (Piece.Name) {
 		case "Bedroom":
@@ -200,12 +205,24 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 		}
 			break;
 		case "Altar":
-			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, false);
 			KinkyDungeonMapSet(cornerX, cornerY , 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
 			KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
 			shrinelist.push({x: cornerX + 2, y: cornerY + 2, priority: true});
+			break;
+		case "SmallAltar":
+			if (!favoringPOI || KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3) skip = true;
+			else {
+				//KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, true);
+				if (KDUnblock(cornerX, cornerY)) KinkyDungeonMapSet(cornerX, cornerY, 'X');
+				if (KDUnblock(cornerX + radius - 1, cornerY)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
+				if (KDUnblock(cornerX, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
+				if (KDUnblock(cornerX + radius - 1, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
+				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'a');
+				shrinelist.push({x: cornerX + 1, y: cornerY + 1, priority: true});
+			}
 			break;
 		case "FuukaAltar": {
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
@@ -226,15 +243,19 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 			break;
 		}
 		case "PearlChest":
-			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
-			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius-1, false, false, 1, true);
+			/*if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
 			else shrinelist.push({x: cornerX, y: cornerY, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
 			else shrinelist.push({x: cornerX + radius - 1, y: cornerY, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'a');
 			else shrinelist.push({x: cornerX, y: cornerY + radius - 1, priority: true});
 			if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
-			else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1, priority: true});
+			else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1, priority: true});*/
+			KinkyDungeonMapSet(cornerX, cornerY , 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
+			KinkyDungeonMapSet(cornerX, cornerY + radius - 2, 'a');
+			KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 2, 'a');
 			KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
 			KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
 			break;
@@ -345,6 +366,40 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 					spawnPoints.push({x:cornerX+2, y:cornerY+3, required:["mold", "spawner"], tags: ["mold"], AI: "guard"});
 			}
 			break;
+		case "GuardedChest": {
+			if ((!favoringPOI && KDRandom() < 0.7) || KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3) skip = true;
+			else {
+				// Hollow out a 2x2 area for the chest
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, false);
+				// Determine faction
+				let factionList = [
+					{faction: "Bandit", tags: ["bandit"], rtags: ["bandit"]},
+					{faction: "Dragon", tags: ["dragon"], rtags: ["dragon"]},
+					{faction: "AncientRobot", tags: ["robot"], rtags: ["robot"]},
+					{faction: "Maidforce", tags: ["maid"], rtags: ["maid"]},
+					{faction: "Bountyhunter", tags: ["bountyhunter"], rtags: ["bountyhunter"]},
+					{faction: "Dressmaker", tags: ["dressmaker"], rtags: ["dressmaker"]},
+					{faction: "Witch", tags: ["witch", "apprentice", "skeleton"], rtags: ["witch", "apprentice", "skeleton"]},
+					{faction: "Apprentice", tags: ["apprentice"], rtags: ["apprentice"]},
+					{faction: "Mushy", tags: ["mushroom"], rtags: ["mushy"]},
+					{faction: "Nevermere", tags: ["wolfgirl"], rtags: ["wolfgirl"]},
+					{faction: "Bast", tags: ["mummy"], rtags: ["mummy"]},
+					{faction: "Elf", tags: ["elf"], rtags: ["elf"]},
+					{faction: "Elemental", tags: ["elemental", "witch"], rtags: ["elemental", "witch"]},
+					{faction: "Alchemist", tags: ["alchemist"], rtags: ["alchemist"]},
+					{faction: "", tags: ["skeleton", "construct"], rtags: ["skeleton", "construct"]},
+				];
+				let factionSelected = factionList[Math.floor(KDRandom() * factionList.length)];
+				// Place the chest
+				chestlist.push({x: cornerX + 1, y: cornerY + 1, priority: true, Faction: factionSelected.faction, NoTrap: true});
+				// Place the guards
+				spawnPoints.push({x:cornerX, y:cornerY, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
+				spawnPoints.push({x:cornerX+2, y:cornerY, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
+				spawnPoints.push({x:cornerX, y:cornerY+2, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
+				spawnPoints.push({x:cornerX+2, y:cornerY+2, required:[factionSelected.rtags[Math.floor(KDRandom()*factionSelected.rtags.length)]], tags: factionSelected.tags, AI: "guard"});
+			}
+			break;
+		}
 		case "QuadCell": {
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);
 			for (let X = cornerX; X < cornerX + radius; X++) {
@@ -416,7 +471,10 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 		}
 	}
 
-	KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2) + 4});
+	if (!skip)
+		KinkyDungeonSpecialAreas.push({x: cornerX + Math.floor(radius/2), y: cornerY + Math.floor(radius/2), radius: Math.ceil(radius/2)});
+	else if (favoringPOI)
+		favoringPOI.used = false;
 
 	if ( KDDebug) {
 		console.log("Created " + Piece.Name);
@@ -424,3 +482,82 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 	return {Pass: true, Traps: trapLocations};
 }
 
+/**
+ * This function unblocks movement to ensure a map is pathable
+ * @param {number} x
+ * @param {number} y
+ * @returns {boolean} - whether it's possible
+ */
+function KDUnblock(x, y) {
+	let blocked = false;
+	let blockTiles = "1X";
+	let t = KinkyDungeonMapGet(x, y-1);
+	let tr = KinkyDungeonMapGet(x+1, y-1);
+	let tl = KinkyDungeonMapGet(x-1, y-1);
+	let r = KinkyDungeonMapGet(x+1, y);
+	let l = KinkyDungeonMapGet(x-1, y);
+	let b = KinkyDungeonMapGet(x, y-1);
+	let br = KinkyDungeonMapGet(x+1, y+1);
+	let bl = KinkyDungeonMapGet(x-1, y+1);
+
+	let m_t = KinkyDungeonMovableTilesSmartEnemy.includes(t);
+	let m_tr = KinkyDungeonMovableTilesSmartEnemy.includes(tr);
+	let m_tl = KinkyDungeonMovableTilesSmartEnemy.includes(tl);
+	let m_r = KinkyDungeonMovableTilesSmartEnemy.includes(r);
+	let m_l = KinkyDungeonMovableTilesSmartEnemy.includes(l);
+	let m_b = KinkyDungeonMovableTilesSmartEnemy.includes(b);
+	let m_br = KinkyDungeonMovableTilesSmartEnemy.includes(br);
+	let m_bl = KinkyDungeonMovableTilesSmartEnemy.includes(bl);
+
+	if (!blocked && m_t && m_b && !m_r && !m_l) {
+		if (KDRandom() < 0.5 && blockTiles.includes(r)) {
+			m_r = true;
+			KinkyDungeonMapSet(x + 1, y, '2'); // Set to brickwork
+		} else if (blockTiles.includes(l)) {
+			m_l = true;
+			KinkyDungeonMapSet(x - 1, y, '2'); // Set to brickwork
+		} else blocked = true; // Cancel
+	}
+	if (!blocked && m_r && m_l && !m_t && !m_b) {
+		if (KDRandom() < 0.5 && blockTiles.includes(b)) {
+			m_b = true;
+			KinkyDungeonMapSet(x, y + 1, '2'); // Set to brickwork
+		} else if (blockTiles.includes(t)) {
+			m_t = true;
+			KinkyDungeonMapSet(x, y - 1, '2'); // Set to brickwork
+		} else blocked = true; // Cancel
+	}
+	if (!blocked && m_tr && m_br && !m_r) {
+		if (blockTiles.includes(r)) {
+			m_r = true;
+			KinkyDungeonMapSet(x + 1, y, '2'); // Set to brickwork
+		} else if (!m_t && !m_l && !m_b) {
+			blocked = true;
+		}
+	}
+	if (!blocked && m_tl && m_bl && !m_l) {
+		if (blockTiles.includes(l)) {
+			m_l = true;
+			KinkyDungeonMapSet(x - 1, y, '2'); // Set to brickwork
+		} else if (!m_t && !m_r && !m_b) {
+			blocked = true;
+		}
+	}
+	if (!blocked && m_tl && m_tr && !m_t) {
+		if (blockTiles.includes(t)) {
+			m_t = true;
+			KinkyDungeonMapSet(x, y - 1, '2'); // Set to brickwork
+		} else if (!m_l && !m_b && !m_r) {
+			blocked = true;
+		}
+	}
+	if (!blocked && m_bl && m_br && !m_b) {
+		if (blockTiles.includes(b)) {
+			m_b = true;
+			KinkyDungeonMapSet(x, y + 1, '2'); // Set to brickwork
+		} else if (!m_l && !m_t && !m_r) {
+			blocked = true;
+		}
+	}
+	return !blocked;
+}
