@@ -413,6 +413,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 
 		if ((resistStun < 2 && resistDamage < 2) && (KinkyDungeonStunDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
+			if (!Enemy.stun) KDAddThought(Enemy.id, "Annoyed", 5, 1);
 			if (!Enemy.stun) Enemy.stun = 0;
 			if (resistStun == 1 || resistDamage == 1)
 				Enemy.stun = Math.max(Enemy.stun, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
@@ -463,14 +464,17 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 
 		if (!forceKill && KDBoundEffects(Enemy) > 3 && (Enemy.hp < 0 || (Enemy.hp <= Enemy.Enemy.maxhp * 0.1))) {
-			if (KinkyDungeonLightGet(Enemy.x, Enemy.y) > 0)
+			if (KinkyDungeonLightGet(Enemy.x, Enemy.y) > 0) {
+				KDAddThought(Enemy.id, "GiveUp", 6, 3);
 				KDDamageQueue.push({floater: TextGet("KDHelpless"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
+			}
 			//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDHelpless"), "white", 2);
 			Enemy.hp = 0.51;
 		}
 
 		if ((resistSlow < 2 && resistDamage < 2) && (KinkyDungeonSlowDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
+			if (!Enemy.slow) KDAddThought(Enemy.id, "Annoyed", 5, 1);
 			if (!Enemy.slow) Enemy.slow = 0;
 			if (resistSlow == 1 || resistDamage == 1)
 				Enemy.slow = Math.max(Enemy.slow, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
@@ -478,6 +482,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 		if ((resistDamage < 2) && (KinkyDungeonVulnerableDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
+			if (!Enemy.vulnerable) KDAddThought(Enemy.id, "Status", 4, 1);
 			if (!Enemy.vulnerable) Enemy.vulnerable = 0;
 			if (resistDamage == 1)
 				Enemy.vulnerable = Math.max(Enemy.vulnerable, Math.min(Math.floor(time/2), time-1)); // Enemies with stun resistance have stuns reduced to 1/2, and anything that stuns them for one turn doesn't affect them
@@ -514,6 +519,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	}
 
 	if (!Damage && predata.type != "inert" && dmgDealt <= 0) {
+		KDAddThought(Enemy.id, "Laugh", 4, 1);
 		KDDamageQueue.push({floater: TextGet("KDMissed"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
 
 		if (KinkyDungeonSound && Enemy.Enemy.cueSfx && Enemy.Enemy.cueSfx.Miss) {
@@ -521,8 +527,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 		//KinkyDungeonSendFloater({x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, TextGet("KDMissed"), "white", 2);
 	} else if (Damage && Damage.damage > 0 && predata.type != "inert" && dmgDealt <= 0 && !miss) {
-		if (KinkyDungeonLightGet(Enemy.x, Enemy.y) > 0)
+		if (KinkyDungeonLightGet(Enemy.x, Enemy.y) > 0) {
+			KDAddThought(Enemy.id, "Laugh", 5, 3);
 			KDDamageQueue.push({floater: TextGet("KDBlocked"), Entity: {x: Enemy.x - 0.5 + Math.random(), y: Enemy.y - 0.5 + Math.random()}, Color: "white", Time: 2, Delay: Delay});
+		}
 
 		let type = KinkyDungeonMeleeDamageTypes.includes(predata.type) ? "Block" : "Resist";
 		if (KinkyDungeonSound && Enemy.Enemy.cueSfx && Enemy.Enemy.cueSfx[type]) {

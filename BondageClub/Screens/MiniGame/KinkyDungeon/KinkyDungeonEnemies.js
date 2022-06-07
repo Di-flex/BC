@@ -1325,7 +1325,10 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			let enemy = KinkyDungeonEntities[i];
 			if (KDHostile(enemy)) {
 				if (enemy.fx && enemy.fy) {
-					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) enemy.vulnerable = Math.max(enemy.vulnerable, 1);
+					if (enemy.x * 2 - enemy.fx == KinkyDungeonPlayerEntity.x && enemy.y * 2 - enemy.fy == KinkyDungeonPlayerEntity.y) {
+						KDAddThought(enemy.id, "Annoyed", 4, 1);
+						enemy.vulnerable = Math.max(enemy.vulnerable, 1);
+					}
 				}
 			}
 			// Alert enemies if youve aggroed one
@@ -2053,6 +2056,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
 
 				}
+				KDAddThought(enemy.id, "Annoyed", 4, 1);
 				enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				hit = false;
 			}
