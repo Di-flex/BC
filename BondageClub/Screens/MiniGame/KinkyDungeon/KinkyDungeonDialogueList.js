@@ -263,6 +263,27 @@ let KDDialogue = {
 				},
 				options: {"Leave": {playertext: "Leave", exitDialogue: true}},
 			},
+			"Bribe": {playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					return KinkyDungeonGoddessRep.Prisoner >= -40 && KinkyDungeonGold >= 40;
+				},
+				options: {
+					"Accept": {playertext: "Default", response: "Default",
+						clickFunction: (gagged) => {
+							if (KinkyDungeonGoddessRep.Prisoner >= 49.5) {
+								KDGameData.CurrentDialogMsg = "PrisonRepeatBribeFail";
+								return false;
+							}
+							KinkyDungeonChangeRep("Prisoner", -Math.min(10, KinkyDungeonGold*0.25));
+							KinkyDungeonGold = 0;
+							KinkyDungeonSetFlag("LeashToPrison", 0);
+							return false;
+						},
+						options: {"Leave": {playertext: "Leave", exitDialogue: true}},
+					},
+					"Leave": {playertext: "Leave", exitDialogue: true}
+				},
+			},
 		}
 	},
 	"OfferDress": KDYesNoSingle("OfferDress", ["Rope"], ["Ghost"], ["bindingDress"], [0, 60, 0, 75], [-25, 0, 15, 40]),
@@ -1111,6 +1132,36 @@ let KDDialogue = {
 			},
 		}
 	},
+	"JailerHiSec": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonSetFlag("LeashToPrison", -1);
+			return false;
+		},
+		options: {
+			"Submit": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonDefeat(true);
+					return false;
+				},
+				exitDialogue: true,
+			},
+			"Resist": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonStartChase(undefined, "Jailbreak");
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
 	"BanditQuest": {
 		response: "Default",
 		clickFunction: (gagged) => {
@@ -1136,7 +1187,7 @@ let KDDialogue = {
 			},
 		}
 	},
-	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "TrapCuffs"], [], ["blacksmith"], 0.4, 1.5),
+	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "Spear", "TrapCuffs"], [], ["blacksmith"], 0.4, 1.5),
 	"PrisonerBandit": { // Player beats Fuuka
 		response: "Default",
 		personalities: ["Sub"],

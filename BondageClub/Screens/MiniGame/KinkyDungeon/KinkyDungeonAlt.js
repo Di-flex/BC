@@ -25,6 +25,36 @@ let alts = {
 		notraps: true,
 		noShrineTypes: ["Commerce", "Will"],
 	},
+	"Jail": {
+		name: "Jail",
+		bossroom: false,
+		width: 15,
+		height: 15,
+		setpieces: {
+			"GuaranteedCell": 100,
+			"ExtraCell": 20,
+			"Bedroom": 10,
+			"QuadCell": 7,
+			"Storage": 12,
+		},
+		genType: "NarrowMaze",
+		spawns: false,
+		chests: false,
+		shrines: true,
+		orbs: 0,
+		chargers: true,
+		heart: false,
+		specialtiles: true,
+		shortcut: false,
+		enemies: true,
+		nojail: false,
+		nokeys: true,
+		nostairs: false,
+		notraps: false,
+		noRelease: true,
+		releaseOnLowSec: true,
+		noShrineTypes: ["Commerce"],
+	},
 	"JourneyFloor": {
 		name: "JourneyFloor",
 		bossroom: false,
@@ -99,6 +129,9 @@ let KinkyDungeonCreateMapGenType = {
 	},
 	"Maze": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
 		KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance);
+	},
+	"NarrowMaze": (POI, VisitedRooms, width, height, openness, density, hallopenness, floodChance) => {
+		KinkyDungeonCreateMaze(POI, VisitedRooms, width, height, 0, 10, 0, floodChance);
 	},
 };
 

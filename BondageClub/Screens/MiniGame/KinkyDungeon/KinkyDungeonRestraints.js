@@ -446,14 +446,16 @@ function KinkyDungeonPlayerGetLockableRestraints() {
  * @param {string[]} Locks
  * @returns {item[]}
  */
-function KinkyDungeonPlayerGetRestraintsWithLocks(Locks) {
+function KinkyDungeonPlayerGetRestraintsWithLocks(Locks, recursive) {
 	/**
 	 * @type {item[]}
 	 */
 	let ret = [];
 
-	for (let item of KinkyDungeonAllRestraint()) {
-		if (item.lock && Locks.includes(item.lock)) {
+	for (let itemhost of (recursive ? KinkyDungeonAllRestraintDynamic() : KinkyDungeonAllRestraint())) {
+		// @ts-ignore
+		let item = itemhost.item ? itemhost.item : itemhost;
+		if (item && item.lock && Locks.includes(item.lock)) {
 			ret.push(item);
 		}
 	}
@@ -622,6 +624,7 @@ function KinkyDungeonWallCrackAndKnife(Message) {
  * @param {boolean} [External] - By enemies or by player?
  * @returns {boolean}
  */
+// @ts-ignore
 function KDGroupBlocked(Group, External) {
 	let belt = KinkyDungeonGetRestraintItem("ItemPelvis");
 
@@ -1680,6 +1683,7 @@ function KinkyDungeonGetRestraint(enemy, Level, Index, Bypass, Lock, RequireStam
 }
 
 // @ts-ignore
+// @ts-ignore
 function KinkyDungeonUpdateRestraints(delta) {
 	let playerTags = new Map();
 	for (let G = 0; G < KinkyDungeonPlayer.Appearance.length; G++) {
@@ -1767,6 +1771,7 @@ function KinkyDungeonRestraintPower(item, NoLink, toLink) {
  * @param {string} [newLock]
  * @returns {boolean}
  */
+// @ts-ignore
 function KinkyDungeonLinkableAndStricter(oldRestraint, newRestraint, dynamicLink, newLock) {
 	if (oldRestraint && newRestraint) {
 		return KinkyDungeonIsLinkable(oldRestraint, newRestraint);
@@ -2236,6 +2241,7 @@ function KinkyDungeonLinkItem(newRestraint, oldItem, tightness, Lock, Keep, fact
  * @param {boolean} Keep
  * @returns
  */
+// @ts-ignore
 function KinkyDungeonUnLinkItem(item, Keep, dynamic) {
 	//if (!data.add && !data.shrine)
 	if (item.type == Restraint) {

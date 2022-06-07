@@ -164,6 +164,10 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	} else if (Consumable.type == "shrineRemove") {
 		KinkyDungeonRemoveRestraintsWithShrine(Consumable.shrine);
 		KinkyDungeonAdvanceTime(1);
+	} else if (Consumable.type == "goldKey") {
+		for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Gold"])) {
+			KinkyDungeonLock(r, "Blue");
+		}
 	}
 }
 
@@ -189,6 +193,12 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "unusuable") {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnusable"), "red", 1);
 		return false;
+	}
+	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "goldKey") {
+		if (KinkyDungeonPlayerGetRestraintsWithLocks(["Gold"]).length == 0) {
+			KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonMistressKeyFail"), "red", 1);
+			return false;
+		}
 	}
 	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "charge" && KDGameData.AncientEnergyLevel >= 1) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonFullpower"), "red", 1);

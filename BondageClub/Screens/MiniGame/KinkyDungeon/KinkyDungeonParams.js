@@ -123,6 +123,7 @@ const KinkyDungeonMapParams = {
 			{Type: "Storage", Weight: 5},
 			{Type: "SmallAltar", Weight: 18},
 			{Type: "GuardedChest", Weight: 30},
+			{Type: "ExtraCell", Weight: 10},
 		],
 
 		"shortcuts": [

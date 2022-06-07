@@ -1076,10 +1076,11 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 
 			let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			if (nearestJail) {
-				let xx = nearestJail.x + KinkyDungeonJailLeashX;
+				let xx = nearestJail.x;
 				let yy = nearestJail.y;
-				if (KinkyDungeonTiles.get((xx-1) + "," + yy) && KinkyDungeonTiles.get((xx-1) + "," + yy).Type == "Door") {
-					KinkyDungeonTiles.get((xx-1) + "," + yy).Lock = undefined;
+				let jaildoor = KDGetJailDoor(xx, yy);
+				if (jaildoor && jaildoor.Type == "Door") {
+					jaildoor.Lock = undefined;
 				}
 			}
 
@@ -1212,7 +1213,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 		let enemy = KinkyDungeonEntities[E];
 		if ((Allied && KDAllied(enemy)) || (!Allied && !KDAllied(enemy))) {
 			if (enemy.aware && (enemy.lifetime == undefined || enemy.lifetime > 9000) && !enemy.Enemy.tags.has("temporary") && !enemy.Enemy.tags.has("peaceful")) {
-				if (enemy.hostile > 0 && enemy.hostile < 9000 && KDGameData.PrisonerState == 'parole') {
+				if (enemy.hostile > 0 && enemy.hostile < 9000 && (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail')) {
 					tickAlertTimer = true;
 					if (KDistChebyshev(KinkyDungeonPlayerEntity.x - enemy.x, KinkyDungeonPlayerEntity.y - enemy.y) < 9 && !tickAlertTimerFactions.includes(KDGetFaction(enemy))) {
 						tickAlertTimerFactions.push(KDGetFaction(enemy));
@@ -1356,7 +1357,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 				alertingFaction = true;
 			}
 		}
-		if (tickAlertTimer && KDGameData.PrisonerState == 'parole' && alertingFaction) {
+		if (tickAlertTimer && (KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail') && alertingFaction) {
 			if (KDGameData.AlertTimer < 3*KDMaxAlertTimer) KDGameData.AlertTimer += delta;
 		} else if (KDGameData.AlertTimer > 0) {
 			KDGameData.AlertTimer -= delta * 3;
@@ -1371,7 +1372,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	}
 
 	if (defeat) {
-		KinkyDungeonDefeat();
+		KinkyDungeonDefeat(KinkyDungeonFlags.has("LeashToPrison"));
 	}
 
 }
@@ -2189,6 +2190,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					let leashed = wearingLeash || attack.includes("Pull");
 					if (leashed) {
 						let nearestJail = KinkyDungeonNearestJailPoint(enemy.x, enemy.y);
+						if (KinkyDungeonFlags.has("LeashToPrison")) nearestJail = KinkyDungeonStartPosition;
 						let leashPos = nearestJail;
 						let findMaster = undefined;
 						if (!leashToExit && enemy.Enemy.pullTowardSelf && (Math.abs(player.x - enemy.x) > 1.5 || Math.abs(player.y - enemy.y) > 1.5)) {

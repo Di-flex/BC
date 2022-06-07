@@ -15,6 +15,7 @@ let KDSetPieces = [
 	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "LesserPearl", tags: ["loot", "pearl"], Radius: 5, Chance: 0.5, Max: 1},
 	{Name: "GuaranteedCell", tags: ["jail", "urban"], Radius: 5, Max: 1, xPad: 2},
+	{Name: "ExtraCell", tags: ["jail", "urban"], Radius: 4, xPad: 2, yPad: 1, xPadEnd: 2, yPadEnd: 1},
 ];
 
 let KDCountSetpiece = new Map();
@@ -341,6 +342,30 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 
 			KinkyDungeonMapSet(cornerX+2, cornerY+2, 'B');
 			KDGameData.JailPoints.push({x: cornerX+2, y: cornerY+2});
+			break;
+		case "ExtraCell":
+			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
+			KinkyDungeonMapSet(cornerX+3, cornerY+1, 'd');
+			KinkyDungeonTiles.set("" + (cornerX+3) + "," + (cornerY+1), {Type: "Door", NoTrap: true, Jail: true, ReLock: true, OffLimits: true});
+
+			KinkyDungeonMapSet(cornerX+3, cornerY+2, 'b');
+
+			// Chance for seethru
+			if (KDRandom() < 0.5) {
+				KinkyDungeonMapSet(cornerX, cornerY+1, 'b');
+				KinkyDungeonMapSet(cornerX, cornerY+2, 'b');
+			}
+			if (KDRandom() < 0.5) {
+				KinkyDungeonMapSet(cornerX+1, cornerY, 'b');
+				KinkyDungeonMapSet(cornerX+2, cornerY, 'b');
+			}
+			if (KDRandom() < 0.5) {
+				KinkyDungeonMapSet(cornerX+1, cornerY+3, 'b');
+				KinkyDungeonMapSet(cornerX+2, cornerY+3, 'b');
+			}
+
+			KinkyDungeonMapSet(cornerX+1, cornerY+1, 'B');
+			KDGameData.JailPoints.push({x: cornerX+1, y: cornerY+1});
 			break;
 		case "Storage":
 			KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, false);

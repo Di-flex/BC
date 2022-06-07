@@ -1088,54 +1088,6 @@ function KinkyDungeonCreateRectangle(Left, Top, Width, Height, Border, Fill, Pad
 		}
 }
 
-// @ts-ignore
-// @ts-ignore
-function KinkyDungeonCreateCell(security, width, height) {
-	let cellWidth = KinkyDungeonJailLeashX;
-	KinkyDungeonJailLeash = 5;
-	let modsecurity = security - (KinkyDungeonGoddessRep.Ghost + 50);
-	if (security > 25) KinkyDungeonJailLeash -= 1;
-	if (security > 50) KinkyDungeonJailLeash -= 1;
-	if (security > 75) KinkyDungeonJailLeash -= 1;
-	let cellHeight = KinkyDungeonJailLeash;
-	let barchance = 1.0 - 0.9 * Math.min(1, modsecurity / 100);
-	let grateChance = 1.0 - 1.0 * Math.min(1, security / 100);
-	let grateCount = 1/3;
-
-	for (let X = 0; X <= cellWidth + 1; X++)
-		for (let Y = KinkyDungeonStartPosition.y - cellHeight - 1; Y <= KinkyDungeonStartPosition.y + cellHeight + 1; Y++) {
-			let wall = false;
-			let door = false;
-			let bar = false;
-			let grate = false;
-			if ((X == cellWidth || X == 0) && (Y > KinkyDungeonStartPosition.y - cellHeight && Y < KinkyDungeonStartPosition.y + cellHeight)) {
-				wall = true;
-				if (KDRandom() < barchance) bar = true;
-			}
-			if (Y == KinkyDungeonStartPosition.y - cellHeight && X <= cellWidth || Y == KinkyDungeonStartPosition.y + cellHeight && X <= cellWidth) {
-				wall = true;
-				if (KDRandom() < grateChance/(grateCount*3) && KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(X, Y+1)) && KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(X, Y-1))) grate = true;
-			}
-			if (X == cellWidth && Y == KinkyDungeonStartPosition.y) {
-				wall = false;
-				door = true;
-			}
-			if (door) {
-				KinkyDungeonMapSet(X, Y, 'D');
-				KinkyDungeonTiles.set(X + "," + Y, {Type: "Door", Lock: "Red", Jail: true, ReLock: true});
-			} else if (wall) {
-				if (bar)
-					KinkyDungeonMapSet(X, Y, 'b');
-				else if (grate) {
-					KinkyDungeonMapSet(X, Y, 'g');
-					grateCount += 1;
-				} else
-					KinkyDungeonMapSet(X, Y, '1');
-			} else KinkyDungeonMapSet(X, Y, '0');
-		}
-	KinkyDungeonMapSet(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, 'B');
-}
-
 function KinkyDungeonPlaceStairs(checkpoint, startpos, width, height, noStairs) {
 	// Starting stairs are predetermined and guaranteed to be open
 	KinkyDungeonMapSet(1, startpos, 'S');
@@ -2041,7 +1993,7 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 								}
 								lock = true;
 							} else if (((grate && (!room.room || room.room.length > minLockedRoomSize))
-									|| Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist)
+									|| (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y+1)) && Math.max(Math.abs(room.door.x - KinkyDungeonPlayerEntity.x), Math.abs(room.door.y - KinkyDungeonPlayerEntity.y)) <= maxPlayerDist))
 									&& room.door.y != KinkyDungeonStartPosition.y) {
 								// Place a grate instead
 								KinkyDungeonMapSet(room.door.x, room.door.y, 'g');

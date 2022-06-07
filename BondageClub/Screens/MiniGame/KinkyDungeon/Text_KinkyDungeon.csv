@@ -3959,6 +3959,8 @@ KinkyDungeonCurseStruggleShadowCurse,"The collar is enchanted with multiple laye
 KinkyDungeonCurseUnlockShadowCurse,"The collar has absorbed enough energy and pops off!"
 
 KinkyDungeonUnusable,"That item cant be used."
+KinkyDungeonMistressKeyFail,"You're not sure how to use this key."
+KinkyDungeonInventoryItemMistressKeyUse,"As soon as you touch the key, all of your gold locks fade to blue!"
 
 KinkyDungeonCurseInfoMistressKey,"You realize there is no keyhole on the device, simply a lock-shaped sigil."
 KinkyDungeonCurseUnlockMistressKey,"The item loosens and falls off, but you see a red sigil flash and the key suddenly teleports away!"
@@ -4848,11 +4850,17 @@ rPrisonRepeatSmile,"(The SPEAKER smiles back)|Oh, this is a game to you?|Then pe
 rPrisonRepeatSmile2,"(The SPEAKER smiles back)|I'm glad you're enjoying yourself.|However, your behavior is still unacceptable.|You need to learn some respect."
 rPrisonRepeatStruggle,"(The SPEAKER chuckles)|Looks like you're enjoying your restraints?|Let's make them tighter, shall we?"
 rPrisonRepeatPout,"(The SPEAKER shrugs)|Well, I hope you learn."
+rPrisonRepeatBribe,"(The SPEAKER looks greedy)|Oh, you have an idea?"
+rPrisonRepeatBribe_Accept,"(The SPEAKER nods)|I'll put in a good word with you~"
+rPrisonRepeatBribeFail,"(The SPEAKER shakes her head)|Babe, you know who's going to be blamed|if a max-security prisoner escapes?"
 
 dPrisonRepeat_Smile,"(Giggle and smile)"
 dPrisonRepeat_Smile2,"(Giggle and moan)"
 dPrisonRepeat_Struggle,"(Struggle in your bindings)"
 dPrisonRepeat_Pout,"(Pout and glare at her)"
+dPrisonRepeat_Bribe,"(Point to the Jailer's coin pouch)"
+dPrisonRepeatBribe_Accept,"(Give her all your gold)"
+
 
 
 dOfferDominant,"Why don't you wear it instead? (OFFPERC chance, may aggro)"
@@ -5476,6 +5484,11 @@ dApprenticeQuest_CompletePurity,Give her a Scroll of Purity
 rDragonheartQuest,"(A SPEAKER looks distraught)|Well met, adventurer!|We have a problem..."
 rDragonheartQuestHelp,"(The SPEAKER folds her arms)|A rebel has been causing us problems lately...|If you run into her, give her all you got!|She needs to be brought to justice."
 dDragonheartQuest_Help,(Show interest)
+
+rJailerHiSec,"(A SPEAKER approaches you in your cell)|Since you've been a bad girl,|we're taking you to the high-security prison."
+rJailerHiSecResist,"(The SPEAKER folds her arms)|Want to or not, you're going."
+dJailerHiSec_Resist,(Resist)
+dJailerHiSec_Submit,(Submit)
 
 rBanditQuest,"(A SPEAKER crosses her arms)|Who you lookin' at?|Oh, it's an adventurer.|Say, you wouldn't be interested|in working with us, would ya?"
 rBanditQuestHelp,"(The SPEAKER smiles)|That's more like it.|Here's the scoop: One of ours was captured on the next floor.|We need you to go get her out."
