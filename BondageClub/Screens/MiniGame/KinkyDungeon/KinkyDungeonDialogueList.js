@@ -968,6 +968,122 @@ let KDDialogue = {
 			},
 		}
 	},
+	"ApprenticeQuest": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDAddQuest("ApprenticeQuest");
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return !KDHasQuest("ApprenticeQuest");
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"CompleteLegs": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDRemoveQuest("ApprenticeQuest");
+					KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollLegs, -1);
+					if (KDFactionRelation("Player", "Apprentice") < 0.25)
+						KinkyDungeonChangeFactionRep("Apprentice", 0.015);
+					else
+						KinkyDungeonChangeFactionRep("Apprentice", 0.005);
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return KDHasQuest("ApprenticeQuest") && KinkyDungeonInventoryGet("ScrollLegs") != undefined;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"CompleteArms": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDRemoveQuest("ApprenticeQuest");
+					KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollArms, -1);
+					if (KDFactionRelation("Player", "Apprentice") < 0.25)
+						KinkyDungeonChangeFactionRep("Apprentice", 0.015);
+					else
+						KinkyDungeonChangeFactionRep("Apprentice", 0.005);
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return KDHasQuest("ApprenticeQuest") && KinkyDungeonInventoryGet("ScrollArms") != undefined;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"CompleteVerbal": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDRemoveQuest("ApprenticeQuest");
+					KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollVerbal, -1);
+					if (KDFactionRelation("Player", "Apprentice") < 0.25)
+						KinkyDungeonChangeFactionRep("Apprentice", 0.015);
+					else
+						KinkyDungeonChangeFactionRep("Apprentice", 0.005);
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return KDHasQuest("ApprenticeQuest") && KinkyDungeonInventoryGet("ScrollVerbal") != undefined;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"CompletePurity": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDRemoveQuest("ApprenticeQuest");
+					KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
+					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.ScrollPurity, -1);
+					if (KDFactionRelation("Player", "Apprentice") < 0.25)
+						KinkyDungeonChangeFactionRep("Apprentice", 0.015);
+					else
+						KinkyDungeonChangeFactionRep("Apprentice", 0.005);
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return KDHasQuest("ApprenticeQuest") && KinkyDungeonInventoryGet("ScrollPurity") != undefined;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
 	"DragonheartQuest": {
 		response: "Default",
 		clickFunction: (gagged) => {

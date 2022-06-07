@@ -955,6 +955,8 @@ Spell Balance:
 
 3.41
 - Added some more quest-like interactions
+- Added thought bubbles
+- New enemy: Librarian
 
 TODO ValidationFindBlockCycles to prevent bugs
 

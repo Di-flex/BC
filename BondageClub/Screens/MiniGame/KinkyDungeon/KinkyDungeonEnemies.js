@@ -488,9 +488,11 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 					canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 			}
+			let bb = false;
 			if (enemy.Enemy.bound && KDThoughtBubbles.has(enemy.id)) {
 				let bubble = KDThoughtBubbles.get(enemy.id);
 				if (bubble.index + bubble.duration >= KinkyDungeonCurrentTick) {
+					bb = true;
 					let name = CommonTime() % 1000 < 500 ? "Thought" : bubble.name;
 					if (name != "Thought" || !((enemy.lifetime != undefined || enemy.hp < enemy.Enemy.maxhp || enemy.boundLevel)))
 						DrawImageZoomCanvas(KinkyDungeonRootDirectory + `Conditions/Thought/${name}.png`,
@@ -499,17 +501,17 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 							KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				}
 			}
-			if (!KinkyDungeonAggressive(enemy) && ((!KDAllied(enemy) && !enemy.Enemy.specialdialogue) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
+			if (!KinkyDungeonAggressive(enemy) && ((!KDAllied(enemy) && !enemy.Enemy.specialdialogue && !bb) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((KDEnemyHasFlag(enemy, "Shop")) ? "Conditions/Shop.png" : (KDAllied(enemy) ? "Conditions/Heart.png" : "Conditions/Peace.png")),
 					MainCanvas, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
-			} else if (enemy.aware && KDHostile(enemy) && enemy.vp > 0 && enemy.Enemy && !enemy.Enemy.noAlert && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
+			} else if (!bb && enemy.aware && KDHostile(enemy) && enemy.vp > 0 && enemy.Enemy && !enemy.Enemy.noAlert && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
 				DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Aware.png",
 					MainCanvas, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 					canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
 					KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
-			} else if (enemy.vp > 0.01 && KDHostile(enemy) && enemy.Enemy && !enemy.Enemy.noAlert && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
+			} else if (!bb && enemy.vp > 0.01 && KDHostile(enemy) && enemy.Enemy && !enemy.Enemy.noAlert && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
 				let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;
 				if (KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak")) sneakThreshold += KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Sneak");
 				if (enemy.vp > sneakThreshold/2)

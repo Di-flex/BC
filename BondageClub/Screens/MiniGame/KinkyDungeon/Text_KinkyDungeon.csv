@@ -1489,6 +1489,9 @@ KinkyDungeonSpellCrystalPuff,Crystal Glyph
 NameDressmakerQuest,Tailor
 KillDressmakerQuest,You murder the tailor!
 
+NameApprenticeQuest,Student
+KillApprenticeQuest,You murder the student!
+
 NameDragonheartQuest,Tactician
 KillDragonheartQuest,You murder the tactician!
 
@@ -1503,6 +1506,12 @@ KillDressmaker,"The dressmaker storms out in a rage."
 AttackDressmakerBind,"The dressmaker has you try on one of her new accessories! (+RestraintAdded)"
 AttackDressmakerLock,"The dressmaker adds a lock 'just to complete the look, you know?'"
 AttackDressmaker,"The dressmaker cuddles your helpless body~ (-DamageTaken SP)"
+
+NameLibrarian,Librarian
+KillLibrarian,"The librarian gets angry and retreats."
+AttackLibrarianBind,"The librarian shushes you as she brandishes a restraint! (+RestraintAdded)"
+AttackLibrarianLock,"The librarian snaps her fingers and sends a lock flying at you!"
+AttackLibrarian,"The librarian whispers seductively into your ear! (-DamageTaken SP)"
 
 
 NameGiantMushroom,Giant Mushroom
@@ -3611,7 +3620,18 @@ KinkyDungeonSummonMultiCuffs,A swarm of shackles approaches you!
 KinkyDungeonSummonSingleLock,A cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiLock,A huge cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
-KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
+
+KinkyDungeonSummonMultiBookChain,Floating books appear near the caster!
+KinkyDungeonSummonMultiBookNature,Dusty tomes appear near the caster!
+KinkyDungeonSummonMultiBookArcane,Magical books appear near the caster!
+KinkyDungeonSummonMultiBookForbidden,Sinister books appear near the caster!
+KinkyDungeonSummonMultiBookElectric,Crackling books appear near the caster!
+KinkyDungeonSummonMultiBookCelestial,Glowing books appear near the caster!
+KinkyDungeonSummonMultiBookSlime,Rubber-stained books appear near the caster!
+KinkyDungeonSummonMultiBookFire,Flaming books appear near the caster!
+KinkyDungeonSummonMultiBookIce,Frigid books appear near the caster!
+KinkyDungeonSummonMultiBookTickle,Devilish books appear near the caster!
+
 
 KinkyDungeonCrotchRope,Your struggling leaves you aroused because of the RestraintName...
 KinkyDungeonCelestialPunish0,"You feel your restraints squeeze you and tingle with painful sensations!"
@@ -5414,6 +5434,18 @@ dDressmakerQuest_Complete,I found your dress...
 dDressmakerQuest_CompleteGag,Mmmph... (Found the dress!)
 dDressmakerQuestComplete_Question,Great! Can you take it off?
 dDressmakerQuestComplete_QuestionGag,Mmmmm! (Struggle)
+
+rApprenticeQuest,"(A SPEAKER clutching her books approaches you)|Miss adventurer!|I happen to need a magic scroll of any kind.|It's for my studies."
+rApprenticeQuestHelp,"(The SPEAKER smiles)|Yes, thank you so much!|It's been so difficult to get them lately.|The magic library is closed off these days,|and there are mean people trying to get the scrolls back..."
+rApprenticeQuestCompleteLegs,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompleteArms,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompleteVerbal,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompletePurity,"(The SPEAKER is happy)|Thank you so much!"
+dApprenticeQuest_Help,(Show interest)
+dApprenticeQuest_CompleteLegs,Give her a Scroll of Sauntering
+dApprenticeQuest_CompleteArms,Give her a Scroll of Sleight
+dApprenticeQuest_CompleteVerbal,Give her a Scroll of Speech
+dApprenticeQuest_CompletePurity,Give her a Scroll of Purity
 
 rDragonheartQuest,"(A SPEAKER looks distraught)|Well met, adventurer!|We have a problem..."
 rDragonheartQuestHelp,"(The SPEAKER folds her arms)|A rebel has been causing us problems lately...|If you run into her, give her all you got!|She needs to be brought to justice."

@@ -29,6 +29,38 @@ let KDQuests = {
 			return false;
 		}
 	},
+	"ApprenticeQuest": {
+		name: "ApprenticeQuest",
+		npc: "ApprenticeQuest",
+		weight: (RoomType, MapMod, data) => {
+			if (RoomType == "Tunnel") {
+				let weight = 10;
+				if (
+					KinkyDungeonInventoryGet("ScrollLegs")
+					|| KinkyDungeonInventoryGet("ScrollArms")
+					|| KinkyDungeonInventoryGet("ScrollVerbal")
+					|| KinkyDungeonInventoryGet("ScrollPurity")
+				) {
+					return weight * QuestCompleteWeight;
+				}
+				return weight;
+			}
+			return 0;
+		},
+		prerequisite: (RoomType, MapMod, data) => {
+			if (KDHasQuest("ApprenticeQuest") && !(KinkyDungeonInventoryGet("ScrollLegs")
+				|| KinkyDungeonInventoryGet("ScrollArms")
+				|| KinkyDungeonInventoryGet("ScrollVerbal")
+				|| KinkyDungeonInventoryGet("ScrollPurity")
+			)) {
+				return false;
+			}
+			if (RoomType == "Tunnel") {
+				return true;
+			}
+			return false;
+		}
+	},
 	"DragonheartQuest": {
 		name: "DragonheartQuest",
 		npc: "DragonheartQuest",
@@ -116,6 +148,11 @@ function KDQuestTick(quests) {
 				let point = KinkyDungeonGetRandomEnemyPoint(true);
 				if (point) {
 					KinkyDungeonSummonEnemy(point.x, point.y, "DragonLeaderDuelist", 1, 2.9);
+				}
+			} else if (q == "ApprenticeQuest" && KDGameData.RoomType == "") {
+				let point = KinkyDungeonGetRandomEnemyPoint(true);
+				if (point) {
+					KinkyDungeonSummonEnemy(point.x, point.y, "Librarian", 1, 2.9);
 				}
 			} else if (q == "BanditPrisoner") {
 				let point = KinkyDungeonGetRandomEnemyPoint(true);
