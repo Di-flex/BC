@@ -3233,7 +3233,7 @@ KinkyDungeonSpellTargetFreeze,Choose a target to freeze
 
 KinkyDungeonSpellShatter,Shatter
 KinkyDungeonSpellShatterStrike,Shatter
-KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets."
+KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets and slow for 4 turns.."
 
 KinkyDungeonSpellIgnition,Ignite
 KinkyDungeonSpellIgnite,Ignite
