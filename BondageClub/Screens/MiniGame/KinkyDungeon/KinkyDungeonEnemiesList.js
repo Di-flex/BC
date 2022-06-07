@@ -100,9 +100,9 @@ let KinkyDungeonEnemies = [
 		specialCDonAttack: false, visionRadius: 6, maxhp: 20, minLevel:4, weight:3, movePoints: 3, attackPoints: 3, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4, specialWidth: 5, specialRange: 1,
 		terrainTags: {"secondhalf":5, "lastthird":5}, shrines: ["Will"], floors:KDMapInit(["grv", "tmb"]), dropTable: [{name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Sword", weight: 3.5, ignoreInInventory: true},]},
 	{name: "NawashiZombie", bound: "NawashiZombie", playLine: "Zombie", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "melee", "elite", "fireweakness", "unflinching", "ropeRestraints", "jail", "ropeRestraints2", "meleeweakness", "hunter"]), evasion: -1, armor: 0, followRange: 1, AI: "hunt",
-		visionRadius: 8, maxhp: 12, minLevel:0, weight:2, movePoints: 2, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4,
+		visionRadius: 8, maxhp: 12, minLevel:0, weight:2, movePoints: 2, attackPoints: 2, attack: "MeleeBind", attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 4, difficulty: 1.4,
 		summon: [{enemy: "FastZombie", range: 2.5, count: 2, strict: true}],
-		terrainTags: {"secondhalf":1, "lastthird":2}, shrines: ["Will"], floors:KDMapInit(["grv", "tmb"]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 15, weight: 10}, {name: "Rope", weight: 3.5, ignoreInInventory: true},]},
+		terrainTags: {"secondhalf":1, "lastthird":2}, shrines: [], floors:KDMapInit(["grv", "tmb"]), dropTable: [{name: "Gold", amountMin: 5, amountMax: 15, weight: 10}, {name: "Rope", weight: 3.5, ignoreInInventory: true},]},
 
 	{name: "Ninja", faction: "Bountyhunter", bound: "Ninja", clusterWith: "human", color: "#814BB7", tags: KDMapInit(["leashing", "opendoors", "human", "bountyhunter", "ninja", "melee", "ropeRestraints", "ropeRestraints2", "unarmedresist", "slashresist", "glueweakness", "chainweakness", "search"]), followLeashedOnly: true, blindSight: 5, followRange: 1, AI: "hunt", projectileAttack: true,
 		stunTime: 4, specialCD: 6, specialCharges: 6, specialAttack: "Stun", specialRemove: "Bind", specialCDonAttack: true, strictAttackLOS: true, focusPlayer: true,

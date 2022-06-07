@@ -455,6 +455,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				efficiency *= 2;
 			}
 
+			if (!(Enemy.boundLevel > 0)) KDAddThought(Enemy.id, "Annoyed", 5, 1);
 			Enemy.boundLevel += efficiency * (predata.bind ? predata.bind : predata.dmg);
 			if (predata.vulnerable && efficiency * (predata.bind ? predata.bind : predata.dmg) > 0.01 && Enemy.boundLevel < Enemy.Enemy.maxhp * 0.6) {
 				Enemy.boundLevel += Enemy.Enemy.maxhp * 0.2;

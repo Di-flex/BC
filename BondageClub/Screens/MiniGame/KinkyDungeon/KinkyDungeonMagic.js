@@ -776,6 +776,7 @@ function KinkyDungeonMakeNoise(radius, noiseX, noiseY) {
 		if (!e.aware && !e.Enemy.tags.has("deaf") && e.Enemy.AI != "ambush" && KDistChebyshev(e.x - noiseX, e.y - noiseY) <= radius) {
 			e.gx = noiseX;
 			e.gy = noiseY;
+			KDAddThought(e.id, "Search", 2, 1 + KDistChebyshev(e.x - noiseX, e.y - noiseY));
 		}
 	}
 }

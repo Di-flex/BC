@@ -254,6 +254,7 @@ function KDCreateBoringness() {
 // Starts the the game at a specified level
 function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 	for (let iterations = 0; iterations < 100; iterations++) {
+		KDThoughtBubbles = new Map();
 		KinkyDungeonSpecialAreas = [];
 		KinkyDungeonShortcutPosition = null;
 		KinkyDungeonRescued = {};
