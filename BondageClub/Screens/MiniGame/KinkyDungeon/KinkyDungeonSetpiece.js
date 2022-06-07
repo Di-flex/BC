@@ -226,11 +226,11 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 			if (!favoringPOI || KinkyDungeonBoringGet(cornerX + 1, cornerY + 1) < 3) skip = true;
 			else {
 				//KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, true);
+				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'a');
 				if (KDUnblock(cornerX, cornerY)) KinkyDungeonMapSet(cornerX, cornerY, 'X');
 				if (KDUnblock(cornerX + radius - 1, cornerY)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
 				if (KDUnblock(cornerX, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
 				if (KDUnblock(cornerX + radius - 1, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
-				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'a');
 				shrinelist.push({x: cornerX + 1, y: cornerY + 1, priority: true});
 			}
 			break;
