@@ -826,7 +826,7 @@ let KinkyDungeonEnemies = [
 			"SummonBookCelestial",
 			"SummonBookElectric",
 		], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
-		spellCooldownMult: 1, spellCooldownMod: -4, AI: "hunt", guardChance: 0.2, visionRadius: 7, maxhp: 8, spellResist: 0.35, minLevel:0, weight: -12, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
+		spellCooldownMult: 0.7, spellCooldownMod: 0, AI: "hunt", guardChance: 0.2, visionRadius: 7, maxhp: 8, spellResist: 0.35, minLevel:0, weight: -12, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
 		attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3, focusPlayer: true,
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 10, "miniboss": -7, "dressmaker": 12, "elementsAnger": 7, "elementsRage": 5}, allFloors: true, shrines: ["Conjure", "Elements"],
 		dropTable: [{name: "ScrollArms", weight: 2}, {name: "ScrollVerbal", weight: 2}, {name: "ScrollLegs", weight: 2}, {name: "ScrollPurity", weight: 1}]},
