@@ -744,7 +744,7 @@ let KinkyDungeonEnemies = [
 	{name: "WitchMagnet", faction: "Witch", clusterWith: "apprentice", bound: "Witch", playLine: "Witch", tags: KDMapInit(["leashing", "opendoors", "magnetCuffs", "electric", "closedoors", "human", "witch", "ranged", "elite", "miniboss", "unflinching", "electricimmune", "glueweakness", "iceweakness", "hunter"]),
 		castWhileMoving: true, spells: ["AreaElectrify", "WitchElectricOrb"], stopToCast: true, spellRdy: true, followRange: 1,
 		spellCooldownMult: 1, spellCooldownMod: -1, AI: "hunt", guardChance: 0.2, visionRadius: 8, maxhp: 24, minLevel:9, weight:10, movePoints: 2, attackPoints: 1, attack: "SpellMeleeBindWill",
-		attackWidth: 1, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 3, noLeashUnlessExhausted: true,
+		attackWidth: 1, attackRange: 1, power: 1, dmgType: "electric", fullBoundBonus: 1, noLeashUnlessExhausted: true,
 		terrainTags: {"secondhalf":2, "lastthird":1, "miniboss": -9, "metalAnger": 4, "elementsAnger": 6}, allFloors: true, shrines: [], followLeashedOnly: true,
 		dropTable: [{name: "RedKey", weight: 4}, {name: "ElfCrystal", weight: 1}, {name: "PotionMana", weight: 2}, {name: "BlueKey", weight: 3}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}],
 		events: [{trigger: "afterEnemyTick", type: "electrifyLocal", power: 1, aoe: 1.5}],

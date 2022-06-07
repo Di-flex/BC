@@ -1433,7 +1433,7 @@ AttackWitchRope,"The witch slaps you playfully! (-DamageTaken SP)"
 NameWitchMagnet,Magnet Witch
 KillWitchMagnet,"The witch is pulled away by an unseen force."
 AttackWitchMagnetBind,"The witch's restraints fly out and attach themselves to you! (+RestraintAdded)"
-AttackWitchMagnet,"The witch grabs you and rubs you playfully! (-DamageTaken SP)"
+AttackWitchMagnet,"The witch's lightning causes your body to tingle! (-DamageTaken SP)"
 
 NameApprentice,Witch's Apprentice
 KillApprentice,"The apprentice runs off and cries in a corner."
