@@ -1134,7 +1134,7 @@ let KDDialogue = {
 			},
 		}
 	},
-	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "TrapCuffs"], [], ["blacksmith"], 0.4),
+	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "TrapCuffs"], [], ["blacksmith"], 0.4, 1.5),
 	"PrisonerBandit": { // Player beats Fuuka
 		response: "Default",
 		personalities: ["Sub"],
