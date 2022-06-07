@@ -408,7 +408,7 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
 
 	// Place quest NPCs
-	let quests = KDQuestList(2, KDQuests, "Tunnel", "");
+	let quests = KDQuestList(2 + Math.round(KDRandom()), KDQuests, "Tunnel", "");
 	for (let q of quests) {
 		if (q.npc)
 			KinkyDungeonSummonEnemy(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, q.npc, 1, 14, true);
