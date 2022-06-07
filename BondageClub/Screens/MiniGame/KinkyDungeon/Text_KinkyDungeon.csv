@@ -3137,6 +3137,28 @@ KinkyDungeonBookLastPageFast,<<<
 KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
 
+KinkyDungeonFilterbuff,Buffs
+KinkyDungeonFilterdot,DoT
+KinkyDungeonFilterbolt,Projectiles
+KinkyDungeonFiltermelee,Melee
+KinkyDungeonFilteraoe,Area Damage
+KinkyDungeonFilterdenial,Area Denial
+KinkyDungeonFilteroffense,Offense
+KinkyDungeonFilterdefense,Defense
+KinkyDungeonFilterfire,Fire
+KinkyDungeonFilterice,Ice
+KinkyDungeonFilterearth,Earth
+KinkyDungeonFilterair,Air
+KinkyDungeonFilterslime,Rubber
+KinkyDungeonFilterteleport,Teleport
+KinkyDungeonFilterconjure,Conjuring
+KinkyDungeonFiltersummon,Summoning
+KinkyDungeonFilterbind,Binding
+KinkyDungeonFilterstealth,Stealth
+KinkyDungeonFilterlight,Light
+KinkyDungeonFiltershadow,Shadow
+KinkyDungeonFilterutility,Utility
+
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it fizzles!
 KinkyDungeonSpellMiscastGagged,Your gag causes you to mispronounce the magic words!

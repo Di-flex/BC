@@ -1271,6 +1271,11 @@ function KinkyDungeonDrawMagic() {
 
 }
 
+
+let selectedFilters = [];
+
+let KDSpellListIndex = 0;
+
 function KinkyDungeonListSpells(Mode) {
 	let i = 0;
 	let ii = 0;
@@ -1283,12 +1288,38 @@ function KinkyDungeonListSpells(Mode) {
 	let xpadding = 50;
 	let col = 0;
 
+	// Draw filters
+	if (Mode == "Draw") {
+		let x = 4 * (buttonwidth + xpadding);
+		let y = 50 + canvasOffsetY_ui;
+		let filterlist = Object.assign([], filters);
+		if (filtersExtra[KinkyDungeonCurrentSpellsPage]) {
+			for (let ff of filtersExtra[KinkyDungeonCurrentSpellsPage]) {
+				filterlist.push(ff);
+			}
+		}
+		// Now we have our total filters, time to draw
+		for (let f of filterlist) {
+			DrawButtonKDEx("filter" + f, (bdata) => {
+				if (selectedFilters.includes(f))
+					selectedFilters.splice(selectedFilters.indexOf(f), 1);
+				else
+					selectedFilters.push(f);
+				return true;
+			}, true, canvasOffsetX_ui + x, y, buttonwidth, 40, TextGet("KinkyDungeonFilter" + f), selectedFilters.includes(f) ? "#ffffff" : "#999999");
+			y += 45;
+		}
+	}
+
+	// Draw the spells themselves
 	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
 		let column = col;//Math.floor((spacing * i) / (maxY));
 		i = 0;
 		for (let sp of pg) {
 			let spell = KinkyDungeonFindSpell(sp, false);
-			if (spell && (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)) {
+			if (spell
+				&& (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)
+				&& (selectedFilters.length == 0 || (spell.tags && selectedFilters.every((element) => {return spell.tags.includes(element);})))) {
 
 				XX = column * (buttonwidth + xpadding);
 				ii = i;// - column * Math.ceil(maxY / spacing);
