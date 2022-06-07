@@ -937,6 +937,8 @@ let KDDialogue = {
 						KinkyDungeonChangeFactionRep("Dressmaker", 0.002 * power);
 					else
 						KinkyDungeonChangeFactionRep("Dressmaker", 0.0007 * power);
+					KinkyDungeonSetFlag("DressmakerQuest", 0);
+					KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
 					return false;
 				},
 				prerequisiteFunction: (gagged) => {
