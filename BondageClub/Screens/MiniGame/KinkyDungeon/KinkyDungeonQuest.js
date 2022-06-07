@@ -11,7 +11,7 @@ let KDQuests = {
 		npc: "DressmakerQuest",
 		weight: (RoomType, MapMod, data) => {
 			if (RoomType == "Tunnel") {
-				let weight = 10;
+				let weight = 15;
 				if (KinkyDungeonPlayerTags.has("BindingDress")) {
 					return weight * QuestCompleteWeight;
 				}
@@ -34,7 +34,7 @@ let KDQuests = {
 		npc: "ApprenticeQuest",
 		weight: (RoomType, MapMod, data) => {
 			if (RoomType == "Tunnel") {
-				let weight = 10;
+				let weight = 30;
 				if (
 					KinkyDungeonInventoryGet("ScrollLegs")
 					|| KinkyDungeonInventoryGet("ScrollArms")
@@ -75,6 +75,7 @@ let KDQuests = {
 			if (KDHasQuest("DragonLeaderDuelist")) {
 				return false;
 			}
+			if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel + 1)) return false;
 			if (RoomType == "Tunnel") {
 				return true;
 			}
@@ -95,6 +96,7 @@ let KDQuests = {
 			if (KDHasQuest("BanditPrisoner")) {
 				return false;
 			}
+			if (KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel + 1)) return false;
 			if (RoomType == "Tunnel") {
 				return true;
 			}
@@ -144,17 +146,17 @@ function KDQuestList(count, mods, RoomType, MapMod, data) {
 function KDQuestTick(quests) {
 	if (quests) {
 		for (let q of quests) {
-			if (q == "DragonLeaderDuelist" && KDGameData.RoomType == "") {
+			if (q == "DragonLeaderDuelist" && KDGameData.RoomType == "" && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
 				let point = KinkyDungeonGetRandomEnemyPoint(true);
 				if (point) {
 					KinkyDungeonSummonEnemy(point.x, point.y, "DragonLeaderDuelist", 1, 2.9);
 				}
-			} else if (q == "ApprenticeQuest" && KDGameData.RoomType == "") {
+			} else if (q == "ApprenticeQuest" && KDGameData.RoomType == "" && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
 				let point = KinkyDungeonGetRandomEnemyPoint(true);
 				if (point) {
 					KinkyDungeonSummonEnemy(point.x, point.y, "Librarian", 1, 2.9);
 				}
-			} else if (q == "BanditPrisoner") {
+			} else if (q == "BanditPrisoner" && !KinkyDungeonBossFloor(MiniGameKinkyDungeonLevel)) {
 				let point = KinkyDungeonGetRandomEnemyPoint(true);
 				if (point) {
 					point = KinkyDungeonNearestJailPoint(point.x, point.y);
