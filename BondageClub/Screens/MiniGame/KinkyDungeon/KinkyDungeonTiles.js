@@ -6,6 +6,13 @@
 let KDMoveObjectFunctions = {
 	'D': (moveX, moveY) => { // Open the door
 		KinkyDungeonMapSet(moveX, moveY, 'd');
+
+		// For private doors, aggro the faction
+		let faction = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Faction ? KinkyDungeonTiles.get(moveX + "," +moveY).Faction : undefined;
+		if (faction) {
+			KinkyDungeonAggroFaction(faction, true);
+		}
+
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 		return true;
 	},

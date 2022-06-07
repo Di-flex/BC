@@ -903,6 +903,7 @@ let KDDialogue = {
 	},
 	"PrisonerBandit": { // Player beats Fuuka
 		response: "Default",
+		personalities: ["Sub"],
 		clickFunction: (gagged) => {
 			return false;
 		},
@@ -913,12 +914,14 @@ let KDDialogue = {
 			},
 			"Help": {
 				playertext: "Default", response: "Default",
+				personalities: ["Sub"],
 				clickFunction: (gagged) => {
 					if (KDDialogueEnemy()) {
 						let e = KDDialogueEnemy();
 						KinkyDungeonEntities.splice(KinkyDungeonEntities.indexOf(KDDialogueEnemy()), 1);
 						let created = DialogueCreateEnemy(e.x, e.y, "Bandit");
 						created.allied = 9999;
+						created.personality = e.personality;
 						if (KDFactionRelation("Player", "Bandit") < -0.5) {
 							for (let enemy of KinkyDungeonEntities) {
 								if (enemy.Enemy.tags.has("bandit")) {
@@ -929,6 +932,7 @@ let KDDialogue = {
 								}
 							}
 						}
+						KinkyDungeonAggroFaction("Bountyhunter");
 						if (KDFactionRelation("Player", "Bandit") < 0.25)
 							KinkyDungeonChangeFactionRep("Bandit", 0.015);
 						else
@@ -936,6 +940,16 @@ let KDDialogue = {
 					}
 					return false;
 				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"Tighten": {
+				playertext: "Default", response: "Default",
+				personalities: ["Sub"],
 				options: {
 					"Leave": {
 						playertext: "Leave", response: "Default",

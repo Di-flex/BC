@@ -1536,7 +1536,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 		playAllowed = true;
 		if (!(enemy.playWithPlayerCD > 0) && !(enemy.playWithPlayer > 0) && KDRandom() < chance && !KDAllied(enemy)) {
 			enemy.playWithPlayer = 8 + Math.floor(KDRandom() * (5 * Math.min(5, Math.max(enemy.Enemy.attackPoints, enemy.Enemy.movePoints))));
-			enemy.playWithPlayerCD = enemy.playWithPlayer * 2.2;
+			enemy.playWithPlayerCD = enemy.playWithPlayer * 2.5;
 			let index = Math.floor(Math.random() * 3);
 			let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);

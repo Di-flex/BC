@@ -5352,5 +5352,10 @@ KDNotFeeling,You're not feeling it...
 KDCantSleep,"You close your eyes but the vibrations keep you from dozing off..."
 
 rPrisonerBandit,"(A SPEAKER lies hogtied in front of you)|(She looks at you with pleading eyes,)|(and mumbles incoherently through her gag)"
-rPrisonerBanditHelp,"(SPEAKER looks grateful)|Thank you so much miss!|I owe you everything."
+rPrisonerBanditSub,"(A SPEAKER lies hogtied in front of you)|(She looks at you, mumbling and giggling into her gag)"
+rPrisonerBanditHelp,"(SPEAKER looks grateful)|Thank you so much|I shall join your party."
+rPrisonerBanditHelpSub,"(SPEAKER looks grateful)|Thank you so much miss!|I owe you everything."
+rPrisonerBanditTighten,"(SPEAKER groans and wriggles around uselessly)"
+rPrisonerBanditTightenSub,"(SPEAKER moans and rolls around, blushing deeply)"
 dPrisonerBandit_Help,Untie her
+dPrisonerBandit_Tighten,Make sure she is tight and secure

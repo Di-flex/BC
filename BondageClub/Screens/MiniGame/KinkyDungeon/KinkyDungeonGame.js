@@ -1870,8 +1870,15 @@ function KinkyDungeonPlacePatrols(Count, width, height) {
 	}
 }
 
-
-function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
+/**
+ * Generates a lock
+ * @param {boolean} [Guaranteed]
+ * @param {number} [Floor]
+ * @param {boolean} [AllowGold]
+ * @param {string} [Type] - Used to customize the type
+ * @returns {string}
+ */
+function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold, Type) {
 	let level = (Floor) ? Floor : MiniGameKinkyDungeonLevel;
 	//let Params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
 
@@ -1879,6 +1886,8 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 	chance += KinkyDungeonScalingLockChance * level / KDLevelsPerCheckpoint;
 
 	if (Guaranteed) chance = 1.0;
+
+	let lock = "";
 
 	if (KDRandom() < chance) {
 		// Now we get the amount failed by
@@ -1899,18 +1908,22 @@ function KinkyDungeonGenerateLock(Guaranteed, Floor, AllowGold) {
 			PurpleChance += 0.05;
 		}
 		if (locktype2 < PurpleChance && locktype2*PurpleChance > locktype*BlueChance) {
-			return "Purple" + modifiers;
+			lock =  "Purple" + modifiers;
 		} else if (locktype < BlueChance) {
 			let max = KinkyDungeonGoldLockChanceScalingMax + Math.min(0.4, KinkyDungeonDifficulty * 0.001);
 			let GoldChance = Math.min(KinkyDungeonGoldLockChance + (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.6 : 1.0) * level * KinkyDungeonGoldLockChanceScaling, (KinkyDungeonStatsChoice.get("HighSecurity") ? 1.9 : 1.0) * max);
 
-			if (AllowGold && KDRandom() < GoldChance) return "Gold" + modifiers;
-			return "Blue" + modifiers;
+			if (AllowGold && KDRandom() < GoldChance) lock = "Gold" + modifiers;
+			else lock = "Blue" + modifiers;
+		} else {
+			lock = "Red" + modifiers;
 		}
-		return "Red" + modifiers;
+	}
+	if (Type == "Door") {
+		if (lock.includes("Blue") || lock.includes("Gold")) lock = "Red";
 	}
 
-	return "";
+	return lock;
 }
 
 function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapChance, grateChance, Floor, width, height) {
@@ -2030,7 +2043,7 @@ function KinkyDungeonPlaceDoors(doorchance, nodoorchance, doorlockchance, trapCh
 								lock = true;
 							}
 							if (lock) {
-								KinkyDungeonTiles.get("" + X + "," + Y).Lock = KinkyDungeonGenerateLock(true, Floor);
+								KinkyDungeonTiles.get("" + X + "," + Y).Lock = KinkyDungeonGenerateLock(true, Floor, false, "Door");
 								KinkyDungeonMapSet(X, Y, 'D');
 							}
 						}

@@ -38,7 +38,7 @@ function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 
 }
 
-function KinkyDungeonAggroChestFaction(faction) {
+function KinkyDungeonAggroFaction(faction, noAllyRepPenalty) {
 	let list = [];
 	let list2 = [];
 	for (let enemy of KinkyDungeonEntities) {
@@ -67,7 +67,7 @@ function KinkyDungeonAggroChestFaction(faction) {
 
 			KinkyDungeonChangeFactionRep(faction, -amount);
 			return true;
-		} else if (list2.length > 0) {
+		} else if (list2.length > 0 && !noAllyRepPenalty) {
 			KinkyDungeonChangeFactionRep(faction, -amount);
 			return false;
 		}
@@ -155,7 +155,7 @@ function KinkyDungeonAggroAction(action, data) {
 				KinkyDungeonStartChase(e, "Chest");
 			}
 			if (data.faction)
-				KinkyDungeonAggroChestFaction(data.faction);
+				KinkyDungeonAggroFaction(data.faction);
 			break;
 
 		// Chests ALWAYS make the enemy angry
