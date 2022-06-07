@@ -3136,6 +3136,10 @@ KinkyDungeonBookNextPageFast,>>>
 KinkyDungeonBookLastPageFast,<<<
 KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
+KinkyDungeonColumnVerbal,"Verbal"
+KinkyDungeonColumnArms,"Arms"
+KinkyDungeonColumnLegs,"Legs"
+KinkyDungeonColumnPassive,"None"
 
 KinkyDungeonFilterbuff,Buffs
 KinkyDungeonFilterdot,DoT

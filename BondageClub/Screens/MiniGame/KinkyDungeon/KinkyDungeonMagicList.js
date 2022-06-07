@@ -35,6 +35,13 @@ let filtersExtra = [
 	[],
 ];
 
+let KDColumnLabels = [
+	["Verbal", "Arms", "Legs", "Passive"],
+	["Verbal", "Arms", "Legs", "Passive"],
+	["Verbal", "Arms", "Legs", "Passive"],
+	[],
+];
+
 /**
  * These spells occur in the menu and the player can learn them
  * Spells with NoBuy cannot be bought, but can be looked at.

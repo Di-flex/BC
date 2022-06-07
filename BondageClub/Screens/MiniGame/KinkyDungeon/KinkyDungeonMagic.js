@@ -1311,6 +1311,14 @@ function KinkyDungeonListSpells(Mode) {
 		}
 	}
 
+	if (KDColumnLabels[KinkyDungeonCurrentSpellsPage]) {
+		for (let column = 0; column < KDColumnLabels[KinkyDungeonCurrentSpellsPage].length; column++) {
+			let x = canvasOffsetX_ui + column * (buttonwidth + xpadding);
+			let y = 80 + canvasOffsetY_ui;
+			DrawText(TextGet("KinkyDungeonColumn" + KDColumnLabels[KinkyDungeonCurrentSpellsPage][column]), x + buttonwidth/2, y, "#ffffff", "#000000");
+		}
+	}
+
 	// Draw the spells themselves
 	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
 		let column = col;//Math.floor((spacing * i) / (maxY));
