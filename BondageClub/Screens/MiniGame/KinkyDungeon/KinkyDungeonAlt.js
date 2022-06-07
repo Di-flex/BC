@@ -406,6 +406,13 @@ function KinkyDungeonCreateTunnel(POI, VisitedRooms, width, height, openness, de
 	KinkyDungeonTiles.set("" + (width*2 - 2) + "," + (VisitedRooms[0].y*2 + 1), {Type: "Ghost", Msg: "MapMod" + exit3});
 
 	KinkyDungeonEndPosition = {x: width*2 - 2, y: VisitedRooms[0].y*2};
+
+	// Place quest NPCs
+	let quests = KDQuestList(2, KDQuests, "Tunnel", "");
+	for (let q of quests) {
+		if (q.npc)
+			KinkyDungeonSummonEnemy(KinkyDungeonStartPosition.x, KinkyDungeonStartPosition.y, q.npc, 1, 14, true);
+	}
 }
 
 

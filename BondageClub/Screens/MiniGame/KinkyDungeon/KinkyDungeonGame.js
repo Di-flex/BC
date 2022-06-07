@@ -592,6 +592,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 
 		if ((KinkyDungeonNearestJailPoint(1, 1) || altType.nojail) && (!altType || KDStageBossGenerated || !bossRules)) iterations = 100000;
 		else console.log("This map failed to generate! Please screenshot and send your save code to Ada on deviantart or discord!");
+
+		if (iterations == 100000) {
+			KDQuestTick(KDGameData.Quests);
+		}
 	}
 }
 

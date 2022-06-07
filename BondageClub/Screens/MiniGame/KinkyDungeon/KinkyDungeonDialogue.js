@@ -967,6 +967,128 @@ function KDYesNoSingle(name, goddess, antigoddess, restraint, diffSpread, Offdif
 }
 
 
+/**
+ * A shop where the seller sells items
+ * @returns {KinkyDialogue}
+ */
+function KDSaleShop(name, items, requireTags, requireSingleTag, chance, markup) {
+	if (!markup) markup = 1.0;
+	let shop = {
+		shop: true,
+		response: "Default",
+		clickFunction: (gagged) => {
+			/*let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "Shop", 0);
+			}*/
+			if (KDDialogueEnemy()) {
+				let enemy = KDDialogueEnemy();
+				if (!enemy.items)
+					enemy.items = items;
+			}
+			for (let i = 0; i < items.length; i++) {
+				let item = items[i];
+				if (KinkyDungeonGetRestraintByName(item)) {
+					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("Restraint" + item);
+					let power = KinkyDungeonGetRestraintByName(item).power;
+					if (!power || power < 1) power = 1;
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = 5 * Math.round((10 + 2 * Math.pow(power, 1.5))/5);
+					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
+				} else {
+					KDGameData.CurrentDialogMsgData["Item"+i] = TextGet("KinkyDungeonInventoryItem" + item);
+					KDGameData.CurrentDialogMsgValue["ItemCost"+i] = Math.round(KinkyDungeonItemCost(KinkyDungeonFindConsumableOrBasic(item) ? KinkyDungeonFindConsumableOrBasic(item) : KinkyDungeonFindWeapon(item), true, true) * markup);
+					KDGameData.CurrentDialogMsgData["ItemCost"+i] = "" + KDGameData.CurrentDialogMsgValue["ItemCost"+i];
+				}
+			}
+			return false;
+		},
+		options: {},
+	};
+	shop.options.Leave = {playertext: "Leave", exitDialogue: true,
+		clickFunction: (gagged) => {
+			let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+			if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+				KinkyDungeonSetEnemyFlag(enemy, "NoShop", 9999);
+				KinkyDungeonSetEnemyFlag(enemy, "NoTalk", 8);
+			}
+			return false;
+		},
+	};
+	shop.options.Attack = {gag: true, playertext: "ItemShopAttack", response: "Default",
+		options: {
+			"Confirm": {playertext: "ItemShopAttack_Confirm", response: "Default",
+				clickFunction: (gagged) => {
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						enemy.hostile = 100;
+						KinkyDungeonChangeRep("Ghost", -5);
+						if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy)))
+							KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+					}
+					return false;
+				},
+				exitDialogue: true,
+			},
+			"Leave": {playertext: "ItemShopAttack_Leave", response: "Default",
+				leadsToStage: "",
+			},
+		}
+	};
+
+	for (let i = 0; i < items.length; i++) {
+		let item = items[i];
+		shop.options["Item" + i] = {playertext: "ItemShopBuy" + i, response: name + item,
+			prerequisiteFunction: (gagged) => {
+				return true;//KinkyDungeonInventoryGet(item) != undefined;
+			},
+			clickFunction: (gagged) => {
+				let buy = false;
+				if (KinkyDungeonGold >= KDGameData.CurrentDialogMsgValue["ItemCost"+i]) {
+					buy = true;
+					if (KinkyDungeonGetRestraintByName(item)) {
+						// Sell the player a restraint
+						let rest = KinkyDungeonGetRestraintByName(item);
+						if (!KinkyDungeonInventoryGetLoose(rest.name)) {
+							KinkyDungeonInventoryAdd({name: rest.name, type: LooseRestraint, events:rest.events, quantity: 1});
+						} else {
+							if (!KinkyDungeonInventoryGetLoose(rest.name).quantity) KinkyDungeonInventoryGetLoose(rest.name).quantity = 0;
+							KinkyDungeonInventoryGetLoose(rest.name).quantity += 1;
+						}
+					} else if (KinkyDungeonFindBasic(item)) {
+						KDAddBasic(KinkyDungeonFindBasic(item));
+					} else if (KinkyDungeonFindConsumable(item)) {
+						KinkyDungeonChangeConsumable(KinkyDungeonFindConsumable(item), 1);
+					} else if (KinkyDungeonFindWeapon(item)) {
+						if (!KinkyDungeonInventoryGetWeapon(item)) {
+							KinkyDungeonInventoryAddWeapon(item);
+						} else {
+							KDGameData.CurrentDialogMsg = name + "_AlreadyHave";
+							buy = false;
+						}
+					}
+				} else {
+					KDGameData.CurrentDialogMsg = name + "_NoMoney";
+				}
+
+				if (buy) {
+					KinkyDungeonAddGold(-KDGameData.CurrentDialogMsgValue["ItemCost"+i]);
+					let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+						let faction = KDGetFactionOriginal(enemy);
+						if (!KinkyDungeonHiddenFactions.includes(faction)) {
+							KinkyDungeonChangeFactionRep(faction, Math.max(0.0001, KDGameData.CurrentDialogMsgValue["ItemCost"+i] * 0.0001));
+						}
+					}
+				}
+				return false;
+			},
+			leadsToStage: "", dontTouchText: true,
+		};
+	}
+	KDShops.push({name: name, tags: requireTags, singletag: requireSingleTag, chance: chance});
+	return shop;
+}
+
 /*
 
 					"Leave": {playertext: "Leave", exitDialogue: true}

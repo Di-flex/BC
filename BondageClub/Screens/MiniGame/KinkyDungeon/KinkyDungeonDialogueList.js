@@ -901,6 +901,124 @@ let KDDialogue = {
 			"Leave": {playertext: "Leave", exitDialogue: true},
 		}
 	},
+	"DressmakerQuest": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KinkyDungeonSetFlag("DressmakerQuest", -1);
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"Complete": {
+				playertext: "Default", response: "Default",
+				gag: true,
+				clickFunction: (gagged) => {
+					let items = KinkyDungeonGetRestraintsWithShrine("BindingDress", true, true);
+					// Get the most powerful item
+					let item = items.length > 0 ? items.reduce((prev, current) => (KDRestraint(prev).power * KinkyDungeonGetLockMult(prev.lock) > KDRestraint(current).power * KinkyDungeonGetLockMult(current.lock)) ? prev : current) : null;
+
+					let power = item ? KDRestraint(item).power : 5;
+					if (KDFactionRelation("Player", "Dressmaker") < 0.25)
+						KinkyDungeonChangeFactionRep("Dressmaker", 0.002 * power);
+					else
+						KinkyDungeonChangeFactionRep("Dressmaker", 0.0007 * power);
+					return false;
+				},
+				prerequisiteFunction: (gagged) => {
+					return KinkyDungeonPlayerTags.has("BindingDress");
+				},
+				options: {
+					"Question": {
+						playertext: "Default", response: "Default",
+						gag: true,
+						clickFunction: (gagged) => {
+							if (KinkyDungeonStatsChoice.has("Dominant")) {
+								KinkyDungeonRemoveRestraintsWithShrine("BindingDress");
+								KDGameData.CurrentDialogMsg = "DressmakerQuestComplete_QuestionSuccess";
+							}
+							return false;
+						},
+						options: {
+							"Leave": {
+								playertext: "Leave", response: "Default",
+								exitDialogue: true,
+							},
+						}
+					},
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
+	"DragonheartQuest": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDAddQuest("DragonLeaderDuelist");
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
+	"BanditQuest": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Help": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					KDAddQuest("BanditPrisoner");
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
+	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "TrapCuffs"], [], ["blacksmith"], 0.4),
 	"PrisonerBandit": { // Player beats Fuuka
 		response: "Default",
 		personalities: ["Sub"],

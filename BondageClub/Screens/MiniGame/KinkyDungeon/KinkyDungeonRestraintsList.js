@@ -234,7 +234,7 @@ const KinkyDungeonRestraints = [
 			{Item: "PleatedSkirt", Group: "ClothLower", Color: ['#6B48E0'], override: true},
 			{Item: "SleevelessCatsuit", Group: "Suit", Color: ['#473488'], override: true},
 			{Item: "CatsuitPanties", Group: "SuitLower", Color: ['#473488'], override: true}],
-		maxstamina: 0.5, enemyTags: {"dressRestraints" : 10, "bindingDress": 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Panties"]},
+		maxstamina: 0.5, enemyTags: {"dressRestraints" : 10, "bindingDress": 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "BindingDress"]},
 
 	//region Fuuka's stuff
 	{inventory: true, curse: "GhostLock", name: "MikoCollar", Asset: "HighCollar", Color: ["#ffffff", "#AA2222"],Group: "ItemNeck", magic: true, power: 40, weight: 0, difficultyBonus: 10,
@@ -253,7 +253,7 @@ const KinkyDungeonRestraints = [
 			{Item: "SleevelessCatsuit", Group: "Suit", Color: ['#AA2222'], override: true},
 			{Item: "LatexCorset1", Group: "Corset", Color: ['#ffffff'], override: true},
 			{Item: "CatsuitPanties", Group: "SuitLower", Color: ['#AA2222'], override: true}],
-		maxstamina: 0.5, enemyTags: {"mikoRestraints" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "Panties"]},
+		maxstamina: 0.5, enemyTags: {"mikoRestraints" : 10}, playerTags: {}, minLevel: 0, allFloors: true, shrine: ["Latex", "BindingDress"]},
 	//endregion
 
 	{inventory: true, name: "DressBra", inaccessible: true, Asset: "FuturisticBra2", Color: ['#6B48E0', '#F8BD01', '#6B48E0', '#6B48E0', '#F8BD01', '#6B48E0'], Group: "ItemBreast", chastitybra: true, power: 8, weight: -2,

@@ -1061,8 +1061,8 @@ function KinkyDungeonDefeat() {
 
 	let enemies = [];
 	for (let e of  KinkyDungeonEntities) {
-		if (!e.summoned) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
-			if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+		if (!e.Enemy.tags.has("temporary")) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
+			if (!e.Enemy.tags.has("prisoner") && KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
 				let p = KinkyDungeonGetRandomEnemyPoint(true);
 				if (p) {
 					e.x = p.x;

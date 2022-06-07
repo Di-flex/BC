@@ -278,7 +278,13 @@ function KinkyDungeonDrawEnemiesStatus(canvasOffsetX, canvasOffsetY, CamX, CamY)
 			&& KinkyDungeonLightGet(enemy.x, enemy.y) > 0) {
 			let bindLevel = KDBoundEffects(enemy);
 			if (((enemy.revealed && !enemy.Enemy.noReveal) || !enemy.Enemy.stealth || KinkyDungeonSeeAll || playerDist <= enemy.Enemy.stealth + 0.1) && !(KinkyDungeonGetBuffedStat(enemy.buffs, "Sneak") > 0)) {
-				if (!KinkyDungeonAggressive(enemy) && (!KDAllied(enemy) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
+				if (enemy.Enemy.specialdialogue) {
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Conditions/Dialogue.png",
+						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
+						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
+						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
+				if (!KinkyDungeonAggressive(enemy) && ((!KDAllied(enemy) && !enemy.Enemy.specialdialogue) || KDEnemyHasFlag(enemy, "Shop")) && !enemy.playWithPlayer && enemy.Enemy.movePoints < 90 && enemy.Enemy.AI != "ambush") {
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + ((KDEnemyHasFlag(enemy, "Shop")) ? "Conditions/Shop.png" : (KDAllied(enemy) ? "Conditions/Heart.png" : "Conditions/Peace.png")),
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/2,
@@ -770,6 +776,10 @@ function KinkyDungeonEnemyCheckHP(enemy, E) {
 				} else if (o.type == "spellOnSelf") {
 					let spell = KinkyDungeonFindSpell(o.spell, true);
 					if (spell) KinkyDungeonCastSpell(enemy.x, enemy.y, spell, undefined, undefined, undefined);
+				} else if (o.type == "removeQuest") {
+					KDRemoveQuest(o.quest);
+				} else if (o.type == "addQuest") {
+					KDAddQuest(o.quest);
 				}
 			}
 		}
@@ -799,6 +809,7 @@ function KDDropItems(enemy) {
 
 	}
 }
+
 
 /**
  *

@@ -16,6 +16,24 @@ function KinkyDungeonFindConsumable(Name) {
 	return undefined;
 }
 
+function KinkyDungeonFindBasic(Name) {
+	for (let con of Object.values(KinkyDungneonBasic)) {
+		if (con.name == Name) return con;
+	}
+	return undefined;
+}
+
+function KinkyDungeonFindConsumableOrBasic(Name) {
+	for (let con of Object.values(KinkyDungeonConsumables)) {
+		if (con.name == Name) return con;
+	}
+
+	for (let con of Object.values(KinkyDungneonBasic)) {
+		if (con.name == Name) return con;
+	}
+	return undefined;
+}
+
 function KinkyDungeonGetInventoryItem(Name, Filter = Consumable) {
 	let Filtered = KinkyDungeonFilterInventory(Filter);
 	for (let item of Filtered) {

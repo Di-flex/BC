@@ -8,6 +8,27 @@ let KinkyDungeonEnemies = [
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "PrisonerBandit",
 		terrainTags: {}, floors:KDMapInit([])},
 
+	// Quest NPC
+	{name: "DressmakerQuest", tags: KDMapInit(["dressmaker", "human", "peaceful"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "DressmakerQuest",
+		terrainTags: {}, floors:KDMapInit([])},
+	{name: "BlacksmithQuest", tags: KDMapInit(["human", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "BlacksmithShop",
+		terrainTags: {}, floors:KDMapInit([])},
+	{name: "DragonheartQuest", tags: KDMapInit(["dragon", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "DragonheartQuest",
+		terrainTags: {}, floors:KDMapInit([])},
+	{name: "DragonLeaderDuelist", faction: "Enemy", bound: "DragonLeader", color: "#F92900", tags: KDMapInit(["opendoors", "fire", "ignorenoSP", "dragon", "melee", "elite", "dragonRestraints", "unflinching", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "fireimmune"]),
+		ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", focusPlayer: true,
+		specialCD: 3, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, dashThrough: true, specialsfx: "Miss",
+		visionRadius: 7, maxhp: 28, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 2,
+		terrainTags: {}, shrines: ["Leather"], allFloors: true,
+		dropTable: [], factionrep: {"Dragon": 0.015}, ondeath: [{type: "removeQuest", quest: "DragonLeaderDuelist"}]},
+	{name: "BanditQuest", tags: KDMapInit(["bandit", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "BanditQuest",
+		terrainTags: {}, floors:KDMapInit([])},
+	// End Quest NPC
+
 	{name: "ChainWall", tags: KDMapInit(["construct", "player", "noknockback", "melee"]), faction: "Witch", immobile: true, spellResist: 4, lowpriority: true, evasion: -100, armor: 2, followRange: 100, AI: "wander", regen: -0.25,
 		visionRadius: 0, maxhp: 5, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:KDMapInit([])},

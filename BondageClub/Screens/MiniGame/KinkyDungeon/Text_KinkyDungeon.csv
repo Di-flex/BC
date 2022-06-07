@@ -1111,10 +1111,17 @@ AttackDragonShadowPull,"The Shadow Dragonheart extends her scythe and pulls you 
 AttackDragonShadow,"The Shadow Dragonheart catches you with her scythe! (-DamageTaken SP)"
 
 NameDragonLeader,Dragonheart Leader
-KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
+KillDragonLeader,"The Dragonheart Leader admits defeat."
 AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
 AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
 AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
+
+
+NameDragonLeaderDuelist,Rebel Scum!
+KillDragonLeaderDuelist,"The Dragonheart Rebel admits defeat."
+AttackDragonLeaderDuelistBind,"The Dragonheart Rebel apprehends you! (+RestraintAdded)"
+AttackDragonLeaderDuelistDash,"'En garde!'"
+AttackDragonLeaderDuelist,"The Dragonheart Rebel squeezes your body! (-DamageTaken SP)"
 
 NameDryad,Dryad
 KillDryad,"The dryad sinks into the ground."
@@ -1478,6 +1485,18 @@ AttackFungalBind,"The fun-gal clips a restraint around your neck!"
 AttackFungal,"The fun-gal rubs your chest with her long, slender fingers!"
 KinkyDungeonSpellCrystalPuff,Crystal Glyph
 
+
+NameDressmakerQuest,Tailor
+KillDressmakerQuest,You murder the tailor!
+
+NameDragonheartQuest,Tactician
+KillDragonheartQuest,You murder the tactician!
+
+NameBanditQuest,Thug
+KillBanditQuest,You murder the thug!
+
+NameBlacksmithQuest,Blacksmith
+KillBlacksmithQuest,You murder the blacksmith!
 
 NameDressmaker,Dressmaker
 KillDressmaker,"The dressmaker storms out in a rage."
@@ -4996,6 +5015,20 @@ dOfferMaidForce_No,"Never! (PERCENT chance to avoid)"
 dOfferMaidForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)"
 
 
+
+
+rBlacksmithShop,"(The SPEAKER waves)|Greetings,|I manufacture all sorts of goods.|Would you like to buy some?"
+rBlacksmithShopAttack,"(The SPEAKER drops her hammer and cracks her knuckles)|Put em up!"
+rBlacksmithShop_AlreadyHave,"(The SPEAKER looks at you.)|But you already have one?"
+rBlacksmithShop_NoMoney,"(The SPEAKER folds her arms)|I don't do charity, ma'am."
+rBlacksmithShopRedKey,"(The SPEAKER nods)|Young adventurers like you should always carry some."
+rBlacksmithShopSword,"(The SPEAKER nods)|A versatile weapon. One of my favorites."
+rBlacksmithShopSpear,"(The SPEAKER nods)|Keep your friends close, and your enemies far away."
+rBlacksmithShopKnife,"(The SPEAKER nods)|Handy to have one of these."
+rBlacksmithShopAxe,"(The SPEAKER nods)|The best defense is a good offense."
+rBlacksmithShopTrapCuffs,"(The SPEAKER looks puzzled)|Don't know why you want 'em, but sure."
+
+
 rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
 rPotionSellAttack,"(The SPEAKER doesn't look surprised)|Okay, just let me set these down real quick..."
 rPotionSellPotionMana,"(The SPEAKER smiles)|A spellcaster will have great use for this!"
@@ -5052,6 +5085,17 @@ dItemShop6,(Sell Item6 for ItemCost6 gp)
 dItemShop7,(Sell Item7 for ItemCost7 gp)
 dItemShop8,(Sell Item8 for ItemCost8 gp)
 dItemShop9,(Sell Item9 for ItemCost9 gp)
+
+dItemShopBuy0,(Buy Item0 for ItemCost0 gp)
+dItemShopBuy1,(Buy Item1 for ItemCost1 gp)
+dItemShopBuy2,(Buy Item2 for ItemCost2 gp)
+dItemShopBuy3,(Buy Item3 for ItemCost3 gp)
+dItemShopBuy4,(Buy Item4 for ItemCost4 gp)
+dItemShopBuy5,(Buy Item5 for ItemCost5 gp)
+dItemShopBuy6,(Buy Item6 for ItemCost6 gp)
+dItemShopBuy7,(Buy Item7 for ItemCost7 gp)
+dItemShopBuy8,(Buy Item8 for ItemCost8 gp)
+dItemShopBuy9,(Buy Item9 for ItemCost9 gp)
 
 rAngelHelp,"(The SPEAKER appears in a flash of light)|I come in the name of the Goddess.|I presume you need my aid?|(She will remain and help you with restraints for 50 turns)"
 rAngelHelpKnife,"(The SPEAKER gives you two knives)|Don't hurt yourself with these, okay?"
@@ -5359,3 +5403,22 @@ rPrisonerBanditTighten,"(SPEAKER groans and wriggles around uselessly)"
 rPrisonerBanditTightenSub,"(SPEAKER moans and rolls around, blushing deeply)"
 dPrisonerBandit_Help,Untie her
 dPrisonerBandit_Tighten,Make sure she is tight and secure
+
+rDressmakerQuest,"(A SPEAKER bumps into you while immersed in her thoughts)|Oh! Hello!|Say, you look adorable...|Do you mind helping me find something?"
+rDressmakerQuestHelp,"(The SPEAKER jumps up and down)|Ah, wonderful!|I've misplaced one of my dresses.|If you could find one, wear it, and bring it to me,|I'd greatly appreciate it! Thanks!"
+rDressmakerQuestComplete,"(The SPEAKER stares at you like a rabid animal)|Wowie! You look gorgeous!|Thank you so much!|(She snaps a photo of you using a magic crystal)"
+rDressmakerQuestComplete_Question,"(The SPEAKER giggles)|I never said I'd take it off, did I?"
+rDressmakerQuestComplete_QuestionSuccess,"(The SPEAKER smiles)|Sure thing!"
+dDressmakerQuest_Help,(Show interest)
+dDressmakerQuest_Complete,I found your dress...
+dDressmakerQuest_CompleteGag,Mmmph... (Found the dress!)
+dDressmakerQuestComplete_Question,Great! Can you take it off?
+dDressmakerQuestComplete_QuestionGag,Mmmmm! (Struggle)
+
+rDragonheartQuest,"(A SPEAKER looks distraught)|Well met, adventurer!|We have a problem..."
+rDragonheartQuestHelp,"(The SPEAKER folds her arms)|A rebel has been causing us problems lately...|If you run into her, give her all you got!|She needs to be brought to justice."
+dDragonheartQuest_Help,(Show interest)
+
+rBanditQuest,"(A SPEAKER crosses her arms)|Who you lookin' at?|Oh, it's an adventurer.|Say, you wouldn't be interested|in working with us, would ya?"
+rBanditQuestHelp,"(The SPEAKER smiles)|That's more like it.|Here's the scoop: One of ours was captured on the next floor.|We need you to go get her out."
+dBanditQuest_Help,(Show interest)

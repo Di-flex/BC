@@ -324,7 +324,7 @@ function KinkyDungeonLock(item, lock) {
  * @param {string} shrine
  * @returns {item[]}
  */
-function KinkyDungeonGetRestraintsWithShrine(shrine, ignoreGold) {
+function KinkyDungeonGetRestraintsWithShrine(shrine, ignoreGold, recursive) {
 	/**
 	 * @type {item[]}
 	 */
@@ -333,6 +333,15 @@ function KinkyDungeonGetRestraintsWithShrine(shrine, ignoreGold) {
 	for (let item of KinkyDungeonAllRestraint()) {
 		if (KDRestraint(item).shrine && KDRestraint(item).shrine.includes(shrine) && (ignoreGold || item.lock != "Gold")) {
 			ret.push(item);
+		}
+		if (recursive) {
+			let link = item.dynamicLink;
+			while (link) {
+				if (KDRestraint(link).shrine && KDRestraint(link).shrine.includes(shrine) && (ignoreGold || link.lock != "Gold")) {
+					ret.push(link);
+				}
+				link = link.dynamicLink;
+			}
 		}
 	}
 
@@ -344,7 +353,7 @@ function KinkyDungeonGetRestraintsWithShrine(shrine, ignoreGold) {
  * @param {string} shrine
  * @returns {number}
  */
-function KinkyDungeonRemoveRestraintsWithShrine(shrine, maxCount) {
+function KinkyDungeonRemoveRestraintsWithShrine(shrine, maxCount, recursive) {
 	let count = 0;
 
 	for (let i = 0; i < (maxCount ? maxCount : 100); i++) {
@@ -358,6 +367,36 @@ function KinkyDungeonRemoveRestraintsWithShrine(shrine, maxCount) {
 			KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false, true);
 			KDSendStatus('escape', item.name, "shrine_" + shrine);
 			count++;
+		}
+
+		if (recursive) {
+			// Get all items, including dynamically linked ones
+			items = KinkyDungeonGetRestraintsWithShrine(shrine, true, true);
+
+			// Get the most powerful item
+			item = items.length > 0 ? items.reduce((prev, current) => (KDRestraint(prev).power * KinkyDungeonGetLockMult(prev.lock) > KDRestraint(current).power * KinkyDungeonGetLockMult(current.lock)) ? prev : current) : null;
+			if (item) {
+				let groupItem = KinkyDungeonGetRestraintItem(KDRestraint(item).Group);
+				if (groupItem == item) {
+					KinkyDungeonRemoveRestraint(KDRestraint(item).Group, false, false, false, true);
+					KDSendStatus('escape', item.name, "shrine_" + shrine);
+					count++;
+				} else {
+					let host = groupItem;
+					let link = host.dynamicLink;
+					while (link) {
+						if (link == item) {
+							KinkyDungeonRemoveDynamicRestraint(host, false, false);
+							KDSendStatus('escape', item.name, "shrine_" + shrine);
+							count++;
+							link = null;
+						} else {
+							host = link;
+							link = link.dynamicLink;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -457,7 +496,7 @@ function KinkyDungeonHasGhostHelp() {
  * @returns {boolean}
  */
 function KinkyDungeonHasAllyHelp() {
-	return (KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return KDEnemyHasFlag(enemy, "HelpMe") && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp");}));
+	return (KDNearbyEnemies(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 1.5).some((enemy) => {return (KDEnemyHasFlag(enemy, "HelpMe") || enemy.Enemy.tags.has("alwayshelp")) && enemy.Enemy.bound && !enemy.Enemy.tags.has("nohelp");}));
 }
 
 KinkyDungeonSetFlag("HelpMeFlag", 20);
