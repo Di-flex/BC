@@ -297,6 +297,8 @@ KinkyDungeonRestartCapture,"Actually, I will let the enemy capture me instead."
 KinkyDungeonRestartNo,"No, I wish to press on"
 KinkyDungeonCheckPerks,"See Background"
 
+KinkyDungeonChestFaction,This chest belongs to the FACTION
+
 DeviousChallenge,"Devious Dungeon Challenge is enabled."
 KinkyDungeonLoading,"Waiting for game data..."
 
