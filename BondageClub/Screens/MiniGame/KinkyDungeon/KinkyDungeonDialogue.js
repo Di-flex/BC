@@ -1097,3 +1097,18 @@ function KDSaleShop(name, items, requireTags, requireSingleTag, chance, markup) 
 clickFunction: (gagged) => {
 	KinkyDungeonChangeRep("Ghost", 3);
 },*/
+
+/** Yoinks a nearby enemy and brings them next to x */
+function DialogueBringNearbyEnemy(x, y, radius) {
+	for (let e of KinkyDungeonEntities) {
+		if (KDistChebyshev(x - e.x, y - e.y) <= radius && KinkyDungeonAggressive(e)) {
+			let point = KinkyDungeonGetNearbyPoint(x, y, true);
+			if (point) {
+				KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonDiscovered"), "red", 1);
+				KDMoveEntity(e, point.x, point.y, true);
+				break;
+			}
+
+		}
+	}
+}

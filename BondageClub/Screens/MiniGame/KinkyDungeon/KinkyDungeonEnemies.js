@@ -423,14 +423,19 @@ function KDCanSeeEnemy(enemy, playerDist) {
 function KDGetEnemyStruggleRate(enemy) {
 	let level = KDBoundEffects(enemy);
 	let mult = 0.1;
-	if (enemy.bind > 0) mult *= 0.4;
-	else if (enemy.slow > 0) mult *= 0.7;
-	if (level > 3) mult *= 4; // Struggle faster when bound heavily, because they're using all their energy to try to escape
-	if (enemy.vulnerable > 0 || enemy.attackPoints > 0) mult *= 0.5;
-	if (enemy.boundLevel > 0) {
-		mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
+
+	if (enemy.boundLevel > enemy.Enemy.maxhp * 10) {
+		mult = 0;
+	} else {
+		if (enemy.bind > 0) mult *= 0.4;
+		else if (enemy.slow > 0) mult *= 0.7;
+		if (level > 3) mult *= 4; // Struggle faster when bound heavily, because they're using all their energy to try to escape
+		if (enemy.vulnerable > 0 || enemy.attackPoints > 0) mult *= 0.5;
+		if (enemy.boundLevel > 0) {
+			mult *= Math.pow(1.5, -enemy.boundLevel / enemy.Enemy.maxhp); // The more you tie, the stricter the bondage gets
+		}
+		if (KinkyDungeonGetBuffedStat(enemy.buffs, "Lockdown")) mult *= KinkyDungeonGetBuffedStat(enemy.buffs, "Lockdown");
 	}
-	if (KinkyDungeonGetBuffedStat(enemy.buffs, "Lockdown")) mult *= KinkyDungeonGetBuffedStat(enemy.buffs, "Lockdown");
 	let amount = mult * Math.pow(Math.max(0.01, enemy.hp), 0.75); // Lower health enemies struggle slower
 	return amount;
 }

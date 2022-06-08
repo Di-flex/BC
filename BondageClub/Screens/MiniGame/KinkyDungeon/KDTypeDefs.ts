@@ -812,6 +812,7 @@ interface entity {
 	flags?: Record<string, number>,
 	noDrop?: boolean,
 	droppedItems?: boolean,
+	specialdialogue?: string,
 	aggro?: number,
 	id?: number,
 	hp: number,

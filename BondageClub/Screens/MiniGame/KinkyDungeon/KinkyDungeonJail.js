@@ -9,6 +9,8 @@ let KDJailReleaseTurns = [
 	{minSub: 90, releaseTurns: 40},
 ];
 
+let KDSecurityLevelHiSec = 0;
+
 function KinkyDungeonLoseJailKeys(Taken, boss, enemy) {
 	// KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'chase'
 	if (KinkyDungeonFlags.has("BossUnlocked")) return;
@@ -101,7 +103,7 @@ function KinkyDungeonCanPlay(enemy) {
 function KinkyDungeonCheckRelease() {
 	if (KDGameData.RoomType) {
 		let altRoom = KinkyDungeonAltFloor(KDGameData.RoomType);
-		if (altRoom && altRoom.noRelease) return altRoom.releaseOnLowSec ? (KinkyDungeonGoddessRep.Prisoner >= -40 ? -1 : 1) : -1;
+		if (altRoom && altRoom.noRelease) return altRoom.releaseOnLowSec ? (KinkyDungeonGoddessRep.Prisoner >= KDSecurityLevelHiSec ? -1 : 1) : -1;
 	}
 	let sub = KinkyDungeonGoddessRep.Ghost + 50;
 	let security = KinkyDungeonGoddessRep.Prisoner + 50;
@@ -417,7 +419,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 			// Determine which action to take
 			if (release >= 0 && lockableRestraint.length == 0) {
 				KinkyDungeonInterruptSleep();
-				if (KinkyDungeonGoddessRep.Prisoner >= -40 && KDGameData.RoomType != "Jail") {
+				if (KinkyDungeonGoddessRep.Prisoner >= KDSecurityLevelHiSec && KDGameData.RoomType != "Jail") {
 					KDStartDialog("JailerHiSec", KinkyDungeonJailGuard().Enemy.name, true, "", KinkyDungeonJailGuard());
 				} else {
 					KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonRemindJailRelease" + release).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 4);
@@ -1082,7 +1084,7 @@ function KinkyDungeonDefeat(PutInJail) {
 	let enemies = [];
 	for (let e of  KinkyDungeonEntities) {
 		if (!e.Enemy.tags.has("temporary")) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
-			if (!e.Enemy.tags.has("prisoner") && KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+			if (!e.Enemy.tags.has("prisoner") && !KDEnemyHasFlag(e, "imprisoned") && KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
 				let p = KinkyDungeonGetRandomEnemyPoint(true);
 				if (p) {
 					e.x = p.x;

@@ -2516,7 +2516,9 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
 			if (!Enemy.lifetime || Enemy.lifetime > 9000) { // KDAllied(Enemy)
-				KDStartDialog(Enemy.Enemy.specialdialogue ? Enemy.Enemy.specialdialogue : "GenericAlly", Enemy.Enemy.name, true, Enemy.personality, Enemy);
+				let d = Enemy.Enemy.specialdialogue ? Enemy.Enemy.specialdialogue : "GenericAlly";
+				if (Enemy.specialdialogue) d = Enemy.specialdialogue; // Special dialogue override
+				KDStartDialog(d, Enemy.Enemy.name, true, Enemy.personality, Enemy);
 				noadvance = true;
 			}
 			/*} else if (KDEnemyHasFlag(Enemy, "Shop")) {

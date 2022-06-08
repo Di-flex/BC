@@ -1142,7 +1142,6 @@ let KDDialogue = {
 			"Submit": {
 				playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
-
 					KinkyDungeonDefeat(true);
 					return true;
 				},
@@ -1238,6 +1237,101 @@ let KDDialogue = {
 			"Tighten": {
 				playertext: "Default", response: "Default",
 				personalities: ["Sub"],
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+		}
+	},
+	"PrisonerJail": { // For prisoners in the prison level. Doesnt increase rep much, but useful for jailbreak purposes
+		response: "Default",
+		clickFunction: (gagged) => {
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+			"Unlock": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					if (KinkyDungeonRedKeys > 0) {
+						if (!KinkyDungeonIsHandsBound() || !KinkyDungeonIsArmsBound()) {
+							if (KDDialogueEnemy()) {
+								let e = KDDialogueEnemy();
+								e.boundLevel = 0;
+								e.allied = 9999;
+								e.faction = "Player";
+								e.specialdialogue = undefined;
+								KinkyDungeonAggroFaction("Jail");
+								let faction = KDGetFactionOriginal(e);
+								if (!KinkyDungeonHiddenFactions.includes(faction)) {
+									if (KDFactionRelation("Player", faction) < 0.25)
+										KinkyDungeonChangeFactionRep(faction, 0.005);
+									else
+										KinkyDungeonChangeFactionRep(faction, 0.0025);
+								}
+								KinkyDungeonRedKeys -= 1;
+								if (KinkyDungeonIsHandsBound()) {
+									DialogueBringNearbyEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 8);
+									KDGameData.CurrentDialogMsg = "PrisonerJailUnlockSlow";
+								} else {
+									KDGameData.CurrentDialogMsg = "PrisonerJailUnlock";
+								}
+							}
+						} else {
+							KDGameData.CurrentDialogStage = "";
+							KDGameData.CurrentDialogMsg = "PrisonerJailUnlockHandsBound";
+						}
+					} else {
+						KDGameData.CurrentDialogStage = "";
+						KDGameData.CurrentDialogMsg = "PrisonerJailNoKeys";
+					}
+					return false;
+				},
+				options: {
+					"Leave": {
+						playertext: "Leave", response: "Default",
+						exitDialogue: true,
+					},
+				}
+			},
+			"Pick": {
+				playertext: "Default", response: "Default",
+				clickFunction: (gagged) => {
+					if (KinkyDungeonLockpicks > 0) {
+						if (!KinkyDungeonIsHandsBound()) {
+							if (KDDialogueEnemy()) {
+								let e = KDDialogueEnemy();
+								e.boundLevel = 0;
+								e.allied = 9999;
+								e.faction = "Player";
+								e.specialdialogue = undefined;
+								KinkyDungeonAggroFaction("Jail");
+								let faction = KDGetFactionOriginal(e);
+								if (!KinkyDungeonHiddenFactions.includes(faction)) {
+									if (KDFactionRelation("Player", faction) < 0.25)
+										KinkyDungeonChangeFactionRep(faction, 0.005);
+									else
+										KinkyDungeonChangeFactionRep(faction, 0.0025);
+								}
+								KDGameData.CurrentDialogMsg = "PrisonerJailPick";
+								DialogueBringNearbyEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 8);
+							}
+						} else {
+							KDGameData.CurrentDialogStage = "";
+							KDGameData.CurrentDialogMsg = "PrisonerJailPickHandsBound";
+						}
+					} else {
+						KDGameData.CurrentDialogStage = "";
+						KDGameData.CurrentDialogMsg = "PrisonerJailNoPick";
+					}
+					return false;
+				},
 				options: {
 					"Leave": {
 						playertext: "Leave", response: "Default",
