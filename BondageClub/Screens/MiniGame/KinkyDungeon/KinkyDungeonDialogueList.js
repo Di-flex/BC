@@ -1142,8 +1142,9 @@ let KDDialogue = {
 			"Submit": {
 				playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
+
 					KinkyDungeonDefeat(true);
-					return false;
+					return true;
 				},
 				exitDialogue: true,
 			},

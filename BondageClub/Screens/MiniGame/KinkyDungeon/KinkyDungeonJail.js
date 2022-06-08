@@ -964,6 +964,8 @@ function KDGetJailDoor(x, y) {
 }
 
 function KinkyDungeonDefeat(PutInJail) {
+	KDGameData.CurrentDialog = "";
+	KDGameData.CurrentDialogStage = "";
 	KDGameData.KinkyDungeonLeashedPlayer = 0;
 	if (KinkyDungeonFlags.get("JailIntro"))
 		KinkyDungeonSetFlag("JailRepeat", -1);
