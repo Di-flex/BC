@@ -1373,7 +1373,7 @@ function KinkyDungeonPlaceChests(chestlist, treasurechance, treasurecount, rubbl
 			if (chest.Loot) lock = chest.Lock;
 			if (silverchest == 0 && !chest.Loot) {
 				silverchest += 1;
-				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom(), NoTrap: chest.NoTrap, });
+				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: "silver", Roll: KDRandom(), NoTrap: chest.NoTrap, Faction: chest.Faction});
 			} else if (lock) {
 				KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {NoTrap: chest.NoTrap, Type: "Lock", Lock: lock, Loot: lock == "Blue" ? "blue" : (chest.Loot ? chest.Loot : "chest"), Faction: chest.Faction, Roll: KDRandom(), Special: lock == "Blue", RedSpecial: lock == "Red"});
 			} else KinkyDungeonTiles.set("" + chest.x + "," +chest.y, {Loot: chest.Loot ? chest.Loot : "chest", Faction: chest.Faction, Roll: KDRandom(), NoTrap: chest.NoTrap,});
