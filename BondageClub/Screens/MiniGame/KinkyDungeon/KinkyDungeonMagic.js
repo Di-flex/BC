@@ -1275,6 +1275,7 @@ function KinkyDungeonDrawMagic() {
 let selectedFilters = [];
 
 let KDSpellListIndex = 0;
+let KDMaxSpellPerColumn = 8;
 
 function KinkyDungeonListSpells(Mode) {
 	let i = 0;
@@ -1319,16 +1320,38 @@ function KinkyDungeonListSpells(Mode) {
 		}
 	}
 
+
+	let longestList = 0;
+	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
+		longestList = Math.max(longestList, pg.length);
+	}
+	if (KDSpellListIndex > longestList) KDSpellListIndex = 0;
+
+	DrawButtonKDEx("spellsUp", (bdata) => {
+		KDSpellListIndex = Math.max(0, KDSpellListIndex - 3);
+		return true;
+	}, KDSpellListIndex > 0, 910, 800, 90, 40, "", KDSpellListIndex > 0 ? "white" : "#888888", KinkyDungeonRootDirectory + "Up.png");
+	DrawButtonKDEx("spellsDown", (bdata) => {
+		KDSpellListIndex = Math.max(0, Math.min(longestList - KDMaxSpellPerColumn + 1, KDSpellListIndex + 3));
+		return true;
+	}, KDSpellListIndex < longestList - KDMaxSpellPerColumn + 1, 1160, 800, 90, 40, "", KDSpellListIndex < longestList - KDMaxSpellPerColumn + 1 ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
+
 	// Draw the spells themselves
 	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
 		let column = col;//Math.floor((spacing * i) / (maxY));
 		i = 0;
+		let iii = 0;
 		for (let sp of pg) {
 			let spell = KinkyDungeonFindSpell(sp, false);
 			if (spell
 				&& (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)
+				&& i < KDMaxSpellPerColumn
 				&& (selectedFilters.length == 0 || (spell.tags && selectedFilters.every((element) => {return spell.tags.includes(element);})))) {
 
+				if (iii < KDSpellListIndex) {
+					iii += 1;
+					continue;
+				}
 				XX = column * (buttonwidth + xpadding);
 				ii = i;// - column * Math.ceil(maxY / spacing);
 
