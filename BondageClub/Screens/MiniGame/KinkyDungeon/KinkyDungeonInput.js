@@ -551,7 +551,7 @@ function KDProcessInput(type, data) {
 					if (modded && !dialogue.dontTouchText) {
 						dialogue = KDGetDialogue();
 						if (dialogue.response) KDGameData.CurrentDialogMsg = dialogue.response;
-						if (dialogue.response == "Default") dialogue.response = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
+						if (dialogue.response == "Default") KDGameData.CurrentDialogMsg = KDGameData.CurrentDialog + KDGameData.CurrentDialogStage;
 					}
 				}
 			}

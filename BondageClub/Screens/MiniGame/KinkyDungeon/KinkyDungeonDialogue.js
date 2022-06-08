@@ -300,9 +300,10 @@ function KDAllyDialogue(name, requireTags, requireSingleTag, excludeTags, weight
 					if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
 						if (!enemy.Enemy.allied) {
 							enemy.hostile = 100;
-							if (!KinkyDungeonHiddenFactions.includes(KDGetFactionOriginal(enemy))) {
+							let faction = KDGetFactionOriginal(enemy);
+							if (!KinkyDungeonHiddenFactions.includes(faction)) {
 								KinkyDungeonChangeRep("Ghost", -5);
-								KinkyDungeonChangeFactionRep(KDGetFactionOriginal(enemy), -0.06);
+								KinkyDungeonChangeFactionRep(faction, -0.06);
 							}
 						} else {
 							enemy.hp = 0;
