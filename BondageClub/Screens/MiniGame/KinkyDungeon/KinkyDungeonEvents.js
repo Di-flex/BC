@@ -589,7 +589,7 @@ const KDEventMapInventory = {
 			}
 		},
 		"PunishPlayer": (e, item, data) => {
-			if (item.type === Restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy))) {
+			if (item.type === Restraint && data.targetX && data.targetY && data.enemy && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy)) && (!KinkyDungeonHiddenFactions.includes(KDGetFaction(data.enemy)) || KDGetFaction(data.enemy) == "Enemy")) {
 				if (KDRandom() < e.chance || (KDGameData.WarningLevel > 2 && KDRandom() < e.warningchance)) {
 					if (e.stun && KDGameData.WarningLevel > 2) {
 						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, e.stun);
