@@ -341,6 +341,9 @@ interface floorParams {
 	brickchance : number,
 	cacheInterval : number,
 
+	/** FOrces all setpieces to use POIs, useful for tunnel type maps with thick walls to prevent entombe pieces*/
+	forcePOI?: boolean,
+
 	gaschance?: number,
 	gasdensity?: number,
 	gastype?: string,

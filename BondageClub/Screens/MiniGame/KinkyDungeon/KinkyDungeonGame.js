@@ -272,6 +272,8 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		KinkyDungeonBullets = []; // Clear all bullets
 		KDGameData.OfferFatigue = 0;
 
+		KinkyDungeonPatrolPoints = [];
+
 		if (KDGameData.JailKey == undefined) {
 			KDGameData.JailKey = false;
 		}
@@ -454,7 +456,10 @@ function KinkyDungeonCreateMap(MapParams, Floor, testPlacement, seed) {
 		let traps = [];
 
 		KinkyDungeonPlaceSetPieces(POI, traps, chestlist, shrinelist, chargerlist, spawnPoints, false, width, height);
-
+		if (KDDebug) {
+			console.log(`${performance.now() - startTime} ms for setpiece generation`);
+			startTime = performance.now();
+		}
 		// Recreate boringness
 		KDCreateBoringness();
 
@@ -1659,16 +1664,16 @@ function KinkyDungeonPlaceTraps( traps, traptypes, trapchance, doorlocktrapchanc
 
 // @ts-ignore
 function KinkyDungeonPlacePatrols(Count, width, height) {
-	KinkyDungeonPatrolPoints = [];
 	for (let i = 1; i <= Count; i++) {
-		for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
-			let X = Math.floor(i * width / (Count + 1)) + Math.floor(KDRandom() * width/(Count + 1));
-			let Y = Math.floor(KDRandom()*height);
-			if ((!KinkyDungeonInJail() || !KinkyDungeonPointInCell(X, Y)) && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
-				KinkyDungeonPatrolPoints.push({x: X, y: Y});
-				break;
+		if (KinkyDungeonPatrolPoints.length < Count)
+			for (let L = 1000; L > 0; L -= 1) { // Try up to 1000 times
+				let X = Math.floor(i * width / (Count + 1)) + Math.floor(KDRandom() * width/(Count + 1));
+				let Y = Math.floor(KDRandom()*height);
+				if (!KinkyDungeonPointInCell(X, Y) && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y)) && (!KinkyDungeonTiles.get(X + "," + Y) || !KinkyDungeonTiles.get(X + "," + Y).OffLimits)) {
+					KinkyDungeonPatrolPoints.push({x: X, y: Y});
+					break;
+				}
 			}
-		}
 	}
 }
 

@@ -1694,7 +1694,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			if (KDEnemyHasFlag(enemy, "Defensive")) {
 				enemy.gx = KinkyDungeonPlayerEntity.x;
 				enemy.gy = KinkyDungeonPlayerEntity.y;
-			} else if (!ignore) {
+			} else if (!ignore && (KinkyDungeonAggressive(enemy) || enemy.playWithPlayer || !KDEnemyHasFlag(enemy, "NoFollow"))) {
 				enemy.gx = player.x;
 				enemy.gy = player.y;
 			}
@@ -1768,8 +1768,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				} else {
 					dontFollow = true;
 					if (enemy.gx == player.x && enemy.gy == player.y && !KDEnemyHasFlag(enemy, "StayHere")) {
-						enemy.gx = undefined;
-						enemy.gy = undefined;
+						//enemy.gx = undefined;
+						//enemy.gy = undefined;
 					}
 				}
 			} else {
@@ -1862,9 +1862,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			} else if (Math.abs(enemy.x - enemy.gx) < 2 || Math.abs(enemy.y - enemy.gy) < 2) patrolChange = true;
 
 			if (AI == "patrol" && !followPlayer && !KDEnemyHasFlag(enemy, "StayHere")) {
-				let patrolChance = patrolChange ? 0.2 : 0.04;
+				let patrolChance = patrolChange ? 0.13 : 0.02;
 				if (!enemy.patrolIndex) enemy.patrolIndex = KinkyDungeonNearestPatrolPoint(enemy.x, enemy.y);
 				if (KinkyDungeonPatrolPoints[enemy.patrolIndex] && KDRandom() < patrolChance) {
+
 					if (enemy.patrolIndex < KinkyDungeonPatrolPoints.length - 1) enemy.patrolIndex += 1;
 					else enemy.patrolIndex = 0;
 
