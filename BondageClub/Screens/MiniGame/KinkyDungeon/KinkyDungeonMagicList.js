@@ -19,7 +19,7 @@
 let KinkyDungeonSpellsStart = [
 	{name: "Analyze", sfx: "MagicSlash", school: "Elements", manacost: 5, components: [], level:1, type:"special", special: "analyze", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
-	{name: "CommandWord", sfx: "Magic", school: "Conjuration", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
+	{name: "CommandWord", sfx: "Magic", school: "Conjure", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
 	{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:1, type:"passive",
 		events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", msg: "KinkyDungeonFleetFootedIgnoreTrapFail", chance: 0.35}]},
