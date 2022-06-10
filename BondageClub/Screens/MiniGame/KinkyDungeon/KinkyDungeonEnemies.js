@@ -1088,7 +1088,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 			if (nearestJail) {
 				let xx = nearestJail.x;
 				let yy = nearestJail.y;
-				let jaildoor = KDGetJailDoor(xx, yy);
+				let jaildoor = KDGetJailDoor(xx, yy).tile;
 				if (jaildoor && jaildoor.Type == "Door") {
 					jaildoor.Lock = undefined;
 				}

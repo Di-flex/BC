@@ -1187,6 +1187,32 @@ let KDDialogue = {
 			},
 		}
 	},
+	"PrisonerRescue": {
+		response: "Default",
+		clickFunction: (gagged) => {
+			KinkyDungeonInterruptSleep();
+			let door = KDGetJailDoor(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
+			if (door) {
+				if (door.tile) {
+					door.tile.Lock = "";
+					door.tile.ReLock = false;
+				}
+				KinkyDungeonMapSet(door.x, door.y, 'd');
+				let e = DialogueCreateEnemy(door.x, door.y, "Bandit");
+				e.allied = 9999;
+				e.faction = "Player";
+				KDGameData.CurrentDialogMsgSpeaker = e.Enemy.name;
+			}
+			KDGameData.KinkyDungeonGuardSpawnTimer = 10 + Math.floor(KDRandom() * 10);
+			return false;
+		},
+		options: {
+			"Leave": {
+				playertext: "Leave", response: "Default",
+				exitDialogue: true,
+			},
+		}
+	},
 	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "Spear", "TrapCuffs"], [], ["blacksmith"], 0.4, 1.5),
 	"PrisonerBandit": { // Player beats Fuuka
 		response: "Default",

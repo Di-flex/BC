@@ -5515,3 +5515,5 @@ dPrisonerJail_Pick,Try to pick her restraints
 dPrisonerJail_Word,Use a Command Word
 
 KinkyDungeonDiscovered,An enemy found you while you were busy!
+
+rPrisonerRescue,"(A SPEAKER wakes you up by banging on the bars)|Wake up! Let's get out of here!|(She managed to pick the lock on your cell door)"
