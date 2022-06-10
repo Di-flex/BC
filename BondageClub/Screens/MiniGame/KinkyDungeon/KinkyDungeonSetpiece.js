@@ -635,9 +635,9 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 					}
 				}
 
-				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
+				KinkyDungeonMapSet(cornerX + Math.floor(radius/2), cornerY + Math.floor(radius/2), 'C');
 
-				KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + 1), {Loot: "lessergold", Roll: KDRandom()});
+				KinkyDungeonTiles.set((cornerX + Math.floor(radius/2)) + "," + (cornerY + Math.floor(radius/2)), {Loot: "lessergold", Roll: KDRandom()});
 				console.log("Created lesser gold chest");
 				break;
 			}

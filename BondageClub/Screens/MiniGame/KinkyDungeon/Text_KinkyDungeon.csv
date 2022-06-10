@@ -3,7 +3,7 @@ KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
 KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika"
+KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika|Physicsphail"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
@@ -547,6 +547,7 @@ KinkyDungeonInventoryItemScrollLegsDesc2,Allows you to cast Leg spells without c
 KinkyDungeonInventoryItemMistressKey,Ancient Key
 KinkyDungeonInventoryItemMistressKeyDesc,"Perhaps it has something to do with ancient restraints?"
 KinkyDungeonInventoryItemMistressKeyDesc2,"An ancient key plated in gold. It doesnt look like it can open anything..."
+ItemPickupMistressKey,"You pick up a shining golden key."
 
 KinkyDungeonInventoryItemAncientPowerSource,Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceUse,"You hold the crystal and the power flows into you."
@@ -1678,22 +1679,22 @@ PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
 KinkyDungeonStruggleStruggleFail,"You try to pull the TargetRestraint off..."
 KinkyDungeonStruggleStruggleFailAroused,"You try to squirm and moan out of the TargetRestraint..."
 KinkyDungeonStruggleStruggleFail2,"You tug on the TargetRestraint with increased power..."
-KinkyDungeonStruggleStruggleFail3,"The ghost helps you try to pull the TargetRestraint off..."
+KinkyDungeonStruggleStruggleFail3,"Your ally helps you try to pull the TargetRestraint off..."
 KinkyDungeonStrugglePickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickFail2,"You work on picking the TargetRestraint with your powers..."
-KinkyDungeonStrugglePickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
+KinkyDungeonStrugglePickFail3,"Your ally tries to pick the lock on your TargetRestraint..."
 KinkyDungeonStrugglePickBreak,"You try to pick open the TargetRestraint but break your lockpick."
 KinkyDungeonStrugglePickDrop,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail2,"You work on picking the TargetRestraint with your powers..."
-KinkyDungeonAttemptPickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
+KinkyDungeonAttemptPickFail3,"Your ally tries to pick the lock on your TargetRestraint..."
 KinkyDungeonAttemptPickBreak,"You break your lockpick trying to open the TargetRestraint."
 KinkyDungeonStruggleRemoveFail,"You try to remove the TargetRestraint..."
 KinkyDungeonStruggleRemoveFailAroused,"You shakily try to remove the TargetRestraint..."
 KinkyDungeonStruggleRemoveFail2,"You try to remove the TargetRestraint with a tool..."
-KinkyDungeonStruggleRemoveFail3,"The ghost helps you remove the TargetRestraint..."
+KinkyDungeonStruggleRemoveFail3,"Your ally helps you remove the TargetRestraint..."
 KinkyDungeonStruggleCutFail,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutFailAroused,"You tremble as you try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutFail2,"You try to cut the TargetRestraint using your tools..."
@@ -3045,6 +3046,7 @@ KinkyDungeonGroupItemDevices,Device
 
 ItemPickupGold,"You picked up XXX gold."
 ItemPickupAncientPowerSource,"You retrieve an ancient power crystal."
+ItemPickupAncientPowerSourceSpent,"You retrieve a spent ancient power crystal."
 ItemPickupHeart,"You pick up a magical amulet and use it to boost your stats."
 ItemPickupKnife,"You picked up a knife."
 ItemPickupKnives,"You found a bundle of discarded knives!"
