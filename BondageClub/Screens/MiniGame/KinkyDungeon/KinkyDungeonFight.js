@@ -684,8 +684,10 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 }
 
 let KDBulletWarnings = [];
+let KDUniqueBulletHits = new Map();
 
 function KinkyDungeonUpdateBullets(delta, Allied) {
+	if (Allied) KDUniqueBulletHits = new Map();
 	if (delta > 0)
 		for (let b of KinkyDungeonBullets) {
 			if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
@@ -1122,8 +1124,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly)
 							|| (!KDFactionAllied(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
 							|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 						))
-							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))) {
+							&& bullet.bullet.aoe >= Math.sqrt((enemy.x - bullet.x) * (enemy.x - bullet.x) + (enemy.y - bullet.y) * (enemy.y - bullet.y))
+							&& (!bullet.bullet.spell || !bullet.bullet.spell.noUniqueHits || !KDUniqueBulletHits.get(KDBulletID(bullet, enemy)))) {
 						KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});
+						KDUniqueBulletHits.set(KDBulletID(bullet, enemy), true);
 						if (bullet.bullet.damage.type == "heal") {
 							let origHP = enemy.hp;
 							enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
@@ -1151,8 +1155,10 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly)
 						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
 						&& (enemy.x == bullet.x && enemy.y == bullet.y)
-						&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(enemy.lastx + "," + enemy.lasty)))) {
+						&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(enemy.lastx + "," + enemy.lasty)))
+						&& (!bullet.bullet.spell || !bullet.bullet.spell.noUniqueHits || !KDUniqueBulletHits.get(KDBulletID(bullet, enemy)))) {
 					KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});
+					KDUniqueBulletHits.set(KDBulletID(bullet, enemy), true);
 					if (bullet.bullet.damage.type == "heal") {
 						let origHP = enemy.hp;
 						enemy.hp = Math.min(enemy.hp + bullet.bullet.spell.power, enemy.Enemy.maxhp);
@@ -1184,6 +1190,11 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly)
 
 	if (!bullet.bullet.passthrough && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
 	return true;
+}
+
+// Gets ID for unique bullet hits
+function KDBulletID(bullet, enemy) {
+	return (bullet.name) + (bullet.bullet.spell) + "_" + (enemy.id);
 }
 
 

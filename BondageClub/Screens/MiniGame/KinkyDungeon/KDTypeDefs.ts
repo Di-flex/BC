@@ -937,6 +937,8 @@ interface spell {
 	damage?: string;
 	/** size of sprite */
 	size?: number;
+	/** Prevents multiple instances of the spell from doing damage on the same turn from the same bullet to the same enemy */
+	noUniqueHits?: boolean;
 	/** AoE */
 	aoe?: number;
 	/** bind */
