@@ -4,14 +4,16 @@
  * @type {Record<string, weapon>}
  */
 let KinkyDungeonWeapons = {
-	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
-	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: true, cutBonus: 0.1, sfx: "LightSwing"},
+	"Unarmed": {name: "Unarmed", dmg: 2, chance: 0.9, type: "unarmed", unarmed: false, rarity: 0, shop: false, noequip: true, sfx: "Unarmed"},
+	"Knife": {name: "Knife", dmg: 2.5, chance: 0.9, type: "slash", unarmed: false, rarity: 1, cutBonus: 0.05, shop: true, sfx: "Unarmed", light: true},
+	"EnchKnife": {name: "EnchKnife", dmg: 3.0, chance: 0.9, type: "cold", unarmed: false, rarity: 1, cutBonus: 0.05, magic: true, shop: true, sfx: "Unarmed", light: true},
+	"Sword": {name: "Sword", dmg: 3, chance: 1.5, staminacost: 1.0, type: "slash", unarmed: false, rarity: 2, shop: false, cutBonus: 0.1, sfx: "LightSwing"},
 	"Flamberge": {name: "Flamberge", dmg: 2.0, chance: 1.0, staminacost: 1.25, type: "slash", unarmed: false, rarity: 3, shop: true, cutBonus: 0.15, sfx: "FireSpell",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 2.0, damage: "fire"}]},
-	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.1, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
+	"Feather": {name: "Feather", dmg: 1, chance: 2.0, staminacost: 0.25, type: "tickle", unarmed: false, rarity: 1, shop: true, sfx: "Tickle"},
 	"IceCube": {name: "IceCube", dmg: 1, chance: 1.0, staminacost: 0.5, type: "ice", tease: true, unarmed: false, rarity: 1, shop: true, sfx: "Freeze",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "ice", time: 3, chance: 0.1}]},
-	"Rope": {name: "Rope", dmg: 0.5, bind: 4, chance: 1.0, staminacost: 0.5, type: "chain", unarmed: false, rarity: 1, shop: true, sfx: "Struggle"},
+	"Rope": {name: "Rope", dmg: 0.5, bind: 4, chance: 1.0, staminacost: 0.25, type: "chain", unarmed: false, rarity: 1, shop: true, sfx: "Struggle"},
 	"VibeWand": {name: "VibeWand", dmg: 1, chance: 1.0, staminacost: 0.15, type: "charm", unarmed: false, rarity: 1, shop: true, sfx: "Vibe",
 		playSelfBonus: 4,
 		playSelfMsg: "KinkyDungeonPlaySelfVibeWand",
@@ -35,7 +37,7 @@ let KinkyDungeonWeapons = {
 
 	"Slimethrower": {name: "Slimethrower", dmg: 3, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 10, shop: false, sfx: "HeavySwing",
 		special: {type: "spell", spell: "Slimethrower", requiresEnergy: true, energyCost: 0.015}},
-	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: true, sfx: "HeavySwing",
+	"Axe": {name: "Axe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "slash", unarmed: false, rarity: 2, shop: false, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "slash"}]},
 	"MagicAxe": {name: "MagicAxe", dmg: 4, chance: 1.0, staminacost: 1.5, type: "cold", unarmed: false, rarity: 4, magic: true, shop: false, cutBonus: 0.2, sfx: "HeavySwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 2, damage: "cold", time: 3}, {type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "cold", time: 3}]},
@@ -49,7 +51,7 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Cleave", trigger: "playerAttack", power: 1, damage: "crush"}]},
 	"MagicFlail": {name: "MagicFlail", dmg: 3, chance: 1.25, staminacost: 1, type: "crush", unarmed: false, rarity: 4, magic: true, shop: false, sfx: "LightSwing",
 		events: [{type: "Cleave", trigger: "playerAttack", power: 3, damage: "crush"}]},
-	"Spear": {name: "Spear", dmg: 4.0, chance: 1.0, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 2, shop: true, sfx: "LightSwing",
+	"Spear": {name: "Spear", dmg: 4.0, chance: 1.0, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 2, shop: false, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 4.0, damage: "pierce"}]},
 	"MagicSpear": {name: "MagicSpear", dmg: 4.0, chance: 1.5, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 4, magic: true, shop: true, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 4.0, damage: "pierce", dist: 2}]},

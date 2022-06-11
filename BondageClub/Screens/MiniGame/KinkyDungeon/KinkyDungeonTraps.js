@@ -52,6 +52,8 @@ function KinkyDungeonHandleStepOffTraps(x, y, moveX, moveY) {
 			}
 
 			if (msg) {
+				KDTrigPanic();
+
 				if (msg == "Default")
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.StepOffTrap), color, 2);
 				else
@@ -83,7 +85,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						msg = TextGet("KinkyDungeonTrapSpawn" + tile.Enemy);
 						KinkyDungeonTiles.delete(x + "," + y);
 						if (!tile.noSmoke) {
-							KDSmokePuff(x, y, 3.9, 0.5);
+							KDSmokePuff(x, y, 1.9, 0.5);
 						}
 					}
 				}
@@ -99,12 +101,12 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 								if (xx != 0 || yy != 0) i = 1000;
 							}
 						}
-						KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined);
+						KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined, "Trap");
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = ""; // The spell will show a message on its own
 						KinkyDungeonTiles.delete(x + "," + y);
 						if (!tile.noSmoke) {
-							KDSmokePuff(x, y, 3.9, 0.5);
+							KDSmokePuff(x, y, 1.9, 0.5);
 						}
 					}
 				}
@@ -176,6 +178,8 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 				}
 			}
 			if (msg) {
+				KDTrigPanic();
+
 				if (msg == "Default")
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2 + KinkyDungeonSlowMoveTurns);
 				else
@@ -185,6 +189,13 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 	}
 
 	KinkyDungeonTrapMoved = false;
+}
+
+function KDTrigPanic() {
+	if (KinkyDungeonStatsChoice.has("Panic")) {
+		KinkyDungeonSendActionMessage(10, TextGet("KDPanic"), "red", 3);
+		KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 2);
+	}
 }
 
 function KinkyDungeonGetGoddessTrapTypes() {

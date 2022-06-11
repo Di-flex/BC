@@ -22,10 +22,12 @@ let KinkyDungeonHiddenFactions = [
 	"Prisoner",
 	"Beast",
 	"Slime",
+	"Mold",
 	"KinkyConstruct",
 	"Boss",
 	"Ambush",
 	"Rage",
+	"Ghost",
 ];
 
 let KinkyDungeonFactionRelationsBase = {
@@ -38,6 +40,7 @@ let KinkyDungeonFactionRelationsBase = {
 		KinkyConstruct: -0.9,
 		Plant: -0.9,
 		Slime: -1.0,
+		Mold: -1.0,
 		Beast: -0.6,
 
 		// Mainline factions
@@ -55,8 +58,71 @@ let KinkyDungeonFactionRelationsBase = {
 		Elf: -0.26,
 		Mushy: -0.64,
 		AncientRobot: -0.45,
+
+		// Special factions
+		Angel: 0.1,
+		Demon: -0.25,
+	},
+	"Angel": {
+		Demon: -1.0,
+		Elemental: 0.15,
+		Dragon: 0.05,
+		AncientRobot: -0.25,
+		Nevermere: -0.1,
+	},
+	"Ghost": {
+		Player: -1.0,
+		Jail: -1.0,
+	},
+	"Demon": {
+		Elf: -1.0,
+		Bast: -1.0,
+		Witch: 0.25,
+
+		Bountyhunter: -0.5,
+		Bandit: -0.5,
+		Alchemist: -0.5,
+		Nevermere: -0.5,
+		Apprentice: -0.5,
+		Dressmaker: -0.5,
+		Elemental: -0.1,
+		Dragon: -1.0,
+		Maidforce: -0.5,
+		Mushy: -0.5,
+		AncientRobot: -0.45,
 	},
 	"Enemy": {
+	},
+	"Trap": {
+		Enemy: 1.0,
+		Jail: 1.0,
+		Prisoner: 1,
+
+		// Wild factions
+		KinkyConstruct: 1,
+		Plant: 1,
+		Slime: 1,
+		Mold: 1,
+		Beast: 1,
+
+		Bountyhunter: 1,
+		Bandit: 1,
+		Alchemist: 1,
+		Nevermere: 1,
+		Apprentice: 1,
+		Dressmaker: 1,
+		Witch: 1,
+		Elemental: 1,
+		Dragon: 1,
+		Maidforce: 1,
+		Bast: 1,
+		Elf: 1,
+		Mushy: 1,
+		AncientRobot: 1,
+
+		// Special factions
+		Angel: 1,
+		Demon: 1,
 	},
 	"Boss": {
 	},
@@ -84,6 +150,25 @@ let KinkyDungeonFactionRelationsBase = {
 		Bast: -0.1,
 		Elf: -0.1,
 		Mushy: 0.1,
+		AncientRobot: -1.0,
+	},
+	"Mold": {
+		Jail: -0.25,
+
+		Enemy: -0.5,
+		Bountyhunter: -0.5,
+		Bandit: -0.6,
+		Alchemist: -0.8,
+		Nevermere: -0.55,
+		Apprentice: -0.55,
+		Dressmaker: -0.5,
+		Witch: -0.5,
+		Elemental: -0.5,
+		Dragon: -1.0,
+		Maidforce: -1.0,
+		Bast: -0.5,
+		Elf: -0.5,
+		Mushy: -0.5,
 		AncientRobot: -1.0,
 	},
 	"Beast": {
@@ -131,7 +216,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Bountyhunter": {
 		"Jail": 0.8,
 		"Dragon": 0.4,
-		"Bandit": -0.4,
+		"Bandit": -0.55,
 		"Maidforce": -0.15,
 		"Witch": -0.4,
 		"Dressmaker": 0.5,
@@ -180,7 +265,7 @@ let KinkyDungeonFactionRelationsBase = {
 	"Mushy": {
 	},
 	"Witch": {
-		"Apprentice": 1.0,
+		"Apprentice": 0.55,
 		"Dressmaker": 0.4,
 		"Elf": -1.0,
 	},
@@ -230,7 +315,7 @@ function KDInitFactions(Reset) {
 	}
 	KDFactionRelations = new Map();
 	// For each faction in faction relations we create all the maps
-	for (let f1 of Object.entries(KinkyDungeonFactionRelations)) {
+	for (let f1 of Object.entries(KinkyDungeonFactionRelationsBase)) {
 		let fmap = new Map();
 
 		KDFactionRelations.set(f1[0], fmap);
@@ -241,6 +326,9 @@ function KDInitFactions(Reset) {
 		for (let f2 of Object.entries(f1[1])) {
 			// Set mutual opinions
 			fmap.set(f2[0], f2[1]);
+			if (!KDFactionRelations.get(f2[0])) {
+				console.log("Could not find faction " + f2[0]);
+			}
 			KDFactionRelations.get(f2[0]).set(f1[0], f2[1]);
 		}
 	}
@@ -269,8 +357,8 @@ function KDSetFactionRelation(a, b, relation) {
  */
 function KDChangeFactionRelation(a, b, amount, AffectRivals) {
 	if (a == "Rage" || b == "Rage") return;
-	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelations[a] || 0;
-	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelations[b] || 0;
+	if (!KinkyDungeonFactionRelations[a]) KinkyDungeonFactionRelations[a] = KinkyDungeonFactionRelationsBase[a] || 0;
+	if (!KinkyDungeonFactionRelations[b]) KinkyDungeonFactionRelations[b] = KinkyDungeonFactionRelationsBase[b] || 0;
 
 	if (KinkyDungeonFactionRelations[a]) {
 		if (!KinkyDungeonFactionRelations[a][b] && KinkyDungeonFactionRelations[b][a])

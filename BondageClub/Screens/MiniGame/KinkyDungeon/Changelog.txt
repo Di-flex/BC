@@ -917,6 +917,52 @@ Spell Balance:
 - Your summons will aggro enemies
 - Fix rear/piercing button toggles being unclickable
 
+3.35 Feature Update
+- Escape buttons are now in the same order on both sides (this took surprisingly more effort to program than expected)
+- Added icons for all spells and increased the max number of spell slots from 5 to 7
+- New perk: Trespasser
+- New bound sprites by Song!
+- Jail shouldn't take off as many different types of restraints anymore
+- Added machine-translated chinese...
+- Layered restraints will now still render underneath!!!
+- Equipped layered items now show in the inventory under 'Equipped'
+- +20% max hp binding when binding a vulnerable target
+- Can now remove some layered items underneath by pressing a button to cycle through
+- Rope now costs 0.25 stamina from 0.5
+- Feather now costs 0.25 stamina from 0.1
+- Helpless enemies now need to be captured personally
+
+3.4 Feature Update
+- Many new keybindings!
+- Tying enemies no longer slows attack speed, only move speed
+- Features more diverse map generation!
+- Improved (?) Chinese translation!
+- New enemy: Deputy
+- New enemy: Magnet witch
+- Added tutorial
+- Revamped struggle system a bit... there's a few more tools to get out now...
+- A mini visual rework!
+- Healing people can befriend them and raises rep
+- Changes to distraction system
+- Made bullets easier to dodge, and added warnings
+- Golem HP reduced from 300 to 180
+- Golem now has 40% magic resist
+- Golem armor increased to 25 from 20
+- Binding chain binding reduced to 7 from 10
+- Forbidden Rope damage reduced to 30 from 50
+- New spell: Lockdown (melee range, enemy struggles slower for 8 turns, 1 mana)
+- Wall mana cost reduced to 3 from 6
+
+3.41
+- Added some more quest-like interactions
+- Added thought bubbles
+- New enemy: Librarian
+- New jail stuff
+
+3.42
+- Spells now have prerequisite spells instead of shrine levels
+- Elemental, Conjuration, and Illusion shrines now give an arcane buff instead.
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

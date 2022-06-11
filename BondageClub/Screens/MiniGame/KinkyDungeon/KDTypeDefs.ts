@@ -65,6 +65,7 @@ interface consumable {
 	mp_gradual?: number,
 	sp_gradual?: number,
 	ap_gradual?: number,
+	arousalRatio?: number,
 	scaleWithMaxMP?: boolean,
 	scaleWithMaxSP?: boolean,
 	duration?: number,
@@ -81,8 +82,28 @@ interface consumable {
 }
 
 type restraint = {
+	/** Affinity type: Hook, Edge, or Sharp, Sticky, defaults are Hook (struggle), Sharp (Cut), Edge (Pick), Sticky (Unlock), and none (Pick)*/
+	affinity?: {
+		Struggle?: string[],
+		Cut?: string[],
+		Remove?: string[],
+		Pick?: string[],
+		Unlock?: string[],
+	},
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
+	/** This item lets you access linked items under it */
+	accessible?: boolean,
+	/** This item lets you CANT access linked items under it */
+	inaccessible?: boolean,
+	/** This item can be rendered when linked */
+	renderWhenLinked?: string[];
+	/** When the mentioned items are rendered, changes the type */
+	changeRenderType?: Record<string, string>;
+	/** Stacking category, used to determine if you can have multiple of these items in a stack */
+	linkCategory?: string;
+	/** Stacking size, can't exceed 1 */
+	linkSize?: number;
 	/** Enemies ignore you while you are wearing it */
 	ignoreNear?: boolean,
 	/** Enemies wont cast spells or ranged attacks while you are wearing it */
@@ -299,7 +320,9 @@ interface floorParams {
 	background : string,
 	openness : number, // Openness of rooms
 	density : number, // Density of tunnels (inverse of room spawn chance)
-	doodadchance : number,
+	/** These tiles wont alter wall tiles in this tileset */
+	noReplace?: string,
+	crackchance : number,
 	barchance : number,
 	brightness : number,
 	chestcount : number,
@@ -317,6 +340,9 @@ interface floorParams {
 	rubblechance : number,
 	brickchance : number,
 	cacheInterval : number,
+
+	/** FOrces all setpieces to use POIs, useful for tunnel type maps with thick walls to prevent entombe pieces*/
+	forcePOI?: boolean,
 
 	gaschance?: number,
 	gasdensity?: number,
@@ -367,6 +393,8 @@ interface overrideDisplayItem {
 
 interface enemy {
 	name: string,
+	/** Special dialogue played when clicked on instead of standard ally dialogue */
+	specialdialogue?: string,
 	/** Tags, used for determining weaknesses, spawning, restraints applied, and rank*/
 	tags: Map<string, boolean>,
 	/** Spell resist, formula is spell damage taken = 1 / (1 + spell resist) */
@@ -412,6 +440,8 @@ interface enemy {
 	terrainTags?: Record<string, number>,
 	/** */
 	floors?: Map<string, boolean>,
+	/** Enemy events */
+	events?: KinkyDungeonEvent[];
 	/** */
 	allFloors?: boolean,
 	/** */
@@ -474,6 +504,10 @@ interface enemy {
 	damage?: string,
 	/** Rep changes on death */
 	rep?: Record<string, number>,
+	/** Rep changes on death */
+	factionrep?: Record<string, number>;
+	/** Chance to generate as a guard instead */
+	guardChance?: number;
 	/** When generating clusters of enemies, the clustering units must have this tag*/
 	clusterWith?: string,
 	/** Chance to ignore the player if the enemy has an ignore tag like ignorenoSP */
@@ -671,6 +705,8 @@ interface enemy {
 	focusPlayer?: boolean;
 	/** Cant be swapped by another enemy pathing */
 	immobile?: boolean;
+	/** Stops casting spells after there are this many enemies */
+	enemyCountSpellLimit?: number;
 
 }
 
@@ -690,6 +726,7 @@ interface weapon {
 	chance: number;
 	type: string;
 	bind?: number;
+	light?: boolean;
 	boundBonus?: number;
 	tease?: boolean;
 	rarity: number;
@@ -718,6 +755,7 @@ interface weapon {
 interface KinkyDungeonEvent {
 	type: string;
 	trigger: string;
+	restraint?: string;
 	sfx?: string;
 	power?: number;
 	bind?: number;
@@ -731,6 +769,7 @@ interface KinkyDungeonEvent {
 	buff?: any;
 	lock?: string;
 	msg?: string;
+	prereq?: string;
 	color?: string;
 	/** Vibe */
 	edgeOnly?: boolean;
@@ -775,6 +814,9 @@ interface entity {
 	personality?: string,
 	patrolIndex?: number,
 	flags?: Record<string, number>,
+	noDrop?: boolean,
+	droppedItems?: boolean,
+	specialdialogue?: string,
 	aggro?: number,
 	id?: number,
 	hp: number,
@@ -803,6 +845,8 @@ interface entity {
 	items?: string[],
 	x: number,
 	y: number,
+	lastx?: number,
+	lasty?: number,
 	fx?: number,
 	fy?: number,
 	path?: {x: number, y: number}[],
@@ -866,7 +910,13 @@ interface KinkyDialogueTrigger {
 
 interface spell {
 	tags?: string[];
+	/** Color of the spell and bullet warningsd */
+	color?: string,
 	name: string;
+	/** spell required to unlock this one */
+	prerequisite?: string;
+	/** This spell wont trigger an aggro action */
+	noAggro?: boolean;
 	/** Whether the spell defaults to the Player faction */
 	allySpell?: boolean;
 	/** Spell overrides the faction */
@@ -1200,11 +1250,10 @@ interface KinkyDungeonSave {
 		picks: number;
 		keys: number;
 		bkeys: number;
-		knife: number;
-		eknife: number;
 		mana: number;
 		stamina: number;
 		distraction: number;
+		distractionlower: number;
 		wep: any;
 		npp: number;
 		diff: number;
@@ -1212,3 +1261,15 @@ interface KinkyDungeonSave {
 	faction: Record<string, Record<string, number>>;
 }
 
+
+
+type MapMod = {
+	name: string,
+	roomType: string,
+	weight: number,
+	tags: string[],
+	tagsOverride?: string[],
+	bonusTags: Record<string, {bonus: number, mult: number}>,
+	bonussetpieces?: {Type: string, Weight: number}[],
+	altRoom: string,
+}

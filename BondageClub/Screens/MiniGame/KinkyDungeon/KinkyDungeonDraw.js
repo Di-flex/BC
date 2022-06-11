@@ -3,14 +3,59 @@
 
 let KDRecentRepIndex = 0;
 
-function KinkyDungeonGetSprite(code, x, y, Fog) {
+let ShowBoringness = false;
+
+let KDWallReplacers = "14,dDb";
+
+/**
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {string} noReplace
+ * @returns {boolean}
+ */
+function KDWallVert(x, y, noReplace) {
+	//let tileUp = KinkyDungeonMapGet(x, y);
+	let tileBelow = KinkyDungeonMapGet(x, y + 1);
+	if (
+		// These are the tiles that trigger a replacement
+		KDWallReplacers.includes(tileBelow)
+		&& (!noReplace || !noReplace.includes(tileBelow))
+	)
+		return true;
+
+	return false;
+}
+
+function KinkyDungeonGetSprite(code, x, y, Fog, noReplace) {
 	let sprite = "Floor";
-	if (code == "1") sprite = "Wall";
+	if (code == "1") {
+		if (KDWallVert(x, y, noReplace))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
+	//else if (code == "|") sprite = "WallVert";
+	//else if (code == "\\") sprite = "WallVert";
 	else if (code == "2") sprite = "Brickwork";
 	else if (code == "3") sprite = Fog ? "Doodad" : "MimicBlock";
 	else if (code == "b") sprite = "Bars";
 	else if (code == "X") sprite = "Doodad";
+	else if (code == "4") {
+		if (KDWallVert(x, y, noReplace))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
 	else if (code == "L") sprite = "Barrel";
+	else if (code == "?") sprite = "Floor";
+	else if (code == "/") sprite = "RubbleLooted";
+	else if (code == ",") {
+		if (KDWallVert(x, y, noReplace))
+			sprite = "WallVert";
+		else
+			sprite = "Wall";
+	}
 	else if (code == "D") {
 		sprite = "Door";
 		if (Fog) {
@@ -27,7 +72,7 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 			KinkyDungeonTilesMemory.set(x + "," + y, "DoorOpen");
 		}
 	} else if (code == "R") sprite = "RubbleLooted";
-	else if (code == "Y") sprite = "Wall";
+	else if (code == "Y") sprite = "Doodad";
 	else if (code == "T") {if (KinkyDungeonBlindLevel > 0) sprite = "Floor"; else sprite = "Trap";}
 	else if (code == "r") sprite = "RubbleLooted";
 	else if (code == "g") sprite = "Grate";
@@ -47,16 +92,41 @@ function KinkyDungeonGetSprite(code, x, y, Fog) {
 	return sprite;
 }
 
-function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
+function KinkyDungeonGetSpriteOverlay(code, x, y, Fog, noReplace) {
 	let sprite = "";
-	if (code == "G") sprite = "Ghost";
+	if (code == "G") {
+		sprite = "Ghost";
+		if (KinkyDungeonTiles.get(x + "," + y).Msg || KinkyDungeonTiles.get(x + "," + y).Dialogue) {
+			sprite = "GhostImportant";
+		}
+	}
 	if (code == "$") sprite = "Angel";
 	else if (code == "R") sprite = "Rubble";
+	else if (code == "/") sprite = "Scrap";
 	else if (code == "Y") sprite = "Rubble";
 	else if (code == "=") sprite = "ChargerCrystal";
 	else if (code == "+") sprite = "Charger";
 	else if (code == "-") sprite = "ChargerSpent";
 	else if (code == "B") sprite = "Bed";
+	else if (code == "?") sprite = "HookHigh";
+	else if (code == "4") {
+		let left = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x - 1, y));
+		let right = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x + 1, y));
+		let up = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x, y - 1));
+		let down = KinkyDungeonMovableTiles.includes(KinkyDungeonMapGet(x, y + 1));
+		if (down) {
+			sprite = "Crack";
+		} else if (up) {
+			sprite = "CrackHoriz";
+		} else if (left && right) {
+			sprite = "CrackVert";
+		} else if (left) {
+			sprite = "CrackLeft";
+		} else if (right) {
+			sprite = "CrackRight";
+		} else
+			sprite = "CrackNone";
+	} else if (code == ",") sprite = "HookLow";
 	else if (code == "O") sprite = "Orb";
 	else if (code == "w") sprite = Fog ? "" : "Water";
 	else if (code == "]") sprite = "HappyGas";
@@ -78,7 +148,9 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog) {
 function KinkyDungeonDrawGame() {
 	KDProcessInputs();
 
-	if (KDRefresh) CharacterRefresh(KinkyDungeonPlayer);
+	if (KDRefresh) {
+		CharacterRefresh(KinkyDungeonPlayer);
+	}
 	KDNaked = false;
 	KDRefresh = false;
 
@@ -93,10 +165,11 @@ function KinkyDungeonDrawGame() {
 		KinkyDungeonListenKeyMove();
 	if ((KinkyDungeonGameKey.keyPressed[9])) {
 		KinkyDungeonDrawState = "Game";
+		KinkyDungeonMessageToggle = false;
 		KinkyDungeonTargetingSpell = null;
 		KinkyDungeonTargetTile = null;
 		KinkyDungeonTargetTileLocation = "";
-		KinkyDungeonSpellPress = 0;
+		KinkyDungeonSpellPress = "";
 		KDModalArea = false;
 		KinkyDungeonShowInventory = false;
 		KDRepSelectionMode = "";
@@ -161,6 +234,20 @@ function KinkyDungeonDrawGame() {
 				KinkyDungeonContext.fillStyle = "rgba(0,0,0.0,1.0)";
 				KinkyDungeonContext.fillRect(0, 0, KinkyDungeonCanvas.width, KinkyDungeonCanvas.height);
 				KinkyDungeonContext.fill();
+				let noReplace = "";
+				let noReplace_skin = {};
+				for (let tile of KinkyDungeonTilesSkin.values()) {
+					if (tile.skin && noReplace_skin[tile.skin] != undefined) {
+						let paramskin = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+						if (paramskin.noReplace)
+							noReplace_skin[tile.skin] = paramskin.noReplace;
+						else noReplace_skin[tile.skin] = "";
+					}
+				}
+
+				let params = KinkyDungeonMapParams[KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]];
+				if (params.noReplace)
+					noReplace = params.noReplace;
 				// Draw the grid and tiles
 				let rows = KinkyDungeonGrid.split('\n');
 				for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
@@ -168,12 +255,13 @@ function KinkyDungeonDrawGame() {
 						let RY = R+CamY;
 						let RX = X+CamX;
 						if (RY >= 0 && RY < KinkyDungeonGridHeight && RX >= 0 && RX < KinkyDungeonGridWidth) {
-							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
-							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
 							let floor = KinkyDungeonTilesSkin.get(RX + "," + RY) ? KinkyDungeonMapIndex[KinkyDungeonTilesSkin.get(RX + "," + RY).skin] : KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint];
 
+							let nR = KinkyDungeonTilesSkin.get(RX + "," + RY) ? noReplace : noReplace_skin[floor];
+							let sprite = KinkyDungeonGetSprite(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
+							let sprite2 = KinkyDungeonGetSpriteOverlay(rows[RY][RX], RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
 							if (KinkyDungeonForceRender) {
-								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0);
+								sprite = KinkyDungeonGetSprite(KinkyDungeonForceRender, RX, RY, KinkyDungeonLightGet(RX, RY) == 0, nR);
 								sprite2 = null;
 							}
 							if (KinkyDungeonForceRenderFloor != "") floor = KinkyDungeonForceRenderFloor;
@@ -189,10 +277,10 @@ function KinkyDungeonDrawGame() {
 								if (KinkyDungeonTiles.get(RX + "," + RY)) {
 									if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Illusion") color = "#8154FF";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Conjure") color = "#D4AAFF";
-									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Elements") color = "#FF5D00";
+									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Elements") color = "#FF0000";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Latex") color = "#2667FF";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Leather") color = "#442E1E";
-									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Metal") color = "#808080";
+									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Metal") color = "#222222";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Rope") color = "#7C4926";
 									else if (KinkyDungeonTiles.get(RX + "," + RY).Name == "Will") color = "#23FF44";
 								}
@@ -354,6 +442,28 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonContext.fill();
 					}
 				}
+				if (ShowBoringness) {
+					let maxBoringness = Math.max(...KinkyDungeonBoringness);
+					for (let R = -1; R <= KinkyDungeonGridHeightDisplay; R++)  {
+						for (let X = -1; X <= KinkyDungeonGridWidthDisplay; X++)  {
+
+							let RY = Math.max(0, Math.min(R+CamY, KinkyDungeonGridHeight-1));
+							let RX = Math.max(0, Math.min(X+CamX, KinkyDungeonGridWidth-1));
+
+							if (KinkyDungeonBoringGet(RX, RY) && RY == R+CamY && RX == X+CamX) {
+								KinkyDungeonContext.beginPath();
+								KinkyDungeonContext.lineWidth = 3;
+								KinkyDungeonContext.strokeStyle = "rgba(255,0,0," + Math.max(0, (KinkyDungeonBoringGet(RX, RY) / maxBoringness)) + ")";
+
+								KinkyDungeonContext.rect(
+									(-CamX_offset + X)*KinkyDungeonGridSizeDisplay,
+									(-CamY_offset + R)*KinkyDungeonGridSizeDisplay,
+									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
+								KinkyDungeonContext.stroke();
+							}
+						}
+					}
+				}
 
 				KinkyDungeonSendEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
 				KDDrawUpdate = 0;
@@ -457,8 +567,6 @@ function KinkyDungeonDrawGame() {
 				MainCanvas.fillStyle = Grad;
 				MainCanvas.fillRect(0, 1000-h, 500, h);
 			}
-			if (ServerURL != "foobar")
-				DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 			DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
@@ -592,7 +700,7 @@ function KinkyDungeonDrawGame() {
 		DrawButton(650, 925, 565, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawLore();
 	} else if (KinkyDungeonDrawState == "Reputation") {
-		DrawButton(840, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
+		DrawButton(820, 925, 165, 60, TextGet("KinkyDungeonGame"), "White", "", "");
 		KinkyDungeonDrawReputation();
 	} else if (KinkyDungeonDrawState == "Lore") {
 		DrawButton(650, 925, 250, 60, TextGet("KinkyDungeonGame"), "White", "", "");
@@ -605,17 +713,57 @@ function KinkyDungeonDrawGame() {
 		if (branch || ServerURL == 'https://bc-server-test.herokuapp.com/') {
 			DrawCheckbox(600, 20, 64, 64, "Debug Mode", KDDebugMode, false, "white");
 			if (KDDebugMode) {
+				let dd = 30;
+				let i = 0;
+				for (let r of KinkyDungeonRestraints) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 0, 15 + i * dd, 200, "white", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of Object.values(KinkyDungeonConsumables)) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 200, 15 + i * dd, 200, "lightblue", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of KinkyDungeonEnemies) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugEnemy"))) {
+						DrawTextFit(r.name, 400, 15 + i * dd, 200, "red", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of Object.values(KinkyDungeonWeapons)) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 1800, 15 + i * dd, 200, "orange", "black");
+						i++;
+					}
+				}
+				i = 0;
+				for (let r of KinkyDungeonOutfitsBase) {
+					if (i * dd < 1200 && r.name.includes(ElementValue("DebugItem"))) {
+						DrawTextFit(r.name, 900, 15 + i * dd, 200, "lightgreen", "black");
+						i++;
+					}
+				}
+
 				DrawCheckbox(1100, 20, 64, 64, "Verbose Console", KDDebug, false, "white");
 				DrawCheckbox(1100, 100, 64, 64, "Changeable Perks", KDDebugPerks, false, "white");
 				DrawCheckbox(1100, 180, 64, 64, "Unlimited Gold", KDDebugGold, false, "white");
 				MainCanvas.textAlign = "center";
 				ElementPosition("DebugEnemy", 1650, 52, 300, 64);
-				DrawButton(1500, 100, 300, 64, "Spawn enemy", "White", "");
+				DrawButton(1500, 100, 100, 64, "Enemy", "White", "");
+				DrawButton(1600, 100, 100, 64, "Ally", "White", "");
+				DrawButton(1700, 100, 100, 64, "Shop", "White", "");
 				ElementPosition("DebugItem", 1650, 212, 300, 64);
 				DrawButton(1500, 260, 300, 64, "Add to inventory", "White", "");
 				DrawButton(1100, 260, 300, 64, "Teleport to stairs", "White", "");
 				DrawButton(1500, 320, 300, 64, "Get save code", "White", "");
 				DrawButton(1100, 320, 300, 64, "Enter parole mode", "White", "");
+
 			}
 		}
 
@@ -637,7 +785,7 @@ function KinkyDungeonDrawGame() {
 		DrawText(TextGet("KinkyDungeonRestartConfirm"), 1250, 400, "white", "gray");
 		DrawButton(975, 550, 550, 64, TextGet("KinkyDungeonRestartNo"), "White", "");
 		DrawButton(975, 650, 550, 64, TextGet("KinkyDungeonRestartWait"), "White", "");
-		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.PrisonerState == 'jail') ? "Pink" : "White", "");
+		DrawButton(975, 750, 550, 64, TextGet("KinkyDungeonRestartCapture"),  (KDGameData.PrisonerState == 'jail' || !KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y)) ? "Pink" : "White", "");
 		DrawButton(975, 850, 550, 64, TextGet("KinkyDungeonRestartYes"), "White", "");
 		DrawButton(1650, 900, 300, 64, TextGet("KinkyDungeonCheckPerks"), "White", "");
 		DrawButton(1075, 450, 350, 64, TextGet("GameConfigKeys"), "White", "");
@@ -652,6 +800,8 @@ function KinkyDungeonDrawGame() {
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatDistraction * 100 / KinkyDungeonStatDistractionMax);
 	}
 
+	if (ServerURL != "foobar")
+		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 	if ((!KDDebugMode && KinkyDungeonDrawState == "Restart") || (KDDebugMode && KinkyDungeonDrawState != "Restart")) {
 		ElementRemove("DebugEnemy");
