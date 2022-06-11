@@ -174,7 +174,7 @@ function KinkyDungeonPayShrine(type) {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineElements", type: "event", maxCount: 10, tags: ["offense", "shrineElements"], aura: "#f1641f", power: 1.5, duration: 9999, events: [
 				{trigger: "afterDamageEnemy", type: "ShrineElements", spell: "ArcaneStrike"},
 			]});
-		} else if (type == "Conjuration") {
+		} else if (type == "Conjure") {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineConjure", type: "event", maxCount: 10, tags: ["defense", "shrineConjure"], aura: "#4572e3", power: 1.5, duration: 9999, events: [
 				{trigger: "beforeAttack", type: "CounterattackSpell", spell: "ArcaneStrike", requiredTag: "shrineConjure", prereq: "hit"},
 			]});
