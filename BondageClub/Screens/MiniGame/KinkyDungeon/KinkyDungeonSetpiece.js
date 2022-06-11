@@ -374,7 +374,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				break;
 			case "ExtraCell":
 				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
-				KinkyDungeonMapSet(cornerX+3, cornerY+1, 'd');
+				KinkyDungeonMapSet(cornerX+3, cornerY+1, 'D');
 				KinkyDungeonTiles.set("" + (cornerX+3) + "," + (cornerY+1), {Type: "Door", NoTrap: true, Jail: true, ReLock: true, OffLimits: true});
 
 				KinkyDungeonMapSet(cornerX+3, cornerY+2, 'b');
