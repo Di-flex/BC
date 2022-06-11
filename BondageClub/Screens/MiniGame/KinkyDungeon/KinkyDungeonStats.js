@@ -376,7 +376,7 @@ let KDOrigMana = 36;
 let KDOrigDistraction = 36;
 
 function KinkyDungeonChangeDistraction(Amount, NoFloater, lowerPerc) {
-	if (Amount > 0) {
+	if (Amount > 1) {
 		KDNoRegenFlag = true;
 	}
 	KinkyDungeonStatDistraction += Amount;
