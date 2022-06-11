@@ -90,6 +90,10 @@ type restraint = {
 		Pick?: string[],
 		Unlock?: string[],
 	},
+	/**
+	 * Makes it so its never impossible to struggle with these methods, usually best combined with struggleMinSpeed
+	 */
+	alwaysEscapable?: string[];
 	/** Determines if the item appears in aroused mode only */
 	arousalMode?: boolean,
 	/** This item lets you access linked items under it */

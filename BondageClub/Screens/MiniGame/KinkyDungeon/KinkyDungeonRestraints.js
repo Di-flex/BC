@@ -1091,7 +1091,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 		data.escapeChance -= KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Lockdown") * 0.1;
 	}
 
-	if ((StruggleType == "Struggle") && !data.hasAffinity && data.escapeChance <= edgeBonus) {
+	if ((StruggleType == "Struggle") && !data.hasAffinity && data.escapeChance <= edgeBonus && (!KDRestraint(restraint).alwaysEscapable || !KDRestraint(restraint).alwaysEscapable.includes(StruggleType))) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (affinity != "Hook" && KinkyDungeonGetAffinity(false, "Hook", struggleGroup)) typesuff = "Wrong";
@@ -1150,7 +1150,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	if (((StruggleType == "Pick" && !KinkyDungeonStatsChoice.get("Psychic")) || StruggleType == "Unlock" || StruggleType == "Remove") && struggleGroup != "ItemHands" && handsBound)
 		data.escapeChance = (StruggleType == "Remove" && data.hasAffinity) ? data.escapeChance / 2 : Math.max(0, data.escapeChance - 0.5);
 
-	if ((StruggleType == "Remove") && !data.hasAffinity && data.escapeChance == 0) {
+	if ((StruggleType == "Remove") && !data.hasAffinity && data.escapeChance == 0 && (!KDRestraint(restraint).alwaysEscapable || !KDRestraint(restraint).alwaysEscapable.includes(StruggleType))) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (affinity != "Hook" && KinkyDungeonGetAffinity(false, "Hook", struggleGroup)) typesuff = "Wrong";
@@ -1175,7 +1175,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 
 	if (StruggleType == "Unlock" && KinkyDungeonStatsChoice.get("Psychic")) data.escapeChance = Math.max(data.escapeChance, 0.2);
 
-	if (possible && data.escapeChance == 0) {
+	if (possible && data.escapeChance == 0 && (!KDRestraint(restraint).alwaysEscapable || !KDRestraint(restraint).alwaysEscapable.includes(StruggleType))) {
 		let typesuff = "";
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Struggle.ogg");
 		if (typesuff == "" && KinkyDungeonStatDistraction > KinkyDungeonStatDistractionMax*0.1) typesuff = typesuff + "Aroused";
@@ -1250,7 +1250,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 	if (bra && KDRestraint(bra) && KDRestraint(bra).chastitybra) data.escapeChance = 0.0;
 
 
-	if (data.escapeChance <= 0) {
+	if (data.escapeChance <= 0 && (!KDRestraint(restraint).alwaysEscapable || !KDRestraint(restraint).alwaysEscapable.includes(StruggleType))) {
 		if (!restraint.attempts) restraint.attempts = 0;
 		if (restraint.attempts < KinkyDungeonMaxImpossibleAttempts || increasedAttempts) {
 			if (!increasedAttempts) {
