@@ -249,6 +249,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	}
 
 	let predata = {
+		aggro: false,
 		faction: "Enemy",
 		enemy: Enemy,
 		spell: Spell,
@@ -490,6 +491,8 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 	}
 
+	predata.aggro = predata.type != "heal" && predata.type != "inert" && (!Spell || !Spell.allySpell) && (!bullet || !bullet.spell || !bullet.spell.allySpell);
+
 	KinkyDungeonSendEvent("afterDamageEnemy", predata);
 
 	let atkname = (Spell) ? TextGet("KinkyDungeonSpell" + Spell.name) : TextGet("KinkyDungeonBasicAttack");
@@ -541,7 +544,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + Enemy.Enemy.cueSfx.Damage + ".ogg");
 	}
 
-	if (predata.type != "heal" && predata.type != "inert" && (!Spell || !Spell.allySpell) && (!bullet || !bullet.spell || !bullet.spell.allySpell))
+	if (predata.aggro)
 		KinkyDungeonAggro(Enemy, Spell, attacker, predata.faction);
 
 	if (predata.dmg > 0)
@@ -677,6 +680,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	KinkyDungeonTickBuffTag(Enemy.buffs, "incomingHit", 1);
 	if (predata.eva)
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
+
 }
 
 let KDBulletWarnings = [];

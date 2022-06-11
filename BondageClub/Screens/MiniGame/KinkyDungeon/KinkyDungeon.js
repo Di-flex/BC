@@ -565,6 +565,9 @@ function KinkyDungeonRun() {
 	if (KDLose) BG = "Pandora/Underground/Cell4";
 	DrawImage("Backgrounds/" + BG + ".jpg", 0, 0);
 
+	if (ServerURL != "foobar")
+		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
+
 	if (KinkyDungeonFullscreen) {
 		KinkyDungeonGridWidthDisplay = 2000/KinkyDungeonGridSizeDisplay;//17;
 		KinkyDungeonGridHeightDisplay = 1000/KinkyDungeonGridSizeDisplay;//9;
@@ -1329,7 +1332,7 @@ function KDUpdatePlugSettings() {
 function KinkyDungeonHandleClick() {
 	if (KDProcessButtons()) return true;
 
-	if (MouseIn(1885, 25, 90, 90) && (ServerURL != "foobar" && KinkyDungeonDrawState == "Game" && KinkyDungeonState == "Game")) {
+	if (MouseIn(1885, 25, 90, 90) && (ServerURL != "foobar")) {
 		ElementRemove("saveDataField");
 		ElementRemove("saveInputField");
 		KinkyDungeonExit();
@@ -1710,6 +1713,7 @@ function KinkyDungeonExit() {
 		// @ts-ignore
 		ChatRoomPublishCustomAction("KinkyDungeonLose", false, Dictionary);
 	}
+	CharacterRefresh(Player, true);
 }
 
 
@@ -1887,7 +1891,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.dress = KinkyDungeonCurrentDress;
 	save.gold = KinkyDungeonGold;
 	save.points = KinkyDungeonSpellPoints;
-	save.levels = KinkyDungeonSpellLevel;
 	save.id = KinkyDungeonEnemyID;
 	save.choices = KinkyDungeonSpellChoices;
 	save.choices2 = KinkyDungeonSpellChoicesToggle;
@@ -1978,7 +1981,6 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.gold != undefined) KinkyDungeonGold = saveData.gold;
 			if (saveData.id != undefined) KinkyDungeonEnemyID = saveData.id;
 			if (saveData.points != undefined) KinkyDungeonSpellPoints = saveData.points;
-			if (saveData.levels != undefined) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
 			if (saveData.rescued != undefined) KinkyDungeonRescued = saveData.rescued;
 			if (saveData.aid != undefined) KinkyDungeonAid = saveData.aid;

@@ -274,19 +274,19 @@ function KDProcessInput(type, data) {
 					let spellList = [];
 					let maxSpellLevel = 4;
 					for (let sp of KinkyDungeonSpellList.Conjure) {
-						if (sp.level <= KinkyDungeonSpellLevel.Conjure && sp.school == "Conjure" && !sp.secret) {
+						if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Conjure" && !sp.secret) {
 							for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 								spellList.push(sp);
 						}
 					}
 					for (let sp of KinkyDungeonSpellList.Elements) {
-						if (sp.level <= KinkyDungeonSpellLevel.Elements && sp.school == "Elements" && !sp.secret) {
+						if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Elements" && !sp.secret) {
 							for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 								spellList.push(sp);
 						}
 					}
 					for (let sp of KinkyDungeonSpellList.Illusion) {
-						if (sp.level <= KinkyDungeonSpellLevel.Illusion && sp.school == "Illusion" && !sp.secret) {
+						if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Illusion" && !sp.secret) {
 							for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 								spellList.push(sp);
 						}
@@ -430,7 +430,7 @@ function KDProcessInput(type, data) {
 		case "spellLearn": {
 			let spell = KinkyDungeonFindSpell(data.SpellName, true);
 			let cost = KinkyDungeonGetCost(spell);
-			if (KinkyDungeonCheckSpellSchool(spell)) {
+			if (KinkyDungeonCheckSpellPrerequisite(spell)) {
 				if (KinkyDungeonSpellPoints >= cost) {
 					KinkyDungeonSpellPoints -= cost;
 					KinkyDungeonSpells.push(spell);
@@ -448,8 +448,8 @@ function KDProcessInput(type, data) {
 						if (KinkyDungeonTextMessageTime > 0)
 							KinkyDungeonDrawState = "Game";
 					}
-				} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughPoints"), "orange", 1);
-			} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(5, TextGet("KinkyDungeonSpellsNotEnoughLevels").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + spell.school)), "orange", 1);
+				} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellsNotEnoughPoints"), "orange", 1);
+			} else if (KinkyDungeonIsPlayer()) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellsNotPrerequisite").replace("REQUIREDSPELL", TextGet("KinkyDungeonSpell" + spell.prerequisite)), "orange", 1);
 			break;
 		}
 		case "chargerInteract":

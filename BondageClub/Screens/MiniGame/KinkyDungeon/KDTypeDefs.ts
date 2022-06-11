@@ -769,6 +769,7 @@ interface KinkyDungeonEvent {
 	buff?: any;
 	lock?: string;
 	msg?: string;
+	prereq?: string;
 	color?: string;
 	/** Vibe */
 	edgeOnly?: boolean;
@@ -912,6 +913,8 @@ interface spell {
 	/** Color of the spell and bullet warningsd */
 	color?: string,
 	name: string;
+	/** spell required to unlock this one */
+	prerequisite?: string;
 	/** This spell wont trigger an aggro action */
 	noAggro?: boolean;
 	/** Whether the spell defaults to the Player faction */

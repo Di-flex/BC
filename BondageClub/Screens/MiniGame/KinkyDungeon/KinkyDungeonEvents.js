@@ -14,6 +14,10 @@ let KinkyDungeonSlimeParts = [
 ];
 let KDAlertCD = 5;
 
+let KDEventDataReset = {
+
+};
+
 function KinkyDungeonSendEvent(Event, data) {
 	KinkyDungeonSendMagicEvent(Event, data);
 	KinkyDungeonSendWeaponEvent(Event, data);
@@ -29,6 +33,7 @@ function KinkyDungeonResetEventVariables() {
 }
 /** Called every tick */
 function KinkyDungeonResetEventVariablesTick(delta) {
+	KDEventDataReset = {};
 	KinkyDungeonAttackTwiceFlag = false;
 
 	if (KinkyDungeonSlimeLevel < 0)
@@ -47,7 +52,7 @@ function KinkyDungeonResetEventVariablesTick(delta) {
  * to expand, keep (e, item, data) => {...} as a constant API call
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, item, *): void>>}
  */
-const KDEventMapInventory = {
+let KDEventMapInventory = {
 	"kill": {
 		"MikoGhost": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
@@ -671,15 +676,45 @@ function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) 
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, entity, *): void>>}
  */
-const KDEventMapBuff = {
+let KDEventMapBuff = {
 	"beforeAttack": {
 		"CounterattackDamage": (e, buff, entity, data) => {
-			if (data.attacker) {
+			if (data.attacker && data.target == entity && (!(e.prereq == "hit") || (!data.missed && data.hit))) {
 				if (data.attacker.player) {
 					KinkyDungeonDealDamage({damage: e.power, type: e.damage, bind: e.bind, time: e.time});
 				} else {
 					KinkyDungeonDamageEnemy(data.attacker, {damage: e.power, type: e.damage, bind: e.bind, time: e.time}, false, true, undefined, undefined, entity);
 				}
+				if (e.requiredTag)
+					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, e.requiredTag, 1);
+			}
+		},
+		"CounterattackSpell": (e, buff, entity, data) => {
+			if (data.attacker && data.target == entity && (!(e.prereq == "hit") || (!data.missed && data.hit))) {
+				// @ts-ignore
+				KinkyDungeonCastSpell(data.attacker.x, data.attacker.y, KinkyDungeonFindSpell(e.spell, true), undefined, undefined, undefined, entity.player ? "Player" : KDGetFaction(entity));
+				if (e.requiredTag)
+					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, e.requiredTag, 1);
+			}
+		},
+	},
+	"afterDamageEnemy": {
+		"ShrineElements": (e, buff, entity, data) => {
+			if (data.enemy && data.enemy.hp > 0.52 && KDHostile(data.enemy) && data.faction == "Player" && !KDEventDataReset.ShrineElements && ["fire", "ice", "frost", "electric", "gravity"].includes(data.type)) {
+				KDEventDataReset.ShrineElements = true;
+				KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "shrineElements", 1);
+				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell(e.spell, true), undefined, undefined, undefined, "Player");
+
+			}
+		},
+	},
+	"playerAttack": {
+		"ShadowStep": (e, buff, entity, data) => {
+			if (data.enemy && KDHostile(data.enemy) && !KinkyDungeonPlayerBuffs.ShadowStep) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShadowStep", type: "SlowDetection", duration: e.time * 2, power: 0.667, player: true, enemies: true, endSleep: true, currentCount: -1, maxCount: 1, tags: ["SlowDetection", "hit", "cast"]});
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShadowStep2", type: "Sneak", duration: e.time, power: Math.min(20, e.time * 2), player: true, enemies: true, endSleep: true, currentCount: -1, maxCount: 1, tags: ["Sneak", "hit", "cast"]});
+				if (e.requiredTag)
+					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, e.requiredTag, 1);
 			}
 		},
 	}
@@ -702,7 +737,7 @@ function KinkyDungeonHandleBuffEvent(Event, e, buff, entity, data) {
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
  */
-const KDEventMapOutfit = {
+let KDEventMapOutfit = {
 	"calcEvasion": {
 		"AccuracyBuff": (e, outfit, data) => {
 			if (data.enemy && data.enemy.Enemy && data.enemy.Enemy.tags.has(e.requiredTag)) {
@@ -727,7 +762,7 @@ function KinkyDungeonHandleOutfitEvent(Event, e, outfit, data) {
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
  */
-const KDEventMapSpell = {
+let KDEventMapSpell = {
 	"calcEvasion": {
 		"HandsFree": (e, spell, data) => {
 			if (!data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDEvasionHands) {
@@ -943,7 +978,7 @@ function KinkyDungeonHandleMagicEvent(Event, e, spell, data) {
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, weapon, *): void>>}
  */
-const KDEventMapWeapon = {
+let KDEventMapWeapon = {
 	"spellCast": {
 		"BondageBustBoost": (e, weapon, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
@@ -1186,7 +1221,7 @@ function KinkyDungeonHandleWeaponEvent(Event, e, weapon, data) {
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
  */
-const KDEventMapBullet = {
+let KDEventMapBullet = {
 	"beforeBulletHit": {
 		"DropKnife": (e, b, data) => {
 			let point = {x: b.x, y: b.y};
@@ -1240,7 +1275,7 @@ function KinkyDungeonHandleBulletEvent(Event, e, b, data) {
 /**
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, entity, *): void>>}
  */
-const KDEventMapEnemy = {
+let KDEventMapEnemy = {
 	"afterEnemyTick": {
 		"electrifyLocal": (e, enemy, data) => {
 			if (data.delta && (enemy.aware || enemy.vp > 0.5) && KinkyDungeonCanCastSpells(enemy) && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {

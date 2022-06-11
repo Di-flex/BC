@@ -567,8 +567,6 @@ function KinkyDungeonDrawGame() {
 				MainCanvas.fillStyle = Grad;
 				MainCanvas.fillRect(0, 1000-h, 500, h);
 			}
-			if (ServerURL != "foobar")
-				DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 			DrawCharacter(KinkyDungeonPlayer, 0, 0, 1);
 
@@ -802,6 +800,8 @@ function KinkyDungeonDrawGame() {
 		ChatRoomDrawArousalScreenFilter(0, 1000, 2000, KinkyDungeonStatDistraction * 100 / KinkyDungeonStatDistractionMax);
 	}
 
+	if (ServerURL != "foobar")
+		DrawButton(1885, 25, 90, 90, "", "White", "Icons/Exit.png");
 
 	if ((!KDDebugMode && KinkyDungeonDrawState == "Restart") || (KDDebugMode && KinkyDungeonDrawState != "Restart")) {
 		ElementRemove("DebugEnemy");

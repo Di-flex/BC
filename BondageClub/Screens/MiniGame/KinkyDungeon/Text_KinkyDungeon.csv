@@ -16,7 +16,7 @@ Chinese,Chinese
 RestartNeeded,"Restart required!"
 RestartNeededCN,"需要重启！"
 
-KinkyDungeon,"Kinky Dungeon v3.41"
+KinkyDungeon,"Kinky Dungeon v3.42"
 Intro,"You are an adventurer descending into an ancient underground city of magic."
 Intro2,"Beneath its depths lies the Mistress' Staff, an artifact of untold power."
 Intro3,"Will you prevail against forces unknown, or succumb to its dark secrets?"
@@ -79,7 +79,7 @@ KinkyDungeonStat11,"Wanted"
 KinkyDungeonStatDesc11,"Your security level starts at 100 and cannot go below 70."
 
 KinkyDungeonStat12,"Studious"
-KinkyDungeonStatDesc12,"You start the game with Level 2 in all schools and +1 additional spell point."
+KinkyDungeonStatDesc12,"You start the game with +3 additional spell points."
 KinkyDungeonStat13,"Meditation"
 KinkyDungeonStatDesc13,"You slowly regenerate mana, up to a maximum of 4."
 
@@ -237,12 +237,19 @@ KinkyDungeonStatDescStartObsidian,"Start in a full set of magically locked obsid
 KinkyDungeonBuffIgnite,Ignited!!!
 KinkyDungeonBuffIgniteDamage,The air around you is ablaze! (-DamageDealt SP)
 
+KinkyDungeonBuffShrineElements,Arcane Power
+KinkyDungeonBuffShrineConjure,Arcane Protection
+KinkyDungeonSpellArcaneStrike,Arcane Explosion
+
+KinkyDungeonBuffShrineIllusion,Arcane Cunning
+KinkyDungeonBuffShrineIllusionTrigger,"The Goddess of Illusions shrouds you in shadows!"
+
 KinkyDungeonBuffSlimeForm,Slime Form
 KinkyDungeonBuffShroud2,"Shroud"
 KinkyDungeonBuffCamo,"Camoflage"
 KinkyDungeonBuffStoneSkin,"Stone Skin"
 KinkyDungeonBuffShadowBlade,"Darkblade"
-KinkyDungeonBuffShield,"Protection"
+KinkyDungeonBuffShield,"Shield"
 KinkyDungeonBuffInvisibility,"Invisibility"
 KinkyDungeonBuffLesserInvisibility,"Lesser Invisibility"
 KinkyDungeonBuffCutting,"FULL POWER"
@@ -760,7 +767,7 @@ KinkyDungeonPlayerArmor,"Armor: "
 KinkyDungeonPlayerSpellResist,"SpellResist: "
 KinkyDungeonPlayerSneak,"Invisible!"
 KinkyDungeonPlayerQuickness,"Quickness!!!"
-KinkyDungeonPlayerReduction,"Shield: "
+KinkyDungeonPlayerReduction,"Block: "
 KinkyDungeonPlayerDamageResist,"DAMAGETYPE Mod: "
 KinkyDungeonPlayerParole,"Released from Jail"
 KinkyDungeonPlayerChase,"On the Run!"
@@ -1920,7 +1927,7 @@ KinkyDungeonPayShrineFail,"You do not have enough for a proper offering."
 KinkyDungeonPayShrineRemoveRestraints,"The goddess removes some of your restraints!"
 KinkyDungeonPayShrineHeal,"The goddess restores your mental and physical state!"
 KinkyDungeonPayShrineSpell,"The goddess teaches you the secrets of SCHOOL. (+1 level)"
-KinkyDungeonPayShrineBuff,"The goddess of SCHOOL appreciates your offering."
+KinkyDungeonPayShrineBuff,"The goddess of SCHOOL grants you her blessing!"
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
@@ -3822,7 +3829,7 @@ KinkyDungeonSpellsPageNext,"Next Page"
 KinkyDungeonSpellsPageBack,"Previous Page"
 KinkyDungeonSpellsPageNextFast,">>>"
 KinkyDungeonSpellsPageBackFast,"<<<"
-KinkyDungeonSpellsLevels,"Spell Points: SPELLPOINTS --- Elementalist lvELEMLEVEL --- Conjuration lvCONJLEVEL --- Illusionist lvILLULEVEL"
+KinkyDungeonSpellsLevels,"Spell Points: SPELLPOINTS"
 KinkyDungeonSpellsNotEnoughLevels,"You need a higher level in SCHOOL magic to learn this spell."
 KinkyDungeonSpellsNotEnoughPoints,"You need more spell points."
 KinkyDungeonSpellsSchool,"School: "
@@ -4304,6 +4311,7 @@ KinkyDungeonDamageTypecharm,"Charm"
 KinkyDungeonDamageTypetickle,"Tickle"
 KinkyDungeonDamageTypegrope,"Grope"
 KinkyDungeonDamageTypecrush,"Crush"
+KinkyDungeonDamageTypegravity,"Gravity"
 KinkyDungeonDamageTypepierce,"Pierce"
 KinkyDungeonDamageTypeslash,"Slash"
 KinkyDungeonDamageTypepain,"Pain"
@@ -5517,3 +5525,7 @@ dPrisonerJail_Word,Use a Command Word
 KinkyDungeonDiscovered,An enemy found you while you were busy!
 
 rPrisonerRescue,"(A SPEAKER wakes you up by banging on the bars)|Wake up! Let's get out of here!|(She managed to pick the lock on your cell door)"
+
+KDPrerequisite,"Prerequisite"
+KDUnlocks,"Unlocks: "
+KinkyDungeonSpellsNotPrerequisite,"You need to learn REQUIREDSPELL before you can learn this one."

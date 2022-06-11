@@ -115,8 +115,8 @@ function KinkyDungeonApplyBuff(list, origbuff) {
 	if (list[id] && buff.cancelOnReapply) {
 		KinkyDungeonExpireBuff(list, id);
 	} else {
-		if (!list[id] || (list[id].power && buff.power > list[id].power)) list[id] = buff;
-		if ((list[id].power && buff.power == list[id].power && buff.duration > list[id].duration)) list[id].duration = buff.duration;
+		if (!list[id] || (list[id].power && buff.power >= list[id].power)) list[id] = buff;
+		if ((list[id].power && buff.power == list[id].power && buff.duration >= list[id].duration)) list[id].duration = buff.duration;
 
 		if (buff.tags)
 			for (let tag of buff.tags) {
