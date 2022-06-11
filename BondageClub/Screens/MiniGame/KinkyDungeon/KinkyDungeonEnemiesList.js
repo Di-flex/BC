@@ -5,7 +5,7 @@
 let KinkyDungeonEnemies = [
 	// Prisoners
 	{name: "PrisonerBandit", tags: KDMapInit(["prisoner", "bandit", "human", "peaceful", "noshop"]), faction: "Prisoner", immobile: true, lowpriority: true, evasion: -100, armor: 0, followRange: 100, AI: "wander", regen: 0.1,
-		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "PrisonerBandit",
+		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "PrisonerBandit",
 		terrainTags: {}, floors:KDMapInit([])},
 
 	// Quest NPC
