@@ -28,6 +28,7 @@ let KinkyDungeonHiddenFactions = [
 	"Ambush",
 	"Rage",
 	"Ghost",
+	"Trap",
 ];
 
 let KinkyDungeonFactionRelationsBase = {

@@ -4,30 +4,30 @@
  */
 let KinkyDungeonEnemies = [
 	// Prisoners
-	{name: "PrisonerBandit", tags: KDMapInit(["prisoner", "bandit", "human", "peaceful"]), faction: "Prisoner", immobile: true, lowpriority: true, evasion: -100, armor: 0, followRange: 100, AI: "wander", regen: 0.1,
+	{name: "PrisonerBandit", tags: KDMapInit(["prisoner", "bandit", "human", "peaceful", "noshop"]), faction: "Prisoner", immobile: true, lowpriority: true, evasion: -100, armor: 0, followRange: 100, AI: "wander", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "PrisonerBandit",
 		terrainTags: {}, floors:KDMapInit([])},
 
 	// Quest NPC
-	{name: "DressmakerQuest", tags: KDMapInit(["dressmaker", "human", "peaceful"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+	{name: "DressmakerQuest", tags: KDMapInit(["dressmaker", "human", "peaceful", "noshop"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "DressmakerQuest",
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "ApprenticeQuest", tags: KDMapInit(["apprentice", "human", "peaceful"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+	{name: "ApprenticeQuest", tags: KDMapInit(["apprentice", "human", "peaceful", "noshop"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "ApprenticeQuest",
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "BlacksmithQuest", tags: KDMapInit(["human", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+	{name: "BlacksmithQuest", tags: KDMapInit(["human", "peaceful", "alwayshelp", "noshop"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "BlacksmithShop",
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "DragonheartQuest", tags: KDMapInit(["dragon", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+	{name: "DragonheartQuest", tags: KDMapInit(["dragon", "peaceful", "alwayshelp", "noshop"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "DragonheartQuest",
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "DragonLeaderDuelist", faction: "Enemy", bound: "DragonLeader", color: "#F92900", tags: KDMapInit(["opendoors", "fire", "ignorenoSP", "dragon", "melee", "elite", "dragonRestraints", "unflinching", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "fireimmune"]),
+	{name: "DragonLeaderDuelist", faction: "Enemy", bound: "DragonLeader", color: "#F92900", tags: KDMapInit(["opendoors", "fire", "ignorenoSP", "noshop", "dragon", "melee", "elite", "dragonRestraints", "unflinching", "handcuffer", "leatherRestraints", "leatherRestraintsHeavy", "fireimmune"]),
 		ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", focusPlayer: true,
 		specialCD: 3, specialAttack: "Dash", specialRemove: "BindWill", specialCDonAttack: true, specialAttackPoints: 1, specialRange: 3, specialMinrange: 1.5, dashThrough: true, specialsfx: "Miss",
 		visionRadius: 7, maxhp: 28, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 2, attack: "MeleeBindWill", attackWidth: 1, attackRange: 1, power: 4, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {}, shrines: ["Leather"], allFloors: true,
 		dropTable: [], factionrep: {"Dragon": 0.015}, ondeath: [{type: "removeQuest", quest: "DragonLeaderDuelist"}]},
-	{name: "BanditQuest", tags: KDMapInit(["bandit", "peaceful", "alwayshelp"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
+	{name: "BanditQuest", tags: KDMapInit(["bandit", "peaceful", "alwayshelp", "noshop"]), faction: "Prisoner", lowpriority: true, armor: 0, followRange: 100, AI: "hunt", regen: 0.1,
 		visionRadius: 0, maxhp: 12, minLevel:0, weight:-1000, movePoints: 4, attackPoints: 0, attack: "", attackRange: 0, specialdialogue: "BanditQuest",
 		terrainTags: {}, floors:KDMapInit([])},
 	// End Quest NPC
@@ -872,7 +872,7 @@ let KinkyDungeonEnemies = [
 
 
 	// Bosses
-	{name: "Fuuka1", playLine: "Fuuka", bound: "TalismanZombie", faction: "Boss", clusterWith: "zombie", tags: KDMapInit(["leashing", "zombie", "ranged", "mikoRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]),
+	{name: "Fuuka1", playLine: "Fuuka", bound: "TalismanZombie", faction: "Boss", clusterWith: "zombie", tags: KDMapInit(["leashing", "noshop", "zombie", "ranged", "mikoRestraints", "stageBoss", "jail", "boss", "nocapture", "unflinching"]),
 		armor: 0, followRange: 3, AI: "guard",
 		spells: ["ZombieOrb", "ManyOrbs", "SummonZombies"], spellCooldownMult: 0.25, spellCooldownMod: 0, castWhileMoving: true, buffallies: true, kite: 1.5, projectileAttack: true, accuracy: 0.7, noChannel: true,
 		visionRadius: 8, maxhp: 80, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
