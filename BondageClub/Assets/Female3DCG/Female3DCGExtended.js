@@ -981,6 +981,19 @@ var AssetFemale3DCGExtended = {
 							SelfUnlock: false,
 						},
 					},
+					{
+						Name: "Hogtie",
+						Prerequisite: ["CuffedFeet", "NotSuspended", "NotMounted", "NoFeetSpreader"],
+						Property: {
+							Type: "Hogtie",
+							Difficulty: 6,
+							Effect: ["Block", "Prone", "Freeze", "NotSelfPickable"],
+							Block: ["ItemHands", "ItemLegs", "ItemFeet", "ItemBoots", "ItemDevices"], 
+							AllowActivityOn: ["ItemHands", "ItemLegs", "ItemFeet", "ItemBoots"],
+							SetPose: ["Hogtied"],
+							SelfUnlock: false,
+						},
+					},
 				],
 				Dialog: {
 					Load: "SelectBondagePosition",
@@ -1841,7 +1854,62 @@ var AssetFemale3DCGExtended = {
 				],
 				ChatTags: [CommonChatTags.DEST_CHAR, CommonChatTags.TARGET_CHAR],
 			}
-		}
+		},
+		WoodenCuffs: {
+			Archetype: ExtendedArchetype.TYPED,
+			Config: {
+				Options: [
+					{
+						Name: "HandsFront",
+						Property: {
+							Type: "HandsFront",
+							Difficulty: 2,
+							Effect: ["Block", "Prone"],
+							SetPose: ["BaseUpper"],
+							SelfUnlock: true,
+						},
+					},
+					{
+						Name: "HandsBack",
+						Property: {
+							Type: "HandsBack",
+							Difficulty: 3,
+							Effect: ["Block", "Prone"],
+							SetPose: ["BackCuffs"],
+							SelfUnlock: false,
+						},
+					},
+					{
+						Name: "HandsHead",
+						Property: {
+							Type: "HandsHead",
+							Difficulty: 4,
+							Effect: ["Block", "Prone", "NotSelfPickable"],
+							SetPose: ["Yoked"],
+							SelfUnlock: false,
+						},
+					},
+					{
+						Name: "Hogtied",
+						Prerequisite: ["NotMounted", "NotSuspended"],
+						Property: { 
+							Type: "Hogtied", 
+							Difficulty: 5,
+							Effect: ["Block", "Freeze", "Prone", "NotSelfPickable"], 
+							SetPose: ["Hogtied"], 
+							Block: ["ItemHands", "ItemLegs", "ItemFeet", "ItemBoots", "ItemDevices"], 
+							AllowActivityOn: ["ItemHands", "ItemLegs", "ItemFeet", "ItemBoots"], 
+							SelfUnlock: false,
+						},
+						Expression: [{ Group: "Blush", Name: "Medium", Timer: 5 }],
+					},
+				],
+				Dialog: {
+					Load: "SelectBondagePosition",
+					TypePrefix: "ItemArmsWoodenCuffs",
+				},
+			},
+		}, // WoodenCuffs
 	}, // ItemArms
 	ItemNeck: {
 		ShinySteelCollar: {
@@ -2493,10 +2561,10 @@ var AssetFemale3DCGExtended = {
 				Options: [
 					{
 						Name: "None",
+						AllowLock: false,
 						Property: {
 							Type: null,
 							Difficulty: 0,
-							AllowLock: false,
 							SetPose: ["LegsClosed"],
 							Effect: ["Mounted"],
 						},
@@ -2763,6 +2831,7 @@ var AssetFemale3DCGExtended = {
 					},
 					{
 						Name: "Belts",
+						AllowLock: true,
 						Property: {
 							Type: "Belts",
 							Difficulty: 8,
@@ -2943,6 +3012,7 @@ var AssetFemale3DCGExtended = {
 									},
 								}, // t2 - RopeTight
 								{
+									AllowLock: true,
 									Prerequisite: ["CuffedArms"],
 									Property: {
 										Difficulty: 10,
@@ -2953,6 +3023,7 @@ var AssetFemale3DCGExtended = {
 									},
 								}, // t3 - Chains
 								{
+									AllowLock: true,
 									Prerequisite: ["CuffedArms"],
 									Property: {
 										Difficulty: 10,
@@ -2987,6 +3058,7 @@ var AssetFemale3DCGExtended = {
 									},
 								}, // b2 - RopeTight
 								{
+									AllowLock: true,
 									Prerequisite: ["CuffedLegs"],
 									Property: {
 										Difficulty: 10,
@@ -2997,6 +3069,7 @@ var AssetFemale3DCGExtended = {
 									},
 								}, // b3 - Chains
 								{
+									AllowLock: true,
 									Prerequisite: ["CuffedLegs"],
 									Property: {
 										Difficulty: 10,
@@ -3007,6 +3080,7 @@ var AssetFemale3DCGExtended = {
 									},
 								}, // b4 - ChainsTogether
 								{
+									AllowLock: true,
 									Property: {
 										Difficulty: 12,
 										SetPose: ["BaseLower"],
@@ -3083,6 +3157,22 @@ var AssetFemale3DCGExtended = {
 				}
 			},
 		}, // FuturisticHeels2
+		MonoHeel: {
+			Archetype: ExtendedArchetype.TYPED,
+			Config: {
+				ChatTags: [CommonChatTags.SOURCE_CHAR, CommonChatTags.DEST_CHAR, CommonChatTags.ASSET_NAME],
+				Options: [
+					{
+						Name: "Full",
+						Property: { Type: null, Difficulty: 1 },
+					},
+					{
+						Name: "Half",
+						Property: { Type: "Half", Difficulty: 0 },
+					},
+				],
+			},
+		}, // MonoHeel
 	}, // ItemBoots
 	ItemVulva: {
 		ClitSuctionCup: {
@@ -4563,6 +4653,21 @@ var AssetFemale3DCGExtended = {
 				],
 			},
 		}, //Glitter
+		HeadHarness: {
+			Archetype: ExtendedArchetype.TYPED,
+			Config: {
+				Options:[
+					{
+						Name: "Simple",
+						Property: {Type: null,}
+					},
+					{
+						Name: "Heavy",
+						Property: {Type: "Extra",}
+					},
+				],
+			},
+		}, //HeadHarness
 	}, // Mask
 	ItemLegs: {
 		DuctTape: {
@@ -5059,6 +5164,47 @@ var AssetFemale3DCGExtended = {
 				],
 			},
 		}, // Tentacles
+		WoodenCuffs: {
+			Archetype: ExtendedArchetype.TYPED,
+			Config: {
+				Options: [
+					{
+						Name: "LegsOpen",
+						Property: {
+							Type: null,
+							Difficulty: 2,
+							Effect: ["Freeze", "Prone"],
+							SetPose: ["LegsOpen"],
+							SelfUnlock: true,
+						},
+					},
+					{
+						Name: "Spread",
+						Property: {
+							Type: "Spread2",
+							Difficulty: 3,
+							Effect: ["Freeze", "Prone"],
+							SetPose: ["Spread"],
+							SelfUnlock: true,
+						},
+					},
+					{
+						Name: "LegsClosed",
+						Property: {
+							Type: "Spread3",
+							Difficulty: 3,
+							Effect: ["Freeze", "Prone"],
+							SetPose: ["LegsClosed"],
+							SelfUnlock: true,
+						},
+					},
+				],
+				Dialog: {
+					Load: "SelectBondagePosition",
+					TypePrefix: "ItemFeetWoodenCuffs",
+				},
+			},
+		}, // WoodenCuffs
 	}, // ItemFeet
 	ItemMisc: {
 		ServingTray: {
