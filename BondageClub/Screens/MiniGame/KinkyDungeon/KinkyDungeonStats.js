@@ -376,6 +376,9 @@ let KDOrigMana = 36;
 let KDOrigDistraction = 36;
 
 function KinkyDungeonChangeDistraction(Amount, NoFloater, lowerPerc) {
+	if (Amount > 0) {
+		KDNoRegenFlag = true;
+	}
 	KinkyDungeonStatDistraction += Amount;
 	KinkyDungeonStatDistraction = Math.min(Math.max(0, KinkyDungeonStatDistraction), KinkyDungeonStatDistractionMax);
 
@@ -385,7 +388,7 @@ function KinkyDungeonChangeDistraction(Amount, NoFloater, lowerPerc) {
 	}
 	if (!NoFloater && Math.abs(KDOrigDistraction - Math.floor(KinkyDungeonStatDistraction)) >= 0.99) {
 		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatDistraction) - KDOrigDistraction, "#ff00ff", undefined, undefined, " ap");
-		KDOrigDistraction = Math.floor(KinkyDungeonStatDistraction);
+		KDOrigDistraction = Math.max(0, Math.floor(KinkyDungeonStatDistraction));
 	}
 }
 function KinkyDungeonChangeStamina(Amount, NoFloater) {
@@ -451,9 +454,12 @@ function KinkyDungeonCanUseWeapon(NoOverride, e) {
 
 let KDBlindnessCap = 0;
 let KDBoundPowerLevel = 0;
+let KDNoRegenFlag = false;
 
 function KDGetDistractionRate(delta) {
-	let distractionRate = (KinkyDungeonVibeLevel == 0 && KDGameData.OrgasmNextStageTimer < 4) ? (!KinkyDungeonStatsChoice.get("arousalMode") ? KinkyDungeonStatDistractionRegen * KDDistractionDecayMultDistractionMode : (KDGameData.PlaySelfTurns < 1 ? KinkyDungeonStatDistractionRegen*(
+	let mult = KDNoRegenFlag ? 0 : 1;
+	KDNoRegenFlag = false;
+	let distractionRate = (KinkyDungeonVibeLevel == 0 && KDGameData.OrgasmNextStageTimer < 4) ? (!KinkyDungeonStatsChoice.get("arousalMode") ? KinkyDungeonStatDistractionRegen * KDDistractionDecayMultDistractionMode * mult : (KDGameData.PlaySelfTurns < 1 ? mult * KinkyDungeonStatDistractionRegen*(
 		(KinkyDungeonChastityMult() > 0.9 ? KDNoUnchasteMult : (KinkyDungeonChastityMult() > 0 ? KDNoUnchasteBraMult : 1.0))) : 0)) : (KinkyDungeonDistractionPerVibe * KinkyDungeonVibeLevel);
 
 	if (KDGameData.OrgasmStamina > 0 && delta > 0) {
