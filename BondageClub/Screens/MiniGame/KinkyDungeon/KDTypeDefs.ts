@@ -98,6 +98,8 @@ type restraint = {
 	inaccessible?: boolean,
 	/** This item can be rendered when linked */
 	renderWhenLinked?: string[];
+	/** When the mentioned items are rendered, changes the type */
+	changeRenderType?: Record<string, string>;
 	/** Stacking category, used to determine if you can have multiple of these items in a stack */
 	linkCategory?: string;
 	/** Stacking size, can't exceed 1 */
@@ -338,6 +340,9 @@ interface floorParams {
 	rubblechance : number,
 	brickchance : number,
 	cacheInterval : number,
+
+	/** FOrces all setpieces to use POIs, useful for tunnel type maps with thick walls to prevent entombe pieces*/
+	forcePOI?: boolean,
 
 	gaschance?: number,
 	gasdensity?: number,
@@ -810,6 +815,7 @@ interface entity {
 	flags?: Record<string, number>,
 	noDrop?: boolean,
 	droppedItems?: boolean,
+	specialdialogue?: string,
 	aggro?: number,
 	id?: number,
 	hp: number,
@@ -903,6 +909,8 @@ interface KinkyDialogueTrigger {
 
 interface spell {
 	tags?: string[];
+	/** Color of the spell and bullet warningsd */
+	color?: string,
 	name: string;
 	/** This spell wont trigger an aggro action */
 	noAggro?: boolean;

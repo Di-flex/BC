@@ -123,12 +123,12 @@ function KinkyDungeonDressPlayer() {
 			// Next we revisit all the player's restraints
 			for (let inv of KinkyDungeonAllRestraint()) {
 				let renderTypes = KDRestraint(inv).shrine;
-				KDApplyItem(inv);
+				KDApplyItem(inv, KinkyDungeonPlayerTags);
 				if (inv.dynamicLink) {
 					let link = inv.dynamicLink;
 					for (let I = 0; I < 30; I++) {
 						if (KDRestraint(link).renderWhenLinked && KDRestraint(link).renderWhenLinked.some((element) => {return renderTypes.includes(element);}))
-							KDApplyItem(link);
+							KDApplyItem(link, KinkyDungeonPlayerTags);
 						if (link.dynamicLink) {
 							link = link.dynamicLink;
 						} else I = 1000;
@@ -421,7 +421,7 @@ function KDCharacterAppearanceNaked() {
 }
 
 
-function KDApplyItem(inv) {
+function KDApplyItem(inv, tags) {
 	let _ChatRoomCharacterUpdate = ChatRoomCharacterUpdate;
 	// @ts-ignore
 	ChatRoomCharacterUpdate = () => {};
@@ -444,12 +444,19 @@ function KDApplyItem(inv) {
 		let placed = KDAddAppearance(KinkyDungeonPlayer, AssetGroup, AssetGet("3DCGFemale", AssetGroup, restraint.Asset), color);
 
 		if (placed) {
-			placed.Property = {Type: restraint.Type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
-			if (!already && restraint.Type) {
+			let type = restraint.Type;
+			if (restraint.changeRenderType && Object.keys(restraint.changeRenderType).some((k) => {return tags.has(k);})) {
+				let key = Object.keys(restraint.changeRenderType).filter((k) => {return tags.has(k);})[0];
+				if (key) {
+					type = restraint.changeRenderType[key];
+				}
+			}
+			placed.Property = {Type: type, LockedBy: inv.lock ? "MetalPadlock" : undefined};
+			if (!already && type) {
 				KinkyDungeonPlayer.FocusGroup = AssetGroupGet("Female3DCG", AssetGroup);
 				let options = window["Inventory" + ((AssetGroup.includes("ItemMouth")) ? "ItemMouth" : AssetGroup) + restraint.Asset + "Options"];
 				if (!options) options = TypedItemDataLookup[`${AssetGroup}${restraint.Asset}`].options; // Try again
-				const option = options.find(o => o.Name === restraint.Type);
+				const option = options.find(o => o.Name === type);
 				ExtendedItemSetType(KinkyDungeonPlayer, options, option);
 				KinkyDungeonPlayer.FocusGroup = null;
 			}

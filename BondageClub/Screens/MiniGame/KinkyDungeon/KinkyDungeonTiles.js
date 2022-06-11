@@ -6,6 +6,13 @@
 let KDMoveObjectFunctions = {
 	'D': (moveX, moveY) => { // Open the door
 		KinkyDungeonMapSet(moveX, moveY, 'd');
+
+		// For private doors, aggro the faction
+		let faction = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Faction ? KinkyDungeonTiles.get(moveX + "," +moveY).Faction : undefined;
+		if (faction) {
+			KinkyDungeonAggroFaction(faction, true);
+		}
+
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/DoorOpen.ogg");
 		return true;
 	},
@@ -14,11 +21,16 @@ let KDMoveObjectFunctions = {
 		let faction = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).Faction ? KinkyDungeonTiles.get(moveX + "," +moveY).Faction : undefined;
 		let noTrap = KinkyDungeonTiles.get(moveX + "," +moveY) && KinkyDungeonTiles.get(moveX + "," +moveY).NoTrap ? KinkyDungeonTiles.get(moveX + "," +moveY).NoTrap : false;
 		let roll = KinkyDungeonTiles.get(moveX + "," +moveY) ? KinkyDungeonTiles.get(moveX + "," +moveY).Roll : KDRandom();
-		KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType, roll, KinkyDungeonTiles.get(moveX + "," +moveY), undefined, noTrap);
-		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
-		KinkyDungeonMapSet(moveX, moveY, 'c');
-		KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
-		KinkyDungeonAggroAction('chest', {faction: faction});
+		if (faction && !KinkyDungeonChestConfirm) {
+			KinkyDungeonChestConfirm = true;
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChestFaction").replace("FACTION", TextGet("KinkyDungeonFaction" + faction)), "red", 2);
+		} else {
+			KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], chestType, roll, KinkyDungeonTiles.get(moveX + "," +moveY), undefined, noTrap);
+			if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/ChestOpen.ogg");
+			KinkyDungeonMapSet(moveX, moveY, 'c');
+			KDGameData.AlreadyOpened.push({x: moveX, y: moveY});
+			KinkyDungeonAggroAction('chest', {faction: faction});
+		}
 		return true;
 	},
 	'Y': (moveX, moveY) => { // Open the chest
@@ -73,6 +85,8 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		}
 	}
 }
+
+let KinkyDungeonChestConfirm = false;
 
 function KinkyDungeonHandleMoveToTile(toTile) {
 	if (toTile == 's' || toTile == 'H') { // Go down the next stairs

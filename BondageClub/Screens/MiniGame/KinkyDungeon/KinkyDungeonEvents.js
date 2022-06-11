@@ -407,13 +407,28 @@ const KDEventMapInventory = {
 				let subMult = 1;
 				let chance = e.chance ? e.chance : 1.0;
 				if (item && KDRestraint(item).Link && KDRandom() < chance * subMult) {
-					let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
-					//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
-					if (KinkyDungeonSound && e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
-					KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
+					let prereq = KDEventPrereq(e.requiredTag);
+					if (prereq) {
+						let newRestraint = KinkyDungeonGetRestraintByName(KDRestraint(item).Link);
+						//KinkyDungeonLinkItem(newRestraint, item, item.tightness, "");
+						if (KinkyDungeonSound && e.sfx) KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + e.sfx + ".ogg");
+						KinkyDungeonAddRestraint(newRestraint, item.tightness, true, "", false, undefined, undefined, undefined, item.faction);
+					}
 				}
 			}
-		}
+		},
+		"lockItemOnDamageType": (e, item, data) => {
+			if (data.type && data.type == e.damage && data.dmg) {
+				let subMult = 1;
+				let chance = e.chance ? e.chance : 1.0;
+				if (item && KinkyDungeonGetLockMult(e.lock) > KinkyDungeonGetLockMult(item.lock) && KDRandom() < chance * subMult) {
+					let prereq = KDEventPrereq(e.requiredTag);
+					if (prereq) {
+						KinkyDungeonLock(item, e.lock);
+					}
+				}
+			}
+		},
 	},
 	"miss": {
 		"EnergyCost": (e, item, data) => {
@@ -574,7 +589,7 @@ const KDEventMapInventory = {
 			}
 		},
 		"PunishPlayer": (e, item, data) => {
-			if (item.type === Restraint && data.targetX && data.targetY && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy))) {
+			if (item.type === Restraint && data.targetX && data.targetY && data.enemy && !(data.enemy && data.enemy.Enemy && KDAllied(data.enemy)) && (!KinkyDungeonHiddenFactions.includes(KDGetFaction(data.enemy)) || KDGetFaction(data.enemy) == "Enemy")) {
 				if (KDRandom() < e.chance || (KDGameData.WarningLevel > 2 && KDRandom() < e.warningchance)) {
 					if (e.stun && KDGameData.WarningLevel > 2) {
 						KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, e.stun);
@@ -1272,3 +1287,18 @@ function KinkyDungeonHandleEnemyEvent(Event, e, enemy, data) {
 }
 
 
+
+
+function KDEventPrereq(e, item, tags) {
+	if (tags) {
+		if (!tags.length) {
+			tags = [tags];
+		}
+		for (let t of tags) {
+			if (t == "locked") {
+				return item.lock != undefined && item.lock != "";
+			}
+		}
+	}
+	return true;
+}

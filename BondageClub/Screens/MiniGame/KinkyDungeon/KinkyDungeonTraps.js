@@ -101,7 +101,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 								if (xx != 0 || yy != 0) i = 1000;
 							}
 						}
-						KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined);
+						KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined, "Trap");
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = ""; // The spell will show a message on its own
 						KinkyDungeonTiles.delete(x + "," + y);

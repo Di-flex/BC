@@ -954,6 +954,10 @@ Spell Balance:
 - Wall mana cost reduced to 3 from 6
 
 3.41
+- Added some more quest-like interactions
+- Added thought bubbles
+- New enemy: Librarian
+- New jail stuff
 
 TODO ValidationFindBlockCycles to prevent bugs
 

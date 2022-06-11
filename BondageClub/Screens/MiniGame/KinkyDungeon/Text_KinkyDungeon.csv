@@ -3,7 +3,7 @@ KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
 KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika"
+KinkyDungeonPatronsList1,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika|Physicsphail"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
 KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
@@ -297,6 +297,8 @@ KinkyDungeonRestartCapture,"Actually, I will let the enemy capture me instead."
 KinkyDungeonRestartNo,"No, I wish to press on"
 KinkyDungeonCheckPerks,"See Background"
 
+KinkyDungeonChestFaction,This chest belongs to the FACTION
+
 DeviousChallenge,"Devious Dungeon Challenge is enabled."
 KinkyDungeonLoading,"Waiting for game data..."
 
@@ -545,6 +547,7 @@ KinkyDungeonInventoryItemScrollLegsDesc2,Allows you to cast Leg spells without c
 KinkyDungeonInventoryItemMistressKey,Ancient Key
 KinkyDungeonInventoryItemMistressKeyDesc,"Perhaps it has something to do with ancient restraints?"
 KinkyDungeonInventoryItemMistressKeyDesc2,"An ancient key plated in gold. It doesnt look like it can open anything..."
+ItemPickupMistressKey,"You pick up a shining golden key."
 
 KinkyDungeonInventoryItemAncientPowerSource,Power Crystal
 KinkyDungeonInventoryItemAncientPowerSourceUse,"You hold the crystal and the power flows into you."
@@ -857,6 +860,11 @@ KillDoorLock,"The mystic lock fades, allowing you to pass once more."
 KinkyDungeonSummonSingleDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
 KinkyDungeonTrapDoorLock,"As you cross the threshold, a mystical lock appears to prevent you from stepping back!"
 
+NameChainWall,Metal Shield
+KillChainWall,"The shield falls to the floor."
+KinkyDungeonSummonSingleChainWall,"A metal shield blocks your way!"
+KinkyDungeonSummonMultiChainWall,"Several metal shields block your way!"
+
 NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall
@@ -1106,10 +1114,17 @@ AttackDragonShadowPull,"The Shadow Dragonheart extends her scythe and pulls you 
 AttackDragonShadow,"The Shadow Dragonheart catches you with her scythe! (-DamageTaken SP)"
 
 NameDragonLeader,Dragonheart Leader
-KillDragonLeader,"The Dragonheart Leader retreats hurriedly."
+KillDragonLeader,"The Dragonheart Leader admits defeat."
 AttackDragonLeaderBind,"The Dragonheart Leader apprehends you! (+RestraintAdded)"
 AttackDragonLeaderDash,"The Dragonheart Leader dashes to you!"
 AttackDragonLeader,"The Dragonheart Leader squeezes your body! (-DamageTaken SP)"
+
+
+NameDragonLeaderDuelist,Rebel Scum!
+KillDragonLeaderDuelist,"The Dragonheart Rebel admits defeat."
+AttackDragonLeaderDuelistBind,"The Dragonheart Rebel apprehends you! (+RestraintAdded)"
+AttackDragonLeaderDuelistDash,"'En garde!'"
+AttackDragonLeaderDuelist,"The Dragonheart Rebel squeezes your body! (-DamageTaken SP)"
 
 NameDryad,Dryad
 KillDryad,"The dryad sinks into the ground."
@@ -1428,7 +1443,7 @@ AttackWitchRope,"The witch slaps you playfully! (-DamageTaken SP)"
 NameWitchMagnet,Magnet Witch
 KillWitchMagnet,"The witch is pulled away by an unseen force."
 AttackWitchMagnetBind,"The witch's restraints fly out and attach themselves to you! (+RestraintAdded)"
-AttackWitchMagnet,"The witch grabs you and rubs you playfully! (-DamageTaken SP)"
+AttackWitchMagnet,"The witch's lightning causes your body to tingle! (-DamageTaken SP)"
 
 NameApprentice,Witch's Apprentice
 KillApprentice,"The apprentice runs off and cries in a corner."
@@ -1448,8 +1463,14 @@ AttackApprenticeSlime,"The apprentice caresses you playfully! (-DamageTaken SP)"
 NameWitchChain,Chain Witch
 KillWitchChain,"The chain witch vanishes into a pile of metal dust, leaving behind a keyring."
 AttackWitchChainLock,"The chain witch locks all of your restraints!"
-AttackWitchChainBind,"The witch clips a restraint around your neck! (+RestraintAdded)"
+AttackWitchChainBind,"The witch's bindings wrap themselves around you! (+RestraintAdded)"
 AttackWitchChain,"The chain witch tugs sensually at your restraints! (-DamageTaken SP)"
+
+NameWitchMetal,Metal Witch
+KillWitchMetal,"The metal witch vanishes into a pile of metal dust, leaving behind a keyring."
+AttackWitchMetalLock,"The metal witch locks all of your restraints!"
+AttackWitchMetalBind,"The metal's bindings wrap themselves around you! (+RestraintAdded)"
+AttackWitchMetal,"The metal witch tugs sensually at your restraints! (-DamageTaken SP)"
 
 NameWitchSlime,Slime Witch
 KillWitchSlime,"The slime witch vanishes into a pool of pink slime, leaving behind a keyring."
@@ -1468,11 +1489,32 @@ AttackFungal,"The fun-gal rubs your chest with her long, slender fingers!"
 KinkyDungeonSpellCrystalPuff,Crystal Glyph
 
 
+NameDressmakerQuest,Tailor
+KillDressmakerQuest,You murder the tailor!
+
+NameApprenticeQuest,Student
+KillApprenticeQuest,You murder the student!
+
+NameDragonheartQuest,Tactician
+KillDragonheartQuest,You murder the tactician!
+
+NameBanditQuest,Thug
+KillBanditQuest,You murder the thug!
+
+NameBlacksmithQuest,Blacksmith
+KillBlacksmithQuest,You murder the blacksmith!
+
 NameDressmaker,Dressmaker
 KillDressmaker,"The dressmaker storms out in a rage."
 AttackDressmakerBind,"The dressmaker has you try on one of her new accessories! (+RestraintAdded)"
 AttackDressmakerLock,"The dressmaker adds a lock 'just to complete the look, you know?'"
 AttackDressmaker,"The dressmaker cuddles your helpless body~ (-DamageTaken SP)"
+
+NameLibrarian,Librarian
+KillLibrarian,"The librarian gets angry and retreats."
+AttackLibrarianBind,"The librarian shushes you as she brandishes a restraint! (+RestraintAdded)"
+AttackLibrarianLock,"The librarian snaps her fingers and sends a lock flying at you!"
+AttackLibrarian,"The librarian whispers seductively into your ear! (-DamageTaken SP)"
 
 
 NameGiantMushroom,Giant Mushroom
@@ -1637,22 +1679,22 @@ PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
 KinkyDungeonStruggleStruggleFail,"You try to pull the TargetRestraint off..."
 KinkyDungeonStruggleStruggleFailAroused,"You try to squirm and moan out of the TargetRestraint..."
 KinkyDungeonStruggleStruggleFail2,"You tug on the TargetRestraint with increased power..."
-KinkyDungeonStruggleStruggleFail3,"The ghost helps you try to pull the TargetRestraint off..."
+KinkyDungeonStruggleStruggleFail3,"Your ally helps you try to pull the TargetRestraint off..."
 KinkyDungeonStrugglePickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonStrugglePickFail2,"You work on picking the TargetRestraint with your powers..."
-KinkyDungeonStrugglePickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
+KinkyDungeonStrugglePickFail3,"Your ally tries to pick the lock on your TargetRestraint..."
 KinkyDungeonStrugglePickBreak,"You try to pick open the TargetRestraint but break your lockpick."
 KinkyDungeonStrugglePickDrop,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail,"You work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFailAroused,"Your trembling hands work on picking the TargetRestraint..."
 KinkyDungeonAttemptPickFail2,"You work on picking the TargetRestraint with your powers..."
-KinkyDungeonAttemptPickFail3,"The ghost tries to pick the lock on your TargetRestraint..."
+KinkyDungeonAttemptPickFail3,"Your ally tries to pick the lock on your TargetRestraint..."
 KinkyDungeonAttemptPickBreak,"You break your lockpick trying to open the TargetRestraint."
 KinkyDungeonStruggleRemoveFail,"You try to remove the TargetRestraint..."
 KinkyDungeonStruggleRemoveFailAroused,"You shakily try to remove the TargetRestraint..."
 KinkyDungeonStruggleRemoveFail2,"You try to remove the TargetRestraint with a tool..."
-KinkyDungeonStruggleRemoveFail3,"The ghost helps you remove the TargetRestraint..."
+KinkyDungeonStruggleRemoveFail3,"Your ally helps you remove the TargetRestraint..."
 KinkyDungeonStruggleCutFail,"You try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutFailAroused,"You tremble as you try to cut the TargetRestraint..."
 KinkyDungeonStruggleCutFail2,"You try to cut the TargetRestraint using your tools..."
@@ -3004,6 +3046,7 @@ KinkyDungeonGroupItemDevices,Device
 
 ItemPickupGold,"You picked up XXX gold."
 ItemPickupAncientPowerSource,"You retrieve an ancient power crystal."
+ItemPickupAncientPowerSourceSpent,"You retrieve a spent ancient power crystal."
 ItemPickupHeart,"You pick up a magical amulet and use it to boost your stats."
 ItemPickupKnife,"You picked up a knife."
 ItemPickupKnives,"You found a bundle of discarded knives!"
@@ -3097,6 +3140,32 @@ KinkyDungeonBookNextPageFast,>>>
 KinkyDungeonBookLastPageFast,<<<
 KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 
+KinkyDungeonColumnVerbal,"Verbal"
+KinkyDungeonColumnArms,"Arms"
+KinkyDungeonColumnLegs,"Legs"
+KinkyDungeonColumnPassive,"None"
+
+KinkyDungeonFilterbuff,Buffs
+KinkyDungeonFilterdot,DoT
+KinkyDungeonFilterbolt,Projectiles
+KinkyDungeonFiltermelee,Melee
+KinkyDungeonFilteraoe,Area Damage
+KinkyDungeonFilterdenial,Area Denial
+KinkyDungeonFilteroffense,Offense
+KinkyDungeonFilterdefense,Defense
+KinkyDungeonFilterfire,Fire
+KinkyDungeonFilterice,Ice
+KinkyDungeonFilterearth,Earth
+KinkyDungeonFilterair,Air
+KinkyDungeonFilterslime,Rubber
+KinkyDungeonFilterteleport,Teleport
+KinkyDungeonFilterconjure,Conjuring
+KinkyDungeonFiltersummon,Summoning
+KinkyDungeonFilterbind,Binding
+KinkyDungeonFilterstealth,Stealth
+KinkyDungeonFilterlight,Light
+KinkyDungeonFiltershadow,Shadow
+KinkyDungeonFilterutility,Utility
 
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it fizzles!
@@ -3168,7 +3237,7 @@ KinkyDungeonSpellTargetFreeze,Choose a target to freeze
 
 KinkyDungeonSpellShatter,Shatter
 KinkyDungeonSpellShatterStrike,Shatter
-KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets."
+KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets and slow for 4 turns.."
 
 KinkyDungeonSpellIgnition,Ignite
 KinkyDungeonSpellIgnite,Ignite
@@ -3581,7 +3650,18 @@ KinkyDungeonSummonMultiCuffs,A swarm of shackles approaches you!
 KinkyDungeonSummonSingleLock,A cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiLock,A huge cloud of locks and chains clatters as it levitates toward you!
 KinkyDungeonSummonMultiTickleHand,Floating hands appear by the conjurer's side as she points her staff!
-KinkyDungeonSummonMultiBookChain,Floating books appear near the conjurer as she points her staff!
+
+KinkyDungeonSummonMultiBookChain,Floating books appear near the caster!
+KinkyDungeonSummonMultiBookNature,Dusty tomes appear near the caster!
+KinkyDungeonSummonMultiBookArcane,Magical books appear near the caster!
+KinkyDungeonSummonMultiBookForbidden,Sinister books appear near the caster!
+KinkyDungeonSummonMultiBookElectric,Crackling books appear near the caster!
+KinkyDungeonSummonMultiBookCelestial,Glowing books appear near the caster!
+KinkyDungeonSummonMultiBookSlime,Rubber-stained books appear near the caster!
+KinkyDungeonSummonMultiBookFire,Flaming books appear near the caster!
+KinkyDungeonSummonMultiBookIce,Frigid books appear near the caster!
+KinkyDungeonSummonMultiBookTickle,Devilish books appear near the caster!
+
 
 KinkyDungeonCrotchRope,Your struggling leaves you aroused because of the RestraintName...
 KinkyDungeonCelestialPunish0,"You feel your restraints squeeze you and tingle with painful sensations!"
@@ -3883,6 +3963,8 @@ KinkyDungeonCurseStruggleShadowCurse,"The collar is enchanted with multiple laye
 KinkyDungeonCurseUnlockShadowCurse,"The collar has absorbed enough energy and pops off!"
 
 KinkyDungeonUnusable,"That item cant be used."
+KinkyDungeonMistressKeyFail,"You're not sure how to use this key."
+KinkyDungeonInventoryItemMistressKeyUse,"As soon as you touch the key, all of your gold locks fade to blue!"
 
 KinkyDungeonCurseInfoMistressKey,"You realize there is no keyhole on the device, simply a lock-shaped sigil."
 KinkyDungeonCurseUnlockMistressKey,"The item loosens and falls off, but you see a red sigil flash and the key suddenly teleports away!"
@@ -4464,6 +4546,26 @@ KinkyDungeonRemindJailChaseTemplateOrb,"EnemyName: "
 KinkyDungeonRemindJailChaseTemplateJailbreak,"EnemyName: "
 
 
+KinkyDungeonRemindJailPlayElf0,"EnemyName: Well met, mortal!"
+KinkyDungeonRemindJailPlayElf1,"EnemyName: You look so... bland."
+KinkyDungeonRemindJailPlayElf2,"EnemyName: Mortals are so picky about what they wear..."
+KinkyDungeonRemindJailPlayElfStruggle,"EnemyName: Tight, as all things should be."
+KinkyDungeonRemindJailPlayElfFree,"EnemyName: Let us put those hands away..."
+KinkyDungeonRemindJailPlayElfLoot,"EnemyName: Give back what you take."
+KinkyDungeonRemindJailPlayElfKey,"EnemyName: You must remain here."
+KinkyDungeonRemindJailChaseElfAttack0,"EnemyName: Resorting to violence?"
+KinkyDungeonRemindJailChaseElfAttack1,"EnemyName: Let us clash swords!"
+KinkyDungeonRemindJailChaseElfAttack2,"EnemyName: *scoffs*"
+KinkyDungeonRemindJailChaseElfSpell0,"EnemyName: You have brought judgement upon youself."
+KinkyDungeonRemindJailChaseElfSpell1,"EnemyName: Your magic is that of a child."
+KinkyDungeonRemindJailChaseElfSpell2,"EnemyName: Imagine what you could learn in twelve lifetimes..."
+KinkyDungeonRemindJailChaseElfSpellItem,"EnemyName: You rely on cheap gadgets."
+KinkyDungeonRemindJailChaseElfShrine,"EnemyName: Do not defile the ancients."
+KinkyDungeonRemindJailChaseElfChest,"EnemyName: Give that back!"
+KinkyDungeonRemindJailChaseElfOrb,"EnemyName: The ancients are appalled."
+KinkyDungeonRemindJailChaseElfJailbreak,"EnemyName: The mortal has escaped!"
+
+
 KinkyDungeonRemindJailPlayMushy0,"EnemyName: Girl!"
 KinkyDungeonRemindJailPlayMushy1,"EnemyName: Wear this!"
 KinkyDungeonRemindJailPlayMushy2,"EnemyName: Come here!"
@@ -4752,11 +4854,17 @@ rPrisonRepeatSmile,"(The SPEAKER smiles back)|Oh, this is a game to you?|Then pe
 rPrisonRepeatSmile2,"(The SPEAKER smiles back)|I'm glad you're enjoying yourself.|However, your behavior is still unacceptable.|You need to learn some respect."
 rPrisonRepeatStruggle,"(The SPEAKER chuckles)|Looks like you're enjoying your restraints?|Let's make them tighter, shall we?"
 rPrisonRepeatPout,"(The SPEAKER shrugs)|Well, I hope you learn."
+rPrisonRepeatBribe,"(The SPEAKER looks greedy)|Oh, you have an idea?"
+rPrisonRepeatBribe_Accept,"(The SPEAKER nods)|I'll put in a good word with you~"
+rPrisonRepeatBribeFail,"(The SPEAKER shakes her head)|Babe, you know who's going to be blamed|if a max-security prisoner escapes?"
 
 dPrisonRepeat_Smile,"(Giggle and smile)"
 dPrisonRepeat_Smile2,"(Giggle and moan)"
 dPrisonRepeat_Struggle,"(Struggle in your bindings)"
 dPrisonRepeat_Pout,"(Pout and glare at her)"
+dPrisonRepeat_Bribe,"(Point to the Jailer's coin pouch)"
+dPrisonRepeatBribe_Accept,"(Give her all your gold)"
+
 
 
 dOfferDominant,"Why don't you wear it instead? (OFFPERC chance, may aggro)"
@@ -4965,6 +5073,20 @@ dOfferMaidForce_No,"Never! (PERCENT chance to avoid)"
 dOfferMaidForce_NoGag,"(Shake your head and frown) (PERCENT chance to avoid)"
 
 
+
+
+rBlacksmithShop,"(The SPEAKER waves)|Greetings,|I manufacture all sorts of goods.|Would you like to buy some?"
+rBlacksmithShopAttack,"(The SPEAKER drops her hammer and cracks her knuckles)|Put em up!"
+rBlacksmithShop_AlreadyHave,"(The SPEAKER looks at you.)|But you already have one?"
+rBlacksmithShop_NoMoney,"(The SPEAKER folds her arms)|I don't do charity, ma'am."
+rBlacksmithShopRedKey,"(The SPEAKER nods)|Young adventurers like you should always carry some."
+rBlacksmithShopSword,"(The SPEAKER nods)|A versatile weapon. One of my favorites."
+rBlacksmithShopSpear,"(The SPEAKER nods)|Keep your friends close, and your enemies far away."
+rBlacksmithShopKnife,"(The SPEAKER nods)|Handy to have one of these."
+rBlacksmithShopAxe,"(The SPEAKER nods)|The best defense is a good offense."
+rBlacksmithShopTrapCuffs,"(The SPEAKER looks puzzled)|Don't know why you want 'em, but sure."
+
+
 rPotionSell,"(The SPEAKER approaches you with an offer)|Greetings! I am a potion trader.|Give me your strongest potions!|I pay cash!"
 rPotionSellAttack,"(The SPEAKER doesn't look surprised)|Okay, just let me set these down real quick..."
 rPotionSellPotionMana,"(The SPEAKER smiles)|A spellcaster will have great use for this!"
@@ -5021,6 +5143,17 @@ dItemShop6,(Sell Item6 for ItemCost6 gp)
 dItemShop7,(Sell Item7 for ItemCost7 gp)
 dItemShop8,(Sell Item8 for ItemCost8 gp)
 dItemShop9,(Sell Item9 for ItemCost9 gp)
+
+dItemShopBuy0,(Buy Item0 for ItemCost0 gp)
+dItemShopBuy1,(Buy Item1 for ItemCost1 gp)
+dItemShopBuy2,(Buy Item2 for ItemCost2 gp)
+dItemShopBuy3,(Buy Item3 for ItemCost3 gp)
+dItemShopBuy4,(Buy Item4 for ItemCost4 gp)
+dItemShopBuy5,(Buy Item5 for ItemCost5 gp)
+dItemShopBuy6,(Buy Item6 for ItemCost6 gp)
+dItemShopBuy7,(Buy Item7 for ItemCost7 gp)
+dItemShopBuy8,(Buy Item8 for ItemCost8 gp)
+dItemShopBuy9,(Buy Item9 for ItemCost9 gp)
 
 rAngelHelp,"(The SPEAKER appears in a flash of light)|I come in the name of the Goddess.|I presume you need my aid?|(She will remain and help you with restraints for 50 turns)"
 rAngelHelpKnife,"(The SPEAKER gives you two knives)|Don't hurt yourself with these, okay?"
@@ -5321,5 +5454,66 @@ KDNotFeeling,You're not feeling it...
 KDCantSleep,"You close your eyes but the vibrations keep you from dozing off..."
 
 rPrisonerBandit,"(A SPEAKER lies hogtied in front of you)|(She looks at you with pleading eyes,)|(and mumbles incoherently through her gag)"
-rPrisonerBanditHelp,"(SPEAKER looks grateful)|Thank you so much miss!|I owe you everything."
+rPrisonerBanditSub,"(A SPEAKER lies hogtied in front of you)|(She looks at you, mumbling and giggling into her gag)"
+rPrisonerBanditHelp,"(SPEAKER looks grateful)|Thank you so much|I shall join your party."
+rPrisonerBanditHelpSub,"(SPEAKER looks grateful)|Thank you so much miss!|I owe you everything."
+rPrisonerBanditTighten,"(SPEAKER groans and wriggles around uselessly)"
+rPrisonerBanditTightenSub,"(SPEAKER moans and rolls around, blushing deeply)"
 dPrisonerBandit_Help,Untie her
+dPrisonerBandit_Tighten,Make sure she is tight and secure
+
+rDressmakerQuest,"(A SPEAKER bumps into you while immersed in her thoughts)|Oh! Hello!|Say, you look adorable...|Do you mind helping me find something?"
+rDressmakerQuestHelp,"(The SPEAKER jumps up and down)|Ah, wonderful!|I've misplaced one of my dresses.|If you could find one, wear it, and bring it to me,|I'd greatly appreciate it! Thanks!"
+rDressmakerQuestComplete,"(The SPEAKER stares at you like a rabid animal)|Wowie! You look gorgeous!|Thank you so much!|(She snaps a photo of you using a magic crystal)"
+rDressmakerQuestComplete_Question,"(The SPEAKER giggles)|I never said I'd take it off, did I?"
+rDressmakerQuestComplete_QuestionSuccess,"(The SPEAKER smiles)|Sure thing!"
+dDressmakerQuest_Help,(Show interest)
+dDressmakerQuest_Complete,I found your dress...
+dDressmakerQuest_CompleteGag,Mmmph... (Found the dress!)
+dDressmakerQuestComplete_Question,Great! Can you take it off?
+dDressmakerQuestComplete_QuestionGag,Mmmmm! (Struggle)
+
+rApprenticeQuest,"(A SPEAKER clutching her books approaches you)|Miss adventurer!|I happen to need a magic scroll of any kind.|It's for my studies."
+rApprenticeQuestHelp,"(The SPEAKER smiles)|Yes, thank you so much!|It's been so difficult to get them lately.|The magic library is closed off these days,|and there are mean people trying to get the scrolls back..."
+rApprenticeQuestCompleteLegs,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompleteArms,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompleteVerbal,"(The SPEAKER is happy)|Thank you so much!"
+rApprenticeQuestCompletePurity,"(The SPEAKER is happy)|Thank you so much!"
+dApprenticeQuest_Help,(Show interest)
+dApprenticeQuest_CompleteLegs,Give her a Scroll of Sauntering
+dApprenticeQuest_CompleteArms,Give her a Scroll of Sleight
+dApprenticeQuest_CompleteVerbal,Give her a Scroll of Speech
+dApprenticeQuest_CompletePurity,Give her a Scroll of Purity
+
+rDragonheartQuest,"(A SPEAKER looks distraught)|Well met, adventurer!|We have a problem..."
+rDragonheartQuestHelp,"(The SPEAKER folds her arms)|A rebel has been causing us problems lately...|If you run into her, give her all you got!|She needs to be brought to justice."
+dDragonheartQuest_Help,(Show interest)
+
+rJailerHiSec,"(A SPEAKER approaches you in your cell)|Since you've been a bad girl,|we're taking you to the high-security prison."
+rJailerHiSecResist,"(The SPEAKER folds her arms)|Want to or not, you're going."
+dJailerHiSec_Resist,(Resist)
+dJailerHiSec_Submit,(Submit)
+
+rBanditQuest,"(A SPEAKER crosses her arms)|Who you lookin' at?|Oh, it's an adventurer.|Say, you wouldn't be interested|in working with us, would ya?"
+rBanditQuestHelp,"(The SPEAKER smiles)|That's more like it.|Here's the scoop: One of ours was captured on the next floor.|We need you to go get her out."
+dBanditQuest_Help,(Show interest)
+
+rPrisonerJail,"(The SPEAKER sits bound in high-security manacles)|You'll need to open the lock to get her out..."
+rPrisonerJailNoKeys,"(You don't have any normal keys)"
+rPrisonerJailUnlockHandsBound,"(You can't help her, bound as tightly as you are...)"
+rPrisonerJailUnlockSlow,"(You unlock her, fumbling around for a while with your bound hands)"
+rPrisonerJailUnlock,"(You unlock the SPEAKER)|Thank you!|Let's get out of here!"
+rPrisonerJailNoPick,"(You don't have any lockpicks)"
+rPrisonerJailPickHandsBound,"(You can't pick the lock with your hands bound)"
+rPrisonerJailPick,"(After a while, you free the SPEAKER)|Thank you!|Let's get moving!"
+rPrisonerJailWordNoMana,"(You don't have enough mana for a Command Word)"
+rPrisonerJailWordNoSpeak,"(Try as you might, your mouth is sealed tight)"
+rPrisonerJailWord,"(You utter a Command Word to free the SPEAKER)|Many thanks!|Let's go!"
+
+dPrisonerJail_Unlock,Use a key to unlock her
+dPrisonerJail_Pick,Try to pick her restraints
+dPrisonerJail_Word,Use a Command Word
+
+KinkyDungeonDiscovered,An enemy found you while you were busy!
+
+rPrisonerRescue,"(A SPEAKER wakes you up by banging on the bars)|Wake up! Let's get out of here!|(She managed to pick the lock on your cell door)"

@@ -138,6 +138,24 @@ function KinkyDungeonShrineCost(type) {
 	return Math.round(Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10 * (1 + 0.01 * KinkyDungeonDifficulty));
 }
 
+function KDAddBasic(item) {
+	if (item.name == "RedKey") {
+		KinkyDungeonRedKeys += 1;
+	} else if (item.name == "BlueKey") {
+		KinkyDungeonBlueKeys += 1;
+	} else if (item.name == "Lockpick") {
+		KinkyDungeonLockpicks += 1;
+	} else if (item.name == "2Lockpick") {
+		KinkyDungeonLockpicks += 2;
+	} else if (item.name == "4Lockpick") {
+		KinkyDungeonLockpicks += 4;
+	} else if (item.name == "MaidUniform") {
+		KinkyDungeonInventoryAddOutfit("Maid");
+	} else if (item.consumable) {
+		KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.consumable], item.quantity);
+	}
+}
+
 function KinkyDungeonPayShrine(type) {
 	KinkyDungeonGold -= KinkyDungeonShrineCost(type);
 	let ShrineMsg = "";
@@ -196,21 +214,7 @@ function KinkyDungeonPayShrine(type) {
 				KinkyDungeonInventoryAdd({name: item.name, type: LooseRestraint, events:restraint.events});
 			}
 			else if (item.shoptype == "Basic") {
-				if (item.name == "RedKey") {
-					KinkyDungeonRedKeys += 1;
-				} else if (item.name == "BlueKey") {
-					KinkyDungeonBlueKeys += 1;
-				} else if (item.name == "Lockpick") {
-					KinkyDungeonLockpicks += 1;
-				} else if (item.name == "2Lockpick") {
-					KinkyDungeonLockpicks += 2;
-				} else if (item.name == "4Lockpick") {
-					KinkyDungeonLockpicks += 4;
-				} else if (item.name == "MaidUniform") {
-					KinkyDungeonInventoryAddOutfit("Maid");
-				} else if (item.consumable) {
-					KinkyDungeonChangeConsumable(KinkyDungeonConsumables[item.consumable], item.quantity);
-				}
+				KDAddBasic(item);
 			}
 			ShrineMsg = TextGet("KinkyDungeonPayShrineCommerce").replace("ItemBought", TextGet("KinkyDungeonInventoryItem" + item.name));
 			KinkyDungeonShopItems.splice(KinkyDungeonShopIndex, 1);

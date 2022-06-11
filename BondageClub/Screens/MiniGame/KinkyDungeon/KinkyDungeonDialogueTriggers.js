@@ -115,6 +115,31 @@ let KDDialogueTriggers = {
 			return 1 + 0.4 * Math.abs(KinkyDungeonGoddessRep.Rope + 50)/100;
 		},
 	},
+
+	"OfferMithril": {
+		dialogue: "OfferMithril",
+		allowedPrisonStates: ["parole", ""],
+		allowedPersonalities: ["Dom","Sub"],
+		requireTagsSingle: ["mithrilRestraints"],
+		excludeTags: ["zombie", "skeleton", "robot"],
+		playRequired: true,
+		nonHostile: true,
+		noCombat: true,
+		noAlly: true,
+		blockDuringPlaytime: true,
+		prerequisite: (enemy, dist) => {
+			return (dist < 1.5
+                && !KinkyDungeonFlags.get("DangerFlag")
+                && !KinkyDungeonFlags.get("BondageOffer")
+                && !KinkyDungeonFlags.get("NoTalk")
+                && KDRandom() < 0.25
+                && KinkyDungeonGetRestraint({tags: ["mithrilRestraints"]}, MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]) != undefined);
+		},
+		weight: (enemy, dist) => {
+			return 1 + 0.4 * Math.max(Math.abs(KinkyDungeonGoddessRep.Metal)/100, Math.abs(KinkyDungeonGoddessRep.Ghost)/100);
+		},
+	},
+
 	"OfferLeather": {
 		dialogue: "OfferLeather",
 		allowedPrisonStates: ["parole", ""],

@@ -16,6 +16,24 @@ function KinkyDungeonFindConsumable(Name) {
 	return undefined;
 }
 
+function KinkyDungeonFindBasic(Name) {
+	for (let con of Object.values(KinkyDungneonBasic)) {
+		if (con.name == Name) return con;
+	}
+	return undefined;
+}
+
+function KinkyDungeonFindConsumableOrBasic(Name) {
+	for (let con of Object.values(KinkyDungeonConsumables)) {
+		if (con.name == Name) return con;
+	}
+
+	for (let con of Object.values(KinkyDungneonBasic)) {
+		if (con.name == Name) return con;
+	}
+	return undefined;
+}
+
 function KinkyDungeonGetInventoryItem(Name, Filter = Consumable) {
 	let Filtered = KinkyDungeonFilterInventory(Filter);
 	for (let item of Filtered) {
@@ -146,6 +164,10 @@ function KinkyDungeonConsumableEffect(Consumable) {
 	} else if (Consumable.type == "shrineRemove") {
 		KinkyDungeonRemoveRestraintsWithShrine(Consumable.shrine);
 		KinkyDungeonAdvanceTime(1);
+	} else if (Consumable.type == "goldKey") {
+		for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Gold"])) {
+			KinkyDungeonLock(r, "Blue");
+		}
 	}
 }
 
@@ -171,6 +193,12 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "unusuable") {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonUnusable"), "red", 1);
 		return false;
+	}
+	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "goldKey") {
+		if (KinkyDungeonPlayerGetRestraintsWithLocks(["Gold"]).length == 0) {
+			KinkyDungeonSendActionMessage(8, TextGet("KinkyDungeonMistressKeyFail"), "red", 1);
+			return false;
+		}
 	}
 	if (item.item && KDConsumable(item.item) && KDConsumable(item.item).type == "charge" && KDGameData.AncientEnergyLevel >= 1) {
 		KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonFullpower"), "red", 1);

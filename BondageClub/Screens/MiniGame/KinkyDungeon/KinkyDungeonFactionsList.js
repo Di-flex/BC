@@ -27,6 +27,7 @@ let KinkyDungeonHiddenFactions = [
 	"Boss",
 	"Ambush",
 	"Rage",
+	"Ghost",
 ];
 
 let KinkyDungeonFactionRelationsBase = {
@@ -69,6 +70,10 @@ let KinkyDungeonFactionRelationsBase = {
 		AncientRobot: -0.25,
 		Nevermere: -0.1,
 	},
+	"Ghost": {
+		Player: -1.0,
+		Jail: -1.0,
+	},
 	"Demon": {
 		Elf: -1.0,
 		Bast: -1.0,
@@ -87,6 +92,37 @@ let KinkyDungeonFactionRelationsBase = {
 		AncientRobot: -0.45,
 	},
 	"Enemy": {
+	},
+	"Trap": {
+		Enemy: 1.0,
+		Jail: 1.0,
+		Prisoner: 1,
+
+		// Wild factions
+		KinkyConstruct: 1,
+		Plant: 1,
+		Slime: 1,
+		Mold: 1,
+		Beast: 1,
+
+		Bountyhunter: 1,
+		Bandit: 1,
+		Alchemist: 1,
+		Nevermere: 1,
+		Apprentice: 1,
+		Dressmaker: 1,
+		Witch: 1,
+		Elemental: 1,
+		Dragon: 1,
+		Maidforce: 1,
+		Bast: 1,
+		Elf: 1,
+		Mushy: 1,
+		AncientRobot: 1,
+
+		// Special factions
+		Angel: 1,
+		Demon: 1,
 	},
 	"Boss": {
 	},
