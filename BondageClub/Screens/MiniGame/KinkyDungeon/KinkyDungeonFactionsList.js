@@ -27,6 +27,7 @@ let KinkyDungeonHiddenFactions = [
 	"Boss",
 	"Ambush",
 	"Rage",
+	"Ghost",
 ];
 
 let KinkyDungeonFactionRelationsBase = {
@@ -68,6 +69,10 @@ let KinkyDungeonFactionRelationsBase = {
 		Dragon: 0.05,
 		AncientRobot: -0.25,
 		Nevermere: -0.1,
+	},
+	"Ghost": {
+		Player: -1.0,
+		Jail: -1.0,
 	},
 	"Demon": {
 		Elf: -1.0,

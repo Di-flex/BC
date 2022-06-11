@@ -184,12 +184,12 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":1, "lastthird":4, "increasingWeight":1}, floors:KDMapInit(["cat", "tmb", "tmp"]),
 		dropTable: [{name: "PotionStamina", weight: 3}, {name: "Gold", amountMin: 15, amountMax: 20, weight: 10}, {name: "Axe", weight: 50, ignoreInInventory: true}]},
 
-	{name: "Ghost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", guardChance: 0.2, hitsfx: "Tickle",
+	{name: "Ghost", color: "#FFFFFF", faction: "Ghost", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt", guardChance: 0.2, hitsfx: "Tickle",
 		visionRadius: 6, blindSight: 3, evasion: 9.0, alwaysEvade: true, maxhp: 1, minLevel:0, weight:0.1, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 4, dmgType: "tickle", fullBoundBonus: 0,
 		terrainTags: {"ghost" : 4.9}, shrines: ["Illusion"], allFloors: true,
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
 
-	{name: "OrbGuardian", alwaysHostile: true, clusterWith: "ghost", tags: KDMapInit(["divine", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+	{name: "OrbGuardian", faction: "Ghost", alwaysHostile: true, clusterWith: "ghost", tags: KDMapInit(["divine", "melee", "glueimmune", "chainimmune"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		spells: ["ShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 100, blindSight: 100, evasion: 0.5, alwaysEvade: true, maxhp: 12, minLevel:0, weight:-10, movePoints: 2, attackPoints: 1, attack: "Spell", attackWidth: 3,
 		attackRange: 1, power: 4, dmgType: "cold", fullBoundBonus: 0,
@@ -197,15 +197,15 @@ let KinkyDungeonEnemies = [
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
 
 
-	{name: "TickleTerror", regen: -0.4, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true, hitsfx: "Tickle",
+	{name: "TickleTerror", faction: "Ghost", regen: -0.4, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "comfyRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true, hitsfx: "Tickle",
 		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 12, minLevel:3, weight:-4, movePoints: 2, attackPoints: 2, attack: "MeleeWillBind", attackWidth: 3, attackRange: 1, power: 3, dmgType: "tickle", fullBoundBonus: 3,
 		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50, "goddessRage": 4}, shrines: ["Illusion"], allFloors: true,
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
-	{name: "HugHorror", regen: -0.5, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghostRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true,
+	{name: "HugHorror", faction: "Ghost", regen: -0.5, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghostRestraints", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true,
 		visionRadius: 30, blindSight: 8, evasion: 0.2, maxhp: 20, minLevel:3, weight:-4, movePoints: 3, attackPoints: 2, attack: "MeleeWillBindSlow", attackWidth: 3, attackRange: 1, power: 2, dmgType: "crush", fullBoundBonus: 2,
 		terrainTags: {"increasingWeight": 0.2, "chestTrap": 50, "goddessRage": 4}, shrines: ["Illusion"], allFloors: true,
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
-	{name: "GreedyGhast", regen: -0.25, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true,
+	{name: "GreedyGhast", faction: "Ghost", regen: -0.25, summonRage: true, color: "#FFFFFF", tags: KDMapInit(["chestTrap", "ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "meleeresist"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",  noAlert: true,
 		visionRadius: 30, blindSight: 8, evasion: 0.5, maxhp: 7, minLevel:0, weight:-2, movePoints: 2, attackPoints: 2, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"increasingWeight": 0.05, "chestTrap": 100, "goddessRage": 5}, shrines: ["Illusion"], allFloors: true,
 		dropTable: [{name: "Ectoplasm", weight: 1}]},
@@ -883,7 +883,7 @@ let KinkyDungeonEnemies = [
 		visionRadius: 12, maxhp: 45, minLevel:0, weight:-1000, movePoints: 1, attackPoints: 3, attack: "SpellMeleeWillBind", attackWidth: 3, attackRange: 1, power: 4, dmgType: "grope", fullBoundBonus: 4,
 		terrainTags: {}, floors:KDMapInit([]), dropTable: [{name: "BlueKey", weight: 10}], ondeath: [{type: "dialogue", dialogue:"FuukaWin", click: true}]},
 
-	{name: "MikoGhost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "temporary"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
+	{name: "MikoGhost", faction: "Ghost", color: "#FFFFFF", clusterWith: "ghost", tags: KDMapInit(["ignorenoSP", "ghost", "melee", "glueimmune", "chainimmune", "temporary"]), ethereal: true, ignorechance: 0, armor: 0, followRange: 1, AI: "hunt",
 		specialCD: 7, specialAttack: "Slow",
 		visionRadius: 30, blindSight: 30, evasion: 9.0, alwaysEvade: true, maxhp: 1, regen: -0.051, minLevel:0, weight:-1000, movePoints: 2, attackPoints: 1, attack: "MeleeWill", attackWidth: 3, attackRange: 1, power: 1, dmgType: "grope", fullBoundBonus: 0,
 		terrainTags: {}, shrines: ["Illusion"], floors:KDMapInit([]), dropTable: [{name: "Ectoplasm", chance: 0.6, weight: 10}],},
