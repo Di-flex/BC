@@ -2400,6 +2400,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 			KDGameData.ConfirmAttack = false;
 
 			KinkyDungeonChangeStamina(attackCost);
+			KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "attack", 1);
 		}
 	} else {
 		KinkyDungeonWaitMessage();

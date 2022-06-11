@@ -1887,7 +1887,6 @@ function KinkyDungeonGenerateSaveData() {
 	save.dress = KinkyDungeonCurrentDress;
 	save.gold = KinkyDungeonGold;
 	save.points = KinkyDungeonSpellPoints;
-	save.levels = KinkyDungeonSpellLevel;
 	save.id = KinkyDungeonEnemyID;
 	save.choices = KinkyDungeonSpellChoices;
 	save.choices2 = KinkyDungeonSpellChoicesToggle;
@@ -1978,7 +1977,6 @@ function KinkyDungeonLoadGame(String) {
 			if (saveData.gold != undefined) KinkyDungeonGold = saveData.gold;
 			if (saveData.id != undefined) KinkyDungeonEnemyID = saveData.id;
 			if (saveData.points != undefined) KinkyDungeonSpellPoints = saveData.points;
-			if (saveData.levels != undefined) KinkyDungeonSpellLevel = saveData.levels;
 			if (saveData.lostitems != undefined) KinkyDungeonLostItems = saveData.lostitems;
 			if (saveData.rescued != undefined) KinkyDungeonRescued = saveData.rescued;
 			if (saveData.aid != undefined) KinkyDungeonAid = saveData.aid;

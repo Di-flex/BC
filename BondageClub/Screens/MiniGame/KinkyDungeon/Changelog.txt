@@ -959,6 +959,10 @@ Spell Balance:
 - New enemy: Librarian
 - New jail stuff
 
+3.42
+- Spells now have prerequisite spells instead of shrine levels
+- Elemental, Conjuration, and Illusion shrines now give an arcane buff instead.
+
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle

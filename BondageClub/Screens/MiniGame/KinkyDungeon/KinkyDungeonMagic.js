@@ -19,14 +19,6 @@ let KinkyDungeonCurrentSpellsPage = 0;
 let KinkyDungeonBooks = ["Elements", "Conjure", "Illusion"];
 let KinkyDungeonPreviewSpell = null;
 
-
-let KinkyDungeonSpellLevelMax = 5;
-
-let KinkyDungeonSpellLevel = {
-	"Elements":1,
-	"Conjure":1,
-	"Illusion":1,
-};
 let KinkyDungeonSpellChoices = [0, 1, 2];
 let KinkyDungeonSpellChoicesToggle = [true, true];
 let KinkyDungeonSpellChoiceCount = 5;
@@ -85,16 +77,8 @@ function KinkyDungeonResetMagic() {
 		KinkyDungeonSpells.push({name: "SpellChoiceUp2", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
 		KinkyDungeonSpells.push({name: "SpellChoiceUp3", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:5, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
 	}
-	KinkyDungeonSpellLevel = {
-		"Elements":1,
-		"Conjure":1,
-		"Illusion":1,
-	};
 	if (KinkyDungeonStatsChoice.get("Studious")) {
-		KinkyDungeonSpellLevel.Elements += 1;
-		KinkyDungeonSpellLevel.Conjure += 1;
-		KinkyDungeonSpellLevel.Illusion += 1;
-		KinkyDungeonSpellPoints += 1;
+		KinkyDungeonSpellPoints += 3;
 	}
 }
 
@@ -1166,13 +1150,11 @@ function KinkyDungeonHandleMagic() {
 	return true;
 }
 
-function KinkyDungeonCheckSpellSchool(spell) {
-	if (spell.school == "Any") {
-		return KinkyDungeonSpellLevel.Elements >= spell.level
-			|| KinkyDungeonSpellLevel.Conjure >= spell.level
-			|| KinkyDungeonSpellLevel.Illusion >= spell.level;
-	}
-	return KinkyDungeonSpellLevel[spell.school] >= spell.level;
+function KinkyDungeonCheckSpellPrerequisite(spell) {
+	if (!spell || !spell.prerequisite) return true;
+	let spell_prereq = KinkyDungeonSearchSpell(KinkyDungeonSpells, spell.prerequisite);
+	if (spell_prereq) return true;
+	return false;
 }
 
 // https://stackoverflow.com/questions/14484787/wrap-text-in-javascript
@@ -1207,14 +1189,21 @@ function KinkyDungeonTestWhite(x) {
 }
 
 function KinkyDungeonDrawMagic() {
+	KinkyDungeonDrawMessages(true);
 	DrawImageZoomCanvas(KinkyDungeonRootDirectory + "MagicBook.png", MainCanvas, 0, 0, 640, 483, canvasOffsetX_ui, canvasOffsetY_ui, 640*KinkyDungeonBookScale, 483*KinkyDungeonBookScale, false);
 
 	if (KinkyDungeonSpells[KinkyDungeonCurrentPage] || KinkyDungeonPreviewSpell) {
 		let spell = KinkyDungeonPreviewSpell ? KinkyDungeonPreviewSpell : KinkyDungeonSpells[KinkyDungeonCurrentPage];
 
-		DrawText(TextGet("KinkyDungeonSpell"+ spell.name), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5, "black", "silver");
-		DrawText(TextGet("KinkyDungeonSpellsSchool" + spell.school), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/3.5, "black", "silver");
-		DrawText(TextGet("KinkyDungeonMagicLevel") + spell.level, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2, "black", "silver");
+		DrawText(TextGet("KinkyDungeonSpell"+ spell.name), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5, "black", "black");
+		DrawText(TextGet("KinkyDungeonSpellsSchool" + spell.school), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 40, "#222222", "silver");
+		//DrawText(TextGet("KinkyDungeonMagicLevel") + spell.level, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2.65, "black", "silver");
+
+		if (spell.prerequisite) {
+			DrawText(TextGet("KDPrerequisite"), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2, "black", "silver");
+			DrawText(TextGet("KinkyDungeonSpell" + spell.prerequisite), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 40, "black", "silver");
+		}
+
 		if (KinkyDungeonPreviewSpell) DrawText(TextGet("KinkyDungeonMagicCost") + KinkyDungeonGetCost(spell), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
 		DrawText(TextGet("KinkyDungeonMagicManaCost") + spell.manacost, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195, "black", "silver");
 		//DrawText(TextGet("KinkyDungeonMagicExhaustion").replace("TimeTaken", spell.exhaustion), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
@@ -1248,7 +1237,7 @@ function KinkyDungeonDrawMagic() {
 		} else {
 			let cost = KinkyDungeonGetCost(spell);
 			DrawButton(canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40, canvasOffsetY_ui + 125, 225, 60, TextGet("KinkyDungeonSpellsBuy"),
-				(KinkyDungeonSpellPoints >= cost && KinkyDungeonCheckSpellSchool(spell)) ? "White" : "Pink", "", "");
+				(KinkyDungeonSpellPoints >= cost && KinkyDungeonCheckSpellPrerequisite(spell)) ? "White" : "Pink", "", "");
 		}
 	}
 
@@ -1268,10 +1257,7 @@ function KinkyDungeonDrawMagic() {
 		DrawText(TextGet("KinkyDungeonMagicSpellsQuick").replace("SPELLNAME", TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[KDSwapSpell]].name)), canvasOffsetX_ui + 600, 900, "white", "black");
 	} else {
 		DrawText(TextGet("KinkyDungeonSpellsLevels")
-			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
-			.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
-			.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
-			.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
+			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints), canvasOffsetX_ui + 600, 890, "white", "black");
 	}
 
 }
@@ -1361,26 +1347,18 @@ function KinkyDungeonListSpells(Mode) {
 				ii = i;// - column * Math.ceil(maxY / spacing);
 
 				let cost = KinkyDungeonGetCost(spell);
-				let suff = "";
+				let suff = `: ${cost}p`;
 
 				if (Mode == "Draw") {
 					let color = KDSwapSpell == -1 ? "#bbbbbb" : "#888888";
 					let index = KinkyDungeonSpellIndex(spell.name);
 					if (index >= 0 && (KDSwapSpell == -1 || !KinkyDungeonSpellChoices.includes(index))) {
 						color = "white";
-					} else if (KinkyDungeonSpellPoints < cost || !KinkyDungeonCheckSpellSchool(spell)) {
-						if (spell.school == "Elements") {color = "#aa8866"; suff = "-";}
-						else if (spell.school == "Conjure") {color = "#66aa88"; suff = "+";}
-						else if (spell.school == "Illusion") {color = "#775599"; suff = "*";}
-						else color = "#aa4444";
+						suff = "";
+					} else if (!KinkyDungeonCheckSpellPrerequisite(spell)) {
+						color = "#888888";
 					}
-					let finalsuff = suff;
-					if (spell.level > 2) {
-						for (let S = 2; S < spell.level; S++) {
-							finalsuff = finalsuff + suff;
-						}
-					}
-					DrawButton(canvasOffsetX_ui + XX, yPad + canvasOffsetY_ui + spacing * ii, buttonwidth, spacing - ypadding, finalsuff + TextGet("KinkyDungeonSpell" + spell.name) + finalsuff, color);
+					DrawButton(canvasOffsetX_ui + XX, yPad + canvasOffsetY_ui + spacing * ii, buttonwidth, spacing - ypadding, TextGet("KinkyDungeonSpell" + spell.name) + suff, color);
 				} else if (Mode == "Click") {
 					if (MouseIn(canvasOffsetX_ui + XX, yPad + canvasOffsetY_ui + spacing * ii, buttonwidth, spacing - ypadding)) return spell;
 				}
@@ -1411,10 +1389,7 @@ function KinkyDungeonDrawMagicSpells() {
 		canvasOffsetX_ui + 600, 900, "white", "black");
 	} else {
 		DrawText(TextGet("KinkyDungeonSpellsLevels")
-			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints)
-			.replace("ELEMLEVEL", "" + KinkyDungeonSpellLevel.Elements)
-			.replace("CONJLEVEL", "" + KinkyDungeonSpellLevel.Conjure)
-			.replace("ILLULEVEL", "" + KinkyDungeonSpellLevel.Illusion), canvasOffsetX_ui + 600, 900, "white", "black");
+			.replace("SPELLPOINTS", "" + KinkyDungeonSpellPoints), canvasOffsetX_ui + 600, 890, "white", "black");
 	}
 	DrawButton(canvasOffsetX_ui + 0, canvasOffsetY_ui, 50, 50, TextGet("KinkyDungeonSpellsPageBackFast"), "White", "", "");
 	DrawButton(canvasOffsetX_ui + 1100, canvasOffsetY_ui, 50, 50, TextGet("KinkyDungeonSpellsPageNextFast"), "White", "", "");

@@ -132,8 +132,8 @@ function KinkyDungeonShrineCost(type) {
 	if (KinkyDungeonShrineBaseCostGrowth[type]) growth = KinkyDungeonShrineBaseCostGrowth[type];
 	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
-	if (KinkyDungeonSpellLevel[type] && KinkyDungeonSpellLevel[type] >= KinkyDungeonSpellLevelMax)
-		return Math.round(KinkyDungeonGoddessRep[type] < 50 ? 100 * (1 + 0.01 * KinkyDungeonDifficulty) : 0);
+	if (type == "Conjure" || type == "Illusion" || type == "Elements")
+		return 100 * (1 + 0.01 * KinkyDungeonDifficulty);
 
 	return Math.round(Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10 * (1 + 0.01 * KinkyDungeonDifficulty));
 }
@@ -169,26 +169,23 @@ function KinkyDungeonPayShrine(type) {
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
 		KDSendStatus('goddess', type, 'shrineRemove');
 	} else if (type == "Elements" || type == "Illusion" || type == "Conjure") {
-		/*let SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5, KinkyDungeonSpellList[type]);
-		if (KDRandom() < 0.1 || SpellsUnlearned.length == 0) SpellsUnlearned = KinkyDungeonGetUnlearnedSpells(0, 5 + MiniGameKinkyDungeonCheckpoint, KinkyDungeonSpellList[type]);
-
-		let spellIndex = Math.floor(KDRandom()*SpellsUnlearned.length);
-
-		let spell = SpellsUnlearned[spellIndex];
-		ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SpellLearned", TextGet("KinkyDungeonSpell" + spell.name));
-		KinkyDungeonSpells.push(spell);
-		rep = spell.level;*/
-		if (KinkyDungeonSpellLevel[type] < KinkyDungeonSpellLevelMax) {
-			KinkyDungeonSpellLevel[type] += 1;
-			ShrineMsg = TextGet("KinkyDungeonPayShrineSpell").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
-			rep = Math.floor(2 * Math.pow(KinkyDungeonSpellLevel[type], 1.25));
-			KDSendStatus('goddess', type, 'shrineLevel');
-		} else {
-			ShrineMsg = TextGet("KinkyDungeonPayShrineBuff").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
-			KDSendStatus('goddess', type, 'shrineDonate');
-			rep = 1;
+		ShrineMsg = TextGet("KinkyDungeonPayShrineBuff").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
+		if (type == "Elements") {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineElements", type: "event", maxCount: 10, tags: ["offense", "shrineElements"], aura: "#f1641f", power: 1.5, duration: 9999, events: [
+				{trigger: "afterDamageEnemy", type: "ShrineElements", spell: "ArcaneStrike"},
+			]});
+		} else if (type == "Conjuration") {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineConjure", type: "event", maxCount: 10, tags: ["defense", "shrineConjure"], aura: "#4572e3", power: 1.5, duration: 9999, events: [
+				{trigger: "beforeAttack", type: "CounterattackSpell", spell: "ArcaneStrike", requiredTag: "shrineConjure", prereq: "hit"},
+			]});
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineConjure2", type: "DamageReduction", maxCount: 10, tags: ["defense", "shrineConjure"], power: 10, duration: 9999});
+		} else if (type == "Illusion") {
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineIllusion", type: "event", maxCount: 10, tags: ["defense", "shrineIllusion"], aura: "#9052bc", power: 1.5, duration: 9999, events: [
+				{trigger: "playerAttack", type: "ShadowStep", time: 6, requiredTag: "shrineIllusion"},
+			]});
 		}
-
+		KDSendStatus('goddess', type, 'shrineDonate');
+		rep = 1;
 	} else if (type == "Will") {
 		rep = Math.ceil(5 - KinkyDungeonStatMana * 2.5 / KinkyDungeonStatManaMax - KinkyDungeonStatStamina * 2.5 / KinkyDungeonStatStaminaMax);
 		KinkyDungeonStatStamina = KinkyDungeonStatStaminaMax;
@@ -511,7 +508,7 @@ function KinkyDungeonHandleOrb() {
 				let spellList = [];
 				let maxSpellLevel = 4;
 				for (let sp of KinkyDungeonSpellList.Conjure) {
-					if (sp.level <= KinkyDungeonSpellLevel.Conjure && sp.school == "Conjure" && !sp.secret) {
+					if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Conjure" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 						{
 							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
@@ -522,7 +519,7 @@ function KinkyDungeonHandleOrb() {
 					}
 				}
 				for (let sp of KinkyDungeonSpellList.Elements) {
-					if (sp.level <= KinkyDungeonSpellLevel.Elements && sp.school == "Elements" && !sp.secret) {
+					if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Elements" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 						{
 							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
@@ -532,7 +529,7 @@ function KinkyDungeonHandleOrb() {
 					}
 				}
 				for (let sp of KinkyDungeonSpellList.Illusion) {
-					if (sp.level <= KinkyDungeonSpellLevel.Illusion && sp.school == "Illusion" && !sp.secret) {
+					if (KinkyDungeonCheckSpellPrerequisite(sp) && sp.school == "Illusion" && !sp.secret) {
 						for (let iii = 0; iii < maxSpellLevel - sp.level; iii++)
 						{
 							if (sp.level == 1 && KinkyDungeonStatsChoice.get("Novice"))
