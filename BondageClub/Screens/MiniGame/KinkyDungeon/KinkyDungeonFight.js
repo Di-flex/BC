@@ -691,6 +691,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 	if (delta > 0)
 		for (let b of KinkyDungeonBullets) {
 			if ((Allied && b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell) || (!Allied && !(b.bullet && b.bullet.spell && !b.bullet.spell.enemySpell))) {
+				KinkyDungeonSendEvent("bulletTick", {bullet: b, delta: delta, allied: Allied});
 				if (b.bullet && b.bullet.dot) {
 					KinkyDungeonBulletDoT(b);
 				}

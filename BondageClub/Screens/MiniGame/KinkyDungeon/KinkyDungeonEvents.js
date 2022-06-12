@@ -1290,6 +1290,20 @@ let KDEventMapBullet = {
 			}
 		},
 	},
+	"bulletTick": {
+		"CastSpellNearbyEnemy": (e, b, data) => {
+			if (data.delta > 0) {
+				let born = b.born ? 0 : 1;
+				let enemies = KDNearbyEnemies(b.x + b.vx * data.delta * born, b.y + b.vy * data.delta * born, e.aoe).filter((enemy) => {
+					return (KDHostile(enemy) || (b.x == enemy.x && b.y == enemy.y && !KDAllied(enemy)));
+				});
+				if (enemies.length > 0) {
+					let enemy = enemies[Math.floor(KDRandom() * enemies.length)];
+					KinkyDungeonCastSpell(enemy.x, enemy.y, KinkyDungeonFindSpell(e.spell, true), undefined, undefined, undefined, b.bullet.faction);
+				}
+			}
+		},
+	}
 };
 
 /**

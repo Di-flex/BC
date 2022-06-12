@@ -3328,9 +3328,15 @@ KinkyDungeonSpellTargetHeal,Choose target AoE location (5x5)
 
 KinkyDungeonSpellCrackle,Crackle
 KinkyDungeonSpellAllyCrackle,Storm Bolt
-KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt damage to enemies in a 4-range line and briefly stuns.
+KinkyDungeonSpellDescriptionCrackle,A bolt of lightning that does DamageDealt electric damage to enemies in a 4-range line and briefly stuns.
 KinkyDungeonSpellCastCrackle,Lightning erupts from your fingertips!
 KinkyDungeonSpellTargetCrackle,Choose line direction (max range 4 tiles)
+
+KinkyDungeonSpellShock,Shock Orb
+KinkyDungeonSpellShockStrike,Shock Orb
+KinkyDungeonSpellDescriptionShock,A slow-moving orb that deals DamageDealt electric damage to an adjacent enemy each turn.
+KinkyDungeonSpellCastShock,You hurl a charged orb!
+KinkyDungeonSpellTargetShock,Choose aim direction (max range 4 tiles)
 
 KinkyDungeonSpellFissure,Fissure
 KinkyDungeonSpellAllyFissure,Lava Fissure
