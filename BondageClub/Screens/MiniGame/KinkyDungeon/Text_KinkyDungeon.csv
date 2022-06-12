@@ -234,6 +234,10 @@ KinkyDungeonStatStartObsidian,"Iron Slave"
 KinkyDungeonStatDescStartObsidian,"Start in a full set of magically locked obsidian cuffs."
 
 
+KinkyDungeonBuffConduction,Conductive
+KDConductionDamageTaken,DAMAGEDEALT electric damage conducts to you!!!
+KinkyDungeonBuffDrenched,Drenched
+
 KinkyDungeonBuffIgnite,Ignited!!!
 KinkyDungeonBuffIgniteDamage,The air around you is ablaze! (-DamageDealt SP)
 
@@ -3296,13 +3300,20 @@ KinkyDungeonSpellDescriptionGreaterShield,Creates a shield that blocks BlockAmou
 KinkyDungeonSpellCastGreaterShield,You create a temporary shield!
 KinkyDungeonSpellTargetGreaterShield,Choose shield location
 
-KinkyDungeonSpellElectrify,Electrify
+KinkyDungeonSpellThunderstorm,Thunderstorm
+KinkyDungeonSpellDescriptionThunderstorm,"Call forth a storm for Duration turns. Makes all entities in the area Conductive, forcing them to share 50% electric damage."
+KinkyDungeonSpellCastThunderstorm,You call forth the storm!
+KinkyDungeonSpellTargetThunderstorm,Choose target 5x5 area
+
 KinkyDungeonSpellWitchElectrify,Witch's Electricity
 KinkyDungeonSpellWitchElectricOrb,Witch's Electric Orb
 KinkyDungeonSpellWitchElectricBurst,Witch's Electric Burst
+
+KinkyDungeonSpellElectrify,Electrify
 KinkyDungeonSpellDescriptionElectrify,A delayed shock that deals DamageDealt damage and stuns for Duration turns.
 KinkyDungeonSpellCastElectrify,You charge up a burst of electricty!
 KinkyDungeonSpellTargetElectrify,Choose target location
+
 
 KinkyDungeonSpellCastAreaElectrify,The elemental channels the force of the storm!
 

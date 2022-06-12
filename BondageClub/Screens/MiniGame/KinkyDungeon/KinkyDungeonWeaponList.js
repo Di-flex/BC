@@ -62,7 +62,7 @@ let KinkyDungeonWeapons = {
 	"EscortDrone": {name: "EscortDrone", dmg: 2.5, chance: 1.0, staminacost: 0.8, type: "electric", noHands: true, unarmed: false, magic: true, rarity: 10, shop: false, sfx: "Laser",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, chance: 0.33, damage: "electric", time: 4}]},
 	"StaffStorm": {name: "StaffStorm", dmg: 4.5, chance: 1.0, staminacost: 2.0, type: "electric", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
-		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.9, power: 1.5, damage: "electric"}]},
+		events: [{type: "EchoDamage", trigger: "beforeDamageEnemy", aoe: 2.99, power: 1.5, damage: "electric"}]},
 	"StaffDoll": {name: "StaffDoll", dmg: 3.0, chance: 1.0, staminacost: 1.0, type: "souldrain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Dollmaker", trigger: "afterDamageEnemy"}]},
 	"StaffFrostbite": {name: "StaffFrostbite", dmg: 4, chance: 1.0, staminacost: 2.5, type: "ice", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",

@@ -301,38 +301,38 @@ function KinkyDungeonDealDamage(Damage) {
 	let data = {
 		dmg: Damage.damage,
 		type: Damage.type,
+		flags: Damage.flags,
+		time: Damage.time,
 		armor: Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor")),
 		buffresist: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, Damage.type + "DamageResist"))
 			* (KinkyDungeonMeleeDamageTypes.includes(Damage.type) ?
 			KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
 			: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"))),
 		arouseAmount: 0,
+		arouseTypes: ["grope", "charm", "happygas"],
+		distractionTypesWeakNeg: ["pain", "acid"],
+		distractionTypesWeak:["grope"],
+		distractionTypesStrong:["tickle", "charm", "souldrain", "happygas"],
+		staminaTypesWeak:["electric", "tickle", "drain", "acid"],
+		staminaTypesStrong:["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"],
+		manaTypesWeak:["electric", "poison", "souldrain"],
+		manaTypesString:["drain"],
 	};
 
-	let arouseTypes = ["grope", "charm", "happygas"];
-	if (arouseTypes.includes(data.type)) {
+	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
+		data.staminaTypesWeak.splice(data.staminaTypesWeak.indexOf("electric"), 1);
+		data.staminaTypesStrong.push("electric");
+		data.manaTypesWeak.splice(data.manaTypesWeak.indexOf("electric"), 1);
+		data.manaTypesString.push("electric");
+	}
+
+	if (data.arouseTypes.includes(data.type)) {
 		data.arouseAmount = 0.2;
 	}
 
 	KinkyDungeonSendEvent("playerTakeDamage", data);
 
-	let distractionTypesWeakNeg = ["pain", "acid"];
-	let distractionTypesWeak = ["grope"];
-	let distractionTypesStrong = ["tickle", "charm", "souldrain", "happygas"];
-	let staminaTypesWeak = ["electric", "tickle", "drain", "acid"];
-	let staminaTypesStrong = ["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"];
-	let manaTypesWeak = ["electric", "poison", "souldrain"];
-	let manaTypesString = ["drain"];
-
-
 	data.dmg *= data.buffresist;
-
-	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
-		staminaTypesWeak.splice(staminaTypesWeak.indexOf("electric"), 1);
-		staminaTypesStrong.push("electric");
-		manaTypesWeak.splice(manaTypesWeak.indexOf("electric"), 1);
-		manaTypesString.push("electric");
-	}
 
 	if (data.armor) data.dmg = Math.max(0, data.dmg - data.armor);
 
@@ -346,23 +346,23 @@ function KinkyDungeonDealDamage(Damage) {
 	}
 
 
-	if (distractionTypesWeak.includes(data.type)) {
+	if (data.distractionTypesWeak.includes(data.type)) {
 		KinkyDungeonChangeDistraction(Math.ceil(data.dmg/2), false, data.arouseAmount);
 	}
-	if (distractionTypesWeakNeg.includes(data.type)) {
+	if (data.distractionTypesWeakNeg.includes(data.type)) {
 		KinkyDungeonChangeDistraction(Math.ceil(-data.dmg/2));
 	}
-	if (distractionTypesStrong.includes(data.type)) {
+	if (data.distractionTypesStrong.includes(data.type)) {
 		KinkyDungeonChangeDistraction(data.dmg, false, data.arouseAmount);
 	}
-	if (staminaTypesStrong.includes(data.type)) {
+	if (data.staminaTypesStrong.includes(data.type)) {
 		KinkyDungeonChangeStamina(-data.dmg);
-	} else if (staminaTypesWeak.includes(data.type)) {
+	} else if (data.staminaTypesWeak.includes(data.type)) {
 		KinkyDungeonChangeStamina(-Math.ceil(data.dmg/2));
 	}
-	if (manaTypesString.includes(data.type)) {
+	if (data.manaTypesString.includes(data.type)) {
 		KinkyDungeonChangeMana(-data.dmg);
-	} else if (manaTypesWeak.includes(data.type)) {
+	} else if (data.manaTypesWeak.includes(data.type)) {
 		KinkyDungeonChangeMana(-Math.ceil(data.dmg/2));
 	}
 	KinkyDungeonInterruptSleep();

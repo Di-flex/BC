@@ -677,6 +677,84 @@ function KinkyDungeonHandleInventoryEvent(Event, kinkyDungeonEvent, item, data) 
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, entity, *): void>>}
  */
 let KDEventMapBuff = {
+	"beforeDamageEnemy": {
+		"Conduction": (e, buff, entity, data) => {
+			if (data.enemy == entity && (!data.flags || !data.flags.includes("EchoDamage")) && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+				if (!e.chance || KDRandom() < e.chance) {
+					for (let enemy of KinkyDungeonEntities) {
+						if (enemy.buffs && enemy.buffs.Conduction && enemy != data.enemy && enemy.hp > 0 && KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y) <= e.aoe) {
+							KinkyDungeonDamageEnemy(enemy, {
+								type: e.damage,
+								damage: data.dmg * e.power,
+								flags: ["EchoDamage"]
+							}, false, true, undefined, undefined, undefined, "Rage");
+							let dist = KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y);
+							let tx = enemy.x;
+							let ty = enemy.y;
+							if (dist > 0)
+								for (let d = 0; d <= dist; d += dist/3.01) {
+									let xx = entity.x + d * (tx - entity.x);
+									let yy = entity.y + d * (ty - entity.y);
+									let newB = {born: 0, time:1 + Math.round(KDRandom()*1), x:Math.round(xx), y:Math.round(yy), vx:0, vy:0, xx:xx, yy:yy, spriteID: KinkyDungeonGetEnemyID() + "ElectricEffect" + CommonTime(),
+										bullet:{faction: "Rage", spell:undefined, damage: undefined, lifetime: 2, passthrough:true, name:"ElectricEffect", width:1, height:1}};
+									KinkyDungeonBullets.push(newB);
+									KinkyDungeonUpdateSingleBulletVisual(newB, false);
+								}
+						}
+					}
+					if (KinkyDungeonPlayerBuffs.Conduction && KDistEuclidean(data.enemy.x - KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - data.enemy.y) <= e.aoe) {
+						KinkyDungeonSendTextMessage(6, TextGet("KDConductionDamageTaken").replace("DAMAGETAKEN", "" + data.dmg * e.power), "red", 2);
+						KinkyDungeonDealDamage({
+							type: e.damage,
+							damage: data.dmg * e.power,
+							flags: ["EchoDamage"],
+						});
+						let dist = KDistEuclidean(KinkyDungeonPlayerEntity.x - data.enemy.x, KinkyDungeonPlayerEntity.y - data.enemy.y);
+						let tx = KinkyDungeonPlayerEntity.x;
+						let ty = KinkyDungeonPlayerEntity.y;
+						if (dist > 0)
+							for (let d = 0; d <= dist; d += dist/3.01) {
+								let xx = entity.x + d * (tx - entity.x);
+								let yy = entity.y + d * (ty - entity.y);
+								let newB = {born: 0, time:1 + Math.round(KDRandom()*1), x:Math.round(xx), y:Math.round(yy), vx:0, vy:0, xx:xx, yy:yy, spriteID: KinkyDungeonGetEnemyID() + "ElectricEffect" + CommonTime(),
+									bullet:{faction: "Rage", spell:undefined, damage: undefined, lifetime: 2, passthrough:true, name:"ElectricEffect", width:1, height:1}};
+								KinkyDungeonBullets.push(newB);
+								KinkyDungeonUpdateSingleBulletVisual(newB, false);
+							}
+					}
+				}
+			}
+		},
+	},
+	"playerTakeDamage": {
+		"Conduction": (e, buff, entity, data) => {
+			if ((!data.flags || !data.flags.includes("EchoDamage")) && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+				if (!e.chance || KDRandom() < e.chance) {
+					for (let enemy of KinkyDungeonEntities) {
+						if (enemy.buffs && enemy.buffs.Conduction && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
+							KinkyDungeonDamageEnemy(enemy, {
+								type: e.damage,
+								damage: data.dmg * e.power,
+								flags: ["EchoDamage"]
+							}, false, true, undefined, undefined, undefined, "Rage");
+							let dist = KDistEuclidean(enemy.x - entity.x, enemy.y - entity.y);
+							let tx = enemy.x;
+							let ty = enemy.y;
+							if (dist > 0)
+								for (let d = 0; d <= dist; d += dist/3.01) {
+									let xx = entity.x + d * (tx - entity.x);
+									let yy = entity.y + d * (ty - entity.y);
+									let newB = {born: 0, time:1 + Math.round(KDRandom()*1), x:Math.round(xx), y:Math.round(yy), vx:0, vy:0, xx:xx, yy:yy, spriteID: KinkyDungeonGetEnemyID() + "ElectricEffect" + CommonTime(),
+										bullet:{faction: "Rage", spell:undefined, damage: undefined, lifetime: 2, passthrough:true, name:"ElectricEffect", width:1, height:1}};
+									KinkyDungeonBullets.push(newB);
+									KinkyDungeonUpdateSingleBulletVisual(newB, false);
+								}
+						}
+					}
+				}
+			}
+		},
+	},
 	"beforeAttack": {
 		"CounterattackDamage": (e, buff, entity, data) => {
 			if (data.attacker && data.target == entity && (!(e.prereq == "hit") || (!data.missed && data.hit))) {
