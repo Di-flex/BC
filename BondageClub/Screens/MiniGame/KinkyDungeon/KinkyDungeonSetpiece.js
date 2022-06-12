@@ -272,7 +272,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				break;
 			}
 			case "PearlChest":
-				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius-1, false, false, 1, true);
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius-1, false, false, 0, true);
 				/*if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
 				else shrinelist.push({x: cornerX, y: cornerY, priority: true});
 				if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
