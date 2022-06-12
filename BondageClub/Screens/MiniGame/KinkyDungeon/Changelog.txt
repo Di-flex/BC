@@ -964,6 +964,9 @@ Spell Balance:
 - Elemental, Conjuration, and Illusion shrines now give an arcane buff instead.
 - New spell: Shock Orb
 - New spell: Light
+- Firebolt damage to 40 from 45
+- Crackle damage to 40 from 45
+- Lightning bolt stuns for 2 turns instead of 1
 
 TODO ValidationFindBlockCycles to prevent bugs
 
