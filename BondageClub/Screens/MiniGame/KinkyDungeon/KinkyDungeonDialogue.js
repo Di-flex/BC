@@ -209,7 +209,7 @@ function KDHandleDialogue() {
 		// Get the current dialogue and traverse down the tree
 		let dialogue = KDGetDialogue();
 
-		if (dialogue.shop)
+		if (dialogue.inventory)
 			KinkyDungeonhandleQuickInv(true);
 
 		// Handle the options
@@ -699,7 +699,7 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 	 * @type {KinkyDialogue}
 	 */
 	let shop = {
-		shop: true,
+		inventory: true,
 		response: "Default",
 		clickFunction: (gagged) => {
 			/*let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);

@@ -135,7 +135,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHost
 			}
 
 		if (effLevel >= enemy.minLevel && (!requireHostile || !enemy.faction || KDFactionRelation("Player", enemy.faction) <= -0.5) && (overrideFloor || enemy.allFloors || !enemy.floors || enemy.floors.get(Index)) && (KinkyDungeonGroundTiles.includes(Tile) || !enemy.tags.has("spawnFloorsOnly"))) {
-			let rt = requireTags ? false : true;
+			let rt = requireTags && requireTags.length > 0 ? false : true;
 			if (requireTags)
 				for (let t of requireTags) {
 					if (enemy.tags.has(t)) {rt = true; break;}
@@ -268,7 +268,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 					: KinkyDungeonGetEnemy(
 						tags, MiniGameKinkyDungeonLevel + KinkyDungeonDifficulty/5 + Math.round(KinkyDungeonTotalSleepTurns / sleepTurnsPerExtraSpawnLevel),
 						KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint],
-						KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
+						KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags, true);
 				let EnemiesSummoned = [];
 				// We are going to reroll the ghost decision just to provide some grace for players who are well and truly stuck
 				KinkyDungeonMakeGhostDecision();
@@ -314,7 +314,7 @@ function KinkyDungeonHandleWanderingSpawns(delta) {
 
 					Enemy = qq ?
 						KinkyDungeonGetEnemyByName(qq.enemy)
-						: KinkyDungeonGetEnemy(tags, MiniGameKinkyDungeonLevel + effLevel/6, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
+						: KinkyDungeonGetEnemy(tags, MiniGameKinkyDungeonLevel + effLevel/KDLevelsPerCheckpoint, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(spawnLocation.x, spawnLocation.y), requireTags);
 				}
 				if (EnemiesSummoned.length > 0 && KinkyDungeonFirstSpawn) {
 					KinkyDungeonFirstSpawn = false;

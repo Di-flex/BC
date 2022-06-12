@@ -1107,7 +1107,7 @@ interface KinkyDialogue {
 	/** REPLACETEXT -> Replacement */
 	data?: Record<string, string>;
 	/** Shows the quick inventory */
-	shop?: boolean;
+	inventory?: boolean;
 	/** Function to play when clicked. If not specified, nothing happens.  Bool is whether or not to abort current click*/
 	clickFunction?: (gagged: boolean) => boolean | undefined;
 	/** Function to play when clicked, if considered gagged. If not specified, will use the default function. */
@@ -1276,6 +1276,7 @@ type MapMod = {
 	tags: string[],
 	tagsOverride?: string[],
 	bonusTags: Record<string, {bonus: number, mult: number}>,
+	spawnBoxes?: any[],
 	bonussetpieces?: {Type: string, Weight: number}[],
 	altRoom: string,
 }

@@ -26,6 +26,6 @@ let bosses = {
 };
 
 function KinkyDungeonBossFloor(Floor) {
-	if (Floor == 6) return bosses.Fuuka;
+	if (Floor == 5) return bosses.Fuuka;
 	return null;
 }

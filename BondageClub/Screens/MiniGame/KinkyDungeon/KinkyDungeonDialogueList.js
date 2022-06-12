@@ -878,6 +878,7 @@ let KDDialogue = {
 	"OfferMaid": KDRecruitDialogue("OfferMaid", "Maidforce", "Maid", "Illusion", ["maidVibeRestraints"], 5, ["maidRestraints"], 13, ["maid"], undefined, ["submissive"], 0.5),
 	"AngelHelp": {
 		response: "Default",
+		inventory: true,
 		clickFunction: (gagged) => {
 			KinkyDungeonSetFlag("AngelHelp", 55);
 			return false;
@@ -924,6 +925,7 @@ let KDDialogue = {
 	},
 	"DressmakerQuest": {
 		response: "Default",
+		inventory: true,
 		clickFunction: (gagged) => {
 			return false;
 		},
@@ -993,6 +995,7 @@ let KDDialogue = {
 	},
 	"ApprenticeQuest": {
 		response: "Default",
+		inventory: true,
 		clickFunction: (gagged) => {
 			return false;
 		},

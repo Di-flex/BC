@@ -65,7 +65,7 @@ function KinkyDungeonShrineAvailable(type) {
 	return false;
 }
 
-let KDLevelsPerCheckpoint = 6;
+let KDLevelsPerCheckpoint = 5;
 
 function KinkyDungeonGenerateShop(Level) {
 	KDGameData.PoolUses = Math.min(KDGameData.PoolUses, KinkyDungeonStatsChoice.get("Blessed") ? 0 : 1);

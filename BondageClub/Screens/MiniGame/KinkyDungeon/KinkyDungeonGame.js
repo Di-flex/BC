@@ -704,12 +704,29 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 
 	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
 	if (KinkyDungeonStatsChoice.get("Stealthy")) enemyCount = Math.round(enemyCount * KDStealthyEnemyCountMult);
+	let neutralCount = 4 + 0.3 * (Math.floor(Math.sqrt(Floor) + width/20 + height/20));
 	let count = 0;
+	let ncount = 0;
 	let tries = 0;
 	let miniboss = false;
 	let boss = false;
 	let jailerCount = 0;
 	let EnemyNames = [];
+
+	let spawnBoxes = [
+		{requiredTags: ["boss"], tags: [], currentCount: 0, maxCount: 0.001},
+		{requiredTags: ["miniboss"], tags: [], currentCount: 0, maxCount: 0.1},
+		{requiredTags: ["elite"], tags: [], currentCount: 0, maxCount: 0.2},
+		{requiredTags: ["minor"], tags: [], currentCount: 0, maxCount: 0.35},
+	];
+	if (KDGameData.MapMod) {
+		let mapMod = KDMapMods[KDGameData.MapMod];
+		if (mapMod && mapMod.spawnBoxes) {
+			for (let m of mapMod.spawnBoxes) {
+				spawnBoxes.unshift(Object.assign({}, m));
+			}
+		}
+	}
 
 	let currentCluster = null;
 
@@ -731,7 +748,14 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 		}
 
 	// Create this number of enemies
-	while (count < enemyCount && tries < 1000) {
+	while (count < enemyCount && tries < 10000) {
+		let spawnBox_filter = spawnBoxes.filter((bb) => {
+			return bb.currentCount < bb.maxCount;
+		});
+		let box = null;
+		if (spawnBox_filter.length > 0) {
+			box = spawnBox_filter[Math.floor(KDRandom() * spawnBox_filter.length)];
+		}
 
 		let pointIndex = Math.floor(KDRandom() * enemyPoints.length);
 		let point = enemyPoints[pointIndex];
@@ -747,13 +771,13 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 			enemyPoints.splice(pointIndex);
 		}
 
-		let required = undefined;
+		let required = [];
 		let spawnPoint = false;
 		let AI = undefined;
 		let tags = [];
 
 		if (currentCluster && !(10 * KDRandom() < currentCluster.count)) {
-			required = [currentCluster.required];
+			required.push(currentCluster.required);
 			X = currentCluster.x - 2 + Math.floor(KDRandom() * 5);
 			Y = currentCluster.y - 2 + Math.floor(KDRandom() * 5);
 
@@ -778,6 +802,12 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 
 		let playerDist = 5;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
+
+		if (box && !spawnPoint) {
+			for (let rtag of box.requiredTags) {
+				required.push(rtag);
+			}
+		} else box = null;
 
 		if ((spawnPoint && KinkyDungeonNoEnemy(X, Y, true)) || ((!KinkyDungeonTiles.get("" + X + "," + Y) || !KinkyDungeonTiles.get("" + X + "," + Y).OffLimits)
 			&& Math.sqrt((X - PlayerEntity.x) * (X - PlayerEntity.x) + (Y - PlayerEntity.y) * (Y - PlayerEntity.y)) > playerDist && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(X, Y))
@@ -812,15 +842,15 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 			for (let t of Tags) {
 				tags.push(t);
 			}
-
-			if (count < enemyCount * 0.5 && count % 3 == 0 && !spawnPoint) {
-				if (!required) required = ["minor"];
-				else required.push("minor");
+			if (required.length == 0) required = undefined;
+			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required, ncount > neutralCount, BonusTags);
+			if (box && !Enemy) {
+				box.currentCount += 0.1;
 			}
-			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required, false, BonusTags);
 			if (Enemy && (!InJail || (Enemy.tags.has("jailer") || Enemy.tags.has("jail")))) {
 				let e = {Enemy: Enemy, id: KinkyDungeonGetEnemyID(), x:X, y:Y, hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp, movePoints: 0, attackPoints: 0, AI: AI};
 				KinkyDungeonEntities.push(e);
+				let incrementCount = 1;
 				KinkyDungeonSetEnemyFlag(e, "NoFollow", -1);
 				let shop = KinkyDungeonGetShopForEnemy(e);
 				if (shop) {
@@ -840,13 +870,13 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 						};
 				} else if (currentCluster) currentCluster.count += 1;
 				if (!currentCluster && Enemy.guardChance && KDRandom() < Enemy.guardChance) {
-					e.AI = "guard";
+					e.AI = "looseguard";
 				}
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
-				if (Enemy.difficulty) count += Enemy.difficulty;
-				if (Enemy.tags.has("minor")) count += 0.2; else count += currentCluster ? 0.75 : 1.0; // Minor enemies count as 1/5th of an enemy
-				if (Enemy.tags.has("boss")) {boss = true; count += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
-				else if (Enemy.tags.has("elite")) count += Math.max(0.5, 50/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
+				if (Enemy.tags.has("minor")) incrementCount = 0.2; else incrementCount = currentCluster ? 0.75 : 1.0; // Minor enemies count as 1/5th of an enemy
+				if (Enemy.difficulty) incrementCount += Enemy.difficulty;
+				if (Enemy.tags.has("boss")) {boss = true; incrementCount += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
+				else if (Enemy.tags.has("elite")) incrementCount += Math.max(0.5, 50/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
 				if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
 				if (Enemy.tags.has("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
 				if (Enemy.tags.has("jailer")) jailerCount += 1;
@@ -856,6 +886,11 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 						if (!sum.chance || KDRandom() < sum.chance)
 							KinkyDungeonSummonEnemy(X, Y, sum.enemy, sum.count, sum.range, sum.strict);
 					}
+				}
+				if (incrementCount) count += incrementCount;
+				if (!spawnPoint && box) box.currentCount += 1;
+				if (KDFactionRelation("Player", KDGetFaction(e)) > -0.5) {
+					ncount += 1;
 				}
 				EnemyNames.push(Enemy.name);
 			}

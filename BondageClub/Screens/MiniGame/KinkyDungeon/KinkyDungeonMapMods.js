@@ -27,6 +27,10 @@ let KDMapMods = {
 			"construct": {bonus: 0, mult: 0},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["mold"], tags: [], currentCount: 0, maxCount: 0.5},
+			{requiredTags: ["maid"], tags: [], currentCount: 0, maxCount: 0.25},
+		],
 	},
 	"Bandit": {
 		name: "Bandit",
@@ -38,6 +42,10 @@ let KDMapMods = {
 			"banditleader": {bonus: 40, mult: 0.3},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["bandit"], tags: [], currentCount: 0, maxCount: 0.4},
+			{requiredTags: ["bountyhunter"], tags: [], currentCount: 0, maxCount: 0.2},
+		],
 	},
 	"Dragon": {
 		name: "Dragon",
@@ -51,6 +59,10 @@ let KDMapMods = {
 			{Type: "BanditPrison", Weight: 8},
 		],
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["dragon"], tags: [], currentCount: 0, maxCount: 0.33},
+			{requiredTags: ["elemental"], tags: [], currentCount: 0, maxCount: 0.33},
+		],
 	},
 	"Witch": {
 		name: "Witch",
@@ -62,6 +74,10 @@ let KDMapMods = {
 			"apprentice": {bonus: 3, mult: 1.4},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["witch"], tags: [], currentCount: 0, maxCount: 0.25},
+			{requiredTags: ["apprentice"], tags: [], currentCount: 0, maxCount: 0.25},
+		],
 	},
 	"Wolf": {
 		name: "Wolf",
@@ -73,6 +89,9 @@ let KDMapMods = {
 			"trainer": {bonus: 11, mult: 0.75},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["wolfgirl"], tags: [], currentCount: 0, maxCount: 0.3},
+		],
 	},
 	"Robot": {
 		name: "Robot",
@@ -83,6 +102,9 @@ let KDMapMods = {
 			"robot": {bonus: 10, mult: 2},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["robot"], tags: [], currentCount: 0, maxCount: 0.3},
+		],
 	},
 	"Plant": {
 		name: "Plant",
@@ -93,6 +115,9 @@ let KDMapMods = {
 			"plant": {bonus: 5, mult: 2},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["plant"], tags: [], currentCount: 0, maxCount: 0.35},
+		],
 	},
 	"Slime": {
 		name: "Slime",
@@ -103,6 +128,9 @@ let KDMapMods = {
 			"slime": {bonus: 4, mult: 2},
 		},
 		altRoom: "",
+		spawnBoxes: [
+			{requiredTags: ["slime"], tags: [], currentCount: 0, maxCount: 0.3},
+		],
 	},
 };
 

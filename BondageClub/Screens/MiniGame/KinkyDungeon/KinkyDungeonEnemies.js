@@ -1728,7 +1728,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 
 	if (!KinkyDungeonAggressive(enemy) && player.player && (enemy.playWithPlayer || KDAllied(enemy))) followRange = 1;
 
-	if ((AI == "guard" || AI == "looseguard") && (!enemy.gxx || !enemy.gyy)) {
+	if ((AI == "guard" || AI == "looseguard" || AI == "ambush") && (!enemy.gxx || !enemy.gyy)) {
 		enemy.gxx = enemy.gx;
 		enemy.gyy = enemy.gy;
 	}
@@ -1875,7 +1875,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				}
 
 			}
-			if ((AI == "guard" || AI == "looseguard") && !followPlayer && Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 && enemy.gxx && enemy.gyy) {
+			if ((AI == "guard" || AI == "looseguard" || AI == "ambush") && !followPlayer && Math.max(Math.abs(enemy.x - enemy.gx), Math.abs(enemy.y - enemy.gy)) < 1.5 && enemy.gxx && enemy.gyy) {
 				enemy.gx = enemy.gxx;
 				enemy.gy = enemy.gyy;
 			}

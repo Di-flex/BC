@@ -673,7 +673,7 @@ function KinkyDungeonDrawGame() {
 			KinkyDungeonDrawMessages();
 
 			// Draw the quick inventory
-			if (KinkyDungeonShowInventory || (KDGameData.CurrentDialog && KDDialogue[KDGameData.CurrentDialog] && KDDialogue[KDGameData.CurrentDialog].shop)) {
+			if (KinkyDungeonShowInventory || (KDGameData.CurrentDialog && KDDialogue[KDGameData.CurrentDialog] && KDDialogue[KDGameData.CurrentDialog].inventory)) {
 				KinkyDungeonDrawQuickInv();
 			}
 		} else {
