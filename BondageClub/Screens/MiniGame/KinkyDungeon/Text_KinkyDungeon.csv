@@ -1927,7 +1927,9 @@ KinkyDungeonPayShrineFail,"You do not have enough for a proper offering."
 KinkyDungeonPayShrineRemoveRestraints,"The goddess removes some of your restraints!"
 KinkyDungeonPayShrineHeal,"The goddess restores your mental and physical state!"
 KinkyDungeonPayShrineSpell,"The goddess teaches you the secrets of SCHOOL. (+1 level)"
-KinkyDungeonPayShrineBuff,"The goddess of SCHOOL grants you her blessing!"
+KinkyDungeonPayShrineBuffElements,"The goddess of SCHOOL grants you destructive spellcasting!"
+KinkyDungeonPayShrineBuffIllusion,"The goddess of SCHOOL grants you invisibility on attacks!"
+KinkyDungeonPayShrineBuffConjure,"The goddess of SCHOOL grants you protection and retaliation!"
 KinkyDungeonPayShrineCommerce,"You leave the coins on the altar and they transform into a ItemBought!"
 KinkyDungeonObject,"object"
 
@@ -3497,6 +3499,9 @@ KinkyDungeonSpellDescriptionTrueSight,When enabled: Drain mana every turn to see
 
 KinkyDungeonSpellEnemySense,Heartsense
 KinkyDungeonSpellDescriptionEnemySense,Highlight the locations of enemies through walls on the map for 4 turns.
+
+KinkyDungeonSpellLight,Light
+KinkyDungeonSpellDescriptionLight,"Produce 6 units of light for Duration turns. Has no effect in dark rooms."
 
 KinkyDungeonSpellFloatingWeapon,Floating Weapon
 KinkyDungeonSpellDescriptionFloatingWeapon,"When enabled: While hands are bound, you can still use weapons, but attacks cost mana."

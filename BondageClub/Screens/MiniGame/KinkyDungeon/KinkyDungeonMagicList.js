@@ -77,7 +77,7 @@ let KinkyDungeonLearnableSpells = [
 		// Verbal
 		["Flash", "FocusedFlash", "GreaterFlash", "ShadowWarrior", "Shroud", "Invisibility"],
 		// Arms
-		["ShadowBlade", "ShadowSlash", "Dagger", "TrueSteel", "Ring", "Corona"],
+		["ShadowBlade", "ShadowSlash", "Dagger", "TrueSteel", "Ring", "Light", "Corona"],
 		// Legs
 		["Evasion", "Camo", "Decoy"],
 		// Passive
@@ -220,14 +220,17 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			trailspawnaoe: 1.5, trailPower: 0, trailLifetime: 1.1, trailHit: "", trailDamage:"inert", trail:"lingering", trailChance: 0.4},
 		{name: "Decoy", tags: ["summon", "utility", "stealth", "defense"], prerequisite: "Camo", sfx: "MagicSlash", school: "Illusion", manacost: 6, components: ["Legs"], noTargetEnemies: true, noTargetPlayer: true, level:2, type:"hit", noSprite: true, onhit:"summon", summon: [{name: "Decoy", count: 1, time: 20}], power: 0, time: 20, delay: -1, range: 4, size: 1, aoe: 0, lifetime: 1, damage: "fire"},
 		{name: "ShadowWarrior", tags: ["summon", "offense", "shadow", "dot"], sfx: "MagicSlash", school: "Illusion", manacost: 10, components: ["Verbal"], noTargetEnemies: true, noTargetPlayer: true, level:2, type:"hit", noSprite: true, onhit:"summon", summon: [{name: "ShadowWarrior", count: 1, time: 12}], power: 6, time: 12, delay: -1, range: 3.5, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
-		{name: "Corona", tags: ["light", "offense"], noise: 4, sfx: "MagicSlash", school: "Illusion", manacost: 7, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
+		{name: "Corona", tags: ["light", "offense"], prerequisite: "Light", noise: 4, sfx: "MagicSlash", school: "Illusion", spellPointCost: 1, manacost: 7, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 2, power: 12, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
 			spellcast: {spell: "CoronaBeam", target: "target", directional:true, offset: false}, channel: 2},
 		{name: "TrueSight", tags: ["buff", "utility"], school: "Illusion", manacost: 1, defaultOff: true, cancelAutoMove: true, components: [], level:1, type:"passive", events: [
 			{type: "TrueSight", trigger: "vision"},
 			{type: "Blindness", trigger: "calcStats", power: -1},
 			{type: "AccuracyBuff", trigger: "tick", power: 0.4},
 		]},
-		{name: "EnemySense", tags: ["buff", "utility"], school: "Illusion", manacost: 2, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive", events: [{type: "EnemySense", trigger: "draw", dist: 12, distStealth: 6}]},
+		{name: "EnemySense", tags: ["buff", "utility"], school: "Illusion", manacost: 2, defaultOff: true, cancelAutoMove: true, costOnToggle: true, components: [], level:2, type:"passive",
+			events: [{type: "EnemySense", trigger: "draw", dist: 12, distStealth: 6}]},
+		{name: "Light", tags: ["buff", "utility"], school: "Illusion", manacost: 2, spellPointCost: 1, defaultOff: true, cancelAutoMove: true, costOnToggle: true, time: 30, components: [], level:2, type:"passive",
+			events: [{type: "Light", trigger: "calcVision", power: 6, time: 30}, {type: "Light", trigger: "toggleSpell", power: 6, time: 30}]},
 		{name: "Evasion", tags: ["buff", "utility", "defense"], sfx: "Fwoosh", school: "Illusion", manacost: 5, components: ["Legs"], mustTarget: true, level:1, type:"buff",
 			buffs: [
 				{id: "Evasion", type: "Evasion", labelcolor: "#a288b6", duration: 25, power: 3.0, player: true, enemies: true, maxCount: 5, tags: ["defense", "incomingHit"]},

@@ -96,8 +96,8 @@ function KinkyDungeonItemCost(item, noScale, sell) {
 	if (item.rarity != null) {
 		let rarity = item.rarity;
 		if (item.costMod) rarity += item.costMod;
-		let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5 * (noScale ? 0 : 1))*(30 + 2 * rarity * rarity * 10)/5);
-		if (costt > 100) costt = 50 * Math.round(costt / 50);
+		let costt = 5 * Math.round((1 + MiniGameKinkyDungeonLevel/KDLevelsPerCheckpoint/2.5 * (noScale ? 0 : 1))*(50 + 2 * rarity * rarity * 20)/5);
+		if (costt > 100) costt = 10 * Math.round(costt / 10);
 		if (KinkyDungeonStatsChoice.has("PriceGouging") && !sell) {
 			costt *= 5;
 		}

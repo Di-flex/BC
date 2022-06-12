@@ -943,6 +943,27 @@ let KDEventMapSpell = {
 			}
 		},
 	},
+	"calcVision": {
+		"Light": (e, spell, data) => {
+			let activate = false;
+			if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && !KinkyDungeonPlayerBuffs.Light) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Light", type: "Light", duration: e.time});
+				activate = true;
+				KinkyDungeonUpdateLightGrid = true;
+			}
+			if (KinkyDungeonPlayerBuffs.Light && KinkyDungeonPlayerBuffs.Light.duration > 1) {
+				if (data.brightness < e.power) data.brightness = e.power;
+			} else if (!activate) {
+				KinkyDungeonDisableSpell("Light");
+				KinkyDungeonExpireBuff(KinkyDungeonPlayerBuffs, "Light");
+			}
+		},
+	},
+	"toggleSpell": {
+		"Light": (e, spell, data) => {
+			KinkyDungeonUpdateLightGrid = true;
+		},
+	},
 	"enemyStatusEnd": {
 		"Shatter": (e, spell, data) => {
 			if (data.enemy && data.status == "freeze" && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.enemy.playerdmg && KDHostile(data.enemy) && KDistChebyshev(data.enemy.x - KinkyDungeonPlayerEntity.x, data.enemy.y - KinkyDungeonPlayerEntity.y) < 10) {
@@ -994,6 +1015,21 @@ let KDEventMapWeapon = {
 					}
 				}
 
+			}
+		},
+	},
+	"calcVision": {
+		"WeaponLight": (e, spell, data) => {
+			let activate = false;
+			if (!KinkyDungeonPlayerBuffs.WeaponLight) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "WeaponLight", type: "WeaponLight", duration: e.time});
+				KinkyDungeonUpdateLightGrid = true;
+				activate = true;
+			}
+			if (KinkyDungeonPlayerBuffs.WeaponLight && KinkyDungeonPlayerBuffs.WeaponLight.duration > 1) {
+				if (data.brightness < e.power) data.brightness = e.power;
+			} else if (!activate) {
+				KinkyDungeonExpireBuff(KinkyDungeonPlayerBuffs, "WeaponLight");
 			}
 		},
 	},

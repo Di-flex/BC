@@ -63,6 +63,7 @@ function KDProcessInput(type, data) {
 					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(KinkyDungeonSpells[KinkyDungeonSpellChoices[data.i]]));
 				} else KinkyDungeonSpellChoicesToggle[data.i] = false;
 			}
+			KinkyDungeonSendEvent("toggleSpell", {index: data.i});
 			break;
 		case "consumable":
 			KinkyDungeonAttemptConsumable(data.item, data.quantity);

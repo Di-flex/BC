@@ -283,7 +283,13 @@ function KinkyDungeonDefaultStats(Load) {
 }
 
 function KinkyDungeonGetVisionRadius() {
-	return (KDGameData.SleepTurns > 2) ? 1 : (Math.max((KinkyDungeonDeaf || KinkyDungeonStatBlind > 0) ? 1 : 2, Math.round(KinkyDungeonMapBrightness-KinkyDungeonBlindLevel)));
+	let data = {
+		brightness: KinkyDungeonMapBrightness,
+		blindlevel: KinkyDungeonBlindLevel,
+		noperipheral: KinkyDungeonDeaf || KinkyDungeonStatBlind > 0
+	};
+	KinkyDungeonSendEvent("calcVision", data);
+	return (KDGameData.SleepTurns > 2) ? 1 : (Math.max((data.noperipheral) ? 1 : 2, Math.round(data.brightness-data.blindlevel)));
 }
 
 function KinkyDungeonInterruptSleep() {
