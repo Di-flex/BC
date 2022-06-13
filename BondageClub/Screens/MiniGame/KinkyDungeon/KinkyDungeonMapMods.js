@@ -28,8 +28,8 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["mold"], tags: [], currentCount: 0, maxCount: 0.5},
-			{requiredTags: ["maid"], tags: [], currentCount: 0, maxCount: 0.25},
+			{requiredTags: ["mold"], tags: [], currentCount: 0, maxCount: 0.5, ignoreAllyCount: true},
+			{requiredTags: ["maid"], tags: [], currentCount: 0, maxCount: 0.25, ignoreAllyCount: true},
 		],
 	},
 	"Bandit": {
@@ -43,8 +43,8 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["bandit"], tags: [], currentCount: 0, maxCount: 0.4},
-			{requiredTags: ["bountyhunter"], tags: [], currentCount: 0, maxCount: 0.2},
+			{requiredTags: ["bandit"], tags: [], currentCount: 0, maxCount: 0.4, ignoreAllyCount: true},
+			{requiredTags: ["bountyhunter"], tags: [], currentCount: 0, maxCount: 0.2, ignoreAllyCount: true},
 		],
 	},
 	"Dragon": {
@@ -60,8 +60,8 @@ let KDMapMods = {
 		],
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["dragon"], tags: [], currentCount: 0, maxCount: 0.33},
-			{requiredTags: ["elemental"], tags: [], currentCount: 0, maxCount: 0.33},
+			{requiredTags: ["dragon"], tags: [], currentCount: 0, maxCount: 0.33, ignoreAllyCount: true},
+			{requiredTags: ["elemental"], tags: [], currentCount: 0, maxCount: 0.33, ignoreAllyCount: true},
 		],
 	},
 	"Witch": {
@@ -75,8 +75,8 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["witch"], tags: [], currentCount: 0, maxCount: 0.25},
-			{requiredTags: ["apprentice"], tags: [], currentCount: 0, maxCount: 0.25},
+			{requiredTags: ["witch"], tags: [], currentCount: 0, maxCount: 0.25, ignoreAllyCount: true},
+			{requiredTags: ["apprentice"], tags: [], currentCount: 0, maxCount: 0.25, ignoreAllyCount: true},
 		],
 	},
 	"Wolf": {
@@ -90,7 +90,7 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["wolfgirl"], tags: [], currentCount: 0, maxCount: 0.3},
+			{requiredTags: ["wolfgirl"], tags: [], currentCount: 0, maxCount: 0.3, ignoreAllyCount: true},
 		],
 	},
 	"Robot": {
@@ -103,7 +103,7 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["robot"], tags: [], currentCount: 0, maxCount: 0.3},
+			{requiredTags: ["robot"], tags: [], currentCount: 0, maxCount: 0.3, ignoreAllyCount: true},
 		],
 	},
 	"Plant": {
@@ -116,7 +116,7 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["plant"], tags: [], currentCount: 0, maxCount: 0.35},
+			{requiredTags: ["plant"], tags: [], currentCount: 0, maxCount: 0.35, ignoreAllyCount: true},
 		],
 	},
 	"Slime": {
@@ -129,7 +129,7 @@ let KDMapMods = {
 		},
 		altRoom: "",
 		spawnBoxes: [
-			{requiredTags: ["slime"], tags: [], currentCount: 0, maxCount: 0.3},
+			{requiredTags: ["slime"], tags: [], currentCount: 0, maxCount: 0.3, ignoreAllyCount: true},
 		],
 	},
 };

@@ -29,7 +29,31 @@ let KinkyDungeonHiddenFactions = [
 	"Rage",
 	"Ghost",
 	"Trap",
+	"Rebel",
 ];
+
+/** Shows tooltips for these factions even though they are hidden */
+let KinkyDungeonTooltipFactions = [
+	"Rebel",
+];
+
+/** Tag for these factions */
+let KinkyDungeonFactionTag = {
+	Bountyhunter: "bountyhunter",
+	Bandit: "bandit",
+	Alchemist: "alchemist",
+	Nevermere: "wolfgirl",
+	Apprentice: "apprentice",
+	Dressmaker: "dressmaker",
+	Witch: "witch",
+	Elemental: "elemental",
+	Dragon: "dragon",
+	Maidforce: "maid",
+	Bast: "mummy",
+	Elf: "elf",
+	Mushy: "mushy",
+	AncientRobot: "robot",
+};
 
 let KinkyDungeonFactionRelationsBase = {
 	"Player": {

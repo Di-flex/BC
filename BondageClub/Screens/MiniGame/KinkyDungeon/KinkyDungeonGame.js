@@ -713,11 +713,19 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 	let jailerCount = 0;
 	let EnemyNames = [];
 
+	let factions = Object.keys(KinkyDungeonFactionTag);
+	let randomFaction = factions[Math.floor(KDRandom() * factions.length)];
+
+	// These tags are disallowed unless working in the specific box
+	let filterTags = ["boss", "miniboss", "elite", "minor"];
+	let filterTagsCluster = ["boss", "miniboss"];
+
 	let spawnBoxes = [
 		{requiredTags: ["boss"], tags: [], currentCount: 0, maxCount: 0.001},
 		{requiredTags: ["miniboss"], tags: [], currentCount: 0, maxCount: 0.1},
 		{requiredTags: ["elite"], tags: [], currentCount: 0, maxCount: 0.2},
-		{requiredTags: ["minor"], tags: [], currentCount: 0, maxCount: 0.35},
+		{requiredTags: ["minor"], tags: [], currentCount: 0, maxCount: 0.25},
+		{requiredTags: [KinkyDungeonFactionTag[randomFaction]], tags: [KinkyDungeonFactionTag[randomFaction]], currentCount: 0, maxCount: 0.1},
 	];
 	if (KDGameData.MapMod) {
 		let mapMod = KDMapMods[KDGameData.MapMod];
@@ -776,7 +784,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 		let AI = undefined;
 		let tags = [];
 
-		if (currentCluster && !(10 * KDRandom() < currentCluster.count)) {
+		if (currentCluster && !(5 * KDRandom() < currentCluster.count)) {
 			required.push(currentCluster.required);
 			X = currentCluster.x - 2 + Math.floor(KDRandom() * 5);
 			Y = currentCluster.y - 2 + Math.floor(KDRandom() * 5);
@@ -803,9 +811,14 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 		let playerDist = 5;
 		let PlayerEntity = KinkyDungeonNearestPlayer({x:X, y:Y});
 
-		if (box && !spawnPoint) {
+		if (box && !spawnPoint && !currentCluster) {
 			for (let rtag of box.requiredTags) {
+				if (filterTags.includes(rtag)) filterTags.splice(filterTags.indexOf(rtag), 1);
 				required.push(rtag);
+			}
+			for (let tag of box.tags) {
+				if (filterTags.includes(tag)) filterTags.splice(filterTags.indexOf(tag), 1);
+				tags.push(tag);
 			}
 		} else box = null;
 
@@ -843,7 +856,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 				tags.push(t);
 			}
 			if (required.length == 0) required = undefined;
-			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required, ncount > neutralCount, BonusTags);
+			let Enemy = KinkyDungeonGetEnemy(tags, Floor + KinkyDungeonDifficulty/5, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(X, Y), required, ncount > neutralCount && (!box || !box.ignoreAllyCount), BonusTags, currentCluster ? filterTagsCluster : filterTags);
 			if (box && !Enemy) {
 				box.currentCount += 0.1;
 			}
@@ -873,10 +886,10 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 					e.AI = "looseguard";
 				}
 				if (Enemy.tags.has("mimicBlock") && KinkyDungeonGroundTiles.includes(KinkyDungeonMapGet(X, Y))) KinkyDungeonMapSet(X, Y, '3');
-				if (Enemy.tags.has("minor")) incrementCount = 0.2; else incrementCount = currentCluster ? 0.75 : 1.0; // Minor enemies count as 1/5th of an enemy
+				if (Enemy.tags.has("minor")) incrementCount = 0.2; else incrementCount = currentCluster ? 0.5 : 1.0; // Minor enemies count as 1/5th of an enemy
 				if (Enemy.difficulty) incrementCount += Enemy.difficulty;
-				if (Enemy.tags.has("boss")) {boss = true; incrementCount += 3 * Math.max(1, 100/(100 + KinkyDungeonDifficulty));} // Boss enemies count as 4 normal enemies
-				else if (Enemy.tags.has("elite")) incrementCount += Math.max(0.5, 50/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
+				if (Enemy.tags.has("boss")) {boss = true;}
+				else if (Enemy.tags.has("elite")) incrementCount += Math.max(0.25, 25/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
 				if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
 				if (Enemy.tags.has("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
 				if (Enemy.tags.has("jailer")) jailerCount += 1;
