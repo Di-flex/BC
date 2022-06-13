@@ -302,7 +302,7 @@ let KDDialogue = {
 	"OfferSlime": KDYesNoSingle("OfferSlime", ["Latex"], ["Ghost"], ["slimeRestraintsRandom"], [0, 60, 0, 75], [-25, 0, 15, 40]),
 	"OfferScarf": KDYesNoSingle("OfferScarf", ["Rope"], ["Ghost"], ["scarfRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
 	"OfferAutoTape": KDYesNoSingle("OfferAutoTape", ["Metal"], ["Ghost"], ["autoTape"], [0, 60, 0, 75], [-200, -200, -200, -200]),
-	"OfferHiTechCables": KDYesNoSingle("OfferHiTechCables", ["Metal"], ["Ghost"], ["hitechCables","cableGag"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferHiTechCables": KDYesNoSingle("OfferHiTechCables", ["Metal"], ["Ghost"], ["hitechCables","cableGag"], [0, 60, 0, 75], [-200, -200, -200, -200]),
 	"OfferIce": KDYesNoSingle("OfferIce", ["Elements"], ["Ghost"], ["iceRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
 	"OfferHighSec": KDYesNoTemplate(
 		(refused) => { // Setup function. This is run when you click Yes or No in the start of the dialogue

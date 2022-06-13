@@ -1094,7 +1094,7 @@ function KinkyDungeonDefeat(PutInJail) {
 	for (let e of  KinkyDungeonEntities) {
 		if (!e.Enemy.tags.has("temporary")) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
 			if (!e.Enemy.tags.has("prisoner") && !KDEnemyHasFlag(e, "imprisoned")) {
-				if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+				if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= 4) {
 					let p = KinkyDungeonGetRandomEnemyPoint(true);
 					if (p) {
 						e.x = p.x;
