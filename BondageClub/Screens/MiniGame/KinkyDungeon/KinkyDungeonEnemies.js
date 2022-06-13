@@ -230,15 +230,31 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 							KinkyDungeonFastStruggleSuppress = true;
 					}
 				}
-				if (enemy.buffs)
+				if (enemy.buffs) {
+					let aura_scale = 0;
+					let aura_scale_max = 0;
 					for (let b of Object.values(enemy.buffs)) {
 						if (b && b.aura) {
-							DrawImageCanvasColorize(KinkyDungeonRootDirectory + (b.auraSprite ? b.auraSprite : "Aura") + ".png", KinkyDungeonContext,
-								(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
-								KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
-								b.aura, true, []);
+							aura_scale_max += 1;
 						}
 					}
+					if (aura_scale_max > 0) {
+						let buffs = Object.values(enemy.buffs);
+						buffs = buffs.sort((a, b) => {return b.duration - a.duration;});
+						for (let b of buffs) {
+							if (b && b.aura) {
+								aura_scale += 1/aura_scale_max;
+								let s = aura_scale;
+								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
+									(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+									(ty - CamY)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33,
+									b.aura, true, []);
+							}
+						}
+					}
+				}
+
 				if (!enemy.Enemy.bound || KDBoundEffects(enemy) < 4)
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Enemies/" + sprite + ".png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -1252,6 +1268,16 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 						}
 					}
 				}
+
+				if (!enemy.Enemy.tags.has("acidimmune") && !enemy.Enemy.tags.has("acidresist") && !enemy.Enemy.tags.has("fire") && !enemy.Enemy.tags.has("nowet")) {
+					let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
+					if (tile == 'w') {
+						if (!enemy.buffs) enemy.buffs = {};
+						KinkyDungeonApplyBuff(enemy.buffs, {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 6, enemies: true});
+						KinkyDungeonApplyBuff(enemy.buffs, {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 6, enemies: true});
+					}
+				}
+
 				if (enemy.Enemy.triggersTraps) {
 					KinkyDungeonHandleTraps(enemy.x, enemy.y);
 				}

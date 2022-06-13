@@ -918,6 +918,8 @@ interface spell {
 	tags?: string[];
 	/** Color of the spell and bullet warningsd */
 	color?: string,
+	/** Buffs applied by the hit will effect everyone */
+	buffAll?: boolean,
 	name: string;
 	/** spell required to unlock this one */
 	prerequisite?: string;

@@ -3610,6 +3610,14 @@ KinkyDungeonSpellDescriptionSlime,A huge pool of slime will bind enemies that st
 KinkyDungeonSpellCastSlime,You conjure a pool of slime!
 KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius)
 
+
+KinkyDungeonSpellWaterBall,Water Ball
+KinkyDungeonSpellDescriptionWaterBall,Deals DamageDealt acid damage and drenches the target for 20 turns. Drenched targets take extra electric damage and reduced fire damage.
+KinkyDungeonSpellCastWaterBall,You hurl a ball of water!
+KinkyDungeonSpellTargetWaterBall,Choose aim direction
+KDEffectDrench,The water covers you and drenches you!
+KinkyDungeonStepWater,You step in water and become wet.
+
 KinkyDungeonSpellIceBreath,Ice Breath
 KinkyDungeonSpellDescriptionIceBreath,A field of icicles that deals DamageDealt damage on a hit and stuns briefly.
 KinkyDungeonSpellCastIceBreath,You breath out a chilling frost!
@@ -4323,7 +4331,7 @@ KinkyDungeonTooltipWeakness,"DAMAGETYPE: MULTIPLIERx modifier"
 KinkyDungeonTooltipArmor,"Armor: AMOUNT"
 KinkyDungeonTooltipEvasion,"Base Chance to Hit: AMOUNT%"
 KinkyDungeonTooltipDealsDamage,"Deals DAMAGETYPE damage"
-KinkyDungeonDamageTypeacid,"Caustic"
+KinkyDungeonDamageTypeacid,"Acid"
 KinkyDungeonDamageTypecold,"Shadow"
 KinkyDungeonDamageTypefrost,"Ice"
 KinkyDungeonDamageTypeice,"Ice"

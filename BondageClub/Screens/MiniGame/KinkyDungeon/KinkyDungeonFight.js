@@ -932,6 +932,30 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 		let newB = {born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(), bullet:{faction: b.bullet.faction, lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
 		KinkyDungeonBullets.push(newB);
 		KinkyDungeonUpdateSingleBulletVisual(newB, false, d);
+	} else if (b.bullet.hit == "buff" || b.bullet.hit == "buffonly") {
+		if (b.bullet.hit == "buff") {
+			let newB = {born: born, time:1, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(), bullet:{faction: b.bullet.faction, lifetime: 1, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};
+			KinkyDungeonBullets.push(newB);
+			KinkyDungeonUpdateSingleBulletVisual(newB, false, d);
+		}
+		if (b.bullet.spell) {
+			let aoe = b.bullet.spell.aoe ? b.bullet.spell.aoe : 0.5;
+			if (b.bullet.spell && (b.bullet.spell.playerEffect || b.bullet.playerEffect) && KDistEuclidean(b.x - KinkyDungeonPlayerEntity.x, b.y - KinkyDungeonPlayerEntity.y) < aoe) {
+				KinkyDungeonPlayerEffect(b.bullet.damage.type, b.bullet.playerEffect ? b.bullet.playerEffect : b.bullet.spell.playerEffect, b.bullet.spell, b.bullet.faction);
+			}
+			for (let enemy of KinkyDungeonEntities) {
+				if (((enemy.x == b.x && enemy.y == b.y) || (b.bullet.spell && aoe && KDistEuclidean(b.x - enemy.x, b.y - enemy.y) < aoe))) {
+					for (let buff of b.bullet.spell.buffs) {
+						if (buff.enemies
+							&& (!buff.noAlly || !b.bullet.faction || KDFactionRelation(b.bullet.faction, KDGetFaction(enemy)) < 0.5)
+							&& (!buff.onlyAlly || !b.bullet.faction || KDFactionRelation(b.bullet.faction, KDGetFaction(enemy)) >= 0.5)) {
+							if (!enemy.buffs) enemy.buffs = {};
+							KinkyDungeonApplyBuff(enemy.buffs, buff);
+						}
+					}
+				}
+			}
+		}
 	} else if (b.bullet.hit == "aoe") {
 		let newB = {secondary: true, born: born, time:b.bullet.spell.lifetime, x:b.x, y:b.y, vx:0, vy:0, xx:b.x, yy:b.y, spriteID: KinkyDungeonGetEnemyID() + b.bullet.name+"Hit" + CommonTime(),
 			bullet:{faction: b.bullet.faction, spell:b.bullet.spell, damage: {damage:(b.bullet.spell.aoedamage) ? b.bullet.spell.aoedamage : b.bullet.spell.power, type:b.bullet.spell.damage, bind: b.bullet.spell.bind, time:b.bullet.spell.time}, aoe: b.bullet.spell.aoe, lifetime: b.bullet.spell.lifetime, passthrough:true, name:b.bullet.name+"Hit", width:b.bullet.width, height:b.bullet.height}};

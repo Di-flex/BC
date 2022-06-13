@@ -164,15 +164,20 @@ function KinkyDungeonDrawGame() {
 	if (KinkyDungeonDrawState == "Game")
 		KinkyDungeonListenKeyMove();
 	if ((KinkyDungeonGameKey.keyPressed[9])) {
-		KinkyDungeonDrawState = "Game";
-		KinkyDungeonMessageToggle = false;
-		KinkyDungeonTargetingSpell = null;
-		KinkyDungeonTargetTile = null;
-		KinkyDungeonTargetTileLocation = "";
-		KinkyDungeonSpellPress = "";
-		KDModalArea = false;
-		KinkyDungeonShowInventory = false;
-		KDRepSelectionMode = "";
+		if (KinkyDungeonDrawState == "Magic") {
+			KinkyDungeonDrawState = "MagicSpells";
+			KinkyDungeonGameKey.keyPressed[9] = false;
+		} else {
+			KinkyDungeonDrawState = "Game";
+			KinkyDungeonMessageToggle = false;
+			KinkyDungeonTargetingSpell = null;
+			KinkyDungeonTargetTile = null;
+			KinkyDungeonTargetTileLocation = "";
+			KinkyDungeonSpellPress = "";
+			KDModalArea = false;
+			KinkyDungeonShowInventory = false;
+			KDRepSelectionMode = "";
+		}
 	}
 
 	KinkyDungeonCapStats();
@@ -322,12 +327,12 @@ function KinkyDungeonDrawGame() {
 				}
 				if (aura_scale_max > 0) {
 					let buffs = Object.values(KinkyDungeonPlayerBuffs);
-					buffs = buffs.sort((a, b) => {return a.duration - b.duration;});
+					buffs = buffs.sort((a, b) => {return b.duration - a.duration;});
 					for (let b of buffs) {
 						if (b && b.aura) {
 							aura_scale += 1/aura_scale_max;
 							let s = aura_scale;
-							DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.auraSprite ? b.auraSprite : "Aura") + ".png", KinkyDungeonContext,
+							DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
 								(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
 								(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
 								KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,

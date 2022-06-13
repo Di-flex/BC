@@ -61,7 +61,7 @@ let KinkyDungeonEnemies = [
 		spells: ["AllyShadowStrike"], spellCooldownMult: 1, spellCooldownMod: 0,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 11, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},
-	{name: "FireElemental", bound: "ElementalFire", color: "#FF6200", tags: KDMapInit(["construct", "player", "ranged", "fireimmune", "coldweakness", "icesevereweakness", "nohelp"]), keepLevel: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
+	{name: "FireElemental", bound: "ElementalFire", color: "#FF6200", tags: KDMapInit(["construct", "player", "ranged", "fireimmune", "coldweakness", "acidweakness", "icesevereweakness", "nohelp"]), keepLevel: true, allied: true, armor: 0, kite: 1.5, followRange: 3, playerFollowRange: 1, AI: "hunt",
 		spells: ["AllyFirebolt"], spellCooldownMult: 1, spellCooldownMod: 0, stopToCast: true, spellRdy: true, evasion: 0.5,
 		visionRadius: 20, playerBlindSight: 100, maxhp: 8, minLevel:0, weight:0, movePoints: 1, attackPoints: 1, attack: "Spell", attackRange: 0, power: 1,
 		terrainTags: {}, floors:KDMapInit([])},

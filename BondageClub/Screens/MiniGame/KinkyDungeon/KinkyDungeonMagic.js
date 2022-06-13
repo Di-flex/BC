@@ -589,12 +589,19 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction) {
 				}
 			}
 		} else if (playerEffect.name == "TrapSleepDart") {
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonTrapSleepDart"), "red", 4);
+			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrapSleepDart"), "red", 8);
 			KinkyDungeonSlowMoveTurns = 8;
 			KinkyDungeonStatBlind = 8;
 			KinkyDungeonSleepiness = 8;
 			KinkyDungeonAlert = 6;
 			effect = true;
+		} else if (playerEffect.name == "Drench") {
+			KinkyDungeonSendTextMessage(4, TextGet("KDEffectDrench"), "#5555ff", 3);
+			for (let b of spell.buffs) {
+				if (b.id.includes("Drenched")) {
+					KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b);
+				}
+			}
 		} else if (playerEffect.name == "LustBomb") {
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonLustBomb"), "pink", 4);
 			if (playerEffect.power > 0) {
@@ -1270,14 +1277,14 @@ function KinkyDungeonDrawMagic() {
 let selectedFilters = [];
 
 let KDSpellListIndex = 0;
-let KDMaxSpellPerColumn = 8;
+let KDMaxSpellPerColumn = 10;
 
 function KinkyDungeonListSpells(Mode) {
 	let i = 0;
 	let ii = 0;
 	//let maxY = 560;
 	let XX = 0;
-	let spacing = 60;
+	let spacing = 55;
 	let ypadding = 5;
 	let yPad = 100;
 	let buttonwidth = 250;

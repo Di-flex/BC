@@ -71,6 +71,10 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookHigh"), "lightgreen", 1);
 	} else if (tile == "/") { // Low hook
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonScrap"), "lightgreen", 1);
+	} else if (tile == "w") {
+		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonStepWater"), "lightblue", 1);
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 6, enemies: true});
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 6, enemies: true});
 	} else {
 		let tileUp = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - 1);
 		let tileL = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x - 1, KinkyDungeonPlayerEntity.y);
