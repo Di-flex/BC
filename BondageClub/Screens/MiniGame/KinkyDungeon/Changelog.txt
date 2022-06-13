@@ -973,6 +973,7 @@ Spell Balance:
 - CHanges to map enemy spawning
 - Now 5 levels per floor instead of 6
 - Frigid potions now always work at at least 50% effectiveness
+- Damaging an enemy that isn't aware of you will deal bonus damage
 
 TODO ValidationFindBlockCycles to prevent bugs
 
