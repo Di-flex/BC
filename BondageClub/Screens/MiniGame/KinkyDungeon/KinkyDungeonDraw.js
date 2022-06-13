@@ -313,13 +313,26 @@ function KinkyDungeonDrawGame() {
 					KDVisionUpdate = 0;
 				}
 
+				let aura_scale = 0;
+				let aura_scale_max = 0;
 				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 					if (b && b.aura) {
-						DrawImageCanvasColorize(KinkyDungeonRootDirectory + (b.auraSprite ? b.auraSprite : "Aura") + ".png", KinkyDungeonContext,
-							(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay,
-							(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay,
-							KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay,
-							b.aura, true, []);
+						aura_scale_max += 1;
+					}
+				}
+				if (aura_scale_max > 0) {
+					let buffs = Object.values(KinkyDungeonPlayerBuffs);
+					buffs = buffs.sort((a, b) => {return a.duration - b.duration;});
+					for (let b of buffs) {
+						if (b && b.aura) {
+							aura_scale += 1/aura_scale_max;
+							let s = aura_scale;
+							DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.auraSprite ? b.auraSprite : "Aura") + ".png", KinkyDungeonContext,
+								(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+								(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+								KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,
+								b.aura, true, []);
+						}
 					}
 				}
 
