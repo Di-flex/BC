@@ -665,11 +665,15 @@ function KinkyDungeonHandleSpellChoice(SpellChoice) {
 	return spell;
 }
 
+function KDSpellIgnoreComp(spell) {
+	return (KinkyDungeonStatsChoice.get("Slayer") && spell.school == "Elements")
+	|| (KinkyDungeonStatsChoice.get("Conjurer") && spell.school == "Conjure")
+	|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion");
+}
+
 function KinkyDungeonHandleSpellCast(spell) {
 	if (KinkyDungeoCheckComponents(spell).length == 0 || (
-		(KinkyDungeonStatsChoice.get("Slayer") && spell.school == "Elements")
-		|| (KinkyDungeonStatsChoice.get("Conjurer") && spell.school == "Conjure")
-		|| (KinkyDungeonStatsChoice.get("Magician") && spell.school == "Illusion")
+		KDSpellIgnoreComp(spell)
 	)) {
 		if (KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))
 			&& (!spell.staminacost || KinkyDungeonHasStamina(spell.staminacost)))
@@ -799,7 +803,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 
 
 	let gaggedMiscastFlag = false;
-	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal") && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {
+	if (!enemy && !bullet && player && spell.components && spell.components.includes("Verbal") && !KDSpellIgnoreComp(spell) && !(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "NoVerbalComp") > 0)) {
 		let gagTotal = KinkyDungeonGagTotal();
 		flags.miscastChance = flags.miscastChance + Math.max(0, 1 - flags.miscastChance) * Math.min(1, gagTotal);
 		if (gagTotal > 0)

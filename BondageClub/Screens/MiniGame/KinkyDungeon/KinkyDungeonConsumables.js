@@ -132,7 +132,8 @@ function KinkyDungeonConsumableEffect(Consumable) {
 		if (Consumable.scaleWithMaxMP) {
 			Manamulti = Math.max(KinkyDungeonStatManaMax / 36);
 		}
-		let gagMult = Math.max(0, 1 - Math.max(0, KinkyDungeonGagTotal(true)));
+		let gagFloor = Consumable.gagFloor ? Consumable.gagFloor : 0;
+		let gagMult = Math.max(0, gagFloor + (1 - gagFloor) * (1 - Math.max(0, KinkyDungeonGagTotal(true))));
 		if (gagMult < 0.999) {
 			KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonConsumableLessEffective"), "red", 2);
 		}
@@ -214,7 +215,7 @@ function KinkyDungeonAttemptConsumable(Name, Quantity) {
 		return false;
 	}
 
-	let needMouth = item.item && KDConsumable(item.item) && (KDConsumable(item.item).potion || KDConsumable(item.item).needMouth);
+	let needMouth = item.item && KDConsumable(item.item) && ((KDConsumable(item.item).potion && !KDConsumable(item.item).gagFloor) || KDConsumable(item.item).needMouth);
 	let needArms = !(item.item && KDConsumable(item.item) && KDConsumable(item.item).noHands);
 	let strictness = KinkyDungeonStrictness(false, "ItemHands");
 	let maxStrictness = (item.item && KDConsumable(item.item) && KDConsumable(item.item).maxStrictness) ? KDConsumable(item.item).maxStrictness : 1000;

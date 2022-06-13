@@ -968,6 +968,9 @@ Spell Balance:
 - Crackle damage to 40 from 45
 - Lightning bolt stuns for 2 turns instead of 1
 - New spell: Thunderstorm
+- CHanges to map enemy spawning
+- Now 5 levels per floor instead of 6
+- Frigid potions now always work at at least 50% effectiveness
 
 TODO ValidationFindBlockCycles to prevent bugs
 

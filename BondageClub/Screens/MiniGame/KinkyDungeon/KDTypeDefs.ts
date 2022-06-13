@@ -56,6 +56,8 @@ interface consumable {
 	spell?: string,
 	potion?: boolean,
 	noHands?: boolean,
+	/** Minimum effectiveness when gagged */
+	gagFloor?: number,
 	needMouth?: boolean,
 	/** Max strictness allowed before the item cant be used */
 	maxStrictness?: number,

@@ -133,7 +133,7 @@ function KinkyDungeonShrineCost(type) {
 	if (KinkyDungeonShrineCosts[type] > 0 && !noMult) mult = Math.pow(growth, KinkyDungeonShrineCosts[type]);
 
 	if (type == "Conjure" || type == "Illusion" || type == "Elements")
-		return 100 * (1 + 0.01 * KinkyDungeonDifficulty);
+		return Math.round(150 * (1 + 0.01 * KinkyDungeonDifficulty));
 
 	return Math.round(Math.round(KinkyDungeonShrineBaseCosts[type] * mult/10)*10 * (1 + 0.01 * KinkyDungeonDifficulty));
 }
@@ -169,7 +169,7 @@ function KinkyDungeonPayShrine(type) {
 		ShrineMsg = TextGet("KinkyDungeonPayShrineRemoveRestraints");
 		KDSendStatus('goddess', type, 'shrineRemove');
 	} else if (type == "Elements" || type == "Illusion" || type == "Conjure") {
-		ShrineMsg = TextGet("KinkyDungeonPayShrineBuff").replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
+		ShrineMsg = TextGet("KinkyDungeonPayShrineBuff" + type).replace("SCHOOL", TextGet("KinkyDungeonSpellsSchool" + type));
 		if (type == "Elements") {
 			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "ShrineElements", type: "event", maxCount: 10, tags: ["offense", "shrineElements"], aura: "#f1641f", power: 1.5, duration: 9999, events: [
 				{trigger: "afterDamageEnemy", type: "ShrineElements", spell: "ArcaneStrike"},
