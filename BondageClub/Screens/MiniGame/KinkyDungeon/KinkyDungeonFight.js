@@ -622,14 +622,14 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 		eva: !disarm && evaded,
 		Damage: Damage,
 		buffdmg: buffdmg,
-		vulnerable: Enemy.vulnerable,
+		vulnerable: Enemy.vulnerable || (KDHostile(Enemy) && !Enemy.aware),
 	};
 	KinkyDungeonSendEvent("beforePlayerAttack", predata);
 
 	if (predata.vulnerable && (predata.eva)) {
 		let dmgBonus = Math.max(KDVulnerableDmg, dmg.damage * KDVulnerableDmgMult);
 		dmg.damage = Math.max(0, dmg.damage + dmgBonus);
-		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonVulnerable").replace("AMOUNT", "" + Math.round(10 * dmgBonus)), "lightgreen", 2);
+		KinkyDungeonSendTextMessage(4, TextGet(Enemy.vulnerable ? "KinkyDungeonVulnerable" : "KinkyDungeonUnseen").replace("AMOUNT", "" + Math.round(10 * dmgBonus)), "lightgreen", 2);
 	}
 
 	if (predata.buffdmg) dmg.damage = Math.max(0, dmg.damage + predata.buffdmg);

@@ -4368,6 +4368,7 @@ KinkyDungeonHeartStamina,"+6 Max Stamina"
 KinkyDungeonHeartMana,"+12 Max Mana"
 
 KinkyDungeonVulnerable,The enemy is vulnerable and takes an extra AMOUNT damage!
+KinkyDungeonUnseen,The enemy isn't aware of you and takes an extra AMOUNT damage!
 KinkyDungeonStealPick,The enemy steals a pick from you!
 KinkyDungeonStealKnife,The enemy takes away your knife!
 KinkyDungeonStealRedKey,The enemy steals a key from your body!
