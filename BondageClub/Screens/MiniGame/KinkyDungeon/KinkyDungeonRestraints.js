@@ -1874,6 +1874,7 @@ function KinkyDungeonAddRestraintIfWeaker(restraint, Tightness, Bypass, Lock, Ke
  * @returns {boolean}
  */
 function KinkyDungeonIsLinkable(oldRestraint, newRestraint) {
+	if (!oldRestraint.nonbinding && newRestraint.nonbinding) return false;
 	if (oldRestraint && newRestraint && oldRestraint && oldRestraint.LinkableBy && newRestraint.shrine) {
 		for (let l of oldRestraint.LinkableBy) {
 			for (let s of newRestraint.shrine) {
