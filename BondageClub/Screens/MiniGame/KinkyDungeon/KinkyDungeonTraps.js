@@ -73,6 +73,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 		KinkyDungeonSendEvent("beforeTrap", {x:x, y:y, tile: tile, flags: flags});
 		if (flags.AllowTraps && Moved) {
 			let msg = "";
+			let triggered = false;
 			let color = "red";
 			if (KinkyDungeonStatsChoice.has("Rusted") && KDRandom() < 0.25) {
 				msg = TextGet("KDTrapMisfire");
@@ -87,6 +88,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						if (!tile.noSmoke) {
 							KDSmokePuff(x, y, 1.9, 0.5);
 						}
+						triggered = true;
 					}
 				}
 				if (tile.Trap == "SpecificSpell") {
@@ -104,6 +106,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						KinkyDungeonCastSpell(x + xx, y + yy, spell, undefined, undefined, undefined, "Trap");
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 						msg = ""; // The spell will show a message on its own
+						triggered = true;
 						KinkyDungeonTiles.delete(x + "," + y);
 						if (!tile.noSmoke) {
 							KDSmokePuff(x, y, 1.9, 0.5);
@@ -114,6 +117,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BarrelTrap"), 0, true);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KDBarrelTrap");
+					triggered = true;
 					KinkyDungeonTiles.delete(x + "," + y);
 					KinkyDungeonMakeNoise(10, x, y);
 				}
@@ -121,6 +125,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName("BedTrap"), 0, true);
 					if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
 					msg = TextGet("KDBedTrap");
+					triggered = true;
 					KinkyDungeonTiles.delete(x + "," + y);
 					KinkyDungeonMakeNoise(10, x, y);
 				}
@@ -169,6 +174,7 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 						KDSendStatus('bound', tile.Trap, "trap");
 						KinkyDungeonAddRestraintIfWeaker(restraint, tile.Power, false);
 					}
+					triggered = true;
 					let created = KinkyDungeonSummonEnemy(x, y, "VinePlant", tile.Power, 1);
 					if (created > 0) {
 						if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Trap.ogg");
@@ -177,9 +183,10 @@ function KinkyDungeonHandleTraps(x, y, Moved) {
 					}
 				}
 			}
-			if (msg) {
+			if (msg || triggered) {
 				KDTrigPanic();
-
+			}
+			if (msg) {
 				if (msg == "Default")
 					KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrap" + tile.Trap), color, 2 + KinkyDungeonSlowMoveTurns);
 				else
