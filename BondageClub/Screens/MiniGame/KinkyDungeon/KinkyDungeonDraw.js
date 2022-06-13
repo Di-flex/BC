@@ -200,7 +200,8 @@ function KinkyDungeonDrawGame() {
 	}
 
 
-	KinkyDungeonDrawDelta = CommonTime() - KinkyDungeonLastDraw;
+	KinkyDungeonDrawDelta = Math.min(CommonTime() - KinkyDungeonLastDraw, KinkyDungeonLastDraw - KinkyDungeonLastDraw2);
+	KinkyDungeonLastDraw2 = KinkyDungeonLastDraw;
 	KinkyDungeonLastDraw = CommonTime();
 
 	if (!(KinkyDungeonDrawState == "MagicSpells")) {

@@ -29,6 +29,7 @@ let KinkyDungeonCamY = 0;
 let KinkyDungeonTargetX = 0;
 let KinkyDungeonTargetY = 0;
 let KinkyDungeonLastDraw = 0;
+let KinkyDungeonLastDraw2 = 0;
 let KinkyDungeonDrawDelta = 0;
 
 const KinkyDungeonLastChatTimeout = 10000;

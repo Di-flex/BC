@@ -795,7 +795,33 @@ let KDEventMapBuff = {
 					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, e.requiredTag, 1);
 			}
 		},
-	}
+	},
+	"tick": {
+		"ApplyConduction": (e, buff, entity, data) => {
+			let bb = Object.assign({}, KDConduction);
+			bb.duration = 1;
+			// @ts-ignore
+			if (entity.player) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, bb);
+			} else {
+				if (!entity.buffs) entity.buffs = {};
+				KinkyDungeonApplyBuff(entity.buffs, bb);
+			}
+		},
+	},
+	"tickAfter": {
+		"ApplyConduction": (e, buff, entity, data) => {
+			let bb = Object.assign({}, KDConduction);
+			bb.duration = 1;
+			// @ts-ignore
+			if (entity.player) {
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, bb);
+			} else {
+				if (!entity.buffs) entity.buffs = {};
+				KinkyDungeonApplyBuff(entity.buffs, bb);
+			}
+		},
+	},
 };
 
 /**

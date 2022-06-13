@@ -1273,8 +1273,13 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
 					if (tile == 'w') {
 						if (!enemy.buffs) enemy.buffs = {};
-						KinkyDungeonApplyBuff(enemy.buffs, {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 6, enemies: true});
-						KinkyDungeonApplyBuff(enemy.buffs, {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 6, enemies: true});
+						let b1 = Object.assign({}, KDDrenched);
+						b1.duration = 6;
+						let b2 = Object.assign({}, KDDrenched2);
+						b2.duration = 6;
+
+						KinkyDungeonApplyBuff(enemy.buffs, b1);
+						KinkyDungeonApplyBuff(enemy.buffs, b2);
 					}
 				}
 

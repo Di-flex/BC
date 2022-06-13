@@ -964,10 +964,12 @@ Spell Balance:
 - Elemental, Conjuration, and Illusion shrines now give an arcane buff instead.
 - New spell: Shock Orb
 - New spell: Light
+- New spell: Thunderstorm
+- New spell: Water Ball
+- Water now drenches you, same debuff as Water Ball
 - Firebolt damage to 40 from 45
 - Crackle damage to 40 from 45
 - Lightning bolt stuns for 2 turns instead of 1
-- New spell: Thunderstorm
 - CHanges to map enemy spawning
 - Now 5 levels per floor instead of 6
 - Frigid potions now always work at at least 50% effectiveness

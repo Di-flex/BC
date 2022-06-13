@@ -2807,6 +2807,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	if (KinkyDungeonMovePoints < 0 || KinkyDungeonStatBlind) {
 		KinkyDungeonSetFlag("Quickness", 0);
 	}
+	KinkyDungeonSendEvent("tickAfter", {delta: delta});
 
 
 }

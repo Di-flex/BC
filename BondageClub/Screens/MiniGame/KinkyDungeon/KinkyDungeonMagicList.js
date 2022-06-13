@@ -91,6 +91,20 @@ let KinkyDungeonLearnableSpells = [
 	],
 ];
 
+
+
+let KDConduction = {id: "Conduction", type: "event", aura: "#88ffff", aurasprite: "Conduction", power: 7.0, player: true, duration: 5, enemies: true, range: 2.99, events: [
+	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "playerTakeDamage"},
+	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "beforeDamageEnemy"},
+]};
+
+let KDDrenched = {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 20, enemies: true, events: [
+	{type: "ApplyConduction", duration: 1, trigger: "tick"},
+	{type: "ApplyConduction", duration: 1, trigger: "tickAfter"},
+]};
+
+let KDDrenched2 = {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
+
 /**
  * Spells that the player can choose
  * @type {Record<string, spell[]>}
@@ -146,17 +160,14 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			onhit:"", time:6, power: 1.5, range: 2.9, size: 1, damage: ""},
 
 		{name: "Thunderstorm", tags: ["aoe", "utility", "offense", "electric"], prerequisite: "Electrify", spellPointCost: 1, sfx: "Fwoosh", school: "Elements", manacost: 6, components: ["Verbal"], level:2, type:"inert", buffs: [
-			{id: "Conduction", type: "event", aura: "#f8f644", aurasprite: "Conduction", power: 7.0, player: true, duration: 5, enemies: true, range: 2.99, events: [
-				{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "playerTakeDamage"},
-				{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "beforeDamageEnemy"},
-			]},
+			Object.assign({}, KDConduction),
 		], onhit:"", time:8, aoe: 2.99, power: 0, delay: 8, range: 4, size: 5, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 
 		{name: "WaterBall", tags: ["water", "bolt", "offense", "utility"], sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"buff",
 			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 2, playerEffect: {name: "Drench"},
 			buffs: [
-				{id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 20, enemies: true},
-				{id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 20, enemies: true},
+				Object.assign({}, KDDrenched),
+				Object.assign({}, KDDrenched2),
 			]
 		},
 
