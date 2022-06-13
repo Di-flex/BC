@@ -649,6 +649,10 @@ function KDGroupBlocked(Group, External) {
 
 }
 
+function KinkyDungeonCanUseKey() {
+	return !KinkyDungeonIsHandsBound(true) || KinkyDungeonStatsChoice.has("Psychic");
+}
+
 /**
  *
  * @param {boolean} [ApplyGhost]

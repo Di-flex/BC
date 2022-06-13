@@ -1216,7 +1216,7 @@ let KDDialogue = {
 		}
 	},
 	"BlacksmithShop": KDSaleShop("BlacksmithShop", ["RedKey", "Knife", "Sword", "Axe", "Spear", "TrapCuffs"], [], ["blacksmith"], 0.4, 1.5),
-	"PrisonerBandit": { // Player beats Fuuka
+	"PrisonerBandit": {
 		response: "Default",
 		personalities: ["Sub"],
 		clickFunction: (gagged) => {
@@ -1288,7 +1288,7 @@ let KDDialogue = {
 				playertext: "Default", response: "Default",
 				clickFunction: (gagged) => {
 					if (KinkyDungeonRedKeys > 0) {
-						if (!KinkyDungeonIsHandsBound() || !KinkyDungeonIsArmsBound()) {
+						if (KinkyDungeonCanUseKey() || !KinkyDungeonIsArmsBound()) {
 							if (KDDialogueEnemy()) {
 								let e = KDDialogueEnemy();
 								e.boundLevel = 0;
