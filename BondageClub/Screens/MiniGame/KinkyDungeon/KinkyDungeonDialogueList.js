@@ -287,6 +287,116 @@ let KDDialogue = {
 		}
 	},
 	"OfferDress": KDYesNoSingle("OfferDress", ["Rope"], ["Ghost"], ["bindingDress"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferArmor": KDYesNoSingle("OfferArmor", ["Metal"], ["Ghost"], ["shackleGag"], [-10, 60, -20, 75], [-35, -10, 5, 30]),
+	"OfferChain": KDYesNoSingle("OfferChain", ["Metal"], ["Ghost"], ["chainRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferVine": KDYesNoSingle("OfferVine", ["Metal"], ["Ghost"], ["vineRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferObsidian": KDYesNoSingle("OfferObsidian", ["Metal"], ["Ghost"], ["obsidianRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferMaidRestraint": KDYesNoSingle("OfferMaidRestraint", ["Illusion"], ["Ghost"], ["obsidianRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferDragon": KDYesNoSingle("OfferDragon", ["Leather"], ["Ghost"], ["dragonRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferComfy": KDYesNoSingle("OfferComfy", ["Conjure"], ["Ghost"], ["comfyRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferShackles": KDYesNoSingle("OfferShackles", ["Metal"], ["Ghost"], ["shackleRestraints", "steelCuffs"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferKitty": KDYesNoSingle("OfferKitty", ["Leather"], ["Ghost"], ["kittyRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferMithril": KDYesNoSingle("OfferMithril", ["Metal"], ["Ghost"], ["mithrilRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferMithrilRope": KDYesNoSingle("OfferMithrilRope", ["Rope"], ["Ghost"], ["mithrilRope","mithrilRopeHogtie"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferWolfRestraint": KDYesNoSingle("OfferWolfRestraint", ["Metal"], ["Ghost"], ["wolfRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferSlime": KDYesNoSingle("OfferSlime", ["Latex"], ["Ghost"], ["slimeRestraintsRandom"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferScarf": KDYesNoSingle("OfferScarf", ["Rope"], ["Ghost"], ["scarfRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferAutoTape": KDYesNoSingle("OfferAutoTape", ["Metal"], ["Ghost"], ["autoTape"], [0, 60, 0, 75], [-200, -200, -200, -200]),
+	"OfferHiTechCables": KDYesNoSingle("OfferHiTechCables", ["Metal"], ["Ghost"], ["hitechCables","cableGag"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferIce": KDYesNoSingle("OfferIce", ["Elements"], ["Ghost"], ["iceRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
+	"OfferHighSec": KDYesNoTemplate(
+		(refused) => { // Setup function. This is run when you click Yes or No in the start of the dialogue
+			// This is the restraint that the dialogue offers to add. It's selected from a set of tags. You can change the tags to change the restraint
+			let HighSecArray = ["HighsecArmbinder","HighsecShackles","HighsecBallGag","HighsecLegbinder","DragonMuzzleGag"];
+			let r = KinkyDungeonGetRestraintByName(HighSecArray[Math.floor(KDRandom() * HighSecArray.length)]);
+			if (r) {
+				KDGameData.CurrentDialogMsgData = {
+					"Data_r": r.name,
+					"RESTRAINT": TextGet("Restraint" + r.name),
+				};
+
+				// Percent chance your dominant action ("Why don't you wear it instead?") succeeds
+				// Based on a difficulty that is the sum of four lines
+				// Dominant perk should help with this
+				KDGameData.CurrentDialogMsgValue.PercentOff =
+					KDOffensiveDialogueSuccessChance(KDBasicCheck(["Metal"], [])
+					- (KDDialogueGagged() ? 60 : 40)
+					- (KinkyDungeonStatsChoice.has("Dominant") ? 0 : 40)
+					- KDPersonalitySpread(-15, 0, KinkyDungeonStatsChoice.has("Dominant") ? 15 : 50));
+				// Set the string to replace in the UI
+				KDGameData.CurrentDialogMsgData.OFFPERC = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.PercentOff)}%`;
+			}
+
+			// If the player hits No first, this happens
+			if (refused) {
+				// Set up the difficulty of the check
+				// This check basically determines if we switch to the Force stage where the speaker tries to force you
+				let diff = KinkyDungeonStatsChoice.has("Dominant") ? 0 : 60;
+				// Failure condition
+				if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
+					KDGameData.CurrentDialogStage = "Force";
+					KDGameData.CurrentDialogMsg = "OfferHighSecForceYes"; // This is different from OfferHighSecForce_Yes, it's a more reluctant dialogue...
+					// Set up percentage chance to resist
+					KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+					KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+				}
+				KinkyDungeonChangeRep("Ghost", -1); // Reduce submission because of refusal
+			}
+			return false;
+		},(refused) => { // Yes function. This happens if the user submits willingly
+			KinkyDungeonChangeRep("Metal", 1);
+			KDPleaseSpeaker(refused ? 0.004 : 0.005); // Less reputation if you refused
+			KinkyDungeonChangeRep("Ghost", refused ? 1 : 2); // Less submission if you refused
+			KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+			return false;
+		},(refused) => { // No function. This happens when the user refuses.
+			// The first half is basically the same as the setup function, but only if the user did not refuse the first yes/no
+			if (!refused) {
+				// This check basically determines if we switch to the Force stage where the speaker tries to force you
+				let diff = KinkyDungeonStatsChoice.has("Dominant") ? 15 : 75; // Slightly harder because we refused
+				// Failure condition
+				if (KDBasicCheck(["Metal"], ["Ghost"]) <= diff) {
+					KDGameData.CurrentDialogStage = "Force";
+					KDGameData.CurrentDialogMsg = "";
+					// Set up percentage chance to resist
+					KDGameData.CurrentDialogMsgValue.Percent = KDAgilityDialogueSuccessChance(KDBasicCheck(["Metal"], ["Ghost"]));
+					KDGameData.CurrentDialogMsgData.PERCENT = `${Math.round(100 * KDGameData.CurrentDialogMsgValue.Percent)}%`;
+				}
+				KinkyDungeonChangeRep("Ghost", -1);
+			} else { // If the user refuses we use the already generated success chance and calculate the result
+				let percent = KDGameData.CurrentDialogMsgValue.Percent;
+				if (KDRandom() > percent) { // We failed! You get tied tight
+					KDIncreaseOfferFatigue(-20);
+					KDGameData.CurrentDialogMsg = "OfferHighSecForce_Failure";
+					KinkyDungeonAddRestraintIfWeaker(KinkyDungeonGetRestraintByName(KDGameData.CurrentDialogMsgData.Data_r), 0, true, "Red");
+				} else {
+					KDIncreaseOfferFatigue(10);
+				}
+			}
+			return false;
+		},(refused) => { // Dom function. This is what happens when you try the dominant option
+			// We use the already generated percent chance
+			let percent = KDGameData.CurrentDialogMsgValue.PercentOff;
+			if (KDRandom() > percent) {
+				// If we fail, we aggro the enemy
+				KDIncreaseOfferFatigue(-20);
+				KDGameData.CurrentDialogMsg = "OfferDominantFailure";
+				KDAggroSpeaker(10);
+			} else {
+				// If we succeed, we get the speaker enemy and bind them
+				KDIncreaseOfferFatigue(10);
+				let enemy = KinkyDungeonFindID(KDGameData.CurrentDialogMsgID);
+				if (enemy && enemy.Enemy.name == KDGameData.CurrentDialogMsgSpeaker) {
+					enemy.playWithPlayer = 0;
+					enemy.playWithPlayerCD = 999;
+					let amount = 10;
+					if (!enemy.boundLevel) enemy.boundLevel = amount;
+					else enemy.boundLevel += amount;
+				}
+				KinkyDungeonChangeRep("Ghost", -4); // Reduce submission because dom
+			}
+			return false;
+		}),
 	"OfferLatex": KDYesNoTemplate(
 		(refused) => { // Setup function. This is run when you click Yes or No in the start of the dialogue
 			// This is the restraint that the dialogue offers to add. It's selected from a set of tags. You can change the tags to change the restraint
@@ -1825,8 +1935,6 @@ let KDDialogue = {
 	"GhostSell": KDShopDialogue("GhostSell", ["Ectoplasm", "PotionInvisibility", "ElfCrystal"], [], ["alchemist", "witch", "apprentice", "dressmaker", "dragon"], 0.1),
 	// TODO magic book dialogue in which you can read forward and there are traps
 	"GenericAlly": KDAllyDialogue("GenericAlly", [], [], [], 1),
-	"OfferMithril": KDYesNoSingle("OfferMithril", ["Metal"], ["Ghost"], ["mithrilRestraints"], [0, 60, 0, 75], [-25, 0, 15, 40]),
-	"OfferMithrilRope": KDYesNoSingle("OfferMithrilRope", ["Rope"], ["Ghost"], ["mithrilRope","mithrilRopeHogtie"], [0, 60, 0, 75], [-25, 0, 15, 40]),
 };
 
 
