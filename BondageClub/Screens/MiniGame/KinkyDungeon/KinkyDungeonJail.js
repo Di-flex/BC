@@ -1093,16 +1093,20 @@ function KinkyDungeonDefeat(PutInJail) {
 	let enemies = [];
 	for (let e of  KinkyDungeonEntities) {
 		if (!e.Enemy.tags.has("temporary")) { // (e.Enemy.tags.has("jail") || e.Enemy.tags.has("jailer"))
-			if (!e.Enemy.tags.has("prisoner") && !KDEnemyHasFlag(e, "imprisoned") && KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
-				let p = KinkyDungeonGetRandomEnemyPoint(true);
-				if (p) {
-					e.x = p.x;
-					e.y = p.y;
-					e.path = undefined;
-					e.gx = e.x;
-					e.gy = e.y;
+			if (!e.Enemy.tags.has("prisoner") && !KDEnemyHasFlag(e, "imprisoned")) {
+				if (KDistChebyshev(e.x - nearestJail.x, e.y - nearestJail.y) <= KinkyDungeonJailLeashX + 1) {
+					let p = KinkyDungeonGetRandomEnemyPoint(true);
+					if (p) {
+						e.x = p.x;
+						e.y = p.y;
+						e.path = undefined;
+						e.gx = e.x;
+						e.gy = e.y;
+					}
 				}
 
+
+				if (e.boundLevel && e.boundLevel < 9000) e.boundLevel = 0;
 			}
 			if (e.hostile < 9000) e.hostile = 0;
 			KDExpireFlags(e);
