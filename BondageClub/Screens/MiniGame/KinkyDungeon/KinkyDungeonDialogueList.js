@@ -382,7 +382,7 @@ let KDDialogue = {
 	"OfferChastity": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonSetFlag("BondageOffer",  5);
+			KinkyDungeonSetFlag("BondageOffer",  KDOfferCooldown);
 			KinkyDungeonSetFlag("ChastityOffer",  50);
 			return false;
 		},
@@ -557,7 +557,7 @@ let KDDialogue = {
 	"OfferLeather": {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonSetFlag("BondageOffer",  5);
+			KinkyDungeonSetFlag("BondageOffer",  KDOfferCooldown);
 			return false;
 		},
 		options: {
@@ -720,7 +720,7 @@ let KDDialogue = {
 			if (KinkyDungeonGetRestraintsWithShrine("Rope").length > 0) {
 				KDGameData.CurrentDialogMsg = "OfferRopesExtra";
 			}
-			KinkyDungeonSetFlag("BondageOffer",  5);
+			KinkyDungeonSetFlag("BondageOffer",  KDOfferCooldown);
 			return false;
 		},
 		options: {

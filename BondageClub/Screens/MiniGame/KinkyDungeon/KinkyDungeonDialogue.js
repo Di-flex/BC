@@ -783,6 +783,8 @@ function KDShopDialogue(name, items, requireTags, requireSingleTag, chance) {
 	return shop;
 }
 
+let KDOfferCooldown = 20;
+
 /**
  *
  * @param {(firstRefused) => boolean} setupFunction - firstRefused is if the player said no first. Happens after the user clicks
@@ -798,7 +800,7 @@ function KDYesNoTemplate(setupFunction, yesFunction, noFunction, domFunction) {
 	let dialogue = {
 		response: "Default",
 		clickFunction: (gagged) => {
-			KinkyDungeonSetFlag("BondageOffer", 5);
+			KinkyDungeonSetFlag("BondageOffer", KDOfferCooldown);
 			return false;
 		},
 		options: {
