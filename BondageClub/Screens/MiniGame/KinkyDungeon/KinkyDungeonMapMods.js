@@ -113,6 +113,7 @@ let KDMapMods = {
 		tags: ["plant", "elf"],
 		bonusTags: {
 			"plant": {bonus: 5, mult: 2},
+			"maid": {bonus: 4.5, mult: 1},
 		},
 		altRoom: "",
 		spawnBoxes: [
@@ -126,6 +127,7 @@ let KDMapMods = {
 		tags: ["slime", "alchemist"],
 		bonusTags: {
 			"slime": {bonus: 4, mult: 2},
+			"maid": {bonus: 4.5, mult: 1},
 		},
 		altRoom: "",
 		spawnBoxes: [
