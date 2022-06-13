@@ -891,9 +891,13 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 				if (Enemy.tags.has("boss")) {
 					//boss = true;
 				}
-				else if (Enemy.tags.has("elite")) incrementCount += Math.max(0.25, 25/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
-				//if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
-				if (Enemy.tags.has("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") KinkyDungeonMapSet(X, Y, '0');
+				else if (Enemy.tags.has("elite"))
+					incrementCount += Math.max(0.25, 25/(100 + KinkyDungeonDifficulty)); // Elite enemies count as 1.5 normal enemies
+				if (Enemy.tags.has("miniboss")) miniboss = true; // Adds miniboss as a tag
+				if (Enemy.tags.has("removeDoorSpawn") && KinkyDungeonMapGet(X, Y) == "d") {
+					KinkyDungeonMapSet(X, Y, '0');
+					KinkyDungeonTiles.delete(X + "," + Y);
+				}
 				if (Enemy.tags.has("jailer")) jailerCount += 1;
 
 				if (Enemy.summon) {
