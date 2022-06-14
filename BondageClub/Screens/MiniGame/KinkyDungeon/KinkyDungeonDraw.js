@@ -557,13 +557,13 @@ function KinkyDungeonDrawGame() {
 					} else if ((KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
 						let xx = KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x;
 						let yy = KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y;
-						if (MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+						if (KinkyDungeonSlowLevel < 2 && MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
 							KinkyDungeonSuppressSprint = true;
 						}
 						if (!KinkyDungeonSuppressSprint && KinkyDungeonToggleAutoSprint && KDCanSprint()) {
 							if (KinkyDungeonMoveDirection.x || KinkyDungeonMoveDirection.y) {
-								let newX = KinkyDungeonMoveDirection.x * 2 + KinkyDungeonPlayerEntity.x;
-								let newY = KinkyDungeonMoveDirection.y * 2 + KinkyDungeonPlayerEntity.y;
+								let newX = KinkyDungeonMoveDirection.x * (KinkyDungeonSlowLevel < 2 ? 2 : 1) + KinkyDungeonPlayerEntity.x;
+								let newY = KinkyDungeonMoveDirection.y * (KinkyDungeonSlowLevel < 2 ? 2 : 1) + KinkyDungeonPlayerEntity.y;
 								let tile = KinkyDungeonMapGet(newX, newY);
 								if (KinkyDungeonMovableTilesEnemy.includes(tile) && KinkyDungeonNoEnemy(newX, newY)) {
 									DrawImageCanvas(KinkyDungeonRootDirectory + "Sprint.png", KinkyDungeonContext, (newX - CamX)*KinkyDungeonGridSizeDisplay, (newY - CamY)*KinkyDungeonGridSizeDisplay);

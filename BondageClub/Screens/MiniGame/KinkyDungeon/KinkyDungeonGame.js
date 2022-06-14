@@ -2730,7 +2730,7 @@ function KinkyDungeonMoveTo(moveX, moveY, SuppressSprint) {
 				}
 			}
 			if (unblocked) {
-				KinkyDungeonChangeStamina(-KDSprintCost + KDSprintCostSlowLevel[Math.round(KinkyDungeonSlowLevel)]);
+				KinkyDungeonChangeStamina(-KDSprintCost - KDSprintCostSlowLevel[Math.round(KinkyDungeonSlowLevel)]);
 				KinkyDungeonSendActionMessage(5, TextGet("KDSprinting" + (KinkyDungeonSlowLevel > 1 ? "Hop" : "")), "lightgreen", 2);
 				if (KinkyDungeonSlowLevel < 2) {
 					// Move faster
