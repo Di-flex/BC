@@ -1419,6 +1419,9 @@ let KDDialogue = {
 									KDGameData.CurrentDialogMsg = "PrisonerJailUnlockSlow";
 								} else {
 									KDGameData.CurrentDialogMsg = "PrisonerJailUnlock";
+									if (e.Enemy.tags.has("gagged")) {
+										KDGameData.CurrentDialogMsg = KDGameData.CurrentDialogMsg + "Gagged";
+									}
 								}
 							}
 						} else {
@@ -1458,6 +1461,9 @@ let KDDialogue = {
 										KinkyDungeonChangeFactionRep(faction, 0.0025);
 								}
 								KDGameData.CurrentDialogMsg = "PrisonerJailPick";
+								if (e.Enemy.tags.has("gagged")) {
+									KDGameData.CurrentDialogMsg = KDGameData.CurrentDialogMsg + "Gagged";
+								}
 								DialogueBringNearbyEnemy(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, 8);
 							}
 						} else {

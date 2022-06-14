@@ -6068,12 +6068,15 @@ rPrisonerJailNoKeys,"(You don't have any normal keys)"
 rPrisonerJailUnlockHandsBound,"(You can't help her, bound as tightly as you are...)"
 rPrisonerJailUnlockSlow,"(You unlock her, fumbling around for a while with your bound hands)"
 rPrisonerJailUnlock,"(You unlock the SPEAKER)|Thank you!|Let's get out of here!"
+rPrisonerJailUnlockGagged,"(You unlock the SPEAKER)|Mmmmph!|(She wants to keep her gag...)"
 rPrisonerJailNoPick,"(You don't have any lockpicks)"
 rPrisonerJailPickHandsBound,"(You can't pick the lock with your hands bound)"
 rPrisonerJailPick,"(After a while, you free the SPEAKER)|Thank you!|Let's get moving!"
+rPrisonerJailPickGagged,"(After a while, you free the SPEAKER)|Mmmmph!|(She shakes her head when you go for her gag...)"
 rPrisonerJailWordNoMana,"(You don't have enough mana for a Command Word)"
 rPrisonerJailWordNoSpeak,"(Try as you might, your mouth is sealed tight)"
 rPrisonerJailWord,"(You utter a Command Word to free the SPEAKER)|Many thanks!|Let's go!"
+rPrisonerJailWordGagged,"(You utter a Command Word to free the SPEAKER)|Mmmmph!|(She locks her gag back on...)"
 
 dPrisonerJail_Unlock,Use a key to unlock her
 dPrisonerJail_Pick,Try to pick her restraints
