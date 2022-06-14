@@ -816,6 +816,8 @@ interface KinkyDungeonEvent {
 
 interface entity {
 	Enemy: enemy,
+	CustomName?: string,
+	CustomNameColor?: string,
 	rescue?: boolean,
 	personality?: string,
 	patrolIndex?: number,

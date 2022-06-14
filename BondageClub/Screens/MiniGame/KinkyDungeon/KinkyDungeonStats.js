@@ -299,7 +299,14 @@ function KinkyDungeonInterruptSleep() {
 	KDGameData.PlaySelfTurns = 0;
 }
 
-function KinkyDungeonDealDamage(Damage) {
+function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
+	if (bullet && !noAlreadyHit) {
+		if (!bullet.alreadyHit) bullet.alreadyHit = [];
+		// A bullet can only damage an enemy once per turn
+		if (bullet.alreadyHit.includes("player")) return 0;
+		bullet.alreadyHit.push("player");
+	}
+
 	let data = {
 		dmg: Damage.damage,
 		type: Damage.type,
@@ -336,7 +343,7 @@ function KinkyDungeonDealDamage(Damage) {
 
 	data.dmg *= data.buffresist;
 
-	if (data.armor) data.dmg = Math.max(0, data.dmg - data.armor);
+	if (data.armor && KinkyDungeonMeleeDamageTypes.includes(data.type)) data.dmg = Math.max(0, data.dmg - data.armor);
 
 	if (data.dmg > 0) {
 		let buffreduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction");
@@ -439,7 +446,7 @@ function KinkyDungeonSetMaxStats() {
 	let distractionRate = 0;
 
 	for (let s of KinkyDungeonSpells) {
-		if (s.name == "SPUp1" || s.name == "SPUp2" || s.name == "SPUp3") KinkyDungeonStatStaminaMax += 6;
+		if (s.name == "SPUp1") KinkyDungeonStatStaminaMax += 6;
 		if (s.name == "MPUp1" || s.name == "MPUp2" || s.name == "MPUp3") KinkyDungeonStatManaMax += 12;
 		//if (s.name == "SpellChoiceUp1" || s.name == "SpellChoiceUp2" || s.name == "SpellChoiceUp3") KinkyDungeonSpellChoiceCount += 1;
 		if (s.name == "SummonUp1" || s.name == "SummonUp2") KinkyDungeonSummonCount += 2;

@@ -328,7 +328,7 @@ function KinkyDungeonDrawGame() {
 				let aura_scale = 0;
 				let aura_scale_max = 0;
 				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
-					if (b && b.aura) {
+					if (b && b.aura && b.duration > 0) {
 						aura_scale_max += 1;
 					}
 				}
@@ -336,7 +336,7 @@ function KinkyDungeonDrawGame() {
 					let buffs = Object.values(KinkyDungeonPlayerBuffs);
 					buffs = buffs.sort((a, b) => {return b.duration - a.duration;});
 					for (let b of buffs) {
-						if (b && b.aura) {
+						if (b && b.aura && b.duration > 0) {
 							aura_scale += 1/aura_scale_max;
 							let s = aura_scale;
 							DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,

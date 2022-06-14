@@ -688,6 +688,7 @@ let KDEventMapBuff = {
 								damage: data.dmg * e.power,
 								flags: ["EchoDamage"]
 							}, false, true, undefined, undefined, undefined, "Rage");
+							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Conduction.ogg");
 							let dist = KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y);
 							let tx = enemy.x;
 							let ty = enemy.y;
@@ -703,12 +704,13 @@ let KDEventMapBuff = {
 						}
 					}
 					if (KinkyDungeonPlayerBuffs.Conduction && KDistEuclidean(data.enemy.x - KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - data.enemy.y) <= e.aoe) {
-						KinkyDungeonSendTextMessage(6, TextGet("KDConductionDamageTaken").replace("DAMAGETAKEN", "" + data.dmg * e.power), "red", 2);
+						KinkyDungeonSendTextMessage(6, TextGet("KDConductionDamageTaken").replace("DAMAGEDEALT", "" + data.dmg * e.power), "red", 2);
 						KinkyDungeonDealDamage({
 							type: e.damage,
 							damage: data.dmg * e.power,
 							flags: ["EchoDamage"],
 						});
+						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Conduction.ogg");
 						let dist = KDistEuclidean(KinkyDungeonPlayerEntity.x - data.enemy.x, KinkyDungeonPlayerEntity.y - data.enemy.y);
 						let tx = KinkyDungeonPlayerEntity.x;
 						let ty = KinkyDungeonPlayerEntity.y;
@@ -867,6 +869,18 @@ function KinkyDungeonHandleOutfitEvent(Event, e, outfit, data) {
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, *, *): void>>}
  */
 let KDEventMapSpell = {
+	"playerCast": {
+		"LightningRod": (e, spell, data) => {
+			if (data.spell && data.spell.tags && data.spell.manacost > 0 && (data.spell.tags.includes("air") || data.spell.tags.includes("electric"))) {
+				let bb = Object.assign({}, KDConduction);
+				bb.duration = 4;
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, bb);
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+					id: "LightningRod", type: "electricDamageResist", aura: "#ffff00", power: e.power, player: true, duration: 4,
+				});
+			}
+		},
+	},
 	"calcEvasion": {
 		"HandsFree": (e, spell, data) => {
 			if (!data.IsSpell && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell)) && data.flags.KDEvasionHands) {
@@ -942,6 +956,14 @@ let KDEventMapSpell = {
 			if (data.dmg > 0 && data.enemy && KDHostile(data.enemy) && !data.enemy.aware) {
 				if ((!e.humanOnly || data.enemy.Enemy.bound) && (!e.chance || KDRandom() < e.chance)) {
 					data.dmg = Math.max(data.dmg * e.power, 0);
+				}
+			}
+		},
+		"TemperaturePlay": (e, spell, data) => {
+			if (data.dmg > 0 && data.enemy && KDHostile(data.enemy) && ["fire", "frost", "ice"].includes(data.type)) {
+				if ((!e.humanOnly || data.enemy.Enemy.bound) && (!e.chance || KDRandom() < e.chance)) {
+					let percent = Math.min(1, KDBoundEffects(data.enemy) / 4);
+					data.dmg = Math.max(data.dmg * (1 + e.power * percent), 0);
 				}
 			}
 		},

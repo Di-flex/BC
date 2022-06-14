@@ -445,6 +445,8 @@ function KinkyDungeonLoad() {
 			KinkyDungeonFullscreen = localStorage.getItem("KinkyDungeonFullscreen") != undefined ? localStorage.getItem("KinkyDungeonFullscreen") == "True" : true;
 			KinkyDungeonDrool = localStorage.getItem("KinkyDungeonDrool") != undefined ? localStorage.getItem("KinkyDungeonDrool") == "True" : true;
 
+			KinkyDungeonBones = localStorage.getItem("KinkyDungeonBones") != undefined ? localStorage.getItem("KinkyDungeonBones") : KinkyDungeonBones;
+
 			if (localStorage.getItem("KDVibeVolume")) {
 				let parsed = parseInt(localStorage.getItem("KDVibeVolume"));
 				if (parsed != undefined) {
@@ -606,14 +608,17 @@ function KinkyDungeonRun() {
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
 		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} if (KinkyDungeonState == "Patrons") {
-		let credits = TextGet("KinkyDungeonPatronsList" + KinkyDungeonCreditsPos).split('|');
-		let i = 0;
-		MainCanvas.textAlign = "left";
-		for (let c of credits) {
-			DrawText(c, 550, 25 + 40 * i, "white", "silver");
-			i++;
+		for (let x = 0; x <= 1; x++) {
+			let credits = TextGet("KinkyDungeonPatronsList" + x).split('|');
+			let i = 0;
+			MainCanvas.textAlign = "left";
+			for (let c of credits) {
+				DrawText(c, 550 + 300 * x, 25 + 40 * i, "white", "silver");
+				i++;
+			}
+			MainCanvas.textAlign = "center";
 		}
-		MainCanvas.textAlign = "center";
+
 
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
 		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");

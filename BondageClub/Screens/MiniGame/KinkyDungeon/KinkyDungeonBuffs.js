@@ -70,7 +70,7 @@ function KinkyDungeonUpdateBuffs(delta, endFloor) {
 		KinkyDungeonTickBuffs(enemy.buffs, delta, endFloor, enemy);
 	}
 
-	// Apply the buffs
+	// Apply the buffs from bullets
 	for (let b of KinkyDungeonBullets) {
 		if (b.bullet.spell && b.bullet.spell.buffs) { // Apply the buff
 			for (let buff of b.bullet.spell.buffs) {
@@ -91,11 +91,11 @@ function KinkyDungeonUpdateBuffs(delta, endFloor) {
 	}
 }
 
-function KinkyDungeonGetBuffedStat(list, Stat) {
+function KinkyDungeonGetBuffedStat(list, Stat, onlyPositiveDuration) {
 	let stat = 0;
 	if (list)
 		for (let buff of Object.values(list)) {
-			if (buff && buff.type == Stat) {
+			if (buff && buff.type == Stat && (!onlyPositiveDuration || buff.duration > 0)) {
 				stat += buff.power;
 			}
 		}

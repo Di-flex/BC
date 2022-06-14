@@ -735,7 +735,15 @@ function KDUnblock(x, y) {
 }
 
 function SetpieceSpawnPrisoner(x, y) {
-	let Enemy = KinkyDungeonGetEnemy(["imprisonable"], MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(x, y), ["imprisonable"]);
+	let Enemy = KinkyDungeonGetEnemy(["imprisonable",
+		"ropeAnger", "ropeRage",
+		"metalAnger", "metalRage",
+		"latexAnger", "latexRage",
+		"conjureAnger", "conjureRage",
+		"elementsAnger", "elementsRage",
+		"illusionAnger", "illusionRage",
+		"leatherAnger", "leatherRage",
+		"willAnger", "willRage"], MiniGameKinkyDungeonLevel * 2, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], KinkyDungeonMapGet(x, y), ["imprisonable"]);
 	if (Enemy) {
 		let e = DialogueCreateEnemy(x, y, Enemy.name);
 		e.faction = "Prisoner";
