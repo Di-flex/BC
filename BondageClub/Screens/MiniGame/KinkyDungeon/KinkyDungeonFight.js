@@ -1030,7 +1030,7 @@ function KinkyDungeonBulletHit(b, born, outOfTime, outOfRange, d) {
 			KinkyDungeonBullets.push(newB);
 			KinkyDungeonUpdateSingleBulletVisual(newB, false);
 
-			KinkyDungeonMoveTo(b.x, b.y);
+			KinkyDungeonMoveTo(b.x, b.y, true);
 		}
 	}
 

@@ -1269,19 +1269,7 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					}
 				}
 
-				if (!enemy.Enemy.tags.has("acidimmune") && !enemy.Enemy.tags.has("acidresist") && !enemy.Enemy.tags.has("fire") && !enemy.Enemy.tags.has("nowet")) {
-					let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
-					if (tile == 'w') {
-						if (!enemy.buffs) enemy.buffs = {};
-						let b1 = Object.assign({}, KDDrenched);
-						b1.duration = 6;
-						let b2 = Object.assign({}, KDDrenched2);
-						b2.duration = 6;
-
-						KinkyDungeonApplyBuff(enemy.buffs, b1);
-						KinkyDungeonApplyBuff(enemy.buffs, b2);
-					}
-				}
+				KinkyDungeonHandleTilesEnemy(enemy, delta);
 
 				if (enemy.Enemy.triggersTraps) {
 					KinkyDungeonHandleTraps(enemy.x, enemy.y);
@@ -1338,6 +1326,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					enemy.attackPoints = 0;
 					enemy.warningTiles = [];
 				}
+
+				KinkyDungeonHandleTilesEnemy(enemy, delta);
 
 				if (enemy.vp > 0 && (!enemy.path || enemy.path.length < 4)) {
 					let sneakThreshold = enemy.Enemy.sneakThreshold ? enemy.Enemy.sneakThreshold : 2;

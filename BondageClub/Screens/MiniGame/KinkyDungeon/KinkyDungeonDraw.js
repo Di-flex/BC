@@ -7,6 +7,8 @@ let ShowBoringness = false;
 
 let KDWallReplacers = "14,dDb";
 
+let KinkyDungeonSuppressSprint = true;
+
 /**
  *
  * @param {number} x
@@ -147,6 +149,10 @@ function KinkyDungeonGetSpriteOverlay(code, x, y, Fog, noReplace) {
 // Draw function for the game portion
 function KinkyDungeonDrawGame() {
 	KDProcessInputs();
+
+	if (KinkyDungeonKeybindingCurrentKey && KinkyDungeonGameKeyDown()) {
+		KinkyDungeonKeybindingCurrentKey = '';
+	}
 
 	if (KDRefresh) {
 		CharacterRefresh(KinkyDungeonPlayer);
@@ -486,6 +492,7 @@ function KinkyDungeonDrawGame() {
 
 				KinkyDungeonSendEvent("draw",{update: KDDrawUpdate, CamX:CamX, CamY:CamY, CamX_offset: CamX_offset, CamY_offset: CamY_offset});
 				KDDrawUpdate = 0;
+				KinkyDungeonSuppressSprint = false;
 
 
 				// Draw targeting reticule
@@ -537,7 +544,7 @@ function KinkyDungeonDrawGame() {
 									KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 									(KinkyDungeonTargetX - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonTargetY - CamY)*KinkyDungeonGridSizeDisplay,
 									KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
-					} else if (KinkyDungeonFastMove && (KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
+					} else if (KinkyDungeonFastMove && !KinkyDungeonToggleAutoSprint && (KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
 						KinkyDungeonSetTargetLocation();
 
 						if (KinkyDungeonLightGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0 || KinkyDungeonFogGet(KinkyDungeonTargetX, KinkyDungeonTargetY) > 0) {
@@ -548,8 +555,25 @@ function KinkyDungeonDrawGame() {
 							KinkyDungeonContext.stroke();
 						}
 					} else if ((KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
+						let xx = KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x;
+						let yy = KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y;
+						if (MouseIn(xx, yy, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+							KinkyDungeonSuppressSprint = true;
+						}
+						if (!KinkyDungeonSuppressSprint && KinkyDungeonToggleAutoSprint && KDCanSprint()) {
+							if (KinkyDungeonMoveDirection.x || KinkyDungeonMoveDirection.y) {
+								let newX = KinkyDungeonMoveDirection.x * 2 + KinkyDungeonPlayerEntity.x;
+								let newY = KinkyDungeonMoveDirection.y * 2 + KinkyDungeonPlayerEntity.y;
+								let tile = KinkyDungeonMapGet(newX, newY);
+								if (KinkyDungeonMovableTilesEnemy.includes(tile) && KinkyDungeonNoEnemy(newX, newY)) {
+									DrawImageCanvas(KinkyDungeonRootDirectory + "Sprint.png", KinkyDungeonContext, (newX - CamX)*KinkyDungeonGridSizeDisplay, (newY - CamY)*KinkyDungeonGridSizeDisplay);
+									xx = newX;
+									yy = newY;
+								}
+							}
+						}
 						KinkyDungeonContext.beginPath();
-						KinkyDungeonContext.rect((KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x - CamX)*KinkyDungeonGridSizeDisplay, (KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
+						KinkyDungeonContext.rect((xx - CamX)*KinkyDungeonGridSizeDisplay, (yy - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay);
 						KinkyDungeonContext.lineWidth = 3;
 						KinkyDungeonContext.strokeStyle = "#ff4444";
 						KinkyDungeonContext.stroke();

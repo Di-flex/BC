@@ -509,8 +509,11 @@ function KinkyDungeonDrawInputs() {
 	DrawButton(990, 935, 165, 50, logtxt, "white");
 	DrawButton(1160, 935, 145, 50, TextGet("KinkyDungeonAutoDoor" + (KinkyDungeonToggleAutoDoor ? "On" : "Off")), KinkyDungeonToggleAutoDoor ? "white" : "#AAAAAA");
 	DrawButton(1310, 935, 145, 50, TextGet("KinkyDungeonAutoPass" + (KinkyDungeonToggleAutoPass ? "On" : "Off")), KinkyDungeonToggleAutoPass ? "white" : "#AAAAAA");
-	//DrawButtonKDEx("toggleSprint", () => {KinkyDungeonToggleAutoSprint = !KinkyDungeonToggleAutoSprint; return true;}, true,
-	//1460, 925, 1630 - 1460 - 5, 60, TextGet("KinkyDungeonAutoSprint" + (KinkyDungeonToggleAutoSprint ? "On" : "Off")), KinkyDungeonToggleAutoSprint ? "white" : "#AAAAAA");
+	DrawButtonKDEx("toggleSprint", () => {KinkyDungeonToggleAutoSprint = !KinkyDungeonToggleAutoSprint; return true;}, true,
+		1460, 925, 1630 - 1460 - 5, 60, TextGet("KinkyDungeonAutoSprint" + (KinkyDungeonSlowLevel > 1 ? "Hop" : "") + (KinkyDungeonToggleAutoSprint ? "On" : "Off")), KinkyDungeonToggleAutoSprint ? "white" : "#AAAAAA");
+
+	if (KinkyDungeonToggleAutoSprint)
+		DrawImage(KinkyDungeonRootDirectory + "SprintWarning.png", 1460, 905);
 
 	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
 		let buttonWidth = 40;

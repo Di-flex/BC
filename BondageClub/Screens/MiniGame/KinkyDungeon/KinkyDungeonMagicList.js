@@ -21,8 +21,8 @@ let KinkyDungeonSpellsStart = [
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
 	{name: "CommandWord", sfx: "Magic", school: "Conjure", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
-	{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:1, type:"passive",
-		events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", msg: "KinkyDungeonFleetFootedIgnoreTrapFail", chance: 0.35}]},
+	//{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:1, type:"passive",
+	//events: [{type: "FleetFooted", trigger: "beforeMove", power: 1}, {type: "FleetFooted", trigger: "afterMove"}, {type: "FleetFooted", trigger: "beforeTrap", msg: "KinkyDungeonFleetFootedIgnoreTrapFail", chance: 0.35}]},
 ];
 
 // Filters
@@ -81,7 +81,7 @@ let KinkyDungeonLearnableSpells = [
 		// Legs
 		["Evasion", "Camo", "Decoy"],
 		// Passive
-		["FleetFooted", "TrueSight", "EnemySense"],
+		["TrueSight", "EnemySense"],
 	],
 
 	//Page 4
@@ -104,6 +104,7 @@ let KDDrenched = {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aur
 ]};
 
 let KDDrenched2 = {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
+let KDDrenched3 = {id: "Drenched2", type: "iceDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
 
 /**
  * Spells that the player can choose
@@ -133,7 +134,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Fissure", tags: ["fire", "denial", "dot", "aoe", "offense"], noUniqueHits: true, prerequisite: "Ignite", noise: 7, sfx: "FireSpell", school: "Elements", manacost: 8, components: ["Legs"], level:3, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 5.5, delay: 0, range: 4, speed: 4, size: 1, damage: "fire",
 			trailPower: 1.5, trailLifetime: 6, trailTime: 4, piercingTrail: true, trailDamage:"fire", trail:"lingering", trailChance: 1, playerEffect: {name: "DamageNoMsg", hitTag: "Fissure", time: 1, damage:"fire", power: 3}},
 		//{name: "Shield", sfx: "MagicSlash", school: "Elements", manacost: 1, components: ["Legs"], noTargetEnemies: true, noTargetPlayer: true, level:1, type:"inert", block: 10, onhit:"", power: 0, delay: 2, range: 1.5, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 1 turn
-		{name: "Shield", tags: ["shield", "defense"], sfx: "MagicSlash", school: "Elements", manacost: 3, components: ["Arms"], mustTarget: true, level:1, type:"buff",
+		{name: "Shield", tags: ["shield", "defense"], sfx: "MagicSlash", school: "Elements", manacost: 3, components: ["Legs"], mustTarget: true, level:1, type:"buff",
 			buffs: [
 				{id: "Shield", type: "DamageReduction", labelcolor: "#73efe8", duration: 50, power: 2.5, player: false, enemies: true, maxCount: 3, tags: ["defense", "damageTaken"]},
 				{id: "Shield2", type: "DamageReduction", duration: 50, power: 5, player: true, enemies: false, maxCount: 3, tags: ["defense", "damageTaken"]},
@@ -168,6 +169,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			buffs: [
 				Object.assign({}, KDDrenched),
 				Object.assign({}, KDDrenched2),
+				Object.assign({}, KDDrenched3),
 			]
 		},
 

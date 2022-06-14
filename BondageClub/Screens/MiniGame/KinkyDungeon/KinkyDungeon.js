@@ -38,6 +38,7 @@ let KinkyDungeonKeySpell = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'D
 let KinkyDungeonKeyWait = ['KeyX'];
 let KinkyDungeonKeySkip = ['Space'];
 let KinkyDungeonKeyEnter = ['Enter'];
+let KinkyDungeonKeySprint = ['ShiftLeft'];
 let KinkyDungeonKeyWeapon = ['KeyF'];
 let KinkyDungeonKeyMenu = ['KeyR', 'KeyI', 'KeyG', 'KeyM', 'KeyL']; // QuikInv, Inventory, Reputation, Magic, Log
 let KinkyDungeonKeyToggle = ['Backquote', 'KeyB', 'KeyV', 'KeyN', 'Comma']; // Log, Passing, Door, Auto Struggle, Auto Pathfind
@@ -64,6 +65,7 @@ let KDDefaultKB = {
 	Wait: KinkyDungeonKeyWait[0],
 	Skip: KinkyDungeonKeySkip[0],
 	Enter: KinkyDungeonKeyEnter[0],
+	Sprint: KinkyDungeonKeySprint[0],
 
 	QInventory: KinkyDungeonKeyMenu[0],
 	Inventory: KinkyDungeonKeyMenu[1],
@@ -844,7 +846,7 @@ function KinkyDungeonRun() {
 						let next = KinkyDungeonFastMovePath[0];
 						KinkyDungeonFastMovePath.splice(0, 1);
 						if (Math.max(Math.abs(next.x-KinkyDungeonPlayerEntity.x), Math.abs(next.y-KinkyDungeonPlayerEntity.y)) < 1.5)
-							KDSendInput("move", {dir: {x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
+							KDSendInput("move", {dir: {x:next.x-KinkyDungeonPlayerEntity.x, y:next.y-KinkyDungeonPlayerEntity.y}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass, sprint: KinkyDungeonToggleAutoSprint, SuppressSprint: KinkyDungeonSuppressSprint});
 						else KinkyDungeonFastMovePath = [];
 					}
 					KinkyDungeonSleepTime = CommonTime() + 100;
@@ -860,7 +862,7 @@ function KinkyDungeonRun() {
 				}
 			} else if (KinkyDungeonAutoWait) {
 				if (CommonTime() > KinkyDungeonSleepTime) {
-					KDSendInput("move", {dir: {x:0, y: 0, delta: 0}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass});
+					KDSendInput("move", {dir: {x:0, y: 0, delta: 0}, delta: 1, AllowInteract: true, AutoDoor: KinkyDungeonToggleAutoDoor, AutoPass: KinkyDungeonToggleAutoPass, sprint: KinkyDungeonToggleAutoSprint, SuppressSprint: KinkyDungeonSuppressSprint});
 					KinkyDungeonSleepTime = CommonTime() + (KinkyDungeonFastWait ? 100 : 300);
 				}
 			} else KinkyDungeonSleepTime = CommonTime() + 100;
@@ -952,17 +954,19 @@ function KinkyDungeonRun() {
 			1475, 250, 300, 45, TextGet("KinkyDungeonKeyAStruggle") + ": '" + (KinkyDungeonKeybindingsTemp.AStruggle) + "'", "White", "");
 		DrawButtonKDEx("KBAPathfind", () => {KinkyDungeonKeybindingsTemp.APathfind = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
 			1475, 300, 300, 45, TextGet("KinkyDungeonKeyAPathfind") + ": '" + (KinkyDungeonKeybindingsTemp.APathfind) + "'", "White", "");
+		DrawButtonKDEx("KBASprint", () => {KinkyDungeonKeybindingsTemp.Sprint = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
+			1475, 350, 300, 45, TextGet("KinkyDungeonKeySprint") + ": '" + (KinkyDungeonKeybindingsTemp.Sprint) + "'", "White", "");
 
 		DrawButtonKDEx("KBQInventory", () => {KinkyDungeonKeybindingsTemp.QInventory = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
-			1475, 400, 300, 45, TextGet("KinkyDungeonKeyQInventory") + ": '" + (KinkyDungeonKeybindingsTemp.QInventory) + "'", "White", "");
+			1475, 425, 300, 45, TextGet("KinkyDungeonKeyQInventory") + ": '" + (KinkyDungeonKeybindingsTemp.QInventory) + "'", "White", "");
 		DrawButtonKDEx("KBInventory", () => {KinkyDungeonKeybindingsTemp.Inventory = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
-			1475, 450, 300, 45, TextGet("KinkyDungeonKeyInventory") + ": '" + (KinkyDungeonKeybindingsTemp.Inventory) + "'", "White", "");
+			1475, 475, 300, 45, TextGet("KinkyDungeonKeyInventory") + ": '" + (KinkyDungeonKeybindingsTemp.Inventory) + "'", "White", "");
 		DrawButtonKDEx("KBReputation", () => {KinkyDungeonKeybindingsTemp.Reputation = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
-			1475, 500, 300, 45, TextGet("KinkyDungeonKeyReputation") + ": '" + (KinkyDungeonKeybindingsTemp.Reputation) + "'", "White", "");
+			1475, 525, 300, 45, TextGet("KinkyDungeonKeyReputation") + ": '" + (KinkyDungeonKeybindingsTemp.Reputation) + "'", "White", "");
 		DrawButtonKDEx("KBMagic", () => {KinkyDungeonKeybindingsTemp.Magic = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
-			1475, 550, 300, 45, TextGet("KinkyDungeonKeyMagic") + ": '" + (KinkyDungeonKeybindingsTemp.Magic) + "'", "White", "");
+			1475, 575, 300, 45, TextGet("KinkyDungeonKeyMagic") + ": '" + (KinkyDungeonKeybindingsTemp.Magic) + "'", "White", "");
 		DrawButtonKDEx("KBLog", () => {KinkyDungeonKeybindingsTemp.Log = KinkyDungeonKeybindingCurrentKey; return true;}, KinkyDungeonKeybindingCurrentKey != '',
-			1475, 600, 300, 45, TextGet("KinkyDungeonKeyLog") + ": '" + (KinkyDungeonKeybindingsTemp.Log) + "'", "White", "");
+			1475, 625, 300, 45, TextGet("KinkyDungeonKeyLog") + ": '" + (KinkyDungeonKeybindingsTemp.Log) + "'", "White", "");
 
 		if (KinkyDungeonKeybindingCurrentKey)
 			DrawText(TextGet("KinkyDungeonCurrentPress") + ": '" + (KinkyDungeonKeybindingCurrentKey) + "'", 1250, 900, "white", "silver");
@@ -1293,6 +1297,7 @@ function KDCommitKeybindings() {
 	];
 
 	KinkyDungeonKeyEnter = [KinkyDungeonKeybindings.Enter];
+	KinkyDungeonKeySprint = [KinkyDungeonKeybindings.Sprint];
 
 	KinkyDungeonGameKey.KEY_WAIT = (KinkyDungeonKeybindings.Wait);
 	KinkyDungeonGameKey.KEY_SKIP = (KinkyDungeonKeybindings.Skip);
@@ -1724,10 +1729,10 @@ function KinkyDungeonExit() {
  * @returns {void} - Nothing
  */
 function KinkyDungeonKeyDown() {
-	if (KinkyDungeonState == "Game") {
-		if (KinkyDungeonIsPlayer())
-			KinkyDungeonGameKeyDown();
-	}// else if (KinkyDungeonState == "Keybindings")
+	//if (KinkyDungeonState == "Game") {
+	//if (KinkyDungeonIsPlayer())
+	//KinkyDungeonGameKeyDown();
+	//}// else if (KinkyDungeonState == "Keybindings")
 	//// @ts-ignore
 	//KinkyDungeonKeybindingCurrentKey = KeyPress;
 

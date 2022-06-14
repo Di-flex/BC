@@ -54,6 +54,25 @@ let KDMoveObjectFunctions = {
 	},
 };
 
+function KinkyDungeonHandleTilesEnemy(enemy, delta) {
+	if (!enemy.Enemy.tags.has("acidimmune") && !enemy.Enemy.tags.has("acidresist") && !enemy.Enemy.tags.has("fire") && !enemy.Enemy.tags.has("nowet")) {
+		let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
+		if (tile == 'w') {
+			if (!enemy.buffs) enemy.buffs = {};
+			let b1 = Object.assign({}, KDDrenched);
+			b1.duration = 6;
+			let b2 = Object.assign({}, KDDrenched2);
+			b2.duration = 6;
+			let b3 = Object.assign({}, KDDrenched3);
+			b3.duration = 6;
+
+			KinkyDungeonApplyBuff(enemy.buffs, b1);
+			KinkyDungeonApplyBuff(enemy.buffs, b2);
+			KinkyDungeonApplyBuff(enemy.buffs, b3);
+		}
+	}
+}
+
 function KinkyDungeonUpdateTileEffects(delta) {
 	let tile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (tile == "]") { // Happy Gas!
@@ -77,9 +96,12 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		b1.duration = 6;
 		let b2 = Object.assign({}, KDDrenched2);
 		b2.duration = 6;
+		let b3 = Object.assign({}, KDDrenched3);
+		b3.duration = 6;
 
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b1);
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b2);
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b3);
 	} else {
 		let tileUp = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - 1);
 		let tileL = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x - 1, KinkyDungeonPlayerEntity.y);

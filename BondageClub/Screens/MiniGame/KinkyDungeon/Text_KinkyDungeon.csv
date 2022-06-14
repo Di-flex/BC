@@ -383,6 +383,7 @@ KinkyDungeonKeyDoor,Close Door
 KinkyDungeonKeyPass,Pass thru allies
 KinkyDungeonKeyAStruggle,Auto-Struggle
 KinkyDungeonKeyAPathfind,Auto-Pathfind
+KinkyDungeonKeySprint,Sprint/Hop
 
 KinkyDungeonKeyQInventory,Quick Inventory
 KinkyDungeonKeyInventory,Inventory
@@ -1917,6 +1918,10 @@ KinkyDungeonAutoDoorOn,"Closing..."
 KinkyDungeonAutoDoorOff,"Close door"
 KinkyDungeonAutoSprintOn,"Sprinting!!!"
 KinkyDungeonAutoSprintOff,"Sprint!"
+KinkyDungeonAutoSprintHopOn,"Hopping!!!"
+KinkyDungeonAutoSprintHopOff,"Hop!"
+KDSprinting,You run!
+KDSprintingHop,You hop desperately!
 KinkyDungeonCloseDoor,"Close Door"
 KinkyDungeonUnlockDoor,"Unlock"
 KinkyDungeonUnlockDoorPurple,Command
@@ -3612,7 +3617,7 @@ KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius
 
 
 KinkyDungeonSpellWaterBall,Water Ball
-KinkyDungeonSpellDescriptionWaterBall,"Deals DamageDealt acid damage. Drenched targets take +35% electric, -42% fire, & conduct 50% of electric damage."
+KinkyDungeonSpellDescriptionWaterBall,"Deals DamageDealt acid damage. Drenched targets take +35% electric/ice, -42% fire, & conduct 50% of electric damage."
 KinkyDungeonSpellCastWaterBall,You hurl a ball of water!
 KinkyDungeonSpellTargetWaterBall,Choose aim direction
 KDEffectDrench,The water covers you and drenches you!
