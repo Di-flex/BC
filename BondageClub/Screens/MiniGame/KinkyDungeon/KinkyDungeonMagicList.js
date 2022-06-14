@@ -51,7 +51,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1: Elements
 	[
 		// Verbal
-		["Incinerate", "Freeze", "IceBreath", "IronBlood", "Electrify", "Thunderstorm"],
+		["Incinerate", "Freeze", "IceBreath", "IronBlood", "Electrify", "Thunderstorm", "StaticSphere"],
 		// Arms
 		["Firebolt", "Fireball", "Icebolt", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall"],
 		// Legs
@@ -166,6 +166,9 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "Thunderstorm", tags: ["aoe", "utility", "offense", "electric"], prerequisite: "Electrify", spellPointCost: 1, sfx: "Fwoosh", school: "Elements", manacost: 6, components: ["Verbal"], level:2, type:"inert", buffs: [
 			Object.assign({}, KDConduction),
 		], onhit:"", time:8, aoe: 2.99, power: 0, delay: 8, range: 4, size: 5, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
+		{name: "StaticSphere", tags: ["electric", "metal", "summon", "aoe", "offense"], prerequisite: "Thunderstorm", sfx: "MagicSlash", school: "Elements", manacost: 10,
+			components: ["Verbal"], noTargetEnemies: true, noTargetPlayer: true, level:3, type:"hit", noSprite: true, onhit:"summon",
+			summon: [{name: "StaticSphere", count: 1, time: 12}], power: 1, time: 12, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
 
 		{name: "WaterBall", tags: ["water", "bolt", "offense", "utility"], sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"buff",
 			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 2, playerEffect: {name: "Drench"},
@@ -311,6 +314,7 @@ let KinkyDungeonSpellListEnemies = [
 
 	// Rest of the spells
 	{name: "ShockStrike", sfx: "Shock", manacost: 1, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 2.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
+	{name: "StaticSphereStrike", sfx: "Lightning", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.0, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
 
 	{name: "DarkShroud", sfx: "FireSpell", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "DarkShroud", type: "Evasion", power: 1.5, player: false, enemies: true, tags: ["heavydarkness"], range: 1.5},], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Slippery", sfx: "FireSpell", school: "Elements", manacost: 0, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:1, type:"buff", channel: 4,

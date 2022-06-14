@@ -764,6 +764,7 @@ interface KinkyDungeonEvent {
 	restraint?: string;
 	sfx?: string;
 	power?: number;
+	player?: boolean;
 	bind?: number;
 	mult?: number;
 	damage?: string;

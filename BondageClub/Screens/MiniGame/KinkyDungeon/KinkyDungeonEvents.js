@@ -681,6 +681,8 @@ let KDEventMapBuff = {
 		"Conduction": (e, buff, entity, data) => {
 			if (data.enemy == entity && (!data.flags || !data.flags.includes("EchoDamage")) && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
 				if (!e.chance || KDRandom() < e.chance) {
+					let maxSprites = 7;
+					let sprites = 0;
 					for (let enemy of KinkyDungeonEntities) {
 						if (enemy.buffs && enemy.buffs.Conduction && enemy != data.enemy && enemy.hp > 0 && KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y) <= e.aoe) {
 							KinkyDungeonDamageEnemy(enemy, {
@@ -692,14 +694,15 @@ let KDEventMapBuff = {
 							let dist = KDistEuclidean(enemy.x - data.enemy.x, enemy.y - data.enemy.y);
 							let tx = enemy.x;
 							let ty = enemy.y;
-							if (dist > 0)
-								for (let d = 0; d <= dist; d += dist/3.01) {
+							if (dist > 0 && sprites < maxSprites)
+								for (let d = dist/2.99; d < dist; d += dist/2.99) {
 									let xx = entity.x + d * (tx - entity.x);
 									let yy = entity.y + d * (ty - entity.y);
 									let newB = {born: 0, time:1 + Math.round(KDRandom()*1), x:Math.round(xx), y:Math.round(yy), vx:0, vy:0, xx:xx, yy:yy, spriteID: KinkyDungeonGetEnemyID() + "ElectricEffect" + CommonTime(),
 										bullet:{faction: "Rage", spell:undefined, damage: undefined, lifetime: 2, passthrough:true, name:"ElectricEffect", width:1, height:1}};
 									KinkyDungeonBullets.push(newB);
 									KinkyDungeonUpdateSingleBulletVisual(newB, false);
+									sprites += 1;
 								}
 						}
 					}
@@ -715,7 +718,7 @@ let KDEventMapBuff = {
 						let tx = KinkyDungeonPlayerEntity.x;
 						let ty = KinkyDungeonPlayerEntity.y;
 						if (dist > 0)
-							for (let d = 0; d <= dist; d += dist/3.01) {
+							for (let d = dist/2.99; d < dist; d += dist/2.99) {
 								let xx = entity.x + d * (tx - entity.x);
 								let yy = entity.y + d * (ty - entity.y);
 								let newB = {born: 0, time:1 + Math.round(KDRandom()*1), x:Math.round(xx), y:Math.round(yy), vx:0, vy:0, xx:xx, yy:yy, spriteID: KinkyDungeonGetEnemyID() + "ElectricEffect" + CommonTime(),
@@ -1423,6 +1426,9 @@ let KDEventMapBullet = {
 				let enemies = KDNearbyEnemies(b.x + b.vx * data.delta * born, b.y + b.vy * data.delta * born, e.aoe).filter((enemy) => {
 					return (KDHostile(enemy) || (b.x == enemy.x && b.y == enemy.y && !KDAllied(enemy)));
 				});
+				if (e.player && KDistEuclidean(b.x + b.vx * data.delta * born, b.y + b.vy * data.delta * born) < e.aoe) {
+					enemies.push(KinkyDungeonPlayerEntity);
+				}
 				if (enemies.length > 0) {
 					let enemy = enemies[Math.floor(KDRandom() * enemies.length)];
 					KinkyDungeonCastSpell(enemy.x, enemy.y, KinkyDungeonFindSpell(e.spell, true), undefined, undefined, undefined, b.bullet.faction);
@@ -1478,6 +1484,34 @@ let KDEventMapEnemy = {
 						}
 
 					}
+				}
+			}
+		},
+		"ApplyConductionAoE": (e, enemy, data) => {
+			if (data.delta > 0 && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {
+				let bb = Object.assign({}, KDConduction);
+				bb.duration = 1;
+				let enemies = KDNearbyEnemies(enemy.x, enemy.y, e.aoe);
+				for (let entity of enemies) {
+					if (!entity.buffs) entity.buffs = {};
+					KinkyDungeonApplyBuff(entity.buffs, bb);
+				}
+				if (KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < e.aoe) {
+					KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, bb);
+				}
+			}
+		},
+		"CastSpellNearbyEnemy": (e, enemy, data) => {
+			if (data.delta > 0 && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {
+				let enemies = KDNearbyEnemies(enemy.x, enemy.y, e.aoe).filter((enemy2) => {
+					return (KDHostile(enemy2) || (enemy.x == enemy2.x && enemy.y == enemy2.y && KDFactionRelation(KDGetFaction(enemy2), KDGetFaction(enemy)) < 0.5));
+				});
+				if (e.player && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) < e.aoe) {
+					enemies.push(KinkyDungeonPlayerEntity);
+				}
+				if (enemies.length > 0) {
+					let enemy2 = enemies[Math.floor(KDRandom() * enemies.length)];
+					KinkyDungeonCastSpell(enemy2.x, enemy2.y, KinkyDungeonFindSpell(e.spell, true), undefined, undefined, undefined, KDGetFaction(enemy));
 				}
 			}
 		},

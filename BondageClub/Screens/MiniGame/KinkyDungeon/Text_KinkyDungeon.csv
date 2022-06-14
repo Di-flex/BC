@@ -883,6 +883,8 @@ NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
+NameStaticSphere,Static Sphere
+KillStaticSphere,"The sphere shrinks back into the storm dimension."
 NameAlly,Familiar
 KillAlly,"The familiar dissolves into spectral ash."
 NameAllyDoll,Latex Doll
@@ -3358,6 +3360,15 @@ KinkyDungeonSpellDescriptionShock,A slow-moving orb that deals DamageDealt elect
 KinkyDungeonSpellCastShock,You hurl a charged orb!
 KinkyDungeonSpellTargetShock,Choose aim direction (max range 4 tiles)
 
+
+KinkyDungeonSpellStaticSphere,Static Sphere
+KinkyDungeonSpellStaticSphereStrike,Static Sphere
+KinkyDungeonSpellDescriptionStaticSphere,"Conjure a sphere for Duration turns that makes nearby entities Conductive and each turn deals DamageDealt electric damage to one of them."
+KinkyDungeonSpellCastStaticSphere,"You summon a grey, featureless sphere adorned by static!"
+KinkyDungeonSummonSingleStaticSphere,"You summon a grey, featureless sphere adorned by static!"
+KinkyDungeonSpellTargetStaticSphere,Choose sphere location
+
+
 KinkyDungeonSpellFissure,Fissure
 KinkyDungeonSpellAllyFissure,Lava Fissure
 KinkyDungeonSpellDescriptionFissure,"A great fissure erupts from the earth, dealing 70 fire damage to enemies in a 4-range line and dealing 15 damage/turn for 6 turns."
@@ -3542,7 +3553,7 @@ KinkyDungeonFleetFooted,"You hover with reduced effect from bindings."
 
 KinkyDungeonSpellIronBlood,Iron Blood
 KinkyDungeonSpellTargetIronBlood,Select yourself
-KinkyDungeonSpellDescriptionIronBlood,"Channel 4 turns: Gain +100% melee SP cost reduction (half, with no other buffs). Ends on sleep or a recast. MP cost of spells increased by 25% (rounding down) while active."
+KinkyDungeonSpellDescriptionIronBlood,"Channel 4 turns: Gain +100% melee SP cost reduction (half). Ends on sleep or recast. MP cost of spells increased by 25% while active."
 KinkyDungeonSpellCastIronBlood,Your skin glows a pale red!
 
 KinkyDungeonSpellStoneSkin,Stone Skin

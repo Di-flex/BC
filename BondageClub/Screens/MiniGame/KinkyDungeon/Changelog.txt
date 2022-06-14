@@ -966,6 +966,9 @@ Spell Balance:
 - New spell: Light
 - New spell: Thunderstorm
 - New spell: Water Ball
+- New spell: Static Orb
+- New upgrade: Temperature Play
+- New upgrade: Lightning Rod
 - Water now drenches you, same debuff as Water Ball
 - Firebolt damage to 40 from 45
 - Crackle damage to 40 from 45
