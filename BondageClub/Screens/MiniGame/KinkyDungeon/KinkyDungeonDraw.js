@@ -557,7 +557,7 @@ function KinkyDungeonDrawGame() {
 					} else if ((KinkyDungeonMoveDirection.x != 0 || KinkyDungeonMoveDirection.y != 0)) {
 						let xx = KinkyDungeonMoveDirection.x + KinkyDungeonPlayerEntity.x;
 						let yy = KinkyDungeonMoveDirection.y + KinkyDungeonPlayerEntity.y;
-						if (MouseIn(xx, yy, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
+						if (MouseIn(canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay)) {
 							KinkyDungeonSuppressSprint = true;
 						}
 						if (!KinkyDungeonSuppressSprint && KinkyDungeonToggleAutoSprint && KDCanSprint()) {
