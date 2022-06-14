@@ -2730,24 +2730,24 @@ KinkyDungeonUnLinkCrystalAnkleCuffs2,"The ankle cuff chain detaches!"
 RestraintBanditArmCuffs,Slave Cuffs
 RestraintBanditArmCuffsDesc,"A pair of cuffs that make it easy to restrain you."
 RestraintBanditArmCuffsDesc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonBanditArmCuffs,"The enemy attaches your wrist cuffs together!"
+KinkyDungeonLinkBanditArmCuffs,"The enemy attaches your wrist cuffs together!"
 
 RestraintBanditArmCuffs2,Slave Wrist Chain
 RestraintBanditArmCuffs2Desc,"A pair of cuffs keeping your arms behind your back."
 RestraintBanditArmCuffs2Desc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonUnBanditArmCuffs2,"Your cuffs detatch!"
-KinkyDungeonBanditArmCuffs2,"The enemy attaches your elbow cuffs together!"
+KinkyDungeonUnLinkBanditArmCuffs2,"Your cuffs detatch!"
+KinkyDungeonLinkBanditArmCuffs2,"The enemy attaches your elbow cuffs together!"
 
 RestraintBanditArmCuffs3,Slave Wrist Chain
 RestraintBanditArmCuffs3Desc,"A full set of cuffs keeping your arms in a strict elbow tie!"
 RestraintBanditArmCuffs3Desc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonUnBanditArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
+KinkyDungeonUnLinkBanditArmCuffs3,"Your wrists detatch, leaving your elbows still bound!"
 
 RestraintBanditArmCuffs4,Slave Elbow Chain
 RestraintBanditArmCuffs4Desc,"A pair of cuffs keeping your elbows locked together!."
 RestraintBanditArmCuffs4Desc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonUnBanditArmCuffs4,"Your elbows detatch!"
-KinkyDungeonBanditArmCuffs4,"The enemy attaches your wrist cuffs back together!"
+KinkyDungeonUnLinkBanditArmCuffs4,"Your elbows detatch!"
+KinkyDungeonLinkBanditArmCuffs4,"The enemy attaches your wrist cuffs back together!"
 
 RestraintBanditLegCuffs,Slave Leg Cuffs
 RestraintBanditLegCuffsDesc,"A pair of cuffs chaining your legs together."
@@ -2755,11 +2755,11 @@ RestraintBanditLegCuffsDesc2,"It's made of a gold-tinted metal with a magical en
 RestraintBanditAnkleCuffs,Slave Ankle Cuffs
 RestraintBanditAnkleCuffsDesc,"A pair of cuffs chaining your legs together."
 RestraintBanditAnkleCuffsDesc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonBanditAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+KinkyDungeonLinkBanditAnkleCuffs,"The enemy attaches your ankle cuffs together!"
 RestraintBanditAnkleCuffs2,Slave Cuffs Chain
 RestraintBanditAnkleCuffs2Desc,"A pair of cuffs chaining your legs together."
 RestraintBanditAnkleCuffs2Desc2,"It's made of a gold-tinted metal with a magical enchantment."
-KinkyDungeonUnBanditAnkleCuffs2,"The ankle cuff chain detaches!"
+KinkyDungeonUnLinkBanditAnkleCuffs2,"The ankle cuff chain detaches!"
 
 
 RestraintCableGag,High-Tech Gag
@@ -3360,6 +3360,12 @@ KinkyDungeonSpellDescriptionShock,A slow-moving orb that deals DamageDealt elect
 KinkyDungeonSpellCastShock,You hurl a charged orb!
 KinkyDungeonSpellTargetShock,Choose aim direction (max range 4 tiles)
 
+KinkyDungeonSpellLightningRune,Lightning Rune
+KinkyDungeonSpellLightningRuneStrike,Lightning Rune
+KinkyDungeonSpellDescriptionLightningRune,A trap that deals DamageDealt electric damage and stuns for 4 turns. 3 turn channel.
+KinkyDungeonSpellCastLightningRune,You conjure a charged trap!
+KinkyDungeonSpellTargetLightningRune,Choose location for trap
+
 
 KinkyDungeonSpellStaticSphere,Static Sphere
 KinkyDungeonSpellStaticSphereStrike,Static Sphere
@@ -3633,7 +3639,7 @@ KinkyDungeonSpellTargetSlime,Select where the slime will start (SpellArea radius
 
 
 KinkyDungeonSpellWaterBall,Water Ball
-KinkyDungeonSpellDescriptionWaterBall,"Deals DamageDealt acid damage. Drenched targets take +35% electric/ice, -42% fire, & conduct 50% of electric damage."
+KinkyDungeonSpellDescriptionWaterBall,"Fast projectile. Deals DamageDealt acid damage. Drenched targets take +35% electric/ice, -42% fire, & conduct 50% of electric damage."
 KinkyDungeonSpellCastWaterBall,You hurl a ball of water!
 KinkyDungeonSpellTargetWaterBall,Choose aim direction
 KDEffectDrench,The water covers you and drenches you!
@@ -3863,7 +3869,7 @@ KinkyDungeonReputation,"Reputation"
 KinkyDungeonMagic,"Spells"
 KinkyDungeonMagicSpells,"Learn New Spells"
 KinkyDungeonMagicSpellsQuick,"Click a spell to replace SPELLNAME with."
-KinkyDungeonSpellNone,"(Empty slot)"
+KinkyDungeonSpellNone,"()"
 KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 

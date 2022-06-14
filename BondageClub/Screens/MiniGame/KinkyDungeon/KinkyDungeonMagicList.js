@@ -18,7 +18,7 @@
  */
 let KinkyDungeonSpellsStart = [
 	{name: "Analyze", sfx: "MagicSlash", school: "Elements", manacost: 5, components: [], level:1, type:"special", special: "analyze", noMiscast: true,
-		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
+		onhit:"", time:25, power: 0, range: 3.99, size: 1, damage: ""},
 	{name: "CommandWord", sfx: "Magic", school: "Conjure", manacost: 12, components: ["Verbal"], level:1, type:"special", special: "CommandWord", noMiscast: true,
 		onhit:"", time:25, power: 0, range: 1.5, size: 1, damage: ""},
 	//{name: "FleetFooted", sfx: "FireSpell", school: "Illusion", manacost: 0.5, components: [], level:1, type:"passive",
@@ -55,7 +55,7 @@ let KinkyDungeonLearnableSpells = [
 		// Arms
 		["Firebolt", "Fireball", "Icebolt", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall"],
 		// Legs
-		["Ignite", "Fissure", "Sleet", "Shield", "GreaterShield", "BoulderLaunch", ],
+		["Ignite", "Fissure", "Sleet", "Shield", "GreaterShield", "BoulderLaunch", "LightningRune"],
 		// Passive
 		["Analyze", "FlameBlade", "Strength", "Shatter", "TemperaturePlay", "LightningRod"],
 	],
@@ -170,8 +170,13 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			components: ["Verbal"], noTargetEnemies: true, noTargetPlayer: true, level:3, type:"hit", noSprite: true, onhit:"summon",
 			summon: [{name: "StaticSphere", count: 1, time: 12}], power: 1.5, time: 12, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
 
+		{name: "LightningRune", tags: ["electric", "offense", "defense", "utility"], noise: 0, sfx: "Fwoosh", school: "Elements", spellPointCost: 1, manacost: 2,
+			components: ["Legs"], noTargetPlayer: true, CastInWalls: false, level:1, type:"inert",
+			onhit:"aoe", time: 5, delay: 3, power: 6, range: 8, size: 1, lifetime: 1, damage: "inert",
+			spellcast: {spell: "LightningRuneStrike", target: "onhit", directional:false, offset: false}, channel: 3},
+
 		{name: "WaterBall", tags: ["water", "bolt", "offense", "utility"], sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"buff",
-			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 2, playerEffect: {name: "Drench"},
+			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 3, playerEffect: {name: "Drench"},
 			buffs: [
 				Object.assign({}, KDDrenched),
 				Object.assign({}, KDDrenched2),
@@ -314,7 +319,8 @@ let KinkyDungeonSpellListEnemies = [
 
 	// Rest of the spells
 	{name: "ShockStrike", sfx: "Shock", manacost: 1, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 2.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
-	{name: "StaticSphereStrike", sfx: "Lightning", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
+	{name: "StaticSphereStrike", sfx: "Shock", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
+	{name: "LightningRuneStrike", hitsfx: "Shock", manacost: 2, components: ["Verbal"], level:1, type:"dot", noTerrainHit: true, onhit:"", time: 4, delay: 300, power: 6.0, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
 
 	{name: "DarkShroud", sfx: "FireSpell", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "DarkShroud", type: "Evasion", power: 1.5, player: false, enemies: true, tags: ["heavydarkness"], range: 1.5},], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Slippery", sfx: "FireSpell", school: "Elements", manacost: 0, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:1, type:"buff", channel: 4,
