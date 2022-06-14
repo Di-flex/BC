@@ -698,7 +698,7 @@ function KinkyDungeonHandleSpellCast(spell) {
 function KinkyDungeonClickSpell(i) {
 	let spell = null;
 	let clicked = false;
-	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
+	if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]]) {
 		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].type == "passive") {
 			KDSendInput("toggleSpell", {i: i});
 			if (KinkyDungeonSpellChoicesToggle[i] && KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].cancelAutoMove) {
@@ -728,7 +728,7 @@ function KinkyDungeonHandleSpell() {
 			KDSwapSpell = index;
 			return true;
 		}
-		if (MouseInKD("SpellCast" + i) || KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
+		if (KinkyDungeonSpellPress == KinkyDungeonKeySpell[i]) {
 			let result = KinkyDungeonClickSpell(index);
 			spell = result.spell;
 			clicked = result.clicked;

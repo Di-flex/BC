@@ -49,8 +49,8 @@ let KinkyDungeonEnemies = [
 		visionRadius: 0, maxhp: 20, minLevel:0, weight:0, movePoints: 1000, attackPoints: 0, attack: "", attackRange: 0,
 		terrainTags: {}, floors:KDMapInit([]),
 		events: [
-			{type: "CastSpellNearbyEnemy", trigger: "afterEnemyTick", spell: "StaticSphereStrike", aoe: 2.9, player: false},
-			{type: "ApplyConductionAoE", trigger: "afterEnemyTick", aoe: 2.9},
+			{type: "CastSpellNearbyEnemy", trigger: "afterEnemyTick", spell: "StaticSphereStrike", aoe: 1.5, player: false},
+			{type: "ApplyConductionAoE", trigger: "afterEnemyTick", aoe: 1.5},
 		],
 	},
 	{name: "Decoy", tags: KDMapInit(["construct", "player"]), noblockplayer: true, allied: true, evasion: 2, armor: 0, followRange: 100, AI: "wander", triggersTraps: true,

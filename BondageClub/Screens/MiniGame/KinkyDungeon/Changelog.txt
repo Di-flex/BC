@@ -966,7 +966,7 @@ Spell Balance:
 - New spell: Light
 - New spell: Thunderstorm
 - New spell: Water Ball
-- New spell: Static Orb
+- New spell: Static Sphere
 - New upgrade: Temperature Play
 - New upgrade: Lightning Rod
 - Water now drenches you, same debuff as Water Ball

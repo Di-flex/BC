@@ -93,8 +93,8 @@ let KinkyDungeonLearnableSpells = [
 
 
 let KDConduction = {id: "Conduction", type: "event", aura: "#88ffff", aurasprite: "Conduction", power: 7.0, player: true, duration: 5, enemies: true, range: 2.99, events: [
-	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "playerTakeDamage"},
-	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 2.99, trigger: "beforeDamageEnemy"},
+	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 3.99, trigger: "playerTakeDamage"},
+	{type: "Conduction", power: 0.5, duration: 5, damage: "electric", aoe: 3.99, trigger: "beforeDamageEnemy"},
 ]};
 
 let KDDrenched = {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 20, enemies: true, events: [
@@ -163,12 +163,12 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			],
 			onhit:"", time:6, power: 1.5, range: 2.9, size: 1, damage: ""},
 
-		{name: "Thunderstorm", tags: ["aoe", "utility", "offense", "electric"], prerequisite: "Electrify", spellPointCost: 1, sfx: "Fwoosh", school: "Elements", manacost: 6, components: ["Verbal"], level:2, type:"inert", buffs: [
+		{name: "Thunderstorm", tags: ["aoe", "utility", "offense", "electric"], prerequisite: "Electrify", spellPointCost: 1, sfx: "Fwoosh", school: "Elements", manacost: 5, components: ["Verbal"], level:2, type:"inert", buffs: [
 			Object.assign({}, KDConduction),
 		], onhit:"", time:8, aoe: 2.99, power: 0, delay: 8, range: 4, size: 5, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 		{name: "StaticSphere", tags: ["electric", "metal", "summon", "aoe", "offense"], prerequisite: "Thunderstorm", sfx: "MagicSlash", school: "Elements", manacost: 10,
 			components: ["Verbal"], noTargetEnemies: true, noTargetPlayer: true, level:3, type:"hit", noSprite: true, onhit:"summon",
-			summon: [{name: "StaticSphere", count: 1, time: 12}], power: 1, time: 12, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
+			summon: [{name: "StaticSphere", count: 1, time: 12}], power: 1.5, time: 12, delay: -1, range: 6, size: 1, aoe: 0, lifetime: 1, damage: "inert"},
 
 		{name: "WaterBall", tags: ["water", "bolt", "offense", "utility"], sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"buff",
 			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 2, playerEffect: {name: "Drench"},
@@ -314,7 +314,7 @@ let KinkyDungeonSpellListEnemies = [
 
 	// Rest of the spells
 	{name: "ShockStrike", sfx: "Shock", manacost: 1, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 2.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
-	{name: "StaticSphereStrike", sfx: "Lightning", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.0, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
+	{name: "StaticSphereStrike", sfx: "Lightning", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
 
 	{name: "DarkShroud", sfx: "FireSpell", school: "Illusion", manacost: 5, components: ["Verbal"], level:1, type:"inert", buffs: [{id: "DarkShroud", type: "Evasion", power: 1.5, player: false, enemies: true, tags: ["heavydarkness"], range: 1.5},], onhit:"", time:8, aoe: 1.5, power: 0, delay: 8, range: 4, size: 3, damage: ""}, // Creates a shroud. Enemies within are hard to hit with melee attacks.
 	{name: "Slippery", sfx: "FireSpell", school: "Elements", manacost: 0, components: ["Verbal"], mustTarget: true, selfTargetOnly: true, level:1, type:"buff", channel: 4,
