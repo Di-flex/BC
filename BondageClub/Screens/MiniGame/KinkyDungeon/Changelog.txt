@@ -975,6 +975,7 @@ Spell Balance:
 - Frigid potions now always work at at least 50% effectiveness
 - Damaging an enemy that isn't aware of you will deal bonus damage
 - Removed Levitate; added a sprint feature instead!
+- Enter hotkey now lets you select spells in the inventory. To quickly learn a spell, click on it in the spell list and double tap Enter!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

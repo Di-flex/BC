@@ -589,9 +589,9 @@ function KinkyDungeonDrawInputs() {
 		}
 		if (!tooltip) {
 			// Draw icons for the other pages, if applicable
-			for (let page = 1; page <= Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage); page += 1) {
+			for (let page = 1; page <= Math.floor((KinkyDungeonSpellChoices.length - 1) / KinkyDungeonSpellChoiceCountPerPage); page += 1) {
 				let pg = KDSpellPage + page;
-				if (pg > Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage)) pg -= 1 + Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage);
+				if (pg > Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage)) pg -= 1 + Math.floor((KinkyDungeonSpellChoices.length - 1) / KinkyDungeonSpellChoiceCountPerPage);
 
 				// Now we have our page...
 				let indexPaged = (i + pg * KinkyDungeonSpellChoiceCountPerPage) % (KinkyDungeonSpellChoiceCount);
@@ -599,8 +599,8 @@ function KinkyDungeonDrawInputs() {
 				if (spellPaged) {
 					// Draw the main spell icon
 					if (spellPaged.type == "passive" && KinkyDungeonSpellChoicesToggle[indexPaged]) {
-						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "#aaaaaa");
-						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page + 5, 140 - 4 + i*KinkyDungeonSpellChoiceOffset + 5, 74, 74, "#000000");
+						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 54, 54, "#aaaaaa");
+						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page + 5, 140 - 4 + i*KinkyDungeonSpellChoiceOffset + 5, 44, 44, "#000000");
 					}
 					DrawButtonKD("SpellCast" + indexPaged, true, buttonDim.x - buttonDim.wsmall * page, buttonDim.y, buttonDim.wsmall, buttonDim.hsmall, "", "rgba(0, 0, 0, 0)", "", "");
 					DrawImageEx(KinkyDungeonRootDirectory + "Spells/" + spellPaged.name + ".png", buttonDim.x - buttonDim.wsmall * page, buttonDim.y, {

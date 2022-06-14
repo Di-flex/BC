@@ -2377,9 +2377,10 @@ function KinkyDungeonGameKeyDown() {
 				}
 			} else if (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey && KinkyDungeonCurrentPage > 0) {
 				KinkyDungeonCurrentPage -= 1;
-			} else if (KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey && KinkyDungeonPreviewSpell) {
-
-				KDSendInput("spellLearn", {SpellName: KinkyDungeonPreviewSpell.name});
+			} else if (KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey) {
+				if (KinkyDungeonPreviewSpell)
+					KDSendInput("spellLearn", {SpellName: KinkyDungeonPreviewSpell.name});
+				else KinkyDungeonDrawState = "MagicSpells";
 			}
 		} else if (KinkyDungeonDrawState == "MagicSpells" && (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey)) {
 			if (KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey) {

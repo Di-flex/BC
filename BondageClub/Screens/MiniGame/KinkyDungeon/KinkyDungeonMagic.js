@@ -1240,7 +1240,7 @@ function KinkyDungeonDrawMagic() {
 				let y = y_start + h * (I % KinkyDungeonSpellChoiceCountPerPage);
 
 				DrawButtonKDEx("SpellSlotBook" + I, (bdata) => {
-					if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]]) {
+					if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] == spell) {
 						KDSendInput("spellRemove", {I:I});
 					} else {
 						if (KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
