@@ -976,6 +976,7 @@ Spell Balance:
 - Damaging an enemy that isn't aware of you will deal bonus damage
 - Removed Levitate; added a sprint feature instead!
 - Enter hotkey now lets you select spells in the inventory. To quickly learn a spell, click on it in the spell list and double tap Enter!
+- You now have 21 spell slots, split among 3 pages. Check the keybindings as there are new ones added!
 
 TODO ValidationFindBlockCycles to prevent bugs
 
