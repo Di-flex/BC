@@ -373,6 +373,7 @@ KinkyDungeonKeySpell4,Spell 4
 KinkyDungeonKeySpell5,Spell 5
 KinkyDungeonKeySpell6,Spell 6
 KinkyDungeonKeySpell7,Spell 7
+KinkyDungeonKeySpellPage,Cycle Spell Page
 KinkyDungeonKeySpellWeapon,Ranged Attack
 KinkyDungeonKeyWait,Wait
 KinkyDungeonKeySkip,Cancel/Return
@@ -3880,6 +3881,7 @@ KinkyDungeonMagicLevel,"Level: "
 KinkyDungeonMagicCost,"Spell Point Cost: "
 KinkyDungeonMagicManaCost, "Mana Cost: "
 
+KinkyDungeonSpellEmpty,"Empty Slot"
 KinkyDungeonSpellRemove0,"Remove Spell 1"
 KinkyDungeonSpellRemove1,"Remove Spell 2"
 KinkyDungeonSpellRemove2,"Remove Spell 3"

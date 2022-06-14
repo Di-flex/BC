@@ -974,6 +974,7 @@ Spell Balance:
 - Now 5 levels per floor instead of 6
 - Frigid potions now always work at at least 50% effectiveness
 - Damaging an enemy that isn't aware of you will deal bonus damage
+- Removed Levitate; added a sprint feature instead!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

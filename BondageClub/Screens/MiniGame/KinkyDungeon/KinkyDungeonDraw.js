@@ -908,28 +908,31 @@ let KDLogTopPad = 82;
 let KDLogIndex = 0;
 let KDLogIndexInc = 3;
 
+let KDMsgWidth = 1200;
+let KDMsgX = 450;
+
 function KinkyDungeonDrawMessages(NoLog) {
 	if (!NoLog)
 		DrawButton(1750, 82, 100, 50, TextGet("KinkyDungeonLog"), "white");
 	if (!KinkyDungeonMessageToggle || NoLog) {
 		if (KinkyDungeonTextMessageTime > 0) {
-			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2+1, 82+1, 1250, "black", "black");
-			DrawTextFit(KinkyDungeonTextMessage, 500 + 1250/2, 82, 1250, KinkyDungeonTextMessageColor, "gray");
+			DrawTextFit(KinkyDungeonTextMessage, KDMsgX + KDMsgWidth/2+1, 82+1, KDMsgWidth, "black", "black");
+			DrawTextFit(KinkyDungeonTextMessage, KDMsgX + KDMsgWidth/2, 82, KDMsgWidth, KinkyDungeonTextMessageColor, "gray");
 		}
 		if (KinkyDungeonActionMessageTime > 0) {
-			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2+1, 132+1, 1250, "black", "black");
-			DrawTextFit(KinkyDungeonActionMessage, 500 + 1250/2, 132, 1250, KinkyDungeonActionMessageColor, "gray");
+			DrawTextFit(KinkyDungeonActionMessage, KDMsgX + KDMsgWidth/2+1, 132+1, KDMsgWidth, "black", "black");
+			DrawTextFit(KinkyDungeonActionMessage, KDMsgX + KDMsgWidth/2, 132, KDMsgWidth, KinkyDungeonActionMessageColor, "gray");
 		}
 	} else {
-		DrawRect(500, KDLogTopPad, 1250, KDLogHeight, "#000000aa");
+		DrawRect(KDMsgX, KDLogTopPad, KDMsgWidth, KDLogHeight, "#000000aa");
 		for (let i = 0; i < KinkyDungeonMessageLog.length && i < KDMaxLog; i++) {
 			let log = KinkyDungeonMessageLog[Math.max(0, KinkyDungeonMessageLog.length - 1 - (i + KDLogIndex))];
 			let col = log.color;
-			DrawTextFit(log.text, 500 + 1250/2, 82 + i * KDLogDist + KDLogDist/2, 1250, col, "white");
+			DrawTextFit(log.text, KDMsgX + KDMsgWidth/2, 82 + i * KDLogDist + KDLogDist/2, KDMsgWidth, col, "white");
 		}
 		if (KinkyDungeonMessageLog.length > KDMaxLog) {
-			DrawButton(500 + 1250/2 - 200, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
-			DrawButton(500 + 1250/2 + 100, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
+			DrawButton(KDMsgX + KDMsgWidth/2 - 200, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Up.png");
+			DrawButton(KDMsgX + KDMsgWidth/2 + 100, KDLogTopPad + KDLogHeight + 50, 90, 40, "", "white", KinkyDungeonRootDirectory + "Down.png");
 
 			if (KinkyDungeonMessageLog.length > KDMaxLog * 100) {
 				KinkyDungeonMessageLog.splice(0, KDMaxLog * 100 - KinkyDungeonMessageLog.length);

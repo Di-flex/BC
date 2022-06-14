@@ -515,22 +515,36 @@ function KinkyDungeonDrawInputs() {
 	if (KinkyDungeonToggleAutoSprint)
 		DrawImage(KinkyDungeonRootDirectory + "SprintWarning.png", 1460, 905);
 
-	for (i = 0; i < KinkyDungeonSpellChoiceCount; i++) {
+	if (KinkyDungeonSpellChoices.length > KinkyDungeonSpellChoiceCountPerPage) {
+		DrawButtonKDEx("CycleSpellButton", () => {
+			KDCycleSpellPage();
+			return true;
+		}, true, 1650, 95, 90, 35, `pg. ${KDSpellPage}`, "white");
+	}
+	for (let ii = KinkyDungeonSpellChoiceCount - 1; ii > 0; ii--) {
+		if (!(KinkyDungeonSpellChoices[ii] >= 0)) KinkyDungeonSpellChoices = KinkyDungeonSpellChoices.slice(0, ii);
+		else break;
+	}
+	for (i = 0; i < KinkyDungeonSpellChoiceCountPerPage; i++) {
+		let index = i + KDSpellPage * KinkyDungeonSpellChoiceCountPerPage;
 		let buttonWidth = 40;
 		let buttonPad = 80;
 		DrawButton(1650 + (90 - buttonWidth), 140 + i*KinkyDungeonSpellChoiceOffset, buttonWidth, buttonWidth, "", "#ffffff", KinkyDungeonRootDirectory + "ChangeSpell.png");
+		let tooltip = false;
+		let buttonDim = {
+			x: 1700 - buttonPad,
+			y: 140 + i*KinkyDungeonSpellChoiceOffset,
+			w: 76,
+			h: 76,
+			wsmall: 46,
+			hsmall: 46,
+		};
 
-		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[i]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[i]].passive) {
-			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[i]];
+		if (KinkyDungeonSpells[KinkyDungeonSpellChoices[index]] && !KinkyDungeonSpells[KinkyDungeonSpellChoices[index]].passive) {
+			let spell = KinkyDungeonSpells[KinkyDungeonSpellChoices[index]];
 			let components = KinkyDungeonGetCompList(spell);
 			let comp = "";
 
-			let buttonDim = {
-				x: 1700 - buttonPad,
-				y: 140 + i*KinkyDungeonSpellChoiceOffset,
-				w: 76,
-				h: 76
-			};
 
 			if (spell.components && spell.components.length > 0) comp = components;
 			// Render MP cost
@@ -539,8 +553,10 @@ function KinkyDungeonDrawInputs() {
 
 			MainCanvas.textAlign = "center";
 
-			if (spell.type == "passive" && KinkyDungeonSpellChoicesToggle[i]) {
-				DrawRect(1700 - buttonPad - 4, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "White");
+			// Draw the main spell icon
+			if (spell.type == "passive" && KinkyDungeonSpellChoicesToggle[index]) {
+				DrawRect(1700 - buttonPad - 4, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "#dbdbdb");
+				DrawRect(1700 - buttonPad - 4 + 5, 140 - 4 + i*KinkyDungeonSpellChoiceOffset + 5, 74, 74, "#101010");
 			}
 			DrawButtonKD("SpellCast" + i, true, buttonDim.x, buttonDim.y, buttonDim.w, buttonDim.h, "", "rgba(0, 0, 0, 0)", KinkyDungeonRootDirectory + "Spells/" + spell.name + ".png", "");
 			if ((KinkyDungeoCheckComponents(spell).length > 0 || (spell.components.includes("Verbal") && KinkyDungeonGagTotal() > 0 && !spell.noMiscast))) {
@@ -551,6 +567,7 @@ function KinkyDungeonDrawInputs() {
 				DrawImage(KinkyDungeonRootDirectory + "Spells/" + sp + ".png", buttonDim.x + 2, buttonDim.y + 2);
 			}
 
+
 			if (MouseIn(buttonDim.x, buttonDim.y, buttonDim.w, buttonDim.h)) {
 				MainCanvas.textAlign = "right";
 				DrawTextFit(TextGet("KinkyDungeonSpell"+ spell.name), 1700 - buttonPad - 30, 140 + buttonPad/2 + i*KinkyDungeonSpellChoiceOffset, 300, "white", "gray");
@@ -560,6 +577,7 @@ function KinkyDungeonDrawInputs() {
 				DrawTextFit(comp, 1700 - 2 + 1 - buttonPad / 2, 200 - 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
 				DrawTextFit(comp, 1700 - 2 - 1 - buttonPad / 2, 200 - 1 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#000000", "black");
 				DrawTextFit(comp, 1700 - 2 - buttonPad / 2, 200 + i*KinkyDungeonSpellChoiceOffset, Math.min(10 + comp.length * 8, buttonPad), "#ffffff", "black");
+				tooltip = true;
 			}
 			// Render number
 			DrawTextFit((i+1) + "", buttonDim.x + 11, buttonDim.y + 14, 10, "#000000", "black");
@@ -569,9 +587,45 @@ function KinkyDungeonDrawInputs() {
 
 			//let cost = KinkyDungeonGetManaCost(spell) + TextGet("KinkyDungeonManaCost") + comp;
 		}
+		if (!tooltip) {
+			// Draw icons for the other pages, if applicable
+			for (let page = 1; page <= Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage); page += 1) {
+				let pg = KDSpellPage + page;
+				if (pg > Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage)) pg -= 1 + Math.floor(KinkyDungeonSpellChoices.length / KinkyDungeonSpellChoiceCountPerPage);
+
+				// Now we have our page...
+				let indexPaged = (i + pg * KinkyDungeonSpellChoiceCountPerPage) % (KinkyDungeonSpellChoiceCount);
+				let spellPaged = KinkyDungeonSpells[KinkyDungeonSpellChoices[indexPaged]];
+				if (spellPaged) {
+					// Draw the main spell icon
+					if (spellPaged.type == "passive" && KinkyDungeonSpellChoicesToggle[indexPaged]) {
+						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page, 140 - 4 + i*KinkyDungeonSpellChoiceOffset, 84, 84, "#aaaaaa");
+						DrawRect(1700 - buttonPad - 4 - buttonDim.wsmall * page + 5, 140 - 4 + i*KinkyDungeonSpellChoiceOffset + 5, 74, 74, "#000000");
+					}
+					DrawButtonKD("SpellCast" + indexPaged, true, buttonDim.x - buttonDim.wsmall * page, buttonDim.y, buttonDim.wsmall, buttonDim.hsmall, "", "rgba(0, 0, 0, 0)", "", "");
+					DrawImageEx(KinkyDungeonRootDirectory + "Spells/" + spellPaged.name + ".png", buttonDim.x - buttonDim.wsmall * page, buttonDim.y, {
+						Width: buttonDim.wsmall,
+						Height: buttonDim.hsmall,
+					});
+					if ((KinkyDungeoCheckComponents(spellPaged).length > 0 || (spellPaged.components.includes("Verbal") && KinkyDungeonGagTotal() > 0 && !spellPaged.noMiscast))) {
+						let sp = "SpellFail";
+						if (spellPaged.components.includes("Verbal") && KinkyDungeonGagTotal() < 1) {
+							sp = "SpellFailPartial";
+						}
+						DrawImage(KinkyDungeonRootDirectory + "Spells/" + sp + ".png", buttonDim.x + 2 - buttonDim.wsmall * page, buttonDim.y + 2);
+					}
+				}
+			}
+		}
 	}
 	KinkyDungeonMultiplayerUpdate(KinkyDungeonNextDataSendTimeDelayPing);
 
+}
+
+function KDCycleSpellPage() {
+	if (KDSpellPage * KinkyDungeonSpellChoiceCountPerPage + KinkyDungeonSpellChoiceCountPerPage >= KinkyDungeonSpellChoices.length) {
+		KDSpellPage = 0;
+	} else KDSpellPage += 1;
 }
 
 function KinkyDungeonDrawProgress(x, y, amount, totalIcons, maxWidth, sprite) {

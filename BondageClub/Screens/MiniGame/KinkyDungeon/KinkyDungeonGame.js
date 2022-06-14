@@ -2338,9 +2338,16 @@ function KinkyDungeonGameKeyDown() {
 		return true;
 	// @ts-ignore
 	} else if (KinkyDungeonKeySpell.includes(KinkyDungeonKeybindingCurrentKey)) {
-		// @ts-ignore
-		KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
-		KinkyDungeonHandleSpell();
+		if (KinkyDungeonDrawState == "Magic") {
+			if (KinkyDungeonSpellChoices.includes(KinkyDungeonCurrentPage)) {
+				KDSendInput("spellRemove", {I:KinkyDungeonSpellChoices.indexOf(KinkyDungeonCurrentPage)});
+			}
+			KinkyDungeonClickSpellChoice(KinkyDungeonKeySpell.indexOf(KinkyDungeonKeybindingCurrentKey), KinkyDungeonCurrentPage);
+		} else {
+			// @ts-ignore
+			KinkyDungeonSpellPress = KinkyDungeonKeybindingCurrentKey;
+			KinkyDungeonHandleSpell();
+		}
 		return true;
 	} else if (KinkyDungeonKeyWeapon.includes(KinkyDungeonKeybindingCurrentKey)) {
 		// @ts-ignore
@@ -2351,7 +2358,37 @@ function KinkyDungeonGameKeyDown() {
 		KinkyDungeonToggleAutoSprint = !KinkyDungeonToggleAutoSprint;
 		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
 		return true;
+	} else if (KinkyDungeonKeySpellPage.includes(KinkyDungeonKeybindingCurrentKey)) {
+		KDCycleSpellPage();
+		if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Click.ogg");
+		return true;
 	} else if (KinkyDungeonDrawState != "Restart" && KinkyDungeonDrawState != "Keybindings" && KinkyDungeonDrawState != "Perks2") {
+		if (KinkyDungeonDrawState == "Inventory" && (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey)) {
+			if (KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey) {
+				KinkyDungeonCurrentPageInventory += 1;
+			} else if (KinkyDungeonCurrentPageInventory > 0) {
+				KinkyDungeonCurrentPageInventory -= 1;
+			}
+		} else if (KinkyDungeonDrawState == "Magic" && (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey)) {
+			if (KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey) {
+				KinkyDungeonCurrentPage += 1;
+				if (KinkyDungeonCurrentPage >= KinkyDungeonSpells.length) {
+					KinkyDungeonCurrentPage = 0;
+				}
+			} else if (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey && KinkyDungeonCurrentPage > 0) {
+				KinkyDungeonCurrentPage -= 1;
+			} else if (KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey && KinkyDungeonPreviewSpell) {
+
+				KDSendInput("spellLearn", {SpellName: KinkyDungeonPreviewSpell.name});
+			}
+		} else if (KinkyDungeonDrawState == "MagicSpells" && (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey)) {
+			if (KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey) {
+				KinkyDungeonCurrentSpellsPage += 1;
+				if (KinkyDungeonCurrentSpellsPage >= KinkyDungeonLearnableSpells.length) KinkyDungeonCurrentSpellsPage = 0;
+			} else if (KinkyDungeonCurrentSpellsPage > 0) {
+				KinkyDungeonCurrentSpellsPage -= 1;
+			}
+		} else
 		if (KinkyDungeonKeyMenu.includes(KinkyDungeonKeybindingCurrentKey)) {
 			switch (KinkyDungeonKeybindingCurrentKey) {
 				// QuikInv, Inventory, Reputation, Magic, Log
