@@ -115,7 +115,7 @@ let KinkyDungeonTargetingSpellWeapon = null;
 /**
  * Game stops when you reach this level
  */
-let KinkyDungeonMaxLevel = 24;
+let KinkyDungeonMaxLevel = 20;
 
 let KinkyDungeonLastMoveTimer = 0;
 let KinkyDungeonLastMoveTimerStart = 0;
