@@ -162,7 +162,7 @@ function KinkyDungeonGetEvasion(Enemy, NoOverride, IsSpell, IsMagic, cost) {
 	let hitChance = (Enemy && Enemy.buffs) ? KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(Enemy.buffs, "Evasion")) : 1.0;
 	hitChance *= data.hitmult;
 	if (KinkyDungeonStatsChoice.get("Clumsy")) hitChance *= KDClumsyAmount;
-	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && (((!Enemy.stun || Enemy.stun < 1) && (!Enemy.freeze || Enemy.freeze < 1)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0,
+	if (Enemy && Enemy.Enemy && Enemy.Enemy.evasion && ((!(Enemy.stun > 0) && !(Enemy.freeze > 0)) || Enemy.Enemy.alwaysEvade || Enemy.Enemy.evasion < 0)) hitChance *= Math.max(0,
 		(Enemy.aware ? KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion) : Math.max(1, KinkyDungeonMultiplicativeStat(Enemy.Enemy.evasion))));
 	if (Enemy && Enemy.Enemy && Enemy.Enemy.tags.has("ghost") && (IsMagic || (KinkyDungeonPlayerWeapon && KinkyDungeonPlayerWeapon.magic))) hitChance = Math.max(hitChance, 1.0);
 
@@ -385,16 +385,22 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				dmgDealt = Math.max(predata.dmg - armor, 0);
 			}
 
-			if (Enemy.freeze > 0 && (KinkyDungeonMeleeDamageTypes.includes(predata.type) || predata.type == "fire")) {
-				Enemy.freeze = 0;
-				predata.freezebroke = true;
-			}
-
 			if (Enemy.Enemy.tags && Enemy.Enemy.tags.has("playerinstakill") && attacker && attacker.player) dmgDealt = Enemy.hp;
 			else if (buffreduction && dmgDealt > 0) {
 				dmgDealt = Math.max(dmgDealt - buffreduction, 0);
 				KinkyDungeonTickBuffTag(Enemy.buffs, "damageTaken", 1);
 				KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Shield.ogg");
+			}
+
+			if (Enemy.freeze > 0 && dmgDealt > 0) {
+				if ((KinkyDungeonMeleeDamageTypes.includes(predata.type))) {
+					Enemy.freeze = 0;
+				} else if (!["ice", "frost"].includes(predata.type)) {
+					Enemy.freeze = Math.max(0, Enemy.freeze - dmgDealt * (predata.type == "fire" ? 0.75 : 0.25));
+				}
+				if (Enemy.freeze == 0) {
+					predata.freezebroke = true;
+				}
 			}
 
 			KinkyDungeonSendEvent("duringDamageEnemy", predata);
@@ -422,7 +428,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		}
 		if ((resistStun < 2 && resistDamage < 2) && (KinkyDungeonFreezeDamageTypes.includes(predata.type))) { // Being immune to the damage stops the stun as well
 			effect = true;
-			if (!Enemy.freeze) Enemy.freeze = 0;
+			if (!(Enemy.freeze > 0)) Enemy.freeze = 0;
 			if (resistDamage == 1 || resistStun == 1)
 				Enemy.freeze = Math.max(Enemy.freeze, Math.min(Math.floor(time/2), time-1)); // Enemies with ice resistance have freeze reduced to 1/2, and anything that freezes them for one turn doesn't affect them
 			else Enemy.freeze = Math.max(Enemy.freeze, time);

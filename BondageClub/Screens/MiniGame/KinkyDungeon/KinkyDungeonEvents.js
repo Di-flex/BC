@@ -987,7 +987,7 @@ let KDEventMapSpell = {
 	},
 	"beforePlayerAttack" : {
 		"Shatter": (e, spell, data) => {
-			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name == "IceBreaker") && data.enemy && data.enemy.freeze && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
+			if (KinkyDungeonPlayerDamage && (KinkyDungeonPlayerDamage.name == "IceBreaker") && data.enemy && data.enemy.freeze > 0 && KinkyDungeonHasMana(KinkyDungeonGetManaCost(spell))) {
 				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
 				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("ShatterStrike", true), undefined, undefined, undefined);
 			}
@@ -1186,7 +1186,7 @@ let KDEventMapWeapon = {
 		"AoEDamageFrozen": (e, weapon, data) => {
 			let trigger = false;
 			for (let enemy of KinkyDungeonEntities) {
-				if (KDHostile(enemy) && enemy.freeze && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
+				if (KDHostile(enemy) && enemy.freeze > 0 && (!e.chance || KDRandom() < e.chance) && enemy.hp > 0 && KDistEuclidean(enemy.x - KinkyDungeonPlayerEntity.x, enemy.y - KinkyDungeonPlayerEntity.y) <= e.aoe) {
 					KinkyDungeonDamageEnemy(enemy, {
 						type: e.damage,
 						damage: e.power,
@@ -1317,7 +1317,7 @@ let KDEventMapWeapon = {
 			}
 		},
 		"MultiplyDamageFrozen": (e, weapon, data) => {
-			if (data.enemy && data.enemy.freeze && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+			if (data.enemy && data.enemy.freeze > 0 && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
 				if (!e.chance || KDRandom() < e.chance) {
 					data.dmg = Math.ceil(data.dmg * e.power);
 					if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);

@@ -403,7 +403,7 @@ function KinkyDungeonDrawEnemiesWarning(canvasOffsetX, canvasOffsetY, CamX, CamY
 				}
 			}
 		}
-		if (enemy.Enemy.spells && (enemy.Enemy.spellRdy && (enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) && !(enemy.castCooldown > 1) && (!enemy.silence && !enemy.stun && !enemy.freeze && !KDHelpless(enemy))) {
+		if (enemy.Enemy.spells && (enemy.Enemy.spellRdy && (enemy.Enemy.AI != "ambush" || enemy.ambushtrigger)) && !(enemy.castCooldown > 1) && (!(enemy.silence > 0) && !(enemy.stun > 0) && !(enemy.freeze > 0) && !KDHelpless(enemy))) {
 			let tx = enemy.visual_x;
 			let ty = enemy.visual_y;
 			//  && KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(tx, ty))
@@ -1229,8 +1229,8 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "stun"});
 				if (enemy.freeze > 0 && enemy.freeze <= delta)
 					KinkyDungeonSendEvent("enemyStatusEnd", {enemy: enemy, status: "freeze"});
-				if (enemy.stun > 0) enemy.stun -= delta;
-				if (enemy.freeze > 0) enemy.freeze -= delta;
+				if (enemy.stun > 0) enemy.stun = Math.max(enemy.stun - delta, 0);
+				if (enemy.freeze > 0) enemy.freeze = Math.max(enemy.freeze - delta, 0);
 			} else if (enemy.channel > 0) {
 				enemy.warningTiles = [];
 				if (enemy.channel > 0) enemy.channel -= delta;
