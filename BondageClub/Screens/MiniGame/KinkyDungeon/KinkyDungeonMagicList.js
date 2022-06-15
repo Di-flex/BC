@@ -26,7 +26,7 @@ let KinkyDungeonSpellsStart = [
 ];
 
 // Filters
-let filters = ["buff", "bolt", "aoe", "dot", "denial", "offense", "defense", "utility"];
+let filters = ["learnable", "buff", "bolt", "aoe", "dot", "denial", "offense", "defense", "utility"];
 /** Extra filters, indexed according to the learnable spells menu */
 let filtersExtra = [
 	["fire", "ice", "earth", "electric", "air", "water"],

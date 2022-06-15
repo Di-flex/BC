@@ -3167,6 +3167,7 @@ KinkyDungeonColumnArms,"Arms"
 KinkyDungeonColumnLegs,"Legs"
 KinkyDungeonColumnPassive,"None"
 
+KinkyDungeonFilterlearnable,Learnable
 KinkyDungeonFilterbuff,Buffs
 KinkyDungeonFilterdot,DoT
 KinkyDungeonFilterbolt,Projectiles
@@ -3869,7 +3870,7 @@ KinkyDungeonReputation,"Reputation"
 KinkyDungeonMagic,"Spells"
 KinkyDungeonMagicSpells,"Learn New Spells"
 KinkyDungeonMagicSpellsQuick,"Click a spell to replace SPELLNAME with."
-KinkyDungeonSpellNone,"()"
+KinkyDungeonSpellNone,"Empty Slot"
 KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
@@ -3902,7 +3903,7 @@ KinkyDungeonMagicLevel,"Level: "
 KinkyDungeonMagicCost,"Spell Point Cost: "
 KinkyDungeonMagicManaCost, "Mana Cost: "
 
-KinkyDungeonSpellEmpty,"Empty Slot"
+KinkyDungeonSpellEmpty,""
 KinkyDungeonSpellRemove0,"Remove Spell 1"
 KinkyDungeonSpellRemove1,"Remove Spell 2"
 KinkyDungeonSpellRemove2,"Remove Spell 3"

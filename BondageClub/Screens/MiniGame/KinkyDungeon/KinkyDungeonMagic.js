@@ -1233,7 +1233,7 @@ function KinkyDungeonDrawMagic() {
 		if (!KinkyDungeonPreviewSpell) {
 
 			if (!spell.passive) {
-				let w = 175;
+				let w = 225;
 				let h = 50;
 				let x_start = canvasOffsetX_ui + 640*KinkyDungeonBookScale + 40;
 				let y_start = canvasOffsetY_ui + 150;
@@ -1241,6 +1241,12 @@ function KinkyDungeonDrawMagic() {
 					let x = x_start + w * Math.floor(I / KinkyDungeonSpellChoiceCountPerPage);
 					let y = y_start + h * (I % KinkyDungeonSpellChoiceCountPerPage);
 
+					if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]])
+						DrawImageEx(KinkyDungeonRootDirectory + "Spells/" + KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].name + ".png", x - h, y, {
+							Width: h,
+							Height: h,
+						});
+					DrawTextFit(`${1 + (I % KinkyDungeonSpellChoiceCountPerPage)}`, x - h, y + h*0.5, h*0.25, "#efefef", "#888888");
 					DrawButtonKDEx("SpellSlotBook" + I, (bdata) => {
 						if (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] == spell) {
 							KDSendInput("spellRemove", {I:I});
@@ -1251,8 +1257,8 @@ function KinkyDungeonDrawMagic() {
 							KinkyDungeonClickSpellChoice(I, KinkyDungeonCurrentPage);
 						}
 						return true;
-					}, true, x, y, w - 25, h - 5, `${1 + (I % KinkyDungeonSpellChoiceCountPerPage)}.` + (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] ? TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].name) : TextGet("KinkyDungeonSpellEmpty")),
-						KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].name == spell.name ? "White" : "#898989", "", "");
+					}, true, x, y, w - 25 - h, h - 5, (KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] ? (TextGet("KinkyDungeonSpell" + KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].name)) : ""),
+						KinkyDungeonSpells[KinkyDungeonSpellChoices[I]] && KinkyDungeonSpells[KinkyDungeonSpellChoices[I]].name == spell.name ? "White" : "#aaaaaa", "", "");
 				}
 			}
 
@@ -1353,6 +1359,8 @@ function KinkyDungeonListSpells(Mode) {
 		return true;
 	}, KDSpellListIndex < longestList - KDMaxSpellPerColumn + 1, 1160, 800, 90, 40, "", KDSpellListIndex < longestList - KDMaxSpellPerColumn + 1 ? "white" : "#888888", KinkyDungeonRootDirectory + "Down.png");
 
+	let genericfilters = ['learnable'];
+
 	// Draw the spells themselves
 	for (let pg of KinkyDungeonLearnableSpells[KinkyDungeonCurrentSpellsPage]) {
 		let column = col;//Math.floor((spacing * i) / (maxY));
@@ -1363,7 +1371,8 @@ function KinkyDungeonListSpells(Mode) {
 			if (spell
 				&& (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)
 				&& i < KDMaxSpellPerColumn
-				&& (selectedFilters.length == 0 || (spell.tags && selectedFilters.every((element) => {return spell.tags.includes(element);})))) {
+				&& (selectedFilters.length == 0 || (spell.tags && selectedFilters.every((element) => {return genericfilters.includes(element) || spell.tags.includes(element);})))
+				&& (!selectedFilters.includes("learnable") || KinkyDungeonCheckSpellPrerequisite(spell))) {
 
 				if (iii < KDSpellListIndex) {
 					iii += 1;
@@ -1383,6 +1392,7 @@ function KinkyDungeonListSpells(Mode) {
 						suff = "";
 					} else if (!KinkyDungeonCheckSpellPrerequisite(spell)) {
 						color = "#888888";
+						suff = "";
 					}
 					DrawButton(canvasOffsetX_ui + XX, yPad + canvasOffsetY_ui + spacing * ii, buttonwidth, spacing - ypadding, TextGet("KinkyDungeonSpell" + spell.name) + suff, color);
 				} else if (Mode == "Click") {
