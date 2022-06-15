@@ -982,13 +982,13 @@ Spell Balance:
 - Enter hotkey now lets you select spells in the inventory. To quickly learn a spell, click on it in the spell list and double tap Enter!
 - You now have 21 spell slots, split among 3 pages. Check the keybindings as there are new ones added!
 - Shift, control, and other keys now work as keybindings
+- Spell progression
 
 TODO ValidationFindBlockCycles to prevent bugs
 
 TODO: Mushrooms in the jungle
 
 TODO
-Deputy (slaps on handcuffs only)
 Warden (more comprehensive cuffs)
 Detective (Stealth, wanders around laying traps throughout the level)
 Nurse (applies straitjackets and stuff)
@@ -1002,21 +1002,15 @@ Future content planned:
 - Wand item which reduces mana costs but is terrible for melee
 - Slimes which clean up items, dissolve doors, and potentially corrupt traps and such
 - Slimes that catch your sword and trap it
-- Perk system with perks that allow you to decrease or increase spawns of certain restraints, affect your stats, etc.
-	- One Punch: Melee based perk that drastically increases melee damage but drastically reduces your ability to cast magic
 - Exit stair puzzles (like for example a button or special key somewhere in the level, maybe with a high likelihood of traps)
 - Rats should have a kleptomaniac AI that steals items and holds them, drops them on death, and runs away from the player when confronted
 - Tranquilizer/stamina drain from an enemy (bandits? raiders?)
-- Boss rooms every few floors
 - Latex witches that cast latex imprisonment spells at you from a distance
 - New shrine: chastity goddess. Places you in a set of magic cuffs that prevent you from being restrained in those slots. However if your stamina falls below half, the cuffs snap together until you get back to full stamina!
-- Bomb consumables
 - locked doors that trigger when you step on an obvious looking brickwork that's only generated on tiles you can avoid, maybe with some sort of sleep gas hazard or something to force a time limit if you cant progress
 - Monster Encyclopedia
 - Heels of avoiding traps: Causes all traps and dangerous terrain (slime, ice) to not affect the player
 
 Spell Ideas:
 - Divine Cuffs, a spell which gives you glowing arm and leg cuffs that block low level restraints from being put on you. Lasts for the whole floor.
-- Ice Storm, a temporary AoE which has a chance to deal damage and stun creatures inside. Drains player willpower but does not slow or restraint the player.
 - Sleep, puts nearby creatures with low willpower to sleep until they take damage. Works on zombies, and also the player if the player is at low stamina.
-- Clairvoyance: Cost a lot of mana to be able to see inside of a chest

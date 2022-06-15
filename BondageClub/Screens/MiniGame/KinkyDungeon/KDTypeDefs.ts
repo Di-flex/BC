@@ -925,7 +925,11 @@ interface spell {
 	buffAll?: boolean,
 	name: string;
 	/** spell required to unlock this one */
-	prerequisite?: string;
+	prerequisite?: string | string[];
+	/** Spell is hidden if you didnt learn it */
+	hideUnlearnable?: boolean,
+	/** Spell is hidden if you DID learn it */
+	hideLearned?: boolean,
 	/** This spell wont trigger an aggro action */
 	noAggro?: boolean;
 	/** Whether the spell defaults to the Player faction */

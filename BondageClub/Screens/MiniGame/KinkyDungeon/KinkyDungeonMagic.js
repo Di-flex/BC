@@ -74,11 +74,27 @@ function KinkyDungeonResetMagic() {
 	KinkyDungeonCurrentPage = 0;
 	KinkyDungeonCurrentSpellsPage = 0;
 	KinkyDungeonSpellPoints = 3;
-	/*if (KinkyDungeonStatsChoice.get("randomMode")) {
-		KinkyDungeonSpells.push({name: "SpellChoiceUp1", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
-		KinkyDungeonSpells.push({name: "SpellChoiceUp2", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
-		KinkyDungeonSpells.push({name: "SpellChoiceUp3", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:5, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
-	}*/
+	if (KinkyDungeonStatsChoice.get("randomMode")) {
+		KinkyDungeonSpells.push({name: "ApprenticeFire", hideLearned: true, hideUnlearned: true, school: "Elements", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeWater", hideLearned: true, hideUnlearned: true, school: "Elements", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeEarth", hideLearned: true, hideUnlearned: true, school: "Elements", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeAir", hideLearned: true, hideUnlearned: true, school: "Elements", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+
+		KinkyDungeonSpells.push({name: "ApprenticeBondage", hideLearned: true, hideUnlearned: true, school: "Conjure", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeSummon", hideLearned: true, hideUnlearned: true, school: "Conjure", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeSlime", hideLearned: true, hideUnlearned: true, school: "Conjure", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeTeleport", hideLearned: true, hideUnlearned: true, school: "Conjure", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+
+		KinkyDungeonSpells.push({name: "ApprenticeShadow", hideLearned: true, hideUnlearned: true, school: "Illusion", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeLight", hideLearned: true, hideUnlearned: true, school: "Illusion", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeInvisibility", hideLearned: true, hideUnlearned: true, school: "Illusion", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+		KinkyDungeonSpells.push({name: "ApprenticeKnowledge", hideLearned: true, hideUnlearned: true, school: "Illusion", manacost: 0, spellPointCost: 1, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"},);
+
+
+		//KinkyDungeonSpells.push({name: "SpellChoiceUp1", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:3, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
+		//KinkyDungeonSpells.push({name: "SpellChoiceUp2", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:4, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
+		//KinkyDungeonSpells.push({name: "SpellChoiceUp3", school: "Any", manacost: 0, components: [], spellPointCost: 1, level:5, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert"});
+	}
 	if (KinkyDungeonStatsChoice.get("Studious")) {
 		KinkyDungeonSpellPoints += 3;
 	}
@@ -1015,6 +1031,10 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 						en.ceasefire = 50;
 					} else if (!KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
 						en.allied = 100;
+						let ff = KDGetFactionOriginal(enemy);
+						if (!KinkyDungeonHiddenFactions.includes(ff)) {
+							KinkyDungeonChangeFactionRep(ff, 0.005);
+						}
 					}
 					en.boundLevel = Math.max(0, en.boundLevel);
 					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
@@ -1159,11 +1179,35 @@ function KinkyDungeonHandleMagic() {
 	return true;
 }
 
+function KDGetPrerequisite(spell) {
+	if (!spell.prerequisite) return "";
+	if (typeof spell.prerequisite === "string") {
+		return spell.prerequisite;
+	}
+	let str = "";
+	for (let pr of spell.prerequisite) {
+		if (str) {
+			str = pr;
+		} else {
+			str = str + ", " + pr;
+		}
+	}
+	return str;
+}
+
 function KinkyDungeonCheckSpellPrerequisite(spell) {
 	if (!spell || !spell.prerequisite) return true;
-	let spell_prereq = KinkyDungeonSearchSpell(KinkyDungeonSpells, spell.prerequisite);
-	if (spell_prereq) return true;
-	return false;
+	if (typeof spell.prerequisite === "string") {
+		let spell_prereq = KinkyDungeonSearchSpell(KinkyDungeonSpells, spell.prerequisite);
+		if (spell_prereq) return true;
+		return false;
+	} else {
+		for (let pr of spell.prerequisite) {
+			let spell_prereq = KinkyDungeonSearchSpell(KinkyDungeonSpells, pr);
+			if (spell_prereq) return true;
+		}
+		return false;
+	}
 }
 
 // https://stackoverflow.com/questions/14484787/wrap-text-in-javascript
@@ -1210,7 +1254,7 @@ function KinkyDungeonDrawMagic() {
 
 		if (spell.prerequisite) {
 			DrawText(TextGet("KDPrerequisite"), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2, "black", "silver");
-			DrawText(TextGet("KinkyDungeonSpell" + spell.prerequisite), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 40, "black", "silver");
+			DrawText(TextGet("KinkyDungeonSpell" + KDGetPrerequisite(spell)), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 40, "black", "silver");
 		}
 
 		if (KinkyDungeonPreviewSpell) DrawText(TextGet("KinkyDungeonMagicCost") + KinkyDungeonGetCost(spell), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
@@ -1295,7 +1339,7 @@ function KinkyDungeonDrawMagic() {
 }
 
 
-let selectedFilters = [];
+let selectedFilters = ["learnable"];
 
 let KDSpellListIndex = 0;
 let KDMaxSpellPerColumn = 10;
@@ -1368,11 +1412,15 @@ function KinkyDungeonListSpells(Mode) {
 		let iii = 0;
 		for (let sp of pg) {
 			let spell = KinkyDungeonFindSpell(sp, false);
+			let prereq = spell ? KinkyDungeonCheckSpellPrerequisite(spell) : false;
+			let learned = spell ? KinkyDungeonSpellIndex(spell.name) >= 0 : false;
 			if (spell
 				&& (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)
 				&& i < KDMaxSpellPerColumn
-				&& (selectedFilters.length == 0 || (spell.tags && selectedFilters.every((element) => {return genericfilters.includes(element) || spell.tags.includes(element);})))
-				&& (!selectedFilters.includes("learnable") || KinkyDungeonCheckSpellPrerequisite(spell))) {
+				&& (!spell.hideLearned || !learned)
+				&& (!spell.hideUnlearnable || prereq)
+				&& (selectedFilters.length == 0 || (selectedFilters.every((element) => {return genericfilters.includes(element) || (spell.tags && spell.tags.includes(element));})))
+				&& (!selectedFilters.includes("learnable") || prereq)) {
 
 				if (iii < KDSpellListIndex) {
 					iii += 1;

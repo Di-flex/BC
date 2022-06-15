@@ -1418,6 +1418,16 @@ let KDEventMapBullet = {
 				}, true, (b.bullet.NoMsg || e.power == 0), b.bullet.spell, b, undefined, b.delay, true);
 			}
 		},
+		"ElementalOnSlowOrBindOrDrench": (e, b, data) => {
+			if (b && data.enemy && (data.enemy.slow || data.enemy.bind || (data.enemy.buffs && data.enemy.buffs.Drenched))) {
+				KinkyDungeonDamageEnemy(data.enemy, {
+					type: e.damage,
+					damage: e.power,
+					time: e.time,
+					bind: e.bind
+				}, true, (b.bullet.NoMsg || e.power == 0), b.bullet.spell, b, undefined, b.delay, true);
+			}
+		},
 	},
 	"bulletTick": {
 		"CastSpellNearbyEnemy": (e, b, data) => {

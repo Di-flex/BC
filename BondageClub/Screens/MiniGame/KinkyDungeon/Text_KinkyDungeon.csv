@@ -3165,7 +3165,10 @@ KinkyDungeonBookRandomPage,Random Page (your hands are tied)
 KinkyDungeonColumnVerbal,"Verbal"
 KinkyDungeonColumnArms,"Arms"
 KinkyDungeonColumnLegs,"Legs"
-KinkyDungeonColumnPassive,"None"
+KinkyDungeonColumnPassive,"Misc"
+KinkyDungeonColumnElements,"Elements"
+KinkyDungeonColumnConjure,"Conjuration"
+KinkyDungeonColumnIllusion,"Illusion"
 
 KinkyDungeonFilterlearnable,Learnable
 KinkyDungeonFilterbuff,Buffs
@@ -3190,8 +3193,10 @@ KinkyDungeonFilterbind,Binding
 KinkyDungeonFilterstealth,Stealth
 KinkyDungeonFilterlight,Light
 KinkyDungeonFiltershadow,Shadow
+KinkyDungeonFilterknowledge,Knowledge
 KinkyDungeonFilterutility,Utility
-
+KinkyDungeonFilterupgrade,Upgrades
+KinkyDungeonFiltermagic,Spell Tree
 
 KinkyDungeonSpellMiscast,You fail to concentrate on the spell and it fizzles!
 KinkyDungeonSpellMiscastGagged,Your gag causes you to mispronounce the magic words!
@@ -3211,6 +3216,34 @@ KinkyDungeonSpellAmpuleRed,Rubber Ampule
 KinkyDungeonSpellAmpuleBlue,Latex Ampule
 
 KinkyDungeonSpellShadowStrike,Shadowy chains appear from a rift in space!
+
+
+KinkyDungeonSpellApprenticeFire,Flame Novice
+KinkyDungeonSpellDescriptionApprenticeFire,Unlocks fire and arcane spells.
+KinkyDungeonSpellApprenticeWater,Water Novice
+KinkyDungeonSpellDescriptionApprenticeWater,Unlocks ice and water spells.
+KinkyDungeonSpellApprenticeEarth,Earth Novice
+KinkyDungeonSpellDescriptionApprenticeEarth,Unlocks earth and metal spells.
+KinkyDungeonSpellApprenticeAir,Storm Novice
+KinkyDungeonSpellDescriptionApprenticeAir,Unlocks air and electric spells.
+
+KinkyDungeonSpellApprenticeBondage,Bondage I
+KinkyDungeonSpellDescriptionApprenticeBondage,Unlocks bondage spells.
+KinkyDungeonSpellApprenticeSlime,Rubbermancy I
+KinkyDungeonSpellDescriptionApprenticeSlime,Unlocks slime spells.
+KinkyDungeonSpellApprenticeTeleport,Physics I
+KinkyDungeonSpellDescriptionApprenticeTeleport,Unlocks teleportation and physics manipulation spells.
+KinkyDungeonSpellApprenticeSummon,Summoning I
+KinkyDungeonSpellDescriptionApprenticeSummon,Unlocks summoning spells.
+
+KinkyDungeonSpellApprenticeShadow,Shadow Order
+KinkyDungeonSpellDescriptionApprenticeShadow,Unlocks shadow spells.
+KinkyDungeonSpellApprenticeLight,Light Order
+KinkyDungeonSpellDescriptionApprenticeLight,Unlocks light spells.
+KinkyDungeonSpellApprenticeInvisibility,Stealth Order
+KinkyDungeonSpellDescriptionApprenticeInvisibility,Unlocks invisibility spells.
+KinkyDungeonSpellApprenticeKnowledge,Knowledge Order
+KinkyDungeonSpellDescriptionApprenticeKnowledge,Unlocks knowledge and critical-strike spells.
 
 KinkyDungeonSpellGlue,Glue
 KinkyDungeonGlue,The glue attaches to your legs as you try to move through!
@@ -3251,7 +3284,7 @@ KinkyDungeonSpellCastLeap,You teleport!
 KinkyDungeonSpellTargetLeap,Choose target location
 
 KinkyDungeonSpellIcebolt,Ice Shard
-KinkyDungeonSpellDescriptionIcebolt,A shard of ice that does DamageDealt damage and slows for Duration turns. Freezes if already slowed.
+KinkyDungeonSpellDescriptionIcebolt,A shard of ice that does DamageDealt damage and slows for Duration turns. Freezes if already slowed or drenched.
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
@@ -3398,7 +3431,7 @@ KinkyDungeonSpellTargetCorona,Choose line direction
 
 KinkyDungeonSpellIcicles,Icicles
 KinkyDungeonSpellIcicle,Icicle
-KinkyDungeonSpellDescriptionIcicles,"Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and slow for 4 turns, freezing slowed targets for 3 turns."
+KinkyDungeonSpellDescriptionIcicles,"Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and slow for 4 turns, freezing slowed/drenched targets for 3 turns."
 KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
 
@@ -3437,9 +3470,9 @@ KinkyDungeonSpellDescriptionSpellChoiceUp2,Gives you an additional spell choice 
 KinkyDungeonSpellSpellChoiceUp3,Legendary Wizard
 KinkyDungeonSpellDescriptionSpellChoiceUp3,Gives you an additional spell choice slot
 
-KinkyDungeonSpellSummonUp1,Expert Summoner
+KinkyDungeonSpellSummonUp1,More Summons
 KinkyDungeonSpellDescriptionSummonUp1,Increases the permanent summon cap by +1 (from 2 to 3)
-KinkyDungeonSpellSummonUp2,Master Summoner
+KinkyDungeonSpellSummonUp2,Many Summons
 KinkyDungeonSpellDescriptionSummonUp2,Increases the permanent summon cap by +1 (from 3 to 4)
 
 KinkyDungeonSpellBomb,Bomb
@@ -6007,7 +6040,7 @@ rTutorial2_sp1,"Your SP, or Stamina, is your most important resource.|Without it
 rTutorial2_sp2,"Oh no! That trap wiped out all your stamina!|Fortunately you have a stamina potion.|You can drink it by clicking the '+' icon next to your SP bar.|You can also go into your Inventory in the bottom bar.|There is also a quick-inventory icon (backpack)."
 rTutorial2_sp3,"Another trap! Fortunately, you can sleep to regain stamina.|Just don't do this while there are enemies around.|When you sleep, the map will advance very quickly.|You can protect yourself by clicking the Close Door button in the bottom bar.|Close yourself in a room and sleep."
 
-rTutorial2_mp1,"Your MP, or Mana, used used to cast spells.|In order to cast spells though, you need to learn one.|Click the Spells button in the bottom right.|Then click on Firebolt, learn it, then assign it to slot 1."
+rTutorial2_mp1,"Your MP, or Mana, used used to cast spells.|In order to cast spells though, you need to learn one.|Click the Spells button in the bottom right.|Then click on Flame Apprentice and learn it to unlock Firebolt.|Then, press space to go back, and press Right to switch pages.|Click on Firebolt, learn it, then assign it to slot 1."
 rTutorial2_mp2,"On the right you'll see your stats and spells slots.|You can click on a spell slot or hit 1-4 on your keyboard to cast a spell|then click on the map for where you want to aim it.|The small wrench icon above them will let you|swap them out for another spell from your spellbook."
 rTutorial2_mp3,"There's a zombie over there!|Fortunately zombies are weak to fire.|Firebolt has a very long range,|so simply cast firebolt and click on the zombie.|Repeat until it is dead."
 rTutorial2_mp4,"Mana potions restore your mana fully."
