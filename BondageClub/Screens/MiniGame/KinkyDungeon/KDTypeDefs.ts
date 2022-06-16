@@ -930,6 +930,8 @@ interface spell {
 	hideUnlearnable?: boolean,
 	/** Spell is hidden if you DID learn it */
 	hideLearned?: boolean,
+	/** Automatically learns the spells when you learn it (thru magic screen) */
+	autoLearn?: string[],
 	/** This spell wont trigger an aggro action */
 	noAggro?: boolean;
 	/** Whether the spell defaults to the Player faction */

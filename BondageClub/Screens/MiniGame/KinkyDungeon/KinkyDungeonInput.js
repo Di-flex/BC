@@ -438,6 +438,14 @@ function KDProcessInput(type, data) {
 					KinkyDungeonSpellPoints -= cost;
 					KinkyDungeonSpells.push(spell);
 					KDSendStatus('learnspell', spell.name);
+					if (spell.autoLearn) {
+						for (let sp of spell.autoLearn) {
+							if (KinkyDungeonSpellIndex(sp) < 0) {
+								KinkyDungeonSpells.push(KinkyDungeonFindSpell(sp, true));
+								KDSendStatus('learnspell', sp);
+							}
+						}
+					}
 					KinkyDungeonSetMaxStats();
 					if (KinkyDungeonSound && KinkyDungeonIsPlayer()) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/Magic.ogg");
 					KinkyDungeonCurrentPage = KinkyDungeonSpellIndex(spell.name);

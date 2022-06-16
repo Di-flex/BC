@@ -2,11 +2,12 @@ KinkyDungeonCredits,Credits
 KinkyDungeonPatrons,Patrons
 KinkyDungeonDeviantart,News and Updates
 KinkyDungeonPatreon,Support @ Patreon
-KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|The-Fisher-King|Jeremy P.|Samantha Lear|Slacker|Nikos S.|Kara|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete|nnm711|ItsYahboi9"
-KinkyDungeonPatronsList1,"|nuzzles|Rest|LoudestQuietPerson|AlexisTheFlame|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|cyberjoel|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika|Physicsphail|Loony"
+KinkyDungeonPatronsList0,"Thank you to the following awesome people for supporting me at <patreon.com/ada18980>:|Alexthymia (for CN translation!)|Song (bound enemy graphics!)|cyberjoel|Samantha Lear|Kara|The-Fisher-King|selly-grim|Dex♪|Churro|Gamefan|Shogo|X27|Blox|Slacker|Nikos S.|WATA|Flame|Alexis Octavia|Finn|Dmitri S.|Noxgarm|Siegfried K.|Hellgete"
+KinkyDungeonPatronsList1,"|||nuzzles|Rest|LoudestQuietPerson|Violet EverGardner|BoopleDoopleson|Dazman1234|linlizheng|Laioken|Mechio|Vikingberserker|PWMRM|devan|LukeB|atetete|Aussie895|0xA4C1B842|Rika|Physicsphail|Loony|Jeremy P.|ItsYahboi9"
+KinkyDungeonPatronsList2,"|AlexisTheFlame|Chen Yu|Sinohisaki|nnm711|"
 KinkyDungeonBack,Back
 KinkyDungeonNext,Next
-KinkyDungeonCreditsList0,"Many sprites for bound enemies created by Song|Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
+KinkyDungeonCreditsList0,"Audio:|Potion drink - Jamius|Click - StrikeWhistler - Modified|StoneDoor_Close - AudioTorpedo - Modified|Footstep - Fission9 - Modified|FireSpell - Julien Matthey|LightSwing - qubodup|Heavy Swing - orangesheepdog|Miss - Brsjak - Modified|Clap - DWSD - Modified|'Door, Front, Closing, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|'Door, Front, Opening, A.wav' by InspectorJ (www.jshaw.co.uk) of Freesound.org|Chest Open - spookymodem - Modified|Unlock - BeezleFM|Unbuckle - danhelbling|Scissors - qubodup|Rummage - adcbicycle|Fairy Dust - jacksonacademyashmore|Metal Smash - gristi|Door locked.wav - mitchanary - Modified|Coins.wav - Saviraz"
 KinkyDungeonCreditsList1,"Opening the sarcophagus - Breviceps - Modified|Knife Sharpen - Anthousai|Paper Sounds - Bash360 - Modified|Freeze Powerup - JustInvoke - Modified|puddle - patchytherat - Modified|grab 3 - ihitokage - Modified|Gunfire - qubodup - Modified|Brass Falling - movingplaid - Modified|Energy Weapon Laser - rkkaleikau - Modified|Electricity - deleted_user_7146007 - Modified|Dragging a chain out of a sink - Hitrison - Modified|Hihat 7 - TheCoolManARM2 - Modified|Ambientsoundapp - Lightning Storm.wav - Modified|kev_durr - Arc Welding.wav - Modified||||ARTISTS AND INSPIRATION|Hotel01 - https://www.pixiv.net/en/users/5944252 - Draws awesome wolfgirls|spark utamaro - For the idea of sentient vibrators"
 
 Language,Language
@@ -3219,31 +3220,31 @@ KinkyDungeonSpellShadowStrike,Shadowy chains appear from a rift in space!
 
 
 KinkyDungeonSpellApprenticeFire,Flame Novice
-KinkyDungeonSpellDescriptionApprenticeFire,Unlocks fire and arcane spells.
+KinkyDungeonSpellDescriptionApprenticeFire,Unlocks fire and arcane spells. Learn Firebolt.
 KinkyDungeonSpellApprenticeWater,Water Novice
-KinkyDungeonSpellDescriptionApprenticeWater,Unlocks ice and water spells.
+KinkyDungeonSpellDescriptionApprenticeWater,Unlocks ice and water spells. Learn Water Ball.
 KinkyDungeonSpellApprenticeEarth,Earth Novice
-KinkyDungeonSpellDescriptionApprenticeEarth,Unlocks earth and metal spells.
+KinkyDungeonSpellDescriptionApprenticeEarth,Unlocks earth and metal spells. Learn Stone Skin.
 KinkyDungeonSpellApprenticeAir,Storm Novice
-KinkyDungeonSpellDescriptionApprenticeAir,Unlocks air and electric spells.
+KinkyDungeonSpellDescriptionApprenticeAir,Unlocks air and electric spells. Learn Shock Orb
 
 KinkyDungeonSpellApprenticeBondage,Bondage I
-KinkyDungeonSpellDescriptionApprenticeBondage,Unlocks bondage spells.
+KinkyDungeonSpellDescriptionApprenticeBondage,Unlocks bondage spells. Learn Binding Chain
 KinkyDungeonSpellApprenticeSlime,Rubbermancy I
-KinkyDungeonSpellDescriptionApprenticeSlime,Unlocks slime spells.
+KinkyDungeonSpellDescriptionApprenticeSlime,Unlocks slime spells. Learn Slime Ball
 KinkyDungeonSpellApprenticeTeleport,Physics I
-KinkyDungeonSpellDescriptionApprenticeTeleport,Unlocks teleportation and physics manipulation spells.
+KinkyDungeonSpellDescriptionApprenticeTeleport,Unlocks teleportation and physics manipulation spells. Learn Wall.
 KinkyDungeonSpellApprenticeSummon,Summoning I
-KinkyDungeonSpellDescriptionApprenticeSummon,Unlocks summoning spells.
+KinkyDungeonSpellDescriptionApprenticeSummon,Unlocks summoning spells. Learn Familiar.
 
 KinkyDungeonSpellApprenticeShadow,Shadow Order
-KinkyDungeonSpellDescriptionApprenticeShadow,Unlocks shadow spells.
+KinkyDungeonSpellDescriptionApprenticeShadow,Unlocks shadow spells. Learn Shadow Dagger.
 KinkyDungeonSpellApprenticeLight,Light Order
-KinkyDungeonSpellDescriptionApprenticeLight,Unlocks light spells.
+KinkyDungeonSpellDescriptionApprenticeLight,Unlocks light spells. Learn Flash.
 KinkyDungeonSpellApprenticeInvisibility,Stealth Order
-KinkyDungeonSpellDescriptionApprenticeInvisibility,Unlocks invisibility spells.
+KinkyDungeonSpellDescriptionApprenticeInvisibility,Unlocks invisibility spells. Learn Camouflage.
 KinkyDungeonSpellApprenticeKnowledge,Knowledge Order
-KinkyDungeonSpellDescriptionApprenticeKnowledge,Unlocks knowledge and critical-strike spells.
+KinkyDungeonSpellDescriptionApprenticeKnowledge,Unlocks knowledge and critical-strike spells. Learn True Steel.
 
 KinkyDungeonSpellGlue,Glue
 KinkyDungeonGlue,The glue attaches to your legs as you try to move through!
@@ -3908,9 +3909,10 @@ KinkyDungeonMagicSpellsBack,"Back to Spellbook"
 KinkyDungeonGame,"Return to Game"
 
 
-KinkyDungeonSpellsPage0,"Elemental Spells"
-KinkyDungeonSpellsPage1,"Conjuration Spells"
-KinkyDungeonSpellsPage2,"Illusion Spells"
+KinkyDungeonSpellsPageUpgrade,"Spell Tree"
+KinkyDungeonSpellsPageElements,"Elemental Spells"
+KinkyDungeonSpellsPageConjure,"Conjuration Spells"
+KinkyDungeonSpellsPageIllusion,"Illusion Spells"
 KinkyDungeonSpellsPage3,"Perks"
 KinkyDungeonSpellsPage4,"Perks II"
 KinkyDungeonSpellsPage5,"Perks III"

@@ -608,12 +608,12 @@ function KinkyDungeonRun() {
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
 		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} if (KinkyDungeonState == "Patrons") {
-		for (let x = 0; x <= 1; x++) {
+		for (let x = 0; x <= 2; x++) {
 			let credits = TextGet("KinkyDungeonPatronsList" + x).split('|');
 			let i = 0;
 			MainCanvas.textAlign = "left";
 			for (let c of credits) {
-				DrawText(c, 550 + 300 * x, 25 + 40 * i, "white", "silver");
+				DrawText(c, 550 + 350 * x, 25 + 40 * i, "white", "silver");
 				i++;
 			}
 			MainCanvas.textAlign = "center";
@@ -621,7 +621,7 @@ function KinkyDungeonRun() {
 
 
 		DrawButton(1870, 930, 110, 64, TextGet("KinkyDungeonBack"), "White", "");
-		DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
+		//DrawButton(1730, 930, 110, 64, TextGet("KinkyDungeonNext"), "White", "");
 	} else if (KinkyDungeonState == "Menu") {
 		KinkyDungeonGameFlag = false;
 		MainCanvas.textAlign = "left";

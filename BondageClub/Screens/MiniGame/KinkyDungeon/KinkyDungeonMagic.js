@@ -1182,14 +1182,14 @@ function KinkyDungeonHandleMagic() {
 function KDGetPrerequisite(spell) {
 	if (!spell.prerequisite) return "";
 	if (typeof spell.prerequisite === "string") {
-		return spell.prerequisite;
+		return TextGet("KinkyDungeonSpell" + spell.prerequisite);
 	}
 	let str = "";
 	for (let pr of spell.prerequisite) {
-		if (str) {
-			str = pr;
+		if (!str) {
+			str = TextGet("KinkyDungeonSpell" + pr);
 		} else {
-			str = str + ", " + pr;
+			str = str + "/" + TextGet("KinkyDungeonSpell" + pr);
 		}
 	}
 	return str;
@@ -1254,7 +1254,7 @@ function KinkyDungeonDrawMagic() {
 
 		if (spell.prerequisite) {
 			DrawText(TextGet("KDPrerequisite"), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2, "black", "silver");
-			DrawText(TextGet("KinkyDungeonSpell" + KDGetPrerequisite(spell)), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 40, "black", "silver");
+			DrawTextFit(KDGetPrerequisite(spell), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 40, 640*KinkyDungeonBookScale * 0.35, "black", "silver");
 		}
 
 		if (KinkyDungeonPreviewSpell) DrawText(TextGet("KinkyDungeonMagicCost") + KinkyDungeonGetCost(spell), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
@@ -1418,9 +1418,9 @@ function KinkyDungeonListSpells(Mode) {
 				&& (KDSwapSpell == -1 || KinkyDungeonSpellIndex(spell.name) >= 0)
 				&& i < KDMaxSpellPerColumn
 				&& (!spell.hideLearned || !learned)
-				&& (!spell.hideUnlearnable || prereq)
+				&& (!spell.hideUnlearnable || prereq || learned)
 				&& (selectedFilters.length == 0 || (selectedFilters.every((element) => {return genericfilters.includes(element) || (spell.tags && spell.tags.includes(element));})))
-				&& (!selectedFilters.includes("learnable") || prereq)) {
+				&& (!selectedFilters.includes("learnable") || prereq || learned)) {
 
 				if (iii < KDSpellListIndex) {
 					iii += 1;
@@ -1459,7 +1459,7 @@ function KinkyDungeonDrawMagicSpells() {
 	KinkyDungeonListSpells("Draw");
 	MainCanvas.textAlign = "center";
 
-	DrawText(TextGet("KinkyDungeonSpellsPage") + (KinkyDungeonCurrentSpellsPage + 1) + ": " + TextGet("KinkyDungeonSpellsPage" + KinkyDungeonCurrentSpellsPage), canvasOffsetX_ui + 575, canvasOffsetY_ui + 25, "white", "black");
+	DrawText(TextGet("KinkyDungeonSpellsPage") + (KinkyDungeonCurrentSpellsPage + 1) + ": " + TextGet("KinkyDungeonSpellsPage" + KinkyDungeonSpellPages[KinkyDungeonCurrentSpellsPage]), canvasOffsetX_ui + 575, canvasOffsetY_ui + 25, "white", "black");
 	//DrawText(TextGet("KinkyDungeonSpellsPoints") + KinkyDungeonSpellPoints, 650, 900, "white", "black");
 
 	MainCanvas.textAlign = "center";
