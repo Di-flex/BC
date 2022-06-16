@@ -229,7 +229,7 @@ function KinkyDungeonStartChase(enemy, Type) {
 	if ((!enemy && !KDLocalChaseTypes.includes(Type))) {
 		if (KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'parole') {
 			KinkyDungeonChangeRep("Ghost", -10);
-			KinkyDungeonChangeRep("Prisoner", 10);
+			KinkyDungeonChangeRep("Prisoner", 20);
 			KDGameData.PrisonerState = "chase";
 		}
 		if (KDGameData.PrisonerState == 'jail' || KDGameData.PrisonerState == 'parole' || KDGameData.PrisonerState == 'chase')

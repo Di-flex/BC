@@ -405,7 +405,10 @@ function KinkyDungeonUpdateDialogue(entity, delta) {
  * @param {number} duration
  * @param {number} priority
  */
-function KinkyDungeonSendDialogue(entity, dialogue, color, duration, priority) {
+function KinkyDungeonSendDialogue(entity, dialogue, color, duration, priority, force) {
+	if (!force && !KDEnemyCanTalk(entity)) {
+		return;
+	}
 	if (!entity.dialogue || !entity.dialoguePriority || entity.dialoguePriority <= priority) {
 		entity.dialogue = dialogue;
 		entity.dialogueColor = color;
