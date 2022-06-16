@@ -247,7 +247,8 @@ function KinkyDungeonStartChase(enemy, Type) {
 	if (Type && enemy && (enemy.Enemy.tags.has('jail') || enemy.Enemy.tags.has('jailer') || enemy.Enemy.playLine)) {
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
 		let index = (Type == "Attack" || Type == "Spell") ? ("" + Math.floor(Math.random() * 3)) : "";
-		KinkyDungeonSendTextMessage((!KDGameData.PrisonerState) ? 3 : 5, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, (!KDGameData.PrisonerState));
+
+		KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJailChase" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 4, (!KDGameData.PrisonerState) ? 3 : 5);
 	}
 	if (enemy && KDFactionRelation(KDGetFaction(enemy), "Jail") > -0.1 && !enemy.Enemy.tags.has("peaceful")) {
 		if (!enemy.hostile) enemy.hostile = KDMaxAlertTimerAggro;
@@ -274,7 +275,7 @@ function KinkyDungeonPlayExcuse(enemy, Type) {
 			enemy.playWithPlayerCD = enemy.playWithPlayer;
 		}
 		let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine + Type : Type;
-		KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonRemindJailPlay" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4, true);
+		KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJailPlay" + suff).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 4, 4);
 	}
 }
 
@@ -426,7 +427,7 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				if (KinkyDungeonGoddessRep.Prisoner >= KDSecurityLevelHiSec && KDGameData.RoomType != "Jail") {
 					KDStartDialog("JailerHiSec", KinkyDungeonJailGuard().Enemy.name, true, "", KinkyDungeonJailGuard());
 				} else {
-					KinkyDungeonSendTextMessage(8, TextGet("KinkyDungeonRemindJailRelease" + release).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 4);
+					KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), TextGet("KinkyDungeonRemindJailRelease" + release).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "#ffff00", 4, 8);
 					KDGameData.PrisonerState = 'parole';
 					KinkyDungeonJailGuard().CurrentAction = "jailWander";
 					// Unlock all jail doors
@@ -447,7 +448,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 						KinkyDungeonJailGuard().CurrentAction = "jailLockRestraints";
 						KinkyDungeonJailGuard().CurrentRestraintSwapGroup = group;
 					}
-					KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonJailerLock").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 2);
+
+					KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), TextGet("KinkyDungeonJailerLock").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "#ffff00", 4, 3);
 				} else if (missingJailUniform.length > 0 || KDRandom() < 0.2) {
 					if (tooMuchRestraint.length > 0 && (KDRandom() < 0.5 || missingJailUniform.length < 1) && KDGameData.JailRemoveRestraintsTimer > KinkyDungeonJailRemoveRestraintsTimerMin) {
 						let group = "";
@@ -459,7 +461,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 							KinkyDungeonJailGuard().CurrentAction = "jailRemoveRestraints";
 							KinkyDungeonJailGuard().CurrentRestraintSwapGroup = group;
 						}
-						KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonJailerRemove").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 2);
+
+						KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), TextGet("KinkyDungeonJailerRemove").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "#ffff00", 4, 3);
 					} else if (missingJailUniform.length > 0 && (KDRandom() < 0.33 || !KinkyDungeonGetRestraintItem("ItemArms"))) {
 						let group = "";
 						if (missingJailUniform.includes("ItemMouth3")) group = "ItemMouth3";
@@ -470,7 +473,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 							KinkyDungeonJailGuard().CurrentAction = "jailAddRestraints";
 							KinkyDungeonJailGuard().CurrentRestraintSwapGroup = group;
 						}
-						KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonJailerAdd").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 2);
+
+						KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), TextGet("KinkyDungeonJailerAdd").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "#ffff00", 4, 3);
 					}
 				}
 			} else if (KDRandom() < 0.05 + securityLevel * 0.1 / 100) {
@@ -481,7 +485,8 @@ function KinkyDungeonHandleJailSpawns(delta) {
 				KinkyDungeonJailGuard().CurrentAction = "jailLeashTour";
 				KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions = 0;
 				let msg = TextGet("KinkyDungeonRemindJailTourStart").replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
-				KinkyDungeonSendTextMessage(9, msg, "yellow", 4);
+
+				KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), msg, "#ffff00", 4, 9);
 			}
 		}
 
@@ -818,7 +823,7 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 						index = "" + Math.floor(KDRandom() * 6);
 						KinkyDungeonChangeRep("Ghost", 8);
 					}
-					KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonJailerGoodGirl" + index).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "yellow", 3);
+					KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), TextGet("KinkyDungeonJailerGoodGirl" + index).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name)), "#ffff00", 4, 9);
 				}
 			}
 			KinkyDungeonJailGuardGetLeashWaypoint(xx, yy);
@@ -832,7 +837,8 @@ function KinkyDungeonHandleLeashTour(xx, yy, playerInCell) {
 				let msg = TextGet("KinkyDungeonRemindJailTour" + KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 				let msgPrev = TextGet("KinkyDungeonRemindJailTour" + Math.max(0, KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions-1)).replace("EnemyName", TextGet("Name" + KinkyDungeonJailGuard().Enemy.name));
 				if (KinkyDungeonLastAction == "Move") {
-					KinkyDungeonSendTextMessage(7 + KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions, msg, "yellow", 3);
+
+					KinkyDungeonSendDialogue(KinkyDungeonJailGuard(), msg, "#ffff00", 4, 7 + KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions);
 					if (KinkyDungeonJailGuard().gx != KinkyDungeonPlayerEntity.x || KinkyDungeonJailGuard().gy != KinkyDungeonPlayerEntity.y && KinkyDungeonTextMessage != msgPrev) {
 						KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions = Math.min(3, KinkyDungeonJailGuard().KinkyDungeonJailTourInfractions + 1);
 					}

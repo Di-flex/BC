@@ -144,8 +144,8 @@ function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonRedKeys = 0;
 	KinkyDungeonBlueKeys = 0;
 
-	KDOrigStamina = 36;
-	KDOrigMana = 36;
+	KDOrigStamina = 360;
+	KDOrigMana = 360;
 	KDOrigDistraction = 0;
 
 	KinkyDungeonHasCrotchRope = false;
@@ -386,9 +386,39 @@ function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
 	return data.dmg;
 }
 
-let KDOrigStamina = 36;
-let KDOrigMana = 36;
-let KDOrigDistraction = 36;
+function KinkyDungeonUpdateDialogue(entity, delta) {
+	if (!KinkyDungeonSlowMoveTurns && !KinkyDungeonStatFreeze && !KDGameData.PlaySelfTurns)
+		if (entity.dialogue) {
+			if (entity.dialogueDuration > delta) {
+				entity.dialogueDuration = Math.max(0, entity.dialogueDuration - delta);
+			} else {
+				entity.dialogue = null;
+			}
+		}
+}
+
+/**
+ *
+ * @param {entity} entity
+ * @param {string} dialogue
+ * @param {string} color
+ * @param {number} duration
+ * @param {number} priority
+ */
+function KinkyDungeonSendDialogue(entity, dialogue, color, duration, priority) {
+	if (!entity.dialogue || !entity.dialoguePriority || entity.dialoguePriority <= priority) {
+		entity.dialogue = dialogue;
+		entity.dialogueColor = color;
+		entity.dialogueDuration = duration;
+		entity.dialoguePriority = priority;
+		if (!entity.player)
+			KinkyDungeonSendTextMessage(0, `${TextGet("Name" + entity.Enemy.name)}: ${dialogue}`, color, 0, false, false, entity);
+	}
+}
+
+let KDOrigStamina = 360;
+let KDOrigMana = 360;
+let KDOrigDistraction = 0;
 
 function KinkyDungeonChangeDistraction(Amount, NoFloater, lowerPerc) {
 	if (Amount > 1) {
@@ -401,25 +431,30 @@ function KinkyDungeonChangeDistraction(Amount, NoFloater, lowerPerc) {
 		KinkyDungeonStatDistractionLower += Amount * lowerPerc;
 		KinkyDungeonStatDistractionLower = Math.min(Math.max(0, KinkyDungeonStatDistractionLower), KinkyDungeonStatDistractionMax * KinkyDungeonStatDistractionLowerCap);
 	}
-	if (!NoFloater && Math.abs(KDOrigDistraction - Math.floor(KinkyDungeonStatDistraction)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatDistraction) - KDOrigDistraction, "#ff00ff", undefined, undefined, " ap");
-		KDOrigDistraction = Math.max(0, Math.floor(KinkyDungeonStatDistraction));
+	if (!NoFloater && Math.abs(KDOrigDistraction - Math.floor(KinkyDungeonStatDistraction/KinkyDungeonStatDistraction * 100)) >= 0.99) {
+		//KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * 100) - KDOrigDistraction, "#ff00ff", undefined, undefined, "% distraction");
+		let amount = Math.min(1, Math.max(0, (Math.floor(KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * 100) - KDOrigDistraction) / 100));
+		amount *= amount;
+		amount = Math.max(amount, amount * 0.5 + 0.5 * KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax);
+		amount = Math.round(10 * amount);
+		KinkyDungeonSendDialogue(KinkyDungeonPlayerEntity, TextGet("KinkyDungeonChangeDistraction" + amount), "#ff00ff", 2, 1);
+		KDOrigDistraction = Math.max(0, Math.floor(KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * 100));
 	}
 }
 function KinkyDungeonChangeStamina(Amount, NoFloater) {
 	KinkyDungeonStatStamina += Amount;
 	KinkyDungeonStatStamina = Math.min(Math.max(0, KinkyDungeonStatStamina), KinkyDungeonStatStaminaMax);
-	if (!NoFloater && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina) - KDOrigStamina, "#44ff66", undefined, undefined, " sp");
-		KDOrigStamina = Math.floor(KinkyDungeonStatStamina);
+	if (!NoFloater && Math.abs(KDOrigStamina - Math.floor(KinkyDungeonStatStamina * 10)) >= 0.99) {
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatStamina * 10) - KDOrigStamina, "#44ff66", undefined, undefined, " sp");
+		KDOrigStamina = Math.floor(KinkyDungeonStatStamina * 10);
 	}
 }
 function KinkyDungeonChangeMana(Amount, NoFloater) {
 	KinkyDungeonStatMana += Amount;
 	KinkyDungeonStatMana = Math.min(Math.max(0, KinkyDungeonStatMana), KinkyDungeonStatManaMax);
-	if (!NoFloater && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana)) >= 0.99) {
-		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana) - KDOrigMana, "#4499ff", undefined, undefined, " mp");
-		KDOrigMana = Math.floor(KinkyDungeonStatMana);
+	if (!NoFloater && Math.abs(KDOrigMana - Math.floor(KinkyDungeonStatMana * 10)) >= 0.99) {
+		KinkyDungeonSendFloater(KinkyDungeonPlayerEntity, Math.floor(KinkyDungeonStatMana * 10) - KDOrigMana, "#4499ff", undefined, undefined, " mp");
+		KDOrigMana = Math.floor(KinkyDungeonStatMana * 10);
 	}
 }
 
@@ -619,7 +654,7 @@ function KinkyDungeonUpdateStats(delta) {
 	} else {
 		KinkyDungeonStatDistractionLower += distractionRate*delta * arousalPercent;
 	}
-	KDOrigDistraction = Math.floor(KinkyDungeonStatDistraction);
+	KDOrigDistraction = Math.floor(KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * 100);
 	KinkyDungeonStatStamina += KinkyDungeonStaminaRate*delta;
 	KinkyDungeonStatMana += KinkyDungeonStatManaRate;
 

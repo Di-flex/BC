@@ -402,8 +402,8 @@ function KinkyDungeonDrawReputation() {
 					if (KDRepSelectionMode == "Aid") {
 						DrawButton(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40, TextGet("KinkyDungeonAidMana"), (KinkyDungeonCanAidMana(rep, value)) ? "white" : "#999999");
 						if (MouseIn(canvasOffsetX_ui + 275 + XX + 520, yPad + canvasOffsetY_ui + spacing * i - 20, 150, 40)) {
-							DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep, value)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100+1, 900+1, 1250, "black", "black");
-							DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + KinkyDungeonAidManaCost(rep, value)).replace("MANALEVEL", "" + KinkyDungeonAidManaAmount(rep, value)), 1100, 900, 1250, "white", "black");
+							DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + (KinkyDungeonAidManaCost(rep, value))).replace("MANALEVEL", "" + (KinkyDungeonAidManaAmount(rep, value) * 10)), 1100+1, 900+1, 1250, "black", "black");
+							DrawTextFit(TextGet("KinkyDungeonAidManaDesc").replace("AMOUNT", "" + (KinkyDungeonAidManaCost(rep, value))).replace("MANALEVEL", "" + (KinkyDungeonAidManaAmount(rep, value) * 10)), 1100, 900, 1250, "white", "black");
 							// Rescue
 						}
 					}

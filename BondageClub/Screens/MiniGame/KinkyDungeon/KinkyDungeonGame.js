@@ -2874,8 +2874,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 
 		msg = msg + gagMsg;
 
-		if (!KinkyDungeonSendActionMessage(1, TextGet(msg), "#ffffff", 1, true))
-			KinkyDungeonSendTextMessage(1, TextGet(msg), "#ffffff", 1, true);
+		KinkyDungeonSendDialogue(KinkyDungeonPlayerEntity, TextGet(msg), "#ffffff", 2, 0);
 	}
 	let end = performance.now();
 	if (KDDebug) console.log(`Tick ${KinkyDungeonCurrentTick} took ${(end - start)} milliseconds.`);

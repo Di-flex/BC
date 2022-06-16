@@ -1258,7 +1258,7 @@ function KinkyDungeonDrawMagic() {
 		}
 
 		if (KinkyDungeonPreviewSpell) DrawText(TextGet("KinkyDungeonMagicCost") + KinkyDungeonGetCost(spell), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
-		DrawText(TextGet("KinkyDungeonMagicManaCost") + spell.manacost, canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195, "black", "silver");
+		DrawText(TextGet("KinkyDungeonMagicManaCost") + (spell.manacost * 10), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195, "black", "silver");
 		//DrawText(TextGet("KinkyDungeonMagicExhaustion").replace("TimeTaken", spell.exhaustion), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 150, "black", "silver");
 		//DrawText(TextGet("KinkyDungeonMagicExhaustion2").replace("TimeTaken", spell.exhaustion), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/2 + 195, "black", "silver");
 		let wrapAmount = TranslationLanguage == 'CN' ? 9 : 20;
@@ -1493,11 +1493,17 @@ function KinkyDungeonHandleMagicSpells() {
 		if (KinkyDungeonCurrentSpellsPage > 0) KinkyDungeonCurrentSpellsPage -= 1;
 		else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
 		KDSpellListIndex = 0;
+		selectedFilters = selectedFilters.filter((filter) => {
+			return filters.includes(filter);
+		});
 		return true;
 	} else if (MouseIn(canvasOffsetX_ui + 850, canvasOffsetY_ui, 250, 50)) {
 		if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 1) KinkyDungeonCurrentSpellsPage += 1;
 		else KinkyDungeonCurrentSpellsPage = 0;
 		KDSpellListIndex = 0;
+		selectedFilters = selectedFilters.filter((filter) => {
+			return filters.includes(filter);
+		});
 		return true;
 	} else if (MouseIn(canvasOffsetX_ui + 0, canvasOffsetY_ui, 50, 50)) {
 		if (KinkyDungeonCurrentSpellsPage > 0) {
@@ -1505,6 +1511,9 @@ function KinkyDungeonHandleMagicSpells() {
 			else KinkyDungeonCurrentSpellsPage = 0;
 		} else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
 		KDSpellListIndex = 0;
+		selectedFilters = selectedFilters.filter((filter) => {
+			return filters.includes(filter);
+		});
 		return true;
 	} else if (MouseIn(canvasOffsetX_ui + 1100, canvasOffsetY_ui, 50, 50)) {
 		if (KinkyDungeonCurrentSpellsPage < KinkyDungeonLearnableSpells.length - 1)  {
@@ -1512,6 +1521,9 @@ function KinkyDungeonHandleMagicSpells() {
 			else KinkyDungeonCurrentSpellsPage = KinkyDungeonLearnableSpells.length - 1;
 		}
 		else KinkyDungeonCurrentSpellsPage = 0;
+		selectedFilters = selectedFilters.filter((filter) => {
+			return filters.includes(filter);
+		});
 		KDSpellListIndex = 0;
 		return true;
 	}

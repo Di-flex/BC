@@ -198,11 +198,11 @@ function KinkyDungeonDrawInputs() {
 
 	let armor = Math.max(0, KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "Armor", true));
 	if (armor > 0) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerArmor") + Math.round(armor*10)/10, 1440, 900 - i * 25, 200, "#fca570", "gray"); i++; i++;
+		DrawTextFit(TextGet("KinkyDungeonPlayerArmor") + Math.round(armor*10), 1440, 900 - i * 25, 200, "#fca570", "gray"); i++; i++;
 	}
 	let damageReduction = KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "DamageReduction", true);
 	if (damageReduction > 0) {
-		DrawTextFit(TextGet("KinkyDungeonPlayerReduction") + Math.round(damageReduction*10)/10, 1440, 900 - i * 25, 150, "#73efe8", "gray"); i++; i++;
+		DrawTextFit(TextGet("KinkyDungeonPlayerReduction") + Math.round(damageReduction*10), 1440, 900 - i * 25, 150, "#73efe8", "gray"); i++; i++;
 	}
 	for (let dt of KinkyDungeonDamageTypes) {
 		let color = dt.color;
@@ -548,7 +548,7 @@ function KinkyDungeonDrawInputs() {
 
 			if (spell.components && spell.components.length > 0) comp = components;
 			// Render MP cost
-			let cost = KinkyDungeonGetManaCost(spell) + "m";
+			let cost = (KinkyDungeonGetManaCost(spell) * 10) + "m";
 			DrawTextFit(cost, 1650 + (89 - buttonWidth/2), 140 + i*KinkyDungeonSpellChoiceOffset + buttonWidth*1.4, buttonWidth * 0.35 * Math.min(3, cost.length), "#ccddFF", "gray");
 
 			MainCanvas.textAlign = "center";
@@ -660,18 +660,18 @@ function KinkyDungeonDrawStats(x, y, width, heightPerBar) {
 	//DrawTextFit(TextGet("StatDistraction").replace("MAX", KinkyDungeonStatDistractionMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatDistraction) + ""), x+width/2 + buttonWidth, y + 25, width - 2*buttonWidth, (KinkyDungeonStatDistraction < 100) ? "white" : "pink", "gray");
 	// TextGet("StatMiscastChance").replace("Percent", Math.round(100 * Math.max(0, KinkyDungeonMiscastChance)) + "%")
 	MainCanvas.textAlign = "right";
-	DrawTextFit(TextGet("StatDistraction").replace("MAX", KinkyDungeonStatDistractionMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatDistraction) + ""), x+width, y + 25, width - 2*buttonWidth, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "gray");
+	DrawTextFit(TextGet("StatDistraction").replace("PERCENT", "" + Math.round(KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax * 100)), x+width, y + 25, width - 2*buttonWidth, (KinkyDungeonStatDistraction > 0) ? "white" : "pink", "gray");
 	DrawButton(x, y, buttonWidth, buttonWidth, "", (KinkyDungeonStatDistraction > 0 && KinkyDungeonItemCount("PotionFrigid")) ? "Pink" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	MainCanvas.textAlign = "left";
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionFrigid"), x + buttonWidth, y+buttonWidth/2, buttonWidth/2, "white", "gray");
 	MainCanvas.textAlign = "right";
 	//}
-	DrawTextFit(TextGet("StatStamina").replace("MAX", KinkyDungeonStatStaminaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatStamina) + ""), x+width, y + 25 + heightPerBar, width - 2*buttonWidth, (KinkyDungeonStatStamina > 0.5) ? "white" : "pink", "gray");
+	DrawTextFit(TextGet("StatStamina").replace("MAX", KinkyDungeonStatStaminaMax*10 + "").replace("CURRENT", Math.floor(KinkyDungeonStatStamina*10) + ""), x+width, y + 25 + heightPerBar, width - 2*buttonWidth, (KinkyDungeonStatStamina > 0.5) ? "white" : "pink", "gray");
 	DrawButton(x, y+heightPerBar, buttonWidth, buttonWidth, "", (KinkyDungeonStatStamina < KinkyDungeonStatStaminaMax && KinkyDungeonItemCount("PotionStamina")) ? "#AAFFAA" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	MainCanvas.textAlign = "left";
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionStamina"), x + buttonWidth, y+1*heightPerBar+buttonWidth/2, buttonWidth/2, "white", "gray");
 	MainCanvas.textAlign = "right";
-	DrawTextFit(TextGet("StatMana").replace("MAX", KinkyDungeonStatManaMax + "").replace("CURRENT", Math.floor(KinkyDungeonStatMana) + ""), x+width, y + 25 + heightPerBar * 2, width - 2*buttonWidth, (KinkyDungeonStatMana > 0.5) ? "white" : "pink", "gray");
+	DrawTextFit(TextGet("StatMana").replace("MAX", KinkyDungeonStatManaMax*10 + "").replace("CURRENT", Math.floor(KinkyDungeonStatMana*10) + ""), x+width, y + 25 + heightPerBar * 2, width - 2*buttonWidth, (KinkyDungeonStatMana > 0.5) ? "white" : "pink", "gray");
 	DrawButton(x, y+2*heightPerBar, buttonWidth, buttonWidth, "", (KinkyDungeonStatMana < KinkyDungeonStatManaMax && KinkyDungeonItemCount("PotionMana")) ? "#AAAAFF" : "#444444", KinkyDungeonRootDirectory + "UsePotion" + suff + ".png", "");
 	MainCanvas.textAlign = "left";
 	DrawTextFit("x" + KinkyDungeonItemCount("PotionMana"), x + buttonWidth, y+2*heightPerBar+buttonWidth/2, buttonWidth/2, "white", "gray");

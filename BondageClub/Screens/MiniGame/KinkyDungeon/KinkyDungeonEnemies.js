@@ -7,6 +7,10 @@ let KinkyDungeonEnemyAlertRadius = 2;
 let KDStealthyMult = 0.75;
 let KDConspicuousMult = 1.5;
 
+let commentChance = 0.03;
+let actionDialogueChance = 0.1;
+let actionDialogueChanceIntense = 0.4;
+
 
 function KinkyDungeonNearestJailPoint(x, y) {
 	let dist = 100000;
@@ -644,9 +648,22 @@ function KinkyDungeonDrawEnemiesHP(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 						}
 					}
 				}
+
+				if (enemy.dialogue && !tooltip) {
+					let yboost = -1*KinkyDungeonGridSizeDisplay/7;
+					DrawText(enemy.dialogue, 2 + canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, yboost + 2 + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/1.5, "black", "black");
+					DrawText(enemy.dialogue, canvasOffsetX + (xx - CamX)*KinkyDungeonGridSizeDisplay + KinkyDungeonGridSizeDisplay/2, yboost + canvasOffsetY + (yy - CamY)*KinkyDungeonGridSizeDisplay - KinkyDungeonGridSizeDisplay/1.5, enemy.dialogueColor, "white");
+				}
 			}
 		}
 	}
+}
+
+function KDGetColor(enemy) {
+	return "#ffffff";
+	//if (enemy.color) return enemy.color;
+	//if (enemy.Enemy.color) return enemy.Enemy.color;
+	//return "#ffff44";
 }
 
 let KDChampionMax = 25;
@@ -1090,9 +1107,11 @@ function KinkyDungeonUpdateEnemies(delta, Allied) {
 	}
 
 	if (Allied) {
+		KinkyDungeonUpdateDialogue(KinkyDungeonPlayerEntity, delta);
 		let KinkyDungeonSummons = 0;
 		for (let i = KinkyDungeonEntities.length-1; i >= 0; i--) {
 			let enemy = KinkyDungeonEntities[i];
+			KinkyDungeonUpdateDialogue(enemy, delta);
 			if (KDAllied(enemy) && enemy.summoned && enemy.Enemy.allied && !enemy.Enemy.noCountLimit && (!enemy.lifetime || enemy.lifetime > 999)) {
 				KinkyDungeonSummons += 1;
 				if (KinkyDungeonSummons > KinkyDungeonSummonCount) {
@@ -1644,8 +1663,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 			enemy.playWithPlayerCD = enemy.playWithPlayer * 2.5;
 			KDAddThought(enemy.id, "Play", 4, enemy.playWithPlayer);
 			let index = Math.floor(Math.random() * 3);
-			let suff = enemy.Enemy.playLine ? enemy.Enemy.playLine : "";
-			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 4);
+			let suff = (enemy.Enemy.playLine ? enemy.Enemy.playLine : "");
+
+			KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJailPlay" + suff + index).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 4, 3);
 		}
 	}
 
@@ -2054,8 +2074,10 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 							KinkyDungeonMovePoints = -1;
 							let msg = TextGet("KinkyDungeonTorsoGrab").replace("RestraintName", TextGet("Restraint" + harnessRestraintName)).replace("EnemyName", TextGet("Name" + enemy.Enemy.name));
 
-							if (!KinkyDungeonSendTextMessage(5, msg, "yellow", 1))
-								KinkyDungeonSendActionMessage(5, msg, "yellow", 1);
+							KinkyDungeonSendTextMessage(5, msg, "yellow", 1);
+
+							if (KDRandom() < actionDialogueChance)
+								KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Grab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 4);
 
 							KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Grab.ogg", enemy);
 							KinkyDungeonTorsoGrabCD = 2;
@@ -2077,9 +2099,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 				: KinkyDungeonMultiplicativeStat(((player.Enemy && player.Enemy.evasion) ? player.Enemy.evasion : 0)) * KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(player.buffs, "Evasion"));
 
 			if (hit) {
-				if (player.player)
+				if (player.player) {
 					KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "incomingHit", 1);
-				else
+				} else
 					KinkyDungeonTickBuffTag(player.buffs, "incomingHit", 1);
 			}
 
@@ -2100,12 +2122,16 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSendEvent("miss", {enemy: enemy});
 					KinkyDungeonSendTextMessage(2, TextGet("KinkyDungeonAttackMiss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "lightgreen", 1);
 
+					if (KDRandom() < actionDialogueChance)
+						KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Miss").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 4, 4);
 				}
 				KDAddThought(enemy.id, "Annoyed", 4, 1);
 				enemy.vulnerable = Math.max(enemy.vulnerable, 1);
 				hit = false;
 			}
 			if (hit) {
+				if (KDRandom() < actionDialogueChanceIntense)
+					KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "HitPlayer").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 3, 5);
 				let replace = [];
 				let restraintAdd = [];
 				let willpowerDamage = 0;
@@ -2136,6 +2162,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						if (enemy.usingSpecial && Locked && enemy.Enemy.specialAttack && enemy.Enemy.specialAttack.includes("Lock")) {
 							enemy.specialCD = enemy.Enemy.specialCD;
 						}
+						if (KDRandom() < actionDialogueChanceIntense)
+							KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Lock").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 4);
+
 					} else if (attack.includes("Bind")
 						&& (addMoreRestraints || addLeash)
 						&& ((!enemy.usingSpecial && !enemy.Enemy.bindOnKneel) || (enemy.usingSpecial && !enemy.Enemy.bindOnKneelSpecial) || KinkyDungeonPlayer.Pose.includes("Kneel") || KinkyDungeonPlayer.Pose.includes("Hogtie"))) {
@@ -2209,6 +2238,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						enemy.items.push("knife");
 					}*/
 					KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/Miss.ogg", enemy);
+					if (KDRandom() < actionDialogueChanceIntense)
+						KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Pickpocket").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 1);
+
 				}
 
 				if (attack.includes("Suicide")) {
@@ -2299,6 +2331,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 											if (KinkyDungeonTiles.get(enemy.x + ',' +enemy.y) && KinkyDungeonTiles.get(enemy.x + ',' +enemy.y).Type == "Door")
 												KinkyDungeonTiles.get(enemy.x + ',' +enemy.y).Lock = undefined;
 										}
+
+										if (KDRandom() < actionDialogueChanceIntense)
+											KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Leash").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 3);
 										if (!KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
 											KinkyDungeonSendActionMessage(1, TextGet("KinkyDungeonLeashGrab").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 									}
@@ -2321,6 +2356,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 										player.y = leashPoint.y;
 										let msg = "KinkyDungeonLeashGrab";
 										if (enemy.Enemy.pullMsg) msg = "Attack" + enemy.Enemy.name + "Pull";
+
+										if (KDRandom() < actionDialogueChanceIntense)
+											KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Pull").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 3);
 										if (!KinkyDungeonSendTextMessage(8, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1))
 											KinkyDungeonSendActionMessage(3, TextGet(msg).replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), "yellow", 1);
 									}
@@ -2379,6 +2417,9 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						happened += 1;
 						priorityBonus += 3*time;
 						Stun = true;
+						if (KDRandom() < actionDialogueChanceIntense)
+							KinkyDungeonSendDialogue(enemy, TextGet("KinkyDungeonRemindJail" + (enemy.Enemy.playLine ? enemy.Enemy.playLine : "") + "Stun").replace("EnemyName", TextGet("Name" + enemy.Enemy.name)), KDGetColor(enemy), 2, 3);
+
 					}
 					if (attack.includes("Blind")) {
 						let time = enemy.Enemy.blindTime ? enemy.Enemy.blindTime : 1;
