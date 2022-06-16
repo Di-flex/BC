@@ -169,7 +169,7 @@ function KinkyDungeonDrawGame() {
 
 	if (KinkyDungeonDrawState == "Game")
 		KinkyDungeonListenKeyMove();
-	if ((KinkyDungeonGameKey.keyPressed[9])) {
+	if ((KinkyDungeonGameKey.keyPressed[9]) && !KinkyDungeonDrawStatesModal.includes(KinkyDungeonDrawState)) {
 		if (KinkyDungeonDrawState == "Magic") {
 			KinkyDungeonDrawState = "MagicSpells";
 			KinkyDungeonGameKey.keyPressed[9] = false;

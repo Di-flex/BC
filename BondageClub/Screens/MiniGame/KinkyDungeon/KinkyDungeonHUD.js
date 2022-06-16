@@ -23,6 +23,7 @@ let KinkyDungeonStruggleGroupsBase = [
 let KinkyDungeonDrawStruggle = 1;
 let KinkyDungeonDrawStruggleHover = false;
 let KinkyDungeonDrawState = "Game";
+let KinkyDungeonDrawStatesModal = ["Heart", "Orb"];
 let KinkyDungeonSpellValid = false;
 let KinkyDungeonCamX = 0;
 let KinkyDungeonCamY = 0;
