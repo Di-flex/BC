@@ -823,6 +823,7 @@ interface entity {
 	dialogueColor?: string,
 	dialoguePriority?: number,
 	CustomName?: string,
+	CustomSprite?: string,
 	CustomNameColor?: string,
 	rescue?: boolean,
 	personality?: string,

@@ -872,6 +872,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 						let custom = customs[Math.floor(customs.length * KDRandom())];
 						e.CustomName = custom.name;
 						e.CustomNameColor = custom.color;
+						e.CustomSprite = custom.customSprite;
 					}
 				}
 				let incrementCount = 1;

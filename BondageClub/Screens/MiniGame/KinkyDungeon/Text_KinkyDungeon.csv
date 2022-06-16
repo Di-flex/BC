@@ -1463,6 +1463,11 @@ KillWitchShock,"The shock witch vanishes into a cloud of thunder, leaving behind
 AttackWitchShockBind,"The witch restraints you! (+RestraintAdded)"
 AttackWitchShock,"The witch slaps you playfully! (-DamageTaken SP)"
 
+NameWitchFlame,Flame Witch
+KillWitchFlame,"The flame witch vanishes into a pile of ash."
+AttackWitchFlameBind,"The witch restraints you! (+RestraintAdded)"
+AttackWitchFlame,"The witch slaps you playfully! (-DamageTaken SP)"
+
 
 NameWitchRope,Rope Witch
 KillWitchRope,"The rope witch retreats as her animated ropes chase her."

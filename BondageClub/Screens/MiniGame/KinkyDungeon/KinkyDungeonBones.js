@@ -27,6 +27,11 @@ let KDPatronCustomEnemies = new Map([
 	],
 	["Maidforce", [
 		{name: "Ester", color: "#97edca", prisoner: true, free: false, customSprite: ""},
+		{name: "Rest", color: "#999999", prisoner: false, free: false, customSprite: ""},
+	],
+	],
+	["WitchFlame", [
+		{name: "Myrtrice", color: "#d30000", prisoner: false, free: true, customSprite: "Myrtrice"},
 	],
 	],
 	["BanditPet", [
