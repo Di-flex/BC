@@ -3134,6 +3134,7 @@ ItemPickupScrollVerbal,"You pick up a Scroll of Speech."
 ItemPickupScrollLegs,"You pick up a Scroll of Sauntering."
 
 KinkyDungeonDisarm,"As you strike again, your weapon is pulled out of your grasp!"
+KinkyDungeonDisarmCut,"Your weapon slips out of your hand as you try to cut with it..."
 
 KinkyDungeonUnEquipWeapon,"You put away the WEAPONNAME"
 KinkyDungeonEquipWeapon,"You equip the WEAPONNAME"

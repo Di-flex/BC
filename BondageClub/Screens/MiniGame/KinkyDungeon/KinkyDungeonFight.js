@@ -558,7 +558,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 	return predata.dmg;
 }
 
-function KinkyDungeonDisarm(Enemy) {
+function KinkyDungeonDisarm(Enemy, suff) {
 	if (!Enemy) {
 		console.log("Error processing disarm! Please report!");
 		return false;
@@ -601,7 +601,7 @@ function KinkyDungeonDisarm(Enemy) {
 			KinkyDungeonInventoryRemove(KinkyDungeonInventoryGetWeapon(weapon));
 
 			KinkyDungeonGroundItems.push(dropped);
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm"), "red", 2);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm" + suff), "red", 2);
 
 			return true;
 		}

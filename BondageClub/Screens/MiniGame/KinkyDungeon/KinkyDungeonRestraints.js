@@ -1414,7 +1414,7 @@ function KinkyDungeonStruggle(struggleGroup, StruggleType, index) {
 							+ ((KDRestraint(restraint).sfxEscape && KDRestraint(restraint).sfxEscape.KnifeDrop) ? KDRestraint(restraint).sfxEscape.KnifeDrop : "Miss")
 							+ ".ogg");
 						Pass = "Drop";
-						KinkyDungeonDisarm(KinkyDungeonPlayerEntity);
+						KinkyDungeonDisarm(KinkyDungeonPlayerEntity, "Cut");
 					} else {
 						if (KDRestraint(restraint).magic && data.canCutMagic) {
 							if (KinkyDungeonSound) AudioPlayInstantSound(KinkyDungeonRootDirectory + "/Audio/"
