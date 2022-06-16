@@ -77,8 +77,8 @@ let KDDefaultKB = {
 	Log: KinkyDungeonKeyMenu[4],
 
 	MsgLog: KinkyDungeonKeyToggle[0],
-	Door: KinkyDungeonKeyToggle[1],
-	Pass: KinkyDungeonKeyToggle[2],
+	Pass: KinkyDungeonKeyToggle[1],
+	Door: KinkyDungeonKeyToggle[2],
 	AStruggle: KinkyDungeonKeyToggle[3],
 	APathfind: KinkyDungeonKeyToggle[4],
 };
@@ -1301,8 +1301,8 @@ function KDCommitKeybindings() {
 	];
 	KinkyDungeonKeyToggle = [
 		KinkyDungeonKeybindings.MsgLog,
-		KinkyDungeonKeybindings.Door,
 		KinkyDungeonKeybindings.Pass,
+		KinkyDungeonKeybindings.Door,
 		KinkyDungeonKeybindings.AStruggle,
 		KinkyDungeonKeybindings.APathfind,
 	];
