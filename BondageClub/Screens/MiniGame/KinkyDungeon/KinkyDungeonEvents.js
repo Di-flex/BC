@@ -57,7 +57,7 @@ let KDEventMapInventory = {
 		"PrisonerJacket": (e, item, data) => {
 			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
 				let asset = KinkyDungeonPlayer.Appearance[A].Asset;
-				if (asset.Name == item.name) {
+				if (asset.Name == KDRestraint(item).Asset) {
 					KinkyDungeonPlayer.Appearance[A].Property = {
 						"Text": "PATIENT",
 						"Type": "ShortsAndStraps",
