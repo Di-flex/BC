@@ -93,7 +93,20 @@ function KDFactionAllied(a, b) {
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;
-	if (KDFactionRelation(a, b) >= 0.7) return true;
+	if (KDFactionRelation(a, !(typeof b === "string") ? KDGetFaction(b) : b) >= 0.7) return true;
+	if (a == b) return true;
+	return false;
+}
+
+/**
+ * Consults the faction table and decides if the two mentioned factions are favorable (i.e no friendly fire)
+ * @param {string} a - Faction 1
+ * @param {string | entity} b - Faction 2
+ * @returns {boolean}
+ */
+function KDFactionFavorable(a, b) {
+	if (KDFactionAllied(a, b)) return true;
+	if (KDFactionRelation(a, !(typeof b === "string") ? KDGetFaction(b) : b) >= 0.099) return true;
 	if (a == b) return true;
 	return false;
 }
