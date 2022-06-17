@@ -1529,6 +1529,8 @@ function KinkyDungeonHandleClick() {
 				CharacterRefresh(KinkyDungeonPlayer);
 				KDInitProtectedGroups();
 				localStorage.setItem("kinkydungeonappearance", LZString.compressToBase64(CharacterAppearanceStringify(KinkyDungeonPlayer)));
+
+				KinkyDungeonDressSet();
 			}
 			// Return to menu
 			KinkyDungeonState = "Menu";
