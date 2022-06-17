@@ -983,6 +983,11 @@ Spell Balance:
 - You now have 21 spell slots, split among 3 pages. Check the keybindings as there are new ones added!
 - Shift, control, and other keys now work as keybindings
 - Spell progression
+- New enemy: Flame witch
+
+3.43 Bugfix
+- Fixed command word not working on layered items
+
 
 TODO ValidationFindBlockCycles to prevent bugs
 

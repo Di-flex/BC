@@ -238,6 +238,11 @@ let KDEventMapInventory = {
 				KinkyDungeonSendTextMessage(1, TextGet("KinkyDungeonCrystalDrain"), "lightblue", 2);
 			}
 		},
+		"barrelDebuff": (e, item, data) => {
+			if (!data.delta) return;
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Counterbarrel", type: "SlowDetection", duration: 1, power: -10, player: true, enemies: true, endSleep: true, tags: ["SlowDetection", "move", "cast"]});
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "Counterbarrel3", type: "Sneak", duration: 1, power: -2.5, player: true, enemies: true, endSleep: true, tags: ["Sneak", "move", "cast"]});
+		},
 		"slimeSpread": (e, item, data) => {
 			if (!data.delta) return;
 			KinkyDungeonSlimeLevel = Math.max(KinkyDungeonSlimeLevel, KinkyDungeonSlimeLevelStart + e.power);

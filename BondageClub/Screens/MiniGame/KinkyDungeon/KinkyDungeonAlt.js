@@ -77,6 +77,7 @@ let alts = {
 		nolore: true,
 		nostairs: true,
 		notraps: true,
+		noClutter: true,
 		skiptunnel: true, // Skip the ending tunnel
 	},
 	"Tutorial": {

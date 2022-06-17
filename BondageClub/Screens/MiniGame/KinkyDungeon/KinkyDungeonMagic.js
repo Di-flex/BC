@@ -1054,7 +1054,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 				}
 				return "Fail";
 			} else if (KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"]).length > 0) {
-				for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"])) {
+				for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"], true)) {
 					KinkyDungeonLock(r, "");
 				}
 				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonPurpleLockRemove"), "yellow", 2);

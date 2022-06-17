@@ -103,11 +103,6 @@ let KinkyDungeonLearnableSpells = [
 		// Passive
 		["Analyze", "TrueSight", "EnemySense"],
 	],
-
-	//Page 4
-	[
-
-	],
 ];
 
 
