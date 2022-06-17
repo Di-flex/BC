@@ -996,7 +996,7 @@ function KinkyDungeonDefeat(PutInJail) {
 	KDGameData.AlertTimer = 0;
 	let nearestJail = KinkyDungeonNearestJailPoint(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 	if (!nearestJail) {
-		nearestJail = KinkyDungeonStartPosition;
+		nearestJail = Object.assign({type: "jail"}, KinkyDungeonStartPosition);
 	}
 	KDSendStatus('jailed');
 	KDSendEvent('jail');

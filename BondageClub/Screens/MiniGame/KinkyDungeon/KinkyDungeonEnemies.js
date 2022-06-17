@@ -12,10 +12,12 @@ let actionDialogueChance = 0.1;
 let actionDialogueChanceIntense = 0.4;
 
 
-function KinkyDungeonNearestJailPoint(x, y) {
+function KinkyDungeonNearestJailPoint(x, y, filter) {
+	let filt = filter ? filter : "jail";
 	let dist = 100000;
 	let point = null;
 	for (let p of KDGameData.JailPoints) {
+		if (p.type && p.type != filt) continue;
 		let d = Math.max(Math.abs(x - p.x), Math.abs(y - p.y));
 		if (d < dist) {
 			dist = d;
@@ -2270,12 +2272,12 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					let leashed = wearingLeash || attack.includes("Pull");
 					if (leashed) {
 						let nearestJail = KinkyDungeonNearestJailPoint(enemy.x, enemy.y);
-						if (KinkyDungeonFlags.has("LeashToPrison")) nearestJail = KinkyDungeonStartPosition;
+						if (KinkyDungeonFlags.has("LeashToPrison")) nearestJail = Object.assign({type: "jail"}, KinkyDungeonStartPosition);
 						let leashPos = nearestJail;
 						let findMaster = undefined;
 						if (!leashToExit && enemy.Enemy.pullTowardSelf && (Math.abs(player.x - enemy.x) > 1.5 || Math.abs(player.y - enemy.y) > 1.5)) {
 							findMaster = enemy;
-							if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
+							if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y, type: ""};
 						} else {
 							if (attack.includes("Pull") && enemy.Enemy.master) {
 								/*let masterDist = 1000;
@@ -2290,7 +2292,7 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 								}*/
 								let fm = KinkyDungeonFindMaster(enemy);
 								findMaster = fm.master;
-								if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y};
+								if (findMaster) leashPos = {x: findMaster.x, y: findMaster.y, type: ""};
 							}
 						}
 						if (nearestJail && leashPos == nearestJail && !KinkyDungeonHasStamina(1.1) && Math.abs(KinkyDungeonPlayerEntity.x - leashPos.x) <= 1 && Math.abs(KinkyDungeonPlayerEntity.y - leashPos.y) <= 1) {
@@ -2449,10 +2451,11 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 						attacker: enemy,
 					};
 					KinkyDungeonSendEvent("beforeDamage", data);
-					happened += KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
+					let dmg = KinkyDungeonDealDamage({damage: data.damage, type: data.damagetype});
+					happened += dmg.happened;
 					KinkyDungeonSetFlag("NPCCombat",  3);
 
-					replace.push({keyword:"DamageTaken", value: data.damage});
+					replace.push({keyword:"DamageTaken", value: dmg.string});
 				} else { // if (KDRandom() <= playerEvasion)
 					if (attack.includes("Slow")) {
 						if (player.movePoints)
@@ -2501,6 +2504,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 					KinkyDungeonSetFlag("NPCCombat",  3);
 					KinkyDungeonTickBuffTag(enemy.buffs, "hit", 1);
 					if (happened > 0) {
+						// Decrement play timer on a hit
+						if (enemy.playWithPlayer) enemy.playWithPlayer = Math.max(0, enemy.playWithPlayer - 2 * Math.max(1, ((enemy.usingSpecial && enemy.Enemy.specialAttackPoints) ? enemy.Enemy.specialAttackPoints : enemy.Enemy.attackPoints))); // Decrement each attack....
 						let sfx = (hitsfx) ? hitsfx : "DealDamage";
 						KinkyDungeonPlaySound(KinkyDungeonRootDirectory + "/Audio/" + sfx + ".ogg", enemy);
 					}

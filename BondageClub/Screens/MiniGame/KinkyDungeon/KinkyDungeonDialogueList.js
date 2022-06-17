@@ -1403,10 +1403,10 @@ let KDDialogue = {
 								let e = KDDialogueEnemy();
 								e.boundLevel = 0;
 								e.allied = 9999;
-								e.faction = "Player";
 								e.specialdialogue = undefined;
 								KinkyDungeonAggroFaction("Jail");
 								let faction = KDGetFactionOriginal(e);
+								e.faction = "Player";
 								if (!KinkyDungeonHiddenFactions.includes(faction)) {
 									if (KDFactionRelation("Player", faction) < 0.25)
 										KinkyDungeonChangeFactionRep(faction, 0.005);
@@ -1450,10 +1450,10 @@ let KDDialogue = {
 								let e = KDDialogueEnemy();
 								e.boundLevel = 0;
 								e.allied = 9999;
-								e.faction = "Player";
 								e.specialdialogue = undefined;
 								KinkyDungeonAggroFaction("Jail");
 								let faction = KDGetFactionOriginal(e);
+								e.faction = "Player";
 								if (!KinkyDungeonHiddenFactions.includes(faction)) {
 									if (KDFactionRelation("Player", faction) < 0.25)
 										KinkyDungeonChangeFactionRep(faction, 0.005);

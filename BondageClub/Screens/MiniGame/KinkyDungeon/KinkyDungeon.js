@@ -154,7 +154,7 @@ let KDOptOut = false;
 * Outfit: string,
 * Champion: string,
 * ChampionCurrent: number,
-* JailPoints: {x: number, y: number}[],
+* JailPoints: {x: number, y: number, type: string}[],
 * LastMapSeed: string,
 * AlreadyOpened: {x: number, y:number}[],
 * Journey: string,

@@ -388,7 +388,7 @@ function KinkyDungeonDrawInventorySelected(item, noscroll) {
 			DrawText(TextGet("KinkyDungeonWeaponAccuracy") + Math.round(weapon.chance * 100) + "%", canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 350, "black", "silver");
 			let cost = -KinkyDungeonStatStaminaCostAttack;
 			if (weapon.staminacost) cost = weapon.staminacost;
-			DrawText(TextGet("KinkyDungeonWeaponStamina") + (-1*cost), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 390, "black", "silver");
+			DrawText(TextGet("KinkyDungeonWeaponStamina") + Math.round(-10*cost), canvasOffsetX_ui + 640*KinkyDungeonBookScale/3.35, canvasOffsetY_ui + 483*KinkyDungeonBookScale/5 + 390, "black", "silver");
 		}
 
 	} else {

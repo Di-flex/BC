@@ -370,7 +370,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				if (KDRandom() < 0.5 + (KDGameData.RoomType == "Jail" ? 0.25 : 0)) {
 					SetpieceSpawnPrisoner(cornerX+1, cornerY+3);
 				}
-				KDGameData.JailPoints.push({x: cornerX+2, y: cornerY+2});
+				KDGameData.JailPoints.push({x: cornerX+2, y: cornerY+2, type: "jail"});
 				break;
 			case "ExtraCell":
 				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
@@ -398,7 +398,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				}
 
 				KinkyDungeonMapSet(cornerX+1, cornerY+1, 'B');
-				KDGameData.JailPoints.push({x: cornerX+1, y: cornerY+1});
+				KDGameData.JailPoints.push({x: cornerX+1, y: cornerY+1, type: "jail"});
 				break;
 			case "Storage":
 				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, false);

@@ -299,11 +299,22 @@ function KinkyDungeonInterruptSleep() {
 	KDGameData.PlaySelfTurns = 0;
 }
 
+let KDBaseDamageTypes = {
+	arouseTypes: ["grope", "charm", "happygas"],
+	distractionTypesWeakNeg: ["pain", "acid"],
+	distractionTypesWeak:["grope"],
+	distractionTypesStrong:["tickle", "charm", "souldrain", "happygas"],
+	staminaTypesWeak:["electric", "tickle", "drain", "acid"],
+	staminaTypesStrong:["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"],
+	manaTypesWeak:["electric", "poison", "souldrain"],
+	manaTypesString:["drain"],
+};
+
 function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
 	if (bullet && !noAlreadyHit) {
 		if (!bullet.alreadyHit) bullet.alreadyHit = [];
 		// A bullet can only damage an enemy once per turn
-		if (bullet.alreadyHit.includes("player")) return 0;
+		if (bullet.alreadyHit.includes("player")) return {happened: 0, string: ""};
 		bullet.alreadyHit.push("player");
 	}
 
@@ -318,14 +329,14 @@ function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
 			KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "meleeDamageResist"))
 			: KinkyDungeonMultiplicativeStat(KinkyDungeonGetBuffedStat(KinkyDungeonPlayerBuffs, "magicDamageResist"))),
 		arouseAmount: 0,
-		arouseTypes: ["grope", "charm", "happygas"],
-		distractionTypesWeakNeg: ["pain", "acid"],
-		distractionTypesWeak:["grope"],
-		distractionTypesStrong:["tickle", "charm", "souldrain", "happygas"],
-		staminaTypesWeak:["electric", "tickle", "drain", "acid"],
-		staminaTypesStrong:["glue", "ice", "frost", "cold", "pain", "crush", "chain", "fire", "grope", "poison", "stun", "pierce", "slash", "unarmed", "souldrain"],
-		manaTypesWeak:["electric", "poison", "souldrain"],
-		manaTypesString:["drain"],
+		arouseTypes: Object.assign([], KDBaseDamageTypes.arouseTypes),
+		distractionTypesWeakNeg: Object.assign([], KDBaseDamageTypes.distractionTypesWeakNeg),
+		distractionTypesWeak: Object.assign([], KDBaseDamageTypes.distractionTypesWeak),
+		distractionTypesStrong: Object.assign([], KDBaseDamageTypes.distractionTypesStrong),
+		staminaTypesWeak: Object.assign([], KDBaseDamageTypes.staminaTypesWeak),
+		staminaTypesStrong: Object.assign([], KDBaseDamageTypes.staminaTypesStrong),
+		manaTypesWeak: Object.assign([], KDBaseDamageTypes.manaTypesWeak),
+		manaTypesString: Object.assign([], KDBaseDamageTypes.manaTypesString),
 	};
 
 	if (KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y) == 'w') {
@@ -355,24 +366,47 @@ function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
 	}
 
 
+	let str = "";
+
 	if (data.distractionTypesWeak.includes(data.type)) {
-		KinkyDungeonChangeDistraction(Math.ceil(data.dmg/2), false, data.arouseAmount);
+		let amt = data.dmg/2;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}ap`;
+		KinkyDungeonChangeDistraction(amt, false, data.arouseAmount);
 	}
 	if (data.distractionTypesWeakNeg.includes(data.type)) {
-		KinkyDungeonChangeDistraction(Math.ceil(-data.dmg/2));
+		let amt = -data.dmg/2;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}ap`;
+		KinkyDungeonChangeDistraction(amt);
 	}
 	if (data.distractionTypesStrong.includes(data.type)) {
-		KinkyDungeonChangeDistraction(data.dmg, false, data.arouseAmount);
+		let amt = data.dmg;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}ap`;
+		KinkyDungeonChangeDistraction(amt, false, data.arouseAmount);
 	}
 	if (data.staminaTypesStrong.includes(data.type)) {
-		KinkyDungeonChangeStamina(-data.dmg);
+		let amt = -data.dmg;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}sp`;
+		KinkyDungeonChangeStamina(amt);
 	} else if (data.staminaTypesWeak.includes(data.type)) {
-		KinkyDungeonChangeStamina(-Math.ceil(data.dmg/2));
+		let amt = -data.dmg/2;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}sp`;
+		KinkyDungeonChangeStamina(amt);
 	}
 	if (data.manaTypesString.includes(data.type)) {
-		KinkyDungeonChangeMana(-data.dmg);
+		let amt = -data.dmg;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}mp`;
+		KinkyDungeonChangeMana(amt);
 	} else if (data.manaTypesWeak.includes(data.type)) {
-		KinkyDungeonChangeMana(-Math.ceil(data.dmg/2));
+		let amt = -data.dmg/2;
+		if (str) str = str + ", ";
+		str = str + `${Math.round(amt*10)}mp`;
+		KinkyDungeonChangeMana(amt);
 	}
 	KinkyDungeonInterruptSleep();
 
@@ -383,7 +417,7 @@ function KinkyDungeonDealDamage(Damage, bullet, noAlreadyHit) {
 
 
 
-	return data.dmg;
+	return {happened: data.dmg, string: str};
 }
 
 function KinkyDungeonUpdateDialogue(entity, delta) {

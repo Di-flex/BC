@@ -130,7 +130,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 					KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonSpellShatter" + spell.name), "red", 1);
 				}
 				let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
-				if (dmg) effect = true;
+				if (dmg.happened) effect = true;
 			}
 		} if (playerEffect.name == "ShadowStrike") {
 			let restraintAdd = KinkyDungeonGetRestraint({tags: ["shadowRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
@@ -141,18 +141,18 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 				effect = true;
 			}
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
-			if (dmg) effect = true;
+			if (dmg.happened) effect = true;
 		} if (playerEffect.name == "Damage") {
 			let dmg = KinkyDungeonDealDamage({damage: Math.max((spell.aoepower) ? spell.aoepower : 0, spell.power), type: spell.damage}, bullet);
-			KinkyDungeonSendTextMessage(Math.min(spell.power, 5), TextGet("KinkyDungeonDamageSelf").replace("DamageDealt", dmg), "red", 1);
-			if (dmg) effect = true;
+			KinkyDungeonSendTextMessage(Math.min(spell.power, 5), TextGet("KinkyDungeonDamageSelf").replace("DamageDealt", dmg.string), "red", 1);
+			if (dmg.happened) effect = true;
 		} else if (playerEffect.name == "Ignition") {
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
-			KinkyDungeonSendTextMessage(playerEffect.power, TextGet("KinkyDungeonBuffIgniteDamage").replace("DamageDealt", dmg), "red", 1);
-			if (dmg) effect = true;
+			KinkyDungeonSendTextMessage(playerEffect.power, TextGet("KinkyDungeonBuffIgniteDamage").replace("DamageDealt", dmg.string), "red", 1);
+			if (dmg.happened) effect = true;
 		} else if (playerEffect.name == "DamageNoMsg") {
 			let dmg = KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
-			if (dmg) effect = true;
+			if (dmg.happened) effect = true;
 		} else if (playerEffect.name == "Blind") {
 			KinkyDungeonStatBlind = Math.max(KinkyDungeonStatBlind, playerEffect.time);
 			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonBlindSelf"), "red", playerEffect.time);
