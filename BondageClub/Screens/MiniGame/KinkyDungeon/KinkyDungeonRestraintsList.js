@@ -226,7 +226,7 @@ const KinkyDungeonRestraints = [
 		maxstamina: 0.5, enemyTags: {"wolfRestraints" : 6, "wolfGear":6}, playerTags: {"ItemPelvisFull": -5, "NoVibes": -1000}, minLevel: 0, allFloors: true, shrine: ["Latex", "Panties", "Vibes"]},
 	//endregion
 
-  //region Cosplay
+	//region Cosplay
 	{inventory: true, name: "BindingDress", inaccessible: true, remove: ["Cloth", "Bra"], Type: "Strap", Asset: "LeatherArmbinder", strictness: 0.25, Color: ['#473488'], Group: "ItemArms", bindarms: true, bindhands: true, power: 7, weight: 0,
 		escapeChance: {"Struggle": -0.1, "Cut": 0.2, "Remove": -0.2, "Pick": 0.15}, helpChance: {"Struggle": -0.1, "Cut": 0.2, "Remove": 0.025},
 		limitChance: {"Struggle": 0.125, "Cut": 0.125, "Remove": 0.1, "Unlock": 0.5},
@@ -243,12 +243,12 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "AsylumJacket", Asset: "HighSecurityStraitJacket", Modules: [1, 1, 3], Color: ["#333", "#333", '#808080', '#808080'], LinkableBy: ["TransportJackets"], Group: "ItemArms", power: 7, weight: 0, bindarms: true, bindhands: true,strictness: 0.2,
 		limitChance: {"Struggle": 0.12, "Cut": 0.03, "Remove": 0.1, "Unlock": 0.75}, // Hard to escape the arms box by struggling
 		escapeChance: {"Struggle": -0.175, "Cut": 0.1, "Remove": 0.15, "Pick": 0.15},
-    enemyTags: {"nurseRestraints": 5}, playerTags: {"ItemArmsFull":-2}, minLevel: 0, maxstamina: 0.35, allFloors: true, shrine: ["Straitjackets"]},
+		enemyTags: {"nurseRestraints": 5}, playerTags: {"ItemArmsFull":-2}, minLevel: 0, maxstamina: 0.35, allFloors: true, shrine: ["Straitjackets"]},
 
 	{inventory: true, name: "TransportJacket", Asset: "TransportJacket", events: [{type: "PrisonerJacket", trigger: "afterDress"}], Color: ["#808080", "#202020", "#808080", "#EEE", "#202020", "#808080"], Group: "ItemArms", power: 10, weight: 0, bindarms: true, bindhands: true,strictness: 0.3,
 		limitChance: {"Struggle": 0.12, "Cut": 0.03, "Remove": 0.1, "Unlock": 0.75}, // Hard to escape the arms box by struggling
 		escapeChance: {"Struggle": -0.175, "Cut": 0.1, "Remove": 0.15, "Pick": 0.15},
-    enemyTags: {"nurseRestraints": -1}, playerTags: {"ItemArmsFull":10}, minLevel: 0, maxstamina: 0.30, allFloors: true, shrine: ["Straitjackets", "TransportJackets"]},
+		enemyTags: {"nurseRestraints": -1}, playerTags: {"ItemArmsFull":10}, minLevel: 0, maxstamina: 0.30, allFloors: true, shrine: ["Straitjackets", "TransportJackets"]},
 
 	{renderWhenLinked: ["Belts"], inventory: true, name: "AsylumLegbinder", Asset: "LegBinder", LinkableBy: ["Hobbleskirts", "Belts"], Color: "Default", Group: "ItemLegs", blockfeet: true, power: 6, weight: 2, escapeChance: {"Struggle": -0.1, "Cut": 0.1, "Remove": 0.35, "Pick": 0.25}, enemyTags: {"nurseRestraints": 1}, playerTags: {"ItemArmsFull":3}, minLevel: 0, allFloors: true, shrine: ["Leather", "Legbinders"]},
 
@@ -263,7 +263,7 @@ const KinkyDungeonRestraints = [
 	{inventory: true, name: "AsylumMuzzle", gag: 1.0, Asset: "FuturisticMuzzle", Modules: [1, 1, 0], Group: "ItemMouth3", Color: ["#814F21","#814F21","#814F21","#814F21"], power: 8, weight: 2, escapeChance: {"Struggle": -0.1, "Cut": 0.18, "Remove": 0.4, "Pick": 0.2}, maxstamina: 0.9,
 		enemyTags: {"nurseRestraints":3}, playerTags: {"ItemMouthFull":1}, minLevel: 0, allFloors: true, shrine: ["Leather", "Gags"]},
 
-  //endregion
+	//endregion
 
 	//region Fuuka's stuff
 	{inventory: true, curse: "GhostLock", name: "MikoCollar", Asset: "HighCollar", Color: ["#ffffff", "#AA2222"],Group: "ItemNeck", magic: true, power: 40, weight: 0, difficultyBonus: 10,
