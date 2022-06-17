@@ -1544,6 +1544,12 @@ AttackDressmakerBind,"The dressmaker has you try on one of her new accessories! 
 AttackDressmakerLock,"The dressmaker adds a lock 'just to complete the look, you know?'"
 AttackDressmaker,"The dressmaker cuddles your helpless body~ (DamageTaken)"
 
+NameNurse,Nurse
+KillNurse,"The Nurse checks her notes and runs off."
+AttackNurseBind,"The Nurse tries to pacify this rowdy patient! (+RestraintAdded)"
+AttackNurseLock,"The Nurse adds a lock to keep you from hurting the staff."
+AttackNurse,"The Nurse assures you it's going to be alright~ (DamageTaken)"
+
 NameLibrarian,Librarian
 KillLibrarian,"The librarian gets angry and retreats."
 AttackLibrarianBind,"The librarian shushes you as she brandishes a restraint! (+RestraintAdded)"
@@ -2514,6 +2520,27 @@ RestraintWolfLeashDesc2,"It is a steel cable with a weatherproof rubber coating,
 KinkyDungeonLinkWolfAnkleCuffs,"Your ankle cuffs snap together on their own!"
 KinkyDungeonUnLinkWolfAnkleCuffs2,"Your ankle cuffs detach!"
 
+
+RestraintAsylumMuzzle,Asylum Muzzle
+RestraintAsylumMuzzleDesc,"The nurses use this on noisy patients!"
+RestraintAsylumMuzzleDesc2,"It's sturdy leather..."
+RestraintAsylumJacket,Asylum Jacket
+RestraintAsylumJacketDesc,"A straitjacket that keeps patients out of trouble."
+RestraintAsylumJacketDesc2,"It has many straps and is very difficult to escape."
+RestraintAsylumLegbinder,Asylum Legbinder
+RestraintAsylumLegbinderDesc,"This legbinder will keep the patient from kicking the nurses."
+RestraintAsylumLegbinderDesc2,"It has both laces and straps."
+RestraintAsylumAnkleCuffs,Leather Ankle Cuffs
+RestraintAsylumAnkleCuffsDesc,"A pair of chained cuffs made of leather. They make patients easier to catch."
+RestraintAsylumAnkleCuffsDesc2,"They can be thrown from long distances."
+KinkyDungeonLinkAsylumAnkleCuffs,"The enemy attaches your ankle cuffs together!"
+RestraintAsylumAnkleCuffs2,Cuffs Chain
+RestraintAsylumAnkleCuffsDesc,"A pair of chained cuffs made of leather. They make patients easier to catch."
+RestraintAsylumAnkleCuffsDesc2,"They can be thrown from long distances."
+KinkyDungeonUnLinkAsylumAnkleCuffs2,"The ankle cuff chain detaches!"
+RestraintTransportJacket,Transport Jacket
+RestraintTransportJacketDesc,"This jacket goes over a straitjacket to keep the arms trapped."
+RestraintTransportJacketDesc2,"It makes it extraordinarily difficult to escape the jacket it covers."
 
 RestraintComfyGag,Comfy Muzzle
 RestraintComfyGagDesc,A lovely muzzle that's extraordinarily comfy!
@@ -3731,6 +3758,10 @@ KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 KinkyDungeonSpellHighBolt,Curious Spell
 KinkyDungeonFlummox,You have been flummoxed!
 
+KinkyDungeonSpellNurseBola,Cuff Bola
+KinkyDungeonSpellNurseSyringe,Throw Syringe
+KinkyDungeonNurseSyringe,"You feel a prick as a small syringe hits you, and you start feeling drowsy..."
+KinkyDungeonNurseBola,"The thrown cuffs snap shut around your ankles and slow you down!!!"
 KinkyDungeonSpellRibbonBurst,Ribbon Burst
 KinkyDungeonSpellSpores,Spores
 KinkyDungeonSpellSporesSick,Noxious Spores
@@ -4756,6 +4787,37 @@ KinkyDungeonRemindJailDressmakerPull,"So nice of you to join me!"
 KinkyDungeonRemindJailDressmakerStun,"Now let's see, what to dress you in..."
 KinkyDungeonRemindJailDressmakerPickpocket,"A gift? Thank you so much!"
 KinkyDungeonRemindJailDressmakerLock,"You won't be getting out of that any time soon!"
+
+KinkyDungeonRemindJailPlayNurse0,"It's time for your shot..."
+KinkyDungeonRemindJailPlayNurse1,"Why are you out of your cell?"
+KinkyDungeonRemindJailPlayNurse2,"You need my help!"
+KinkyDungeonRemindJailPlayNurseStruggle,"Those are supposed to keep you still you know..."
+KinkyDungeonRemindJailPlayNurseFree,"Lets get you back in your jacket~"
+KinkyDungeonRemindJailPlayNurseLoot,"Patients are not allowed to have toys."
+KinkyDungeonRemindJailPlayNurseKey,"Oh no you don't, sweetie!"
+KinkyDungeonRemindJailChaseNurseAttack0,"Oof! Looks like you need to be taught a lesson!"
+KinkyDungeonRemindJailChaseNurseAttack1,"You can be cured if you just give up."
+KinkyDungeonRemindJailChaseNurseAttack2,"You're going to ruin your progress~"
+KinkyDungeonRemindJailChaseNurseSpell0,"Oh my, that's dangerous!"
+KinkyDungeonRemindJailChaseNurseSpell1,"Patients are forbidden from casting spells!"
+KinkyDungeonRemindJailChaseNurseSpell2,"Keep those pretty hands to yourself, dear~"
+KinkyDungeonRemindJailChaseNurseSpellItem,"Where'd you find that, dear?"
+KinkyDungeonRemindJailChaseNurseShrine,"Silly girl, your illness can't be cured by a prayer."
+KinkyDungeonRemindJailChaseNurseChest,"That's not yours, sweetie~"
+KinkyDungeonRemindJailChaseNurseOrb,"You shouldn't break things, you know~"
+KinkyDungeonRemindJailChaseNurseJailbreak,"I knew something was amiss!"
+KinkyDungeonRemindJailNurseGrab,"You won't be getting away that easily, dear~"
+KinkyDungeonRemindJailNurseDisarm,"Won't be needing this~"
+KinkyDungeonRemindJailNurseHit,"Hey, who said you could do that!"
+KinkyDungeonRemindJailNurseHitPlayer,"I'm so excited!"
+KinkyDungeonRemindJailNurseMiss,"A slippery one, aren't you?"
+KinkyDungeonRemindJailNurseMissedMe,"Tsk tsk. You can do better, dear~"
+KinkyDungeonRemindJailNurseLeash,"Lets get you back to your cell!"
+KinkyDungeonRemindJailNursePull,"So nice of you to join me!"
+KinkyDungeonRemindJailNurseStun,"Now let's see, good patients should be still..."
+KinkyDungeonRemindJailNursePickpocket,"A gift? Thank you so much!"
+KinkyDungeonRemindJailNurseLock,"You won't be getting out of that any time soon!"
+
 
 KinkyDungeonRemindJailPlayTemplate0,""
 KinkyDungeonRemindJailPlayTemplate1,""
