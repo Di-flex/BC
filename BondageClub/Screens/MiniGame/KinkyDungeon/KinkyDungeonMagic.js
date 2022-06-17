@@ -341,6 +341,14 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 			KinkyDungeonSendTextMessage(6, TextGet("KinkyDungeonFlummox"), "#a583ff", 2);
 			KinkyDungeonDealDamage({damage: spell.power, type: spell.damage}, bullet);
 			effect = true;
+		} else if (playerEffect.name == "NurseBola") {
+			let restraintAdd = KinkyDungeonGetRestraint({tags: ["nurseCuffRestraints"]}, MiniGameKinkyDungeonLevel + spell.power, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint]);
+			if (restraintAdd && KinkyDungeonAddRestraintIfWeaker(restraintAdd, spell.power, false, undefined, false, false, undefined, faction)) {
+				KDSendStatus('bound', restraintAdd.name, "spell_" + spell.name);
+				KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonNurseBola"), "red", playerEffect.time);
+				effect = true;
+			}
+
 		} else if (playerEffect.name == "SingleRope" || playerEffect.name == "BanditBola") {
 			if (playerEffect.name == "BanditBola") {
 				KinkyDungeonMovePoints = Math.max(-1, KinkyDungeonMovePoints-1); // This is to prevent stunlock while slowed heavily
@@ -606,6 +614,13 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 					KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
 				}
 			}
+		} else if (playerEffect.name == "NurseSyringe") {
+			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNurseSyringe"), "red", 8);
+			KinkyDungeonSlowMoveTurns = 8;
+			KinkyDungeonStatBlind = 8;
+			KinkyDungeonSleepiness = 8;
+			KinkyDungeonAlert = 6;
+			effect = true;
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrapSleepDart"), "red", 8);
 			KinkyDungeonSlowMoveTurns = 8;
