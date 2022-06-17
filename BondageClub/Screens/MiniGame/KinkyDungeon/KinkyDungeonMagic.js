@@ -616,10 +616,7 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 			}
 		} else if (playerEffect.name == "NurseSyringe") {
 			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonNurseSyringe"), "red", 8);
-			KinkyDungeonSlowMoveTurns = 8;
-			KinkyDungeonStatBlind = 8;
-			KinkyDungeonSleepiness = 8;
-			KinkyDungeonAlert = 6;
+			KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {id: "NurseSyringe", aura: "#22ff44", type: "Sleepiness", power: 1, duration: playerEffect.time, player: true, enemies: false, tags: ["sleep"], range: 1.5});
 			effect = true;
 		} else if (playerEffect.name == "TrapSleepDart") {
 			KinkyDungeonSendTextMessage(10, TextGet("KinkyDungeonTrapSleepDart"), "red", 8);
