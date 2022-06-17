@@ -102,6 +102,11 @@ function KinkyDungeonDressPlayer() {
 	CharacterAppearanceBuildCanvas = () => {};
 
 	try {
+		let data = {
+			updateRestraints: false,
+			updateDress: false,
+			updateExpression: false,
+		};
 
 		// @ts-ignore
 		KinkyDungeonPlayer.OnlineSharedSettings = {BlockBodyCosplay: true};
@@ -136,11 +141,13 @@ function KinkyDungeonDressPlayer() {
 				}
 			}
 
+			data.updateRestraints = true;
 			KDNaked = true;
 			KinkyDungeonUndress = 0;
 		}
 
 		for (let clothes of KinkyDungeonDresses[KinkyDungeonCurrentDress]) {
+			data.updateDress = true;
 			if (!clothes.Lost && KinkyDungeonCheckClothesLoss) {
 				if (clothes.Group == "Necklace") {
 					if (KinkyDungeonGetRestraintItem("ItemTorso") && KDRestraint(KinkyDungeonGetRestraintItem("ItemTorso")).harness) clothes.Lost = true;
@@ -283,6 +290,7 @@ function KinkyDungeonDressPlayer() {
 				if (!property || property.Expression != Blush) {
 					KinkyDungeonPlayer.Appearance[A].Property = { Expression: Blush };
 					KDRefresh = true;
+					data.updateExpression = true;
 				}
 			}
 			if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyebrows") {
@@ -290,6 +298,7 @@ function KinkyDungeonDressPlayer() {
 				if (!property || property.Expression != Eyebrows) {
 					KinkyDungeonPlayer.Appearance[A].Property = { Expression: Eyebrows };
 					KDRefresh = true;
+					data.updateExpression = true;
 				}
 			}
 			if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Mouth") {
@@ -297,6 +306,7 @@ function KinkyDungeonDressPlayer() {
 				if (!property || property.Expression != Mouth) {
 					KinkyDungeonPlayer.Appearance[A].Property = { Expression: Mouth };
 					KDRefresh = true;
+					data.updateExpression = true;
 				}
 			}
 			if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Fluids") {
@@ -304,6 +314,7 @@ function KinkyDungeonDressPlayer() {
 				if (!property || property.Expression != Fluids) {
 					KinkyDungeonPlayer.Appearance[A].Property = { Expression: Fluids };
 					KDRefresh = true;
+					data.updateExpression = true;
 				}
 			}
 			if (KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes" || KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2") {
@@ -311,11 +322,14 @@ function KinkyDungeonDressPlayer() {
 				if (!property || property.Expression != ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes)) {
 					KinkyDungeonPlayer.Appearance[A].Property = { Expression: ((KinkyDungeonPlayer.Appearance[A].Asset.Group.Name == "Eyes2" && Eyes2) ? Eyes2 : Eyes) };
 					KDRefresh = true;
+					data.updateExpression = true;
 				}
 			}
 
 
 		}
+
+		KinkyDungeonSendEvent("afterDress", data);
 	} finally {
 		// @ts-ignore
 		CharacterRefresh = _CharacterRefresh;

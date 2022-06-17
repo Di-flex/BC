@@ -53,6 +53,49 @@ function KinkyDungeonResetEventVariablesTick(delta) {
  * @type {Object.<string, Object.<string, function(KinkyDungeonEvent, item, *): void>>}
  */
 let KDEventMapInventory = {
+	"afterDress": {
+		"PrisonerJacket": (e, item, data) => {
+			for (let A = 0; A < KinkyDungeonPlayer.Appearance.length; A++) {
+				let asset = KinkyDungeonPlayer.Appearance[A].Asset;
+				if (asset.Name == item.name) {
+					KinkyDungeonPlayer.Appearance[A].Property = {
+						"Text": "PATIENT",
+						"Type": "ShortsAndStraps",
+						"Block": [
+							"ItemNipples",
+							"ItemNipplesPiercings",
+							"ItemTorso",
+							"ItemBreast",
+							"ItemHands",
+							"ItemVulva",
+							"ItemVulvaPiercings",
+							"ItemButt",
+							"ItemPelvis"
+						],
+						"Hide": [
+							"Cloth",
+							"ClothLower",
+							"ItemNipplesPiercings",
+							"ItemVulva",
+							"ItemVulvaPiercings",
+							"ItemButt",
+							"Panties",
+							"Corset"
+						],
+						"HideItemExclude": [
+							"ClothLowerJeans1",
+							"ClothLowerJeans2",
+							"ClothLowerLatexPants1",
+							"ClothLowerLeggings1",
+							"ClothLowerLeggings2",
+							"PantiesHarnessPanties1",
+							"PantiesHarnessPanties2"
+						]
+					};
+				}
+			}
+		},
+	},
 	"kill": {
 		"MikoGhost": (e, item, data) => {
 			if (!e.chance || KDRandom() < e.chance) {
