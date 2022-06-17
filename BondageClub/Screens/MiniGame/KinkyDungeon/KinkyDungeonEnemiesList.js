@@ -832,7 +832,7 @@ let KinkyDungeonEnemies = [
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4, "dressmaker": 20, "conjureAnger": 5, "conjureRage": 4, "ropeAnger": 3, "ropeRage": 2}, allFloors: true, shrines: ["Conjure", "Rope"],
 		dropTable: [{name: "RedKey", weight: 8}, {name: "BlueKey", weight: 1}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}]},
 	{name: "Nurse", clusterWith: "construct", bound: "Dressmaker", playLine: "Nurse", faction: "Dressmaker", color: "#f135a4", tags: KDMapInit(["leashing", "conjurer", "acidweakness", "opendoors", "closedoors", "human", "ranged", "unflinching", "hunter", "nurseRestraints"]),
-		followLeashedOnly: true, kite: 1.5, kiteChance: 0.3, followRange: 4, castWhileMoving: true, spells: ["NurseBola", "NurseSyringe"], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true,
+		followLeashedOnly: true, kite: 1.5, kiteChance: 0.3, followRange: 4, castWhileMoving: true, spells: ["NurseBola", "NurseSyringe"], stopToCast: true, spellRdy: true, noKiteWhenHarmless: true, noSpellsWhenHarmless: true, kiteOnlyWhenDisabled: true,
 		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", guardChance: 0.4, visionRadius: 7, maxhp: 13, minLevel:0, weight:-6, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWillLock", projectileTargeting: true,
 		attackWidth: 1, attackRange: 1, power: 3, dmgType: "grope", fullBoundBonus: 3, focusPlayer: true,
 		terrainTags: {"secondhalf":2, "lastthird":1, "open": 4, "dressmaker": 20, "conjureAnger": 5, "conjureRage": 4, "ropeAnger": 3, "ropeRage": 2}, allFloors: true, shrines: ["Conjure", "Rope"],
