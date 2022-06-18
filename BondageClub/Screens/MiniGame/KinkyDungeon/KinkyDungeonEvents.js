@@ -1221,6 +1221,11 @@ let KDEventMapWeapon = {
 					power: 1,
 					duration: Math.min(e.power, currentCharge + 2),
 				});
+				if (KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration > e.power - 1) {
+					KinkyDungeonPlayerBuffs[weapon.name + "Charge"].aurasprite = undefined;
+				} else {
+					KinkyDungeonPlayerBuffs[weapon.name + "Charge"].aurasprite = weapon.name;
+				}
 			}
 		},
 		"Buff": (e, weapon, data) => {
