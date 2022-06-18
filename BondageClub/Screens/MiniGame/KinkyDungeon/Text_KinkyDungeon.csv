@@ -3378,7 +3378,7 @@ KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
 KinkyDungeonSpellShield,Shield
-KinkyDungeonSpellDescriptionShield,"Gives a creature a magic shield for 12 turns, granting 40% spell resist."
+KinkyDungeonSpellDescriptionShield,"Gives a creature a magic shield for 12 turns, granting +67% spell resist."
 KinkyDungeonSpellCastShield,You create a temporary shield!
 KinkyDungeonSpellTargetShield,Choose shielded creature
 
