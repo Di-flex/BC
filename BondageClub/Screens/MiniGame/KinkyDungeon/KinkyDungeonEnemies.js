@@ -268,11 +268,14 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
-				} else
-					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "EnemiesBound/" + enemy.Enemy.bound + ".png",
+				} else {
+					let sp = sprite;
+					if (enemy.CustomSprite) sp = "CustomSpriteBound/" + enemy.CustomSprite;
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "EnemiesBound/" + sp + ".png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
+				}
 			}
 		}
 	}
