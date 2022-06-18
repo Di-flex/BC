@@ -187,9 +187,11 @@ let KDOptOut = false;
 * HunterTimer: number,
 * Hunters: number[],
 * Quests: string[],
+* MapFaction: string,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	MapFaction: "",
 	KeysNeeded: false,
 	RoomType: "",
 	MapMod: "",

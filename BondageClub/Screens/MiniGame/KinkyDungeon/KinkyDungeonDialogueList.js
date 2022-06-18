@@ -1405,9 +1405,9 @@ let KDDialogue = {
 								e.allied = 9999;
 								e.specialdialogue = undefined;
 								KinkyDungeonAggroFaction("Jail");
-								let faction = KDGetFactionOriginal(e);
+								let faction = e.Enemy.faction ? e.Enemy.faction : "Enemy";
 								e.faction = "Player";
-								if (!KinkyDungeonHiddenFactions.includes(faction)) {
+								if (!KinkyDungeonHiddenFactions.includes(faction) && !(KDGameData.MapFaction == faction)) {
 									if (KDFactionRelation("Player", faction) < 0.25)
 										KinkyDungeonChangeFactionRep(faction, 0.005);
 									else
@@ -1452,9 +1452,9 @@ let KDDialogue = {
 								e.allied = 9999;
 								e.specialdialogue = undefined;
 								KinkyDungeonAggroFaction("Jail");
-								let faction = KDGetFactionOriginal(e);
+								let faction = e.Enemy.faction ? e.Enemy.faction : "Enemy";
 								e.faction = "Player";
-								if (!KinkyDungeonHiddenFactions.includes(faction)) {
+								if (!KinkyDungeonHiddenFactions.includes(faction) && !(KDGameData.MapFaction == faction)) {
 									if (KDFactionRelation("Player", faction) < 0.25)
 										KinkyDungeonChangeFactionRep(faction, 0.005);
 									else

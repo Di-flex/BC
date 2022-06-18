@@ -196,7 +196,11 @@ function KinkyDungeonHandleStairs(toTile, suppressCheckPoint) {
 				let MapMod = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).MapMod;
 				if (MapMod) {
 					KDGameData.MapMod = MapMod;
-				} else KDGameData.MapMod = "";
+					KDGameData.MapFaction = KDMapMods[KDGameData.MapMod].faction;
+				} else {
+					KDGameData.MapMod = "";
+					KDGameData.MapFaction = "";
+				}
 				let Journey = KinkyDungeonTiles.get(KinkyDungeonPlayerEntity.x + "," + KinkyDungeonPlayerEntity.y).Journey;
 				if (Journey) {
 					KDGameData.Journey = Journey;

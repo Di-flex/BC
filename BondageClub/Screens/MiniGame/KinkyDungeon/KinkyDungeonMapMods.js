@@ -20,6 +20,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 100,
 		tags: ["maid", "mold"],
+		faction: "Slime",
 		tagsOverride: ["maid", "mold"],
 		bonusTags: {
 			"mold": {bonus: 4, mult: 2.5},
@@ -37,6 +38,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 50,
 		tags: ["bandit", "banditleader", "bountyhunter", "dragon"],
+		faction: "Bandit",
 		bonusTags: {
 			"bandit": {bonus: 4, mult: 2.5},
 			"banditleader": {bonus: 40, mult: 0.3},
@@ -52,6 +54,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 50,
 		tags: ["witch", "elemental", "dragon"],
+		faction: "Dragon",
 		bonusTags: {
 			"dragon": {bonus: 7, mult: 1.25},
 		},
@@ -69,6 +72,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 50,
 		tags: ["witch", "apprentice", "skeleton"],
+		faction: "Witch",
 		bonusTags: {
 			"witch": {bonus: 3, mult: 1.2},
 			"apprentice": {bonus: 3, mult: 1.4},
@@ -84,6 +88,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 70,
 		tags: ["wolfgirl"],
+		faction: "Nevermmere",
 		bonusTags: {
 			"wolfgirl": {bonus: 11, mult: 1.5},
 			"trainer": {bonus: 11, mult: 0.75},
@@ -98,6 +103,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 35,
 		tags: ["robot"],
+		faction: "AncientRobots",
 		bonusTags: {
 			"robot": {bonus: 10, mult: 2},
 		},
@@ -111,6 +117,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 50,
 		tags: ["plant", "elf"],
+		faction: "Beast",
 		bonusTags: {
 			"plant": {bonus: 5, mult: 2},
 			"maid": {bonus: 4.5, mult: 1},
@@ -125,6 +132,7 @@ let KDMapMods = {
 		roomType: "",
 		weight: 50,
 		tags: ["slime", "alchemist"],
+		faction: "Slime",
 		bonusTags: {
 			"slime": {bonus: 4, mult: 2},
 			"maid": {bonus: 4.5, mult: 1},

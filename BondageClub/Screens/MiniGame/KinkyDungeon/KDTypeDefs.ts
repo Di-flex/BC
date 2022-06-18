@@ -1297,6 +1297,7 @@ type MapMod = {
 	roomType: string,
 	weight: number,
 	tags: string[],
+	faction?: string,
 	tagsOverride?: string[],
 	bonusTags: Record<string, {bonus: number, mult: number}>,
 	spawnBoxes?: any[],
