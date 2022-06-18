@@ -780,7 +780,11 @@ KinkyDungeonAccuracy,"Hit Chance: "
 KinkyDungeonPlayerNoKeys,Find the keys..
 KinkyDungeonPlayerYesKeys,Find the exit!
 KinkyDungeonPlayerHelp,"Receiving Help..."
-KinkyDungeonPlayerHook,"Found an edge!"
+KinkyDungeonPlayerHook,"Found a hook!"
+KinkyDungeonPlayerSharp,"Found a sharp edge!"
+KinkyDungeonPlayerEdge,"Found a corner!"
+KinkyDungeonPlayerCrack,"Found a crack!"
+KinkyDungeonPlayerSticky,"Found something sticky!"
 KinkyDungeonPlayerEvasion,"Evasion: "
 KinkyDungeonPlayerVisibility,"Visibility: "
 KinkyDungeonPlayerArmor,"Armor: "

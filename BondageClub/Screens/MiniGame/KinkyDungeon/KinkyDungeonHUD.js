@@ -173,12 +173,17 @@ function KinkyDungeonDrawInputs() {
 		}
 	}
 	let help = KinkyDungeonHasAllyHelp() || KinkyDungeonHasGhostHelp();
-	let hook = KinkyDungeonGetAffinity(false, "Edge");
 	if (help) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerHelp"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
 
-	} else if (hook) {
+	} else if (KinkyDungeonGetAffinity(false, "Hook")) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerHook"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	} else if (KinkyDungeonGetAffinity(false, "Edge")) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerEdge"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	} else if (KinkyDungeonGetAffinity(false, "Sharp")) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSharp"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
+	} else if (KinkyDungeonGetAffinity(false, "Sticky")) {
+		DrawTextFit(TextGet("KinkyDungeonPlayerSticky"), 1640, 900 - i * 35, 200, "white", "gray"); i++;
 	}
 	if (KinkyDungeonFlags.has("Quickness")) {
 		DrawTextFit(TextGet("KinkyDungeonPlayerQuickness"), 1640, 900 - i * 35, 200, "#ffff00", "gray"); i++;
