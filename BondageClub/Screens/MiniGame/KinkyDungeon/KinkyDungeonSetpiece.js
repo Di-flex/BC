@@ -342,7 +342,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 
 				break;
 			case "GuaranteedCell":
-				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true, true);
 				KinkyDungeonMapSet(cornerX+4, cornerY+2, 'd');
 				KinkyDungeonTiles.set("" + (cornerX+4) + "," + (cornerY+2), {Type: "Door", NoTrap: true, Jail: true, ReLock: true, OffLimits: true});
 				KinkyDungeonPatrolPoints.push({x: cornerX + 5, y: cornerY + 2});
@@ -373,7 +373,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				KDGameData.JailPoints.push({x: cornerX+2, y: cornerY+2, type: "jail"});
 				break;
 			case "ExtraCell":
-				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true);
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, true, false, 1, true, true);
 				KinkyDungeonMapSet(cornerX+3, cornerY+1, 'D');
 				KinkyDungeonTiles.set("" + (cornerX+3) + "," + (cornerY+1), {Type: "Door", NoTrap: true, Jail: true, ReLock: true, OffLimits: true});
 
