@@ -470,8 +470,8 @@ interface enemy {
 	bound?: string,
 	/** */
 	color?: string,
-	/** Does not count toward the player's permanent summmon limit */
-	noCountLimit?: boolean,
+	/** counts toward the player's permanent summmon limit */
+	CountLimit?: boolean,
 	/** Does not target silenced enemies */
 	noTargetSilenced?: boolean,
 	/** */
@@ -1027,6 +1027,8 @@ interface spell {
 	trailPlayerEffect?: any;
 	/** trailChance */
 	trailChance?: number;
+	/** Creates trails on the projectiles itself too */
+	trailOnSelf?: boolean;
 	/** trailDamage */
 	trailDamage?: string;
 	/** trailspawnaoe */

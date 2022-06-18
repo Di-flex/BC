@@ -896,6 +896,8 @@ NameDecoy,Illusion
 KillDecoy,"The illusion vanishes into thin air."
 NameWall,Wall
 KillWall,"The wall shatters into pieces, which fade away slowly."
+NameEarthenMonolith,Earthen Monolith
+KillEarthenMonolith,"The monolith recedes into the ground."
 NameStaticSphere,Static Sphere
 KillStaticSphere,"The sphere shrinks back into the storm dimension."
 NameAlly,Familiar
@@ -3480,6 +3482,27 @@ KinkyDungeonSpellIcicle,Icicle
 KinkyDungeonSpellDescriptionIcicles,"Channel 3 turns to fire 3 icicles that deal DamageDealt ice damage and slow for 4 turns, freezing slowed/drenched targets for 3 turns."
 KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
+
+
+KinkyDungeonSpellEarthform,Earthmold
+KinkyDungeonSpellDescriptionEarthform,"Unlocks 3 spells that allow creating mounds, rings, or lines of 50hp, 25 armor rocks."
+KinkyDungeonSummonMultiEarthenMonolith,Earthen monoliths rise from the ground!
+KinkyDungeonSummonSingleEarthenMonolith,An earthen monolith rises from the ground!
+
+KinkyDungeonSpellEarthformRing,Earthmold (Ring)
+KinkyDungeonSpellDescriptionEarthformRing,Create a large ring of Earthen Monoliths. They have 50 hitpoints and 25 armor.
+KinkyDungeonSpellCastEarthformRing,You stomp your foot and monoliths emerge in a ring around you!
+KinkyDungeonSpellTargetEarthformRing,Choose ring origin
+
+KinkyDungeonSpellEarthformMound,Earthmold (Mound)
+KinkyDungeonSpellDescriptionEarthformMound,Create a 3x3 field of Earthen Monoliths. They have 50 hitpoints and 25 armor.
+KinkyDungeonSpellCastEarthformMound,You stomp your foot and monoliths emerge from the ground!
+KinkyDungeonSpellTargetEarthformMound,Choose mound origin
+
+KinkyDungeonSpellEarthformLine,Earthmold (Line)
+KinkyDungeonSpellDescriptionEarthformLine,Create a 4-tile line of Earthen Monoliths. They have 50 hitpoints and 25 armor.
+KinkyDungeonSpellCastEarthformLine,You stomp your foot and monoliths emerge from the ground!
+KinkyDungeonSpellTargetEarthformLine,Choose line direction
 
 KinkyDungeonSpellBoulderLaunch,Rock
 KinkyDungeonSpellBoulder,Rock

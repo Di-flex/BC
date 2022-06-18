@@ -23,6 +23,7 @@ let alts = {
 		nokeys: true,
 		nostairs: true,
 		notraps: true,
+		noClutter: true,
 		noShrineTypes: ["Commerce", "Will"],
 	},
 	"Jail": {

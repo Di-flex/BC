@@ -2395,8 +2395,10 @@ function KinkyDungeonGameKeyDown() {
 			} else if (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey && KinkyDungeonCurrentPage > 0) {
 				KinkyDungeonCurrentPage -= 1;
 			} else if (KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey) {
-				if (KinkyDungeonPreviewSpell)
+				if (KinkyDungeonPreviewSpell) {
+					if (KinkyDungeonPreviewSpell.hideLearned) KinkyDungeonDrawState = "MagicSpells";
 					KDSendInput("spellLearn", {SpellName: KinkyDungeonPreviewSpell.name});
+				}
 				else KinkyDungeonDrawState = "MagicSpells";
 			}
 		} else if (KinkyDungeonDrawState == "MagicSpells" && (KinkyDungeonKey[1] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKey[3] == KinkyDungeonKeybindingCurrentKey || KinkyDungeonKeyEnter[0] == KinkyDungeonKeybindingCurrentKey)) {
@@ -2488,7 +2490,7 @@ function KinkyDungeonLaunchAttack(Enemy, skip) {
 	let noadvance = false;
 	if (KinkyDungeonHasStamina(Math.abs(attackCost), true)) {
 		if (!KDGameData.ConfirmAttack && (!KinkyDungeonAggressive(Enemy) || KDAllied(Enemy))) {
-			if (!Enemy.lifetime || Enemy.lifetime > 9000) { // KDAllied(Enemy)
+			if (!Enemy.lifetime || Enemy.lifetime > 9000 || Enemy.Enemy.tags.has("notalk")) { // KDAllied(Enemy)
 				let d = Enemy.Enemy.specialdialogue ? Enemy.Enemy.specialdialogue : "GenericAlly";
 				if (Enemy.specialdialogue) d = Enemy.specialdialogue; // Special dialogue override
 				KDStartDialog(d, Enemy.Enemy.name, true, Enemy.personality, Enemy);

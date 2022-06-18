@@ -989,6 +989,7 @@ Spell Balance:
 - Fixed command word not working on layered items
 - New spell indicators for AoE spells
 - New Spell: Boulder
+- New Spell: Earthmold
 
 TODO ValidationFindBlockCycles to prevent bugs
 

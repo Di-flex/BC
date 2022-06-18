@@ -768,7 +768,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 						b.time -= delta;
 					}
 
-					if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy))
+					if (b.bullet.spell && b.trail && (b.x != Math.round(b.xx) || b.y != Math.round(b.yy) || (b.bullet.spell && b.bullet.spell.trailOnSelf))
 						&& !trailSquares.includes(Math.round(b.xx) + "," + Math.round(b.yy))) {
 						if (KinkyDungeonBulletTrail(b)) {
 							trailSquares.push(Math.round(b.xx) + "," + Math.round(b.yy));
