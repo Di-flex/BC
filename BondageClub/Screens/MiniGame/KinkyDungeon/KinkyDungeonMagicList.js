@@ -75,7 +75,7 @@ let KinkyDungeonLearnableSpells = [
 		// Arms
 		["Firebolt", "Fireball", "Icebolt", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall"],
 		// Legs
-		["Ignite", "Fissure", "Sleet", "Shield", "GreaterShield", "BoulderLaunch", "LightningRune"],
+		["Ignite", "Fissure", "Sleet", "Shield", "GreaterShield", "BoulderLaunch", "BigBoulderLaunch", "LightningRune"],
 		// Passive
 		["FlameBlade", "Strength", "Shatter", "TemperaturePlay", "LightningRod"],
 	],
@@ -149,8 +149,10 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			events: [{type: "ElementalOnSlowOrBindOrDrench", trigger: "bulletHitEnemy", damage: "ice", time: 4, power: 0},]},
 		{name: "Icicles", tags: ["ice", "bolt", "offense"], prerequisite: "Icebolt", noise: 3, sfx: "MagicSlash", school: "Elements", manacost: 6, components: ["Arms"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 5, delay: 3, power: 3, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert", noMiscast: false, castDuringDelay: true, noCastOnHit: true,
 			spellcast: {spell: "Icicle", target: "target", directional:true, offset: false}, channel: 3},
-		{name: "BoulderLaunch", tags: ["earth", "bolt", "offense"], prerequisite: "ApprenticeEarth", sfx: "Telekinesis", school: "Elements", manacost: 2, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 4, delay: 1, power: 4, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
+		{name: "BoulderLaunch", tags: ["earth", "bolt", "offense"], prerequisite: "ApprenticeEarth", sfx: "Telekinesis", school: "Elements", manacost: 2, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:1, type:"inert", onhit:"aoe", time: 4, delay: 1, power: 4, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
 			spellcast: {spell: "Boulder", target: "target", directional:true, offset: false}, channel: 1},
+		{name: "BigBoulderLaunch", tags: ["earth", "bolt", "offense"], prerequisite: "BoulderLaunch", sfx: "Telekinesis", school: "Elements", manacost: 4, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, noEnemyCollision: true, CastInWalls: true, level:3, type:"inert", onhit:"aoe", time: 8, delay: 3, power: 8, range: 50, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
+			spellcast: {spell: "BigBoulder", target: "target", directional:true, offset: false}, channel: 3},
 		{name: "Electrify", tags: ["electric", "offense"], prerequisite: "ApprenticeAir", noise: 6, sfx: "FireSpell", landsfx: "Shock", school: "Elements", manacost: 5, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 8, time: 4, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
 		{name: "Shock", tags: ["electric", "bolt", "offense", "dot"], prerequisite: "ApprenticeAir", sfx: "FireSpell", school: "Elements", manacost: 5, components: ["Arms"], noEnemyCollision: true, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, damage: "inert", speed: 1,
 			events: [{type: "CastSpellNearbyEnemy", trigger: "bulletTick", spell: "ShockStrike", aoe: 1.5},]},
@@ -391,6 +393,7 @@ let KinkyDungeonSpellListEnemies = [
 	{name: "Icicle", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 5, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 4,  power: 3, delay: 0, range: 50, damage: "frost", speed: 2, playerEffect: {name: "Damage"},
 		events: [{type: "ElementalOnSlowOrBindOrDrench", trigger: "bulletHitEnemy", damage: "ice", time: 3, power: 0},]},
 	{name: "Boulder", sfx: "Bones", hitsfx: "HeavySwing", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 4,  power: 4, delay: 0, range: 50, damage: "crush", speed: 2, playerEffect: {name: "Damage"}}, // Throws a blast of ice which stuns the target for 4 turns
+	{name: "BigBoulder", sfx: "Bones", hitsfx: "HeavySwing", school: "Elements", manacost: 7, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, noEnemyCollision: true, alwaysCollideTags: ["summonedRock"], onhit:"aoe", time: 8,  power: 8, aoe: 1.5, size: 3, delay: 0, lifetime: 1, range: 50, damage: "crush", speed: 1, playerEffect: {name: "Damage"}}, // Throws a blast of ice which stuns the target for 4 turns
 
 
 	{enemySpell: true, name: "Ribbons", color: "#6700ff", noise: 6, sfx: "Struggle", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", piercing: true, projectileTargeting:true, castRange: 3, nonVolatile: true, onhit:"", power: 3, delay: 0, range: 4, speed: 4, size: 1, damage: "inert",

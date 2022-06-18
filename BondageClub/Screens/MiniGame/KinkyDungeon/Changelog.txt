@@ -987,7 +987,8 @@ Spell Balance:
 
 3.43 Bugfix
 - Fixed command word not working on layered items
-
+- New spell indicators for AoE spells
+- New Spell: Boulder
 
 TODO ValidationFindBlockCycles to prevent bugs
 

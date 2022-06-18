@@ -769,7 +769,7 @@ let KinkyDungeonEnemies = [
 
 	{name: "WitchFlame", faction: "Witch", clusterWith: "elemental", bound: "Witch", playLine: "Witch", color: "#d30000", tags: KDMapInit(["leashing", "opendoors", "handcuffer", "fire", "closedoors", "human", "witch", "ranged", "elite", "unflinching", "electricimmune", "glueweakness", "iceweakness", "hunter"]), followRange: 2,
 		castWhileMoving: true, spells: ["HeatBolt"], stopToCast: true, spellRdy: true, kite: 1.5, kiteChance: 0.9,
-		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", guardChance: 0.4, visionRadius: 7, maxhp: 11, minLevel:3, weight:5, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 3,
+		spellCooldownMult: 1, spellCooldownMod: 0, AI: "hunt", guardChance: 0.4, visionRadius: 7, maxhp: 11, minLevel:0, weight:5, movePoints: 2, attackPoints: 2, attack: "SpellMeleeBindWill", attackWidth: 1, attackRange: 1, power: 2, dmgType: "grope", fullBoundBonus: 3,
 		terrainTags: {"secondhalf":1, "lastthird":2, "elementsAnger": 6}, allFloors: true, shrines: [], followLeashedOnly: true,
 		dropTable: [{name: "Gold", amountMin: 10, amountMax: 20, weight: 14, noSummon: true}, {name: "Pick", weight: 9}, {name: "RedKey", weight: 9}, {name: "BlueKey", weight: 2}, {name: "ScrollArms", weight: 1}, {name: "ScrollVerbal", weight: 1}, {name: "ScrollLegs", weight: 1}],
 	},

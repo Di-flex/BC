@@ -30,11 +30,13 @@ let KinkyDungeonHiddenFactions = [
 	"Ghost",
 	"Trap",
 	"Rebel",
+	"Rock",
 ];
 
 /** Shows tooltips for these factions even though they are hidden */
 let KinkyDungeonTooltipFactions = [
 	"Rebel",
+	"Rock",
 ];
 
 /** Tag for these factions */
@@ -99,6 +101,9 @@ let KinkyDungeonFactionRelationsBase = {
 	"Ghost": {
 		Player: -1.0,
 		Jail: -1.0,
+	},
+	"Rock": {
+		Player: -1.0,
 	},
 	"Demon": {
 		Elf: -1.0,

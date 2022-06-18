@@ -1148,14 +1148,14 @@ function KinkyDungeonBulletTrail(b) {
 function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
-	if (bullet.bullet.noEnemyCollision) return true;
+	if (bullet.bullet.noEnemyCollision && !(bullet.bullet && bullet.bullet.alwaysCollideTags)) return true;
 
 	if (bullet.delay && !d) d = bullet.delay;
 
 	if (bullet.bullet.damage && (bullet.time > 0 || force)) {
 		if (bullet.bullet.aoe) {
 			if (AoE) {
-				if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y))) {
+				if ((bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect) && bullet.bullet.aoe >= Math.sqrt((KinkyDungeonPlayerEntity.x - bullet.x) * (KinkyDungeonPlayerEntity.x - bullet.x) + (KinkyDungeonPlayerEntity.y - bullet.y) * (KinkyDungeonPlayerEntity.y - bullet.y)))) {
 					KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.playerEffect ? bullet.bullet.playerEffect : bullet.bullet.spell.playerEffect, bullet.bullet.spell, bullet.bullet.faction, bullet);
 				}
 				let nomsg = bullet.bullet && bullet.bullet.spell && bullet.bullet.spell.enemyspell && !bullet.reflected;
@@ -1184,17 +1184,20 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly)
 			}
 		} else {
 			if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect)
+				&& (!bullet.bullet.noEnemyCollision || (bullet.bullet.spell && bullet.bullet.alwaysCollideTags && bullet.bullet.alwaysCollideTags.includes("PlayerChar")))
 				&& KinkyDungeonPlayerEntity.x == bullet.x && KinkyDungeonPlayerEntity.y == bullet.y
 				&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(KinkyDungeonPlayerEntity.lastx + "," + KinkyDungeonPlayerEntity.lasty)))) {
 				KinkyDungeonPlayerEffect(bullet.bullet.damage.type, bullet.bullet.playerEffect ? bullet.bullet.playerEffect : bullet.bullet.spell.playerEffect, bullet.bullet.spell, bullet.bullet.faction, bullet);
 				return false;
 			}
 			for (let enemy of KinkyDungeonEntities) {
-				if ((enemy.x == bullet.x && enemy.y == bullet.y) && (bullet.reflected
+				let overrideCollide = (bullet.bullet.spell && bullet.bullet.alwaysCollideTags && bullet.bullet.alwaysCollideTags.some((tag) => {return enemy.Enemy.tags.has(tag);}));
+				if ((enemy.x == bullet.x && enemy.y == bullet.y) && (bullet.reflected || overrideCollide
 					|| (!bullet.bullet.spell || !bullet.bullet.faction
 						|| (!KDFactionFavorable(bullet.bullet.faction, enemy) && (!bullet.bullet.damage || bullet.bullet.damage.type != "heal"))
 						|| (!KDFactionHostile(bullet.bullet.faction, enemy) && (bullet.bullet.damage && bullet.bullet.damage.type == "heal"))
 					))
+						&& (!bullet.bullet.noEnemyCollision || overrideCollide)
 						&& (!inWarningOnly || (bullet.warnings && bullet.warnings.includes(enemy.lastx + "," + enemy.lasty)))
 						&& (!bullet.bullet.spell || !bullet.bullet.spell.noUniqueHits || !KDUniqueBulletHits.get(KDBulletID(bullet, enemy)))) {
 					KinkyDungeonSendEvent("bulletHitEnemy", {bullet: bullet, enemy: enemy});

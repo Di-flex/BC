@@ -1079,6 +1079,8 @@ interface spell {
 	noTerrainHit?: boolean;
 	/** spell pierces */
 	noEnemyCollision?: boolean;
+	/** If an enemy has one of these tags it will get hit no matter what*/
+	alwaysCollideTags?: string[],
 	/** trail pierces */
 	piercingTrail?: boolean;
 	/** nonVolatile */
