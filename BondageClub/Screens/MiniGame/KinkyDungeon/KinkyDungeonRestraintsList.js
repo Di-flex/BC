@@ -592,7 +592,7 @@ const KinkyDungeonRestraints = [
 		escapeChance: {"Struggle": -0.1, "Cut": 0.5, "Remove": 0.5},
 		maxstamina: 0.8, enemyTags: {"leatherRestraints":6}, playerTags: {"ItemFeetFull":-2}, minLevel: 0, allFloors: true, shrine: ["Leather", "Belts", "LegBind"]},
 
-	{renderWhenLinked: ["Ties"], nonbinding: true, inventory: true, name: "LeatherArmCuffs", DefaultLock: "Red", accessible: true, Asset: "LeatherCuffs", linkCategory: "Cuffs", linkSize: 0.55, LinkableBy: ["Armbinders", "Straitjackets", "Boxbinders", "Wrapping", "Belts", "Ties"], Link: "LeatherArmCuffs2", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: false, power: 4, weight: 0,
+	{renderWhenLinked: ["Ties"], nonbinding: true, inventory: true, name: "LeatherArmCuffs", DefaultLock: "Red", accessible: true, Asset: "LeatherCuffs", linkCategory: "Cuffs", linkSize: 0.55, LinkableBy: ["Armbinders", "Straitjackets", "Boxbinders", "Wrapping", "Belts", "Ties"], Link: "LeatherArmCuffs2", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: false, power: 3, weight: 0,
 		escapeChance: {"Struggle": 0.1, "Cut": 0.1, "Remove": 0.25, "Pick": 0.35}, enemyTags: {"leatherRestraintsHeavy":4, "dragonRestraints":6, "handcuffer": 6}, playerTags: {"ItemArmsFull":-2}, minLevel: 3, allFloors: true, shrine: ["Leather", "Cuffs", "ArmCuffsBase"],
 		maxstamina: 1.0, events: [{trigger: "hit", type: "linkItem", sfx: "LightJingle", chance: 0.33}, {trigger: "defeat", type: "linkItem", chance: 1.0}]},
 	{name: "LeatherArmCuffs2", accessible: true, Asset: "LeatherCuffs", Type: "Wrist", LinkableBy: ["Armbinders", "Boxbinders", "Wrapping", "Belts", "Ties"], Link: "LeatherArmCuffs3", UnLink: "LeatherArmCuffs", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: true, power: 4, weight: 0,
@@ -605,10 +605,10 @@ const KinkyDungeonRestraints = [
 		escapeChance: {"Struggle": 0, "Cut": 0.1, "Remove": -0.15, "Pick": 0.25}, helpChance: {"Remove": 0.4}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Leather", "Cuffs"],
 		events: [{trigger: "remove", type: "unlinkItem"}, {trigger: "hit", type: "linkItem", sfx: "LightJingle", chance: 0.5}, {trigger: "beforeStruggleCalc", type: "elbowCuffsBlock", inheritLinked: true}, {trigger: "postRemoval", type: "RequireBaseArmCuffs"}]},
 
-	{renderWhenLinked: ["Ties"], nonbinding: true, inventory: true, name: "SteelArmCuffs", DefaultLock: "Blue", accessible: true, Asset: "SteelCuffs", linkCategory: "Cuffs", linkSize: 0.55, LinkableBy: ["Armbinders", "Straitjackets", "Boxbinders", "Wrapping", "Belts", "Ties"], Link: "SteelArmCuffs2", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: false, power: 7, weight: 0,
+	{renderWhenLinked: ["Ties"], nonbinding: true, inventory: true, name: "SteelArmCuffs", DefaultLock: "Blue", accessible: true, Asset: "SteelCuffs", linkCategory: "Cuffs", linkSize: 0.55, LinkableBy: ["Armbinders", "Straitjackets", "Boxbinders", "Wrapping", "Belts", "Ties"], Link: "SteelArmCuffs2", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: false, power: 4, weight: 0,
 		escapeChance: {"Struggle": -0.1, "Cut": -0.5, "Remove": 0.15, "Pick": 0.25}, enemyTags: {"steelCuffs":4}, playerTags: {"ItemArmsFull":-2}, minLevel: 5, allFloors: true, shrine: ["Metal", "Cuffs", "ArmCuffsBase"],
 		maxstamina: 0.9, events: [{trigger: "hit", type: "linkItem", sfx: "LightJingle", chance: 0.4}, {trigger: "defeat", type: "linkItem", chance: 1.0}]},
-	{name: "SteelArmCuffs2", accessible: true, Asset: "SteelCuffs", Type: "Wrist", LinkableBy: ["Armbinders", "Boxbinders", "Wrapping", "Belts", "Ties"], UnLink: "SteelArmCuffs", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: true, power: 7, weight: 0,
+	{name: "SteelArmCuffs2", accessible: true, Asset: "SteelCuffs", Type: "Wrist", LinkableBy: ["Armbinders", "Boxbinders", "Wrapping", "Belts", "Ties"], UnLink: "SteelArmCuffs", Color: ['Default', 'Default'], Group: "ItemArms", bindarms: true, power: 4, weight: 0,
 		escapeChance: {"Struggle": -0.2, "Cut": -0.5, "Remove": 0.2, "Pick": 0.15}, helpChance: {"Remove": 0.4}, enemyTags: {}, playerTags: {}, minLevel: 0, floors: KDMapInit([]), shrine: ["Metal", "Cuffs"],
 		events: [{trigger: "remove", type: "unlinkItem"}, {trigger: "postRemoval", type: "RequireBaseArmCuffs"}, {trigger: "beforeStruggleCalc", type: "wristCuffsBlock", power: 0.08, inheritLinked: true}]},
 
