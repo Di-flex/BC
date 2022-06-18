@@ -38,6 +38,7 @@ let KinkyDungeonVulnerableDamageTypes = ["tickle", "acid"];
 
 // Weapons
 let KinkyDungeonPlayerWeapon = null;
+let KinkyDungeonPlayerWeaponLastEquipped = "";
 /** @type {weapon} */
 let KinkyDungeonPlayerDamageDefault = {name: "", dmg: 2, chance: 0.9, type: "unarmed", unarmed: true, rarity: 0, shop: false, sfx: "Unarmed"};
 /** @type {weapon} */
@@ -96,9 +97,11 @@ function KinkyDungeonWeaponCanCut(RequireInteract, MagicOnly) {
 }
 
 // We reset the pity timer on weapon switch to prevent issues
-function KDSetWeapon(Weapon) {
+function KDSetWeapon(Weapon, forced) {
 	KinkyDungeonEvasionPityModifier = 0;
 	KinkyDungeonPlayerWeapon = Weapon;
+	if (!forced)
+		KinkyDungeonPlayerWeaponLastEquipped = Weapon;
 }
 
 function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
@@ -116,7 +119,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	if (!HandsFree || (KinkyDungeonStatsChoice.get("Brawler") && !KinkyDungeonPlayerWeapon)) {
 		damage = KinkyDungeonPlayerDamageDefault;
 		if (!NoOverride)
-			KDSetWeapon(null);
+			KDSetWeapon(null, true);
 	} else if (KinkyDungeonPlayerWeapon && KinkyDungeonWeapons[KinkyDungeonPlayerWeapon]) {
 		damage = KinkyDungeonWeapons[KinkyDungeonPlayerWeapon];
 	}
@@ -602,7 +605,7 @@ function KinkyDungeonDisarm(Enemy, suff) {
 
 			let dropped = {x:foundslot.x, y:foundslot.y, name: weapon};
 
-			KDSetWeapon(null);
+			KDSetWeapon(null, true);
 			KinkyDungeonGetPlayerWeaponDamage(KinkyDungeonCanUseWeapon());
 			KinkyDungeonInventoryRemove(KinkyDungeonInventoryGetWeapon(weapon));
 

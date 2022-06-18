@@ -1138,7 +1138,7 @@ function KinkyDungeonStripInventory(KeepPicks) {
 	KDInitInventory();
 	KinkyDungeonInventory.set(Restraint, newInv);
 	KinkyDungeonInventoryAddWeapon("Unarmed");
-	KDSetWeapon(null);
+	KDSetWeapon(null, true);
 	for (let b of boundWeapons) {
 		KinkyDungeonInventoryAddWeapon(b);
 	}

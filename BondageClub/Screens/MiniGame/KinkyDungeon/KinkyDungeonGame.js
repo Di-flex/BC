@@ -702,9 +702,9 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 12 + Math.floor(Math.sqrt(Floor) + width/20 + height/20 + KinkyDungeonDifficulty/10);
+	let enemyCount = 10 + Math.floor(Math.sqrt(Floor) + width/24 + height/24 + KinkyDungeonDifficulty/10);
 	if (KinkyDungeonStatsChoice.get("Stealthy")) enemyCount = Math.round(enemyCount * KDStealthyEnemyCountMult);
-	let neutralCount = 4 + 0.3 * (Math.floor(Math.sqrt(Floor) + width/20 + height/20));
+	let neutralCount = 4 + 0.3 * (Math.floor(Math.sqrt(Floor) + width/24 + height/24));
 	let count = 0;
 	let ncount = 0;
 	let tries = 0;
@@ -770,7 +770,7 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 		let X = point ? point.x : (1 + Math.floor(KDRandom()*(width - 1)));
 		let Y = point ? point.y : (1 + Math.floor(KDRandom()*(height - 1)));
 
-		if (point && KinkyDungeonBoringGet(X, Y) > 0 && KDRandom() < 0.75) {
+		if (point && KinkyDungeonBoringGet(X, Y) > 0 && KDRandom() < 0.33) {
 			continue;
 			// Most enemies will be placed in non boring regions
 		}

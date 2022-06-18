@@ -183,6 +183,7 @@ function KinkyDungeonDefaultStats(Load) {
 	KinkyDungeonChangeConsumable(KinkyDungeonConsumables.PotionFrigid, 1);
 	KinkyDungeonInventoryAddWeapon("Unarmed");
 	KinkyDungeonInventoryAddWeapon("Knife");
+	KDSetWeapon("Knife");
 	KinkyDungeonPlayerTags = new Map();
 
 	KinkyDungeonPlayerDamage = KinkyDungeonPlayerDamageDefault;

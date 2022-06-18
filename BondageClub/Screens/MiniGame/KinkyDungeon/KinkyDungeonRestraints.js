@@ -2128,6 +2128,9 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 
 			}
 			KinkyDungeonCancelFlag = false;
+			if (KinkyDungeonPlayerWeapon != KinkyDungeonPlayerWeaponLastEquipped) {
+				KDSetWeapon(KinkyDungeonPlayerWeaponLastEquipped);
+			}
 			return true;
 		}
 	}
