@@ -274,7 +274,7 @@ let KDDialogue = {
 								KDGameData.CurrentDialogMsg = "PrisonRepeatBribeFail";
 								return false;
 							}
-							KinkyDungeonChangeRep("Prisoner", -Math.min(10, KinkyDungeonGold*0.25));
+							KinkyDungeonChangeRep("Prisoner", -Math.max(10, Math.min(100, KinkyDungeonGold*0.25)));
 							KinkyDungeonGold = 0;
 							KinkyDungeonSetFlag("LeashToPrison", 0);
 							return false;
@@ -1314,8 +1314,19 @@ let KDDialogue = {
 				e.allied = 9999;
 				e.faction = "Player";
 				KDGameData.CurrentDialogMsgSpeaker = e.Enemy.name;
+
+				let reinforcementCount = Math.floor(1 + KDRandom() * (KDGameData.PriorJailbreaks ? (Math.min(5, KDGameData.PriorJailbreaks) + 1) : 1));
+				KDGameData.PriorJailbreaks += 1;
+				for (let i = 0; i < reinforcementCount; i++) {
+					let pp = KinkyDungeonGetNearbyPoint(door.x, door.y, true, undefined, undefined);
+					if (pp) {
+						let ee = DialogueCreateEnemy(pp.x, pp.y, "Bandit");
+						ee.allied = 9999;
+						ee.faction = "Player";
+					}
+				}
 			}
-			KDGameData.KinkyDungeonGuardSpawnTimer = 10 + Math.floor(KDRandom() * 10);
+			KDGameData.KinkyDungeonGuardSpawnTimer = 50 + Math.floor(KDRandom() * 10);
 			return false;
 		},
 		options: {

@@ -188,9 +188,11 @@ let KDOptOut = false;
 * Hunters: number[],
 * Quests: string[],
 * MapFaction: string,
+* PriorJailbreaks: number,
 *}} KDGameDataBase
 */
 let KDGameDataBase = {
+	PriorJailbreaks: 0,
 	MapFaction: "",
 	KeysNeeded: false,
 	RoomType: "",

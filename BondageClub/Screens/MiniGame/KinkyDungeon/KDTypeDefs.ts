@@ -574,6 +574,8 @@ interface enemy {
 	hitsfx?: string,
 	/** All lockable restraints will use this lock*/
 	useLock?: string,
+	/** Uses this lock when using the lock attack */
+	attackLock?: string,
 	/** Minimum range for attack warning tiles, used to prevent high range enemies from attacking all around them*/
 	tilesMinRange?: number,
 	/** */

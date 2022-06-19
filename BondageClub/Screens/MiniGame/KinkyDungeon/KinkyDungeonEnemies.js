@@ -269,7 +269,7 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				} else {
-					let sp = sprite;
+					let sp = enemy.Enemy.bound;
 					if (enemy.CustomSprite) sp = "CustomSpriteBound/" + enemy.CustomSprite;
 					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "EnemiesBound/" + sp + ".png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
@@ -2168,7 +2168,8 @@ function KinkyDungeonEnemyLoop(enemy, player, delta, visionMod, playerItems) {
 							Lstart = Math.floor(Lmax*KDRandom()); // Lock one at random
 						}
 						for (let L = Lstart; L <= Lmax; L++) {
-							KinkyDungeonLock(Lockable[L], KinkyDungeonGenerateLock(true)); // Lock it!
+							let l = enemy.Enemy.attackLock ? enemy.Enemy.attackLock : KinkyDungeonGenerateLock(true);
+							KinkyDungeonLock(Lockable[L], l); // Lock it!
 							priorityBonus += KDRestraint(Lockable[L]).power;
 						}
 						Locked = true;
