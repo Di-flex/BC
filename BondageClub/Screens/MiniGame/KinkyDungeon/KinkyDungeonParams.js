@@ -40,7 +40,7 @@ const KinkyDungeonMapParams = {
 			{Level: 3, checkpoint: "tmb", chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 5, checkpoint: "cat"},
+			{Level: 6, checkpoint: "cat"},
 		],
 
 		"traps": [
@@ -220,7 +220,7 @@ const KinkyDungeonMapParams = {
 			{Level: 15, checkpoint: "cry", chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 17, checkpoint: "tmp"},
+			{Level: 16, checkpoint: "tmp"},
 		],
 
 		"traps": [
@@ -309,7 +309,7 @@ const KinkyDungeonMapParams = {
 
 		],
 		"mainpath": [
-			{Level: 23, checkpoint: "tmp"},
+			{Level: 21, checkpoint: "tmp"},
 		],
 
 		"traps": [
@@ -397,7 +397,7 @@ const KinkyDungeonMapParams = {
 			{Level: 4, checkpoint: "cry", chance: 1.0},
 		],
 		"mainpath": [
-			{Level: 5, checkpoint: "cat"},
+			{Level: 6, checkpoint: "cat"},
 		],
 
 		"traps": [
@@ -572,7 +572,7 @@ const KinkyDungeonMapParams = {
 		"mainpath": [
 			{Level: 5, checkpoint: "cry"},
 			{Level: 7, checkpoint: "cat"},
-			{Level: 17, checkpoint: "tmp"},
+			{Level: 16, checkpoint: "tmp"},
 		],
 
 		"traps": [

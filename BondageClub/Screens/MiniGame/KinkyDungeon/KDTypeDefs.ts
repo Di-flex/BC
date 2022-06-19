@@ -565,7 +565,7 @@ interface enemy {
 	/** For AI = 'ambush', this enemy will wander until it sees the player and triggers the ambush. Mostly used for invisible enemies. */
 	wanderTillSees?: boolean,
 	/** For kiting enemies, this enemy moves in to attack Only When the player is Disabled. Used on enemies like the Maidforce stalker who stay away from the enemy but have powerful disabling effects like flash bombs*/
-	kiteOnlyWhenDisabled?: boolean,
+	dontKiteWhenDisabled?: boolean,
 	/** The special attack only binds on kneeling players*/
 	bindOnKneelSpecial?: boolean,
 	/** The regular attack only binds on kneeling players*/

@@ -5,8 +5,8 @@
 function KinkyDungeonAddTags(tags, Floor) {
 	let security = (KinkyDungeonGoddessRep.Prisoner + 50);
 
-	if (Floor % 6 >= 2 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
-	if (Floor % 6 >= 5 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
+	if (Floor % KDLevelsPerCheckpoint >= 2 || Floor % KDLevelsPerCheckpoint == 0 || KinkyDungeonDifficulty >= 20) tags.push("secondhalf");
+	if (Floor % KDLevelsPerCheckpoint >= 4 || Floor % KDLevelsPerCheckpoint == 0 || KinkyDungeonDifficulty >= 40) tags.push("lastthird");
 
 	let angeredGoddesses = [];
 
