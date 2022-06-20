@@ -83,9 +83,10 @@ function KDFactionHostile(a, b) {
  * Consults the faction table and decides if the two mentioned factions are allied
  * @param {string} a - Faction 1
  * @param {string | entity} b - Faction 2
+ * @param {number} [threshold] - Faction 2
  * @returns {boolean}
  */
-function KDFactionAllied(a, b) {
+function KDFactionAllied(a, b, threshold = 0.7) {
 	if (a == "Player" && b && !(typeof b === "string") && b.hostile > 0) return false;
 	if (!(typeof b === "string") && b.rage > 0) return false;
 	if (a == "Player" && !(typeof b === "string") && b.allied > 0) return true;
@@ -93,7 +94,7 @@ function KDFactionAllied(a, b) {
 	if (a == "Rage" || b == "Rage") return false;
 	if (a == "Player" && b == "Player") return true;
 	if (b == "Enemy" && a == "Enemy") return true;
-	if (KDFactionRelation(a, !(typeof b === "string") ? KDGetFaction(b) : b) >= 0.7) return true;
+	if (KDFactionRelation(a, !(typeof b === "string") ? KDGetFaction(b) : b) >= threshold) return true;
 	if (a == b) return true;
 	return false;
 }
@@ -105,9 +106,6 @@ function KDFactionAllied(a, b) {
  * @returns {boolean}
  */
 function KDFactionFavorable(a, b) {
-	if (KDFactionAllied(a, b)) return true;
-	if (KDFactionRelation(a, !(typeof b === "string") ? KDGetFaction(b) : b) >= 0.099) return true;
-	if (a == b) return true;
-	return false;
+	return KDFactionAllied(a, b, 0.099);
 }
 
