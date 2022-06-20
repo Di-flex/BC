@@ -120,11 +120,20 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHost
 		let noOverride = ["boss", "miniboss", "elite", "minor"];
 		let overrideFloor = false;
 		for (let t of tags) {
-			if (!noOverride.includes(t))
+			if (!noOverride.includes(t)) {
+				// We don't override the floor just for having the seniority tags specified
 				if (enemy.tags.has(t)) {
 					overrideFloor = true;
 					weightMulti *= 1.25;
 				}
+			} else {
+				// We DO override if the enemy has outOfBoxWeightMult, otherwise we apply a penalty.
+				if (enemy.outOfBoxWeightMult) {
+					weightMulti *= 1.25;
+				} else {
+					weightMulti *= 0.1;
+				}
+			}
 		}
 		if (bonusTags)
 			for (let t of Object.entries(bonusTags)) {

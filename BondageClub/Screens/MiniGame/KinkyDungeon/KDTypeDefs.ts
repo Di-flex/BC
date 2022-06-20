@@ -401,6 +401,8 @@ interface enemy {
 	name: string,
 	/** Special dialogue played when clicked on instead of standard ally dialogue */
 	specialdialogue?: string,
+	/** Overrides the default weight reduction for being outside of a miniboss/boss/minor/elite box */
+	outOfBoxWeightMult?: number,
 	/** Tags, used for determining weaknesses, spawning, restraints applied, and rank*/
 	tags: Map<string, boolean>,
 	/** Spell resist, formula is spell damage taken = 1 / (1 + spell resist) */

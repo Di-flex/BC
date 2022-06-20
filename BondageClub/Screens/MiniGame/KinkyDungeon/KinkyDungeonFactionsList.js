@@ -226,7 +226,7 @@ let KinkyDungeonFactionRelationsBase = {
 		Nevermere: -0.4,
 		Apprentice: -0.4,
 		Dressmaker: -0.4,
-		Witch: -0.55,
+		Witch: -0.1,
 		Elemental: -0.4,
 		Dragon: -1.0,
 		Maidforce: -0.4,
