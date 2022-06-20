@@ -307,6 +307,7 @@ function KDUpdateEffectTiles(delta) {
 			} else {
 				if (t[1].duration > 0) t[1].duration -= delta;
 			}
+			if (t[1].pauseDuration <= 0.001) t[1].pauseSprite = undefined;
 			if (t[1].duration <= 0.001) location.delete(t[0]);
 		}
 		if (loc[1].size < 1) {

@@ -325,6 +325,8 @@ function KinkyDungeonDrawGame() {
 					KDVisionUpdate = 0;
 				}
 
+				KDDrawEffectTiles(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
+
 				let aura_scale = 0;
 				let aura_scale_max = 0;
 				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
@@ -359,7 +361,6 @@ function KinkyDungeonDrawGame() {
 					}
 				}
 
-				KDDrawEffectTiles(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);
@@ -665,14 +666,14 @@ function KinkyDungeonDrawGame() {
 						KinkyDungeonGridSizeDisplay, 12, 100 * KinkyDungeonStatStamina / KinkyDungeonStatStaminaMax, "#44ff44", "#000000");
 					barInt += 1;
 				}
-				for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
+				/*for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 					if (b && b.aura && b.duration > 0 && b.duration < 999) {
 						if (!b.maxduration) b.maxduration = b.duration;
 						KinkyDungeonBar(canvasOffsetX + (KinkyDungeonPlayerEntity.visual_x - CamX-CamX_offset)*KinkyDungeonGridSizeDisplay, canvasOffsetY + (KinkyDungeonPlayerEntity.visual_y - CamY-CamY_offset)*KinkyDungeonGridSizeDisplay - 12 - 13 * barInt,
 							KinkyDungeonGridSizeDisplay, 12, 100 * b.duration / b.maxduration, b.aura, "#000000");
 						barInt += 1;
 					}
-				}
+				}*/
 				if (KinkyDungeonCurrentEscapingItem && KinkyDungeonLastTurnAction == "Struggle") {
 					let item = KinkyDungeonCurrentEscapingItem;
 					let value = 0;

@@ -3769,6 +3769,12 @@ KinkyDungeonSpellWaterBall,Water Ball
 KinkyDungeonSpellDescriptionWaterBall,"Fast projectile. Deals DamageDealt acid damage. Drenched targets take +35% electric/ice, -42% fire, & conduct 50% of electric damage."
 KinkyDungeonSpellCastWaterBall,You hurl a ball of water!
 KinkyDungeonSpellTargetWaterBall,Choose aim direction
+
+KinkyDungeonSpellTidalBall,Tidal Sphere
+KinkyDungeonSpellDescriptionTidalBall,"Slow moving projectile, deals DamageDealt acid damage to enemies it passes thru. Leaves a large amount of water in its wake."
+KinkyDungeonSpellCastTidalBall,You raise a huge mass of water!
+KinkyDungeonSpellTargetTidalBall,Choose aim direction
+
 KDEffectDrench,The water covers you and drenches you!
 KinkyDungeonStepWater,You step in water and become wet.
 

@@ -793,7 +793,7 @@ function KinkyDungeonUpdateBullets(delta, Allied) {
 				}
 				let outOfTime = (b.bullet.lifetime != 0 && b.time <= 0.001);
 				end = false;
-				let checkCollision = justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
+				let checkCollision = b.bullet.faction == "Player" || justBorn || b.x != startx || b.y != starty || (!b.vx && !b.vy) || (KDistEuclidean(b.vx, b.vy) < 0.9); // Check collision for bullets only once they leave their square or if they are slower than one
 				if ((checkCollision && !KinkyDungeonBulletsCheckCollision(b, undefined, undefined, delta - d, false)) || outOfTime || outOfRange) {
 					if (!(b.bullet.spell && ((!b.bullet.trail && (b.bullet.spell.piercing || (b.bullet.spell.pierceEnemies && KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(b.x, b.y))))) || (b.bullet.trail && b.bullet.spell.piercingTrail))) || outOfRange || outOfTime) {
 						d = 0;

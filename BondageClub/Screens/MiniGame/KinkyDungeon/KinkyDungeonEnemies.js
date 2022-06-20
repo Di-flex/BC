@@ -280,8 +280,12 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);
 				} else {
 					let sp = enemy.Enemy.bound;
-					if (enemy.CustomSprite) sp = "CustomSpriteBound/" + enemy.CustomSprite;
-					DrawImageZoomCanvas(KinkyDungeonRootDirectory + "EnemiesBound/" + sp + ".png",
+					let dir = "EnemiesBound/";
+					if (enemy.CustomSprite) {
+						dir = "Enemies/";
+						sp = "CustomSpriteBound/" + enemy.CustomSprite;
+					}
+					DrawImageZoomCanvas(KinkyDungeonRootDirectory + dir + sp + ".png",
 						KinkyDungeonContext, 0, 0, KinkyDungeonSpriteSize, KinkyDungeonSpriteSize,
 						(tx - CamX)*KinkyDungeonGridSizeDisplay, (ty - CamY)*KinkyDungeonGridSizeDisplay,
 						KinkyDungeonGridSizeDisplay, KinkyDungeonGridSizeDisplay, false);

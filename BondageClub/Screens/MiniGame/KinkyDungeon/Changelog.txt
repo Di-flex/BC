@@ -992,6 +992,7 @@ Spell Balance:
 - New Spell: Earthshape
 - Ice Storm -> Field of Frost
 - New Spell: Winterblast
+- New Spell: Tidal Sphere
 
 TODO ValidationFindBlockCycles to prevent bugs
 

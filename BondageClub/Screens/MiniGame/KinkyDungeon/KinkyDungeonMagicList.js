@@ -73,7 +73,7 @@ let KinkyDungeonLearnableSpells = [
 		// Verbal
 		["Incinerate", "Freeze", "IceBreath", "IronBlood", "Electrify", "StaticSphere", "Thunderstorm"],
 		// Arms
-		["Firebolt", "Fireball", "Icebolt", "IceOrb", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall"],
+		["Firebolt", "Fireball", "Icebolt", "IceOrb", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall", "TidalBall"],
 		// Legs
 		["Ignite", "Fissure", "Sleet", "Shield", "GreaterShield", "BoulderLaunch", "BigBoulderLaunch", "Earthform", "EarthformRing", "EarthformMound", "EarthformLine", "LightningRune"],
 		// Passive
@@ -149,7 +149,14 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		}, noUniqueHits: true, noise: 8, sfx: "FireSpell", school: "Elements", manacost: 14, components: ["Verbal"], level:3, type:"inert", onhit:"aoe", delay: 1, power: 1, range: 4.5, size: 5, aoe: 2.9, lifetime: 20, time: 2, damage: "frost"},
 		{name: "Firebolt", tags: ["fire", "bolt", "offense"], prerequisite: "ApprenticeFire", sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 4.0, delay: 0, range: 50, damage: "fire", speed: 2, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
 		{name: "Fireball", prerequisite: "Firebolt", tags: ["fire", "bolt", "aoe", "offense"], noise: 3, sfx: "FireSpell", school: "Elements", manacost: 8, components: ["Arms"], level:3, type:"bolt", projectileTargeting:true, onhit:"aoe", power: 6, delay: 0, range: 50, aoe: 1.5, size: 3, lifetime:1, damage: "fire", speed: 1, playerEffect: {name: "Damage"}}, // Throws a fireball in a direction that moves 1 square each turn
-		{name: "Icebolt", tags: ["ice", "bolt", "offense"], prerequisite: "ApprenticeWater", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"", time: 4,  power: 3.5, delay: 0, range: 50, damage: "frost", speed: 3, playerEffect: {name: "Damage"},
+		{name: "Icebolt", tags: ["ice", "bolt", "offense"], prerequisite: "ApprenticeWater", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:1, type:"bolt",
+			effectTileDurationMod: 10, effectTile: {
+				name: "Ice",
+				duration: 20,
+				priority: 1,
+				tags: ["ice"],
+			},
+			projectileTargeting:true, onhit:"", time: 4,  power: 3.5, delay: 0, range: 50, damage: "frost", speed: 3, playerEffect: {name: "Damage"},
 			events: [{type: "ElementalOnSlowOrBindOrDrench", trigger: "bulletHitEnemy", damage: "ice", time: 4, power: 0},]},
 		{name: "IceOrb", tags: ["ice", "bolt", "offense", "utility"], prerequisite: "Icebolt", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"",  power: 2, pierceEnemies: true, delay: 0, range: 50, damage: "frost", speed: 2,
 			effectTileDurationModTrail: 4, effectTileTrailAoE: 1.5, noTrailOnPlayer: true, effectTileTrail: {
@@ -215,8 +222,21 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				Object.assign({}, KDDrenched),
 				Object.assign({}, KDDrenched2),
 				Object.assign({}, KDDrenched3),
-			]
+			],
+			effectTileDurationMod: 40, effectTile: {
+				name: "Water",
+				duration: 40,
+				priority: 1,
+				tags: ["water", "freezeover"],
+			},
 		},
+		{name: "TidalBall", tags: ["water", "bolt", "offense", "utility"], prerequisite: "WaterBall", sfx: "FireSpell", school: "Elements", manacost: 6, components: ["Arms"], level:2, type:"bolt", size: 3, aoe: 1.5, projectileTargeting:true, onhit:"",  power: 3.5, pierceEnemies: true, delay: 0, range: 50, damage: "acid", speed: 1,
+			effectTileDurationModTrail: 100, effectTileTrailAoE: 1.5, noTrailOnPlayer: true, effectTileTrail: {
+				name: "Water",
+				duration: 40,
+				priority: 1,
+				tags: ["water"],
+			}},
 
 		// Passive spells
 		{name: "Shatter", tags: ["ice", "aoe", "offense"], prerequisite: "ApprenticeWater", school: "Elements", manacost: 1, components: [], power: 1.5, time: 4, level:2, type:"passive", events: [

@@ -67,7 +67,18 @@ let KDEffectTileFunctions = {
 		if (entity.player && KinkyDungeonPlayerBuffs.Slipping)
 			KDSlip({x: KinkyDungeonPlayerEntity.x - KinkyDungeonPlayerEntity.lastx, y: KinkyDungeonPlayerEntity.y - KinkyDungeonPlayerEntity.lasty});
 		return true;
-	}
+	},
+	"Water": (delta, entity, tile) => {
+		if (tile.pauseSprite == tile.name + "Frozen") {
+			if (entity.player && KinkyDungeonPlayerBuffs.Slipping)
+				KDSlip({x: KinkyDungeonPlayerEntity.x - KinkyDungeonPlayerEntity.lastx, y: KinkyDungeonPlayerEntity.y - KinkyDungeonPlayerEntity.lasty});
+		} else {
+			KinkyDungeonApplyBuffToEntity(entity, KDDrenched);
+			KinkyDungeonApplyBuffToEntity(entity, KDDrenched2);
+			KinkyDungeonApplyBuffToEntity(entity, KDDrenched3);
+		}
+		return true;
+	},
 };
 
 /**
@@ -88,6 +99,13 @@ let KDEffectTileCreateFunctionsCreator = {
 			newTile.pauseSprite = newTile.name + "Frozen";
 		}
 		return true;
+	},
+	"Water": (newTile, existingTile) => {
+		if (existingTile.tags.includes("ice")) {
+			newTile.pauseDuration = newTile.duration;
+			newTile.pauseSprite = newTile.name + "Frozen";
+		}
+		return true;
 	}
 };
 
@@ -96,7 +114,6 @@ let KDEffectTileCreateFunctionsCreator = {
  * @type {Record<string, (newTile: effectTile, existingTile: effectTile) => boolean>}
  */
 let KDEffectTileCreateFunctionsExisting = {
-
 };
 
 /**
@@ -118,7 +135,16 @@ let KDEffectTileMoveOnFunctions = {
 			return {cancelmove: true, returnvalue: true};
 		}
 		return {cancelmove: false, returnvalue: false};
-	}
+	},
+	"Water": (entity, tile, willing, dir, sprint) => {
+		if (tile.pauseSprite == tile.name + "Frozen") {
+			if (sprint && entity.player && willing && (dir.x || dir.y)) {
+				KDSlip(dir);
+				return {cancelmove: true, returnvalue: true};
+			}
+		}
+		return {cancelmove: false, returnvalue: false};
+	},
 };
 
 /**
@@ -136,5 +162,19 @@ let KDEffectTileBulletFunctions = {
 			}
 		}
 		return true;
-	}
+	},
+	"Water": (b, tile, d) => {
+		if (b.bullet.damage) {
+			let type = b.bullet.damage.type;
+			if ((type == "ice" || type == "frost")) {
+				KDCreateEffectTile(tile.x, tile.y, {
+					name: "Ice",
+					duration: 3,
+					priority: 1,
+					tags: ["ice"],
+				}, 1); // Create ice
+			}
+		}
+		return true;
+	},
 };
