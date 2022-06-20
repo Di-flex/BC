@@ -251,11 +251,21 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 							if (b && b.aura && b.duration > 0) {
 								aura_scale += 1/aura_scale_max;
 								let s = aura_scale;
-								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
-									(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
-									(ty - CamY)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
-									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33,
-									b.aura, true, []);
+								if (b.noAuraColor) {
+									DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
+										0, 0, 144, 144,
+										(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+										(ty - CamY)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+										KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33,
+										KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33);
+								} else {
+									DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
+										(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+										(ty - CamY)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
+										KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33,
+										b.aura, true, []);
+								}
+
 							}
 						}
 					}
@@ -1065,7 +1075,7 @@ let KinkyDungeonHuntDownPlayer = false;
  * @returns {boolean}
  */
 function KinkyDungeonHasStatus(enemy) {
-	return enemy && (enemy.bind > 0 || enemy.slow > 0 || enemy.stun > 0 || enemy.freeze > 0 || enemy.silence > 0 || enemy.slow > 0 || KDBoundEffects(enemy) > 0);
+	return enemy && (enemy.bind > 0 || enemy.slow > 0 || enemy.stun > 0 || enemy.freeze > 0 || enemy.silence > 0 || KinkyDungeonIsSlowed(enemy) || KDBoundEffects(enemy) > 0);
 }
 
 
@@ -1076,6 +1086,16 @@ function KinkyDungeonHasStatus(enemy) {
  */
 function KinkyDungeonIsDisabled(enemy) {
 	return enemy && (enemy.stun > 0 || enemy.freeze > 0 || KDBoundEffects(enemy) > 3);
+}
+
+
+/**
+ *
+ * @param {entity} enemy
+ * @returns {boolean}
+ */
+function KinkyDungeonIsSlowed(enemy) {
+	return enemy && ((KDBoundEffects(enemy) > 0 && KDBoundEffects(enemy) < 4) || enemy.slow > 0 || KinkyDungeonGetBuffedStat(enemy.buffs, "MoveSpeed") < 0);
 }
 
 
@@ -3037,9 +3057,17 @@ function KinkyDungeonSendEnemyEvent(Event, data) {
  * @param {number} y
  * @param {boolean} willing
  */
-function KDMoveEntity(enemy, x, y, willing) {
+function KDMoveEntity(enemy, x, y, willing, dash) {
 	enemy.lastx = enemy.x;
 	enemy.lasty = enemy.y;
-	enemy.x = x;
-	enemy.y = y;
+	let newTile = KinkyDungeonEffectTiles.get(x + ',' + y);
+	let cancel = {cancelmove: false, returnvalue: false};
+	if (newTile && newTile.duration > 0 && KDEffectTileMoveOnFunctions[newTile.name]) {
+		cancel = KDEffectTileMoveOnFunctions[newTile.name](enemy, newTile, willing, {x: x - enemy.x, y: y - enemy.y}, dash);
+	}
+	if (!cancel.cancelmove) {
+		enemy.x = x;
+		enemy.y = y;
+	}
+	return cancel.returnvalue;
 }

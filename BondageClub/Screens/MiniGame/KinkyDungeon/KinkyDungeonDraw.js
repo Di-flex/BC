@@ -339,14 +339,27 @@ function KinkyDungeonDrawGame() {
 						if (b && b.aura && b.duration > 0) {
 							aura_scale += 1/aura_scale_max;
 							let s = aura_scale;
-							DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
-								(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
-								(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
-								KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,
-								b.aura, true, []);
+							if (b.noAuraColor) {
+								DrawImageZoomCanvas(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
+									0, 0,
+									144, 144,
+									(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+									(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,
+									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5);
+							} else {
+								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
+									(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+									(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
+									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,
+									b.aura, true, []);
+							}
+
 						}
 					}
 				}
+
+				KDDrawEffectTiles(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 
 				KinkyDungeonDrawItems(canvasOffsetX, canvasOffsetY, CamX+CamX_offset, CamY+CamY_offset);
 				KinkyDungeonContext.drawImage(KinkyDungeonCanvasPlayer,  (KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay, (KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay);

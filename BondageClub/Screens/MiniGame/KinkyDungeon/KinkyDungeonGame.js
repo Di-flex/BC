@@ -73,6 +73,8 @@ let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D"
 let KinkyDungeonRandomPathablePoints = new Map();
 /** @type {Map<string, any>} */
 let KinkyDungeonTiles = new Map();
+/** @type {Map<string, effectTile>} */
+let KinkyDungeonEffectTiles = new Map();
 /** @type {Map<string, any>} */
 let KinkyDungeonTilesMemory = new Map();
 /** @type {Map<string, any>} */
@@ -2710,11 +2712,19 @@ function KinkyDungeonWaitMessage(NoTime) {
 	KinkyDungeonTrapMoved = false;
 }
 
-function KDMovePlayer(moveX, moveY, willing) {
+function KDMovePlayer(moveX, moveY, willing, sprint) {
 	KinkyDungeonPlayerEntity.lastx = KinkyDungeonPlayerEntity.x;
 	KinkyDungeonPlayerEntity.lasty = KinkyDungeonPlayerEntity.y;
-	KinkyDungeonPlayerEntity.x = moveX;
-	KinkyDungeonPlayerEntity.y = moveY;
+	let newTile = KinkyDungeonEffectTiles.get(moveX + ',' + moveY);
+	let cancel = {cancelmove: false, returnvalue: false};
+	if (newTile && newTile.duration > 0 && KDEffectTileMoveOnFunctions[newTile.name]) {
+		cancel = KDEffectTileMoveOnFunctions[newTile.name](KinkyDungeonPlayerEntity, newTile, willing, {x: moveX - KinkyDungeonPlayerEntity.x, y: moveY - KinkyDungeonPlayerEntity.y}, sprint);
+	}
+	if (!cancel.cancelmove) {
+		KinkyDungeonPlayerEntity.x = moveX;
+		KinkyDungeonPlayerEntity.y = moveY;
+	}
+	return cancel.returnvalue;
 }
 
 // Returns th number of turns that must elapse
@@ -2730,7 +2740,8 @@ function KinkyDungeonMoveTo(moveX, moveY, SuppressSprint) {
 	if (xx != moveX || yy != moveY) {
 		KinkyDungeonTrapMoved = true;
 	}
-	KDMovePlayer(moveX, moveY, true);
+	let willSprint = KinkyDungeonToggleAutoSprint && (xx != moveX || yy != moveY) && !SuppressSprint;
+	let cencelled = KDMovePlayer(moveX, moveY, true, willSprint);
 
 	if (stepOff) KinkyDungeonHandleStepOffTraps(xx, yy, moveX, moveY);
 
@@ -2739,7 +2750,7 @@ function KinkyDungeonMoveTo(moveX, moveY, SuppressSprint) {
 	if (KinkyDungeonStatsChoice.has("Quickness")) {
 		KinkyDungeonSetFlag("BlockQuicknessPerk", 4);
 	}
-	if (KinkyDungeonToggleAutoSprint && (xx != moveX || yy != moveY) && !SuppressSprint) {
+	if (!cencelled && willSprint) {
 		if (KDCanSprint()) {
 			let unblocked = KinkyDungeonSlowLevel > 1;
 			if (!unblocked) {
@@ -2841,6 +2852,7 @@ function KinkyDungeonAdvanceTime(delta, NoUpdate, NoMsgTick) {
 	KinkyDungeonUpdateBulletsCollisions(delta, true); //"catchup" phase for explosions!
 
 	KinkyDungeonUpdateTileEffects(delta);
+	KDUpdateEffectTiles(delta);
 	for (let E = 0; E < KinkyDungeonEntities.length; E++) {
 		let enemy = KinkyDungeonEntities[E];
 		if (KinkyDungeonEnemyCheckHP(enemy, E)) { E -= 1; continue;}

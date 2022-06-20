@@ -1462,7 +1462,7 @@ let KDEventMapBullet = {
 	},
 	"bulletHitEnemy": {
 		"ElementalOnSlowOrBind": (e, b, data) => {
-			if (b && data.enemy && (data.enemy.slow || data.enemy.bind)) {
+			if (b && data.enemy && (KinkyDungeonIsSlowed(data.enemy) || data.enemy.bind > 0)) {
 				KinkyDungeonDamageEnemy(data.enemy, {
 					type: e.damage,
 					damage: e.power,
@@ -1472,7 +1472,7 @@ let KDEventMapBullet = {
 			}
 		},
 		"ElementalOnSlowOrBindOrDrench": (e, b, data) => {
-			if (b && data.enemy && (data.enemy.slow || data.enemy.bind || (data.enemy.buffs && data.enemy.buffs.Drenched))) {
+			if (b && data.enemy && (KinkyDungeonIsSlowed(data.enemy) || data.enemy.bind > 0 || (data.enemy.buffs && data.enemy.buffs.Drenched))) {
 				KinkyDungeonDamageEnemy(data.enemy, {
 					type: e.damage,
 					damage: e.power,

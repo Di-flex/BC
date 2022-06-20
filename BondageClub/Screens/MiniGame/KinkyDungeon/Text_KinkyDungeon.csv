@@ -240,6 +240,13 @@ KinkyDungeonBuffLightningRod,Lightning Rod
 KDConductionDamageTaken,DAMAGEDEALT electric damage conducts to you!!!
 KinkyDungeonBuffDrenched,Drenched
 
+KinkyDungeonBuffChilled,Chilled...
+KinkyDungeonBuffSlimed,Covered in Slime
+KinkyDungeonBuffChillWalk,Ignore Ice Tiles
+
+KDSlipIce,You slip on the ice!
+
+
 KinkyDungeonBuffIgnite,Ignited!!!
 KinkyDungeonBuffIgniteDamage,The air around you is ablaze! (-DamageDealt SP)
 
@@ -3397,9 +3404,9 @@ KinkyDungeonSpellDescriptionGreaterShield,Creates a shield that blocks BlockAmou
 KinkyDungeonSpellCastGreaterShield,You create a temporary shield!
 KinkyDungeonSpellTargetGreaterShield,Choose shield location
 
-KinkyDungeonSpellThunderstorm,Thunderstorm
-KinkyDungeonSpellDescriptionThunderstorm,"Call forth a storm for Duration turns. Makes all entities in the area Conductive, forcing them to share 50% electric damage."
-KinkyDungeonSpellCastThunderstorm,You call forth the storm!
+KinkyDungeonSpellThunderstorm,Electric Field
+KinkyDungeonSpellDescriptionThunderstorm,"Creates a conductive area for Duration turns. Makes all entities in the area Conductive, forcing them to share 50% electric damage."
+KinkyDungeonSpellCastThunderstorm,You energize the targeted area!
 KinkyDungeonSpellTargetThunderstorm,Choose target 3x3 area
 
 KinkyDungeonSpellWitchElectrify,Witch's Electricity
@@ -3424,8 +3431,8 @@ KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt 
 KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
-KinkyDungeonSpellSleet,Ice Storm
-KinkyDungeonSpellDescriptionSleet,Swirling frost that deals DamageDealt damage per turn for LifeTime turns and slows enemies within. 5x5 area. You are unaffected.
+KinkyDungeonSpellSleet,Field of Frost
+KinkyDungeonSpellDescriptionSleet,Freezes a 5x5 area (ice slows entities). Enemies in the area take DamageDealt damage per turn for LifeTime turns.
 KinkyDungeonSpellCastSleet,You stomp your foot and call forth the storm!
 KinkyDungeonSpellTargetSleet,Choose target AoE location (5x5)
 
@@ -3488,22 +3495,22 @@ KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
 
 
-KinkyDungeonSpellEarthform,Earthmold
+KinkyDungeonSpellEarthform,Earthshape
 KinkyDungeonSpellDescriptionEarthform,"Unlocks 3 spells that allow creating mounds, rings, or lines of 50hp, 25 armor rocks."
 KinkyDungeonSummonMultiEarthenMonolith,Earthen monoliths rise from the ground!
 KinkyDungeonSummonSingleEarthenMonolith,An earthen monolith rises from the ground!
 
-KinkyDungeonSpellEarthformRing,Earthmold (Ring)
+KinkyDungeonSpellEarthformRing,Earthshape (Ring)
 KinkyDungeonSpellDescriptionEarthformRing,Create a large ring of Earthen Monoliths. They have 50 hitpoints and 25 armor.
 KinkyDungeonSpellCastEarthformRing,You stomp your foot and monoliths emerge in a ring around you!
 KinkyDungeonSpellTargetEarthformRing,Choose ring origin
 
-KinkyDungeonSpellEarthformMound,Earthmold (Mound)
+KinkyDungeonSpellEarthformMound,Earthshape (Mound)
 KinkyDungeonSpellDescriptionEarthformMound,Create a 3x3 field of Earthen Monoliths. They have 50 hitpoints and 25 armor.
 KinkyDungeonSpellCastEarthformMound,You stomp your foot and monoliths emerge from the ground!
 KinkyDungeonSpellTargetEarthformMound,Choose mound origin
 
-KinkyDungeonSpellEarthformLine,Earthmold (Line)
+KinkyDungeonSpellEarthformLine,Earthshape (Line)
 KinkyDungeonSpellDescriptionEarthformLine,Create a 4-tile line of Earthen Monoliths. They have 50 hitpoints and 25 armor.
 KinkyDungeonSpellCastEarthformLine,You stomp your foot and monoliths emerge from the ground!
 KinkyDungeonSpellTargetEarthformLine,Choose line direction

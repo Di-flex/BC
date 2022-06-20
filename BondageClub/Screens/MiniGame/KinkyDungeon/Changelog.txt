@@ -989,7 +989,8 @@ Spell Balance:
 - Fixed command word not working on layered items
 - New spell indicators for AoE spells
 - New Spell: Boulder
-- New Spell: Earthmold
+- New Spell: Earthshape
+- Ice Storm -> Field of Frost
 
 TODO ValidationFindBlockCycles to prevent bugs
 

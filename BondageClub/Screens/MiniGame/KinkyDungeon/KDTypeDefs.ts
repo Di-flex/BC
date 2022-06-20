@@ -925,8 +925,25 @@ interface KinkyDialogueTrigger {
 	weight: (enemy: entity, dist: number) => number;
 }
 
+interface effectTile {
+    x?: number,
+    y?: number,
+    name: string,
+    duration: number,
+    priority: number,
+	data?: any,
+};
+
 interface spell {
 	tags?: string[];
+	effectTile?: effectTile,
+	effectTileDurationMod?: number,
+	effectTileLinger?: effectTile,
+	effectTileDurationModLinger?: number,
+	effectTileTrail?: effectTile,
+	effectTileDurationModTrail?: number,
+	effectTileDoT?: effectTile,
+	effectTileDurationModDoT?: number,
 	/** Color of the spell and bullet warningsd */
 	color?: string,
 	/** Buffs applied by the hit will effect everyone */

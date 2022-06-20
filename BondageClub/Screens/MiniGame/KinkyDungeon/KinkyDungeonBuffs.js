@@ -106,6 +106,15 @@ function KinkyDungeonExpireBuff(list, key) {
 	delete list[key];
 }
 
+function KinkyDungeonApplyBuffToEntity(entity, origbuff) {
+	if (entity && entity.player) {
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, origbuff);
+	} else if (entity) {
+		if (!entity.buffs) entity.buffs = {};
+		KinkyDungeonApplyBuff(entity.buffs, origbuff);
+	}
+}
+
 function KinkyDungeonApplyBuff(list, origbuff) {
 	if (!origbuff) return;
 	let buff = {};
