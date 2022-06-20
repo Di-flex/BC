@@ -3049,25 +3049,3 @@ function KinkyDungeonSendEnemyEvent(Event, data) {
 		}
 	}
 }
-
-/**
- * Moves an entity
- * @param {entity} enemy
- * @param {number} x
- * @param {number} y
- * @param {boolean} willing
- */
-function KDMoveEntity(enemy, x, y, willing, dash) {
-	enemy.lastx = enemy.x;
-	enemy.lasty = enemy.y;
-	let newTile = KinkyDungeonEffectTiles.get(x + ',' + y);
-	let cancel = {cancelmove: false, returnvalue: false};
-	if (newTile && newTile.duration > 0 && KDEffectTileMoveOnFunctions[newTile.name]) {
-		cancel = KDEffectTileMoveOnFunctions[newTile.name](enemy, newTile, willing, {x: x - enemy.x, y: y - enemy.y}, dash);
-	}
-	if (!cancel.cancelmove) {
-		enemy.x = x;
-		enemy.y = y;
-	}
-	return cancel.returnvalue;
-}

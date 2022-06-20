@@ -71,12 +71,45 @@ let KDEffectTileFunctions = {
 };
 
 /**
+ * Return is whether or not something the player should know about happened
+ * @type {Record<string, (newTile: effectTile, existingTile: effectTile) => boolean>}
+ */
+let KDEffectTileCreateFunctionsCreator = {
+	"Ice": (newTile, existingTile) => {
+		if (existingTile.tags.includes("freezeover")) {
+			existingTile.pauseDuration = newTile.duration;
+			existingTile.pauseSprite = existingTile.name + "Frozen";
+		}
+		return true;
+	},
+	"Slime": (newTile, existingTile) => {
+		if (existingTile.tags.includes("ice")) {
+			newTile.pauseDuration = newTile.duration;
+			newTile.pauseSprite = newTile.name + "Frozen";
+		}
+		return true;
+	}
+};
+
+/**
+ * Return is whether or not something the player should know about happened
+ * @type {Record<string, (newTile: effectTile, existingTile: effectTile) => boolean>}
+ */
+let KDEffectTileCreateFunctionsExisting = {
+
+};
+
+/**
  * Return is whether or not the move should be interrupted
  * @type {Record<string, (entity, tile: effectTile, willing, dir, sprint) => {cancelmove: boolean, returnvalue: boolean}>}
  */
 let KDEffectTileMoveOnFunctions = {
 	"Slime": (entity, tile, willing, dir, sprint) => {
-		KinkyDungeonApplyBuffToEntity(entity, KDSlimed);
+		if (tile.pauseDuration > 0) {
+			// Meep
+		} else {
+			KinkyDungeonApplyBuffToEntity(entity, KDSlimed);
+		}
 		return {cancelmove: false, returnvalue: false};
 	},
 	"Ice": (entity, tile, willing, dir, sprint) => {

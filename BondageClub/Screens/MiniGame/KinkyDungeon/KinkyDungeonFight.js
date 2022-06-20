@@ -1184,10 +1184,6 @@ function KinkyDungeonBulletTrail(b) {
 function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly, delta) {
 	let mapItem = KinkyDungeonMapGet(bullet.x, bullet.y);
 	if (!bullet.bullet.passthrough && !bullet.bullet.piercing && !KinkyDungeonOpenObjects.includes(mapItem)) return false;
-	if (!bullet.bullet.noInteractTiles) {
-		let examinedTile = KinkyDungeonEffectTiles.get(bullet.x + ',' + bullet.y);
-		if (examinedTile) KinkyDungeonBulletInteractionSingleEffectTile(bullet, examinedTile, d);
-	}
 
 	if (bullet.bullet.spell && bullet.bullet.spell.type == "dot") {
 		if (bullet.bullet.spell.effectTileDoT) {
@@ -1236,19 +1232,20 @@ function KinkyDungeonBulletsCheckCollision(bullet, AoE, force, d, inWarningOnly,
 				}
 
 				if (!bullet.bullet.noInteractTiles) {
-					let examinedTile = null;
 					let rad = bullet.bullet.aoe;
 					for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 						for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
-							if (Math.sqrt(X*X+Y*Y) <= rad) {
-								examinedTile = KinkyDungeonEffectTiles.get((bullet.x + X) + ',' + (bullet.y + Y));
-								if (examinedTile) KinkyDungeonBulletInteractionSingleEffectTile(bullet, examinedTile, d);
+							if (Math.sqrt(X*X+Y*Y) <= rad && (X != 0 || Y != 0)) {
+								KDEffectTileInteractions(bullet.x + X, bullet.y + Y, bullet, d);
 							}
 						}
 				}
 
 			}
 		} else {
+			if (!bullet.bullet.noInteractTiles) {
+				KDEffectTileInteractions(bullet.x, bullet.y, bullet, d);
+			}
 			if (bullet.bullet.spell && (bullet.bullet.spell.playerEffect || bullet.bullet.playerEffect)
 				&& (!bullet.bullet.noEnemyCollision || (bullet.bullet.spell && bullet.bullet.alwaysCollideTags && bullet.bullet.alwaysCollideTags.includes("PlayerChar")))
 				&& KinkyDungeonPlayerEntity.x == bullet.x && KinkyDungeonPlayerEntity.y == bullet.y

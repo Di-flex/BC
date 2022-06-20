@@ -934,6 +934,10 @@ interface effectTile {
     duration: number,
     priority: number,
 	data?: any,
+	drawOver?: boolean,
+	tags: string[],
+	pauseDuration?: number,
+	pauseSprite?: string,
 };
 
 interface spell {

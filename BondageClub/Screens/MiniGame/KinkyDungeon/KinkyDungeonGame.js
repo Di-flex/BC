@@ -73,7 +73,7 @@ let KinkyDungeonTransparentMovableObjects = KinkyDungeonMovableTiles.replace("D"
 let KinkyDungeonRandomPathablePoints = new Map();
 /** @type {Map<string, any>} */
 let KinkyDungeonTiles = new Map();
-/** @type {Map<string, effectTile>} */
+/** @type {Map<string, Map<string, effectTile>>} */
 let KinkyDungeonEffectTiles = new Map();
 /** @type {Map<string, any>} */
 let KinkyDungeonTilesMemory = new Map();
@@ -2712,20 +2712,6 @@ function KinkyDungeonWaitMessage(NoTime) {
 	KinkyDungeonTrapMoved = false;
 }
 
-function KDMovePlayer(moveX, moveY, willing, sprint) {
-	KinkyDungeonPlayerEntity.lastx = KinkyDungeonPlayerEntity.x;
-	KinkyDungeonPlayerEntity.lasty = KinkyDungeonPlayerEntity.y;
-	let newTile = KinkyDungeonEffectTiles.get(moveX + ',' + moveY);
-	let cancel = {cancelmove: false, returnvalue: false};
-	if (newTile && newTile.duration > 0 && KDEffectTileMoveOnFunctions[newTile.name]) {
-		cancel = KDEffectTileMoveOnFunctions[newTile.name](KinkyDungeonPlayerEntity, newTile, willing, {x: moveX - KinkyDungeonPlayerEntity.x, y: moveY - KinkyDungeonPlayerEntity.y}, sprint);
-	}
-	if (!cancel.cancelmove) {
-		KinkyDungeonPlayerEntity.x = moveX;
-		KinkyDungeonPlayerEntity.y = moveY;
-	}
-	return cancel.returnvalue;
-}
 
 // Returns th number of turns that must elapse
 function KinkyDungeonMoveTo(moveX, moveY, SuppressSprint) {
