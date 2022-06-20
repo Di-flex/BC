@@ -2137,6 +2137,11 @@ function KinkyDungeonRemoveRestraint(Group, Keep, Add, NoEvent, Shrine, UnLink) 
 	return false;
 }
 
+function KDIInsertRestraintUnderneath(restraint) {
+
+	return false;
+}
+
 /**
  * It removes the item's dynamic link
  * @param {item} hostItem - The group of the item to remove.

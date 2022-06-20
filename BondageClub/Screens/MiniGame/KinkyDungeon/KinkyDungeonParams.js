@@ -25,7 +25,7 @@ const KinkyDungeonMapParams = {
 		"forbiddenChance" : 0.7, // If a forbidden gold chance is generated. Otherwise a silver chest will appear
 		"forbiddenGreaterChance" : 0.33, // Chance after a forbidden area is generated with a restraint, otherwise its a lesser gold chest
 
-		"enemytags": ["magical"],
+		"enemytags": ["magical", "zombie"],
 
 		"setpieces": [
 			{Type: "Bedroom", Weight: 3},
@@ -59,8 +59,6 @@ const KinkyDungeonMapParams = {
 		"max_width" : 31,
 		"min_height" : 13,
 		"max_height" : 19,
-
-		"enemytags": ["zombie"],
 		"defeat_restraints": [
 			{Name: "Stuffing", Level: 20},
 			{Name: "TrapGag", Level: 20},
