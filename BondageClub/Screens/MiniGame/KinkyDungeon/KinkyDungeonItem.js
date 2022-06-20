@@ -210,7 +210,7 @@ function KinkyDungeonDrawHeart() {
 	DrawText(TextGet("KinkyDungeonHeartIntro2"), 1250, 350, "white", "silver");
 	DrawText(TextGet("KinkyDungeonHeartIntro3"), 1250, 400, "white", "silver");
 
-	DrawText(TextGet("StatDistraction").replace("CURRENT/MAX", "" + KinkyDungeonStatDistractionMax), 650 + 350/2, 650, "white", "silver");
+	DrawText(TextGet("StatDistraction").replace("PERCENT", "" + Math.round(100*KinkyDungeonStatDistraction/KinkyDungeonStatDistractionMax)), 650 + 350/2, 650, "white", "silver");
 	DrawText(TextGet("StatStamina").replace("CURRENT/MAX", "" + KinkyDungeonStatStaminaMax), 1050 + 350/2, 650, "white", "silver");
 	DrawText(TextGet("StatMana").replace("CURRENT/MAX", "" + KinkyDungeonStatManaMax), 1450 + 350/2, 650, "white", "silver");
 

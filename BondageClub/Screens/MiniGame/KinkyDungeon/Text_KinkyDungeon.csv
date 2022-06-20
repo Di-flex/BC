@@ -3516,7 +3516,7 @@ KinkyDungeonSpellTargetBoulderLaunch,Choose line direction
 
 KinkyDungeonSpellBigBoulderLaunch,Boulder
 KinkyDungeonSpellBigBoulder,Boulder
-KinkyDungeonSpellDescriptionBigBoulderLaunch,Channel 3 turns to launch a huge slow rock that deals DamageDealt crush damage and slows for 8 turns. AoE, only collides with terrain and summoned rocks.
+KinkyDungeonSpellDescriptionBigBoulderLaunch,"Channel 3 turns to launch a huge slow rock that deals DamageDealt crush damage and slows for 8 turns. AoE, only collides with terrain and summoned rocks."
 KinkyDungeonSpellCastBigBoulderLaunch,You raise a massive boulder from the ground and kick it forward!
 KinkyDungeonSpellTargetBigBoulderLaunch,Choose line direction
 
@@ -4521,7 +4521,7 @@ KinkyDungeonHeartIntro1,"Distraction: Increases max distraction by +33% and make
 KinkyDungeonHeartIntro2,"Stamina: Increases max stamina by +60."
 KinkyDungeonHeartIntro3,"Mana: Increases max mana by +120."
 
-KinkyDungeonHeartDistraction,"+120 Max Distraction"
+KinkyDungeonHeartDistraction,"+33% Max Distraction"
 KinkyDungeonHeartStamina,"+60 Max Stamina"
 KinkyDungeonHeartMana,"+120 Max Mana"
 
