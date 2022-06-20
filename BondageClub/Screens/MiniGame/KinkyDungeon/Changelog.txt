@@ -991,6 +991,7 @@ Spell Balance:
 - New Spell: Boulder
 - New Spell: Earthshape
 - Ice Storm -> Field of Frost
+- New Spell: Winterblast
 
 TODO ValidationFindBlockCycles to prevent bugs
 

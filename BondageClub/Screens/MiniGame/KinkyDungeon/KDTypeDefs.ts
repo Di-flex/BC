@@ -942,8 +942,15 @@ interface spell {
 	effectTileDurationModLinger?: number,
 	effectTileTrail?: effectTile,
 	effectTileDurationModTrail?: number,
+	effectTileTrailAoE?: number,
 	effectTileDoT?: effectTile,
 	effectTileDurationModDoT?: number,
+	/** Wont spawn a trail on the player, ever */
+	noTrailOnPlayer?: boolean,
+	/** Wont spawn a trail on any entity, ever */
+	noTrailOnEntity?: boolean,
+	/** Wont spawn a trail on any allied entity, ever */
+	noTrailOnAlly?: boolean,
 	/** Color of the spell and bullet warningsd */
 	color?: string,
 	/** Buffs applied by the hit will effect everyone */
@@ -1092,6 +1099,8 @@ interface spell {
 	events?: KinkyDungeonEvent[];
 	/** spell pierces */
 	piercing?: boolean;
+	/** spell pierces enemies */
+	pierceEnemies?: boolean;
 	/** spell pierces */
 	passthrough?: boolean;
 	/** Deals DoT */

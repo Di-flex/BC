@@ -81,8 +81,7 @@ let KDEffectTileMoveOnFunctions = {
 	},
 	"Ice": (entity, tile, willing, dir, sprint) => {
 		if (sprint && entity.player && willing && (dir.x || dir.y)) {
-			if (KDSlip(dir))
-				KinkyDungeonApplyBuffToEntity(KinkyDungeonPlayerEntity, {id: "Slipping", type: "none", power: 1.0, duration: 2,});
+			KDSlip(dir);
 			return {cancelmove: true, returnvalue: true};
 		}
 		return {cancelmove: false, returnvalue: false};

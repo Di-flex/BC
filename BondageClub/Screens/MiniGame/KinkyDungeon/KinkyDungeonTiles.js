@@ -201,6 +201,7 @@ function KinkyDungeonHandleMoveObject(moveX, moveY, moveObject) {
 }
 
 function KDCreateEffectTile(x, y, tile, durationMod) {
+	if (x < 1 || y < 1 || x >= KinkyDungeonGridWidth || y >= KinkyDungeonGridHeight) return false;
 	let existingTile = KinkyDungeonEffectTiles.get(x + "," + y);
 	let priority = -1;
 	if (existingTile) priority = (existingTile.priority) ? existingTile.priority : 0;
@@ -212,10 +213,10 @@ function KDCreateEffectTile(x, y, tile, durationMod) {
 }
 
 
-function KDCreateAoEEffectTiles(x, y, tile, durationMod, rad) {
+function KDCreateAoEEffectTiles(x, y, tile, durationMod, rad, avoidPoint) {
 	for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
 		for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
-			if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x + X, Y + y)) && Math.sqrt(X*X+Y*Y) <= rad) {
+			if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(x + X, Y + y)) && Math.sqrt(X*X+Y*Y) <= rad && (avoidPoint.x != X + x || avoidPoint.y != Y + y)) {
 				KDCreateEffectTile(x + X, y + Y, tile, durationMod);
 			}
 		}
@@ -287,6 +288,7 @@ function KDSlip(dir) {
 	if (maxReached) {
 		KinkyDungeonSendActionMessage(10, TextGet("KDSlipIce"), "yellow", maxReached + 1);
 		KinkyDungeonSlowMoveTurns = Math.max(KinkyDungeonSlowMoveTurns, 1);
+		KinkyDungeonApplyBuffToEntity(KinkyDungeonPlayerEntity, {id: "Slipping", type: "none", power: 1.0, duration: 2,});
 		return true;
 	}
 	return false;

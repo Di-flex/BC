@@ -3347,6 +3347,12 @@ KinkyDungeonSpellDescriptionIcebolt,A shard of ice that does DamageDealt damage 
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
+
+KinkyDungeonSpellIceOrb,Winterblast
+KinkyDungeonSpellDescriptionIceOrb,A piercing orb that leaves a trail of ice. Deals DamageDealt ice damage to enemies hit.
+KinkyDungeonSpellCastIceOrb,You a hurl a frigid orb!
+KinkyDungeonSpellTargetIceOrb,Choose aim direction
+
 KinkyDungeonSpellFreeze,Freeze
 KinkyDungeonSpellDescriptionFreeze,Freeze an adjacent target for Duration turns.
 KinkyDungeonSpellCastFreeze,You utter dark words of ice-cold truths.
