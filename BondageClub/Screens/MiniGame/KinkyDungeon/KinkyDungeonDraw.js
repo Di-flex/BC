@@ -347,8 +347,8 @@ function KinkyDungeonDrawGame() {
 									144, 144,
 									(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
 									(KinkyDungeonPlayerEntity.visual_y - CamY - CamY_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,
-									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5,
-									KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.5);
+									KinkyDungeonSpriteSize * (1 + s) * 0.5,
+									KinkyDungeonSpriteSize * (1 + s) * 0.5);
 							} else {
 								DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
 									(KinkyDungeonPlayerEntity.visual_x - CamX - CamX_offset)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s,

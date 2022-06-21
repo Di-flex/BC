@@ -256,8 +256,8 @@ function KinkyDungeonDrawEnemies(canvasOffsetX, canvasOffsetY, CamX, CamY) {
 										0, 0, 144, 144,
 										(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
 										(ty - CamY)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,
-										KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33,
-										KinkyDungeonSpriteSize/KinkyDungeonGridSizeDisplay * (1 + s) * 0.33);
+										KinkyDungeonSpriteSize * (1 + s) * 0.33,
+										KinkyDungeonSpriteSize * (1 + s) * 0.33);
 								} else {
 									DrawImageCanvasColorize(KinkyDungeonRootDirectory + "Aura/" + (b.aurasprite ? b.aurasprite : "Aura") + ".png", KinkyDungeonContext,
 										(tx - CamX)*KinkyDungeonGridSizeDisplay - 0.5 * KinkyDungeonGridSizeDisplay * s + KinkyDungeonGridSizeDisplay * (1 + s) * 0.167,

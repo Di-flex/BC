@@ -89,6 +89,13 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 		if (Enemy && Enemy.blockVision || (Enemy.blockVisionWhileStationary && !EE.moved && EE.idle)) // Add
 			visionBlockers[EE.x + "," + EE.y] = true;
 	}
+	for (let location of KinkyDungeonEffectTiles.values()) {
+		for (let tile of location.values()) {
+			if (tile.duration > 0 && tile.tags.includes("visionblock")) {
+				visionBlockers[tile.x + "," + tile.y] = true;
+			}
+		}
+	}
 
 	/**
 	 * @type {{x: number, y: number, brightness: number}[]}

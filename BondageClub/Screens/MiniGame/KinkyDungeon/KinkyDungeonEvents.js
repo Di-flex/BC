@@ -874,6 +874,38 @@ let KDEventMapBuff = {
 				}
 			}
 		},
+		"RemoveBurning": (e, buff, entity, data) => {
+			let drench = KDEntityGetBuff(entity, "Drenched");
+			if (drench && drench.duration > data.delta) {
+				if (entity.player) {
+					delete KinkyDungeonPlayerBuffs.Burning;
+				} else {
+					delete entity.buffs.Burning;
+				}
+				drench.duration -= data.delta;
+			}
+		},
+		"ElementalEffect": (e, buff, entity, data) => {
+			if (buff.duration > 0) {
+				if (entity.player) {
+					KinkyDungeonDealDamage({
+						type: e.damage,
+						damage: e.power,
+						time: e.time,
+						bind: e.bind,
+						flags: ["BurningDamage"]
+					});
+				} else {
+					KinkyDungeonDamageEnemy(entity, {
+						type: e.damage,
+						damage: e.power,
+						time: e.time,
+						bind: e.bind,
+						flags: ["BurningDamage"]
+					}, false, true, undefined, undefined, undefined);
+				}
+			}
+		},
 	},
 	"tickAfter": {
 		"ApplyConduction": (e, buff, entity, data) => {
@@ -1031,6 +1063,21 @@ let KDEventMapSpell = {
 				}
 			}
 		},
+		"Burning": (e, spell, data) => {
+			if (data.enemy && (!data.flags || !data.flags.includes("BurningDamage")) && data.dmg > 0 && (!e.damage || e.damage == data.type)) {
+				if ((!e.chance || KDRandom() < e.chance)) {
+					KinkyDungeonApplyBuffToEntity(data.enemy, KDBurning);
+				}
+			}
+		},
+		"IcePrison": (e, spell, data) => {
+			if (data.enemy && data.dmg > 0 && data.enemy.freeze > 0 && ["ice", "frost"].includes(data.type)) {
+				if ((!e.chance || KDRandom() < e.chance)) {
+					if (!data.bind) data.bind = 0;
+					data.bind += data.dmg * 3;
+				}
+			}
+		},
 	},
 	"calcDamage": {
 		"HandsFree": (e, spell, data) => {
@@ -1068,7 +1115,7 @@ let KDEventMapSpell = {
 					type: e.damage,
 					damage: e.power,
 					time: e.time,
-					bind: e.bind
+					bind: e.bind,
 				}, false, true, undefined, undefined, KinkyDungeonPlayerEntity);
 			}
 		},

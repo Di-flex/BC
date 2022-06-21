@@ -12,6 +12,11 @@ let KDDrenched = {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aur
 	{type: "ApplyConduction", duration: 1, trigger: "tickAfter"},
 ]};
 
+let KDBurning = {id: "Burning", type: "event", aura: "#ff8933", aurasprite: "Flaming", power: 0.5, player: true, duration: 6, enemies: true, events: [
+	{type: "RemoveBurning", trigger: "tick"},
+	{type: "ElementalEffect", power: 0.5, damage: "fire", trigger: "tick"},
+]};
+
 let KDDrenched2 = {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
 let KDDrenched3 = {id: "Drenched2", type: "iceDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
 

@@ -90,6 +90,8 @@ let KDEffectTileCreateFunctionsCreator = {
 		if (existingTile.tags.includes("freezeover")) {
 			existingTile.pauseDuration = newTile.duration;
 			existingTile.pauseSprite = existingTile.name + "Frozen";
+		} else if (existingTile.tags.includes("hot")) {
+			newTile.duration = 0;
 		}
 		return true;
 	},
@@ -157,6 +159,12 @@ let KDEffectTileBulletFunctions = {
 			let type = b.bullet.damage.type;
 			if (type == "fire" && b.bullet.damage.damage > 0) {
 				tile.duration = 0;
+				KDCreateEffectTile(tile.x, tile.y, {
+					name: "Water",
+					duration: 2,
+					priority: 1,
+					tags: ["water", "freezeover"],
+				}, 5); // Create water
 			} else if ((type == "ice" || type == "frost") && tile.duration < 4 && tile.duration > 0) {
 				tile.duration = 4;
 			}
@@ -170,9 +178,20 @@ let KDEffectTileBulletFunctions = {
 				KDCreateEffectTile(tile.x, tile.y, {
 					name: "Ice",
 					duration: 3,
-					priority: 1,
+					priority: 2,
 					tags: ["ice"],
 				}, 1); // Create ice
+			} else {
+				if (type == "fire" && b.bullet.damage.damage > 0) {
+					tile.duration = 0;
+					KDSmokePuff(tile.x, tile.y, 1.5, 0.1, true);
+					KDCreateEffectTile(tile.x, tile.y, {
+						name: "Steam",
+						duration: 6,
+						priority: 2,
+						tags: ["steam", "hot", "visionblock"],
+					}, 2); // Create steam
+				}
 			}
 		}
 		return true;

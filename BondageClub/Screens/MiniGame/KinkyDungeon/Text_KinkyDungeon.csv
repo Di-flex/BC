@@ -3545,6 +3545,10 @@ KinkyDungeonSpellDescriptionSPUp1,Increases maximum SP by 12
 
 KinkyDungeonSpellTemperaturePlay,Temperature Play
 KinkyDungeonSpellDescriptionTemperaturePlay,"Fire and Ice damage do 30% more damage to fully bound enemies."
+KinkyDungeonSpellBurning,Fire Hazard
+KinkyDungeonSpellDescriptionBurning,"Fire damage ignites enemies for 5 damage per turn for 6 turns."
+KinkyDungeonSpellIcePrison,Frozen Prison
+KinkyDungeonSpellDescriptionIcePrison,"Ice damage adds binding to frozen enemies at 3x efficiency."
 KinkyDungeonSpellLightningRod,Lightning Rod
 KinkyDungeonSpellDescriptionLightningRod,"After casting an Air or Storm spell that costs mana, become Conductive and gain 300% electric resist for 3 turns."
 

@@ -138,7 +138,24 @@ function KinkyDungeonApplyBuff(list, origbuff) {
 	}
 }
 
+function KinkyDungeonGetbuff(list, Buff) {
+	if (list && list[Buff]) return list[Buff];
+	else return null;
+}
+
 function KinkyDungeonHasBuff(list, Buff) {
 	if (list && list[Buff]) return true;
 	else return false;
+}
+
+function KDEntityHasBuff(entity, buff) {
+	if (entity.player) {
+		return KinkyDungeonHasBuff(KinkyDungeonPlayerBuffs, buff);
+	} else return KinkyDungeonHasBuff(entity.buffs, buff);
+}
+
+function KDEntityGetBuff(entity, buff) {
+	if (entity.player) {
+		return KinkyDungeonGetbuff(KinkyDungeonPlayerBuffs, buff);
+	} else return KinkyDungeonGetbuff(entity.buffs, buff);
 }

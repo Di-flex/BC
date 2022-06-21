@@ -11,6 +11,7 @@ let KDPatronCustomEnemies = new Map([
 	["Wolfgirl", [
 		{name: "Sivasa", color: "#9c2a70", prisoner: false, free: true, customSprite: ""},
 		{name: "Alexandra", color: "#6241e1", prisoner: true, free: true, customSprite: ""},
+		{name: "Nekora", color: "#42a459", prisoner: true, free: true, customSprite: ""},
 	],
 	],
 	["WolfgirlPet", [

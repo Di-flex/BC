@@ -314,12 +314,27 @@ function KinkyDungeonGetTrap(trapTypes, Level, tags) {
 }
 
 
-function KDSmokePuff(x, y, radius, density) {
-	KinkyDungeonSendTextMessage(2, TextGet("KDSmokePuff"), "white", 2);
+function KDSmokePuff(x, y, radius, density, nomsg) {
+	if (!nomsg)
+		KinkyDungeonSendTextMessage(2, TextGet("KDSmokePuff"), "white", 2);
 	for (let X = x - Math.floor(radius); X <= x + Math.floor(radius); X++)
 		for (let Y = y - Math.floor(radius); Y <= y + Math.floor(radius); Y++) {
 			if ((!density || KDRandom() < density || (X == x && Y == Y)) && KDistEuclidean(X - x, Y - y) <= radius) {
 				let spell = KinkyDungeonFindSpell("SmokePuff", true);
+				if (spell) {
+					KinkyDungeonCastSpell(X, Y, spell, undefined, undefined, undefined);
+				}
+			}
+		}
+}
+
+function KDSteamPuff(x, y, radius, density, nomsg) {
+	if (!nomsg)
+		KinkyDungeonSendTextMessage(2, TextGet("KDSteamPuff"), "white", 2);
+	for (let X = x - Math.floor(radius); X <= x + Math.floor(radius); X++)
+		for (let Y = y - Math.floor(radius); Y <= y + Math.floor(radius); Y++) {
+			if ((!density || KDRandom() < density || (X == x && Y == Y)) && KDistEuclidean(X - x, Y - y) <= radius) {
+				let spell = KinkyDungeonFindSpell("SteamPuff", true);
 				if (spell) {
 					KinkyDungeonCastSpell(X, Y, spell, undefined, undefined, undefined);
 				}

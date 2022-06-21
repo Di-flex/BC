@@ -265,6 +265,7 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 		bind: (Damage) ? Damage.bind : 0,
 		flags: (Damage) ? Damage.flags : undefined,
 		boundBonus: (Damage) ? Damage.boundBonus : 0,
+		bindEff: (Damage) ? Damage.bindEff : 0,
 		incomingDamage: Damage,
 		freezebroke: false,
 	};
@@ -445,10 +446,10 @@ function KinkyDungeonDamageEnemy(Enemy, Damage, Ranged, NoMsg, Spell, bullet, at
 				Enemy.bind = Math.max(Enemy.bind, Math.min(Math.floor(time/2), time-1)); // Enemies with resistance have bind reduced to 1/2, and anything that binds them for one turn doesn't affect them
 			else Enemy.bind = Math.max(Enemy.bind, time);
 		}
-		if ((predata.dmg || predata.bind) && Enemy.Enemy.bound && (resistDamage < 2) && (Damage.bind || predata.type == "chain" || predata.type == "glue" || predata.type == "magicbind")) {
+		if ((predata.dmg || predata.bind) && Enemy.Enemy.bound && (resistDamage < 2) && (predata.bind || predata.type == "chain" || predata.type == "glue" || predata.type == "magicbind")) {
 			effect = true;
 			if (!Enemy.boundLevel) Enemy.boundLevel = 0;
-			let efficiency = Damage.bindEff ? Damage.bindEff : 1.0;
+			let efficiency = predata.bindEff ? predata.bindEff : 1.0;
 			if (resistStun == -2) {
 				efficiency *= 2;
 			} else if (resistStun == -1) {
