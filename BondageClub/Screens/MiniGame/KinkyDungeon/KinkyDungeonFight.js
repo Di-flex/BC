@@ -612,7 +612,7 @@ function KinkyDungeonDisarm(Enemy, suff) {
 			KinkyDungeonInventoryRemove(KinkyDungeonInventoryGetWeapon(weapon));
 
 			KinkyDungeonGroundItems.push(dropped);
-			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm" + suff), "red", 2);
+			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonDisarm" + (suff ? suff : "")), "red", 2);
 
 			return true;
 		}

@@ -874,6 +874,15 @@ let KDEventMapBuff = {
 				}
 			}
 		},
+		"RemoveConduction": (e, buff, entity, data) => {
+			if (!KDConducting(entity)) {
+				if (entity.player) {
+					delete KinkyDungeonPlayerBuffs.Conduction;
+				} else {
+					delete entity.buffs.Conduction;
+				}
+			}
+		},
 		"RemoveBurning": (e, buff, entity, data) => {
 			let drench = KDEntityGetBuff(entity, "Drenched");
 			if (drench && drench.duration > data.delta) {

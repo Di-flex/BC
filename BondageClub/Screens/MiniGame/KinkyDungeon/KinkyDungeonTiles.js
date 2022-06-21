@@ -9,6 +9,15 @@ function KDWettable(entity) {
 	return entity.player || (!entity.Enemy.tags.has("acidimmune") && !entity.Enemy.tags.has("acidresist") && !entity.Enemy.tags.has("fire") && !entity.Enemy.tags.has("nowet"));
 }
 
+/**
+ *
+ * @param {entity} entity
+ * @returns {boolean}
+ */
+function KDConducting(entity) {
+	return entity.player || (!entity.Enemy.tags.has("electricimmune") && !entity.Enemy.tags.has("electricresist") && !entity.Enemy.tags.has("electric") && !entity.Enemy.tags.has("noconduct"));
+}
+
 function KinkyDungeonHandleTilesEnemy(enemy, delta) {
 	let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
 	if (tile == 'w') {
