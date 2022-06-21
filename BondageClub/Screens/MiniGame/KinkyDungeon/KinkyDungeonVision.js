@@ -5,6 +5,7 @@
 
 
 let KinkyDungeonSeeAll = false;
+let KDVisionBlockers = new Map();
 
 function KinkyDungeonCheckProjectileClearance(xx, yy, x2, y2) {
 	let tiles = KinkyDungeonTransparentObjects;
@@ -23,6 +24,8 @@ function KinkyDungeonCheckProjectileClearance(xx, yy, x2, y2) {
 
 function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, blockEnemies, maxFails) {
 	let length = Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+	// Allowbars = checking for vision only
+	// Otherwise = checking for physical path
 	let obj = allowBars ? KinkyDungeonTransparentObjects : KinkyDungeonTransparentMovableObjects;
 	let maxFailsAllowed = maxFails ? maxFails : 1;
 	let fails = 0;
@@ -33,9 +36,15 @@ function KinkyDungeonCheckPath(x1, y1, x2, y2, allowBars, blockEnemies, maxFails
 
 		if ((Math.round(xx) != x1 || Math.round(yy) != y1) && (Math.round(xx) != x2 || Math.round(yy) != y2)) {
 			let hits = 0;
-			if (!obj.includes(KinkyDungeonMapGet(Math.floor(xx), Math.floor(yy))) || ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.floor(xx), Math.floor(yy))))) hits += 1;
-			if (!obj.includes(KinkyDungeonMapGet(Math.round(xx), Math.round(yy))) || ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.round(xx), Math.round(yy))))) hits += 1;
-			if (hits < 2 && !obj.includes(KinkyDungeonMapGet(Math.ceil(xx), Math.ceil(yy))) || ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.ceil(xx), Math.ceil(yy))))) hits += 1;
+			if (!obj.includes(KinkyDungeonMapGet(Math.floor(xx), Math.floor(yy)))
+				|| ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.floor(xx), Math.floor(yy))))
+				|| ((xx != x1 || yy != y1) && (allowBars && KDVisionBlockers.get(Math.floor(xx) + "," + Math.floor(yy))))) hits += 1;
+			if (!obj.includes(KinkyDungeonMapGet(Math.round(xx), Math.round(yy)))
+				|| ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.round(xx), Math.round(yy))))
+				|| ((xx != x1 || yy != y1) && (allowBars && KDVisionBlockers.get(Math.round(xx) + "," + Math.round(yy))))) hits += 1;
+			if (hits < 2 && !obj.includes(KinkyDungeonMapGet(Math.ceil(xx), Math.ceil(yy)))
+				|| ((xx != x1 || yy != y1) && (blockEnemies && KinkyDungeonEnemyAt(Math.ceil(xx), Math.ceil(yy))))
+				|| ((xx != x1 || yy != y1) && (allowBars && KDVisionBlockers.get(Math.ceil(xx) + "," + Math.ceil(yy))))) hits += 1;
 
 
 			if (hits >= 2) {
@@ -83,16 +92,16 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 		}
 	}
 
-	let visionBlockers = {};
+	KDVisionBlockers = new Map();
 	for (let EE of KinkyDungeonEntities) {
 		let Enemy = EE.Enemy;
 		if (Enemy && Enemy.blockVision || (Enemy.blockVisionWhileStationary && !EE.moved && EE.idle)) // Add
-			visionBlockers[EE.x + "," + EE.y] = true;
+			KDVisionBlockers.set(EE.x + "," + EE.y, true);
 	}
 	for (let location of KinkyDungeonEffectTiles.values()) {
 		for (let tile of location.values()) {
 			if (tile.duration > 0 && tile.tags.includes("visionblock")) {
-				visionBlockers[tile.x + "," + tile.y] = true;
+				KDVisionBlockers.set(tile.x + "," + tile.y, true);
 			}
 		}
 	}
@@ -109,14 +118,14 @@ function KinkyDungeonMakeLightMap(width, height, Lights, delta) {
 		for (let X = 0; X < KinkyDungeonGridWidth; X++) {
 			for (let Y = 0; Y < KinkyDungeonGridHeight; Y++) {
 				let tile = KinkyDungeonMapGet(X, Y);
-				if (((flags.SeeThroughWalls || KinkyDungeonTransparentObjects.includes(tile)) || (X == KinkyDungeonPlayerEntity.x && Y == KinkyDungeonPlayerEntity.y)) && !visionBlockers[X + "," + Y]) {
+				if (((flags.SeeThroughWalls || KinkyDungeonTransparentObjects.includes(tile)) || (X == KinkyDungeonPlayerEntity.x && Y == KinkyDungeonPlayerEntity.y)) && !KDVisionBlockers.get(X + "," + Y)) {
 					let brightness = KinkyDungeonLightGet(X, Y);
 					if (brightness > 0) {
 						let decay = KinkyDungeonCheckPath(X, Y, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, true, false) ? 0.5 : 1;
 						let nearbywalls = 0;
 						for (let XX = X-1; XX <= X+1; XX++)
 							for (let YY = Y-1; YY <= Y+1; YY++)
-								if (!KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(XX, YY)) || visionBlockers[XX + "," + YY]) nearbywalls += 1;
+								if (!KinkyDungeonTransparentObjects.includes(KinkyDungeonMapGet(XX, YY)) || KDVisionBlockers.get(XX + "," + YY)) nearbywalls += 1;
 						if (nearbywalls > 3 && brightness <= 9 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) decay += nearbywalls * (KinkyDungeonDeaf ? 0.8 : 0.2);
 						else if (nearbywalls > 1 && brightness <= 9 && X != KinkyDungeonPlayerEntity.x && Y != KinkyDungeonPlayerEntity.y) decay += nearbywalls * (KinkyDungeonDeaf ? 0.8 : 0.04);
 						if (flags.SeeThroughWalls && !KinkyDungeonTransparentObjects.includes(tile)) {
