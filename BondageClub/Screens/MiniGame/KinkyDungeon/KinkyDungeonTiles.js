@@ -1,7 +1,16 @@
 "use strict";
 
+/**
+ *
+ * @param {entity} entity
+ * @returns {boolean}
+ */
+function KDWettable(entity) {
+	return entity.player || (!entity.Enemy.tags.has("acidimmune") && !entity.Enemy.tags.has("acidresist") && !entity.Enemy.tags.has("fire") && !entity.Enemy.tags.has("nowet"));
+}
+
 function KinkyDungeonHandleTilesEnemy(enemy, delta) {
-	if (!enemy.Enemy.tags.has("acidimmune") && !enemy.Enemy.tags.has("acidresist") && !enemy.Enemy.tags.has("fire") && !enemy.Enemy.tags.has("nowet")) {
+	if (KDWettable(enemy)) {
 		let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
 		if (tile == 'w') {
 			if (!enemy.buffs) enemy.buffs = {};
@@ -36,7 +45,7 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonHookHigh"), "lightgreen", 1);
 	} else if (tile == "/") { // Low hook
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonScrap"), "lightgreen", 1);
-	} else if (tile == "w") {
+	} else if (tile == "w" && KDWettable(KinkyDungeonPlayerEntity)) {
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonStepWater"), "lightblue", 1);
 		let b1 = Object.assign({}, KDDrenched);
 		b1.duration = 6;

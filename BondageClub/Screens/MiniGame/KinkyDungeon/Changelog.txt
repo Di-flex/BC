@@ -993,6 +993,9 @@ Spell Balance:
 - Ice Storm -> Field of Frost
 - New Spell: Winterblast
 - New Spell: Tidal Sphere
+- New spell: Earth Kick
+- Moved Shield (now called Runic Ward) and Barrier (now called Barrier Runes) to verbal column
+- Barrier runes range to 2.99 from 2.0
 
 TODO ValidationFindBlockCycles to prevent bugs
 

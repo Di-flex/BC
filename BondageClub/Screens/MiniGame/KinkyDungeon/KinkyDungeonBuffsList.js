@@ -7,6 +7,7 @@ let KDConduction = {id: "Conduction", type: "event", aura: "#88ffff", aurasprite
 ]};
 
 let KDDrenched = {id: "Drenched", type: "fireDamageResist", aura: "#2789cd", aurasprite: "Drenched", power: 0.425, player: true, duration: 20, enemies: true, events: [
+	{type: "RemoveDrench", duration: 1, trigger: "tick"},
 	{type: "ApplyConduction", duration: 1, trigger: "tick"},
 	{type: "ApplyConduction", duration: 1, trigger: "tickAfter"},
 ]};

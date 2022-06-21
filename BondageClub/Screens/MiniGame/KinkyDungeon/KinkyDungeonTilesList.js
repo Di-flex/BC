@@ -72,7 +72,7 @@ let KDEffectTileFunctions = {
 		if (tile.pauseSprite == tile.name + "Frozen") {
 			if (entity.player && KinkyDungeonPlayerBuffs.Slipping)
 				KDSlip({x: KinkyDungeonPlayerEntity.x - KinkyDungeonPlayerEntity.lastx, y: KinkyDungeonPlayerEntity.y - KinkyDungeonPlayerEntity.lasty});
-		} else {
+		} else if (KDWettable(entity)) {
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched);
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched2);
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched3);

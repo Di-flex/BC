@@ -861,6 +861,19 @@ let KDEventMapBuff = {
 				KinkyDungeonApplyBuff(entity.buffs, bb);
 			}
 		},
+		"RemoveDrench": (e, buff, entity, data) => {
+			if (!KDWettable(entity)) {
+				if (entity.player) {
+					delete KinkyDungeonPlayerBuffs.Drenched;
+					delete KinkyDungeonPlayerBuffs.Drenched2;
+					delete KinkyDungeonPlayerBuffs.Drenched3;
+				} else {
+					delete entity.buffs.Drenched;
+					delete entity.buffs.Drenched2;
+					delete entity.buffs.Drenched3;
+				}
+			}
+		},
 	},
 	"tickAfter": {
 		"ApplyConduction": (e, buff, entity, data) => {

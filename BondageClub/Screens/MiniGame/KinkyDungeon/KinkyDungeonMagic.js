@@ -1036,6 +1036,34 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 					} else return "Fail";
 				} else return "Fail";
 			}
+		} else if (spell.special == "BoulderKick") {
+			let en = KinkyDungeonEnemyAt(targetX, targetY);
+			if (en) {
+				if (en.Enemy.tags.has("summonedRock")) {
+					en.hp = 0;
+					let spell2 = KinkyDungeonFindSpell("BoulderKicked", true);
+					let size = (spell2.size) ? spell2.size : 1;
+					let xx = entity.x;
+					let yy = entity.y;
+					noiseX = entity.x;
+					noiseY = entity.y;
+					if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
+						xx += moveDirection.x;
+						yy += moveDirection.y;
+					}
+					let b = KinkyDungeonLaunchBullet(xx, yy,
+						tX-entity.x,tY - entity.y,
+						spell2.speed, {noSprite: spell2.noSprite, faction: faction, name:spell2.name, block: spell2.block, width:size, height:size, summon:spell2.summon, cast: cast, dot: spell2.dot,
+							effectTile: spell2.effectTile, effectTileDurationMod: spell2.effectTileDurationMod,
+							effectTileTrail: spell2.effectTileTrail, effectTileDurationModTrail: spell2.effectTileDurationModTrail, effectTileTrailAoE: spell2.effectTileTrailAoE,
+							passthrough: spell2.noTerrainHit, noEnemyCollision: spell2.noEnemyCollision, alwaysCollideTags: spell2.alwaysCollideTags, nonVolatile:spell2.nonVolatile, noDoubleHit: spell2.noDoubleHit,
+							pierceEnemies: spell2.pierceEnemies, piercing: spell2.piercing, events: spell2.events,
+							lifetime:miscast || selfCast ? 1 : (spell2.bulletLifetime ? spell2.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spell2.range, hit:spell2.onhit,
+							damage: {evadeable: spell2.evadeable, damage:spell2.power, type:spell2.damage, bind: spell2.bind, boundBonus: spell2.boundBonus, time:spell2.time}, spell: spell2}, miscast);
+					b.visual_x = entity.x;
+					b.visual_y = entity.y;
+				} else return "Fail";
+			} else return "Fail";
 		} else if (spell.special == "dress") {
 			KinkyDungeonSetDress(spell.outfit);
 		} else if (spell.special == "CommandWord") {
@@ -1365,7 +1393,7 @@ function KinkyDungeonListSpells(Mode) {
 	let ii = 0;
 	//let maxY = 560;
 	let XX = 0;
-	let spacing = 55;
+	let spacing = 50;
 	let ypadding = 5;
 	let yPad = 100;
 	let buttonwidth = 250;

@@ -3390,7 +3390,7 @@ KinkyDungeonSleepy,You are feeling drowsy...
 KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
-KinkyDungeonSpellShield,Shield
+KinkyDungeonSpellShield,Runic Ward
 KinkyDungeonSpellDescriptionShield,"Gives a creature a magic shield for 50 turns, granting +67% spell resist."
 KinkyDungeonSpellCastShield,You create a temporary shield!
 KinkyDungeonSpellTargetShield,Choose shielded creature
@@ -3405,10 +3405,10 @@ KinkyDungeonSpellDescriptionAnalyze,"Cast on Chest: Detect if there is a trap. C
 KinkyDungeonSpellCastAnalyze,You analyze the target!
 KinkyDungeonSpellTargetAnalyze,Choose object to analyze
 
-KinkyDungeonSpellGreaterShield,Barrier
-KinkyDungeonSpellDescriptionGreaterShield,Creates a shield that blocks BlockAmount damage from projectiles for DelayTime turns.
-KinkyDungeonSpellCastGreaterShield,You create a temporary shield!
-KinkyDungeonSpellTargetGreaterShield,Choose shield location
+KinkyDungeonSpellGreaterShield,Barrier Runes
+KinkyDungeonSpellDescriptionGreaterShield,Creates a 1x1 field of barrier monoliths that blocks BlockAmount damage from projectiles for DelayTime turns, but doesn't block movement.
+KinkyDungeonSpellCastGreaterShield,You raise a field of runes with a command word!
+KinkyDungeonSpellTargetGreaterShield,Choose barrier location
 
 KinkyDungeonSpellThunderstorm,Electric Field
 KinkyDungeonSpellDescriptionThunderstorm,"Creates a conductive area for Duration turns. Makes all entities in the area Conductive, forcing them to share 50% electric damage."
@@ -3523,13 +3523,19 @@ KinkyDungeonSpellTargetEarthformLine,Choose line direction
 
 KinkyDungeonSpellBoulderLaunch,Rock
 KinkyDungeonSpellBoulder,Rock
-KinkyDungeonSpellDescriptionBoulderLaunch,Channel 1 turn to launch a rock that deals DamageDealt crush damage and slows for 4 turns.
+KinkyDungeonSpellDescriptionBoulderLaunch,Channel 1 turn to launch a rock that deals DamageDealt crush damage and slows for 4 turns. Blocks up to 80 damage.
 KinkyDungeonSpellCastBoulderLaunch,You raise a stone from the ground and kick it forward!
 KinkyDungeonSpellTargetBoulderLaunch,Choose line direction
 
+KinkyDungeonSpellBoulderKick,Earth Kick
+KinkyDungeonSpellBoulderKicked,Stone Projectile
+KinkyDungeonSpellDescriptionBoulderKick,Kick a summoned rock to turn it into a projectile. Deals DamageDealt crush damage in a 3x3 area and slows for 4 turns.
+KinkyDungeonSpellCastBoulderKick,"With a solid kick, you launch one of your monoliths forward!"
+KinkyDungeonSpellTargetBoulderKick,Choose a monolith to kick
+
 KinkyDungeonSpellBigBoulderLaunch,Boulder
 KinkyDungeonSpellBigBoulder,Boulder
-KinkyDungeonSpellDescriptionBigBoulderLaunch,"Channel 3 turns to launch a huge slow rock that deals DamageDealt crush damage and slows for 8 turns. AoE, only collides with terrain and summoned rocks."
+KinkyDungeonSpellDescriptionBigBoulderLaunch,"Channel 3 turns to launch a huge slow rock that deals DamageDealt crush damage and slows for 8 turns. AoE, collides with summoned rocks. Blocks up to 200 damage."
 KinkyDungeonSpellCastBigBoulderLaunch,You raise a massive boulder from the ground and kick it forward!
 KinkyDungeonSpellTargetBigBoulderLaunch,Choose line direction
 
