@@ -30,6 +30,9 @@ let KinkyDungeonSpellChoiceOffset = 80;
 
 let KDPlayerHitBy = [];
 
+let KinkyDungeonMiscastPityModifier = 0; // Current value
+let KinkyDungeonMiscastPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
+
 function KinkyDungeonSearchSpell(list, name) {
 	for (let spell of list) {
 		if (spell.name == name) return spell;
@@ -883,7 +886,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 		}
 		flags.miscastChance = 0;
 	}
-	if (!spell.noMiscast && !enemy && !bullet && player && KDRandom() < flags.miscastChance) {
+	if (!spell.noMiscast && !enemy && !bullet && player && Math.min(1, KDRandom() + KinkyDungeonMiscastPityModifier) < flags.miscastChance) {
+		// Increment the pity timer
+		KinkyDungeonMiscastPityModifier += KinkyDungeonMiscastPityModifierIncrementPercentage * Math.max(1 - flags.miscastChance, 0);
 
 		if (gaggedMiscastFlag)
 			KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonSpellMiscastGagged"), "#FF8800", 2);
@@ -1161,6 +1166,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 				KinkyDungeonAlert = 3;//Math.max(spell.noise, KinkyDungeonAlert);
 		}
 		KinkyDungeonLastAction = "Spell";
+		KinkyDungeonMiscastPityModifier = 0;
 	} else {
 		KinkyDungeonSendEvent("spellCast", {spell: spell, bulletfired: bulletfired, target: target, targetX: targetX, targetY: targetY, originX: KinkyDungeonPlayerEntity.x, originY: KinkyDungeonPlayerEntity.y, flags: flags,
 			enemy: enemy, bullet: bullet, player: player});

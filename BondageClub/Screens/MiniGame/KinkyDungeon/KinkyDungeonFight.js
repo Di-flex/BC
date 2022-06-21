@@ -142,6 +142,7 @@ function KinkyDungeonGetPlayerWeaponDamage(HandsFree, NoOverride) {
 	return KinkyDungeonPlayerDamage;
 }
 
+
 let KinkyDungeonEvasionPityModifier = 0; // Current value
 let KinkyDungeonEvasionPityModifierIncrementPercentage = 0.5; // Percent of the base hit chance to add
 

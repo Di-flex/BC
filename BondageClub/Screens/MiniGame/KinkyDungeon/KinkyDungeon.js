@@ -817,7 +817,7 @@ function KinkyDungeonRun() {
 					KDGameData.SleepTurns -= 1;
 					if (KinkyDungeonAggressive())
 						KinkyDungeonTotalSleepTurns += 1;
-					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax && KinkyDungeonStatDistractionLower <= 0)  {
+					if (KinkyDungeonStatStamina >= KinkyDungeonStatStaminaMax)  {
 						KDGameData.SleepTurns = 0;
 						if (CharacterItemsHavePoseAvailable(KinkyDungeonPlayer, "BodyLower", "Kneel") && !CharacterDoItemsSetPose(KinkyDungeonPlayer, "Kneel") && KinkyDungeonPlayer.IsKneeling()) {
 							CharacterSetActivePose(KinkyDungeonPlayer, "BaseLower", false);

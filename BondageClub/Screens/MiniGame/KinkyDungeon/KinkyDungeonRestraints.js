@@ -1917,6 +1917,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 	if (restraint) {
 		if (!KDGroupBlocked(restraint.Group, true) || Bypass) {
 			KinkyDungeonEvasionPityModifier = 0;
+			KinkyDungeonMiscastPityModifier = 0;
 			let r = KinkyDungeonGetRestraintItem(restraint.Group);
 			let linkable = (!Link && r && KinkyDungeonIsLinkable(KDRestraint(r), restraint));
 			let linked = false;

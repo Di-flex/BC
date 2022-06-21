@@ -401,6 +401,7 @@ function KDProcessInput(type, data) {
 			KDSendStatus('goddess', data.rep, 'helpPenance');
 			break;
 		case "spellChoice":
+			KinkyDungeonEvasionPityModifier = 0.0;
 			KinkyDungeonSpellChoices[data.I] = data.CurrentSpell;
 			KinkyDungeonSpellChoicesToggle[data.I] = !KinkyDungeonSpells[KinkyDungeonSpellChoices[data.I]].defaultOff;
 			if (KinkyDungeonSpellChoicesToggle[data.I] && KinkyDungeonSpells[KinkyDungeonSpellChoices[data.I]].costOnToggle) {
@@ -415,6 +416,7 @@ function KDProcessInput(type, data) {
 				KinkyDungeonAdvanceTime(1);
 			break;
 		case "spellRemove":
+			KinkyDungeonEvasionPityModifier = 0.0;
 			KinkyDungeonSpellChoices[data.I] = -1;
 			KinkyDungeonSpellChoicesToggle[data.I] = true;
 			break;
@@ -431,6 +433,7 @@ function KDProcessInput(type, data) {
 			break;
 		}
 		case "spellLearn": {
+			KinkyDungeonEvasionPityModifier = 0.0;
 			let spell = KinkyDungeonFindSpell(data.SpellName, true);
 			let cost = KinkyDungeonGetCost(spell);
 			if (KinkyDungeonCheckSpellPrerequisite(spell)) {
