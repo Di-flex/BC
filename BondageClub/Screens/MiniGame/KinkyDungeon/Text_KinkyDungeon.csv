@@ -3391,9 +3391,9 @@ KinkyDungeonSpellAllyShadowStrike,Shadow Strike
 KinkyDungeonSpellHeelShadowStrike,Shadow Heel
 
 KinkyDungeonSpellShield,Runic Ward
-KinkyDungeonSpellDescriptionShield,"Gives a creature a magic shield for 50 turns, granting +67% spell resist."
-KinkyDungeonSpellCastShield,You create a temporary shield!
-KinkyDungeonSpellTargetShield,Choose shielded creature
+KinkyDungeonSpellDescriptionShield,"Gives yourself or a creature a magic shield for 50 turns, granting +67% spell resist."
+KinkyDungeonSpellCastShield,You whisper a word of protection!
+KinkyDungeonSpellTargetShield,Choose creature to shield
 
 KinkyDungeonSpellEvasion,Afterimage
 KinkyDungeonSpellDescriptionEvasion,Massively increases a creature's evasion for 5 attacks. Expires after 25 turns.
