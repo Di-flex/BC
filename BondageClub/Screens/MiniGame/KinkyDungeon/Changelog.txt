@@ -996,6 +996,7 @@ Spell Balance:
 - New spell: Earth Kick
 - Moved Shield (now called Runic Ward) and Barrier (now called Barrier Runes) to verbal column
 - Barrier runes range to 2.99 from 2.0
+- Perk balance: Quickdraw/scribe to 1 from 2, Rigger to 2 from 1, Slayer/Magician/Conjurer to 3 from 5, Blessed to 1 from 3, maid start to 2 from 3
 
 TODO ValidationFindBlockCycles to prevent bugs
 
