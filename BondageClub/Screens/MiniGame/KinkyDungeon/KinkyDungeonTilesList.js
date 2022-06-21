@@ -62,7 +62,7 @@ let KDMoveObjectFunctions = {
  */
 let KDEffectTileFunctions = {
 	"Ice": (delta, entity, tile) => {
-		if (!entity.player || (!KinkyDungeonPlayerBuffs.ChillWalk))
+		if ((!entity.player && !entity.Enemy.tags.has("ice") && !entity.Enemy.tags.has("nofreeze")) || (entity.player && !KinkyDungeonPlayerBuffs.ChillWalk))
 			KinkyDungeonApplyBuffToEntity(entity, KDChilled);
 		if (entity.player && KinkyDungeonPlayerBuffs.Slipping)
 			KDSlip({x: KinkyDungeonPlayerEntity.x - KinkyDungeonPlayerEntity.lastx, y: KinkyDungeonPlayerEntity.y - KinkyDungeonPlayerEntity.lasty});
