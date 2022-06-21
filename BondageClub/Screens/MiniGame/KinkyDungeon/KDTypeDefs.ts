@@ -944,6 +944,8 @@ interface spell {
 	tags?: string[];
 	effectTile?: effectTile,
 	effectTileDurationMod?: number,
+	effectTilePre?: effectTile,
+	effectTileDurationModPre?: number,
 	effectTileLinger?: effectTile,
 	effectTileDurationModLinger?: number,
 	effectTileTrail?: effectTile,

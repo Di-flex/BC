@@ -945,6 +945,11 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 	let bulletfired = null;
 	let target = null;
 
+	if (spell.type != "bolt" && spell.effectTilePre) {
+		KDCreateAoEEffectTiles(tX,tY, spell.effectTilePre, spell.effectTileDurationModPre, (spell.aoe) ? spell.aoe : 0.5);
+	}
+
+
 	if (spell.type == "bolt") {
 		let size = (spell.size) ? spell.size : 1;
 		let xx = entity.x;
@@ -954,6 +959,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 		if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
 			xx += moveDirection.x;
 			yy += moveDirection.y;
+		}
+		if (spell.effectTilePre) {
+			KDCreateAoEEffectTiles(tX-entity.x,tY - entity.y, spell.effectTilePre, spell.effectTileDurationModPre, (spell.aoe) ? spell.aoe : 0.5);
 		}
 		let b = KinkyDungeonLaunchBullet(xx, yy,
 			tX-entity.x,tY - entity.y,
