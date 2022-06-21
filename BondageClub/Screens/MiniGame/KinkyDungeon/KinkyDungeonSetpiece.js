@@ -246,11 +246,15 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				else {
 					//KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, true);
 					KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'a');
-					if (KDUnblock(cornerX, cornerY)) KinkyDungeonMapSet(cornerX, cornerY, 'X');
-					if (KDUnblock(cornerX + radius - 1, cornerY)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
-					if (KDUnblock(cornerX, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
-					if (KDUnblock(cornerX + radius - 1, cornerY + radius - 1)) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
 					shrinelist.push({x: cornerX + 1, y: cornerY + 1, priority: true});
+					if (KinkyDungeonMapGet(cornerX, cornerY) == '1') KinkyDungeonMapSet(cornerX, cornerY, 'X');
+					if (KinkyDungeonMapGet(cornerX + radius - 1, cornerY) == '1') KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'X');
+					if (KinkyDungeonMapGet(cornerX, cornerY + radius - 1) == '1') KinkyDungeonMapSet(cornerX, cornerY + radius - 1, 'X');
+					if (KinkyDungeonMapGet(cornerX + radius - 1, cornerY + radius - 1) == '1') KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'X');
+					if (KinkyDungeonMapGet(cornerX, cornerY + 1) == '1') KinkyDungeonMapSet(cornerX, cornerY + 1, 'X');
+					if (KinkyDungeonMapGet(cornerX + radius - 1, cornerY + 1) == '1') KinkyDungeonMapSet(cornerX + radius - 1, cornerY + 1, 'X');
+					if (KinkyDungeonMapGet(cornerX + 1, cornerY + radius - 1) == '1') KinkyDungeonMapSet(cornerX + 1, cornerY + radius - 1, 'X');
+					if (KinkyDungeonMapGet(cornerX + 1, cornerY) == '1') KinkyDungeonMapSet(cornerX + 1, cornerY, 'X');
 				}
 				break;
 			case "FuukaAltar": {
@@ -281,10 +285,8 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				else shrinelist.push({x: cornerX, y: cornerY + radius - 1, priority: true});
 				if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 1, 'a');
 				else shrinelist.push({x: cornerX + radius - 1, y: cornerY + radius - 1, priority: true});*/
-				KinkyDungeonMapSet(cornerX, cornerY , 'a');
-				KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
-				KinkyDungeonMapSet(cornerX, cornerY + radius - 2, 'a');
-				KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 2, 'a');
+				KinkyDungeonMapSet(cornerX, cornerY + 1, 'a');
+				KinkyDungeonMapSet(cornerX + radius - 1, cornerY + 1, 'a');
 				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
 				KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 1), {Loot: "pearl", Roll: KDRandom()});
 				break;
