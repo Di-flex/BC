@@ -46,7 +46,7 @@ let KDFlexibleSpeedBonus = 1.5;
 let KDInflexibleBonus = -0.1;
 let KDInflexibleSpeedBonus = 0.75;
 
-let KDUnchainedBonus = 0.15;
+let KDUnchainedBonus = 0.12;
 let KDDamselBonus = -0.2;
 let KDDamselPickAmount = 6;
 let KDArtistBonus = 0.15;
@@ -55,7 +55,7 @@ let KDBunnyKnifeAmount = 5;
 let KDBunnyEnchKnifeAmount = 12;
 let KDSlipperyBonus = 0.15;
 let KDDollBonus = -0.2;
-let KDEscapeeBonus = 0.15;
+let KDEscapeeBonus = 0.12;
 let KDDragonBonus = -0.2;
 
 let KDStrongBonus = 0.2;
