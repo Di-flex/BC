@@ -850,6 +850,7 @@ KinkyDungeonChargerPlaceCrystal,Place live crystal
 KinkyDungeonChargerRemoveCrystal,Take the crystal
 KinkyDungeonChargerPlace,You place the crystal into the receptacle and it lights up!
 KinkyDungeonChargerRemove,You take the crystal from the receptacle and all goes dark.
+KinkyDungeonChargerNoRemove,You try to take the crystal but it seems fixed in place.
 KinkyDungeonChargerCharge,Place spent crystal
 KinkyDungeonChargerChargeSuccess,VALUE gold vanishes from your satchel as the receptacle explodes and your crystal is recharged!
 KinkyDungeonChargerChargeFailure,Nothing seems to happen

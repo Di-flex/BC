@@ -12,7 +12,7 @@ let KDSetPieces = [
 	{Name: "GuardedChest", tags: ["loot", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "BanditPrison", tags: ["rep", "endpoint"], Radius: 3, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "QuadCell", tags: ["decorative", "urban"], Radius: 7},
-	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 5, Prereqs: ["PearlEligible"], Max: 1, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
+	{Name: "PearlChest", tags: ["loot", "pearl"], Radius: 3, Prereqs: ["PearlEligible"], Max: 1, xPad: 1, yPad: 1, xPadEnd: 1, yPadEnd: 1},
 	{Name: "LesserPearl", tags: ["loot", "pearl"], Radius: 5, Chance: 0.5, Max: 1},
 	{Name: "GuaranteedCell", tags: ["jail", "urban"], Radius: 5, Max: 1, xPad: 2},
 	{Name: "ForbiddenChest", tags: ["loot", "temple", "endpoint"], Radius: 3, Max: 1, xPad: 1},
@@ -272,7 +272,7 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				break;
 			}
 			case "PearlChest":
-				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius-1, false, false, 0, true);
+				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 0, true);
 				/*if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX, cornerY , 'a');
 				else shrinelist.push({x: cornerX, y: cornerY, priority: true});
 				if (KDRandom() < 0.6) KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
@@ -285,8 +285,8 @@ function KinkyDungeonGenerateSetpiece(POI, Piece, InJail, trapLocations, chestli
 				KinkyDungeonMapSet(cornerX + radius - 1, cornerY, 'a');
 				KinkyDungeonMapSet(cornerX, cornerY + radius - 2, 'a');
 				KinkyDungeonMapSet(cornerX + radius - 1, cornerY + radius - 2, 'a');
-				KinkyDungeonMapSet(cornerX + 2, cornerY + 2, 'C');
-				KinkyDungeonTiles.set((cornerX + 2) + "," + (cornerY + 2), {Loot: "pearl", Roll: KDRandom()});
+				KinkyDungeonMapSet(cornerX + 1, cornerY + 1, 'C');
+				KinkyDungeonTiles.set((cornerX + 1) + "," + (cornerY + 1), {Loot: "pearl", Roll: KDRandom()});
 				break;
 			case "LesserPearl":
 				KinkyDungeonCreateRectangle(cornerX, cornerY, radius, radius, false, false, 1, true);

@@ -500,7 +500,7 @@ function KDProcessInput(type, data) {
 				}
 			} else if (data.action == "remove") {
 				tile = KinkyDungeonTiles.get(data.targetTile);
-				if (tile && tile.Type == "Charger" && tile.Light > 0) {
+				if (tile && tile.Type == "Charger" && tile.Light > 0 && !tile.NoRemove) {
 					KinkyDungeonChangeConsumable(KinkyDungeonConsumables.AncientPowerSource, 1);
 					tile.Light = undefined;
 					KinkyDungeonAdvanceTime(1);
@@ -510,6 +510,8 @@ function KDProcessInput(type, data) {
 					if (x && y) {
 						KinkyDungeonMapSet(x, y, '+');
 					}
+				} else if (tile && tile.NoRemove) {
+					KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonChargerNoRemove"), "yellow", 1);
 				}
 			}
 			break;
