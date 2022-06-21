@@ -3358,6 +3358,11 @@ KinkyDungeonSpellDescriptionFreeze,Freeze an adjacent target for Duration turns.
 KinkyDungeonSpellCastFreeze,You utter dark words of ice-cold truths.
 KinkyDungeonSpellTargetFreeze,Choose a target to freeze
 
+KinkyDungeonSpellFlashFreeze,Flash Frost
+KinkyDungeonSpellDescriptionFlashFreeze,Deal DamageDealt ice damage in a 3x3 area. Drenched creatures are frozen for 8 turns.
+KinkyDungeonSpellCastFlashFreeze,You recite a frigid poem...
+KinkyDungeonSpellTargetFlashFreeze,Choose a 3x3 area to freeze
+
 KinkyDungeonSpellShatter,Shatter
 KinkyDungeonSpellShatterStrike,Shatter
 KinkyDungeonSpellDescriptionShatter,"When a frozen target thaws or dies, deals DamageDealt ice damage to nearby targets and slow for 4 turns.."

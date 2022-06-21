@@ -71,7 +71,7 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1: Elements
 	[
 		// Verbal
-		["Incinerate", "Freeze", "IceBreath", "Shield", "GreaterShield", "IronBlood", "Electrify", "StaticSphere", "Thunderstorm"],
+		["Incinerate", "Freeze", "IceBreath", "FlashFreeze", "Shield", "GreaterShield", "IronBlood", "Electrify", "StaticSphere", "Thunderstorm"],
 		// Arms
 		["Firebolt", "Fireball", "Icebolt", "IceOrb", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall", "TidalBall"],
 		// Legs
@@ -148,6 +148,9 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		]},
 		{name: "Incinerate", prerequisite: "ApprenticeFire", tags: ["fire", "aoe", "dot", "offense", "denial"], noUniqueHits: true, noise: 3, sfx: "FireSpell", school: "Elements", manacost: 10, components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 1, power: 2.5, range: 2.5, size: 3, aoe: 1.5, lifetime: 6, damage: "fire", playerEffect: {name: "Damage"}},
 		{name: "Freeze", tags: ["ice", "utility", "offense"], prerequisite: "ApprenticeWater", sfx: "Freeze", school: "Elements", manacost: 3, components: ["Verbal"], noTargetPlayer: true, mustTarget: true, level:1, type:"hit", onhit:"instant", evadeable: false, time:6, power: 0, range: 1.5, size: 1, lifetime: 1, aoe: 0.5, damage: "ice"},
+		{name: "FlashFreeze", tags: ["ice", "utility", "offense"], prerequisite: "Freeze", sfx: "Freeze", school: "Elements", manacost: 5, components: ["Verbal"],
+			level:2, type:"hit", onhit:"instant", evadeable: false, power: 2.0, range: 2.99, size: 1, lifetime: 1, aoe: 1.5, damage: "ice",
+			events: [{type: "ElementalOnDrench", trigger: "bulletHitEnemy", damage: "ice", time: 8, power: 0.0},]},
 		{name: "Sleet", tags: ["ice", "aoe", "dot", "offense", "denial"], prerequisite: "ApprenticeWater", effectTileDurationMod: 10, effectTile: {
 			name: "Ice",
 			duration: 20,

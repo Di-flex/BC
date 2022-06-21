@@ -10,9 +10,10 @@ function KDWettable(entity) {
 }
 
 function KinkyDungeonHandleTilesEnemy(enemy, delta) {
-	if (KDWettable(enemy)) {
-		let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
-		if (tile == 'w') {
+	let tile = KinkyDungeonMapGet(enemy.x, enemy.y);
+	if (tile == 'w') {
+		/*
+		if (KDWettable(enemy)) {
 			if (!enemy.buffs) enemy.buffs = {};
 			let b1 = Object.assign({}, KDDrenched);
 			b1.duration = 6;
@@ -25,6 +26,7 @@ function KinkyDungeonHandleTilesEnemy(enemy, delta) {
 			KinkyDungeonApplyBuff(enemy.buffs, b2);
 			KinkyDungeonApplyBuff(enemy.buffs, b3);
 		}
+		*/
 	}
 }
 
@@ -46,7 +48,7 @@ function KinkyDungeonUpdateTileEffects(delta) {
 	} else if (tile == "/") { // Low hook
 		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonScrap"), "lightgreen", 1);
 	} else if (tile == "w" && KDWettable(KinkyDungeonPlayerEntity)) {
-		KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonStepWater"), "lightblue", 1);
+		/*KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonStepWater"), "lightblue", 1);
 		let b1 = Object.assign({}, KDDrenched);
 		b1.duration = 6;
 		let b2 = Object.assign({}, KDDrenched2);
@@ -56,7 +58,7 @@ function KinkyDungeonUpdateTileEffects(delta) {
 
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b1);
 		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b2);
-		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b3);
+		KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, b3);*/
 	} else {
 		let tileUp = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y - 1);
 		let tileL = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x - 1, KinkyDungeonPlayerEntity.y);
@@ -68,6 +70,20 @@ function KinkyDungeonUpdateTileEffects(delta) {
 		} else if (tileUp == "4" || tileL == '4' || tileR == '4' || tileD == '4') {
 			// Crack
 			KinkyDungeonSendTextMessage(3, TextGet("KinkyDungeonCrack"), "lightgreen", 1);
+		}
+	}
+
+	for (let X = 1; X < KinkyDungeonGridWidth-1; X++) {
+		for (let Y = 1; Y < KinkyDungeonGridHeight-1; Y++) {
+			let tt = KinkyDungeonMapGet(X, Y);
+			if (tt == "w") {
+				KDCreateEffectTile(X, Y, {
+					name: "Water",
+					duration: 2,
+					priority: 0,
+					tags: ["water", "freezeover"],
+				}, 0);
+			}
 		}
 	}
 }

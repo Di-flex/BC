@@ -662,11 +662,10 @@ function KinkyDungeonPlayerEffect(damage, playerEffect, spell, faction, bullet) 
 			KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;
 			effect = true;
 		} else if (playerEffect.name == "Chill") {
-			let standingTile = KinkyDungeonMapGet(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y);
 			if (playerEffect.power > 0 && !KinkyDungeonFlags.get("chill")) {
 				KinkyDungeonDealDamage({damage: playerEffect.power, type: playerEffect.damage}, bullet);
 			}
-			if (standingTile == 'w') {
+			if (KinkyDungeonPlayerBuffs.Drenched) {
 				sfx = "Freeze";
 				KinkyDungeonStatFreeze = Math.max(0, playerEffect.time);
 				KinkyDungeonSleepTime = CommonTime() + KinkyDungeonFreezeTime;

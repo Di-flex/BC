@@ -1541,6 +1541,16 @@ let KDEventMapBullet = {
 				}, true, (b.bullet.NoMsg || e.power == 0), b.bullet.spell, b, undefined, b.delay, true);
 			}
 		},
+		"ElementalOnDrench": (e, b, data) => {
+			if (b && data.enemy && (data.enemy.buffs && data.enemy.buffs.Drenched)) {
+				KinkyDungeonDamageEnemy(data.enemy, {
+					type: e.damage,
+					damage: e.power,
+					time: e.time,
+					bind: e.bind
+				}, true, (b.bullet.NoMsg || e.power == 0), b.bullet.spell, b, undefined, b.delay, true);
+			}
+		},
 	},
 	"bulletTick": {
 		"CastSpellNearbyEnemy": (e, b, data) => {
@@ -1603,6 +1613,72 @@ let KDEventMapEnemy = {
 							let slot = slots[Math.floor(KDRandom() * slots.length)];
 							if (slot) {
 								KinkyDungeonCastSpell(enemy.x + slot.x, enemy.y + slot.y, KinkyDungeonFindSpell("WitchElectrify", true), enemy, undefined, undefined);
+							}
+						}
+
+					}
+				}
+			}
+		},
+		"createWater": (e, enemy, data) => {
+			if (data.delta && !(enemy.freeze > 0) && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {
+				if (!e.chance || KDRandom() < e.chance) {
+					let count = e.power ? e.power : 1;
+					let rad = e.aoe ? e.aoe : 1.5;
+					let minrad = e.dist;
+					for (let i = 0; i < count; i++) {
+						let slots = [];
+						for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+							for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+								if (Math.sqrt(X*X+Y*Y) <= rad && (!minrad || Math.sqrt(X*X+Y*Y) >= minrad)) {
+									if ((enemy.x + X > 0 && enemy.y + Y > 0 && enemy.x + X < KinkyDungeonGridWidth && enemy.y + Y < KinkyDungeonGridHeight)
+										&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(enemy.x + X, enemy.y + Y)))
+										slots.push({x:X, y:Y});
+								}
+							}
+
+						if (slots.length > 0) {
+							let slot = slots[Math.floor(KDRandom() * slots.length)];
+							if (slot) {
+								KDCreateEffectTile(enemy.x + slot.x, enemy.y + slot.y, {
+									name: "Water",
+									duration: 12,
+									priority: 0,
+									tags: ["water", "freezeover"],
+								}, 8);
+							}
+						}
+
+					}
+				}
+			}
+		},
+		"createIce": (e, enemy, data) => {
+			if (data.delta && !(enemy.freeze > 0) && ((data.allied && KDAllied(enemy)) || (!data.allied && !KDAllied(enemy)))) {
+				if (!e.chance || KDRandom() < e.chance) {
+					let count = e.power ? e.power : 1;
+					let rad = e.aoe ? e.aoe : 1.5;
+					let minrad = e.dist;
+					for (let i = 0; i < count; i++) {
+						let slots = [];
+						for (let X = -Math.ceil(rad); X <= Math.ceil(rad); X++)
+							for (let Y = -Math.ceil(rad); Y <= Math.ceil(rad); Y++) {
+								if (Math.sqrt(X*X+Y*Y) <= rad && (!minrad || Math.sqrt(X*X+Y*Y) >= minrad)) {
+									if ((enemy.x + X > 0 && enemy.y + Y > 0 && enemy.x + X < KinkyDungeonGridWidth && enemy.y + Y < KinkyDungeonGridHeight)
+										&& KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(enemy.x + X, enemy.y + Y)))
+										slots.push({x:X, y:Y});
+								}
+							}
+
+						if (slots.length > 0) {
+							let slot = slots[Math.floor(KDRandom() * slots.length)];
+							if (slot) {
+								KDCreateEffectTile(enemy.x + slot.x, enemy.y + slot.y, {
+									name: "Ice",
+									duration: 6,
+									priority: 0,
+									tags: ["ice", "freeze"],
+								}, 4);
 							}
 						}
 
