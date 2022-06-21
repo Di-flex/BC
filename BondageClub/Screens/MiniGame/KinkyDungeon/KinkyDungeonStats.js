@@ -925,6 +925,7 @@ function KinkyDungeonDoTryOrgasm() {
 	if (!denied && amount > KinkyDungeonPlaySelfOrgasmThreshold && KDRandom() < chance) {
 		// You finally shudder and tremble as a wave of pleasure washes over you...
 		KinkyDungeonStatBlind = 6;
+		KinkyDungeonStatDistractionLower = 0;
 		KinkyDungeonOrgasmStunTime = 4;
 		KDGameData.OrgasmStamina = KinkyDungeonStatDistraction;
 		KinkyDungeonChangeStamina(KinkyDungeonOrgasmCost);
