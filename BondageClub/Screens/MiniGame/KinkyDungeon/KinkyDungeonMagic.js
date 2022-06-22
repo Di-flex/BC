@@ -1627,7 +1627,7 @@ let KinkyDungeonSpellSpecials = {
 		if (rocks.length == 0) return "Fail";
 		for (let rock of rocks) {
 			KinkyDungeonApplyBuffToEntity(rock, KDVolcanism);
-			rock.faction = "Rock";
+			rock.hostile = 9999;
 		}
 	},
 	"dress": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {

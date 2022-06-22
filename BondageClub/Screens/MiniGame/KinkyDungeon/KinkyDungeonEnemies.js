@@ -91,39 +91,39 @@ function KinkyDungeonNearestPlayer(enemy, requireVision, decoy, visionRadius) {
 			+ (KinkyDungeonPlayerEntity.y - enemy.y)*(KinkyDungeonPlayerEntity.y - enemy.y));
 		let nearestVisible = undefined;
 
-		if (enemy.Enemy.focusPlayer && KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, false, false)) return KinkyDungeonPlayerEntity;
+		if (enemy.Enemy.focusPlayer && KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, false, false) && !KinkyDungeonCheckPath(enemy.x, enemy.y, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, false, true)) return KinkyDungeonPlayerEntity;
 
 		let nearestDistance = KDHostile(enemy) ? pdist - 0.1 : 100000;
 
-		for (let e of KinkyDungeonEntities) {
-			if (e == enemy) continue;
-			if (KDHelpless(e)) continue;
-			if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
-			if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
-				let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
-					+ (e.y - enemy.y)*(e.y - enemy.y));
-				let pdist_enemy = (KDGetFaction(enemy) == "Player" && !KDEnemyHasFlag(enemy, "NoFollow") && !KDEnemyHasFlag(enemy, "StayHere") && (enemy.Enemy.allied || (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase")))
-					? KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) :
-					-1;
-				if (pdist_enemy > 0 && pdist_enemy < 1.5 && KDHostile(e)) KinkyDungeonSetFlag("AIHelpPlayer", 4);
-				if (pdist_enemy > 0 && KinkyDungeonFlags.get("AIHelpPlayer") && dist > 2.5) {
-					if (pdist_enemy > 2.5) dist += 2;
-					else dist = Math.max(1.01 + dist/4, dist/3);
-				}
-				if (dist <= nearestDistance && (pdist_enemy <= 0 ||
-					((KinkyDungeonLightGet(e.x, e.y) > 0 || pdist_enemy < 5) && (pdist_enemy < 8 || enemy.Enemy.followRange > 1))
-				)) {
-					if (KinkyDungeonCheckLOS(enemy, e, dist, visionRadius, true, true)) {
-						if (enemy.rage || !e.Enemy.lowpriority
-								|| !KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, true, true)
-								|| !KinkyDungeonCheckPath(enemy.x, enemy.y, e.x, e.y, false, true)) {
-							nearestVisible = e;
-							nearestDistance = dist;
+		if ((enemy.Enemy.visionRadius || enemy.Enemy.blindSight) && !(enemy.Enemy.noAttack && !enemy.Enemy.spells))
+			for (let e of KinkyDungeonEntities) {
+				if (e == enemy) continue;
+				if (KDHelpless(e)) continue;
+				if (enemy.Enemy.noTargetSilenced && e.silence > 0) continue;
+				if ((e.Enemy && !e.Enemy.noAttack && KDHostile(enemy, e))) {
+					let dist = Math.sqrt((e.x - enemy.x)*(e.x - enemy.x)
+						+ (e.y - enemy.y)*(e.y - enemy.y));
+					let pdist_enemy = (KDGetFaction(enemy) == "Player" && !KDEnemyHasFlag(enemy, "NoFollow") && !KDEnemyHasFlag(enemy, "StayHere") && (enemy.Enemy.allied || (!KDGameData.PrisonerState || KDGameData.PrisonerState == "chase")))
+						? KDistChebyshev(e.x - KinkyDungeonPlayerEntity.x, e.y - KinkyDungeonPlayerEntity.y) :
+						-1;
+					if (pdist_enemy > 0 && pdist_enemy < 1.5 && KDHostile(e)) KinkyDungeonSetFlag("AIHelpPlayer", 4);
+					if (pdist_enemy > 0 && KinkyDungeonFlags.get("AIHelpPlayer") && dist > 2.5) {
+						if (pdist_enemy > 2.5) dist += 2;
+						else dist = Math.max(1.01 + dist/4, dist/3);
+					}
+					if (dist <= nearestDistance && (pdist_enemy <= 0 ||
+						((KinkyDungeonLightGet(e.x, e.y) > 0 || pdist_enemy < 5) && (pdist_enemy < 8 || enemy.Enemy.followRange > 1))
+					)) {
+						if (KinkyDungeonCheckLOS(enemy, e, dist, visionRadius, true, true)) {
+							if (enemy.rage || !e.Enemy.lowpriority
+									|| (!KinkyDungeonCheckLOS(enemy, KinkyDungeonPlayerEntity, pdist, visionRadius, true, true) || !KinkyDungeonCheckPath(enemy.x, enemy.y, KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, false, true))) {
+								nearestVisible = e;
+								nearestDistance = dist;
+							}
 						}
 					}
 				}
 			}
-		}
 
 		if (nearestVisible) return nearestVisible;
 	}
