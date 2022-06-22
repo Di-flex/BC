@@ -778,6 +778,12 @@ let KDEventMapBuff = {
 				}
 			}
 		},
+		"Volcanism": (e, buff, entity, data) => {
+			if (data.enemy == entity && (!data.flags || (!data.flags.includes("VolcanicDamage") && !data.flags.includes("BurningDamage"))) && data.dmg > 0 && (data.type == "fire")) {
+				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("VolcanicStrike", true), undefined, undefined, undefined, "Rock");
+				data.enemy.hp = 0;
+			}
+		},
 	},
 	"playerTakeDamage": {
 		"Conduction": (e, buff, entity, data) => {

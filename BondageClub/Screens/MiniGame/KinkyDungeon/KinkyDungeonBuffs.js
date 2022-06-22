@@ -41,7 +41,8 @@ function KinkyDungeonTickBuffs(list, delta, endFloor, entity) {
 					KinkyDungeonCastSpell(entity.x, entity.y, KinkyDungeonFindSpell(value.spell, true), undefined, undefined, undefined);
 				}
 
-				value.duration -= delta;
+				if (!(value.infinite))
+					value.duration -= delta;
 			}
 		}
 	}
@@ -80,7 +81,10 @@ function KinkyDungeonUpdateBuffs(delta, endFloor) {
 				}
 				if (buff.enemies) {
 					for (let enemy of KinkyDungeonEntities) {
-						if ((KDHostile(enemy) || !buff.noAlly) && (KDAllied(enemy) || !buff.onlyAlly) && buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
+						if ((KDHostile(enemy) || !buff.noAlly)
+							&& (KDAllied(enemy) || !buff.onlyAlly)
+							&& (!b.bullet.spell.filterTags || b.bullet.spell.filterTags.some((tag) => {return enemy.Enemy.tags.has(tag);}))
+							&& buff.range >= Math.sqrt((enemy.x - b.x) * (enemy.x - b.x) + (enemy.y - b.y) * (enemy.y - b.y))) {
 							KinkyDungeonApplyBuff(enemy.buffs, buff);
 						}
 					}

@@ -953,6 +953,9 @@ interface spell {
 	effectTileTrailAoE?: number,
 	effectTileDoT?: effectTile,
 	effectTileDurationModDoT?: number,
+
+
+	damageFlags?: string[],
 	/** Wont spawn a trail on the player, ever */
 	noTrailOnPlayer?: boolean,
 	/** Wont spawn a trail on any entity, ever */

@@ -18,6 +18,10 @@ let KDBurning = {id: "Burning", type: "event", aura: "#ff8933", aurasprite: "Fla
 	{type: "ElementalEffect", power: 0.5, damage: "fire", trigger: "tick"},
 ]};
 
+let KDVolcanism = {id: "Volcanism", type: "event", aura: "#ff0000", power: 0.5, player: false, duration: 9999, enemies: true, events: [
+	{type: "Volcanism", power: 4.0, damage: "fire", trigger: "beforeDamageEnemy"},
+]};
+
 let KDDrenched2 = {id: "Drenched2", type: "electricDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
 let KDDrenched3 = {id: "Drenched2", type: "iceDamageResist", power: -0.35, player: true, duration: 20, enemies: true};
 

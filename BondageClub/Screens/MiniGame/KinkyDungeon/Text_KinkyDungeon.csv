@@ -3533,6 +3533,12 @@ KinkyDungeonSpellCastIcicles,You raise a hand and icicles fly forward!
 KinkyDungeonSpellTargetIcicles,Choose line direction
 
 
+KinkyDungeonSpellVolcanism,Volcanism
+KinkyDungeonSpellDescriptionVolcanism,"An area of summoned rocks becomes explosive. Deal fire damage to them to ignite, dealing DamageDealt fire damage to adjacent targets."
+KinkyDungeonSpellCastVolcanism,You stomp your foot and magma wells up beneath the ground!
+KinkyDungeonSpellTargetVolcanism,Choose monoliths to enchant
+
+
 KinkyDungeonSpellEarthform,Earthshape
 KinkyDungeonSpellDescriptionEarthform,"Unlocks 3 spells that allow creating mounds, rings, or lines of 50hp, 25 armor rocks."
 KinkyDungeonSummonMultiEarthenMonolith,Earthen monoliths rise from the ground!

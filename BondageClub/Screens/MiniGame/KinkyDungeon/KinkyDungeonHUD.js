@@ -256,7 +256,7 @@ function KinkyDungeonDrawInputs() {
 		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 			if ((b.aura || b.labelcolor) && b.duration > 0) {
 				let count = b.maxCount ? b.maxCount - (b.currentCount ? b.currentCount : 0) : 0;
-				DrawTextFit(TextGet("KinkyDungeonBuff" + b.id) + (count ? `[${count}/${b.maxCount}]` : "") + ((b.duration && b.duration < 9000) ? `(${b.duration})` : ""), 790, 900 - i * 35, 275, b.aura ? b.aura : b.labelcolor, "gray"); i++;
+				DrawTextFit(TextGet("KinkyDungeonBuff" + b.id) + (count ? ` ${count}/${b.maxCount}` : "") + ((b.duration > 1 && b.duration < 9000) ? ` (${b.duration})` : ""), 790, 900 - i * 35, 275, b.aura ? b.aura : b.labelcolor, "gray"); i++;
 			}
 
 		}

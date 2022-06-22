@@ -971,7 +971,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 				passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, alwaysCollideTags: spell.alwaysCollideTags, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit,
 				pierceEnemies: spell.pierceEnemies, piercing: spell.piercing, events: spell.events,
 				lifetime:miscast || selfCast ? 1 : (spell.bulletLifetime ? spell.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spellRange, hit:spell.onhit,
-				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}, miscast);
+				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}, miscast);
 		b.visual_x = entity.x;
 		b.visual_y = entity.y;
 		bulletfired = b;
@@ -988,7 +988,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 				noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay +
 					(spell.delayRandom ? Math.floor(KDRandom() * spell.delayRandom) : 0), cast: cast, dot: spell.dot, events: spell.events, alwaysCollideTags: spell.alwaysCollideTags,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
-				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell
+				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell
 			}, miscast);
 		bulletfired = b;
 	} else if (spell.type == "hit") {
@@ -1002,7 +1002,7 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 			vx: moveDirection.x,vy: moveDirection.y, born: 1,
 			bullet: {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events, aoe: spell.aoe,
 				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
-				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time}, spell: spell}};
+				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}};
 		KinkyDungeonBulletHit(b, 1);
 		bulletfired = b;
 	} else if (spell.type == "buff") {
@@ -1029,99 +1029,9 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 		if (!casted)
 			return "Fail";
 	} else if (spell.type == "special") {
-		if (spell.special == "analyze") {
-			let en = KinkyDungeonEnemyAt(targetX, targetY);
-			if (en) {
-				if (!en.buffs || !en.buffs.Analyze) {
-					if (!en.buffs) en.buffs = {};
-					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze", aura: "#ffffff", type: "DamageAmp", duration: 99999, power: 0.3, player: false, enemies: true, maxCount: 3, tags: ["defense", "damageTaken"]},);
-					KinkyDungeonApplyBuff(en.buffs, {id: "Analyze2", type: "Info", duration: 99999, power: 1.0, player: false, enemies: true, tags: ["info"]},);
-				} else return "Fail";
-			} else {
-				let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
-				if (tile) {
-					if (tile.Loot && tile.Roll) {
-						let event = KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], tile.Loot, tile.Roll, tile, true);
-						if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
-						else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
-
-					} else return "Fail";
-				} else return "Fail";
-			}
-		} else if (spell.special == "BoulderKick") {
-			let en = KinkyDungeonEnemyAt(targetX, targetY);
-			if (en) {
-				if (en.Enemy.tags.has("summonedRock")) {
-					en.hp = 0;
-					let spell2 = KinkyDungeonFindSpell("BoulderKicked", true);
-					let size = (spell2.size) ? spell2.size : 1;
-					let xx = entity.x;
-					let yy = entity.y;
-					noiseX = entity.x;
-					noiseY = entity.y;
-					if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
-						xx += moveDirection.x;
-						yy += moveDirection.y;
-					}
-					let b = KinkyDungeonLaunchBullet(xx, yy,
-						tX-entity.x,tY - entity.y,
-						spell2.speed, {noSprite: spell2.noSprite, faction: faction, name:spell2.name, block: spell2.block, width:size, height:size, summon:spell2.summon, cast: cast, dot: spell2.dot,
-							effectTile: spell2.effectTile, effectTileDurationMod: spell2.effectTileDurationMod,
-							effectTileTrail: spell2.effectTileTrail, effectTileDurationModTrail: spell2.effectTileDurationModTrail, effectTileTrailAoE: spell2.effectTileTrailAoE,
-							passthrough: spell2.noTerrainHit, noEnemyCollision: spell2.noEnemyCollision, alwaysCollideTags: spell2.alwaysCollideTags, nonVolatile:spell2.nonVolatile, noDoubleHit: spell2.noDoubleHit,
-							pierceEnemies: spell2.pierceEnemies, piercing: spell2.piercing, events: spell2.events,
-							lifetime:miscast || selfCast ? 1 : (spell2.bulletLifetime ? spell2.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spell2.range, hit:spell2.onhit,
-							damage: {evadeable: spell2.evadeable, damage:spell2.power, type:spell2.damage, bind: spell2.bind, boundBonus: spell2.boundBonus, time:spell2.time}, spell: spell2}, miscast);
-					b.visual_x = entity.x;
-					b.visual_y = entity.y;
-				} else return "Fail";
-			} else return "Fail";
-		} else if (spell.special == "dress") {
-			KinkyDungeonSetDress(spell.outfit);
-		} else if (spell.special == "CommandWord") {
-			let en = KinkyDungeonEnemyAt(targetX, targetY);
-			if (en) {
-				if (en.boundLevel > 0) {
-					if (KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
-						en.ceasefire = 50;
-					} else if (!KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
-						en.allied = 100;
-						let ff = KDGetFactionOriginal(enemy);
-						if (!KinkyDungeonHiddenFactions.includes(ff)) {
-							KinkyDungeonChangeFactionRep(ff, 0.005);
-						}
-					}
-					en.boundLevel = Math.max(0, en.boundLevel);
-					KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
-					return "Cast";
-				}
-				return "Fail";
-			} else if (KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"]).length > 0) {
-				for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"], true)) {
-					KinkyDungeonLock(r, "");
-				}
-				KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonPurpleLockRemove"), "yellow", 2);
-				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
-				return "Cast";
-			}
-			return "Fail";
-		} else if (spell.special == "weaponAttack") {
-			KinkyDungeonTargetingSpellWeapon = null;
-			let en = KinkyDungeonEnemyAt(targetX, targetY);
-			if (en) {
-				KinkyDungeonLaunchAttack(en, true);
-				return "Cast";
-			} else return "Fail";
-		} else if (spell.special == "weaponAttackOrSpell") {
-			KinkyDungeonTargetingSpellWeapon = null;
-			let en = KinkyDungeonEnemyAt(targetX, targetY);
-			if (en) {
-				KinkyDungeonLaunchAttack(en, true);
-				return "Cast";
-			} else {
-				return KinkyDungeonActivateWeaponSpell(true) ? "Cast" : "Fail";
-			}
-		}
+		let ret = KinkyDungeonSpellSpecials[spell.special](spell, flags, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast);
+		if (ret)
+			return ret;
 	}
 
 	if (spell.extraCast) {
@@ -1654,3 +1564,119 @@ function KinkyDungeonSendMagicEvent(Event, data) {
 		}
 	}
 }
+
+/**
+ * @type {Record<string, (spell: any, data: any, targetX: any, targetY: any, tX: any, tY: any, entity: any, enemy: any, moveDirection: any, bullet: any, miscast: any, faction: any, cast: any, selfCast: any) => void | string>}
+ */
+let KinkyDungeonSpellSpecials = {
+	"analyze": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			if (!en.buffs || !en.buffs.Analyze) {
+				if (!en.buffs) en.buffs = {};
+				KinkyDungeonApplyBuff(en.buffs, {id: "Analyze", aura: "#ffffff", type: "DamageAmp", duration: 99999, power: 0.3, player: false, enemies: true, maxCount: 3, tags: ["defense", "damageTaken"]},);
+				KinkyDungeonApplyBuff(en.buffs, {id: "Analyze2", type: "Info", duration: 99999, power: 1.0, player: false, enemies: true, tags: ["info"]},);
+			} else return "Fail";
+		} else {
+			let tile = KinkyDungeonTiles.get(targetX + "," + targetY);
+			if (tile) {
+				if (tile.Loot && tile.Roll) {
+					let event = KinkyDungeonLoot(MiniGameKinkyDungeonLevel, KinkyDungeonMapIndex[MiniGameKinkyDungeonCheckpoint], tile.Loot, tile.Roll, tile, true);
+					if (event.trap) KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipTrap"), "red", 2);
+					else KinkyDungeonSendActionMessage(10, TextGet("KinkyDungeonShrineTooltipNoTrap"), "lightgreen", 2);
+
+				} else return "Fail";
+			} else return "Fail";
+		}
+	},
+	"BoulderKick": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			if (en.Enemy.tags.has("summonedRock")) {
+				en.hp = 0;
+				let spell2 = KinkyDungeonFindSpell("BoulderKicked", true);
+				let size = (spell2.size) ? spell2.size : 1;
+				let xx = entity.x;
+				let yy = entity.y;
+				if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
+					xx += moveDirection.x;
+					yy += moveDirection.y;
+				}
+				let b = KinkyDungeonLaunchBullet(xx, yy,
+					tX-entity.x,tY - entity.y,
+					spell2.speed, {noSprite: spell2.noSprite, faction: faction, name:spell2.name, block: spell2.block, width:size, height:size, summon:spell2.summon, cast: cast, dot: spell2.dot,
+						effectTile: spell2.effectTile, effectTileDurationMod: spell2.effectTileDurationMod,
+						effectTileTrail: spell2.effectTileTrail, effectTileDurationModTrail: spell2.effectTileDurationModTrail, effectTileTrailAoE: spell2.effectTileTrailAoE,
+						passthrough: spell2.noTerrainHit, noEnemyCollision: spell2.noEnemyCollision, alwaysCollideTags: spell2.alwaysCollideTags, nonVolatile:spell2.nonVolatile, noDoubleHit: spell2.noDoubleHit,
+						pierceEnemies: spell2.pierceEnemies, piercing: spell2.piercing, events: spell2.events,
+						lifetime:miscast || selfCast ? 1 : (spell2.bulletLifetime ? spell2.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spell2.range, hit:spell2.onhit,
+						damage: {evadeable: spell2.evadeable, damage:spell2.power, type:spell2.damage, bind: spell2.bind, boundBonus: spell2.boundBonus, time:spell2.time, flags:spell2.damageFlags}, spell: spell2}, miscast);
+				b.visual_x = entity.x;
+				b.visual_y = entity.y;
+			} else return "Fail";
+		} else return "Fail";
+	},
+	"Volcanism": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) =>  {
+		let rocks = [];
+		for (let e of KinkyDungeonEntities) {
+			if (spell.filterTags.some((tag) => {return e.Enemy.tags.has(tag);}) && KDistEuclidean(targetX - e.x, targetY - e.y) <= spell.aoe
+				&& (!e.buffs || !KinkyDungeonHasBuff(e.buffs, KDVolcanism.id))) {
+				rocks.push(e);
+			}
+		}
+		if (rocks.length == 0) return "Fail";
+		for (let rock of rocks) {
+			KinkyDungeonApplyBuffToEntity(rock, KDVolcanism);
+			rock.faction = "Rock";
+		}
+	},
+	"dress": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		KinkyDungeonSetDress(spell.outfit);
+	},
+	"CommandWord": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			if (en.boundLevel > 0) {
+				if (KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
+					en.ceasefire = 50;
+				} else if (!KDHostile(en) && en.hp <= en.Enemy.maxhp * 0.1) {
+					en.allied = 100;
+					let ff = KDGetFactionOriginal(enemy);
+					if (!KinkyDungeonHiddenFactions.includes(ff)) {
+						KinkyDungeonChangeFactionRep(ff, 0.005);
+					}
+				}
+				en.boundLevel = Math.max(0, en.boundLevel);
+				KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+				return "Cast";
+			}
+			return "Fail";
+		} else if (KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"]).length > 0) {
+			for (let r of KinkyDungeonPlayerGetRestraintsWithLocks(["Purple"], true)) {
+				KinkyDungeonLock(r, "");
+			}
+			KinkyDungeonSendTextMessage(4, TextGet("KinkyDungeonPurpleLockRemove"), "yellow", 2);
+			KinkyDungeonChangeMana(-KinkyDungeonGetManaCost(spell));
+			return "Cast";
+		}
+		return "Fail";
+	},
+	"weaponAttack": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		KinkyDungeonTargetingSpellWeapon = null;
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			KinkyDungeonLaunchAttack(en, true);
+			return "Cast";
+		} else return "Fail";
+	},
+	"weaponAttackOrSpell": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		KinkyDungeonTargetingSpellWeapon = null;
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			KinkyDungeonLaunchAttack(en, true);
+			return "Cast";
+		} else {
+			return KinkyDungeonActivateWeaponSpell(true) ? "Cast" : "Fail";
+		}
+	}
+};

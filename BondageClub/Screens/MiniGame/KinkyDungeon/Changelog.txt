@@ -1007,6 +1007,7 @@ Spell Balance:
 - New Spell: Ice Lance
 - New Spell: Raincloud
 - New Spell: Freeze Rune
+- New Spell: Volcanism
 
 TODO ValidationFindBlockCycles to prevent bugs
 
