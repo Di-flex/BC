@@ -704,9 +704,9 @@ function KinkyDungeonPlaceEnemies(spawnPoints, InJail, Tags, BonusTags, Floor, w
 	KinkyDungeonFirstSpawn = true;
 	KinkyDungeonSearchTimer = 0;
 
-	let enemyCount = 10 + Math.floor(Math.sqrt(Floor) + width/24 + height/24 + KinkyDungeonDifficulty/10);
+	let enemyCount = 8 + Math.floor(Math.sqrt(Floor) + width/28 + height/28 + KinkyDungeonDifficulty/10);
 	if (KinkyDungeonStatsChoice.get("Stealthy")) enemyCount = Math.round(enemyCount * KDStealthyEnemyCountMult);
-	let neutralCount = 0.5 * (10 + Math.floor(Math.sqrt(Floor) + width/24 + height/24));
+	let neutralCount = 0.5 * (8 + Math.floor(Math.sqrt(Floor) + width/28 + height/28));
 	let count = 0;
 	let ncount = 0;
 	let tries = 0;
