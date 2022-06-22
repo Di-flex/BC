@@ -71,11 +71,11 @@ let KinkyDungeonLearnableSpells = [
 	//Page 1: Elements
 	[
 		// Verbal
-		["Incinerate", "Freeze", "IceBreath", "FlashFreeze", "Shield", "GreaterShield", "IronBlood", "Electrify", "StaticSphere", "Thunderstorm"],
+		["Incinerate", "Freeze", "Hailstorm", "IceBreath", "FlashFreeze", "Shield", "GreaterShield", "IronBlood", "Electrify", "StaticSphere", "Thunderstorm", "Rainstorm"],
 		// Arms
-		["Firebolt", "Fireball", "Icebolt", "IceOrb", "Icicles", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall", "TidalBall"],
+		["Firebolt", "Fireball", "Icebolt", "IceOrb", "Snowball", "Icicles", "IceLance", "StoneSkin", "Shock", "Crackle", "LightningBolt", "WaterBall", "TidalBall"],
 		// Legs
-		["Ignite", "Fissure", "Sleet", "BoulderLaunch", "BigBoulderLaunch", "Earthform", "EarthformRing", "EarthformMound", "EarthformLine", "BoulderKick", "LightningRune"],
+		["Ignite", "Fissure", "Sleet", "BoulderLaunch", "BigBoulderLaunch", "Earthform", "EarthformRing", "EarthformMound", "EarthformLine", "BoulderKick", "LightningRune", "FreezeRune"],
 		// Passive
 		["FlameBlade", "Burning", "TemperaturePlay", "Strength", "Shatter", "IcePrison", "LightningRod"],
 	],
@@ -148,9 +148,21 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		]},
 		{name: "Incinerate", prerequisite: "ApprenticeFire", tags: ["fire", "aoe", "dot", "offense", "denial"], noUniqueHits: true, noise: 3, sfx: "FireSpell", school: "Elements", manacost: 10,
 			components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 1, power: 2.5, range: 2.5, size: 3, aoe: 1.5, lifetime: 6, damage: "fire", playerEffect: {name: "Damage"},},
+		{name: "Hailstorm", prerequisite: "ApprenticeWater", tags: ["ice", "aoe", "dot", "offense", "utility", "denial"], noUniqueHits: true, noise: 3, sfx: "FireSpell", school: "Elements", manacost: 7,
+			components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 1, power: 1.0, time: 2, range: 2.5, size: 3, aoe: 1.5, lifetime: 8, damage: "frost", playerEffect: {name: "Damage"},
+		},
+		{name: "Rainstorm", prerequisite: "ApprenticeWater", tags: ["ice", "aoe", "dot", "offense", "utility", "denial"], noUniqueHits: true, noise: 3, sfx: "FireSpell", school: "Elements", manacost: 4.5,
+			components: ["Verbal"], level:1, type:"inert", onhit:"aoe", delay: 3, power: 3.5, time: 2, range: 2.5, size: 3, aoe: 1.5, lifetime: 1, damage: "acid", playerEffect: {name: "Damage"},
+			effectTileDurationMod: 8, effectTile: {
+				name: "Water",
+				duration: 14,
+				priority: 1,
+				tags: ["water", "freezeover"],
+			}
+		},
 		{name: "Freeze", tags: ["ice", "utility", "offense"], prerequisite: "ApprenticeWater", sfx: "Freeze", school: "Elements", manacost: 3, components: ["Verbal"], noTargetPlayer: true, mustTarget: true, level:1, type:"hit", onhit:"instant", evadeable: false, time:6, power: 0, range: 1.5, size: 1, lifetime: 1, aoe: 0.5, damage: "ice"},
-		{name: "FlashFreeze", tags: ["ice", "utility", "offense"], prerequisite: "Freeze", sfx: "Freeze", school: "Elements", manacost: 5, components: ["Verbal"],
-			level:2, type:"hit", onhit:"instant", evadeable: false, power: 2.0, range: 2.99, size: 1, lifetime: 1, aoe: 1.5, damage: "ice",
+		{name: "FlashFreeze", tags: ["ice", "utility", "offense", "aoe"], prerequisite: "Freeze", sfx: "Freeze", school: "Elements", manacost: 5, components: ["Verbal"],
+			level:2, type:"hit", onhit:"instant", evadeable: false, power: 2.0, range: 2.99, size: 3, lifetime: 1, aoe: 1.5, damage: "ice",
 			events: [{type: "ElementalOnDrench", trigger: "bulletHitEnemy", damage: "ice", time: 8, power: 0.0},]},
 		{name: "Sleet", tags: ["ice", "aoe", "dot", "offense", "denial"], prerequisite: "ApprenticeWater", effectTileDurationMod: 10, effectTile: {
 			name: "Ice",
@@ -174,9 +186,20 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				priority: 1,
 				tags: ["ice"],
 			},
-			projectileTargeting:true, onhit:"", time: 4,  power: 3.5, delay: 0, range: 50, damage: "frost", speed: 3, playerEffect: {name: "Damage"},
+			projectileTargeting:true, onhit:"", time: 4,  power: 3.5, delay: 0, range: 50, damage: "frost", speed: 2, playerEffect: {name: "Damage"},
 			events: [{type: "ElementalOnSlowOrBindOrDrench", trigger: "bulletHitEnemy", damage: "ice", time: 4, power: 0},]},
-		{name: "IceOrb", tags: ["ice", "bolt", "offense", "utility"], prerequisite: "Icebolt", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"",  power: 2, pierceEnemies: true, delay: 0, range: 50, damage: "frost", speed: 2,
+		{name: "Snowball", tags: ["ice", "bolt", "offense"], prerequisite: "ApprenticeWater", sfx: "Freeze", hitsfx: "LesserFreeze", school: "Elements", manacost: 5, components: ["Arms"], level:1, type:"bolt",
+			projectileTargeting:true, onhit:"lingering", time: 3,  power: 2.0, delay: 0, lifetime: 6, lifetimeHitBonus: 2, range: 50, aoe: 2.5, damage: "frost", speed: 3, playerEffect: {name: "Damage"}},
+		{name: "IceLance", tags: ["ice", "bolt", "offense", "aoe"], prerequisite: "Icicles", sfx: "Lightning", hitsfx: "Freeze", school: "Elements", pierceEnemies: true, manacost: 7, components: ["Arms"], level:3, type:"bolt",
+			effectTileDurationModTrail: 10, effectTileTrail: {
+				name: "Ice",
+				duration: 20,
+				priority: 1,
+				tags: ["ice"],
+			},
+			projectileTargeting:true, onhit:"", time: 3,  power: 8.0, delay: 0, range: 50, damage: "frost", speed: 6, playerEffect: {name: "Damage"},
+			events: [{type: "ElementalOnSlowOrBindOrDrench", trigger: "bulletHitEnemy", damage: "ice", time: 3, power: 0},]},
+		{name: "IceOrb", tags: ["ice", "bolt", "offense", "utility", "aoe"], prerequisite: "Snowball", sfx: "LesserFreeze", hitsfx: "LesserFreeze", school: "Elements", manacost: 4, components: ["Arms"], level:2, type:"bolt", projectileTargeting:true, onhit:"",  power: 2, pierceEnemies: true, delay: 0, range: 50, damage: "frost", speed: 2,
 			effectTileDurationModTrail: 4, effectTileTrailAoE: 1.5, noTrailOnPlayer: true, effectTileTrail: {
 				name: "Ice",
 				duration: 10,
@@ -187,7 +210,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			spellcast: {spell: "Icicle", target: "target", directional:true, offset: false}, channel: 3},
 		{name: "BoulderLaunch", tags: ["earth", "bolt", "offense"], prerequisite: "ApprenticeEarth", sfx: "Telekinesis", school: "Elements", manacost: 2, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, CastInWalls: true, level:1, type:"inert", onhit:"aoe", time: 4, delay: 1, power: 4, range: 8, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
 			spellcast: {spell: "Boulder", target: "target", directional:true, offset: false}, channel: 1},
-		{name: "BigBoulderLaunch", tags: ["earth", "bolt", "offense"], prerequisite: "BoulderLaunch", sfx: "Telekinesis", school: "Elements", manacost: 6, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, noEnemyCollision: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 8, delay: 3, power: 12, range: 50, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
+		{name: "BigBoulderLaunch", tags: ["earth", "bolt", "offense", "aoe"], prerequisite: "BoulderLaunch", sfx: "Telekinesis", school: "Elements", manacost: 6, components: ["Legs"], projectileTargeting: true, noTargetPlayer: true, noEnemyCollision: true, CastInWalls: true, level:2, type:"inert", onhit:"aoe", time: 8, delay: 3, power: 12, range: 50, meleeOrigin: true, size: 1, lifetime: 1, damage: "inert",
 			spellcast: {spell: "BigBoulder", target: "target", directional:true, offset: false}, channel: 3},
 		{name: "Electrify", tags: ["electric", "offense"], prerequisite: "ApprenticeAir", noise: 6, sfx: "FireSpell", landsfx: "Shock", school: "Elements", manacost: 5, components: ["Verbal"], level:1, type:"inert", onhit:"aoe", power: 9, time: 4, delay: 1, range: 4, size: 1, aoe: 0.75, lifetime: 1, damage: "electric", playerEffect: {name: "Shock", time: 1}}, // A series of light shocks incapacitate you
 		{name: "Shock", tags: ["electric", "bolt", "offense", "dot"], prerequisite: "ApprenticeAir", sfx: "FireSpell", school: "Elements", manacost: 5, components: ["Arms"], noEnemyCollision: true, level:1, type:"bolt", projectileTargeting:true, onhit:"", power: 2.5, delay: 0, range: 50, damage: "inert", speed: 1,
@@ -202,7 +225,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 				{id: "Shield", type: "magicDamageResist", aura: "#73efe8", duration: 50, power: 0.67, player: false, enemies: true, tags: ["defense", "damageTaken"]},
 			], onhit:"", time:50, power: 0, range: 2, size: 1, damage: ""},
 		{name: "GreaterShield", tags: ["shield", "defense", "utility"], prerequisite: "Shield", spellPointCost: 1, sfx: "MagicSlash", school: "Elements", manacost: 1, components: ["Verbal"], noTargetEnemies: true, noTargetPlayer: true, level:2, type:"inert", block: 20, onhit:"", power: 0, delay: 5, range: 2.99, size: 1, damage: ""}, // Creates a shield that blocks projectiles for 5 turns
-		{name: "IceBreath", tags: ["ice", "denial", "offense", "utility", "aoe"], prerequisite: "Freeze", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 8, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 1, range: 3, size: 3, aoe: 1.5, lifetime: 10, power: 5, lifetimeHitBonus: 5, damage: "ice"}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
+		{name: "IceBreath", tags: ["ice", "denial", "offense", "utility", "aoe"], prerequisite: "Hailstorm", sfx: "MagicSlash", hitsfx: "Freeze", school: "Elements", manacost: 8, components: ["Verbal"], level:2, type:"inert", onhit:"lingering", time: 1, delay: 1, range: 3, size: 3, aoe: 1.5, lifetime: 10, power: 5, lifetimeHitBonus: 5, damage: "ice"}, // Creates a huge pool of slime, slowing enemies that try to enter. If you step in it, you have a chance of getting trapped!
 		{name: "LightningBolt", tags: ["electric", "aoe", "offense"], prerequisite: "Crackle", noise: 11, sfx: "Lightning", school: "Elements", spellPointCost: 2, manacost: 9, components: ["Arms"], level:3, type:"bolt", piercing: true, projectileTargeting:true, nonVolatile: true, onhit:"", power: 8.5, delay: 0, time: 2, range: 50, speed: 50, size: 1, damage: "electric",
 			trailHit: "", trailPower: 0, trailLifetime: 1.1, trailTime: 4, trailDamage:"inert", trail:"lingering", trailChance: 1, playerEffect: {name: "Shock", time: 3}},
 		{name: "StoneSkin", tags: ["earth", "buff", "defense"], prerequisite: "ApprenticeEarth", sfx: "Bones", school: "Elements", manacost: 6, components: ["Arms"], mustTarget: true, level:1, type:"buff", buffs: [{id: "StoneSkin", aura: "#FF6A00", type: "Armor", duration: 50, power: 2.0, player: true, enemies: true, tags: ["defense", "armor"]}], onhit:"", time:50, power: 0, range: 2, size: 1, damage: ""},
@@ -231,8 +254,12 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 
 		{name: "LightningRune", tags: ["electric", "offense", "defense", "utility"], prerequisite: "ApprenticeAir", noise: 0, sfx: "Fwoosh", school: "Elements", spellPointCost: 1, manacost: 2,
 			components: ["Legs"], noTargetPlayer: true, CastInWalls: false, level:1, type:"inert",
-			onhit:"aoe", time: 5, delay: 3, power: 6, range: 8, size: 1, lifetime: 1, damage: "inert",
+			onhit:"aoe", time: 5, delay: 3, power: 6, range: 2.99, size: 1, lifetime: 1, damage: "inert",
 			spellcast: {spell: "LightningRuneStrike", target: "onhit", directional:false, offset: false}, channel: 3},
+		{name: "FreezeRune", tags: ["ice", "offense", "defense", "utility"], prerequisite: "ApprenticeWater", noise: 0, sfx: "Fwoosh", school: "Elements", spellPointCost: 1, manacost: 5,
+			components: ["Legs"], noTargetPlayer: true, CastInWalls: false, level:1, type:"inert",
+			onhit:"aoe", time: 30, delay: 3, power: 3, range: 2.99, size: 1, lifetime: 1, damage: "inert",
+			spellcast: {spell: "FreezeRuneStrike", target: "onhit", directional:false, offset: false}, channel: 3},
 
 		{name: "WaterBall", tags: ["water", "bolt", "offense", "utility"], prerequisite: "ApprenticeWater", sfx: "FireSpell", school: "Elements", manacost: 3, components: ["Arms"], level:1, type:"bolt", projectileTargeting:true, onhit:"buff",
 			power: 3.5, delay: 0, range: 50, damage: "acid", speed: 3, playerEffect: {name: "Drench"},
@@ -429,6 +456,7 @@ let KinkyDungeonSpellListEnemies = [
 	{name: "ShockStrike", sfx: "Shock", manacost: 1, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 2.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
 	{name: "StaticSphereStrike", sfx: "Shock", manacost: 2, components: ["Verbal"], level:1, type:"hit", noTerrainHit: true, onhit:"aoe", time: 1, delay: 1, power: 1.5, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
 	{name: "LightningRuneStrike", hitsfx: "Shock", manacost: 2, components: ["Verbal"], level:1, type:"dot", noTerrainHit: true, onhit:"", time: 4, delay: 300, power: 6.0, range: 2, size: 1, aoe: 0.5, lifetime: 1, damage: "electric"},
+	{name: "FreezeRuneStrike", hitsfx: "Freeze", manacost: 2, components: ["Verbal"], level:1, type:"dot", noTerrainHit: true, onhit:"", time: 30, delay: 300, power: 3.0, range: 2, size: 3, aoe: 0.5, lifetime: 1, damage: "ice"},
 	{name: "EarthformSingle", tags: ["earth", "utility", "summon"], noSprite: true, minRange: 0, landsfx: "Bones", hideUnlearnable: true, manacost: 4, components: ["Leg"], prerequisite: ["Earthform"],
 		level:1, type:"hit", onhit:"summon", summon: [{name: "EarthenMonolith", count: 1, time: 9999}], power: 0, time: 9999, delay: 1, range: 4, size: 1, aoe: 0.5, lifetime: 1, damage: "inert"},
 

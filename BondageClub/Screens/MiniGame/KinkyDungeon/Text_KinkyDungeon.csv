@@ -3348,6 +3348,16 @@ KinkyDungeonSpellDescriptionIcebolt,A shard of ice that does DamageDealt damage 
 KinkyDungeonSpellCastIcebolt,You a hurl a shard of ice!
 KinkyDungeonSpellTargetIcebolt,Choose aim direction
 
+KinkyDungeonSpellIceLance,Ice Lance
+KinkyDungeonSpellDescriptionIceLance,"A quick-moving shard of ice that does DamageDealt damage and slows for Duration turns and passes through enemies. Freezes if already slowed or drenched."
+KinkyDungeonSpellCastIceLance,You conjure a mighty spear of ice and hurl it forward!
+KinkyDungeonSpellTargetIceLance,Choose aim direction
+
+
+KinkyDungeonSpellSnowball,Snowball
+KinkyDungeonSpellDescriptionSnowball,"A fast orb that leaves behind a frigid cloud of ice. Enemies walking in the cloud take DamageDealt ice damage per tile and are slowed."
+KinkyDungeonSpellCastSnowball,You a hurl a snowy blast!
+KinkyDungeonSpellTargetSnowball,Choose aim direction
 
 KinkyDungeonSpellIceOrb,Winterblast
 KinkyDungeonSpellDescriptionIceOrb,A piercing orb that leaves a trail of ice. Deals DamageDealt ice damage to enemies hit.
@@ -3443,6 +3453,16 @@ KinkyDungeonSpellDescriptionIncinerate,A tornado of flame that does DamageDealt 
 KinkyDungeonSpellCastIncinerate,You conjure a gout of flame!
 KinkyDungeonSpellTargetIncinerate,Choose target AoE location
 
+KinkyDungeonSpellHailstorm,Hailstorm
+KinkyDungeonSpellDescriptionHailstorm,"A cloud of falling ice that does DamageDealt damage per turn for LifeTime turns and slows."
+KinkyDungeonSpellCastHailstorm,You conjure a flurry of frost!
+KinkyDungeonSpellTargetHailstorm,Choose target AoE location
+
+KinkyDungeonSpellRainstorm,Raincloud
+KinkyDungeonSpellDescriptionRainstorm,"After 3 turns, rain falls, creating a 3x3 grid of water and dealing DamageDealt acid damage to enemies within."
+KinkyDungeonSpellCastRainstorm,You create a stormy cloud!
+KinkyDungeonSpellTargetRainstorm,Choose target AoE location
+
 KinkyDungeonSpellSleet,Field of Frost
 KinkyDungeonSpellDescriptionSleet,Freezes a 5x5 area (ice slows entities). Enemies in the area take DamageDealt damage per turn for LifeTime turns.
 KinkyDungeonSpellCastSleet,You stomp your foot and call forth the storm!
@@ -3470,6 +3490,12 @@ KinkyDungeonSpellLightningRuneStrike,Lightning Rune
 KinkyDungeonSpellDescriptionLightningRune,A trap that deals DamageDealt electric damage and stuns for 4 turns. 3 turn channel.
 KinkyDungeonSpellCastLightningRune,You conjure a charged trap!
 KinkyDungeonSpellTargetLightningRune,Choose location for trap
+
+KinkyDungeonSpellFreezeRune,Freeze Rune
+KinkyDungeonSpellFreezeRuneStrike,Freeze Rune
+KinkyDungeonSpellDescriptionFreezeRune,A trap that deals DamageDealt ice damage and freezes for 30 turns. 3 turn channel.
+KinkyDungeonSpellCastFreezeRune,You conjure an icy trap!
+KinkyDungeonSpellTargetFreezeRune,Choose location for trap
 
 
 KinkyDungeonSpellStaticSphere,Static Sphere
