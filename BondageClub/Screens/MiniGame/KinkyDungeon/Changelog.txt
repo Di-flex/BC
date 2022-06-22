@@ -1008,6 +1008,7 @@ Spell Balance:
 - New Spell: Raincloud
 - New Spell: Freeze Rune
 - New Spell: Volcanism
+- Started cacheing pathfinding. Let me know if there are performance improvements!
 
 TODO ValidationFindBlockCycles to prevent bugs
 

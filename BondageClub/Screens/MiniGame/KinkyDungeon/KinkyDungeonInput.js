@@ -142,6 +142,8 @@ function KDProcessInput(type, data) {
 			tile = KinkyDungeonTiles.get(data.targetTile);
 			KinkyDungeonTargetTile = tile;
 			KinkyDungeonTargetTileLocation = data.targetTile;
+
+			KDUpdateDoorNavMap();
 			KinkyDungeonAdvanceTime(1, true);
 			if (KinkyDungeonUnlockAttempt(KinkyDungeonTargetTile.Lock)) {
 				KinkyDungeonTargetTile.Lock = undefined;
@@ -165,6 +167,7 @@ function KDProcessInput(type, data) {
 			if (KDRandom() > miscast) {
 				KinkyDungeonTargetTile.Lock = undefined;
 				if (KinkyDungeonTargetTile.Type == "Lock") delete KinkyDungeonTargetTile.Type;
+				KDUpdateDoorNavMap();
 				KinkyDungeonTargetTile = null;
 				KinkyDungeonTargetTileLocation = "";
 				if (gagTotal) {

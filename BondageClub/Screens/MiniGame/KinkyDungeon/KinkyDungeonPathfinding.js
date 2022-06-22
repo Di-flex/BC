@@ -1,6 +1,20 @@
 "use strict";
 
 /**
+ * @type {Map<string, {x: number, y: number}[]>}
+ */
+let KDPathCache = new Map();
+
+/**
+ * @type {Map<string, {x: number, y: number}[]>}
+ */
+let KDPathCacheIgnoreLocks = new Map();
+
+function KDUpdateDoorNavMap() {
+	KDPathCache = new Map();
+}
+
+/**
  * @param {number} startx - the start position
  * @param {number} starty - the start position
  * @param {number} endx - the end positon
@@ -11,6 +25,16 @@
  * @returns {any} - Returns an array of x, y points in order
  */
 function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlayer, ignoreLocks, Tiles, RequireLight, noDoors, needDoorMemory) {
+	let index = `${startx},${starty},${endx},${endy},${Tiles}`;
+	if (!blockEnemy && !blockPlayer && !RequireLight && !noDoors && !needDoorMemory) {
+		if (ignoreLocks) {
+			if (KDPathCacheIgnoreLocks.has(index)) return KDPathCacheIgnoreLocks.get(index);
+		} else {
+			if (KDPathCache.has(index)) return KDPathCache.get(index);
+		}
+
+	}
+
 	if (KDistChebyshev(startx - endx, starty - endy) < 1.5) {
 		return [{x: endx, y: endy}];
 	}
@@ -50,7 +74,15 @@ function KinkyDungeonFindPath(startx, starty, endx, endy, blockEnemy, blockPlaye
 						let tile = (xx == endx && yy == endy) ? "" : KinkyDungeonMapGet(xx, yy);
 						if (xx == endx && yy == endy) {
 							closed.set(lowest.x + "," + lowest.y, lowest);
-							return KinkyDungeonGetPath(closed, lowest.x, lowest.y, endx, endy);
+							let newPath = KinkyDungeonGetPath(closed, lowest.x, lowest.y, endx, endy);
+							if (!blockEnemy && !blockPlayer && !RequireLight && !noDoors && !needDoorMemory) {
+								if (ignoreLocks) {
+									if (!KDPathCacheIgnoreLocks.has(index)) KDPathCacheIgnoreLocks.set(index, newPath);
+								} else {
+									if (!KDPathCache.has(index)) KDPathCache.set(index, newPath);
+								}
+							}
+							return newPath;
 						}
 						else if (TilesTemp.includes(tile) && (!RequireLight || KinkyDungeonLightGet(xx, yy) > 0)
 							&& (ignoreLocks || !KinkyDungeonTiles.get((xx) + "," + (yy)) || !KinkyDungeonTiles.get(xx + "," + yy).Lock)

@@ -1308,6 +1308,7 @@ let KDDialogue = {
 			if (door) {
 				if (door.tile) {
 					door.tile.Lock = "";
+					KDUpdateDoorNavMap();
 				}
 				KinkyDungeonMapSet(door.x, door.y, 'd');
 				let e = DialogueCreateEnemy(door.x, door.y, "Bandit");

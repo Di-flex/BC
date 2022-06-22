@@ -1095,6 +1095,7 @@ function KinkyDungeonDefeat(PutInJail) {
 				KinkyDungeonMapSet(X, Y, 'D');
 				if (tile && !tile.Lock)
 					tile.Lock = "Red";
+					KDUpdateDoorNavMap();
 			}
 		}
 
