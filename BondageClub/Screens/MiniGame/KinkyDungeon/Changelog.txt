@@ -1006,6 +1006,7 @@ Spell Balance:
 - New Spell: Snowball
 - New Spell: Ice Lance
 - New Spell: Raincloud
+- New Spell: Freeze Rune
 
 TODO ValidationFindBlockCycles to prevent bugs
 
