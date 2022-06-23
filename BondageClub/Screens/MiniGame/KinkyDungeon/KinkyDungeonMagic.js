@@ -949,90 +949,123 @@ function KinkyDungeonCastSpell(targetX, targetY, spell, enemy, player, bullet, f
 		KDCreateAoEEffectTiles(tX,tY, spell.effectTilePre, spell.effectTileDurationModPre, (spell.aoe) ? spell.aoe : 0.5);
 	}
 
+	let originaltX = tX;
+	let originaltY = tY;
+	let originalSpeed = spell.speed;
+	let castCount = spell.shotgunCount ? spell.shotgunCount : 1;
+	for (let castI = 0; castI < castCount; castI++) {
+		// Reset tx
+		tX = originaltX;
+		tY = originaltY;
+		// Project out to shotgundistance
+		if (spell.shotgunDistance) {
+			let dx = tX - entity.x;
+			let dy = tY - entity.y;
+			let dmult = KDistEuclidean(dx, dy);
+			if (dmult != 0) dmult = 1/dmult;
 
-	if (spell.type == "bolt") {
-		let size = (spell.size) ? spell.size : 1;
-		let xx = entity.x;
-		let yy = entity.y;
-		noiseX = entity.x;
-		noiseY = entity.y;
-		if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
-			xx += moveDirection.x;
-			yy += moveDirection.y;
+			tX = entity.x + dx*dmult * spell.shotgunDistance;
+			tY = entity.y + dy*dmult * spell.shotgunDistance;
 		}
-		if (spell.effectTilePre) {
-			KDCreateAoEEffectTiles(tX-entity.x,tY - entity.y, spell.effectTilePre, spell.effectTileDurationModPre, (spell.aoe) ? spell.aoe : 0.5);
+		// Add spread
+		if (spell.shotgunSpread) {
+			tX += spell.shotgunSpread * (KDRandom() - 0.5);
+			tY += spell.shotgunSpread * (KDRandom() - 0.5);
 		}
-		let b = KinkyDungeonLaunchBullet(xx, yy,
-			tX-entity.x,tY - entity.y,
-			spell.speed, {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:size, height:size, summon:spell.summon, cast: cast, dot: spell.dot,
-				effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
-				effectTileTrail: spell.effectTileTrail, effectTileDurationModTrail: spell.effectTileDurationModTrail, effectTileTrailAoE: spell.effectTileTrailAoE,
-				passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, alwaysCollideTags: spell.alwaysCollideTags, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit,
-				pierceEnemies: spell.pierceEnemies, piercing: spell.piercing, events: spell.events,
-				lifetime:miscast || selfCast ? 1 : (spell.bulletLifetime ? spell.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spellRange, hit:spell.onhit,
-				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}, miscast);
-		b.visual_x = entity.x;
-		b.visual_y = entity.y;
-		bulletfired = b;
-	} else if (spell.type == "inert" || spell.type == "dot") {
-		let sz = spell.size;
-		if (!sz) sz = 1;
-		if (spell.meleeOrigin) {
-			tX = entity.x + moveDirection.x;
-			tY = entity.y + moveDirection.y;
+
+		let speed = originalSpeed;
+		// Add speedSpread
+		if (spell.shotgunSpeedBonus && castCount > 1) {
+			speed += spell.shotgunSpeedBonus * (castI / (castCount - 1));
 		}
-		let b = KinkyDungeonLaunchBullet(tX, tY,
-			moveDirection.x,moveDirection.y,
-			0, {
-				noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay +
-					(spell.delayRandom ? Math.floor(KDRandom() * spell.delayRandom) : 0), cast: cast, dot: spell.dot, events: spell.events, alwaysCollideTags: spell.alwaysCollideTags,
-				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
-				damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell
-			}, miscast);
-		bulletfired = b;
-	} else if (spell.type == "hit") {
-		let sz = spell.size;
-		if (!sz) sz = 1;
-		if (spell.meleeOrigin) {
-			tX = entity.x + moveDirection.x;
-			tY = entity.y + moveDirection.y;
-		}
-		let b = {x: tX, y:tY,
-			vx: moveDirection.x,vy: moveDirection.y, born: 1,
-			bullet: {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events, aoe: spell.aoe,
-				passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
-				damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}};
-		KinkyDungeonBulletHit(b, 1);
-		bulletfired = b;
-	} else if (spell.type == "buff") {
-		let aoe = spell.aoe;
-		let casted = false;
-		if (!aoe) aoe = 0.1;
-		if (Math.sqrt((KinkyDungeonPlayerEntity.x - targetX) * (KinkyDungeonPlayerEntity.x - targetX) + (KinkyDungeonPlayerEntity.y - targetY) * (KinkyDungeonPlayerEntity.y - targetY)) <= aoe) {
-			for (let buff of spell.buffs) {
-				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff);
-				if (KinkyDungeonPlayerEntity.x == targetX && KinkyDungeonPlayerEntity.y == targetY) target = KinkyDungeonPlayerEntity;
-				casted = true;
+
+		if (spell.type == "bolt") {
+			let size = (spell.size) ? spell.size : 1;
+			let xx = entity.x;
+			let yy = entity.y;
+			noiseX = entity.x;
+			noiseY = entity.y;
+			if (!bullet || (bullet.spell && bullet.spell.cast && bullet.spell.cast.offset)) {
+				xx += moveDirection.x;
+				yy += moveDirection.y;
 			}
-		}
-		for (let e of KinkyDungeonEntities) {
-			if (Math.sqrt((e.x - targetX) * (e.x - targetX) + (e.y - targetY) * (e.y - targetY)) <= aoe) {
+			if (spell.effectTilePre) {
+				KDCreateAoEEffectTiles(tX-entity.x,tY - entity.y, spell.effectTilePre, spell.effectTileDurationModPre, (spell.aoe) ? spell.aoe : 0.5);
+			}
+			let b = KinkyDungeonLaunchBullet(xx, yy,
+				tX-entity.x,tY - entity.y,
+				speed, {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:size, height:size, summon:spell.summon, cast: cast, dot: spell.dot,
+					effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
+					effectTileTrail: spell.effectTileTrail, effectTileDurationModTrail: spell.effectTileDurationModTrail, effectTileTrailAoE: spell.effectTileTrailAoE,
+					passthrough: spell.noTerrainHit, noEnemyCollision: spell.noEnemyCollision, alwaysCollideTags: spell.alwaysCollideTags, nonVolatile:spell.nonVolatile, noDoubleHit: spell.noDoubleHit,
+					pierceEnemies: spell.pierceEnemies, piercing: spell.piercing, events: spell.events,
+					lifetime:miscast || selfCast ? 1 : (spell.bulletLifetime ? spell.bulletLifetime : 1000), origin: {x: entity.x, y: entity.y}, range: spellRange, hit:spell.onhit,
+					damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}, miscast);
+			b.visual_x = entity.x;
+			b.visual_y = entity.y;
+			bulletfired = b;
+		} else if (spell.type == "inert" || spell.type == "dot") {
+			let sz = spell.size;
+			if (!sz) sz = 1;
+			if (spell.meleeOrigin) {
+				tX = entity.x + moveDirection.x;
+				tY = entity.y + moveDirection.y;
+			}
+			let b = KinkyDungeonLaunchBullet(tX, tY,
+				moveDirection.x,moveDirection.y,
+				0, {
+					noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.delay +
+						(spell.delayRandom ? Math.floor(KDRandom() * spell.delayRandom) : 0), cast: cast, dot: spell.dot, events: spell.events, alwaysCollideTags: spell.alwaysCollideTags,
+					passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
+					damage: spell.type == "inert" ? null : {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell
+				}, miscast);
+			bulletfired = b;
+		} else if (spell.type == "hit") {
+			let sz = spell.size;
+			if (!sz) sz = 1;
+			if (spell.meleeOrigin) {
+				tX = entity.x + moveDirection.x;
+				tY = entity.y + moveDirection.y;
+			}
+			let b = {x: tX, y:tY,
+				vx: moveDirection.x,vy: moveDirection.y, born: 1,
+				bullet: {noSprite: spell.noSprite, faction: faction, name:spell.name, block: spell.block, width:sz, height:sz, summon:spell.summon, lifetime:spell.lifetime, cast: cast, dot: spell.dot, events: spell.events, aoe: spell.aoe,
+					passthrough:(spell.CastInWalls || spell.WallsOnly || spell.noTerrainHit), hit:spell.onhit, noDoubleHit: spell.noDoubleHit, effectTile: spell.effectTile, effectTileDurationMod: spell.effectTileDurationMod,
+					damage: {evadeable: spell.evadeable, damage:spell.power, type:spell.damage, bind: spell.bind, boundBonus: spell.boundBonus, time:spell.time, flags:spell.damageFlags}, spell: spell}};
+			KinkyDungeonBulletHit(b, 1);
+			bulletfired = b;
+		} else if (spell.type == "buff") {
+			let aoe = spell.aoe;
+			let casted = false;
+			if (!aoe) aoe = 0.1;
+			if (Math.sqrt((KinkyDungeonPlayerEntity.x - targetX) * (KinkyDungeonPlayerEntity.x - targetX) + (KinkyDungeonPlayerEntity.y - targetY) * (KinkyDungeonPlayerEntity.y - targetY)) <= aoe) {
 				for (let buff of spell.buffs) {
-					if (!e.buffs) e.buffs = [];
-					KinkyDungeonApplyBuff(e.buffs, buff);
-					if (e.x == targetX && e.y == targetY) target = e;
+					KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, buff);
+					if (KinkyDungeonPlayerEntity.x == targetX && KinkyDungeonPlayerEntity.y == targetY) target = KinkyDungeonPlayerEntity;
 					casted = true;
 				}
 			}
+			for (let e of KinkyDungeonEntities) {
+				if (Math.sqrt((e.x - targetX) * (e.x - targetX) + (e.y - targetY) * (e.y - targetY)) <= aoe) {
+					for (let buff of spell.buffs) {
+						if (!e.buffs) e.buffs = [];
+						KinkyDungeonApplyBuff(e.buffs, buff);
+						if (e.x == targetX && e.y == targetY) target = e;
+						casted = true;
+					}
+				}
+			}
+			if (!casted)
+				return "Fail";
+		} else if (spell.type == "special") {
+			let ret = KinkyDungeonSpellSpecials[spell.special](spell, flags, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast);
+			if (ret)
+				return ret;
 		}
-		if (!casted)
-			return "Fail";
-	} else if (spell.type == "special") {
-		let ret = KinkyDungeonSpellSpecials[spell.special](spell, flags, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast);
-		if (ret)
-			return ret;
 	}
+
+	tX = originaltX;
+	tY = originaltY;
 
 	if (spell.extraCast) {
 		for (let extraCast of spell.extraCast)

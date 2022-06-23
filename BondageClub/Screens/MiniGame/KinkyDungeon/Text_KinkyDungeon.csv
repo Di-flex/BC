@@ -238,6 +238,7 @@ KinkyDungeonStatDescStartObsidian,"Start in a full set of magically locked obsid
 KinkyDungeonBuffConduction,Conductive
 KinkyDungeonBuffLightningRod,Lightning Rod
 KDConductionDamageTaken,DAMAGEDEALT electric damage conducts to you!!!
+KDBurningFanFlamesDamageTaken,"The pressure fans the flames on you, dealing bonus DAMAGEDEALT fire damage!"
 KinkyDungeonBuffDrenched,Drenched
 
 KinkyDungeonBuffChilled,Chilled...
@@ -1715,19 +1716,20 @@ AttackOrbOfLightBlind,"The orb blinds you with its intense light!!! (DamageTaken
 KinkyDungeonSpellCastOrbHeal,A light restores the health of its allies!
 
 KinkyDungeonNoMana,"You do not have enough resources to cast the spell! (Consider pleading with a goddess)"
-PlayerAttack,"You attack the TargetEnemy for DamageDealt damage!"
-PlayerAttackWeak,"You attack the TargetEnemy for a decreased DamageDealt damage!"
-PlayerAttackStrong,"You attack the TargetEnemy for an increased DamageDealt damage!"
-PlayerAttackVeryStrong,"You attack the TargetEnemy for a devastating DamageDealt damage!"
-PlayerAttackImmune,"You attack the TargetEnemy, but your weapon has no effect!"
-PlayerAttackSpellResist,"You attack the TargetEnemy for DamageDealt damage!, reduced by its magic resistance!"
-PlayerRanged,"AttackName hits the TargetEnemy for DamageDealt damage!"
-PlayerRangedWeak,"AttackName hits the TargetEnemy for a reduced DamageDealt damage!"
-PlayerRangedImmune,"AttackName hits the TargetEnemy but it doesn't do anything!"
-PlayerRangedStrong,"AttackName hits the TargetEnemy for an increased DamageDealt damage!"
-PlayerRangedSpellResist,"AttackName hits the TargetEnemy for DamageDealt damage, reduced by its magic resistance!"
-PlayerRangedVeryStrong,"AttackName hits the TargetEnemy for a devastating DamageDealt damage!"
+PlayerAttack,"You AttackName TargetEnemy for DamageDealt DamageType damage!"
+PlayerAttackWeak,"You AttackName TargetEnemy for a decreased DamageDealt DamageType damage!"
+PlayerAttackStrong,"You AttackName TargetEnemy for an increased DamageDealt DamageType damage!"
+PlayerAttackVeryStrong,"You AttackName TargetEnemy for a devastating DamageDealt DamageType damage!"
+PlayerAttackImmune,"You AttackName TargetEnemy, but your DamageType weapon has no effect!"
+PlayerAttackSpellResist,"You AttackName TargetEnemy for DamageDealt DamageType damage!, reduced by its magic resistance!"
+PlayerRanged,"AttackName hits TargetEnemy for DamageDealt DamageType damage!"
+PlayerRangedWeak,"AttackName hits TargetEnemy for a reduced DamageDealt DamageType damage!"
+PlayerRangedImmune,"AttackName hits TargetEnemy but DamageType damage doesn't have any effect!"
+PlayerRangedStrong,"AttackName hits TargetEnemy for an increased DamageDealt DamageType damage!"
+PlayerRangedSpellResist,"AttackName hits TargetEnemy for DamageDealt DamageType damage, reduced by its magic resistance!"
+PlayerRangedVeryStrong,"AttackName hits TargetEnemy for a devastating DamageDealt DamageType damage!"
 KinkyDungeonBasicAttack,attack
+KinkyDungeonBasicDamage,damage
 PlayerMiss,"You miss the TargetEnemy!"
 PlayerMissArmor,"Your attack is too feeble to hurt the TargetEnemy!"
 KinkyDungeonStruggleStruggleFail,"You try to pull the TargetRestraint off..."
@@ -3317,6 +3319,12 @@ KinkyDungeonSpellCastFirebolt,You a hurl a firebolt!
 KinkyDungeonSpellTargetFirebolt,Choose aim direction
 
 
+KinkyDungeonSpellWindBlast,Windblast
+KinkyDungeonSpellDescriptionWindBlast,"Three puffs of wind that do DamageDealt pressure damage, stun briefly, and push targets back."
+KinkyDungeonSpellCastWindBlast,You press your wrists together and conjure a blast of wind!
+KinkyDungeonSpellTargetWindBlast,Choose aim direction
+
+
 KinkyDungeonSpellKnife,Knife
 KinkyDungeonSpellDescriptionKnife,Throw one of your knives DamageDealt damage. Lands in the target's tile, but is recoverable afterward.
 KinkyDungeonSpellCastKnife,You a throw a knife!
@@ -4573,7 +4581,7 @@ KinkyDungeonDamageTypepain,"Pain"
 KinkyDungeonDamageTypesouldrain,"Soul"
 KinkyDungeonDamageTypedrain,"Mana Drain"
 KinkyDungeonDamageTypeelectric,"Electric"
-KinkyDungeonDamageTypestun,"Stun"
+KinkyDungeonDamageTypestun,"Pressure"
 KinkyDungeonDamageTypechain,"Binding"
 KinkyDungeonDamageTypehappygas,"Lust"
 KinkyDungeonDamageTypeglue,"Glue"

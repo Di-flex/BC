@@ -778,6 +778,15 @@ let KDEventMapBuff = {
 				}
 			}
 		},
+		"EchoDamage": (e, buff, entity, data) => {
+			if (data.enemy == entity && (!data.flags || (!data.flags.includes("EchoDamage"))) && data.dmg > 0 && (!e.damageTrigger || data.type == e.damageTrigger)) {
+				KinkyDungeonDamageEnemy(entity, {
+					type: e.damage,
+					damage: data.dmg * e.power,
+					flags: ["EchoDamage"]
+				}, false, false, undefined, undefined, undefined, data.faction);
+			}
+		},
 		"Volcanism": (e, buff, entity, data) => {
 			if (data.enemy == entity && (!data.flags || (!data.flags.includes("VolcanicDamage") && !data.flags.includes("BurningDamage"))) && data.dmg > 0 && (data.type == "fire")) {
 				KinkyDungeonCastSpell(data.enemy.x, data.enemy.y, KinkyDungeonFindSpell("VolcanicStrike", true), undefined, undefined, undefined, "Rock");
@@ -811,6 +820,16 @@ let KDEventMapBuff = {
 						}
 					}
 				}
+			}
+		},
+		"EchoDamage": (e, buff, entity, data) => {
+			if ((!data.flags || !data.flags.includes("EchoDamage")) && data.dmg > 0 && (!e.damageTrigger || e.damageTrigger == data.type)) {
+				KinkyDungeonSendTextMessage(6, TextGet("KDBurningFanFlamesDamageTaken").replace("DAMAGEDEALT", "" + data.dmg * e.power), "red", 2);
+				KinkyDungeonDealDamage({
+					type: e.damage,
+					damage: data.dmg * e.power,
+					flags: ["EchoDamage"],
+				});
 			}
 		},
 	},
@@ -1536,6 +1555,28 @@ let KDEventMapBullet = {
 		},
 	},
 	"bulletHitEnemy": {
+		"Knockback": (e, b, data) => {
+			if (b && data.enemy && !data.enemy.Enemy.tags.has("noknockback") && !data.enemy.Enemy.immobile) {
+				let pushPower = e.power;
+				if (KinkyDungeonIsSlowed(data.enemy) || data.enemy.bind > 0) pushPower += 1;
+				if (KDEntityHasBuff(data.enemy, "Chilled")) pushPower += 1;
+				if (data.enemy.Enemy.tags.has("stunimmune")) pushPower -= 2;
+				else if (data.enemy.Enemy.tags.has("stunresist")) pushPower -= 1;
+				if (data.enemy.Enemy.tags.has("unstoppable")) pushPower -= 3;
+				else if (data.enemy.Enemy.tags.has("unflinching") || data.enemy.Enemy.tags.has("slowresist") || data.enemy.Enemy.tags.has("slowimmune")) pushPower -= 1;
+
+				if (pushPower > 0) {
+					let dist = e.dist;
+					if (pushPower > dist) dist *= 2;
+					let newX = data.enemy.x + Math.round(dist * Math.sign(b.vx));
+					let newY = data.enemy.y + Math.round(dist * Math.sign(b.vy));
+					if (KinkyDungeonMovableTilesEnemy.includes(KinkyDungeonMapGet(newX, newY)) && KinkyDungeonNoEnemy(newX, newY, true)
+						&& (e.dist == 1 || KinkyDungeonCheckProjectileClearance(data.enemy.x, data.enemy.y, newX, newY))) {
+						KDMoveEntity(data.enemy, newX, newY, false);
+					}
+				}
+			}
+		},
 		"ElementalOnSlowOrBind": (e, b, data) => {
 			if (b && data.enemy && (KinkyDungeonIsSlowed(data.enemy) || data.enemy.bind > 0)) {
 				KinkyDungeonDamageEnemy(data.enemy, {

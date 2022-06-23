@@ -772,6 +772,7 @@ interface KinkyDungeonEvent {
 	bind?: number;
 	mult?: number;
 	damage?: string;
+	damageTrigger?: string;
 	dist?: number;
 	aoe?: number;
 	buffType?: string;
@@ -953,6 +954,11 @@ interface spell {
 	effectTileTrailAoE?: number,
 	effectTileDoT?: effectTile,
 	effectTileDurationModDoT?: number,
+
+	shotgunCount?: number,
+	shotgunSpread?: number,
+	shotgunDistance?: number,
+	shotgunSpeedBonus?: number,
 
 
 	damageFlags?: string[],

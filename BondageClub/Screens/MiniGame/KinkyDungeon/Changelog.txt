@@ -1009,6 +1009,7 @@ Spell Balance:
 - New Spell: Freeze Rune
 - New Spell: Volcanism
 - Started cacheing pathfinding. Let me know if there are performance improvements!
+- New Spell: Windblast
 
 TODO ValidationFindBlockCycles to prevent bugs
 
