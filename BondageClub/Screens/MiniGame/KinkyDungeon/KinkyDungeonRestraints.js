@@ -1906,10 +1906,11 @@ let KinkyDungeonCancelFlag = false;
  * @param {boolean} [Link]
  * @param {boolean} [SwitchItems]
  * @param {KinkyDungeonEvent[]} [events]
+ * @param {boolean} [NoDefaultLock]
  * @param {string} [faction]
  * @returns
  */
-function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems, events, faction) {
+function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link, SwitchItems, events, faction, NoDefaultLock) {
 	KDStruggleGroupLinkIndex = {};
 	let start = performance.now();
 	let tight = (Tightness) ? Tightness : 0;
@@ -2003,7 +2004,7 @@ function KinkyDungeonAddRestraint(restraint, Tightness, Bypass, Lock, Keep, Link
 				KinkyDungeonInventoryAdd(item);
 
 				if (Lock) KinkyDungeonLock(item, Lock);
-				else if (restraint.DefaultLock) KinkyDungeonLock(item, restraint.DefaultLock);
+				else if (restraint.DefaultLock && !NoDefaultLock) KinkyDungeonLock(item, restraint.DefaultLock);
 			} else if ((!Link && !linked) || SwitchItems) {
 				KinkyDungeonCancelFlag = false;
 				// Otherwise, if we did unlink an item, and we are not in the process of linking (very important to prevent loops)
@@ -2269,7 +2270,7 @@ function KinkyDungeonUnLinkItem(item, Keep, dynamic) {
 		if (UnLink) {
 			let newRestraint = KinkyDungeonGetRestraintByName(UnLink.name);
 			if (newRestraint) {
-				KinkyDungeonAddRestraint(newRestraint, UnLink.tightness, true, UnLink.lock, Keep, undefined, undefined, undefined, UnLink.faction);
+				KinkyDungeonAddRestraint(newRestraint, UnLink.tightness, true, UnLink.lock, Keep, undefined, undefined, undefined, UnLink.faction, true);
 				let res = KinkyDungeonGetRestraintItem(newRestraint.Group);
 				if (res && KDRestraint(res)) {
 					res.dynamicLink = UnLink.dynamicLink;
