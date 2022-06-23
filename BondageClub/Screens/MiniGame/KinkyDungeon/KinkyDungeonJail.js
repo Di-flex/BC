@@ -1093,9 +1093,10 @@ function KinkyDungeonDefeat(PutInJail) {
 			let tile = KinkyDungeonTiles.get(X + "," + Y);
 			if (tile && tile.Jail && tile.ReLock && (KinkyDungeonMapGet(X, Y) == 'd' || KinkyDungeonMapGet(X, Y) == 'D')) {
 				KinkyDungeonMapSet(X, Y, 'D');
-				if (tile && !tile.Lock)
+				if (tile && !tile.Lock) {
 					tile.Lock = "Red";
 					KDUpdateDoorNavMap();
+				}
 			}
 		}
 
