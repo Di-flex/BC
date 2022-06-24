@@ -158,7 +158,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		},
 
 		{name: "Firecracker", prerequisite: "ApprenticeFire", landsfx: "Lightning", tags: ["fire", "aoe", "offense"], noUniqueHits: true, noise: 7, sfx: "FireSpell", school: "Elements", manacost: 4,
-			components: ["Verbal"], level:1, type:"inert", onhit:"aoe", delay: 1, power: 2.5, range: 3.99, size: 3, aoe: 1, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"},
+			components: ["Verbal"], level:1, type:"inert", onhit:"aoe", delay: 1, power: 3.5, range: 3.99, size: 3, aoe: 1, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"},
 			effectTileDurationMod: 8, effectTile: {
 				name: "Ember",
 				duration: -4,
