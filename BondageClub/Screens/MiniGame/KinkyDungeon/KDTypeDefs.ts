@@ -736,6 +736,7 @@ interface weapon {
 	chance: number;
 	type: string;
 	bind?: number;
+	bindEff?: number;
 	light?: boolean;
 	boundBonus?: number;
 	tease?: boolean;
@@ -772,6 +773,7 @@ interface KinkyDungeonEvent {
 	bind?: number;
 	mult?: number;
 	damage?: string;
+	buffTypes?: string[];
 	damageTrigger?: string;
 	dist?: number;
 	aoe?: number;

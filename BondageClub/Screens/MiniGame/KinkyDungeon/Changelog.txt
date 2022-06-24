@@ -1016,6 +1016,9 @@ Spell Balance:
 - New divine gift weapon: Dreamcatcher (Illusion goddess)
 - Ice cube now does 1.5 damage
 - Dollmaker dolls now decay slowly and have 80 hp from 100
+- New divine gift weapon: Four Seasons (Elements goddess)
+- New divine gift weapon: The Arbiter (Conjuration goddess)
+
 
 TODO ValidationFindBlockCycles to prevent bugs
 

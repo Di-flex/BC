@@ -39,6 +39,15 @@ let KinkyDungeonWeapons = {
 	"Dragonslaver": {name: "Dragonslaver", dmg: 3.5, chance: 1.25, staminacost: 1.0, type: "slash", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.1, sfx: "LightSwing",
 		events: [{type: "CastSpell", spell: "BeltStrike", trigger: "playerAttack", requireEnergy: true, energyCost: 0.0075}],
 		special: {type: "hitorspell", spell: "BeltStrike", requiresEnergy: true, energyCost: 0.0075, range: 2.99}},
+	"Arbiter": {name: "Arbiter", dmg: 3.0, bindEff: 2.0, chance: 2.0, staminacost: 1.5, type: "chain", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "LightSwing",
+		events: [
+			{type: "BuffMulti", trigger: "tick", power: 0.25, buffTypes: [
+				"glueDamageBuff",
+				"chainDamageBuff",
+			]},
+			{type: "DamageToSummons", trigger: "playerAttack", power: 5, damage: "cold", chance: 1.0}
+		],
+		special: {type: "attack", range: 2.99}},
 	"BondageBuster": {name: "BondageBuster", dmg: 1, chance: 1.0, staminacost: 0.3,  type: "tickle", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "Shock",
 		events: [
 			{type: "ElementalEffect", trigger: "playerAttack", power: 0, time: 6, damage: "tickle"},
@@ -49,6 +58,20 @@ let KinkyDungeonWeapons = {
 	"TheEncaser": {name: "TheEncaser", dmg: 4, chance: 1.0, staminacost: 1.5, type: "glue", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "MagicSlash",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "glue", time: 2}],
 		special: {type: "spell", selfCast: true, spell: "SlimeForm", requiresEnergy: true, energyCost: 0.025}},
+	"FourSeasons": {name: "FourSeasons", dmg: 4, chance: 1.0, staminacost: 1.5, type: "cold", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "Fwoosh",
+		events: [
+			{type: "BuffMulti", trigger: "tick", power: 0.2, buffTypes: [
+				"fireDamageBuff",
+				"iceDamageBuff",
+				"frostDamageBuff",
+				"acidDamageBuff",
+				"electricDamageBuff",
+				"crushDamageBuff",
+				"gravityDamageBuff",
+				"stunDamageBuff",
+			]}
+		],
+		special: {type: "spell", selfCast: true, spell: "AvatarForm", requiresEnergy: true, energyCost: 0.05}},
 
 	"Slimethrower": {name: "Slimethrower", dmg: 3, chance: 1.0, staminacost: 1.0, type: "crush", unarmed: false, rarity: 10, shop: false, sfx: "HeavySwing",
 		special: {type: "spell", spell: "Slimethrower", requiresEnergy: true, energyCost: 0.015}},
@@ -70,7 +93,7 @@ let KinkyDungeonWeapons = {
 		events: [{type: "Pierce", trigger: "playerAttack", power: 4.0, damage: "pierce"}]},
 	"MagicSpear": {name: "MagicSpear", dmg: 4.0, chance: 1.5, staminacost: 1.5, type: "pierce", unarmed: false, rarity: 4, magic: true, shop: true, sfx: "LightSwing",
 		events: [{type: "Pierce", trigger: "playerAttack", power: 4.0, damage: "pierce", dist: 2}]},
-	"StaffBind": {name: "StaffBind", dmg: 2, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
+	"StaffBind": {name: "StaffBind", dmg: 2, bindEff: 1.5, chance: 1.0, staminacost: 1.0, type: "chain", unarmed: false, rarity: 3, shop: true, sfx: "Chain",
 		events: [{type: "ElementalEffect", trigger: "playerAttack", power: 0, damage: "chain", time: 4}]},
 	"StaffFlame": {name: "StaffFlame", dmg: 5, chance: 0.7, staminacost: 2.5, type: "fire", unarmed: false, rarity: 3, shop: true, sfx: "MagicSlash",
 		events: [{type: "Buff", trigger: "tick", power: 0.15, buffType: "fireDamageBuff"}]},

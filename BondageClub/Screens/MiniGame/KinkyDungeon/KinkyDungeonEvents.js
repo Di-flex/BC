@@ -874,6 +874,28 @@ let KDEventMapBuff = {
 			}
 		},
 	},
+	"calcMana": {
+		"AvatarFire": (e, buff, entity, data) => {
+			if (data.spell.tags && data.spell.tags.includes("fire")) {
+				data.cost = Math.max(data.cost - e.power, 0);
+			}
+		},
+		"AvatarAir": (e, buff, entity, data) => {
+			if (data.spell.tags && data.spell.tags.includes("air")) {
+				data.cost = Math.max(data.cost - e.power, 0);
+			}
+		},
+		"AvatarWater": (e, buff, entity, data) => {
+			if (data.spell.tags && data.spell.tags.includes("water")) {
+				data.cost = Math.max(data.cost - e.power, 0);
+			}
+		},
+		"AvatarEarth": (e, buff, entity, data) => {
+			if (data.spell.tags && data.spell.tags.includes("earth")) {
+				data.cost = Math.max(data.cost - e.power, 0);
+			}
+		},
+	},
 	"tick": {
 		"ApplyConduction": (e, buff, entity, data) => {
 			let bb = Object.assign({}, KDConduction);
@@ -1358,6 +1380,16 @@ let KDEventMapWeapon = {
 				duration: 2
 			});
 		},
+		"BuffMulti": (e, weapon, data) => {
+			for (let buff of e.buffTypes)
+				KinkyDungeonApplyBuff(KinkyDungeonPlayerBuffs, {
+					id: weapon.name + buff,
+					type: buff,
+					power: e.power,
+					duration: 2
+				});
+		},
+
 		"AoEDamageFrozen": (e, weapon, data) => {
 			let trigger = false;
 			for (let enemy of KinkyDungeonEntities) {
@@ -1460,6 +1492,18 @@ let KDEventMapWeapon = {
 		"DamageToTag": (e, weapon, data) => {
 			if (data.enemy && !data.miss && !data.disarm) {
 				if (data.enemy && data.enemy.Enemy.tags.has(e.requiredTag) && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
+					KinkyDungeonDamageEnemy(data.enemy, {
+						type: e.damage,
+						damage: e.power,
+						time: e.time,
+						bind: e.bind
+					}, false, false, undefined, undefined, KinkyDungeonPlayerEntity);
+				}
+			}
+		},
+		"DamageToSummons": (e, weapon, data) => {
+			if (data.enemy && !data.miss && !data.disarm) {
+				if (data.enemy && data.enemy.lifetime > 0 && data.enemy.lifetime < 9999 && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
 					KinkyDungeonDamageEnemy(data.enemy, {
 						type: e.damage,
 						damage: e.power,

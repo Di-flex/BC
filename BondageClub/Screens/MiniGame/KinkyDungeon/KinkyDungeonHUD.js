@@ -255,7 +255,7 @@ function KinkyDungeonDrawInputs() {
 		i = 0;
 		for (let b of Object.values(KinkyDungeonPlayerBuffs)) {
 			if ((b.aura || b.labelcolor) && b.duration > 0) {
-				let count = b.maxCount ? b.maxCount - (b.currentCount ? b.currentCount : 0) : 0;
+				let count = b.maxCount > 1 ? b.maxCount - (b.currentCount ? b.currentCount : 0) : 0;
 				DrawTextFit(TextGet("KinkyDungeonBuff" + b.id) + (count ? ` ${count}/${b.maxCount}` : "") + ((b.duration > 1 && b.duration < 9000) ? ` (${b.duration})` : ""), 790, 900 - i * 35, 275, b.aura ? b.aura : b.labelcolor, "gray"); i++;
 			}
 
@@ -768,12 +768,15 @@ function KinkyDungeonActivateWeaponSpell(instant) {
 			return true;
 		}
 		if (KinkyDungeonPlayerDamage.special.selfCast) {
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
 			KDStartSpellcast(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true), undefined, undefined, undefined);
+			KinkyDungeonTargetingSpellWeapon = null;
 			//KinkyDungeonCastSpell(KinkyDungeonPlayerEntity.x, KinkyDungeonPlayerEntity.y, , undefined, undefined, undefined);
 		} else if (!instant) {
 			KinkyDungeonTargetingSpell = KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true);
 			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
 		} else {
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
 			KDStartSpellcast(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true), undefined, KinkyDungeonPlayerEntity, undefined);
 			//KinkyDungeonCastSpell(KinkyDungeonTargetX, KinkyDungeonTargetY, KinkyDungeonFindSpell(KinkyDungeonPlayerDamage.special.spell, true), undefined, KinkyDungeonPlayerEntity, undefined);
 			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
@@ -785,9 +788,14 @@ function KinkyDungeonActivateWeaponSpell(instant) {
 
 function KinkyDungeonRangedAttack() {
 	if (!KinkyDungeonPlayerDamage.special) return;
-	if (KinkyDungeonPlayerDamage.special.type == "spell" || KinkyDungeonPlayerDamage.special.type == "hitorspell") {
+	if (KinkyDungeonPlayerDamage.special.type) {
 		if (KinkyDungeonPlayerDamage.special.type == "hitorspell") {
 			KinkyDungeonTargetingSpell = {name: "WeaponAttack", components: [], level:1, type:"special", special: "weaponAttackOrSpell", noMiscast: true,
+				onhit:"", time:25, power: 0, range: KinkyDungeonPlayerDamage.special.range ? KinkyDungeonPlayerDamage.special.range : 1.5, size: 1, damage: ""};
+			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
+			return true;
+		} else if (KinkyDungeonPlayerDamage.special.type == "attack") {
+			KinkyDungeonTargetingSpell = {name: "WeaponAttack", components: [], level:1, type:"special", special: "weaponAttack", noMiscast: true,
 				onhit:"", time:25, power: 0, range: KinkyDungeonPlayerDamage.special.range ? KinkyDungeonPlayerDamage.special.range : 1.5, size: 1, damage: ""};
 			KinkyDungeonTargetingSpellWeapon = KinkyDungeonPlayerDamage;
 			return true;

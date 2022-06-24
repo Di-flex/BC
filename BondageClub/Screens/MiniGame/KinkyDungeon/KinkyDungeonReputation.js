@@ -96,8 +96,8 @@ let KDBlessedRewards = {
 	"Metal": ["BondageBuster"],
 	"Leather": ["Dragonslaver"],
 	"Will": ["MessengerOfLove"],
-	"Elements": ["IceBreaker",],
-	"Conjure": ["MagicSword"],
+	"Elements": ["FourSeasons",],
+	"Conjure": ["Arbiter"],
 	"Illusion": ["Dreamcatcher"],
 };
 

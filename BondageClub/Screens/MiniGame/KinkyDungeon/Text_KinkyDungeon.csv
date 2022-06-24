@@ -258,6 +258,11 @@ KinkyDungeonSpellArcaneStrike,Arcane Explosion
 KinkyDungeonBuffShrineIllusion,Arcane Cunning
 KinkyDungeonBuffShrineIllusionTrigger,"The Goddess of Illusions shrouds you in shadows!"
 
+KinkyDungeonBuffAvatarFire,-MP Cost (Fire)
+KinkyDungeonBuffAvatarAir,-MP Cost (Air)
+KinkyDungeonBuffAvatarWater,-MP Cost (Water)
+KinkyDungeonBuffAvatarEarth,-MP Cost (Earth)
+
 KinkyDungeonBuffSlimeForm,Slime Form
 KinkyDungeonBuffShroud2,"Shroud"
 KinkyDungeonBuffCamo,"Camoflage"
@@ -703,7 +708,7 @@ KinkyDungeonInventoryItemStaffPermafrostDesc,"A magical weapon with a 33% chance
 KinkyDungeonInventoryItemStaffPermafrostDesc2,"Deals ice damage. Multiplies the duration of freeze effects on enemies by 1.5x (min +1 duration)"
 KinkyDungeonInventoryItemStaffBind,Staff of Binding
 KinkyDungeonInventoryItemStaffBindDesc,"A magical weapon made to use on novices."
-KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and roots the target for 4 turns."
+KinkyDungeonInventoryItemStaffBindDesc2,"Deals chain damage and roots the target for 4 turns. 150% binding efficiency."
 KinkyDungeonInventoryItemHammer,Hammer
 KinkyDungeonInventoryItemHammerDesc,"A rather simplistic bludgeoning weapon."
 KinkyDungeonInventoryItemHammerDesc2,"Deals crush damage and knocks the target back."
@@ -752,6 +757,12 @@ KinkyDungeonInventoryItemDragonslaverDesc2,"Deals slash damage. Drains 0.75% anc
 KinkyDungeonInventoryItemTheEncaser,Metamorphosis
 KinkyDungeonInventoryItemTheEncaserDesc,"You can enter slime form for 25 turns, which lets you pass thru bars, +50% evasion, and deals 25 glue damage when attacked."
 KinkyDungeonInventoryItemTheEncaserDesc2,"Deals glue damage. Roots targets for 2 turns on a hit."
+KinkyDungeonInventoryItemFourSeasons,Four Seasons
+KinkyDungeonInventoryItemFourSeasonsDesc,"Activate to reduce the cost of your next fire, water, air, and earth spell by 50, once per element."
+KinkyDungeonInventoryItemFourSeasonsDesc2,"Deals shadow damage. +20% fire, ice, acid, crush, pressure damage."
+KinkyDungeonInventoryItemArbiter,The Arbiter
+KinkyDungeonInventoryItemArbiterDesc,"I have altered the rules. Pray I do not alter them further."
+KinkyDungeonInventoryItemArbiterDesc2,"Deals chain damage with 200% binding efficiency. +25% glue and chain damage. Deals 50 bonus shadow damage to summoned enemies. Ranged."
 KinkyDungeonInventoryItemBondageBuster,Bondage Buster
 KinkyDungeonInventoryItemBondageBusterDesc,"Can fire a beam (1 turn channel) that deals 30 electric damage, but charges when not fired, dealing 90 total damage at 10 turns of charge."
 KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
@@ -3189,6 +3200,9 @@ ItemPickupBola,You pick up a bola.
 ItemPickupBomb,You pick up a bomb!
 ItemPickupDragonslaver,"You pick up Dragonslaver."
 ItemPickupTheEncaser,"You pick up Metamorphosis."
+ItemPickupFourSeasons,"You pick up Four Seasons."
+ItemPickupArbiter,"You pick up The Arbiter."
+ItemPickupDreamcatcher,"You pick up Dreamcatcher."
 ItemPickupBondageBuster,"You retrieve the Bondage Buster."
 ItemPickupMessengerOfLove,"You retrieve the Messenger of Love."
 ItemPickupMoiraiScissor,"You retrieve Moirai's scissors."
@@ -3870,6 +3884,7 @@ KinkyDungeonSpellBondageBustBeam,Bondage Buster
 KinkyDungeonSpellCastBondageBust,You charge up a beam and fire it!
 KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
 KinkyDungeonSpellCastSlimeForm,"The slime from your staff coats your body, granting you strange powers!"
+KinkyDungeonSpellCastAvatarForm,"The power of the four elements flows through your veins!"
 KinkyDungeonSpellHeatBolt,Firebolt
 KinkyDungeonHeatBlast,An explosion knocks you to the ground!
 
@@ -5317,8 +5332,10 @@ KinkyDungeonRemindJailZombiePickpocket,"...Shiny..."
 KinkyDungeonRemindJailZombieLock,"...Secure..."
 
 KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal to function.
-KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Launch binding belts
+KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Spend 0.75% energy to launch binding belts
 KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
+KinkyDungeonSpecialFourSeasons,"5% energy to reduce mana cost of next fire, earth, air, and water spell by 50 (once for each element)"
+KinkyDungeonSpecialArbiter,"Attack with The Arbiter."
 KinkyDungeonSpecialBondageBuster,"0.5% energy (+0.25% per charge) to channel and fire a beam that deals 30 + 3/charge electric damage, or 90 at max charge."
 KinkyDungeonSpecialMessengerOfLove,"5% energy to fire an arrow that enrages a target."
 KinkyDungeonSpecialMoiraiScissors,"5% energy to enter a frenzy for 10 turns, attacking twice per turn."
