@@ -883,6 +883,7 @@ interface entity {
 	ceasefire?: number,
 	bind?: number,
 	blind?: number,
+	disarm?: number,
 	slow?: number,
 	freeze?: number,
 	stun?: number,

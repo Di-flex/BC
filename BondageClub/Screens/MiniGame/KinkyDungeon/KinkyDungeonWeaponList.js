@@ -45,9 +45,9 @@ let KinkyDungeonWeapons = {
 				"glueDamageBuff",
 				"chainDamageBuff",
 			]},
-			{type: "DamageToSummons", trigger: "playerAttack", power: 5, damage: "cold", chance: 1.0}
+			{type: "DamageToSummons", trigger: "playerAttack", power: 4, damage: "cold", chance: 1.0}
 		],
-		special: {type: "attack", range: 2.99}},
+		special: {type: "spell", spell: "Disarm", requiresEnergy: true, energyCost: 0.025, range: 3.99}},
 	"BondageBuster": {name: "BondageBuster", dmg: 1, chance: 1.0, staminacost: 0.3,  type: "tickle", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "Shock",
 		events: [
 			{type: "ElementalEffect", trigger: "playerAttack", power: 0, time: 6, damage: "tickle"},

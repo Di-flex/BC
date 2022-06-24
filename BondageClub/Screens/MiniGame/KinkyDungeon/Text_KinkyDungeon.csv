@@ -762,7 +762,7 @@ KinkyDungeonInventoryItemFourSeasonsDesc,"Activate to reduce the cost of your ne
 KinkyDungeonInventoryItemFourSeasonsDesc2,"Deals shadow damage. +20% fire, ice, acid, crush, pressure damage."
 KinkyDungeonInventoryItemArbiter,The Arbiter
 KinkyDungeonInventoryItemArbiterDesc,"I have altered the rules. Pray I do not alter them further."
-KinkyDungeonInventoryItemArbiterDesc2,"Deals chain damage with 200% binding efficiency. +25% glue and chain damage. Deals 50 bonus shadow damage to summoned enemies. Ranged."
+KinkyDungeonInventoryItemArbiterDesc2,"Deals chain damage with 200% binding efficiency, +40 shadow damage to summons. +25% glue and chain damage. Ranged attack: Disarm"
 KinkyDungeonInventoryItemBondageBuster,Bondage Buster
 KinkyDungeonInventoryItemBondageBusterDesc,"Can fire a beam (1 turn channel) that deals 30 electric damage, but charges when not fired, dealing 90 total damage at 10 turns of charge."
 KinkyDungeonInventoryItemBondageBusterDesc2,"Melee mode deals tickle damage and marks enemies as vulnerable for 6 turns."
@@ -3882,6 +3882,7 @@ KinkyDungeonSpellHeartArrow,Arrow of Love
 KinkyDungeonSpellCastHeartArrow,You loose a glowing arrow!
 KinkyDungeonSpellBondageBustBeam,Bondage Buster
 KinkyDungeonSpellCastBondageBust,You charge up a beam and fire it!
+KinkyDungeonSpellCastDisarm,You swing your weapon and pull away the target's equipment!
 KinkyDungeonSpellCastBeltStrike,You swing Dragonslaver and it lashes out in a whip-like fashion!
 KinkyDungeonSpellCastSlimeForm,"The slime from your staff coats your body, granting you strange powers!"
 KinkyDungeonSpellCastAvatarForm,"The power of the four elements flows through your veins!"
@@ -5335,7 +5336,7 @@ KinkyDungeonInsufficientEnergy,The weapon requires power from an Ancient Crystal
 KinkyDungeonSpecialDragonslaver,Target an enemy: Attack with Dragonslaver. Target a tile: Spend 0.75% energy to launch binding belts
 KinkyDungeonSpecialTheEncaser,"2.5% energy to enter Slime Form for 25 turns, and create slime around yourself."
 KinkyDungeonSpecialFourSeasons,"5% energy to reduce mana cost of next fire, earth, air, and water spell by 50 (once for each element)"
-KinkyDungeonSpecialArbiter,"Attack with The Arbiter."
+KinkyDungeonSpecialArbiter,"2.5% energy to disarm a target for 8 turns, rendering them unable to attack."
 KinkyDungeonSpecialBondageBuster,"0.5% energy (+0.25% per charge) to channel and fire a beam that deals 30 + 3/charge electric damage, or 90 at max charge."
 KinkyDungeonSpecialMessengerOfLove,"5% energy to fire an arrow that enrages a target."
 KinkyDungeonSpecialMoiraiScissors,"5% energy to enter a frenzy for 10 turns, attacking twice per turn."

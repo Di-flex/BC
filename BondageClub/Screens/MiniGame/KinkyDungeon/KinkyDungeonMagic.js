@@ -1703,6 +1703,18 @@ let KinkyDungeonSpellSpecials = {
 		}
 		return "Fail";
 	},
+	"Disarm": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
+		let en = KinkyDungeonEnemyAt(targetX, targetY);
+		if (en) {
+			let time = Math.max(1, spell.time
+				- (en.Enemy.disarm ? en.Enemy.disarm : 0)
+				- (en.Enemy.tags.has("elite") ? 1 : 0)
+				- (en.Enemy.tags.has("miniboss") ? 2 : 0)
+				- (en.Enemy.tags.has("boss") ? 4 : 0));
+			en.disarm = Math.max(0, time);
+			return "Cast";
+		} else return "Fail";
+	},
 	"weaponAttack": (spell, data, targetX, targetY, tX, tY, entity, enemy, moveDirection, bullet, miscast, faction, cast, selfCast) => {
 		KinkyDungeonTargetingSpellWeapon = null;
 		let en = KinkyDungeonEnemyAt(targetX, targetY);
