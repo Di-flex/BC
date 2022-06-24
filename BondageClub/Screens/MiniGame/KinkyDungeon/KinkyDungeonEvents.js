@@ -1469,6 +1469,46 @@ let KDEventMapWeapon = {
 				}
 			}
 		},
+		"ElementalOnUnawareOrVulnerable": (e, weapon, data) => {
+			if (data.enemy && !data.miss && !data.disarm) {
+				if (data.enemy && (!e.requiredTag || data.enemy.Enemy.tags.has(e.requiredTag)) && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
+					if (!data.enemy.aware || data.enemy.vulnerable) {
+						KinkyDungeonDamageEnemy(data.enemy, {
+							type: e.damage,
+							damage: e.power,
+							time: e.time,
+							bind: e.bind
+						}, false, false, undefined, undefined, KinkyDungeonPlayerEntity);
+					}
+				}
+			}
+		},
+		"Dreamcatcher": (e, weapon, data) => {
+			if (data.enemy && !data.miss && !data.disarm) {
+				if (data.enemy && (!e.requiredTag || data.enemy.Enemy.tags.has(e.requiredTag)) && (!e.chance || KDRandom() < e.chance) && data.enemy.hp > 0) {
+					if (!data.enemy.aware && !data.enemy.Enemy.tags.has("Temporary")) {
+						let point = KinkyDungeonGetNearbyPoint(data.enemy.x,  data.enemy.y, true, undefined, true);
+						if (point) {
+							let Enemy = KinkyDungeonGetEnemyByName("ShadowWarrior");
+							KinkyDungeonEntities.push({
+								summoned: true,
+								rage: Enemy.summonRage ? 9999 : undefined,
+								Enemy: Enemy,
+								id: KinkyDungeonGetEnemyID(),
+								x: point.x,
+								y: point.y,
+								hp: (Enemy.startinghp) ? Enemy.startinghp : Enemy.maxhp,
+								movePoints: 0,
+								attackPoints: 0,
+								lifetime: e.time,
+								maxlifetime: e.time,
+							});
+							if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+						}
+					}
+				}
+			}
+		},
 		"Knockback": (e, weapon, data) => {
 			if (e.dist && data.enemy && data.targetX && data.targetY && !data.miss && !data.disarm) {
 				if (data.enemy.Enemy && !data.enemy.Enemy.tags.has("unflinching") && !data.enemy.Enemy.tags.has("stunresist") && !data.enemy.Enemy.tags.has("unstoppable") && !data.enemy.Enemy.tags.has("noknockback")) {

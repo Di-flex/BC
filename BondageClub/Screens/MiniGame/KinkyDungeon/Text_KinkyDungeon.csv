@@ -782,6 +782,9 @@ KinkyDungeonInventoryItemMagicHammerDesc2,"Deals crush damage and knocks the tar
 KinkyDungeonInventoryItemIceBreaker,IceBreaker
 KinkyDungeonInventoryItemIceBreakerDesc,"A frigid lightweight hammer with a spike on the end."
 KinkyDungeonInventoryItemIceBreakerDesc2,"Deals crush damage. Deals 2.5x damage to frozen targets instead of 2x. Triggers Shatter."
+KinkyDungeonInventoryItemDreamcatcher,Dreamcatcher
+KinkyDungeonInventoryItemDreamcatcherDesc,"Forged in nightmares, woven in steel."
+KinkyDungeonInventoryItemDreamcatcherDesc2,"Deals shadow damage. Deals 30 bonus psychic damage on unaware or vulnerable targets, and summons a Shadow Warrior on unaware targets for 2% ancient energy."
 KinkyDungeonInventoryItemAxe,Axe
 KinkyDungeonInventoryItemAxeDesc,"Popular among raiders and lumberjacks."
 KinkyDungeonInventoryItemAxeDesc2,"Also deals 20 damage to enemies next to you. Deals slash damage."

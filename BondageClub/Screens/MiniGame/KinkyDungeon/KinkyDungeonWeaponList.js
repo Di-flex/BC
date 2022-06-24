@@ -27,6 +27,12 @@ let KinkyDungeonWeapons = {
 			{type: "ConvertBindingToDamage", trigger: "afterPlayerAttack", power: 1.0, bind: 3.0, damage: "soul"},
 		],
 	},
+	"Dreamcatcher": {name: "Dreamcatcher", dmg: 2.5, chance: 1.0, staminacost: 0.75, type: "cold", unarmed: false, rarity: 10, shop: false, magic: true, cutBonus: 0.15, sfx: "Fwoosh",
+		events: [
+			{type: "Dreamcatcher", trigger: "playerAttack", time: 20, requireEnergy: true, energyCost: 0.03},
+			{type: "ElementalOnUnawareOrVulnerable", trigger: "playerAttack", power: 3.0, damage: "soul"},
+		],
+	},
 	"MessengerOfLove": {name: "MessengerOfLove", dmg: 2, chance: 0.75, staminacost: 0.5, type: "crush", unarmed: false, rarity: 10, shop: false, magic: true, sfx: "Unarmed",
 		special: {type: "spell", spell: "HeartArrow", requiresEnergy: true, energyCost: 0.05, range: 50},
 	},
