@@ -3299,7 +3299,7 @@ KinkyDungeonSpellAmpuleRed,Rubber Ampule
 KinkyDungeonSpellAmpuleBlue,Latex Ampule
 
 KinkyDungeonSpellShadowStrike,Shadowy chains appear from a rift in space!
-
+KinkyDungeonInfernoBurn,The roaring inferno deals 10 damage to you!
 
 KinkyDungeonSpellApprenticeFire,Flame Novice
 KinkyDungeonSpellDescriptionApprenticeFire,Unlocks fire and arcane spells. Learn Firebolt.
@@ -3307,7 +3307,7 @@ KinkyDungeonSpellApprenticeWater,Water Novice
 KinkyDungeonSpellDescriptionApprenticeWater,Unlocks ice and water spells. Learn Water Ball.
 KinkyDungeonSpellApprenticeEarth,Earth Novice
 KinkyDungeonSpellDescriptionApprenticeEarth,Unlocks earth and metal spells. Learn Stone Skin.
-KinkyDungeonSpellApprenticeAir,Storm Novice
+KinkyDungeonSpellApprenticeAir,Air Novice
 KinkyDungeonSpellDescriptionApprenticeAir,Unlocks air and electric spells. Learn Shock Orb
 
 KinkyDungeonSpellApprenticeBondage,Bondage I
@@ -3664,6 +3664,16 @@ KinkyDungeonSpellSummonGag,Conjure Gags
 KinkyDungeonSpellDescriptionSummonGag,"Summons 3 gags which will seek out nearby targets, each dealing 35 grope damage, briefly stunning, and preventing spellcasts for 9 turns."
 KinkyDungeonSpellCastSummonGag,You release a bunch of gags from your satchel!
 KinkyDungeonSpellTargetSummonGag,The gags will appear around you.
+
+KinkyDungeonSpellFirecracker,Firecracker
+KinkyDungeonSpellDescriptionFirecracker,"A small delayed explosion that deals DamageDealt fire damage."
+KinkyDungeonSpellCastFirecracker,You shout an incendiary retort!
+KinkyDungeonSpellTargetFirecracker,Choose AoE location
+
+KinkyDungeonSpellFlameRune,Flame Rune
+KinkyDungeonSpellDescriptionFlameRune,"A small delayed explosion that deals DamageDealt fire damage."
+KinkyDungeonSpellCastFlameRune,You shout an incendiary retort!
+KinkyDungeonSpellTargetFlameRune,Choose AoE location
 
 KinkyDungeonSpellFlash,Lesser Flash
 KinkyDungeonSpellRing,Ring

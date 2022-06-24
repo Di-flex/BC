@@ -1,5 +1,7 @@
 "use strict";
 
+
+
 /**
  * @type {Record<string, (moveX, moveY) => boolean>}
  */
@@ -55,10 +57,17 @@ let KDMoveObjectFunctions = {
 };
 
 
+/**
+ * Return is whether or not something the player should know about happened
+ * @type {Record<string, (delta, tile: effectTile) => boolean>}
+ */
+let KDEffectTileFunctionsStandalone = {
+
+};
 
 /**
  * Return is whether or not something the player should know about happened
- * @type {Record<string, (delta, entity, tile: effectTile) => boolean>}
+ * @type {Record<string, (delta, entity: entity, tile: effectTile) => boolean>}
  */
 let KDEffectTileFunctions = {
 	"Ice": (delta, entity, tile) => {
@@ -76,6 +85,27 @@ let KDEffectTileFunctions = {
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched);
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched2);
 			KinkyDungeonApplyBuffToEntity(entity, KDDrenched3);
+		}
+		return true;
+	},
+	"Inferno": (delta, entity, tile) => {
+		if (entity.player) {
+			KinkyDungeonDealDamage({
+				type: "fire",
+				damage: 1,
+				time: 0,
+				bind: 0,
+				flags: ["BurningDamage"]
+			});
+			KinkyDungeonSendTextMessage(5, TextGet("KinkyDungeonInfernoBurn"), "red", 2);
+		} else {
+			KinkyDungeonDamageEnemy(entity, {
+				type: "fire",
+				damage: 1,
+				time: 0,
+				bind: 0,
+				flags: ["BurningDamage"]
+			}, false, true, undefined, undefined, undefined);
 		}
 		return true;
 	},
@@ -106,6 +136,13 @@ let KDEffectTileCreateFunctionsCreator = {
 		if (existingTile.tags.includes("ice")) {
 			newTile.pauseDuration = newTile.duration;
 			newTile.pauseSprite = newTile.name + "Frozen";
+		}
+		return true;
+	},
+	"Ember": (newTile, existingTile) => {
+		if (existingTile.tags.includes("fire")) {
+			newTile.pauseDuration = existingTile.duration;
+			newTile.pauseSprite = newTile.name;
 		}
 		return true;
 	}
@@ -154,6 +191,25 @@ let KDEffectTileMoveOnFunctions = {
  * @type {Record<string, (b, tile: effectTile, d) => boolean>}
  */
 let KDEffectTileBulletFunctions = {
+	"Ember": (b, tile, d) => {
+		if (b.bullet.damage) {
+			let type = b.bullet.damage.type;
+			if (type == "stun" && b.bullet.damage.damage > 1) {
+				let newT = KDCreateEffectTile(tile.x, tile.y, {
+					name: "Inferno",
+					duration: 5,
+					priority: 1,
+					tags: ["fire", "ignite", "smoke", "visionblock"],
+				}, 5); // Create blaze
+				if (newT)
+					tile.pauseDuration = newT.duration;
+			} else if ((type == "ice" || type == "frost" || type == "acid")) {
+				tile.duration = 0;
+				KDSmokePuff(tile.x, tile.y, 1.5, 0.1, true);
+			}
+		}
+		return true;
+	},
 	"Ice": (b, tile, d) => {
 		if (b.bullet.damage) {
 			let type = b.bullet.damage.type;

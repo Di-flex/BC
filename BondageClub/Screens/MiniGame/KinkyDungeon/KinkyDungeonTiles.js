@@ -277,7 +277,9 @@ function KDCreateEffectTile(x, y, tile, durationMod) {
 	}
 	if (createdTile) {
 		KDInteractNewTile(createdTile);
+		return createdTile;
 	}
+	return null;
 }
 
 function KDInteractNewTile(newTile) {
@@ -343,6 +345,9 @@ function KDUpdateEffectTiles(delta) {
 			}
 			if (t[1].pauseDuration <= 0.001) t[1].pauseSprite = undefined;
 			if (t[1].duration <= 0.001) location.delete(t[0]);
+			else {
+				KinkyDungeonUpdateSingleEffectTileStandalone(delta, t[1]);
+			}
 		}
 		if (loc[1].size < 1) {
 			KinkyDungeonEffectTiles.delete(loc[0]);
@@ -356,11 +361,23 @@ function KDUpdateEffectTiles(delta) {
  * @param {entity} entity
  * @param {effectTile} tile
  */
-function KinkyDungeonUpdateSingleEffectTile(delta, entity, tile,) {
+ function KinkyDungeonUpdateSingleEffectTile(delta, entity, tile,) {
 	if (tile.duration > 0 && KDEffectTileFunctions[tile.name]) {
 		KDEffectTileFunctions[tile.name](delta, entity, tile);
 	}
 }
+/**
+ *
+ * @param {number} delta
+ * @param {effectTile} tile
+ */
+function KinkyDungeonUpdateSingleEffectTileStandalone(delta, tile,) {
+	if (tile.duration > 0 && KDEffectTileFunctionsStandalone[tile.name]) {
+		KDEffectTileFunctionsStandalone[tile.name](delta, tile);
+	}
+}
+
+
 
 /**
  *
