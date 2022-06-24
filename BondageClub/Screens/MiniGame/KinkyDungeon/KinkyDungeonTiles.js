@@ -361,7 +361,7 @@ function KDUpdateEffectTiles(delta) {
  * @param {entity} entity
  * @param {effectTile} tile
  */
- function KinkyDungeonUpdateSingleEffectTile(delta, entity, tile,) {
+function KinkyDungeonUpdateSingleEffectTile(delta, entity, tile,) {
 	if (tile.duration > 0 && KDEffectTileFunctions[tile.name]) {
 		KDEffectTileFunctions[tile.name](delta, entity, tile);
 	}
