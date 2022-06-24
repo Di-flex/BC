@@ -147,7 +147,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 		{name: "LightningRod", tags: ["electric", "air", "defense", "utility"], prerequisite: "ApprenticeAir", school: "Elements", spellPointCost: 3, manacost: 0, components: [], level:1, passive: true, type:"", onhit:"", time: 0, delay: 0, range: 0, lifetime: 0, power: 0, damage: "inert", events: [
 			{type: "LightningRod", trigger: "playerCast", power: 3.0},
 		]},
-		{name: "Incinerate", prerequisite: "Firecracker", tags: ["fire", "aoe", "dot", "offense", "denial"], noUniqueHits: true, noise: 3, sfx: "FireSpell", school: "Elements", manacost: 10,
+		{name: "Incinerate", prerequisite: "Firecracker", tags: ["fire", "aoe", "dot", "offense", "denial"], noUniqueHits: true, noise: 3, landsfx: "FireSpell", school: "Elements", manacost: 10,
 			components: ["Verbal"], level:2, type:"inert", onhit:"aoe", delay: 1, power: 2.5, range: 2.5, size: 3, aoe: 1.5, lifetime: 6, damage: "fire", playerEffect: {name: "Damage"},
 			effectTileDurationMod: 12, effectTile: {
 				name: "Ember",
@@ -157,7 +157,7 @@ let KinkyDungeonSpellList = { // List of spells you can unlock in the 3 books. W
 			}
 		},
 
-		{name: "Firecracker", prerequisite: "ApprenticeFire", hitsfx: "Lightning", tags: ["fire", "aoe", "offense"], noUniqueHits: true, noise: 7, sfx: "FireSpell", school: "Elements", manacost: 4,
+		{name: "Firecracker", prerequisite: "ApprenticeFire", landsfx: "Lightning", tags: ["fire", "aoe", "offense"], noUniqueHits: true, noise: 7, sfx: "FireSpell", school: "Elements", manacost: 4,
 			components: ["Verbal"], level:1, type:"inert", onhit:"aoe", delay: 1, power: 2.5, range: 3.99, size: 3, aoe: 1, lifetime: 1, damage: "fire", playerEffect: {name: "Damage"},
 			effectTileDurationMod: 8, effectTile: {
 				name: "Ember",
