@@ -1010,6 +1010,10 @@ Spell Balance:
 - New Spell: Volcanism
 - Started cacheing pathfinding. Let me know if there are performance improvements!
 - New Spell: Windblast
+- Some nerfs to divine gift weapons (dragonslaver, bondage buster, metamorphosis)
+- New divine gift weapon: Moirai's Scissors (Rope goddess)
+- New divine gift weapon: Messenger of Love (Restoration goddess)
+- Ice cube now does 1.5 damage
 
 TODO ValidationFindBlockCycles to prevent bugs
 

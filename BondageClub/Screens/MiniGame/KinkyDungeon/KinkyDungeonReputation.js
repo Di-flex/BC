@@ -92,12 +92,12 @@ let KDRepSelectionMode = "";
  */
 let KDBlessedRewards = {
 	"Latex": ["TheEncaser"],
-	"Rope": ["StaffBind"],
+	"Rope": ["MoiraiScissors"],
 	"Metal": ["BondageBuster"],
 	"Leather": ["Dragonslaver"],
-	"Will": ["MagicHammer", "MagicFlail", "MagicSpear"],
+	"Will": ["MessengerOfLove"],
 	"Elements": ["IceBreaker",],
-	"Conjure": ["MagicSword"],
+	"Conjure": ["MagicSword", "MagicHammer", "MagicFlail", "MagicSpear"],
 	"Illusion": ["MagicAxe"],
 };
 

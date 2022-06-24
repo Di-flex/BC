@@ -1278,6 +1278,7 @@ let KDEventMapWeapon = {
 					if (data.bulletfired.bullet && data.bulletfired.bullet.damage) {
 						let dmgMult = e.power;
 						let charge = KinkyDungeonPlayerBuffs[weapon.name + "Charge"] ? KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration : 0;
+						if (charge >= 9) dmgMult *= 2;
 						data.bulletfired.bullet.damage.damage = data.bulletfired.bullet.damage.damage + dmgMult * charge;
 						KinkyDungeonPlayerBuffs[weapon.name + "Charge"].duration = 0;
 
@@ -1286,6 +1287,33 @@ let KDEventMapWeapon = {
 					}
 				}
 
+			}
+		},
+	},
+	"afterPlayerAttack": {
+		"DoubleStrike": (e, weapon, data) => {
+			if (!KinkyDungeonAttackTwiceFlag && (!e.chance || KDRandom() < e.chance)) {
+				if (data.enemy && data.enemy.hp > 0 && !(KDHelpless(data.enemy) && data.enemy.hp < 0.6)) {
+					KinkyDungeonAttackTwiceFlag = true;
+					KinkyDungeonLaunchAttack(data.enemy, 1);
+					KinkyDungeonAttackTwiceFlag = false;
+					if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				}
+			}
+		},
+		"ConvertBindingToDamage": (e, weapon, data) => {
+			if ((!e.chance || KDRandom() < e.chance)) {
+				if (data.enemy && data.enemy.hp > 0 && !(KDHelpless(data.enemy) && data.enemy.hp < 0.6) && data.enemy.boundLevel > 0) {
+					let bonus = Math.min(data.enemy.boundLevel, e.bind);
+					KinkyDungeonDamageEnemy(data.enemy, {
+						type: e.damage,
+						damage: bonus * e.power,
+						time: e.time
+					}, false, false, undefined, undefined, KinkyDungeonPlayerEntity);
+					data.enemy.boundLevel = Math.max(0, data.enemy.boundLevel - bonus);
+					if (data.enemy.hp <= 0 && KDHelpless(data.enemy)) data.enemy.hp = 0.01;
+					if (e.energyCost) KDGameData.AncientEnergyLevel = Math.max(0, KDGameData.AncientEnergyLevel - e.energyCost);
+				}
 			}
 		},
 	},
@@ -1575,6 +1603,22 @@ let KDEventMapBullet = {
 						KDMoveEntity(data.enemy, newX, newY, false);
 					}
 				}
+			}
+		},
+		"GreaterRage": (e, b, data) => {
+			if (b && data.enemy && !(data.enemy.Enemy.tags.has("soulimmune"))) {
+				let time = 300;
+				if (data.enemy.Enemy.tags.has("soulresist")) time *= 0.5;
+				else if (data.enemy.Enemy.tags.has("soulweakness")) time *= 2;
+				else if (data.enemy.Enemy.tags.has("soulsevereweakness")) time *= 4;
+				if (data.enemy.Enemy.tags.has("boss")) time *= 0.033;
+				else if (data.enemy.Enemy.tags.has("miniboss")) time *= 0.1;
+				if (time > 100) time = 9999;
+
+				if (!data.enemy.rage) data.enemy.rage = time;
+				else data.enemy.rage = Math.max(data.enemy.rage, time);
+
+				KDAddThought(data.enemy.id, "Play", 11, time);
 			}
 		},
 		"ElementalOnSlowOrBind": (e, b, data) => {

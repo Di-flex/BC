@@ -700,6 +700,7 @@ function KinkyDungeonAttackEnemy(Enemy, Damage) {
 	if (predata.eva)
 		KinkyDungeonTickBuffTag(KinkyDungeonPlayerBuffs, "hit", 1);
 
+	KinkyDungeonSendEvent("afterPlayerAttack", data);
 }
 
 let KDBulletWarnings = [];
