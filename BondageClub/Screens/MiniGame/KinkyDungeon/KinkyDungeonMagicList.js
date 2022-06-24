@@ -436,7 +436,7 @@ let KinkyDungeonSpellListEnemies = [
 
 
 	// Divine Gifts
-	{name: "Disarm", tags: ["weapon"], sfx: "MagicSlash", school: "Illusion", manacost: 0, components: [], level:1, type:"special", special: "Disarm", noMiscast: true,
+	{name: "Disarm", tags: ["weapon"], sfx: "Chain", school: "Illusion", manacost: 0, components: [], level:1, type:"special", special: "Disarm", noMiscast: true,
 		onhit:"", time:5, power: 0, range: 3.99, size: 1, damage: ""},
 	{name: "Freedom", sfx: "Magic", hitsfx: "Struggle", school: "Conjure", manacost: 15, components: [], mustTarget: true, selfTargetOnly: true, level:5, type:"hit",
 		onhit:"instant", time:4, lifetime: 1, bind: 8, delay: 1, power: 4, aoe: 2.99, range: 1.5, size: 5, damage: "chain", playerEffect: {name: "RemoveLowLevelRope"}},
