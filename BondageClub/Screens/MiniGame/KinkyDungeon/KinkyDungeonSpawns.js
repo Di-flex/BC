@@ -143,7 +143,7 @@ function KinkyDungeonGetEnemy(tags, Level, Index, Tile, requireTags, requireHost
 				}
 			}
 
-		if (effLevel >= enemy.minLevel
+		if (effLevel >= enemy.minLevel && effLevel < enemy.maxLevel
 			&& (!filterTags || !filterTags.some((tag) => {return enemy.tags.has(tag);}))
 			&& (!requireHostile || !enemy.faction || KDFactionRelation("Player", enemy.faction) <= -0.5)
 			&& (overrideFloor || enemy.allFloors || !enemy.floors || enemy.floors.get(Index))

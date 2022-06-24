@@ -435,6 +435,8 @@ interface enemy {
 	/** */
 	minLevel?: number,
 	/** */
+	maxLevel?: number,
+	/** */
 	weight?: number,
 	/** */
 	movePoints?: number,
